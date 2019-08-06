@@ -5,6 +5,8 @@ import {StaticMap} from 'react-map-gl';
 import axios from 'axios';
 import DeckGL, {GeoJsonLayer} from 'deck.gl';
 
+import { setSelectedTreeData, setSelectedTreeDataLoading, setSidebar } from '../../store/actions/index';
+
 import { 
     dsv as d3Dsv,
 } from 'd3';
@@ -12,7 +14,10 @@ import {
 const MAPBOX_TOKEN = process.env.API_KEY;
 
 const mapStateToProps = state => {
-    return { articles: state.articles };
+    return { 
+        articles: state.articles,
+        selectedTreeDataLoading: state.selectedTreeDataLoading
+    };
 };
 
 export const INITIAL_VIEW_STATE = {
@@ -29,8 +34,6 @@ class DeckGLMap extends React.Component {
 
     constructor(props) {
         super(props);
-
-        console.log('lala tts')
     
         this.state = {
           hoveredObject: null,
@@ -128,15 +131,28 @@ class DeckGLMap extends React.Component {
         const local = "http://localhost:3000/trees"
         const url = `${remote}/${id}`;
 
+        this.dispatchSetSelectedTreeDataLoading(true);
+        console.log(this.props.selectedTreeDataLoading);
+        
         axios.get(url)
-            .then(res => {
-                this.setState({x, y, hoveredObject: res});
-                console.log(res);
+        .then(res => {
+            this.setState({x, y, hoveredObject: res});
+            this.dispatchSetSelectedTreeData(res);
+            this.dispatchSetSelectedTreeDataLoading(false);
+            console.log(this.props.selectedTreeDataLoading);
                 // this._setTooltip(res, obj.object.x, obj.object.y)
             })
             .catch(err => {
             console.log(err);
         })
+    }
+
+    dispatchSetSelectedTreeData(val) {
+        this.props.dispatch(setSelectedTreeData(val.data));
+    }
+
+    dispatchSetSelectedTreeDataLoading(val) {
+        this.props.dispatch(setSelectedTreeDataLoading(val));
     }
 
     render() {

@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from "react-redux";
+import styled, { ThemeProvider } from 'styled-components';
+import theme from '../assets/theme';
 
-import DeckGlMap from './map/index';
+import DeckGlMap from './Map/index';
+import Sidebar from './Sidebar/index';
 
 const mapStateToProps = state => {
-    return { articles: state.articles };
+    return { selectedTree: state.selectedTree };
 };
+
+const AppWrapperDiv = styled.div`
+    font-family: ${props => props.theme.fontFamily};
+`;
+
+import "../assets/style.scss";
 
 class AppContainer extends React.Component {
     
@@ -18,9 +27,14 @@ class AppContainer extends React.Component {
 
     render() {
         return (
-            <div className="app-wrapper">
-                <DeckGlMap/>
-            </div>
+            <ThemeProvider theme={theme}>
+                <AppWrapperDiv>
+                    <Sidebar 
+                        selectedTree={this.props.selectedTree}
+                    />
+                    <DeckGlMap/>
+                </AppWrapperDiv>
+            </ThemeProvider>
         ) 
     }
 }
