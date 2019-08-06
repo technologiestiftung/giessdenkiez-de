@@ -1,4 +1,11 @@
 import React from 'react';
+import { connect } from "react-redux";
+
+import DeckGlMap from './map/index';
+
+const mapStateToProps = state => {
+    return { articles: state.articles };
+};
 
 class AppContainer extends React.Component {
     
@@ -11,12 +18,11 @@ class AppContainer extends React.Component {
 
     render() {
         return (
-            <div>
-                I'm working!!!!
+            <div className="app-wrapper">
+                <DeckGlMap/>
             </div>
         ) 
     }
 }
 
-export default AppContainer;
-// export default connect(mapStateToProps)(AppContainer);
+export default connect(mapStateToProps)(AppContainer);
