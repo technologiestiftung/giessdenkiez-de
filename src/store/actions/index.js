@@ -3,6 +3,8 @@ import {
     SET_SIDEBAR,
     SET_SELECTED_TREE_DATA,
     SET_SELECTED_TREE_DATA_LOADING,
+    SET_WATERED_TREES,
+    SET_WATERED_TREES_FETCHED
 } from "../constants/action-types";
 
 export function addArticle(payload) {
@@ -19,4 +21,12 @@ export function setSelectedTreeData(payload) {
 
 export function setSelectedTreeDataLoading(payload) {
     return { type: SET_SELECTED_TREE_DATA_LOADING, payload };
+}
+
+export function setWateredTrees(payload) {
+    return { type: SET_WATERED_TREES, payload };
+}
+
+export function setWateredTreesFetched(payload) {
+    return { type: SET_WATERED_TREES_FETCHED, payload };
 }

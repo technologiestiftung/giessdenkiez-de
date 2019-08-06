@@ -3,14 +3,17 @@ import {
     SET_SIDEBAR,
     SET_SELECTED_TREE_DATA,
     SET_SELECTED_TREE_DATA_LOADING,
-
+    SET_WATERED_TREES,
+    SET_WATERED_TREES_FETCHED
 } from "../constants/action-types";
 
 const initialState = {
   articles: [],
   sidebar: true,
   selectedTreeData: null,
-  selectedTreeDataLoading: false
+  selectedTreeDataLoading: false,
+  wateredTrees: null,
+  wateredTreesFetched: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -31,6 +34,14 @@ function rootReducer(state = initialState, action) {
 
     if (action.type === SET_SELECTED_TREE_DATA_LOADING) {
         return {...state, selectedTreeDataLoading: action.payload }
+    }
+
+    if (action.type === SET_WATERED_TREES) {
+        return {...state, wateredTrees: action.payload }
+    }
+
+    if (action.type === SET_WATERED_TREES_FETCHED) {
+        return {...state, wateredTreesFetched: action.payload }
     }
     
     return state;

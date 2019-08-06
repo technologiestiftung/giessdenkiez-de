@@ -10,6 +10,7 @@ const SidebarDiv = styled.div`
     right: 0;
     top: 0;
     height: 100%;
+    padding: ${props => props.theme.spacingS}; 
     width: ${props => props.theme.sidebarWidth};
     background: ${props => props.theme.colorGreyVeryLight};
     display: flex;

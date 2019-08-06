@@ -15,7 +15,8 @@ const MAPBOX_TOKEN = process.env.API_KEY;
 
 const mapStateToProps = state => {
     return { 
-        articles: state.articles,
+        wateredTrees: state.wateredTrees,
+        wateredTreesFetched: state.wateredTreesFetched,
         selectedTreeDataLoading: state.selectedTreeDataLoading
     };
 };
@@ -37,14 +38,15 @@ class DeckGLMap extends React.Component {
     
         this.state = {
           hoveredObject: null,
-          data: null
+          data: null,
+          included: null
         };
 
         this._onClick = this._onClick.bind(this);
         this._renderTooltip = this._renderTooltip.bind(this);
         this._createGeojson = this._createGeojson.bind(this);
-        // this._setTooltip = this._setTooltip.bind(this);
         this._requestDb = this._requestDb.bind(this);
+        this._getFillColor = this._getFillColor.bind(this);
     };
 
     _renderLayers() {
@@ -65,13 +67,26 @@ class DeckGLMap extends React.Component {
                     getRadius: 4,
                     pointRadiusMinPixels: .75,
                     pointRadiusScale: 2,
-                    getFillColor: [160, 220, 180, 200],
+                    getFillColor: (info) => {
+                        const included = this.props.wateredTrees.includes(info.properties['id'])
+                        return included ? [102, 245, 173, 200] : [200, 245, 173, 200]
+                    },
                     onClick: (info) => {
-                    this._onClick(info.x, info.y, info.object)
-                }
+                        this._onClick(info.x, info.y, info.object)
+                    },
+                    updateTriggers: {
+                        getFillColor: [this.getWateredTrees, this.props.wateredTrees]
+                    }
                 })
             ];
         }
+    }
+
+    _getFillColor(info) {
+        // console.log(info.properties.id);
+        // console.log(info.object.properties['id'], this.props.wateredTrees)
+
+        // return [102, 245, 173, 200];
     }
 
     _createGeojson(data) {
@@ -157,27 +172,37 @@ class DeckGLMap extends React.Component {
 
     render() {
         const {viewState, controller = true, baseMap = true} = this.props;
-    
-        return (
-            <DeckGL
-                layers={this._renderLayers()}
-                initialViewState={INITIAL_VIEW_STATE}
-                viewState={viewState}
-                controller={controller}
-            >
 
-                {baseMap && (
-                <StaticMap
-                    reuseMaps
-                    mapStyle="mapbox://styles/mapbox/light-v9"
-                    preventStyleDiffing={true}
-                    mapboxApiAccessToken={MAPBOX_TOKEN}
-                />
-                )}
-        
-                {/* {this._renderTooltip} */}
-            </DeckGL>
-        );
+        console.log(this.props.wateredTreesFetched);
+
+        if (!this.props.wateredTreesFetched) {
+            return (
+                <span>Fetching Data ..</span>
+            )
+        } else if (this.props.wateredTreesFetched) {
+            return (
+                <DeckGL
+                    layers={this._renderLayers()}
+                    initialViewState={INITIAL_VIEW_STATE}
+                    viewState={viewState}
+                    controller={controller}
+                >
+    
+                    {baseMap && (
+                    <StaticMap
+                        reuseMaps
+                        mapStyle="mapbox://styles/mapbox/light-v9"
+                        preventStyleDiffing={true}
+                        mapboxApiAccessToken={MAPBOX_TOKEN}
+                    />
+                    )}
+            
+                    {/* {this._renderTooltip} */}
+                </DeckGL>
+            );
+        }
+    
+
     }
     
 }

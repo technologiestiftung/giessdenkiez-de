@@ -3,9 +3,16 @@ import { connect } from "react-redux";
 import {render} from 'react-dom';
 import styled from 'styled-components';
 
+import ButtonWater from '../ButtonWater/index';
+
+import content from '../../assets/content';
+
 const SelectedTreeDiv = styled.div`
+    display: flex;
+    flex-direction: column;
     z-index: 3;
-    height: 300px;
+    height: auto;
+    padding: ${props => props.theme.spacingM};
     width: ${props => props.theme.sidebarTileWidth};
     border: 1px solid ${props => props.theme.colorGreyLight};
     border-radius: ${props => props.theme.borderRadiusM};
@@ -22,7 +29,6 @@ class DeckGLMap extends React.Component {
     constructor(props) {
         super(props);
     };
-
 
     render() {
         
@@ -43,6 +49,8 @@ class DeckGLMap extends React.Component {
             return (
                 <SelectedTreeDiv>
                     {this.props.selectedTreeData.properties['NAMENR']}
+                    <span></span>
+                    <ButtonWater></ButtonWater>
                 </SelectedTreeDiv>
             )
         }
