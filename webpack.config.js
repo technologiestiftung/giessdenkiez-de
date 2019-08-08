@@ -1,15 +1,15 @@
 const Dotenv = require('dotenv-webpack');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
 
-    entry: {
-      main: './index.js'
-    },
+    entry: './index.js',
 
     output: {
-      library: 'App'
+        path: __dirname + '/dist',
+        filename: 'index_bundle.js'
     },
 
     module: {
@@ -36,9 +36,46 @@ module.exports = {
                 test: /\.(png|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: 'url-loader'
             },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      name: '[name].[ext]',
+                      outputPath: 'fonts/'
+                    }
+                  }
+                ]
+            },
+            {
+                test: /\.(csv)?$/,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      name: '[name].[ext]',
+                      outputPath: 'data/'
+                    }
+                  }
+                ]
+            },
+            {
+                test: /\.(html)?$/,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      name: '[name].[ext]',
+                      outputPath: '/'
+                    }
+                  }
+                ]
+            }
         ]
     },
     plugins: [
-        new Dotenv()
+        new Dotenv(),
+        new HtmlWebpackPlugin()
     ]
 };

@@ -130,8 +130,10 @@ class DeckGLMap extends React.Component {
         }
     }
 
+    
     componentDidMount() {
-        d3Dsv(",", "../../data/trees.csv", function(d) {
+        const trees = require("../../../data/trees.csv");
+        d3Dsv(",", trees, function(d) {
           return {
               id: d.id,
               lat: d.lat,
