@@ -116,20 +116,18 @@ class SelectedTree extends React.Component {
     }
 
     render() {
-        // classnames({})
-        
-        if (!this.props.selectedTreeData) {
-            return (
-                <SelectedTreeDiv>
-                    Kein Baum ausgewählt.
-                </SelectedTreeDiv>
-            )
-        } else if (this.props.selectedTreeDataLoading) {
+        if (this.props.selectedTreeDataLoading) {
             return (
                 <SelectedTreeDiv>
                     Lade Informationen zum Baum.
                 </SelectedTreeDiv>
             )
+        } else if (!this.props.selectedTreeData) {
+                return (
+                    <SelectedTreeDiv>
+                        Kein Baum ausgewählt.
+                    </SelectedTreeDiv>
+                )
         } else if (this.props.wateringTree) {
             const treeWatered = 'Baum wird gewässert.'
 

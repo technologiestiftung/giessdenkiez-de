@@ -6,6 +6,7 @@ import {
     SET_WATERED_TREES,
     SET_WATERED_TREES_FETCHED,
     SET_WATERING_TREE,
+    SET_DATA_LOADED,
 } from "../constants/action-types";
 
 export function addArticle(payload) {
@@ -34,4 +35,8 @@ export function setWateringTree(payload) {
 
 export function setWateredTreesFetched(payload) {
     return { type: SET_WATERED_TREES_FETCHED, payload };
+}
+
+export function setDataLoaded(payload) {
+    return { type: SET_DATA_LOADED, payload };
 }

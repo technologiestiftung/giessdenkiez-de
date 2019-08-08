@@ -66,7 +66,6 @@ class ButtonWater extends React.Component {
         })
     }
 
-
     getWateredTrees() {
         const url = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
         

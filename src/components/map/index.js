@@ -5,7 +5,7 @@ import {StaticMap} from 'react-map-gl';
 import axios from 'axios';
 import DeckGL, {GeoJsonLayer} from 'deck.gl';
 
-import { setSelectedTreeData, setSelectedTreeDataLoading, setSidebar } from '../../store/actions/index';
+import { setDataLoaded, setSelectedTreeData, setSelectedTreeDataLoading, setSidebar } from '../../store/actions/index';
 
 import { 
     dsv as d3Dsv,
@@ -19,7 +19,8 @@ const mapStateToProps = state => {
     return { 
         wateredTrees: state.wateredTrees,
         wateredTreesFetched: state.wateredTreesFetched,
-        selectedTreeDataLoading: state.selectedTreeDataLoading
+        selectedTreeDataLoading: state.selectedTreeDataLoading,
+        dataLoaded: state.dataLoaded
     };
 };
 
@@ -157,6 +158,7 @@ class DeckGLMap extends React.Component {
           };
       }).then( (data) => {
           this._createGeojson(data);
+          this.dispatchDataLoaded(true);
       })
     }
 
@@ -167,7 +169,7 @@ class DeckGLMap extends React.Component {
         const url = `${remote}/${id}`;
 
         this.dispatchSetSelectedTreeDataLoading(true);
-        console.log(this.props.selectedTreeDataLoading);
+        console.log('selected tree loading', this.props.selectedTreeDataLoading);
         
         axios.get(url)
         .then(res => {
@@ -186,6 +188,10 @@ class DeckGLMap extends React.Component {
         this.props.dispatch(setSelectedTreeData(val.data));
     }
 
+    dispatchDataLoaded(state) {
+        this.props.dispatch(setDataLoaded(state));
+    }
+
     dispatchSetSelectedTreeDataLoading(val) {
         this.props.dispatch(setSelectedTreeDataLoading(val));
     }
@@ -193,13 +199,11 @@ class DeckGLMap extends React.Component {
     render() {
         const {viewState, controller = true, baseMap = true} = this.props;
 
-        console.log(this.props.wateredTreesFetched);
-
-        if (!this.props.wateredTreesFetched) {
+        if (!this.props.dataLoaded || !this.props.wateredTreesFetched) {
             return (
-                <span>Fetching Data ..</span>
+                <span>Lade Berlins Baumdaten ...</span>
             )
-        } else if (this.props.wateredTreesFetched) {
+        } else if (this.props.wateredTreesFetched && this.props.dataLoaded) {
             return (
                 <DeckGL
                     layers={this._renderLayers()}
