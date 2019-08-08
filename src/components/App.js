@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import theme from '../assets/theme';
 import axios from 'axios';
 
-import DeckGlMap from './Map/index.js';
+import DeckGlMap from './map/index.js';
 import Sidebar from './Sidebar/index.js';
 
 const mapStateToProps = state => {
