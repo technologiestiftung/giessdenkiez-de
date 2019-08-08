@@ -16,6 +16,7 @@ const SidebarDiv = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
+    border-left: 2px solid #EFEFEF;
 `
 
 const mapStateToProps = state => {

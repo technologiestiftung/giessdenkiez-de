@@ -10,8 +10,8 @@ const theme = {
     borderRadiusS: '6px',
     borderRadiusM: '12px',
 
-    sidebarWidth: '350px',
-    sidebarTileWidth: '330px',
+    sidebarWidth: '300px',
+    sidebarTileWidth: '280px',
 
     screenWidthM: '1050px',
     screenWidthS: '600px',

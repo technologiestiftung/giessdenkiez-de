@@ -111,7 +111,7 @@ class SelectedTree extends React.Component {
         console.log(minutes);
 
         // Will display time in 10:30:23 format
-        return `Gegossen am: ${day}. ${month}. ${year}, ${hours}:${min}`;
+        return `Gegossen: ${day}. ${month}. ${year}, ${hours}:${min}`;
         // return day month + '.' + year + '. //' + hours + ':' + minutes.substr(-2);
     }
 

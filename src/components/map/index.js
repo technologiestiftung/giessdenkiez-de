@@ -39,9 +39,10 @@ class DeckGLMap extends React.Component {
         super(props);
     
         this.state = {
+          highlightedObject: 0,
           hoveredObject: null,
           data: null,
-          included: null
+          included: null,
         };
 
         this._onClick = this._onClick.bind(this);
@@ -68,16 +69,30 @@ class DeckGLMap extends React.Component {
                     getLineColor: [0, 255, 255],
                     getRadius: 4,
                     pointRadiusMinPixels: .75,
+                    autoHighlight: true,
+                    highlightColor: [200, 200, 200, 255],
                     pointRadiusScale: 2,
                     getFillColor: (info) => {
-                        const included = this.props.wateredTrees.includes(info.properties['id'])
-                        return included ? [102, 245, 173, 200] : [200, 245, 173, 200]
+                        const included = this.props.wateredTrees.includes(info.properties['id']);
+
+                        if (this.state.highlightedObject == info.properties['id']) {
+                           return [150, 150, 150, 200] 
+                        } else if (included) {
+                            return [102, 245, 173, 150]
+                        } else {
+                            return [200, 245, 173, 150]
+                        }
                     },
                     onClick: (info) => {
                         this._onClick(info.x, info.y, info.object)
+
+                        if (info.object != undefined) {
+                            console.log(info.object.properties['id']);
+                            this.setState({ highlightedObject: info.object.properties['id'] })
+                        }
                     },
                     updateTriggers: {
-                        getFillColor: [this.getWateredTrees, this.props.wateredTrees]
+                        getFillColor: [this.getWateredTrees, this.props.wateredTrees, this.state.highlightedObject]
                     }
                 })
             ];
@@ -126,6 +141,7 @@ class DeckGLMap extends React.Component {
     
         if (hoveredObject != null) {
           data = hoveredObject.data.properties;
+          this.setState({ hoveredObject })
           console.log(data);
         }
     }
