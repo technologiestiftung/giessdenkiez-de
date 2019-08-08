@@ -29,3 +29,29 @@
     font-weight: 500;
     font-style: normal;
 }
+
+@keyframes pulse {
+    0% { opacity: 0.25; }
+    50% { opacity: 1; }
+    100% { opacity: 0.25; }
+}
+
+.treeState {
+    border: 2px solid #37DE8A;
+    color: #37DE8A;
+    border-radius: 6px;
+    padding: 10px;
+    padding-bottom: 11px;
+    margin-bottom: 20px;
+
+    &.watering {
+        border: 2px solid #37DE8A;
+        color: #37DE8A;
+        animation: pulse .75s infinite ease-in-out;
+    }
+
+    &.noInfo {
+        border: 2px solid #FF8484;
+        color: #FF8484;
+    }
+}

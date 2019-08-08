@@ -2,7 +2,7 @@ const theme = {
     colorPrimary: '#37DE8A',
     colorPrimaryHover: '#66F5AD',
     colorGreyVeryLight: '#F8F8F8',
-    colorGreyLight: '#EEF0EF',
+    colorGreyLight: '#E6E6E6',
 
     spacingS: '10px',
     spacingM: '20px',

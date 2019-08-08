@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import content from '../../assets/content';
 
-import { setWateredTrees } from '../../store/actions/index';
+import { setWateredTrees, setWateringTree, setSelectedTreeData } from '../../store/actions/index';
 
 const ButtonWaterSpan = styled.span`
     padding: 10px;
@@ -39,11 +39,31 @@ class ButtonWater extends React.Component {
 
         this._writeDb = this._writeDb.bind(this);
         this.currentTimestamp = this.currentTimestamp.bind(this);
+        this.getTree = this.getTree.bind(this);
     };
 
     currentTimestamp() {
         const date = new Date();
         return date.getTime();
+    }
+
+    dispatchSetSelectedTreeData(val) {
+        this.props.dispatch(setSelectedTreeData(val.data));
+    }
+
+    getTree(obj) {
+        const id = this.props.selectedTreeData['_id'];
+        const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
+        const url = `${remote}/${id}`;
+        
+        axios.get(url)
+        .then(res => {
+            this.dispatchSetSelectedTreeData(res);
+                // this._setTooltip(res, obj.object.x, obj.object.y)
+            })
+            .catch(err => {
+            console.log(err);
+        })
     }
 
 
@@ -57,15 +77,19 @@ class ButtonWater extends React.Component {
                     watered.push(tree['_id']);
                 })
                 this.dispatchSetWateredTrees(watered);
+                this.dispatchSetWateringTree(false);
             })
             .catch(err => {
                 console.log(err);
         })
     }
 
-
     dispatchSetWateredTrees(val) {
         this.props.dispatch(setWateredTrees(val));
+    }
+
+    dispatchSetWateringTree(val) {
+        this.props.dispatch(setWateringTree(val));
     }
 
     _writeDb() {
@@ -73,10 +97,13 @@ class ButtonWater extends React.Component {
         const id = this.props.selectedTreeData['_id'];
         const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
         const url = `${remote}/${id}`;
+
+        this.dispatchSetWateringTree(true);
         
         axios.put(url, this.currentTimestamp())
         .then(res => {
                 this.getWateredTrees()
+                this.getTree();
             })
             .catch(err => {
             console.log(err);

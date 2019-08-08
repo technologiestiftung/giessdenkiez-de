@@ -4,7 +4,8 @@ import {
     SET_SELECTED_TREE_DATA,
     SET_SELECTED_TREE_DATA_LOADING,
     SET_WATERED_TREES,
-    SET_WATERED_TREES_FETCHED
+    SET_WATERED_TREES_FETCHED,
+    SET_WATERING_TREE,
 } from "../constants/action-types";
 
 export function addArticle(payload) {
@@ -25,6 +26,10 @@ export function setSelectedTreeDataLoading(payload) {
 
 export function setWateredTrees(payload) {
     return { type: SET_WATERED_TREES, payload };
+}
+
+export function setWateringTree(payload) {
+    return { type: SET_WATERING_TREE, payload };
 }
 
 export function setWateredTreesFetched(payload) {
