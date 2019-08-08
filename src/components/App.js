@@ -4,8 +4,8 @@ import styled, { ThemeProvider } from 'styled-components';
 import theme from '../assets/theme';
 import axios from 'axios';
 
-import DeckGlMap from './Map/index';
-import Sidebar from './Sidebar/index';
+import DeckGlMap from './Map/';
+import Sidebar from './Sidebar/';
 
 const mapStateToProps = state => {
     return { selectedTree: state.selectedTree };

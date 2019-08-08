@@ -11,12 +11,7 @@ import {
     dsv as d3Dsv,
 } from 'd3';
 
-if (env.NODE_ENV == 'production') {
-    const MAPBOX_TOKEN = env.KEY
-} else {
-    const MAPBOX_TOKEN = process.env.API_KEY;
-}
-
+const MAPBOX_TOKEN = process.env.API_KEY;
 
 const mapStateToProps = state => {
     return { 
