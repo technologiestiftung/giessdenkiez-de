@@ -11,6 +11,8 @@ import {
     dsv as d3Dsv,
 } from 'd3';
 
+// console
+
 const MAPBOX_TOKEN = process.env.API_KEY;
 
 const mapStateToProps = state => {
