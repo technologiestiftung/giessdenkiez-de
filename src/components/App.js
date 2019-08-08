@@ -4,8 +4,8 @@ import styled, { ThemeProvider } from 'styled-components';
 import theme from '../assets/theme';
 import axios from 'axios';
 
-import DeckGlMap from './Map/';
-import Sidebar from './Sidebar/';
+import DeckGlMap from './Map/index.js';
+import Sidebar from './Sidebar/index.js';
 
 const mapStateToProps = state => {
     return { selectedTree: state.selectedTree };
@@ -15,7 +15,7 @@ const AppWrapperDiv = styled.div`
     font-family: ${props => props.theme.fontFamily};
 `;
 
-import { setWateredTrees, setWateredTreesFetched } from '../store/actions/index';
+import { setWateredTrees, setWateredTreesFetched } from '../store/actions/index.js';
 
 import "../assets/style.scss";
 
