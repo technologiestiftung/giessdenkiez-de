@@ -147,6 +147,36 @@ class DeckGLMap extends React.Component {
         }
     }
 
+    _onload(evt) {
+		
+		
+		const map = evt.target;
+		const insertBefore = map.getStyle();
+
+		const firstLabelLayerId = map.getStyle().layers.find(layer => layer.type === 'symbol').id;
+		
+		map.addLayer({
+			'id': '3d-buildings',
+			'source': 'composite',
+			'source-layer': 'building',
+			'filter': ['==', 'extrude', 'true'],
+			'type': 'fill-extrusion',
+			'minzoom': 0,
+			'paint': {
+			'fill-extrusion-color': '#FFF',			 
+			'fill-extrusion-height': [
+			"interpolate", ["linear"], ["zoom"],
+			15, 0,
+			15.05, ["get", "height"]
+			],
+			'fill-extrusion-base': [
+				"interpolate", ["linear"], ["zoom"], 15, 0, 15.05, ["get", "min_height"]
+			],
+			'fill-extrusion-opacity': .3
+			}
+			}, firstLabelLayerId);
+	}
+
     
     componentDidMount() {
         const trees = require("../../../data/trees.csv");
@@ -218,6 +248,7 @@ class DeckGLMap extends React.Component {
                         mapStyle="mapbox://styles/mapbox/light-v9"
                         preventStyleDiffing={true}
                         mapboxApiAccessToken={MAPBOX_TOKEN}
+                        onLoad={this._onload.bind(this)}
                     />
                     )}
             
