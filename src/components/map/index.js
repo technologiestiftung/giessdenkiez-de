@@ -79,9 +79,9 @@ class DeckGLMap extends React.Component {
                         if (this.state.highlightedObject == info.properties['id']) {
                            return [150, 150, 150, 200] 
                         } else if (included) {
-                            return [102, 245, 173, 150]
+                            return [102, 245, 173, 200]
                         } else {
-                            return [200, 245, 173, 150]
+                            return [164, 181, 222, 150]
                         }
                     },
                     onClick: (info) => {

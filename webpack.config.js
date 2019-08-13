@@ -28,7 +28,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
+                test: /\.(scss|css)$/,
                 use: [
                     "style-loader", // creates style nodes from JS strings
                     "css-loader", // translates CSS into CommonJS
@@ -36,17 +36,29 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                test: /\.(png|woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: 'url-loader'
             },
             {
-                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [
                   {
                     loader: 'file-loader',
                     options: {
                       name: '[name].[ext]',
                       outputPath: 'fonts/'
+                    }
+                  }
+                ]
+            },
+            {
+                test: /\.(svg|jpg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      name: '[name].[ext]',
+                      outputPath: 'img/'
                     }
                   }
                 ]

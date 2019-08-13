@@ -13,8 +13,9 @@ const SelectedTreeDiv = styled.div`
     flex-direction: column;
     z-index: 3;
     height: auto;
-    padding: ${props => props.theme.spacingM};
+    margin-top: 20px;
     width: ${props => props.theme.sidebarTileWidth};
+    padding: ${props => props.theme.spacingM};
     border: 2px solid ${props => props.theme.colorGreyLight};
     border-radius: ${props => props.theme.borderRadiusM};
 `
