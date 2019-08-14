@@ -5,7 +5,7 @@ import {StaticMap} from 'react-map-gl';
 import axios from 'axios';
 import DeckGL, {GeoJsonLayer} from 'deck.gl';
 
-import { setDataLoaded, setSelectedTreeData, setSelectedTreeDataLoading, setSidebar } from '../../store/actions/index';
+import { setDataLoaded, setSelectedTreeData, setSelectedTreeDataLoading, setSidebar, setDataIncluded } from '../../store/actions/index';
 
 import { 
     dsv as d3Dsv,
@@ -20,7 +20,11 @@ const mapStateToProps = state => {
         wateredTrees: state.wateredTrees,
         wateredTreesFetched: state.wateredTreesFetched,
         selectedTreeDataLoading: state.selectedTreeDataLoading,
-        dataLoaded: state.dataLoaded
+        dataLoaded: state.dataLoaded,
+        treeAgeData: state.treeAgeData,
+        treeAgeDataUpdated: state.treeAgeDataUpdated,
+        wateredTreeDataUpdated: state.wateredTreeDataUpdated,
+        dataIncluded: state.dataIncluded,
     };
 };
 
@@ -69,31 +73,44 @@ class DeckGLMap extends React.Component {
                     pickable: true,
                     getLineColor: [0, 255, 255],
                     getRadius: 4,
-                    pointRadiusMinPixels: .75,
+                    pointRadiusMinPixels: 1.25,
                     autoHighlight: true,
                     highlightColor: [200, 200, 200, 255],
                     pointRadiusScale: 2,
+                    transitions: {
+                        getFillColor: 500,
+                    },
                     getFillColor: (info) => {
-                        const included = this.props.wateredTrees.includes(info.properties['id']);
+                        // const included = this.props.wateredTrees.includes(info.properties['id']);
+                        // const ageIncluded = this.props.treeAgeData.includes(info.properties['id']);
 
-                        if (this.state.highlightedObject == info.properties['id']) {
+                        const included = this.props.dataIncluded[info.properties['id']];
+
+                        if (this.props.wateredTreeDataUpdated && this.state.highlightedObject == info.properties['id']) {
                            return [150, 150, 150, 200] 
-                        } else if (included) {
+                        } else if (this.props.wateredTreeDataUpdated && included) {
                             return [102, 245, 173, 200]
-                        } else {
+                        } else if (this.props.wateredTreeDataUpdated && !included) {
                             return [164, 181, 222, 150]
+                        }
+
+                        if (this.props.treeAgeDataUpdated && this.state.highlightedObject == info.properties['id']) {
+                            return [150, 150, 150, 200] 
+                        } else if (this.props.treeAgeDataUpdated && included) {
+                            return [102, 245, 173, 255];
+                        } else if (this.props.treeAgeDataUpdated && !included) {
+                            return [0, 0, 255, 0];
                         }
                     },
                     onClick: (info) => {
                         this._onClick(info.x, info.y, info.object)
 
                         if (info.object != undefined) {
-                            console.log(info.object.properties['id']);
                             this.setState({ highlightedObject: info.object.properties['id'] })
                         }
                     },
                     updateTriggers: {
-                        getFillColor: [this.getWateredTrees, this.props.wateredTrees, this.state.highlightedObject]
+                        getFillColor: [this.getWateredTrees, this.state.highlightedObject, this.props.dataIncluded]
                     }
                 })
             ];
@@ -224,6 +241,10 @@ class DeckGLMap extends React.Component {
 
     dispatchSetSelectedTreeDataLoading(val) {
         this.props.dispatch(setSelectedTreeDataLoading(val));
+    }
+
+    dispatchSetDataIncluded(val) {
+        this.props.dispatch(setDataIncluded(val));
     }
 
     render() {

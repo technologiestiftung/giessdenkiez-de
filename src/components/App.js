@@ -39,7 +39,7 @@ const LogoImg = styled.img`
     width: 100px;
 `;
 
-import { setWateredTrees, setWateredTreesFetched } from '../store/actions/index.js';
+import { setWateredTrees, setWateredTreesFetched, setDataIncluded } from '../store/actions/index.js';
 
 import "../assets/style.scss";
 
@@ -72,11 +72,25 @@ class AppContainer extends React.Component {
                     watered.push(tree['_id']);
                 })
                 this.dispatchSetWateredTrees(watered);
-                this.dispatchSetWateredTreesFetched(true);
+                this.createIncludedTreesObj(watered);
             })
             .catch(err => {
                 console.log(err);
         })
+    }
+
+    dispatchSetDataIncluded(data) {
+        this.props.dispatch(setDataIncluded(data))
+        this.dispatchSetWateredTreesFetched(true);
+    }
+
+    createIncludedTreesObj(arr) {
+        let obj = {};
+        arr.forEach(id => {
+            obj[id] = true;
+        })
+
+        this.dispatchSetDataIncluded(obj);
     }
 
     componentDidMount() {

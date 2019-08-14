@@ -7,6 +7,11 @@ import {
     SET_WATERED_TREES_FETCHED,
     SET_WATERING_TREE,
     SET_DATA_LOADED,
+    SET_TREE_AGE_DATA_LOADING,
+    SET_TREE_AGE_DATA,
+    SET_TREE_AGE_DATA_UPDATED,
+    SET_WATERED_TREE_DATA_UPDATED,
+    SET_DATA_INCLUDED,
 } from "../constants/action-types";
 
 export function addArticle(payload) {
@@ -39,4 +44,24 @@ export function setWateredTreesFetched(payload) {
 
 export function setDataLoaded(payload) {
     return { type: SET_DATA_LOADED, payload };
+}
+
+export function setTreeAgeDataLoading(payload) {
+    return { type: SET_TREE_AGE_DATA_LOADING, payload };
+}
+
+export function setTreeAgeData(payload) {
+    return { type: SET_TREE_AGE_DATA, payload };
+}
+
+export function setWateredTreeDataUpdated(payload) {
+    return { type: SET_WATERED_TREE_DATA_UPDATED, payload };
+}
+
+export function setTreeAgeDataUpdated(payload) {
+    return { type: SET_TREE_AGE_DATA_UPDATED, payload };
+}
+
+export function setDataIncluded(payload) {
+    return { type: SET_DATA_INCLUDED, payload };
 }

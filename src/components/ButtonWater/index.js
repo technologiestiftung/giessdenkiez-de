@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import content from '../../assets/content';
 
-import { setWateredTrees, setWateringTree, setSelectedTreeData } from '../../store/actions/index';
+import { setWateredTrees, setWateringTree, setDataIncluded, setSelectedTreeData, setWateredTreeDataUpdated, setTreeAgeDataUpdated } from '../../store/actions/index';
 
 const ButtonWaterSpan = styled.span`
     padding: 10px;
@@ -47,6 +47,27 @@ class ButtonWater extends React.Component {
         return date.getTime();
     }
 
+    dispatchSetTreeAgeDataUpdated(state) {
+        this.props.dispatch(setTreeAgeDataUpdated(state))
+    }
+
+    dispatchSetWateredTreeDataUpdated(state) {
+        this.props.dispatch(setWateredTreeDataUpdated(state))
+    }
+
+    dispatchSetDataIncluded(data) {
+        this.props.dispatch(setDataIncluded(data))
+    }
+
+    createIncludedTreesObj(arr) {
+        let obj = {};
+        arr.forEach(id => {
+            obj[id] = true;
+        })
+
+        this.dispatchSetDataIncluded(obj);
+    }
+
     dispatchSetSelectedTreeData(val) {
         this.props.dispatch(setSelectedTreeData(val.data));
     }
@@ -58,6 +79,8 @@ class ButtonWater extends React.Component {
         
         axios.get(url)
         .then(res => {
+            this.dispatchSetWateredTreeDataUpdated(true);
+            this.dispatchSetTreeAgeDataUpdated(false);
             this.dispatchSetSelectedTreeData(res);
                 // this._setTooltip(res, obj.object.x, obj.object.y)
             })
@@ -75,8 +98,14 @@ class ButtonWater extends React.Component {
                 res.data.forEach(tree => {
                     watered.push(tree['_id']);
                 })
-                this.dispatchSetWateredTrees(watered);
+
+                console.log(watered);
+
+                this.createIncludedTreesObj(watered);
                 this.dispatchSetWateringTree(false);
+
+                this.dispatchSetTreeAgeDataUpdated(false);
+                this.dispatchSetWateredTreeDataUpdated(true);
             })
             .catch(err => {
                 console.log(err);
@@ -89,6 +118,19 @@ class ButtonWater extends React.Component {
 
     dispatchSetWateringTree(val) {
         this.props.dispatch(setWateringTree(val));
+    }
+
+    dispatchSetDataIncluded(val) {
+        this.props.dispatch(setDataIncluded(val));
+    }
+
+    createIncludedTreesObj(arr) {
+        let obj = {};
+        arr.forEach(id => {
+            obj[id] = true;
+        })
+
+        this.dispatchSetDataIncluded(obj);
     }
 
     _writeDb() {
