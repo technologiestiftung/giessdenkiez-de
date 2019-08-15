@@ -228,9 +228,8 @@ class Sidebar extends React.Component {
             this.dispatchSetWateredTreeDataUpdated(false);
             this.dispatchSetTreeAgeDataUpdated(true);
             this.dispatchSetTreeAgeDataLoading(false);
-            this.dispatchSetTreeAgeData(res.data.ids);
-
-            this.createIncludedTreesObj(res.data.ids);
+            this.dispatchSetTreeAgeData(res);
+            this.createIncludedTreesObj(res);
             })
             .catch(err => {
             console.log(err);
