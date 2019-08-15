@@ -225,11 +225,12 @@ class Sidebar extends React.Component {
         
         axios.get(url)
         .then(res => {
+            console.log(res.data);
             this.dispatchSetWateredTreeDataUpdated(false);
             this.dispatchSetTreeAgeDataUpdated(true);
             this.dispatchSetTreeAgeDataLoading(false);
-            this.dispatchSetTreeAgeData(res);
-            this.createIncludedTreesObj(res);
+            this.dispatchSetTreeAgeData(res.data);
+            this.createIncludedTreesObj(res.data);
             })
             .catch(err => {
             console.log(err);
@@ -249,8 +250,8 @@ class Sidebar extends React.Component {
                     <FlexRowDiv>
                         <Range 
                             min={0} 
-                            max={150} 
-                            marks={{ 0: 0, 50: 50, 100: 100, 150: 150  }} 
+                            max={320} 
+                            marks={{ 0: 0, 80: 80, 160: 160, 240: 240, 320: 320 }} 
                             onChange={this.setRange}
                             // onAfterChange={this.setRange}
                             defaultValue={[this.state.min,this.state.max]}
