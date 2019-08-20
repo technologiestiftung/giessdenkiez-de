@@ -138,7 +138,7 @@ const mapStateToProps = state => {
         treeAgeDataLoading: state.treeAgeDataLoading,
         treeAgeData: state.treeAgeData,
         selectedTreeData: state.selectedTreeData,
-        dataLoaded: state.dataLoaded
+        dataLoaded: state.dataLoaded,
     };
 };
 
@@ -146,15 +146,23 @@ class Sidebar extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.fetched = [];
     
         this.state = {
-            min: 100,
-            max: 120
+            min: 0,
+            max: 320,
+            skip: 0,
         };
+        
+        this.limit = 8000;
 
         this.getTreesByAge = this.getTreesByAge.bind(this);
         this.setRange = this.setRange.bind(this);
         this.ageRange = this.ageRange.bind(this);
+        this.collectTrees = this.collectTrees.bind(this);
+        this.addToGroups = this.addToGroups.bind(this);
+        this.promiseGet = this.promiseGet.bind(this);
     };
 
     legend() {
@@ -213,6 +221,111 @@ class Sidebar extends React.Component {
         this.setState({ min: arr[0], max: arr[1] });
     }
 
+    setSkip(val) {
+        this.setState({skip: val});
+    }
+
+    collectTrees(skip, limit) {
+        const arr = [this.state.min, this.state.max];
+        const query = `?start=${arr[0]}&end=${arr[1]}&skip=${skip}&limit=${limit}`;
+        const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/age/limited";
+        const url = `${remote}${query}`;
+
+        return this.promiseGet(url);
+    }
+
+    collectCountTrees() {
+        const arr = [this.state.min, this.state.max];
+        const query = `?start=${arr[0]}&end=${arr[1]}`;
+        const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/age/count";
+        const url = `${remote}${query}`;
+
+        return this.promiseGet(url);
+    }
+
+    promiseGet(url) {
+
+        console.log(url);
+        return new Promise((resolve, reject) => {
+            axios.get(url)
+                .then(res => {
+                    if (res.data.length > 1) {
+                        this.fetched.push(res.data);
+                    }
+                    resolve(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                    reject(err);
+            })
+        })
+    }
+
+    addToGroups() {
+        let promiseArr = [];
+        let offset = 0;
+        let iterator
+        
+        return new Promise((resolve, reject) => {
+
+                this.dispatchSetTreeAgeDataLoading(true);
+                this.fetched = [];
+
+                this.collectCountTrees()
+                .then(data => {
+                    iterator = Math.ceil(data / this.limit);
+                    
+                    for (let index = 0; index < iterator; index++) {
+                        const offset = index == 0 ? 0 : index * this.limit;
+                        promiseArr.push(this.collectTrees(offset, this.limit))
+                    }
+                    
+                    Promise.all(promiseArr).then(data => {
+                        this.fetched = this.fetched.flat();
+                        this.dispatchSetWateredTreeDataUpdated(false);
+                        this.dispatchSetTreeAgeDataUpdated(true);
+                        this.dispatchSetTreeAgeDataLoading(false);
+                        this.dispatchSetTreeAgeData(this.fetched);
+                        this.createIncludedTreesObj(this.fetched);
+                    }).catch(err => {
+                        console.log(err)
+                    });
+
+                }).catch(reject);
+        });
+    }
+
+
+
+    getTreesByAgeLimited() {
+        const arr = [this.state.min, this.state.max];
+        const query = `?start=${arr[0]}&end=${arr[1]}&skip=${this.state.skip}&limit=${this.state.limit}`;
+        const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/age/limited";
+        const url = `${remote}${query}`;
+
+        this.dispatchSetTreeAgeDataLoading(true);
+
+        return axios.get(url)
+        .then(res => {
+            console.log(res.data);
+            this.dispatchSetWateredTreeDataUpdated(false);
+            this.dispatchSetTreeAgeDataUpdated(true);
+            this.dispatchSetTreeAgeDataLoading(false);
+            this.dispatchSetTreeAgeData(res.data);
+            this.createIncludedTreesObj(res.data);
+
+            this.setSkip(this.state.skip + this.state.limit);
+            
+            return this.getTreesByAgeLimited()
+            })
+            .catch(err => {
+                return 
+                console.log(err);
+        })
+
+
+    }
+
     getTreesByAge() {
         const arr = [this.state.min, this.state.max];
         const query = `?start=${arr[0]}&end=${arr[1]}`;
@@ -256,7 +369,7 @@ class Sidebar extends React.Component {
                             // onAfterChange={this.setRange}
                             defaultValue={[this.state.min,this.state.max]}
                         />
-                        <ButtonWaterSpan onClick={this.getTreesByAge}>Filter</ButtonWaterSpan>
+                        <ButtonWaterSpan onClick={this.addToGroups}>Filter</ButtonWaterSpan>
                     </FlexRowDiv>
                     <TreesCountSpan>{treesCount}</TreesCountSpan>
                 </FilterAgeDiv>

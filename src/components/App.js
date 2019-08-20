@@ -7,6 +7,8 @@ import axios from 'axios';
 import DeckGlMap from './map/index.js';
 import Sidebar from './Sidebar/index.js';
 
+import svg from '../assets/tsb-logo-content-vertical.svg';
+
 const mapStateToProps = state => {
     return { 
         selectedTree: state.selectedTree,
@@ -99,7 +101,6 @@ class AppContainer extends React.Component {
 
 
     TSBLink() {
-        const svg = require('../assets/tsb-logo-content-vertical.svg');
 
         if (this.props.dataLoaded && this.props.wateredTreesFetched) {
             return <TsbLinkDiv className="link">

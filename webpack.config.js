@@ -52,18 +52,10 @@ module.exports = {
                 ]
             },
             {
-              test: /\.(png|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-              loader: 'url-loader'
-            },
-            {
                 test: /\.(svg|jpg)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [
                   {
-                    loader: 'file-loader',
-                    options: {
-                      name: '[name].[ext]',
-                      outputPath: 'img/'
-                    }
+                    loader: 'file-loader?name=/assets/[name].[ext]',
                   }
                 ]
             },
