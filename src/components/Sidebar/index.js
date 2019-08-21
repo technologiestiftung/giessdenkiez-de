@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Slider from 'rc-slider';
 
+import Divider from '../DividerSelect/index.js';
+import Tags from '../Tags/index.js';
+import Legend from '../Legend/index.js';
+
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 
 const Range = createSliderWithTooltip(Slider.Range);
@@ -63,49 +67,6 @@ const TreesCountSpan = styled.span`
     font-size: 12px;
 `;
 
-const LegendDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    z-index: 3;
-    font-size: 12px;
-    height: auto;
-    padding: ${props => props.theme.spacingM};
-    width: ${props => props.theme.sidebarTileWidth};
-    border: 2px solid ${props => props.theme.colorGreyLight};
-    border-radius: ${props => props.theme.borderRadiusM};
-    margin-bottom: 20px;
-
-    div { 
-        display: flex;
-        flex-direction: row;
-
-        &:first-of-type {
-            div {
-                background: rgb(102, 245, 173);
-                opacity: 1;
-            }
-        }
-
-        &:last-of-type {
-            div {
-                background: rgb(164, 181, 222);
-                opacity: 1;
-            }
-        }
-
-        div {
-            
-            width: 12px;
-            transform: translateY(2px);
-            margin-right: 10px;
-            height: 12px;
-            border-radius: 100px;
-            background:red;
-            opacity: 1;
-        }
-    }
-`
-
 const TileHeadline = styled.span`
     opacity: 1;
     font-size: 16px;
@@ -139,6 +100,7 @@ const mapStateToProps = state => {
         treeAgeData: state.treeAgeData,
         selectedTreeData: state.selectedTreeData,
         dataLoaded: state.dataLoaded,
+        tabActive: state.tabActive
     };
 };
 
@@ -152,6 +114,8 @@ class Sidebar extends React.Component {
         this.state = {
             min: 0,
             max: 320,
+            minHeight: 0,
+            maxHeight: 20,
             skip: 0,
         };
         
@@ -159,25 +123,12 @@ class Sidebar extends React.Component {
 
         this.getTreesByAge = this.getTreesByAge.bind(this);
         this.setRange = this.setRange.bind(this);
+        this.setRangeHeight = this.setRangeHeight.bind(this);
         this.ageRange = this.ageRange.bind(this);
         this.collectTrees = this.collectTrees.bind(this);
         this.addToGroups = this.addToGroups.bind(this);
         this.promiseGet = this.promiseGet.bind(this);
     };
-
-    legend() {
-        return <LegendDiv>
-            <TileHeadline>Legende</TileHeadline>
-            <div>
-                <div></div>
-                Bewässert
-            </div>
-            <div>
-                <div></div>
-                Nicht bewässert
-            </div>
-        </LegendDiv>
-    }
 
     dispatchSetTreeAgeDataLoading(state) {
         this.props.dispatch(setTreeAgeDataLoading(state))
@@ -221,6 +172,11 @@ class Sidebar extends React.Component {
         this.setState({ min: arr[0], max: arr[1] });
     }
 
+    setRangeHeight(arr) {
+        console.log(arr);
+        this.setState({ minHeight: arr[0], maxHeight: arr[1] });
+    }
+
     setSkip(val) {
         this.setState({skip: val});
     }
@@ -259,6 +215,40 @@ class Sidebar extends React.Component {
                     reject(err);
             })
         })
+    }
+
+    addByDimensions() {
+        let promiseArr = [];
+        let offset = 0;
+        let iterator
+        
+        return new Promise((resolve, reject) => {
+
+                this.dispatchSetTreeAgeDataLoading(true);
+                this.fetched = [];
+
+                this.collectCountTrees()
+                .then(data => {
+                    iterator = Math.ceil(data / this.limit);
+                    
+                    for (let index = 0; index < iterator; index++) {
+                        const offset = index == 0 ? 0 : index * this.limit;
+                        promiseArr.push(this.collectTrees(offset, this.limit))
+                    }
+                    
+                    Promise.all(promiseArr).then(data => {
+                        this.fetched = this.fetched.flat();
+                        this.dispatchSetWateredTreeDataUpdated(false);
+                        this.dispatchSetTreeAgeDataUpdated(true);
+                        this.dispatchSetTreeAgeDataLoading(false);
+                        this.dispatchSetTreeAgeData(this.fetched);
+                        this.createIncludedTreesObj(this.fetched);
+                    }).catch(err => {
+                        console.log(err)
+                    });
+
+                }).catch(reject);
+        });
     }
 
     addToGroups() {
@@ -322,8 +312,6 @@ class Sidebar extends React.Component {
                 return 
                 console.log(err);
         })
-
-
     }
 
     getTreesByAge() {
@@ -383,17 +371,85 @@ class Sidebar extends React.Component {
         }
     }
 
+    heightRange() {
+        const treesCount = this.props.treeAgeData != undefined ? `${this.props.treeAgeData.length} Bäume` : 'Keine Bäume Ausgewählt'
+        if (!this.props.treeAgeDataLoading) {
+            return (
+                <FilterAgeDiv>
+                    <TileHeadline>Baumhöhe: {this.state.minHeight}-{this.state.maxHeight} meter</TileHeadline>
+                    <FlexRowDiv>
+                        <Range 
+                            min={0} 
+                            max={20} 
+                            marks={{ 0: 0, 20: 20}} 
+                            onChange={this.setRangeHeight}
+                            // onAfterChange={this.setRange}
+                            defaultValue={[this.state.minHeight,this.state.maxHeight]}
+                        />
+                        <ButtonWaterSpan onClick={this.addToGroups}>Filter</ButtonWaterSpan>
+                    </FlexRowDiv>
+                    <TreesCountSpan>{treesCount}</TreesCountSpan>
+                    {/* <br></br>
+                    <TileHeadline>Krone Durchmesser: {this.state.minHeight}-{this.state.maxHeight} meter</TileHeadline>
+                    <FlexRowDiv>
+                        <Range 
+                            min={0} 
+                            max={20} 
+                            marks={{ 0: 0, 20: 20}} 
+                            onChange={this.setRangeHeight}
+                            // onAfterChange={this.setRange}
+                            defaultValue={[this.state.minHeight,this.state.maxHeight]}
+                        />
+                        <ButtonWaterSpan onClick={this.addToGroups}>Filter</ButtonWaterSpan>
+                    </FlexRowDiv>
+                    <TreesCountSpan>{treesCount}</TreesCountSpan> */}
+                </FilterAgeDiv>
+            )
+        } else if (this.props.treeAgeDataLoading) {
+            return (
+                <FilterAgeDiv>
+                    Zähle Bäume ...
+                </FilterAgeDiv>
+            )
+        }
+    }
+
     render() {
-        return (
-            <SidebarDiv className="sidebar">
-                <div>
-                    {/* {this.intro()} */}
-                    <SelectedTree></SelectedTree>
-                    {this.ageRange()}
-                </div>
-                {this.legend()}
-            </SidebarDiv>
-        )
+        if (this.props.tabActive == 'id-0') {
+            return (
+                <SidebarDiv className="sidebar">
+                    <div>
+                        <Divider/>
+                        {this.ageRange()}
+                        <SelectedTree></SelectedTree>
+                    </div>
+                    <Legend/>
+                </SidebarDiv>
+            )
+        } else if (this.props.tabActive == 'id-1') {
+            return (
+                <SidebarDiv className="sidebar">
+                    <div>
+                        <Divider/>
+                        <Tags/>
+                        <SelectedTree></SelectedTree>
+                    </div>
+                    <Legend/>
+                </SidebarDiv>
+            )
+        } else if (this.props.tabActive == 'id-2') {
+            return (
+                <SidebarDiv className="sidebar">
+                    <div>
+                        <Divider/>
+                        {this.heightRange()}
+                        <SelectedTree></SelectedTree>
+                    </div>
+                    <Legend/>
+                </SidebarDiv>
+            )
+        }
+
     }
 }
 

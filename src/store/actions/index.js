@@ -12,6 +12,8 @@ import {
     SET_TREE_AGE_DATA_UPDATED,
     SET_WATERED_TREE_DATA_UPDATED,
     SET_DATA_INCLUDED,
+    SET_TAB_ACTIVE,
+    SET_ACTIVE_TREE_TYPES,
 } from "../constants/action-types";
 
 export function addArticle(payload) {
@@ -64,4 +66,12 @@ export function setTreeAgeDataUpdated(payload) {
 
 export function setDataIncluded(payload) {
     return { type: SET_DATA_INCLUDED, payload };
+}
+
+export function setTabActive(payload) {
+    return { type: SET_TAB_ACTIVE, payload };
+}
+
+export function setActiveTreeTypes(payload) {
+    return { type: SET_ACTIVE_TREE_TYPES, payload };
 }

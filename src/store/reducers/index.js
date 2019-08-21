@@ -11,7 +11,9 @@ import {
     SET_TREE_AGE_DATA,
     SET_TREE_AGE_DATA_UPDATED,
     SET_WATERED_TREE_DATA_UPDATED,
-    SET_DATA_INCLUDED
+    SET_DATA_INCLUDED,
+    SET_TAB_ACTIVE,
+    SET_ACTIVE_TREE_TYPES,
 } from "../constants/action-types";
 
 const initialState = {
@@ -27,7 +29,9 @@ const initialState = {
   treeAgeData: null,
   wateredTreeDataUpdated: true,
   treeAgeDataUpdated: false,
-  dataIncluded: null
+  dataIncluded: null,
+  tabActive: 'id-0',
+  activeTreeTypes: null
 };
 
 function rootReducer(state = initialState, action) {
@@ -84,6 +88,14 @@ function rootReducer(state = initialState, action) {
 
     if (action.type === SET_DATA_INCLUDED) {
         return {...state, dataIncluded: action.payload }
+    }
+
+    if (action.type === SET_TAB_ACTIVE) {
+        return {...state, tabActive: action.payload }
+    }
+
+    if (action.type === SET_ACTIVE_TREE_TYPES) {
+        return {...state, activeTreeTypes: action.payload }
     }
     
     return state;

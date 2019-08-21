@@ -99,9 +99,7 @@ class AppContainer extends React.Component {
         this.getWateredTrees();
     }
 
-
     TSBLink() {
-
         if (this.props.dataLoaded && this.props.wateredTreesFetched) {
             return <TsbLinkDiv className="link">
                 <a href="https://technologiestiftung-berlin.de">
@@ -110,7 +108,6 @@ class AppContainer extends React.Component {
                 </a>
             </TsbLinkDiv>;
         }
-
     }
 
     render() {
