@@ -15,6 +15,7 @@ const ButtonWaterSpan = styled.span`
     transition: background ${props => props.theme.timeS} ease-in-out;
     border-radius: ${props => props.theme.borderRadiusS};
     text-align: center;
+    font-size: ${props => props.theme.fontSizeM};
     
     &:hover {
         background: ${props => props.theme.colorPrimaryHover};
@@ -62,7 +63,7 @@ class ButtonWater extends React.Component {
     createIncludedTreesObj(arr) {
         let obj = {};
         arr.forEach(id => {
-            obj[id] = true;
+            obj[id] = { included: true};
         })
 
         this.dispatchSetDataIncluded(obj);
@@ -127,7 +128,7 @@ class ButtonWater extends React.Component {
     createIncludedTreesObj(arr) {
         let obj = {};
         arr.forEach(id => {
-            obj[id] = true;
+            obj[id] = { included: true};
         })
 
         this.dispatchSetDataIncluded(obj);

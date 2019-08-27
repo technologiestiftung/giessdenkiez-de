@@ -14,6 +14,10 @@ import {
     SET_DATA_INCLUDED,
     SET_TAB_ACTIVE,
     SET_ACTIVE_TREE_TYPES,
+    SET_TREE_TYPE_DATA,
+    SET_TREE_TYPE_DATA_LOADING,
+    SET_TREE_TYPE_DATA_UPDATED,
+    SET_TYPE_COLORS
 } from "../constants/action-types";
 
 export function addArticle(payload) {
@@ -74,4 +78,20 @@ export function setTabActive(payload) {
 
 export function setActiveTreeTypes(payload) {
     return { type: SET_ACTIVE_TREE_TYPES, payload };
+}
+
+export function setTreeTypeData(payload) {
+    return { type: SET_TREE_TYPE_DATA, payload };
+}
+
+export function setTreeTypeDataLoading(payload) {
+    return { type: SET_TREE_TYPE_DATA_LOADING, payload };
+}
+
+export function setTreeTypeDataUpdated(payload) {
+    return { type: SET_TREE_TYPE_DATA_UPDATED, payload };
+}
+
+export function setTypeColors(payload) {
+    return { type: SET_TYPE_COLORS, payload };
 }

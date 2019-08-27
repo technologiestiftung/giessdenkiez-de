@@ -22,6 +22,7 @@ const theme = {
     
     fontSizeXl: '1.5rem',
     fontSizeL: '.75rem',
+    fontSizeM: '.5rem',
 
     timeS: '.125s',
     timeM: '.25s',

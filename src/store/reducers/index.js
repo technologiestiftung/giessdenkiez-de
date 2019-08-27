@@ -7,13 +7,17 @@ import {
     SET_WATERED_TREES_FETCHED,
     SET_WATERING_TREE,
     SET_DATA_LOADED,
-    SET_TREE_AGE_DATA_LOADING,
     SET_TREE_AGE_DATA,
+    SET_TREE_AGE_DATA_LOADING,
     SET_TREE_AGE_DATA_UPDATED,
     SET_WATERED_TREE_DATA_UPDATED,
     SET_DATA_INCLUDED,
     SET_TAB_ACTIVE,
     SET_ACTIVE_TREE_TYPES,
+    SET_TREE_TYPE_DATA,
+    SET_TREE_TYPE_DATA_LOADING,
+    SET_TREE_TYPE_DATA_UPDATED,
+    SET_TYPE_COLORS,
 } from "../constants/action-types";
 
 const initialState = {
@@ -30,8 +34,12 @@ const initialState = {
   wateredTreeDataUpdated: true,
   treeAgeDataUpdated: false,
   dataIncluded: null,
-  tabActive: 'id-0',
-  activeTreeTypes: null
+  tabActive: 'id-1',
+  activeTreeTypes: null,
+  treeTypeData: null,
+  treeTypeDataLoading: false,
+  treeTypeDataUpdated: false,
+  typeColors: null
 };
 
 function rootReducer(state = initialState, action) {
@@ -96,6 +104,22 @@ function rootReducer(state = initialState, action) {
 
     if (action.type === SET_ACTIVE_TREE_TYPES) {
         return {...state, activeTreeTypes: action.payload }
+    }
+
+    if (action.type === SET_TREE_TYPE_DATA) {
+        return {...state, treeTypeData: action.payload }
+    }
+
+    if (action.type === SET_TREE_TYPE_DATA_LOADING) {
+        return {...state, treeTypeDataLoading: action.payload }
+    }
+
+    if (action.type === SET_TREE_TYPE_DATA_UPDATED) {
+        return {...state, treeTypeDataUpdated: action.payload }
+    }
+
+    if (action.type === SET_TYPE_COLORS) {
+        return {...state, typeColors: action.payload }
     }
     
     return state;

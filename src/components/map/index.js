@@ -11,8 +11,6 @@ import {
     dsv as d3Dsv,
 } from 'd3';
 
-// console
-
 const MAPBOX_TOKEN = process.env.API_KEY;
 
 const mapStateToProps = state => {
@@ -25,6 +23,8 @@ const mapStateToProps = state => {
         treeAgeDataUpdated: state.treeAgeDataUpdated,
         wateredTreeDataUpdated: state.wateredTreeDataUpdated,
         dataIncluded: state.dataIncluded,
+        treeTypeDataUpdated: state.treeTypeDataUpdated,
+        typeColors: state.typeColors
     };
 };
 
@@ -81,10 +81,7 @@ class DeckGLMap extends React.Component {
                         getFillColor: 500,
                     },
                     getFillColor: (info) => {
-                        // const included = this.props.wateredTrees.includes(info.properties['id']);
-                        // const ageIncluded = this.props.treeAgeData.includes(info.properties['id']);
-
-                        const included = this.props.dataIncluded[info.properties['id']];
+                        let included = this.props.dataIncluded[info.properties['id']] != undefined ? this.props.dataIncluded[info.properties['id']].included : false;
 
                         if (this.props.wateredTreeDataUpdated && this.state.highlightedObject == info.properties['id']) {
                            return [150, 150, 150, 200] 
@@ -101,6 +98,16 @@ class DeckGLMap extends React.Component {
                         } else if (this.props.treeAgeDataUpdated && !included) {
                             return [0, 0, 255, 0];
                         }
+
+                        if (this.props.treeTypeDataUpdated  && this.state.highlightedObject == info.properties['id']) {
+                            return [150, 150, 150, 200] 
+                        } else if (this.props.treeTypeDataUpdated && included) {
+                            let type = this.props.dataIncluded[info.properties['id']].type;
+                            return this.props.typeColors[type].color;
+                        } else if (this.props.treeTypeDataUpdated && !included) {
+                            return [0, 0, 255, 0];
+                        }
+
                     },
                     onClick: (info) => {
                         this._onClick(info.x, info.y, info.object)

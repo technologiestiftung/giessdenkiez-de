@@ -7,7 +7,7 @@ import axios from 'axios';
 import DeckGlMap from './map/index.js';
 import Sidebar from './Sidebar/index.js';
 
-import svg from '../assets/tsb-logo-content-vertical.svg';
+import svg from '../assets/citylab-logo.svg';
 
 const mapStateToProps = state => {
     return { 
@@ -89,7 +89,7 @@ class AppContainer extends React.Component {
     createIncludedTreesObj(arr) {
         let obj = {};
         arr.forEach(id => {
-            obj[id] = true;
+            obj[id] = { included: true};
         })
 
         this.dispatchSetDataIncluded(obj);

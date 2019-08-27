@@ -24,7 +24,7 @@ const FilterAgeDiv = styled.div`
     width: ${props => props.theme.sidebarTileWidth};
     border: 2px solid ${props => props.theme.colorGreyLight};
     border-radius: ${props => props.theme.borderRadiusM};
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 `
 
 const FlexRowDiv = styled.div`
@@ -84,6 +84,8 @@ const ButtonWaterSpan = styled.span`
     transition: background ${props => props.theme.timeS} ease-in-out;
     border-radius: ${props => props.theme.borderRadiusS};
     text-align: center;
+    font-size: ${props => props.theme.fontSizeL};
+    transform: translateY(-3px);
     
     &:hover {
         background: ${props => props.theme.colorPrimaryHover};
@@ -100,7 +102,10 @@ const mapStateToProps = state => {
         treeAgeData: state.treeAgeData,
         selectedTreeData: state.selectedTreeData,
         dataLoaded: state.dataLoaded,
-        tabActive: state.tabActive
+        tabActive: state.tabActive,
+        treeTypeData: state.treeTypeData,
+        treeTypeDataLoading: state.treeTypeDataLoading,
+        treeTypeDataUpdated: state.treeTypeDataUpdated,
     };
 };
 
@@ -162,7 +167,7 @@ class Sidebar extends React.Component {
     createIncludedTreesObj(arr) {
         let obj = {};
         arr.forEach(id => {
-            obj[id] = true;
+            obj[id] = { included: true};
         })
 
         this.dispatchSetDataIncluded(obj);
@@ -238,11 +243,13 @@ class Sidebar extends React.Component {
                     
                     Promise.all(promiseArr).then(data => {
                         this.fetched = this.fetched.flat();
+
                         this.dispatchSetWateredTreeDataUpdated(false);
                         this.dispatchSetTreeAgeDataUpdated(true);
                         this.dispatchSetTreeAgeDataLoading(false);
                         this.dispatchSetTreeAgeData(this.fetched);
                         this.createIncludedTreesObj(this.fetched);
+
                     }).catch(err => {
                         console.log(err)
                     });
@@ -284,8 +291,6 @@ class Sidebar extends React.Component {
                 }).catch(reject);
         });
     }
-
-
 
     getTreesByAgeLimited() {
         const arr = [this.state.min, this.state.max];

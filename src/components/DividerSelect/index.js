@@ -9,6 +9,7 @@ const DivWrapper = styled.div`
     margin-top: 20px;
     display: flex;
     flex-direction: row;
+    font-size: 12px;
 `;
 
 const ButtonSelect = styled.span`
@@ -18,8 +19,8 @@ const ButtonSelect = styled.span`
     font-size: ${props => props.theme.fontSizeXL} !important;
     padding: 6px;
     width: 93px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     cursor: pointer;
     text-align: center;
 

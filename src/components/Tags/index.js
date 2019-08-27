@@ -9,28 +9,46 @@ const KeyCodes = {
     comma: 188,
     enter: 13,
 };
+
+import { 
+    interpolatePlasma as d3InterpolatePlasma,
+    selectAll as d3SelectAll
+} from 'd3';
    
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 const typesJson = require('../../../data/types.json');
 
-import { setActiveTreeTypes } from '../../store/actions/index';
+import { setWateredTreeDataUpdated, setTypeColors, setActiveTreeTypes,  setTreeTypeDataLoading, setTreeTypeData, setTreeTypeDataUpdated,  setTreeAgeDataUpdated, setDataIncluded } from '../../store/actions/index';
 
 const mapStateToProps = state => {
     return { 
-        activeTreeTypes: state.activeTreeTypes
+        activeTreeTypes: state.activeTreeTypes,
+        treeTypeDataLoading: state.treeTypeDataLoading,
+        typeColors: state.typeColors,
+        wateredTreeDataUpdated: state.wateredTreeDataUpdated,
     };
 };
+
+
+const TileHeadline = styled.span`
+    opacity: 1;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+`;
 
 const ButtonWaterSpan = styled.span`
     padding: 6px;
     cursor: pointer;
     width: 70px;
-    margin-left: 30px;
+    margin-top: 10px;
     background: ${props => props.theme.colorPrimary};
     transition: background ${props => props.theme.timeS} ease-in-out;
     border-radius: ${props => props.theme.borderRadiusS};
     text-align: center;
+    font-size: ${props => props.theme.fontSizeL};
+
     
     &:hover {
         background: ${props => props.theme.colorPrimaryHover};
@@ -48,7 +66,7 @@ const TagsDiv = styled.div`
     width: ${props => props.theme.sidebarTileWidth};
     border: 2px solid ${props => props.theme.colorGreyLight};
     border-radius: ${props => props.theme.borderRadiusM};
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 `;
 
 class Tags extends React.Component {
@@ -69,17 +87,22 @@ class Tags extends React.Component {
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
         this.requestTypes = this.requestTypes.bind(this);
-
     }
     
     componentWillMount() {
         let arr = [];
-        typesJson.types.forEach(type => {
-            arr.push({ id: type, text: type })
+        typesJson.types.forEach((type,i) => {
+            arr.push({ id: type, text: type.toLowerCase(), identifier: `identifier-${i}` })
         })
 
-        this.setState( { suggestions: arr, tags: arr.slice(0,5) } );
+        this.setTypeColors();
+
+        this.setState( { suggestions: arr, tags: arr.slice(49, 53) } );
     }
+
+    // componentDidMount() {
+    //     this.setTypeColors();
+    // }
 
     componentDidUpdate() {
         console.log(this.props);
@@ -111,6 +134,42 @@ class Tags extends React.Component {
         })
     }
 
+    dispatchSetTreeTypeData(data) {
+        this.props.dispatch(setTreeTypeData(data))
+    }
+
+    dispatchSetTreeAgeDataUpdated(data) {
+        this.props.dispatch(setTreeAgeDataUpdated(data))
+    }
+
+    dispatchSetWateredTreeDataUpdated(data) {
+        this.props.dispatch(setWateredTreeDataUpdated(data))
+    }
+
+    dispatchSetTreeTypeDataLoading(data) {
+        this.props.dispatch(setTreeTypeDataLoading(data))
+    }
+
+    dispatchSetTreeTypeDataUpdated(data) {
+        this.props.dispatch(setTreeTypeDataUpdated(data))
+    }
+
+
+    hexToRgbA(hex){
+        var c;
+        if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+            c= hex.substring(1).split('');
+            if(c.length== 3){
+                c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+            }
+            c= '0x'+c.join('');
+            // return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
+            return JSON.parse(`[${[(c>>16)&255, (c>>8)&255, c&255]}, 220]`);
+        }
+        throw new Error('Bad Hex');
+    }
+    
+
     collectTrees(skip, limit, types) {
         let query = [];
 
@@ -125,6 +184,26 @@ class Tags extends React.Component {
         const url = `${remote}${all}&skip=${skip}&limit=${limit}`;
 
         return this.promiseGet(url);
+    }
+
+    dispatchSetDataIncluded(data) {
+        this.props.dispatch(setDataIncluded(data))
+    }
+
+    createIncludedTreesObj(obj) {
+        const idArr = obj.map(tree => {return tree._id});
+        let data = {};
+
+        idArr.forEach(id => {
+            let type = obj.filter(item => {return item._id == id});
+
+            data[id] = {
+                included: true,
+                type: type[0].properties.GATTUNG_DEUTSCH,
+            };
+        })
+
+        this.dispatchSetDataIncluded(data);
     }
 
     collectCountTrees(types) {
@@ -146,6 +225,43 @@ class Tags extends React.Component {
         return this.promiseGet(url);
     }
 
+    dispatchSetTypeColors(obj) {
+        this.props.dispatch(setTypeColors(obj));
+    } 
+
+    setTypeColors() {
+        const numTags = typesJson.types.length;
+        const v = (1 / numTags);
+
+        
+        const colorDict = {};
+        
+        typesJson.types.forEach((tag,i) => {
+            let hexColor = d3InterpolatePlasma(v * (i + 1));
+            let rgba = this.hexToRgbA(hexColor);
+
+            colorDict[tag] = {
+                color: rgba,
+                id: `identifier-${i}`,
+            }
+
+            // colorDict.push({
+            //     color: d3InterpolatePlasma(v * (i + 1)),
+            //     id: `identifier-${i}`,
+            //     type: tag.toLowerCase()
+            // });
+
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = `#identifier-${i} { background: ${hexColor}; }`;
+            document.getElementsByTagName('head')[0].appendChild(style);
+        });
+        
+        this.dispatchSetTypeColors(colorDict);
+
+        return colorDict;
+    }
+
     requestTypes() {
         let types = this.flatten(this.state);
         this.dispatchSetActiveTreeTypes(types);
@@ -156,7 +272,10 @@ class Tags extends React.Component {
         
         return new Promise((resolve, reject) => {
 
-                // this.dispatchSetTreeAgeDataLoading(true);
+                this.dispatchSetTreeTypeDataLoading(true);
+                this.dispatchSetTreeAgeDataUpdated(false);
+                this.dispatchSetWateredTreeDataUpdated(false);
+
                 this.fetched = [];
                 this.collectCountTrees(types)
                 .then(data => {
@@ -169,12 +288,13 @@ class Tags extends React.Component {
                     
                     Promise.all(promiseArr).then(data => {
                         this.fetched = this.fetched.flat();
-                        // this.dispatchSetWateredTreeDataUpdated(false);
-                        // this.dispatchSetTreeAgeDataUpdated(true);
-                        // this.dispatchSetTreeAgeDataLoading(false);
-                        // this.dispatchSetTreeAgeData(this.fetched);
-                        // this.createIncludedTreesObj(this.fetched);
-                        console.log(this.fetched);
+
+                        this.dispatchSetTreeTypeDataUpdated(true);
+                        this.dispatchSetTreeTypeDataLoading(false);
+                        this.dispatchSetTreeTypeData(this.fetched);
+                        this.createIncludedTreesObj(this.fetched);
+
+                        // console.log(this.fetched);
                     }).catch(err => {
                         console.log(err)
                     });
@@ -206,7 +326,7 @@ class Tags extends React.Component {
     handleDelete(i) {
         const { tags } = this.state;
         this.setState({
-         tags: tags.filter((tag, index) => index !== i),
+            tags: tags.filter((tag, index) => index !== i),
         });
     }
  
@@ -216,18 +336,28 @@ class Tags extends React.Component {
     
     render() {
         const { tags, suggestions } = this.state;
-        return (
-            <TagsDiv className="tags">
-                <ReactTags tags={tags}
-                    suggestions={suggestions}
-                    handleDelete={this.handleDelete}
-                    handleAddition={this.handleAddition}
-                    handleDrag={this.handleDrag}
-                    delimiters={delimiters} 
-                    />
-                <ButtonWaterSpan onClick={this.requestTypes}>Filter</ButtonWaterSpan>
-            </TagsDiv>
-        )
+        
+
+        if (this.props.treeTypeDataLoading) {
+            return (
+                <TagsDiv>Zähle Bäume ...</TagsDiv>
+            )
+        } else if (!this.props.treeTypeDataLoading) {
+            return (
+                <TagsDiv className="tags">
+                    <TileHeadline>Baumgattung</TileHeadline>
+                    <ReactTags tags={tags}
+                        suggestions={suggestions}
+                        handleDelete={this.handleDelete}
+                        handleAddition={this.handleAddition}
+                        handleDrag={this.handleDrag}
+                        delimiters={delimiters} 
+                        id={"type"}
+                        />
+                    <ButtonWaterSpan onClick={this.requestTypes}>Filter</ButtonWaterSpan>
+                </TagsDiv>
+            )
+        }
     }
 }
 
