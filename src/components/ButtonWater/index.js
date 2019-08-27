@@ -15,7 +15,7 @@ const ButtonWaterSpan = styled.span`
     transition: background ${props => props.theme.timeS} ease-in-out;
     border-radius: ${props => props.theme.borderRadiusS};
     text-align: center;
-    font-size: ${props => props.theme.fontSizeM};
+    font-size: ${props => props.theme.fontSizeL};
     
     &:hover {
         background: ${props => props.theme.colorPrimaryHover};

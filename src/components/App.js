@@ -38,7 +38,7 @@ const TsbLinkDiv = styled.div`
 
 const LogoImg = styled.img`
     margin-top: 10px;
-    width: 100px;
+    width: 160px;
 `;
 
 import { setWateredTrees, setWateredTreesFetched, setDataIncluded } from '../store/actions/index.js';
@@ -103,7 +103,6 @@ class AppContainer extends React.Component {
         if (this.props.dataLoaded && this.props.wateredTreesFetched) {
             return <TsbLinkDiv className="link">
                 <a href="https://technologiestiftung-berlin.de">
-                    Ein Projekt der:
                     <LogoImg src={svg}></LogoImg>
                 </a>
             </TsbLinkDiv>;

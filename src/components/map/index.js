@@ -73,7 +73,7 @@ class DeckGLMap extends React.Component {
                     pickable: true,
                     getLineColor: [0, 255, 255],
                     getRadius: 4,
-                    pointRadiusMinPixels: 1.25,
+                    pointRadiusMinPixels: 2,
                     autoHighlight: true,
                     highlightColor: [200, 200, 200, 255],
                     pointRadiusScale: 2,

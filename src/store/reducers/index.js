@@ -34,7 +34,7 @@ const initialState = {
   wateredTreeDataUpdated: true,
   treeAgeDataUpdated: false,
   dataIncluded: null,
-  tabActive: 'id-1',
+  tabActive: 'id-0',
   activeTreeTypes: null,
   treeTypeData: null,
   treeTypeDataLoading: false,
