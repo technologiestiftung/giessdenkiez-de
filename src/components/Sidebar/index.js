@@ -194,21 +194,6 @@ class Sidebar extends React.Component {
         this.dispatchSetDataIncluded(obj);
     }
 
-    createIncludedTreesObjSize(obj) {
-        const idArr = obj.map(tree => {return tree._id});
-        let data = {};
-
-        idArr.forEach(id => {
-            let type = obj.filter(item => {return item._id == id});
-
-            data[id] = {
-                included: true,
-            };
-        })
-
-        this.dispatchSetDataIncluded(data);
-    }
-
     setRange(arr) {
         this.setState({ min: arr[0], max: arr[1] });
     }
@@ -306,7 +291,9 @@ class Sidebar extends React.Component {
 
                         this.dispatchSetTreeSizeDataLoading(false);
                         this.dispatchSetTreeSizeData(this.fetched);
-                        this.createIncludedTreesObjSize(this.fetched);
+
+                        this.dispatchSetTreeSizeData(this.fetched);
+                        this.createIncludedTreesObj(this.fetched);
                     }).catch(err => {
                         console.log(err)
                     });
@@ -337,8 +324,10 @@ class Sidebar extends React.Component {
                     Promise.all(promiseArr).then(data => {
                         this.fetched = this.fetched.flat();
                         this.dispatchSetWateredTreeDataUpdated(false);
-                        this.dispatchSetTreeAgeDataUpdated(true);
-                        this.dispatchSetTreeAgeDataLoading(false);
+                        this.dispatchSetTreeAgeDataUpdated(false);
+                        this.dispatchSetTreeTypeDataUpdated(false);
+                        this.dispatchSetTreeSizeDataUpdated(true);
+
                         this.dispatchSetTreeAgeData(this.fetched);
                         this.createIncludedTreesObj(this.fetched);
                     }).catch(err => {
