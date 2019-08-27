@@ -12,6 +12,7 @@ const KeyCodes = {
 
 import { 
     interpolatePlasma as d3InterpolatePlasma,
+    interpolateRainbow as d3InterpolateRainbow,
     selectAll as d3SelectAll
 } from 'd3';
    
@@ -87,6 +88,7 @@ class Tags extends React.Component {
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
         this.requestTypes = this.requestTypes.bind(this);
+        this.setIds = this.setIds.bind(this);
     }
     
     componentWillMount() {
@@ -100,12 +102,38 @@ class Tags extends React.Component {
         this.setState( { suggestions: arr, tags: arr.slice(49, 53) } );
     }
 
-    // componentDidMount() {
-    //     this.setTypeColors();
-    // }
+    componentDidMount() {
+        this.setIds();
+    }
 
-    componentDidUpdate() {
-        console.log(this.props);
+    subStrAfterChars(str, char, pos) {
+      if(pos=='b')
+       return str.substring(str.indexOf(char) + 1);
+      else if(pos=='a') 
+       return str.substring(0, str.indexOf(char));
+      else
+      return str;  
+    }
+
+    setIds() {
+        const that = this;
+        setTimeout(() => {
+            d3SelectAll('span.ReactTags__tag')
+                .attr('id', function() {
+                    let label = that.subStrAfterChars(this.innerHTML, '<','a').toUpperCase();
+                    return that.props.typeColors[label].id;
+                })
+        },100)
+    }
+
+
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.tags.length != this.state.tags.length) {
+            this.setIds()
+        }
+
+        this.setIds();
     }
 
     flatten(obj) {
@@ -229,27 +257,45 @@ class Tags extends React.Component {
         this.props.dispatch(setTypeColors(obj));
     } 
 
+    shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+      
+        while (0 !== currentIndex) {
+      
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+      
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+      
+        return array;
+      }
+
     setTypeColors() {
         const numTags = typesJson.types.length;
         const v = (1 / numTags);
 
         
         const colorDict = {};
+
+        let vals = []
+
+        typesJson.types.forEach((tag,i) => {
+            vals.push(v * (i + 1))
+        })
+
+        vals = this.shuffle(vals);
         
         typesJson.types.forEach((tag,i) => {
-            let hexColor = d3InterpolatePlasma(v * (i + 1));
+            let hexColor = d3InterpolatePlasma(vals[i]);
             let rgba = this.hexToRgbA(hexColor);
 
             colorDict[tag] = {
                 color: rgba,
                 id: `identifier-${i}`,
             }
-
-            // colorDict.push({
-            //     color: d3InterpolatePlasma(v * (i + 1)),
-            //     id: `identifier-${i}`,
-            //     type: tag.toLowerCase()
-            // });
 
             var style = document.createElement('style');
             style.type = 'text/css';
