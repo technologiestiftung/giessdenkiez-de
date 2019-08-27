@@ -50,6 +50,7 @@ const LastWateredSpanWatering = styled.span`
 
 const SublineSpan = styled.span`
     margin-bottom: 20px;
+    text-transform: capitalize;
 `
 
 const SublineSpanDesc = styled.span`
@@ -150,7 +151,7 @@ class SelectedTree extends React.Component {
                     <div className="intro-wrapper">
                         <FlexColumnDiv>
                             <TreeTitle>{this.props.selectedTreeData.properties['ART_DTSCH']}</TreeTitle>
-                            <SublineSpan>{this.props.selectedTreeData.properties['ART_BOT']}</SublineSpan>
+                            <SublineSpan>{this.props.selectedTreeData.properties['GATTUNG_DEUTSCH'].toLowerCase()}</SublineSpan>
                             <span className={stateWaterTreeClass}>{treeWatered}</span>
                             <SublineSpanClose>{this.props.selectedTreeData.properties['STRNAME']}{hausNr}</SublineSpanClose>
                             <SublineSpan>{this.props.selectedTreeData.properties['BEZIRK']}</SublineSpan>
@@ -205,7 +206,7 @@ class SelectedTree extends React.Component {
                     <div className="intro-wrapper">
                         <FlexColumnDiv>
                             <TreeTitle>{this.props.selectedTreeData.properties['ART_DTSCH']}</TreeTitle>
-                            <SublineSpan>{this.props.selectedTreeData.properties['ART_BOT']}</SublineSpan>
+                            <SublineSpan>{this.props.selectedTreeData.properties['GATTUNG_DEUTSCH'].toLowerCase()}</SublineSpan>
                             <span className={stateWaterTreeClass}>{treeWatered}</span>
                             <SublineSpanClose>{this.props.selectedTreeData.properties['STRNAME']}{hausNr}</SublineSpanClose>
                             <SublineSpan>{this.props.selectedTreeData.properties['BEZIRK']}</SublineSpan>

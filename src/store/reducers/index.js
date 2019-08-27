@@ -18,6 +18,9 @@ import {
     SET_TREE_TYPE_DATA_LOADING,
     SET_TREE_TYPE_DATA_UPDATED,
     SET_TYPE_COLORS,
+    SET_TREE_SIZE_DATA,
+    SET_TREE_SIZE_DATA_LOADING,
+    SET_TREE_SIZE_DATA_UPDATED,
 } from "../constants/action-types";
 
 const initialState = {
@@ -39,7 +42,10 @@ const initialState = {
   treeTypeData: null,
   treeTypeDataLoading: false,
   treeTypeDataUpdated: false,
-  typeColors: null
+  typeColors: null,
+  treeSizeData: null,
+  treeSizeDataUpdated: false,
+  treeSizeDataLoading: false,
 };
 
 function rootReducer(state = initialState, action) {
@@ -116,6 +122,18 @@ function rootReducer(state = initialState, action) {
 
     if (action.type === SET_TREE_TYPE_DATA_UPDATED) {
         return {...state, treeTypeDataUpdated: action.payload }
+    }
+
+    if (action.type === SET_TREE_SIZE_DATA) {
+        return {...state, treeSizeData: action.payload }
+    }
+
+    if (action.type === SET_TREE_SIZE_DATA_LOADING) {
+        return {...state, treeSizeDataLoading: action.payload }
+    }
+
+    if (action.type === SET_TREE_SIZE_DATA_UPDATED) {
+        return {...state, treeSizeDataUpdated: action.payload }
     }
 
     if (action.type === SET_TYPE_COLORS) {

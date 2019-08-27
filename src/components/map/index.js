@@ -24,6 +24,7 @@ const mapStateToProps = state => {
         wateredTreeDataUpdated: state.wateredTreeDataUpdated,
         dataIncluded: state.dataIncluded,
         treeTypeDataUpdated: state.treeTypeDataUpdated,
+        treeSizeDataUpdated: state.treeSizeDataUpdated,
         typeColors: state.typeColors
     };
 };
@@ -105,6 +106,14 @@ class DeckGLMap extends React.Component {
                             let type = this.props.dataIncluded[info.properties['id']].type;
                             return this.props.typeColors[type].color;
                         } else if (this.props.treeTypeDataUpdated && !included) {
+                            return [0, 0, 255, 0];
+                        }
+
+                        if (this.props.treeSizeDataUpdated  && this.state.highlightedObject == info.properties['id']) {
+                            return [150, 150, 150, 200] 
+                        } else if (this.props.treeSizeDataUpdated && included) {
+                            return [102, 245, 173, 255]
+                        } else if (this.props.treeSizeDataUpdated && !included) {
                             return [0, 0, 255, 0];
                         }
 

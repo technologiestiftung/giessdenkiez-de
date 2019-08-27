@@ -12,7 +12,7 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip;
 
 const Range = createSliderWithTooltip(Slider.Range);
 
-import { setTreeAgeDataLoading, setTreeAgeData, setTreeAgeDataUpdated, setWateredTreeDataUpdated, setDataIncluded } from '../../store/actions/index';
+import { setTreeAgeDataLoading, setTreeAgeData, setTreeAgeDataUpdated, setTreeSizeData, setTreeSizeDataUpdated, setTreeSizeDataLoading, setWateredTreeDataUpdated, setTreeTypeDataUpdated, setDataIncluded } from '../../store/actions/index';
 
 const FilterAgeDiv = styled.div`
     display: flex;
@@ -106,6 +106,9 @@ const mapStateToProps = state => {
         treeTypeData: state.treeTypeData,
         treeTypeDataLoading: state.treeTypeDataLoading,
         treeTypeDataUpdated: state.treeTypeDataUpdated,
+        treeSizeData: state.treeSizeData,
+        treeSizeDataLoading: state.treeSizeDataLoading,
+        treeSizeDataUpdated: state.treeSizeDataUpdated,
     };
 };
 
@@ -126,12 +129,12 @@ class Sidebar extends React.Component {
         
         this.limit = 8000;
 
-        this.getTreesByAge = this.getTreesByAge.bind(this);
         this.setRange = this.setRange.bind(this);
         this.setRangeHeight = this.setRangeHeight.bind(this);
         this.ageRange = this.ageRange.bind(this);
         this.collectTrees = this.collectTrees.bind(this);
-        this.addToGroups = this.addToGroups.bind(this);
+        this.fetchAge = this.fetchAge.bind(this);
+        this.fetchSize = this.fetchSize.bind(this);
         this.promiseGet = this.promiseGet.bind(this);
     };
 
@@ -143,6 +146,10 @@ class Sidebar extends React.Component {
         this.props.dispatch(setTreeAgeDataUpdated(state))
     }
 
+    dispatchSetTreeTypeDataUpdated(state) {
+        this.props.dispatch(setTreeTypeDataUpdated(state))
+    }
+
     dispatchSetWateredTreeDataUpdated(state) {
         this.props.dispatch(setWateredTreeDataUpdated(state))
     }
@@ -150,6 +157,19 @@ class Sidebar extends React.Component {
     dispatchSetTreeAgeData(state) {
         this.props.dispatch(setTreeAgeData(state))
     }
+
+    dispatchSetTreeSizeDataUpdated(state) {
+        this.props.dispatch(setTreeSizeDataUpdated(state))
+    }
+
+    dispatchSetTreeSizeDataLoading(state) {
+        this.props.dispatch(setTreeSizeDataLoading(state))
+    }
+
+    dispatchSetTreeSizeData(state) {
+        this.props.dispatch(setTreeSizeData(state))
+    }
+
     
     intro() {
         if (!this.props.selectedTreeData) {
@@ -170,7 +190,23 @@ class Sidebar extends React.Component {
             obj[id] = { included: true};
         })
 
+
         this.dispatchSetDataIncluded(obj);
+    }
+
+    createIncludedTreesObjSize(obj) {
+        const idArr = obj.map(tree => {return tree._id});
+        let data = {};
+
+        idArr.forEach(id => {
+            let type = obj.filter(item => {return item._id == id});
+
+            data[id] = {
+                included: true,
+            };
+        })
+
+        this.dispatchSetDataIncluded(data);
     }
 
     setRange(arr) {
@@ -186,19 +222,38 @@ class Sidebar extends React.Component {
         this.setState({skip: val});
     }
 
-    collectTrees(skip, limit) {
+    collectTrees(skip, limit, arg) {
         const arr = [this.state.min, this.state.max];
         const query = `?start=${arr[0]}&end=${arr[1]}&skip=${skip}&limit=${limit}`;
-        const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/age/limited";
+        const remote = `https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/${arg}/limited`;
         const url = `${remote}${query}`;
 
         return this.promiseGet(url);
     }
 
-    collectCountTrees() {
+    collectTreesSize(skip, limit, arg) {
+        const arr = [this.state.minHeight, this.state.maxHeight];
+        const query = `?start=${arr[0]}&end=${arr[1]}&skip=${skip}&limit=${limit}`;
+        const remote = `https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/${arg}/limited`;
+        const url = `${remote}${query}`;
+
+        return this.promiseGet(url);
+    }
+
+    countTreesSize(arg) {
+        const arr = [this.state.minHeight, this.state.maxHeight];
+        console.log(arr);
+        const query = `?start=${arr[0]}&end=${arr[1]}`;
+        const remote = `https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/size/count`;
+        const url = `${remote}${query}`;
+
+        return this.promiseGet(url);
+    }
+
+    countTreesAge(arg) {
         const arr = [this.state.min, this.state.max];
         const query = `?start=${arr[0]}&end=${arr[1]}`;
-        const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/age/count";
+        const remote = `https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/age/count`;
         const url = `${remote}${query}`;
 
         return this.promiseGet(url);
@@ -222,7 +277,45 @@ class Sidebar extends React.Component {
         })
     }
 
-    addByDimensions() {
+    fetchSize() {
+        let promiseArr = [];
+        let offset = 0;
+        let iterator
+        let queryType = 'size';
+        
+        return new Promise((resolve, reject) => {
+
+                this.dispatchSetTreeSizeDataLoading(true);
+                this.fetched = [];
+
+                this.countTreesSize()
+                .then(data => {
+                    iterator = Math.ceil(data / this.limit);
+                    
+                    for (let index = 0; index < iterator; index++) {
+                        const offset = index == 0 ? 0 : index * this.limit;
+                        promiseArr.push(this.collectTreesSize(offset, this.limit, queryType))
+                    }
+                    
+                    Promise.all(promiseArr).then(data => {
+                        this.fetched = this.fetched.flat();
+                        this.dispatchSetWateredTreeDataUpdated(false);
+                        this.dispatchSetTreeAgeDataUpdated(false);
+                        this.dispatchSetTreeTypeDataUpdated(false);
+                        this.dispatchSetTreeSizeDataUpdated(true);
+
+                        this.dispatchSetTreeSizeDataLoading(false);
+                        this.dispatchSetTreeSizeData(this.fetched);
+                        this.createIncludedTreesObjSize(this.fetched);
+                    }).catch(err => {
+                        console.log(err)
+                    });
+
+                }).catch(reject);
+        });
+    }
+
+    fetchAge() {
         let promiseArr = [];
         let offset = 0;
         let iterator
@@ -232,49 +325,13 @@ class Sidebar extends React.Component {
                 this.dispatchSetTreeAgeDataLoading(true);
                 this.fetched = [];
 
-                this.collectCountTrees()
+                this.countTreesAge()
                 .then(data => {
                     iterator = Math.ceil(data / this.limit);
                     
                     for (let index = 0; index < iterator; index++) {
                         const offset = index == 0 ? 0 : index * this.limit;
-                        promiseArr.push(this.collectTrees(offset, this.limit))
-                    }
-                    
-                    Promise.all(promiseArr).then(data => {
-                        this.fetched = this.fetched.flat();
-
-                        this.dispatchSetWateredTreeDataUpdated(false);
-                        this.dispatchSetTreeAgeDataUpdated(true);
-                        this.dispatchSetTreeAgeDataLoading(false);
-                        this.dispatchSetTreeAgeData(this.fetched);
-                        this.createIncludedTreesObj(this.fetched);
-
-                    }).catch(err => {
-                        console.log(err)
-                    });
-
-                }).catch(reject);
-        });
-    }
-
-    addToGroups() {
-        let promiseArr = [];
-        let offset = 0;
-        let iterator
-        
-        return new Promise((resolve, reject) => {
-
-                this.dispatchSetTreeAgeDataLoading(true);
-                this.fetched = [];
-
-                this.collectCountTrees()
-                .then(data => {
-                    iterator = Math.ceil(data / this.limit);
-                    
-                    for (let index = 0; index < iterator; index++) {
-                        const offset = index == 0 ? 0 : index * this.limit;
-                        promiseArr.push(this.collectTrees(offset, this.limit))
+                        promiseArr.push(this.collectTrees(offset, this.limit, 'age'))
                     }
                     
                     Promise.all(promiseArr).then(data => {
@@ -290,57 +347,6 @@ class Sidebar extends React.Component {
 
                 }).catch(reject);
         });
-    }
-
-    getTreesByAgeLimited() {
-        const arr = [this.state.min, this.state.max];
-        const query = `?start=${arr[0]}&end=${arr[1]}&skip=${this.state.skip}&limit=${this.state.limit}`;
-        const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/age/limited";
-        const url = `${remote}${query}`;
-
-        this.dispatchSetTreeAgeDataLoading(true);
-
-        return axios.get(url)
-        .then(res => {
-            console.log(res.data);
-            this.dispatchSetWateredTreeDataUpdated(false);
-            this.dispatchSetTreeAgeDataUpdated(true);
-            this.dispatchSetTreeAgeDataLoading(false);
-            this.dispatchSetTreeAgeData(res.data);
-            this.createIncludedTreesObj(res.data);
-
-            this.setSkip(this.state.skip + this.state.limit);
-            
-            return this.getTreesByAgeLimited()
-            })
-            .catch(err => {
-                return 
-                console.log(err);
-        })
-    }
-
-    getTreesByAge() {
-        const arr = [this.state.min, this.state.max];
-        const query = `?start=${arr[0]}&end=${arr[1]}`;
-        const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/age";
-        const url = `${remote}${query}`;
-        
-        console.log('querying', url, this.state);
-
-        this.dispatchSetTreeAgeDataLoading(true);
-        
-        axios.get(url)
-        .then(res => {
-            console.log(res.data);
-            this.dispatchSetWateredTreeDataUpdated(false);
-            this.dispatchSetTreeAgeDataUpdated(true);
-            this.dispatchSetTreeAgeDataLoading(false);
-            this.dispatchSetTreeAgeData(res.data);
-            this.createIncludedTreesObj(res.data);
-            })
-            .catch(err => {
-            console.log(err);
-        })
     }
 
     handleChange(event) {
@@ -362,12 +368,12 @@ class Sidebar extends React.Component {
                             // onAfterChange={this.setRange}
                             defaultValue={[this.state.min,this.state.max]}
                         />
-                        <ButtonWaterSpan onClick={this.addToGroups}>Filter</ButtonWaterSpan>
+                        <ButtonWaterSpan onClick={this.fetchAge}>Filter</ButtonWaterSpan>
                     </FlexRowDiv>
                     <TreesCountSpan>{treesCount}</TreesCountSpan>
                 </FilterAgeDiv>
             )
-        } else if (this.props.treeAgeDataLoading) {
+        } else if (this.props.treeSizeDataLoading) {
             return (
                 <FilterAgeDiv>
                     Zähle Bäume ...
@@ -377,7 +383,7 @@ class Sidebar extends React.Component {
     }
 
     heightRange() {
-        const treesCount = this.props.treeAgeData != undefined ? `${this.props.treeAgeData.length} Bäume` : 'Keine Bäume Ausgewählt'
+        const treesCount = this.props.treeSizeData != undefined ? `${this.props.treeSizeData.length} Bäume` : 'Keine Bäume Ausgewählt'
         if (!this.props.treeAgeDataLoading) {
             return (
                 <FilterAgeDiv>
@@ -391,7 +397,7 @@ class Sidebar extends React.Component {
                             // onAfterChange={this.setRange}
                             defaultValue={[this.state.minHeight,this.state.maxHeight]}
                         />
-                        <ButtonWaterSpan onClick={this.addToGroups}>Filter</ButtonWaterSpan>
+                        <ButtonWaterSpan onClick={this.fetchSize}>Filter</ButtonWaterSpan>
                     </FlexRowDiv>
                     <TreesCountSpan>{treesCount}</TreesCountSpan>
                     {/* <br></br>

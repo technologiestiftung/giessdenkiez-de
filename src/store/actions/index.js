@@ -17,6 +17,9 @@ import {
     SET_TREE_TYPE_DATA,
     SET_TREE_TYPE_DATA_LOADING,
     SET_TREE_TYPE_DATA_UPDATED,
+    SET_TREE_SIZE_DATA,
+    SET_TREE_SIZE_DATA_LOADING,
+    SET_TREE_SIZE_DATA_UPDATED,
     SET_TYPE_COLORS
 } from "../constants/action-types";
 
@@ -90,6 +93,18 @@ export function setTreeTypeDataLoading(payload) {
 
 export function setTreeTypeDataUpdated(payload) {
     return { type: SET_TREE_TYPE_DATA_UPDATED, payload };
+}
+
+export function setTreeSizeData(payload) {
+    return { type: SET_TREE_SIZE_DATA, payload };
+}
+
+export function setTreeSizeDataLoading(payload) {
+    return { type: SET_TREE_SIZE_DATA_LOADING, payload };
+}
+
+export function setTreeSizeDataUpdated(payload) {
+    return { type: SET_TREE_SIZE_DATA_UPDATED, payload };
 }
 
 export function setTypeColors(payload) {
