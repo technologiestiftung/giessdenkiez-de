@@ -4,6 +4,7 @@ import {render} from 'react-dom';
 import {StaticMap} from 'react-map-gl';
 import axios from 'axios';
 import DeckGL, {GeoJsonLayer} from 'deck.gl';
+import { HexagonLayer } from '@deck.gl/aggregation-layers';
 
 import { setDataLoaded, setSelectedTreeData, setSelectedTreeDataLoading, setSidebar, setDataIncluded } from '../../store/actions/index';
 
@@ -60,6 +61,29 @@ class DeckGLMap extends React.Component {
 
     _renderLayers() {
         const {data = this.state.data} = this.props;
+
+        var COLOR_RANGE = [
+            [1, 152, 189],
+            [73, 227, 206],
+            [216, 254, 181],
+            [254, 237, 177],
+            [254, 173, 84],
+            [209, 55, 78]
+        ]
+
+        const features = data.features;
+        const hexagon = new HexagonLayer({
+            id: 'hexagon-layer',
+            data: features,
+            pickable: true,
+            extruded: true,
+            colorRange: COLOR_RANGE,
+            elevationRange: [0, 1000],
+            radius: 20,
+            elevationScale: 2,
+            getPosition: d => { return d.geometry.coordinates},
+            // getElevationValue: d => { return 10000 }
+        })
     
         if (data != null) {
           

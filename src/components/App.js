@@ -8,6 +8,9 @@ import DeckGlMap from './map/index.js';
 import Sidebar from './Sidebar/index.js';
 
 import svg from '../assets/citylab-logo.svg';
+// import svg from '../../assets/citylab-logo.svg';
+
+console.log(svg);
 
 const mapStateToProps = state => {
     return { 

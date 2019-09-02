@@ -36,21 +36,21 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: 'url-loader'
+              test: /\.(png|woff|woff2|eot|ttf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+              loader: 'url-loader'
             },
-            {
-                test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-                use: [
-                  {
-                    loader: 'file-loader',
-                    options: {
-                      name: '[name].[ext]',
-                      outputPath: 'fonts/'
-                    }
-                  }
-                ]
-            },
+            // {
+            //     test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+            //     use: [
+            //       {
+            //         loader: 'file-loader',
+            //         options: {
+            //           name: '[name].[ext]',
+            //           outputPath: 'fonts/'
+            //         }
+            //       }
+            //     ]
+            // },
             {
                 test: /\.(svg|jpg)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [
