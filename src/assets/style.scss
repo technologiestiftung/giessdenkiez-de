@@ -39,6 +39,10 @@
 @import 'slider.css';
 @import 'tags.scss';
 
+body {
+    color: rgb(44,48,59);
+}
+
 .treeState {
     border: 2px solid #37DE8A;
     color: #37DE8A;

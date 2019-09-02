@@ -7,10 +7,9 @@ import axios from 'axios';
 import DeckGlMap from './map/index.js';
 import Sidebar from './Sidebar/index.js';
 
-import svg from '../assets/citylab-logo.svg';
-// import svg from '../../assets/citylab-logo.svg';
+import Loading from './Loading/index.js';
 
-console.log(svg);
+import svg from '../assets/citylab-logo.svg';
 
 const mapStateToProps = state => {
     return { 
@@ -18,7 +17,7 @@ const mapStateToProps = state => {
         wateredTreesFetched: state.wateredTreesFetched,
         dataLoaded: state.dataLoaded,
     };
-};
+    };
 
 const AppWrapperDiv = styled.div`
     font-family: ${props => props.theme.fontFamily};
@@ -116,11 +115,14 @@ class AppContainer extends React.Component {
         return (
             <ThemeProvider theme={theme}>
                 <AppWrapperDiv>
-                    {this.TSBLink()}
-                    <Sidebar 
-                        selectedTree={this.props.selectedTree}
-                    />
-                    <DeckGlMap/>
+                    <Loading show={this.props.dataLoaded && this.props.wateredTreesFetched}/>
+                    <div>
+                        {this.TSBLink()}
+                        <Sidebar 
+                            selectedTree={this.props.selectedTree}
+                        />
+                        <DeckGlMap/>
+                    </div>
                 </AppWrapperDiv>
             </ThemeProvider>
         ) 
