@@ -21,6 +21,7 @@ import {
     SET_TREE_SIZE_DATA,
     SET_TREE_SIZE_DATA_LOADING,
     SET_TREE_SIZE_DATA_UPDATED,
+    SET_COLORS_SHUFFLED,
 } from "../constants/action-types";
 
 const initialState = {
@@ -46,6 +47,7 @@ const initialState = {
   treeSizeData: null,
   treeSizeDataUpdated: false,
   treeSizeDataLoading: false,
+  colorsShuffled: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -138,6 +140,10 @@ function rootReducer(state = initialState, action) {
 
     if (action.type === SET_TYPE_COLORS) {
         return {...state, typeColors: action.payload }
+    }
+
+    if (action.type === SET_COLORS_SHUFFLED) {
+        return {...state, colorsShuffled: action.payload }
     }
     
     return state;

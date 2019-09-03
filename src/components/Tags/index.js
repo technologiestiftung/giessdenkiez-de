@@ -20,7 +20,7 @@ const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 const typesJson = require('../../../data/types.json');
 
-import { setWateredTreeDataUpdated, setTypeColors, setActiveTreeTypes,  setTreeTypeDataLoading, setTreeTypeData, setTreeTypeDataUpdated,  setTreeAgeDataUpdated, setDataIncluded } from '../../store/actions/index';
+import { setColorsShuffled, setWateredTreeDataUpdated, setTypeColors, setActiveTreeTypes,  setTreeTypeDataLoading, setTreeTypeData, setTreeTypeDataUpdated,  setTreeAgeDataUpdated, setDataIncluded } from '../../store/actions/index';
 
 const mapStateToProps = state => {
     return { 
@@ -28,6 +28,7 @@ const mapStateToProps = state => {
         treeTypeDataLoading: state.treeTypeDataLoading,
         typeColors: state.typeColors,
         wateredTreeDataUpdated: state.wateredTreeDataUpdated,
+        colorsShuffled: state.colorsShuffled
     };
 };
 
@@ -98,9 +99,12 @@ class Tags extends React.Component {
             arr.push({ id: type, text: type.toLowerCase(), identifier: `identifier-${i}` })
         })
 
-        this.setTypeColors();
+        if (!this.props.colorsShuffled) {
+            this.setTypeColors();
+        }
 
-        this.setState( { suggestions: arr, tags: arr.slice(49, 53) } );
+
+        this.setState( { suggestions: arr, tags: arr.slice(10, 16) } );
     }
 
     componentDidMount() {
@@ -181,6 +185,10 @@ class Tags extends React.Component {
 
     dispatchSetTreeTypeDataUpdated(data) {
         this.props.dispatch(setTreeTypeDataUpdated(data))
+    }
+
+    dispatchSetColorsShuffled(state) {
+        this.props.dispatch(setColorsShuffled(state))
     }
 
 
@@ -277,7 +285,6 @@ class Tags extends React.Component {
     setTypeColors() {
         const numTags = typesJson.types.length;
         const v = (1 / numTags);
-
         
         const colorDict = {};
 
@@ -305,6 +312,7 @@ class Tags extends React.Component {
         });
         
         this.dispatchSetTypeColors(colorDict);
+        this.dispatchSetColorsShuffled(true);
 
         return colorDict;
     }

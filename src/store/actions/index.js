@@ -20,7 +20,8 @@ import {
     SET_TREE_SIZE_DATA,
     SET_TREE_SIZE_DATA_LOADING,
     SET_TREE_SIZE_DATA_UPDATED,
-    SET_TYPE_COLORS
+    SET_TYPE_COLORS,
+    SET_COLORS_SHUFFLED
 } from "../constants/action-types";
 
 export function addArticle(payload) {
@@ -109,4 +110,8 @@ export function setTreeSizeDataUpdated(payload) {
 
 export function setTypeColors(payload) {
     return { type: SET_TYPE_COLORS, payload };
+}
+
+export function setColorsShuffled(payload) {
+    return { type: SET_COLORS_SHUFFLED, payload };
 }
