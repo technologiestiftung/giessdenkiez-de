@@ -9,7 +9,7 @@ import Sidebar from './Sidebar/index.js';
 
 import Loading from './Loading/index.js';
 
-import svg from '../assets/citylab-logo.svg';
+import png from '../assets/citylab-logo.png';
 
 const mapStateToProps = state => {
     return { 
@@ -104,8 +104,8 @@ class AppContainer extends React.Component {
     TSBLink() {
         if (this.props.dataLoaded && this.props.wateredTreesFetched) {
             return <TsbLinkDiv className="link">
-                <a href="https://technologiestiftung-berlin.de">
-                    <LogoImg src={svg}></LogoImg>
+                <a href="https://citylab-berlin.org">
+                    <LogoImg src={png}></LogoImg>
                 </a>
             </TsbLinkDiv>;
         }
