@@ -39,18 +39,18 @@ module.exports = {
               test: /\.(svg|png|woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
               loader: 'url-loader'
             },
-            // {
-            //     test: /\.(svg)(\?v=\d+\.\d+\.\d+)?$/,
-            //     use: [
-            //       {
-            //         loader: 'file-loader',
-            //         options: {
-            //           name: '[name].[ext]',
-            //           outputPath: 'assets/'
-            //         }
-            //       }
-            //     ]
-            // },
+            {
+                test: /\.(ico)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      name: '[name].[ext]',
+                      outputPath: '/'
+                    }
+                  }
+                ]
+            },
             {
                 test: /\.(svg|jpg)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [
