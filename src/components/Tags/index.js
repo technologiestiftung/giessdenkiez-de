@@ -63,7 +63,7 @@ const TagsDiv = styled.div`
     z-index: 3;
     height: auto;
     margin-top: 10px;
-    padding: 13px 18px;
+    padding: ${props => props.theme.spacingM};
     width: ${props => props.theme.sidebarTileWidth};
     border-radius: ${props => props.theme.borderRadiusS};
     margin-bottom: 10px;

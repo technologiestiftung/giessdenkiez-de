@@ -49,6 +49,7 @@ const SidebarDiv = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    border-left: 1px solid ${props => props.theme.colorGreyVeryLight};
 `
 const IntroDiv = styled.div`
     display: flex;
