@@ -16,8 +16,9 @@ const SelectedTreeDiv = styled.div`
     margin-top: 10px;
     width: ${props => props.theme.sidebarTileWidth};
     padding: ${props => props.theme.spacingM};
-    border: 2px solid ${props => props.theme.colorGreyLight};
-    border-radius: ${props => props.theme.borderRadiusM};
+    border-radius: ${props => props.theme.borderRadiusS};
+    background: white;
+    box-shadow: 0px 2px 3px 0px rgba(44,48,59,0.1);
 `
 
 const TreeTitle = styled.h2`
@@ -121,7 +122,7 @@ class SelectedTree extends React.Component {
         if (this.props.selectedTreeDataLoading) {
             return (
                 <SelectedTreeDiv>
-                    Lade Informationen zum Baum.
+                    <span className="pulsing">Lade Informationen zum Baum.</span>
                 </SelectedTreeDiv>
             )
         } else if (!this.props.selectedTreeData) {

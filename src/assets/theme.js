@@ -1,7 +1,7 @@
 const theme = {
     colorPrimary: '#37DE8A',
     colorPrimaryHover: '#B5F2D0',
-    colorGreyVeryLight: '#F8F8F8',
+    colorGreyVeryLight: '#F3F3F4',
     colorGreyLight: '#E6E6E6',
     colorTextDark: 'rgb(44, 48, 59)',
     colorTextLight: 'rgb(94, 101, 115);',

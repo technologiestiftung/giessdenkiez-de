@@ -63,11 +63,12 @@ const TagsDiv = styled.div`
     z-index: 3;
     height: auto;
     margin-top: 10px;
-    padding: ${props => props.theme.spacingM};
+    padding: 13px 18px;
     width: ${props => props.theme.sidebarTileWidth};
-    border: 2px solid ${props => props.theme.colorGreyLight};
-    border-radius: ${props => props.theme.borderRadiusM};
+    border-radius: ${props => props.theme.borderRadiusS};
     margin-bottom: 10px;
+    background: white;
+    box-shadow: 0px 2px 3px 0px rgba(44,48,59,0.1);
 `;
 
 class Tags extends React.Component {

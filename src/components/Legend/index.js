@@ -17,9 +17,10 @@ const LegendDiv = styled.div`
     height: auto;
     padding: ${props => props.theme.spacingM};
     width: ${props => props.theme.sidebarTileWidth};
-    border: 2px solid ${props => props.theme.colorGreyLight};
-    border-radius: ${props => props.theme.borderRadiusM};
+    border-radius: ${props => props.theme.borderRadiusS};
     margin-bottom: 20px;
+    background: white;
+    box-shadow: 0px 2px 3px 0px rgba(44,48,59,0.1);
 
     div { 
         display: flex;
