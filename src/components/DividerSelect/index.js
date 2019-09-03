@@ -13,34 +13,28 @@ const DivWrapper = styled.div`
 `;
 
 const ButtonSelect = styled.span`
-    border-radius: 0px;
-    border-top: 2px solid ${props => props.theme.colorGreyLight};
-    border-bottom: 2px solid ${props => props.theme.colorGreyLight};
     font-size: ${props => props.theme.fontSizeXL} !important;
     padding: 6px;
-    width: 93px;
+    width: 90px;
     padding-top: 6px;
     padding-bottom: 6px;
     cursor: pointer;
     text-align: center;
+    border-radius: 6px;
+    transition: opacity ${props => props.theme.timeS}
 
     &:nth-of-type(2) {
-        border-right: 2px solid ${props => props.theme.colorGreyLight};
+        margin: 0 9px;
     }
 
-    &:first-of-type {
-        border-radius: 12px 0 0 12px
-        border-left: 2px solid ${props => props.theme.colorGreyLight};
-        border-right: 2px solid ${props => props.theme.colorGreyLight};
-    }
-
-    &:last-of-type {
-        border-radius: 0px 12px 12px 0px
-        border-right: 2px solid ${props => props.theme.colorGreyLight};
+    &:hover {
+        background: ${props => props.theme.colorPrimaryHover};
+        transition: background ${props => props.theme.timeS}
     }
 
     &.active {
-        background: ${props => props.theme.colorGreyLight};
+        background: ${props => props.theme.colorPrimary};
+        transition: background ${props => props.theme.timeS}
     }
 `;
 

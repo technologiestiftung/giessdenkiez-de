@@ -62,3 +62,7 @@ body {
         color: #FF8484;
     }
 }
+
+span.pulsing {
+    animation: pulse .75s infinite ease-in-out;
+}

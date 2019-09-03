@@ -97,6 +97,7 @@ const mapStateToProps = state => {
     return { 
         wateredTrees: state.wateredTrees,
         wateredTreesFetched: state.wateredTreesFetched,
+        wateredTreeDataUpdated: state.wateredTreeDataUpdated,
         selectedTreeDataLoading: state.selectedTreeDataLoading,
         treeAgeDataLoading: state.treeAgeDataLoading,
         treeAgeData: state.treeAgeData,
@@ -327,6 +328,7 @@ class Sidebar extends React.Component {
                         this.dispatchSetTreeAgeDataUpdated(false);
                         this.dispatchSetTreeTypeDataUpdated(false);
                         this.dispatchSetTreeSizeDataUpdated(true);
+                        this.dispatchSetTreeAgeDataLoading(false);
 
                         this.dispatchSetTreeAgeData(this.fetched);
                         this.createIncludedTreesObj(this.fetched);
@@ -362,10 +364,10 @@ class Sidebar extends React.Component {
                     <TreesCountSpan>{treesCount}</TreesCountSpan>
                 </FilterAgeDiv>
             )
-        } else if (this.props.treeSizeDataLoading) {
+        } else if (this.props.treeAgeDataLoading) {
             return (
                 <FilterAgeDiv>
-                    Zähle Bäume ...
+                    <span className="pulsing">Zähle Bäume ...</span>
                 </FilterAgeDiv>
             )
         }
@@ -373,7 +375,7 @@ class Sidebar extends React.Component {
 
     heightRange() {
         const treesCount = this.props.treeSizeData != undefined ? `${this.props.treeSizeData.length} Bäume` : 'Keine Bäume Ausgewählt'
-        if (!this.props.treeAgeDataLoading) {
+        if (!this.props.treeSizeDataLoading) {
             return (
                 <FilterAgeDiv>
                     <TileHeadline>Baumhöhe: {this.state.minHeight}-{this.state.maxHeight} meter</TileHeadline>
@@ -405,10 +407,10 @@ class Sidebar extends React.Component {
                     <TreesCountSpan>{treesCount}</TreesCountSpan> */}
                 </FilterAgeDiv>
             )
-        } else if (this.props.treeAgeDataLoading) {
+        } else if (this.props.treeSizeDataLoading) {
             return (
                 <FilterAgeDiv>
-                    Zähle Bäume ...
+                    <span className="pulsing">Zähle Bäume ...</span>
                 </FilterAgeDiv>
             )
         }
@@ -423,7 +425,7 @@ class Sidebar extends React.Component {
                         {this.ageRange()}
                         <SelectedTree></SelectedTree>
                     </div>
-                    <Legend/>
+                    { this.props.wateredTreeDataUpdated ? <Legend/> : null }
                 </SidebarDiv>
             )
         } else if (this.props.tabActive == 'id-1') {
@@ -434,7 +436,7 @@ class Sidebar extends React.Component {
                         <Tags/>
                         <SelectedTree></SelectedTree>
                     </div>
-                    <Legend/>
+                    { this.props.wateredTreeDataUpdated ? <Legend/> : null }
                 </SidebarDiv>
             )
         } else if (this.props.tabActive == 'id-2') {
@@ -445,7 +447,7 @@ class Sidebar extends React.Component {
                         {this.heightRange()}
                         <SelectedTree></SelectedTree>
                     </div>
-                    <Legend/>
+                    { this.props.wateredTreeDataUpdated ? <Legend/> : null }
                 </SidebarDiv>
             )
         }

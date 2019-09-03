@@ -386,7 +386,9 @@ class Tags extends React.Component {
 
         if (this.props.treeTypeDataLoading) {
             return (
-                <TagsDiv>Zähle Bäume ...</TagsDiv>
+                <TagsDiv>
+                    <span className="pulsing">Zähle Bäume ...</span>
+                </TagsDiv>
             )
         } else if (!this.props.treeTypeDataLoading) {
             return (
