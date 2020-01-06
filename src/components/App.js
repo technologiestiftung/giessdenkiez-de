@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import styled, { ThemeProvider } from 'styled-components';
 import theme from '../assets/theme';
-import axios from 'axios';
+// import axios from 'axios';
 
 import DeckGlMap from './map/index.js';
 import Sidebar from './Sidebar/index.js';
@@ -11,122 +11,89 @@ import Loading from './Loading/index.js';
 
 import png from '../assets/citylab-logo.png';
 
-const mapStateToProps = state => {
-    return { 
-        selectedTree: state.selectedTree,
-        wateredTreesFetched: state.wateredTreesFetched,
-        dataLoaded: state.dataLoaded,
-    };
-    };
+import { connect } from 'unistore/react';
+import Store from '../state/Store';
+
+import Actions from '../state/Actions';
 
 const AppWrapperDiv = styled.div`
-    font-family: ${props => props.theme.fontFamily};
+  font-family: ${props => props.theme.fontFamily};
 `;
 
 const TsbLinkDiv = styled.div`
-    position: absolute;
-    z-index: 1;
-    top: 30px;
-    left: 30px;
+  position: absolute;
+  z-index: 1;
+  top: 30px;
+  left: 30px;
 
-    a {
-        display: flex;
-        flex-direction: column;
-        text-decoration: none;
-        color: black;
-        font-weight: bold;
-    }
+  a {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+  }
 `;
 
 const LogoImg = styled.img`
-    margin-top: 10px;
-    width: 160px;
+  margin-top: 10px;
+  width: 160px;
 `;
-
-import { setWateredTrees, setWateredTreesFetched, setDataIncluded } from '../store/actions/index.js';
 
 import "../assets/style.scss";
 
 class AppContainer extends React.Component {
-    
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-        }
+  constructor(props) {
+      super(props);
+  }
 
-        this.getWateredTrees = this.getWateredTrees.bind(this);
+  componentDidMount() {
+      const { setWateredTrees } = this.props;
+      setWateredTrees()
+  }
+
+  componentDidUpdate() {
+    const { wateredTrees, includedTrees, setWateredTreesFetched } = this.props;
+    const { status, data } = wateredTrees.datum;
+
+    if (status === 'SUCCESS' && includedTrees) {
+      setWateredTreesFetched(true);
     }
+  }
 
-    dispatchSetWateredTrees(val) {
-        this.props.dispatch(setWateredTrees(val));
-    }
+  TSBLink() {
+      if (this.props.dataLoaded && this.props.wateredTreesFetched) {
+          return <TsbLinkDiv className="link">
+              <a href="https://citylab-berlin.org">
+                  <LogoImg src={png}></LogoImg>
+              </a>
+          </TsbLinkDiv>;
+      }
+  }
 
-    dispatchSetWateredTreesFetched(val) {
-        this.props.dispatch(setWateredTreesFetched(val));
-    }
-
-    getWateredTrees() {
-        const url = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
-        
-        axios.get(url)
-        .then(res => {
-                let watered = [];
-                res.data.forEach(tree => {
-                    watered.push(tree['_id']);
-                })
-                this.dispatchSetWateredTrees(watered);
-                this.createIncludedTreesObj(watered);
-            })
-            .catch(err => {
-                console.log(err);
-        })
-    }
-
-    dispatchSetDataIncluded(data) {
-        this.props.dispatch(setDataIncluded(data))
-        this.dispatchSetWateredTreesFetched(true);
-    }
-
-    createIncludedTreesObj(arr) {
-        let obj = {};
-        arr.forEach(id => {
-            obj[id] = { included: true};
-        })
-
-        this.dispatchSetDataIncluded(obj);
-    }
-
-    componentDidMount() {
-        this.getWateredTrees();
-    }
-
-    TSBLink() {
-        if (this.props.dataLoaded && this.props.wateredTreesFetched) {
-            return <TsbLinkDiv className="link">
-                <a href="https://citylab-berlin.org">
-                    <LogoImg src={png}></LogoImg>
-                </a>
-            </TsbLinkDiv>;
-        }
-    }
-
-    render() {
-        return (
-            <ThemeProvider theme={theme}>
-                <AppWrapperDiv>
-                    <Loading show={this.props.dataLoaded && this.props.wateredTreesFetched}/>
-                    <div>
-                        {this.TSBLink()}
-                        <Sidebar 
-                            selectedTree={this.props.selectedTree}
-                        />
-                        <DeckGlMap/>
-                    </div>
-                </AppWrapperDiv>
-            </ThemeProvider>
-        ) 
-    }
+  render() {
+    const { wateredTrees } = this.props;
+    return (
+      <ThemeProvider theme={theme}>
+          <AppWrapperDiv>
+              <Loading show={this.props.dataLoaded && this.props.wateredTreesFetched}/>
+              <div>
+                  {this.TSBLink()}
+                  {<DeckGlMap/>}
+                  {/* <Sidebar
+                      selectedTree={this.props.selectedTree}
+                  />
+                  <DeckGlMap/> */}
+              </div>
+          </AppWrapperDiv>
+      </ThemeProvider>
+    )
+  }
 }
 
-export default connect(mapStateToProps)(AppContainer);
+export default connect(state => ({
+  wateredTrees: state.wateredTrees,
+  includedTrees: state.includedTrees,
+  wateredTreesFetched: state.wateredTreesFetched,
+  dataLoaded: state.dataLoaded
+}), Actions)(AppContainer);

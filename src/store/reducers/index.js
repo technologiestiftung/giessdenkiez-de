@@ -145,7 +145,7 @@ function rootReducer(state = initialState, action) {
     if (action.type === SET_COLORS_SHUFFLED) {
         return {...state, colorsShuffled: action.payload }
     }
-    
+
     return state;
 }
 

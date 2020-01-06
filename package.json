@@ -36,6 +36,7 @@
     "deck.gl": "^7.1.10",
     "dotenv": "^8.0.0",
     "dotenv-webpack": "^1.7.0",
+    "lodash": "^4.17.15",
     "rc-slider": "^8.6.13",
     "react": "^16.8.6",
     "react-dnd": "^5.0.0",
@@ -43,6 +44,8 @@
     "react-dom": "^16.8.6",
     "react-map-gl": "^5.0.7",
     "react-tag-input": "^6.4.0",
-    "styled-components": "^4.3.2"
+    "reselect": "^4.0.0",
+    "styled-components": "^4.3.2",
+    "unistore": "^3.5.1"
   }
 }

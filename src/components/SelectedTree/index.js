@@ -19,7 +19,6 @@ const FilterLoadingDiv = styled.div`
     border-radius: ${props => props.theme.borderRadiusS};
     margin-bottom: 10px;
     background: white;
-    box-shadow: 0px 2px 3px 0px rgba(44,48,59,0.1);
 `
 
 const Spinner = styled.div`
@@ -40,7 +39,7 @@ const Spinner = styled.div`
         position: absolute;
         top: 0;
         left: 0;
-        
+
         -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
         animation: sk-bounce 2.0s infinite ease-in-out;
     }
@@ -155,19 +154,18 @@ class SelectedTree extends React.Component {
     convertTime(unix_timestamp) {
         var ms = Number(unix_timestamp);
         var date = new Date(ms);
-        
+
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         var year = date.getFullYear();
         var month = months[date.getMonth()];
         var day = date.getDate();
-        
-        
+
         var hours = date.getHours();
         // Minutes part from the timestamp
         var minutes = date.getMinutes();
         // Seconds part from the timestamp
         var seconds = "0" + date.getSeconds();
-        
+
         var min = String(minutes).length == 2 ? minutes : `0${minutes}`;
         console.log(minutes);
 
@@ -256,8 +254,7 @@ class SelectedTree extends React.Component {
             })
 
             const kroneDurch = this.props.selectedTreeData.properties['KRONEDURCH']
-            
-            
+
             const pflanzJahr = String(this.props.selectedTreeData.properties['PFLANZJAHR']);
             const standalter = String(this.props.selectedTreeData.properties['STANDALTER']).length == 0 ? '' : ` (${this.props.selectedTreeData.properties['STANDALTER']} Jahre)`;
 
@@ -300,7 +297,6 @@ class SelectedTree extends React.Component {
                 </SelectedTreeDiv>
             )
         }
-        
     }
 
 }

@@ -2,27 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './src/Root';
 
-import { Provider } from "react-redux";
-import store from './src/store/index.js';
-
-import { 
-    select as d3Select,
-} from 'd3';
-
-// import FormContainer from "./js/components/container/FormContainer.jsx";
-
-// import { setTime } from './store/actions/index.js';
-
-// window.store = store;
-// window.setTime = setTime;
+import { Provider } from 'unistore/react';
+import Store from './src/state/Store';
 
 function startApp() {
     const rootElement = document.getElementById('app');
-    
+
     function renderApp(RootComponent) {
         ReactDOM.render(
-            <Provider store={store}>
-                <RootComponent/>    
+            <Provider store={Store}>
+                <RootComponent/>
             </Provider>
             ,rootElement);
     }

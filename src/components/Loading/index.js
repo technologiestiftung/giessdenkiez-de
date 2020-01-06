@@ -48,7 +48,7 @@ const Spinner = styled.div`
         position: absolute;
         top: 0;
         left: 0;
-        
+
         -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
         animation: sk-bounce 2.0s infinite ease-in-out;
     }

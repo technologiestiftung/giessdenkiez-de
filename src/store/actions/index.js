@@ -48,10 +48,6 @@ export function setWateringTree(payload) {
     return { type: SET_WATERING_TREE, payload };
 }
 
-export function setWateredTreesFetched(payload) {
-    return { type: SET_WATERED_TREES_FETCHED, payload };
-}
-
 export function setDataLoaded(payload) {
     return { type: SET_DATA_LOADED, payload };
 }

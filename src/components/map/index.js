@@ -1,34 +1,21 @@
 import React, {Component} from 'react';
-import { connect } from "react-redux";
+import { connect } from "unistore/react";
 import {render} from 'react-dom';
 import {StaticMap} from 'react-map-gl';
 import axios from 'axios';
 import DeckGL, {GeoJsonLayer} from 'deck.gl';
 import { HexagonLayer } from '@deck.gl/aggregation-layers';
+import { includedTreesSelector, wateredTreesLoadedSelector } from '../../state/Selectors';
+import Actions from '../../state/Actions';
+import Store from '../../state/Store';
 
 import { setDataLoaded, setSelectedTreeData, setSelectedTreeDataLoading, setSidebar, setDataIncluded } from '../../store/actions/index';
 
-import { 
+import {
     dsv as d3Dsv,
 } from 'd3';
 
 const MAPBOX_TOKEN = process.env.API_KEY;
-
-const mapStateToProps = state => {
-    return { 
-        wateredTrees: state.wateredTrees,
-        wateredTreesFetched: state.wateredTreesFetched,
-        selectedTreeDataLoading: state.selectedTreeDataLoading,
-        dataLoaded: state.dataLoaded,
-        treeAgeData: state.treeAgeData,
-        treeAgeDataUpdated: state.treeAgeDataUpdated,
-        wateredTreeDataUpdated: state.wateredTreeDataUpdated,
-        dataIncluded: state.dataIncluded,
-        treeTypeDataUpdated: state.treeTypeDataUpdated,
-        treeSizeDataUpdated: state.treeSizeDataUpdated,
-        typeColors: state.typeColors
-    };
-};
 
 export const INITIAL_VIEW_STATE = {
     latitude: 52.500869,
@@ -44,7 +31,9 @@ class DeckGLMap extends React.Component {
 
     constructor(props) {
         super(props);
-    
+
+        this.bool = true;
+
         this.state = {
           highlightedObject: 0,
           hoveredObject: null,
@@ -55,7 +44,7 @@ class DeckGLMap extends React.Component {
         this._onClick = this._onClick.bind(this);
         this._renderTooltip = this._renderTooltip.bind(this);
         this._createGeojson = this._createGeojson.bind(this);
-        this._requestDb = this._requestDb.bind(this);
+        // this._requestDb = this._requestDb.bind(this);
         this._getFillColor = this._getFillColor.bind(this);
     };
 
@@ -82,11 +71,12 @@ class DeckGLMap extends React.Component {
             radius: 20,
             elevationScale: 2,
             getPosition: d => { return d.geometry.coordinates},
-            // getElevationValue: d => { return 10000 }
         })
-    
+
         if (data != null) {
-          
+
+            const { includedTrees, wateredTreeDataUpdated } = this.props;
+
             return [
                 new GeoJsonLayer({
                     id: 'geojson',
@@ -106,18 +96,18 @@ class DeckGLMap extends React.Component {
                         getFillColor: 500,
                     },
                     getFillColor: (info) => {
-                        let included = this.props.dataIncluded[info.properties['id']] != undefined ? this.props.dataIncluded[info.properties['id']].included : false;
+                        let included = includedTrees[info.properties['id']] != undefined ? includedTrees[info.properties['id']].included : false;
 
-                        if (this.props.wateredTreeDataUpdated && this.state.highlightedObject == info.properties['id']) {
-                           return [150, 150, 150, 200] 
-                        } else if (this.props.wateredTreeDataUpdated && included) {
+                        if (wateredTreeDataUpdated && this.state.highlightedObject == info.properties['id']) {
+                           return [150, 150, 150, 200]
+                        } else if (wateredTreeDataUpdated && included) {
                             return [102, 245, 173, 200]
-                        } else if (this.props.wateredTreeDataUpdated && !included) {
+                        } else if (wateredTreeDataUpdated && !included) {
                             return [164, 181, 222, 150]
                         }
 
                         if (this.props.treeAgeDataUpdated && this.state.highlightedObject == info.properties['id']) {
-                            return [150, 150, 150, 200] 
+                            return [150, 150, 150, 200]
                         } else if (this.props.treeAgeDataUpdated && included) {
                             return [102, 245, 173, 255];
                         } else if (this.props.treeAgeDataUpdated && !included) {
@@ -125,16 +115,16 @@ class DeckGLMap extends React.Component {
                         }
 
                         if (this.props.treeTypeDataUpdated  && this.state.highlightedObject == info.properties['id']) {
-                            return [150, 150, 150, 200] 
+                            return [150, 150, 150, 200]
                         } else if (this.props.treeTypeDataUpdated && included) {
-                            let type = this.props.dataIncluded[info.properties['id']].type;
+                            let type = includedTrees[info.properties['id']].type;
                             return this.props.typeColors[type].color;
                         } else if (this.props.treeTypeDataUpdated && !included) {
                             return [0, 0, 255, 0];
                         }
 
                         if (this.props.treeSizeDataUpdated  && this.state.highlightedObject == info.properties['id']) {
-                            return [150, 150, 150, 200] 
+                            return [150, 150, 150, 200]
                         } else if (this.props.treeSizeDataUpdated && included) {
                             return [102, 245, 173, 255]
                         } else if (this.props.treeSizeDataUpdated && !included) {
@@ -150,7 +140,7 @@ class DeckGLMap extends React.Component {
                         }
                     },
                     updateTriggers: {
-                        getFillColor: [this.getWateredTrees, this.state.highlightedObject, this.props.dataIncluded]
+                        getFillColor: [this.getWateredTrees, this.state.highlightedObject, includedTrees]
                     }
                 })
             ];
@@ -170,7 +160,7 @@ class DeckGLMap extends React.Component {
             "type": "FeatureCollection",
             "features": []
         }
-    
+
         data.forEach(tree => {
             const feature = {
                 "type": "Feature",
@@ -182,21 +172,23 @@ class DeckGLMap extends React.Component {
                     "id": tree.id,
                 }
             }
-    
+
             geojson.features.push(feature);
         })
-    
+
         this.setState({data: geojson});
       };
 
     _onClick(x, y, object) {
-        this._requestDb(x, y, object);
+        // this._requestDb(x, y, object);
+        console.log(this.props)
+        this.props.requestDb(x, y, object);
     }
 
     _renderTooltip() {
         const {x, y, hoveredObject} = this.state;
         let data;
-    
+
         if (hoveredObject != null) {
           data = hoveredObject.data.properties;
           this.setState({ hoveredObject })
@@ -205,13 +197,11 @@ class DeckGLMap extends React.Component {
     }
 
     _onload(evt) {
-		
-		
 		const map = evt.target;
 		const insertBefore = map.getStyle();
 
 		const firstLabelLayerId = map.getStyle().layers.find(layer => layer.type === 'symbol').id;
-		
+
 		map.addLayer({
 			'id': '3d-buildings',
 			'source': 'composite',
@@ -220,7 +210,7 @@ class DeckGLMap extends React.Component {
 			'type': 'fill-extrusion',
 			'minzoom': 0,
 			'paint': {
-			'fill-extrusion-color': '#FFF',			 
+			'fill-extrusion-color': '#FFF',
 			'fill-extrusion-height': [
 			"interpolate", ["linear"], ["zoom"],
 			15, 0,
@@ -234,8 +224,18 @@ class DeckGLMap extends React.Component {
 			}, firstLabelLayerId);
 	}
 
-    
+    componentDidUpdate() {
+        const { wateredTrees, includedTrees, wateredTreesData } = this.props;
+        // const { status, data } = wateredTrees.datum;
+
+        // if (status === 'SUCCESS' && includedTrees) {
+        //     console.log(this.props)
+        // }
+        // console.log(this.props)
+    }
+
     componentDidMount() {
+        const { setDataLoaded } = this.props;
         const trees = require("../../../data/trees.csv");
         d3Dsv(",", trees, function(d) {
           return {
@@ -245,31 +245,32 @@ class DeckGLMap extends React.Component {
           };
       }).then( (data) => {
           this._createGeojson(data);
-          this.dispatchDataLoaded(true);
+          setDataLoaded(true);
+          console.log(data, 'heeeeeere');
       })
     }
 
-    _requestDb(x, y, obj) {
-        const id = obj.properties.id;
-        const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
-        const local = "http://localhost:3000/trees"
-        const url = `${remote}/${id}`;
+    // _requestDb(x, y, obj) {
+    //     const id = obj.properties.id;
+    //     const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
+    //     const local = "http://localhost:3000/trees"
+    //     const url = `${remote}/${id}`;
 
-        this.dispatchSetSelectedTreeDataLoading(true);
-        console.log('selected tree loading', this.props.selectedTreeDataLoading);
-        
-        axios.get(url)
-        .then(res => {
-            this.setState({x, y, hoveredObject: res});
-            this.dispatchSetSelectedTreeData(res);
-            this.dispatchSetSelectedTreeDataLoading(false);
-            console.log(this.props.selectedTreeDataLoading);
-                // this._setTooltip(res, obj.object.x, obj.object.y)
-            })
-            .catch(err => {
-            console.log(err);
-        })
-    }
+    //     this.dispatchSetSelectedTreeDataLoading(true);
+    //     console.log('selected tree loading', this.props.selectedTreeDataLoading);
+
+    //     axios.get(url)
+    //     .then(res => {
+    //         this.setState({x, y, hoveredObject: res});
+    //         this.dispatchSetSelectedTreeData(res);
+    //         this.dispatchSetSelectedTreeDataLoading(false);
+    //         console.log(this.props.selectedTreeDataLoading);
+    //             // this._setTooltip(res, obj.object.x, obj.object.y)
+    //         })
+    //         .catch(err => {
+    //         console.log(err);
+    //     })
+    // }
 
     dispatchSetSelectedTreeData(val) {
         this.props.dispatch(setSelectedTreeData(val.data));
@@ -288,13 +289,13 @@ class DeckGLMap extends React.Component {
     }
 
     render() {
-        const {viewState, controller = true, baseMap = true} = this.props;
+        const {viewState, controller = true, baseMap = true, dataLoaded, wateredTrees, wateredTreesFetched } = this.props;
 
-        if (!this.props.dataLoaded || !this.props.wateredTreesFetched) {
+        if (!dataLoaded || !wateredTreesFetched) {
             return (
                 <span>Lade Berlins Baumdaten ...</span>
             )
-        } else if (this.props.wateredTreesFetched && this.props.dataLoaded) {
+        } else if (wateredTreesFetched && dataLoaded) {
             return (
                 <DeckGL
                     layers={this._renderLayers()}
@@ -302,7 +303,7 @@ class DeckGLMap extends React.Component {
                     viewState={viewState}
                     controller={controller}
                 >
-    
+
                     {baseMap && (
                     <StaticMap
                         reuseMaps
@@ -312,15 +313,21 @@ class DeckGLMap extends React.Component {
                         onLoad={this._onload.bind(this)}
                     />
                     )}
-            
+
                     {/* {this._renderTooltip} */}
                 </DeckGL>
             );
         }
-    
-
     }
-    
+
 }
 
-export default connect(mapStateToProps)(DeckGLMap);
+export default connect(state => ({
+  wateredTrees: state.wateredTrees,
+  includedTrees: state.includedTrees,
+  data: state.data,
+  wateredTreesFetched: state.wateredTreesFetched,
+  wateredTreeDataUpdated: state.wateredTreeDataUpdated,
+  dataLoaded: state.dataLoaded,
+  requestDb: state.requestDb(Store)
+}), Actions)(DeckGLMap);

@@ -16,7 +16,7 @@ const ButtonWaterSpan = styled.span`
     border-radius: ${props => props.theme.borderRadiusS};
     text-align: center;
     font-size: ${props => props.theme.fontSizeL};
-    
+
     &:hover {
         background: ${props => props.theme.colorPrimaryHover};
         transition: background ${props => props.theme.timeS} ease-in-out;
@@ -24,9 +24,9 @@ const ButtonWaterSpan = styled.span`
 `
 
 const mapStateToProps = state => {
-    return { 
+    return {
         selectedTreeData: state.selectedTreeData,
-        selectedTreeDataLoading: state.selectedTreeDataLoading 
+        selectedTreeDataLoading: state.selectedTreeDataLoading
     };
 };
 
@@ -77,7 +77,7 @@ class ButtonWater extends React.Component {
         const id = this.props.selectedTreeData['_id'];
         const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
         const url = `${remote}/${id}`;
-        
+
         axios.get(url)
         .then(res => {
             this.dispatchSetWateredTreeDataUpdated(true);
@@ -92,7 +92,7 @@ class ButtonWater extends React.Component {
 
     getWateredTrees() {
         const url = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
-        
+
         axios.get(url)
         .then(res => {
                 let watered = [];
@@ -135,13 +135,12 @@ class ButtonWater extends React.Component {
     }
 
     _writeDb() {
-
         const id = this.props.selectedTreeData['_id'];
         const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
         const url = `${remote}/${id}`;
 
         this.dispatchSetWateringTree(true);
-        
+
         axios.put(url, this.currentTimestamp())
         .then(res => {
                 this.getWateredTrees()
