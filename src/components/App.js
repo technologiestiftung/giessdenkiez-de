@@ -8,13 +8,16 @@ import DeckGlMap from './map/index.js';
 import Sidebar from './Sidebar/index.js';
 
 import Loading from './Loading/index.js';
-
 import png from '../assets/citylab-logo.png';
 
 import { connect } from 'unistore/react';
 import Store from '../state/Store';
 
-import Actions from '../state/Actions';
+import Actions, { loadData } from '../state/Actions';
+import "../assets/style.scss";
+
+const loadEntryDataAction = Store.action(loadData(Store));
+loadEntryDataAction();
 
 const AppWrapperDiv = styled.div`
   font-family: ${props => props.theme.fontFamily};
@@ -40,7 +43,6 @@ const LogoImg = styled.img`
   width: 160px;
 `;
 
-import "../assets/style.scss";
 
 class AppContainer extends React.Component {
   constructor(props) {
@@ -48,17 +50,16 @@ class AppContainer extends React.Component {
   }
 
   componentDidMount() {
-      const { setWateredTrees } = this.props;
-      setWateredTrees()
+    loadData()
   }
 
   componentDidUpdate() {
-    const { wateredTrees, includedTrees, setWateredTreesFetched } = this.props;
-    const { status, data } = wateredTrees.datum;
+    // const { wateredTrees, includedTrees, setWateredTreesFetched } = this.props;
+    // const { status, data } = wateredTrees.datum;
 
-    if (status === 'SUCCESS' && includedTrees) {
-      setWateredTreesFetched(true);
-    }
+    // if (status === 'SUCCESS' && includedTrees) {
+    //   setWateredTreesFetched(true);
+    // }
   }
 
   TSBLink() {
@@ -72,14 +73,14 @@ class AppContainer extends React.Component {
   }
 
   render() {
-    const { wateredTrees } = this.props;
+    const { isLoading, data } = this.props;
     return (
       <ThemeProvider theme={theme}>
           <AppWrapperDiv>
-              <Loading show={this.props.dataLoaded && this.props.wateredTreesFetched}/>
+              {isLoading && (<Loading/>)}
               <div>
                   {this.TSBLink()}
-                  {<DeckGlMap/>}
+                  {!isLoading && data && (<DeckGlMap data={data}/>)}
                   {/* <Sidebar
                       selectedTree={this.props.selectedTree}
                   />
@@ -92,8 +93,11 @@ class AppContainer extends React.Component {
 }
 
 export default connect(state => ({
-  wateredTrees: state.wateredTrees,
-  includedTrees: state.includedTrees,
-  wateredTreesFetched: state.wateredTreesFetched,
-  dataLoaded: state.dataLoaded
+//   wateredTrees: state.wateredTrees,
+//   includedTrees: state.includedTrees,
+//   wateredTreesFetched: state.wateredTreesFetched,
+
+  isLoading: state.isLoading,
+  data: state.data
+
 }), Actions)(AppContainer);

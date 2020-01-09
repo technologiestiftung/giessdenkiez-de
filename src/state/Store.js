@@ -3,7 +3,8 @@ import createStore from 'unistore';
 const Store = createStore({
   wateredTrees: {},
   includedTrees: {},
-  dataLoaded: false,
+  data: null,
+  isLoading: true,
   wateredTreesFetched: false,
   wateredTreeDataUpdated: false,
   hoveredObject: false
