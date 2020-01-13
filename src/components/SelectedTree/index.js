@@ -176,6 +176,9 @@ class SelectedTree extends React.Component {
     }
 
     render() {
+        const { selectedTree } = this.props;
+        console.log(selectedTree);
+
         if (this.props.selectedTreeDataLoading) {
             return (
                 <FilterLoadingDiv>
@@ -186,7 +189,7 @@ class SelectedTree extends React.Component {
                     <span>Lade Informationen zum Baum.</span>
                 </FilterLoadingDiv>
             )
-        } else if (!this.props.selectedTreeData) {
+        } else if (!selectedTree) {
                 return (
                     <SelectedTreeDiv>
                         Kein Baum ausgewählt.
@@ -201,10 +204,10 @@ class SelectedTree extends React.Component {
                 treeState: true
             })
 
-            const kroneDurch = this.props.selectedTreeData.properties['KRONEDURCH']
-            const pflanzJahr = String(this.props.selectedTreeData.properties['PFLANZJAHR']);
-            const standalter = String(this.props.selectedTreeData.properties['STANDALTER']).length == 0 ? '' : ` (${this.props.selectedTreeData.properties['STANDALTER']} Jahre)`;
-            const hausNr = this.props.selectedTreeData.properties['HAUSNR'] != null ? `, ${this.props.selectedTreeData.properties['HAUSNR']}` : '';
+            const kroneDurch = this.props.selectedTreeData['KRONEDURCH']
+            const pflanzJahr = String(this.props.selectedTreeData['PFLANZJAHR']);
+            const standalter = String(this.props.selectedTreeData['STANDALTER']).length == 0 ? '' : ` (${this.props.selectedTreeData['STANDALTER']} Jahre)`;
+            const hausNr = this.props.selectedTreeData['HAUSNR'] != null ? `, ${this.props.selectedTreeData['HAUSNR']}` : '';
             const lastWatered = this.props.selectedTreeData['watered'][this.props.selectedTreeData['watered'].length - 1]
 
             return (
@@ -212,25 +215,25 @@ class SelectedTree extends React.Component {
 
                     <div className="intro-wrapper">
                         <FlexColumnDiv>
-                            <TreeTitle>{this.props.selectedTreeData.properties['ART_DTSCH']}</TreeTitle>
-                            <SublineSpan>{this.props.selectedTreeData.properties['GATTUNG_DEUTSCH'].toLowerCase()}</SublineSpan>
+                            <TreeTitle>{this.props.selectedTreeData['ART_DTSCH']}</TreeTitle>
+                            <SublineSpan>{this.props.selectedTreeData['GATTUNG_DEUTSCH'].toLowerCase()}</SublineSpan>
                             <span className={stateWaterTreeClass}>{treeWatered}</span>
-                            <SublineSpanClose>{this.props.selectedTreeData.properties['STRNAME']}{hausNr}</SublineSpanClose>
-                            <SublineSpan>{this.props.selectedTreeData.properties['BEZIRK']}</SublineSpan>
+                            <SublineSpanClose>{this.props.selectedTreeData['STRNAME']}{hausNr}</SublineSpanClose>
+                            <SublineSpan>{this.props.selectedTreeData['BEZIRK']}</SublineSpan>
 
                             <FlexColumnDiv>
                                 <DescriptionSpan>Baumhöhe</DescriptionSpan>
-                                <SublineSpanDesc>{this.props.selectedTreeData.properties['BAUMHOEHE']} m</SublineSpanDesc>
+                                <SublineSpanDesc>{this.props.selectedTreeData['BAUMHOEHE']} m</SublineSpanDesc>
                             </FlexColumnDiv>
 
                             <FlexColumnDiv>
                                 <DescriptionSpan>Stammumfang</DescriptionSpan>
-                                <SublineSpanDesc>{this.props.selectedTreeData.properties['STAMMUMFG']} cm</SublineSpanDesc>
+                                <SublineSpanDesc>{this.props.selectedTreeData['STAMMUMFG']} cm</SublineSpanDesc>
                             </FlexColumnDiv>
 
                             <FlexColumnDiv>
                                 <DescriptionSpan>Kronendurchmesser</DescriptionSpan>
-                                <SublineSpanDesc>{this.props.selectedTreeData.properties['KRONEDURCH']} m</SublineSpanDesc>
+                                <SublineSpanDesc>{this.props.selectedTreeData['KRONEDURCH']} m</SublineSpanDesc>
                             </FlexColumnDiv>
 
                             <FlexColumnDiv>
@@ -243,10 +246,12 @@ class SelectedTree extends React.Component {
                     <ButtonWater></ButtonWater>
                 </SelectedTreeDiv>
             )
-        } else if (this.props.selectedTreeData && !this.props.selectedTreeDataLoading) {
+        } else if (selectedTree) {
 
-            const lastWatered = this.props.selectedTreeData['watered'][this.props.selectedTreeData['watered'].length - 1]
-            const treeWatered = this.props.selectedTreeData['watered'].length == 0 ? 'Keine Informationen verfügbar.' : this.convertTime(lastWatered);
+            console.log(selectedTree)
+
+            const lastWatered =  false //this.props.selectedTreeData['watered'][this.props.selectedTreeData['watered'].length - 1]
+            const treeWatered = false //this.props.selectedTreeData['watered'].length == 0 ? 'Keine Informationen verfügbar.' : this.convertTime(lastWatered);
 
             const stateWaterTreeClass = classnames({ 
                 noInfo: treeWatered == 'Keine Informationen verfügbar.',
@@ -254,37 +259,37 @@ class SelectedTree extends React.Component {
                 treeState: true
             })
 
-            const kroneDurch = this.props.selectedTreeData.properties['KRONEDURCH']
+            const kroneDurch = selectedTree['kroneDurch']
 
-            const pflanzJahr = String(this.props.selectedTreeData.properties['PFLANZJAHR']);
-            const standalter = String(this.props.selectedTreeData.properties['STANDALTER']).length == 0 ? '' : ` (${this.props.selectedTreeData.properties['STANDALTER']} Jahre)`;
+            const pflanzJahr = String(selectedTree['pflanzJahr']);
+            const standalter = String(selectedTree['standAlter']).length == 0 ? '' : ` (${selectedTree['standAlter']} Jahre)`;
 
-            const hausNr = this.props.selectedTreeData.properties['HAUSNR'] != null ? `, ${this.props.selectedTreeData.properties['HAUSNR']}` : '';
+            const hausNr = selectedTree['hausNr'] != null ? `, ${selectedTree['hausNr']}` : '';
 
             return (
                 <SelectedTreeDiv>
 
                     <div className="intro-wrapper">
                         <FlexColumnDiv>
-                            <TreeTitle>{this.props.selectedTreeData.properties['ART_DTSCH']}</TreeTitle>
-                            <SublineSpan>{this.props.selectedTreeData.properties['GATTUNG_DEUTSCH'].toLowerCase()}</SublineSpan>
+                            <TreeTitle>{selectedTree['artDtsch']}</TreeTitle>
+                            <SublineSpan>{selectedTree['gattungDeutsch'].toLowerCase()}</SublineSpan>
                             <span className={stateWaterTreeClass}>{treeWatered}</span>
-                            <SublineSpanClose>{this.props.selectedTreeData.properties['STRNAME']}{hausNr}</SublineSpanClose>
-                            <SublineSpan>{this.props.selectedTreeData.properties['BEZIRK']}</SublineSpan>
+                            <SublineSpanClose>{selectedTree['strName']}{hausNr}</SublineSpanClose>
+                            <SublineSpan>{selectedTree['bezirk']}</SublineSpan>
 
                             <FlexColumnDiv>
                                 <DescriptionSpan>Baumhöhe</DescriptionSpan>
-                                <SublineSpanDesc>{this.props.selectedTreeData.properties['BAUMHOEHE']} m</SublineSpanDesc>
+                                <SublineSpanDesc>{selectedTree['baumHoehe']} m</SublineSpanDesc>
                             </FlexColumnDiv>
 
                             <FlexColumnDiv>
                                 <DescriptionSpan>Stammumfang</DescriptionSpan>
-                                <SublineSpanDesc>{this.props.selectedTreeData.properties['STAMMUMFG']} cm</SublineSpanDesc>
+                                <SublineSpanDesc>{selectedTree['stammUmfg']} cm</SublineSpanDesc>
                             </FlexColumnDiv>
 
                             <FlexColumnDiv>
                                 <DescriptionSpan>Kronendurchmesser</DescriptionSpan>
-                                <SublineSpanDesc>{this.props.selectedTreeData.properties['KRONEDURCH']} m</SublineSpanDesc>
+                                <SublineSpanDesc>{selectedTree['kroneDurch']} m</SublineSpanDesc>
                             </FlexColumnDiv>
 
                             <FlexColumnDiv>
@@ -294,14 +299,15 @@ class SelectedTree extends React.Component {
 
                         </FlexColumnDiv>
                     </div>
-                    <ButtonWater></ButtonWater>
+                    {/* <ButtonWater></ButtonWater> */}
                 </SelectedTreeDiv>
             )
         }
     }
-
 }
 
-export default connect(Actions)(SelectedTree);
+export default connect(state => ({
+    selectedTree: state.selectedTree
+}), Actions)(SelectedTree);
 
 

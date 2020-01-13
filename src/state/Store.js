@@ -5,6 +5,7 @@ const Store = createStore({
   includedTrees: {},
   data: null,
   local: true,
+  selectedTree: null,
   endpoints: {
     local: 'http://localhost:3000/',
     prod: 'https://tsb-tree-zeit-now-lambda.fabiandinklage.now.sh',

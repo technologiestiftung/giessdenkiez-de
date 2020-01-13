@@ -9,6 +9,7 @@ import { HexagonLayer } from '@deck.gl/aggregation-layers';
 import Actions from '../../state/Actions';
 import Store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
+import { fetchAPI, createAPIUrl } from '../../state/utils';
 
 import { setDataLoaded, setSelectedTreeData, setSelectedTreeDataLoading, setSidebar, setDataIncluded } from '../../store/actions/index';
 
@@ -37,6 +38,7 @@ class DeckGLMap extends React.Component {
 		  hoveredObject: null,
 		  data: null,
 		  included: null,
+			selectedTree: null
 		};
 
 		this._onClick = this._onClick.bind(this);
@@ -154,9 +156,10 @@ class DeckGLMap extends React.Component {
 
 
 	_onClick(x, y, object) {
-		// this._requestDb(x, y, object);
-		console.log(this.props)
-		this.props.requestDb(x, y, object);
+		const { state } = this.props;
+		const id = object.properties.id;
+		const url = createAPIUrl(state, `api/get-tree?id=${id}`);
+		const res = fetchAPI(url).then(r => { Store.setState({ selectedTree: r.data }) });
 	}
 
 	_renderTooltip() {
@@ -289,6 +292,8 @@ export default connect(state => ({
 //   wateredTreesFetched: state.wateredTreesFetched,
 //   wateredTreeDataUpdated: state.wateredTreeDataUpdated,
   isLoading: state.isLoading,
-	wateredTrees: wateredTreesSelector(state)
+	wateredTrees: wateredTreesSelector(state),
+	state: state,
+	selectedTree: state.selectedTree,
 
 }), Actions)(DeckGLMap);
