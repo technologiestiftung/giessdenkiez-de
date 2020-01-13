@@ -13,11 +13,14 @@ import png from '../assets/citylab-logo.png';
 import { connect } from 'unistore/react';
 import Store from '../state/Store';
 
-import Actions, { loadData } from '../state/Actions';
+import Actions, { loadData, getWateredTrees } from '../state/Actions';
 import "../assets/style.scss";
 
 const loadEntryDataAction = Store.action(loadData(Store));
+const loadWateredTreesAction = Store.action(getWateredTrees(Store));
+
 loadEntryDataAction();
+loadWateredTreesAction();
 
 const AppWrapperDiv = styled.div`
   font-family: ${props => props.theme.fontFamily};
@@ -50,7 +53,8 @@ class AppContainer extends React.Component {
   }
 
   componentDidMount() {
-    loadData()
+    loadData();
+    getWateredTrees();
   }
 
   componentDidUpdate() {

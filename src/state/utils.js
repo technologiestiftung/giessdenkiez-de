@@ -21,6 +21,13 @@ export function createGeojson(data) {
   return geojson;
 };
 
+
+
+export function createAPIUrl(state, entrypoint) {
+    return state.local ? `${state.endpoints.local}${entrypoint}` : `${state.endpoints.prod}${entrypoint}`;
+}
+
 export default {
-  createGeojson
+  createGeojson,
+  createAPIUrl
 }
