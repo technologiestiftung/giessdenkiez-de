@@ -1,14 +1,15 @@
 import createStore from 'unistore';
 
 const Store = createStore({
-  wateredTrees: {},
+  wateredTrees: [],
   includedTrees: {},
   data: null,
-  local: false,
+  local: true,
   endpoints: {
     local: 'http://localhost:3000/',
     prod: 'https://tsb-tree-zeit-now-lambda.fabiandinklage.now.sh',
   },
+  tabActive: 'id-0',
   isLoading: true,
   wateredTreesFetched: false,
   wateredTreeDataUpdated: false,

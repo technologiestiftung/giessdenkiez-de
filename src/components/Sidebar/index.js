@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { connect } from "react-redux";
 import styled from 'styled-components';
 import axios from 'axios';
 import Slider from 'rc-slider';
+import { connect } from 'unistore/react';
+import Actions from '../../state/Actions';
 
 import Divider from '../DividerSelect/index.js';
 import Tags from '../Tags/index.js';
@@ -152,25 +153,25 @@ const ButtonWaterSpan = styled.span`
     }
 `
 
-const mapStateToProps = state => {
-    return { 
-        wateredTrees: state.wateredTrees,
-        wateredTreesFetched: state.wateredTreesFetched,
-        wateredTreeDataUpdated: state.wateredTreeDataUpdated,
-        selectedTreeDataLoading: state.selectedTreeDataLoading,
-        treeAgeDataLoading: state.treeAgeDataLoading,
-        treeAgeData: state.treeAgeData,
-        selectedTreeData: state.selectedTreeData,
-        dataLoaded: state.dataLoaded,
-        tabActive: state.tabActive,
-        treeTypeData: state.treeTypeData,
-        treeTypeDataLoading: state.treeTypeDataLoading,
-        treeTypeDataUpdated: state.treeTypeDataUpdated,
-        treeSizeData: state.treeSizeData,
-        treeSizeDataLoading: state.treeSizeDataLoading,
-        treeSizeDataUpdated: state.treeSizeDataUpdated,
-    };
-};
+// const mapStateToProps = state => {
+//     return { 
+//         wateredTrees: state.wateredTrees,
+//         wateredTreesFetched: state.wateredTreesFetched,
+//         wateredTreeDataUpdated: state.wateredTreeDataUpdated,
+//         selectedTreeDataLoading: state.selectedTreeDataLoading,
+//         treeAgeDataLoading: state.treeAgeDataLoading,
+//         treeAgeData: state.treeAgeData,
+//         selectedTreeData: state.selectedTreeData,
+//         dataLoaded: state.dataLoaded,
+//         tabActive: state.tabActive,
+//         treeTypeData: state.treeTypeData,
+//         treeTypeDataLoading: state.treeTypeDataLoading,
+//         treeTypeDataUpdated: state.treeTypeDataUpdated,
+//         treeSizeData: state.treeSizeData,
+//         treeSizeDataLoading: state.treeSizeDataLoading,
+//         treeSizeDataUpdated: state.treeSizeDataUpdated,
+//     };
+// };
 
 class Sidebar extends React.Component {
 
@@ -522,4 +523,13 @@ class Sidebar extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(Sidebar);
+export default connect(state => ({
+//   wateredTrees: state.wateredTrees,
+//   includedTrees: state.includedTrees,
+//   wateredTreesFetched: state.wateredTreesFetched,
+
+  isLoading: state.isLoading,
+  data: state.data,
+  tabActive: state.tabActive,
+
+}), Actions)(Sidebar);

@@ -1,7 +1,7 @@
 import { createGeojson, test } from './utils';
 import { dsv as d3Dsv } from 'd3';
 import axios from 'axios';
-import { createAPIUrl } from './utils';
+import { createAPIUrl, fetchAPI } from './utils';
 
 export const loadData = Store => async () => {
   Store.setState({ isLoading: true });
@@ -33,20 +33,23 @@ function checkStatus(response) {
   }
 }
 
-
 export const getWateredTrees = Store => async () => {
   Store.setState({ isLoading: true });
-  const data = JSON.stringify({});
   const url = createAPIUrl(Store.getState(), '/api/get-watered-trees')
-
-  axios.post(url, data)
-    .then((r) => {
-      console.log(r);
-    })
-
+  const res = await fetchAPI(url);
 
   return {
-    isLoading: false
+    isLoading: false,
+    wateredTrees: res.data
+  }
+}
+
+export const getTree = Store => async (id) => {
+  const data = JSON.stringify({});
+  const url = createAPIUrl(Store.getState(), `/api/get-tree?id=${id}`);
+  const res = await fetchAPI(url);
+  return {
+    selectedTree: res
   }
 }
 

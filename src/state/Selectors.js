@@ -1,22 +1,24 @@
 import { createSelector } from 'reselect';
 
-export const wateredTreesSelector = state => state.wateredTrees.datum.data;
+export const wateredTreesResponse = state => state.wateredTrees;
 export const wateredTreesStatusSelector = state => state;
 
-export const includedTreesSelector = state => createSelector(
-  [wateredTreesSelector],
+export const wateredTreesSelector = createSelector(
+  [wateredTreesResponse],
   data => {
-    let obj = {};
-    data.forEach(id => {
-        obj[id] = { included: true};
-    })
-    return obj;
+    if (data.length > 0) {
+      let obj = {};
+      data.forEach(id => {
+          obj[id] = { included: true};
+      })
+      return obj;
+    } else {
+      return null
+    }
+
   }
 )
 
-export const wateredTreesLoadedSelector = state => createSelector(
-  [wateredTreesSelector],
-  (wateredTrees) => {
-    return [wateredTrees, 'test']
-  }
-)
+export default {
+  wateredTreesSelector
+}

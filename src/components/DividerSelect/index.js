@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import classnames from 'classnames';
-import { connect } from "react-redux";
+import { connect } from 'unistore/react';
+import Actions from '../../state/Actions';
 
 import { setTabActive } from '../../store/actions/index';
 
@@ -80,4 +81,4 @@ class Divider extends React.Component {
 };
 
 
-export default connect(mapStateToProps)(Divider);
+export default connect(Actions)(Divider);

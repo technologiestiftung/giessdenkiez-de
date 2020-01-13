@@ -1,5 +1,4 @@
 import React from 'react';
-// import { connect } from "react-redux";
 import styled, { ThemeProvider } from 'styled-components';
 import theme from '../assets/theme';
 // import axios from 'axios';
@@ -52,13 +51,8 @@ class AppContainer extends React.Component {
       super(props);
   }
 
-  componentDidMount() {
-    loadData();
-    getWateredTrees();
-  }
-
   componentDidUpdate() {
-    // const { wateredTrees, includedTrees, setWateredTreesFetched } = this.props;
+    const { wateredTrees } = this.props;
     // const { status, data } = wateredTrees.datum;
 
     // if (status === 'SUCCESS' && includedTrees) {
@@ -85,10 +79,10 @@ class AppContainer extends React.Component {
               <div>
                   {this.TSBLink()}
                   {!isLoading && data && (<DeckGlMap data={data}/>)}
-                  {/* <Sidebar
-                      selectedTree={this.props.selectedTree}
+                  <Sidebar
+                      // selectedTree={this.props.selectedTree}
                   />
-                  <DeckGlMap/> */}
+                  <DeckGlMap/>
               </div>
           </AppWrapperDiv>
       </ThemeProvider>
@@ -97,11 +91,8 @@ class AppContainer extends React.Component {
 }
 
 export default connect(state => ({
-//   wateredTrees: state.wateredTrees,
-//   includedTrees: state.includedTrees,
-//   wateredTreesFetched: state.wateredTreesFetched,
-
   isLoading: state.isLoading,
-  data: state.data
+  data: state.data,
+  wateredTrees: state.wateredTrees
 
 }), Actions)(AppContainer);

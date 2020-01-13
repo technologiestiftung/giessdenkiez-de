@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { connect } from "react-redux";
+import { connect } from 'unistore/react';
 import {render} from 'react-dom';
 import styled from 'styled-components';
 import classnames from 'classnames';
+import Actions from '../../state/Actions';
 
 import ButtonWater from '../ButtonWater/index';
 
@@ -139,7 +140,7 @@ const FlexColumnDiv = styled.div`
 `
 
 const mapStateToProps = state => {
-    return { 
+    return {
         selectedTreeData: state.selectedTreeData,
         selectedTreeDataLoading: state.selectedTreeDataLoading,
         wateringTree: state.wateringTree 
@@ -301,6 +302,6 @@ class SelectedTree extends React.Component {
 
 }
 
-export default connect(mapStateToProps)(SelectedTree);
+export default connect(Actions)(SelectedTree);
 
 
