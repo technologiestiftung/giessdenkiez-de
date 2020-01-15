@@ -489,8 +489,8 @@ class Sidebar extends React.Component {
             return (
                 <SidebarDiv className="sidebar">
                     <div>
-                        <Divider/>
-                        {this.ageRange()}
+                        {/* <Divider/>
+                        {this.ageRange()} */}
                         <SelectedTree></SelectedTree>
                     </div>
                     { this.props.wateredTreeDataUpdated ? <Legend/> : null }

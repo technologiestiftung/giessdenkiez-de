@@ -250,10 +250,10 @@ class SelectedTree extends React.Component {
 
             console.log(selectedTree)
 
-            const lastWatered =  false //this.props.selectedTreeData['watered'][this.props.selectedTreeData['watered'].length - 1]
-            const treeWatered = false //this.props.selectedTreeData['watered'].length == 0 ? 'Keine Informationen verfügbar.' : this.convertTime(lastWatered);
+            const lastWatered =  selectedTree['watered'][selectedTree['watered'].length - 1]
+            const treeWatered = selectedTree['watered'].length == 0 ? 'Keine Informationen verfügbar.' : 'Zeit hier!'; // this.convertTime(lastWatered)
 
-            const stateWaterTreeClass = classnames({ 
+            const stateWaterTreeClass = classnames({
                 noInfo: treeWatered == 'Keine Informationen verfügbar.',
                 watering: treeWatered == 'Baum wird gewässert.',
                 treeState: true
@@ -287,10 +287,13 @@ class SelectedTree extends React.Component {
                                 <SublineSpanDesc>{selectedTree['stammUmfg']} cm</SublineSpanDesc>
                             </FlexColumnDiv>
 
-                            <FlexColumnDiv>
-                                <DescriptionSpan>Kronendurchmesser</DescriptionSpan>
-                                <SublineSpanDesc>{selectedTree['kroneDurch']} m</SublineSpanDesc>
-                            </FlexColumnDiv>
+                            { selectedTree['kroneDurch'] != 'null' && (
+                                <FlexColumnDiv>
+                                    <DescriptionSpan>Kronendurchmesser</DescriptionSpan>
+                                    <SublineSpanDesc>{selectedTree['kroneDurch']} m</SublineSpanDesc>
+                                </FlexColumnDiv>
+                            )}
+
 
                             <FlexColumnDiv>
                                 <DescriptionSpan>Gepflanzt</DescriptionSpan>
@@ -299,7 +302,7 @@ class SelectedTree extends React.Component {
 
                         </FlexColumnDiv>
                     </div>
-                    {/* <ButtonWater></ButtonWater> */}
+                    <ButtonWater></ButtonWater>
                 </SelectedTreeDiv>
             )
         }

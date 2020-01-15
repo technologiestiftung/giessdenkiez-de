@@ -4,7 +4,7 @@ const Store = createStore({
   wateredTrees: [],
   includedTrees: {},
   data: null,
-  local: true,
+  local: false,
   selectedTree: null,
   endpoints: {
     local: 'http://localhost:3000/',
