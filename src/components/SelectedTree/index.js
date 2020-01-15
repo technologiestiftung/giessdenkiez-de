@@ -166,7 +166,7 @@ const SelectedTree = (p) => {
                             <Property name="Baumhöhe:" value={Property}/>
                             <Property name="Stammumfang:" value={stammUmfg}/>
                             <Property name="Kronendurchmesser:" value={kroneDurch}/>
-                            <Property name="Gepflanzt:" value={`${pflanzJahr}${standAlter}`}/>
+                            <Property name="Gepflanzt:" value={`${pflanzJahr} (${standAlter} Jahre)`}/>
                         </FlexColumnDiv>
                     </div>
                     <ButtonWater/>
