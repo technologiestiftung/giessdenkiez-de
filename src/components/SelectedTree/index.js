@@ -203,7 +203,7 @@ class SelectedTree extends React.Component {
             //  = selectedTree['watered'].length == 0 ? 'Keine Informationen verfügbar.' : this.convertTime(lastWatered);
 
             if (selectedTreeState === 'WATERING') {
-                treeWatered = 'Bewässerung eintragen.'
+                treeWatered = 'Bewässerung eintragen ...'
             } else if (selectedTree['watered'].length == 0) {
                 treeWatered = 'Keine Informationen verfügbar.';
             } else {
@@ -212,7 +212,7 @@ class SelectedTree extends React.Component {
 
             const stateWaterTreeClass = classnames({
                 noInfo: treeWatered == 'Keine Informationen verfügbar.',
-                watering: treeWatered == 'Baum wird gewässert.',
+                watering: treeWatered == 'Bewässerung eintragen ...',
                 treeState: true
             })
 
