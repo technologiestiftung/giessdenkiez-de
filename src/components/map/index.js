@@ -95,7 +95,7 @@ class DeckGLMap extends React.Component {
 						getFillColor: 500,
 					},
 					getFillColor: (info) => {
-						return [0, 0, 255, 255];
+						return [55, 222, 138, 255];
 						// let included = includedTrees[info.properties['id']] != undefined ? includedTrees[info.properties['id']].included : false;
 
 						// if (wateredTreeDataUpdated && this.state.highlightedObject == info.properties['id']) {
@@ -158,7 +158,7 @@ class DeckGLMap extends React.Component {
 	_onClick(x, y, object) {
 		const { state } = this.props;
 		const id = object.properties.id;
-		const url = createAPIUrl(state, `api/get-tree?id=${id}`);
+		const url = createAPIUrl(state, `/api/get-tree?id=${id}`);
 		const res = fetchAPI(url).then(r => { Store.setState({ selectedTree: r.data }) });
 	}
 
