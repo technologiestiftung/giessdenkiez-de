@@ -367,7 +367,7 @@ class Sidebar extends React.Component {
         let promiseArr = [];
         let offset = 0;
         let iterator
-        
+
         return new Promise((resolve, reject) => {
 
                 this.dispatchSetTreeAgeDataLoading(true);
@@ -376,12 +376,12 @@ class Sidebar extends React.Component {
                 this.countTreesAge()
                 .then(data => {
                     iterator = Math.ceil(data / this.limit);
-                    
+
                     for (let index = 0; index < iterator; index++) {
                         const offset = index == 0 ? 0 : index * this.limit;
                         promiseArr.push(this.collectTrees(offset, this.limit, 'age'))
                     }
-                    
+
                     Promise.all(promiseArr).then(data => {
                         this.fetched = this.fetched.flat();
                         this.dispatchSetWateredTreeDataUpdated(false);

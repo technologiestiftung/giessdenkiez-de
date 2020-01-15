@@ -11,9 +11,9 @@ const Store = createStore({
     prod: 'https://tsb-tree-zeit-now-lambda.fabiandinklage.now.sh',
   },
   tabActive: 'id-0',
+  selectedTree: false,
+  selectedTreeState: false,
   isLoading: true,
-  wateredTreesFetched: false,
-  wateredTreeDataUpdated: false,
   hoveredObject: false
 })
 

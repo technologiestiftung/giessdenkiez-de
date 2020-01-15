@@ -154,6 +154,7 @@ class SelectedTree extends React.Component {
 
     convertTime(unix_timestamp) {
         var ms = Number(unix_timestamp);
+        console.log(ms)
         var date = new Date(ms);
 
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -176,10 +177,9 @@ class SelectedTree extends React.Component {
     }
 
     render() {
-        const { selectedTree } = this.props;
-        console.log(selectedTree);
+        const { selectedTree, selectedTreeState } = this.props;
 
-        if (this.props.selectedTreeDataLoading) {
+        if (selectedTreeState === 'LOADING') {
             return (
                 <FilterLoadingDiv>
                     <Spinner>
@@ -195,63 +195,20 @@ class SelectedTree extends React.Component {
                         Kein Baum ausgewählt.
                     </SelectedTreeDiv>
                 )
-        } else if (this.props.wateringTree) {
-            const treeWatered = 'Baum wird gewässert.'
-
-            const stateWaterTreeClass = classnames({ 
-                noInfo: treeWatered == 'Keine Informationen verfügbar.',
-                watering: treeWatered == 'Baum wird gewässert.',
-                treeState: true
-            })
-
-            const kroneDurch = this.props.selectedTreeData['KRONEDURCH']
-            const pflanzJahr = String(this.props.selectedTreeData['PFLANZJAHR']);
-            const standalter = String(this.props.selectedTreeData['STANDALTER']).length == 0 ? '' : ` (${this.props.selectedTreeData['STANDALTER']} Jahre)`;
-            const hausNr = this.props.selectedTreeData['HAUSNR'] != null ? `, ${this.props.selectedTreeData['HAUSNR']}` : '';
-            const lastWatered = this.props.selectedTreeData['watered'][this.props.selectedTreeData['watered'].length - 1]
-
-            return (
-                <SelectedTreeDiv>
-
-                    <div className="intro-wrapper">
-                        <FlexColumnDiv>
-                            <TreeTitle>{this.props.selectedTreeData['ART_DTSCH']}</TreeTitle>
-                            <SublineSpan>{this.props.selectedTreeData['GATTUNG_DEUTSCH'].toLowerCase()}</SublineSpan>
-                            <span className={stateWaterTreeClass}>{treeWatered}</span>
-                            <SublineSpanClose>{this.props.selectedTreeData['STRNAME']}{hausNr}</SublineSpanClose>
-                            <SublineSpan>{this.props.selectedTreeData['BEZIRK']}</SublineSpan>
-
-                            <FlexColumnDiv>
-                                <DescriptionSpan>Baumhöhe</DescriptionSpan>
-                                <SublineSpanDesc>{this.props.selectedTreeData['BAUMHOEHE']} m</SublineSpanDesc>
-                            </FlexColumnDiv>
-
-                            <FlexColumnDiv>
-                                <DescriptionSpan>Stammumfang</DescriptionSpan>
-                                <SublineSpanDesc>{this.props.selectedTreeData['STAMMUMFG']} cm</SublineSpanDesc>
-                            </FlexColumnDiv>
-
-                            <FlexColumnDiv>
-                                <DescriptionSpan>Kronendurchmesser</DescriptionSpan>
-                                <SublineSpanDesc>{this.props.selectedTreeData['KRONEDURCH']} m</SublineSpanDesc>
-                            </FlexColumnDiv>
-
-                            <FlexColumnDiv>
-                                <DescriptionSpan>Gepflanzt</DescriptionSpan>
-                                <SublineSpan>{pflanzJahr}{standalter}</SublineSpan>
-                            </FlexColumnDiv>
-
-                        </FlexColumnDiv>
-                    </div>
-                    <ButtonWater></ButtonWater>
-                </SelectedTreeDiv>
-            )
         } else if (selectedTree) {
+            const lastWatered =  selectedTree['watered'][selectedTree['watered'].length - 1];
 
-            console.log(selectedTree)
+            let treeWatered = '';
+            
+            //  = selectedTree['watered'].length == 0 ? 'Keine Informationen verfügbar.' : this.convertTime(lastWatered);
 
-            const lastWatered =  selectedTree['watered'][selectedTree['watered'].length - 1]
-            const treeWatered = selectedTree['watered'].length == 0 ? 'Keine Informationen verfügbar.' : 'Zeit hier!'; // this.convertTime(lastWatered)
+            if (selectedTreeState === 'WATERING') {
+                treeWatered = 'Bewässerung eintragen.'
+            } else if (selectedTree['watered'].length == 0) {
+                treeWatered = 'Keine Informationen verfügbar.';
+            } else {
+                treeWatered = this.convertTime(lastWatered);
+            }
 
             const stateWaterTreeClass = classnames({
                 noInfo: treeWatered == 'Keine Informationen verfügbar.',
@@ -310,7 +267,8 @@ class SelectedTree extends React.Component {
 }
 
 export default connect(state => ({
-    selectedTree: state.selectedTree
+    selectedTree: state.selectedTree,
+    selectedTreeState: state.selectedTreeState
 }), Actions)(SelectedTree);
 
 

@@ -38,8 +38,6 @@ export const getWateredTrees = Store => async () => {
   const url = createAPIUrl(Store.getState(), '/api/get-watered-trees')
   const res = await fetchAPI(url);
 
-  console.log(url)
-
   return {
     isLoading: false,
     wateredTrees: res.data

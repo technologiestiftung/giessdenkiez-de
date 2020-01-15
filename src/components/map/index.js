@@ -154,12 +154,16 @@ class DeckGLMap extends React.Component {
 		// return [102, 245, 173, 200];
 	}
 
-
 	_onClick(x, y, object) {
-		const { state } = this.props;
+
+		Store.setState({ selectedTreeState: 'LOADING' });
+
+		const { state, selectedTree } = this.props;
 		const id = object.properties.id;
 		const url = createAPIUrl(state, `/api/get-tree?id=${id}`);
-		const res = fetchAPI(url).then(r => { Store.setState({ selectedTree: r.data }) });
+
+		const res = fetchAPI(url)
+			.then(r => { Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data }); });
 	}
 
 	_renderTooltip() {
@@ -202,8 +206,6 @@ class DeckGLMap extends React.Component {
 	}
 
 	componentDidUpdate() {
-		const { wateredTrees } = this.props;
-		console.log(wateredTrees)
 		// const { wateredTrees, includedTrees, wateredTreesData } = this.props;
 		// const { status, data } = wateredTrees.datum;
 
