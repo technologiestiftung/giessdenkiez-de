@@ -95,6 +95,12 @@ class DeckGLMap extends React.Component {
 						getFillColor: 500,
 					},
 					getFillColor: (info) => {
+						const { wateredTrees } = this.props;
+						const id = info.properties['id'];
+
+						if (wateredTrees[id]) {
+							return [102, 245, 173, 200]
+						}
 						return [55, 222, 138, 255];
 						// let included = includedTrees[info.properties['id']] != undefined ? includedTrees[info.properties['id']].included : false;
 
