@@ -2,6 +2,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
 
+// TODO: Remove dummyUser, isAuthenticated and loading later!
+
+const dummyUser = {
+  email: 'fabiandinklage@me.com',
+  email_verified: true,
+  sub: 'google-oauth2|2147627834623744883746',
+};
+
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
 
@@ -68,9 +76,9 @@ export const Auth0Provider = ({
   return (
     <Auth0Context.Provider
       value={{
-        isAuthenticated,
-        user,
-        loading,
+        isAuthenticated: true,
+        user: dummyUser,
+        loading: false,
         popupOpen,
         loginWithPopup,
         handleRedirectCallback,

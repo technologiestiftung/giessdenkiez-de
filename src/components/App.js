@@ -59,7 +59,7 @@ const TSBLink = () => {
 
 const AppContainer = p => {
 
-  const { isLoading, data } = p;
+  const { isLoading, data, wateredTrees } = p;
 
   return (
     <Router history={history}>
@@ -68,7 +68,6 @@ const AppContainer = p => {
               {isLoading && (<Loading/>)}
               <div>
                   {TSBLink()}
-
                   {!isLoading && data && (<DeckGlMap data={data}/>)}
                   <Sidebar/>
               </div>
