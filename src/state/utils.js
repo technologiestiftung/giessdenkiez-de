@@ -29,10 +29,9 @@ export function createAPIUrl(state, entrypoint) {
     return state.local ? `${state.endpoints.local}${entrypoint}` : `${state.endpoints.prod}${entrypoint}`;
 }
 
-export async function fetchAPI(url) {
-    const data = JSON.stringify({});
+export async function fetchAPI(url, config = {}) {
 
-    return axios.post(url, data)
+    return axios.get(url, config)
         .then((r) => {
             return r
         }).catch(function (error) {

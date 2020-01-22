@@ -4,11 +4,11 @@ const Store = createStore({
   wateredTrees: [],
   includedTrees: {},
   data: null,
-  local: true,
+  local: false,
   selectedTree: null,
   endpoints: {
     local: 'http://localhost:3000/',
-    prod: 'https://tsb-tree-zeit-now-lambda.fabiandinklage.now.sh',
+    prod: 'https://trees-express-now.fabiandinklage.now.sh',
   },
   tabActive: 'id-0',
   selectedTree: false,

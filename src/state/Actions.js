@@ -35,17 +35,17 @@ function checkStatus(response) {
 
 export const getWateredTrees = Store => async () => {
   Store.setState({ isLoading: true });
-  const url = createAPIUrl(Store.getState(), '/api/get-watered-trees')
+  const url = createAPIUrl(Store.getState(), '/get-watered-trees')
   const res = await fetchAPI(url);
 
   return {
     isLoading: false,
-    wateredTrees: res.data
+    wateredTrees: res.data.watered
   }
 }
 
 export const getTree = Store => async (id) => {
-  const url = createAPIUrl(Store.getState(), `/api/get-tree?id=${id}`);
+  const url = createAPIUrl(Store.getState(), `/get-tree?id=${id}`);
   const res = await fetchAPI(url);
   return {
     selectedTree: res

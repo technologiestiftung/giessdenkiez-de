@@ -27,11 +27,12 @@ const ButtonWaterSpan = styled.span`
 const ButtonWater = (p) => {
   const { selectedTree, state } = p;
   const { id } = selectedTree;
-  const { loading, user, isAuthenticated } = useAuth0();
+  const { loading, user, isAuthenticated, getTokenSilently } = useAuth0();
+  let adopted = false;
 
-  const adopted = selectedTree.adopted == user.email;
-
-  console.log(adopted, selectedTree, user.email)
+  if (user) {
+    adopted = selectedTree.adopted == user.email;
+  }
 
   const timeNow = () => {
       const date = + new Date;
@@ -41,27 +42,35 @@ const ButtonWater = (p) => {
   const waterTree = (id) => {
       Store.setState({ selectedTreeState: 'WATERING' });
       const time = timeNow();
-      const url = createAPIUrl(state, `/api/water-tree?id=${id}&timestamp=${time}`);
+      const url = createAPIUrl(state, `/water-tree?id=${id}&timestamp=${time}`);
 
   const res = fetchAPI(url)
           .then(r => {
-              const url = createAPIUrl(state, `/api/get-tree?id=${id}`);
+              const url = createAPIUrl(state, `/get-tree?id=${id}`);
               const res = fetchAPI(url)
                   .then(r => { Store.setState({ selectedTreeState: 'WATERED', selectedTree: r.data }); });
           })
   }
 
-  const adoptTree = (id) => {
+  const adoptTree = async (id) => {
       Store.setState({ selectedTreeState: 'ADOPT' });
+      const token = await getTokenSilently();
       const time = timeNow();
-      const url = createAPIUrl(state, `/api/adopt-tree?id=${id}&mail=${user.email}`);
+      const url = createAPIUrl(state, `/private/adopt-tree?id=${id}&mail=${user.email}`);
 
-  const res = fetchAPI(url)
-          .then(r => {
-              const url = createAPIUrl(state, `/api/get-tree?id=${id}`);
-              const res = fetchAPI(url)
-                  .then(r => { Store.setState({ selectedTreeState: 'WATERED', selectedTree: r.data }); });
-          })
+      console.log(token);
+
+      const res = await fetchAPI(url,
+        {
+          headers: {
+            Authorization: 'Bearer ' + token
+          }
+        })
+        .then(r => {
+            const url = createAPIUrl(state, `/get-tree?id=${id}`);
+            const res = fetchAPI(url)
+                .then(r => { Store.setState({ selectedTreeState: 'WATERED', selectedTree: r.data }); });
+        })
   }
 
   if (isAuthenticated) {
@@ -73,7 +82,7 @@ const ButtonWater = (p) => {
       )
   } else if (!isAuthenticated) {
     return (
-      <ButtonWaterSpan onClick={() => {waterTree(id)}}>{content.en.sidebar.btnWater}</ButtonWaterSpan>
+      <ButtonWaterSpan onClick={() => {waterTree(id)}}>Jetzt anmelden</ButtonWaterSpan>
     )
   }
 

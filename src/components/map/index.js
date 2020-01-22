@@ -166,7 +166,7 @@ class DeckGLMap extends React.Component {
 
 		const { state, selectedTree } = this.props;
 		const id = object.properties.id;
-		const url = createAPIUrl(state, `/api/get-tree?id=${id}`);
+		const url = createAPIUrl(state, `/get-tree?id=${id}`);
 
 		const res = fetchAPI(url)
 			.then(r => { Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data }); });
