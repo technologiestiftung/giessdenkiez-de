@@ -19,6 +19,7 @@ const StyledNavWrapper = styled.div`
   align-items: center;
   background: white;
   border-bottom: 1px solid ${p => p.theme.colorLightGrey};
+  box-shadow: ${p => p.theme.boxShadow};
 `;
 
 

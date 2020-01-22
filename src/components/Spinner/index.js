@@ -1,7 +1,7 @@
-import react from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-const Spinner = styled.div`
+const SpinnerDiv = styled.div`
     width: 15px;
     height: 15px;
     transform: translateY(3px);
@@ -44,5 +44,14 @@ const Spinner = styled.div`
         }
     }
 `
+
+const Spinner = p => {
+    return (
+        <SpinnerDiv>
+            <div className="double-bounce1"></div>
+            <div className="double-bounce2"></div>
+        </SpinnerDiv>
+    )
+}
 
 export default Spinner;

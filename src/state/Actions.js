@@ -1,6 +1,7 @@
 import { createGeojson, test } from './utils';
 import { dsv as d3Dsv } from 'd3';
 import axios from 'axios';
+import history from '../../history';
 import { createAPIUrl, fetchAPI } from './utils';
 
 export const loadData = Store => async () => {
@@ -52,8 +53,14 @@ export const getTree = Store => async (id) => {
   }
 }
 
+const setDetailRouteWithListPath = (state, treeId) => {
+  const nextLocation = `/selected?location=${treeId}`;
+  history.push(nextLocation);
+};
+
 export default Store => ({
   loadData: loadData(Store),
   getWateredTrees: getWateredTrees(Store),
-  getTree: getTree(Store)
+  getTree: getTree(Store),
+  setDetailRouteWithListPath
 });

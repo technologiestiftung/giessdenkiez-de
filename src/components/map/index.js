@@ -139,10 +139,12 @@ class DeckGLMap extends React.Component {
 
 					},
 					onClick: (info) => {
+						const { setDetailRouteWithListPath } = this.props;
 						this._onClick(info.x, info.y, info.object)
 
 						if (info.object != undefined) {
 							this.setState({ highlightedObject: info.object.properties['id'] })
+							setDetailRouteWithListPath(info.object.properties.id);
 						}
 					},
 					updateTriggers: {

@@ -5,6 +5,8 @@ import { Route, withRouter, Switch } from 'react-router-dom';
 import SidebarAbout from './SidebarAbout/';
 import SidebarSearch from './SidebarSearch/';
 import SidebarAdopted from './SidebarAdopted/';
+import SidebarProfile from './SidebarProfile/';
+import SidebarSelected from './SidebarSelected/';
 
 const SidebarWrapper = styled.div`
   z-index: 3;
@@ -28,13 +30,15 @@ const SidebarWrapper = styled.div`
 const Sidebar = p => {
   return (
     <Route
-      path={['/about', '/search', '/adopted', '/profile']}
+      path={['/about', '/search', '/adopted', '/profile', '/selected']}
       children={({ match }) => (
         <SidebarWrapper isVisible={match}>
           <Switch>
             <Route path="/about" component={SidebarAbout} />
             <Route path="/search" component={SidebarSearch} />
             <Route path="/adopted" component={SidebarAdopted} />
+            <Route path="/profile" component={SidebarProfile} />
+            <Route path="/selected" component={SidebarSelected} />
           </Switch>
         </SidebarWrapper>
       )}
