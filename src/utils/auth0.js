@@ -76,10 +76,9 @@ export const Auth0Provider = ({
   return (
     <Auth0Context.Provider
       value={{
-
-        isAuthenticated: true,
+        isAuthenticated,
         user,
-        loading: false,
+        loading,
         popupOpen,
         loginWithPopup,
         handleRedirectCallback,

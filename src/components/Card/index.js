@@ -7,6 +7,7 @@ import { connect } from 'unistore/react';
 
 import CardWrapper from './CardWrapper/';
 import CardProperty from './CardProperty/';
+import ButtonWater from '../ButtonWater/';
 
 const FlexColumnDiv = styled.div`
     display: flex;
@@ -80,6 +81,7 @@ const Card = p => {
         <CardProperty name="Stammumfang:" value={stammUmfg}/>
         <CardProperty name="Kronendurchmesser:" value={kroneDurch}/>
         <CardProperty name="Gepflanzt:" value={`${pflanzJahr} (${standAlter} Jahre)`}/>
+        <ButtonWater/>
       </FlexColumnDiv>
     </CardWrapper>
   )

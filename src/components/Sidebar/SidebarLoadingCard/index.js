@@ -9,7 +9,6 @@ const SidebarLoadingCardDiv = styled.div`
   z-index: 3;
   height: auto;
   margin-top: 20px;
-  width: ${props => props.theme.sidebarTileWidth};
   padding: ${props => props.theme.spacingM};
   width: ${props => props.theme.sidebarTileWidth};
   border-radius: ${props => props.theme.borderRadiusS};

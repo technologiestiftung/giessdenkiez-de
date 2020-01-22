@@ -58,8 +58,6 @@ const ButtonWater = (p) => {
       const time = timeNow();
       const url = createAPIUrl(state, `/private/adopt-tree?id=${id}&mail=${user.email}`);
 
-      console.log(token);
-
       const res = await fetchAPI(url,
         {
           headers: {

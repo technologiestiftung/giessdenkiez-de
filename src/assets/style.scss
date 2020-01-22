@@ -48,6 +48,8 @@ body {
     color: #37DE8A;
     border-radius: 6px;
     padding: 10px;
+    font-size: 13px;
+    letter-spacing: .25px;
     padding-bottom: 11px;
     margin-bottom: 20px;
 
@@ -58,7 +60,7 @@ body {
     }
 
     &.noInfo {
-        border: 2px solid #FF8484;
+        border: 1px solid #FF8484;
         color: #FF8484;
     }
 }

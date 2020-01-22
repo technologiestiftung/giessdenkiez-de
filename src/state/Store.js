@@ -3,6 +3,7 @@ import createStore from 'unistore';
 const Store = createStore({
   wateredTrees: [],
   includedTrees: {},
+  adoptedTrees: [],
   data: null,
   local: false,
   selectedTree: null,
