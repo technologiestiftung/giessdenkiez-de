@@ -6,8 +6,9 @@ const theme = {
     colorTextDark: 'rgb(44, 48, 59)',
     colorTextLight: 'rgb(94, 101, 115);',
     colorTextMedium: '#D9D9D9',
-    colorLightGrey: '#ECECEC',
+    colorLightGrey: '#F9F9F9',
 
+    boxShadow: `0 2px 40px 0 rgba(30,55,145,0.15)`,
 
     spacingS: '10px',
     spacingM: '20px',

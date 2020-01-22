@@ -31,33 +31,27 @@ const NavBar = p => {
       <Link to="/about" id="about" state={active} onClick={(e) => {setActive(e.target.id)}}>Über das Projekt</Link>
       <Link to="/search" id="search" state={active} onClick={(e) => {setActive(e.target.id)}}>Suche</Link>
 
+      {!isAuthenticated && loading && (
+          <>
+            Lade Authentifizierung ...
+          </>
+      )}
+
       {!isAuthenticated && !loading && (
           <>
             <ButtonBorder onClick={() => loginWithRedirect({})}>Anmelden</ButtonBorder>
             <ButtonBorder onClick={() => loginWithRedirect({})}>Registrieren</ButtonBorder>
           </>
       )}
-      {!isAuthenticated && loading && (
-          <>
-            Lade Authentifizierung ...
-          </>
-      )}
-      {isAuthenticated && (
+
+      {isAuthenticated && !loading && (
           <>
             <Link id="adopted" to="/adopted" state={active} onClick={(e) => {setActive(e.target.id)}}>Abonnierte Bäume</Link>
             <Link id="profile" to="/profile" state={active} onClick={(e) => {setActive(e.target.id)}}>Profil</Link>
-            <ButtonBorder onClick={() => loginWithRedirect({})}>Abmelden</ButtonBorder>
+            <ButtonBorder onClick={() => logout({})}>Abmelden</ButtonBorder>
           </>
       )}
 
-      {/* {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
-
-      {isAuthenticated && (
-        <span>
-          <Link to="/">Home</Link>&nbsp;
-          <Link to="/profile">Profile</Link>
-        </span>
-      )} */}
     </StyledNavWrapper>
   );
 };

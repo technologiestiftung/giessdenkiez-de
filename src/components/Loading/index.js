@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 
-
-
 const LoadingDiv = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 100;
+    z-index: 10000;
     background: white;
     top: 0;
     left: 0;
