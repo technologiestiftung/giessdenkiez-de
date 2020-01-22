@@ -13,7 +13,6 @@ import Legend from '../Legend';
 import Profile from '../Profile';
 import Spinner from '../Spinner';
 
-import NavBar from '../Navbar/';
 import { useAuth0 } from "../../utils/auth0";
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
@@ -61,7 +60,7 @@ const SidebarDiv = styled.div`
   z-index: 3;
   position: absolute;
   right: 0;
-  top: 0;
+  top: 60px;
   width: 320px;
   height: 100%;
   overflow: hidden;
@@ -382,8 +381,6 @@ const Sidebar = (p) => {
   //         )
   //     }
   // }
-
-  const { loading } = useAuth0();
   
   return (
         <SidebarDiv className="sidebar">
@@ -391,8 +388,6 @@ const Sidebar = (p) => {
                 <Divider/>
                 {/* {ageRange()} */}
                 <SelectedTree></SelectedTree>
-                {loading && ( <div>Loading...</div> )}
-                {!loading && ( <NavBar /> )}
                 <Switch>
                   <Route path="/" exact />
                   <Route path="/profile" component={Profile} />

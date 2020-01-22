@@ -5,10 +5,14 @@ const theme = {
     colorGreyLight: '#E6E6E6',
     colorTextDark: 'rgb(44, 48, 59)',
     colorTextLight: 'rgb(94, 101, 115);',
+    colorTextMedium: '#D9D9D9',
+    colorLightGrey: '#ECECEC',
+
 
     spacingS: '10px',
     spacingM: '20px',
 
+    borderRadius: '4px',
     borderRadiusS: '6px',
     borderRadiusM: '12px',
 
@@ -30,6 +34,8 @@ const theme = {
     timeS: '.125s',
     timeM: '.25s',
     timeL: '.5s',
+
+    transition: 'all .125s ease-in-out',
 
 }
 

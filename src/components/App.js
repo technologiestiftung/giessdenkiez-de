@@ -67,9 +67,10 @@ const AppContainer = p => {
           <AppWrapperDiv>
               {isLoading && (<Loading/>)}
               <div>
-                  {TSBLink()}
+                  {/* {TSBLink()} */}
                   {!isLoading && data && (<DeckGlMap data={data}/>)}
-                  <Sidebar/>
+                  {!isLoading && data && (<Sidebar/>)}
+                  <NavBar/>
               </div>
           </AppWrapperDiv>
       </ThemeProvider>
