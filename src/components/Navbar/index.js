@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "../../utils/auth0";
 import styled from 'styled-components';
 
@@ -23,13 +23,13 @@ const StyledNavWrapper = styled.div`
 
 
 const NavBar = p => {
-
+  const [active, setActive] = useState('');
   const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0();
 
   return (
     <StyledNavWrapper>
-      <Link to="/about">Über das Projekt</Link>
-      <Link to="/search">Suche</Link>
+      <Link to="/about" id="about" state={active} onClick={(e) => {setActive(e.target.id)}}>Über das Projekt</Link>
+      <Link to="/search" id="search" state={active} onClick={(e) => {setActive(e.target.id)}}>Suche</Link>
 
       {!isAuthenticated && !loading && (
           <>
@@ -44,8 +44,8 @@ const NavBar = p => {
       )}
       {isAuthenticated && (
           <>
-            <Link>Abonnierte Bäume</Link>
-            <ButtonBorder onClick={() => loginWithRedirect({})}>Profil</ButtonBorder>
+            <Link id="adopted" to="/adopted" state={active} onClick={(e) => {setActive(e.target.id)}}>Abonnierte Bäume</Link>
+            <Link id="profile" to="/profile" state={active} onClick={(e) => {setActive(e.target.id)}}>Profil</Link>
             <ButtonBorder onClick={() => loginWithRedirect({})}>Abmelden</ButtonBorder>
           </>
       )}
