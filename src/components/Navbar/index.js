@@ -44,7 +44,6 @@ const NavBar = p => {
           }
         })
         .then(r => {
-          console.log(r);
           Store.setState({ selectedTreeState: 'FETCHED', adoptedTrees: r.data.adopted }); 
         });
   }

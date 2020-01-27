@@ -39,17 +39,23 @@ const ButtonWater = (p) => {
       return date;
   }
 
-  const waterTree = (id) => {
+  const waterTree = async (id) => {
       Store.setState({ selectedTreeState: 'WATERING' });
+      const token = await getTokenSilently();
       const time = timeNow();
-      const url = createAPIUrl(state, `/water-tree?id=${id}&timestamp=${time}`);
+      const url = createAPIUrl(state, `/private/water-tree?id=${id}&timestamp=${time}`);
 
-  const res = fetchAPI(url)
-          .then(r => {
-              const url = createAPIUrl(state, `/get-tree?id=${id}`);
-              const res = fetchAPI(url)
-                  .then(r => { Store.setState({ selectedTreeState: 'WATERED', selectedTree: r.data }); });
-          })
+      const res = await fetchAPI(url,
+        {
+          headers: {
+            Authorization: 'Bearer ' + token
+          }
+        })
+        .then(r => {
+            const url = createAPIUrl(state, `/get-tree?id=${id}`);
+            const res = fetchAPI(url)
+                .then(r => { Store.setState({ selectedTreeState: 'WATERED', selectedTree: r.data }); });
+        })
   }
 
   const adoptTree = async (id) => {

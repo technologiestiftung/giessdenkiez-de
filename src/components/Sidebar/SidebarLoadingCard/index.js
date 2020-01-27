@@ -10,17 +10,19 @@ const SidebarLoadingCardDiv = styled.div`
   height: auto;
   margin-top: 20px;
   padding: ${props => props.theme.spacingM};
-  width: ${props => props.theme.sidebarTileWidth};
+  width: 100%;
   border-radius: ${props => props.theme.borderRadiusS};
   margin-bottom: 10px;
   background: white;
 `;
 
 const SidebarLoadingCard = p => {
+  const { state } = p;
+
   return (
     <SidebarLoadingCardDiv>
       <Spinner/>
-      <span>Lade Informationen zum Baum.</span>
+      <span>Lade Informationen</span>
     </SidebarLoadingCardDiv>
   )
 }

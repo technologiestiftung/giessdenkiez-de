@@ -49,17 +49,15 @@ const Card = p => {
   } = data;
 
   let treeWatered = '';
-  let lastWatered = '';
 
   if (watered) {
-      const lastWatered =  watered[watered.length - 1];
 
       if (selectedTreeState === 'WATERING') {
           treeWatered = 'Bewässerung eintragen ...'
       } else if (watered.length == 0) {
           treeWatered = 'Keine Informationen verfügbar.';
       } else {
-          treeWatered = convertTime(lastWatered);
+          treeWatered = convertTime(watered);
       }
   }
 

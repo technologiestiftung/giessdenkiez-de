@@ -15,9 +15,8 @@ export const createIncludedTrees = (data) => {
 
 export const convertTime = (unix_timestamp) => {
 		var ms = Number(unix_timestamp);
-		console.log(ms)
 		var date = new Date(ms);
-
+		
 		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 		var year = date.getFullYear();
 		var month = months[date.getMonth()];
