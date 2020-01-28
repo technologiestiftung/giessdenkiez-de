@@ -50,19 +50,25 @@ const Card = p => {
 
   let treeWatered = '';
 
-  if (watered) {
 
-      if (selectedTreeState === 'WATERING') {
-          treeWatered = 'Bewässerung eintragen ...'
-      } else if (watered.length == 0) {
-          treeWatered = 'Keine Informationen verfügbar.';
-      } else {
-          treeWatered = convertTime(watered);
-      }
+  if (watered) {
+    treeWatered = convertTime(watered);
+  }
+
+  if (!watered) {
+    treeWatered = 'Keine Informationen verfügbar.';
   }
 
   if (selectedTreeState === 'ADOPT') {
     treeWatered = 'Abonniere Baum ...'
+  }
+
+  if (selectedTreeState === 'LOADING') {
+    treeWatered = 'Abonniere Baum ...'
+  }
+
+  if (selectedTreeState === 'WATERING') {
+    treeWatered = 'Bewässerung eintragen ...'
   }
 
   const stateWaterTreeClass = classnames({

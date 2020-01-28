@@ -17,6 +17,10 @@ const StyledTH = styled.th`
   text-align: left;
 `;
 
+const StyledTD = styled.td`
+  cursor: pointer;
+`;
+
 const StyledTableRow = styled.tr`
   opacity: 1;
   transition: opacity .125 ease-in-out;
@@ -27,17 +31,22 @@ const StyledTableRow = styled.tr`
 `;
 
 const SidebarAdopted = p => {
-  const { selectedTreeState, adoptedTrees, state, setDetailRouteWithListPath } = p;
+  const { selectedTreeState, adoptedTrees, state, setDetailRouteWithListPath, setViewport } = p;
   const { loading, user, isAuthenticated, getTokenSilently } = useAuth0();
 
-  const getTree = async (id) => {
+  const getTree = async (tree) => {
+    const { id } = tree;
+
+    const geometry = [Number(tree.lat), Number(tree.lng)];
+
     Store.setState({ selectedTreeState: 'LOADING' });
 
     const url = createAPIUrl(state, `/get-tree?id=${id}`);
 
     const res = fetchAPI(url)
-      .then(r => { 
+      .then(r => {
         Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
+        setViewport(geometry);
         setDetailRouteWithListPath(id);
       });
   }
@@ -80,18 +89,15 @@ const SidebarAdopted = p => {
             </thead>
             <tbody>
               { adoptedTrees.map(tree => {
-                console.log(tree);
                 let watered = 'Keine Info';
                 if (tree.watered) {
                   watered = tree.watered;
                 }
                 return (
-                  <StyledTableRow
-                    onClick={() => { getTree(tree.id) }}
-                  >
-                    <td>{tree.artDtsch}</td>
+                  <StyledTableRow>
+                    <StyledTD onClick={() => { getTree(tree) }}>{tree.artDtsch}</StyledTD>
                     <td>{watered}</td>
-                    <td onClick={(e) => { unadoptTree(tree.id) }}><IconRemove/></td>
+                    <StyledTD onClick={(e) => { unadoptTree(tree.id) }}><IconRemove/></StyledTD>
                   </StyledTableRow>
                 )
               }) }
