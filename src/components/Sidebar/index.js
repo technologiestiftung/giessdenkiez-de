@@ -15,14 +15,13 @@ const SidebarWrapper = styled.div`
   bottom: 0;
   overflow: hidden;
   display: ${p => (p.isVisible ? 'flex' : 'none')};
-  padding: 0 40px; 
+  padding: 0 10px; 
   background: ${props => props.theme.colorLightGrey};
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   height: calc(-95px + 100vh);
   margin: 12px;
-  width: 300px;
+  width: 310px;
   box-shadow: ${p => p.theme.boxShadow};
   `
 

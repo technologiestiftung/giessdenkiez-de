@@ -61,9 +61,13 @@ const Card = p => {
       }
   }
 
+  if (selectedTreeState === 'ADOPT') {
+    treeWatered = 'Abonniere Baum ...'
+  }
+
   const stateWaterTreeClass = classnames({
     noInfo: treeWatered == 'Keine Informationen verfügbar.',
-    watering: treeWatered == 'Bewässerung eintragen ...',
+    watering: treeWatered == 'Bewässerung eintragen ...' ||  treeWatered == 'Abonniere Baum ...',
     treeState: true
   })
 

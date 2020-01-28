@@ -12,7 +12,7 @@ const SidebarSelected = p => {
   return (
     <>
       { (selectedTreeState === 'LOADING') && (
-        <SidebarLoadingCard/>
+        <SidebarLoadingCard state={selectedTreeState}/>
       ) }
 
       { (selectedTree && selectedTreeState !== 'LOADING') && (

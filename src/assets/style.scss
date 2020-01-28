@@ -44,7 +44,7 @@ body {
 }
 
 .treeState {
-    border: 2px solid #37DE8A;
+    border: 1px solid #37DE8A;
     color: #37DE8A;
     border-radius: 6px;
     padding: 10px;
@@ -54,7 +54,7 @@ body {
     margin-bottom: 20px;
 
     &.watering {
-        border: 2px solid #37DE8A;
+        border: 1px solid #37DE8A;
         color: #37DE8A;
         animation: pulse .75s infinite ease-in-out;
     }

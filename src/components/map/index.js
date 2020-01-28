@@ -12,19 +12,7 @@ import { wateredTreesSelector } from '../../state/Selectors';
 import { fetchAPI, createAPIUrl } from '../../state/utils';
 
 import { setDataLoaded, setSelectedTreeData, setSelectedTreeDataLoading, setSidebar, setDataIncluded } from '../../store/actions/index';
-
-
 const MAPBOX_TOKEN = process.env.API_KEY;
-
-export const INITIAL_VIEW_STATE = {
-	latitude: 52.500869,
-	longitude: 13.419047,
-	zoom: 16,
-	maxZoom: 19,
-	minZoom: 9,
-	pitch: 45,
-	bearing: 0
-};
 
 class DeckGLMap extends React.Component {
 
@@ -164,7 +152,11 @@ class DeckGLMap extends React.Component {
 
 	_onClick(x, y, object) {
 
+		const { setViewport } = this.props;
+
 		Store.setState({ selectedTreeState: 'LOADING' });
+
+		setViewport(object.geometry.coordinates);
 
 		const { state, selectedTree } = this.props;
 		const id = object.properties.id;
@@ -181,7 +173,6 @@ class DeckGLMap extends React.Component {
 		if (hoveredObject != null) {
 		  data = hoveredObject.data.properties;
 		  this.setState({ hoveredObject })
-		  console.log(data);
 		}
 	}
 
@@ -262,7 +253,7 @@ class DeckGLMap extends React.Component {
 	}
 
 	render() {
-		const {viewState, controller = true, baseMap = true, dataLoaded, wateredTrees, wateredTreesFetched, isLoading } = this.props;
+		const {viewport, controller = true, baseMap = true, dataLoaded, wateredTrees, wateredTreesFetched, isLoading } = this.props;
 
 		if (isLoading) {
 			return (
@@ -272,9 +263,9 @@ class DeckGLMap extends React.Component {
 			return (
 				<DeckGL
 					layers={this._renderLayers()}
-					initialViewState={INITIAL_VIEW_STATE}
-					viewState={viewState}
-					controller={controller}
+					initialViewState={viewport}
+					viewState={ viewport }
+					controller={ controller }
 				>
 
 					{baseMap && (
@@ -296,14 +287,11 @@ class DeckGLMap extends React.Component {
 }
 
 export default connect(state => ({
-//   wateredTrees: state.wateredTrees,
-//   includedTrees: state.includedTrees,
   data: state.data,
-//   wateredTreesFetched: state.wateredTreesFetched,
-//   wateredTreeDataUpdated: state.wateredTreeDataUpdated,
   isLoading: state.isLoading,
 	wateredTrees: wateredTreesSelector(state),
 	state: state,
+	viewport: state.viewport,
 	selectedTree: state.selectedTree,
 
 }), Actions)(DeckGLMap);

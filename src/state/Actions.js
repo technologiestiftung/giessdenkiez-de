@@ -3,6 +3,12 @@ import { dsv as d3Dsv } from 'd3';
 import axios from 'axios';
 import history from '../../history';
 import { createAPIUrl, fetchAPI } from './utils';
+import { FlyToInterpolator } from 'react-map-gl';
+
+import { 
+    easeCubic as d3EaseCubic
+} from 'd3';
+
 
 export const loadData = Store => async () => {
   Store.setState({ isLoading: true });
@@ -21,6 +27,23 @@ export const loadData = Store => async () => {
 
   return {
     data: data
+  }
+}
+
+function setViewport(state, payload) {
+  return {
+    viewport: {
+			latitude: payload[1],
+			longitude: payload[0],
+			zoom: 16,
+			maxZoom: 19,
+			transitionDuration: 1000,
+			transitionEasing: d3EaseCubic,
+			transitionInterpolator: new FlyToInterpolator(),
+			minZoom: 9,
+			pitch: 45,
+			bearing: 0
+		}
   }
 }
 
@@ -64,5 +87,6 @@ export default Store => ({
   loadData: loadData(Store),
   getWateredTrees: getWateredTrees(Store),
   getTree: getTree(Store),
-  setDetailRouteWithListPath
+  setDetailRouteWithListPath,
+  setViewport
 });

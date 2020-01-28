@@ -15,7 +15,16 @@ const Store = createStore({
   selectedTree: false,
   selectedTreeState: false,
   isLoading: true,
-  hoveredObject: false
+  hoveredObject: false,
+  viewport: {
+    latitude: 52.500869,
+    longitude: 13.419047,
+    zoom: 16,
+    maxZoom: 19,
+    minZoom: 9,
+    pitch: 45,
+    bearing: 0
+  },
 })
 
 export default Store;

@@ -86,7 +86,7 @@ const ButtonWater = (p) => {
       )
   } else if (!isAuthenticated) {
     return (
-      <ButtonWaterSpan onClick={() => {waterTree(id)}}>Jetzt anmelden</ButtonWaterSpan>
+      <></>
     )
   }
 
