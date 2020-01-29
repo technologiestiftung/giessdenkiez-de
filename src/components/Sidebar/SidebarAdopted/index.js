@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'unistore/react';
 import Actions from '../../../state/Actions';
-import { convertTime } from '../../../utils/index'
+import { convertTime, timeDifference } from '../../../utils/index'
 
 import SidebarLoadingCard from '../SidebarLoadingCard';
 import CardWrapper from '../../Card/CardWrapper/';
 import IconRemove from './IconRemove';
 import SidebarTitle from '../SidebarTitle/';
+
+import { colorByState } from '../../../assets/theme';
 
 import Store from '../../../state/Store';
 import { useAuth0 } from "../../../utils/auth0";
@@ -17,8 +19,13 @@ const StyledTH = styled.th`
   text-align: left;
 `;
 
+const StyledTDColor = styled.td`
+  color: ${ p => colorByState(p.state) }
+`;
+
 const StyledTD = styled.td`
   cursor: pointer;
+  padding: 5px 0;
 `;
 
 const StyledTableRow = styled.tr`
@@ -88,15 +95,18 @@ const SidebarAdopted = p => {
               </tr>
             </thead>
             <tbody>
-              { adoptedTrees.map(tree => {
+              { adoptedTrees.map((tree, i) => {
                 let watered = 'Keine Info';
                 if (tree.watered) {
                   watered = tree.watered;
                 }
+
+                const timeDiff = timeDifference(+ new Date(), watered);
+
                 return (
-                  <StyledTableRow>
+                  <StyledTableRow key={`row-key-${i}`}>
                     <StyledTD onClick={() => { getTree(tree) }}>{tree.artDtsch}</StyledTD>
-                    <td>{watered}</td>
+                    <StyledTDColor   state={timeDiff[0]}>{timeDiff[1]}</StyledTDColor >
                     <StyledTD onClick={(e) => { unadoptTree(tree.id) }}><IconRemove/></StyledTD>
                   </StyledTableRow>
                 )

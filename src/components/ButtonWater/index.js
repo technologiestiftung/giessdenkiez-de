@@ -16,12 +16,22 @@ const ButtonWaterSpan = styled.span`
   transition: background ${props => props.theme.timeS} ease-in-out;
   border-radius: ${props => props.theme.borderRadiusS};
   text-align: center;
-  font-size: ${props => props.theme.fontSizeL};
+  font-size: 13px;
 
   &:hover {
       background: ${props => props.theme.colorPrimaryHover};
       transition: background ${props => props.theme.timeS} ease-in-out;
   }
+`
+
+const ButtonWaterSpanOther = styled.span`
+  padding: 10px;
+  color: ${props => props.theme.colorTextLight};
+  background: ${props => props.theme.colorLightGrey};
+  transition: background ${props => props.theme.timeS} ease-in-out;
+  border-radius: ${props => props.theme.borderRadiusS};
+  text-align: center;
+  font-size: 13px;
 `
 
 const ButtonWater = (p) => {
@@ -31,7 +41,17 @@ const ButtonWater = (p) => {
   let adopted = false;
 
   if (user) {
-    adopted = selectedTree.adopted == user.email;
+
+    if (selectedTree.adopted == user.email) {
+      adopted = true
+    }
+
+    if (selectedTree.adopted) {
+      if (selectedTree.adopted != user.email && selectedTree.adopted.length > 0) {
+        adopted = 'other'
+      }
+    }
+
   }
 
   const timeNow = () => {
@@ -80,8 +100,9 @@ const ButtonWater = (p) => {
   if (isAuthenticated) {
       return (
         <Fragment>
-          { adopted && (<ButtonWaterSpan onClick={() => {waterTree(id)}}>{content.en.sidebar.btnWater}</ButtonWaterSpan>)}
+          { adopted && adopted != 'other' && (<ButtonWaterSpan onClick={() => {waterTree(id)}}>{content.en.sidebar.btnWater}</ButtonWaterSpan>)}
           { !adopted && (<ButtonWaterSpan onClick={() => {adoptTree(id)}}>Baum abonnieren</ButtonWaterSpan>)}
+          { adopted == 'other' && (<ButtonWaterSpanOther>Baum bereits vergeben</ButtonWaterSpanOther>)}
         </Fragment>
       )
   } else if (!isAuthenticated) {

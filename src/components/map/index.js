@@ -5,7 +5,6 @@ import {StaticMap} from 'react-map-gl';
 import axios from 'axios';
 import DeckGL, {GeoJsonLayer} from 'deck.gl';
 import { HexagonLayer } from '@deck.gl/aggregation-layers';
-// import { includedTreesSelector, wateredTreesLoadedSelector } from '../../state/Selectors';
 import Actions from '../../state/Actions';
 import Store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
@@ -74,7 +73,7 @@ class DeckGLMap extends React.Component {
 					filled: true,
 					pickable: true,
 					getLineColor: [0, 255, 255],
-					getRadius: 4,
+					getRadius: 2,
 					pointRadiusMinPixels: 2,
 					autoHighlight: true,
 					highlightColor: [200, 200, 200, 255],

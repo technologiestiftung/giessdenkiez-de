@@ -11,8 +11,13 @@ module.exports = {
       main: './index.js'
     },
 
+    devServer: {
+      historyApiFallback: true,
+    },
+
     output: {
-      library: 'App'
+      library: 'App',
+      publicPath: '/'
     },
 
     module: {

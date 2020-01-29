@@ -1,5 +1,6 @@
-const theme = {
+export const theme = {
     colorPrimary: '#37DE8A',
+    colorAlarm: '#FF8585',
     colorPrimaryHover: '#B5F2D0',
     colorGreyVeryLight: '#F3F3F4',
     colorGreyLight: '#E6E6E6',
@@ -40,4 +41,15 @@ const theme = {
 
 }
 
-export default theme;
+export const colorByState = state => {
+    if (state < 15) {
+        return theme.colorPrimary;
+    } else {
+        return theme.colorAlarm;
+    }
+}
+
+export default {
+    theme,
+    colorByState
+};

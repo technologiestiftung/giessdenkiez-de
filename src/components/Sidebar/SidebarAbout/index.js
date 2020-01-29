@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import SidebarTitle from '../SidebarTitle/';
+
 const SidebarAbout = p => {
   return (
-    <>Text über das Projekt hier.</>
+    <>
+      <SidebarTitle>Über das Projekt</SidebarTitle>
+    </>
   )
 }
 

@@ -36,6 +36,33 @@ export const convertTime = (unix_timestamp) => {
 		// return day month + '.' + year + '. //' + hours + ':' + minutes.substr(-2);
 }
 
+export const timeDifference = (date1,date2) => {
+	let difference = date1 - date2;
+	let daysDifference = Math.floor(difference/1000/60/60/24);
+
+	let label = '';
+
+	if (date2 == 'Keine Info') {
+		label = 'Keine Info';
+	}
+
+	if (daysDifference == 0) {
+		label = 'Heute';
+	}
+
+	if (daysDifference == 1) {
+		label = 'Vor 1 Tag';
+	}
+
+	if (daysDifference > 1) {
+		label = `Vor ${daysDifference} Tagen`;
+	}
+
+	return [daysDifference, label]
+
+}
+
 export default {
-	convertTime
+	convertTime,
+	timeDifference
 };

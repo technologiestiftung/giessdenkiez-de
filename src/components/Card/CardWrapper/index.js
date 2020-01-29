@@ -6,7 +6,7 @@ const CardWrapper = styled.div`
     flex-direction: column;
     z-index: 3;
     height: auto;
-    margin-top: 10px;
+    margin-top: 0px;
     width: 280px;
     padding: 10px;
     border-radius: ${props => props.theme.borderRadiusS};

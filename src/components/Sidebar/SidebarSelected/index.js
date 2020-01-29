@@ -5,12 +5,14 @@ import Actions from '../../../state/Actions';
 
 import Card from '../../Card/';
 import SidebarLoadingCard from '../SidebarLoadingCard';
+import SidebarTitle from '../SidebarTitle';
 
 const SidebarSelected = p => {
   const { selectedTreeState, selectedTree } = p;
 
   return (
     <>
+      <SidebarTitle>Auswahl:</SidebarTitle>
       { (selectedTreeState === 'LOADING') && (
         <SidebarLoadingCard state={selectedTreeState}/>
       ) }

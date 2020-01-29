@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import SidebarTitle from '../SidebarTitle/';
+
 const SidebarProfile = p => {
   return (
-    <>Profile des eingeloggten Nutzers hier.</>
+    <>
+      <SidebarTitle>Profil</SidebarTitle>
+    </>
   )
 }
 

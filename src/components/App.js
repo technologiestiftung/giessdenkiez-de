@@ -1,26 +1,18 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import theme from '../assets/theme';
+import { theme } from '../assets/theme';
 import { Router } from "react-router-dom";
-
 import history from "../../history";
-
-import DeckGlMap from './map';
-import Sidebar from './Sidebar';
-import NavBar from './Navbar';
-
-import Loading from './Loading';
-import logo from '!file-loader!../assets/citylab-logo.svg';
-
 import { connect } from 'unistore/react';
 import Store from '../state/Store';
 
 import Actions, { loadData, getWateredTrees } from '../state/Actions';
 import "../assets/style.scss";
 
+import AppWrapper from './AppWrapper';
+
 const loadEntryDataAction = Store.action(loadData(Store));
 const loadWateredTreesAction = Store.action(getWateredTrees(Store));
-
 
 loadEntryDataAction();
 loadWateredTreesAction();
@@ -59,20 +51,12 @@ const TSBLink = () => {
 
 const AppContainer = p => {
 
-  const { isLoading, data, wateredTrees } = p;
+  const { isLoading, data } = p;
 
   return (
     <Router history={history}>
       <ThemeProvider theme={theme}>
-          <AppWrapperDiv>
-              {isLoading && (<Loading/>)}
-              <div>
-                  {/* {TSBLink()} */}
-                  {!isLoading && data && (<DeckGlMap data={data}/>)}
-                  {!isLoading && data && (<Sidebar/>)}
-                  <NavBar/>
-              </div>
-          </AppWrapperDiv>
+        <AppWrapper isLoading={isLoading} data={data} />
       </ThemeProvider>
     </Router>
   )
@@ -82,6 +66,4 @@ const AppContainer = p => {
 export default connect(state => ({
 isLoading: state.isLoading,
 data: state.data,
-wateredTrees: state.wateredTrees
-
 }), Actions)(AppContainer);
