@@ -82,13 +82,13 @@ const Card = p => {
       <FlexColumnDiv>
         <TreeTitle>{artDtsch}</TreeTitle>
         <SublineSpan>{gattungDeutsch.toLowerCase()}</SublineSpan>
-        <span className={stateWaterTreeClass}>{treeWatered}</span>
-        <SublineSpanClose>{strName}{hausNr}</SublineSpanClose>
-        <SublineSpan>{bezirk}</SublineSpan>
-        <CardProperty name="Baumhöhe:" value={baumHoehe}/>
-        <CardProperty name="Stammumfang:" value={stammUmfg}/>
-        <CardProperty name="Kronendurchmesser:" value={kroneDurch}/>
-        <CardProperty name="Gepflanzt:" value={`${pflanzJahr} (${standAlter} Jahre)`}/>
+        { stateWaterTreeClass && <span className={stateWaterTreeClass}>{treeWatered}</span>}
+        { strName && hausNr &&<SublineSpanClose>{strName}{hausNr}</SublineSpanClose>}
+        { bezirk && <SublineSpan>{bezirk}</SublineSpan>}
+        { baumHoehe && <CardProperty name="Baumhöhe:" value={baumHoehe}/>}
+        { stammUmfg && <CardProperty name="Stammumfang:" value={stammUmfg}/>}
+        { kroneDurch && <CardProperty name="Kronendurchmesser:" value={kroneDurch}/>}
+        { pflanzJahr && standAlter && <CardProperty name="Gepflanzt:" value={`${pflanzJahr} (${standAlter} Jahre)`}/>}
         <ButtonWater/>
       </FlexColumnDiv>
     </CardWrapper>

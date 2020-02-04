@@ -78,6 +78,20 @@ export const getTree = Store => async (id) => {
   }
 }
 
+export const getTreeByAge = Store => async (state, start, end) => {
+  Store.setState({ selectedTreeState: 'LOADING' });
+  const url = createAPIUrl(state, `/get-tree-by-age?start=${start}&end=${end}`);
+
+  const res = await fetchAPI(url)
+    .then(r => {
+      console.log(r);
+      Store.setState({
+        selectedTreeState: 'LOADED',
+        selectedTrees: r.data
+      });
+    })
+}
+
 const setDetailRouteWithListPath = (state, treeId) => {
   const nextLocation = `/selected?location=${treeId}`;
   history.push(nextLocation);
@@ -87,6 +101,7 @@ export default Store => ({
   loadData: loadData(Store),
   getWateredTrees: getWateredTrees(Store),
   getTree: getTree(Store),
+  getTreeByAge: getTreeByAge(Store),
   setDetailRouteWithListPath,
   setViewport
 });
