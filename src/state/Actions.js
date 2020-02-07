@@ -30,6 +30,12 @@ export const loadData = Store => async () => {
   }
 }
 
+export const setAppState = (state, payload) => {
+  return {
+    AppState: payload
+  }
+}
+
 function setViewport(state, payload) {
   return {
     viewport: {
@@ -61,8 +67,6 @@ export const getWateredTrees = Store => async () => {
   Store.setState({ isLoading: true });
   const url = createAPIUrl(Store.getState(), '/get-watered-trees')
   const res = await fetchAPI(url);
-
-  console.log(res.data)
 
   return {
     isLoading: false,
@@ -103,5 +107,6 @@ export default Store => ({
   getTree: getTree(Store),
   getTreeByAge: getTreeByAge(Store),
   setDetailRouteWithListPath,
-  setViewport
+  setViewport,
+  setAppState
 });

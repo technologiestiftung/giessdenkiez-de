@@ -15,6 +15,11 @@ import Store from '../../../state/Store';
 import { useAuth0 } from "../../../utils/auth0";
 import { fetchAPI, createAPIUrl } from '../../../state/utils';
 
+const StyledCardWrapper = styled(CardWrapper)`
+  height: 600px;
+  overflow: scroll;
+`;
+
 const StyledTH = styled.th`
   text-align: left;
 `;
@@ -86,7 +91,7 @@ const SidebarAdopted = p => {
         <SidebarLoadingCard state={selectedTreeState}/>
       ) }
       { (adoptedTrees.length > 0) && (selectedTreeState === 'FETCHED') && (
-        <CardWrapper>
+        <StyledCardWrapper>
           <table>
             <thead>
               <tr>
@@ -113,7 +118,7 @@ const SidebarAdopted = p => {
               }) }
             </tbody>
           </table>
-        </CardWrapper>
+        </StyledCardWrapper>
       )}
 
       { (adoptedTrees.length == 0) && (selectedTreeState !== 'LOADING') && (

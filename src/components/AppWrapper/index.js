@@ -18,7 +18,6 @@ const AppWrapper = p => {
     <AppWrapperDiv>
         {isLoading && (<Loading/>)}
         <div>
-            {/* {TSBLink()} */}
             {!isLoading && data && (<DeckGlMap data={data}/>)}
             {!isLoading && data && (<Sidebar/>)}
             <NavBar/>

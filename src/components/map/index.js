@@ -3,12 +3,12 @@ import { connect } from "unistore/react";
 import {render} from 'react-dom';
 import {StaticMap} from 'react-map-gl';
 import axios from 'axios';
-import DeckGL, {GeoJsonLayer} from 'deck.gl';
-import { HexagonLayer } from '@deck.gl/aggregation-layers';
+import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import Actions from '../../state/Actions';
 import Store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import { fetchAPI, createAPIUrl } from '../../state/utils';
+import { colorFeature } from './maputils';
 
 import { setDataLoaded, setSelectedTreeData, setSelectedTreeDataLoading, setSidebar, setDataIncluded } from '../../store/actions/index';
 const MAPBOX_TOKEN = process.env.API_KEY;
@@ -25,7 +25,6 @@ class DeckGLMap extends React.Component {
 		  hoveredObject: null,
 		  data: null,
 		  included: null,
-			selectedTree: null
 		};
 
 		this._onClick = this._onClick.bind(this);
@@ -47,32 +46,36 @@ class DeckGLMap extends React.Component {
 		]
 
 		const features = data.features;
-		const hexagon = new HexagonLayer({
-			id: 'hexagon-layer',
-			data: features,
-			pickable: true,
-			extruded: true,
-			colorRange: COLOR_RANGE,
-			elevationRange: [0, 1000],
-			radius: 20,
-			elevationScale: 2,
-			getPosition: d => { return d.geometry.coordinates},
-		})
+
 
 		if (data != null) {
-
-			// const { includedTrees, wateredTreeDataUpdated } = this.props;
-
 			return [
 				new GeoJsonLayer({
 					id: 'geojson',
 					data,
 					opacity: 1,
-					stroked: false,
-					getRadius: 6,
+					stroked: true,
+					getRadius: 12,
+					getLineWidth: (info) => {
+						const { selectedTree } = this.props;
+						const id = info.properties['id'];
+
+						if (selectedTree) {
+							if (id === selectedTree.id) {
+								return 4;
+							} else {
+								return 0
+							}
+						} else {
+							return 0
+						}
+
+					},
+					getElevation: 30,
+					extruded: true,
 					filled: true,
 					pickable: true,
-					getLineColor: [0, 255, 255],
+					getLineColor: [255, 132, 132, 255],
 					getRadius: 2,
 					pointRadiusMinPixels: 2,
 					autoHighlight: true,
@@ -82,48 +85,27 @@ class DeckGLMap extends React.Component {
 						getFillColor: 500,
 					},
 					getFillColor: (info) => {
-						const { wateredTrees } = this.props;
+						const { wateredTrees, AppState } = this.props;
 						const id = info.properties['id'];
 
-						if (wateredTrees[id]) {
-							return [102, 245, 173, 200]
+						switch (AppState) {
+							case 'watered':
+								if (wateredTrees[id]) {
+									return [55, 130, 222, 200]
+								}
+								break;
+
+							case 'loggedIn':
+								return [255, 0, 0, 200]
+								break;
+
+							default:
+								break;
 						}
-						return [55, 222, 138, 255];
-						// let included = includedTrees[info.properties['id']] != undefined ? includedTrees[info.properties['id']].included : false;
 
-						// if (wateredTreeDataUpdated && this.state.highlightedObject == info.properties['id']) {
-						//    return [150, 150, 150, 200]
-						// } else if (wateredTreeDataUpdated && included) {
-						//     return [102, 245, 173, 200]
-						// } else if (wateredTreeDataUpdated && !included) {
-						//     return [164, 181, 222, 150]
-						// }
+						colorFeature(info, AppState);
 
-						// if (this.props.treeAgeDataUpdated && this.state.highlightedObject == info.properties['id']) {
-						//     return [150, 150, 150, 200]
-						// } else if (this.props.treeAgeDataUpdated && included) {
-						//     return [102, 245, 173, 255];
-						// } else if (this.props.treeAgeDataUpdated && !included) {
-						//     return [0, 0, 255, 0];
-						// }
-
-						// if (this.props.treeTypeDataUpdated  && this.state.highlightedObject == info.properties['id']) {
-						//     return [150, 150, 150, 200]
-						// } else if (this.props.treeTypeDataUpdated && included) {
-						//     let type = includedTrees[info.properties['id']].type;
-						//     return this.props.typeColors[type].color;
-						// } else if (this.props.treeTypeDataUpdated && !included) {
-						//     return [0, 0, 255, 0];
-						// }
-
-						// if (this.props.treeSizeDataUpdated  && this.state.highlightedObject == info.properties['id']) {
-						//     return [150, 150, 150, 200]
-						// } else if (this.props.treeSizeDataUpdated && included) {
-						//     return [102, 245, 173, 255]
-						// } else if (this.props.treeSizeDataUpdated && !included) {
-						//     return [0, 0, 255, 0];
-						// }
-
+						return [55, 222, 138, 200];
 					},
 					onClick: (info) => {
 						const { setDetailRouteWithListPath } = this.props;
@@ -135,7 +117,8 @@ class DeckGLMap extends React.Component {
 						}
 					},
 					updateTriggers: {
-						getFillColor: [this.getWateredTrees, this.state.highlightedObject]
+						getFillColor: [this.props.wateredTrees, this.state.highlightedObject],
+						getLineWidth: [this.props.selectedTree]
 					}
 				})
 			];
@@ -290,7 +273,7 @@ export default connect(state => ({
   isLoading: state.isLoading,
 	wateredTrees: wateredTreesSelector(state),
 	state: state,
+	AppState: state.AppState,
 	viewport: state.viewport,
 	selectedTree: state.selectedTree,
-
 }), Actions)(DeckGLMap);

@@ -15,6 +15,7 @@ const Store = createStore({
   selectedTree: false,
   selectedTreeState: false,
   isLoading: true,
+  AppState: 'watered',
   hoveredObject: false,
   viewport: {
     latitude: 52.500869,
