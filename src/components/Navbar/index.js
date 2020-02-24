@@ -24,28 +24,32 @@ const StyledNavWrapper = styled.div`
   background: white;
   border-bottom: 1px solid ${p => p.theme.colorLightGrey};
   box-shadow: ${p => p.theme.boxShadow};
+
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    display: none;
+  }
 `;
 
 const NavBar = p => {
   const { state } = p;
-  const [active, setActive] = useState('');
+  const [ active, setActive ] = useState('');
   const { isAuthenticated, getTokenSilently, loginWithRedirect, logout, loading, user } = useAuth0();
 
   const getAdoptedTrees = async () => {
-      Store.setState({ selectedTreeState: 'LOADING' });
-      const token = await getTokenSilently();
-      const mail = user.mail;
-      const url = createAPIUrl(state, `/private/get-adopted-trees?mail=${user.email}`);
+    Store.setState({ selectedTreeState: 'LOADING' });
+    const token = await getTokenSilently();
+    const mail = user.mail;
+    const url = createAPIUrl(state, `/private/get-adopted-trees?mail=${user.email}`);
 
-      const res = await fetchAPI(url,
-        {
-          headers: {
-            Authorization: 'Bearer ' + token
-          }
-        })
-        .then(r => {
-          Store.setState({ selectedTreeState: 'FETCHED', adoptedTrees: r.data.adopted }); 
-        });
+    const res = await fetchAPI(url,
+      {
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      })
+      .then(r => {
+        Store.setState({ selectedTreeState: 'FETCHED', adoptedTrees: r.data.adopted }); 
+      });
   }
 
   return (

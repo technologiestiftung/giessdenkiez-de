@@ -11,7 +11,6 @@ const LoadingDiv = styled.div`
   left: 0;
   display: flex;
   align-items: center;
-  ${'' /* display: none; */}
 
   div {
       text-align: center;
@@ -25,7 +24,6 @@ const LoadingDiv = styled.div`
 
       span {
           color: ${props => props.theme.colorTextLight};
-          ${'' /* animation: pulse 1s infinite ease-in-out; */}
       }
   }
 `
@@ -74,6 +72,7 @@ const Spinner = styled.div`
 
 const StyledSpan = styled.span`
   margin-top: 20px;
+  font-size: 1rem;
 `;
 
 const Loading = (props) => {

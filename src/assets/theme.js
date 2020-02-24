@@ -8,6 +8,7 @@ export const theme = {
     colorTextLight: 'rgb(94, 101, 115);',
     colorTextMedium: '#D9D9D9',
     colorLightGrey: '#F9F9F9',
+    colorWhite: '#FFFFFF',
 
     boxShadow: `0 2px 40px 0 rgba(30,55,145,0.15)`,
 
@@ -19,7 +20,7 @@ export const theme = {
     borderRadiusM: '12px',
 
     sidebarWidth: '300px',
-    sidebarTileWidth: '280px',
+    sidebarTileWidth: '260px',
 
     screenWidthM: '1050px',
     screenWidthS: '600px',
@@ -36,6 +37,13 @@ export const theme = {
     timeS: '.125s',
     timeM: '.25s',
     timeL: '.5s',
+
+    screens: {
+        mobile: '400px',
+        tablet: '767px',
+        laptop: '1024px',
+        desktop: '1440px'
+    },
 
     transition: 'all .125s ease-in-out',
 

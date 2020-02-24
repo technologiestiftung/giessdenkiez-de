@@ -10,7 +10,6 @@ import { wateredTreesSelector } from '../../state/Selectors';
 import { fetchAPI, createAPIUrl } from '../../state/utils';
 import { colorFeature } from './maputils';
 
-import { setDataLoaded, setSelectedTreeData, setSelectedTreeDataLoading, setSidebar, setDataIncluded } from '../../store/actions/index';
 const MAPBOX_TOKEN = process.env.API_KEY;
 
 class DeckGLMap extends React.Component {
