@@ -8,7 +8,7 @@ const SidebarLoadingCardDiv = styled.div`
   flex-direction: row;
   z-index: 3;
   height: auto;
-  width: 260px;
+  width: auto;
   padding: 10px;
   border-radius: ${props => props.theme.borderRadiusS};
   margin-bottom: 10px;

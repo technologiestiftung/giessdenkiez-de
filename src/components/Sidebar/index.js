@@ -18,22 +18,21 @@ const SidebarWrapper = styled.div`
   background: ${props => props.theme.colorLightGrey};
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 24px);
   margin: 12px;
-  max-width: 370px;
-  min-width: 340px;
+  width: 340px;
   box-shadow: ${p => p.theme.boxShadow};
   transition: transform .5s, box-shadow .5s;
 
   @media screen and (max-width: ${p => p.theme.screens.mobile}) {
-    max-width: 400px;
+    max-width: 340px;
     min-width: 300px;
-    width: calc(100vw - 40px);
+    width: calc(100vw - 24px);
   }
 `
 
 const SidebarContent = styled.div`
-  padding: 0px 20px;
+  padding: 0px 15px;
 `;
 
 const Sidebar = p => {

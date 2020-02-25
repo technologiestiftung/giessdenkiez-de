@@ -14,7 +14,7 @@ const FilterAgeDiv = styled.div`
   height: auto;
   margin-top: 10px;
   padding: ${props => props.theme.spacingM};
-  width: 240px;
+  width: auto;
   border-radius: ${props => props.theme.borderRadiusS};
   margin-bottom: 10px;
   background: white;
