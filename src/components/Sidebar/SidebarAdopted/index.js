@@ -16,8 +16,7 @@ import { useAuth0 } from "../../../utils/auth0";
 import { fetchAPI, createAPIUrl } from '../../../state/utils';
 
 const StyledCardWrapper = styled(CardWrapper)`
-  height: 600px;
-  overflow: scroll;
+  height: auto;
 `;
 
 const StyledTH = styled.th`

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from "unistore/react";
 import {render} from 'react-dom';
-import {StaticMap} from 'react-map-gl';
+import {StaticMap, NavigationControl} from 'react-map-gl';
 import axios from 'axios';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import Actions from '../../state/Actions';
@@ -9,6 +9,14 @@ import Store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import { fetchAPI, createAPIUrl } from '../../state/utils';
 import { colorFeature } from './maputils';
+import styled from 'styled-components';
+
+const ControlWrapper = styled.div`
+	position: absolute;
+	z-index: 10000;
+	left: 15px;
+	bottom: 15px;
+`;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
@@ -133,7 +141,7 @@ class DeckGLMap extends React.Component {
 
 	_onClick(x, y, object) {
 
-		const { setViewport } = this.props;
+		const { setViewport, setView } = this.props;
 
 		Store.setState({ selectedTreeState: 'LOADING' });
 
@@ -248,7 +256,6 @@ class DeckGLMap extends React.Component {
 					viewState={ viewport }
 					controller={ controller }
 				>
-
 					{baseMap && (
 					<StaticMap
 						reuseMaps
@@ -256,7 +263,9 @@ class DeckGLMap extends React.Component {
 						preventStyleDiffing={true}
 						mapboxApiAccessToken={MAPBOX_TOKEN}
 						onLoad={this._onload.bind(this)}
-					/>
+						zoom={3}
+					>
+					</StaticMap>
 					)}
 
 					{/* {this._renderTooltip} */}

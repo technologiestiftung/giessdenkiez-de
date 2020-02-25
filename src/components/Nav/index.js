@@ -9,9 +9,9 @@ import { useAuth0 } from "../../utils/auth0";
 
 import ListIcon from '@material-ui/icons/List';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-import NaturePeopleIcon from '@material-ui/icons/NaturePeople';
+import NaturePeopleIcon from '@material-ui/icons/NaturePeopleOutlined';
 
 import EdgeButton from '../EdgeComponent/';
 
@@ -40,15 +40,15 @@ const NavItem = styled(NavLink)`
   justify-content: center;
   align-items: center;
   opacity: ${p => {
-    if (!p.isAuthenticated && p.title === 'Adoptierte Bäume') {
-      return .5;
+    if (!p.isAuthenticated && (p.title === 'Adoptierte Bäume' || p.title === 'Profil')) {
+      return .25;
     } else {
       return 1;
     }
   }}
   text-decoration: none;
   pointer-events: ${p => {
-    if (!p.isAuthenticated && p.title === 'Adoptierte Bäume') {
+    if (!p.isAuthenticated && (p.title === 'Adoptierte Bäume' || p.title === 'Profil')) {
       return 'none';
     } else {
       return 'auto';
@@ -60,12 +60,19 @@ const navConfig = [
   { path: '/search', title: 'Suche und Filter', icon: <SearchIcon /> },
   { path: '/about', title: 'Info', icon: <InfoIcon/> },
   { path: '/adopted', title: 'Adoptierte Bäume', icon: <NaturePeopleIcon/> },
-  { path: '/profile', title: 'Listenansicht', icon: <AccountCircle /> },
+  { path: '/profile', title: 'Profil', icon: <AccountCircle /> },
 ];
 
 const Nav = p => {
   const { state } = p;
-  const { isAuthenticated, getTokenSilently, loginWithRedirect, logout, loading, user } = useAuth0();
+  const { 
+    isAuthenticated, 
+    getTokenSilently, 
+    loginWithRedirect, 
+    logout,
+    loading,
+    user 
+  } = useAuth0();
   const { pathname } = p.location;
 
   const isNavOpen = matchPath(pathname, {
@@ -85,7 +92,10 @@ const Nav = p => {
         }
       })
       .then(r => {
-        Store.setState({ selectedTreeState: 'FETCHED', adoptedTrees: r.data.adopted }); 
+        Store.setState({ 
+          selectedTreeState: 'FETCHED', 
+          adoptedTrees: r.data.adopted 
+        }); 
       });
   }
 

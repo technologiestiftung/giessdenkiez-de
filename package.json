@@ -52,6 +52,7 @@
     "react-transition-group": "^4.3.0",
     "reselect": "^4.0.0",
     "styled-components": "^4.3.2",
+    "styled-normalize": "^8.0.7",
     "unistore": "^3.5.1"
   }
 }

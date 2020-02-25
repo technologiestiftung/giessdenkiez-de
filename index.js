@@ -7,6 +7,7 @@ import config from "./auth0_config.json";
 
 import { Provider } from 'unistore/react';
 import Store from './src/state/Store';
+import GlobalStyles from './src/assets/Global';
 
 import { Auth0Provider } from "./src/utils/auth0";
 
@@ -32,7 +33,10 @@ function startApp() {
             onRedirectCallback={onRedirectCallback}
           >
             <Provider store={Store}>
+              <>
+                <GlobalStyles />
                 <RootComponent/>
+              </>
             </Provider>
           </Auth0Provider>
         ,rootElement);

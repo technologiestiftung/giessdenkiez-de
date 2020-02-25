@@ -53,6 +53,24 @@ function setViewport(state, payload) {
   }
 }
 
+function setView(state, payload) {
+
+  const viewPrevious = {
+    maxZoom: 19,
+    transitionDuration: 250,
+    transitionEasing: d3EaseCubic,
+    transitionInterpolator: new FlyToInterpolator(),
+    minZoom: 9,
+    pitch: 45,
+    bearing: 0
+  }
+
+  const newViewport = { ...viewPrevious, ...payload }
+  return {
+    viewport: newViewport
+  }
+}
+
 function checkStatus(response) {
   if (response.ok) {
     return response;
@@ -114,6 +132,7 @@ export default Store => ({
   getTreeByAge: getTreeByAge(Store),
   setDetailRouteWithListPath,
   setViewport,
+  setView,
   removeSelectedTree,
   setAppState
 });
