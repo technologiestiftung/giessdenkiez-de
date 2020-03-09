@@ -1,7 +1,7 @@
 const content = {
     'en': {
         sidebar: {
-            btnWater: 'Jetzt bewässern'
+            btnWater: 'Ich habe gegossen!'
         }
     }
 }
