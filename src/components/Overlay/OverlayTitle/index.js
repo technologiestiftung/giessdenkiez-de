@@ -2,10 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledOverlayTitle = styled.h2`
-  font-size: ${p => p.theme.fontSizeXxl};
+  font-size: ${p => p.size === 'large' ? p.theme.fontSizeXxl : p.theme.fontSizeXl };
   font-weight: normal;
   line-height: ${p => p.theme.lineHeightHeadline};
-  margin: 0px 0 20px 40px;
+  margin: 0px 40px 20px 40px;
+
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    font-size: ${p => p.theme.fontSizeXl };
+  }
 
   b {
     font-weight: bold;
@@ -17,9 +21,9 @@ const StyledOverlayTitle = styled.h2`
 `;
 
 const OverlayTitle = p => {
-  const {content} = p;
+  const {content, size} = p;
   return (
-    <StyledOverlayTitle dangerouslySetInnerHTML={{ __html: `${content}` }}/>
+    <StyledOverlayTitle size={size} dangerouslySetInnerHTML={{ __html: `${content}` }}/>
   )
 };
 

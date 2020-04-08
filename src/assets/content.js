@@ -5,7 +5,7 @@ const content = {
 		description: ['Wir vernetzen die Berliner*innen mit ihren Bäumen. Denn die Berliner Bäume leiden unter den Folgen des Klimawandels und benötigen Deine Unterstützung. Diese Plattform vermittelt einen Überblick über den Berliner Straßenbaumbestand und schafft die Möglichkeit, die Bewässerung der Bäume zu koordinieren.', 'Falls Du die Seite regelmäßig nutzen willst, kannst Du ein Konto erstellen. Den Baumbestand kannst Du aber auch ohne Konto erkunden. Erfahre mehr über das Projekt und erkunde den Baumbestand.']
 	},
 	collaborate: {
-		title: 'Wie kann ich mitmachen?',
+		title: '<b>Wie kann ich mitmachen?</b>',
 		tiles: [
 			{
 				icon: 'water',

@@ -7,11 +7,22 @@ import { connect } from 'unistore/react';
 import history from '../../../../history';
 
 import OverlayTitle from "../OverlayTitle/";
+import OverlayIcon from "../OverlayIcon/";
 import OverlayDescription from "../OverlayDescription/";
 import ButtonRound from "../../../components/ButtonRound/";
 import Login from "../../../components/Login/";
 
 import content from "../../../assets/content";
+
+const Wrapper = styled.div`
+  display: flex;
+  img {
+    transform: translate(-35px, -20px);
+    @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+      transform: translate(-35px, -40px);
+    }
+  }
+`;
 
 const StyledTop = styled.div`
   height: 500px;
@@ -47,8 +58,11 @@ const OverlayTop = (p) => {
 
   return (
     <StyledTop>
-      <OverlayTitle content={title} />
-      <OverlayTitle content={subline} />
+      <Wrapper>
+        <OverlayTitle size="large" content={title} />
+        <OverlayIcon icon="trees"/>
+      </Wrapper>
+      <OverlayTitle size="large" content={subline} />
       <OverlayDescription content={description} />
       {Children.map(children, (childElement) => {
         return cloneElement(childElement, {});

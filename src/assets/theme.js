@@ -4,7 +4,7 @@ export const theme = {
     colorPrimaryHover: '#B5F2D0',
     colorGreyVeryLight: '#F3F3F4',
     colorGreyLight: '#E6E6E6',
-    colorTextDark: 'rgb(44, 48, 59)',
+    colorTextDark: '#2c303b',
     colorTextLight: 'rgb(94, 101, 115);',
     colorTextMedium: '#D9D9D9',
     colorLightGrey: '#F9F9F9',

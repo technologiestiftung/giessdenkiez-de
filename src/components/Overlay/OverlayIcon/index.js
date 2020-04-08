@@ -5,15 +5,16 @@ import iconWater from '!file-loader!../../../assets/images/icon-water.svg';
 import iconInfo from '!file-loader!../../../assets/images/icon-info.svg';
 import iconSubscribe from '!file-loader!../../../assets/images/icon-subscribe.svg';
 import iconZoom from '!file-loader!../../../assets/images/icon-zoom.svg';
+import iconTrees from '!file-loader!../../../assets/images/icon-trees.svg';
 
 const IconWrapper = styled.div`
   height: auto;
   transform: translateY(-5px);
-  min-width: 90px;
-  width: 90px;
+  min-width: 70px;
+  width: 70px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     justify-content: flex-start;
@@ -33,7 +34,7 @@ const OverlayIcon = p => {
   const geticon = type => {
     switch (type) {
       case 'water':
-        return iconInfo;
+        return iconWater;
         break;
       case 'info':
         return iconInfo;
@@ -43,6 +44,9 @@ const OverlayIcon = p => {
         break;
       case 'subscribe':
         return iconSubscribe;
+        break;
+      case 'trees':
+        return iconTrees;
         break;
       default:
         break;

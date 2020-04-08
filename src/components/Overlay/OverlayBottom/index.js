@@ -2,6 +2,7 @@ import React, { cloneElement } from 'react';
 import styled from 'styled-components';
 
 import OverlayTiles from '../OverlayTiles/';
+import OverlayTitle from '../OverlayTitle/';
 import content from "../../../assets/content";
 
 const StyledBottom = styled.div`
@@ -18,6 +19,7 @@ const OverlayBottom = p => {
 
   return (
     <StyledBottom>
+      <OverlayTitle content={collaborate.title}/>
       <OverlayTiles content={collaborate.tiles}/>
     </StyledBottom>
   )
