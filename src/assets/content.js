@@ -24,8 +24,8 @@ const content = {
 			},
 			{
 				icon: 'info',
-				title: 'Was noch?',
-				content: 'Informiere dich auf unserer Plattform, ob die Bäume in deiner Straße Wasser benötigen. Wenn ja, schnapp dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst du die Bewässerung hier ein.'
+				title: 'Mehr erfahren',
+				content: 'Du möchtest mehr zur richtigen Baumpflege erfahren? Oder du hast eine Frage? Bei uns findest du weitere Informationen zu Bäumen und alle Kontakte der bezirklichen Grünflächenämtern.'
 			}
 		]
 	}
