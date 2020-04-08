@@ -14,6 +14,7 @@ const Store = createStore({
   tabActive: 'id-0',
   selectedTree: false,
   selectedTreeState: false,
+  overlay: true,
   isLoading: true,
   AppState: 'watered',
   hoveredObject: false,

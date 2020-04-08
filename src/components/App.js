@@ -51,12 +51,14 @@ const TSBLink = () => {
 
 const AppContainer = p => {
 
-  const { isLoading, data } = p;
+  const { isLoading, data, overlay } = p;
+
+  console.log('app wrapper', overlay)
 
   return (
     <Router history={history}>
       <ThemeProvider theme={theme}>
-        <AppWrapper isLoading={isLoading} data={data} />
+        <AppWrapper isLoading={isLoading} overlay={overlay} data={data} />
       </ThemeProvider>
     </Router>
   )
@@ -65,5 +67,6 @@ const AppContainer = p => {
 
 export default connect(state => ({
 isLoading: state.isLoading,
+overlay: state.overlay,
 data: state.data,
 }), Actions)(AppContainer);

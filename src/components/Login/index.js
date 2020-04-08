@@ -5,20 +5,7 @@ import Store from '../../state/Store';
 import { fetchAPI, createAPIUrl } from '../../state/utils';
 import { useAuth0 } from "../../utils/auth0";
 
-const LoginWrapper = styled.span`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: flex;
-`;
-
-const LoginItem = styled.span`
- cursor: pointer;
-
- &:hover {
-   opacity: .5;
- }
-`;
+import ButtonRound from '../ButtonRound/';
 
 const Login = p => {
   const { isAuthenticated, getTokenSilently, loginWithRedirect, logout, loading, user } = useAuth0();
@@ -32,10 +19,10 @@ const Login = p => {
   }
 
   return (
-    <LoginWrapper>
-      { !isAuthenticated && (<LoginItem onClick={() => handleClick('login')}>Login</LoginItem>)}
-      { isAuthenticated && (<LoginItem onClick={() => handleClick('logout')}>Logout</LoginItem>)}
-    </LoginWrapper>
+    <>
+      { !isAuthenticated && (<ButtonRound toggle={() => handleClick('login')}>Registrieren / Einloggen</ButtonRound>)}
+      { isAuthenticated && (<ButtonRound toggle={() => handleClick('logout')}>Ausloggen</ButtonRound>)}
+    </>
   )
 }
 

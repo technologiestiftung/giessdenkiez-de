@@ -27,12 +27,15 @@ export const theme = {
 
     colorLight: '#777777',
 
+    lineHeightHeadline: '125%',
+    lineHeightBody: '150%',
+
     fontFamily: 'IBM Plex Sans',
-    
+
     fontSizeXxl: '2rem',
     fontSizeXl: '1.5rem',
-    fontSizeL: '.75rem',
-    fontSizeM: '.5rem',
+    fontSizeL: '1rem',
+    fontSizeM: '.75rem',
 
     timeS: '.125s',
     timeM: '.25s',

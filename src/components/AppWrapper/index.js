@@ -5,26 +5,27 @@ import DeckGlMap from '../map';
 import Sidebar from '../Sidebar';
 import NavBar from '../Navbar';
 import Nav from '../Nav';
-import Login from '../Login';
 import Loading from '../Loading';
+import Overlay from '../Overlay';
 
 import logo from '!file-loader!../../assets/citylab-logo.svg';
 
 const AppWrapperDiv = styled.div`
-font-family: ${props => props.theme.fontFamily};
+  font-family: ${props => props.theme.fontFamily};
+  height: 100vh;
+  width: 100vw;
 `;
 
 const AppWrapper = p => {
-  const { isLoading, data } = p;
+  const { isLoading, data, overlay } = p;
+  console.log('overlay', overlay)
   return (
     <AppWrapperDiv>
-        { isLoading && (<Loading/>) }
-        <div>
-            {!isLoading && data && (<DeckGlMap data={data}/>)}
-            {!isLoading && data && (<Sidebar/>)}
-            <Nav/>
-            <Login/>
-        </div>
+      { isLoading && (<Loading/>) }
+      {!isLoading && data && (<DeckGlMap data={data}/>)}
+      {!isLoading && data && (<Sidebar/>)}
+      {overlay && data && (<Overlay/>)}
+      <Nav/>
     </AppWrapperDiv>
   )
 }

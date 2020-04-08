@@ -5,7 +5,7 @@ import history from '../../history';
 import { createAPIUrl, fetchAPI } from './utils';
 import { FlyToInterpolator } from 'react-map-gl';
 
-import { 
+import {
     easeCubic as d3EaseCubic
 } from 'd3';
 
@@ -120,6 +120,10 @@ export const getTreeByAge = Store => async (state, start, end) => {
     })
 }
 
+export const toggleOverlay = (state, payload) => ({
+  overlay: payload
+})
+
 const setDetailRouteWithListPath = (state, treeId) => {
   const nextLocation = `/search?location=${treeId}`;
   history.push(nextLocation);
@@ -134,5 +138,6 @@ export default Store => ({
   setViewport,
   setView,
   removeSelectedTree,
-  setAppState
+  setAppState,
+  toggleOverlay
 });
