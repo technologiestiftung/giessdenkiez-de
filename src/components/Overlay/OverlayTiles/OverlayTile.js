@@ -8,6 +8,10 @@ const StyledTileWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: center;
+
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    flex-direction: column;
+  }
 `;
 
 const StyledContentWrapper = styled.div`

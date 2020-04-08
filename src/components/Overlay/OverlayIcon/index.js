@@ -14,6 +14,12 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 70px;
+  }
 `;
 
 const StyledIcon = styled.img`

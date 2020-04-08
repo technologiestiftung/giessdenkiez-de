@@ -25,6 +25,13 @@ const StyledWrapper = styled.div`
   cursor: pointer;
   div {
     margin-right: 10px;
+    @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+      margin-bottom: 10px;
+    }
+  }
+
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    flex-direction: column;
   }
 `;
 
