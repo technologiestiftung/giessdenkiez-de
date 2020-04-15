@@ -15,7 +15,7 @@ const SidebarWrapper = styled.div`
   overflow: auto;
   display: block;
   transform: ${props => (props.isVisible ? 'translate3d(0, 0, 0)' : 'translate3d(calc(-100% - 20px), 0, 0)')};
-  background: ${props => props.theme.colorLightGrey};
+  background: white;
   flex-direction: column;
   align-items: center;
   height: calc(100vh - 24px);

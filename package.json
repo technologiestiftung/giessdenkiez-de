@@ -36,7 +36,7 @@
     "@material-ui/styles": "^4.9.0",
     "axios": "^0.19.1",
     "classnames": "^2.2.6",
-    "d3": "^5.15.0",
+    "d3": "^5.15.1",
     "deck.gl": "^7.1.10",
     "dotenv": "^8.0.0",
     "dotenv-webpack": "^1.7.0",

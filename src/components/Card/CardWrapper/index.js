@@ -9,10 +9,9 @@ const CardWrapper = styled.div`
     margin-top: 0px;
     max-width: 400px;
     width: auto;
-    padding: 10px;
-    border-radius: ${props => props.theme.borderRadiusS};
-    background: white;
-    box-shadow: 0px 2px 3px 0px rgba(44,48,59,0.1);
+    ${'' /* border-radius: ${props => props.theme.borderRadiusS}; */}
+    ${'' /* background: white; */}
+    ${'' /* box-shadow: 0px 2px 3px 0px rgba(44,48,59,0.1); */}
 `;
 
 export default CardWrapper;

@@ -4,6 +4,12 @@ import { createGlobalStyle } from 'styled-components';
 export default createGlobalStyle`
   ${styledNormalize}
 
+  @keyframes sweep {
+    0%    {opacity: 0;}
+    0%    {opacity: 0;}
+    100%  {opacity: 1;}
+  }
+
   a.mapboxgl-ctrl-logo {
     display: none !important;
   }

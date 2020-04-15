@@ -13,6 +13,13 @@ export const createIncludedTrees = (data) => {
     return obj;
 }
 
+export const waterNeed = age => {
+	if (!age) return null
+	if (age < 15) return [1,1,1]
+	if ((age >= 15) && (age < 40)) return [1,1]
+	if (age >= 40) return [1]
+}
+
 export const convertTime = (unix_timestamp) => {
 		var ms = Number(unix_timestamp);
 		var date = new Date(ms);
@@ -64,5 +71,6 @@ export const timeDifference = (date1,date2) => {
 
 export default {
 	convertTime,
-	timeDifference
+	timeDifference,
+	waterNeed
 };
