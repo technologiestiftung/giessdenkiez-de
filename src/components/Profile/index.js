@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import { useAuth0 } from "../../utils/auth0";
 
+import Login from "../Login";
+
 const Profile = () => {
   const { loading, user } = useAuth0();
 
@@ -15,6 +17,7 @@ const Profile = () => {
       <span>{user.name}</span>
       <span>{user.email}</span>
       <span>{JSON.stringify(user, null, 2)}</span>
+      <Login />
     </Fragment>
   );
 };

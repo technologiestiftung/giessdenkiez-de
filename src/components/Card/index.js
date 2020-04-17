@@ -9,6 +9,8 @@ import CardWrapper from "./CardWrapper/";
 import CardProperty from "./CardProperty/";
 import Linechart from "../Linechart/";
 import CardAccordion from "./CardAccordion/";
+import CardHeadline from "./CardHeadline/";
+import CardDescription from "./CardDescription/";
 import CardAccordionTitle from "./CardAccordion/CardAccordionTitle";
 import TreeType from "./CardAccordion/TreeType";
 import TreeWatering from "./CardAccordion/TreeWatering";
@@ -24,9 +26,21 @@ const FlexColumnDiv = styled.div`
   flex-direction: column;
 `;
 
+const FlexRowDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 const SublineSpan = styled.span`
   margin-bottom: 20px;
   text-transform: capitalize;
+`;
+
+const RainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: ${p => p.theme.spacingM};
 `;
 
 const TreeTitle = styled.h2`
@@ -59,6 +73,10 @@ const Card = (p) => {
     hausNr,
     bezirk,
   } = data;
+
+  const getTreeProp = p => {
+    return p === 'null' ? null : p;
+  }
 
   let treeWatered = "";
 
@@ -95,21 +113,23 @@ const Card = (p) => {
 
   const treeType = treetypes.find((treetype) => treetype.id === gattungDeutsch);
 
+  console.log('alter', standAlter, alter)
+
   return (
     <CardWrapper>
       <FlexColumnDiv>
         <TreeTitle>{artDtsch}</TreeTitle>
-        {!treeType && <SublineSpan>{gattungDeutsch.toLowerCase()}</SublineSpan>}
+        {!treeType && <SublineSpan>{getTreeProp(gattungDeutsch.toLowerCase())}</SublineSpan>}
 
-        {treeType && (
+        {treeType && (treeType.title !== null) && (
           <CardAccordion
-            title={<CardAccordionTitle>{treeType.title}</CardAccordionTitle>}
+            title={<CardAccordionTitle>{getTreeProp(treeType.title)}</CardAccordionTitle>}
           >
             <TreeType>{treeType.description}</TreeType>
           </CardAccordion>
         )}
 
-        <CardAccordion
+        {(standAlter !== 'null') && (<CardAccordion
           title={
             <CardAccordionTitle>
               {alter}
@@ -118,30 +138,39 @@ const Card = (p) => {
           }
         >
           <TreeWatering data={watering} />
-        </CardAccordion>
+        </CardAccordion>)}
 
-        {stateWaterTreeClass && (
+        {/* {stateWaterTreeClass && (
           <span className={stateWaterTreeClass}>{treeWatered}</span>
-        )}
-        {strName && hausNr && (
+        )} */}
+        {/* {strName && hausNr && (
           <SublineSpanClose>
             {strName}
             {hausNr}
           </SublineSpanClose>
-        )}
-        {bezirk && <SublineSpan>{bezirk}</SublineSpan>}
+        )} */}
+        {/* {bezirk && <SublineSpan>{bezirk}</SublineSpan>}
         {baumHoehe && <CardProperty name="Baumhöhe:" value={baumHoehe} />}
         {stammUmfg && <CardProperty name="Stammumfang:" value={stammUmfg} />}
         {kroneDurch && (
           <CardProperty name="Kronendurchmesser:" value={kroneDurch} />
-        )}
+        )} */}
+
         {pflanzJahr && standAlter && (
           <CardProperty
             name="Gepflanzt:"
             value={`${pflanzJahr} (${standAlter} Jahre)`}
           />
         )}
-        <Linechart data={radolan_days} sum={radolan_sum}/>
+        <RainContainer>
+          <FlexRowDiv>
+            <CardHeadline>Niederschlag</CardHeadline>
+            <CardHeadline>{radolan_sum} mm</CardHeadline>
+          </FlexRowDiv>
+          <CardDescription>in den letzten 30 Tagen</CardDescription>
+          <Linechart data={radolan_days} sum={radolan_sum}/>
+          <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription>
+        </RainContainer>
         <ButtonWater />
       </FlexColumnDiv>
     </CardWrapper>

@@ -5,7 +5,7 @@ const StyledButton = styled.div`
   width: fit-content;
   border-radius: 100px;
   background-color: ${p => p.type === 'primary' ? '#F7FFFA': '#FFFFFF'};
-  padding: 10px 20px 12px 20px;
+  padding: 12px 20px 12px 20px;
   font-size: ${p => p.theme.fontSizeL};
   border: 1px solid ${p => {
     if (p.type == 'primary') {

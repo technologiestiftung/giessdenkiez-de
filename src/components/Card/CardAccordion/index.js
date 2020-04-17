@@ -15,9 +15,9 @@ const PanelBody = styled.div`
 
 const PanelIndicator = styled.span`
   border: 1px solid;
-  width: 25px;
+  width: 28px;
   justify-content: center;
-  height: 25px;
+  height: 28px;
   align-items: center;
   display: flex;
   border-radius: 100px;
