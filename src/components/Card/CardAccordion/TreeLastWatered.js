@@ -55,7 +55,6 @@ const TreeLastWatered = p => {
     }
   }
 
-
   return (
     <WrapperOuter>
     {data.map(info => {

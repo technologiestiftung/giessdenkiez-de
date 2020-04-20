@@ -4,6 +4,7 @@ const Store = createStore({
   wateredTrees: [],
   includedTrees: {},
   adoptedTrees: [],
+  wateredByUser: false,
   data: null,
   local: false,
   selectedTree: null,

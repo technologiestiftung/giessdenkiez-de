@@ -173,11 +173,13 @@ const Card = (p) => {
           <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription>
         </RainContainer>
 
-        <CardAccordion
-          title={<CardAccordionTitle>Zuletzt gegossen</CardAccordionTitle>}
-        >
-          <TreeLastWatered data={treeLastWatered} />
-        </CardAccordion>
+        {treeLastWatered.length > 0 && (
+          <CardAccordion
+            title={<CardAccordionTitle>Zuletzt gegossen</CardAccordionTitle>}
+          >
+            <TreeLastWatered data={treeLastWatered} />
+          </CardAccordion>
+        )}
 
         <ButtonWater />
       </FlexColumnDiv>
