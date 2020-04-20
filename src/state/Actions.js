@@ -86,6 +86,8 @@ export const getWateredTrees = Store => async () => {
   const url = createAPIUrl(Store.getState(), '/get-watered-trees')
   const res = await fetchAPI(url);
 
+  console.log('watere', res)
+
   return {
     isLoading: false,
     wateredTrees: res.data.watered
@@ -94,9 +96,15 @@ export const getWateredTrees = Store => async () => {
 
 export const getTree = Store => async (id) => {
   const url = createAPIUrl(Store.getState(), `/get-tree?id=${id}`);
+  const urlWatered = createAPIUrl(Store.getState(), `/get-tree-last-watered?id=${id}`);
+
   const res = await fetchAPI(url);
+  const resWatered = await fetchAPI(urlWatered);
+
+  console.log('inside tree action', res, resWatered)
   return {
-    selectedTree: res
+    selectedTree: res,
+    treeLastWatered: resWatered
   }
 }
 

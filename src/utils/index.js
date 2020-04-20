@@ -36,7 +36,6 @@ export const convertTime = (unix_timestamp) => {
 		var seconds = "0" + date.getSeconds();
 
 		var min = String(minutes).length == 2 ? minutes : `0${minutes}`;
-		console.log(minutes);
 
 		// Will display time in 10:30:23 format
 		return `Gegossen: ${day}. ${month}. ${year}, ${hours}:${min}`;

@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.div`
-  width: fit-content;
+  width: ${ p => p.width != undefined ? p.width : 'fit-content' };
   border-radius: 100px;
   background-color: ${p => p.type === 'primary' ? '#F7FFFA': '#FFFFFF'};
-  padding: 12px 20px 12px 20px;
+  padding: 12px 15px 12px 15px;
+  text-align: center;
   font-size: ${p => p.theme.fontSizeL};
   border: 1px solid ${p => {
     if (p.type == 'primary') {
@@ -33,9 +34,9 @@ const StyledButton = styled.div`
 `;
 
 const ButtonRound = p => {
-  const { type, children, toggle } = p;
+  const { type, children, toggle, width } = p;
   return (
-    <StyledButton onClick={toggle} type={type}>
+    <StyledButton width={width} onClick={toggle} type={type}>
       { children }
     </StyledButton>
   );

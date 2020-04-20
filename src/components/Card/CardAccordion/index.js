@@ -11,6 +11,7 @@ const PanelHeader = styled.div`
 const PanelBody = styled.div`
   display: ${p => p.active ? 'flex' : 'none' };
   animation: sweep .125s ease-in-out;
+  width: 100%;
 `;
 
 const PanelIndicator = styled.span`
@@ -34,6 +35,7 @@ const PanelIndicator = styled.span`
 const PanelWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100% !important;
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
   padding-bottom: 10px;
   animation: sweep .125s ease-in-out;

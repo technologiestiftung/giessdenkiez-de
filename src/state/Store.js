@@ -13,6 +13,7 @@ const Store = createStore({
   },
   tabActive: 'id-0',
   selectedTree: false,
+  treeLastWatered: false,
   selectedTreeState: false,
   overlay: true,
   isLoading: true,

@@ -14,6 +14,7 @@ import CardDescription from "./CardDescription/";
 import CardAccordionTitle from "./CardAccordion/CardAccordionTitle";
 import TreeType from "./CardAccordion/TreeType";
 import TreeWatering from "./CardAccordion/TreeWatering";
+import TreeLastWatered from "./CardAccordion/TreeLastWatered";
 import ButtonWater from "../ButtonWater/";
 import CardWaterDrops from "./CardWaterDrops";
 
@@ -56,7 +57,7 @@ const SublineSpanClose = styled.span`
 `;
 
 const Card = (p) => {
-  const { data, selectedTree, selectedTreeState } = p;
+  const { data, selectedTree, selectedTreeState, treeLastWatered } = p;
 
   const {
     watered,
@@ -113,7 +114,7 @@ const Card = (p) => {
 
   const treeType = treetypes.find((treetype) => treetype.id === gattungDeutsch);
 
-  console.log('alter', standAlter, alter)
+  console.log('treeLastWatered', treeLastWatered)
 
   return (
     <CardWrapper>
@@ -171,6 +172,13 @@ const Card = (p) => {
           <Linechart data={radolan_days} sum={radolan_sum}/>
           <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription>
         </RainContainer>
+
+        <CardAccordion
+          title={<CardAccordionTitle>Zuletzt gegossen</CardAccordionTitle>}
+        >
+          <TreeLastWatered data={treeLastWatered} />
+        </CardAccordion>
+
         <ButtonWater />
       </FlexColumnDiv>
     </CardWrapper>
@@ -180,6 +188,7 @@ const Card = (p) => {
 export default connect(
   (state) => ({
     selectedTree: state.selectedTree,
+    treeLastWatered: state.treeLastWatered,
     selectedTreeState: state.selectedTreeState,
   }),
   Actions

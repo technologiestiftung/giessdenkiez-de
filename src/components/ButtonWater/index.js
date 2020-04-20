@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "unistore/react";
 import { render } from "react-dom";
 import styled from "styled-components";
@@ -14,17 +14,24 @@ import history from "../../../history";
 import Login from "../Login";
 import ButtonRound from "../ButtonRound";
 
+import ButtonWaterGroup from "./BtnWaterGroup";
 import CardDescription from "../Card/CardDescription/";
 
 const BtnContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+
+  div {
+    margin-bottom: 10px;
+  }
 `;
 
 const StyledCardDescription = styled(CardDescription)`
   text-decoration: underline;
   padding-top: 6px;
+  width: fit-content;
   margin: 0 auto;
   cursor: pointer;
 
@@ -36,6 +43,7 @@ const StyledCardDescription = styled(CardDescription)`
 
 const StyledLogin = styled(Login)`
   cursor: pointer;
+  align-self: stretch;
 `;
 
 const ButtonWaterSpan = styled.span`
@@ -66,6 +74,7 @@ const ButtonWaterSpanOther = styled.span`
 const ButtonWater = (p) => {
   const { selectedTree, state, toggleOverlay } = p;
   const { id } = selectedTree;
+  const [waterGroup, setWaterGroup] = useState("visible");
   const { loading, user, isAuthenticated, getTokenSilently } = useAuth0();
   let adopted = false;
 
@@ -84,9 +93,38 @@ const ButtonWater = (p) => {
     }
   }
 
+  const btnLabel = (state) => {
+    switch (state) {
+      case "visible":
+        return "Ich habe gewässert!";
+        break;
+      case "watering":
+        return "Wieviel Wasser hat der Baum erhalten?";
+        break;
+      case "watered":
+        return "Bewässerung wurde eingetragen!";
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleClick = () => {
     history.push("/");
     toggleOverlay(true);
+  };
+
+  const waterHandler = () => {
+    setWaterGroup("watering");
+  };
+
+  const setWaterAmount = (id, amount) => {
+    createUser(user);
+    setWaterGroup("watered");
+    waterTree(id, amount);
+    setTimeout(() => {
+      setWaterGroup("visible");
+    }, 1000);
   };
 
   const timeNow = () => {
@@ -94,13 +132,21 @@ const ButtonWater = (p) => {
     return date;
   };
 
-  const waterTree = async (id) => {
+  const createUser = async (user) => {
+    const token = await getTokenSilently();
+    const url = createAPIUrl(
+      state,
+      `/private/create-user?mail=${user.email}&uuid=${user.sub}`
+    );
+  };
+
+  const waterTree = async (id, amount) => {
     Store.setState({ selectedTreeState: "WATERING" });
     const token = await getTokenSilently();
     const time = timeNow();
     const url = createAPIUrl(
       state,
-      `/private/water-tree?id=${id}&timestamp=${time}`
+      `/private/water-tree?id=${id}&time=${time}&uuid=${user.sub}&amount=${amount}`
     );
 
     const res = await fetchAPI(url, {
@@ -147,13 +193,53 @@ const ButtonWater = (p) => {
   if (isAuthenticated) {
     return (
       <Fragment>
-        {adopted && adopted != "other" && (
-          <ButtonRound toggle={() => waterTree(id)} type="primary">Ich habe gewässert</ButtonRound>
+        {adopted && adopted === "other" && (
+          <>
+            <ButtonRound
+              width="-webkit-fill-available"
+              toggle={() => setWaterGroup("watering")}
+              type="primary"
+            >
+              {btnLabel(waterGroup)}
+            </ButtonRound>
+            {waterGroup === "watering" && (
+              <ButtonWaterGroup id={id} toggle={setWaterAmount} />
+            )}
+          </>
+        )}
+        {adopted && adopted !== "other" && (
+          <>
+            <ButtonRound
+              width="-webkit-fill-available"
+              toggle={() => setWaterGroup("watering")}
+              type="primary"
+            >
+              {btnLabel(waterGroup)}
+            </ButtonRound>
+            {waterGroup === "watering" && (
+              <ButtonWaterGroup id={id} toggle={setWaterAmount} />
+            )}
+          </>
         )}
         {!adopted && (
           <BtnContainer>
-            <ButtonRound toggle={() => adoptTree(id)} type="secondary">Baum abonnieren</ButtonRound>
-            <ButtonRound toggle={() => console.log('aaa')} type="primary">Ich habe gewässert</ButtonRound>
+            <ButtonRound
+              width="-webkit-fill-available"
+              toggle={() => adoptTree(id)}
+              type="secondary"
+            >
+              Baum abonnieren
+            </ButtonRound>
+            <ButtonRound
+              width="-webkit-fill-available"
+              toggle={() => setWaterGroup("watering")}
+              type="primary"
+            >
+              {btnLabel(waterGroup)}
+            </ButtonRound>
+            {waterGroup === "watering" && (
+              <ButtonWaterGroup id={id} toggle={setWaterAmount} />
+            )}
           </BtnContainer>
         )}
       </Fragment>
@@ -161,7 +247,7 @@ const ButtonWater = (p) => {
   } else if (!isAuthenticated) {
     return (
       <BtnContainer>
-        <StyledLogin />
+        <StyledLogin width="-webkit-fill-available" />
         <StyledCardDescription onClick={() => handleClick()}>
           Wie kann ich mitmachen?
         </StyledCardDescription>
