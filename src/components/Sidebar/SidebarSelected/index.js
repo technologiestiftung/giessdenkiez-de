@@ -10,6 +10,8 @@ import SidebarTitle from '../SidebarTitle';
 const SidebarSelected = p => {
   const { selectedTreeState, selectedTree } = p;
 
+  console.log(selectedTree)
+
   return (
     <>
       <SidebarTitle>Auswahl:</SidebarTitle>

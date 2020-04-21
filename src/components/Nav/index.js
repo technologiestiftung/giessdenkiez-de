@@ -59,7 +59,6 @@ const NavItem = styled(NavLink)`
 const navConfig = [
   { path: '/search', title: 'Suche und Filter', icon: <SearchIcon /> },
   { path: '/about', title: 'Info', icon: <InfoIcon/> },
-  { path: '/adopted', title: 'Adoptierte Bäume', icon: <NaturePeopleIcon/> },
   { path: '/profile', title: 'Profil', icon: <AccountCircle /> },
 ];
 

@@ -3,20 +3,34 @@ import styled from 'styled-components';
 
 import CardHeadline from '../../Card/CardHeadline/';
 import CardDescription from '../../Card/CardDescription/';
+import OverlayIcon from '../../Overlay/OverlayIcon/';
+
+const FlexOuter = styled.div`
+  display: flex;
+  width: 50%;
+`;
+
+const StyledCardDescription = styled(CardDescription)`
+  width: 100%;
+`;
 
 const Flex = styled.div`
   display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
 `;
 
 const Icon = styled.div`
   width: 50px;
   height: 50px;
+  margin-right: 5px;
   background: red;
 `;
 
 const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 
 
@@ -30,7 +44,7 @@ const CardProgress = p => {
     setTimes(data.length);
     setLiters(data.reduce(sumReducer, 0));
   }, [])
-  
+
   const progressItems = [
     {
       icon: 'here',
@@ -46,13 +60,13 @@ const CardProgress = p => {
   return (
     <Flex>
       {progressItems.map(item => (
-        <Flex>
-          <Icon />
+        <FlexOuter>
+          <OverlayIcon icon={item.id === 'timesSpend' ? 'trees' : 'water'}/>
           <FlexColumn>
             <CardHeadline>{item.id === 'liters' ? liters : times}</CardHeadline>
-            <CardDescription>{item.label}</CardDescription>
+            <StyledCardDescription>{item.label}</StyledCardDescription>
           </FlexColumn>
-        </Flex>
+        </FlexOuter>
       ))}
     </Flex>
   )

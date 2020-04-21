@@ -61,19 +61,21 @@ const Card = (p) => {
 
   const {
     watered,
-    kroneDurch,
-    baumHoehe,
-    stammUmfg,
-    standAlter,
-    pflanzJahr,
+    kronedurch,
+    baumhoehe,
+    stammumfg,
+    standalter,
+    pflanzjahr,
     radolan_sum,
-    artDtsch,
+    artdtsch,
     radolan_days,
-    gattungDeutsch,
-    strName,
-    hausNr,
+    gattungdeutsch,
+    strname,
+    hausnr,
     bezirk,
   } = data;
+
+  console.log('gattungdeutsch', gattungdeutsch, data)
 
   const getTreeProp = p => {
     return p === 'null' ? null : p;
@@ -102,7 +104,7 @@ const Card = (p) => {
   }
 
   const alter =
-    standAlter !== null ? `${standAlter} Jahre alt` : "Keine Alter Vorhanden";
+    standalter !== null ? `${standalter} Jahre alt` : "Keine Alter Vorhanden";
 
   const stateWaterTreeClass = classnames({
     noInfo: treeWatered == "Keine Informationen verfügbar.",
@@ -112,15 +114,13 @@ const Card = (p) => {
     treeState: true,
   });
 
-  const treeType = treetypes.find((treetype) => treetype.id === gattungDeutsch);
-
-  console.log('treeLastWatered', treeLastWatered)
+  const treeType = treetypes.find((treetype) => treetype.id === gattungdeutsch);
 
   return (
     <CardWrapper>
       <FlexColumnDiv>
-        <TreeTitle>{artDtsch}</TreeTitle>
-        {!treeType && <SublineSpan>{getTreeProp(gattungDeutsch.toLowerCase())}</SublineSpan>}
+        <TreeTitle>{artdtsch}</TreeTitle>
+        {!treeType && <SublineSpan>{getTreeProp(gattungdeutsch.toLowerCase())}</SublineSpan>}
 
         {treeType && (treeType.title !== null) && (
           <CardAccordion
@@ -130,11 +130,11 @@ const Card = (p) => {
           </CardAccordion>
         )}
 
-        {(standAlter !== 'null') && (<CardAccordion
+        {(standalter !== 'null') && (<CardAccordion
           title={
             <CardAccordionTitle>
               {alter}
-              {standAlter && (<CardWaterDrops data={waterNeed(parseInt(standAlter))}/>)} 
+              {standalter && (<CardWaterDrops data={waterNeed(parseInt(standalter))}/>)} 
             </CardAccordionTitle>
           }
         >
@@ -144,25 +144,26 @@ const Card = (p) => {
         {/* {stateWaterTreeClass && (
           <span className={stateWaterTreeClass}>{treeWatered}</span>
         )} */}
-        {/* {strName && hausNr && (
+        {/* {strname && hausnr && (
           <SublineSpanClose>
-            {strName}
-            {hausNr}
+            {strname}
+            {hausnr}
           </SublineSpanClose>
         )} */}
         {/* {bezirk && <SublineSpan>{bezirk}</SublineSpan>}
-        {baumHoehe && <CardProperty name="Baumhöhe:" value={baumHoehe} />}
-        {stammUmfg && <CardProperty name="Stammumfang:" value={stammUmfg} />}
-        {kroneDurch && (
-          <CardProperty name="Kronendurchmesser:" value={kroneDurch} />
+        {baumhoehe && <CardProperty name="Baumhöhe:" value={baumhoehe} />}
+        {stammumfg && <CardProperty name="Stammumfang:" value={stammumfg} />}
+        {kronedurch && (
+          <CardProperty name="Kronendurchmesser:" value={kronedurch} />
         )} */}
 
-        {pflanzJahr && standAlter && (
+        {/* {pflanzjahr && standalter && (
           <CardProperty
             name="Gepflanzt:"
-            value={`${pflanzJahr} (${standAlter} Jahre)`}
+            value={`${pflanzjahr} (${standalter} Jahre)`}
           />
-        )}
+        )} */}
+
         <RainContainer>
           <FlexRowDiv>
             <CardHeadline>Niederschlag</CardHeadline>

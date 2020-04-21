@@ -5,9 +5,10 @@ const Store = createStore({
   includedTrees: {},
   adoptedTrees: [],
   wateredByUser: false,
+  adoptedTrees: false,
+  adoptedTreesDetails: false,
   data: null,
   local: false,
-  selectedTree: null,
   endpoints: {
     local: 'http://localhost:3000/',
     prod: 'https://trees-express-now.fabiandinklage.now.sh',

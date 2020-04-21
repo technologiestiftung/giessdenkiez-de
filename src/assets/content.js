@@ -9,17 +9,17 @@ const content = {
 			{
 				waterdrops: [1],
 				title: 'Geringer Wasserbedarf',
-				description: 'Die Linde gilt seit Jahren als der berlintypische Straßenbaum. Mit einem Anteil von gut einem Drittel prägt sie den Straßenbaumbestand. 10 verschiedene Arten lassen sich unterscheiden. Bevorzugt gepflanzt wird die Winter-Linde (Tilia cordata)',
+				description: 'Straßenbäume höheren Alters (>40 Jahre) haben in der Regel gelernt, sich über das Grundwasser selbst zu versorgen und benötigen keine zusätzliche Unterstützung. Einen niedrigen Wasserbedarf haben außerdem Jungbäume unter 3 Jahren, da diese durch die städtische Verwaltung versorgt werden. ',
 			},
 			{
 				waterdrops: [1,1],
 				title: 'Mittlerer Wasserbedarf',
-				description: 'Die Linde gilt seit Jahren als der berlintypische Straßenbaum. Mit einem Anteil von gut einem Drittel prägt sie den Straßenbaumbestand. 10 verschiedene Arten lassen sich unterscheiden. Bevorzugt gepflanzt wird die Winter-Linde (Tilia cordata)',
+				description: 'Mittelalte Bäume zwischen 15 und 40 Jahren werden nicht mehr standardmäßig durch die Stadtverwaltung bewässert, sind aber auch schon etabliert genug, um sich in der Regel selbst zu versorgen. Sie freuen sich trotzdem über jede Gießkanne.',
 			},
 			{
 				waterdrops: [1,1,1],
 				title: 'Hoher Wasserbedarf',
-				description: 'Die Linde gilt seit Jahren als der berlintypische Straßenbaum. Mit einem Anteil von gut einem Drittel prägt sie den Straßenbaumbestand. 10 verschiedene Arten lassen sich unterscheiden. Bevorzugt gepflanzt wird die Winter-Linde (Tilia cordata)',
+				description: 'Jungbäume zwischen 4 und 15 Jahren sind zu alt, um von den Straßen- und Grünflächenämtern standardmäßig bewässert zu werden, aber noch nicht alt genug, um sich in Hitzesommern selbst zu versorgen. Sie freuen sich über viel Wasser von bis zu 200l pro Gießung (alle 10 Tage).',
 			},
 		],
 		treetypes: [

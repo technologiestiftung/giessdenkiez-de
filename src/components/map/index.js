@@ -158,7 +158,9 @@ class DeckGLMap extends React.Component {
 			});
 
 		fetchAPI(url)
-			.then(r => { Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data }); });
+			.then(r => { 
+				console.log('gettree', r)
+				Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data }); });
 	}
 
 	_renderTooltip() {
