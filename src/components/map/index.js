@@ -10,6 +10,7 @@ import { wateredTreesSelector } from '../../state/Selectors';
 import { fetchAPI, createAPIUrl } from '../../state/utils';
 import { colorFeature } from './maputils';
 import styled from 'styled-components';
+import { scaleThreshold } from 'd3-scale';
 
 const ControlWrapper = styled.div`
 	position: absolute;
@@ -41,7 +42,7 @@ class DeckGLMap extends React.Component {
 	};
 
 	_renderLayers() {
-		const {data = this.state.data} = this.props;
+		const {data = this.state.data, rainGeojson} = this.props;
 
 		var COLOR_RANGE = [
 			[1, 152, 189],
@@ -52,11 +53,28 @@ class DeckGLMap extends React.Component {
 			[209, 55, 78]
 		]
 
-		const features = data.features;
+		const COLOR_SCALE = scaleThreshold()
+			.domain([0,10,20,30,40,50,60,70,80,90,100,110,120])
+			.range([
+				[65, 182, 196],
+				[127, 205, 187],
+				[199, 233, 180],
+				[237, 248, 177],
+				// zero
+				[255, 255, 204],
+				[255, 237, 160],
+				[254, 217, 118],
+				[254, 178, 76],
+				[253, 141, 60],
+				[252, 78, 42],
+				[227, 26, 28],
+				[189, 0, 38],
+				[128, 0, 38]
+			]);
 
 
-		if (data != null) {
-			return [
+		if (data != null && rainGeojson) {
+			const layers = [
 				new GeoJsonLayer({
 					id: 'geojson',
 					data,
@@ -127,8 +145,25 @@ class DeckGLMap extends React.Component {
 						getFillColor: [this.props.wateredTrees, this.state.highlightedObject],
 						getLineWidth: [this.props.selectedTree]
 					}
-				})
+				}),
+				new GeoJsonLayer({
+					id: 'rain',
+					data: rainGeojson,
+					opacity: .5,
+					stroked: false,
+					filled: true,
+					extruded: true,
+					wireframe: true,
+					getElevation: (f) => { console.log(f); return f.properties.data[0] * 10},
+					getFillColor: (f) => { console.log(f); return COLOR_SCALE(f.properties.data[0])},
+					getLineColor: [255, 255, 255],
+					pickable: true,
+					// onHover: this._onHover
+      	}),
 			];
+
+			console.log(layers);
+			return layers;
 		}
 	}
 
@@ -286,6 +321,7 @@ class DeckGLMap extends React.Component {
 
 export default connect(state => ({
   data: state.data,
+  rainGeojson: state.rainGeojson,
   isLoading: state.isLoading,
 	wateredTrees: wateredTreesSelector(state),
 	state: state,

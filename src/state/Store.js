@@ -6,6 +6,7 @@ const Store = createStore({
   adoptedTrees: [],
   wateredByUser: false,
   adoptedTrees: false,
+  rainGeojson: null,
   adoptedTreesDetails: false,
   data: null,
   local: false,
