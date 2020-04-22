@@ -18,10 +18,10 @@ const SidebarSearch = p => {
       { (selectedTreeState === 'LOADING') && (
         <SidebarLoadingCard state={selectedTreeState}/>
       ) }
-
+      */}
       { (selectedTree && selectedTreeState !== 'LOADING') && (
         <Card data={selectedTree}/>
-      )} */}
+      )}
       <CardLegend />
     </>
   )
