@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 
@@ -15,7 +15,6 @@ const PanelBody = styled.div`
 `;
 
 const PanelIndicator = styled.span`
-  ${'' /* border: 1px solid; */}
   width: 28px;
   justify-content: center;
   height: 28px;
@@ -44,18 +43,22 @@ const PanelWrapper = styled.div`
 
 
 const CardAccordion = p => {
-  const [active, toggleActive] = useState(false)
-  const { title, children } = p;
+  const { title, children, active = false } = p;
+  const [localActive, toggleActive] = useState(active);
+  
+  useEffect(() => {
+    toggleActive(active);
+  }, [])
 
-  const indicator = active ? '–' : '+';
+  const indicator = localActive ? '–' : '+';
 
   return (
     <PanelWrapper>
       <PanelHeader>
         {title}
-        <PanelIndicator onClick={() => toggleActive(!active)}>{indicator}</PanelIndicator>
+        <PanelIndicator onClick={() => toggleActive(!localActive)}>{indicator}</PanelIndicator>
       </PanelHeader>
-      <PanelBody active={active}>
+      <PanelBody active={localActive}>
         {children}
       </PanelBody>
     </PanelWrapper>

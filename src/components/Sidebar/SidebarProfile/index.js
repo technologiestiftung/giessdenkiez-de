@@ -13,6 +13,7 @@ import CardHeadline from "../../Card/CardHeadline/";
 import CardParagraph from "../../Card/CardParagraph/";
 import CardProgress from "../../Card/CardProgress/";
 import CardAccordion from "../../Card/CardAccordion/";
+import CardCredentials from "../../Card/CardCredentials/";
 import TreesAdopted from "../../Card/CardAccordion/TreesAdopted";
 
 const SidebarProfile = (p) => {
@@ -57,6 +58,8 @@ const SidebarProfile = (p) => {
       }
     };
     fetch();
+
+    console.log('user', user)
   }, []);
 
   useEffect(() => {
@@ -109,9 +112,10 @@ const SidebarProfile = (p) => {
         <Fragment>
           <CardHeadline>Dein Gießfortschritt</CardHeadline>
           <CardProgress data={wateredByUser} />
-          <CardAccordion title={<span>Zuletzt gegossen</span>}>
+          <CardAccordion active={true} title={<span>Abonnierte Bäume</span>}>
             <TreesAdopted data={adoptedTreesDetails} />
           </CardAccordion>
+          <CardCredentials email={user.email} />
         </Fragment>
       )}
       <Login width="-webkit-fill-available" />

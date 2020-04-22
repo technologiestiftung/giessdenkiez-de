@@ -39,21 +39,9 @@ const NavItem = styled(NavLink)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: ${p => {
-    if (!p.isAuthenticated && (p.title === 'Adoptierte Bäume' || p.title === 'Profil')) {
-      return .25;
-    } else {
-      return 1;
-    }
+  opacity: 1
   }}
   text-decoration: none;
-  pointer-events: ${p => {
-    if (!p.isAuthenticated && (p.title === 'Adoptierte Bäume' || p.title === 'Profil')) {
-      return 'none';
-    } else {
-      return 'auto';
-    }
-  }}
 `;
 
 const navConfig = [
@@ -64,13 +52,13 @@ const navConfig = [
 
 const Nav = p => {
   const { state } = p;
-  const { 
-    isAuthenticated, 
-    getTokenSilently, 
-    loginWithRedirect, 
+  const {
+    isAuthenticated,
+    getTokenSilently,
+    loginWithRedirect,
     logout,
     loading,
-    user 
+    user
   } = useAuth0();
   const { pathname } = p.location;
 

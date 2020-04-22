@@ -10,8 +10,8 @@ import iconTrees from '!file-loader!../../../assets/images/icon-trees.svg';
 const IconWrapper = styled.div`
   height: auto;
   transform: translateY(-5px);
-  min-width: 70px;
-  width: 70px;
+  min-width: 50px;
+  width: 50px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -24,7 +24,7 @@ const IconWrapper = styled.div`
 `;
 
 const StyledIcon = styled.img`
-  width: 55px;
+  width: 45px;
   height: 55px;
 `;
 

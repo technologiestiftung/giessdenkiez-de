@@ -5,24 +5,24 @@ import TreeType from './TreeType'
 import CardWaterDrops from '../CardWaterDrops'
 
 const StyledTreeType = styled(TreeType)`
-  padding-top: 5px;
   margin-bottom: 10px;
+  padding: 0;
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 const WrapperOuter = styled.div`
-  padding-top: 10px;
+  padding-top: 5px;
   display: flex;
   flex-direction: column;
 `;
 
 const Title = styled.span`
   height: fit-content;
-  font-weight: bold;
+  font-weight: normal;
   font-size: ${p => p.theme.fontSizeL};
 `;
 
@@ -35,8 +35,7 @@ const TreesAdopted = p => {
       return (
         <Wrapper>
           <Title>{info.artdtsch}</Title>
-          <StyledTreeType>{info.strname}</StyledTreeType>
-          <StyledTreeType>{info.radolan_sum}</StyledTreeType>
+          <StyledTreeType>{info.strname} {info.radolan_sum}l</StyledTreeType>
         </Wrapper>
       )
     })}

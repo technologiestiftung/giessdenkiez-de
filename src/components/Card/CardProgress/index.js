@@ -17,6 +17,7 @@ const StyledCardDescription = styled(CardDescription)`
 const Flex = styled.div`
   display: flex;
   padding: 10px 0;
+  margin-bottom: 10px;
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
 `;
 
