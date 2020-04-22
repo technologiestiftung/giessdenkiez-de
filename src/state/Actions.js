@@ -81,6 +81,16 @@ function checkStatus(response) {
   }
 }
 
+export const hexToRgb = (hex) => {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? [
+    parseInt(result[1], 16),
+    parseInt(result[2], 16),
+    parseInt(result[3], 16),
+    200
+  ] : null
+}
+
 export const getWateredTrees = (Store) => async () => {
   Store.setState({ isLoading: true });
   const url = createAPIUrl(Store.getState(), "/get-watered-trees");
@@ -142,6 +152,7 @@ export default (Store) => ({
   getTreeByAge: getTreeByAge(Store),
   setDetailRouteWithListPath,
   setViewport,
+  hexToRgb,
   setView,
   removeSelectedTree,
   setAppState,

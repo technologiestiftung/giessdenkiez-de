@@ -7,20 +7,22 @@ import SidebarTitle from '../SidebarTitle/';
 import SidebarSearchAge from './SidebarSearchAge';
 import SidebarLoadingCard from '../SidebarLoadingCard';
 import Card from '../../Card/';
+import CardLegend from '../../Card/CardLegend/';
 
 const SidebarSearch = p => {
   const { selectedTree, selectedTreeState } = p;
   return (
     <>
       <SidebarTitle>Suche</SidebarTitle>
-      { !selectedTree && (<SidebarSearchAge/>)}
+      {/* { !selectedTree && (<SidebarSearchAge/>)}
       { (selectedTreeState === 'LOADING') && (
         <SidebarLoadingCard state={selectedTreeState}/>
       ) }
 
       { (selectedTree && selectedTreeState !== 'LOADING') && (
         <Card data={selectedTree}/>
-      )}
+      )} */}
+      <CardLegend />
     </>
   )
 }

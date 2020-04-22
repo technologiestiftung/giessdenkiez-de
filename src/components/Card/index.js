@@ -175,6 +175,7 @@ const Card = (p) => {
 
         {treeLastWatered.length > 0 && (
           <CardAccordion
+            active={true}
             title={<CardAccordionTitle>Zuletzt gegossen</CardAccordionTitle>}
           >
             <TreeLastWatered data={treeLastWatered} />

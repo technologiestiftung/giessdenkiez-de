@@ -1,332 +1,367 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 import { connect } from "unistore/react";
-import {render} from 'react-dom';
-import {StaticMap, NavigationControl} from 'react-map-gl';
-import axios from 'axios';
-import DeckGL, { GeoJsonLayer } from 'deck.gl';
-import Actions from '../../state/Actions';
-import Store from '../../state/Store';
-import { wateredTreesSelector } from '../../state/Selectors';
-import { fetchAPI, createAPIUrl } from '../../state/utils';
-import { colorFeature } from './maputils';
-import styled from 'styled-components';
-import { scaleThreshold } from 'd3-scale';
+import Actions from "../../state/Actions";
+import { render } from "react-dom";
+import { StaticMap, NavigationControl } from "react-map-gl";
+import axios from "axios";
+import DeckGL, { GeoJsonLayer } from "deck.gl";
+import Store from "../../state/Store";
+import { wateredTreesSelector } from "../../state/Selectors";
+import {
+  fetchAPI,
+  createAPIUrl,
+  interpolateColor,
+  hexToRgb,
+} from "../../state/utils";
+import { colorFeature } from "./maputils";
+import styled from "styled-components";
+import { scaleThreshold } from "d3-scale";
 
 const ControlWrapper = styled.div`
-	position: absolute;
-	z-index: 10000;
-	left: 15px;
-	bottom: 15px;
+  position: absolute;
+  z-index: 10000;
+  left: 15px;
+  bottom: 15px;
 `;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
 class DeckGLMap extends React.Component {
+  constructor(props) {
+    super(props);
 
-	constructor(props) {
-		super(props);
+    this.bool = true;
 
-		this.bool = true;
+    this.test = false;
 
-		this.state = {
-		  highlightedObject: 0,
-		  hoveredObject: null,
-		  data: null,
-		  included: null,
-		};
+    this.state = {
+      highlightedObject: 0,
+      hoveredObject: null,
+      data: null,
+      included: null,
+    };
 
-		this._onClick = this._onClick.bind(this);
-		this._renderTooltip = this._renderTooltip.bind(this);
-		// this._requestDb = this._requestDb.bind(this);
-		this._getFillColor = this._getFillColor.bind(this);
-	};
+    this._onClick = this._onClick.bind(this);
+    this._renderTooltip = this._renderTooltip.bind(this);
+    this._getFillColor = this._getFillColor.bind(this);
+  }
 
-	_renderLayers() {
-		const {data = this.state.data, rainGeojson} = this.props;
+  _renderLayers() {
+    const {
+      data = this.state.data,
+      rainGeojson,
+      treesVisible,
+      rainVisible,
+    } = this.props;
 
-		var COLOR_RANGE = [
-			[1, 152, 189],
-			[73, 227, 206],
-			[216, 254, 181],
-			[254, 237, 177],
-			[254, 173, 84],
-			[209, 55, 78]
-		]
+    var COLOR_RANGE = [
+      [1, 152, 189],
+      [73, 227, 206],
+      [216, 254, 181],
+      [254, 237, 177],
+      [254, 173, 84],
+      [209, 55, 78],
+    ];
 
-		const COLOR_SCALE = scaleThreshold()
-			.domain([0,10,20,30,40,50,60,70,80,90,100,110,120])
-			.range([
-				[65, 182, 196],
-				[127, 205, 187],
-				[199, 233, 180],
-				[237, 248, 177],
-				// zero
-				[255, 255, 204],
-				[255, 237, 160],
-				[254, 217, 118],
-				[254, 178, 76],
-				[253, 141, 60],
-				[252, 78, 42],
-				[227, 26, 28],
-				[189, 0, 38],
-				[128, 0, 38]
-			]);
+    const COLOR_SCALE = scaleThreshold()
+      .domain([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120])
+      .range([
+        [65, 182, 196],
+        [127, 205, 187],
+        [199, 233, 180],
+        [237, 248, 177],
+        // zero
+        [255, 255, 204],
+        [255, 237, 160],
+        [254, 217, 118],
+        [254, 178, 76],
+        [253, 141, 60],
+        [252, 78, 42],
+        [227, 26, 28],
+        [189, 0, 38],
+        [128, 0, 38],
+      ]);
 
+    if (data && rainGeojson) {
+      const layers = [
+        new GeoJsonLayer({
+          id: "geojson",
+          data: data,
+          opacity: 1,
+          stroked: true,
+          getRadius: 12,
+          getLineWidth: (info) => {
+            const { selectedTree } = this.props;
+            const id = info.properties["id"];
 
-		if (data != null && rainGeojson) {
-			const layers = [
-				new GeoJsonLayer({
-					id: 'geojson',
-					data,
-					opacity: 1,
-					stroked: true,
-					getRadius: 12,
-					getLineWidth: (info) => {
-						const { selectedTree } = this.props;
-						const id = info.properties['id'];
+            if (selectedTree) {
+              if (id === selectedTree.id) {
+                return 4;
+              } else {
+                return 0;
+              }
+            } else {
+              return 0;
+            }
+          },
+          getElevation: 100,
+          extruded: true,
+          visible: treesVisible,
+          filled: true,
+          pickable: true,
+          getLineColor: [255, 132, 132, 255],
+          getRadius: 2,
+          pointRadiusMinPixels: 2,
+          autoHighlight: true,
+          highlightColor: [200, 200, 200, 255],
+          pointRadiusScale: 2,
+          getElevation: (f) => parseInt(f.properties.baumhoehe) * 10,
+          transitions: {
+            getFillColor: 500,
+          },
+          getFillColor: (info) => {
+            const { wateredTrees, AppState } = this.props;
+            const id = info.properties['id'];
+            const sum = info.properties["radolan_sum"];
 
-						if (selectedTree) {
-							if (id === selectedTree.id) {
-								return 4;
-							} else {
-								return 0
-							}
-						} else {
-							return 0
-						}
+            switch (AppState) {
+            	case 'watered':
+            		if (wateredTrees[id]) {
+            			return [55, 130, 222, 200]
+            		}
+            		break;
 
-					},
-					getElevation: 100,
-					extruded: true,
-					filled: true,
-					pickable: true,
-					getLineColor: [255, 132, 132, 255],
-					getRadius: 2,
-					pointRadiusMinPixels: 2,
-					autoHighlight: true,
-					highlightColor: [200, 200, 200, 255],
-					pointRadiusScale: 2,
-					getElevation: f => (parseInt(f.properties.baumhoehe) * 10),
-					transitions: {
-						getFillColor: 500,
-					},
-					getFillColor: (info) => {
-						const { wateredTrees, AppState } = this.props;
-						const id = info.properties['id'];
+            	case 'loggedIn':
+            		return [255, 0, 0, 200]
+            		break;
 
-						switch (AppState) {
-							case 'watered':
-								if (wateredTrees[id]) {
-									return [55, 130, 222, 200]
-								}
-								break;
+            	default:
+            		break;
+            }
 
-							case 'loggedIn':
-								return [255, 0, 0, 200]
-								break;
+            return [55, 222, 138, 200];
+          },
+          onClick: (info) => {
+            const { setDetailRouteWithListPath } = this.props;
+            this._onClick(info.x, info.y, info.object);
 
-							default:
-								break;
-						}
+            if (info.object != undefined) {
+              this.setState({
+                highlightedObject: info.object.properties["id"],
+              });
+              setDetailRouteWithListPath(info.object.properties.id);
+            }
+          },
+          updateTriggers: {
+            getFillColor: [
+              this.props.wateredTrees,
+              this.state.highlightedObject,
+            ],
+            getLineWidth: [this.props.selectedTree],
+          },
+        }),
+        new GeoJsonLayer({
+          id: "rain",
+          data: rainGeojson,
+          opacity: 0.5,
+          visible: rainVisible,
+          stroked: false,
+          filled: true,
+          extruded: true,
+          wireframe: true,
+          getElevation: 1,
+          getFillColor: (f) => {
+						return COLOR_SCALE(f.properties.data[0])
+          },
+          getLineColor: [255, 255, 255],
+          pickable: true,
+          // onHover: this._onHover
+        }),
+      ];
 
-						colorFeature(info, AppState);
+      return layers;
+    }
+  }
 
-						return [55, 222, 138, 200];
-					},
-					onClick: (info) => {
-						const { setDetailRouteWithListPath } = this.props;
-						this._onClick(info.x, info.y, info.object)
+  _getFillColor(info) {
+    // console.log(info.properties.id);
+    // console.log(info.object.properties['id'], this.props.wateredTrees)
+    // return [102, 245, 173, 200];
+  }
 
-						if (info.object != undefined) {
-							this.setState({ highlightedObject: info.object.properties['id'] })
-							setDetailRouteWithListPath(info.object.properties.id);
-						}
-					},
-					updateTriggers: {
-						getFillColor: [this.props.wateredTrees, this.state.highlightedObject],
-						getLineWidth: [this.props.selectedTree]
-					}
-				}),
-				// new GeoJsonLayer({
-				// 	id: 'rain',
-				// 	data: rainGeojson,
-				// 	opacity: 0,
-				// 	stroked: false,
-				// 	filled: true,
-				// 	extruded: true,
-				// 	wireframe: true,
-				// 	getElevation: 1,
-				// 	getFillColor: (f) => { console.log(f); return COLOR_SCALE(f.properties.data[0])},
-				// 	getLineColor: [255, 255, 255],
-				// 	pickable: true,
-				// 	// onHover: this._onHover
-      	// }),
-			];
+  _onClick(x, y, object) {
+    const { setViewport, setView } = this.props;
 
-			console.log(layers);
-			return layers;
-		}
-	}
+    Store.setState({ selectedTreeState: "LOADING" });
 
-	_getFillColor(info) {
-		// console.log(info.properties.id);
-		// console.log(info.object.properties['id'], this.props.wateredTrees)
+    setViewport(object.geometry.coordinates);
 
-		// return [102, 245, 173, 200];
-	}
+    const { state, selectedTree } = this.props;
+    const id = object.properties.id;
+    const url = createAPIUrl(state, `/get-tree?id=${id}`);
+    const urlWatered = createAPIUrl(state, `/get-tree-last-watered?id=${id}`);
 
-	_onClick(x, y, object) {
+    fetchAPI(urlWatered).then((r) => {
+      Store.setState({ treeLastWatered: r.data });
+    });
 
-		const { setViewport, setView } = this.props;
+    fetchAPI(url).then((r) => {
+      console.log("gettree", r);
+      Store.setState({ selectedTreeState: "LOADED", selectedTree: r.data });
+    });
+  }
 
-		Store.setState({ selectedTreeState: 'LOADING' });
+  _renderTooltip() {
+    const { x, y, hoveredObject } = this.state;
+    let data;
 
-		setViewport(object.geometry.coordinates);
+    if (hoveredObject != null) {
+      data = hoveredObject.data.properties;
+      this.setState({ hoveredObject });
+    }
+  }
 
-		const { state, selectedTree } = this.props;
-		const id = object.properties.id;
-		const url = createAPIUrl(state, `/get-tree?id=${id}`);
-		const urlWatered = createAPIUrl(state, `/get-tree-last-watered?id=${id}`);
+  _onload(evt) {
+    const map = evt.target;
+    const insertBefore = map.getStyle();
 
-		fetchAPI(urlWatered)
-			.then(r => {
-				Store.setState({ treeLastWatered: r.data });
-			});
+    const firstLabelLayerId = map
+      .getStyle()
+      .layers.find((layer) => layer.type === "symbol").id;
 
-		fetchAPI(url)
-			.then(r => { 
-				console.log('gettree', r)
-				Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data }); });
-	}
+    map.addLayer(
+      {
+        id: "3d-buildings",
+        source: "composite",
+        "source-layer": "building",
+        filter: ["==", "extrude", "true"],
+        type: "fill-extrusion",
+        minzoom: 0,
+        paint: {
+          "fill-extrusion-color": "#FFF",
+          "fill-extrusion-height": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            15,
+            0,
+            15.05,
+            ["get", "height"],
+          ],
+          "fill-extrusion-base": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            15,
+            0,
+            15.05,
+            ["get", "min_height"],
+          ],
+          "fill-extrusion-opacity": 0.3,
+        },
+      },
+      firstLabelLayerId
+    );
+  }
 
-	_renderTooltip() {
-		const {x, y, hoveredObject} = this.state;
-		let data;
+  componentDidUpdate() {
+    // const { wateredTrees, includedTrees, wateredTreesData } = this.props;
+    // const { status, data } = wateredTrees.datum;
+    // if (status === 'SUCCESS' && includedTrees) {
+    //     console.log(this.props)
+    // }
+    // console.log(this.props)
+  }
 
-		if (hoveredObject != null) {
-		  data = hoveredObject.data.properties;
-		  this.setState({ hoveredObject })
-		}
-	}
+  // _requestDb(x, y, obj) {
+  //     const id = obj.properties.id;
+  //     const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
+  //     const local = "http://localhost:3000/trees"
+  //     const url = `${remote}/${id}`;
 
-	_onload(evt) {
-		const map = evt.target;
-		const insertBefore = map.getStyle();
+  //     this.dispatchSetSelectedTreeDataLoading(true);
+  //     console.log('selected tree loading', this.props.selectedTreeDataLoading);
 
-		const firstLabelLayerId = map.getStyle().layers.find(layer => layer.type === 'symbol').id;
+  //     axios.get(url)
+  //     .then(res => {
+  //         this.setState({x, y, hoveredObject: res});
+  //         this.dispatchSetSelectedTreeData(res);
+  //         this.dispatchSetSelectedTreeDataLoading(false);
+  //         console.log(this.props.selectedTreeDataLoading);
+  //             // this._setTooltip(res, obj.object.x, obj.object.y)
+  //         })
+  //         .catch(err => {
+  //         console.log(err);
+  //     })
+  // }
 
-		map.addLayer({
-			'id': '3d-buildings',
-			'source': 'composite',
-			'source-layer': 'building',
-			'filter': ['==', 'extrude', 'true'],
-			'type': 'fill-extrusion',
-			'minzoom': 0,
-			'paint': {
-			'fill-extrusion-color': '#FFF',
-			'fill-extrusion-height': [
-			"interpolate", ["linear"], ["zoom"],
-			15, 0,
-			15.05, ["get", "height"]
-			],
-			'fill-extrusion-base': [
-				"interpolate", ["linear"], ["zoom"], 15, 0, 15.05, ["get", "min_height"]
-			],
-			'fill-extrusion-opacity': .3
-			}
-			}, firstLabelLayerId);
-	}
+  dispatchSetSelectedTreeData(val) {
+    this.props.dispatch(setSelectedTreeData(val.data));
+  }
 
-	componentDidUpdate() {
-		// const { wateredTrees, includedTrees, wateredTreesData } = this.props;
-		// const { status, data } = wateredTrees.datum;
+  dispatchDataLoaded(state) {
+    this.props.dispatch(setDataLoaded(state));
+  }
 
-		// if (status === 'SUCCESS' && includedTrees) {
-		//     console.log(this.props)
-		// }
-		// console.log(this.props)
-	}
+  dispatchSetSelectedTreeDataLoading(val) {
+    this.props.dispatch(setSelectedTreeDataLoading(val));
+  }
 
-	// _requestDb(x, y, obj) {
-	//     const id = obj.properties.id;
-	//     const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
-	//     const local = "http://localhost:3000/trees"
-	//     const url = `${remote}/${id}`;
+  dispatchSetDataIncluded(val) {
+    this.props.dispatch(setDataIncluded(val));
+  }
 
-	//     this.dispatchSetSelectedTreeDataLoading(true);
-	//     console.log('selected tree loading', this.props.selectedTreeDataLoading);
+  render() {
+    const {
+      viewport,
+      controller = true,
+      baseMap = true,
+      dataLoaded,
+      wateredTrees,
+      wateredTreesFetched,
+      isLoading,
+    } = this.props;
 
-	//     axios.get(url)
-	//     .then(res => {
-	//         this.setState({x, y, hoveredObject: res});
-	//         this.dispatchSetSelectedTreeData(res);
-	//         this.dispatchSetSelectedTreeDataLoading(false);
-	//         console.log(this.props.selectedTreeDataLoading);
-	//             // this._setTooltip(res, obj.object.x, obj.object.y)
-	//         })
-	//         .catch(err => {
-	//         console.log(err);
-	//     })
-	// }
+    if (isLoading) {
+      return <span>Lade Berlins Baumdaten ...</span>;
+    } else if (!isLoading) {
+      return (
+        <DeckGL
+          layers={this._renderLayers()}
+          initialViewState={viewport}
+          viewState={viewport}
+          controller={controller}
+        >
+          {baseMap && (
+            <StaticMap
+              reuseMaps
+              mapStyle="mapbox://styles/mapbox/light-v9"
+              preventStyleDiffing={true}
+              mapboxApiAccessToken={MAPBOX_TOKEN}
+              onLoad={this._onload.bind(this)}
+              zoom={3}
+            ></StaticMap>
+          )}
 
-	dispatchSetSelectedTreeData(val) {
-		this.props.dispatch(setSelectedTreeData(val.data));
-	}
-
-	dispatchDataLoaded(state) {
-		this.props.dispatch(setDataLoaded(state));
-	}
-
-	dispatchSetSelectedTreeDataLoading(val) {
-		this.props.dispatch(setSelectedTreeDataLoading(val));
-	}
-
-	dispatchSetDataIncluded(val) {
-		this.props.dispatch(setDataIncluded(val));
-	}
-
-	render() {
-		const {viewport, controller = true, baseMap = true, dataLoaded, wateredTrees, wateredTreesFetched, isLoading } = this.props;
-
-		if (isLoading) {
-			return (
-				<span>Lade Berlins Baumdaten ...</span>
-			)
-		} else if (!isLoading) {
-			return (
-				<DeckGL
-					layers={this._renderLayers()}
-					initialViewState={viewport}
-					viewState={ viewport }
-					controller={ controller }
-				>
-					{baseMap && (
-					<StaticMap
-						reuseMaps
-						mapStyle="mapbox://styles/mapbox/light-v9"
-						preventStyleDiffing={true}
-						mapboxApiAccessToken={MAPBOX_TOKEN}
-						onLoad={this._onload.bind(this)}
-						zoom={3}
-					>
-					</StaticMap>
-					)}
-
-					{/* {this._renderTooltip} */}
-				</DeckGL>
-			);
-		}
-	}
-
+          {/* {this._renderTooltip} */}
+        </DeckGL>
+      );
+    }
+  }
 }
 
-export default connect(state => ({
-  data: state.data,
-  rainGeojson: state.rainGeojson,
-  isLoading: state.isLoading,
-	wateredTrees: wateredTreesSelector(state),
-	state: state,
-	AppState: state.AppState,
-	viewport: state.viewport,
-	selectedTree: state.selectedTree,
-}), Actions)(DeckGLMap);
+export default connect(
+  (state) => ({
+    data: state.data,
+    rainGeojson: state.rainGeojson,
+    isLoading: state.isLoading,
+    wateredTrees: wateredTreesSelector(state),
+    state: state,
+    AppState: state.AppState,
+    rainVisible: state.rainVisible,
+    treesVisible: state.treesVisible,
+    viewport: state.viewport,
+    selectedTree: state.selectedTree,
+  }),
+  Actions
+)(DeckGLMap);
