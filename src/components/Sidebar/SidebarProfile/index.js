@@ -58,8 +58,6 @@ const SidebarProfile = (p) => {
       }
     };
     fetch();
-
-    console.log('user', user)
   }, []);
 
   useEffect(() => {
@@ -103,9 +101,10 @@ const SidebarProfile = (p) => {
             ihrer Umgebung hier eintragen möchten, dann registrieren oder melden
             sie sich an.
           </CardParagraph>
+          <Login width="-webkit-fill-available" />
         </Fragment>
       )}
-      {isAuthenticated && !wateredByUser && (
+      {isAuthenticated && (!wateredByUser || !adoptedTreesDetails) && (
         <Fragment>Lade Profil ...</Fragment>
       )}
       {isAuthenticated && wateredByUser && adoptedTreesDetails && (
@@ -116,9 +115,9 @@ const SidebarProfile = (p) => {
             <TreesAdopted data={adoptedTreesDetails} />
           </CardAccordion>
           <CardCredentials email={user.email} />
+          <Login width="-webkit-fill-available" />
         </Fragment>
       )}
-      <Login width="-webkit-fill-available" />
     </>
   );
 };

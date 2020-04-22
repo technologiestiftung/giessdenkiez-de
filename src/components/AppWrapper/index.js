@@ -50,7 +50,6 @@ const CreditsContainer = styled.div`
 
 const AppWrapper = p => {
   const { isLoading, data, overlay } = p;
-  console.log('overlay', overlay)
   return (
     <AppWrapperDiv>
       { isLoading && (<Loading/>) }
