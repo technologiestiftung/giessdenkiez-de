@@ -50,11 +50,7 @@ const TSBLink = () => {
 }
 
 const AppContainer = p => {
-
   const { isLoading, data, overlay } = p;
-
-  console.log('app wrapper', overlay)
-
   return (
     <Router history={history}>
       <ThemeProvider theme={theme}>

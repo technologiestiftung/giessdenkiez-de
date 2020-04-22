@@ -5,6 +5,20 @@ const content = {
 		description: ['Wir vernetzen die Berliner*innen mit ihren Bäumen. Denn die Berliner Bäume leiden unter den Folgen des Klimawandels und benötigen Deine Unterstützung. Diese Plattform vermittelt einen Überblick über den Berliner Straßenbaumbestand und schafft die Möglichkeit, die Bewässerung der Bäume zu koordinieren.', 'Falls Du die Seite regelmäßig nutzen willst, kannst Du ein Konto erstellen. Den Baumbestand kannst Du aber auch ohne Konto erkunden. Erfahre mehr über das Projekt und erkunde den Baumbestand.']
 	},
 	sidebar: {
+		about: [
+			{
+				title: 'Über das Projekt',
+				description: 'Die Folgen des Klimawandels, insbesondere die trockenen und heißen Sommer, belasten das Berliner Ökosystem. Unsere Straßenbäume vertrocknen und tragen langfristige Schäden davon: in den letzten Jahren mussten immer mehr Bäume gefällt werden und ihre Lebensdauer sinkt. Inzwischen wird regelmäßig sogar die Bevölkerung zur Unterstützung aufgerufen, allerdings weitgehend unkoordiniert. Dies möchten wir mit diesem Projekt ändern und die koordinierte Bürger*innenbeteiligung und bei der Bewässerung städtischen Grüns ermöglichen. <br /> <br /> Perspektivisch möchten wir das Projekt erweitern, und zum Beispiel die Bewässerungsbemühungen der Berliner Straßen- und Grünflächenämter abbilden. Außerdem möchten wir weitere Informationen rund um die Berliner Straßenbäume zusammen tragen und zugänglich machen; perspektivisch sollen auch Bürger*innen in der Lage sein, eigene Beobachtungen und Datenerhebungen zu einzelnen Bäumen einzutragen.'
+			},
+			{
+				title: 'Die richtige Bewässerung',
+				description: 'Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Jungbäume (0-15 Jahre), benötigen mehr Wasser als mittelalte Bäume (15-40 Jahre), und Altbäume (ab 40 Jahre) sind komplette Selbstversorger. Da frisch gepflanzte Bäume bis zum Alter von drei Jahren von der Berliner Verwaltung mit Wasser versorgt werden, benötigen besonders die Bäume zwischen vier und 15 Jahren unsere Aufmerksamkeit, beziehungsweise unser Wasser. Dies haben wir mit den Kennzeichungen des geringen, mittleren oder hohen Wasserbedarfs hervorgehoben. <br /> <br /> Angelehnt an das Berliner <a target="blank" href="https://www.berlin.de/senuvk/umwelt/stadtgruen/pflege_unterhaltung/de/hgp/index.shtml">Handbuch Gute Pflege</a> empfehlen wir euch, lieber seltener zu wässern, dafür mit einer größeren Menge an Wasser. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Im Endeffekt schaden aber auch kleinere Mengen gerade im Hochsommer nicht. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht wegläuft oder sich falsch anstaut. '
+			},
+			{
+				title: 'Über uns',
+				description: '“Internet of Trees” ist ein Projekt des CityLAB Berlin, einem Experimentierlabor für die Stadt der Zukunft. Ein ständig wachsendes Netzwerk aus Verwaltung, Zivilgesellschaft, Wissenschaft und Start-ups arbeitet im CityLAB gemeinsam an neuen Ideen für ein lebens­werteres Berlin. Wir sehen Digitalisierung als Chance, Prozesse neu zu denken, Barrieren abzubauen und neue Formen gesellschaftlicher Teilhabe zu schaffen. All dies versuchen wir in diesem Projekt vorzuleben. Das CityLAB ist ein Projekt der Technologiestiftung Berlin und wird finanziert durch die Senatskanzlei des Landes Berlin. Evtl. auf weiter Partner eingehen: Birds'
+			},
+		],
 		watering: [
 			{
 				waterdrops: [1],

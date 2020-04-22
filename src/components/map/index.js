@@ -96,7 +96,7 @@ class DeckGLMap extends React.Component {
 						}
 
 					},
-					getElevation: 30,
+					getElevation: 100,
 					extruded: true,
 					filled: true,
 					pickable: true,
@@ -106,6 +106,7 @@ class DeckGLMap extends React.Component {
 					autoHighlight: true,
 					highlightColor: [200, 200, 200, 255],
 					pointRadiusScale: 2,
+					getElevation: f => (parseInt(f.properties.baumhoehe) * 10),
 					transitions: {
 						getFillColor: 500,
 					},
@@ -146,20 +147,20 @@ class DeckGLMap extends React.Component {
 						getLineWidth: [this.props.selectedTree]
 					}
 				}),
-				new GeoJsonLayer({
-					id: 'rain',
-					data: rainGeojson,
-					opacity: .5,
-					stroked: false,
-					filled: true,
-					extruded: true,
-					wireframe: true,
-					getElevation: (f) => { console.log(f); return f.properties.data[0] * 10},
-					getFillColor: (f) => { console.log(f); return COLOR_SCALE(f.properties.data[0])},
-					getLineColor: [255, 255, 255],
-					pickable: true,
-					// onHover: this._onHover
-      	}),
+				// new GeoJsonLayer({
+				// 	id: 'rain',
+				// 	data: rainGeojson,
+				// 	opacity: 0,
+				// 	stroked: false,
+				// 	filled: true,
+				// 	extruded: true,
+				// 	wireframe: true,
+				// 	getElevation: 1,
+				// 	getFillColor: (f) => { console.log(f); return COLOR_SCALE(f.properties.data[0])},
+				// 	getLineColor: [255, 255, 255],
+				// 	pickable: true,
+				// 	// onHover: this._onHover
+      	// }),
 			];
 
 			console.log(layers);

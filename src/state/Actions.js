@@ -102,7 +102,6 @@ export const getTree = (Store) => async (id) => {
   const res = await fetchAPI(url);
   const resWatered = await fetchAPI(urlWatered);
 
-  console.log("inside tree action", res, resWatered);
   return {
     selectedTree: res,
     treeLastWatered: resWatered,
@@ -120,7 +119,6 @@ export const getTreeByAge = (Store) => async (state, start, end) => {
   const url = createAPIUrl(state, `/get-tree-by-age?start=${start}&end=${end}`);
 
   const res = await fetchAPI(url).then((r) => {
-    console.log(r);
     Store.setState({
       selectedTreeState: "LOADED",
       selectedTrees: r.data,

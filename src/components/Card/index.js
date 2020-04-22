@@ -25,6 +25,7 @@ const { treetypes, watering } = sidebar;
 const FlexColumnDiv = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const FlexRowDiv = styled.div`
@@ -74,8 +75,6 @@ const Card = (p) => {
     hausnr,
     bezirk,
   } = data;
-
-  console.log('gattungdeutsch', gattungdeutsch, data)
 
   const getTreeProp = p => {
     return p === 'null' ? null : p;

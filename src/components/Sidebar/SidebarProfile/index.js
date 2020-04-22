@@ -73,12 +73,10 @@ const SidebarProfile = (p) => {
         };
         const queryStr = adoptedTrees.reduce(concatReducer, '{');
 
-
         const urlAdoptedTreesDetails = createAPIUrl(
           state,
           `/private/get-adopted-trees-details?tree_ids=${queryStr}`
         );
-        console.log(urlAdoptedTreesDetails);
 
         fetchAPI(urlAdoptedTreesDetails, {
           headers: {

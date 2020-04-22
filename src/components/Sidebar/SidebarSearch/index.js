@@ -10,7 +10,6 @@ import Card from '../../Card/';
 
 const SidebarSearch = p => {
   const { selectedTree, selectedTreeState } = p;
-  console.log(selectedTree);
   return (
     <>
       <SidebarTitle>Suche</SidebarTitle>

@@ -7,27 +7,36 @@ import TreeType from './TreeType'
 import CardWaterDrops from '../CardWaterDrops'
 
 const StyledTreeType = styled(TreeType)`
-  padding-top: 5px;
-  margin-bottom: 10px;
+ padding: 0;
+ padding-left: 5px;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: 25px;
   align-items: center;
   justify-content: space-between;
 `;
 
 const WrapperOuter = styled.div`
-  padding-top: 10px;
+  padding-top: 5px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
 
+const FlexRow = styled.div`
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+`;
+
 const Title = styled.span`
   height: fit-content;
-  font-weight: bold;
+  font-weight: normal;
   font-size: ${p => p.theme.fontSizeL};
 `;
 
@@ -60,9 +69,11 @@ const TreeLastWatered = p => {
     {data.map(info => {
       return (
         <Wrapper>
-          <Title>{convertTime(info.time)}</Title>
+          <FlexRow>
+            <Title>{convertTime(info.time)}</Title>
+            <StyledTreeType>({info.amount}l)</StyledTreeType>
+          </FlexRow>
           <CardWaterDrops data={calcWaterDrops(info.amount)} />
-          <StyledTreeType>{info.amount}</StyledTreeType>
         </Wrapper>
       )
     })}

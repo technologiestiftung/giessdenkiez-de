@@ -11,7 +11,7 @@ const StyledTreeType = styled(TreeType)`
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 const WrapperOuter = styled.div`
@@ -36,8 +36,7 @@ const TreesAdopted = p => {
         <Wrapper>
           <Title>{info.artdtsch}</Title>
           <StyledTreeType>{info.strname}</StyledTreeType>
-          <StyledTreeType>{info.strname}</StyledTreeType>
-          <StyledTreeType>{info.hausnr}</StyledTreeType>
+          <StyledTreeType>{info.radolan_sum}</StyledTreeType>
         </Wrapper>
       )
     })}

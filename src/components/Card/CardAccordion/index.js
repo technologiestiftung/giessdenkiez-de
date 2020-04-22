@@ -15,7 +15,7 @@ const PanelBody = styled.div`
 `;
 
 const PanelIndicator = styled.span`
-  border: 1px solid;
+  ${'' /* border: 1px solid; */}
   width: 28px;
   justify-content: center;
   height: 28px;
@@ -26,7 +26,7 @@ const PanelIndicator = styled.span`
   cursor: pointer;
   transition: all .125s ease-in-out;
 
-  :hover {
+  &:hover {
     opactiy: .5;
     transition: all .125s ease-in-out;
   }
@@ -35,7 +35,7 @@ const PanelIndicator = styled.span`
 const PanelWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100% !important;
+  width: 100%;
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
   padding-bottom: 10px;
   animation: sweep .125s ease-in-out;

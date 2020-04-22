@@ -6,24 +6,25 @@ import ButtonRound from '../ButtonRound/';
 const BtnWaterContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
   width: 100%;
 `;
 
 const btnArray = [
   {
-    label: '5 l',
+    label: '5l',
     id: 5
   },
   {
-    label: '10 l',
+    label: '10l',
     id: 10
   },
   {
-    label: '25 l',
+    label: '25l',
     id: 25
   },
   {
-    label: '50 l',
+    label: '50l',
     id: 50
   },
 ];

@@ -208,8 +208,6 @@ class Tags extends React.Component {
     }
 
     promiseGet(url) {
-
-        console.log(url);
         return new Promise((resolve, reject) => {
             axios.get(url)
                 .then(res => {
@@ -303,9 +301,6 @@ class Tags extends React.Component {
 
     collectCountTrees(types) {
         let query = [];
-
-        console.log(types);
-
         types.forEach((type,i) => {
             
             let part = `${i == 0 ? '?' : '&'}types=${type}`;
@@ -313,7 +308,6 @@ class Tags extends React.Component {
         });
 
         const all = query.join('');
-
         const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees/types/count";
         const url = `${remote}${all}`;
 
@@ -406,8 +400,6 @@ class Tags extends React.Component {
                         this.dispatchSetTreeTypeDataLoading(false);
                         this.dispatchSetTreeTypeData(this.fetched);
                         this.createIncludedTreesObj(this.fetched);
-
-                        // console.log(this.fetched);
                     }).catch(err => {
                         console.log(err)
                     });

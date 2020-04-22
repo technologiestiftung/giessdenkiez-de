@@ -7,6 +7,7 @@ const StyledButton = styled.div`
   background-color: ${p => p.type === 'primary' ? '#F7FFFA': '#FFFFFF'};
   padding: 12px 15px 12px 15px;
   text-align: center;
+  cursor: pointer;
   font-size: ${p => p.theme.fontSizeL};
   border: 1px solid ${p => {
     if (p.type == 'primary') {

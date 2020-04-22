@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export default styled.button`
   width: ${props => props.size || 72}px;
   height: ${props => props.size || 72}px;
-  background-color: ${props => (props.isActive ? '#000' : '#fff')};
-  color: ${props => (props.isActive ? '#fff' : '#000')};
+  background-color: ${props => (props.isActive ? props.theme.colorTextDark : '#fff')};
+  color: ${props => (props.isActive ? '#fff' : props.theme.colorTextDark)};
   transition: background-color .3s;
   will-change: background-color;
   border-radius: 0%;
@@ -20,7 +20,7 @@ export default styled.button`
   box-sizing: border-box;
 
   &:hover {
-    background-color: ${props => (props.isActive ? '#000' : '#f2f2f2')};
-    color: ${props => (props.isActive ? '#fff' : '#000')};
+    background-color: ${props => (props.isActive ? props.theme.colorTextDark : '#f2f2f2')};
+    color: ${props => (props.isActive ? '#fff' : props.theme.colorTextDark)};
   }
 `;

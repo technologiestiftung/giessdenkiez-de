@@ -22,10 +22,7 @@ const BtnContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  div {
-    margin-bottom: 10px;
-  }
+  margin-bottom: 20px;
 `;
 
 const StyledCardDescription = styled(CardDescription)`
@@ -194,7 +191,7 @@ const ButtonWater = (p) => {
     return (
       <Fragment>
         {adopted && adopted === "other" && (
-          <>
+          <BtnContainer>
             <ButtonRound
               width="-webkit-fill-available"
               toggle={() => setWaterGroup("watering")}
@@ -205,10 +202,13 @@ const ButtonWater = (p) => {
             {waterGroup === "watering" && (
               <ButtonWaterGroup id={id} toggle={setWaterAmount} />
             )}
-          </>
+            <StyledCardDescription onClick={() => handleClick()}>
+              Wie kann ich mitmachen?
+            </StyledCardDescription>
+          </BtnContainer>
         )}
         {adopted && adopted !== "other" && (
-          <>
+          <BtnContainer>
             <ButtonRound
               width="-webkit-fill-available"
               toggle={() => setWaterGroup("watering")}
@@ -219,7 +219,10 @@ const ButtonWater = (p) => {
             {waterGroup === "watering" && (
               <ButtonWaterGroup id={id} toggle={setWaterAmount} />
             )}
-          </>
+            <StyledCardDescription onClick={() => handleClick()}>
+              Wie kann ich mitmachen?
+            </StyledCardDescription>
+          </BtnContainer>
         )}
         {!adopted && (
           <BtnContainer>
@@ -240,6 +243,9 @@ const ButtonWater = (p) => {
             {waterGroup === "watering" && (
               <ButtonWaterGroup id={id} toggle={setWaterAmount} />
             )}
+            <StyledCardDescription onClick={() => handleClick()}>
+              Wie kann ich mitmachen?
+            </StyledCardDescription>
           </BtnContainer>
         )}
       </Fragment>
