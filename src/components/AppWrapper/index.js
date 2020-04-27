@@ -59,10 +59,10 @@ const AppWrapper = p => {
       <Nav/>
       <CreditsContainer>
         <span>Ein Projekt des</span>
-        <a class="citylab" href="https://citylab-berlin.org" target="_blank">
+        <a className="citylab" href="https://citylab-berlin.org" target="_blank">
           <img src={logoCitylab} />
         </a>
-        <a class="tsb" href="https://technologiestiftung-berlin.de" target="_blank">
+        <a className="tsb" href="https://technologiestiftung-berlin.de" target="_blank">
           <img src={logoTSB} />
         </a>
       </CreditsContainer>

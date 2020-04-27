@@ -13,7 +13,7 @@ const SidebarSearch = p => {
   const { selectedTree, selectedTreeState } = p;
   return (
     <>
-      <SidebarTitle>Suche</SidebarTitle>
+      <SidebarTitle>Suche & Filter</SidebarTitle>
       {/* { !selectedTree && (<SidebarSearchAge/>)}
       { (selectedTreeState === 'LOADING') && (
         <SidebarLoadingCard state={selectedTreeState}/>
@@ -22,7 +22,7 @@ const SidebarSearch = p => {
       { (selectedTree && selectedTreeState !== 'LOADING') && (
         <Card data={selectedTree}/>
       )}
-      <CardLegend />
+      {!selectedTree && (<CardLegend />)}
     </>
   )
 }

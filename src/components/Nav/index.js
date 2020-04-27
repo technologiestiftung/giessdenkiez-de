@@ -66,30 +66,9 @@ const Nav = p => {
     path: navConfig.map(m => m.path),
   }) !== null;
 
-  const getAdoptedTrees = async () => {
-    Store.setState({ selectedTreeState: 'LOADING' });
-    const token = await getTokenSilently();
-    const mail = user.mail;
-    const url = createAPIUrl(state, `/private/get-adopted-trees?mail=${user.email}`);
-
-    const res = await fetchAPI(url,
-      {
-        headers: {
-          Authorization: 'Bearer ' + token
-        }
-      })
-      .then(r => {
-        Store.setState({ 
-          selectedTreeState: 'FETCHED', 
-          adoptedTrees: r.data.adopted 
-        }); 
-      });
-  }
 
   const handleClick = (title) => {
-    if (title == "Adoptierte Bäume") {
-      getAdoptedTrees();
-    }
+    console.log(p.state)
     p.removeSelectedTree()
   }
 

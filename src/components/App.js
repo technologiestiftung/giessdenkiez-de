@@ -58,7 +58,6 @@ const AppContainer = p => {
       </ThemeProvider>
     </Router>
   )
-
 }
 
 export default connect(state => ({

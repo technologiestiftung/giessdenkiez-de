@@ -48,10 +48,12 @@ class DeckGLMap extends React.Component {
 
   _renderLayers() {
     const {
-      data = this.state.data,
+      data,
       rainGeojson,
       treesVisible,
+      pumpsVisible,
       rainVisible,
+      pumps,
     } = this.props;
 
     var COLOR_RANGE = [
@@ -82,7 +84,8 @@ class DeckGLMap extends React.Component {
         [128, 0, 38],
       ]);
 
-    if (data && rainGeojson) {
+    if (data && rainGeojson && pumps) {
+      console.log('puuuumps', pumps, pumpsVisible)
       const layers = [
         new GeoJsonLayer({
           id: "geojson",
@@ -177,8 +180,28 @@ class DeckGLMap extends React.Component {
           pickable: true,
           // onHover: this._onHover
         }),
+        new GeoJsonLayer({
+          id: "pumps",
+          data: pumps,
+          opacity: 1,
+          visible: pumpsVisible,
+          stroked: true,
+          filled: false,
+          extruded: true,
+          wireframe: true,
+          getElevation: 1,
+          getFillColor: [255, 0, 0, 0],
+          getLineColor: [0, 0, 255],
+          getRadius: 12,
+          pointRadiusMinPixels: 4,
+          pickable: true,
+          lineWidthScale: 2,
+          lineWidthMinPixels: 2,
+          // onHover: this._onHover
+        }),
       ];
 
+      // Store.setState({ isLoading: false });
       return layers;
     }
   }
@@ -264,37 +287,6 @@ class DeckGLMap extends React.Component {
     );
   }
 
-  componentDidUpdate() {
-    // const { wateredTrees, includedTrees, wateredTreesData } = this.props;
-    // const { status, data } = wateredTrees.datum;
-    // if (status === 'SUCCESS' && includedTrees) {
-    //     console.log(this.props)
-    // }
-    // console.log(this.props)
-  }
-
-  // _requestDb(x, y, obj) {
-  //     const id = obj.properties.id;
-  //     const remote = "https://dshbp72tvi.execute-api.us-east-1.amazonaws.com/dev/trees";
-  //     const local = "http://localhost:3000/trees"
-  //     const url = `${remote}/${id}`;
-
-  //     this.dispatchSetSelectedTreeDataLoading(true);
-  //     console.log('selected tree loading', this.props.selectedTreeDataLoading);
-
-  //     axios.get(url)
-  //     .then(res => {
-  //         this.setState({x, y, hoveredObject: res});
-  //         this.dispatchSetSelectedTreeData(res);
-  //         this.dispatchSetSelectedTreeDataLoading(false);
-  //         console.log(this.props.selectedTreeDataLoading);
-  //             // this._setTooltip(res, obj.object.x, obj.object.y)
-  //         })
-  //         .catch(err => {
-  //         console.log(err);
-  //     })
-  // }
-
   dispatchSetSelectedTreeData(val) {
     this.props.dispatch(setSelectedTreeData(val.data));
   }
@@ -329,7 +321,7 @@ class DeckGLMap extends React.Component {
         <DeckGL
           layers={this._renderLayers()}
           initialViewState={viewport}
-          viewState={viewport}
+          // viewState={viewport}
           controller={controller}
         >
           {baseMap && (
@@ -354,6 +346,8 @@ export default connect(
   (state) => ({
     data: state.data,
     rainGeojson: state.rainGeojson,
+    pumps: state.pumps,
+    pumpsVisible: state.pumpsVisible,
     isLoading: state.isLoading,
     wateredTrees: wateredTreesSelector(state),
     state: state,

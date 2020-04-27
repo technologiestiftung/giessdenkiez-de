@@ -4,8 +4,17 @@ import styled from 'styled-components';
 import SidebarTitle from '../SidebarTitle/';
 import CardHeadline from '../../Card/CardHeadline/';
 import CardDescription from '../../Card/CardDescription/';
+import CardDescriptionTitle from '../../Card/CardDescriptionTitle/';
 
 import content from "../../../assets/content";
+
+const StyledCardDescriptionTitle = styled(CardDescriptionTitle)`
+  margin-bottom: 5px;
+`;
+
+const StyledCardDescription = styled(CardDescription)`
+  opacity: 1;
+`;
 
 const StyledParagraph = styled.p`
   width: 300px;
@@ -29,11 +38,11 @@ const SidebarAbout = p => {
   function createMarkup(content) { return {__html: content}; };
   return (
     <>
-      <SidebarTitle>Über das Projekt</SidebarTitle>
+      <SidebarTitle>Weitere Informationen</SidebarTitle>
       {about.map(item => (
         <PanelWrapper>
-          <SidebarTitle>{item.title}</SidebarTitle>
-          <CardDescription dangerouslySetInnerHTML={createMarkup(item.description)}></CardDescription>
+          <StyledCardDescriptionTitle>{item.title}</StyledCardDescriptionTitle>
+          <StyledCardDescription dangerouslySetInnerHTML={createMarkup(item.description)}></StyledCardDescription>
         </PanelWrapper>
       ))}
     </>

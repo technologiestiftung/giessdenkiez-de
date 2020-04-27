@@ -20,9 +20,9 @@ const OverlayDescription = p => {
 
   return (
     <Wrapper>
-      {content.map(col => {
+      {content.map((col,i) => {
         return (
-          <StyledParargraph>
+          <StyledParargraph key={`Overlay-description-${i}`}>
             {col}
           </StyledParargraph>
         )

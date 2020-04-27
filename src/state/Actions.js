@@ -1,11 +1,9 @@
 import { createGeojson, test } from "./utils";
-import { dsv as d3Dsv } from "d3";
+import { dsv as d3Dsv, easeCubic as d3EaseCubic, json as D3Json } from "d3";
 import axios from "axios";
 import history from "../../history";
 import { createAPIUrl, fetchAPI } from "./utils";
 import { FlyToInterpolator } from "react-map-gl";
-
-import { easeCubic as d3EaseCubic } from "d3";
 
 export const loadData = (Store) => async () => {
   Store.setState({ isLoading: true });
@@ -18,6 +16,10 @@ export const loadData = (Store) => async () => {
     .then((res) => res.json())
     .then((r) => Store.setState({ rainGeojson: r }));
 
+  const pumps = fetch("../../data/pumps.geojson")
+    .then(r => r.json())
+    .then(r => Store.setState({ pumps: r }))
+
   const trees = require("../../data/trees.csv");
   const data = d3Dsv(",", trees, function (d) {
     return {
@@ -25,10 +27,13 @@ export const loadData = (Store) => async () => {
       lat: d.lat,
       lng: d.lng,
     };
-  }).then((data) => {
-    return createGeojson(data);
-  }).then(r => { Store.setState({ data: r }) });
-
+  })
+    .then((data) => {
+      return createGeojson(data);
+    })
+    .then((r) => {
+      Store.setState({ data: r });
+    });
 };
 
 export const setAppState = (state, payload) => {
@@ -83,13 +88,15 @@ function checkStatus(response) {
 
 export const hexToRgb = (hex) => {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? [
-    parseInt(result[1], 16),
-    parseInt(result[2], 16),
-    parseInt(result[3], 16),
-    200
-  ] : null
-}
+  return result
+    ? [
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16),
+        200,
+      ]
+    : null;
+};
 
 export const getWateredTrees = (Store) => async () => {
   Store.setState({ isLoading: true });
@@ -121,6 +128,7 @@ export const getTree = (Store) => async (id) => {
 export const removeSelectedTree = (state, payload) => {
   return {
     selectedTree: false,
+    selectedTreeState: false,
   };
 };
 

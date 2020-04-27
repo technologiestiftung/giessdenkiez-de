@@ -22,9 +22,9 @@ const OverlayTiles = p => {
 
   return (
     <Wrapper>
-      {content.map(col => {
+      {content.map((col,i) => {
         return (
-          <OverlayTile content={col}></OverlayTile>
+          <OverlayTile key={`Overlay-tile-${i}`} content={col}></OverlayTile>
         )
       })}
     </Wrapper>

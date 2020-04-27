@@ -12,13 +12,10 @@ const FilterAgeDiv = styled.div`
   flex-direction: column;
   z-index: 3;
   height: auto;
-  margin-top: 10px;
-  padding: ${props => props.theme.spacingM};
-  width: auto;
-  border-radius: ${props => props.theme.borderRadiusS};
+  padding: 0 0 5px 5px;
+  width: 100%;
   margin-bottom: 10px;
   background: white;
-  box-shadow: 0px 2px 3px 0px rgba(44,48,59,0.1);
 `
 
 const FlexRowDiv = styled.div`
@@ -48,6 +45,7 @@ const TileHeadline = styled.span`
   opacity: 1;
   font-size: 16px;
   font-weight: 600;
+  font-size: 1rem;
   margin-bottom: 10px;
   transform: translateX(-4px);
 `;
@@ -70,7 +68,7 @@ const SidebarAgeRange = p => {
   const range = [0,300]
   return (
     <FilterAgeDiv>
-        <TileHeadline>Pflanzalter: {min} - {max} Jahre</TileHeadline>
+        <TileHeadline>{min} - {max} Jahre</TileHeadline>
         <FlexRowDiv>
             <Range
                 min={0}
