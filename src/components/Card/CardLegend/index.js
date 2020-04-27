@@ -33,9 +33,9 @@ const Btn = styled.span`
   font-size: 0.8rem;
   margin-right: 10px;
   cursor: pointer;
-  border: 1px solid ${p => p.theme.colorPrimary};
-  background: ${p => p.active ? p.theme.colorPrimary : 'white'};
-  color: ${p => p.active ? 'white' : p.theme.colorPrimary};
+  border: 1px solid ${p => p.theme.colorTextDark};
+  background: ${p => p.active ? p.theme.colorTextDark : 'white'};
+  color: ${p => p.active ? 'white' : p.theme.colorTextDark};
   padding: 10px;
   border-radius: 3px;
 `;
@@ -63,52 +63,6 @@ const ItemContainer = styled.div`
 
 const Cardlegend = (p) => {
   const { treesVisible, rainVisible, pumpsVisible } = p;
-  const legendArray = [
-    {
-      label: "< 10",
-      value: 10,
-    },
-    {
-      label: "< 20",
-      value: 20,
-    },
-    {
-      label: "< 30",
-      value: 30,
-    },
-    {
-      label: "< 40",
-      value: 40,
-    },
-    {
-      label: "< 50",
-      value: 50,
-    },
-    {
-      label: "< 60",
-      value: 60,
-    },
-    {
-      label: "< 70",
-      value: 70,
-    },
-    {
-      label: "< 80",
-      value: 80,
-    },
-    {
-      label: "< 90",
-      value: 90,
-    },
-    {
-      label: "100",
-      value: 100,
-    },
-  ];
-
-  useEffect(() => {
-    console.log(interpolateColor(50), "interpolate");
-  }, []);
 
   return (
     <>
@@ -127,7 +81,7 @@ const Cardlegend = (p) => {
             Niederschlag
           </Btn>
           <StyledCardDescriptionSecond>
-            Zeigt die Niederschlagmenge der letzten 30 Tage in Liter.
+            Zeigt die Niederschlagmenge der letzten 30 Tage in Liter (Deutscher Wetterdienst).
           </StyledCardDescriptionSecond>
           <Btn
             className="btn"
@@ -139,7 +93,7 @@ const Cardlegend = (p) => {
             Bäume
           </Btn>
           <StyledCardDescriptionSecond>
-            Erkunde die Geschichte von Berlins Baumlandschaft
+            Straßen- und Anlagenbäume des Baumkatasters Berlin.
           </StyledCardDescriptionSecond>
           <Btn
             className="btn"
@@ -151,7 +105,7 @@ const Cardlegend = (p) => {
             Wasserpumpen
           </Btn>
           <StyledCardDescriptionSecond>
-            Erkunde die Geschichte von Berlins Baumlandschaft
+            Berlins öffentliche Wasserpumpen
           </StyledCardDescriptionSecond>
         </Flex>
         <Flex>
@@ -161,20 +115,6 @@ const Cardlegend = (p) => {
           </StyledCardDescriptionSecond>
           <SidebarSearchAge />
         </Flex>
-        {/* <Flex>
-          <StyledCardDescription>Erhaltene Wassermenge</StyledCardDescription>
-          <StyledCardDescriptionSecond>
-            der letzten 30 Tage aus Regen & Gießungen
-          </StyledCardDescriptionSecond>
-          {legendArray.map((item) => (
-            <>
-              <ItemContainer>
-                <LegendDot color={interpolateColor(item.value)} />
-                <ItemLabel>{item.label}</ItemLabel>
-              </ItemContainer>
-            </>
-          ))}
-        </Flex> */}
     </>
   );
 };

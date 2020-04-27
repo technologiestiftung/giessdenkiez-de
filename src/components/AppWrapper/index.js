@@ -5,6 +5,7 @@ import DeckGlMap from '../map';
 import Sidebar from '../Sidebar';
 import NavBar from '../Navbar';
 import Nav from '../Nav';
+import Legend from '../Legend';
 import Loading from '../Loading';
 import Overlay from '../Overlay';
 
@@ -24,8 +25,8 @@ const CreditsContainer = styled.div`
   flex-direction: column;
   display: flex;
   justify-content: end;
-  top: 15px;
-  right: 15px;
+  top: 12px;
+  right: 12px;
 
   span {
     margin-bottom: 5px;
@@ -66,6 +67,7 @@ const AppWrapper = p => {
           <img src={logoTSB} />
         </a>
       </CreditsContainer>
+      <Legend />
     </AppWrapperDiv>
   )
 }
