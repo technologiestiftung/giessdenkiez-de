@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --progress --hot --open",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production && echo '/* /index.html  200' | cat >build/_redirects"
   },
   "keywords": [],
   "author": "",
