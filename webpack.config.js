@@ -65,7 +65,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(csv)?$/,
+                test: /\.(csv|geojson)?$/,
                 use: [
                   {
                     loader: 'file-loader',

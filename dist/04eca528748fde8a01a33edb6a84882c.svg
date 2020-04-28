@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="55px" viewBox="0 0 55 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
+    <title>icon-info</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon-info" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <rect id="Rectangle-Copy-9" fill="#D8D8D8" opacity="0" x="0" y="0" width="55" height="55"></rect>
+                <g id="Group-3" transform="translate(3.000000, 8.000000)">
+                    <rect id="Rectangle" stroke="#2C303B" stroke-width="2" fill="#FFFFFF" x="11" y="5" width="25" height="26" rx="3"></rect>
+                    <rect id="Rectangle" fill="#2C303B" x="7" y="10" width="9" height="2" rx="1"></rect>
+                    <rect id="Rectangle-Copy-4" fill="#2C303B" x="7" y="15" width="9" height="2" rx="1"></rect>
+                    <rect id="Rectangle-Copy-5" fill="#2C303B" x="7" y="19" width="9" height="2" rx="1"></rect>
+                    <rect id="Rectangle-Copy-6" fill="#2C303B" x="7" y="23" width="9" height="2" rx="1"></rect>
+                    <path d="M44.3110824,31.4252301 C45.9958082,27.1009239 44.533823,22.1114246 40.5467872,19.5498435 C35.9521263,16.597877 29.7440365,17.9880992 26.6806305,22.6549917 C23.6172245,27.3218843 24.8585519,33.4981899 29.4532128,36.4501565 C33.40934,38.9918795 38.5616112,38.3144446 41.8727443,35.0980122" id="Path-Copy-3" stroke="#6FE5A4" stroke-width="2" fill="#E3FFEF" stroke-linecap="round"></path>
+                    <circle id="Oval-Copy-11" stroke="#2C303B" stroke-width="2" fill="#FFFFFF" transform="translate(45.000000, 3.000000) scale(1, -1) translate(-45.000000, -3.000000) " cx="45" cy="3" r="3"></circle>
+                    <circle id="Oval-Copy-12" stroke="#2C303B" stroke-width="2" cx="6" cy="38" r="1"></circle>
+                    <g id="Group" transform="translate(33.500000, 22.000000)" fill="#6FE5A4">
+                        <circle id="Oval-Copy-14" cx="1.5" cy="1.5" r="1.5"></circle>
+                        <rect id="Rectangle" x="0.5" y="5" width="2" height="7" rx="1"></rect>
+                    </g>
+                    <circle id="Oval-Copy-13" stroke="#2C303B" stroke-width="2" fill="#FFFFFF" transform="translate(2.000000, 31.000000) scale(-1, -1) translate(-2.000000, -31.000000) " cx="2" cy="31" r="2"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

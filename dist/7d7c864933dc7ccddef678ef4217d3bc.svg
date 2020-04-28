@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55px" height="55px" viewBox="0 0 55 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
+    <title>icon-subscribe</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon-subscribe" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <rect id="Rectangle-Copy-8" fill-opacity="0" fill="#D8D8D8" x="0" y="0" width="55" height="55"></rect>
+                <g id="Group-5" transform="translate(8.000000, 4.000000)">
+                    <circle id="Oval-Copy-3" fill="#E3FFEF" cx="10.546875" cy="28.84375" r="9.84375"></circle>
+                    <path d="M5.22510269,19.0328657 C2.09930882,20.8632498 -6.39488462e-14,24.2567775 -6.39488462e-14,28.140625 C-6.39488462e-14,32.4041715 2.52984547,36.0768409 6.17029954,37.7393964 M14,38.0003999 C16.0442298,37.2090699 17.7802765,35.7990263 18.9784092,34" id="Shape-Copy-2" stroke="#6FE5A4" stroke-width="2" stroke-linecap="round"></path>
+                    <path d="M21.5,26 L15.3523979,29.1122825 C14.8596594,29.3617361 14.2579937,29.1645147 14.00854,28.6717761 C13.910594,28.4783061 13.8781913,28.2582403 13.9162161,28.0447499 L15.0803685,21.5086105 L15.0803685,21.5086105 L10.1841183,16.9127114 C9.78143852,16.5347333 9.7614139,15.901885 10.139392,15.4992053 C10.2955639,15.3328272 10.5039418,15.2248655 10.7299316,15.1932435 L17.5324495,14.2413895 L17.5324495,14.2413895 L20.6100709,8.23640843 C20.8619673,7.74491414 21.4646045,7.5506817 21.9560988,7.80257813 C22.1425937,7.89815889 22.2943484,8.04991353 22.3899291,8.23640843 L25.4675505,14.2413895 L25.4675505,14.2413895 L32.2700684,15.1932435 C32.8170246,15.2697773 33.1983773,15.7752157 33.1218435,16.3221719 C33.0902215,16.5481616 32.9822598,16.7565395 32.8158817,16.9127114 L27.9196315,21.5086105 L27.9196315,21.5086105 L29.0837839,28.0447499 C29.1806273,28.5884776 28.818356,29.107763 28.2746283,29.2046064 C28.0611378,29.2426312 27.8410721,29.2102285 27.6476021,29.1122825 L21.5,26 L21.5,26 Z" id="Star" stroke="#2C303B" stroke-width="2" fill="#FFFFFF"></path>
+                    <circle id="Oval" stroke="#2C303B" stroke-width="2" cx="28" cy="1" r="1"></circle>
+                    <circle id="Oval-Copy-4" stroke="#2C303B" stroke-width="2" fill="#FFFFFF" transform="translate(38.000000, 25.000000) scale(1, -1) translate(-38.000000, -25.000000) " cx="38" cy="25" r="3"></circle>
+                    <circle id="Oval-Copy" stroke="#2C303B" stroke-width="2" fill="#FFFFFF" transform="translate(9.000000, 5.000000) scale(-1, -1) translate(-9.000000, -5.000000) " cx="9" cy="5" r="2"></circle>
+                    <rect id="Rectangle-Copy-2" fill="#2C303B" transform="translate(10.000000, 37.500000) rotate(-360.000000) translate(-10.000000, -37.500000) " x="9" y="27" width="2" height="21" rx="1"></rect>
+                    <rect id="Rectangle-Copy-3" fill="#2C303B" transform="translate(8.000000, 32.000000) rotate(-45.000000) translate(-8.000000, -32.000000) " x="7" y="29" width="2" height="6" rx="1"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

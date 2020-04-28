@@ -16,11 +16,13 @@ export const loadData = (Store) => async () => {
     .then((res) => res.json())
     .then((r) => Store.setState({ rainGeojson: r }));
 
+  const pumps_data = require("../../data/pumps.geojson");
   const pumps = fetch("../../data/pumps.geojson")
     .then(r => r.json())
     .then(r => Store.setState({ pumps: r }))
 
   const trees = require("../../data/trees.csv");
+
   const data = d3Dsv(",", trees, function (d) {
     return {
       id: d.id,
