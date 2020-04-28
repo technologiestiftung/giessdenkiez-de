@@ -2,8 +2,30 @@ import { createGeojson, test } from "./utils";
 import { dsv as d3Dsv, easeCubic as d3EaseCubic, json as D3Json } from "d3";
 import axios from "axios";
 import history from "../../history";
-import { createAPIUrl, fetchAPI } from "./utils";
+import { createAPIUrl, fetchAPI, flatten } from "./utils";
 import { FlyToInterpolator } from "react-map-gl";
+
+export const loadTrees = (Store) => async () => {
+
+  const limit = 25000;
+  const iterator = 13;
+
+  let promiseArray = [];
+
+  for (let offset = 0; offset < iterator; offset++) {
+    const currentOffset = offset * limit;
+    const url = `https://trees-express-now.fabiandinklage.now.sh/get-all-trees?offset=${currentOffset}&limit=${limit}`
+    const f = axios.get(url)
+    promiseArray.push(f);
+  }
+
+  Promise.all(promiseArray).then(function(values) {
+    const fetched = values.map(d => d.data.watered);
+    const flattened = fetched.flat(1);
+    const geojson = createGeojson(flattened);
+    Store.setState({ data: geojson, isLoading: false, });
+  });
+}
 
 export const loadData = (Store) => async () => {
   Store.setState({ isLoading: true });
@@ -20,22 +42,6 @@ export const loadData = (Store) => async () => {
   const pumps = fetch("../../data/pumps.geojson")
     .then(r => r.json())
     .then(r => Store.setState({ pumps: r }))
-
-  const trees = require("../../data/trees.csv");
-
-  const data = d3Dsv(",", trees, function (d) {
-    return {
-      id: d.id,
-      lat: d.lat,
-      lng: d.lng,
-    };
-  })
-    .then((data) => {
-      return createGeojson(data);
-    })
-    .then((r) => {
-      Store.setState({ data: r });
-    });
 };
 
 export const setAppState = (state, payload) => {
@@ -106,7 +112,6 @@ export const getWateredTrees = (Store) => async () => {
   const res = await fetchAPI(url);
 
   return {
-    isLoading: false,
     wateredTrees: res.data.watered,
   };
 };
@@ -164,6 +169,7 @@ export default (Store) => ({
   setViewport,
   hexToRgb,
   setView,
+  loadTrees: loadTrees(Store),
   removeSelectedTree,
   setAppState,
   toggleOverlay,

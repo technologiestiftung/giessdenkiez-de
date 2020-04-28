@@ -85,7 +85,6 @@ class DeckGLMap extends React.Component {
       ]);
 
     if (data && rainGeojson && pumps) {
-      console.log('puuuumps', pumps, pumpsVisible)
       const layers = [
         new GeoJsonLayer({
           id: "geojson",

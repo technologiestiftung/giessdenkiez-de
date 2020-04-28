@@ -11,10 +11,10 @@ export function createGeojson(data) {
           "type": "Feature",
           "geometry": {
               "type": "Point",
-              "coordinates": [+tree.lat, +tree.lng]
+              "coordinates": [+tree[1], +tree[2]]
           },
           "properties": {
-              "id": tree.id,
+              "id": tree[0],
           }
       }
       geojson.features.push(feature);
@@ -23,6 +23,18 @@ export function createGeojson(data) {
   return geojson;
 };
 
+
+export function flatten(ary) {
+    var ret = [];
+    for(var i = 0; i < ary.length; i++) {
+        if(Array.isArray(ary[i])) {
+            ret = ret.concat(flatten(ary[i]));
+        } else {
+            ret.push(ary[i]);
+        }
+    }
+    return ret;
+}
 
 
 export function createAPIUrl(state, entrypoint) {
@@ -42,5 +54,6 @@ export async function fetchAPI(url, config = {}) {
 export default {
   createGeojson,
   createAPIUrl,
-  fetchAPI
+  fetchAPI,
+  flatten
 }
