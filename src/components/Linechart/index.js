@@ -53,18 +53,22 @@ const Linechart = p => {
 
     let hours = [];
 
-    // aggregate hours to days
-    d.forEach((hour,i) => {
-      sumPerDay += hour;
-      const fullDay = (i % 24) === 23;
-      if (fullDay) {
-        const sum = sumPerDay;
-        sumPerDay = 0;
-        hours.push(sum);
-      }
-    })
+    if (d) {
+      // aggregate hours to days
+      d.forEach((hour,i) => {
+        sumPerDay += hour;
+        const fullDay = (i % 24) === 23;
+        if (fullDay) {
+          const sum = sumPerDay;
+          sumPerDay = 0;
+          hours.push(sum);
+        }
+      })
+      
+    }
 
     return hours;
+
   }
 
   const init = data => {

@@ -65,55 +65,13 @@ const Cardlegend = (p) => {
 
   return (
     <>
-        <Flex>
-          <StyledCardDescription>Sichtbare Daten</StyledCardDescription>
-          <StyledCardDescriptionSecond>
-            Schalte die Datensätze ein, die Dich interessieren.
-          </StyledCardDescriptionSecond>
-          <Btn
-            className="btn"
-            active={rainVisible}
-            onClick={() => {
-              Store.setState({ rainVisible: !rainVisible });
-            }}
-          >
-            Niederschlag
-          </Btn>
-          <StyledCardDescriptionSecond>
-            Zeigt die Niederschlagmenge der letzten 30 Tage in Liter (Deutscher Wetterdienst).
-          </StyledCardDescriptionSecond>
-          <Btn
-            className="btn"
-            active={treesVisible}
-            onClick={() => {
-              Store.setState({ treesVisible: !treesVisible });
-            }}
-          >
-            Bäume
-          </Btn>
-          <StyledCardDescriptionSecond>
-            Straßen- und Anlagenbäume des Baumkatasters Berlin.
-          </StyledCardDescriptionSecond>
-          <Btn
-            className="btn"
-            active={pumpsVisible}
-            onClick={() => {
-              Store.setState({ pumpsVisible: !pumpsVisible });
-            }}
-          >
-            Wasserpumpen
-          </Btn>
-          <StyledCardDescriptionSecond>
-            Berlins öffentliche Wasserpumpen
-          </StyledCardDescriptionSecond>
-        </Flex>
-        <Flex>
-          <StyledCardDescription>Baumalter</StyledCardDescription>
-          <StyledCardDescriptionSecond>
-            Erkunde die Geschichte von Berlins Baumlandschaft
-          </StyledCardDescriptionSecond>
-          <SidebarSearchAge />
-        </Flex>
+      <Flex>
+        <StyledCardDescription>Baumalter</StyledCardDescription>
+        <StyledCardDescriptionSecond>
+          Erkunde die Geschichte von Berlins Baumlandschaft
+        </StyledCardDescriptionSecond>
+        <SidebarSearchAge />
+      </Flex>
     </>
   );
 };

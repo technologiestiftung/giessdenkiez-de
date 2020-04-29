@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component, useState } from "react";
+import styled from "styled-components";
 import { interpolateColor } from "../../utils/";
+import Store from "../../state/Store";
+import { connect } from "unistore/react";
+import Actions from "../../state/Actions";
 
 import CardDescription from "../Card/CardDescription/";
 
@@ -8,14 +11,14 @@ const ItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 40px;
-  align-items: center;
+  align-items: ${(p) => (p.active ? "baseline" : "center")};
   justify-content: center;
   margin-right: 15px;
 `;
 
 const TileHeadline = styled.span`
   opacity: 1;
-  font-size: 16px;
+  font-size: 0.8rem;
   font-weight: 600;
   margin-bottom: 10px;
   transform: translateX(-4px);
@@ -29,11 +32,19 @@ const LegendDot = styled.div`
   background-color: ${(p) => p.color};
 `;
 
+const LegendRect = styled.div`
+  width: 9px;
+  height: 9px;
+  margin-right: 5px;
+  border: 2px solid ${(p) => p.theme.colorTextDark};
+  background-color: none;
+`;
+
 const StrokedLegendDot = styled(LegendDot)`
   background: none;
   width: 10px;
   height: 10px;
-  border: 2px solid ${ p => p.theme.colorTextDark };
+  border: 2px solid ${(p) => p.theme.colorTextDark};
 `;
 
 const ItemLabel = styled.label`
@@ -54,47 +65,70 @@ const Flex = styled.div`
   flex-wrap: wrap;
   margin-bottom: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
+  border-bottom: 1px solid ${(p) => p.theme.colorGreyLight};
 `;
 
 const UnstyledFlex = styled(Flex)`
   border-bottom: none;
+  justify-content: flex-start;
   margin-bottom: 0;
 `;
 
 const UnstyledFlexWidth = styled(UnstyledFlex)`
   border-bottom: none;
-  width: auto;
-  justify-content: center;
+  width: fit-content;
   margin-right: 10px;
   margin-bottom: 0;
-  padding-bottom: 0;
+  padding: 6px 9px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  border-radius: 100px;
+  background: ${(p) => (p.active ? p.theme.colorTextMedium : "white")};
+  transition: all .125s ease-in-out;
+
+  &:hover {
+    background: ${(p) => (p.active ? p.theme.colorGreyLight : p.theme.colorTextMedium)};
+    transition: all .125s ease-in-out;
+  }
+`;
+
+const FlexSpace = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: ${(p) => (p.active ? "baseline" : "center")};
+  justify-content: space-between;
+`;
+
+const FlexColumn = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const LegendDiv = styled.div`
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    display: flex;
-    flex-direction: column;
-    z-index: 1;
-    font-size: 12px;
-    box-shadow: ${p => p.theme.boxShadow};
-    height: auto;
-    padding: 10px 13px 5px 15px;
-    width: 210px;
-    background: white;
-`
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  font-size: 12px;
+  box-shadow: ${(p) => p.theme.boxShadow};
+  height: auto;
+  padding: 12px;
+  width: ${(p) => (p.active ? "210px" : "90px")};
+  background: white;
+`;
 
 const StyledCardDescription = styled(CardDescription)`
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.8rem;
   opacity: 1;
 `;
 
 const StyledCardDescriptionSecond = styled(CardDescription)`
-  padding-top: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  line-height: 130%;
+  width: 100%;
 `;
 
 const legendArray = [
@@ -124,35 +158,90 @@ const legendArray = [
   },
 ];
 
-const Legend = () => {
-  return (
-    <LegendDiv>
-      <UnstyledFlex>
-        <StyledCardDescription>Erhaltene Wassermenge</StyledCardDescription>
-        <StyledCardDescriptionSecond>
-          der letzten 30 Tage aus Regen & Gießungen in Liter.
-        </StyledCardDescriptionSecond>
-        {legendArray.map((item) => (
-          <>
-            <ItemContainer>
-              <LegendDot color={interpolateColor(item.value)} />
-              <ItemLabel>{item.label}</ItemLabel>
-            </ItemContainer>
-          </>
-        ))}
-      </UnstyledFlex>
-      <UnstyledFlex>
-        <UnstyledFlexWidth>
-          <LegendDot color={'#2c303b'} />
-          <StyledItemLabel>Baum</StyledItemLabel>
-        </UnstyledFlexWidth>
-        <UnstyledFlexWidth>
-          <StrokedLegendDot />
-          <StyledItemLabel>Öffentl. Pumpe</StyledItemLabel>
-        </UnstyledFlexWidth>
-      </UnstyledFlex>
-    </LegendDiv>
-  )
-}
+const StyledToggle = styled.span`
+  cursor: pointer;
+  height: fit-content;
+  &:hover {
+    opacity: 0.66;
+  }
+`;
 
-export default Legend;
+const Legend = p => {
+  const { treesVisible, rainVisible, pumpsVisible } = p;
+  const [legendExpanded, setLegendExpanded] = useState(false);
+  return (
+    <LegendDiv active={legendExpanded}>
+      <FlexSpace active={legendExpanded}>
+        <FlexColumn>
+          <StyledCardDescription onClick={() => setLegendExpanded(!legendExpanded)}>
+            {legendExpanded ? "Niederschlag" : "Legende"}
+          </StyledCardDescription>
+          {legendExpanded && (
+            <StyledCardDescriptionSecond>
+              der letzten 30 Tage (Liter)
+            </StyledCardDescriptionSecond>
+          )}
+        </FlexColumn>
+        <StyledToggle onClick={() => setLegendExpanded(!legendExpanded)}>
+          {legendExpanded ? "—" : "+"}
+        </StyledToggle>
+      </FlexSpace>
+      {legendExpanded && (
+        <UnstyledFlex>
+          {legendArray.map((item) => (
+            <>
+              <ItemContainer>
+                <LegendDot color={interpolateColor(item.value)} />
+                <ItemLabel>{item.label}</ItemLabel>
+              </ItemContainer>
+            </>
+          ))}
+        </UnstyledFlex>
+      )}
+      {legendExpanded && (
+        <FlexColumn>
+          <StyledCardDescription>Datenpunkte</StyledCardDescription>
+          <StyledCardDescriptionSecond>
+            durch Klick ein- & ausblenden.
+          </StyledCardDescriptionSecond>
+          <UnstyledFlexWidth
+            active={treesVisible}
+            onClick={() => {
+              Store.setState({ treesVisible: !treesVisible });
+            }}
+          >
+            <LegendDot color={"#2c303b"} />
+            <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
+          </UnstyledFlexWidth>
+          <UnstyledFlexWidth
+            active={pumpsVisible}
+            onClick={() => {
+              Store.setState({ pumpsVisible: !pumpsVisible });
+            }}
+          >
+            <StrokedLegendDot />
+            <StyledItemLabel>Öffentl. Pumpe</StyledItemLabel>
+          </UnstyledFlexWidth>
+          <UnstyledFlexWidth
+            active={rainVisible}
+            onClick={() => {
+              Store.setState({ rainVisible: !rainVisible });
+            }}
+          >
+            <LegendRect />
+            <StyledItemLabel>Niederschlagflächen</StyledItemLabel>
+          </UnstyledFlexWidth>
+        </FlexColumn>
+      )}
+    </LegendDiv>
+  );
+};
+
+export default connect(
+  (state) => ({
+    treesVisible: state.treesVisible,
+    rainVisible: state.rainVisible,
+    pumpsVisible: state.pumpsVisible,
+  }),
+  Actions
+)(Legend);

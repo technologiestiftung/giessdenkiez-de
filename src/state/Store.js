@@ -9,6 +9,7 @@ const Store = createStore({
   treesVisible: true,
   pumpsVisible: false,
   rainVisible: false,
+  legendExpanded: false,
   rainGeojson: null,
   adoptedTreesDetails: false,
   pumps: null,
