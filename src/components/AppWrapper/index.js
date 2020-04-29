@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 
 import DeckGlMap from '../map';
@@ -11,6 +11,7 @@ import Overlay from '../Overlay';
 
 import logoCitylab from '!file-loader!../../assets/citylab-logo.svg';
 import logoTSB from '!file-loader!../../assets/tsb-logo-coloured.svg';
+
 
 const AppWrapperDiv = styled.div`
   font-family: ${props => props.theme.fontFamily};

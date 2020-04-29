@@ -12,7 +12,7 @@ import {
   createAPIUrl,
   interpolateColor,
   hexToRgb,
-} from "../../state/utils";
+} from "../../utils";
 import { colorFeature } from "./maputils";
 import styled from "styled-components";
 import { scaleThreshold } from "d3-scale";
@@ -113,7 +113,7 @@ class DeckGLMap extends React.Component {
           pickable: true,
           getLineColor: [255, 132, 132, 255],
           getRadius: 2,
-          pointRadiusMinPixels: 2,
+          pointRadiusMinPixels: .75,
           autoHighlight: true,
           highlightColor: [200, 200, 200, 255],
           pointRadiusScale: 2,
@@ -121,27 +121,15 @@ class DeckGLMap extends React.Component {
           transitions: {
             getFillColor: 500,
           },
-          getFillColor: (info) => {
+          getFillColor: (info,i) => {
             const { wateredTrees, AppState } = this.props;
             const id = info.properties['id'];
             const sum = info.properties["radolan_sum"];
 
-            switch (AppState) {
-            	case 'watered':
-            		if (wateredTrees[id]) {
-            			return [55, 130, 222, 200]
-            		}
-            		break;
+            const interpolated = interpolateColor(sum);
+            const hex = hexToRgb(interpolated);
 
-            	case 'loggedIn':
-            		return [255, 0, 0, 200]
-            		break;
-
-            	default:
-            		break;
-            }
-
-            return [55, 222, 138, 200];
+            return hex;
           },
           onClick: (info) => {
             const { setDetailRouteWithListPath } = this.props;
@@ -191,11 +179,11 @@ class DeckGLMap extends React.Component {
           getElevation: 1,
           getLineColor: [44, 48, 59, 200],
           getFillColor: [0, 0, 0, 0],
-          getRadius: 12,
+          getRadius: 9,
           pointRadiusMinPixels: 4,
           pickable: true,
           lineWidthScale: 2,
-          lineWidthMinPixels: 2,
+          lineWidthMinPixels: 1,
           // onHover: this._onHover
         }),
       ];

@@ -6,7 +6,7 @@ import axios from "axios";
 import Store from "../../state/Store";
 import Actions from "../../state/Actions";
 import content from "../../assets/content";
-import { fetchAPI, createAPIUrl } from "../../state/utils";
+import { fetchAPI, createAPIUrl } from "../../utils";
 import { useAuth0 } from "../../utils/auth0";
 
 import history from "../../../history";

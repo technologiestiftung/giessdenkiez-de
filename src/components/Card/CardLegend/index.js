@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { interpolateColor } from "../../../utils/";
 import Store from "../../../state/Store";
 import { connect } from "unistore/react";
 import Actions from "../../../state/Actions";

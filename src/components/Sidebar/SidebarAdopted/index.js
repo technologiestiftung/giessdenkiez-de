@@ -13,7 +13,7 @@ import { colorByState } from '../../../assets/theme';
 
 import Store from '../../../state/Store';
 import { useAuth0 } from "../../../utils/auth0";
-import { fetchAPI, createAPIUrl } from '../../../state/utils';
+import { fetchAPI, createAPIUrl } from '../../../utils';
 
 const StyledCardWrapper = styled(CardWrapper)`
   height: auto;

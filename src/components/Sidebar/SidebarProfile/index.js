@@ -5,7 +5,7 @@ import Actions from "../../../state/Actions";
 import { connect } from "unistore/react";
 import { litersSpendSelector } from "../../../state/Selectors";
 import Store from "../../../state/Store";
-import { fetchAPI, createAPIUrl } from "../../../state/utils";
+import { fetchAPI, createAPIUrl } from "../../../utils";
 
 import SidebarTitle from "../SidebarTitle/";
 import Login from "../../Login";

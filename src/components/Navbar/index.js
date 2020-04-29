@@ -3,7 +3,7 @@ import { useAuth0 } from "../../utils/auth0";
 import styled from 'styled-components';
 import Store from '../../state/Store';
 import { connect } from 'unistore/react';
-import { fetchAPI, createAPIUrl } from '../../state/utils';
+import { fetchAPI, createAPIUrl } from '../../utils';
 import Actions from '../../state/Actions';
 
 import ButtonBorder from '../ButtonBorder/';

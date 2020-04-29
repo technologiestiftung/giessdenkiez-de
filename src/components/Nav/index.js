@@ -4,7 +4,7 @@ import { NavLink, withRouter, matchPath } from 'react-router-dom';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
 import Store from '../../state/Store';
-import { fetchAPI, createAPIUrl } from '../../state/utils';
+import { fetchAPI, createAPIUrl } from '../../utils';
 import { useAuth0 } from "../../utils/auth0";
 
 import ListIcon from '@material-ui/icons/List';

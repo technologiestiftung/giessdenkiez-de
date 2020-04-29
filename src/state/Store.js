@@ -7,7 +7,7 @@ const Store = createStore({
   wateredByUser: false,
   adoptedTrees: false,
   treesVisible: true,
-  pumpsVisible: true,
+  pumpsVisible: false,
   rainVisible: false,
   rainGeojson: null,
   adoptedTreesDetails: false,
@@ -16,7 +16,7 @@ const Store = createStore({
   local: false,
   endpoints: {
     local: 'http://localhost:3000/',
-    prod: 'https://trees-express-now.fabiandinklage.now.sh',
+    prod: 'https://tsb-tree-api-now-express-fabiandinklage.technologiestiftung1.now.sh',
   },
   tabActive: 'id-0',
   selectedTree: false,
@@ -29,7 +29,7 @@ const Store = createStore({
   viewport: {
     latitude: 52.500869,
     longitude: 13.419047,
-    zoom: 16,
+    zoom: 11,
     maxZoom: 19,
     minZoom: 9,
     pitch: 45,

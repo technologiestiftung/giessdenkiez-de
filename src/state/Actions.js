@@ -1,8 +1,7 @@
-import { createGeojson, test } from "./utils";
 import { dsv as d3Dsv, easeCubic as d3EaseCubic, json as D3Json } from "d3";
 import axios from "axios";
 import history from "../../history";
-import { createAPIUrl, fetchAPI, flatten } from "./utils";
+import { createAPIUrl, fetchAPI, flatten, createGeojson } from "../utils";
 import { FlyToInterpolator } from "react-map-gl";
 
 export const loadTrees = (Store) => async () => {
@@ -14,7 +13,7 @@ export const loadTrees = (Store) => async () => {
 
   for (let offset = 0; offset < iterator; offset++) {
     const currentOffset = offset * limit;
-    const url = `https://trees-express-now.fabiandinklage.now.sh/get-all-trees?offset=${currentOffset}&limit=${limit}`
+    const url = `https://tsb-tree-api-now-express-fabiandinklage.technologiestiftung1.now.sh/get-all-trees?offset=${currentOffset}&limit=${limit}`
     const f = axios.get(url)
     promiseArray.push(f);
   }
@@ -94,18 +93,6 @@ function checkStatus(response) {
   }
 }
 
-export const hexToRgb = (hex) => {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? [
-        parseInt(result[1], 16),
-        parseInt(result[2], 16),
-        parseInt(result[3], 16),
-        200,
-      ]
-    : null;
-};
-
 export const getWateredTrees = (Store) => async () => {
   Store.setState({ isLoading: true });
   const url = createAPIUrl(Store.getState(), "/get-watered-trees");
@@ -167,7 +154,6 @@ export default (Store) => ({
   getTreeByAge: getTreeByAge(Store),
   setDetailRouteWithListPath,
   setViewport,
-  hexToRgb,
   setView,
   loadTrees: loadTrees(Store),
   removeSelectedTree,

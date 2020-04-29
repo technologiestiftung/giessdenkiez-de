@@ -16,3 +16,7 @@ Start the project via
 npm start
 ```
 
+
+Zeit now API Url:
+
+https://tsb-tree-api-now-express-fabiandinklage.technologiestiftung1.now.sh

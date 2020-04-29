@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import Store from '../../state/Store';
 
-import { fetchAPI, createAPIUrl } from '../../state/utils';
+import { fetchAPI, createAPIUrl } from '../../utils';
 import { useAuth0 } from "../../utils/auth0";
 
 import ButtonRound from '../ButtonRound/';
