@@ -161,9 +161,10 @@ class DeckGLMap extends React.Component {
           wireframe: true,
           getElevation: 1,
           getFillColor: (f) => {
-						return COLOR_SCALE(f.properties.data[0])
+            const interpolated = interpolateColor(f.properties.data[0]);
+            const hex = hexToRgb(interpolated);
+						return hex
           },
-          getLineColor: [255, 255, 255],
           pickable: true,
           // onHover: this._onHover
         }),

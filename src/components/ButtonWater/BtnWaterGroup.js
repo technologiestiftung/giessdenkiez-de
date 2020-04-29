@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import ButtonRound from '../ButtonRound/';
+import ButtonRound from "../ButtonRound/";
 
 const BtnWaterContainer = styled.div`
   display: flex;
@@ -12,34 +12,41 @@ const BtnWaterContainer = styled.div`
 
 const btnArray = [
   {
-    label: '5l',
-    id: 5
+    label: "5l",
+    id: 5,
   },
   {
-    label: '10l',
-    id: 10
+    label: "10l",
+    id: 10,
   },
   {
-    label: '25l',
-    id: 25
+    label: "25l",
+    id: 25,
   },
   {
-    label: '50l',
-    id: 50
+    label: "50l",
+    id: 50,
   },
 ];
 
-const BtnWaterGroup = p => {
+const BtnWaterGroup = (p) => {
   const { toggle, id } = p;
   return (
     <BtnWaterContainer>
-      { btnArray.map(btn => {
+      {btnArray.map((btn) => {
         return (
-          <ButtonRound toggle={() => {toggle(id, btn.id) }} type="primary">{btn.label}</ButtonRound>
-        )
-      }) }
+          <ButtonRound
+            toggle={() => {
+              toggle(id, btn.id);
+            }}
+            type="primary"
+          >
+            {btn.label}
+          </ButtonRound>
+        );
+      })}
     </BtnWaterContainer>
-  )
-}
+  );
+};
 
 export default BtnWaterGroup;

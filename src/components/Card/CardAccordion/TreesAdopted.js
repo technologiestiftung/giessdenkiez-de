@@ -29,18 +29,28 @@ const Title = styled.span`
 
 const TreesAdopted = p => {
   const { data } = p;
-  return (
-    <WrapperOuter>
-    {data.map(info => {
-      return (
-        <Wrapper>
-          <Title>{info.artdtsch}</Title>
-          <StyledTreeType>{info.strname} {info.radolan_sum}l</StyledTreeType>
-        </Wrapper>
-      )
-    })}
-    </WrapperOuter>
-  );
+
+  if (data.length === 0) {
+    return (
+      <WrapperOuter>
+        <Title>Du hast noch keine Bäume abonniert.</Title>
+      </WrapperOuter>
+    )
+  } else {
+    return (
+      <WrapperOuter>
+      {data.map(info => {
+        return (
+          <Wrapper>
+            <Title>{info.artdtsch}</Title>
+            <StyledTreeType>{info.strname}</StyledTreeType>
+          </Wrapper>
+        )
+      })}
+      </WrapperOuter>
+    );
+  }
+
 }
 
 export default TreesAdopted;

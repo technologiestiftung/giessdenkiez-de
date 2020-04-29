@@ -228,6 +228,7 @@ const ButtonWater = (p) => {
           <BtnContainer>
             <ButtonRound
               width="-webkit-fill-available"
+              margin="15px"
               toggle={() => adoptTree(id)}
               type="secondary"
             >

@@ -72,6 +72,7 @@ const SidebarProfile = (p) => {
             return acc + curr + ','
           }
         };
+
         const queryStr = adoptedTrees.reduce(concatReducer, '{');
 
         const urlAdoptedTreesDetails = createAPIUrl(
@@ -88,7 +89,11 @@ const SidebarProfile = (p) => {
         });
       }
     }
-    fetch();
+    if (adoptedTrees.length === 0) {
+      Store.setState({ adoptedTreesDetails: [] })
+    } else {
+      fetch();
+    }
   }, [adoptedTrees]);
 
   return (
@@ -112,7 +117,7 @@ const SidebarProfile = (p) => {
           <CardHeadline>Dein Gießfortschritt</CardHeadline>
           <CardProgress data={wateredByUser} />
           <CardAccordion active={true} title={<span>Abonnierte Bäume</span>}>
-            <TreesAdopted data={adoptedTreesDetails} />
+            {adoptedTreesDetails && (<TreesAdopted data={adoptedTreesDetails} />)}
           </CardAccordion>
           <CardCredentials email={user.email} />
           <Login width="-webkit-fill-available" />

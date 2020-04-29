@@ -6,6 +6,7 @@ const StyledButton = styled.div`
   border-radius: 100px;
   background-color: ${p => p.type === 'primary' ? '#F7FFFA': '#FFFFFF'};
   padding: 12px 15px 12px 15px;
+  margin-bottom: ${p => p.margin};
   text-align: center;
   cursor: pointer;
   font-size: ${p => p.theme.fontSizeL};
@@ -35,9 +36,9 @@ const StyledButton = styled.div`
 `;
 
 const ButtonRound = p => {
-  const { type, children, toggle, width } = p;
+  const { type, children, toggle, width, margin = "0px" } = p;
   return (
-    <StyledButton width={width} onClick={toggle} type={type}>
+    <StyledButton margin={margin} width={width} onClick={toggle} type={type}>
       { children }
     </StyledButton>
   );
