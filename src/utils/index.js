@@ -145,7 +145,7 @@ export const timeDifference = (date1, date2) => {
 
 export const interpolateColor = (val) => {
 	const scale = scaleLinear()
-		.domain([0,100])
+		.domain([0,300])
 		.range([1,0])
   const interpolatedValue = scale(val);
   return interpolateViridis(scale(val));

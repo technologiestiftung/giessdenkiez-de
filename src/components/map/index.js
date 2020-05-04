@@ -109,9 +109,9 @@ class DeckGLMap extends React.Component {
           visible: treesVisible,
           filled: true,
           pickable: true,
-          getRadius: 2,
+          getRadius: 3,
           type: 'circle',
-          pointRadiusMinPixels: .75,
+          pointRadiusMinPixels: .5,
           autoHighlight: true,
           highlightColor: [200, 200, 200, 255],
           transitions: {
