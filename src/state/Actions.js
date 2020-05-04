@@ -1,19 +1,19 @@
 import { dsv as d3Dsv, easeCubic as d3EaseCubic, json as D3Json } from "d3";
 import axios from "axios";
 import history from "../../history";
-import { createAPIUrl, fetchAPI, flatten, createGeojson } from "../utils";
+import { createAPIUrl, fetchAPI, flatten, createGeojson, createCSVJson } from "../utils";
 import { FlyToInterpolator } from "react-map-gl";
 
 export const loadTrees = (Store) => async () => {
 
-  const limit = 25000;
-  const iterator = 13;
+  const limit = 20000;
+  const iterator = 1
 
   let promiseArray = [];
 
   for (let offset = 0; offset < iterator; offset++) {
     const currentOffset = offset * limit;
-    const url = `https://tsb-tree-api-now-express-fabiandinklage.technologiestiftung1.now.sh/get-all-trees?offset=${currentOffset}&limit=${limit}`
+    const url = `https://tsb-tree-api-now-express.now.sh/get-all-trees?offset=${currentOffset}&limit=${limit}`
     const f = axios.get(url)
     promiseArray.push(f);
   }

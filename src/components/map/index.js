@@ -4,7 +4,7 @@ import Actions from "../../state/Actions";
 import { render } from "react-dom";
 import { StaticMap, NavigationControl } from "react-map-gl";
 import axios from "axios";
-import DeckGL, { GeoJsonLayer } from "deck.gl";
+import DeckGL, { GeoJsonLayer, ScatterplotLayer } from "deck.gl";
 import Store from "../../state/Store";
 import { wateredTreesSelector } from "../../state/Selectors";
 import {
@@ -54,6 +54,7 @@ class DeckGLMap extends React.Component {
       pumpsVisible,
       rainVisible,
       pumps,
+      csvdata
     } = this.props;
 
     var COLOR_RANGE = [
@@ -90,8 +91,7 @@ class DeckGLMap extends React.Component {
           id: "geojson",
           data: data,
           opacity: 1,
-          stroked: true,
-          getRadius: 12,
+          fp64: false,
           getLineWidth: (info) => {
             const { selectedTree } = this.props;
             const id = info.properties["id"];
@@ -106,18 +106,14 @@ class DeckGLMap extends React.Component {
               return 0;
             }
           },
-          getElevation: 100,
-          extruded: true,
           visible: treesVisible,
           filled: true,
           pickable: true,
-          getLineColor: [255, 132, 132, 255],
           getRadius: 2,
+          type: 'circle',
           pointRadiusMinPixels: .75,
           autoHighlight: true,
           highlightColor: [200, 200, 200, 255],
-          pointRadiusScale: 2,
-          getElevation: (f) => parseInt(f.properties.baumhoehe) * 10,
           transitions: {
             getFillColor: 500,
           },
