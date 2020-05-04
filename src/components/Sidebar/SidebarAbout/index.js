@@ -38,7 +38,7 @@ const SidebarAbout = p => {
   function createMarkup(content) { return {__html: content}; };
   return (
     <>
-      <SidebarTitle>Weitere Informationen</SidebarTitle>
+      <SidebarTitle>Weitere Infos</SidebarTitle>
       {about.map(item => (
         <PanelWrapper>
           <StyledCardDescriptionTitle>{item.title}</StyledCardDescriptionTitle>
