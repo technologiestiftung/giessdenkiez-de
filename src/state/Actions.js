@@ -1,6 +1,6 @@
 import { dsv as d3Dsv, easeCubic as d3EaseCubic, json as D3Json } from "d3";
 import history from "../../history";
-import { createAPIUrl, fetchAPI, flatten, createGeojson } from "../utils";
+import { createAPIUrl, fetchAPI, flatten, createGeojson, createCSVJson } from "../utils";
 import { FlyToInterpolator } from "react-map-gl";
 
 export const loadTrees = (Store) => async () => {

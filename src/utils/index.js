@@ -25,6 +25,14 @@ export function createGeojson(data) {
   return geojson;
 };
 
+export function createCSVJson(data) {
+  let csvArr = [];
+  data.map(item => {
+    csvArr.push([+item[1], +item[2],item[0],+item[3]])
+  })
+  return csvArr;
+}
+
 
 export function flatten(ary) {
     var ret = [];
@@ -162,6 +170,7 @@ export default {
 	interpolateColor,
   hexToRgb,
   createGeojson,
+  createCSVJson,
   createAPIUrl,
   fetchAPI,
   flatten
