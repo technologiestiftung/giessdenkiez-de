@@ -7,16 +7,16 @@ export function createGeojson(data) {
       "features": []
   }
 
-  data.forEach(tree => {
+  data.forEach((tree, ti) => {
       const feature = {
           "type": "Feature",
           "geometry": {
               "type": "Point",
-              "coordinates": [+tree[1], +tree[2]]
+              "coordinates": [+tree.lat, +tree.lng]
           },
           "properties": {
-              "id": tree[0],
-              "radolan_sum": +tree[3]
+              "id": tree.id,
+              "radolan_sum": +tree.radolan_sum
           }
       }
       geojson.features.push(feature);

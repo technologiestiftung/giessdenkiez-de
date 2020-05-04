@@ -1,29 +1,14 @@
 import { dsv as d3Dsv, easeCubic as d3EaseCubic, json as D3Json } from "d3";
-import axios from "axios";
 import history from "../../history";
 import { createAPIUrl, fetchAPI, flatten, createGeojson } from "../utils";
 import { FlyToInterpolator } from "react-map-gl";
 
 export const loadTrees = (Store) => async () => {
-
-  const limit = 25000;
-  const iterator = 13;
-
-  let promiseArray = [];
-
-  for (let offset = 0; offset < iterator; offset++) {
-    const currentOffset = offset * limit;
-    const url = `https://tsb-tree-api-now-express-fabiandinklage.technologiestiftung1.now.sh/get-all-trees?offset=${currentOffset}&limit=${limit}`
-    const f = axios.get(url)
-    promiseArray.push(f);
-  }
-
-  Promise.all(promiseArray).then(function(values) {
-    const fetched = values.map(d => d.data.watered);
-    const flattened = fetched.flat(1);
-    const geojson = createGeojson(flattened);
-    Store.setState({ data: geojson, isLoading: false, });
-  });
+  d3Dsv(",", "https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz")
+    .then((data) => {
+      const geojson = createGeojson(data);
+      Store.setState({ data: geojson, isLoading: false, });
+    });
 }
 
 export const loadData = (Store) => async () => {
