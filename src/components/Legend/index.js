@@ -13,7 +13,7 @@ const ItemContainer = styled.div`
   height: 40px;
   align-items: ${(p) => (p.active ? "baseline" : "center")};
   justify-content: center;
-  margin-right: 15px;
+  margin-right: 10px;
 `;
 
 const TileHeadline = styled.span`
@@ -137,24 +137,24 @@ const legendArray = [
     value: 0,
   },
   {
-    label: "20",
-    value: 20,
-  },
-  {
-    label: "40",
-    value: 40,
-  },
-  {
     label: "60",
     value: 60,
   },
   {
-    label: "80",
-    value: 80,
+    label: "120",
+    value: 120,
   },
   {
-    label: "100",
-    value: 100,
+    label: "180",
+    value: 180,
+  },
+  {
+    label: "240",
+    value: 240,
+  },
+  {
+    label: "300",
+    value: 300,
   },
 ];
 

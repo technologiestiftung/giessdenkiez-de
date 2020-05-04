@@ -7,16 +7,16 @@ export function createGeojson(data) {
       "features": []
   }
 
-  data.forEach(tree => {
+  data.forEach((tree, ti) => {
       const feature = {
           "type": "Feature",
           "geometry": {
               "type": "Point",
-              "coordinates": [+tree[1], +tree[2]]
+              "coordinates": [+tree.lat, +tree.lng]
           },
           "properties": {
-              "id": tree[0],
-              "radolan_sum": +tree[3]
+              "id": tree.id,
+              "radolan_sum": +tree.radolan_sum
           }
       }
       geojson.features.push(feature);
@@ -145,7 +145,7 @@ export const timeDifference = (date1, date2) => {
 
 export const interpolateColor = (val) => {
 	const scale = scaleLinear()
-		.domain([0,100])
+		.domain([0,300])
 		.range([1,0])
   const interpolatedValue = scale(val);
   return interpolateViridis(scale(val));

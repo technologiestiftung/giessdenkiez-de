@@ -18,12 +18,13 @@ const StyledParargraph = styled.p`
 const OverlayDescription = p => {
   const { content } = p;
 
+  function createMarkup(content) { return {__html: content}; };
+
   return (
     <Wrapper>
       {content.map((col,i) => {
         return (
-          <StyledParargraph key={`Overlay-description-${i}`}>
-            {col}
+          <StyledParargraph dangerouslySetInnerHTML={createMarkup(col)} key={`Overlay-description-${i}`}>
           </StyledParargraph>
         )
       })}
