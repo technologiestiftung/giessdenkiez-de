@@ -68,7 +68,7 @@ const OverlayTop = (p) => {
         return cloneElement(childElement, {});
       })}
       <StyledWrapper>
-        <ButtonRound toggle={handleClick} type="primary">Jetzt loslegen</ButtonRound>
+        <ButtonRound toggle={handleClick} type="primary">Los geht's</ButtonRound>
         <Login />
       </StyledWrapper>
     </StyledTop>
