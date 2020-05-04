@@ -119,7 +119,7 @@ const Card = (p) => {
     <CardWrapper>
       <FlexColumnDiv>
         <TreeTitle>{artdtsch}</TreeTitle>
-        {!treeType && <SublineSpan>{getTreeProp(gattungdeutsch.toLowerCase())}</SublineSpan>}
+        {!treeType && treeType !== 'undefined' && <SublineSpan>{getTreeProp(gattungdeutsch.toLowerCase())}</SublineSpan>}
 
         {treeType && (treeType.title !== null) && (
           <CardAccordion
@@ -129,7 +129,7 @@ const Card = (p) => {
           </CardAccordion>
         )}
 
-        {(standalter !== 'null') && (<CardAccordion
+        {(standalter !== 'null' && standalter != 'undefined') && (<CardAccordion
           title={
             <CardAccordionTitle>
               {alter}
