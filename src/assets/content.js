@@ -1,4 +1,11 @@
 const content = {
+	meta: {
+		title: 'Gieß den Kiez | CityLAB Berlin',
+		url: 'https://www.giessdenkiez.de/',
+		twitter: '@citylabberlin',
+		description: 'Die Berliner Stadtbäume leiden unter Trockenheit und Du kannst ihnen helfen!',
+		image: 'https://www.giessdenkiez.de/images/social_media.png',
+	},
 	intro: {
 		title: '<b>Gieß den <span>Kiez</span></b>',
 		subline: 'Die Berliner Stadtbäume leiden unter Trockenheit <br /> und Du kannst Ihnen helfen!',
