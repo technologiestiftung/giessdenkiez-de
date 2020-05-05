@@ -4,7 +4,7 @@ const content = {
 		url: 'https://www.giessdenkiez.de/',
 		twitter: '@citylabberlin',
 		description: 'Die Berliner Stadtbäume leiden unter Trockenheit und Du kannst Ihnen helfen!',
-		image: '...',
+		image: 'https://www.giessdenkiez.de/images/social_media.png',
 	},
 	intro: {
 		title: '<b>Gieß den <span>Kiez</span></b>',
