@@ -168,7 +168,7 @@ const StyledToggle = styled.span`
 
 const Legend = p => {
   const { treesVisible, rainVisible, pumpsVisible } = p;
-  const [legendExpanded, setLegendExpanded] = useState(false);
+  const [legendExpanded, setLegendExpanded] = useState(true);
   return (
     <LegendDiv active={legendExpanded}>
       <FlexSpace active={legendExpanded}>
@@ -229,7 +229,7 @@ const Legend = p => {
             }}
           >
             <LegendRect />
-            <StyledItemLabel>Niederschlagflächen</StyledItemLabel>
+            <StyledItemLabel>Niederschlagsflächen</StyledItemLabel>
           </UnstyledFlexWidth>
         </FlexColumn>
       )}

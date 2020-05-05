@@ -129,10 +129,12 @@ const Card = (p) => {
           </CardAccordion>
         )}
 
+        {standalter && standalter != 'undefined' && ( <CardProperty name="Standalter" value={standalter + ' Jahre'} /> )}
+
         {(standalter !== 'null' && standalter != 'undefined') && (<CardAccordion
           title={
             <CardAccordionTitle>
-              {alter}
+              Wasserbedarf:
               {standalter && (<CardWaterDrops data={waterNeed(parseInt(standalter))}/>)} 
             </CardAccordionTitle>
           }
@@ -140,37 +142,14 @@ const Card = (p) => {
           <TreeWatering data={watering} />
         </CardAccordion>)}
 
-        {/* {stateWaterTreeClass && (
-          <span className={stateWaterTreeClass}>{treeWatered}</span>
-        )} */}
-        {/* {strname && hausnr && (
-          <SublineSpanClose>
-            {strname}
-            {hausnr}
-          </SublineSpanClose>
-        )} */}
-        {/* {bezirk && <SublineSpan>{bezirk}</SublineSpan>}
-        {baumhoehe && <CardProperty name="Baumhöhe:" value={baumhoehe} />}
-        {stammumfg && <CardProperty name="Stammumfang:" value={stammumfg} />}
-        {kronedurch && (
-          <CardProperty name="Kronendurchmesser:" value={kronedurch} />
-        )} */}
-
-        {/* {pflanzjahr && standalter && (
-          <CardProperty
-            name="Gepflanzt:"
-            value={`${pflanzjahr} (${standalter} Jahre)`}
-          />
-        )} */}
-
         <RainContainer>
           <FlexRowDiv>
             <CardHeadline>Niederschlag</CardHeadline>
-            <CardHeadline>{radolan_sum} mm</CardHeadline>
+            <CardHeadline>{radolan_sum} Liter pro m²</CardHeadline>
           </FlexRowDiv>
           <CardDescription>in den letzten 30 Tagen</CardDescription>
           <Linechart data={radolan_days} sum={radolan_sum}/>
-          <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription>
+          {/* <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription> */}
         </RainContainer>
 
         {treeLastWatered.length > 0 && (

@@ -1,28 +1,27 @@
-import React, { Fragment, useState } from "react";
-import { connect } from "unistore/react";
-import { render } from "react-dom";
-import styled from "styled-components";
-import axios from "axios";
-import Store from "../../state/Store";
-import Actions from "../../state/Actions";
-import content from "../../assets/content";
-import { fetchAPI, createAPIUrl } from "../../utils";
-import { useAuth0 } from "../../utils/auth0";
+import React, { Fragment, useState, useEffect } from 'react';
+import { connect } from 'unistore/react';
+import { render } from 'react-dom';
+import styled from 'styled-components';
+import axios from 'axios';
+import Store from '../../state/Store';
+import Actions from '../../state/Actions';
+import content from '../../assets/content';
+import { fetchAPI, createAPIUrl } from '../../utils';
+import { useAuth0 } from '../../utils/auth0';
 
-import history from "../../../history";
+import history from '../../../history';
 
-import Login from "../Login";
-import ButtonRound from "../ButtonRound";
+import Login from '../Login';
+import ButtonRound from '../ButtonRound';
 
-import ButtonWaterGroup from "./BtnWaterGroup";
-import CardDescription from "../Card/CardDescription/";
+import ButtonWaterGroup from './BtnWaterGroup';
+import CardDescription from '../Card/CardDescription/';
 
 const BtnContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
 `;
 
 const StyledCardDescription = styled(CardDescription)`
@@ -46,60 +45,51 @@ const StyledLogin = styled(Login)`
 const ButtonWaterSpan = styled.span`
   padding: 10px;
   cursor: pointer;
-  background: ${(props) => props.theme.colorPrimary};
-  transition: background ${(props) => props.theme.timeS} ease-in-out;
-  border-radius: ${(props) => props.theme.borderRadiusS};
+  background: ${props => props.theme.colorPrimary};
+  transition: background ${props => props.theme.timeS} ease-in-out;
+  border-radius: ${props => props.theme.borderRadiusS};
   text-align: center;
   font-size: 13px;
 
   &:hover {
-    background: ${(props) => props.theme.colorPrimaryHover};
-    transition: background ${(props) => props.theme.timeS} ease-in-out;
+    background: ${props => props.theme.colorPrimaryHover};
+    transition: background ${props => props.theme.timeS} ease-in-out;
   }
 `;
 
 const ButtonWaterSpanOther = styled.span`
   padding: 10px;
-  color: ${(props) => props.theme.colorTextLight};
-  background: ${(props) => props.theme.colorLightGrey};
-  transition: background ${(props) => props.theme.timeS} ease-in-out;
-  border-radius: ${(props) => props.theme.borderRadiusS};
+  color: ${props => props.theme.colorTextLight};
+  background: ${props => props.theme.colorLightGrey};
+  transition: background ${props => props.theme.timeS} ease-in-out;
+  border-radius: ${props => props.theme.borderRadiusS};
   text-align: center;
   font-size: 13px;
 `;
 
-const ButtonWater = (p) => {
-  const { selectedTree, state, toggleOverlay } = p;
+const ButtonWater = p => {
+  const { selectedTree, state, toggleOverlay, selectedTreeState } = p;
   const { id } = selectedTree;
-  const [waterGroup, setWaterGroup] = useState("visible");
+  const [waterGroup, setWaterGroup] = useState('visible');
   const { loading, user, isAuthenticated, getTokenSilently } = useAuth0();
-  let adopted = false;
+  const [adopted, setAdopted] = useState(false);
 
-  if (user) {
-    if (selectedTree.adopted == user.email) {
-      adopted = true;
+  useEffect(() => {
+    if (user) {
+      isTreeAdopted(id, user.sub);
     }
+  }, [user]);
 
-    if (selectedTree.adopted) {
-      if (
-        selectedTree.adopted != user.email &&
-        selectedTree.adopted.length > 0
-      ) {
-        adopted = "other";
-      }
-    }
-  }
-
-  const btnLabel = (state) => {
+  const btnLabel = state => {
     switch (state) {
-      case "visible":
-        return "Ich habe gewässert!";
+      case 'visible':
+        return 'Ich habe gewässert!';
         break;
-      case "watering":
-        return "Wieviel Wasser hat der Baum erhalten?";
+      case 'watering':
+        return 'Wieviel Wasser hat der Baum erhalten?';
         break;
-      case "watered":
-        return "Bewässerung wurde eingetragen!";
+      case 'watered':
+        return 'Bewässerung wurde eingetragen!';
         break;
       default:
         break;
@@ -107,20 +97,20 @@ const ButtonWater = (p) => {
   };
 
   const handleClick = () => {
-    history.push("/");
+    history.push('/');
     toggleOverlay(true);
   };
 
   const waterHandler = () => {
-    setWaterGroup("watering");
+    setWaterGroup('watering');
   };
 
   const setWaterAmount = (id, amount) => {
     createUser(user);
-    setWaterGroup("watered");
+    setWaterGroup('watered');
     waterTree(id, amount);
     setTimeout(() => {
-      setWaterGroup("visible");
+      setWaterGroup('visible');
     }, 1000);
   };
 
@@ -129,7 +119,7 @@ const ButtonWater = (p) => {
     return date;
   };
 
-  const createUser = async (user) => {
+  const createUser = async user => {
     const token = await getTokenSilently();
     const url = createAPIUrl(
       state,
@@ -137,8 +127,23 @@ const ButtonWater = (p) => {
     );
   };
 
+  const isTreeAdopted = async (treeid, uuid) => {
+    const token = await getTokenSilently();
+    const url = createAPIUrl(
+      state,
+      `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
+    );
+
+    const res = await fetchAPI(url, {
+      headers: { Authorization: 'Bearer ' + token },
+    }).then(r => {
+      setAdopted(r.data);
+    });
+  };
+
   const waterTree = async (id, amount) => {
-    Store.setState({ selectedTreeState: "WATERING" });
+    const { selectedTreeState } = p;
+    Store.setState({ selectedTreeState: 'WATERING' });
     const token = await getTokenSilently();
     const time = timeNow();
     const url = createAPIUrl(
@@ -146,28 +151,30 @@ const ButtonWater = (p) => {
       `/private/water-tree?id=${id}&time=${time}&uuid=${user.sub}&amount=${amount}`
     );
 
+    console.log('token', token, selectedTreeState);
+
     const res = await fetchAPI(url, {
-      headers: { Authorization: "Bearer " + token },
+      headers: { Authorization: 'Bearer ' + token },
     })
-      .then((r) => {
+      .then(r => {
         const url = createAPIUrl(state, `/get-tree?id=${id}`);
-        const res = fetchAPI(url).then((r) => {
+        const res = fetchAPI(url).then(r => {
           Store.setState({
-            selectedTreeState: "WATERED",
+            selectedTreeState: 'WATERED',
             selectedTree: r.data,
           });
         });
       })
-      .then((r) => {
+      .then(r => {
         const url = createAPIUrl(state, `/get-watered-trees`);
-        const res = fetchAPI(url).then((r) => {
+        const res = fetchAPI(url).then(r => {
           Store.setState({ wateredTrees: r.data.watered });
         });
       });
   };
 
-  const adoptTree = async (id) => {
-    Store.setState({ selectedTreeState: "ADOPT" });
+  const adoptTree = async id => {
+    Store.setState({ selectedTreeState: 'ADOPT' });
     const token = await getTokenSilently();
     const time = timeNow();
     const url = createAPIUrl(
@@ -177,12 +184,12 @@ const ButtonWater = (p) => {
 
     const res = await fetchAPI(url, {
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: 'Bearer ' + token,
       },
-    }).then((r) => {
+    }).then(r => {
       const url = createAPIUrl(state, `/get-tree?id=${id}`);
-      const res = fetchAPI(url).then((r) => {
-        Store.setState({ selectedTreeState: "WATERED", selectedTree: r.data });
+      const res = fetchAPI(url).then(r => {
+        Store.setState({ selectedTreeState: 'ADOPTED', selectedTree: r.data });
       });
     });
   };
@@ -190,7 +197,7 @@ const ButtonWater = (p) => {
   if (isAuthenticated) {
     return (
       <Fragment>
-        {adopted && adopted === "other" && (
+        {/* {adopted && adopted === "other" && (
           <BtnContainer>
             <ButtonRound
               width="-webkit-fill-available"
@@ -223,7 +230,7 @@ const ButtonWater = (p) => {
               Wie kann ich mitmachen?
             </StyledCardDescription>
           </BtnContainer>
-        )}
+        )} */}
         {!adopted && (
           <BtnContainer>
             <ButtonRound
@@ -232,23 +239,33 @@ const ButtonWater = (p) => {
               toggle={() => adoptTree(id)}
               type="secondary"
             >
-              Baum abonnieren
+              {!adopted &&
+              selectedTreeState !== 'ADOPT' &&
+              selectedTreeState !== 'ADOPTED'
+                ? 'Baum abonnieren'
+                : ''}
+              {!adopted && selectedTreeState === 'ADOPT'
+                ? 'Abonniere Baum ...'
+                : ''}
+              {!adopted && selectedTreeState === 'ADOPTED'
+                ? 'Baum abonniert!'
+                : ''}
             </ButtonRound>
-            <ButtonRound
-              width="-webkit-fill-available"
-              toggle={() => setWaterGroup("watering")}
-              type="primary"
-            >
-              {btnLabel(waterGroup)}
-            </ButtonRound>
-            {waterGroup === "watering" && (
-              <ButtonWaterGroup id={id} toggle={setWaterAmount} />
-            )}
-            <StyledCardDescription onClick={() => handleClick()}>
-              Wie kann ich mitmachen?
-            </StyledCardDescription>
           </BtnContainer>
         )}
+        <ButtonRound
+          width="-webkit-fill-available"
+          toggle={() => setWaterGroup('watering')}
+          type="primary"
+        >
+          {btnLabel(waterGroup)}
+        </ButtonRound>
+        {waterGroup === 'watering' && (
+          <ButtonWaterGroup id={id} toggle={setWaterAmount} />
+        )}
+        <StyledCardDescription onClick={() => handleClick()}>
+          Wie kann ich mitmachen?
+        </StyledCardDescription>
       </Fragment>
     );
   } else if (!isAuthenticated) {
@@ -264,8 +281,9 @@ const ButtonWater = (p) => {
 };
 
 export default connect(
-  (state) => ({
+  state => ({
     selectedTree: state.selectedTree,
+    selectedTreeState: state.selectedTreeState,
     state: state,
   }),
   Actions

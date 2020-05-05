@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const LineChartWrapper = styled.div`
   width: 100%;
-  height: 100px;
+  height: 140px;
   margin: 5px 0;
 `;
 
@@ -27,10 +27,10 @@ const Linechart = p => {
   const [scaleRain, setScaleRain] = useState(null);
 
   const margin = {
-    top: 10,
-    right: 5,
-    bottom: 30,
-    left: 20
+    top: 30,
+    right: 15,
+    bottom: 40,
+    left: 30
   };
 
   let svg = null;
@@ -38,6 +38,7 @@ const Linechart = p => {
   let height = null;
   let xAxis = null;
   let yAxis = null;
+  let yAxisLabel = null;
   let line = null;
   let area = null;
   let lineShape = null;
@@ -67,7 +68,7 @@ const Linechart = p => {
       
     }
 
-    return hours;
+    return hours.reverse();
 
   }
 
@@ -85,17 +86,26 @@ const Linechart = p => {
     const priorDate = new Date().setDate(today.getDate()-30)
 
     const scaleTime = scaleLinear()
-      .domain([30,0]) // @TODO: check the hours of the day
-      .range([0, width - margin.left - margin.right]);
+      .domain([0,30]) // @TODO: check the hours of the day
+      .range([width - margin.left - margin.right,0]);
     setScaleTime(() => scaleTime)
 
     const scaleRain = scaleLinear()
-      .domain([0, 50]) // @TODO: check the hours of the day
+      .domain([0, 100]) // @TODO: check the hours of the day
       .range([height - margin.top - margin.bottom, 0]);
     setScaleRain(() => scaleRain)
 
-    yAxis = axisLeft(scaleRain).ticks(1);
-    xAxis = axisBottom(scaleTime).ticks(3);
+    yAxis = axisLeft(scaleRain).ticks(2);
+
+    xAxis = axisBottom(scaleTime)
+      .tickFormat(d => {
+        if (d === 0) { 
+          return 'Heute'
+        } else {
+          return `Vor ${d} Tagen`
+        }
+      })
+      .ticks(3);
 
 // y-axis
     svg
@@ -112,7 +122,14 @@ const Linechart = p => {
     area = d3Area()
       .x((d,i) => scaleTime(i))
       .y0(d => scaleRain(d))
-      .y1(61)
+      .y1(70)
+
+    svg
+      .append("g")
+      .append("text")
+      .attr('style', 'font-size: 10px;')
+      .attr("transform", `translate(${2},${20})`)
+      .text('↑ Liter pro m²');
 
     areaShape = svg.append("path")
       .datum(data)
@@ -126,7 +143,7 @@ const Linechart = p => {
     svg.append("linearGradient")
       .attr("id", "linear-gradient")
       .attr("gradientUnits", "userSpaceOnUse")
-      .attr("x1", 0).attr("y1", scaleRain(40))
+      .attr("x1", 0).attr("y1", scaleRain(100))
       .attr("x2", 0).attr("y2", scaleRain(0))
       .selectAll("stop")
       .data([
@@ -152,6 +169,14 @@ const Linechart = p => {
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("d", line)
+    
+    svg
+      .append("g")
+      .append("text")
+      .attr('style', 'font-size: 10px;')
+      .attr("text-anchor", "end") 
+      .attr("transform", `translate(${width - margin.right + 15},${height - 10})`)
+      .text('Zeitraum in Tagen →');
 
   }
 

@@ -16,7 +16,7 @@ export const loadData = (Store) => async () => {
   let geojson = [];
 
   const dataUrl =
-    "https://tsb-trees.s3.eu-central-1.amazonaws.com/weather_light.geojson";
+    "https://tsb-trees.s3.eu-central-1.amazonaws.com/weather_light.geojson.gz";
 
   fetch(dataUrl)
     .then((res) => res.json())
@@ -39,9 +39,9 @@ function setViewport(state, payload) {
     viewport: {
       latitude: payload[1],
       longitude: payload[0],
-      zoom: 16,
+      zoom: 19,
       maxZoom: 19,
-      transitionDuration: 1000,
+      transitionDuration: 2000,
       transitionEasing: d3EaseCubic,
       transitionInterpolator: new FlyToInterpolator(),
       minZoom: 9,
@@ -52,19 +52,19 @@ function setViewport(state, payload) {
 }
 
 function setView(state, payload) {
-  const viewPrevious = {
-    maxZoom: 19,
-    transitionDuration: 250,
-    transitionEasing: d3EaseCubic,
-    transitionInterpolator: new FlyToInterpolator(),
-    minZoom: 9,
-    pitch: 45,
-    bearing: 0,
-  };
+  // const viewPrevious = {
+  //   maxZoom: 19,
+  //   transitionDuration: 250,
+  //   transitionEasing: d3EaseCubic,
+  //   transitionInterpolator: new FlyToInterpolator(),
+  //   minZoom: 9,
+  //   pitch: 45,
+  //   bearing: 0,
+  // };
 
-  const newViewport = { ...viewPrevious, ...payload };
+  // const newViewport = { ...viewPrevious, ...payload };
   return {
-    viewport: newViewport,
+    viewport: payload,
   };
 }
 

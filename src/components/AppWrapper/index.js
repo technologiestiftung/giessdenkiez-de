@@ -8,6 +8,7 @@ import Nav from '../Nav';
 import Legend from '../Legend';
 import Loading from '../Loading';
 import Overlay from '../Overlay';
+import Credits from '../Credits';
 
 import logoCitylab from '!file-loader!../../assets/citylab-logo.svg';
 import logoTSB from '!file-loader!../../assets/tsb-logo-coloured.svg';
@@ -20,33 +21,16 @@ const AppWrapperDiv = styled.div`
 `;
 
 const CreditsContainer = styled.div`
-  width: 150px;
-  height: auto;
   position: absolute;
-  flex-direction: column;
-  display: flex;
-  justify-content: end;
   top: 12px;
   right: 12px;
 
-  span {
-    margin-bottom: 5px;
-    width: fit-content;
-    font-size: ${p => p.theme.fontSizeL}
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    display: none;
   }
 
-  a.tsb {
-    width: fit-content;
-    img {
-      width: 110px;
-    }
-  }
-
-  a.citylab {
-    img {
-      width: 150px;
-      margin: 10px 0 5px 0;
-    }
+  @media screen and (min-width: ${p => p.theme.screens.tablet}) {
+    display: block;
   }
 `;
 
@@ -60,13 +44,7 @@ const AppWrapper = p => {
       {overlay && data && (<Overlay/>)}
       <Nav/>
       <CreditsContainer>
-        <span>Ein Projekt des</span>
-        <a className="citylab" href="https://citylab-berlin.org" target="_blank">
-          <img src={logoCitylab} />
-        </a>
-        <a className="tsb" href="https://technologiestiftung-berlin.de" target="_blank">
-          <img src={logoTSB} />
-        </a>
+        <Credits/>
       </CreditsContainer>
       <Legend />
     </AppWrapperDiv>

@@ -43,7 +43,7 @@ const TreesAdopted = p => {
         return (
           <Wrapper>
             <Title>{info.artdtsch}</Title>
-            <StyledTreeType>{info.strname}</StyledTreeType>
+            <StyledTreeType>{info.strname == 'undefined' ? '' : info.strname}</StyledTreeType>
           </Wrapper>
         )
       })}

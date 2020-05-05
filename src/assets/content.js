@@ -1,8 +1,15 @@
 const content = {
+	meta: {
+		title: 'Gieß den Kiez | CityLAB Berlin',
+		url: 'https://www.giessdenkiez.de/',
+		twitter: '@citylabberlin',
+		description: 'Die Berliner Stadtbäume leiden unter Trockenheit und Du kannst ihnen helfen!',
+		image: 'https://www.giessdenkiez.de/images/social_media.png',
+	},
 	intro: {
-		title: '<b>Internet der <span>Bäume</span></b>',
-		subline: 'Gieß deinen Kiez!',
-		description: ['Die Berliner Stadtbäume leiden unter Trockenheit und Du kannst Ihnen helfen! Auf dieser Plattform kannst Du: <ul><li>Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren</li><li>einzelne Bäume abonnieren und markieren, wenn Du sie gegossen hast</li><li>Dich über das richtige Gießen von Stadtbäumen informieren.</li></ul>', 'Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.']
+		title: '<b>Gieß den <span>Kiez</span></b>',
+		subline: 'Die Berliner Stadtbäume leiden unter Trockenheit <br /> und Du kannst Ihnen helfen!',
+		description: ['Auf dieser Plattform kannst Du: <ul><li>Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren</li><li>einzelne Bäume abonnieren und markieren, wenn Du sie gegossen hast</li><li>Dich über das richtige Gießen von Stadtbäumen informieren.</li></ul>', 'Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.']
 	},
 	sidebar: {
 		about: [

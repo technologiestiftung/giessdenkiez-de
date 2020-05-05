@@ -14,6 +14,7 @@ const Store = createStore({
   adoptedTreesDetails: false,
   csvdata: null,
   pumps: null,
+  user: false,
   data: null,
   local: false,
   endpoints: {
