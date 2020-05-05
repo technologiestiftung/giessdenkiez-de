@@ -145,11 +145,11 @@ const Card = (p) => {
         <RainContainer>
           <FlexRowDiv>
             <CardHeadline>Niederschlag</CardHeadline>
-            <CardHeadline>{radolan_sum} mm</CardHeadline>
+            <CardHeadline>{radolan_sum} Liter pro m²</CardHeadline>
           </FlexRowDiv>
           <CardDescription>in den letzten 30 Tagen</CardDescription>
           <Linechart data={radolan_days} sum={radolan_sum}/>
-          <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription>
+          {/* <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription> */}
         </RainContainer>
 
         {treeLastWatered.length > 0 && (
