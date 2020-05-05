@@ -229,7 +229,7 @@ const Legend = p => {
             }}
           >
             <LegendRect />
-            <StyledItemLabel>Niederschlagflächen</StyledItemLabel>
+            <StyledItemLabel>Niederschlagsflächen</StyledItemLabel>
           </UnstyledFlexWidth>
         </FlexColumn>
       )}
