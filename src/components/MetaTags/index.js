@@ -7,6 +7,14 @@ const { meta: { title, url, twitter, description, image } } = content;
 const MetaTags = () => {
   return (
     <Helmet>
+      <title>{title}</title>
+      <meta
+        name="title" content={title}
+      />
+      <meta
+        name="description"
+        content={description}
+      />
       <meta
         property="og:url"
         content={url}
