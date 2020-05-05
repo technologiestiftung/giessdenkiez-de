@@ -23,6 +23,8 @@ const onRedirectCallback = appState => {
 function startApp() {
     const rootElement = document.getElementById('app');
 
+    history.push('/')
+
     function renderApp(RootComponent) {
         ReactDOM.render(
           <Auth0Provider

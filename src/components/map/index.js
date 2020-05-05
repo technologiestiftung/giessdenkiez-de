@@ -98,7 +98,7 @@ class DeckGLMap extends React.Component {
 
             if (selectedTree) {
               if (id === selectedTree.id) {
-                return 4;
+                return 2;
               } else {
                 return 0;
               }
@@ -106,6 +106,7 @@ class DeckGLMap extends React.Component {
               return 0;
             }
           },
+          getLineColor: [247, 105, 6, 255],
           visible: treesVisible,
           filled: true,
           pickable: true,
@@ -305,7 +306,7 @@ class DeckGLMap extends React.Component {
         <DeckGL
           layers={this._renderLayers()}
           initialViewState={viewport}
-          // viewState={viewport}
+          viewState={viewport}
           controller={controller}
         >
           {baseMap && (

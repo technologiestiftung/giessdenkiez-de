@@ -39,9 +39,9 @@ function setViewport(state, payload) {
     viewport: {
       latitude: payload[1],
       longitude: payload[0],
-      zoom: 16,
+      zoom: 19,
       maxZoom: 19,
-      transitionDuration: 1000,
+      transitionDuration: 1500,
       transitionEasing: d3EaseCubic,
       transitionInterpolator: new FlyToInterpolator(),
       minZoom: 9,
