@@ -5,6 +5,7 @@ import SidebarTitle from '../SidebarTitle/';
 import CardHeadline from '../../Card/CardHeadline/';
 import CardDescription from '../../Card/CardDescription/';
 import CardDescriptionTitle from '../../Card/CardDescriptionTitle/';
+import Credits from '../../Credits';
 
 import content from "../../../assets/content";
 
@@ -30,7 +31,19 @@ const PanelWrapper = styled.div`
   padding-bottom: 10px;
   animation: sweep .125s ease-in-out;
   margin-bottom: 10px;
-`
+`;
+
+const CreditsContainer = styled.div`
+  margin-bottom: 10px;
+
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    position: relative;
+  }
+
+  @media screen and (min-width: ${p => p.theme.screens.tablet}) {
+    display: none;
+  }
+`;
 
 const SidebarAbout = p => {
   const { sidebar } = content;
@@ -45,6 +58,9 @@ const SidebarAbout = p => {
           <StyledCardDescription dangerouslySetInnerHTML={createMarkup(item.description)}></StyledCardDescription>
         </PanelWrapper>
       ))}
+      <CreditsContainer>
+        <Credits/>
+      </CreditsContainer>
     </>
   )
 }
