@@ -1,4 +1,11 @@
 const content = {
+	meta: {
+		title: 'Internet der Bäume',
+		url: 'https://internetoftrees.citylab-berlin.org/',
+		twitter: '@citylabberlin',
+		description: 'Die Folgen des Klimawandels, insbesondere die trockenen und heißen Sommer, belasten das Berliner Ökosystem. Unsere Straßenbäume vertrocknen und tragen langfristige Schäden davon: in den letzten Jahren mussten immer mehr Bäume gefällt werden und ihre Lebensdauer sinkt. Inzwischen wird regelmäßig sogar die Bevölkerung zur Unterstützung aufgerufen, allerdings weitgehend unkoordiniert. Dies möchten wir mit diesem Projekt ändern und die koordinierte Bürger*innenbeteiligung und bei der Bewässerung städtischen Grüns ermöglichen.',
+		image: '...',
+	},
 	intro: {
 		title: '<b>Internet der <span>Bäume</span></b>',
 		subline: 'Gieß deinen Kiez!',
