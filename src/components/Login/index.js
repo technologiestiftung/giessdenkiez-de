@@ -11,13 +11,13 @@ const Login = p => {
   const { width } = p;
   const { isAuthenticated, getTokenSilently, loginWithRedirect, logout, loading, user } = useAuth0();
 
-  const handleClick = (type) => {
+  const handleClick = type => {
     if (type == 'login') {
-      loginWithRedirect({})
+      loginWithRedirect({ ui_locales: 'de' });
     } else if (type == 'logout') {
       logout();
     }
-  }
+  };
 
   return (
     <>

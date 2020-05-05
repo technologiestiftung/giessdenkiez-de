@@ -64,10 +64,14 @@ const NavBar = p => {
       )}
 
       {!isAuthenticated && !loading && (
-          <>
-            <ButtonBorder onClick={() => loginWithRedirect({})}>Anmelden</ButtonBorder>
-            <ButtonBorder onClick={() => loginWithRedirect({})}>Registrieren</ButtonBorder>
-          </>
+        <>
+          <ButtonBorder onClick={() => loginWithRedirect({ ui_locales: 'de' })}>
+            Anmelden
+          </ButtonBorder>
+          <ButtonBorder onClick={() => loginWithRedirect({ ui_locales: 'de' })}>
+            Registrieren
+          </ButtonBorder>
+        </>
       )}
 
       {isAuthenticated && !loading && (
