@@ -7,9 +7,9 @@ import content from "../../../assets/content";
 
 const StyledBottom = styled.div`
   opacity: 1;
-  background-color: #F7F7F7;
   height: auto;
   width: 100%;
+  background-color: #F7F7F7;
   padding: 40px 0;
 `;
 
