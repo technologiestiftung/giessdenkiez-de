@@ -10,18 +10,18 @@ import ButtonRound from '../ButtonRound/';
 const Login = p => {
   const { width } = p;
   const { isAuthenticated, getTokenSilently, loginWithRedirect, logout, loading, user } = useAuth0();
-
+  
   useEffect(() => {
     Store.setState({ user: user });
   }, [user])
 
-  const handleClick = (type) => {
+  const handleClick = type => {
     if (type == 'login') {
-      loginWithRedirect({})
+      loginWithRedirect({ ui_locales: 'de' });
     } else if (type == 'logout') {
       logout();
     }
-  }
+  };
 
 
   return (
