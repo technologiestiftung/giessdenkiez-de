@@ -30,7 +30,7 @@ const Linechart = p => {
     top: 10,
     right: 5,
     bottom: 30,
-    left: 20
+    left: 30
   };
 
   let svg = null;
@@ -67,7 +67,7 @@ const Linechart = p => {
       
     }
 
-    return hours;
+    return hours.reverse();
 
   }
 
@@ -85,12 +85,12 @@ const Linechart = p => {
     const priorDate = new Date().setDate(today.getDate()-30)
 
     const scaleTime = scaleLinear()
-      .domain([30,0]) // @TODO: check the hours of the day
-      .range([0, width - margin.left - margin.right]);
+      .domain([0,30]) // @TODO: check the hours of the day
+      .range([width - margin.left - margin.right,0]);
     setScaleTime(() => scaleTime)
 
     const scaleRain = scaleLinear()
-      .domain([0, 50]) // @TODO: check the hours of the day
+      .domain([0, 150]) // @TODO: check the hours of the day
       .range([height - margin.top - margin.bottom, 0]);
     setScaleRain(() => scaleRain)
 

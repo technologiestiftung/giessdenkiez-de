@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const FlexColumnDiv = styled.div`
+const FlexRowDiv = styled.div`
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 1px solid ${p => p.theme.colorGreyLight};
+    padding-bottom: 5px;
+    margin-bottom: 10px;
 `
 
 const DescriptionSpan = styled.span`
-    opacity: .3;
-    margin-bottom: 2px;
+  
 `
 
 const SublineSpanDesc = styled.span`
@@ -19,10 +21,10 @@ const CardProperty = p => {
   const { value, name } = p;
 
   return (
-    <FlexColumnDiv>
+    <FlexRowDiv>
         <DescriptionSpan>{name}</DescriptionSpan>
         <SublineSpanDesc>{value}</SublineSpanDesc>
-    </FlexColumnDiv>
+    </FlexRowDiv>
   )
 }
 
