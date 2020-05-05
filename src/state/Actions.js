@@ -16,7 +16,7 @@ export const loadData = (Store) => async () => {
   let geojson = [];
 
   const dataUrl =
-    "https://tsb-trees.s3.eu-central-1.amazonaws.com/weather_light.geojson";
+    "https://tsb-trees.s3.eu-central-1.amazonaws.com/weather_light.geojson.gz";
 
   fetch(dataUrl)
     .then((res) => res.json())

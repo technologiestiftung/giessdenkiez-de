@@ -7,7 +7,7 @@ export function createGeojson(data) {
       "features": []
   }
 
-  data.forEach((tree, ti) => {
+  data.forEach((tree) => {
       const feature = {
           "type": "Feature",
           "geometry": {
