@@ -129,39 +129,18 @@ const Card = (p) => {
           </CardAccordion>
         )}
 
+        {standalter && standalter != 'undefined' && ( <CardProperty name="Standalter" value={standalter + ' Jahre'} /> )}
+
         {(standalter !== 'null' && standalter != 'undefined') && (<CardAccordion
           title={
             <CardAccordionTitle>
-              {alter}
+              Wasserbedarf:
               {standalter && (<CardWaterDrops data={waterNeed(parseInt(standalter))}/>)} 
             </CardAccordionTitle>
           }
         >
           <TreeWatering data={watering} />
         </CardAccordion>)}
-
-        {/* {stateWaterTreeClass && (
-          <span className={stateWaterTreeClass}>{treeWatered}</span>
-        )} */}
-        {/* {strname && hausnr && (
-          <SublineSpanClose>
-            {strname}
-            {hausnr}
-          </SublineSpanClose>
-        )} */}
-        {/* {bezirk && <SublineSpan>{bezirk}</SublineSpan>}
-        {baumhoehe && <CardProperty name="Baumhöhe:" value={baumhoehe} />}
-        {stammumfg && <CardProperty name="Stammumfang:" value={stammumfg} />}
-        {kronedurch && (
-          <CardProperty name="Kronendurchmesser:" value={kronedurch} />
-        )} */}
-
-        {/* {pflanzjahr && standalter && (
-          <CardProperty
-            name="Gepflanzt:"
-            value={`${pflanzjahr} (${standalter} Jahre)`}
-          />
-        )} */}
 
         <RainContainer>
           <FlexRowDiv>
