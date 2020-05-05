@@ -1,9 +1,9 @@
 const content = {
 	meta: {
-		title: 'Internet der Bäume',
-		url: 'https://internetoftrees.citylab-berlin.org/',
+		title: 'Gieß den Kiez',
+		url: 'https://www.giessdenkiez.de/',
 		twitter: '@citylabberlin',
-		description: 'Die Folgen des Klimawandels, insbesondere die trockenen und heißen Sommer, belasten das Berliner Ökosystem. Unsere Straßenbäume vertrocknen und tragen langfristige Schäden davon: in den letzten Jahren mussten immer mehr Bäume gefällt werden und ihre Lebensdauer sinkt. Inzwischen wird regelmäßig sogar die Bevölkerung zur Unterstützung aufgerufen, allerdings weitgehend unkoordiniert. Dies möchten wir mit diesem Projekt ändern und die koordinierte Bürger*innenbeteiligung und bei der Bewässerung städtischen Grüns ermöglichen.',
+		description: 'Die Berliner Stadtbäume leiden unter Trockenheit und Du kannst Ihnen helfen!',
 		image: '...',
 	},
 	intro: {
