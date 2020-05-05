@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import Store from '../../state/Store';
 
@@ -11,6 +11,10 @@ const Login = p => {
   const { width } = p;
   const { isAuthenticated, getTokenSilently, loginWithRedirect, logout, loading, user } = useAuth0();
 
+  useEffect(() => {
+    Store.setState({ user: user });
+  }, [user])
+
   const handleClick = (type) => {
     if (type == 'login') {
       loginWithRedirect({})
@@ -18,6 +22,7 @@ const Login = p => {
       logout();
     }
   }
+
 
   return (
     <>

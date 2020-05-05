@@ -198,7 +198,7 @@ class DeckGLMap extends React.Component {
   }
 
   _onClick(x, y, object) {
-    const { setViewport, setView } = this.props;
+    const { setViewport, setView, user } = this.props;
 
     Store.setState({ selectedTreeState: "LOADING" });
 
@@ -272,6 +272,12 @@ class DeckGLMap extends React.Component {
     );
   }
 
+  handleDrag(e) {
+    setTimeout(() => {
+      this.props.setView(e.viewstate);
+    }, 2000);
+  }
+
   dispatchSetSelectedTreeData(val) {
     this.props.dispatch(setSelectedTreeData(val.data));
   }
@@ -307,6 +313,7 @@ class DeckGLMap extends React.Component {
           layers={this._renderLayers()}
           initialViewState={viewport}
           viewState={viewport}
+          onViewStateChange={e => this.handleDrag(e)}
           controller={controller}
         >
           {baseMap && (
@@ -336,6 +343,7 @@ export default connect(
     isLoading: state.isLoading,
     wateredTrees: wateredTreesSelector(state),
     state: state,
+    user: state.user,
     AppState: state.AppState,
     rainVisible: state.rainVisible,
     treesVisible: state.treesVisible,

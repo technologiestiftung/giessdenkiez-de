@@ -41,7 +41,7 @@ function setViewport(state, payload) {
       longitude: payload[0],
       zoom: 19,
       maxZoom: 19,
-      transitionDuration: 1500,
+      transitionDuration: 2000,
       transitionEasing: d3EaseCubic,
       transitionInterpolator: new FlyToInterpolator(),
       minZoom: 9,
@@ -52,19 +52,19 @@ function setViewport(state, payload) {
 }
 
 function setView(state, payload) {
-  const viewPrevious = {
-    maxZoom: 19,
-    transitionDuration: 250,
-    transitionEasing: d3EaseCubic,
-    transitionInterpolator: new FlyToInterpolator(),
-    minZoom: 9,
-    pitch: 45,
-    bearing: 0,
-  };
+  // const viewPrevious = {
+  //   maxZoom: 19,
+  //   transitionDuration: 250,
+  //   transitionEasing: d3EaseCubic,
+  //   transitionInterpolator: new FlyToInterpolator(),
+  //   minZoom: 9,
+  //   pitch: 45,
+  //   bearing: 0,
+  // };
 
-  const newViewport = { ...viewPrevious, ...payload };
+  // const newViewport = { ...viewPrevious, ...payload };
   return {
-    viewport: newViewport,
+    viewport: payload,
   };
 }
 
