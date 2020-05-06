@@ -9,6 +9,8 @@ import Credits from '../../Credits';
 
 import content from "../../../assets/content";
 
+import logoBerlin from '!file-loader!../../../assets/berlin.svg';
+
 const StyledCardDescriptionTitle = styled(CardDescriptionTitle)`
   margin-bottom: 5px;
 `;
@@ -45,6 +47,21 @@ const CreditsContainer = styled.div`
   }
 `;
 
+const StyledFoerderlogoContainer = styled.div`
+  width: 150px;
+  height: auto;
+  flex-direction: column;
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
+
+  span {
+    margin-bottom: 5px;
+    width: fit-content;
+    font-size: ${p => p.theme.fontSizeL}
+  }
+`;
+
 const SidebarAbout = p => {
   const { sidebar } = content;
   const { about } = sidebar;
@@ -61,6 +78,10 @@ const SidebarAbout = p => {
       <CreditsContainer>
         <Credits/>
       </CreditsContainer>
+      <StyledFoerderlogoContainer>
+        <span>Gefördert durch</span>
+        <img src={logoBerlin} />
+      </StyledFoerderlogoContainer>
     </>
   )
 }
