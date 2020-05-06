@@ -5,8 +5,6 @@ import Actions, { getTreeByAge } from '../../../state/Actions';
 import Store from '../../../state/Store';
 import { connect } from 'unistore/react';
 
-const getTreeByAgeAction = Store.action(getTreeByAge(Store));
-
 const FilterAgeDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,6 +19,7 @@ const FilterAgeDiv = styled.div`
 const FlexRowDiv = styled.div`
   display: flex;
   flex-direction: row;
+  padding-right: 30px;
 `;
 
 const ButtonWaterSpan = styled.span`
@@ -61,11 +60,15 @@ const TreesCountSpan = styled.span`
 const SidebarAgeRange = p => {
   const createSliderWithTooltip = Slider.createSliderWithTooltip;
   const Range = createSliderWithTooltip(Slider.Range);
+  const { setAgeRange } = p
 
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(320);
+  
+  const [current, setCurrent] = useState([0,320]);
 
-  const range = [0,300]
+  const range = [0,300];
+
   return (
     <FilterAgeDiv>
         <TileHeadline>{min} - {max} Jahre</TileHeadline>
@@ -74,13 +77,11 @@ const SidebarAgeRange = p => {
                 min={0}
                 max={320}
                 marks={{ 0: 0, 80: 80, 160: 160, 240: 240, 320: 320 }} 
-                onChange={(arr) => { setMin(arr[0]); setMax(arr[1]); }}
-                onAfterChange={(arr) => { setMin(arr[0]); setMax(arr[1]); }}
-                defaultValue={[min, max]}
+                onAfterChange={(arr) => { setMin(arr[0]); setMax(arr[1]); setAgeRange([arr[0],arr[1]]); }}
+                defaultValue={[min,max]}
             />
-            <ButtonWaterSpan onClick={() => { getTreeByAgeAction(2010,2012) }}>Filter</ButtonWaterSpan>
         </FlexRowDiv>
-        <TreesCountSpan>treesCount</TreesCountSpan>
+        {/* <TreesCountSpan>treesCount</TreesCountSpan> */}
     </FilterAgeDiv>
   )
 }

@@ -4,11 +4,22 @@ import { createAPIUrl, fetchAPI, flatten, createGeojson, createCSVJson } from ".
 import { FlyToInterpolator } from "react-map-gl";
 
 export const loadTrees = (Store) => async () => {
-  d3Dsv(",", "https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz")
+  const dataUrlLocal = "../../public/data/trees.csv.gz"
+  const dataUrl = "https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz"
+
+  d3Dsv(",", dataUrl)
     .then((data) => {
       const geojson = createGeojson(data);
+      console.log(geojson)
       Store.setState({ data: geojson, isLoading: false, });
     });
+}
+
+export const setAgeRange = (state, payload) => {
+  console.log('setAgeRange', payload)
+  return {
+    ageRange: payload
+  }
 }
 
 export const loadData = (Store) => async () => {
@@ -143,5 +154,6 @@ export default (Store) => ({
   loadTrees: loadTrees(Store),
   removeSelectedTree,
   setAppState,
+  setAgeRange,
   toggleOverlay,
 });
