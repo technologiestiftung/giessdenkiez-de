@@ -112,21 +112,26 @@ class DeckGLMap extends React.Component {
           pickable: true,
           getRadius: 3,
           type: 'circle',
-          pointRadiusMinPixels: .5,
+          pointRadiusMinPixels: 1,
           autoHighlight: true,
           highlightColor: [200, 200, 200, 255],
           transitions: {
             getFillColor: 500,
           },
           getFillColor: (info,i) => {
-            const { wateredTrees, AppState } = this.props;
-            const id = info.properties['id'];
-            const sum = info.properties["radolan_sum"];
+            const { wateredTrees, AppState, ageRange } = this.props;
+            const { properties } = info;
+            const { id, radolan_sum, age } = properties;
 
-            const interpolated = interpolateColor(sum);
-            const hex = hexToRgb(interpolated);
+            if (age >= ageRange[0] && age <= ageRange[1]) {
+              const interpolated = interpolateColor(radolan_sum);
+              const hex = hexToRgb(interpolated);
 
-            return hex;
+              return hex;
+            }
+
+            return [20,20,20,0]
+
           },
           onClick: (info) => {
             const { setDetailRouteWithListPath } = this.props;
@@ -143,6 +148,7 @@ class DeckGLMap extends React.Component {
             getFillColor: [
               this.props.wateredTrees,
               this.state.highlightedObject,
+              this.props.ageRange
             ],
             getLineWidth: [this.props.selectedTree],
           },
@@ -343,6 +349,7 @@ export default connect(
     isLoading: state.isLoading,
     wateredTrees: wateredTreesSelector(state),
     state: state,
+    ageRange: state.ageRange,
     user: state.user,
     AppState: state.AppState,
     rainVisible: state.rainVisible,

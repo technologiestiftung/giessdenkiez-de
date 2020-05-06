@@ -16,7 +16,8 @@ export function createGeojson(data) {
           },
           "properties": {
               "id": tree.id,
-              "radolan_sum": +tree.radolan_sum
+              "radolan_sum": +tree.radolan_sum,
+              "age": +tree.age,
           }
       }
       geojson.features.push(feature);

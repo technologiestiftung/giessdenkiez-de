@@ -2,8 +2,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
-// TODO: Remove dummyUser, isAuthenticated and loading later!
-
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
 
@@ -88,6 +86,3 @@ export const Auth0Provider = ({
   );
 };
 
-// isAuthenticated: true,
-// user: dummyUser,
-// loading: false,

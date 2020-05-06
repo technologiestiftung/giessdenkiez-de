@@ -13,6 +13,7 @@ const Store = createStore({
   rainGeojson: null,
   adoptedTreesDetails: false,
   csvdata: null,
+  ageRange: [0,320],
   pumps: null,
   user: false,
   data: null,
