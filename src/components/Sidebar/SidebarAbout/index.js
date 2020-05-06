@@ -11,6 +11,7 @@ import content from "../../../assets/content";
 
 const StyledCardDescriptionTitle = styled(CardDescriptionTitle)`
   margin-bottom: 5px;
+  line-height: 130%;
 `;
 
 const StyledCardDescription = styled(CardDescription)`

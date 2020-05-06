@@ -39,11 +39,13 @@ class DeckGLMap extends React.Component {
       hoveredObject: null,
       data: null,
       included: null,
+      cursor: 'grab'
     };
 
     this._onClick = this._onClick.bind(this);
     this._renderTooltip = this._renderTooltip.bind(this);
     this._getFillColor = this._getFillColor.bind(this);
+    this.setCursor = this.setCursor.bind(this);
   }
 
   _renderLayers() {
@@ -119,9 +121,17 @@ class DeckGLMap extends React.Component {
             getFillColor: 500,
           },
           getFillColor: (info,i) => {
-            const { wateredTrees, AppState, ageRange } = this.props;
+            const { wateredTrees, AppState, ageRange, dataView } = this.props;
             const { properties } = info;
             const { id, radolan_sum, age } = properties;
+
+            if (dataView == 'people') {
+
+            }
+
+            if (Number.isNaN(age)) {
+              return [150,150,150,200];
+            }
 
             if (age >= ageRange[0] && age <= ageRange[1]) {
               const interpolated = interpolateColor(radolan_sum);
@@ -130,7 +140,7 @@ class DeckGLMap extends React.Component {
               return hex;
             }
 
-            return [20,20,20,0]
+            return [200,200,200,0]
 
           },
           onClick: (info) => {
@@ -148,7 +158,7 @@ class DeckGLMap extends React.Component {
             getFillColor: [
               this.props.wateredTrees,
               this.state.highlightedObject,
-              this.props.ageRange
+              this.props.ageRange,
             ],
             getLineWidth: [this.props.selectedTree],
           },
@@ -232,6 +242,14 @@ class DeckGLMap extends React.Component {
     if (hoveredObject != null) {
       data = hoveredObject.data.properties;
       this.setState({ hoveredObject });
+    }
+  }
+
+  setCursor(val) {
+    if (val) {
+      this.setState({cursor: 'pointer'})
+    } else {
+      this.setState({cursor: 'grab'})
     }
   }
 
@@ -319,6 +337,8 @@ class DeckGLMap extends React.Component {
           layers={this._renderLayers()}
           initialViewState={viewport}
           viewState={viewport}
+          getCursor={(e) => {return this.state.cursor}}
+          onHover={(info, event) => {this.setCursor(info.layer)}}
           onViewStateChange={e => this.handleDrag(e)}
           controller={controller}
         >
@@ -344,6 +364,7 @@ export default connect(
   (state) => ({
     data: state.data,
     rainGeojson: state.rainGeojson,
+    dataView: state.dataView,
     pumps: state.pumps,
     pumpsVisible: state.pumpsVisible,
     isLoading: state.isLoading,
