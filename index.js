@@ -19,7 +19,10 @@ const onRedirectCallback = appState => {
   );
 };
 
-require('file-loader?name=[name].[ext]!./index.html');
+if (process.env.NODE_ENV === 'production') {
+  require('file-loader?name=[name].[ext]!./index.html');
+}
+
 
 function startApp() {
   const rootElement = document.getElementById('app');
