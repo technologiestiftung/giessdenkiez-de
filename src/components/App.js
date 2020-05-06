@@ -6,7 +6,7 @@ import history from "../../history";
 import { connect } from 'unistore/react';
 import Store from '../state/Store';
 
-import Actions, { loadData, getWateredTrees, loadTrees } from '../state/Actions';
+import Actions, { loadData, getWateredTrees, loadTrees, loadCommunityData } from '../state/Actions';
 import "../assets/style.scss";
 
 import AppWrapper from './AppWrapper';
@@ -14,10 +14,12 @@ import AppWrapper from './AppWrapper';
 const loadEntryDataAction = Store.action(loadData(Store));
 const loadTreesAction = Store.action(loadTrees(Store));
 const loadWateredTreesAction = Store.action(getWateredTrees(Store));
+const loadCommunityDataAction = Store.action(loadCommunityData(Store));
 
 loadEntryDataAction();
 loadWateredTreesAction();
 loadTreesAction();
+loadCommunityDataAction();
 
 const AppWrapperDiv = styled.div`
 font-family: ${props => props.theme.fontFamily};

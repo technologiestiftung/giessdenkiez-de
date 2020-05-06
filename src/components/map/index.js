@@ -121,12 +121,20 @@ class DeckGLMap extends React.Component {
             getFillColor: 500,
           },
           getFillColor: (info,i) => {
-            const { wateredTrees, AppState, ageRange, dataView } = this.props;
+            const { wateredTrees, AppState, ageRange, dataView, communityData } = this.props;
             const { properties } = info;
             const { id, radolan_sum, age } = properties;
 
-            if (dataView == 'people') {
+            if (dataView == 'watered' && communityData[id]) {
+              return communityData[id].watered ? [0,0,255,200] : [0,0,0,0];
+            }
 
+            if (dataView == 'adopted' && communityData[id]) {
+              return communityData[id].adopted ? [255,0,0,200] : [0,0,0,0];
+            }
+
+            if (dataView == 'adopted' || dataView == 'watered') {
+              return [0,0,0,0];
             }
 
             if (Number.isNaN(age)) {
@@ -159,6 +167,7 @@ class DeckGLMap extends React.Component {
               this.props.wateredTrees,
               this.state.highlightedObject,
               this.props.ageRange,
+              this.props.dataView
             ],
             getLineWidth: [this.props.selectedTree],
           },
@@ -371,6 +380,7 @@ export default connect(
     wateredTrees: wateredTreesSelector(state),
     state: state,
     ageRange: state.ageRange,
+    communityData: state.communityData,
     user: state.user,
     AppState: state.AppState,
     rainVisible: state.rainVisible,

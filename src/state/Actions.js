@@ -21,6 +21,23 @@ export const setAgeRange = (state, payload) => {
   }
 }
 
+export const loadCommunityData = (Store) => async () => {
+  const fetchCommunityDataUrl = createAPIUrl(Store.getState(), `/get-watered-and-adopted`);
+  const communityData = await fetchAPI(fetchCommunityDataUrl);
+
+  let obj = {};
+
+  // create community data object for map
+  communityData.data.map(item => {
+    obj[item[0]] = {
+      adopted: item[1] == 1 ? true : false,
+      watered: item[2] == 1 ? true : false,
+    }
+  })
+
+  Store.setState({ communityData: Object.assign({}, obj)});
+}
+
 export const loadData = (Store) => async () => {
   Store.setState({ isLoading: true });
   let geojson = [];
@@ -45,7 +62,6 @@ export const setAppState = (state, payload) => {
 };
 
 export const setDataView = (state, payload) => {
-  console.log('dataview', payload)
   return {
     dataView: payload,
   };
@@ -153,6 +169,7 @@ export default (Store) => ({
   loadData: loadData(Store),
   setDataView,
   getWateredTrees: getWateredTrees(Store),
+  loadCommunityData: loadCommunityData(Store),
   getTree: getTree(Store),
   getTreeByAge: getTreeByAge(Store),
   setDetailRouteWithListPath,

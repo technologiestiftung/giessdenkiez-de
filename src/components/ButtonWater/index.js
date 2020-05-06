@@ -4,12 +4,14 @@ import { render } from 'react-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import Store from '../../state/Store';
-import Actions from '../../state/Actions';
+import Actions, { loadCommunityData } from '../../state/Actions';
 import content from '../../assets/content';
 import { fetchAPI, createAPIUrl } from '../../utils';
 import { useAuth0 } from '../../utils/auth0';
 
 import history from '../../../history';
+
+const loadCommunityDataAction = Store.action(loadCommunityData(Store));
 
 import Login from '../Login';
 import ButtonRound from '../ButtonRound';
@@ -157,10 +159,8 @@ const ButtonWater = p => {
     const time = timeNow();
     const url = createAPIUrl(
       state,
-      `/private/water-tree?id=${id}&time=${time}&uuid=${user.sub}&amount=${amount}`
+      `/private/water-tree?id=${id}&uuid=${user.sub}&amount=${amount}`
     );
-
-    console.log('token', token, selectedTreeState);
 
     const res = await fetchAPI(url, {
       headers: { Authorization: 'Bearer ' + token },
@@ -172,6 +172,9 @@ const ButtonWater = p => {
             selectedTreeState: 'WATERED',
             selectedTree: r.data,
           });
+          setTimeout(() => {
+            loadCommunityDataAction();
+        }, 250);
         });
       })
       .then(r => {
@@ -199,6 +202,9 @@ const ButtonWater = p => {
       const url = createAPIUrl(state, `/get-tree?id=${id}`);
       const res = fetchAPI(url).then(r => {
         Store.setState({ selectedTreeState: 'ADOPTED', selectedTree: r.data });
+        setTimeout(() => {
+          loadCommunityDataAction();
+        }, 250);
       });
     });
   };

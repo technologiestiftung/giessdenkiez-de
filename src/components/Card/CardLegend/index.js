@@ -51,7 +51,7 @@ const UnstyledFlexWidth = styled(UnstyledFlex)`
   border-bottom: none;
   width: fit-content;
   margin-right: 10px;
-  margin-bottom: 0;
+  margin-bottom: 10px;
   padding: 6px 9px;
   margin-bottom: 2px;
   cursor: pointer;
@@ -94,10 +94,6 @@ const ItemContainer = styled.div`
 const Cardlegend = (p) => {
   const { treesVisible, rainVisible, pumpsVisible, dataView } = p;
 
-  const getWateredAndOtherTrees = () => {
-    
-  }
-
   return (
     <>
       <Flex>
@@ -115,12 +111,20 @@ const Cardlegend = (p) => {
           <StyledItemLabel>Niederschläge</StyledItemLabel>
         </UnstyledFlexWidth>
         <UnstyledFlexWidth
-          active={dataView == 'people'}
+          active={dataView == 'adopted'}
           onClick={() => {
-            Store.setState({ dataView: 'people' });
+            Store.setState({ dataView: 'adopted' });
           }}
         >
-          <StyledItemLabel>Aktivität d. Nutzer</StyledItemLabel>
+          <StyledItemLabel>Bereits abonniert</StyledItemLabel>
+        </UnstyledFlexWidth>
+        <UnstyledFlexWidth
+          active={dataView == 'watered'}
+          onClick={() => {
+            Store.setState({ dataView: 'watered' });
+          }}
+        >
+          <StyledItemLabel>In den letzten 30 Tagen gegossen</StyledItemLabel>
         </UnstyledFlexWidth>
       </Flex>
       <Flex>
