@@ -7,7 +7,7 @@ export const loadTrees = (Store) => async () => {
   const dataUrlLocal = "../../public/data/trees.csv.gz"
   const dataUrl = "https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz"
 
-  d3Dsv(",", dataUrlLocal)
+  d3Dsv(",", dataUrl)
     .then((data) => {
       const geojson = createGeojson(data);
       Store.setState({ data: geojson, isLoading: false, });
