@@ -4,6 +4,7 @@ const Store = createStore({
   wateredTrees: [],
   includedTrees: {},
   adoptedTrees: [],
+  dataView: 'rain',
   wateredByUser: false,
   adoptedTrees: false,
   treesVisible: true,

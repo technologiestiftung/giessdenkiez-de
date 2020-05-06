@@ -7,10 +7,9 @@ export const loadTrees = (Store) => async () => {
   const dataUrlLocal = "../../public/data/trees.csv.gz"
   const dataUrl = "https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz"
 
-  d3Dsv(",", dataUrl)
+  d3Dsv(",", dataUrlLocal)
     .then((data) => {
       const geojson = createGeojson(data);
-      console.log(geojson)
       Store.setState({ data: geojson, isLoading: false, });
     });
 }
@@ -42,6 +41,13 @@ export const loadData = (Store) => async () => {
 export const setAppState = (state, payload) => {
   return {
     AppState: payload,
+  };
+};
+
+export const setDataView = (state, payload) => {
+  console.log('dataview', payload)
+  return {
+    dataView: payload,
   };
 };
 
@@ -145,6 +151,7 @@ const setDetailRouteWithListPath = (state, treeId) => {
 
 export default (Store) => ({
   loadData: loadData(Store),
+  setDataView,
   getWateredTrees: getWateredTrees(Store),
   getTree: getTree(Store),
   getTreeByAge: getTreeByAge(Store),
