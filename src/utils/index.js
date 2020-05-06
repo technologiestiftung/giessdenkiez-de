@@ -85,9 +85,7 @@ export const waterNeed = (age) => {
 };
 
 export const convertTime = (unix_timestamp) => {
-  var ms = Number(unix_timestamp);
-  var date = new Date(ms);
-
+  var date = new Date(unix_timestamp);
   var months = [
     "Jan",
     "Feb",
@@ -115,7 +113,7 @@ export const convertTime = (unix_timestamp) => {
   var min = String(minutes).length == 2 ? minutes : `0${minutes}`;
 
   // Will display time in 10:30:23 format
-  return `Gegossen: ${day}. ${month}. ${year}, ${hours}:${min}`;
+  return `${day}. ${month}. ${year}, ${hours}:${min}`;
   // return day month + '.' + year + '. //' + hours + ':' + minutes.substr(-2);
 };
 
