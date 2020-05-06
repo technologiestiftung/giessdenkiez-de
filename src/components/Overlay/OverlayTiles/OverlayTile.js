@@ -35,7 +35,7 @@ const OverlayTile = p => {
       <OverlayIcon icon={content.icon}/>
       <StyledContentWrapper>
         <StyledTileTitle>{content.title}</StyledTileTitle>
-        <OverlayParagraph>{content.content}</OverlayParagraph>
+        <OverlayParagraph content={content.content} />
       </StyledContentWrapper>
     </StyledTileWrapper>
   )

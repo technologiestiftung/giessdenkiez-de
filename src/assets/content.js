@@ -92,8 +92,8 @@ const content = {
 			},
 			{
 				icon: 'info',
-				title: 'Mehr erfahren',
-				content: 'Du möchtest mehr zur richtigen Baumpflege erfahren?  Bei uns findest du zahlreiche nützliche Links, Kontaktadressen und Hinweise, wie Du dich bei der Bewässerung der Berliner Stadtbäume einbringen kannst.'
+				title: 'Mit anderen austauschen',
+				content: 'Mit anderen austauschen: Tritt unserem <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack-Kanal</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.'
 			}
 		]
 	}
