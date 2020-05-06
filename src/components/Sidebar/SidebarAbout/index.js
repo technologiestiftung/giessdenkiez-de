@@ -6,6 +6,7 @@ import CardHeadline from '../../Card/CardHeadline/';
 import CardDescription from '../../Card/CardDescription/';
 import CardDescriptionTitle from '../../Card/CardDescriptionTitle/';
 import Credits from '../../Credits';
+import SocialSharing from '../../SocialSharing';
 
 import content from "../../../assets/content";
 
@@ -34,6 +35,10 @@ const PanelWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
+const SocialSharingContainer = styled.div`
+  padding-top: 15px;
+`;
+
 const CreditsContainer = styled.div`
   margin-bottom: 10px;
 
@@ -52,6 +57,9 @@ const SidebarAbout = p => {
   function createMarkup(content) { return {__html: content}; };
   return (
     <>
+      <SocialSharingContainer>
+        <SocialSharing/>
+      </SocialSharingContainer>
       <SidebarTitle>Weitere Infos</SidebarTitle>
       {about.map(item => (
         <PanelWrapper>
