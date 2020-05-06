@@ -39,11 +39,13 @@ class DeckGLMap extends React.Component {
       hoveredObject: null,
       data: null,
       included: null,
+      cursor: 'grab'
     };
 
     this._onClick = this._onClick.bind(this);
     this._renderTooltip = this._renderTooltip.bind(this);
     this._getFillColor = this._getFillColor.bind(this);
+    this.setCursor = this.setCursor.bind(this);
   }
 
   _renderLayers() {
@@ -243,6 +245,14 @@ class DeckGLMap extends React.Component {
     }
   }
 
+  setCursor(val) {
+    if (val) {
+      this.setState({cursor: 'pointer'})
+    } else {
+      this.setState({cursor: 'grab'})
+    }
+  }
+
   _onload(evt) {
     const map = evt.target;
     const insertBefore = map.getStyle();
@@ -327,6 +337,8 @@ class DeckGLMap extends React.Component {
           layers={this._renderLayers()}
           initialViewState={viewport}
           viewState={viewport}
+          getCursor={(e) => {return this.state.cursor}}
+          onHover={(info, event) => {this.setCursor(info.layer)}}
           onViewStateChange={e => this.handleDrag(e)}
           controller={controller}
         >
