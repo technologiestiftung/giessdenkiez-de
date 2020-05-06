@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import logoCitylab from '!file-loader!../../assets/citylab-logo.svg';
 import logoTSB from '!file-loader!../../assets/tsb-logo-coloured.svg';
+import logoBerlin from '!file-loader!../../assets/berlin.svg';
 
 const StyledCreditsContainer = styled.div`
   width: 150px;
@@ -32,6 +33,15 @@ const StyledCreditsContainer = styled.div`
   }
 `;
 
+const FoerderlogoContainer = styled.div`
+  margin-top: 10px;
+
+  img.berlin {
+    width: 120px;
+    margin: 10px 0 5px 0;
+  }
+`;
+
 const Credits = p => {
   return (
     <StyledCreditsContainer>
@@ -42,6 +52,10 @@ const Credits = p => {
       <a className="tsb" href="https://technologiestiftung-berlin.de" target="_blank">
         <img src={logoTSB} />
       </a>
+      <FoerderlogoContainer>
+        <span>Gefördert durch</span>
+        <img className="berlin" src={logoBerlin} />
+      </FoerderlogoContainer>
     </StyledCreditsContainer>
   )
 }
