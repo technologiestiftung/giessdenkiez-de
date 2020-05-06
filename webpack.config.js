@@ -5,92 +5,92 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // config.js
 
 module.exports = {
-    mode: 'development',
+  mode: 'development',
 
-    entry: {
-      main: './index.js'
-    },
+  entry: {
+    main: './index.js',
+  },
 
-    devServer: {
-      historyApiFallback: true,
-    },
+  devServer: {
+    historyApiFallback: true,
+  },
 
-    output: {
-      library: 'App',
-      publicPath: '/'
-    },
-
-    module: {
-        rules: [
-            {
-                // Transpile ES6 to ES5 with babel
-                // Remove if your app does not use JSX or you don't need to support old browsers
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: [/node_modules/],
-                options: {
-                  presets: ['@babel/preset-react']
-                }
+  output: {
+    library: 'App',
+    publicPath: '/',
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+  },
+  module: {
+    rules: [
+      {
+        // Transpile ES6 to ES5 with babel
+        // Remove if your app does not use JSX or you don't need to support old browsers
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: [/node_modules/],
+        options: {
+          presets: ['@babel/preset-react'],
+        },
+      },
+      {
+        test: /\.(scss|css)$/,
+        use: [
+          'style-loader', // creates style nodes from JS strings
+          'css-loader', // translates CSS into CommonJS
+          'sass-loader', // compiles Sass to CSS, using Node Sass by default
+        ],
+      },
+      {
+        test: /\.(svg|png|woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader',
+      },
+      {
+        test: /\.(ico)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: '/',
             },
-            {
-                test: /\.(scss|css)$/,
-                use: [
-                    "style-loader", // creates style nodes from JS strings
-                    "css-loader", // translates CSS into CommonJS
-                    "sass-loader" // compiles Sass to CSS, using Node Sass by default
-                ]
+          },
+        ],
+      },
+      {
+        test: /\.(svg|jpg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader?name=/assets/[name].[ext]',
+          },
+        ],
+      },
+      {
+        test: /\.(csv|geojson)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'data/',
             },
-            {
-              test: /\.(svg|png|woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-              loader: 'url-loader'
+          },
+        ],
+      },
+      {
+        test: /\.(html)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: '/',
             },
-            {
-                test: /\.(ico)(\?v=\d+\.\d+\.\d+)?$/,
-                use: [
-                  {
-                    loader: 'file-loader',
-                    options: {
-                      name: '[name].[ext]',
-                      outputPath: '/'
-                    }
-                  }
-                ]
-            },
-            {
-                test: /\.(svg|jpg)(\?v=\d+\.\d+\.\d+)?$/,
-                use: [
-                  {
-                    loader: 'file-loader?name=/assets/[name].[ext]',
-                  }
-                ]
-            },
-            {
-                test: /\.(csv|geojson)?$/,
-                use: [
-                  {
-                    loader: 'file-loader',
-                    options: {
-                      name: '[name].[ext]',
-                      outputPath: 'data/'
-                    }
-                  }
-                ]
-            },
-            {
-                test: /\.(html)?$/,
-                use: [
-                  {
-                    loader: 'file-loader',
-                    options: {
-                      name: '[name].[ext]',
-                      outputPath: '/'
-                    }
-                  }
-                ]
-            }
-        ]
-    },
-    plugins: [
-        new Dotenv(),
-    ]
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [new Dotenv()],
 };
