@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import CardDescription from '../CardDescription/';
-import CardHeadline from '../CardHeadline/';
+// import CardHeadline from '../CardHeadline/';
 
 const Flex = styled.div`
   display: flex;
@@ -17,16 +17,18 @@ const StyledCardHeadline = styled.div`
 `;
 
 const StyledCardHeadlineMail = styled.div`
-  font-size: .8rem;
+  font-size: 0.8rem;
 `;
 
 export default p => {
-  const { email } = p;
+  const { email, username } = p;
   return (
     <Flex>
       <StyledCardHeadline>Dein Account:</StyledCardHeadline>
+
+      <StyledCardHeadlineMail>{username}</StyledCardHeadlineMail>
       <StyledCardHeadlineMail>{email}</StyledCardHeadlineMail>
       <CardDescription>Registrierte E-Mail Adresse</CardDescription>
     </Flex>
-  )
-}
+  );
+};
