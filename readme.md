@@ -1,4 +1,6 @@
-# Webpack React Redux Deck Gl Boilerplate
+# giessdenkiez.de  
+
+Source repo for [giessdenkiez.de](https://www.giessdenkiez.de)
 
 This repo is a ready to go boilerplate for deck.gl based visualizations. The state can be managed via redux.
 
@@ -8,6 +10,9 @@ To get the map tiles loaded you need to create a `.env` file and add the followi
 
 ```plain
 API_KEY=************
+AUTH0_DOMAIN=*******
+AUTH0_CLIENT_ID=****
+AUTH0_AUDIENCE=*****
 ```
 
 Start the project via  
