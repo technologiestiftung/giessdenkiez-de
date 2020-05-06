@@ -16,6 +16,8 @@ import ButtonRound from '../ButtonRound';
 
 import ButtonWaterGroup from './BtnWaterGroup';
 import CardDescription from '../Card/CardDescription/';
+import { NonVerfiedMailCardParagraph } from '../Card/non-verified-mail';
+import CardParagraph from '../Card/CardParagraph';
 
 const BtnContainer = styled.div`
   display: flex;
@@ -73,6 +75,13 @@ const ButtonWater = p => {
   const [waterGroup, setWaterGroup] = useState('visible');
   const { loading, user, isAuthenticated, getTokenSilently } = useAuth0();
   const [adopted, setAdopted] = useState(false);
+
+  const [isEmailVerifiyed, setIsEmailVerifiyed] = useState(false);
+  useEffect(() => {
+    if (!user) return;
+    console.log(user);
+    setIsEmailVerifiyed(user.email_verified);
+  }, [user, setIsEmailVerifiyed]);
 
   useEffect(() => {
     if (user) {
@@ -196,8 +205,10 @@ const ButtonWater = p => {
 
   if (isAuthenticated) {
     return (
-      <Fragment>
-        {/* {adopted && adopted === "other" && (
+      <>
+        {isEmailVerifiyed ? (
+          <Fragment>
+            {/* {adopted && adopted === "other" && (
           <BtnContainer>
             <ButtonRound
               width="-webkit-fill-available"
@@ -231,42 +242,52 @@ const ButtonWater = p => {
             </StyledCardDescription>
           </BtnContainer>
         )} */}
-        {!adopted && (
-          <BtnContainer>
+            {!adopted && (
+              <BtnContainer>
+                <ButtonRound
+                  width="-webkit-fill-available"
+                  margin="15px"
+                  toggle={() => adoptTree(id)}
+                  type="secondary"
+                >
+                  {!adopted &&
+                  selectedTreeState !== 'ADOPT' &&
+                  selectedTreeState !== 'ADOPTED'
+                    ? 'Baum abonnieren'
+                    : ''}
+                  {!adopted && selectedTreeState === 'ADOPT'
+                    ? 'Abonniere Baum ...'
+                    : ''}
+                  {!adopted && selectedTreeState === 'ADOPTED'
+                    ? 'Baum abonniert!'
+                    : ''}
+                </ButtonRound>
+              </BtnContainer>
+            )}
             <ButtonRound
               width="-webkit-fill-available"
-              margin="15px"
-              toggle={() => adoptTree(id)}
-              type="secondary"
+              toggle={() => setWaterGroup('watering')}
+              type="primary"
             >
-              {!adopted &&
-              selectedTreeState !== 'ADOPT' &&
-              selectedTreeState !== 'ADOPTED'
-                ? 'Baum abonnieren'
-                : ''}
-              {!adopted && selectedTreeState === 'ADOPT'
-                ? 'Abonniere Baum ...'
-                : ''}
-              {!adopted && selectedTreeState === 'ADOPTED'
-                ? 'Baum abonniert!'
-                : ''}
+              {btnLabel(waterGroup)}
             </ButtonRound>
-          </BtnContainer>
+            {waterGroup === 'watering' && (
+              <ButtonWaterGroup id={id} toggle={setWaterAmount} />
+            )}
+            <StyledCardDescription onClick={() => handleClick()}>
+              Wie kann ich mitmachen?
+            </StyledCardDescription>
+          </Fragment>
+        ) : (
+          <>
+            <CardParagraph>
+              Bäume abonnieren und wässern ist nur möglich mit verifiziertem
+              Account.
+            </CardParagraph>
+            <NonVerfiedMailCardParagraph></NonVerfiedMailCardParagraph>
+          </>
         )}
-        <ButtonRound
-          width="-webkit-fill-available"
-          toggle={() => setWaterGroup('watering')}
-          type="primary"
-        >
-          {btnLabel(waterGroup)}
-        </ButtonRound>
-        {waterGroup === 'watering' && (
-          <ButtonWaterGroup id={id} toggle={setWaterAmount} />
-        )}
-        <StyledCardDescription onClick={() => handleClick()}>
-          Wie kann ich mitmachen?
-        </StyledCardDescription>
-      </Fragment>
+      </>
     );
   } else if (!isAuthenticated) {
     return (
