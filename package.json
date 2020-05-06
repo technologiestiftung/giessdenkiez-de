@@ -52,6 +52,7 @@
     "react-dom": "^16.8.6",
     "react-map-gl": "^5.2.1",
     "react-router-dom": "^5.1.2",
+    "react-share": "^4.1.0",
     "react-tag-input": "^6.4.0",
     "react-transition-group": "^4.3.0",
     "reselect": "^4.0.0",
