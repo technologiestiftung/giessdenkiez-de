@@ -34,7 +34,6 @@ const FlexColumn = styled.div`
   justify-content: center;
 `;
 
-
 const CardProgress = p => {
   const { data } = p;
   const [liters, setLiters] = useState(0);
@@ -44,25 +43,25 @@ const CardProgress = p => {
     const sumReducer = (acc, curr) => acc + parseInt(curr.amount);
     setTimes(data.length);
     setLiters(data.reduce(sumReducer, 0));
-  }, [])
+  }, []);
 
   const progressItems = [
     {
       icon: 'here',
       label: 'mal gegossen',
-      id: 'timesSpend'
+      id: 'timesSpend',
     },
     {
       icon: 'here',
       label: 'Liter gegossen.',
-      id: 'liters'
+      id: 'liters',
     },
   ];
   return (
     <Flex>
-      {progressItems.map(item => (
-        <FlexOuter>
-          <OverlayIcon icon={item.id === 'timesSpend' ? 'trees' : 'water'}/>
+      {progressItems.map((item, i) => (
+        <FlexOuter key={i}>
+          <OverlayIcon icon={item.id === 'timesSpend' ? 'trees' : 'water'} />
           <FlexColumn>
             <CardHeadline>{item.id === 'liters' ? liters : times}</CardHeadline>
             <StyledCardDescription>{item.label}</StyledCardDescription>
@@ -70,7 +69,7 @@ const CardProgress = p => {
         </FlexOuter>
       ))}
     </Flex>
-  )
-}
+  );
+};
 
 export default CardProgress;
