@@ -71,7 +71,7 @@ const Cookie = p => {
         <CookieDiv>
           <Inner>
             <StyledCardDescription>
-              Diese Webseite verwendet Cookies, um bestimmte Funktionen zu ermöglichen und das Angebot zu verbessern. Indem Sie hier fortfahren stimmen Sie der Nutzung von Cookies zu. <a href="https://www.technologiestiftung-berlin.de/de/datenschutz/" target:"_blank">Weitere Informationen.</a>
+              Diese Webseite verwendet Cookies, um bestimmte Funktionen zu ermöglichen und das Angebot zu verbessern. Indem Sie hier fortfahren stimmen Sie der Nutzung von Cookies zu. <a href="https://www.technologiestiftung-berlin.de/de/datenschutz/" target="_blank">Weitere Informationen.</a>
             </StyledCardDescription>
             <ButtonRound fontSize={'.8rem'} toggle={() => setCookie()}>
               Einverstanden
