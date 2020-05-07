@@ -5,7 +5,7 @@ import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
 import Store from '../../state/Store';
 import { fetchAPI, createAPIUrl } from '../../utils';
-import { useAuth0 } from "../../utils/auth0";
+import { useAuth0 } from '../../utils/auth0';
 
 import ListIcon from '@material-ui/icons/List';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
@@ -19,7 +19,7 @@ const NavWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  box-shadow: ${ props => props.theme.boxShadow };
+  box-shadow: ${props => props.theme.boxShadow};
   flex-grow: 0;
   position: absolute;
   top: 12px;
@@ -29,7 +29,8 @@ const NavWrapper = styled.div`
   transition: transform 500ms;
 
   @media screen and (min-width: ${p => p.theme.screens.tablet}) {
-    transform: ${props => (props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'none')};
+    transform: ${props =>
+      props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'none'};
   }
 `;
 
@@ -46,7 +47,7 @@ const NavItem = styled(NavLink)`
 
 const navConfig = [
   { path: '/search', title: 'Suche und Filter', icon: <SearchIcon /> },
-  { path: '/about', title: 'Info', icon: <InfoIcon/> },
+  { path: '/about', title: 'Info', icon: <InfoIcon /> },
   { path: '/profile', title: 'Profil', icon: <AccountCircle /> },
 ];
 
@@ -58,19 +59,19 @@ const Nav = p => {
     loginWithRedirect,
     logout,
     loading,
-    user
+    user,
   } = useAuth0();
   const { pathname } = p.location;
 
-  const isNavOpen = matchPath(pathname, {
-    path: navConfig.map(m => m.path),
-  }) !== null;
+  const isNavOpen =
+    matchPath(pathname, {
+      path: navConfig.map(m => m.path),
+    }) !== null;
 
-
-  const handleClick = (title) => {
-    console.log(p.state)
-    p.removeSelectedTree()
-  }
+  const handleClick = title => {
+    console.log(p.state);
+    p.removeSelectedTree();
+  };
 
   return (
     <NavWrapper isNavOpen={isNavOpen}>
@@ -78,20 +79,29 @@ const Nav = p => {
         <NavItem
           exact
           to={{ pathname: item.path, search: '' }}
-          onClick={() => (handleClick(item.title))}
+          onClick={() => handleClick(item.title)}
           title={item.title}
           isAuthenticated={isAuthenticated}
           key={item.path}
         >
-          <EdgeButton title={item.title} aria-label={item.title} isActive={pathname === item.path}>
+          <EdgeButton
+            title={item.title}
+            aria-label={item.title}
+            isActive={pathname === item.path}
+          >
             {item.icon}
           </EdgeButton>
         </NavItem>
       ))}
     </NavWrapper>
-  )
-}
+  );
+};
 
-export default withRouter(connect(state => ({
-  state: state
-}), Actions)(Nav));
+export default withRouter(
+  connect(
+    state => ({
+      state: state,
+    }),
+    Actions
+  )(Nav)
+);
