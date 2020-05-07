@@ -8,7 +8,7 @@ import CardDescriptionTitle from '../../Card/CardDescriptionTitle/';
 import Credits from '../../Credits';
 import SocialSharing from '../../SocialSharing';
 
-import content from "../../../assets/content";
+import content from '../../../assets/content';
 
 const StyledCardDescriptionTitle = styled(CardDescriptionTitle)`
   margin-bottom: 5px;
@@ -17,7 +17,7 @@ const StyledCardDescriptionTitle = styled(CardDescriptionTitle)`
 `;
 
 const StyledCardDescription = styled(CardDescription)`
-  opacity: .66;
+  opacity: 0.66;
 `;
 
 const StyledParagraph = styled.p`
@@ -32,7 +32,7 @@ const PanelWrapper = styled.div`
   width: 100% !important;
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
   padding-bottom: 10px;
-  animation: sweep .125s ease-in-out;
+  animation: sweep 0.125s ease-in-out;
   margin-bottom: 10px;
 `;
 
@@ -55,24 +55,28 @@ const CreditsContainer = styled.div`
 const SidebarAbout = p => {
   const { sidebar } = content;
   const { about } = sidebar;
-  function createMarkup(content) { return {__html: content}; };
+  function createMarkup(content) {
+    return { __html: content };
+  }
   return (
     <>
       <SidebarTitle>Weitere Infos</SidebarTitle>
-      {about.map(item => (
-        <PanelWrapper>
+      {about.map((item, i) => (
+        <PanelWrapper key={i}>
           <StyledCardDescriptionTitle>{item.title}</StyledCardDescriptionTitle>
-          <StyledCardDescription dangerouslySetInnerHTML={createMarkup(item.description)}></StyledCardDescription>
+          <StyledCardDescription
+            dangerouslySetInnerHTML={createMarkup(item.description)}
+          ></StyledCardDescription>
         </PanelWrapper>
       ))}
       <CreditsContainer>
-        <Credits/>
+        <Credits />
       </CreditsContainer>
       <SocialSharingContainer>
-        <SocialSharing/>
+        <SocialSharing />
       </SocialSharingContainer>
     </>
-  )
-}
+  );
+};
 
 export default SidebarAbout;
