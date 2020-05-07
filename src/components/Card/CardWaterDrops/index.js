@@ -20,16 +20,25 @@ const IconWrapper = styled.div`
   }
 `;
 
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const StyledLabel = styled.span`
+  font-size: ${p => p.theme.fontSizeM};
+  font-weight: bold;
+`;
+
 const CardWaterDrops = p => {
-  const { data } = p;
+  const { data, liters } = p;
   return (
-    <>
+    <FlexRow>
       {data && (<IconWrapper>
-        {data.map(drop => (
-          <Icon />
-        ))}
+        <StyledLabel>{liters} Liter</StyledLabel>
       </IconWrapper>)}
-    </>
+    </FlexRow>
   )
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import classnames from "classnames";
 import { convertTime, waterNeed } from "../../utils/";
@@ -101,6 +101,10 @@ const Card = (p) => {
   if (selectedTreeState === "WATERING") {
     treeWatered = "Bewässerung eintragen ...";
   }
+
+  useEffect(() => {
+    console.log('treeLastWatered', treeLastWatered)
+  }, [treeLastWatered])
 
   const alter =
     standalter !== null ? `${standalter} Jahre alt` : "Keine Alter Vorhanden";

@@ -70,10 +70,10 @@ const TreeLastWatered = p => {
       return (
         <Wrapper>
           <FlexRow>
-            <Title>{convertTime(info.time)}</Title>
-            <StyledTreeType>({info.amount}l)</StyledTreeType>
+            <Title>{info.username}</Title>
+            <StyledTreeType>({convertTime(info.time)})</StyledTreeType>
           </FlexRow>
-          <CardWaterDrops data={calcWaterDrops(info.amount)} />
+          <CardWaterDrops liters={info.amount} data={calcWaterDrops(info.amount)} />
         </Wrapper>
       )
     })}

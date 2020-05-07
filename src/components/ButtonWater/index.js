@@ -72,7 +72,7 @@ const ButtonWaterSpanOther = styled.span`
 `;
 
 const ButtonWater = p => {
-  const { selectedTree, state, toggleOverlay, selectedTreeState } = p;
+  const { selectedTree, state, toggleOverlay, selectedTreeState, userdata, endpoints } = p;
   const { id } = selectedTree;
   const [waterGroup, setWaterGroup] = useState('visible');
   const { loading, user, isAuthenticated, getTokenSilently } = useAuth0();
@@ -119,8 +119,8 @@ const ButtonWater = p => {
   const setWaterAmount = (id, amount) => {
     createUser(user);
     setWaterGroup('watered');
-    console.log(user)
-    waterTree(id, amount);
+    console.log(userdata)
+    waterTree(id, amount, userdata.username);
     setTimeout(() => {
       setWaterGroup('visible');
     }, 1000);
@@ -153,14 +153,14 @@ const ButtonWater = p => {
     });
   };
 
-  const waterTree = async (id, amount) => {
+  const waterTree = async (id, amount, username) => {
     const { selectedTreeState } = p;
     Store.setState({ selectedTreeState: 'WATERING' });
     const token = await getTokenSilently();
     const time = timeNow();
     const url = createAPIUrl(
       state,
-      `/private/water-tree?id=${id}&uuid=${user.sub}&amount=${amount}`
+      `/private/water-tree?id=${id}&uuid=${user.sub}&amount=${amount}&username=${username}`
     );
 
     const res = await fetchAPI(url, {
@@ -183,6 +183,10 @@ const ButtonWater = p => {
         const res = fetchAPI(url).then(r => {
           Store.setState({ wateredTrees: r.data.watered });
         });
+        const resWatered = fetchAPI(`${endpoints.prod}/get-tree-last-watered?id=${id}`).then(r => {
+          Store.setState({ treeLastWatered: r.data });
+        });
+
       });
   };
 
@@ -313,6 +317,8 @@ export default connect(
     selectedTree: state.selectedTree,
     selectedTreeState: state.selectedTreeState,
     state: state,
+    userdata: state.user,
+    endpoints: state.endpoints,
   }),
   Actions
 )(ButtonWater);
