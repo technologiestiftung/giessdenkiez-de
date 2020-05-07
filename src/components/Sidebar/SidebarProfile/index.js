@@ -15,8 +15,8 @@ import CardProgress from '../../Card/CardProgress/';
 import CardAccordion from '../../Card/CardAccordion/';
 import CardCredentials from '../../Card/CardCredentials/';
 import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
+import ButtonRound from '../../ButtonRound';
 import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
-
 const SidebarProfile = p => {
   const {
     treeLastWatered,
@@ -26,15 +26,24 @@ const SidebarProfile = p => {
     adoptedTrees,
     adoptedTreesDetails,
   } = p;
-  const { loading, user, isAuthenticated, getTokenSilently } = useAuth0();
+  const {
+    loading,
+    user,
+    isAuthenticated,
+    getTokenSilently,
+    logout,
+  } = useAuth0();
   const [isEmailVerifiyed, setIsEmailVerifiyed] = useState(false);
+  /**
+   * Check weather the email of the user is verified
+   */
   useEffect(() => {
     if (!user) return;
-    console.log(user);
     setIsEmailVerifiyed(user.email_verified);
   }, [user, setIsEmailVerifiyed]);
+
   useEffect(() => {
-    const fetch = async () => {
+    const fetchData = async () => {
       if (isAuthenticated) {
         const token = await getTokenSilently();
         const urlWateredByUser = createAPIUrl(
@@ -63,11 +72,11 @@ const SidebarProfile = p => {
         });
       }
     };
-    fetch();
+    fetchData();
   }, []);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchData = async () => {
       if (isAuthenticated && adoptedTrees) {
         const token = await getTokenSilently();
         const concatReducer = (acc, curr, currentIndex, array) => {
@@ -97,9 +106,85 @@ const SidebarProfile = p => {
     if (adoptedTrees.length === 0) {
       Store.setState({ adoptedTreesDetails: [] });
     } else {
-      fetch();
+      fetchData();
     }
   }, [adoptedTrees]);
+
+  // user data requests to managementapi
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  const handleDeleteClick = async event => {
+    try {
+      event.preventDefault();
+      const promptRes = confirm(
+        '🚨 🚨 🚨 Willst du deinen Account wirklich löschen? Diese Aktion ist  endgültig.\nAlle deine Benutzerdaten werden damit sofort gelöscht!'
+      );
+      if (promptRes !== true) {
+        return;
+      }
+      const token = await getTokenSilently();
+      const res = await fetch(
+        `${process.env.USER_DATA_API_URL}/api/user?userid=${encodeURIComponent(
+          user.sub
+        )}`,
+        {
+          mode: 'cors',
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (res.ok) {
+        logout();
+      } else {
+        const text = await res.text();
+        console.warn(text);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  //
+  //
+  //
+  //
+  // get user data from management api
+
+  /**
+   * This function gets user data from the management api
+   *
+   *
+   */
+  const getUserDataFromManagementApi = async () => {
+    try {
+      // event.preventDefault();
+      const token = await getTokenSilently();
+      const res = await fetch(
+        `${process.env.USER_DATA_API_URL}/api/user?userid=${encodeURIComponent(
+          user.sub
+        )}`,
+        {
+          // credentials: 'include',
+          method: 'GET',
+          mode: 'cors',
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (res.ok) {
+        const json = await res.json();
+        console.log(json);
+      } else {
+        const text = await res.text();
+        console.warn(text);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   if (loading) {
     return (
@@ -148,8 +233,23 @@ const SidebarProfile = p => {
                   <CardCredentials
                     email={user.email}
                     username={user.nickname}
-                  />
+                  ></CardCredentials>
                   <Login width="-webkit-fill-available" />
+                  <>
+                    <CardParagraph>
+                      Möchtest du deinen Account löschen? Damit werden alle von
+                      dir generierten Wässerungsdaten einem anonymen Benutzer
+                      zugeordnet. Dein Benutzer bei unserem
+                      Authentifizierungsdienst Auth0.com wird sofort und
+                      unwiederruflich gelöscht.
+                    </CardParagraph>
+                    <ButtonRound
+                      width="-webkit-fill-available"
+                      toggle={handleDeleteClick}
+                    >
+                      Account Löschen
+                    </ButtonRound>
+                  </>
                 </Fragment>
               )}
             </>
