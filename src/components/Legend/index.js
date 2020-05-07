@@ -188,13 +188,13 @@ const Legend = p => {
       </FlexSpace>
       {legendExpanded && (
         <UnstyledFlex>
-          {legendArray.map((item) => (
-            <>
+          {legendArray.map((item, i) => (
+            <React.Fragment key={i}>
               <ItemContainer>
                 <LegendDot color={interpolateColor(item.value)} />
                 <ItemLabel>{item.label}</ItemLabel>
               </ItemContainer>
-            </>
+            </React.Fragment>
           ))}
         </UnstyledFlex>
       )}
