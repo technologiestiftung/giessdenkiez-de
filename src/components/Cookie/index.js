@@ -53,21 +53,22 @@ const StyledCardDescription = styled.div`
 
 
 const Cookie = p => {
-  const { cookieAccepted } = p;
+  const { cookiesAccepted } = p;
 
   const setCookie = () => {
     document.cookie = 'disclaimerAccepted=true;path=/;'
-    Store.setState({ cookieAccepted: true });
+    Store.setState({ cookiesAccepted: true });
   }
 
   useEffect(() => {
+    console.log('cookie accepted', cookiesAccepted);
     console.log('cookie of document', document.cookie);
     console.log('getcookievalue', getCookieValue('disclaimerAccepted'));
   }, [])
 
   return (
     <>
-      {!cookieAccepted && (
+      {!cookiesAccepted && (
         <CookieDiv>
           <Inner>
             <StyledCardDescription>
@@ -83,5 +84,5 @@ const Cookie = p => {
 };
 
 export default connect(state => ({
-  cookieAccepted: state.cookieAccepted,
+  cookiesAccepted: state.cookiesAccepted,
 }), Actions)(Cookie);
