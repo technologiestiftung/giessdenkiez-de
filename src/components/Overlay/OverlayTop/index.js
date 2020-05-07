@@ -2,6 +2,7 @@ import React, { cloneElement, Children } from "react";
 import styled from "styled-components";
 
 import Actions from '../../../state/Actions';
+import Store from '../../../state/Store';
 import { connect } from 'unistore/react';
 
 import history from '../../../../history';
@@ -52,6 +53,7 @@ const OverlayTop = (p) => {
   const { title, subline, description } = intro;
 
   const handleClick = () => {
+    Store.setState({ legendExpanded: true });
     toggleOverlay(false);
   }
 
