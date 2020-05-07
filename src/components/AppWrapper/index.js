@@ -16,7 +16,7 @@ import logoTSB from '!file-loader!../../assets/tsb-logo-coloured.svg';
 
 import { useAuth0 } from '../../utils/auth0';
 import Store from '../../state/Store'
-import { fetchAPI, createAPIUrl } from '../../utils';
+import { fetchAPI, createAPIUrl, removeOverlay } from '../../utils';
 
 
 const AppWrapperDiv = styled.div`
@@ -49,6 +49,8 @@ const AppWrapper = p => {
     getTokenSilently,
     logout,
   } = useAuth0();
+
+  removeOverlay();
 
   const fetchData = async () => {
     if (isAuthenticated) {

@@ -122,6 +122,12 @@ export const convertTime = (unix_timestamp) => {
   // return day month + '.' + year + '. //' + hours + ':' + minutes.substr(-2);
 };
 
+export const removeOverlay = () => {
+  var elem = document.querySelector('#tempOverlay');
+  console.log(elem)
+  elem.style.display = "none";
+}
+
 export const timeDifference = (date1, date2) => {
   let difference = date1 - date2;
   let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
@@ -172,6 +178,7 @@ export default {
   timeDifference,
   waterNeed,
 	interpolateColor,
+  removeOverlay,
   hexToRgb,
   createGeojson,
   createCSVJson,
