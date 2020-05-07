@@ -11,12 +11,31 @@ import SidebarTitle from '../SidebarTitle/';
 import Login from '../../Login';
 import CardHeadline from '../../Card/CardHeadline/';
 import CardParagraph from '../../Card/CardParagraph/';
+import CardDescription from '../../Card/CardDescription/';
 import CardProgress from '../../Card/CardProgress/';
 import CardAccordion from '../../Card/CardAccordion/';
 import CardCredentials from '../../Card/CardCredentials/';
 import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
 import ButtonRound from '../../ButtonRound';
 import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
+
+
+const StyledCardDescription = styled(CardDescription)`
+  opacity: 0.66;
+  text-decoration: underline;
+  padding-top: 10px;
+  cursor: pointer;
+  margin: 0 auto;
+  text-align: center;
+  &:hover {
+    opacity: .5;
+  }
+`;
+
+const FlexCol = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const SidebarProfile = p => {
   const {
@@ -26,6 +45,7 @@ const SidebarProfile = p => {
     wateredByUser,
     adoptedTrees,
     adoptedTreesDetails,
+    toggleOverlay,
   } = p;
   const {
     loading,
@@ -126,14 +146,17 @@ const SidebarProfile = p => {
       <SidebarTitle>Profil</SidebarTitle>
       {/* If the user is not authenticated give him the notice */}
       {!isAuthenticated ? (
-        <Fragment>
+        <FlexCol>
           <CardParagraph>
             Du bist momentan nicht eingeloggt. Wenn du das Gießen von Bäumen in
             deiner Umgebung hier eintragen möchtest, dann registriere dich oder
             logge dich ein.
           </CardParagraph>
           <Login width="-webkit-fill-available" />
-        </Fragment>
+          <StyledCardDescription onClick={() => toggleOverlay(true)}>
+           Wie kann ich mitmachen?
+          </StyledCardDescription>
+        </FlexCol>
       ) : (
         <>
           {/* okay we are aoutheticated but we don't have a email verification */}

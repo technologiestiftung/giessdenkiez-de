@@ -210,6 +210,8 @@ const Legend = p => {
             active={treesVisible}
             onClick={() => {
               Store.setState({ treesVisible: !treesVisible });
+              Store.setState({ pumpsVisible: false });
+              Store.setState({ rainVisible: false });
             }}
           >
             <LegendDot color={'#2c303b'} />
@@ -218,7 +220,9 @@ const Legend = p => {
           <UnstyledFlexWidth
             active={pumpsVisible}
             onClick={() => {
+              Store.setState({ treesVisible: false });
               Store.setState({ pumpsVisible: !pumpsVisible });
+              Store.setState({ rainVisible: false });
             }}
           >
             <StrokedLegendDot />
@@ -227,6 +231,8 @@ const Legend = p => {
           <UnstyledFlexWidth
             active={rainVisible}
             onClick={() => {
+              Store.setState({ treesVisible: false });
+              Store.setState({ pumpsVisible: false });
               Store.setState({ rainVisible: !rainVisible });
             }}
           >

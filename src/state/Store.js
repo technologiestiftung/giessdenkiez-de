@@ -10,6 +10,7 @@ const Store = createStore({
   adoptedTrees: false,
   treesVisible: true,
   cookiesAccepted: false,
+  overlayIsVisible: true,
   legendExpanded: false,
   pumpsVisible: false,
   user: null,

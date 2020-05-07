@@ -97,7 +97,7 @@ const ButtonWater = p => {
         return 'Ich habe gewässert!';
         break;
       case 'watering':
-        return 'Wieviel Wasser hat der Baum erhalten?';
+        return 'Wieviel Wasser?';
         break;
       case 'watered':
         return 'Bewässerung wurde eingetragen!';

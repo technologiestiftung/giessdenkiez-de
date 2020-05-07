@@ -14,6 +14,7 @@ const Flex = styled.div`
 
 const StyledCardHeadline = styled.div`
   margin-bottom: 10px;
+  font-weight: bold;
 `;
 
 const StyledCardHeadlineMail = styled.div`

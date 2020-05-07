@@ -8,21 +8,31 @@ import SidebarSearchAge from './SidebarSearchAge';
 import SidebarLoadingCard from '../SidebarLoadingCard';
 import Card from '../../Card/';
 import CardLegend from '../../Card/CardLegend/';
+import LoadingIcon from '../../LoadingIcon/';
+
+const Container = styled.div`
+  width: 100%;
+  height: calc(100vh - 125px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 const SidebarSearch = p => {
   const { selectedTree, selectedTreeState } = p;
   return (
     <>
       <SidebarTitle>Suche & Filter</SidebarTitle>
-      {/* { !selectedTree && (<SidebarSearchAge/>)}
-      { (selectedTreeState === 'LOADING') && (
-        <SidebarLoadingCard state={selectedTreeState}/>
-      ) }
-      */}
-      { (selectedTree && selectedTreeState !== 'LOADING') && (
+      {(selectedTreeState === 'LOADING') && (
+        <Container>
+          <LoadingIcon text="Lade Baum ..."/>
+        </Container>
+      )}
+      {(selectedTree && selectedTreeState !== 'LOADING') && (
         <Card data={selectedTree}/>
       )}
-      {!selectedTree && (<CardLegend />)}
+      {!selectedTree && selectedTreeState !== 'LOADING' && (<CardLegend />)}
     </>
   )
 }

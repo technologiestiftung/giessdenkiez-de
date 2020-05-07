@@ -52,7 +52,6 @@ const Wrapper = styled.div`
 `;
 
 const Overlay = () => {
-  const [isVisible, setIsVisible] = useState(true);
   return (
     <StyledOverlayWrapper>
       <StyledWrapper>
