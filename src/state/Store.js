@@ -12,6 +12,7 @@ const Store = createStore({
   cookiesAccepted: false,
   legendExpanded: false,
   pumpsVisible: false,
+  user: null,
   rainVisible: false,
   legendExpanded: false,
   rainGeojson: null,

@@ -48,7 +48,7 @@ const StyledWrapper = styled.div`
 `;
 
 const OverlayTop = (p) => {
-  const { children, toggleOverlay } = p;
+  const { children, toggleOverlay, user } = p;
   const { intro } = content;
   const { title, subline, description } = intro;
 
@@ -77,4 +77,5 @@ const OverlayTop = (p) => {
 };
 
 export default connect(state => ({
+  user: state.user
 }), Actions)(OverlayTop);

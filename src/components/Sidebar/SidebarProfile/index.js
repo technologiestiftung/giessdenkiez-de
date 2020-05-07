@@ -17,6 +17,7 @@ import CardCredentials from '../../Card/CardCredentials/';
 import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
 import ButtonRound from '../../ButtonRound';
 import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
+
 const SidebarProfile = p => {
   const {
     treeLastWatered,
@@ -41,39 +42,6 @@ const SidebarProfile = p => {
     if (!user) return;
     setIsEmailVerifiyed(user.email_verified);
   }, [user, setIsEmailVerifiyed]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (isAuthenticated) {
-        const token = await getTokenSilently();
-        const urlWateredByUser = createAPIUrl(
-          state,
-          `/private/get-watered-trees-by-user?uuid=${user.sub}`
-        );
-        const urlAdoptedTrees = createAPIUrl(
-          state,
-          `/private/get-adopted-trees?uuid=${user.sub}`
-        );
-
-        fetchAPI(urlWateredByUser, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        }).then(r => {
-          Store.setState({ wateredByUser: r.data });
-        });
-
-        fetchAPI(urlAdoptedTrees, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        }).then(r => {
-          Store.setState({ adoptedTrees: r.data });
-        });
-      }
-    };
-    fetchData();
-  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,14 +78,6 @@ const SidebarProfile = p => {
     }
   }, [adoptedTrees]);
 
-  // user data requests to managementapi
-  //
-  //
-  //
-  //
-  //
-  //
-  //
   const handleDeleteClick = async event => {
     try {
       event.preventDefault();
@@ -148,43 +108,6 @@ const SidebarProfile = p => {
       console.error(error);
     }
   };
-  //
-  //
-  //
-  //
-  // get user data from management api
-
-  /**
-   * This function gets user data from the management api
-   *
-   *
-   */
-  const getUserDataFromManagementApi = async () => {
-    try {
-      // event.preventDefault();
-      const token = await getTokenSilently();
-      const res = await fetch(
-        `${process.env.USER_DATA_API_URL}/api/user?userid=${encodeURIComponent(
-          user.sub
-        )}`,
-        {
-          // credentials: 'include',
-          method: 'GET',
-          mode: 'cors',
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      if (res.ok) {
-        const json = await res.json();
-        console.log(json);
-      } else {
-        const text = await res.text();
-        console.warn(text);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   if (loading) {
     return (
@@ -199,6 +122,7 @@ const SidebarProfile = p => {
   // or to
   return (
     <>
+      {/* <button onClick={() => {getUserDataFromManagementApi()}}>get user data from management api</button> */}
       <SidebarTitle>Profil</SidebarTitle>
       {/* If the user is not authenticated give him the notice */}
       {!isAuthenticated ? (
