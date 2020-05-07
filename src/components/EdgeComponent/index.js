@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export default styled.button`
-  width: ${props => props.size || 72}px;
-  height: ${props => props.size || 72}px;
+  width: ${props => props.size || 64}px;
+  height: ${props => props.size || 64}px;
   background-color: ${props => (props.isActive ? props.theme.colorTextDark : '#fff')};
   color: ${props => (props.isActive ? '#fff' : props.theme.colorTextDark)};
   transition: background-color .3s;

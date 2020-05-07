@@ -12,11 +12,12 @@ import content from "../../../assets/content";
 
 const StyledCardDescriptionTitle = styled(CardDescriptionTitle)`
   margin-bottom: 5px;
+  font-size: ${p => p.theme.fontSizeLl};
   line-height: 130%;
 `;
 
 const StyledCardDescription = styled(CardDescription)`
-  opacity: 1;
+  opacity: .66;
 `;
 
 const StyledParagraph = styled.p`
@@ -57,9 +58,6 @@ const SidebarAbout = p => {
   function createMarkup(content) { return {__html: content}; };
   return (
     <>
-      <SocialSharingContainer>
-        <SocialSharing/>
-      </SocialSharingContainer>
       <SidebarTitle>Weitere Infos</SidebarTitle>
       {about.map(item => (
         <PanelWrapper>
@@ -70,6 +68,9 @@ const SidebarAbout = p => {
       <CreditsContainer>
         <Credits/>
       </CreditsContainer>
+      <SocialSharingContainer>
+        <SocialSharing/>
+      </SocialSharingContainer>
     </>
   )
 }

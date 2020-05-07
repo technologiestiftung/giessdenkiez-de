@@ -114,7 +114,7 @@ class DeckGLMap extends React.Component {
           pickable: true,
           getRadius: 3,
           type: 'circle',
-          pointRadiusMinPixels: 1,
+          pointRadiusMinPixels: .5,
           autoHighlight: true,
           highlightColor: [200, 200, 200, 255],
           transitions: {
@@ -137,11 +137,14 @@ class DeckGLMap extends React.Component {
               return [0,0,0,0];
             }
 
-            if (Number.isNaN(age)) {
-              return [150,150,150,200];
+            if (age >= ageRange[0] && age <= ageRange[1]) {
+              const interpolated = interpolateColor(radolan_sum);
+              const hex = hexToRgb(interpolated);
+
+              return hex;
             }
 
-            if (age >= ageRange[0] && age <= ageRange[1]) {
+            if (Number.isNaN(age)) {
               const interpolated = interpolateColor(radolan_sum);
               const hex = hexToRgb(interpolated);
 

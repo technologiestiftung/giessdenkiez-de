@@ -5,7 +5,7 @@ export default styled.span`
   font-size: ${p => p.theme.fontSizeL};
   opacity: .66;
   line-height: 150%;
-  width: 90%;
+  width: 100%;
   transition: ${p => p.theme.transition};
 
   a {

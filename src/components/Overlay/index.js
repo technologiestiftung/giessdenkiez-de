@@ -7,6 +7,9 @@ import OverlayBottom from './OverlayBottom';
 
 const StyledWrapper = styled.div`
   width: 60%;
+  max-width: 1000px;
+  min-height: 686px;
+  max-height: 686px;
   height: 70%;
   margin: 0 auto;
   display: flex;
@@ -26,12 +29,14 @@ const StyledWrapper = styled.div`
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     width: 100%;
     height: 100%;
+    max-height: 100%;
     box-shadow: none;
   }
 
   @media screen and (max-width: ${p => p.theme.screens.mobile}) {
     width: 100%;
     height: 100%;
+    max-height: 100%;
     box-shadow: none;
   }
 `;

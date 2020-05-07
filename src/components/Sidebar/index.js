@@ -25,8 +25,6 @@ const SidebarWrapper = styled.div`
   transition: transform .5s, box-shadow .5s;
 
   @media screen and (max-width: ${p => p.theme.screens.mobile}) {
-    max-width: 340px;
-    min-width: 300px;
     width: calc(100vw - 24px);
   }
 `

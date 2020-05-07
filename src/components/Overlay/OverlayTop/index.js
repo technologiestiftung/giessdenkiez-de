@@ -69,7 +69,7 @@ const OverlayTop = (p) => {
       })}
       <StyledWrapper>
         <ButtonRound toggle={handleClick} type="primary">Los geht's</ButtonRound>
-        <Login />
+        <Login noLogout={true} />
       </StyledWrapper>
     </StyledTop>
   );

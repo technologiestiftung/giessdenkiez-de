@@ -9,7 +9,7 @@ const StyledButton = styled.div`
   margin-bottom: ${p => p.margin};
   text-align: center;
   cursor: pointer;
-  font-size: ${p => p.theme.fontSizeL};
+  font-size: ${p => p.theme.fontSizeLl};
   border: 1px solid ${p => {
     if (p.type == 'primary') {
       return p.theme.colorPrimary;

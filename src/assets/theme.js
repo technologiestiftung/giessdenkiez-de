@@ -32,17 +32,18 @@ export const theme = {
 
     fontFamily: 'IBM Plex Sans',
 
-    fontSizeXxl: '1.75rem',
+    fontSizeXxl: '1.5rem',
     fontSizeXl: '1.25rem',
+    fontSizeLl: '1rem',
     fontSizeL: '.8rem',
-    fontSizeM: '.625rem',
+    fontSizeM: '.8rem',
 
     timeS: '.125s',
     timeM: '.25s',
     timeL: '.5s',
 
     screens: {
-        mobile: '400px',
+        mobile: '440px',
         tablet: '767px',
         laptop: '1024px',
         desktop: '1440px'

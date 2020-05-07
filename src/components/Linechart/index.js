@@ -169,15 +169,6 @@ const Linechart = p => {
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("d", line)
-    
-    svg
-      .append("g")
-      .append("text")
-      .attr('style', 'font-size: 10px;')
-      .attr("text-anchor", "end") 
-      .attr("transform", `translate(${width - margin.right + 15},${height - 10})`)
-      .text('Zeitraum in Tagen →');
-
   }
 
   return (

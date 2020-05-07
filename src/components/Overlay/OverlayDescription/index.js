@@ -6,6 +6,10 @@ const Wrapper = styled.div`
   gap: 1rem;
   margin: 0 40px;
   grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+
+  @media screen and (max-width: 768px) {
+    gap: 0rem;
+  }
 `;
 
 const StyledParargraph = styled.p`

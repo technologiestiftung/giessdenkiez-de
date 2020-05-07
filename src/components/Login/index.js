@@ -8,7 +8,7 @@ import { useAuth0 } from "../../utils/auth0";
 import ButtonRound from '../ButtonRound/';
 
 const Login = p => {
-  const { width } = p;
+  const { width, noLogout } = p;
   const { isAuthenticated, getTokenSilently, loginWithRedirect, logout, loading, user } = useAuth0();
   
   useEffect(() => {
@@ -26,8 +26,8 @@ const Login = p => {
 
   return (
     <>
-      { !isAuthenticated && (<ButtonRound width={width} toggle={() => handleClick('login')}>Registrieren / Einloggen</ButtonRound>)}
-      { isAuthenticated && (<ButtonRound width={width} toggle={() => handleClick('logout')}>Ausloggen</ButtonRound>)}
+      { !isAuthenticated && (<ButtonRound width={width} toggle={() => handleClick('login')}>Konto anlegen / Einloggen</ButtonRound>)}
+      { isAuthenticated && !noLogout && (<ButtonRound width={width} toggle={() => handleClick('logout')}>Ausloggen</ButtonRound>)}
     </>
   )
 }

@@ -11,6 +11,7 @@ import {
 const StyledContainer = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 40px;
   span {
     font-size: ${p => p.theme.fontSizeL};
   }

@@ -10,6 +10,13 @@ export default createGlobalStyle`
     100%  {opacity: 1;}
   }
 
+  br.large {
+    display: none;
+    @media screen and (min-width: 768px) {
+      display: block;
+    }
+  }
+
   a.mapboxgl-ctrl-logo {
     display: none !important;
   }
