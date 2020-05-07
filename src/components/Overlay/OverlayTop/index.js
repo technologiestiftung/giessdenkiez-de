@@ -52,7 +52,6 @@ const OverlayTop = (p) => {
   const { title, subline, description } = intro;
 
   const handleClick = () => {
-    history.push('/search');
     toggleOverlay(false);
   }
 

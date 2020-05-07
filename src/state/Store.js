@@ -9,6 +9,8 @@ const Store = createStore({
   wateredByUser: false,
   adoptedTrees: false,
   treesVisible: true,
+  cookiesAccepted: false,
+  legendExpanded: false,
   pumpsVisible: false,
   rainVisible: false,
   legendExpanded: false,

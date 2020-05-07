@@ -84,6 +84,11 @@ export const waterNeed = (age) => {
   if (age >= 40) return [1];
 };
 
+export const getCookieValue = (a) => {
+  const b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+  return b ? b.pop() : '';
+}
+
 export const convertTime = (unix_timestamp) => {
   var date = new Date(unix_timestamp);
   var months = [
@@ -171,6 +176,7 @@ export default {
   createGeojson,
   createCSVJson,
   createAPIUrl,
+  getCookieValue,
   fetchAPI,
   flatten
 };

@@ -8,9 +8,7 @@ import OverlayBottom from './OverlayBottom';
 const StyledWrapper = styled.div`
   width: 60%;
   max-width: 1000px;
-  min-height: 686px;
-  max-height: 686px;
-  height: 70%;
+  height: auto;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

@@ -6,6 +6,7 @@ import Sidebar from '../Sidebar';
 import NavBar from '../Navbar';
 import Nav from '../Nav';
 import Legend from '../Legend';
+import Cookie from '../Cookie';
 import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
@@ -47,6 +48,7 @@ const AppWrapper = p => {
         <Credits/>
       </CreditsContainer>
       <Legend />
+      <Cookie />
     </AppWrapperDiv>
   )
 }
