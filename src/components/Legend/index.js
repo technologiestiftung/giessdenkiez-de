@@ -168,8 +168,7 @@ const StyledToggle = styled.span`
 `;
 
 const Legend = p => {
-  const { treesVisible, rainVisible, pumpsVisible } = p;
-  const [legendExpanded, setLegendExpanded] = useState(true);
+  const { treesVisible, rainVisible, pumpsVisible, legendExpanded } = p;
   return (
     <LegendDiv active={legendExpanded}>
       <FlexSpace active={legendExpanded}>
@@ -185,8 +184,8 @@ const Legend = p => {
             </StyledCardDescriptionSecond>
           )}
         </FlexColumn>
-        <StyledToggle onClick={() => setLegendExpanded(!legendExpanded)}>
-          {legendExpanded ? '—' : '+'}
+        <StyledToggle onClick={() => Store.setState({legendExpanded: !legendExpanded})}>
+          {legendExpanded ? "—" : "+"}
         </StyledToggle>
       </FlexSpace>
       {legendExpanded && (
@@ -244,6 +243,7 @@ export default connect(
   state => ({
     treesVisible: state.treesVisible,
     rainVisible: state.rainVisible,
+    legendExpanded: state.legendExpanded,
     pumpsVisible: state.pumpsVisible,
   }),
   Actions

@@ -6,6 +6,8 @@ import history from "../../history";
 import { connect } from 'unistore/react';
 import Store from '../state/Store';
 
+import { getCookieValue } from '../utils/';
+
 import Actions, { loadData, getWateredTrees, loadTrees, loadCommunityData } from '../state/Actions';
 import "../assets/style.scss";
 
@@ -20,6 +22,13 @@ loadEntryDataAction();
 loadWateredTreesAction();
 loadTreesAction();
 loadCommunityDataAction();
+
+const cookie = getCookieValue('disclaimerAccepted');
+
+if (cookie == 'true') {
+  console.log('cookie value', cookie)
+  Store.setState({ cookiesAccepted: true })
+}
 
 const AppWrapperDiv = styled.div`
 font-family: ${props => props.theme.fontFamily};
