@@ -18,9 +18,9 @@ const Login = p => {
     user,
   } = useAuth0();
 
-  useEffect(() => {
-    Store.setState({ user: user });
-  }, [user]);
+  // useEffect(() => {
+  //   Store.setState({ user: user });
+  // }, [user]);
 
   const handleClick = type => {
     if (type == 'login') {
