@@ -46,6 +46,7 @@ const SidebarProfile = p => {
     adoptedTrees,
     adoptedTreesDetails,
     toggleOverlay,
+    userdata,
   } = p;
   const {
     loading,
@@ -178,8 +179,8 @@ const SidebarProfile = p => {
                     )}
                   </CardAccordion>
                   <CardCredentials
-                    email={user.email}
-                    username={user.nickname}
+                    email={userdata.email}
+                    username={userdata.username}
                   ></CardCredentials>
                   <Login width="-webkit-fill-available" />
                   <>
@@ -199,6 +200,7 @@ const SidebarProfile = p => {
                   </>
                 </Fragment>
               )}
+              <Login width="-webkit-fill-available" />
             </>
           )}
         </>
@@ -211,6 +213,7 @@ export default connect(
   state => ({
     treeLastWatered: state.treeLastWatered,
     state: state,
+    userdata: state.user,
     wateredByUser: state.wateredByUser,
     adoptedTrees: state.adoptedTrees,
     adoptedTreesDetails: state.adoptedTreesDetails,
