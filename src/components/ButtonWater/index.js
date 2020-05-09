@@ -85,10 +85,10 @@ const ButtonWater = p => {
   }, [user, setIsEmailVerifiyed]);
 
   useEffect(() => {
-    if (user) {
+    if (userdata) {
       isTreeAdopted(id, user.sub);
     }
-  }, [user]);
+  }, [userdata]);
 
   const btnLabel = state => {
     switch (state) {
@@ -118,6 +118,7 @@ const ButtonWater = p => {
   const setWaterAmount = (id, amount) => {
     createUser(user);
     setWaterGroup('watered');
+    console.log('userdata', userdata)
     waterTree(id, amount, userdata.username);
     setTimeout(() => {
       setWaterGroup('visible');
