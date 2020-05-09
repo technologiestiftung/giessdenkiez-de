@@ -17,6 +17,7 @@ import CardAccordion from '../../Card/CardAccordion/';
 import CardCredentials from '../../Card/CardCredentials/';
 import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
 import ButtonRound from '../../ButtonRound';
+import SidebarLoadingCard from '../../Sidebar/SidebarLoadingCard/';
 import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
 
 
@@ -200,7 +201,9 @@ const SidebarProfile = p => {
                   </>
                 </Fragment>
               )}
-              <Login width="-webkit-fill-available" />
+              {!wateredByUser || !adoptedTreesDetails && (
+                <SidebarLoadingCard state='PROFILE'/>
+              )}
             </>
           )}
         </>

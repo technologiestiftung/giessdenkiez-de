@@ -18,8 +18,6 @@ const Login = p => {
     user,
   } = useAuth0();
 
-  console.log('user', user)
-
   const fetchData = async () => {
     if (isAuthenticated) {
       const token = await getTokenSilently();
@@ -67,7 +65,6 @@ const Login = p => {
       );
       if (res.ok) {
         const json = await res.json();
-        console.log(json.data);
         Store.setState({ user: json.data })
       } else {
         const text = await res.text();

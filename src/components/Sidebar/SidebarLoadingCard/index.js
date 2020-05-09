@@ -30,6 +30,10 @@ const SidebarLoadingCard = p => {
       content = 'Lade abonnierte Bäume ...'
       break;
 
+    case 'PROFILE':
+      content = 'Lade Profil ...'
+      break;
+
     default:
       break;
   }
