@@ -6,7 +6,6 @@ import SidebarAbout from './SidebarAbout/';
 import SidebarSearch from './SidebarSearch/';
 import SidebarAdopted from './SidebarAdopted/';
 import SidebarProfile from './SidebarProfile/';
-import SidebarSelected from './SidebarSelected/';
 import SidebarClose from './SidebarClose';
 
 const SidebarWrapper = styled.div`
@@ -46,7 +45,6 @@ const Sidebar = p => {
               <Route path="/search" component={SidebarSearch} />
               <Route path="/adopted" component={SidebarAdopted} />
               <Route path="/profile" component={SidebarProfile} />
-              <Route path="/selected" component={SidebarSelected} />
             </Switch>
           </SidebarContent>
         </SidebarWrapper>

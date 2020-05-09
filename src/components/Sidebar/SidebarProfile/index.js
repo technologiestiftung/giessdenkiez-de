@@ -33,6 +33,15 @@ const StyledCardDescription = styled(CardDescription)`
   }
 `;
 
+const Container = styled.div`
+  width: 100%;
+  height: calc(100vh - 125px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const FlexCol = styled.div`
   display: flex;
   flex-direction: column;
@@ -202,7 +211,9 @@ const SidebarProfile = p => {
                 </Fragment>
               )}
               {!wateredByUser || !adoptedTreesDetails && (
-                <SidebarLoadingCard state='PROFILE'/>
+                <Container>
+                  <LoadingIcon text="Lade Profil ..."/>
+                </Container>
               )}
             </>
           )}
