@@ -31,9 +31,9 @@ const TreeWatering = p => {
   const { data } = p;
   return (
     <WrapperOuter>
-    {data.map(info => {
+    {data.map((info,i) => {
       return (
-        <Wrapper>
+        <Wrapper key={`Tree-watering-${i}`}>
           <CardWaterDrops data={info.waterdrops} />
           <Title>{info.title}</Title>
           <StyledTreeType>{info.description}</StyledTreeType>

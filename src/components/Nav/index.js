@@ -69,7 +69,6 @@ const Nav = p => {
     }) !== null;
 
   const handleClick = title => {
-    console.log(p.state);
     p.removeSelectedTree();
   };
 
@@ -81,7 +80,6 @@ const Nav = p => {
           to={{ pathname: item.path, search: '' }}
           onClick={() => handleClick(item.title)}
           title={item.title}
-          isAuthenticated={isAuthenticated}
           key={item.path}
         >
           <EdgeButton

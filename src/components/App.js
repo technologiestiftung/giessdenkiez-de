@@ -26,7 +26,6 @@ loadCommunityDataAction();
 const cookie = getCookieValue('disclaimerAccepted');
 
 if (cookie == 'true') {
-  console.log('cookie value', cookie)
   Store.setState({ cookiesAccepted: true })
 }
 

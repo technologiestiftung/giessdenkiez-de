@@ -66,9 +66,9 @@ const TreeLastWatered = p => {
 
   return (
     <WrapperOuter>
-    {data.map(info => {
+    {data.map((info,i) => {
       return (
-        <Wrapper>
+        <Wrapper key={`Lastadopted-key-${i}`}>
           <FlexRow>
             <Title>{info.username}</Title>
             <StyledTreeType>({convertTime(info.time)})</StyledTreeType>

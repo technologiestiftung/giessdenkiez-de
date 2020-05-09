@@ -102,10 +102,6 @@ const Card = (p) => {
     treeWatered = "Bewässerung eintragen ...";
   }
 
-  useEffect(() => {
-    console.log('treeLastWatered', treeLastWatered)
-  }, [treeLastWatered])
-
   const alter =
     standalter !== null ? `${standalter} Jahre alt` : "Keine Alter Vorhanden";
 

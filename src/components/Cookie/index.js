@@ -60,12 +60,6 @@ const Cookie = p => {
     Store.setState({ cookiesAccepted: true });
   }
 
-  useEffect(() => {
-    console.log('cookie accepted', cookiesAccepted);
-    console.log('cookie of document', document.cookie);
-    console.log('getcookievalue', getCookieValue('disclaimerAccepted'));
-  }, [])
-
   return (
     <>
       {!cookiesAccepted && (

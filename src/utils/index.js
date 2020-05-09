@@ -124,7 +124,6 @@ export const convertTime = (unix_timestamp) => {
 
 export const removeOverlay = () => {
   var elem = document.querySelector('#tempOverlay');
-  console.log(elem)
   elem.style.display = "none";
 }
 

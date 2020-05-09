@@ -219,12 +219,6 @@ class DeckGLMap extends React.Component {
     }
   }
 
-  _getFillColor(info) {
-    // console.log(info.properties.id);
-    // console.log(info.object.properties['id'], this.props.wateredTrees)
-    // return [102, 245, 173, 200];
-  }
-
   _onClick(x, y, object) {
     const { setViewport, setView, user } = this.props;
 
@@ -242,7 +236,6 @@ class DeckGLMap extends React.Component {
     });
 
     fetchAPI(url).then((r) => {
-      console.log("gettree", r);
       Store.setState({ selectedTreeState: "LOADED", selectedTree: r.data });
     });
   }
@@ -263,6 +256,10 @@ class DeckGLMap extends React.Component {
     } else {
       this.setState({cursor: 'grab'})
     }
+  }
+
+  _getFillColor() {
+    
   }
 
   _onload(evt) {

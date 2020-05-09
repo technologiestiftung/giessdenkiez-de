@@ -25,8 +25,8 @@ const CardWaterDrops = p => {
   return (
     <>
       {data && (<IconWrapper>
-        {data.map(drop => (
-          <Icon />
+        {data.map((drop,i) => (
+          <Icon key={`water-drop-key-${i}`} />
         ))}
       </IconWrapper>)}
     </>

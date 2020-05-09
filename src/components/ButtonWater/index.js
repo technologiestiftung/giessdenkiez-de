@@ -81,7 +81,6 @@ const ButtonWater = p => {
   const [isEmailVerifiyed, setIsEmailVerifiyed] = useState(false);
   useEffect(() => {
     if (!user) return;
-    console.log(user);
     setIsEmailVerifiyed(user.email_verified);
   }, [user, setIsEmailVerifiyed]);
 
@@ -119,7 +118,6 @@ const ButtonWater = p => {
   const setWaterAmount = (id, amount) => {
     createUser(user);
     setWaterGroup('watered');
-    console.log(userdata)
     waterTree(id, amount, userdata.username);
     setTimeout(() => {
       setWaterGroup('visible');

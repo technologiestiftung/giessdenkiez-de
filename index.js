@@ -11,7 +11,6 @@ import GlobalStyles from './src/assets/Global';
 import { Auth0Provider } from './src/utils/auth0';
 
 const onRedirectCallback = appState => {
-  console.log(appState);
   history.push(
     appState && appState.targetUrl
       ? appState.targetUrl

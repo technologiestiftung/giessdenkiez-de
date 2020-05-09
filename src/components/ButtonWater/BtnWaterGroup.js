@@ -33,9 +33,10 @@ const BtnWaterGroup = (p) => {
   const { toggle, id } = p;
   return (
     <BtnWaterContainer>
-      {btnArray.map((btn) => {
+      {btnArray.map((btn,i) => {
         return (
           <ButtonRound
+            key={`Btn-water-${i}`}
             toggle={() => {
               toggle(id, btn.id);
             }}
