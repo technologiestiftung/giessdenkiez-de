@@ -115,7 +115,7 @@ const AppWrapper = p => {
       getUserDataFromManagementApi();
       fetchData();
     }
-  }, [isLoading])
+  }, [isAuthenticated])
 
   return (
     <AppWrapperDiv>
