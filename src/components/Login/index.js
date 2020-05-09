@@ -79,6 +79,7 @@ const Login = p => {
     if (isAuthenticated) {
       getUserDataFromManagementApi();
       if (user) {
+        console.log(user)
         fetchData();
       }
     }

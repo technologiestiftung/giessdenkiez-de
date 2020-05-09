@@ -18,6 +18,7 @@ import CardCredentials from '../../Card/CardCredentials/';
 import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
 import ButtonRound from '../../ButtonRound';
 import SidebarLoadingCard from '../../Sidebar/SidebarLoadingCard/';
+import LoadingIcon from '../../LoadingIcon/';
 import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
 
 
