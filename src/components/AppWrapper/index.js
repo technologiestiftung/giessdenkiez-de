@@ -99,6 +99,7 @@ const AppWrapper = p => {
       );
       if (res.ok) {
         const json = await res.json();
+        console.log(user);
         Store.setState({ user: json.data })
       } else {
         const text = await res.text();
