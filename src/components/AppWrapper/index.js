@@ -48,6 +48,7 @@ const AppWrapper = p => {
     isAuthenticated,
     getTokenSilently,
     logout,
+    user
   } = useAuth0();
 
   removeOverlay();
