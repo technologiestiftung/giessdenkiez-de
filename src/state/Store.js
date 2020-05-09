@@ -26,7 +26,7 @@ const Store = createStore({
   local: false,
   endpoints: {
     local: 'http://localhost:3000/',
-    prod: 'https://tsb-tree-api-now-express.now.sh',
+    prod: 'https://tsb-tree-api-now-express-khqz6yqp9.now.sh',
   },
   tabActive: 'id-0',
   selectedTree: false,
