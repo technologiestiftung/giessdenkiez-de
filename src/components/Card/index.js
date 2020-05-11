@@ -43,6 +43,7 @@ const RainContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: ${p => p.theme.spacingM};
+  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
 `;
 
 const TreeTitle = styled.h2`

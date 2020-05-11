@@ -67,10 +67,8 @@ const Login = p => {
   };
 
   useEffect(() => {
-      console.log(user, isAuthenticated)
     if (isAuthenticated && user) {
       getUserDataFromManagementApi();
-      console.log(user, isAuthenticated)
       fetchData();
     }
   }, [isAuthenticated, user])

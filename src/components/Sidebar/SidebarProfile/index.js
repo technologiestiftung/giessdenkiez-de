@@ -201,7 +201,7 @@ const SidebarProfile = p => {
                       dir generierten Wässerungsdaten einem anonymen Benutzer
                       zugeordnet. Dein Benutzer bei unserem
                       Authentifizierungsdienst Auth0.com wird sofort und
-                      unwiederruflich gelöscht.
+                      unwiderruflich gelöscht.
                     </CardParagraph>
                     <ButtonRound
                       width="-webkit-fill-available"

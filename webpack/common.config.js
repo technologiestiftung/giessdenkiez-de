@@ -1,21 +1,34 @@
 const Dotenv = require('dotenv-webpack');
-const webpack = require('webpack');
-
-// config.js
+const webpack = require('webpack'); // to access built-in plugins
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const path = require('path');
+const domain = 'https://www.giessdenkiez.de';
 
 module.exports = {
   mode: 'development',
 
   entry: {
-    main: './index.js',
+    main: './src/index.js',
   },
 
   devServer: {
     historyApiFallback: true,
   },
 
+  optimization: {
+    splitChunks: {
+      // include all types of chunks
+      chunks: 'all',
+      maxSize: 3000,
+    },
+  },
   output: {
     library: 'App',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
+    path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
   },
   resolve: {
@@ -77,19 +90,35 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.(html)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: '/',
-            },
-          },
-        ],
-      },
+      // {
+      //   test: /\.(html)?$/,
+      //   use: [
+      //     {
+      //       loader: 'file-loader',
+      //       options: {
+      //         name: '[name].[ext]',
+      //         outputPath: '/',
+      //       },
+      //     },
+      //   ],
+      // },
     ],
   },
-  plugins: [new Dotenv()],
+  plugins: [
+    new webpack.ProgressPlugin(),
+    new Dotenv(),
+    new CleanWebpackPlugin(),
+    new CopyPlugin([
+      {
+        from: 'src/assets/images/social_media.jpg',
+        to: 'assets/images/social_media.jpg',
+      },
+    ]),
+    new HtmlWebpackPlugin({
+      templateParameters: {
+        domain,
+      },
+      template: path.resolve(__dirname, '../src/index.ejs'),
+    }),
+  ],
 };
