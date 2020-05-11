@@ -20,6 +20,7 @@ const onRedirectCallback = appState => {
 
 if (process.env.NODE_ENV === 'production') {
   require('file-loader?name=[name].[ext]!./index.html');
+  require('file-loader?name=[name].[ext]!./src/assets/images/social_media.jpg');
 }
 
 
