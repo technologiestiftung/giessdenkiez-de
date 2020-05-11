@@ -1,11 +1,10 @@
 const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack'); // to access built-in plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
-
-// const webpack = require('webpack');
-
-// config.js
+const domain = 'https://www.giessdenkiez.de';
 
 module.exports = {
   mode: 'development',
@@ -22,7 +21,7 @@ module.exports = {
     splitChunks: {
       // include all types of chunks
       chunks: 'all',
-      maxSize: 600,
+      maxSize: 3000,
     },
   },
   output: {
@@ -106,9 +105,19 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.ProgressPlugin(),
     new Dotenv(),
     new CleanWebpackPlugin(),
+    new CopyPlugin([
+      {
+        from: 'src/assets/images/social_media.jpg',
+        to: 'assets/images/social_media.jpg',
+      },
+    ]),
     new HtmlWebpackPlugin({
+      templateParameters: {
+        domain,
+      },
       template: path.resolve(__dirname, '../src/index.ejs'),
     }),
   ],
