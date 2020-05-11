@@ -1,7 +1,7 @@
 const content = {
 	intro: {
 		title: '<b>Gieß den <span>Kiez</span></b>',
-		subline: 'Die Berliner Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst Ihnen helfen!',
+		subline: 'Die Berliner Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
 		description: ['Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume abonnieren und markieren, wenn Du sie gegossen hast.', 'Oder informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.']
 	},
 	sidebar: {
