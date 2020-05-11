@@ -13,6 +13,7 @@ const Store = createStore({
   overlayIsVisible: true,
   legendExpanded: false,
   pumpsVisible: false,
+  highlightedObject: false,
   user: null,
   rainVisible: false,
   legendExpanded: false,

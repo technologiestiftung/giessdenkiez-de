@@ -35,7 +35,6 @@ class DeckGLMap extends React.Component {
     this.test = false;
 
     this.state = {
-      highlightedObject: 0,
       hoveredObject: null,
       data: null,
       included: null,
@@ -54,6 +53,7 @@ class DeckGLMap extends React.Component {
       rainGeojson,
       treesVisible,
       pumpsVisible,
+      highlightedObject,
       rainVisible,
       pumps,
       csvdata
@@ -159,16 +159,14 @@ class DeckGLMap extends React.Component {
             this._onClick(info.x, info.y, info.object);
 
             if (info.object != undefined) {
-              this.setState({
-                highlightedObject: info.object.properties["id"],
-              });
+              Store.setState({highlightedObject: info.object.properties["id"]})
               setDetailRouteWithListPath(info.object.properties.id);
             }
           },
           updateTriggers: {
             getFillColor: [
               this.props.wateredTrees,
-              this.state.highlightedObject,
+              this.props.highlightedObject,
               this.props.ageRange,
               this.props.dataView
             ],
@@ -379,6 +377,7 @@ export default connect(
     isLoading: state.isLoading,
     wateredTrees: wateredTreesSelector(state),
     state: state,
+    highlightedObject: state.highlightedObject,
     ageRange: state.ageRange,
     communityData: state.communityData,
     user: state.user,
