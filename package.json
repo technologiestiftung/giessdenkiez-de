@@ -1,27 +1,41 @@
 {
   "name": "tsb-trees-frontend",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.0-rc",
+  "description": "Source repo for [giessdenkiez.de](https://www.giessdenkiez.de)",
   "scripts": {
-    "start": "webpack-dev-server --progress --hot --open",
-    "build": "webpack --mode production && echo '/* /index.html 200' | cat >dist/_redirects"
+    "eslint": "eslint ./src/",
+    "brechstange": "eslint --fix ./src/",
+    "start": "webpack-dev-server --progress --hot --open --config webpack/dev.config.js",
+    "build": "webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects",
+    "prettier:list": "prettier --list-different './src/**/*'",
+    "prettier:write": "prettier --write './src/**/*'"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Fabian Dinklage",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.1.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^4.7.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
     "file-loader": "^4.2.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.12.0",
+    "prettier": "^2.0.5",
     "prop-types": "^15.7.2",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
@@ -31,7 +45,8 @@
     "webpack": "^4.39.1",
     "webpack-bundle-analyzer": "^3.7.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.7.2"
+    "webpack-dev-server": "^3.7.2",
+    "webpack-merge": "^4.2.2"
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.6.2",
@@ -59,5 +74,17 @@
     "styled-components": "^4.3.2",
     "styled-normalize": "^8.0.7",
     "unistore": "^3.5.1"
-  }
+  },
+  "main": "dist/index.html",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/technologiestiftung/tsb-trees-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/technologiestiftung/tsb-trees-frontend/issues"
+  },
+  "homepage": "https://github.com/technologiestiftung/tsb-trees-frontend#readme"
 }
