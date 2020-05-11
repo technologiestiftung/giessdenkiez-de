@@ -1,3 +1,4 @@
+.DS_Store
 stats.json
 /node_modules
 .env
