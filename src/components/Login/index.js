@@ -18,6 +18,8 @@ const Login = p => {
     user,
   } = useAuth0();
 
+  console.log(useAuth0())
+
   const fetchData = async () => {
     if (isAuthenticated) {
       const token = await getTokenSilently();

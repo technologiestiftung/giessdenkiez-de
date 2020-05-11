@@ -15,7 +15,6 @@ export const loadTrees = (Store) => async () => {
 }
 
 export const setAgeRange = (state, payload) => {
-  console.log('setAgeRange', payload)
   return {
     ageRange: payload
   }

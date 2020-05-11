@@ -76,39 +76,40 @@ const SidebarProfile = p => {
   }, [user, setIsEmailVerifiyed]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (isAuthenticated && adoptedTrees) {
-        const token = await getTokenSilently();
-        const concatReducer = (acc, curr, currentIndex, array) => {
-          if (currentIndex + 1 == array.length) {
-            return acc + curr + '}';
-          } else {
-            return acc + curr + ',';
-          }
-        };
-
-        const queryStr = adoptedTrees.reduce(concatReducer, '{');
-
-        const urlAdoptedTreesDetails = createAPIUrl(
-          state,
-          `/private/get-adopted-trees-details?tree_ids=${queryStr}`
-        );
-
-        fetchAPI(urlAdoptedTreesDetails, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        }).then(r => {
-          Store.setState({ adoptedTreesDetails: r.data });
-        });
-      }
-    };
     if (adoptedTrees.length === 0) {
       Store.setState({ adoptedTreesDetails: [] });
     } else {
       fetchData();
     }
   }, [adoptedTrees]);
+
+  const fetchData = async () => {
+    if (isAuthenticated && adoptedTrees) {
+      const token = await getTokenSilently();
+      const concatReducer = (acc, curr, currentIndex, array) => {
+        if (currentIndex + 1 == array.length) {
+          return acc + curr + '}';
+        } else {
+          return acc + curr + ',';
+        }
+      };
+
+      const queryStr = adoptedTrees.reduce(concatReducer, '{');
+
+      const urlAdoptedTreesDetails = createAPIUrl(
+        state,
+        `/private/get-adopted-trees-details?tree_ids=${queryStr}`
+      );
+
+      fetchAPI(urlAdoptedTreesDetails, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      }).then(r => {
+        Store.setState({ adoptedTreesDetails: r.data });
+      });
+    }
+  };
 
   const handleDeleteClick = async event => {
     try {
