@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import Actions from "../../../state/Actions";
+import { connect } from "unistore/react";
+import Store from "../../../state/Store";
 
 import TreeType from './TreeType'
 import CardWaterDrops from '../CardWaterDrops'
@@ -12,6 +15,11 @@ const StyledTreeType = styled(TreeType)`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .5;
+  }
 `;
 
 const WrapperOuter = styled.div`
@@ -26,9 +34,15 @@ const Title = styled.span`
   font-size: ${p => p.theme.fontSizeL};
 `;
 
-
 const TreesAdopted = p => {
-  const { data } = p;
+  const { data, setViewport } = p;
+
+  const handleClick = (info) => {
+    console.log('handleClick', info);
+    Store.setState({selectedTree: info})
+    const coordinates = [parseFloat(info.lat), parseFloat(info.lng)]
+    setViewport(coordinates);
+  }
 
   if (data.length === 0) {
     return (
@@ -41,7 +55,7 @@ const TreesAdopted = p => {
       <WrapperOuter>
       {data.map(info => {
         return (
-          <Wrapper>
+          <Wrapper onClick={() => handleClick(info)}>
             <Title>{info.artdtsch}</Title>
             <StyledTreeType>{info.strname == 'undefined' ? '' : info.strname}</StyledTreeType>
           </Wrapper>
@@ -53,4 +67,6 @@ const TreesAdopted = p => {
 
 }
 
-export default TreesAdopted;
+export default connect(state => {
+
+},Actions)(TreesAdopted)
