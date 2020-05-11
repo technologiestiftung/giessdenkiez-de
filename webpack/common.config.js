@@ -1,5 +1,9 @@
 const Dotenv = require('dotenv-webpack');
-const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require('path');
+
+// const webpack = require('webpack');
 
 // config.js
 
@@ -7,15 +11,25 @@ module.exports = {
   mode: 'development',
 
   entry: {
-    main: './index.js',
+    main: './src/index.js',
   },
 
   devServer: {
     historyApiFallback: true,
   },
 
+  optimization: {
+    splitChunks: {
+      // include all types of chunks
+      chunks: 'all',
+      maxSize: 600,
+    },
+  },
   output: {
     library: 'App',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
+    path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
   },
   resolve: {
@@ -77,19 +91,25 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.(html)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: '/',
-            },
-          },
-        ],
-      },
+      // {
+      //   test: /\.(html)?$/,
+      //   use: [
+      //     {
+      //       loader: 'file-loader',
+      //       options: {
+      //         name: '[name].[ext]',
+      //         outputPath: '/',
+      //       },
+      //     },
+      //   ],
+      // },
     ],
   },
-  plugins: [new Dotenv()],
+  plugins: [
+    new Dotenv(),
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, '../src/index.ejs'),
+    }),
+  ],
 };
