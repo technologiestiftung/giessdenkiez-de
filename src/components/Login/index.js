@@ -18,8 +18,6 @@ const Login = p => {
     user,
   } = useAuth0();
 
-  console.log(useAuth0())
-
   const fetchData = async () => {
     if (isAuthenticated) {
       const token = await getTokenSilently();
@@ -54,43 +52,33 @@ const Login = p => {
     try {
       // event.preventDefault();
       const token = await getTokenSilently();
-      const res = await fetch(
-        `${process.env.USER_DATA_API_URL}/api/user?userid=${encodeURIComponent(
-          user.sub
-        )}`,
-        {
-          // credentials: 'include',
-          method: 'GET',
-          mode: 'cors',
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      if (res.ok) {
-        const json = await res.json();
-        Store.setState({ user: json.data })
-      } else {
-        const text = await res.text();
-        console.warn(text);
-      }
+      const apiUrl = `${process.env.USER_DATA_API_URL}/api/user?userid=${encodeURIComponent(user.sub)}`;
+      fetchAPI(apiUrl, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      }).then(r => {
+        console.log(r);
+        Store.setState({ user: r.data.data })
+      });
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+      console.log(user, isAuthenticated)
+    if (isAuthenticated && user) {
       getUserDataFromManagementApi();
-      if (user) {
-        console.log(user)
-        fetchData();
-      }
+      console.log(user, isAuthenticated)
+      fetchData();
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, user])
 
   const handleClick = type => {
     if (type == 'login') {
       loginWithRedirect({ ui_locales: 'de' });
-    } else if (type == 'logout') { 
+    } else if (type == 'logout') {
       logout();
     }
   };
