@@ -1,0 +1,7 @@
+node_modules
+*.ejs
+*.svg
+src/assets/fonts
+.DS_Store
+*.png
+*.ico

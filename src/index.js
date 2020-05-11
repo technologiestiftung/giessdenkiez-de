@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Root from './src/Root';
+import Root from './Root';
 
 import history from './history';
 
 import { Provider } from 'unistore/react';
-import Store from './src/state/Store';
-import GlobalStyles from './src/assets/Global';
+import Store from './state/Store';
+import GlobalStyles from './assets/Global';
 
-import { Auth0Provider } from './src/utils/auth0';
+import { Auth0Provider } from './utils/auth0';
 
 const onRedirectCallback = appState => {
   history.push(
@@ -18,10 +18,9 @@ const onRedirectCallback = appState => {
   );
 };
 
-if (process.env.NODE_ENV === 'production') {
-  require('file-loader?name=[name].[ext]!./index.html');
-}
-
+// if (process.env.NODE_ENV === 'production') {
+//   require('file-loader?name=[name].[ext]!./index.html');
+// }
 
 function startApp() {
   const rootElement = document.getElementById('app');

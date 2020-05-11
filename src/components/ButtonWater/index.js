@@ -8,18 +8,15 @@ import Actions, { loadCommunityData } from '../../state/Actions';
 import content from '../../assets/content';
 import { fetchAPI, createAPIUrl } from '../../utils';
 import { useAuth0 } from '../../utils/auth0';
-
-import history from '../../../history';
-
-const loadCommunityDataAction = Store.action(loadCommunityData(Store));
-
+import history from '../../history';
 import Login from '../Login';
 import ButtonRound from '../ButtonRound';
-
 import ButtonWaterGroup from './BtnWaterGroup';
 import CardDescription from '../Card/CardDescription/';
 import { NonVerfiedMailCardParagraph } from '../Card/non-verified-mail';
 import CardParagraph from '../Card/CardParagraph';
+
+const loadCommunityDataAction = Store.action(loadCommunityData(Store));
 
 const BtnContainer = styled.div`
   display: flex;
@@ -72,7 +69,14 @@ const ButtonWaterSpanOther = styled.span`
 `;
 
 const ButtonWater = p => {
-  const { selectedTree, state, toggleOverlay, selectedTreeState, userdata, endpoints } = p;
+  const {
+    selectedTree,
+    state,
+    toggleOverlay,
+    selectedTreeState,
+    userdata,
+    endpoints,
+  } = p;
   const { id } = selectedTree;
   const [waterGroup, setWaterGroup] = useState('visible');
   const { loading, user, isAuthenticated, getTokenSilently } = useAuth0();
@@ -173,7 +177,7 @@ const ButtonWater = p => {
           });
           setTimeout(() => {
             loadCommunityDataAction();
-        }, 250);
+          }, 250);
         });
       })
       .then(r => {
@@ -181,10 +185,11 @@ const ButtonWater = p => {
         const res = fetchAPI(url).then(r => {
           Store.setState({ wateredTrees: r.data.watered });
         });
-        const resWatered = fetchAPI(`${endpoints.prod}/get-tree-last-watered?id=${id}`).then(r => {
+        const resWatered = fetchAPI(
+          `${endpoints.prod}/get-tree-last-watered?id=${id}`
+        ).then(r => {
           Store.setState({ treeLastWatered: r.data });
         });
-
       });
   };
 

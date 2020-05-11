@@ -1,19 +1,19 @@
-import React, { cloneElement, Children } from "react";
-import styled from "styled-components";
+import React, { cloneElement, Children } from 'react';
+import styled from 'styled-components';
 
 import Actions from '../../../state/Actions';
 import Store from '../../../state/Store';
 import { connect } from 'unistore/react';
 
-import history from '../../../../history';
+import history from '../../../history';
 
-import OverlayTitle from "../OverlayTitle/";
-import OverlayIcon from "../OverlayIcon/";
-import OverlayDescription from "../OverlayDescription/";
-import ButtonRound from "../../../components/ButtonRound/";
-import Login from "../../../components/Login/";
+import OverlayTitle from '../OverlayTitle/';
+import OverlayIcon from '../OverlayIcon/';
+import OverlayDescription from '../OverlayDescription/';
+import ButtonRound from '../../../components/ButtonRound/';
+import Login from '../../../components/Login/';
 
-import content from "../../../assets/content";
+import content from '../../../assets/content';
 
 const Wrapper = styled.div`
   display: flex;
@@ -47,7 +47,7 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const OverlayTop = (p) => {
+const OverlayTop = p => {
   const { children, toggleOverlay, user } = p;
   const { intro } = content;
   const { title, subline, description } = intro;
@@ -55,27 +55,32 @@ const OverlayTop = (p) => {
   const handleClick = () => {
     Store.setState({ legendExpanded: true });
     toggleOverlay(false);
-  }
+  };
 
   return (
     <StyledTop>
       <Wrapper>
         <OverlayTitle size="large" content={title} />
-        <OverlayIcon icon="trees"/>
+        <OverlayIcon icon="trees" />
       </Wrapper>
       <OverlayTitle size="large" content={subline} />
       <OverlayDescription content={description} />
-      {Children.map(children, (childElement) => {
+      {Children.map(children, childElement => {
         return cloneElement(childElement, {});
       })}
       <StyledWrapper>
-        <ButtonRound toggle={handleClick} type="primary">Los geht's</ButtonRound>
+        <ButtonRound toggle={handleClick} type="primary">
+          Los geht's
+        </ButtonRound>
         <Login noLogout={true} />
       </StyledWrapper>
     </StyledTop>
   );
 };
 
-export default connect(state => ({
-  user: state.user
-}), Actions)(OverlayTop);
+export default connect(
+  state => ({
+    user: state.user,
+  }),
+  Actions
+)(OverlayTop);
