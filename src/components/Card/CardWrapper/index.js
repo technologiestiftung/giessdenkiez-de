@@ -7,6 +7,7 @@ const CardWrapper = styled.div`
     z-index: 3;
     height: auto;
     margin-top: 0px;
+    margin-bottom: 20px;
     max-width: 400px;
     width: auto;
     ${'' /* border-radius: ${props => props.theme.borderRadiusS}; */}
