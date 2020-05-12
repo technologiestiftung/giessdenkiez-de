@@ -47,7 +47,7 @@ const Linechart = p => {
   useEffect(() => {
     const transformedData = transformData(data);
     init(transformedData);
-  }, [data]);
+  }, []);
 
   const transformData = d => {
     let sumPerDay = 0;
