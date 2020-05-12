@@ -45,10 +45,11 @@ const Loading = props => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (current === maxIndex) {
-        setCurrent(current => 0);
+        setCurrent(0);
       } else {
         setCurrent(current => current + 1);
       }
+      console.log(current, maxIndex)
     }, 3000);
     return () => clearInterval(interval);
   }, [current]);

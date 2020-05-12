@@ -7,6 +7,7 @@ const FlexRowDiv = styled.div`
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
   padding-bottom: 5px;
   margin-bottom: 10px;
+  font-weight: bold;
 `;
 
 const DescriptionSpan = styled.span``;

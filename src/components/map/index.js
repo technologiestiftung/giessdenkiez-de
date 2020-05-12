@@ -65,7 +65,6 @@ class DeckGLMap extends React.Component {
           id: 'geojson',
           data: data,
           opacity: 1,
-          fp64: false,
           getLineWidth: info => {
             const { selectedTree } = this.props;
             const id = info.properties['id'];
@@ -83,6 +82,9 @@ class DeckGLMap extends React.Component {
           getLineColor: [247, 105, 6, 255],
           visible: treesVisible,
           filled: true,
+          parameters: {
+            depthTest: false
+          },
           pickable: true,
           getRadius: 3,
           type: 'circle',
@@ -129,7 +131,7 @@ class DeckGLMap extends React.Component {
             if (Number.isNaN(age)) {
               const interpolated = interpolateColor(radolan_sum);
               const hex = hexToRgb(interpolated);
-
+              return [200, 200, 200, 0];
               return hex;
             }
 
@@ -172,7 +174,6 @@ class DeckGLMap extends React.Component {
             return hex;
           },
           pickable: true,
-          // onHover: this._onHover
         }),
         new GeoJsonLayer({
           id: 'pumps',
@@ -191,11 +192,9 @@ class DeckGLMap extends React.Component {
           pickable: true,
           lineWidthScale: 2,
           lineWidthMinPixels: 1,
-          // onHover: this._onHover
         }),
       ];
 
-      // Store.setState({ isLoading: false });
       return layers;
     }
   }
@@ -229,10 +228,8 @@ class DeckGLMap extends React.Component {
 
   _renderTooltip() {
     const { hoveredObject } = this.state;
-    // let data;
 
     if (hoveredObject != null) {
-      // const data = hoveredObject.data.properties;
       this.setState({ hoveredObject });
     }
   }

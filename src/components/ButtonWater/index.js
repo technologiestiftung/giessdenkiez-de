@@ -107,18 +107,18 @@ const ButtonWater = p => {
     if (userdata) {
       isTreeAdopted(id, user.sub);
     }
-  }, [userdata, user, id, getTokenSilently, state]);
+  }, [id]);
 
   const btnLabel = state => {
     switch (state) {
       case 'visible':
-        return 'Ich habe gewässert!';
+        return 'Ich habe gegossen!';
 
       case 'watering':
         return 'Wieviel Wasser?';
 
       case 'watered':
-        return 'Bewässerung wurde eingetragen!';
+        return 'Begießung wurde eingetragen.';
 
       default:
         break;
@@ -130,12 +130,7 @@ const ButtonWater = p => {
     toggleOverlay(true);
   };
 
-  // const waterHandler = () => {
-  //   setWaterGroup('watering');
-  // };
-
   const setWaterAmount = (id, amount) => {
-    createUser(user);
     setWaterGroup('watered');
     waterTree(id, amount, userdata.username);
     setTimeout(() => {
@@ -143,24 +138,9 @@ const ButtonWater = p => {
     }, 1000);
   };
 
-  // const timeNow = () => {
-  //   const date = +new Date();
-  //   return date;
-  // };
-
-  const createUser = async user => {
-    // const token = await getTokenSilently();
-    createAPIUrl(
-      state,
-      `/private/create-user?mail=${user.email}&uuid=${user.sub}`
-    );
-  };
-
   const waterTree = async (id, amount, username) => {
-    // const { selectedTreeState } = p;
     Store.setState({ selectedTreeState: 'WATERING' });
     const token = await getTokenSilently();
-    // const time = timeNow();
     const url = createAPIUrl(
       state,
       `/private/water-tree?id=${id}&uuid=${user.sub}&amount=${amount}&username=${username}`
@@ -244,40 +224,6 @@ const ButtonWater = p => {
       <>
         {isEmailVerifiyed ? (
           <Fragment>
-            {/* {adopted && adopted === "other" && (
-          <BtnContainer>
-            <ButtonRound
-              width="-webkit-fill-available"
-              toggle={() => setWaterGroup("watering")}
-              type="primary"
-            >
-              {btnLabel(waterGroup)}
-            </ButtonRound>
-            {waterGroup === "watering" && (
-              <ButtonWaterGroup id={id} toggle={setWaterAmount} />
-            )}
-            <StyledCardDescription onClick={() => handleClick()}>
-              Wie kann ich mitmachen?
-            </StyledCardDescription>
-          </BtnContainer>
-        )}
-        {adopted && adopted !== "other" && (
-          <BtnContainer>
-            <ButtonRound
-              width="-webkit-fill-available"
-              toggle={() => setWaterGroup("watering")}
-              type="primary"
-            >
-              {btnLabel(waterGroup)}
-            </ButtonRound>
-            {waterGroup === "watering" && (
-              <ButtonWaterGroup id={id} toggle={setWaterAmount} />
-            )}
-            <StyledCardDescription onClick={() => handleClick()}>
-              Wie kann ich mitmachen?
-            </StyledCardDescription>
-          </BtnContainer>
-        )} */}
             {!adopted && (
               <BtnContainer>
                 <ButtonRound

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Slider from 'rc-slider';
 import Actions from '../../../state/Actions';
@@ -49,14 +49,8 @@ const TileHeadline = styled.span`
   transform: translateX(-4px);
 `;
 
-// const TreesCountSpan = styled.span`
-//   transform: translateX(-4px);
-//   margin-top: 10px;
-//   opacity: 0.5;
-//   font-size: 12px;
-// `;
-
 const SidebarAgeRange = p => {
+  const {ageRange} = p;
   const createSliderWithTooltip = Slider.createSliderWithTooltip;
   const Range = createSliderWithTooltip(Slider.Range);
   const { setAgeRange } = p;
@@ -64,9 +58,10 @@ const SidebarAgeRange = p => {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(320);
 
-  // const [current, setCurrent] = useState([0, 320]);
-
-  // const range = [0, 300];
+  useEffect(() => {
+    setMin(ageRange[0]);
+    setMax(ageRange[1]);
+  }, [])
 
   return (
     <FilterAgeDiv>
@@ -83,10 +78,9 @@ const SidebarAgeRange = p => {
             setMax(arr[1]);
             setAgeRange([arr[0], arr[1]]);
           }}
-          defaultValue={[min, max]}
+          defaultValue={ageRange}
         />
       </FlexRowDiv>
-      {/* <TreesCountSpan>treesCount</TreesCountSpan> */}
     </FilterAgeDiv>
   );
 };
@@ -94,6 +88,7 @@ const SidebarAgeRange = p => {
 export default connect(
   state => ({
     isLoading: state.isLoading,
+    ageRange: state.ageRange
   }),
   Actions
 )(SidebarAgeRange);

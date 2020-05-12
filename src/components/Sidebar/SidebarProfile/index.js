@@ -107,7 +107,7 @@ const SidebarProfile = p => {
     } else {
       fetchData();
     }
-  }, [adoptedTrees, getTokenSilently, state, isAuthenticated]);
+  }, [adoptedTrees]);
 
   const handleDeleteClick = async event => {
     try {
