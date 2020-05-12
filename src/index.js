@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Root from './Root';
 
 import history from './history';
+import ErrorBoundary from './ErrorBoundary';
 
 import { Provider } from 'unistore/react';
 import Store from './state/Store';
@@ -23,20 +24,22 @@ function startApp() {
 
   function renderApp(RootComponent) {
     ReactDOM.render(
-      <Auth0Provider
-        domain={process.env.AUTH0_DOMAIN}
-        client_id={process.env.AUTH0_CLIENT_ID}
-        audience={process.env.AUTH0_AUDIENCE}
-        redirect_uri={window.location.origin}
-        onRedirectCallback={onRedirectCallback}
-      >
-        <Provider store={Store}>
-          <>
-            <GlobalStyles />
-            <RootComponent />
-          </>
-        </Provider>
-      </Auth0Provider>,
+      <ErrorBoundary>
+        <Auth0Provider
+          domain={process.env.AUTH0_DOMAIN}
+          client_id={process.env.AUTH0_CLIENT_ID}
+          audience={process.env.AUTH0_AUDIENCE}
+          redirect_uri={window.location.origin}
+          onRedirectCallback={onRedirectCallback}
+        >
+          <Provider store={Store}>
+            <>
+              <GlobalStyles />
+              <RootComponent />
+            </>
+          </Provider>
+        </Auth0Provider>
+      </ErrorBoundary>,
       rootElement
     );
   }
