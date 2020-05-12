@@ -18,6 +18,12 @@ const ControlWrapper = styled.div`
   bottom: 12px;
   left: 12px;
   z-index: 2;
+  transition: transform 500ms;
+
+  @media screen and (min-width: ${p => p.theme.screens.tablet}) {
+    transform: ${props =>
+      props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'none'};
+  }
 `;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
@@ -49,39 +55,9 @@ class DeckGLMap extends React.Component {
       rainGeojson,
       treesVisible,
       pumpsVisible,
-      // highlightedObject,
       rainVisible,
       pumps,
-      // csvdata,
     } = this.props;
-
-    // var COLOR_RANGE = [
-    //   [1, 152, 189],
-    //   [73, 227, 206],
-    //   [216, 254, 181],
-    //   [254, 237, 177],
-    //   [254, 173, 84],
-    //   [209, 55, 78],
-    // ];
-
-    // const COLOR_SCALE = scaleThreshold()
-    //   .domain([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120])
-    //   .range([
-    //     [65, 182, 196],
-    //     [127, 205, 187],
-    //     [199, 233, 180],
-    //     [237, 248, 177],
-    //     // zero
-    //     [255, 255, 204],
-    //     [255, 237, 160],
-    //     [254, 217, 118],
-    //     [254, 178, 76],
-    //     [253, 141, 60],
-    //     [252, 78, 42],
-    //     [227, 26, 28],
-    //     [189, 0, 38],
-    //     [128, 0, 38],
-    //   ]);
 
     if (data && rainGeojson && pumps) {
       const layers = [
@@ -325,10 +301,8 @@ class DeckGLMap extends React.Component {
       viewport,
       controller = true,
       baseMap = true,
-      // dataLoaded,
-      // wateredTrees,
-      // wateredTreesFetched,
       isLoading,
+      isNavOpen,
       setViewport,
       setView
     } = this.props;
@@ -359,7 +333,7 @@ class DeckGLMap extends React.Component {
               onLoad={this._onload.bind(this)}
               zoom={3}
             >
-              <ControlWrapper>
+              <ControlWrapper isNavOpen={isNavOpen}>
                 <GeolocateControl 
                   positionOptions={{enableHighAccuracy: true}}
                   trackUserLocation={true}
@@ -369,8 +343,6 @@ class DeckGLMap extends React.Component {
               </ControlWrapper>
             </StaticMap>
           )}
-
-          {/* {this._renderTooltip} */}
         </DeckGL>
       );
     }
@@ -385,6 +357,7 @@ export default connect(
     pumps: state.pumps,
     pumpsVisible: state.pumpsVisible,
     isLoading: state.isLoading,
+    isNavOpen: state.isNavOpen,
     wateredTrees: wateredTreesSelector(state),
     state: state,
     highlightedObject: state.highlightedObject,
