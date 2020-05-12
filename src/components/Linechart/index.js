@@ -47,6 +47,9 @@ const Linechart = p => {
   useEffect(() => {
     const transformedData = transformData(data);
     init(transformedData);
+    // we explicitly want this hook to only run once on creation
+    // of the componenrt
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const transformData = d => {
