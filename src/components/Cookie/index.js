@@ -8,26 +8,19 @@ import { connect } from 'unistore/react';
 import ButtonRound from '../ButtonRound/';
 
 const CookieDiv = styled.div`
-  position: absolute;
-  bottom: 0px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
   z-index: 1;
   font-size: 12px;
   box-shadow: ${p => p.theme.boxShadow};
-  height: auto;
-  width: 100%;
+  height: min-content;
+  width: auto;
   background: white;
 `;
 
 const Inner = styled.div`
-  max-width: calc(100wv-48px);
   flex-direction: row;
   display: flex;
   align-items: center;
-  flex-wrap: none;
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 10px;
 `;
@@ -45,7 +38,8 @@ const StyledCardDescription = styled.div`
   }
 
   @media screen and (max-width: 600px) {
-    width: 70%;
+    width: 100%;
+    margin-bottom: 10px;
   }
 `;
 
