@@ -6,6 +6,7 @@ import CardDescription from '../../Card/CardDescription/';
 import CardDescriptionTitle from '../../Card/CardDescriptionTitle/';
 import Credits from '../../Credits';
 import SocialSharing from '../../SocialSharing';
+import OpenSourceNote from '../../OpenSource';
 
 import content from '../../../assets/content';
 
@@ -74,6 +75,7 @@ const SidebarAbout = p => {
       <SocialSharingContainer>
         <SocialSharing />
       </SocialSharingContainer>
+      <OpenSourceNote />
     </>
   );
 };
