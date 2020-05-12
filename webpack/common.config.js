@@ -13,10 +13,6 @@ module.exports = {
     main: './src/index.js',
   },
 
-  devServer: {
-    historyApiFallback: true,
-    compress: true,
-  },
   output: {
     library: 'App',
     filename: '[name].bundle.js',
