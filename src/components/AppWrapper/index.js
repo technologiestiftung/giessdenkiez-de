@@ -9,9 +9,6 @@ import Cookie from '../Cookie';
 import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
-// TODO: Remove fileloader and let webpack handle this
-import logoCitylab from '!file-loader!../../assets/citylab-logo.svg';
-import logoTSB from '!file-loader!../../assets/tsb-logo-coloured.svg';
 
 import { removeOverlay } from '../../utils';
 
