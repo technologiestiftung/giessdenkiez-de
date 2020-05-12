@@ -3,26 +3,27 @@ import createStore from 'unistore';
 const Store = createStore({
   wateredTrees: [],
   includedTrees: {},
+  // TODO: which one is it
   adoptedTrees: [],
+  adoptedTrees: false,
   dataView: 'rain',
   communityData: null,
   wateredByUser: false,
-  adoptedTrees: false,
   treesVisible: true,
   cookiesAccepted: false,
   overlayIsVisible: true,
   legendExpanded: false,
   pumpsVisible: false,
   highlightedObject: false,
+  // TODO: which one is it
   user: null,
+  user: false,
   rainVisible: false,
-  legendExpanded: false,
   rainGeojson: null,
   adoptedTreesDetails: false,
   csvdata: null,
-  ageRange: [0,320],
+  ageRange: [0, 320],
   pumps: null,
-  user: false,
   data: null,
   local: false,
   endpoints: {
@@ -44,8 +45,8 @@ const Store = createStore({
     maxZoom: 19,
     minZoom: 9,
     pitch: 45,
-    bearing: 0
+    bearing: 0,
   },
-})
+});
 
 export default Store;

@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const SidebarTitle = styled.h2`
@@ -9,4 +8,3 @@ const SidebarTitle = styled.h2`
 `;
 
 export default SidebarTitle;
-

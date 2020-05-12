@@ -3,15 +3,13 @@ import styled from 'styled-components';
 import { NavLink, withRouter, matchPath } from 'react-router-dom';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
-import Store from '../../state/Store';
-import { fetchAPI, createAPIUrl } from '../../utils';
-import { useAuth0 } from '../../utils/auth0';
+// import { useAuth0 } from '../../utils/auth0';
 
-import ListIcon from '@material-ui/icons/List';
+// import ListIcon from '@material-ui/icons/List';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-import NaturePeopleIcon from '@material-ui/icons/NaturePeopleOutlined';
+// import NaturePeopleIcon from '@material-ui/icons/NaturePeopleOutlined';
 
 import EdgeButton from '../EdgeComponent/';
 
@@ -52,15 +50,15 @@ const navConfig = [
 ];
 
 const Nav = p => {
-  const { state } = p;
-  const {
-    isAuthenticated,
-    getTokenSilently,
-    loginWithRedirect,
-    logout,
-    loading,
-    user,
-  } = useAuth0();
+  // const { state } = p;
+  // const {
+  //   isAuthenticated,
+  //   getTokenSilently,
+  //   loginWithRedirect,
+  //   logout,
+  //   loading,
+  //   user,
+  // } = useAuth0();
   const { pathname } = p.location;
 
   const isNavOpen =

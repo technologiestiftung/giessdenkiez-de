@@ -1,1 +1,1 @@
-import DeckGL, { GeoJsonLayer } from 'deck.gl';
+// import DeckGL, { GeoJsonLayer } from 'deck.gl';

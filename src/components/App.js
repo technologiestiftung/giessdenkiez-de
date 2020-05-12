@@ -30,13 +30,13 @@ loadCommunityDataAction();
 
 const cookie = getCookieValue('disclaimerAccepted');
 
-if (cookie == 'true') {
+if (cookie === 'true') {
   Store.setState({ cookiesAccepted: true });
 }
 
-const AppWrapperDiv = styled.div`
-  font-family: ${props => props.theme.fontFamily};
-`;
+// const AppWrapperDiv = styled.div`
+//   font-family: ${props => props.theme.fontFamily};
+// `;
 
 const TsbLinkDiv = styled.div`
   position: absolute;

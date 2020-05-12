@@ -22,19 +22,22 @@ const StyledParargraph = styled.p`
 const OverlayDescription = p => {
   const { content } = p;
 
-  function createMarkup(content) { return {__html: content}; };
+  function createMarkup(content) {
+    return { __html: content };
+  }
 
   return (
     <Wrapper>
-      {content.map((col,i) => {
+      {content.map((col, i) => {
         return (
-          <StyledParargraph dangerouslySetInnerHTML={createMarkup(col)} key={`Overlay-description-${i}`}>
-          </StyledParargraph>
-        )
+          <StyledParargraph
+            dangerouslySetInnerHTML={createMarkup(col)}
+            key={`Overlay-description-${i}`}
+          ></StyledParargraph>
+        );
       })}
     </Wrapper>
   );
-}
+};
 
 export default OverlayDescription;
-

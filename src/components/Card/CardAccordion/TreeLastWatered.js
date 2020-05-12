@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { convertTime } from '../../../utils/'
+import { convertTime } from '../../../utils/';
 
-import TreeType from './TreeType'
-import CardWaterDrops from '../CardWaterDrops'
+import TreeType from './TreeType';
+import CardWaterDrops from '../CardWaterDrops';
 
 const StyledTreeType = styled(TreeType)`
- padding: 0;
- padding-left: 5px;
+  padding: 0;
+  padding-left: 5px;
 `;
 
 const Wrapper = styled.div`
@@ -40,45 +40,42 @@ const Title = styled.span`
   font-size: ${p => p.theme.fontSizeL};
 `;
 
-
-
 const TreeLastWatered = p => {
   const { data } = p;
 
   const calcWaterDrops = amount => {
     switch (amount) {
-      case "5":
-        return [1]
-        break;
-      case "10":
-        return [1,1]
-        break;
-      case "25":
-        return [1,1,1]
-        break;
-      case "50":
-        return [1,1,1,1]
-        break;
+      case '5':
+        return [1];
+      case '10':
+        return [1, 1];
+      case '25':
+        return [1, 1, 1];
+      case '50':
+        return [1, 1, 1, 1];
       default:
         break;
     }
-  }
+  };
 
   return (
     <WrapperOuter>
-    {data.map((info,i) => {
-      return (
-        <Wrapper key={`Lastadopted-key-${i}`}>
-          <FlexRow>
-            <Title>{info.username}</Title>
-            <StyledTreeType>({convertTime(info.time)})</StyledTreeType>
-          </FlexRow>
-          <CardWaterDrops liters={info.amount} data={calcWaterDrops(info.amount)} />
-        </Wrapper>
-      )
-    })}
+      {data.map((info, i) => {
+        return (
+          <Wrapper key={`Lastadopted-key-${i}`}>
+            <FlexRow>
+              <Title>{info.username}</Title>
+              <StyledTreeType>({convertTime(info.time)})</StyledTreeType>
+            </FlexRow>
+            <CardWaterDrops
+              liters={info.amount}
+              data={calcWaterDrops(info.amount)}
+            />
+          </Wrapper>
+        );
+      })}
     </WrapperOuter>
   );
-}
+};
 
 export default TreeLastWatered;

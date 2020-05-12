@@ -1,9 +1,9 @@
-import React from 'react';
+// import React from 'react';
 import styled from 'styled-components';
 
 export default styled.span`
   font-size: ${p => p.theme.fontSizeL};
-  opacity: .66;
+  opacity: 0.66;
   line-height: 150%;
   width: 100%;
   transition: ${p => p.theme.transition};
@@ -11,7 +11,7 @@ export default styled.span`
   a {
     color: ${p => p.theme.colorTextDark};
     &:hover {
-      opacity: .5;
+      opacity: 0.5;
       transition: ${p => p.theme.transition};
     }
   }

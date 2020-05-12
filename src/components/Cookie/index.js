@@ -1,12 +1,11 @@
-import React, { Component, useState, useEffect } from "react";
-import styled from "styled-components";
-import Store from "../../state/Store";
-import { getCookieValue } from "../../utils";
-import Actions from "../../state/Actions";
+import React from 'react';
+import styled from 'styled-components';
+import Store from '../../state/Store';
+
+import Actions from '../../state/Actions';
 import { connect } from 'unistore/react';
 
-import CardDescription from "../Card/CardDescription/";
-import ButtonRound from "../ButtonRound/";
+import ButtonRound from '../ButtonRound/';
 
 const CookieDiv = styled.div`
   position: absolute;
@@ -17,7 +16,7 @@ const CookieDiv = styled.div`
   justify-content: space-around;
   z-index: 1;
   font-size: 12px;
-  box-shadow: ${(p) => p.theme.boxShadow};
+  box-shadow: ${p => p.theme.boxShadow};
   height: auto;
   width: 100%;
   background: white;
@@ -36,12 +35,12 @@ const Inner = styled.div`
 const StyledCardDescription = styled.div`
   width: 60%;
   line-height: 150%;
-  opacity: .66;
+  opacity: 0.66;
 
   a {
     color: ${p => p.theme.colorTextDark};
     &:hover {
-      opacity: .33;
+      opacity: 0.33;
     }
   }
 
@@ -50,15 +49,13 @@ const StyledCardDescription = styled.div`
   }
 `;
 
-
-
 const Cookie = p => {
   const { cookiesAccepted } = p;
 
   const setCookie = () => {
-    document.cookie = 'disclaimerAccepted=true;path=/;'
+    document.cookie = 'disclaimerAccepted=true;path=/;';
     Store.setState({ cookiesAccepted: true });
-  }
+  };
 
   return (
     <>
@@ -66,17 +63,30 @@ const Cookie = p => {
         <CookieDiv>
           <Inner>
             <StyledCardDescription>
-              Diese Webseite verwendet Cookies, um bestimmte Funktionen zu ermöglichen und das Angebot zu verbessern. Indem du hier fortfährst stimmst du der Nutzung von Cookies zu. <a href="https://www.technologiestiftung-berlin.de/de/datenschutz/" target="_blank">Weitere Informationen.</a>
+              Diese Webseite verwendet Cookies, um bestimmte Funktionen zu
+              ermöglichen und das Angebot zu verbessern. Indem du hier
+              fortfährst stimmst du der Nutzung von Cookies zu.{' '}
+              <a
+                href="https://www.technologiestiftung-berlin.de/de/datenschutz/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Weitere Informationen.
+              </a>
             </StyledCardDescription>
             <ButtonRound fontSize={'.8rem'} toggle={() => setCookie()}>
               Einverstanden
             </ButtonRound>
           </Inner>
-        </CookieDiv>)}
+        </CookieDiv>
+      )}
     </>
   );
 };
 
-export default connect(state => ({
-  cookiesAccepted: state.cookiesAccepted,
-}), Actions)(Cookie);
+export default connect(
+  state => ({
+    cookiesAccepted: state.cookiesAccepted,
+  }),
+  Actions
+)(Cookie);

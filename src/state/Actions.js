@@ -1,26 +1,23 @@
-import { dsv as d3Dsv, easeCubic as d3EaseCubic, json as D3Json } from 'd3';
+import { dsv as d3Dsv, easeCubic as d3EaseCubic } from 'd3';
 import history from '../history';
-import {
-  createAPIUrl,
-  fetchAPI,
-  flatten,
-  createGeojson,
-  createCSVJson,
-} from '../utils';
+import { createAPIUrl, fetchAPI, createGeojson } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
 
 export const loadTrees = Store => async () => {
-  const dataUrlLocal = '../../public/data/trees.csv.gz';
+  // const dataUrlLocal = '../../public/data/trees.csv.gz';
   const dataUrl =
     'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
 
-  d3Dsv(',', dataUrl).then(data => {
-    const geojson = createGeojson(data);
-    Store.setState({ data: geojson, isLoading: false });
-  });
+  d3Dsv(',', dataUrl)
+    .then(data => {
+      const geojson = createGeojson(data);
+      Store.setState({ data: geojson, isLoading: false });
+      return;
+    })
+    .catch(console.error);
 };
 
-export const setAgeRange = (state, payload) => {
+export const setAgeRange = (_state, payload) => {
   return {
     ageRange: payload,
   };
@@ -35,11 +32,12 @@ export const loadCommunityData = Store => async () => {
 
   let obj = {};
 
+  // TODO: Review https://eslint.org/docs/rules/array-callback-return
   // create community data object for map
   communityData.data.map(item => {
     obj[item[0]] = {
-      adopted: item[1] == 1 ? true : false,
-      watered: item[2] == 1 ? true : false,
+      adopted: item[1] === 1 ? true : false,
+      watered: item[2] === 1 ? true : false,
     };
   });
 
@@ -48,19 +46,21 @@ export const loadCommunityData = Store => async () => {
 
 export const loadData = Store => async () => {
   Store.setState({ isLoading: true });
-  let geojson = [];
+  // let geojson = [];
 
   const dataUrl =
     'https://tsb-trees.s3.eu-central-1.amazonaws.com/weather_light.geojson.gz';
 
   fetch(dataUrl)
     .then(res => res.json())
-    .then(r => Store.setState({ rainGeojson: r }));
+    .then(r => Store.setState({ rainGeojson: r }))
+    .catch(console.error);
 
-  const pumps_data = require('../../data/pumps.geojson');
-  const pumps = fetch('../../data/pumps.geojson')
+  // const pumps_data = require('../../data/pumps.geojson');
+  fetch('/data/pumps.geojson')
     .then(r => r.json())
-    .then(r => Store.setState({ pumps: r }));
+    .then(r => Store.setState({ pumps: r }))
+    .catch(console.error);
 };
 
 export const setAppState = (state, payload) => {
@@ -92,7 +92,7 @@ function setViewport(state, payload) {
   };
 }
 
-function setView(state, payload) {
+function setView(_state, payload) {
   // const viewPrevious = {
   //   maxZoom: 19,
   //   transitionDuration: 250,
@@ -109,15 +109,15 @@ function setView(state, payload) {
   };
 }
 
-function checkStatus(response) {
-  if (response.ok) {
-    return response;
-  } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    return Promise.reject(error);
-  }
-}
+// function checkStatus(response) {
+//   if (response.ok) {
+//     return response;
+//   } else {
+//     var error = new Error(response.statusText);
+//     error.response = response;
+//     return Promise.reject(error);
+//   }
+// }
 
 export const getWateredTrees = Store => async () => {
   Store.setState({ isLoading: true });
@@ -156,12 +156,15 @@ export const getTreeByAge = Store => async (state, start, end) => {
   Store.setState({ selectedTreeState: 'LOADING' });
   const url = createAPIUrl(state, `/get-tree-by-age?start=${start}&end=${end}`);
 
-  const res = await fetchAPI(url).then(r => {
-    Store.setState({
-      selectedTreeState: 'LOADED',
-      selectedTrees: r.data,
-    });
-  });
+  await fetchAPI(url)
+    .then(r => {
+      Store.setState({
+        selectedTreeState: 'LOADED',
+        selectedTrees: r.data,
+      });
+      return;
+    })
+    .catch(console.error);
 };
 
 export const toggleOverlay = (state, payload) => ({

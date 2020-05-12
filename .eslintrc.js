@@ -8,8 +8,14 @@ module.exports = {
     },
     allowImportExportEverywhere: true,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'react-app'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'react-app',
+    'plugin:promise/recommended',
+  ],
   rules: {
     'react/prop-types': 'off',
   },
+  plugins: ['promise'],
 };

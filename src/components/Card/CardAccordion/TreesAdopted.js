@@ -8,15 +8,13 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useAuth0 } from '../../../utils/auth0';
 import { fetchAPI, createAPIUrl } from '../../../utils';
 
-import TreeType from './TreeType';
-import CardWaterDrops from '../CardWaterDrops';
+// import TreeType from './TreeType';
+// import CardWaterDrops from '../CardWaterDrops';
 
-const UnadoptBtn = styled.span``;
-
-const StyledTreeType = styled(TreeType)`
-  margin-bottom: 10px;
-  padding: 0;
-`;
+// const StyledTreeType = styled(TreeType)`
+//   margin-bottom: 10px;
+//   padding: 0;
+// `;
 
 const WrapperRow = styled.div`
   display: flex;
@@ -37,16 +35,16 @@ const WrapperRow = styled.div`
   }
 `;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  width: 100%;
+// const Wrapper = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   cursor: pointer;
+//   width: 100%;
 
-  &:hover {
-    opacity: 0.5;
-  }
-`;
+//   &:hover {
+//     opacity: 0.5;
+//   }
+// `;
 
 const WrapperOuter = styled.div`
   padding-top: 5px;
@@ -63,10 +61,10 @@ const Title = styled.span`
 const TreesAdopted = p => {
   const { data, setViewport, state } = p;
   const [unadopting, setUnadopting] = useState(false);
-  const { loading, user, isAuthenticated, getTokenSilently } = useAuth0();
+  const { user, getTokenSilently } = useAuth0();
 
   const handleClick = async info => {
-    const token = await getTokenSilently();
+    // const token = await getTokenSilently();
     Store.setState({ selectedTree: info });
     const coordinates = [parseFloat(info.lat), parseFloat(info.lng)];
     setViewport(coordinates);
@@ -82,30 +80,51 @@ const TreesAdopted = p => {
   };
 
   const unadoptTree = async id => {
-    Store.setState({ selectedTreeState: 'ADOPT' });
-    const token = await getTokenSilently();
-    const url = createAPIUrl(
-      state,
-      `/private/unadopt-tree?tree_id=${id}&uuid=${user.sub}`
-    );
-    const header = {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    };
-
-    const res = await fetchAPI(url, header).then(r => {
-      console.log(r);
-      const urlAdoptedTrees = createAPIUrl(
-        Store.getState(),
-        `/private/get-adopted-trees?uuid=${user.sub}`
+    try {
+      Store.setState({ selectedTreeState: 'ADOPT' });
+      const token = await getTokenSilently();
+      const url = createAPIUrl(
+        state,
+        `/private/unadopt-tree?tree_id=${id}&uuid=${user.sub}`
       );
-      const res = fetchAPI(urlAdoptedTrees, header).then(r => {
-        console.log(r);
-        Store.setState({ selectedTreeState: 'FETCHED', adoptedTrees: r.data });
-        setUnadopting(false);
+      const header = {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      };
+
+      //TODO: This here makes no sense
+      /**
+       * @bugs
+       * you are already in an async function why not use await?
+       * the `r` return value is not used in the next requests. So we could just omit the dfirst call to fetchAPI and just use the second one?
+       * would be:
+       *
+       * @example
+       * const urlAdoptedTrees = createAPIUrl(
+       *   Store.getState(),
+       *   `/private/get-adopted-trees?uuid=${user.sub}`
+       * );
+       * const res = awiat fetchAPI(urlAdoptedTrees, header)
+       * Store.setState({ selectedTreeState: 'FETCHED', adoptedTrees: res.data });
+       * setUnadopting(false);
+       */
+      await fetchAPI(url, header).then(_r => {
+        const urlAdoptedTrees = createAPIUrl(
+          Store.getState(),
+          `/private/get-adopted-trees?uuid=${user.sub}`
+        );
+        fetchAPI(urlAdoptedTrees, header).then(r => {
+          Store.setState({
+            selectedTreeState: 'FETCHED',
+            adoptedTrees: r.data,
+          });
+          setUnadopting(false);
+        });
       });
-    });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (data.length === 0) {
@@ -117,9 +136,9 @@ const TreesAdopted = p => {
   } else {
     return (
       <WrapperOuter>
-        {data.map(info => {
+        {data.map((info, i) => {
           return (
-            <WrapperRow>
+            <WrapperRow key={i}>
               <Title onClick={() => handleClick(info)}>
                 {info.id === unadopting ? 'Entferne Baum ...' : info.artdtsch}
               </Title>

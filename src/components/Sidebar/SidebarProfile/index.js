@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useAuth0 } from '../../../utils/auth0';
 import Actions from '../../../state/Actions';
 import { connect } from 'unistore/react';
-import { litersSpendSelector } from '../../../state/Selectors';
 import Store from '../../../state/Store';
 import { fetchAPI, createAPIUrl } from '../../../utils';
 
@@ -17,10 +16,8 @@ import CardAccordion from '../../Card/CardAccordion/';
 import CardCredentials from '../../Card/CardCredentials/';
 import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
 import ButtonRound from '../../ButtonRound';
-import SidebarLoadingCard from '../../Sidebar/SidebarLoadingCard/';
 import LoadingIcon from '../../LoadingIcon/';
 import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
-
 
 const StyledCardDescription = styled(CardDescription)`
   opacity: 0.66;
@@ -30,7 +27,7 @@ const StyledCardDescription = styled(CardDescription)`
   margin: 0 auto;
   text-align: center;
   &:hover {
-    opacity: .5;
+    opacity: 0.5;
   }
 `;
 
@@ -50,8 +47,6 @@ const FlexCol = styled.div`
 
 const SidebarProfile = p => {
   const {
-    treeLastWatered,
-    litersSpend,
     state,
     wateredByUser,
     adoptedTrees,
@@ -76,52 +71,51 @@ const SidebarProfile = p => {
   }, [user, setIsEmailVerifiyed]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      if (isAuthenticated && adoptedTrees) {
+        const token = await getTokenSilently();
+        const concatReducer = (acc, curr, currentIndex, array) => {
+          if (currentIndex + 1 === array.length) {
+            return acc + curr + '}';
+          } else {
+            return acc + curr + ',';
+          }
+        };
+
+        const queryStr = adoptedTrees.reduce(concatReducer, '{');
+
+        const urlAdoptedTreesDetails = createAPIUrl(
+          state,
+          `/private/get-adopted-trees-details?tree_ids=${queryStr}`
+        );
+
+        fetchAPI(urlAdoptedTreesDetails, {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }).then(r => {
+          Store.setState({ adoptedTreesDetails: r.data });
+        });
+      }
+    };
     if (adoptedTrees.length === 0) {
       Store.setState({ adoptedTreesDetails: [] });
     } else {
       fetchData();
     }
-  }, [adoptedTrees]);
-
-  const fetchData = async () => {
-    if (isAuthenticated && adoptedTrees) {
-      const token = await getTokenSilently();
-      const concatReducer = (acc, curr, currentIndex, array) => {
-        if (currentIndex + 1 == array.length) {
-          return acc + curr + '}';
-        } else {
-          return acc + curr + ',';
-        }
-      };
-
-      const queryStr = adoptedTrees.reduce(concatReducer, '{');
-
-      const urlAdoptedTreesDetails = createAPIUrl(
-        state,
-        `/private/get-adopted-trees-details?tree_ids=${queryStr}`
-      );
-
-      fetchAPI(urlAdoptedTreesDetails, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      }).then(r => {
-        Store.setState({ adoptedTreesDetails: r.data });
-      });
-    }
-  };
+  }, [adoptedTrees, getTokenSilently, state, isAuthenticated]);
 
   const handleDeleteClick = async event => {
     try {
       event.preventDefault();
-      const promptRes = confirm(
+      const promptRes = window.confirm(
         '🚨 🚨 🚨 Willst du deinen Account wirklich löschen? Diese Aktion ist  endgültig.\nAlle deine Benutzerdaten werden damit sofort gelöscht!'
       );
       if (promptRes !== true) {
         return;
       }
       const token = await getTokenSilently();
-      const res = await fetch(
+      const res = await window.fetch(
         `${process.env.USER_DATA_API_URL}/api/user?userid=${encodeURIComponent(
           user.sub
         )}`,
@@ -167,7 +161,7 @@ const SidebarProfile = p => {
           </CardParagraph>
           <Login width="-webkit-fill-available" />
           <StyledCardDescription onClick={() => toggleOverlay(true)}>
-           Wie kann ich mitmachen?
+            Wie kann ich mitmachen?
           </StyledCardDescription>
         </FlexCol>
       ) : (
@@ -212,11 +206,12 @@ const SidebarProfile = p => {
                   </>
                 </Fragment>
               )}
-              {!wateredByUser || !adoptedTreesDetails && (
-                <Container>
-                  <LoadingIcon text="Lade Profil ..."/>
-                </Container>
-              )}
+              {!wateredByUser ||
+                (!adoptedTreesDetails && (
+                  <Container>
+                    <LoadingIcon text="Lade Profil ..." />
+                  </Container>
+                ))}
             </>
           )}
         </>

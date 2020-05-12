@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, withRouter } from 'react-router-dom';
 import CloseIcon from '@material-ui/icons/Close';
 import Actions from '../../../state/Actions';
 import { connect } from 'unistore/react';
@@ -19,17 +18,19 @@ const OverlayClose = p => {
 
   const handleClick = evt => {
     toggleOverlay(false);
-  }
+  };
 
   return (
-    <StyledRoundButton onClick={() => handleClick()} aria-label="Leiste schließen" title="Leiste schließen">
+    <StyledRoundButton
+      onClick={() => handleClick()}
+      aria-label="Leiste schließen"
+      title="Leiste schließen"
+    >
       <CloseIcon />
     </StyledRoundButton>
-  )
-}
+  );
+};
 
 // export default OverlayClose;
 
-
-export default connect(state => ({
-}), Actions)(OverlayClose);
+export default connect(_state => ({}), Actions)(OverlayClose);

@@ -4,8 +4,6 @@ import { connect } from 'unistore/react';
 import Actions from '../../../state/Actions';
 
 import SidebarTitle from '../SidebarTitle/';
-import SidebarSearchAge from './SidebarSearchAge';
-import SidebarLoadingCard from '../SidebarLoadingCard';
 import Card from '../../Card/';
 import CardLegend from '../../Card/CardLegend/';
 import LoadingIcon from '../../LoadingIcon/';
@@ -24,20 +22,23 @@ const SidebarSearch = p => {
   return (
     <>
       <SidebarTitle>Suche & Filter</SidebarTitle>
-      {(selectedTreeState === 'LOADING') && (
+      {selectedTreeState === 'LOADING' && (
         <Container>
-          <LoadingIcon text="Lade Baum ..."/>
+          <LoadingIcon text="Lade Baum ..." />
         </Container>
       )}
-      {(selectedTree && selectedTreeState !== 'LOADING') && (
-        <Card data={selectedTree}/>
+      {selectedTree && selectedTreeState !== 'LOADING' && (
+        <Card data={selectedTree} />
       )}
-      {!selectedTree && selectedTreeState !== 'LOADING' && (<CardLegend />)}
+      {!selectedTree && selectedTreeState !== 'LOADING' && <CardLegend />}
     </>
-  )
-}
+  );
+};
 
-export default connect(state => ({
-  selectedTree: state.selectedTree,
-  selectedTreeState: state.selectedTreeState,
-}), Actions)(SidebarSearch);
+export default connect(
+  state => ({
+    selectedTree: state.selectedTree,
+    selectedTreeState: state.selectedTreeState,
+  }),
+  Actions
+)(SidebarSearch);

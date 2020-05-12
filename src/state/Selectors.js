@@ -10,14 +10,14 @@ export const litersSpendSelector = createSelector(
     if (data.length > 0) {
       let liters = 0;
       data.forEach(item => {
-        liters += item.amount
-      })
+        liters += item.amount;
+      });
       return liters;
     } else {
-      return 0
+      return 0;
     }
   }
-)
+);
 
 export const wateredTreesSelector = createSelector(
   [wateredTreesResponse],
@@ -25,17 +25,16 @@ export const wateredTreesSelector = createSelector(
     if (data.length > 0) {
       let obj = {};
       data.forEach(id => {
-          obj[id] = { included: true};
-      })
+        obj[id] = { included: true };
+      });
       return obj;
     } else {
-      return null
+      return null;
     }
-
   }
-)
+);
 
 export default {
   wateredTreesSelector,
-  litersSpendSelector
-}
+  litersSpendSelector,
+};

@@ -1,11 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'unistore/react';
-import { render } from 'react-dom';
 import styled from 'styled-components';
-import axios from 'axios';
 import Store from '../../state/Store';
 import Actions, { loadCommunityData } from '../../state/Actions';
-import content from '../../assets/content';
 import { fetchAPI, createAPIUrl } from '../../utils';
 import { useAuth0 } from '../../utils/auth0';
 import history from '../../history';
@@ -43,30 +40,30 @@ const StyledLogin = styled(Login)`
   align-self: stretch;
 `;
 
-const ButtonWaterSpan = styled.span`
-  padding: 10px;
-  cursor: pointer;
-  background: ${props => props.theme.colorPrimary};
-  transition: background ${props => props.theme.timeS} ease-in-out;
-  border-radius: ${props => props.theme.borderRadiusS};
-  text-align: center;
-  font-size: 13px;
+// const ButtonWaterSpan = styled.span`
+//   padding: 10px;
+//   cursor: pointer;
+//   background: ${props => props.theme.colorPrimary};
+//   transition: background ${props => props.theme.timeS} ease-in-out;
+//   border-radius: ${props => props.theme.borderRadiusS};
+//   text-align: center;
+//   font-size: 13px;
 
-  &:hover {
-    background: ${props => props.theme.colorPrimaryHover};
-    transition: background ${props => props.theme.timeS} ease-in-out;
-  }
-`;
+//   &:hover {
+//     background: ${props => props.theme.colorPrimaryHover};
+//     transition: background ${props => props.theme.timeS} ease-in-out;
+//   }
+// `;
 
-const ButtonWaterSpanOther = styled.span`
-  padding: 10px;
-  color: ${props => props.theme.colorTextLight};
-  background: ${props => props.theme.colorLightGrey};
-  transition: background ${props => props.theme.timeS} ease-in-out;
-  border-radius: ${props => props.theme.borderRadiusS};
-  text-align: center;
-  font-size: 13px;
-`;
+// const ButtonWaterSpanOther = styled.span`
+//   padding: 10px;
+//   color: ${props => props.theme.colorTextLight};
+//   background: ${props => props.theme.colorLightGrey};
+//   transition: background ${props => props.theme.timeS} ease-in-out;
+//   border-radius: ${props => props.theme.borderRadiusS};
+//   text-align: center;
+//   font-size: 13px;
+// `;
 
 const ButtonWater = p => {
   const {
@@ -79,32 +76,50 @@ const ButtonWater = p => {
   } = p;
   const { id } = selectedTree;
   const [waterGroup, setWaterGroup] = useState('visible');
-  const { loading, user, isAuthenticated, getTokenSilently } = useAuth0();
+  const { user, isAuthenticated, getTokenSilently } = useAuth0();
   const [adopted, setAdopted] = useState(false);
 
   const [isEmailVerifiyed, setIsEmailVerifiyed] = useState(false);
+
   useEffect(() => {
     if (!user) return;
     setIsEmailVerifiyed(user.email_verified);
   }, [user, setIsEmailVerifiyed]);
 
   useEffect(() => {
+    if (!user) return;
+    const isTreeAdopted = async (treeid, uuid) => {
+      const token = await getTokenSilently();
+      const url = createAPIUrl(
+        state,
+        `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
+      );
+
+      await fetchAPI(url, {
+        headers: { Authorization: 'Bearer ' + token },
+      })
+        .then(r => {
+          setAdopted(r.data);
+          return;
+        })
+        .catch(console.error);
+    };
     if (userdata) {
       isTreeAdopted(id, user.sub);
     }
-  }, [userdata]);
+  }, [userdata, user, id, getTokenSilently, state]);
 
   const btnLabel = state => {
     switch (state) {
       case 'visible':
         return 'Ich habe gewässert!';
-        break;
+
       case 'watering':
         return 'Wieviel Wasser?';
-        break;
+
       case 'watered':
         return 'Bewässerung wurde eingetragen!';
-        break;
+
       default:
         break;
     }
@@ -115,9 +130,9 @@ const ButtonWater = p => {
     toggleOverlay(true);
   };
 
-  const waterHandler = () => {
-    setWaterGroup('watering');
-  };
+  // const waterHandler = () => {
+  //   setWaterGroup('watering');
+  // };
 
   const setWaterAmount = (id, amount) => {
     createUser(user);
@@ -128,93 +143,100 @@ const ButtonWater = p => {
     }, 1000);
   };
 
-  const timeNow = () => {
-    const date = +new Date();
-    return date;
-  };
+  // const timeNow = () => {
+  //   const date = +new Date();
+  //   return date;
+  // };
 
   const createUser = async user => {
-    const token = await getTokenSilently();
-    const url = createAPIUrl(
+    // const token = await getTokenSilently();
+    createAPIUrl(
       state,
       `/private/create-user?mail=${user.email}&uuid=${user.sub}`
     );
   };
 
-  const isTreeAdopted = async (treeid, uuid) => {
-    const token = await getTokenSilently();
-    const url = createAPIUrl(
-      state,
-      `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
-    );
-
-    const res = await fetchAPI(url, {
-      headers: { Authorization: 'Bearer ' + token },
-    }).then(r => {
-      setAdopted(r.data);
-    });
-  };
-
   const waterTree = async (id, amount, username) => {
-    const { selectedTreeState } = p;
+    // const { selectedTreeState } = p;
     Store.setState({ selectedTreeState: 'WATERING' });
     const token = await getTokenSilently();
-    const time = timeNow();
+    // const time = timeNow();
     const url = createAPIUrl(
       state,
       `/private/water-tree?id=${id}&uuid=${user.sub}&amount=${amount}&username=${username}`
     );
 
-    const res = await fetchAPI(url, {
+    // TODO: neste promises
+    await fetchAPI(url, {
       headers: { Authorization: 'Bearer ' + token },
     })
-      .then(r => {
+      .then(_r => {
         const url = createAPIUrl(state, `/get-tree?id=${id}`);
-        const res = fetchAPI(url).then(r => {
-          Store.setState({
-            selectedTreeState: 'WATERED',
-            selectedTree: r.data,
-          });
-          setTimeout(() => {
-            loadCommunityDataAction();
-          }, 250);
-        });
+        fetchAPI(url)
+          .then(r => {
+            Store.setState({
+              selectedTreeState: 'WATERED',
+              selectedTree: r.data,
+            });
+            setTimeout(() => {
+              loadCommunityDataAction();
+            }, 250);
+            return;
+          })
+          .catch(console.error);
+        return;
       })
       .then(r => {
         const url = createAPIUrl(state, `/get-watered-trees`);
-        const res = fetchAPI(url).then(r => {
-          Store.setState({ wateredTrees: r.data.watered });
-        });
-        const resWatered = fetchAPI(
-          `${endpoints.prod}/get-tree-last-watered?id=${id}`
-        ).then(r => {
-          Store.setState({ treeLastWatered: r.data });
-        });
-      });
+        fetchAPI(url)
+          .then(r => {
+            Store.setState({ wateredTrees: r.data.watered });
+            return;
+          })
+          .catch(console.error);
+        fetchAPI(`${endpoints.prod}/get-tree-last-watered?id=${id}`)
+          .then(r => {
+            Store.setState({ treeLastWatered: r.data });
+            return;
+          })
+          .catch(console.error);
+        return;
+      })
+      .catch(console.error);
   };
 
   const adoptTree = async id => {
     Store.setState({ selectedTreeState: 'ADOPT' });
     const token = await getTokenSilently();
-    const time = timeNow();
+    // const time = timeNow();
     const url = createAPIUrl(
       state,
       `/private/adopt-tree?tree_id=${id}&uuid=${user.sub}`
     );
 
-    const res = await fetchAPI(url, {
+    // TODO: nested promises
+    await fetchAPI(url, {
       headers: {
         Authorization: 'Bearer ' + token,
       },
-    }).then(r => {
-      const url = createAPIUrl(state, `/get-tree?id=${id}`);
-      const res = fetchAPI(url).then(r => {
-        Store.setState({ selectedTreeState: 'ADOPTED', selectedTree: r.data });
-        setTimeout(() => {
-          loadCommunityDataAction();
-        }, 250);
-      });
-    });
+    })
+      .then(r => {
+        const url = createAPIUrl(state, `/get-tree?id=${id}`);
+        fetchAPI(url)
+          .then(r => {
+            Store.setState({
+              selectedTreeState: 'ADOPTED',
+              selectedTree: r.data,
+            });
+            setTimeout(() => {
+              loadCommunityDataAction();
+            }, 250);
+            return;
+          })
+          .catch(console.error);
+        return;
+      })
+      .catch(console.error);
   };
 
   if (isAuthenticated) {
