@@ -19,6 +19,10 @@ import ButtonRound from '../../ButtonRound';
 import LoadingIcon from '../../LoadingIcon/';
 import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
 
+const LastButtonRound = styled(ButtonRound)`
+  margin-bottom: 20px !important;
+`;
+
 const StyledCardDescription = styled(CardDescription)`
   opacity: 0.66;
   text-decoration: underline;
@@ -197,12 +201,12 @@ const SidebarProfile = p => {
                       Authentifizierungsdienst Auth0.com wird sofort und
                       unwiderruflich gelöscht.
                     </CardParagraph>
-                    <ButtonRound
+                    <LastButtonRound
                       width="-webkit-fill-available"
                       toggle={handleDeleteClick}
                     >
                       Account Löschen
-                    </ButtonRound>
+                    </LastButtonRound>
                   </>
                 </Fragment>
               )}

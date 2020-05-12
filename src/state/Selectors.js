@@ -22,7 +22,7 @@ export const litersSpendSelector = createSelector(
 export const wateredTreesSelector = createSelector(
   [wateredTreesResponse],
   data => {
-    if (data.length > 0) {
+    if (data) {
       let obj = {};
       data.forEach(id => {
         obj[id] = { included: true };
