@@ -5,7 +5,7 @@
   "scripts": {
     "eslint": "eslint ./src/",
     "brechstange": "eslint --fix ./src/",
-    "start": "webpack-dev-server --progress --hot --open --config webpack/dev.config.js",
+    "start": "webpack-dev-server --config webpack/dev.config.js",
     "build": "webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects",
     "prettier:list": "prettier --list-different './src/**/*'",
     "prettier:write": "prettier --write './src/**/*'"
