@@ -14,7 +14,8 @@ const StyledCreditsContainer = styled.div`
   justify-content: end;
 
   span {
-    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 15px;
     width: fit-content;
     font-size: ${p => p.theme.fontSizeL};
   }
@@ -46,7 +47,6 @@ const FoerderlogoContainer = styled.div`
 const Credits = p => {
   return (
     <StyledCreditsContainer>
-      <span>Ein Projekt des</span>
       <a
         className="citylab"
         href="https://citylab-berlin.org"
@@ -55,6 +55,7 @@ const Credits = p => {
       >
         <img src={logoCitylab} alt="Logo Citylab" />
       </a>
+      <span>Ein Projekt der</span>
       <a
         className="tsb"
         href="https://technologiestiftung-berlin.de"
