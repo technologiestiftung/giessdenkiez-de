@@ -1,8 +1,18 @@
 const merge = require('webpack-merge');
 const common = require('./common.config');
+const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 module.exports = merge(common, {
   devtool: 'inline-source-map',
   mode: 'development',
+  devServer: {
+    historyApiFallback: true,
+    compress: true,
+    overlay: {
+      errors: true,
+      warnings: false,
+    },
+  },
+
   optimization: {
     splitChunks: {
       // include all types of chunks
@@ -17,4 +27,5 @@ module.exports = merge(common, {
       },
     },
   },
+  plugins: [new ErrorOverlayPlugin()],
 });
