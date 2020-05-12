@@ -27,5 +27,5 @@ module.exports = merge(common, {
       },
     },
   },
-  plugins: [new ErrorOverlayPlugin()],
+  plugins: [new ErrorOverlayPlugin(), new webpack.ProgressPlugin()],
 });

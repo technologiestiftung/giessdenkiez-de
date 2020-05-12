@@ -1,5 +1,4 @@
 const Dotenv = require('dotenv-webpack');
-const webpack = require('webpack'); // to access built-in plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -94,7 +93,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.ProgressPlugin(),
     new Dotenv(),
     new CleanWebpackPlugin(),
     new CopyPlugin([
