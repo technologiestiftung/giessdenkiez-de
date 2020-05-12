@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
-import { StaticMap, GeolocateControl } from 'react-map-gl';
+import styled from 'styled-components';
+import { StaticMap, GeolocateControl, NavigationControl } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import Store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
@@ -11,6 +12,13 @@ import {
   interpolateColor,
   hexToRgb,
 } from '../../utils';
+
+const ControlWrapper = styled.div`
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 2;
+`;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
@@ -321,6 +329,8 @@ class DeckGLMap extends React.Component {
       // wateredTrees,
       // wateredTreesFetched,
       isLoading,
+      setViewport,
+      setView
     } = this.props;
 
     if (isLoading) {
@@ -348,7 +358,16 @@ class DeckGLMap extends React.Component {
               mapboxApiAccessToken={MAPBOX_TOKEN}
               onLoad={this._onload.bind(this)}
               zoom={3}
-            ></StaticMap>
+            >
+              <ControlWrapper>
+                <GeolocateControl 
+                  positionOptions={{enableHighAccuracy: true}}
+                  trackUserLocation={true}
+                  onViewStateChange={(e) => setView(e.viewState)}
+                />
+                <NavigationControl onViewStateChange={(e) => setView(e.viewState)}/>
+              </ControlWrapper>
+            </StaticMap>
           )}
 
           {/* {this._renderTooltip} */}

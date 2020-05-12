@@ -50,15 +50,6 @@ const navConfig = [
 ];
 
 const Nav = p => {
-  // const { state } = p;
-  // const {
-  //   isAuthenticated,
-  //   getTokenSilently,
-  //   loginWithRedirect,
-  //   logout,
-  //   loading,
-  //   user,
-  // } = useAuth0();
   const { pathname } = p.location;
 
   const isNavOpen =
