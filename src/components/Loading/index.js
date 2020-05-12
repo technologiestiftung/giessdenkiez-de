@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import LoadingIcon from '../LoadingIcon/';
+import content from '../../assets/content';
 
 const LoadingDiv = styled.div`
   position: absolute;
@@ -35,19 +36,31 @@ const LoadingDiv = styled.div`
   }
 `;
 
-// const StyledSpan = styled.span`
-//   margin-top: 20px;
-//   font-size: 1rem;
-// `;
-
 const Loading = props => {
+  const { loading } = content;
+  const { snippets } = loading;
+  const [current, setCurrent] = useState(0);
+  const maxIndex = snippets.length - 1;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (current === maxIndex) {
+        setCurrent(current => 0);
+      } else {
+        setCurrent(current => current + 1);
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [current]);
+
+
   if (props.show) {
     return null;
   } else if (!props.show) {
     return (
       <LoadingDiv>
         <div>
-          <LoadingIcon text="Lade Berlins Bäume ..." />
+          <LoadingIcon text={snippets[current]} />
         </div>
       </LoadingDiv>
     );

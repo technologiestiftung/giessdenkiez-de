@@ -5,8 +5,15 @@ const content = {
       'Die Berliner Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
     description: [
       'Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume abonnieren und markieren, wenn Du sie gegossen hast.',
-      'Oder informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
+      'Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
     ],
+  },
+  loading: {
+    snippets: [
+      'Schon gewusst? Der Baumkataster enthält mehr als 625.000 Bäume…',
+      'Wenn du diese Seite über das Mobilfunknetz aufrufst, kann es etwas dauern…',
+      'Sammle Informationen aller Bäume aus Berlins Stadtkataster…',
+    ]
   },
   sidebar: {
     about: [
@@ -14,11 +21,6 @@ const content = {
         title: 'Über das Projekt',
         description:
           'Die Folgen des Klimawandels, insbesondere die trockenen und heißen Sommer, belasten das Berliner Ökosystem. Unsere Straßenbäume vertrocknen und tragen langfristige Schäden davon: in den letzten Jahren mussten immer mehr Bäume gefällt werden und ihre Lebensdauer sinkt. Inzwischen wird regelmäßig sogar die Bevölkerung zur Unterstützung aufgerufen, allerdings weitgehend unkoordiniert. Dies möchten wir mit diesem Projekt ändern und die koordinierte Bürger*innenbeteiligung und bei der Bewässerung städtischen Grüns ermöglichen.',
-      },
-      {
-        title: 'Plattform und Daten',
-        description:
-          "Gieß den Kiez ist eine interaktive Karte, auf der sich NutzerInnen über den Wasserbedarf der Berliner Bäume informieren können. Die Karte zeigt alle <a target='_blank' href='https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS'>Straßen-</a> und <a href='https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand_an@senstadt&type=WFS' target='_blank'>Anlagenbäume</a> (Stand: 14.06.2019) des Geoportals von Berlin. Es wird abgebildet wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Nutzer*innen können einzelne Bäume abonnieren und markieren, wenn diese gegossen wurden. Die Baumdaten stammen vom Berliner Geoportal FIS Broker. Die Niederschlagsdaten werden täglich vom <a href='https://dwd.de' target='blank'>Deutschen Wetterdienst</a> bereitgestellt. Die Wasserpumpen werden von <a href='https://www.openstreetmap.de/' target='_blank'>OpenStreetMap</a> bereitgestellt.",
       },
       {
         title: 'Die richtige Bewässerung',
@@ -39,6 +41,11 @@ const content = {
         title: 'Über uns',
         description:
           '“Gieß den Kiez” ist ein Projekt des <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>. Das CityLAB ist ein öffentliches Innovationslabor für die Stadt der Zukunft im ehemaligen Flughafen Berlin-Tempelhof. Gemeinsam mit einem großen Netzwerk aus Verwaltung, Zivilgesellschaft, Wissenschaft und Start-ups arbeiten wir an neuen Ideen für ein lebenswertes Berlin. Das CityLAB ist ein offener Ort zum Mitmachen! Wenn ihr mehr wissen wollt, schaut euch auf unserer Webseite um oder kommt einfach mal vorbei! <br /> <br /> Das CityLAB ist ein Projekt der Technologiestiftung Berlin und wird finanziert durch die Berliner Senatskanzlei. <br /> <br /> <a target="blank" href="https://www.technologiestiftung-berlin.de/de/impressum/">Impressum</a> <br/> <a target="blank" href="https://www.technologiestiftung-berlin.de/de/datenschutz/">Datenschutz</a>',
+      },
+      {
+        title: 'Datenquellen',
+        description:
+          '<ul><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS">Geoportal Berlin / Straßenbäume</a></li><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand_an@senstadt&type=WFS">Geoportal Berlin / Anlagenbäume</a></li><li><a target="blank" href="https://www.dwd.de/">Deutscher Wetterdienst</a></li><li>Wasserpumpen von <a target="blank" href="https://www.openstreetmap.de/">OpenStreetMap</a></li></ul>',
       },
     ],
     watering: [
