@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
 
 import { setTabActive } from '../../store/actions/index';
 
 const DivWrapper = styled.div`
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    font-size: 12px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
 `;
 
 const ButtonSelect = styled.span`
@@ -39,46 +39,68 @@ const ButtonSelect = styled.span`
     }
 `;
 
-const mapStateToProps = state => {
-    return { 
-        tabActive: state.tabActive
-    };
-};
+// const mapStateToProps = state => {
+//   return {
+//     tabActive: state.tabActive,
+//   };
+// };
 
 class Divider extends React.Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-        this.handleClick = this.handleClick.bind(this)
-    }
+  dispatchActiveTab(val) {
+    this.props.dispatch(setTabActive(val));
+  }
 
-    dispatchActiveTab(val) {
-        this.props.dispatch(setTabActive(val))
-    }
+  handleClick(evt) {
+    let btns = document.querySelectorAll('.type-btn');
 
-    handleClick(evt) {
-        let btns = document.querySelectorAll('.type-btn');
+    btns.forEach(btn => {
+      btn.classList.remove('active');
+    });
 
-        btns.forEach(btn => {
-            btn.classList.remove('active');
-        })
+    this.dispatchActiveTab(evt.target.id);
 
-        this.dispatchActiveTab(evt.target.id)
+    document.querySelector(`#${evt.target.id}`).classList.add('active');
+  }
 
-        document.querySelector(`#${evt.target.id}`).classList.add('active');        
-    }
-    
-    render() {
-        return (
-            <DivWrapper>
-                <ButtonSelect className="type-btn active" id="id-0" onClick={(e) => { this.handleClick(e) }}>Alter</ButtonSelect>
-                <ButtonSelect className="type-btn" id="id-1" onClick={(e) => { this.handleClick(e) }}>Gattung</ButtonSelect>
-                <ButtonSelect className="type-btn" id="id-2" onClick={(e) => { this.handleClick(e) }}>Größe</ButtonSelect>
-            </DivWrapper>
-        )
-    }
-};
-
+  render() {
+    return (
+      <DivWrapper>
+        <ButtonSelect
+          className="type-btn active"
+          id="id-0"
+          onClick={e => {
+            this.handleClick(e);
+          }}
+        >
+          Alter
+        </ButtonSelect>
+        <ButtonSelect
+          className="type-btn"
+          id="id-1"
+          onClick={e => {
+            this.handleClick(e);
+          }}
+        >
+          Gattung
+        </ButtonSelect>
+        <ButtonSelect
+          className="type-btn"
+          id="id-2"
+          onClick={e => {
+            this.handleClick(e);
+          }}
+        >
+          Größe
+        </ButtonSelect>
+      </DivWrapper>
+    );
+  }
+}
 
 export default connect(Actions)(Divider);

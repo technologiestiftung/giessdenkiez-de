@@ -29,16 +29,16 @@ const StyledTileTitle = styled.h2`
 `;
 
 const OverlayTile = p => {
-  const {content} = p;
+  const { content } = p;
   return (
     <StyledTileWrapper>
-      <OverlayIcon icon={content.icon}/>
+      <OverlayIcon icon={content.icon} />
       <StyledContentWrapper>
         <StyledTileTitle>{content.title}</StyledTileTitle>
         <OverlayParagraph content={content.content} />
       </StyledContentWrapper>
     </StyledTileWrapper>
-  )
-}
+  );
+};
 
-export default OverlayTile
+export default OverlayTile;

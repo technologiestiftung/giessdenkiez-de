@@ -1,9 +1,7 @@
-
-export const  colorFeature = (feat, state) => {
-  const id = feat.properties['id'];
-}
+export const colorFeature = (_feat, _state) => {
+  // const id = feat.properties['id'];
+};
 
 export default {
-  colorFeature
-}
-
+  colorFeature,
+};

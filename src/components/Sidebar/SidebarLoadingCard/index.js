@@ -13,7 +13,7 @@ const SidebarLoadingCardDiv = styled.div`
   border-radius: ${props => props.theme.borderRadiusS};
   margin-bottom: 10px;
   background: white;
-  box-shadow: 0px 2px 3px 0px rgba(44,48,59,0.1);
+  box-shadow: 0px 2px 3px 0px rgba(44, 48, 59, 0.1);
 `;
 
 const SidebarLoadingCard = p => {
@@ -23,15 +23,15 @@ const SidebarLoadingCard = p => {
 
   switch (state) {
     case 'LOADING':
-      content = 'Lade Daten ...'
+      content = 'Lade Daten ...';
       break;
 
     case 'ADOPT':
-      content = 'Lade abonnierte Bäume ...'
+      content = 'Lade abonnierte Bäume ...';
       break;
 
     case 'PROFILE':
-      content = 'Lade Profil ...'
+      content = 'Lade Profil ...';
       break;
 
     default:
@@ -40,10 +40,10 @@ const SidebarLoadingCard = p => {
 
   return (
     <SidebarLoadingCardDiv>
-      <Spinner/>
+      <Spinner />
       <span>{content}</span>
     </SidebarLoadingCardDiv>
-  )
-}
+  );
+};
 
 export default SidebarLoadingCard;

@@ -5,7 +5,7 @@ import Actions from '../../../state/Actions';
 import Store from '../../../state/Store';
 import { connect } from 'unistore/react';
 
-import history from '../../../history';
+// import history from '../../../history';
 
 import OverlayTitle from '../OverlayTitle/';
 import OverlayIcon from '../OverlayIcon/';
@@ -48,7 +48,7 @@ const StyledWrapper = styled.div`
 `;
 
 const OverlayTop = p => {
-  const { children, toggleOverlay, user } = p;
+  const { children, toggleOverlay } = p;
   const { intro } = content;
   const { title, subline, description } = intro;
 
@@ -70,7 +70,7 @@ const OverlayTop = p => {
       })}
       <StyledWrapper>
         <ButtonRound toggle={handleClick} type="primary">
-          Los geht's
+          Los geht&apos;s
         </ButtonRound>
         <Login noLogout={true} />
       </StyledWrapper>

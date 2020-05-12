@@ -12,9 +12,7 @@ const PanelTitle = styled.span`
 
 const CardAccordionTitle = p => {
   const { children } = p;
-  return (
-    <PanelTitle>{children}</PanelTitle>
-  )
-}
+  return <PanelTitle>{children}</PanelTitle>;
+};
 
 export default CardAccordionTitle;

@@ -21,7 +21,7 @@ const StyledCardHeadlineMail = styled.div`
   font-size: 0.8rem;
 `;
 
-export default p => {
+const CardCredentials = p => {
   const { email, username } = p;
   return (
     <Flex>
@@ -33,3 +33,5 @@ export default p => {
     </Flex>
   );
 };
+
+export default CardCredentials;

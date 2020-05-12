@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { interpolateColor } from '../../utils/';
 import Store from '../../state/Store';
@@ -16,13 +16,13 @@ const ItemContainer = styled.div`
   margin-right: 10px;
 `;
 
-const TileHeadline = styled.span`
-  opacity: 1;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  transform: translateX(-4px);
-`;
+// const TileHeadline = styled.span`
+//   opacity: 1;
+//   font-size: 0.8rem;
+//   font-weight: 600;
+//   margin-bottom: 10px;
+//   transform: translateX(-4px);
+// `;
 
 const LegendDot = styled.div`
   width: 13px;
@@ -174,7 +174,7 @@ const Legend = p => {
       <FlexSpace active={legendExpanded}>
         <FlexColumn>
           <StyledCardDescription
-            onClick={() => setLegendExpanded(!legendExpanded)}
+            onClick={() => Store.setState({ legendExpanded: !legendExpanded })}
           >
             {legendExpanded ? 'Niederschlag' : 'Legende'}
           </StyledCardDescription>
@@ -184,8 +184,10 @@ const Legend = p => {
             </StyledCardDescriptionSecond>
           )}
         </FlexColumn>
-        <StyledToggle onClick={() => Store.setState({legendExpanded: !legendExpanded})}>
-          {legendExpanded ? "—" : "+"}
+        <StyledToggle
+          onClick={() => Store.setState({ legendExpanded: !legendExpanded })}
+        >
+          {legendExpanded ? '—' : '+'}
         </StyledToggle>
       </FlexSpace>
       {legendExpanded && (

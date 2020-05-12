@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import SidebarTitle from '../SidebarTitle/';
-import CardHeadline from '../../Card/CardHeadline/';
 import CardDescription from '../../Card/CardDescription/';
 import CardDescriptionTitle from '../../Card/CardDescriptionTitle/';
 import Credits from '../../Credits';
@@ -20,11 +19,11 @@ const StyledCardDescription = styled(CardDescription)`
   opacity: 0.66;
 `;
 
-const StyledParagraph = styled.p`
-  width: 300px;
-  line-height: 150%;
-  margin-top: 0;
-`;
+// const StyledParagraph = styled.p`
+//   width: 300px;
+//   line-height: 150%;
+//   margin-top: 0;
+// `;
 
 const PanelWrapper = styled.div`
   display: flex;

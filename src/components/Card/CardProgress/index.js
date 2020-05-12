@@ -21,12 +21,12 @@ const Flex = styled.div`
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
 `;
 
-const Icon = styled.div`
-  width: 50px;
-  height: 50px;
-  margin-right: 5px;
-  background: red;
-`;
+// const Icon = styled.div`
+//   width: 50px;
+//   height: 50px;
+//   margin-right: 5px;
+//   background: red;
+// `;
 
 const FlexColumn = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ const CardProgress = p => {
     const sumReducer = (acc, curr) => acc + parseInt(curr.amount);
     setTimes(data.length);
     setLiters(data.reduce(sumReducer, 0));
-  }, []);
+  }, [data]);
 
   const progressItems = [
     {

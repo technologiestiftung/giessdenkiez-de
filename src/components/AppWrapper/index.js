@@ -1,23 +1,19 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import DeckGlMap from '../map';
 import Sidebar from '../Sidebar';
-import NavBar from '../Navbar';
 import Nav from '../Nav';
 import Legend from '../Legend';
 import Cookie from '../Cookie';
 import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
-
+// TODO: Remove fileloader and let webpack handle this
 import logoCitylab from '!file-loader!../../assets/citylab-logo.svg';
 import logoTSB from '!file-loader!../../assets/tsb-logo-coloured.svg';
 
-import { useAuth0 } from '../../utils/auth0';
-import Store from '../../state/Store'
-import { fetchAPI, createAPIUrl, removeOverlay } from '../../utils';
-
+import { removeOverlay } from '../../utils';
 
 const AppWrapperDiv = styled.div`
   font-family: ${props => props.theme.fontFamily};
@@ -46,18 +42,18 @@ const AppWrapper = p => {
 
   return (
     <AppWrapperDiv>
-      { isLoading && (<Loading/>) }
-      {!isLoading && data && (<DeckGlMap data={data}/>)}
-      {!isLoading && data && (<Sidebar/>)}
-      {overlay && data && (<Overlay/>)}
-      <Nav/>
+      {isLoading && <Loading />}
+      {!isLoading && data && <DeckGlMap data={data} />}
+      {!isLoading && data && <Sidebar />}
+      {overlay && data && <Overlay />}
+      <Nav />
       <CreditsContainer>
-        <Credits/>
+        <Credits />
       </CreditsContainer>
       <Legend />
       <Cookie />
     </AppWrapperDiv>
-  )
-}
+  );
+};
 
 export default AppWrapper;

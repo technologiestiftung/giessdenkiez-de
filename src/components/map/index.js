@@ -1,28 +1,25 @@
-import React, { Component } from "react";
-import { connect } from "unistore/react";
-import Actions from "../../state/Actions";
-import { render } from "react-dom";
-import { StaticMap, NavigationControl } from "react-map-gl";
-import axios from "axios";
-import DeckGL, { GeoJsonLayer, ScatterplotLayer } from "deck.gl";
-import Store from "../../state/Store";
-import { wateredTreesSelector } from "../../state/Selectors";
+import React from 'react';
+import { connect } from 'unistore/react';
+import Actions from '../../state/Actions';
+import { StaticMap } from 'react-map-gl';
+import DeckGL, { GeoJsonLayer } from 'deck.gl';
+import Store from '../../state/Store';
+import { wateredTreesSelector } from '../../state/Selectors';
 import {
   fetchAPI,
   createAPIUrl,
   interpolateColor,
   hexToRgb,
-} from "../../utils";
-import { colorFeature } from "./maputils";
-import styled from "styled-components";
-import { scaleThreshold } from "d3-scale";
+} from '../../utils';
+// import styled from 'styled-components';
+// import { scaleThreshold } from 'd3-scale';
 
-const ControlWrapper = styled.div`
-  position: absolute;
-  z-index: 10000;
-  left: 15px;
-  bottom: 15px;
-`;
+// const ControlWrapper = styled.div`
+//   position: absolute;
+//   z-index: 10000;
+//   left: 15px;
+//   bottom: 15px;
+// `;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
@@ -38,7 +35,7 @@ class DeckGLMap extends React.Component {
       hoveredObject: null,
       data: null,
       included: null,
-      cursor: 'grab'
+      cursor: 'grab',
     };
 
     this._onClick = this._onClick.bind(this);
@@ -53,50 +50,50 @@ class DeckGLMap extends React.Component {
       rainGeojson,
       treesVisible,
       pumpsVisible,
-      highlightedObject,
+      // highlightedObject,
       rainVisible,
       pumps,
-      csvdata
+      // csvdata,
     } = this.props;
 
-    var COLOR_RANGE = [
-      [1, 152, 189],
-      [73, 227, 206],
-      [216, 254, 181],
-      [254, 237, 177],
-      [254, 173, 84],
-      [209, 55, 78],
-    ];
+    // var COLOR_RANGE = [
+    //   [1, 152, 189],
+    //   [73, 227, 206],
+    //   [216, 254, 181],
+    //   [254, 237, 177],
+    //   [254, 173, 84],
+    //   [209, 55, 78],
+    // ];
 
-    const COLOR_SCALE = scaleThreshold()
-      .domain([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120])
-      .range([
-        [65, 182, 196],
-        [127, 205, 187],
-        [199, 233, 180],
-        [237, 248, 177],
-        // zero
-        [255, 255, 204],
-        [255, 237, 160],
-        [254, 217, 118],
-        [254, 178, 76],
-        [253, 141, 60],
-        [252, 78, 42],
-        [227, 26, 28],
-        [189, 0, 38],
-        [128, 0, 38],
-      ]);
+    // const COLOR_SCALE = scaleThreshold()
+    //   .domain([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120])
+    //   .range([
+    //     [65, 182, 196],
+    //     [127, 205, 187],
+    //     [199, 233, 180],
+    //     [237, 248, 177],
+    //     // zero
+    //     [255, 255, 204],
+    //     [255, 237, 160],
+    //     [254, 217, 118],
+    //     [254, 178, 76],
+    //     [253, 141, 60],
+    //     [252, 78, 42],
+    //     [227, 26, 28],
+    //     [189, 0, 38],
+    //     [128, 0, 38],
+    //   ]);
 
     if (data && rainGeojson && pumps) {
       const layers = [
         new GeoJsonLayer({
-          id: "geojson",
+          id: 'geojson',
           data: data,
           opacity: 1,
           fp64: false,
-          getLineWidth: (info) => {
+          getLineWidth: info => {
             const { selectedTree } = this.props;
-            const id = info.properties["id"];
+            const id = info.properties['id'];
 
             if (selectedTree) {
               if (id === selectedTree.id) {
@@ -114,27 +111,37 @@ class DeckGLMap extends React.Component {
           pickable: true,
           getRadius: 3,
           type: 'circle',
-          pointRadiusMinPixels: .5,
+          pointRadiusMinPixels: 0.5,
           autoHighlight: true,
           highlightColor: [200, 200, 200, 255],
           transitions: {
             getFillColor: 500,
           },
-          getFillColor: (info,i) => {
-            const { wateredTrees, AppState, ageRange, dataView, communityData } = this.props;
+          getFillColor: (info, i) => {
+            const {
+              // wateredTrees,
+              // AppState,
+              ageRange,
+              dataView,
+              communityData,
+            } = this.props;
             const { properties } = info;
             const { id, radolan_sum, age } = properties;
 
-            if (dataView == 'watered' && communityData[id]) {
-              return communityData[id].watered ? [0,0,255,200] : [0,0,0,0];
+            if (dataView === 'watered' && communityData[id]) {
+              return communityData[id].watered
+                ? [0, 0, 255, 200]
+                : [0, 0, 0, 0];
             }
 
-            if (dataView == 'adopted' && communityData[id]) {
-              return communityData[id].adopted ? [255,0,0,200] : [0,0,0,0];
+            if (dataView === 'adopted' && communityData[id]) {
+              return communityData[id].adopted
+                ? [255, 0, 0, 200]
+                : [0, 0, 0, 0];
             }
 
-            if (dataView == 'adopted' || dataView == 'watered') {
-              return [0,0,0,0];
+            if (dataView === 'adopted' || dataView === 'watered') {
+              return [0, 0, 0, 0];
             }
 
             if (age >= ageRange[0] && age <= ageRange[1]) {
@@ -151,15 +158,16 @@ class DeckGLMap extends React.Component {
               return hex;
             }
 
-            return [200,200,200,0]
-
+            return [200, 200, 200, 0];
           },
-          onClick: (info) => {
+          onClick: info => {
             const { setDetailRouteWithListPath } = this.props;
             this._onClick(info.x, info.y, info.object);
 
-            if (info.object != undefined) {
-              Store.setState({highlightedObject: info.object.properties["id"]})
+            if (info.object !== undefined) {
+              Store.setState({
+                highlightedObject: info.object.properties['id'],
+              });
               setDetailRouteWithListPath(info.object.properties.id);
             }
           },
@@ -168,13 +176,13 @@ class DeckGLMap extends React.Component {
               this.props.wateredTrees,
               this.props.highlightedObject,
               this.props.ageRange,
-              this.props.dataView
+              this.props.dataView,
             ],
             getLineWidth: [this.props.selectedTree],
           },
         }),
         new GeoJsonLayer({
-          id: "rain",
+          id: 'rain',
           data: rainGeojson,
           opacity: 0.5,
           visible: rainVisible,
@@ -183,16 +191,16 @@ class DeckGLMap extends React.Component {
           extruded: true,
           wireframe: true,
           getElevation: 1,
-          getFillColor: (f) => {
+          getFillColor: f => {
             const interpolated = interpolateColor(f.properties.data[0]);
             const hex = hexToRgb(interpolated);
-						return hex
+            return hex;
           },
           pickable: true,
           // onHover: this._onHover
         }),
         new GeoJsonLayer({
-          id: "pumps",
+          id: 'pumps',
           data: pumps,
           opacity: 1,
           visible: pumpsVisible,
@@ -218,85 +226,89 @@ class DeckGLMap extends React.Component {
   }
 
   _onClick(x, y, object) {
-    const { setViewport, setView, user } = this.props;
+    const { setViewport } = this.props;
 
-    Store.setState({ selectedTreeState: "LOADING" });
+    Store.setState({ selectedTreeState: 'LOADING' });
 
     setViewport(object.geometry.coordinates);
 
-    const { state, selectedTree } = this.props;
+    const { state } = this.props;
     const id = object.properties.id;
     const url = createAPIUrl(state, `/get-tree?id=${id}`);
     const urlWatered = createAPIUrl(state, `/get-tree-last-watered?id=${id}`);
 
-    fetchAPI(urlWatered).then((r) => {
-      Store.setState({ treeLastWatered: r.data });
-    });
+    fetchAPI(urlWatered)
+      .then(r => {
+        Store.setState({ treeLastWatered: r.data });
+        return;
+      })
+      .catch(console.error);
 
-    fetchAPI(url).then((r) => {
-      Store.setState({ selectedTreeState: "LOADED", selectedTree: r.data });
-    });
+    fetchAPI(url)
+      .then(r => {
+        Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
+        return;
+      })
+      .catch(console.error);
   }
 
   _renderTooltip() {
-    const { x, y, hoveredObject } = this.state;
-    let data;
+    const { hoveredObject } = this.state;
+    // let data;
 
     if (hoveredObject != null) {
-      data = hoveredObject.data.properties;
+      // const data = hoveredObject.data.properties;
       this.setState({ hoveredObject });
     }
   }
 
   setCursor(val) {
     if (val) {
-      this.setState({cursor: 'pointer'})
+      this.setState({ cursor: 'pointer' });
     } else {
-      this.setState({cursor: 'grab'})
+      this.setState({ cursor: 'grab' });
     }
   }
 
-  _getFillColor() {
-    
-  }
+  _getFillColor() {}
 
   _onload(evt) {
     const map = evt.target;
-    const insertBefore = map.getStyle();
+    // const insertBefore = map.getStyle();
 
     const firstLabelLayerId = map
       .getStyle()
-      .layers.find((layer) => layer.type === "symbol").id;
+      .layers.find(layer => layer.type === 'symbol').id;
 
     map.addLayer(
       {
-        id: "3d-buildings",
-        source: "composite",
-        "source-layer": "building",
-        filter: ["==", "extrude", "true"],
-        type: "fill-extrusion",
+        id: '3d-buildings',
+        source: 'composite',
+        'source-layer': 'building',
+        filter: ['==', 'extrude', 'true'],
+        type: 'fill-extrusion',
         minzoom: 0,
         paint: {
-          "fill-extrusion-color": "#FFF",
-          "fill-extrusion-height": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
+          'fill-extrusion-color': '#FFF',
+          'fill-extrusion-height': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
             15,
             0,
             15.05,
-            ["get", "height"],
+            ['get', 'height'],
           ],
-          "fill-extrusion-base": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
+          'fill-extrusion-base': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
             15,
             0,
             15.05,
-            ["get", "min_height"],
+            ['get', 'min_height'],
           ],
-          "fill-extrusion-opacity": 0.3,
+          'fill-extrusion-opacity': 0.3,
         },
       },
       firstLabelLayerId
@@ -309,7 +321,9 @@ class DeckGLMap extends React.Component {
     }, 2000);
   }
 
+  //TODO: fix these missing functions
   dispatchSetSelectedTreeData(val) {
+    // throw new Error("function setSelectedTreeData does not exist")
     this.props.dispatch(setSelectedTreeData(val.data));
   }
 
@@ -330,9 +344,9 @@ class DeckGLMap extends React.Component {
       viewport,
       controller = true,
       baseMap = true,
-      dataLoaded,
-      wateredTrees,
-      wateredTreesFetched,
+      // dataLoaded,
+      // wateredTrees,
+      // wateredTreesFetched,
       isLoading,
     } = this.props;
 
@@ -344,8 +358,12 @@ class DeckGLMap extends React.Component {
           layers={this._renderLayers()}
           initialViewState={viewport}
           viewState={viewport}
-          getCursor={(e) => {return this.state.cursor}}
-          onHover={(info, event) => {this.setCursor(info.layer)}}
+          getCursor={e => {
+            return this.state.cursor;
+          }}
+          onHover={(info, event) => {
+            this.setCursor(info.layer);
+          }}
           onViewStateChange={e => this.handleDrag(e)}
           controller={controller}
         >
@@ -368,7 +386,7 @@ class DeckGLMap extends React.Component {
 }
 
 export default connect(
-  (state) => ({
+  state => ({
     data: state.data,
     rainGeojson: state.rainGeojson,
     dataView: state.dataView,

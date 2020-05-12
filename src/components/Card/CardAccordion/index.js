@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-
 const PanelHeader = styled.div`
   display: flex;
   font-weight: bold;
@@ -10,8 +9,8 @@ const PanelHeader = styled.div`
 `;
 
 const PanelBody = styled.div`
-  display: ${p => p.active ? 'flex' : 'none' };
-  animation: sweep .125s ease-in-out;
+  display: ${p => (p.active ? 'flex' : 'none')};
+  animation: sweep 0.125s ease-in-out;
   width: 100%;
 `;
 
@@ -24,11 +23,11 @@ const PanelIndicator = styled.span`
   border-radius: 100px;
   opacity: 1;
   cursor: pointer;
-  transition: all .125s ease-in-out;
+  transition: all 0.125s ease-in-out;
 
   &:hover {
-    opactiy: .5;
-    transition: all .125s ease-in-out;
+    opactiy: 0.5;
+    transition: all 0.125s ease-in-out;
   }
 `;
 
@@ -38,18 +37,17 @@ const PanelWrapper = styled.div`
   width: 100%;
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
   padding-bottom: 10px;
-  animation: sweep .125s ease-in-out;
+  animation: sweep 0.125s ease-in-out;
   margin-bottom: 10px;
-`
-
+`;
 
 const CardAccordion = p => {
   const { title, children, active = false } = p;
   const [localActive, toggleActive] = useState(active);
-  
+
   useEffect(() => {
     toggleActive(active);
-  }, [])
+  }, [active]);
 
   const indicator = localActive ? '–' : '+';
 
@@ -57,13 +55,13 @@ const CardAccordion = p => {
     <PanelWrapper>
       <PanelHeader>
         {title}
-        <PanelIndicator onClick={() => toggleActive(!localActive)}>{indicator}</PanelIndicator>
+        <PanelIndicator onClick={() => toggleActive(!localActive)}>
+          {indicator}
+        </PanelIndicator>
       </PanelHeader>
-      <PanelBody active={localActive}>
-        {children}
-      </PanelBody>
+      <PanelBody active={localActive}>{children}</PanelBody>
     </PanelWrapper>
-  )
-}
+  );
+};
 
 export default CardAccordion;

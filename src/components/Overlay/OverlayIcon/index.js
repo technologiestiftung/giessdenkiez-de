@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// TODO: Fix those file-loader imports
 import iconWater from '!file-loader!../../../assets/images/icon-water.svg';
 import iconInfo from '!file-loader!../../../assets/images/icon-info.svg';
 import iconSubscribe from '!file-loader!../../../assets/images/icon-subscribe.svg';
@@ -35,29 +36,24 @@ const OverlayIcon = p => {
     switch (type) {
       case 'water':
         return iconWater;
-        break;
       case 'info':
         return iconInfo;
-        break;
       case 'zoom':
         return iconZoom;
-        break;
       case 'subscribe':
         return iconSubscribe;
-        break;
       case 'trees':
         return iconTrees;
-        break;
       default:
         break;
     }
-  }
+  };
 
   return (
     <IconWrapper>
-      <StyledIcon src={geticon(icon)}/>
+      <StyledIcon src={geticon(icon)} />
     </IconWrapper>
   );
-}
+};
 
 export default OverlayIcon;

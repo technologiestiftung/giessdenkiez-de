@@ -5,8 +5,8 @@ import {
   FacebookShareButton,
   FacebookIcon,
   TwitterShareButton,
-  TwitterIcon
-} from "react-share";
+  TwitterIcon,
+} from 'react-share';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ const StyledContainer = styled.div`
 const ButtonsContainer = styled.div`
   margin-left: 10px;
 
-  >*:not(:first-child) {
+  > *:not(:first-child) {
     margin-left: 5px;
   }
 `;
@@ -30,19 +30,15 @@ const SocialSharing = () => {
     <StyledContainer>
       <span>Teilen:</span>
       <ButtonsContainer>
-        <FacebookShareButton
-          url="https://www.giessdenkiez.de/"
-        >
+        <FacebookShareButton url="https://www.giessdenkiez.de/">
           <FacebookIcon size={36} round />
         </FacebookShareButton>
-        <TwitterShareButton
-          url="https://www.giessdenkiez.de/"
-        >
+        <TwitterShareButton url="https://www.giessdenkiez.de/">
           <TwitterIcon size={36} round />
         </TwitterShareButton>
       </ButtonsContainer>
     </StyledContainer>
-  )
-}
+  );
+};
 
 export default SocialSharing;

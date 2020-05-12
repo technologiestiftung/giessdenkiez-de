@@ -1,4 +1,4 @@
-import {react} from 'react';
+// import React  from 'react';
 import styled from 'styled-components';
 
 const ButtonBorder = styled.div`
@@ -6,7 +6,7 @@ const ButtonBorder = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  letter-spacing: .25px;
+  letter-spacing: 0.25px;
   font-size: 13px;
   border: 1px solid ${p => p.theme.colorTextMedium};
   border-radius: ${p => p.theme.borderRadius};

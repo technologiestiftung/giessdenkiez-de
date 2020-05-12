@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import LoadingIcon from '../LoadingIcon/';
@@ -15,41 +15,43 @@ const LoadingDiv = styled.div`
   align-items: center;
 
   &.off {
-      transition: opacity .25s ease-in-out;
-      opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+    opacity: 0;
   }
 
   div {
-      text-align: center;
-      margin: 0 auto;
+    text-align: center;
+    margin: 0 auto;
 
-      h2 {
-          margin-bottom: 5px;
-          color: ${props => props.theme.colorTextDark};
-          font-size: ${props => props.theme.fontSizeXxl};
-      }
+    h2 {
+      margin-bottom: 5px;
+      color: ${props => props.theme.colorTextDark};
+      font-size: ${props => props.theme.fontSizeXxl};
+    }
 
-      span {
-          color: ${props => props.theme.colorTextLight};
-      }
+    span {
+      color: ${props => props.theme.colorTextLight};
+    }
   }
-`
-
-const StyledSpan = styled.span`
-  margin-top: 20px;
-  font-size: 1rem;
 `;
 
-const Loading = (props) => {
+// const StyledSpan = styled.span`
+//   margin-top: 20px;
+//   font-size: 1rem;
+// `;
+
+const Loading = props => {
   if (props.show) {
-      return ( null ) 
+    return null;
   } else if (!props.show) {
-      return <LoadingDiv>
+    return (
+      <LoadingDiv>
         <div>
-            <LoadingIcon text='Lade Berlins Bäume ...' />
+          <LoadingIcon text="Lade Berlins Bäume ..." />
         </div>
       </LoadingDiv>
+    );
   }
-}
+};
 
 export default Loading;

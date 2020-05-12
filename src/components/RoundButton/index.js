@@ -3,10 +3,11 @@ import styled from 'styled-components';
 export default styled.button`
   width: ${props => props.size || 36}px;
   height: ${props => props.size || 36}px;
-  background-color: ${props => (props.isActive ? props.theme.colorPrimary : 'white')};
+  background-color: ${props =>
+    props.isActive ? props.theme.colorPrimary : 'white'};
   color: ${p => p.theme.colorTextDark};
   border: 1px solid ${p => p.theme.colorTextDark};
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   will-change: background-color;
   border-radius: 50%;
   display: flex;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from 'react';
 import styled from 'styled-components';
 
 import OverlayClose from './OverlayClose';
@@ -57,13 +57,13 @@ const Overlay = () => {
       <StyledWrapper>
         <Wrapper>
           <OverlayTop>
-            <OverlayClose/>
+            <OverlayClose />
           </OverlayTop>
-          <OverlayBottom/>
+          <OverlayBottom />
         </Wrapper>
       </StyledWrapper>
     </StyledOverlayWrapper>
   );
-}
+};
 
 export default Overlay;
