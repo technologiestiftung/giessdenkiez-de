@@ -48,8 +48,7 @@ const StyledOverlayWrapper = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 80vh;
-  min-height: 80vh;
+  min-height: 60vh;
   max-height: 100vh;
 `;
 

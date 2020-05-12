@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
-import { StaticMap } from 'react-map-gl';
+import { StaticMap, GeolocateControl } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import Store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
@@ -11,15 +11,6 @@ import {
   interpolateColor,
   hexToRgb,
 } from '../../utils';
-// import styled from 'styled-components';
-// import { scaleThreshold } from 'd3-scale';
-
-// const ControlWrapper = styled.div`
-//   position: absolute;
-//   z-index: 10000;
-//   left: 15px;
-//   bottom: 15px;
-// `;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
@@ -319,24 +310,6 @@ class DeckGLMap extends React.Component {
     setTimeout(() => {
       this.props.setView(e.viewstate);
     }, 2000);
-  }
-
-  //TODO: fix these missing functions
-  dispatchSetSelectedTreeData(val) {
-    // throw new Error("function setSelectedTreeData does not exist")
-    this.props.dispatch(setSelectedTreeData(val.data));
-  }
-
-  dispatchDataLoaded(state) {
-    this.props.dispatch(setDataLoaded(state));
-  }
-
-  dispatchSetSelectedTreeDataLoading(val) {
-    this.props.dispatch(setSelectedTreeDataLoading(val));
-  }
-
-  dispatchSetDataIncluded(val) {
-    this.props.dispatch(setDataIncluded(val));
   }
 
   render() {
