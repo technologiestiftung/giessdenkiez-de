@@ -19,7 +19,7 @@ const OpenSourceContainer = styled.div`
 const OpenSourceNote = () => {
   return (
     <OpenSourceContainer>
-      <img alt="Link zum GitHub Repository" src={iconGithub} />
+      <img alt="GitHub Mark" src={iconGithub} />
       <CardDescription>
       Giess den Kiez ist ein&nbsp;
       <a target="blank" href="https://github.com/technologiestiftung/tsb-trees-frontend">Open Source Projekt!</a>
