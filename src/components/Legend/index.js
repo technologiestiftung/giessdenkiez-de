@@ -106,9 +106,13 @@ const FlexColumn = styled.div`
 `;
 
 const LegendDiv = styled.div`
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
   display: flex;
   flex-direction: column;
   z-index: 1;
+  margin: 0 auto;
   font-size: 12px;
   box-shadow: ${p => p.theme.boxShadow};
   height: min-content;

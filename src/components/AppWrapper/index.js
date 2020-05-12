@@ -35,20 +35,19 @@ const CreditsContainer = styled.div`
   }
 `;
 
-const BottomContainer = styled.div`
+const CookieContainer = styled.div`
   position: absolute;
   bottom: 12px;
-  left: 12px;
-  width: calc(100vw - 24px);
-  height: auto;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px;
-  align-items: end;
-`;
-
-const CookieContainer = styled.div`
   display: block;
+  width: 60%;
+  transform: translate(50%, 0%);
+  right: 50%;
+
+  @media screen and (max-width: ${p => p.theme.screens.mobile}) {
+    width: 100%;
+    bottom: 0px;
+    z-index: 2;
+  }
 `;
 
 const AppWrapper = p => {
@@ -66,12 +65,10 @@ const AppWrapper = p => {
       <CreditsContainer>
         <Credits />
       </CreditsContainer>
-      <BottomContainer>
         <CookieContainer>
           <Cookie />
         </CookieContainer>
         <Legend />
-      </BottomContainer>
     </AppWrapperDiv>
   );
 };

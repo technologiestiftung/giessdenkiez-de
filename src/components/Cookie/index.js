@@ -20,13 +20,12 @@ const Inner = styled.div`
   flex-direction: row;
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
   padding: 10px;
 `;
 
 const StyledCardDescription = styled.div`
-  width: 60%;
   line-height: 150%;
   opacity: 0.66;
 
