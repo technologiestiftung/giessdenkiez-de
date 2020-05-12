@@ -35,27 +35,22 @@ const WrapperRow = styled.div`
   }
 `;
 
-// const Wrapper = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   cursor: pointer;
-//   width: 100%;
-
-//   &:hover {
-//     opacity: 0.5;
-//   }
-// `;
-
 const WrapperOuter = styled.div`
   padding-top: 5px;
   display: flex;
+  width: 100%;
   flex-direction: column;
 `;
 
 const Title = styled.span`
   height: fit-content;
+  cursor: pointer;
   font-weight: normal;
   font-size: ${p => p.theme.fontSizeL};
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const TreesAdopted = p => {

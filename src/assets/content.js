@@ -5,8 +5,15 @@ const content = {
       'Die Berliner Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
     description: [
       'Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume abonnieren und markieren, wenn Du sie gegossen hast.',
-      'Oder informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
+      'Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
     ],
+  },
+  loading: {
+    snippets: [
+      'Schon gewusst? Der Baumkataster enthält mehr als 625.000 Bäume…',
+      'Wenn du diese Seite über das Mobilfunknetz aufrufst, kann es etwas dauern…',
+      'Sammle Informationen aller Bäume aus Berlins Stadtkataster…',
+    ]
   },
   sidebar: {
     about: [

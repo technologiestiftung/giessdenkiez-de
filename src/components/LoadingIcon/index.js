@@ -9,8 +9,8 @@ const IconContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
-  width: 200px;
+  height: 110px;
+  width: 180px;
 `;
 
 const StyledIcon = styled.img`
@@ -45,7 +45,7 @@ const LoadingIcon = p => {
   return (
     <IconContainer>
       <StyledIcon src={iconTrees} />
-      {text.length > 0 && <StyledLabel>{text}</StyledLabel>}
+      {text && <StyledLabel>{text}</StyledLabel>}
     </IconContainer>
   );
 };
