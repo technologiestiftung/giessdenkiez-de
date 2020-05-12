@@ -15,14 +15,7 @@ module.exports = {
 
   devServer: {
     historyApiFallback: true,
-  },
-
-  optimization: {
-    splitChunks: {
-      // include all types of chunks
-      chunks: 'all',
-      maxSize: 3000,
-    },
+    compress: true,
   },
   output: {
     library: 'App',
@@ -109,6 +102,7 @@ module.exports = {
     new Dotenv(),
     new CleanWebpackPlugin(),
     new CopyPlugin([
+      { from: 'data/pumps.geojson', to: 'data/pumps.geojson' },
       {
         from: 'src/assets/images/social_media.jpg',
         to: 'assets/images/social_media.jpg',
