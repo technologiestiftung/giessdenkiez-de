@@ -13,6 +13,7 @@ const Store = createStore({
   cookiesAccepted: false,
   overlayIsVisible: true,
   legendExpanded: false,
+  isNavOpen: false,
   pumpsVisible: false,
   highlightedObject: false,
   // TODO: which one is it

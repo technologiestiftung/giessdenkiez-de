@@ -25,24 +25,25 @@ export default createGlobalStyle`
       display: none;
   }
 
-  .mapboxgl-ctrl {
-    background: none;
-    border-radius: none;
+  .mapboxgl-user-location-dot {
+    display: none;
   }
 
   .mapboxgl-ctrl-group {
-    background: none !important;
-    display: flex;
-    flex-direction: column;
-    border-radius: 0px !important;
-    
-    button {
-      background: black;
-      border: 100%;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    button.mapboxgl-ctrl-compass {
+      display: none;
+    }
 
-      span {
-        background-image: none;
-      }
+    button {
+      margin-top: 10px !important;
+      width: 40px !important;
+      border-radius: 100px !important;
+      box-shadow: 0 2px 40px 0 rgba(30,55,145,0.15) !important;
+      height: 40px !important;
+      background: white !important;
     }
   }
+
 `;

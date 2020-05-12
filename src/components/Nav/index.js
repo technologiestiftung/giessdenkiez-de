@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { NavLink, withRouter, matchPath } from 'react-router-dom';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
-// import { useAuth0 } from '../../utils/auth0';
-
-// import ListIcon from '@material-ui/icons/List';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-// import NaturePeopleIcon from '@material-ui/icons/NaturePeopleOutlined';
+import Store from '../../state/Store';
 
 import EdgeButton from '../EdgeComponent/';
 
@@ -50,15 +47,6 @@ const navConfig = [
 ];
 
 const Nav = p => {
-  // const { state } = p;
-  // const {
-  //   isAuthenticated,
-  //   getTokenSilently,
-  //   loginWithRedirect,
-  //   logout,
-  //   loading,
-  //   user,
-  // } = useAuth0();
   const { pathname } = p.location;
 
   const isNavOpen =
@@ -69,6 +57,10 @@ const Nav = p => {
   const handleClick = title => {
     p.removeSelectedTree();
   };
+
+  useEffect(() => {
+    Store.setState({isNavOpen: isNavOpen})
+  }, [isNavOpen])
 
   return (
     <NavWrapper isNavOpen={isNavOpen}>

@@ -34,14 +34,16 @@ export const loadCommunityData = Store => async () => {
 
   // TODO: Review https://eslint.org/docs/rules/array-callback-return
   // create community data object for map
-  communityData.data.map(item => {
-    obj[item[0]] = {
-      adopted: item[1] === 1 ? true : false,
-      watered: item[2] === 1 ? true : false,
-    };
-  });
+  if (communityData.data) {
+    communityData.data.map(item => {
+      obj[item[0]] = {
+        adopted: item[1] === 1 ? true : false,
+        watered: item[2] === 1 ? true : false,
+      };
+      Store.setState({ communityData: Object.assign({}, obj) });
+    });
 
-  Store.setState({ communityData: Object.assign({}, obj) });
+  }
 };
 
 export const loadData = Store => async () => {
@@ -88,6 +90,14 @@ function setViewport(state, payload) {
       minZoom: 9,
       pitch: 45,
       bearing: 0,
+    },
+  };
+}
+
+function setZoom(state, payload) {
+  return {
+    viewport: {
+      zoom: payload,
     },
   };
 }
@@ -185,6 +195,7 @@ export default Store => ({
   getTreeByAge: getTreeByAge(Store),
   setDetailRouteWithListPath,
   setViewport,
+  setView,
   setView,
   loadTrees: loadTrees(Store),
   removeSelectedTree,
