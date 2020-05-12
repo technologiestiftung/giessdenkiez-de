@@ -106,15 +106,12 @@ const FlexColumn = styled.div`
 `;
 
 const LegendDiv = styled.div`
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
   display: flex;
   flex-direction: column;
   z-index: 1;
   font-size: 12px;
   box-shadow: ${p => p.theme.boxShadow};
-  height: auto;
+  height: min-content;
   padding: 12px;
   width: ${p => (p.active ? '210px' : '90px')};
   background: white;

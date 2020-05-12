@@ -35,6 +35,22 @@ const CreditsContainer = styled.div`
   }
 `;
 
+const BottomContainer = styled.div`
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  width: calc(100vw - 24px);
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: end;
+`;
+
+const CookieContainer = styled.div`
+  display: block;
+`;
+
 const AppWrapper = p => {
   const { isLoading, data, overlay } = p;
 
@@ -50,8 +66,12 @@ const AppWrapper = p => {
       <CreditsContainer>
         <Credits />
       </CreditsContainer>
-      <Legend />
-      <Cookie />
+      <BottomContainer>
+        <CookieContainer>
+          <Cookie />
+        </CookieContainer>
+        <Legend />
+      </BottomContainer>
     </AppWrapperDiv>
   );
 };
