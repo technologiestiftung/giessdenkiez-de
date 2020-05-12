@@ -20,19 +20,8 @@ const StyledWrapper = styled.div`
   z-index: 3;
 
 
-  @media screen and (max-width: ${p => p.theme.screens.laptop}) {
-    width: 70%;
-    height: 80%;
-  }
 
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-    width: 100%;
-    height: 100%;
-    max-height: 100vh;
-    box-shadow: none;
-  }
-
-  @media screen and (max-width: ${p => p.theme.screens.mobile}) {
+  @media screen and (max-width: ${p => '600px'}) {
     width: 100%;
     height: 100%;
     box-shadow: none;
@@ -49,7 +38,13 @@ const StyledOverlayWrapper = styled.div`
 const Wrapper = styled.div`
   width: 100%;
   min-height: 60vh;
-  max-height: 100vh;
+  max-height: 80vh;
+
+  @media screen and (max-width: ${p => '600px'}) {
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+  }
 `;
 
 const Overlay = () => {
