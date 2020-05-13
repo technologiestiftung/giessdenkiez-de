@@ -4,7 +4,6 @@ import { createAPIUrl, fetchAPI, createGeojson } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
 
 export const loadTrees = Store => async () => {
-  // const dataUrlLocal = '../../public/data/trees.csv.gz';
   const dataUrl =
     'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
 
@@ -42,7 +41,6 @@ export const loadCommunityData = Store => async () => {
       };
       Store.setState({ communityData: Object.assign({}, obj) });
     });
-
   }
 };
 
