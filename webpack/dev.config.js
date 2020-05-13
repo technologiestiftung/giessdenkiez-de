@@ -7,7 +7,7 @@ module.exports = merge(common, {
   devtool: 'inline-source-map',
   mode: 'development',
   devServer: {
-    // writeToDisk: true,
+    writeToDisk: true,
     hot: true,
     open: true,
     historyApiFallback: true,
@@ -21,8 +21,8 @@ module.exports = merge(common, {
   optimization: {
     splitChunks: {
       // include all types of chunks
-      // chunks: 'all',
-      // maxSize: 50000,
+      chunks: 'all',
+      maxSize: 90000,
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
