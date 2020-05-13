@@ -123,7 +123,7 @@ export const convertTime = unix_timestamp => {
   var min = String(minutes).length === 2 ? minutes : `0${minutes}`;
 
   // Will display time in 10:30:23 format
-  return `${day}. ${month}. ${year}, ${hours}:${min}`;
+  return `${day}. ${month}. ${year}`;
   // return day month + '.' + year + '. //' + hours + ':' + minutes.substr(-2);
 };
 

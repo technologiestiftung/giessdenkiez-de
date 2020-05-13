@@ -65,7 +65,7 @@ const TreeLastWatered = p => {
           <Wrapper key={`Lastadopted-key-${i}`}>
             <FlexRow>
               <Title>{info.username}</Title>
-              <StyledTreeType>({convertTime(info.timestamp)})</StyledTreeType>
+              <StyledTreeType>({convertTime(info.timestamp)}, {info.amount}l)</StyledTreeType>
             </FlexRow>
             <CardWaterDrops
               liters={info.amount}
