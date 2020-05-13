@@ -94,7 +94,8 @@ export const getCookieValue = a => {
 };
 
 export const convertTime = unix_timestamp => {
-  var date = new Date(unix_timestamp);
+  const sliced = unix_timestamp.slice(0, 16)
+  var date = new Date(sliced);
   var months = [
     'Jan',
     'Feb',
