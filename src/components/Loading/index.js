@@ -49,7 +49,6 @@ const Loading = props => {
       } else {
         setCurrent(current => current + 1);
       }
-      console.log(current, maxIndex)
     }, 3000);
     return () => clearInterval(interval);
   }, [current]);

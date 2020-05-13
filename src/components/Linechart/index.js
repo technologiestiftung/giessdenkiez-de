@@ -6,10 +6,6 @@ import {
   scaleLinear,
   area as d3Area,
   line as d3Line,
-  // scaleTime as d3ScaleTime,
-  // path as d3Path,
-  // transition as d3Transition,
-  // easeCubicInOut,
   select,
   axisLeft,
   axisBottom,
@@ -33,10 +29,6 @@ const Linechart = p => {
     left: 30,
   };
 
-  /**
-   * This hook creates the linechart
-   *
-   */
   useEffect(() => {
     if (data === undefined) return;
 
@@ -110,6 +102,11 @@ const Linechart = p => {
         )
         .call(xAxis);
 
+      const areaDefault = d3Area()
+        .x((d, i) => scaleTime(i))
+        .y0(d => scaleRain(0))
+        .y1(70);
+
       const area = d3Area()
         .x((d, i) => scaleTime(i))
         .y0(d => scaleRain(d))
@@ -123,7 +120,7 @@ const Linechart = p => {
         .text('↑ Liter pro m²');
 
       // areaShape
-      svg
+      const areaPath = svg
         .append('path')
         .datum(incomingData)
         .attr('fill', 'url(#linear-gradient)')
@@ -131,7 +128,15 @@ const Linechart = p => {
         .attr('transform', `translate(${margin.left}, ${margin.top})`)
         .attr('id', `rain-areaShape`)
         .attr('class', 'area')
-        .attr('d', area);
+        .attr('d', areaDefault)
+        .transition()
+        .duration(500);
+
+      areaPath
+        .attr("d", area)
+        .transition()
+        .delay(500)
+        .duration(500)
 
       svg
         .append('linearGradient')
@@ -159,18 +164,34 @@ const Linechart = p => {
           return scaleRain(d);
         });
 
+      const lineDefault = d3Line()
+        .x((_d, i) => {
+          return scaleTime(i);
+        })
+        .y((d, _i) => {
+          return scaleRain(0);
+        });
+
       // linechape
-      svg
+      const linePath = svg
         .append('path')
         .datum(incomingData)
         .attr('fill', 'none')
-        // .attr('id', `-pathShape-${index}`)
         .attr('stroke', '#75ADE8')
         .attr('transform', `translate(${margin.left}, ${margin.top})`)
         .attr('stroke-width', 2)
         .attr('stroke-linejoin', 'round')
         .attr('stroke-linecap', 'round')
-        .attr('d', line);
+        .attr('d', lineDefault)
+        .transition()
+        .duration(500);
+
+      linePath
+        .attr("d", line)
+        .transition()
+        .delay(500)
+        .duration(500)
+
     };
 
     const transformedData = transformData(data);

@@ -37,6 +37,7 @@ const BtnWaterGroup = p => {
         return (
           <ButtonRound
             key={`Btn-water-${i}`}
+            width="fit-content"
             toggle={() => {
               toggle(id, btn.id);
             }}

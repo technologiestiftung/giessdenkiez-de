@@ -92,7 +92,6 @@ const ButtonAdopted = p => {
 
   const isTreeAdopted = async (treeid, uuid) => {
     if (isAuthenticated) {
-      console.log(getTokenSilently)
       const token = await getTokenSilently();
       try {
         const url = createAPIUrl(
