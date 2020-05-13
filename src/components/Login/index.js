@@ -67,13 +67,6 @@ const Login = p => {
           },
         });
         Store.setState({ user: res.data.data });
-
-        // .then(r => {
-        //   // console.log(r);
-        //   Store.setState({ user: r.data.data });
-        //   return;
-        // })
-        // .catch(console.error);
       } catch (error) {
         console.error(error);
       }

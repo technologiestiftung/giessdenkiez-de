@@ -8,14 +8,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useAuth0 } from '../../../utils/auth0';
 import { fetchAPI, createAPIUrl } from '../../../utils';
 
-// import TreeType from './TreeType';
-// import CardWaterDrops from '../CardWaterDrops';
-
-// const StyledTreeType = styled(TreeType)`
-//   margin-bottom: 10px;
-//   padding: 0;
-// `;
-
 const WrapperRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -88,7 +80,7 @@ const TreesAdopted = p => {
         Store.getState(),
         `/private/get-adopted-trees?uuid=${user.sub}`
       );
-      
+
       const res = await fetchAPI(urlUnadopt, header);
 
       const resAdoptedTrees = await fetchAPI(urlAdoptedTrees, header);

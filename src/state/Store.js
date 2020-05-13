@@ -13,11 +13,10 @@ const Store = createStore({
   cookiesAccepted: false,
   overlayIsVisible: true,
   legendExpanded: false,
+  treeAdopted: false,
   isNavOpen: false,
   pumpsVisible: false,
   highlightedObject: false,
-  // TODO: which one is it
-  user: null,
   user: false,
   rainVisible: false,
   rainGeojson: null,

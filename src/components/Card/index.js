@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-// import classnames from 'classnames';
 import { waterNeed } from '../../utils/';
 import Actions from '../../state/Actions';
+import { useAuth0 } from '../../utils/auth0';
 import { connect } from 'unistore/react';
+import { fetchAPI, createAPIUrl } from '../../utils';
+import Store from '../../state/Store';
 
 import CardWrapper from './CardWrapper/';
 import CardProperty from './CardProperty/';
@@ -17,6 +19,7 @@ import TreeWatering from './CardAccordion/TreeWatering';
 import TreeLastWatered from './CardAccordion/TreeLastWatered';
 import ButtonWater from '../ButtonWater/';
 import CardWaterDrops from './CardWaterDrops';
+import ButtonAdopted from '../ButtonAdopted';
 
 import content from '../../assets/content';
 const { sidebar } = content;
@@ -54,12 +57,16 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
-// const SublineSpanClose = styled.span`
-//   margin-bottom: 3px;
-// `;
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 const Card = p => {
-  const { data, treeLastWatered } = p;
+  const { data, treeLastWatered, treeAdopted, user, selectedTree, state } = p;
+  const { getTokenSilently, isAuthenticated } = useAuth0();
 
   const {
     standalter,
@@ -73,48 +80,40 @@ const Card = p => {
     return p === 'null' ? null : p;
   };
 
-  // let treeWatered = '';
+  useEffect(() => {
+    if (!user) return;
+    if (user && selectedTree) {
+      isTreeAdopted(selectedTree.id, user.user_id);
+    }
+  }, [user]);
 
-  // if (watered) {
-  //   treeWatered = convertTime(watered);
-  // }
+  const isTreeAdopted = async (treeid, uuid) => {
+    if (isAuthenticated) {
+      const token = await getTokenSilently();
+      try {
+        const url = createAPIUrl(
+          state,
+          `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
+        );
+        const r = await fetchAPI(url, { headers: { Authorization: 'Bearer ' + token } });
+        Store.setState({treeAdopted: r.data});
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
-  // if (!watered) {
-  //   treeWatered = 'Keine Informationen verfügbar.';
-  // }
-
-  // if (selectedTreeState === 'ADOPT') {
-  //   treeWatered = 'Abonniere Baum ...';
-  // }
-
-  // if (selectedTreeState === 'LOADING') {
-  //   treeWatered = 'Abonniere Baum ...';
-  // }
-
-  // if (selectedTreeState === 'WATERING') {
-  //   treeWatered = 'Bewässerung eintragen ...';
-  // }
-
-  // const alter =
-  //   standalter !== null ? `${standalter} Jahre alt` : 'Keine Alter Vorhanden';
-
-  // const stateWaterTreeClass = classnames({
-  //   noInfo: treeWatered === 'Keine Informationen verfügbar.',
-  //   watering:
-  //     treeWatered === 'Bewässerung eintragen ...' ||
-  //     treeWatered === 'Abonniere Baum ...',
-  //   treeState: true,
-  // });
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
   return (
     <CardWrapper>
       <FlexColumnDiv>
-        <TreeTitle>{artdtsch}</TreeTitle>
+          <TreeTitle>{artdtsch}</TreeTitle>
         {!treeType && treeType !== 'undefined' && (
           <SublineSpan>{getTreeProp(gattungdeutsch.toLowerCase())}</SublineSpan>
         )}
+        {treeAdopted && (<ButtonAdopted />)}
 
         {treeType && treeType.title !== null && (
           <CardAccordion
@@ -177,6 +176,9 @@ export default connect(
     selectedTree: state.selectedTree,
     treeLastWatered: state.treeLastWatered,
     selectedTreeState: state.selectedTreeState,
+    treeAdopted: state.treeAdopted,
+    user: state.user,
+    state: state,
   }),
   Actions
 )(Card);

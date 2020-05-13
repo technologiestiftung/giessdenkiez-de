@@ -40,31 +40,6 @@ const StyledLogin = styled(Login)`
   align-self: stretch;
 `;
 
-// const ButtonWaterSpan = styled.span`
-//   padding: 10px;
-//   cursor: pointer;
-//   background: ${props => props.theme.colorPrimary};
-//   transition: background ${props => props.theme.timeS} ease-in-out;
-//   border-radius: ${props => props.theme.borderRadiusS};
-//   text-align: center;
-//   font-size: 13px;
-
-//   &:hover {
-//     background: ${props => props.theme.colorPrimaryHover};
-//     transition: background ${props => props.theme.timeS} ease-in-out;
-//   }
-// `;
-
-// const ButtonWaterSpanOther = styled.span`
-//   padding: 10px;
-//   color: ${props => props.theme.colorTextLight};
-//   background: ${props => props.theme.colorLightGrey};
-//   transition: background ${props => props.theme.timeS} ease-in-out;
-//   border-radius: ${props => props.theme.borderRadiusS};
-//   text-align: center;
-//   font-size: 13px;
-// `;
-
 const ButtonWater = p => {
   const {
     selectedTree,
@@ -72,6 +47,7 @@ const ButtonWater = p => {
     toggleOverlay,
     selectedTreeState,
     userdata,
+    treeAdopted,
     endpoints,
   } = p;
   const { id } = selectedTree;
@@ -85,29 +61,6 @@ const ButtonWater = p => {
     if (!user) return;
     setIsEmailVerifiyed(user.email_verified);
   }, [user, setIsEmailVerifiyed]);
-
-  useEffect(() => {
-    if (!user) return;
-    const isTreeAdopted = async (treeid, uuid) => {
-      const token = await getTokenSilently();
-      const url = createAPIUrl(
-        state,
-        `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
-      );
-
-      await fetchAPI(url, {
-        headers: { Authorization: 'Bearer ' + token },
-      })
-        .then(r => {
-          setAdopted(r.data);
-          return;
-        })
-        .catch(console.error);
-    };
-    if (userdata) {
-      isTreeAdopted(id, user.sub);
-    }
-  }, [id]);
 
   const btnLabel = state => {
     switch (state) {
@@ -136,6 +89,20 @@ const ButtonWater = p => {
     setTimeout(() => {
       setWaterGroup('visible');
     }, 1000);
+  };
+
+  const isTreeAdopted = async (treeid, uuid) => {
+    const token = await getTokenSilently();
+    try {
+      const url = createAPIUrl(
+        state,
+        `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
+      );
+      const r = await fetchAPI(url, { headers: { Authorization: 'Bearer ' + token } });
+      Store.setState({treeAdopted: r.data});
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const waterTree = async (id, amount, username) => {
@@ -181,7 +148,7 @@ const ButtonWater = p => {
               return;
             })
             .catch(console.error);
-        }, 500)
+        }, 500);
         return;
       })
       .catch(console.error);
@@ -219,6 +186,8 @@ const ButtonWater = p => {
         return;
       })
       .catch(console.error);
+
+      await isTreeAdopted(id, user.sub);
   };
 
   if (isAuthenticated) {
@@ -226,13 +195,13 @@ const ButtonWater = p => {
       <>
         {isEmailVerifiyed ? (
           <Fragment>
-            {!adopted && (
+            {!treeAdopted && (
               <BtnContainer>
                 <ButtonRound
-                  width="-webkit-fill-available"
-                  margin="15px"
+                  width='-webkit-fill-available'
+                  margin='15px'
                   toggle={() => adoptTree(id)}
-                  type="secondary"
+                  type='secondary'
                 >
                   {!adopted &&
                   selectedTreeState !== 'ADOPT' &&
@@ -249,9 +218,9 @@ const ButtonWater = p => {
               </BtnContainer>
             )}
             <ButtonRound
-              width="-webkit-fill-available"
+              width='-webkit-fill-available'
               toggle={() => setWaterGroup('watering')}
-              type="primary"
+              type='primary'
             >
               {btnLabel(waterGroup)}
             </ButtonRound>
@@ -276,7 +245,7 @@ const ButtonWater = p => {
   } else if (!isAuthenticated) {
     return (
       <BtnContainer>
-        <StyledLogin width="-webkit-fill-available" />
+        <StyledLogin width='-webkit-fill-available' />
         <StyledCardDescription onClick={() => handleClick()}>
           Wie kann ich mitmachen?
         </StyledCardDescription>
@@ -289,6 +258,7 @@ export default connect(
   state => ({
     selectedTree: state.selectedTree,
     selectedTreeState: state.selectedTreeState,
+    treeAdopted: state.treeAdopted,
     state: state,
     userdata: state.user,
     endpoints: state.endpoints,
