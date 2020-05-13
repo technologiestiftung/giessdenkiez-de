@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// TODO: Fix those file-loader imports
-import iconWater from '!file-loader!../../../assets/images/icon-water.svg';
-import iconInfo from '!file-loader!../../../assets/images/icon-info.svg';
-import iconSubscribe from '!file-loader!../../../assets/images/icon-subscribe.svg';
-import iconZoom from '!file-loader!../../../assets/images/icon-zoom.svg';
-import iconTrees from '!file-loader!../../../assets/images/icon-trees.svg';
+import iconWater from '../../../assets/images/icon-water.svg';
+import iconInfo from '../../../assets/images/icon-info.svg';
+import iconSubscribe from '../../../assets/images/icon-subscribe.svg';
+import iconZoom from '../../../assets/images/icon-zoom.svg';
+import iconTrees from '../../../assets/images/icon-trees.svg';
 
 const IconWrapper = styled.div`
   height: auto;

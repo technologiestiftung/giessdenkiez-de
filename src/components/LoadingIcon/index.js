@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// TODO: remove file-loader let webpack handle this
-import iconTrees from '!file-loader!../../assets/images/icon-trees.svg';
+import iconTrees from '../../assets/images/icon-trees.svg';
 
 const IconContainer = styled.div`
   display: flex;

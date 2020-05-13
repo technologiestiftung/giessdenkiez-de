@@ -1,10 +1,14 @@
 const merge = require('webpack-merge');
 const common = require('./common.config');
+const webpack = require('webpack'); // to access built-in plugins
+
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 module.exports = merge(common, {
   devtool: 'inline-source-map',
   mode: 'development',
   devServer: {
+    hot: true,
+    open: true,
     historyApiFallback: true,
     compress: true,
     overlay: {
@@ -27,5 +31,5 @@ module.exports = merge(common, {
       },
     },
   },
-  plugins: [new ErrorOverlayPlugin()],
+  plugins: [new ErrorOverlayPlugin(), new webpack.ProgressPlugin()],
 });
