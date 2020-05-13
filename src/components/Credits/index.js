@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import logoCitylab from '../../assets/citylab-logo.svg';
-import logoTSB from '../../assets/tsb-logo-coloured.svg';
-import logoBerlin from '../../assets/berlin.svg';
+const logoCitylab = '/images/citylab-logo.svg';
+const logoTSB = '/images/tsb-logo-coloured.svg';
+const logoBerlin = '/images/berlin.svg';
 
 const StyledCreditsContainer = styled.div`
   width: 150px;

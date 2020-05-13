@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import iconWater from '../../../assets/images/icon-water.svg';
-import iconInfo from '../../../assets/images/icon-info.svg';
-import iconSubscribe from '../../../assets/images/icon-subscribe.svg';
-import iconZoom from '../../../assets/images/icon-zoom.svg';
-import iconTrees from '../../../assets/images/icon-trees.svg';
+const iconWater = '/images/icon-water.svg';
+const iconInfo = '/images/icon-info.svg';
+const iconSubscribe = '/images/icon-subscribe.svg';
+const iconZoom = '/images/icon-zoom.svg';
+const iconTrees = '/images/icon-trees.svg';
 
 const IconWrapper = styled.div`
   height: auto;
