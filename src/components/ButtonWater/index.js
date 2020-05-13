@@ -167,19 +167,21 @@ const ButtonWater = p => {
         return;
       })
       .then(r => {
-        const url = createAPIUrl(state, `/get-watered-trees`);
-        fetchAPI(url)
-          .then(r => {
-            Store.setState({ wateredTrees: r.data.watered });
-            return;
-          })
-          .catch(console.error);
         fetchAPI(`${endpoints.prod}/get-tree-last-watered?id=${id}`)
           .then(r => {
             Store.setState({ treeLastWatered: r.data });
             return;
           })
           .catch(console.error);
+        setTimeout(() => {
+          const url = createAPIUrl(state, `/get-watered-trees`);
+          fetchAPI(url)
+            .then(r => {
+              Store.setState({ wateredTrees: r.data.watered });
+              return;
+            })
+            .catch(console.error);
+        }, 500)
         return;
       })
       .catch(console.error);

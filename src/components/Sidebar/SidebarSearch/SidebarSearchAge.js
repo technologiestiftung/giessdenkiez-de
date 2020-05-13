@@ -22,24 +22,6 @@ const FlexRowDiv = styled.div`
   padding-right: 30px;
 `;
 
-// const ButtonWaterSpan = styled.span`
-//   padding: 6px;
-//   cursor: pointer;
-//   width: 70px;
-//   margin-left: 30px;
-//   background: ${props => props.theme.colorPrimary};
-//   transition: background ${props => props.theme.timeS} ease-in-out;
-//   border-radius: ${props => props.theme.borderRadiusS};
-//   text-align: center;
-//   font-size: ${props => props.theme.fontSizeL};
-//   transform: translateY(-3px);
-
-//   &:hover {
-//     background: ${props => props.theme.colorPrimaryHover};
-//     transition: background ${props => props.theme.timeS} ease-in-out;
-//   }
-// `;
-
 const TileHeadline = styled.span`
   opacity: 1;
   font-size: 16px;
