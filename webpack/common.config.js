@@ -1,5 +1,4 @@
 const Dotenv = require('dotenv-webpack');
-const webpack = require('webpack'); // to access built-in plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -44,7 +43,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(svg|png|woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        test: /\.(woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader',
       },
       {
@@ -54,16 +53,20 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: '/',
+              outputPath: '',
             },
           },
         ],
       },
       {
-        test: /\.(svg|jpg)(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.(jpe?g|png)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
           {
-            loader: 'file-loader?name=/assets/[name].[ext]',
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/images/',
+            },
           },
         ],
       },
@@ -75,6 +78,18 @@ module.exports = {
             options: {
               name: '[name].[ext]',
               outputPath: 'data/',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: '',
+              name: '[hash].[ext]',
             },
           },
         ],
@@ -94,7 +109,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.ProgressPlugin(),
     new Dotenv(),
     new CleanWebpackPlugin(),
     new CopyPlugin([

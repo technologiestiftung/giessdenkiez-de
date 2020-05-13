@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//TODO: remove file-loader and let webpack handle this
-import logoCitylab from '!file-loader!../../assets/citylab-logo.svg';
-import logoTSB from '!file-loader!../../assets/tsb-logo-coloured.svg';
-import logoBerlin from '!file-loader!../../assets/berlin.svg';
+import logoCitylab from '../../assets/citylab-logo.svg';
+import logoTSB from '../../assets/tsb-logo-coloured.svg';
+import logoBerlin from '../../assets/berlin.svg';
 
 const StyledCreditsContainer = styled.div`
   width: 150px;
@@ -48,25 +47,25 @@ const Credits = p => {
   return (
     <StyledCreditsContainer>
       <a
-        className="citylab"
-        href="https://citylab-berlin.org"
-        rel="noopener noreferrer"
-        target="_blank"
+        className='citylab'
+        href='https://citylab-berlin.org'
+        rel='noopener noreferrer'
+        target='_blank'
       >
-        <img src={logoCitylab} alt="Logo Citylab" />
+        <img src={logoCitylab} alt='Logo Citylab' />
       </a>
       <span>Ein Projekt der</span>
       <a
-        className="tsb"
-        href="https://technologiestiftung-berlin.de"
-        target="_blank"
-        rel="noopener noreferrer"
+        className='tsb'
+        href='https://technologiestiftung-berlin.de'
+        target='_blank'
+        rel='noopener noreferrer'
       >
-        <img src={logoTSB} alt="Logo Technologiestiftung Berlin" />
+        <img src={logoTSB} alt='Logo Technologiestiftung Berlin' />
       </a>
       <FoerderlogoContainer>
         <span>Gefördert durch</span>
-        <img className="berlin" src={logoBerlin} alt="Logo Berlin" />
+        <img className='berlin' src={logoBerlin} alt='Logo Berlin' />
       </FoerderlogoContainer>
     </StyledCreditsContainer>
   );
