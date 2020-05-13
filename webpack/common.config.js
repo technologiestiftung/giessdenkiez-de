@@ -42,82 +42,12 @@ module.exports = {
           'sass-loader', // compiles Sass to CSS, using Node Sass by default
         ],
       },
-      {
-        test: /\.(woff|woff2|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader',
-      },
-      {
-        test: /\.(ico)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: '',
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(jpe?g|png)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'assets/images/',
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(csv|geojson)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'data/',
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(svg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: '',
-              name: '[hash].[ext]',
-            },
-          },
-        ],
-      },
-      // {
-      //   test: /\.(html)?$/,
-      //   use: [
-      //     {
-      //       loader: 'file-loader',
-      //       options: {
-      //         name: '[name].[ext]',
-      //         outputPath: '/',
-      //       },
-      //     },
-      //   ],
-      // },
     ],
   },
   plugins: [
     new Dotenv(),
     new CleanWebpackPlugin(),
-    new CopyPlugin([
-      { from: 'data/pumps.geojson', to: 'data/pumps.geojson' },
-      {
-        from: 'src/assets/images/social_media.jpg',
-        to: 'assets/images/social_media.jpg',
-      },
-    ]),
+    new CopyPlugin([{ context: 'public/', from: '**/*' }]),
     new HtmlWebpackPlugin({
       templateParameters: {
         domain,
