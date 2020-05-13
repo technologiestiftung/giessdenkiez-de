@@ -56,7 +56,6 @@ export const loadData = Store => async () => {
     .then(r => Store.setState({ rainGeojson: r }))
     .catch(console.error);
 
-  // const pumps_data = require('../../data/pumps.geojson');
   fetch('/data/pumps.geojson')
     .then(r => r.json())
     .then(r => Store.setState({ pumps: r }))
