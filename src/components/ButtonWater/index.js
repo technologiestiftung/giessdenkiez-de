@@ -197,8 +197,7 @@ const ButtonWater = p => {
           <Fragment>
             {!treeAdopted && (
               <BtnContainer>
-                <ButtonRound
-                  width='-webkit-fill-available'
+                <ButtonRound  
                   margin='15px'
                   toggle={() => adoptTree(id)}
                   type='secondary'

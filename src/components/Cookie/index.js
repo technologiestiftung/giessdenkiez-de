@@ -67,7 +67,7 @@ const Cookie = p => {
                 Weitere Informationen.
               </a>
             </StyledCardDescription>
-            <ButtonRound fontSize={'.8rem'} toggle={() => setCookie()}>
+            <ButtonRound width="fit-content" fontSize={'.8rem'} toggle={() => setCookie()}>
               Einverstanden
             </ButtonRound>
           </Inner>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.div`
-  width: ${p => (p.width !== undefined ? p.width : 'fit-content')};
+  width: ${p => (p.width !== undefined ? p.width : '-webkit-fill-available')};
   border-radius: 100px;
   background-color: ${p => (p.type === 'primary' ? '#F7FFFA' : '#FFFFFF')};
   padding: 12px 15px 12px 15px;

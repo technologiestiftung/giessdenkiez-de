@@ -38,7 +38,7 @@ const StyledOverlayWrapper = styled.div`
 const Wrapper = styled.div`
   width: 100%;
   min-height: 60vh;
-  max-height: 80vh;
+  max-height: 70vh;
 
   @media screen and (max-width: ${p => '600px'}) {
     width: 100%;
