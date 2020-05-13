@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import iconTrees from '../../assets/images/icon-trees.svg';
+const iconTrees = '/images/icon-trees.svg';
 
 const IconContainer = styled.div`
   display: flex;

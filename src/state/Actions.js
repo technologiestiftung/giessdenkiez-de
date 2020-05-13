@@ -4,7 +4,6 @@ import { createAPIUrl, fetchAPI, createGeojson } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
 
 export const loadTrees = Store => async () => {
-  // const dataUrlLocal = '../../public/data/trees.csv.gz';
   const dataUrl =
     'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
 
@@ -42,7 +41,6 @@ export const loadCommunityData = Store => async () => {
       };
       Store.setState({ communityData: Object.assign({}, obj) });
     });
-
   }
 };
 
@@ -58,7 +56,6 @@ export const loadData = Store => async () => {
     .then(r => Store.setState({ rainGeojson: r }))
     .catch(console.error);
 
-  // const pumps_data = require('../../data/pumps.geojson');
   fetch('/data/pumps.geojson')
     .then(r => r.json())
     .then(r => Store.setState({ pumps: r }))

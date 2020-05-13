@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import CardDescription from '../Card/CardDescription'
+import CardDescription from '../Card/CardDescription';
 // file-loader will be removed in separate issue
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import iconGithub from '!file-loader!../../assets/images/icon-github.svg';
+const iconGithub = '/images/icon-github.svg';
 
 const OpenSourceContainer = styled.div`
   display: flex;
@@ -19,11 +19,16 @@ const OpenSourceContainer = styled.div`
 const OpenSourceNote = () => {
   return (
     <OpenSourceContainer>
-      <img alt="GitHub Mark" src={iconGithub} />
+      <img alt='GitHub Mark' src={iconGithub} />
       <CardDescription>
-      Giess den Kiez ist ein&nbsp;
-      <a target="blank" href="https://github.com/technologiestiftung/tsb-trees-frontend">Open Source Projekt!</a>
-    </CardDescription>
+        Giess den Kiez ist ein&nbsp;
+        <a
+          target='blank'
+          href='https://github.com/technologiestiftung/tsb-trees-frontend'
+        >
+          Open Source Projekt!
+        </a>
+      </CardDescription>
     </OpenSourceContainer>
   );
 };
