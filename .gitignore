@@ -124,3 +124,4 @@ $RECYCLE.BIN/
 # Local History for Visual Studio Code
 .history/
 dist/
+public/.DS_Store
