@@ -9,6 +9,7 @@ import { connect } from 'unistore/react';
 
 import OverlayTitle from '../OverlayTitle/';
 import OverlayIcon from '../OverlayIcon/';
+import OverlayBeta from '../OverlayBeta/';
 import OverlayDescription from '../OverlayDescription/';
 import ButtonRound from '../../../components/ButtonRound/';
 import Login from '../../../components/Login/';
@@ -62,6 +63,7 @@ const OverlayTop = p => {
       <Wrapper>
         <OverlayTitle size="large" content={title} />
         <OverlayIcon icon="trees" />
+        <OverlayBeta/>
       </Wrapper>
       <OverlayTitle size="large" content={subline} />
       <OverlayDescription content={description} />
