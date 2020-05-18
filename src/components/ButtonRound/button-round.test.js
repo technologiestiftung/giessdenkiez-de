@@ -1,10 +1,15 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import ButtonRound from './';
-describe('test', () => {
-  test('should pass', () => {
-    const { getByText } = render(<ButtonRound>Text</ButtonRound>);
+describe('button round tests', () => {
+  test('should have a basic functionality', () => {
+    const onClick = jest.fn();
+    const { getByText } = render(
+      <ButtonRound toggle={onClick}>Text</ButtonRound>
+    );
     const button = getByText(/text/i);
-    expect(button).toHaveAttribute('type', 'button');
+    fireEvent.click(button);
+    expect(button).toHaveAttribute('role', 'button');
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });
