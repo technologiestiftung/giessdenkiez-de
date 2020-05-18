@@ -47,6 +47,7 @@ const ButtonRound = p => {
       width={width}
       onClick={toggle}
       type={type}
+      role={'button'}
     >
       {children}
     </StyledButton>
