@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledButton = styled.div`
+const StyledButton = styled.button`
   width: ${p => (p.width !== undefined ? p.width : '-webkit-fill-available')};
   border-radius: 100px;
   background-color: ${p => (p.type === 'primary' ? '#F7FFFA' : '#FFFFFF')};
