@@ -35,7 +35,7 @@ const StyledWrapper = styled.div`
   display: flex;
   margin: 20px 40px 0 40px;
   cursor: pointer;
-  >* {
+  div {
     margin-right: 10px;
     @media screen and (max-width: ${p => p.theme.screens.tablet}) {
       margin-bottom: 10px;
