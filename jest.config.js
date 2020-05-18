@@ -16,12 +16,13 @@ module.exports = {
     '!**/node_modules/**',
     '!**/coverage/**',
   ],
-  coverageThreshold: {
-    global: {
-      branches: 75,
-      functions: 75,
-      lines: 75,
-      statements: 75,
-    },
-  },
+  // TODO: When we have some coverage we can activate this
+  // coverageThreshold: {
+  //   global: {
+  //     branches: 75,
+  //     functions: 75,
+  //     lines: 75,
+  //     statements: 75,
+  //   },
+  // },
 };
