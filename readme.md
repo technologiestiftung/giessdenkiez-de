@@ -2,10 +2,6 @@
 
 Source repo for [giessdenkiez.de](https://www.giessdenkiez.de)
 
-This repo is a ready to go boilerplate for deck.gl based visualizations. The state can be managed via redux.
-
-The default layer is set to geojson.  
-
 To get the map tiles loaded you need to create a `.env` file and add the following:
 
 ```plain
