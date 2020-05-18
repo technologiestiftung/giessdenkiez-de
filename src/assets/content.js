@@ -10,7 +10,7 @@ const content = {
   },
   loading: {
     snippets: [
-      'Schon gewusst? Der Baumkataster enthält mehr als 625.000 Bäume.',
+      'Wir laden gerade 625.000 Bäume aus dem Berliner Baumbestand.',
       'Wenn du diese Seite über das Mobilfunknetz aufrufst, kann es etwas dauern.',
       'Sammle Informationen aller Bäume aus Berlins Stadtkataster.',
       'Schon gewusst? Ein junger Stadtbaum benötigt etwa 200l Wasser in der Woche.'

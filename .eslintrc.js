@@ -1,4 +1,7 @@
 module.exports = {
+  env: {
+    'jest/globals': true,
+  },
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 6,
@@ -13,9 +16,10 @@ module.exports = {
     'plugin:react/recommended',
     'react-app',
     'plugin:promise/recommended',
+    'plugin:jest/recommended',
   ],
   rules: {
     'react/prop-types': 'off',
   },
-  plugins: ['promise'],
+  plugins: ['promise', 'jest'],
 };
