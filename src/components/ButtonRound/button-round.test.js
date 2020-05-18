@@ -10,6 +10,7 @@ describe('button round tests', () => {
     const button = getByText(/text/i);
     fireEvent.click(button);
     expect(button).toHaveAttribute('role', 'button');
+    expect(button).toHaveAttribute('tabindex', '0');
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

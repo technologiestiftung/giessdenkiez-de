@@ -1,7 +1,7 @@
-// import React  from 'react';
+import React  from 'react';
 import styled from 'styled-components';
 
-const ButtonBorder = styled.div`
+const StyledButton = styled.div`
   padding: 8px 15px;
   display: flex;
   align-items: center;
@@ -29,5 +29,7 @@ const ButtonBorder = styled.div`
     transition: ${p => p.theme.transition};
   }
 `;
+
+const ButtonBorder = () => <StyledButton role={'button'} tabIndex={'0'} ></StyledButton>;
 
 export default ButtonBorder;
