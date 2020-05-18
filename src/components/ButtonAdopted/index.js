@@ -107,7 +107,7 @@ const ButtonAdopted = p => {
   };
 
   return (
-    <StyledButtonAdopted onClick={() => handleClick()}>
+    <StyledButtonAdopted role={'button'} tabIndex={'0'} onClick={() => handleClick()}>
       <Label>{unadopting ? 'Entferne': 'Abonniert'}</Label>
       <CloseIcon />
     </StyledButtonAdopted>
