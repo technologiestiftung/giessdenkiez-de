@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
 import styled from 'styled-components';
-import { StaticMap, GeolocateControl, NavigationControl } from 'react-map-gl';
+import {
+  StaticMap,
+  /*GeolocateControl,*/ NavigationControl,
+} from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import Store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
@@ -11,6 +14,7 @@ import {
   createAPIUrl,
   interpolateColor,
   hexToRgb,
+  // checkGeolocationFeature,
 } from '../../utils';
 
 const ControlWrapper = styled.div`
@@ -35,12 +39,24 @@ class DeckGLMap extends React.Component {
     this.bool = true;
 
     this.test = false;
+    // this.geoLocationAvailable = false;
 
+    // checkGeolocationFeature(
+    //   () => {
+    //     this.geoLocationAvailable = false;
+    //     console.log('Geolocation access denied');
+    //   },
+    //   () => {
+    //     this.geoLocationAvailable = true;
+    //     console.log('Geolocation available');
+    //   }
+    // );
     this.state = {
       hoveredObject: null,
       data: null,
       included: null,
       cursor: 'grab',
+      geoLocationAvailable: false,
     };
 
     this._onClick = this._onClick.bind(this);
@@ -83,7 +99,7 @@ class DeckGLMap extends React.Component {
           visible: treesVisible,
           filled: true,
           parameters: {
-            depthTest: false
+            depthTest: false,
           },
           pickable: true,
           getRadius: 3,
@@ -129,10 +145,10 @@ class DeckGLMap extends React.Component {
             }
 
             if (Number.isNaN(age)) {
-              const interpolated = interpolateColor(radolan_sum);
-              const hex = hexToRgb(interpolated);
+              // const interpolated = interpolateColor(radolan_sum);
+              // const hex = hexToRgb(interpolated);
               return [200, 200, 200, 0];
-              return hex;
+              // return hex;
             }
 
             return [200, 200, 200, 0];
@@ -293,6 +309,16 @@ class DeckGLMap extends React.Component {
     }, 2000);
   }
 
+  // componentDidMount() {
+  //   checkGeolocationFeature(
+  //     error => {
+  //       console.error(error);
+  //     },
+  //     () => {
+  //       this.setState({ ...this.state, geoLocationAvailable: true });
+  //     }
+  //   );
+  // }
   render() {
     const {
       viewport,
@@ -300,8 +326,8 @@ class DeckGLMap extends React.Component {
       baseMap = true,
       isLoading,
       isNavOpen,
-      setViewport,
-      setView
+      // setViewport,
+      setView,
     } = this.props;
 
     if (isLoading) {
@@ -324,19 +350,26 @@ class DeckGLMap extends React.Component {
           {baseMap && (
             <StaticMap
               reuseMaps
-              mapStyle="mapbox://styles/mapbox/light-v9"
+              mapStyle='mapbox://styles/mapbox/light-v9'
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_TOKEN}
               onLoad={this._onload.bind(this)}
               zoom={3}
             >
               <ControlWrapper isNavOpen={isNavOpen}>
-                <GeolocateControl 
-                  positionOptions={{enableHighAccuracy: true}}
+                {/* {this.state.geoLocationAvailable === true && ( */}
+                {/* <GeolocateControl
+                  positionOptions={{ enableHighAccuracy: true }}
                   trackUserLocation={true}
-                  onViewStateChange={(e) => setView(e.viewState)}
+                  onViewStateChange={e => setView(e.viewState)}
+                  onGeolocate={options => {
+                    console.log(options, 'in geolocateControl');
+                  }}
+                /> */}
+                {/* )} */}
+                <NavigationControl
+                  onViewStateChange={e => setView(e.viewState)}
                 />
-                <NavigationControl onViewStateChange={(e) => setView(e.viewState)}/>
               </ControlWrapper>
             </StaticMap>
           )}
