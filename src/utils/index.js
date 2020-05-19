@@ -175,6 +175,26 @@ export const hexToRgb = hex => {
     : null;
 };
 
+/**
+ * Test uf the user has geolocation activeted or not
+ * @param geoLocationErrorHandler Function
+ * @param geoLocationSuccessHandler Function
+ * @returns void
+ */
+export function checkGeolocationFeature(
+  geoLocationErrorHandler,
+  geoLocationSuccessHandler
+) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      geoLocationSuccessHandler,
+      geoLocationErrorHandler
+    );
+  } else {
+    throw new Error('Could not find feature navigator.geolocation');
+  }
+}
+
 export default {
   convertTime,
   timeDifference,
