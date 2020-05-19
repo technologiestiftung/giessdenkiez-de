@@ -76,6 +76,13 @@ const Card = p => {
     gattungdeutsch,
   } = data;
 
+  /**
+   * Apparently DWD 1 is not 1ml but 0.1ml
+   * We could change this in the database, but this would mean,
+   * transferring 625.000 "," characters, therefore,
+   * changing it client-side makes more sense.
+   */
+  const adjusted_radolan_sum = radolan_sum / 10;
   const getTreeProp = p => {
     return p === 'null' ? null : p;
   };
@@ -95,25 +102,26 @@ const Card = p => {
           state,
           `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
         );
-        const r = await fetchAPI(url, { headers: { Authorization: 'Bearer ' + token } });
-        Store.setState({treeAdopted: r.data});
+        const r = await fetchAPI(url, {
+          headers: { Authorization: 'Bearer ' + token },
+        });
+        Store.setState({ treeAdopted: r.data });
       } catch (error) {
         console.log(error);
       }
     }
   };
 
-
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
   return (
     <CardWrapper>
       <FlexColumnDiv>
-          <TreeTitle>{artdtsch}</TreeTitle>
+        <TreeTitle>{artdtsch}</TreeTitle>
         {!treeType && treeType !== 'undefined' && (
           <SublineSpan>{getTreeProp(gattungdeutsch.toLowerCase())}</SublineSpan>
         )}
-        {treeAdopted && (<ButtonAdopted />)}
+        {treeAdopted && <ButtonAdopted />}
 
         {treeType && treeType.title !== null && (
           <CardAccordion
@@ -128,7 +136,7 @@ const Card = p => {
         )}
 
         {standalter && standalter !== 'undefined' && (
-          <CardProperty name="Standalter" value={standalter + ' Jahre'} />
+          <CardProperty name='Standalter' value={standalter + ' Jahre'} />
         )}
 
         {standalter !== 'null' && standalter !== 'undefined' && (
@@ -149,10 +157,10 @@ const Card = p => {
         <RainContainer>
           <FlexRowDiv>
             <CardHeadline>Niederschlag</CardHeadline>
-            <CardHeadline>{radolan_sum} Liter pro m²</CardHeadline>
+            <CardHeadline>{adjusted_radolan_sum} Liter pro m²</CardHeadline>
           </FlexRowDiv>
           <CardDescription>in den letzten 30 Tagen</CardDescription>
-          <Linechart data={radolan_days} sum={radolan_sum} />
+          <Linechart data={radolan_days} sum={adjusted_radolan_sum} />
           {/* <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription> */}
         </RainContainer>
 
