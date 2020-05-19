@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
+import content from '../../assets/content';
 
 const iconTrees = '/images/icon-trees.svg';
 
@@ -9,7 +11,7 @@ const IconContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   height: auto;
-  width: 180px;
+  width: 200px;
 `;
 
 const StyledIcon = styled.img`
@@ -37,14 +39,18 @@ const StyledIcon = styled.img`
 const StyledLabel = styled.span`
   font-size: ${p => p.theme.fontSizeM};
   opacity: 0.66;
+  padding-bottom: 10px;
 `;
 
 const LoadingIcon = p => {
+  const { intro } = content;
+  const { disclaimer } = intro;
   const { text } = p;
   return (
     <IconContainer>
       <StyledIcon src={iconTrees} />
       {text && <StyledLabel>{text}</StyledLabel>}
+      {isMobile && <StyledLabel>{disclaimer}</StyledLabel>}
     </IconContainer>
   );
 };
