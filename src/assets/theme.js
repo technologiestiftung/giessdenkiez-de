@@ -37,6 +37,7 @@ export const theme = {
   fontSizeLl: '1rem',
   fontSizeL: '.8rem',
   fontSizeM: '.8rem',
+  fontSizeS: '.7rem',
 
   timeS: '.125s',
   timeM: '.25s',

@@ -2,8 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledOverlayTitle = styled.h2`
-  font-size: ${p =>
-    p.size === 'large' ? p.theme.fontSizeXxl : p.theme.fontSizeXl};
+  font-size: ${p => {
+    switch (p.size) {
+      case 'xxl':
+        return p.theme.fontSizeXxl;
+      case 'xl':
+        return p.theme.fontSizeXl;
+      case 'large':
+        return p.theme.fontSizeXxl;
+
+      case 'medium':
+        return p.theme.fontSizeM;
+      case 'small':
+        return p.theme.fontSizeS;
+      default: {
+        return p.theme.fontSizeXl;
+      }
+    }
+  }};
   font-weight: normal;
   line-height: ${p => p.theme.lineHeightHeadline};
   margin: 0px 40px 20px 40px;
