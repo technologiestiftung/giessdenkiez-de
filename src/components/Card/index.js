@@ -57,13 +57,6 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
-// const FlexRow = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   align-items: center;
-// `;
-
 const Card = p => {
   const { data, treeLastWatered, treeAdopted, user, selectedTree, state } = p;
   const { getTokenSilently, isAuthenticated } = useAuth0();
@@ -150,10 +143,10 @@ const Card = p => {
         <RainContainer>
           <FlexRowDiv>
             <CardHeadline>Niederschlag</CardHeadline>
-            <CardHeadline>{adjusted_radolan_sum} Liter pro m²</CardHeadline>
+            <CardHeadline>{radolan_sum} Liter pro m²</CardHeadline>
           </FlexRowDiv>
           <CardDescription>in den letzten 30 Tagen</CardDescription>
-          <Linechart data={radolan_days} sum={adjusted_radolan_sum} />
+          <Linechart data={radolan_days} sum={radolan_sum} />
           {/* <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription> */}
         </RainContainer>
 

@@ -193,7 +193,7 @@ export default Store => ({
   setDetailRouteWithListPath,
   setViewport,
   setView,
-  setView,
+  // setView,
   loadTrees: loadTrees(Store),
   removeSelectedTree,
   setAppState,
