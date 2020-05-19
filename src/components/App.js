@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { theme } from '../assets/theme';
 import { Router } from 'react-router-dom';
 import history from '../history';
@@ -38,35 +38,35 @@ if (cookie === 'true') {
 //   font-family: ${props => props.theme.fontFamily};
 // `;
 
-const TsbLinkDiv = styled.div`
-  position: absolute;
-  z-index: 1;
-  top: 30px;
-  left: 30px;
+// const TsbLinkDiv = styled.div`
+//   position: absolute;
+//   z-index: 1;
+//   top: 30px;
+//   left: 30px;
 
-  a {
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-  }
-`;
+//   a {
+//     display: flex;
+//     flex-direction: column;
+//     text-decoration: none;
+//     color: black;
+//     font-weight: bold;
+//   }
+// `;
 
-const LogoImg = styled.img`
-  margin-top: 10px;
-  width: 160px;
-`;
+// const LogoImg = styled.img`
+//   margin-top: 10px;
+//   width: 160px;
+// `;
 
-const TSBLink = () => {
-  return (
-    <TsbLinkDiv className="link">
-      <a href="https://citylab-berlin.org">
-        <LogoImg src={logo}></LogoImg>
-      </a>
-    </TsbLinkDiv>
-  );
-};
+// const TSBLink = () => {
+//   return (
+//     <TsbLinkDiv className="link">
+//       <a href="https://citylab-berlin.org">
+//         <LogoImg src={logo}></LogoImg>
+//       </a>
+//     </TsbLinkDiv>
+//   );
+// };
 
 const AppContainer = p => {
   const { isLoading, data, overlay } = p;

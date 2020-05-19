@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -18,25 +18,25 @@ const StyledButtonAdopted = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  transition: .125s opacity ease-in-out;
+  transition: 0.125s opacity ease-in-out;
   margin-bottom: 10px;
   cursor: pointer;
 
   &:hover {
-    transition: .125s opacity ease-in-out;
+    transition: 0.125s opacity ease-in-out;
     background: ${p => p.theme.colorTextDark};
     color: white;
 
     svg {
-      transition: .125s opacity ease-in-out;
+      transition: 0.125s opacity ease-in-out;
       fill: white;
     }
   }
 
   svg {
-    width: .75em;
-    height: .75em;
-    transition: .125s opacity ease-in-out;
+    width: 0.75em;
+    height: 0.75em;
+    transition: 0.125s opacity ease-in-out;
   }
 `;
 
@@ -45,11 +45,16 @@ const Label = styled.span``;
 const ButtonAdopted = p => {
   const { getTokenSilently, isAuthenticated } = useAuth0();
   const { selectedTree, state, user } = p;
-  const [ unadopting, setUnadopting ] = useState(false);
+  const [unadopting, setUnadopting] = useState(false);
 
+  /**
+   * FIXME: What is the purpose of this function?
+   * What should it do
+   *
+   */
   const handleClick = () => {
     selectedTree ? unadoptTree(selectedTree.id) : '';
-  }
+  };
 
   const unadoptTree = async id => {
     try {
@@ -83,8 +88,7 @@ const ButtonAdopted = p => {
       });
       setUnadopting(false);
 
-      await isTreeAdopted(id, user.user_id)
-
+      await isTreeAdopted(id, user.user_id);
     } catch (error) {
       console.error(error);
     }
@@ -98,8 +102,10 @@ const ButtonAdopted = p => {
           state,
           `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
         );
-        const r = await fetchAPI(url, { headers: { Authorization: 'Bearer ' + token } });
-        Store.setState({treeAdopted: r.data});
+        const r = await fetchAPI(url, {
+          headers: { Authorization: 'Bearer ' + token },
+        });
+        Store.setState({ treeAdopted: r.data });
       } catch (error) {
         console.log(error);
       }
@@ -107,16 +113,23 @@ const ButtonAdopted = p => {
   };
 
   return (
-    <StyledButtonAdopted role={'button'} tabIndex={'0'} onClick={() => handleClick()}>
-      <Label>{unadopting ? 'Entferne': 'Abonniert'}</Label>
+    <StyledButtonAdopted
+      role={'button'}
+      tabIndex={'0'}
+      onClick={() => handleClick()}
+    >
+      <Label>{unadopting ? 'Entferne' : 'Abonniert'}</Label>
       <CloseIcon />
     </StyledButtonAdopted>
-  )
-}
+  );
+};
 
-export default connect(state => ({
-  treeAdopted: state.treeAdopted,
-  selectedTree: state.selectedTree,
-  user: state.user,
-  state: state
-}), Actions)(ButtonAdopted);
+export default connect(
+  state => ({
+    treeAdopted: state.treeAdopted,
+    selectedTree: state.selectedTree,
+    user: state.user,
+    state: state,
+  }),
+  Actions
+)(ButtonAdopted);
