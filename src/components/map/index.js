@@ -120,6 +120,13 @@ class DeckGLMap extends React.Component {
             } = this.props;
             const { properties } = info;
             const { id, radolan_sum, age } = properties;
+            /**
+             * Apparently DWD 1 is not 1ml but 0.1ml
+             * We could change this in the database, but this would mean,
+             * transferring 625.000 "," characters, therefore,
+             * changing it client-side makes more sense.
+             */
+            const adjusted_radolan_sum = radolan_sum / 10;
 
             if (dataView === 'watered' && communityData[id]) {
               return communityData[id].watered
@@ -138,14 +145,14 @@ class DeckGLMap extends React.Component {
             }
 
             if (age >= ageRange[0] && age <= ageRange[1]) {
-              const interpolated = interpolateColor(radolan_sum);
+              const interpolated = interpolateColor(adjusted_radolan_sum);
               const hex = hexToRgb(interpolated);
 
               return hex;
             }
 
             if (Number.isNaN(age)) {
-              // const interpolated = interpolateColor(radolan_sum);
+              // const interpolated = interpolateColor(adjusted_radolan_sum);
               // const hex = hexToRgb(interpolated);
               return [200, 200, 200, 0];
               // return hex;
@@ -187,11 +194,11 @@ class DeckGLMap extends React.Component {
           getFillColor: f => {
             /**
              * Apparently DWD 1 is not 1ml but 0.1ml
-             * We could change this in the database, but this would mean, 
+             * We could change this in the database, but this would mean,
              * transferring 625.000 "," characters, therefore,
              * changing it client-side makes more sense.
              */
-            const interpolated = interpolateColor(f.properties.data[0]/10);
+            const interpolated = interpolateColor(f.properties.data[0] / 10);
             const hex = hexToRgb(interpolated);
             return hex;
           },

@@ -57,12 +57,12 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
+// const FlexRow = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: center;
+// `;
 
 const Card = p => {
   const { data, treeLastWatered, treeAdopted, user, selectedTree, state } = p;
