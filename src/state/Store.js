@@ -1,3 +1,4 @@
+import { isBrowser as isMobile } from 'react-device-detect';
 import createStore from 'unistore';
 
 const Store = createStore({
@@ -43,8 +44,8 @@ const Store = createStore({
     longitude: 13.419047,
     zoom: 11,
     maxZoom: 19,
-    minZoom: 9,
-    pitch: 45,
+    minZoom: (isMobile) ? 11 : 9,
+    pitch: (isMobile) ? 0 : 45,
     bearing: 0,
   },
 });

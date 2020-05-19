@@ -73,6 +73,7 @@
     "pbf": "^3.2.1",
     "rc-slider": "^8.6.13",
     "react": "^16.8.6",
+    "react-device-detect": "^1.12.1",
     "react-dnd": "^5.0.0",
     "react-dnd-html5-backend": "^3.0.2",
     "react-dom": "^16.8.6",

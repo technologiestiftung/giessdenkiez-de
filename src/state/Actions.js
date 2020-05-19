@@ -1,19 +1,27 @@
+import { isBrowser as isMobile } from 'react-device-detect';
 import { dsv as d3Dsv, easeCubic as d3EaseCubic } from 'd3';
 import history from '../history';
 import { createAPIUrl, fetchAPI, createGeojson } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
 
 export const loadTrees = Store => async () => {
-  const dataUrl =
-    'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
+  if (isMobile) {
+    Store.setState({ data: {
+      type: 'FeatureCollection',
+      features: [],
+    }, isLoading: false });
+  } else {
+    const dataUrl =
+      'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
 
-  d3Dsv(',', dataUrl)
-    .then(data => {
-      const geojson = createGeojson(data);
-      Store.setState({ data: geojson, isLoading: false });
-      return;
-    })
-    .catch(console.error);
+    d3Dsv(',', dataUrl)
+      .then(data => {
+        const geojson = createGeojson(data);
+        Store.setState({ data: geojson, isLoading: false });
+        return;
+      })
+      .catch(console.error);
+  }
 };
 
 export const setAgeRange = (_state, payload) => {
@@ -84,8 +92,8 @@ function setViewport(state, payload) {
       transitionDuration: 2000,
       transitionEasing: d3EaseCubic,
       transitionInterpolator: new FlyToInterpolator(),
-      minZoom: 9,
-      pitch: 45,
+      minZoom: (isMobile) ? 11 : 9,
+      pitch: (isMobile) ? 0 : 45,
       bearing: 0,
     },
   };

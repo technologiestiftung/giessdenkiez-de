@@ -2,14 +2,12 @@ import React from 'react';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
 import styled from 'styled-components';
+import { isBrowser as isMobile  } from 'react-device-detect';
 import {
   StaticMap,
-  Layer,
   /*GeolocateControl,*/ NavigationControl,
 } from 'react-map-gl';
-import DeckGL, { GeoJsonLayer, TileLayer } from 'deck.gl';
-import {VectorTile} from '@mapbox/vector-tile';
-import Protobuf from 'pbf';
+import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import Store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import {
@@ -19,23 +17,6 @@ import {
   hexToRgb,
   // checkGeolocationFeature,
 } from '../../utils';
-
-const treeLayer = {
-  id: 'trees',
-  type: 'circle',
-  source: 'mapbox://technologiestiftung.trees_v2',
-  'source-layer': 'original',
-  'paint': {
-    'circle-radius': {
-      'base': 1.75,
-      'stops': [
-      [12, 2],
-      [22, 180]
-      ]
-    },
-    'circle-color': 'red'
-  }
-};
 
 const ControlWrapper = styled.div`
   position: absolute;
@@ -49,6 +30,8 @@ const ControlWrapper = styled.div`
       props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'none'};
   }
 `;
+
+let map;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
@@ -80,6 +63,7 @@ class DeckGLMap extends React.Component {
     };
 
     this._onClick = this._onClick.bind(this);
+    this._deckClick = this._deckClick.bind(this);
     this._renderTooltip = this._renderTooltip.bind(this);
     this._getFillColor = this._getFillColor.bind(this);
     this.setCursor = this.setCursor.bind(this);
@@ -97,123 +81,103 @@ class DeckGLMap extends React.Component {
 
     if (data && rainGeojson && pumps) {
       const layers = [
-        // new TileLayer({
-        //   id: 'geojson',
-        //   minZoom: 11,
-        //   maxZoom: 17,
-        //   getTileData: ({x, y, z}) => {
-        //     const mapSource = `https://a.tiles.mapbox.com/v4/technologiestiftung.trees_v2/${z}/${x}/${y}.vector.pbf?access_token=pk.eyJ1IjoidGVjaG5vbG9naWVzdGlmdHVuZyIsImEiOiJjanZubXFzc3YxOTk3NGFxanNxMHdkc3Z0In0.cvnIEVF97kQljPfbB8nUZg`;
-        //     return fetch(mapSource)
-        //       .then(response => response.arrayBuffer())
-        //       .then(buffer => {
-        //         const tile = new VectorTile(new Protobuf(buffer));
-        //         const features = [];
-        //         for (const layerName in tile.layers) {
-        //           const vectorTileLayer = tile.layers[layerName];
-        //           for (let i = 0; i < vectorTileLayer.length; i++) {
-        //             const vectorTileFeature = vectorTileLayer.feature(i);
-        //             const feature = vectorTileFeature.toGeoJSON(x, y, z);
-        //             features.push(feature);
-        //           }
-        //         }
-        //         return features;
-        //       });
-        //   },
-        //   // data: 'https://api.mapbox.com/v4/technologiestiftung.trees_v2/{z}/{x}/{y}.pbf?access_token=pk.eyJ1IjoidGVjaG5vbG9naWVzdGlmdHVuZyIsImEiOiJjanZubXFzc3YxOTk3NGFxanNxMHdkc3Z0In0.cvnIEVF97kQljPfbB8nUZg',
-        //   opacity: 1,
-        //   getLineWidth: info => {
-        //     const { selectedTree } = this.props;
-        //     const id = info.properties['id'];
+        new GeoJsonLayer({
+          id: 'geojson',
+          data: (isMobile) ? [] : data,
+          opacity: 1,
+          getLineWidth: info => {
+            const { selectedTree } = this.props;
+            const id = info.properties['id'];
 
-        //     if (selectedTree) {
-        //       if (id === selectedTree.id) {
-        //         return 2;
-        //       } else {
-        //         return 0;
-        //       }
-        //     } else {
-        //       return 0;
-        //     }
-        //   },
-        //   getLineColor: [247, 105, 6, 255],
-        //   visible: treesVisible,
-        //   filled: true,
-        //   parameters: {
-        //     depthTest: false,
-        //   },
-        //   pickable: true,
-        //   getRadius: 3,
-        //   type: 'circle',
-        //   pointRadiusMinPixels: 0.5,
-        //   autoHighlight: true,
-        //   highlightColor: [200, 200, 200, 255],
-        //   transitions: {
-        //     getFillColor: 500,
-        //   },
-        //   getFillColor: (info, i) => {
-        //     const {
-        //       // wateredTrees,
-        //       // AppState,
-        //       ageRange,
-        //       dataView,
-        //       communityData,
-        //     } = this.props;
-        //     const { properties } = info;
-        //     const { id, radolan_sum, age } = properties;
+            if (selectedTree) {
+              if (id === selectedTree.id) {
+                return 2;
+              } else {
+                return 0;
+              }
+            } else {
+              return 0;
+            }
+          },
+          getLineColor: [247, 105, 6, 255],
+          visible: treesVisible,
+          filled: true,
+          parameters: {
+            depthTest: false,
+          },
+          pickable: true,
+          getRadius: 3,
+          type: 'circle',
+          pointRadiusMinPixels: 0.5,
+          autoHighlight: true,
+          highlightColor: [200, 200, 200, 255],
+          transitions: {
+            getFillColor: 500,
+          },
+          getFillColor: (info, i) => {
+            const {
+              // wateredTrees,
+              // AppState,
+              ageRange,
+              dataView,
+              communityData,
+            } = this.props;
+            const { properties } = info;
+            const { id, radolan_sum, age } = properties;
 
-        //     if (dataView === 'watered' && communityData[id]) {
-        //       return communityData[id].watered
-        //         ? [0, 0, 255, 200]
-        //         : [0, 0, 0, 0];
-        //     }
+            if (dataView === 'watered' && communityData[id]) {
+              return communityData[id].watered
+                ? [0, 0, 255, 200]
+                : [0, 0, 0, 0];
+            }
 
-        //     if (dataView === 'adopted' && communityData[id]) {
-        //       return communityData[id].adopted
-        //         ? [255, 0, 0, 200]
-        //         : [0, 0, 0, 0];
-        //     }
+            if (dataView === 'adopted' && communityData[id]) {
+              return communityData[id].adopted
+                ? [255, 0, 0, 200]
+                : [0, 0, 0, 0];
+            }
 
-        //     if (dataView === 'adopted' || dataView === 'watered') {
-        //       return [0, 0, 0, 0];
-        //     }
+            if (dataView === 'adopted' || dataView === 'watered') {
+              return [0, 0, 0, 0];
+            }
 
-        //     if (age >= ageRange[0] && age <= ageRange[1]) {
-        //       const interpolated = interpolateColor(radolan_sum);
-        //       const hex = hexToRgb(interpolated);
+            if (age >= ageRange[0] && age <= ageRange[1]) {
+              const interpolated = interpolateColor(radolan_sum);
+              const hex = hexToRgb(interpolated);
 
-        //       return hex;
-        //     }
+              return hex;
+            }
 
-        //     if (Number.isNaN(age)) {
-        //       // const interpolated = interpolateColor(radolan_sum);
-        //       // const hex = hexToRgb(interpolated);
-        //       return [200, 200, 200, 0];
-        //       // return hex;
-        //     }
+            if (Number.isNaN(age)) {
+              // const interpolated = interpolateColor(radolan_sum);
+              // const hex = hexToRgb(interpolated);
+              return [200, 200, 200, 0];
+              // return hex;
+            }
 
-        //     return [200, 200, 200, 0];
-        //   },
-        //   onClick: info => {
-        //     const { setDetailRouteWithListPath } = this.props;
-        //     this._onClick(info.x, info.y, info.object);
+            return [200, 200, 200, 0];
+          },
+          onClick: info => {
+            const { setDetailRouteWithListPath } = this.props;
+            this._onClick(info.x, info.y, info.object);
 
-        //     if (info.object !== undefined) {
-        //       Store.setState({
-        //         highlightedObject: info.object.properties['id'],
-        //       });
-        //       setDetailRouteWithListPath(info.object.properties.id);
-        //     }
-        //   },
-        //   updateTriggers: {
-        //     getFillColor: [
-        //       this.props.wateredTrees,
-        //       this.props.highlightedObject,
-        //       this.props.ageRange,
-        //       this.props.dataView,
-        //     ],
-        //     getLineWidth: [this.props.selectedTree],
-        //   },
-        // }),
+            if (info.object !== undefined) {
+              Store.setState({
+                highlightedObject: info.object.properties['id'],
+              });
+              setDetailRouteWithListPath(info.object.properties.id);
+            }
+          },
+          updateTriggers: {
+            getFillColor: [
+              this.props.wateredTrees,
+              this.props.highlightedObject,
+              this.props.ageRange,
+              this.props.dataView,
+            ],
+            getLineWidth: [this.props.selectedTree],
+          },
+        }),
         new GeoJsonLayer({
           id: 'rain',
           data: rainGeojson,
@@ -252,6 +216,24 @@ class DeckGLMap extends React.Component {
       ];
 
       return layers;
+    }
+  }
+
+  _deckClick(event) {
+    if (isMobile) {
+      const features = map.queryRenderedFeatures([event.x, event.y], {
+        layers: ["trees"]
+      });
+      if (features.length > 0) {
+        const { setDetailRouteWithListPath } = this.props;
+        this._onClick(event.x, event.y, features[0]);
+
+        Store.setState({
+          highlightedObject: features[0].properties['id'],
+        });
+
+        setDetailRouteWithListPath(features[0].properties.id);
+      }
     }
   }
 
@@ -301,46 +283,184 @@ class DeckGLMap extends React.Component {
   _getFillColor() {}
 
   _onload(evt) {
-    const map = evt.target;
+    map = evt.target;
     // const insertBefore = map.getStyle();
 
     const firstLabelLayerId = map
       .getStyle()
       .layers.find(layer => layer.type === 'symbol').id;
 
-    map.addLayer(
-      {
-        id: '3d-buildings',
-        source: 'composite',
-        'source-layer': 'building',
-        filter: ['==', 'extrude', 'true'],
-        type: 'fill-extrusion',
-        minzoom: 0,
-        paint: {
-          'fill-extrusion-color': '#FFF',
-          'fill-extrusion-height': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            15,
-            0,
-            15.05,
-            ['get', 'height'],
-          ],
-          'fill-extrusion-base': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            15,
-            0,
-            15.05,
-            ['get', 'min_height'],
-          ],
-          'fill-extrusion-opacity': 0.3,
+    if (!isMobile) {
+      map.addLayer(
+        {
+          id: '3d-buildings',
+          source: 'composite',
+          'source-layer': 'building',
+          filter: ['==', 'extrude', 'true'],
+          type: 'fill-extrusion',
+          minzoom: 0,
+          paint: {
+            'fill-extrusion-color': '#FFF',
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'height'],
+            ],
+            'fill-extrusion-base': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'min_height'],
+            ],
+            'fill-extrusion-opacity': 0.3,
+          },
         },
-      },
-      firstLabelLayerId
-    );
+        firstLabelLayerId
+      );
+    } else {
+      // disable map rotation using right click + drag
+      map.dragRotate.disable();
+  
+      // disable map rotation using touch rotation gesture
+      map.touchZoomRotate.disableRotation();
+
+      map.addSource('trees', {
+        type: 'vector',
+        url: 'mapbox://technologiestiftung.trees_s3',
+        minzoom: 11,
+        maxzoom: 20
+      });
+    
+      map.addLayer({
+        'id': 'trees',
+        'type': 'circle',
+        'source': 'trees',
+        'source-layer': 'original',
+        'paint': {
+          'circle-radius': {
+            'base': 1.75,
+            'stops': [
+            [11, 1],
+            [22, 100]
+            ]
+          },
+          'circle-opacity': 1,
+          'circle-stroke-color': 'rgba(247, 105, 6, 1)',
+          'circle-color': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            'rgba(200,200,200,1)',
+            [
+              "interpolate", ["linear"], ["get", "radolan_sum"],
+              0, interpolateColor(0),
+              600, interpolateColor(60),
+              1200, interpolateColor(120),
+              1800, interpolateColor(180),
+              2400, interpolateColor(240),
+              3000, interpolateColor(300)
+            ]
+          ],
+          'circle-stroke-width': [
+            'case',
+            ['boolean', ['feature-state', 'select'], false],
+            2,
+            0
+          ]
+        }
+      });
+
+      let hoveredStateId = false;
+
+      map.on('mousemove', 'trees', function(e) {
+        if (e.features.length > 0) {
+          if (hoveredStateId) {
+            map.setFeatureState(
+              { source: 'trees', id: hoveredStateId },
+              { hover: false }
+            );
+          }
+          hoveredStateId = e.features[0].id;
+          map.setFeatureState(
+            { source: 'trees', id: hoveredStateId },
+            { hover: true }
+          );
+        }
+      });
+         
+      map.on('mouseleave', 'state-fills', function() {
+        if (hoveredStateId) {
+          map.setFeatureState(
+            { source: 'trees', id: hoveredStateId },
+            { hover: false }
+          );
+        }
+        hoveredStateId = null;
+      });
+
+      /*
+      
+            if (dataView === 'watered' && communityData[id]) {
+              return communityData[id].watered
+                ? [0, 0, 255, 200]
+                : [0, 0, 0, 0];
+            }
+
+            if (dataView === 'adopted' && communityData[id]) {
+              return communityData[id].adopted
+                ? [255, 0, 0, 200]
+                : [0, 0, 0, 0];
+            }
+
+            if (dataView === 'adopted' || dataView === 'watered') {
+              return [0, 0, 0, 0];
+            }
+
+            if (age >= ageRange[0] && age <= ageRange[1]) {
+              const interpolated = interpolateColor(radolan_sum);
+              const hex = hexToRgb(interpolated);
+
+              return hex;
+            }
+
+            if (Number.isNaN(age)) {
+              // const interpolated = interpolateColor(radolan_sum);
+              // const hex = hexToRgb(interpolated);
+              return [200, 200, 200, 0];
+              // return hex;
+            }
+
+            return [200, 200, 200, 0];
+          },
+          onClick: info => {
+            const { setDetailRouteWithListPath } = this.props;
+            this._onClick(info.x, info.y, info.object);
+
+            if (info.object !== undefined) {
+              Store.setState({
+                highlightedObject: info.object.properties['id'],
+              });
+              setDetailRouteWithListPath(info.object.properties.id);
+            }
+          },
+          updateTriggers: {
+            getFillColor: [
+              this.props.wateredTrees,
+              this.props.highlightedObject,
+              this.props.ageRange,
+              this.props.dataView,
+            ],
+            getLineWidth: [this.props.selectedTree],
+          },
+
+      */
+    }
   }
 
   handleDrag(e) {
@@ -384,6 +504,7 @@ class DeckGLMap extends React.Component {
           onHover={(info, event) => {
             this.setCursor(info.layer);
           }}
+          onClick={this._deckClick}
           onViewStateChange={e => this.handleDrag(e)}
           controller={controller}
         >
@@ -394,9 +515,7 @@ class DeckGLMap extends React.Component {
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_TOKEN}
               onLoad={this._onload.bind(this)}
-              zoom={3}
             >
-              <Layer {...treeLayer} />
               <ControlWrapper isNavOpen={isNavOpen}>
                 {/* {this.state.geoLocationAvailable === true && ( */}
                 {/* <GeolocateControl
