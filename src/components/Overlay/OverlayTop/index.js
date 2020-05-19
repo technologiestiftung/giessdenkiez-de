@@ -1,6 +1,6 @@
 import React, { cloneElement, Children } from 'react';
 import styled from 'styled-components';
-
+import { isMobile } from 'react-device-detect';
 import Actions from '../../../state/Actions';
 import Store from '../../../state/Store';
 import { connect } from 'unistore/react';
@@ -51,7 +51,7 @@ const StyledWrapper = styled.div`
 const OverlayTop = p => {
   const { children, toggleOverlay } = p;
   const { intro } = content;
-  const { title, subline, description } = intro;
+  const { title, subline, description, disclaimer } = intro;
 
   const handleClick = () => {
     Store.setState({ legendExpanded: true });
@@ -61,20 +61,24 @@ const OverlayTop = p => {
   return (
     <StyledTop>
       <Wrapper>
-        <OverlayTitle size="large" content={title} />
-        <OverlayIcon icon="trees" />
-        <OverlayBeta/>
+        <OverlayTitle size='large' content={title} />
+        <OverlayIcon icon='trees' />
+        <OverlayBeta />
       </Wrapper>
-      <OverlayTitle size="large" content={subline} />
+      <OverlayTitle size='large' content={subline} />
+
+      {isMobile && <OverlayTitle size='medium' content={disclaimer} />}
+      {/* the beow is here for local testing */}
+      {/* {true && <OverlayTitle size='medium' content={disclaimer} />} */}
       <OverlayDescription content={description} />
       {Children.map(children, childElement => {
         return cloneElement(childElement, {});
       })}
       <StyledWrapper>
-        <ButtonRound width="fit-content" toggle={handleClick} type="primary">
+        <ButtonRound width='fit-content' toggle={handleClick} type='primary'>
           Los geht&apos;s
         </ButtonRound>
-        <Login width="fit-content" noLogout={true} />
+        <Login width='fit-content' noLogout={true} />
       </StyledWrapper>
     </StyledTop>
   );
