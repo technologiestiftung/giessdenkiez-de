@@ -38,8 +38,8 @@ export function createCSVJson(data) {
 }
 
 export function flatten(ary) {
-  var ret = [];
-  for (var i = 0; i < ary.length; i++) {
+  let ret = [];
+  for (let i = 0; i < ary.length; i++) {
     if (Array.isArray(ary[i])) {
       ret = ret.concat(flatten(ary[i]));
     } else {
@@ -94,9 +94,9 @@ export const getCookieValue = a => {
 };
 
 export const convertTime = unix_timestamp => {
-  const sliced = unix_timestamp.slice(0, 16)
-  var date = new Date(sliced);
-  var months = [
+  const sliced = unix_timestamp.slice(0, 16);
+  let date = new Date(sliced);
+  let months = [
     'Jan',
     'Feb',
     'Mar',
@@ -110,17 +110,17 @@ export const convertTime = unix_timestamp => {
     'Nov',
     'Dec',
   ];
-  var year = date.getFullYear();
-  var month = months[date.getMonth()];
-  var day = date.getDate();
+  let year = date.getFullYear();
+  let month = months[date.getMonth()];
+  let day = date.getDate();
 
-  var hours = date.getHours();
+  // let hours = date.getHours();
   // Minutes part from the timestamp
-  var minutes = date.getMinutes();
+  // let minutes = date.getMinutes();
   // Seconds part from the timestamp
   // var seconds = '0' + date.getSeconds();
 
-  var min = String(minutes).length === 2 ? minutes : `0${minutes}`;
+  // let min = String(minutes).length === 2 ? minutes : `0${minutes}`;
 
   // Will display time in 10:30:23 format
   return `${day}. ${month}. ${year}`;
@@ -128,7 +128,7 @@ export const convertTime = unix_timestamp => {
 };
 
 export const removeOverlay = () => {
-  var elem = document.querySelector('#tempOverlay');
+  let elem = document.querySelector('#tempOverlay');
   elem.style.display = 'none';
 };
 
@@ -164,7 +164,7 @@ export const interpolateColor = val => {
 };
 
 export const hexToRgb = hex => {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? [
         parseInt(result[1], 16),

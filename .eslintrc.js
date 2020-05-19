@@ -20,6 +20,7 @@ module.exports = {
   ],
   rules: {
     'react/prop-types': 'off',
+    'no-var': 'error',
   },
   plugins: ['promise', 'jest'],
 };
