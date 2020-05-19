@@ -30,6 +30,10 @@ const StyledNavWrapper = styled.div`
   }
 `;
 
+/**
+ *
+ * @deprecated Not used around here
+ */
 const NavBar = p => {
   const { state } = p;
   const [active, setActive] = useState('');
@@ -69,8 +73,8 @@ const NavBar = p => {
   return (
     <StyledNavWrapper>
       <Link
-        to="/about"
-        id="about"
+        to='/about'
+        id='about'
         state={active}
         onClick={e => {
           setActive(e.target.id);
@@ -79,8 +83,8 @@ const NavBar = p => {
         Über das Projekt
       </Link>
       <Link
-        to="/search"
-        id="search"
+        to='/search'
+        id='search'
         state={active}
         onClick={e => {
           setActive(e.target.id);
@@ -105,8 +109,8 @@ const NavBar = p => {
       {isAuthenticated && !loading && (
         <>
           <Link
-            id="adopted"
-            to="/adopted"
+            id='adopted'
+            to='/adopted'
             state={active}
             onClick={e => {
               getAdoptedTrees();
@@ -116,8 +120,8 @@ const NavBar = p => {
             Abonnierte Bäume
           </Link>
           <Link
-            id="profile"
-            to="/profile"
+            id='profile'
+            to='/profile'
             state={active}
             onClick={e => {
               setActive(e.target.id);
