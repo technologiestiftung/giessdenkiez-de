@@ -4,4 +4,9 @@ module.exports = {
     ['@babel/preset-env', { modules: isTest ? 'commonjs' : false }],
     '@babel/preset-react',
   ],
+  env: {
+    test: {
+      plugins: ['@babel/plugin-transform-runtime'],
+    },
+  },
 };
