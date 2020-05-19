@@ -42,7 +42,7 @@ const Store = createStore({
   viewport: {
     latitude: 52.500869,
     longitude: 13.419047,
-    zoom: 11,
+    zoom: (isMobile) ? 13 : 11,
     maxZoom: 19,
     minZoom: (isMobile) ? 11 : 9,
     pitch: (isMobile) ? 0 : 45,
