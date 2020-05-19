@@ -6,7 +6,7 @@ import {
   StaticMap,
   /*GeolocateControl,*/ NavigationControl,
 } from 'react-map-gl';
-import DeckGL, { GeoJsonLayer } from 'deck.gl';
+import DeckGL, { GeoJsonLayer, TileLayer } from 'deck.gl';
 import Store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import {
@@ -77,9 +77,9 @@ class DeckGLMap extends React.Component {
 
     if (data && rainGeojson && pumps) {
       const layers = [
-        new GeoJsonLayer({
+        new TileLayer({
           id: 'geojson',
-          data: data,
+          data: 'https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGVjaG5vbG9naWVzdGlmdHVuZyIsImEiOiJjanZubXFzc3YxOTk3NGFxanNxMHdkc3Z0In0.cvnIEVF97kQljPfbB8nUZg',
           opacity: 1,
           getLineWidth: info => {
             const { selectedTree } = this.props;
