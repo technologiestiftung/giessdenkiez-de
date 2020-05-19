@@ -1,4 +1,4 @@
-import { isBrowser as isMobile } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import { dsv as d3Dsv, easeCubic as d3EaseCubic } from 'd3';
 import history from '../history';
 import { createAPIUrl, fetchAPI, createGeojson } from '../utils';
@@ -6,6 +6,7 @@ import { FlyToInterpolator } from 'react-map-gl';
 
 export const loadTrees = Store => async () => {
   if (isMobile) {
+    // TODO: Load the user's trees from API
     Store.setState({ data: {
       type: 'FeatureCollection',
       features: [],

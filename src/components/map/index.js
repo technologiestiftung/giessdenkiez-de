@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
 import styled from 'styled-components';
-import { isBrowser as isMobile  } from 'react-device-detect';
+import { isMobile  } from 'react-device-detect';
 import {
   StaticMap,
   /*GeolocateControl,*/ NavigationControl,
@@ -31,7 +31,8 @@ const ControlWrapper = styled.div`
   }
 `;
 
-let map;
+let map, 
+    selectedStateId = false;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
@@ -221,6 +222,13 @@ class DeckGLMap extends React.Component {
 
   _deckClick(event) {
     if (isMobile) {
+      if (selectedStateId) {
+        map.setFeatureState(
+          { sourceLayer: 'original', source: 'trees', id: selectedStateId },
+          { select: false }
+        );
+        selectedStateId = null; 
+      }
       const features = map.queryRenderedFeatures([event.x, event.y], {
         layers: ["trees"]
       });
@@ -233,7 +241,14 @@ class DeckGLMap extends React.Component {
         });
 
         setDetailRouteWithListPath(features[0].properties.id);
-      }
+
+        map.setFeatureState(
+          { sourceLayer: 'original', source: 'trees', id: features[0].id },
+          { select: true }
+        );
+        selectedStateId = features[0].id; 
+
+      }      
     }
   }
 
@@ -370,38 +385,10 @@ class DeckGLMap extends React.Component {
           'circle-stroke-width': [
             'case',
             ['boolean', ['feature-state', 'select'], false],
-            2,
+            15,
             0
           ]
         }
-      });
-
-      let hoveredStateId = false;
-
-      map.on('mousemove', 'trees', function(e) {
-        if (e.features.length > 0) {
-          if (hoveredStateId) {
-            map.setFeatureState(
-              { source: 'trees', id: hoveredStateId },
-              { hover: false }
-            );
-          }
-          hoveredStateId = e.features[0].id;
-          map.setFeatureState(
-            { source: 'trees', id: hoveredStateId },
-            { hover: true }
-          );
-        }
-      });
-         
-      map.on('mouseleave', 'state-fills', function() {
-        if (hoveredStateId) {
-          map.setFeatureState(
-            { source: 'trees', id: hoveredStateId },
-            { hover: false }
-          );
-        }
-        hoveredStateId = null;
       });
 
       /*

@@ -1,4 +1,4 @@
-import { isBrowser as isMobile } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import createStore from 'unistore';
 
 const Store = createStore({
