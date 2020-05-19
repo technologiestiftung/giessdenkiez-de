@@ -16,7 +16,7 @@ export function createGeojson(data) {
       },
       properties: {
         id: tree.id,
-        radolan_sum: +tree.radolan_sum,
+        radolan_sum: (+tree.radolan_sum)/10,
         age: +tree.age,
       },
     };
