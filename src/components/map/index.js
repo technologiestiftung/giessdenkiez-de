@@ -102,79 +102,79 @@ class DeckGLMap extends React.Component {
               });
           },
           // data: 'https://api.mapbox.com/v4/technologiestiftung.trees_v2/{z}/{x}/{y}.pbf?access_token=pk.eyJ1IjoidGVjaG5vbG9naWVzdGlmdHVuZyIsImEiOiJjanZubXFzc3YxOTk3NGFxanNxMHdkc3Z0In0.cvnIEVF97kQljPfbB8nUZg',
-          // opacity: 1,
-          // getLineWidth: info => {
-          //   const { selectedTree } = this.props;
-          //   const id = info.properties['id'];
+          opacity: 1,
+          getLineWidth: info => {
+            const { selectedTree } = this.props;
+            const id = info.properties['id'];
 
-          //   if (selectedTree) {
-          //     if (id === selectedTree.id) {
-          //       return 2;
-          //     } else {
-          //       return 0;
-          //     }
-          //   } else {
-          //     return 0;
-          //   }
-          // },
-          // getLineColor: [247, 105, 6, 255],
-          // visible: treesVisible,
-          // filled: true,
-          // parameters: {
-          //   depthTest: false,
-          // },
-          // pickable: true,
-          // getRadius: 3,
-          // type: 'circle',
-          // pointRadiusMinPixels: 0.5,
-          // autoHighlight: true,
-          // highlightColor: [200, 200, 200, 255],
-          // transitions: {
-          //   getFillColor: 500,
-          // },
-          // getFillColor: (info, i) => {
-          //   const {
-          //     // wateredTrees,
-          //     // AppState,
-          //     ageRange,
-          //     dataView,
-          //     communityData,
-          //   } = this.props;
-          //   const { properties } = info;
-          //   const { id, radolan_sum, age } = properties;
+            if (selectedTree) {
+              if (id === selectedTree.id) {
+                return 2;
+              } else {
+                return 0;
+              }
+            } else {
+              return 0;
+            }
+          },
+          getLineColor: [247, 105, 6, 255],
+          visible: treesVisible,
+          filled: true,
+          parameters: {
+            depthTest: false,
+          },
+          pickable: true,
+          getRadius: 3,
+          type: 'circle',
+          pointRadiusMinPixels: 0.5,
+          autoHighlight: true,
+          highlightColor: [200, 200, 200, 255],
+          transitions: {
+            getFillColor: 500,
+          },
+          getFillColor: (info, i) => {
+            const {
+              // wateredTrees,
+              // AppState,
+              ageRange,
+              dataView,
+              communityData,
+            } = this.props;
+            const { properties } = info;
+            const { id, radolan_sum, age } = properties;
 
-          //   if (dataView === 'watered' && communityData[id]) {
-          //     return communityData[id].watered
-          //       ? [0, 0, 255, 200]
-          //       : [0, 0, 0, 0];
-          //   }
+            if (dataView === 'watered' && communityData[id]) {
+              return communityData[id].watered
+                ? [0, 0, 255, 200]
+                : [0, 0, 0, 0];
+            }
 
-          //   if (dataView === 'adopted' && communityData[id]) {
-          //     return communityData[id].adopted
-          //       ? [255, 0, 0, 200]
-          //       : [0, 0, 0, 0];
-          //   }
+            if (dataView === 'adopted' && communityData[id]) {
+              return communityData[id].adopted
+                ? [255, 0, 0, 200]
+                : [0, 0, 0, 0];
+            }
 
-          //   if (dataView === 'adopted' || dataView === 'watered') {
-          //     return [0, 0, 0, 0];
-          //   }
+            if (dataView === 'adopted' || dataView === 'watered') {
+              return [0, 0, 0, 0];
+            }
 
-          //   if (age >= ageRange[0] && age <= ageRange[1]) {
-          //     const interpolated = interpolateColor(radolan_sum);
-          //     const hex = hexToRgb(interpolated);
+            if (age >= ageRange[0] && age <= ageRange[1]) {
+              const interpolated = interpolateColor(radolan_sum);
+              const hex = hexToRgb(interpolated);
 
-          //     return hex;
-          //   }
+              return hex;
+            }
 
-          //   if (Number.isNaN(age)) {
-          //     // const interpolated = interpolateColor(radolan_sum);
-          //     // const hex = hexToRgb(interpolated);
-          //     return [200, 200, 200, 0];
-          //     // return hex;
-          //   }
+            if (Number.isNaN(age)) {
+              // const interpolated = interpolateColor(radolan_sum);
+              // const hex = hexToRgb(interpolated);
+              return [200, 200, 200, 0];
+              // return hex;
+            }
 
-          //   return [200, 200, 200, 0];
-          // },
+            return [200, 200, 200, 0];
+          },
           onClick: info => {
             const { setDetailRouteWithListPath } = this.props;
             this._onClick(info.x, info.y, info.object);
