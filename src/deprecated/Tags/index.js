@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { WithContext as ReactTags } from 'react-tag-input';
 import axios from 'axios';
@@ -476,15 +476,15 @@ class Tags extends React.Component {
       return (
         <FilterLoadingDiv>
           <Spinner>
-            <div className="double-bounce1"></div>
-            <div className="double-bounce2"></div>
+            <div className='double-bounce1'></div>
+            <div className='double-bounce2'></div>
           </Spinner>
           <span>Zähle Bäume ...</span>
         </FilterLoadingDiv>
       );
     } else if (!this.props.treeTypeDataLoading) {
       return (
-        <TagsDiv className="tags">
+        <TagsDiv className='tags'>
           <TileHeadline>Baumgattung</TileHeadline>
           <ReactTags
             tags={tags}
@@ -502,4 +502,4 @@ class Tags extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(Tags);
+// export default connect(mapStateToProps)(Tags);
