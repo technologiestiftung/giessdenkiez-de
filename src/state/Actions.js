@@ -1,19 +1,31 @@
+import { isMobile } from 'react-device-detect';
 import { dsv as d3Dsv, easeCubic as d3EaseCubic } from 'd3';
 import history from '../history';
 import { createAPIUrl, fetchAPI, createGeojson } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
 
 export const loadTrees = Store => async () => {
-  const dataUrl =
-    'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
+  if (isMobile) {
+    // TODO: Load the user's trees from API
+    Store.setState({
+      data: {
+        type: 'FeatureCollection',
+        features: [],
+      },
+      isLoading: false,
+    });
+  } else {
+    const dataUrl =
+      'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
 
-  d3Dsv(',', dataUrl)
-    .then(data => {
-      const geojson = createGeojson(data);
-      Store.setState({ data: geojson, isLoading: false });
-      return;
-    })
-    .catch(console.error);
+    d3Dsv(',', dataUrl)
+      .then(data => {
+        const geojson = createGeojson(data);
+        Store.setState({ data: geojson, isLoading: false });
+        return;
+      })
+      .catch(console.error);
+  }
 };
 
 export const setAgeRange = (_state, payload) => {
@@ -30,6 +42,8 @@ export const loadCommunityData = Store => async () => {
   const communityData = await fetchAPI(fetchCommunityDataUrl);
 
   let obj = {};
+  const communityDataWatered = [];
+  const communityDataAdopted = [];
 
   // TODO: Review https://eslint.org/docs/rules/array-callback-return
   // create community data object for map
@@ -39,8 +53,16 @@ export const loadCommunityData = Store => async () => {
         adopted: item[1] === 1 ? true : false,
         watered: item[2] === 1 ? true : false,
       };
-      Store.setState({ communityData: Object.assign({}, obj) });
+      if (item[1] === 1) {
+        communityDataWatered.push(item[0]);
+      }
+      if (item[2] === 1) {
+        communityDataAdopted.push(item[0]);
+      }
     });
+    Store.setState({ communityData: obj });
+    Store.setState({ communityDataAdopted });
+    Store.setState({ communityDataWatered });
   }
 };
 
@@ -74,7 +96,7 @@ export const setDataView = (state, payload) => {
   };
 };
 
-function setViewport(state, payload) {
+function setViewport(_state, payload) {
   return {
     viewport: {
       latitude: payload[1],
@@ -84,47 +106,18 @@ function setViewport(state, payload) {
       transitionDuration: 2000,
       transitionEasing: d3EaseCubic,
       transitionInterpolator: new FlyToInterpolator(),
-      minZoom: 9,
-      pitch: 45,
+      minZoom: isMobile ? 11 : 9,
+      pitch: isMobile ? 0 : 45,
       bearing: 0,
     },
   };
 }
 
-function setZoom(state, payload) {
-  return {
-    viewport: {
-      zoom: payload,
-    },
-  };
-}
-
 function setView(_state, payload) {
-  // const viewPrevious = {
-  //   maxZoom: 19,
-  //   transitionDuration: 250,
-  //   transitionEasing: d3EaseCubic,
-  //   transitionInterpolator: new FlyToInterpolator(),
-  //   minZoom: 9,
-  //   pitch: 45,
-  //   bearing: 0,
-  // };
-
-  // const newViewport = { ...viewPrevious, ...payload };
   return {
     viewport: payload,
   };
 }
-
-// function checkStatus(response) {
-//   if (response.ok) {
-//     return response;
-//   } else {
-//     var error = new Error(response.statusText);
-//     error.response = response;
-//     return Promise.reject(error);
-//   }
-// }
 
 export const getWateredTrees = Store => async () => {
   Store.setState({ isLoading: true });
@@ -147,7 +140,7 @@ export const getTree = Store => async id => {
   const resWatered = await fetchAPI(urlWatered);
 
   // ISSUE:141
-  res.data.radolan_days = res.data.radolan_days.map((d) => d/10);
+  res.data.radolan_days = res.data.radolan_days.map(d => d / 10);
   res.data.radolan_sum = res.data.radolan_sum / 10;
 
   return {
@@ -156,7 +149,7 @@ export const getTree = Store => async id => {
   };
 };
 
-export const removeSelectedTree = (state, payload) => {
+export const removeSelectedTree = () => {
   return {
     selectedTree: false,
     selectedTreeState: false,
@@ -178,11 +171,11 @@ export const getTreeByAge = Store => async (state, start, end) => {
     .catch(console.error);
 };
 
-export const toggleOverlay = (state, payload) => ({
+export const toggleOverlay = (_state, payload) => ({
   overlay: payload,
 });
 
-const setDetailRouteWithListPath = (state, treeId) => {
+const setDetailRouteWithListPath = (_state, treeId) => {
   const nextLocation = `/search?location=${treeId}`;
   history.push(nextLocation);
 };
