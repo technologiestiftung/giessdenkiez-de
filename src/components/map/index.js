@@ -191,7 +191,13 @@ class DeckGLMap extends React.Component {
           wireframe: true,
           getElevation: 1,
           getFillColor: f => {
-            const interpolated = interpolateColor(f.properties.data[0]);
+            /**
+             * Apparently DWD 1 is not 1ml but 0.1ml
+             * We could change this in the database, but this would mean, 
+             * transferring 625.000 "," characters, therefore,
+             * changing it client-side makes more sense.
+             */
+            const interpolated = interpolateColor(f.properties.data[0]/10);
             const hex = hexToRgb(interpolated);
             return hex;
           },
@@ -274,6 +280,10 @@ class DeckGLMap extends React.Component {
 
     fetchAPI(url)
       .then(r => {
+        // ISSUE:141
+        r.data.radolan_days = r.data.radolan_days.map((d) => d/10);
+        r.data.radolan_sum = r.data.radolan_sum / 10;
+            
         Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
         return;
       })

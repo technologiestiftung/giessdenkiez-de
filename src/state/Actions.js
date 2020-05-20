@@ -165,6 +165,10 @@ export const getTree = Store => async id => {
   const res = await fetchAPI(url);
   const resWatered = await fetchAPI(urlWatered);
 
+  // ISSUE:141
+  res.data.radolan_days = res.data.radolan_days.map((d) => d/10);
+  res.data.radolan_sum = res.data.radolan_sum / 10;
+
   return {
     selectedTree: res,
     treeLastWatered: resWatered,

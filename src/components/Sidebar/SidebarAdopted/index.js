@@ -62,6 +62,10 @@ const SidebarAdopted = p => {
 
     fetchAPI(url)
       .then(r => {
+        // ISSUE:141
+        r.data.radolan_days = r.data.radolan_days.map((d) => d/10);
+        r.data.radolan_sum = r.data.radolan_sum / 10;
+
         Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
         setViewport(geometry);
         setDetailRouteWithListPath(id);
