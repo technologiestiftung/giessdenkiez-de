@@ -54,7 +54,7 @@ const SidebarAdopted = p => {
   const getTree = async tree => {
     const { id } = tree;
 
-    const geometry = [Number(tree.lat), Number(tree.lng)];
+    const geometry = [Number(tree.lng), Number(tree.lat)];
 
     Store.setState({ selectedTreeState: 'LOADING' });
 

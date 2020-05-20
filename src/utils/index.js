@@ -12,7 +12,7 @@ export function createGeojson(data) {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: [+tree.lat, +tree.lng],
+        coordinates: [+tree.lng, +tree.lat],
       },
        /**
         * Apparently DWD 1 is not 1ml but 0.1ml

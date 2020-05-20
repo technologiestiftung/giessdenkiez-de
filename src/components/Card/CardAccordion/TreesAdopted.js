@@ -52,7 +52,7 @@ const TreesAdopted = p => {
 
   const handleClick = async info => {
     Store.setState({ selectedTree: info });
-    const coordinates = [parseFloat(info.lat), parseFloat(info.lng)];
+    const coordinates = [parseFloat(info.lng), parseFloat(info.lat)];
     setViewport(coordinates);
   };
 
