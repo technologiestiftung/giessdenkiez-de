@@ -400,12 +400,17 @@ class DeckGLMap extends React.Component {
         // This replicates the original interaction, 
         // but i believe leaving the highlight on the marker
         // even if the info window closes, makes more sense on mobile
-        
+
         // map.setFeatureState(
         //   { sourceLayer: 'original', source: 'trees', id: selectedStateId },
         //   { select: false }
         // );
         // selectedStateId = null; 
+      }
+      if (!this.props.treesVisible) {
+        map.setLayoutProperty('trees', 'visibility', 'none');
+      } else {
+        map.setLayoutProperty('trees', 'visibility', 'visible');
       }
       if (prevProps.ageRange !== this.props.ageRange) {
         map.setPaintProperty('trees', 'circle-opacity', [
@@ -436,7 +441,7 @@ class DeckGLMap extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (map) {
-      const mapProps = ["wateredTrees","highlightedObject","ageRange","dataView","selectedTree"]
+      const mapProps = ["wateredTrees","highlightedObject","ageRange","dataView","selectedTree","treesVisible"]
       let changed = false;
       mapProps.forEach((prop) => {
         if (prevProps[prop] !== this.props[prop]) {
