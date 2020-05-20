@@ -177,6 +177,36 @@
             }
 
         </style>
+
+
+<!-- Matomo -->
+<!--
+    Dont worry. We don't sell your data.
+    This is only for internal usage
+ -->
+<script type="text/javascript">
+    /**
+     * Matomo
+     * Dont worry. We don't sell your data.
+     * This is only for internal usage.
+     * Use DNT (Do not track) and we will honor it.
+     */
+    var _paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(["setDoNotTrack", true]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="https://piwik.technologiestiftung-berlin.de/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '12']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <noscript><p><img src="https://piwik.technologiestiftung-berlin.de/matomo.php?idsite=12&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+  <!-- End Matomo Code -->
+
     </head>
     <body >
         <div id="tempOverlay" >
