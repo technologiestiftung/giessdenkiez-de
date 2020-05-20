@@ -9,7 +9,6 @@ const SearchDiv = styled.div`
   flex-direction: column;
   z-index: 3;
   height: auto;
-  padding: 0 0 5px 5px;
   width: 100%;
   margin-bottom: 10px;
   background: white;
@@ -18,13 +17,43 @@ const SearchDiv = styled.div`
 const FlexRowDiv = styled.div`
   display: flex;
   flex-direction: row;
-  padding-right: 30px;
+  input{
+    outline:none;
+    width:100%;
+    border-radius:5px;
+    padding:5px 10px;
+    border: 1px solid rgba(0,0,0,0.75);
+    margin:5px 0 10px 0;
+  }
 `;
 
 const ResultDiv = styled.div`
   display: flex;
   flex-direction: row;
-  padding-right: 30px;
+  ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+    width:100%;
+    display:block;
+  }
+`;
+
+const ResultElement = styled.li`
+  list-style:none;
+  display:block;
+  width:100%;
+  margin:0;
+  padding: 10px;
+  font-size: .8rem;
+  cursor: pointer;
+  box-sizing:border-box;
+  &.even{
+    background-color:rgba(217,217,217,1);
+  }
+  &:hover, &.even:hover {
+    background-color:rgba(0,0,0,0.25);
+  }
 `;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
@@ -62,11 +91,13 @@ const SidebarSearchLocation = p => {
         />
       </FlexRowDiv>
       <ResultDiv>
-        {results.map((item, index) => (
-          <li key={index} onClick={(e) => setViewport(item.geometry.coordinates)}>
-            {item.place_name_de}
-          </li>
-        ))}
+        <ul>
+          {results.map((item, index) => (
+            <ResultElement className={(index%2 ? 'even':'odd')} key={index} onClick={(e) => setViewport(item.geometry.coordinates)}>
+              {item.place_name_de}
+            </ResultElement>
+          ))}
+        </ul>
       </ResultDiv>
     </SearchDiv>
   );
