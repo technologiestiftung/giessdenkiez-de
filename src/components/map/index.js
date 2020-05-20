@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 import {
   StaticMap,
   /*GeolocateControl,*/ NavigationControl,
@@ -29,6 +30,9 @@ const ControlWrapper = styled.div`
       props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'none'};
   }
 `;
+
+let map = null;
+let selectedStateId = false;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
@@ -60,6 +64,8 @@ class DeckGLMap extends React.Component {
     };
 
     this._onClick = this._onClick.bind(this);
+    this._updateStyles = this._updateStyles.bind(this);
+    this._deckClick = this._deckClick.bind(this);
     this._renderTooltip = this._renderTooltip.bind(this);
     this._getFillColor = this._getFillColor.bind(this);
     this.setCursor = this.setCursor.bind(this);
@@ -79,7 +85,7 @@ class DeckGLMap extends React.Component {
       const layers = [
         new GeoJsonLayer({
           id: 'geojson',
-          data: data,
+          data: isMobile ? [] : data,
           opacity: 1,
           getLineWidth: info => {
             const { selectedTree } = this.props;
@@ -221,6 +227,37 @@ class DeckGLMap extends React.Component {
     }
   }
 
+  _deckClick(event) {
+    if (isMobile) {
+      if (selectedStateId) {
+        map.setFeatureState(
+          { sourceLayer: 'original', source: 'trees', id: selectedStateId },
+          { select: false }
+        );
+        selectedStateId = null;
+      }
+      const features = map.queryRenderedFeatures([event.x, event.y], {
+        layers: ['trees'],
+      });
+      if (features.length > 0) {
+        const { setDetailRouteWithListPath } = this.props;
+        this._onClick(event.x, event.y, features[0]);
+
+        Store.setState({
+          highlightedObject: features[0].properties['id'],
+        });
+
+        setDetailRouteWithListPath(features[0].properties.id);
+
+        map.setFeatureState(
+          { sourceLayer: 'original', source: 'trees', id: features[0].id },
+          { select: true }
+        );
+        selectedStateId = features[0].id;
+      }
+    }
+  }
+
   _onClick(x, y, object) {
     const { setViewport } = this.props;
 
@@ -243,9 +280,9 @@ class DeckGLMap extends React.Component {
     fetchAPI(url)
       .then(r => {
         // ISSUE:141
-        r.data.radolan_days = r.data.radolan_days.map((d) => d/10);
+        r.data.radolan_days = r.data.radolan_days.map(d => d / 10);
         r.data.radolan_sum = r.data.radolan_sum / 10;
-            
+
         Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
         return;
       })
@@ -271,46 +308,180 @@ class DeckGLMap extends React.Component {
   _getFillColor() {}
 
   _onload(evt) {
-    const map = evt.target;
+    map = evt.target;
     // const insertBefore = map.getStyle();
 
     const firstLabelLayerId = map
       .getStyle()
       .layers.find(layer => layer.type === 'symbol').id;
 
-    map.addLayer(
-      {
-        id: '3d-buildings',
-        source: 'composite',
-        'source-layer': 'building',
-        filter: ['==', 'extrude', 'true'],
-        type: 'fill-extrusion',
-        minzoom: 0,
-        paint: {
-          'fill-extrusion-color': '#FFF',
-          'fill-extrusion-height': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            15,
-            0,
-            15.05,
-            ['get', 'height'],
-          ],
-          'fill-extrusion-base': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            15,
-            0,
-            15.05,
-            ['get', 'min_height'],
-          ],
-          'fill-extrusion-opacity': 0.3,
+    if (!isMobile) {
+      map.addLayer(
+        {
+          id: '3d-buildings',
+          source: 'composite',
+          'source-layer': 'building',
+          filter: ['==', 'extrude', 'true'],
+          type: 'fill-extrusion',
+          minzoom: 0,
+          paint: {
+            'fill-extrusion-color': '#FFF',
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'height'],
+            ],
+            'fill-extrusion-base': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'min_height'],
+            ],
+            'fill-extrusion-opacity': 0.3,
+          },
         },
-      },
-      firstLabelLayerId
-    );
+        firstLabelLayerId
+      );
+    } else {
+      // disable map rotation using right click + drag
+      map.dragRotate.disable();
+
+      // disable map rotation using touch rotation gesture
+      map.touchZoomRotate.disableRotation();
+
+      map.addSource('trees', {
+        type: 'vector',
+        url: 'mapbox://technologiestiftung.trees_s3',
+        minzoom: 11,
+        maxzoom: 20,
+      });
+
+      map.addLayer({
+        id: 'trees',
+        type: 'circle',
+        source: 'trees',
+        'source-layer': 'original',
+        paint: {
+          'circle-radius': {
+            base: 1.75,
+            stops: [
+              [11, 1],
+              [22, 100],
+            ],
+          },
+          'circle-opacity': 1,
+          'circle-stroke-color': 'rgba(247, 105, 6, 1)',
+          'circle-color': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            'rgba(200,200,200,1)',
+            [
+              'interpolate',
+              ['linear'],
+              ['get', 'radolan_sum'],
+              0,
+              interpolateColor(0),
+              600,
+              interpolateColor(60),
+              1200,
+              interpolateColor(120),
+              1800,
+              interpolateColor(180),
+              2400,
+              interpolateColor(240),
+              3000,
+              interpolateColor(300),
+            ],
+          ],
+          'circle-stroke-width': [
+            'case',
+            ['boolean', ['feature-state', 'select'], false],
+            15,
+            0,
+          ],
+        },
+      });
+    }
+  }
+
+  _updateStyles(prevProps) {
+    if (map) {
+      if (this.props.selectedTree && selectedStateId) {
+        // This replicates the original interaction,
+        // but i believe leaving the highlight on the marker
+        // even if the info window closes, makes more sense on mobile
+        // map.setFeatureState(
+        //   { sourceLayer: 'original', source: 'trees', id: selectedStateId },
+        //   { select: false }
+        // );
+        // selectedStateId = null;
+      }
+      if (!this.props.treesVisible) {
+        map.setLayoutProperty('trees', 'visibility', 'none');
+      } else {
+        map.setLayoutProperty('trees', 'visibility', 'visible');
+      }
+      if (prevProps.ageRange !== this.props.ageRange) {
+        map.setPaintProperty('trees', 'circle-opacity', [
+          'case',
+          ['>=', ['get', 'age'], this.props.ageRange[0]],
+          ['case', ['<=', ['get', 'age'], this.props.ageRange[1]], 1, 0],
+          0,
+        ]);
+      }
+      if (this.props.dataView === 'watered') {
+        // TODO: check if there is a performance up for any of the two
+        // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
+        const filter = [
+          'match',
+          ['get', 'id'],
+          this.props.communityDataWatered,
+          true,
+          false,
+        ];
+        map.setFilter('trees', filter);
+      } else if (this.props.dataView === 'adopted') {
+        const filter = [
+          'match',
+          ['get', 'id'],
+          this.props.communityDataAdopted,
+          true,
+          false,
+        ];
+        map.setFilter('trees', filter);
+      } else {
+        map.setFilter('trees', null);
+      }
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (map) {
+      const mapProps = [
+        'wateredTrees',
+        'highlightedObject',
+        'ageRange',
+        'dataView',
+        'selectedTree',
+        'treesVisible',
+      ];
+      let changed = false;
+      mapProps.forEach(prop => {
+        if (prevProps[prop] !== this.props[prop]) {
+          changed = true;
+        }
+      });
+      if (changed) {
+        this._updateStyles(prevProps);
+      }
+    }
   }
 
   handleDrag(e) {
@@ -354,6 +525,7 @@ class DeckGLMap extends React.Component {
           onHover={(info, event) => {
             this.setCursor(info.layer);
           }}
+          onClick={this._deckClick}
           onViewStateChange={e => this.handleDrag(e)}
           controller={controller}
         >
@@ -364,7 +536,6 @@ class DeckGLMap extends React.Component {
               preventStyleDiffing={true}
               mapboxApiAccessToken={MAPBOX_TOKEN}
               onLoad={this._onload.bind(this)}
-              zoom={3}
             >
               <ControlWrapper isNavOpen={isNavOpen}>
                 {/* {this.state.geoLocationAvailable === true && ( */}
@@ -403,6 +574,8 @@ export default connect(
     highlightedObject: state.highlightedObject,
     ageRange: state.ageRange,
     communityData: state.communityData,
+    communityDataWatered: state.communityDataWatered,
+    communityDataAdopted: state.communityDataAdopted,
     user: state.user,
     AppState: state.AppState,
     rainVisible: state.rainVisible,

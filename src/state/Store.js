@@ -1,9 +1,10 @@
+import { isMobile } from 'react-device-detect';
 import createStore from 'unistore';
 
 const Store = createStore({
   wateredTrees: [],
   includedTrees: {},
-  // TODO: which one is it
+  // TODO: which one is it @fdnklg !!!!1!!11!!!
   adoptedTrees: [],
   adoptedTrees: false,
   dataView: 'rain',
@@ -28,6 +29,7 @@ const Store = createStore({
   local: false,
   endpoints: {
     local: 'http://localhost:3000/',
+    // TODO: Don't hardcode this @fdnklg !!11!!!
     prod: 'https://tsb-tree-api-now-express.now.sh',
   },
   tabActive: 'id-0',
@@ -41,10 +43,10 @@ const Store = createStore({
   viewport: {
     latitude: 52.500869,
     longitude: 13.419047,
-    zoom: 11,
+    zoom: isMobile ? 13 : 11,
     maxZoom: 19,
-    minZoom: 9,
-    pitch: 45,
+    minZoom: isMobile ? 11 : 9,
+    pitch: isMobile ? 0 : 45,
     bearing: 0,
   },
 });
