@@ -14,9 +14,15 @@ export function createGeojson(data) {
         type: 'Point',
         coordinates: [+tree.lat, +tree.lng],
       },
+       /**
+        * Apparently DWD 1 is not 1ml but 0.1ml
+        * We could change this in the database, but this would mean, 
+        * transferring 625.000 "," characters, therefore,
+        * changing it client-side makes more sense.
+        */
       properties: {
         id: tree.id,
-        radolan_sum: +tree.radolan_sum,
+        radolan_sum: (+tree.radolan_sum)/10,
         age: +tree.age,
       },
     };
