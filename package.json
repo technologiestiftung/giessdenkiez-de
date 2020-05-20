@@ -1,6 +1,6 @@
 {
   "name": "tsb-trees-frontend",
-  "version": "1.0.0-rc",
+  "version": "1.0.1",
   "description": "Source repo for [giessdenkiez.de](https://www.giessdenkiez.de)",
   "scripts": {
     "test": "jest",
@@ -70,6 +70,7 @@
     "rc-slider": "^8.6.13",
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.6",
+    "react-device-detect": "^1.12.1",
     "react-dom": "^16.8.6",
     "react-map-gl": "^5.2.5",
     "react-router-dom": "^5.1.2",
