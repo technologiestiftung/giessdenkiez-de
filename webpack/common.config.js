@@ -47,7 +47,7 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new CleanWebpackPlugin(),
-    new CopyPlugin({ patterns: [{ context: 'public/', from: '**/*' }] }),
+    new CopyPlugin([{ context: 'public/', from: '**/*' }]),
     new HtmlWebpackPlugin({
       templateParameters: {
         domain,
