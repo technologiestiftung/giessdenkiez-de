@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
 import styled from 'styled-components';
-import { isMobile  } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import {
   StaticMap,
   /*GeolocateControl,*/ NavigationControl,
@@ -31,8 +31,8 @@ const ControlWrapper = styled.div`
   }
 `;
 
-let map = null, 
-    selectedStateId = false;
+let map = null;
+let selectedStateId = false;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
@@ -85,7 +85,7 @@ class DeckGLMap extends React.Component {
       const layers = [
         new GeoJsonLayer({
           id: 'geojson',
-          data: (isMobile) ? [] : data,
+          data: isMobile ? [] : data,
           opacity: 1,
           getLineWidth: info => {
             const { selectedTree } = this.props;
@@ -193,11 +193,11 @@ class DeckGLMap extends React.Component {
           getFillColor: f => {
             /**
              * Apparently DWD 1 is not 1ml but 0.1ml
-             * We could change this in the database, but this would mean, 
+             * We could change this in the database, but this would mean,
              * transferring 625.000 "," characters, therefore,
              * changing it client-side makes more sense.
              */
-            const interpolated = interpolateColor(f.properties.data[0]/10);
+            const interpolated = interpolateColor(f.properties.data[0] / 10);
             const hex = hexToRgb(interpolated);
             return hex;
           },
@@ -234,10 +234,10 @@ class DeckGLMap extends React.Component {
           { sourceLayer: 'original', source: 'trees', id: selectedStateId },
           { select: false }
         );
-        selectedStateId = null; 
+        selectedStateId = null;
       }
       const features = map.queryRenderedFeatures([event.x, event.y], {
-        layers: ["trees"]
+        layers: ['trees'],
       });
       if (features.length > 0) {
         const { setDetailRouteWithListPath } = this.props;
@@ -253,9 +253,8 @@ class DeckGLMap extends React.Component {
           { sourceLayer: 'original', source: 'trees', id: features[0].id },
           { select: true }
         );
-        selectedStateId = features[0].id; 
-
-      }      
+        selectedStateId = features[0].id;
+      }
     }
   }
 
@@ -281,9 +280,9 @@ class DeckGLMap extends React.Component {
     fetchAPI(url)
       .then(r => {
         // ISSUE:141
-        r.data.radolan_days = r.data.radolan_days.map((d) => d/10);
+        r.data.radolan_days = r.data.radolan_days.map(d => d / 10);
         r.data.radolan_sum = r.data.radolan_sum / 10;
-            
+
         Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
         return;
       })
@@ -353,7 +352,7 @@ class DeckGLMap extends React.Component {
     } else {
       // disable map rotation using right click + drag
       map.dragRotate.disable();
-  
+
       // disable map rotation using touch rotation gesture
       map.touchZoomRotate.disableRotation();
 
@@ -361,21 +360,21 @@ class DeckGLMap extends React.Component {
         type: 'vector',
         url: 'mapbox://technologiestiftung.trees_s3',
         minzoom: 11,
-        maxzoom: 20
+        maxzoom: 20,
       });
-    
+
       map.addLayer({
-        'id': 'trees',
-        'type': 'circle',
-        'source': 'trees',
+        id: 'trees',
+        type: 'circle',
+        source: 'trees',
         'source-layer': 'original',
-        'paint': {
+        paint: {
           'circle-radius': {
-            'base': 1.75,
-            'stops': [
-            [11, 1],
-            [22, 100]
-            ]
+            base: 1.75,
+            stops: [
+              [11, 1],
+              [22, 100],
+            ],
           },
           'circle-opacity': 1,
           'circle-stroke-color': 'rgba(247, 105, 6, 1)',
@@ -384,22 +383,30 @@ class DeckGLMap extends React.Component {
             ['boolean', ['feature-state', 'hover'], false],
             'rgba(200,200,200,1)',
             [
-              "interpolate", ["linear"], ["get", "radolan_sum"],
-              0, interpolateColor(0),
-              600, interpolateColor(60),
-              1200, interpolateColor(120),
-              1800, interpolateColor(180),
-              2400, interpolateColor(240),
-              3000, interpolateColor(300)
-            ]
+              'interpolate',
+              ['linear'],
+              ['get', 'radolan_sum'],
+              0,
+              interpolateColor(0),
+              600,
+              interpolateColor(60),
+              1200,
+              interpolateColor(120),
+              1800,
+              interpolateColor(180),
+              2400,
+              interpolateColor(240),
+              3000,
+              interpolateColor(300),
+            ],
           ],
           'circle-stroke-width': [
             'case',
             ['boolean', ['feature-state', 'select'], false],
             15,
-            0
-          ]
-        }
+            0,
+          ],
+        },
       });
     }
   }
@@ -407,15 +414,14 @@ class DeckGLMap extends React.Component {
   _updateStyles(prevProps) {
     if (map) {
       if (this.props.selectedTree && selectedStateId) {
-        // This replicates the original interaction, 
+        // This replicates the original interaction,
         // but i believe leaving the highlight on the marker
         // even if the info window closes, makes more sense on mobile
-
         // map.setFeatureState(
         //   { sourceLayer: 'original', source: 'trees', id: selectedStateId },
         //   { select: false }
         // );
-        // selectedStateId = null; 
+        // selectedStateId = null;
       }
       if (!this.props.treesVisible) {
         map.setLayoutProperty('trees', 'visibility', 'none');
@@ -426,23 +432,30 @@ class DeckGLMap extends React.Component {
         map.setPaintProperty('trees', 'circle-opacity', [
           'case',
           ['>=', ['get', 'age'], this.props.ageRange[0]],
-          [
-            'case',
-            ['<=', ['get', 'age'], this.props.ageRange[1]],
-            1,
-            0
-          ],
-          0
+          ['case', ['<=', ['get', 'age'], this.props.ageRange[1]], 1, 0],
+          0,
         ]);
       }
       if (this.props.dataView === 'watered') {
         // TODO: check if there is a performance up for any of the two
         // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
-        const filter = ['match', ['get', 'id'], this.props.communityDataWatered, true, false];
-        map.setFilter('trees',filter);
+        const filter = [
+          'match',
+          ['get', 'id'],
+          this.props.communityDataWatered,
+          true,
+          false,
+        ];
+        map.setFilter('trees', filter);
       } else if (this.props.dataView === 'adopted') {
-        const filter = ['match', ['get', 'id'], this.props.communityDataAdopted, true, false];
-        map.setFilter('trees',filter);
+        const filter = [
+          'match',
+          ['get', 'id'],
+          this.props.communityDataAdopted,
+          true,
+          false,
+        ];
+        map.setFilter('trees', filter);
       } else {
         map.setFilter('trees', null);
       }
@@ -451,9 +464,16 @@ class DeckGLMap extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (map) {
-      const mapProps = ["wateredTrees","highlightedObject","ageRange","dataView","selectedTree","treesVisible"]
+      const mapProps = [
+        'wateredTrees',
+        'highlightedObject',
+        'ageRange',
+        'dataView',
+        'selectedTree',
+        'treesVisible',
+      ];
       let changed = false;
-      mapProps.forEach((prop) => {
+      mapProps.forEach(prop => {
         if (prevProps[prop] !== this.props[prop]) {
           changed = true;
         }
