@@ -39,6 +39,8 @@ export const loadCommunityData = Store => async () => {
   const communityData = await fetchAPI(fetchCommunityDataUrl);
 
   let obj = {};
+  const communityDataWatered = [];
+  const communityDataAdopted = [];
 
   // TODO: Review https://eslint.org/docs/rules/array-callback-return
   // create community data object for map
@@ -48,8 +50,16 @@ export const loadCommunityData = Store => async () => {
         adopted: item[1] === 1 ? true : false,
         watered: item[2] === 1 ? true : false,
       };
-      Store.setState({ communityData: Object.assign({}, obj) });
+      if (item[1] === 1) {
+        communityDataWatered.push(item[0]);
+      }
+      if (item[2] === 1) {
+        communityDataAdopted.push(item[0]);
+      }
     });
+    Store.setState({ communityData: obj });
+    Store.setState({ communityDataAdopted });
+    Store.setState({ communityDataWatered });
   }
 };
 

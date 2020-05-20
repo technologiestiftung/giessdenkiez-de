@@ -31,7 +31,7 @@ const ControlWrapper = styled.div`
   }
 `;
 
-let map, 
+let map = null, 
     selectedStateId = false;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
@@ -64,6 +64,7 @@ class DeckGLMap extends React.Component {
     };
 
     this._onClick = this._onClick.bind(this);
+    this._updateStyles = this._updateStyles.bind(this);
     this._deckClick = this._deckClick.bind(this);
     this._renderTooltip = this._renderTooltip.bind(this);
     this._getFillColor = this._getFillColor.bind(this);
@@ -390,63 +391,61 @@ class DeckGLMap extends React.Component {
           ]
         }
       });
+    }
+  }
 
-      /*
-      
-            if (dataView === 'watered' && communityData[id]) {
-              return communityData[id].watered
-                ? [0, 0, 255, 200]
-                : [0, 0, 0, 0];
-            }
+  _updateStyles(prevProps) {
+    if (map) {
+      if (this.props.selectedTree && selectedStateId) {
+        // This replicates the original interaction, 
+        // but i believe leaving the highlight on the marker
+        // even if the info window closes, makes more sense on mobile
+        
+        // map.setFeatureState(
+        //   { sourceLayer: 'original', source: 'trees', id: selectedStateId },
+        //   { select: false }
+        // );
+        // selectedStateId = null; 
+      }
+      if (prevProps.ageRange !== this.props.ageRange) {
+        map.setPaintProperty('trees', 'circle-opacity', [
+          'case',
+          ['>=', ['get', 'age'], this.props.ageRange[0]],
+          [
+            'case',
+            ['<=', ['get', 'age'], this.props.ageRange[1]],
+            1,
+            0
+          ],
+          0
+        ]);
+      }
+      if (this.props.dataView === 'watered') {
+        // TODO: check if there is a performance up for any of the two
+        // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
+        const filter = ['match', ['get', 'id'], this.props.communityDataWatered, true, false];
+        map.setFilter('trees',filter);
+      } else if (this.props.dataView === 'adopted') {
+        const filter = ['match', ['get', 'id'], this.props.communityDataAdopted, true, false];
+        map.setFilter('trees',filter);
+      } else {
+        map.setFilter('trees', null);
+      }
+    }
+  }
 
-            if (dataView === 'adopted' && communityData[id]) {
-              return communityData[id].adopted
-                ? [255, 0, 0, 200]
-                : [0, 0, 0, 0];
-            }
-
-            if (dataView === 'adopted' || dataView === 'watered') {
-              return [0, 0, 0, 0];
-            }
-
-            if (age >= ageRange[0] && age <= ageRange[1]) {
-              const interpolated = interpolateColor(radolan_sum);
-              const hex = hexToRgb(interpolated);
-
-              return hex;
-            }
-
-            if (Number.isNaN(age)) {
-              // const interpolated = interpolateColor(radolan_sum);
-              // const hex = hexToRgb(interpolated);
-              return [200, 200, 200, 0];
-              // return hex;
-            }
-
-            return [200, 200, 200, 0];
-          },
-          onClick: info => {
-            const { setDetailRouteWithListPath } = this.props;
-            this._onClick(info.x, info.y, info.object);
-
-            if (info.object !== undefined) {
-              Store.setState({
-                highlightedObject: info.object.properties['id'],
-              });
-              setDetailRouteWithListPath(info.object.properties.id);
-            }
-          },
-          updateTriggers: {
-            getFillColor: [
-              this.props.wateredTrees,
-              this.props.highlightedObject,
-              this.props.ageRange,
-              this.props.dataView,
-            ],
-            getLineWidth: [this.props.selectedTree],
-          },
-
-      */
+  componentDidUpdate(prevProps) {
+    if (map) {
+      const mapProps = ["wateredTrees","highlightedObject","ageRange","dataView","selectedTree"]
+      let changed = false;
+      mapProps.forEach((prop) => {
+        if (prevProps[prop] !== this.props[prop]) {
+          changed = true;
+        }
+      });
+      if (changed) {
+        this._updateStyles(prevProps);
+      }
     }
   }
 
@@ -540,6 +539,8 @@ export default connect(
     highlightedObject: state.highlightedObject,
     ageRange: state.ageRange,
     communityData: state.communityData,
+    communityDataWatered: state.communityDataWatered,
+    communityDataAdopted: state.communityDataAdopted,
     user: state.user,
     AppState: state.AppState,
     rainVisible: state.rainVisible,
