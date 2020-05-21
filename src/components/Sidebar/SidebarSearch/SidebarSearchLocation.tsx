@@ -77,7 +77,7 @@ const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
 
   if (value.length < 3) return [];
 
-  const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?autocomplete=true&language=de&country=de&bbox=13.0824446341071,52.3281202651866,13.7682544186827,52.681600197973&access_token=${MAPBOX_TOKEN}`;
+  const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?autocomplete=true&language=de&country=de&bbox=12.236652,51.23817,12.542441,51.448114&access_token=${MAPBOX_TOKEN}`;
   const res = await fetch(geocodingUrl);
 
   if (!res.ok) return [];
