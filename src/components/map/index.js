@@ -412,7 +412,7 @@ class DeckGLMap extends React.Component {
   }
 
   _updateStyles(prevProps) {
-    if (map) {
+    if (map && isMobile) {
       if (this.props.selectedTree && selectedStateId) {
         // This replicates the original interaction,
         // but i believe leaving the highlight on the marker
