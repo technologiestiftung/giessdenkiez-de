@@ -6,6 +6,7 @@ import Actions from '../../../state/Actions';
 
 import CardDescription from '../CardDescription/';
 import SidebarSearchAge from '../../Sidebar/SidebarSearch/SidebarSearchAge';
+import SidebarSearchLocation from '../../Sidebar/SidebarSearch/SidebarSearchLocation';
 
 const Flex = styled.div`
   display: flex;
@@ -133,6 +134,10 @@ const Cardlegend = p => {
           Erkunde die Geschichte von Berlins Baumlandschaft
         </StyledCardDescriptionSecond>
         <SidebarSearchAge />
+      </Flex>
+      <Flex>
+      <StyledCardDescription>Standortsuche</StyledCardDescription>
+        <SidebarSearchLocation />
       </Flex>
     </>
   );
