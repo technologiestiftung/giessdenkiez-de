@@ -15,6 +15,7 @@ module.exports = {
     'src/**/*.{js,jsx}',
     '!**/node_modules/**',
     '!**/coverage/**',
+    '!src/deprecated/**/*',
   ],
   // TODO: When we have some coverage we can activate this
   // coverageThreshold: {

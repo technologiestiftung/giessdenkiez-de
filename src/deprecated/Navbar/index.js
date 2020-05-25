@@ -6,8 +6,8 @@ import { connect } from 'unistore/react';
 import { fetchAPI, createAPIUrl } from '../../utils';
 import Actions from '../../state/Actions';
 
-import ButtonBorder from '../ButtonBorder/';
-import Link from '../Link/';
+import ButtonBorder from '../../components/ButtonBorder';
+import Link from '../../components/Link';
 
 const StyledNavWrapper = styled.div`
   width: 100vw;
@@ -136,9 +136,9 @@ const NavBar = p => {
   );
 };
 
-export default connect(
-  state => ({
-    state: state,
-  }),
-  Actions
-)(NavBar);
+// export default connect(
+//   state => ({
+//     state: state,
+//   }),
+//   Actions
+// )(NavBar);
