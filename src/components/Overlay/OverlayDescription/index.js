@@ -7,8 +7,9 @@ const Wrapper = styled.div`
   margin: 0 40px;
   grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     gap: 0rem;
+    grid-template-columns: 1fr;
   }
 `;
 
