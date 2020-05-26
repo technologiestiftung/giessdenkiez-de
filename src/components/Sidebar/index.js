@@ -7,6 +7,7 @@ import SidebarSearch from './SidebarSearch/';
 import SidebarAdopted from './SidebarAdopted/';
 import SidebarProfile from './SidebarProfile/';
 import SidebarClose from './SidebarClose';
+import SidebarFAQ from './SidebarFAQ';
 
 const SidebarWrapper = styled.div`
   z-index: 3;
@@ -40,7 +41,7 @@ const SidebarContent = styled.div`
 const Sidebar = p => {
   return (
     <Route
-      path={['/about', '/search', '/adopted', '/profile', '/selected']}
+      path={['/about', '/search', '/adopted', '/faq', '/profile', '/selected']}
       children={({ match }) => (
         <SidebarWrapper isVisible={match}>
           <SidebarClose />
@@ -49,6 +50,7 @@ const Sidebar = p => {
               <Route path="/about" component={SidebarAbout} />
               <Route path="/search" component={SidebarSearch} />
               <Route path="/adopted" component={SidebarAdopted} />
+              <Route path="/faq" component={SidebarFAQ} />
               <Route path="/profile" component={SidebarProfile} />
             </Switch>
           </SidebarContent>

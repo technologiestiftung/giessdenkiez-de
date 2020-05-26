@@ -4,6 +4,7 @@ import { NavLink, withRouter, matchPath } from 'react-router-dom';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
+import FAQIcon from '@material-ui/icons/HelpOutline';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import Store from '../../state/Store';
@@ -43,6 +44,7 @@ const NavItem = styled(NavLink)`
 const navConfig = [
   { path: '/search', title: 'Suche und Filter', icon: <SearchIcon /> },
   { path: '/about', title: 'Info', icon: <InfoIcon /> },
+  { path: '/faq', title: 'FAQ', icon: <FAQIcon /> },
   { path: '/profile', title: 'Profil', icon: <AccountCircle /> },
 ];
 
