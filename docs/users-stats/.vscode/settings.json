@@ -21,5 +21,6 @@
   "peacock.color": "#7d1bd7",
   "editor.codeActionsOnSave": {
     "spellright": false
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
