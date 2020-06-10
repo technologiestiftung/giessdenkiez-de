@@ -73,7 +73,7 @@ const Linechart = p => {
       setScaleTime(() => scaleTime);
 
       const scaleRain = scaleLinear()
-        .domain([0, 100]) // @TODO: check the hours of the day
+        .domain([0, 300]) // @TODO: check the hours of the day
         .range([height - margin.top - margin.bottom, 0]);
       setScaleRain(() => scaleRain);
 
@@ -132,11 +132,7 @@ const Linechart = p => {
         .transition()
         .duration(500);
 
-      areaPath
-        .attr("d", area)
-        .transition()
-        .delay(500)
-        .duration(500)
+      areaPath.attr('d', area).transition().delay(500).duration(500);
 
       svg
         .append('linearGradient')
@@ -186,12 +182,7 @@ const Linechart = p => {
         .transition()
         .duration(500);
 
-      linePath
-        .attr("d", line)
-        .transition()
-        .delay(500)
-        .duration(500)
-
+      linePath.attr('d', line).transition().delay(500).duration(500);
     };
 
     const transformedData = transformData(data);
@@ -201,7 +192,7 @@ const Linechart = p => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <LineChartWrapper id="linechart"></LineChartWrapper>;
+  return <LineChartWrapper id='linechart'></LineChartWrapper>;
 };
 
 export default Linechart;

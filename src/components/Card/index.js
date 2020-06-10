@@ -57,13 +57,6 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 const Card = p => {
   const { data, treeLastWatered, treeAdopted, user, selectedTree, state } = p;
   const { getTokenSilently, isAuthenticated } = useAuth0();
@@ -95,25 +88,26 @@ const Card = p => {
           state,
           `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
         );
-        const r = await fetchAPI(url, { headers: { Authorization: 'Bearer ' + token } });
-        Store.setState({treeAdopted: r.data});
+        const r = await fetchAPI(url, {
+          headers: { Authorization: 'Bearer ' + token },
+        });
+        Store.setState({ treeAdopted: r.data });
       } catch (error) {
         console.log(error);
       }
     }
   };
 
-
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
   return (
     <CardWrapper>
       <FlexColumnDiv>
-          <TreeTitle>{artdtsch}</TreeTitle>
+        <TreeTitle>{artdtsch}</TreeTitle>
         {!treeType && treeType !== 'undefined' && (
           <SublineSpan>{getTreeProp(gattungdeutsch.toLowerCase())}</SublineSpan>
         )}
-        {treeAdopted && (<ButtonAdopted />)}
+        {treeAdopted && <ButtonAdopted />}
 
         {treeType && treeType.title !== null && (
           <CardAccordion
@@ -128,7 +122,7 @@ const Card = p => {
         )}
 
         {standalter && standalter !== 'undefined' && (
-          <CardProperty name="Standalter" value={standalter + ' Jahre'} />
+          <CardProperty name='Standalter' value={standalter + ' Jahre'} />
         )}
 
         {standalter !== 'null' && standalter !== 'undefined' && (
