@@ -23,7 +23,7 @@
     "module": "es6",
     "alwaysStrict": true,
     "allowUnreachableCode": false,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
