@@ -9,6 +9,7 @@ import Cookie from '../Cookie';
 import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
+import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
 
 import { removeOverlay } from '../../utils';
 
@@ -20,7 +21,7 @@ const AppWrapperDiv = styled.div`
 
 const CreditsContainer = styled.div`
   position: absolute;
-  top: 12px;
+  top: 24px;
   right: 12px;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
@@ -59,13 +60,14 @@ const AppWrapper = p => {
       {!isLoading && data && <Sidebar />}
       {overlay && data && <Overlay />}
       <Nav />
+      <ImprintAndPrivacyContainer></ImprintAndPrivacyContainer>
       <CreditsContainer>
         <Credits />
       </CreditsContainer>
-        <CookieContainer>
-          <Cookie />
-        </CookieContainer>
-        <Legend />
+      <CookieContainer>
+        <Cookie />
+      </CookieContainer>
+      <Legend />
     </AppWrapperDiv>
   );
 };

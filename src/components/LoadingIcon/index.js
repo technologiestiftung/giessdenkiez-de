@@ -9,8 +9,8 @@ const IconContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: auto;
+  justify-content: centet;
+  height: 100%;
   width: 200px;
 `;
 
@@ -36,14 +36,21 @@ const StyledIcon = styled.img`
   animation: pulse 1.5s infinite ease-in-out;
 `;
 
-const StyledLabel = styled.span`
+const StyledLabel = styled.div`
   font-size: ${p => p.theme.fontSizeM};
   opacity: 0.66;
   padding-bottom: 10px;
 `;
 
+const StyledLabelBottom = styled.div`
+  font-size: ${p => p.theme.fontSizeM};
+  opacity: 0.66;
+  padding-bottom: 10px;
+  position: absolute;
+  bottom: 15px;
+`;
 const LoadingIcon = p => {
-  const { intro } = content;
+  const { intro, imprintAndPrivacy } = content;
   const { disclaimer } = intro;
   const { text } = p;
   return (
@@ -51,6 +58,11 @@ const LoadingIcon = p => {
       <StyledIcon src={iconTrees} />
       {text && <StyledLabel>{text}</StyledLabel>}
       {isMobile && <StyledLabel>{disclaimer}</StyledLabel>}
+      {
+        <StyledLabelBottom
+          dangerouslySetInnerHTML={{ __html: imprintAndPrivacy.description }}
+        />
+      }
     </IconContainer>
   );
 };

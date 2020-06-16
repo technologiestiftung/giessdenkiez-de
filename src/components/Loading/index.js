@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 
 import LoadingIcon from '../LoadingIcon/';
 import content from '../../assets/content';
@@ -37,14 +37,14 @@ const LoadingDiv = styled.div`
   }
 `;
 
-const StyledLabel = styled.span`
-  font-size: ${p => p.theme.fontSizeM};
-  opacity: 0.66;
-`;
+// const StyledLabel = styled.span`
+//   font-size: ${p => p.theme.fontSizeM};
+//   opacity: 0.66;
+// `;
 
 const Loading = props => {
-  const { loading, intro } = content;
-  const { disclaimer } = intro;
+  const { loading } = content;
+  // const { disclaimer } = intro;
   const { snippets } = loading;
   const [current, setCurrent] = useState(0);
   const maxIndex = snippets.length - 1;
