@@ -7,7 +7,6 @@ import CardDescriptionTitle from '../../Card/CardDescriptionTitle/';
 import Credits from '../../Credits';
 import SocialSharing from '../../SocialSharing';
 import OpenSourceNote from '../../OpenSource';
-import { ImprintAndPrivacyCard } from '../../imprint-and-privacy';
 import content from '../../../assets/content';
 
 const StyledCardDescriptionTitle = styled(CardDescriptionTitle)`
