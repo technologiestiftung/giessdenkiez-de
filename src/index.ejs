@@ -151,8 +151,9 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                justify-content: space-between;
-                height: auto;
+                justify-content: center;
+                height: 100%;
+                align-content: center;
                 width: 180px;
             }
 
@@ -169,13 +170,23 @@
                 animation: pulse 1.5s infinite ease-in-out;
             }
 
-            span.loadingLabel {
+            div.loadingLabel {
                 font-family: 'IBM Plex Sans';
                 font-size: .8rem;
                 opacity: .5;
                 text-align: center;
             }
 
+            a {
+                color: #2c303b;
+            }
+            a:hover {
+                opacity: 0.33;
+                    }
+        #bottom-links{
+            position: absolute;
+            bottom: 15px;
+        }
         </style>
 
 
@@ -225,7 +236,8 @@
                         </g>
                     </g>
                 </svg>
-                <span class="loadingLabel">Sammle Informationen aller Bäume Berlins aus dem Stadtkataster…</span>
+                <div class="loadingLabel">Sammle Informationen aller Bäume Berlins aus dem Stadtkataster…</div>
+                <div class="loadingLabel" id="bottom-links"><a target="blank" href="https://www.technologiestiftung-berlin.de/de/impressum/">Impressum</a> und <a target="blank" href="https://www.technologiestiftung-berlin.de/de/datenschutz/">Datenschutz</a></div>
             </div>
         </div>
         <div id="app"></div>

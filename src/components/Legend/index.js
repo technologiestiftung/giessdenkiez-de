@@ -107,7 +107,7 @@ const FlexColumn = styled.div`
 
 const LegendDiv = styled.div`
   position: absolute;
-  bottom: 12px;
+  bottom: 36px;
   right: 12px;
   display: flex;
   flex-direction: column;

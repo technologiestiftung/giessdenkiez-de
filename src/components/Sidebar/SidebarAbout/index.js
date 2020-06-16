@@ -7,7 +7,6 @@ import CardDescriptionTitle from '../../Card/CardDescriptionTitle/';
 import Credits from '../../Credits';
 import SocialSharing from '../../SocialSharing';
 import OpenSourceNote from '../../OpenSource';
-
 import content from '../../../assets/content';
 
 const StyledCardDescriptionTitle = styled(CardDescriptionTitle)`
@@ -52,7 +51,7 @@ const CreditsContainer = styled.div`
   }
 `;
 
-const SidebarAbout = p => {
+const SidebarAbout = _p => {
   const { sidebar } = content;
   const { about } = sidebar;
   function createMarkup(content) {
@@ -76,6 +75,7 @@ const SidebarAbout = p => {
         <SocialSharing />
       </SocialSharingContainer>
       <OpenSourceNote />
+      {/* <ImprintAndPrivacyCard /> */}
     </>
   );
 };

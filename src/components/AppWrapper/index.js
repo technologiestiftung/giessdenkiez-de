@@ -9,6 +9,7 @@ import Cookie from '../Cookie';
 import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
+import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
 
 import { removeOverlay } from '../../utils';
 
@@ -62,10 +63,11 @@ const AppWrapper = p => {
       <CreditsContainer>
         <Credits />
       </CreditsContainer>
-        <CookieContainer>
-          <Cookie />
-        </CookieContainer>
-        <Legend />
+      <CookieContainer>
+        <Cookie />
+      </CookieContainer>
+      <Legend />
+      <ImprintAndPrivacyContainer></ImprintAndPrivacyContainer>
     </AppWrapperDiv>
   );
 };
