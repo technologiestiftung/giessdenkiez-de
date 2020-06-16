@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import OverlayTile from './OverlayTile';
+import { CollaborationItem } from '../../../assets/content';
 
 const Wrapper = styled.div`
   display: grid;
@@ -21,14 +22,15 @@ const Wrapper = styled.div`
 //   margin: 0;
 // `;
 
-const OverlayTiles = p => {
-  const { content } = p;
-
+const OverlayTiles: React.FC<{ tiles: CollaborationItem[] }> = ({ tiles }) => {
   return (
     <Wrapper>
-      {content.map((col, i) => {
+      {tiles.map((col, i) => {
         return (
-          <OverlayTile key={`Overlay-tile-${i}`} content={col}></OverlayTile>
+          <OverlayTile
+            key={`Overlay-tile-${i}`}
+            collaborationItem={col}
+          ></OverlayTile>
         );
       })}
     </Wrapper>

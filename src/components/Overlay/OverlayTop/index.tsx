@@ -61,13 +61,13 @@ const OverlayTop = p => {
   return (
     <StyledTop>
       <Wrapper>
-        <OverlayTitle size='large' content={title} />
+        <OverlayTitle size='large' title={title} />
         <OverlayIcon icon='trees' />
         <OverlayBeta />
       </Wrapper>
-      <OverlayTitle size='large' content={subline} />
+      <OverlayTitle size='large' title={subline} />
 
-      {isMobile && <OverlayTitle size='medium' content={disclaimer} />}
+      {isMobile && <OverlayTitle size='medium' title={disclaimer} />}
       {/* the beow is here for local testing */}
       {/* {true && <OverlayTitle size='medium' content={disclaimer} />} */}
       <OverlayDescription content={description} />

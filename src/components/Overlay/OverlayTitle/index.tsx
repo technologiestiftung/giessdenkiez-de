@@ -41,12 +41,14 @@ const StyledOverlayTitle = styled.h2<StyledProps>`
   }
 `;
 
-const OverlayTitle = p => {
-  const { content, size } = p;
+const OverlayTitle: React.FC<{ title: string; size?: any }> = ({
+  title,
+  size,
+}) => {
   return (
     <StyledOverlayTitle
       size={size}
-      dangerouslySetInnerHTML={{ __html: `${content}` }}
+      dangerouslySetInnerHTML={{ __html: `${title}` }}
     />
   );
 };

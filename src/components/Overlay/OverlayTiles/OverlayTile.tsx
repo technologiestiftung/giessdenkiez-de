@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import OverlayParagraph from '../OverlayParagraph/';
 import OverlayIcon from '../OverlayIcon/';
+import { CollaborationItem } from '../../../assets/content';
 
 const StyledTileWrapper = styled.div`
   display: flex;
@@ -28,14 +29,15 @@ const StyledTileTitle = styled.h2`
   margin-top: 0px;
 `;
 
-const OverlayTile = p => {
-  const { content } = p;
+const OverlayTile: React.FC<{ collaborationItem: CollaborationItem }> = ({
+  collaborationItem,
+}) => {
   return (
     <StyledTileWrapper>
-      <OverlayIcon icon={content.icon} />
+      <OverlayIcon icon={collaborationItem.icon} />
       <StyledContentWrapper>
-        <StyledTileTitle>{content.title}</StyledTileTitle>
-        <OverlayParagraph content={content.content} />
+        <StyledTileTitle>{collaborationItem.title}</StyledTileTitle>
+        <OverlayParagraph content={collaborationItem.description} />
       </StyledContentWrapper>
     </StyledTileWrapper>
   );

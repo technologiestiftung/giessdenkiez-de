@@ -13,13 +13,13 @@ const StyledBottom = styled.div`
   padding: 40px 0;
 `;
 
-const OverlayBottom = p => {
+const OverlayBottom = () => {
   const { collaborate } = content;
 
   return (
     <StyledBottom>
-      <OverlayTitle content={collaborate.title} />
-      <OverlayTiles content={collaborate.tiles} />
+      <OverlayTitle title={collaborate.title} />
+      <OverlayTiles tiles={collaborate.tiles} />
     </StyledBottom>
   );
 };
