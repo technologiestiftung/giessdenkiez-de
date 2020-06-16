@@ -60,7 +60,6 @@ const AppWrapper = p => {
       {!isLoading && data && <Sidebar />}
       {overlay && data && <Overlay />}
       <Nav />
-      <ImprintAndPrivacyContainer></ImprintAndPrivacyContainer>
       <CreditsContainer>
         <Credits />
       </CreditsContainer>
@@ -68,6 +67,7 @@ const AppWrapper = p => {
         <Cookie />
       </CookieContainer>
       <Legend />
+      <ImprintAndPrivacyContainer></ImprintAndPrivacyContainer>
     </AppWrapperDiv>
   );
 };
