@@ -21,7 +21,7 @@ const AppWrapperDiv = styled.div`
 
 const CreditsContainer = styled.div`
   position: absolute;
-  top: 24px;
+  top: 12px;
   right: 12px;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
