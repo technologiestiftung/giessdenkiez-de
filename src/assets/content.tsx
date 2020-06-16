@@ -1,4 +1,69 @@
-const content = {
+interface Item {
+  title: string;
+  description: string;
+}
+
+type TreeTypeId = 'LINDE' | 'AHORN' | 'EICHE' | 'KASTANIE' | 'PLATANE';
+export interface TreeType extends Item {
+  id: TreeTypeId;
+}
+
+type IconType = 'info' | 'zoom' | 'water' | 'subscribe';
+export interface CollaborationItem extends Item {
+  icon: IconType;
+}
+interface Watering extends Item {
+  waterdrops: number[];
+}
+interface FAQ extends Item {
+  qa: Array<{ question: string; answer: string }>;
+}
+interface Content {
+  faq: FAQ;
+  imprintAndPrivacy: Item;
+  intro: {
+    title: string;
+    subline: string;
+    disclaimer: string;
+    description: string[];
+  };
+  loading: {
+    snippets: string[];
+  };
+  sidebar: {
+    about: Item[];
+    watering: Watering[];
+    treetypes: TreeType[];
+  };
+  collaborate: {
+    title: string;
+    tiles: CollaborationItem[];
+  };
+}
+
+const content: Content = {
+  faq: {
+    title: 'F.A.Q.',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    qa: [
+      {
+        question: 'Was ist deine Lieblingsfarbe?',
+        answer:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      },
+      {
+        question: 'Was ist deine Lieblingsfarbe?',
+        answer:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      },
+      {
+        question: 'Was ist deine Lieblingsfarbe?',
+        answer:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      },
+    ],
+  },
   imprintAndPrivacy: {
     title: 'Impressum und Datenschutz',
     description:
@@ -110,25 +175,25 @@ const content = {
       {
         icon: 'water',
         title: 'Bäume bewässern',
-        content:
+        description:
           'Informiere Dich auf unserer Plattform, ob die Bäume in deiner Straße Wasser benötigen. Wenn ja, schnapp Dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst du die Bewässerung hier ein.',
       },
       {
         icon: 'subscribe',
         title: 'Bäume abonnieren',
-        content:
+        description:
           'Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst du sie abonnieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.',
       },
       {
         icon: 'zoom',
         title: 'Den Baumbestand erkunden',
-        content:
+        description:
           'Unsere Karte ermöglicht es, mehr über einzelne Bäume und auch den gesamten Baumbestand zu erfahren. Nutze die Filter- und Suchfunktion um mehr über die Bäume Berlins zu lernen.',
       },
       {
         icon: 'info',
         title: 'Mit anderen austauschen',
-        content:
+        description:
           'Tritt unserem <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack-Kanal</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.',
       },
     ],
