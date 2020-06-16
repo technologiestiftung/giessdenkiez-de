@@ -97,9 +97,14 @@ const SidebarProfile = p => {
           headers: {
             Authorization: 'Bearer ' + token,
           },
-        }).then(r => {
-          Store.setState({ adoptedTreesDetails: r.data });
-        });
+        })
+          .then(r => {
+            Store.setState({ adoptedTreesDetails: r.data });
+            return;
+          })
+          .catch(err => {
+            console.error(err);
+          });
       }
     };
     if (adoptedTrees.length === 0) {
@@ -163,7 +168,7 @@ const SidebarProfile = p => {
             deiner Umgebung hier eintragen möchtest, dann registriere dich oder
             logge dich ein.
           </CardParagraph>
-          <Login width="-webkit-fill-available" />
+          <Login width='-webkit-fill-available' />
           <StyledCardDescription onClick={() => toggleOverlay(true)}>
             Wie kann ich mitmachen?
           </StyledCardDescription>
@@ -192,7 +197,7 @@ const SidebarProfile = p => {
                     email={userdata.email}
                     username={userdata.username}
                   ></CardCredentials>
-                  <Login width="-webkit-fill-available" />
+                  <Login width='-webkit-fill-available' />
                   <>
                     <CardParagraph>
                       Möchtest du deinen Account löschen? Damit werden alle von
@@ -202,7 +207,7 @@ const SidebarProfile = p => {
                       unwiderruflich gelöscht.
                     </CardParagraph>
                     <LastButtonRound
-                      width="-webkit-fill-available"
+                      width='-webkit-fill-available'
                       toggle={handleDeleteClick}
                     >
                       Account Löschen
@@ -213,7 +218,7 @@ const SidebarProfile = p => {
               {!wateredByUser ||
                 (!adoptedTreesDetails && (
                   <Container>
-                    <LoadingIcon text="Lade Profil ..." />
+                    <LoadingIcon text='Lade Profil ...' />
                   </Container>
                 ))}
             </>

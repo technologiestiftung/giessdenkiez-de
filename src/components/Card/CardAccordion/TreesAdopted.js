@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Actions from '../../../state/Actions';
 import { connect } from 'unistore/react';
@@ -81,7 +81,7 @@ const TreesAdopted = p => {
         `/private/get-adopted-trees?uuid=${user.sub}`
       );
 
-      const res = await fetchAPI(urlUnadopt, header);
+      await fetchAPI(urlUnadopt, header);
 
       const resAdoptedTrees = await fetchAPI(urlAdoptedTrees, header);
 
@@ -90,7 +90,6 @@ const TreesAdopted = p => {
         adoptedTrees: resAdoptedTrees.data,
       });
       setUnadopting(false);
-
     } catch (error) {
       console.error(error);
     }

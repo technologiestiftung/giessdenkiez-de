@@ -20,14 +20,14 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
     rules: [
       {
         // Transpile ES6 to ES5 with babel
         // Remove if your app does not use JSX or you don't need to support old browsers
-        test: /\.jsx?$/,
+        test: /\.(t|j)sx?$/,
         loader: 'babel-loader',
         exclude: [/node_modules/],
         options: {

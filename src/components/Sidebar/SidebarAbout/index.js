@@ -68,6 +68,8 @@ const SidebarAbout = _p => {
           ></StyledCardDescription>
         </PanelWrapper>
       ))}
+
+      {}
       <CreditsContainer>
         <Credits />
       </CreditsContainer>
