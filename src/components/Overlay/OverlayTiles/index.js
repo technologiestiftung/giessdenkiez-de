@@ -8,6 +8,10 @@ const Wrapper = styled.div`
   gap: 1rem;
   margin: 0 40px;
   grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 // const StyledParargraph = styled.p`
