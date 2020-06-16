@@ -1,0 +1,35 @@
+{
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "target": "esnext",
+    "outDir": "./dist/",
+    "rootDir": "./src",
+    "typeRoots": ["node_modules/@types"],
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "noEmit": true,
+
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": [
+      "es2015",
+      "dom.iterable",
+      "es2016.array.include",
+      "es2017.object",
+      "dom"
+    ],
+    "module": "es6",
+    "alwaysStrict": true,
+    "allowUnreachableCode": false,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true
+  }
+}

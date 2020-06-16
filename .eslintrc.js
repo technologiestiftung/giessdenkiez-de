@@ -1,4 +1,7 @@
-module.exports = {
+const config = require('@inpyjamas/scripts/dist/config/eslint/typescript');
+const { merge } = require('@inpyjamas/scripts/dist/utlities/merge');
+
+module.exports = merge(config, {
   env: {
     'jest/globals': true,
   },
@@ -23,4 +26,4 @@ module.exports = {
     'no-var': 'error',
   },
   plugins: ['promise', 'jest'],
-};
+});
