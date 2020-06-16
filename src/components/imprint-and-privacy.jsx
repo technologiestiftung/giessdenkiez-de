@@ -6,7 +6,7 @@ import content from '../assets/content';
 
 const StyledDiv = styled.div`
   position: absolute;
-  top: 12px;
+  bottom: 12px;
   right: 12px;
   font-family: 'IBM Plex Sans';
   font-size: 0.8rem;
