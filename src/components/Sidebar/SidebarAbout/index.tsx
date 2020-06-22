@@ -56,6 +56,7 @@ const SidebarAbout = _p => {
       ))}
 
       <SidebarTitle>{content.faq.title}</SidebarTitle>
+      <StyledCardDescription>{content.faq.description}</StyledCardDescription>
       {content.faq.qa.map((item, i) => (
         <CardAccordion key={i} title={item.question}>
           <StyledCardDescription
