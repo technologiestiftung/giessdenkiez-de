@@ -189,7 +189,7 @@ const SidebarProfile = p => {
                   <CardProgress data={wateredByUser} />
                   <CardAccordion
                     active={true}
-                    title={<span>Abonnierte Bäume</span>}
+                    title={<span>Adoptierte Bäume</span>}
                   >
                     {adoptedTreesDetails && (
                       //@ts-ignore

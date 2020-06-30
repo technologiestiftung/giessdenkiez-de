@@ -115,7 +115,7 @@ const SidebarAdopted = p => {
 
   return (
     <>
-      <SidebarTitle>Abonnierte Bäume:</SidebarTitle>
+      <SidebarTitle>Adoptierte Bäume:</SidebarTitle>
       {selectedTreeState !== 'FETCHED' && (
         <SidebarLoadingCard state={selectedTreeState} />
       )}
@@ -165,7 +165,7 @@ const SidebarAdopted = p => {
       )}
 
       {adoptedTrees.length === 0 && selectedTreeState !== 'LOADING' && (
-        <CardWrapper>Du hast noch keine Bäume abonniert.</CardWrapper>
+        <CardWrapper>Du hast noch keine Bäume adoptiert.</CardWrapper>
       )}
     </>
   );

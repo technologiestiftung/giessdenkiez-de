@@ -8,6 +8,8 @@ import Credits from '../../Credits';
 import SocialSharing from '../../SocialSharing';
 import OpenSourceNote from '../../OpenSource';
 import content from '../../../assets/content';
+import { PanelWrapper } from '../../Card/Panels/PanelWrapper';
+import CardAccordion from '../../Card/CardAccordion';
 
 const StyledCardDescriptionTitle = styled(CardDescriptionTitle)`
   margin-bottom: 5px;
@@ -17,22 +19,6 @@ const StyledCardDescriptionTitle = styled(CardDescriptionTitle)`
 
 const StyledCardDescription = styled(CardDescription)`
   opacity: 0.66;
-`;
-
-// const StyledParagraph = styled.p`
-//   width: 300px;
-//   line-height: 150%;
-//   margin-top: 0;
-// `;
-
-const PanelWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100% !important;
-  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
-  padding-bottom: 10px;
-  animation: sweep 0.125s ease-in-out;
-  margin-bottom: 10px;
 `;
 
 const SocialSharingContainer = styled.div`
@@ -69,7 +55,18 @@ const SidebarAbout = _p => {
         </PanelWrapper>
       ))}
 
-      {}
+      <SidebarTitle>{content.faq.title}</SidebarTitle>
+      <StyledCardDescription>{content.faq.description}</StyledCardDescription>
+      {/* Meh.
+      Make some room since the element above is an span and it does not allow to addd padding */}
+      <div style={{ paddingBottom: '1rem' }}></div>
+      {content.faq.qa.map((item, i) => (
+        <CardAccordion key={i} title={item.question}>
+          <StyledCardDescription
+            dangerouslySetInnerHTML={{ __html: item.answer }}
+          ></StyledCardDescription>
+        </CardAccordion>
+      ))}
       <CreditsContainer>
         <Credits />
       </CreditsContainer>

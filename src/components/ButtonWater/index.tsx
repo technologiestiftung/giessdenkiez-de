@@ -225,13 +225,13 @@ const ButtonWater = p => {
                   {!adopted &&
                   selectedTreeState !== 'ADOPT' &&
                   selectedTreeState !== 'ADOPTED'
-                    ? 'Baum abonnieren'
+                    ? 'Baum adoptieren'
                     : ''}
                   {!adopted && selectedTreeState === 'ADOPT'
-                    ? 'Abonniere Baum ...'
+                    ? 'Adoptiere Baum ...'
                     : ''}
                   {!adopted && selectedTreeState === 'ADOPTED'
-                    ? 'Baum abonniert!'
+                    ? 'Baum adoptiert!'
                     : ''}
                 </ButtonRound>
               </BtnContainer>
@@ -253,7 +253,7 @@ const ButtonWater = p => {
         ) : (
           <>
             <CardParagraph>
-              Bäume abonnieren und wässern ist nur möglich mit verifiziertem
+              Bäume adoptieren und wässern ist nur möglich mit verifiziertem
               Account.
             </CardParagraph>
             <NonVerfiedMailCardParagraph></NonVerfiedMailCardParagraph>

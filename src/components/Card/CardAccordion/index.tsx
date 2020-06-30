@@ -1,50 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import { PanelWrapper } from '../Panels/PanelWrapper';
+import { PanelHeader } from '../Panels/PanelHeader';
+import { PanelBody } from '../Panels/PanelBody';
+import { PanelIndicator } from '../Panels/PanelIndicator';
+import { PanelTitle } from '../Panels/PanelTitle';
 
-const PanelHeader = styled.div`
-  display: flex;
-  font-weight: bold;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-interface PanelBodyProps {
+const CardAccordion = (p: {
+  title: string;
+  children: JSX.Element;
   active?: boolean;
-}
-const PanelBody = styled.div<PanelBodyProps>`
-  display: ${props => (props.active ? 'flex' : 'none')};
-  animation: sweep 0.125s ease-in-out;
-  width: 100%;
-`;
-
-const PanelIndicator = styled.span`
-  width: 28px;
-  justify-content: center;
-  height: 28px;
-  align-items: center;
-  display: flex;
-  border-radius: 100px;
-  opacity: 1;
-  cursor: pointer;
-  transition: all 0.125s ease-in-out;
-
-  &:hover {
-    opactiy: 0.5;
-    transition: all 0.125s ease-in-out;
-  }
-`;
-
-const PanelWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
-  padding-bottom: 10px;
-  animation: sweep 0.125s ease-in-out;
-  margin-bottom: 10px;
-`;
-
-const CardAccordion = (p: { title: any; children: any; active?: boolean }) => {
+}) => {
   const { title, children, active = false } = p;
   const [localActive, toggleActive] = useState(active);
 
@@ -56,8 +21,11 @@ const CardAccordion = (p: { title: any; children: any; active?: boolean }) => {
 
   return (
     <PanelWrapper>
-      <PanelHeader>
-        {title}
+      <PanelHeader
+        expanded={localActive}
+        onClick={() => toggleActive(!localActive)}
+      >
+        <PanelTitle>{title}</PanelTitle>
         <PanelIndicator onClick={() => toggleActive(!localActive)}>
           {indicator}
         </PanelIndicator>

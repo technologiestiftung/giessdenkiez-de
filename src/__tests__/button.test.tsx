@@ -74,10 +74,10 @@ describe('button tests', () => {
     );
 
     const button = getByRole(/button/i);
-    const label = getByText(/abonniert/i);
+    const label = getByText(/adoptiert/i);
     expect(button).toHaveAttribute('role', 'button');
     expect(label).toBeTruthy();
-    expect(label).toHaveTextContent(/abonniert/i);
+    expect(label).toHaveTextContent(/adoptiert/i);
     expect(button).toHaveAttribute('tabindex', '0');
     // fireEvent.click(button);
     // expect(label).toHaveTextContent(/entferne/i);

@@ -99,7 +99,7 @@ const TreesAdopted = p => {
   if (data.length === 0) {
     return (
       <WrapperOuter>
-        <Title>Du hast noch keine Bäume abonniert.</Title>
+        <Title>Du hast noch keine Bäume adoptiert.</Title>
       </WrapperOuter>
     );
   } else {

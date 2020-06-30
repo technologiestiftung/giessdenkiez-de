@@ -120,7 +120,7 @@ const Cardlegend = p => {
             Store.setState({ dataView: 'adopted' });
           }}
         >
-          <StyledItemLabel>Bereits abonniert</StyledItemLabel>
+          <StyledItemLabel>Bereits adoptiert</StyledItemLabel>
         </UnstyledFlexWidth>
         <UnstyledFlexWidth
           active={dataView === 'watered'}
