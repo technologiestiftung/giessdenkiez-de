@@ -45,7 +45,7 @@ const content: Content = {
   faq: {
     title: 'F.A.Q.',
     description:
-      'Basierend auf dem regen Austausch unserer Community auf Slack & euren Rückmeldungen per Email und Telefon, haben wir ein kleines FAQ angelegt. Hier werden die am häuftigsten gestellten Fragen gestellt.',
+      'Basierend auf dem regen Austausch unserer Community auf Slack & euren Rückmeldungen per Email und Telefon, haben wir ein kleines FAQ angelegt. Hier werden die am häuftigsten gestellten Fragen beantwortet.',
     qa: [
       {
         question: 'Wie kann ich mitmachen?',
