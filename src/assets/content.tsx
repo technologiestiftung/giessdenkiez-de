@@ -44,56 +44,59 @@ interface Content {
 const content: Content = {
   faq: {
     title: 'F.A.Q.',
-    description:  
+    description:
       'Basierend auf dem regen Austausch unserer Community auf Slack & euren Rückmeldungen per Email und Telefon, haben wir ein kleines FAQ angelegt. Hier werden die am häuftigsten gestellten Fragen gestellt.',
     qa: [
       {
         question: 'Wie kann ich mitmachen?',
         answer:
-          'Du bist einfach nur neugierig welcher Baum vor deiner Tür steht? Kein Problem: navigiere und zoome  einfach zum gewünschten Standort und klicke auf den farbigen Punkt. Nun werden dir im Menüband links zahlreiche Informationen zum ausgewählten Baum angezeigt. <br> <br> Du möchtest aktiv werden oder bist breits aktiv am Gieße? Dann kannst du hier einen oder mehrere Bäume adoptieren. Lege dazu zunächst ein Profil mit einer gültigen Email-Adresse an und logge dich im Anschluss ein. Nun kannst du deine Gieß-Aktionen entsprechend dokumentieren und sehen ob und wie oft Bäume in deinem kiez bereits von anderen Nutzer*innen gegossen wurden.'
-        },      
+          'Du bist einfach nur neugierig welcher Baum vor deiner Tür steht? Kein Problem: navigiere und zoome  einfach zum gewünschten Standort und klicke auf den farbigen Punkt. Nun werden dir im Menüband links zahlreiche Informationen zum ausgewählten Baum angezeigt. <br> <br> Du möchtest aktiv werden oder bist breits aktiv am Gieße? Dann kannst du hier einen oder mehrere Bäume adoptieren. Lege dazu zunächst ein Profil mit einer gültigen Email-Adresse an und logge dich im Anschluss ein. Nun kannst du deine Gieß-Aktionen entsprechend dokumentieren und sehen ob und wie oft Bäume in deinem kiez bereits von anderen Nutzer*innen gegossen wurden.',
+      },
       {
-        question: 'Was kann ich tun, wenn Bäume nicht richtig eingetragen sind?',
+        question:
+          'Was kann ich tun, wenn Bäume nicht richtig eingetragen sind?',
         answer:
-          'Wir beziehen den Baum-Datensatz mit allen Attributen wie bspw. Adresse, Baumart und Pflanzjahr je Baum aus dem Geoportal der Stadt Berlin, dem FIS-Broker. Die im Geoportal bereitgestellten Daten basieren wiederum auf den bezirklich aggregierten Daten der Straßen- und Grünflächenämter. Es kann daher immer wieder vorkommen, dass Daten von Bäumen veraltet sind oder Eigenschaften der tagesaktuellen Realität abweichen. <br><br> Wir arbeiten bereits an einer Idee, damit Bürger*innen Informationen zu Bäumen in Zukunft selbst melden können. Aktuell jedoch gibt es keinen solchen Meldedialog. Etwaige Abweichungen können direkt bei der zuständigen bezirklichen Behörde gemeldet werden.'
-        },
+          'Wir beziehen den Baum-Datensatz mit allen Attributen wie bspw. Adresse, Baumart und Pflanzjahr je Baum aus dem Geoportal der Stadt Berlin, dem FIS-Broker. Die im Geoportal bereitgestellten Daten basieren wiederum auf den bezirklich aggregierten Daten der Straßen- und Grünflächenämter. Es kann daher immer wieder vorkommen, dass Daten von Bäumen veraltet sind oder Eigenschaften der tagesaktuellen Realität abweichen. <br><br> Wir arbeiten bereits an einer Idee, damit Bürger*innen Informationen zu Bäumen in Zukunft selbst melden können. Aktuell jedoch gibt es keinen solchen Meldedialog. Etwaige Abweichungen können direkt bei der zuständigen bezirklichen Behörde gemeldet werden.',
+      },
       {
         question: 'Warum sollte ich aktiv werden und Bäume gießen?',
         answer:
-          'Die langanhaltenden Dürre- und Hitzeperioden der letzten zwei Jahre haben dem Stadtgrün Berlins immens zugesetzt. Wenngleich nicht nur auf Trockenschäden zurückzuführen, mussten allein in diesem Zeitraum über 7.000 Bäume gefällt werden. <br><br> Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit dem Gießen nicht hinterher. Da die Grünflächenämter bezirklich organisiert sind, arbeitet jeder Bezirk etwas anders, sodass eine ganzheitliche und bedarfsgerechte Koordination durchaus mit Hürden verbunden ist. Durch die Plattform möchten wir auch Bürger*innen die Möglichkeit geben, Bäumen gezielt auf Grundlage deren aktuellen Wasserversorgung zu helfen. Ziel ist es, möglichst viele Bäume durch nachbarschaftliches Engagement zu retten.'
-        },
+          'Die langanhaltenden Dürre- und Hitzeperioden der letzten zwei Jahre haben dem Stadtgrün Berlins immens zugesetzt. Wenngleich nicht nur auf Trockenschäden zurückzuführen, mussten allein in diesem Zeitraum über 7.000 Bäume gefällt werden. <br><br> Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit dem Gießen nicht hinterher. Da die Grünflächenämter bezirklich organisiert sind, arbeitet jeder Bezirk etwas anders, sodass eine ganzheitliche und bedarfsgerechte Koordination durchaus mit Hürden verbunden ist. Durch die Plattform möchten wir auch Bürger*innen die Möglichkeit geben, Bäumen gezielt auf Grundlage deren aktuellen Wasserversorgung zu helfen. Ziel ist es, möglichst viele Bäume durch nachbarschaftliches Engagement zu retten.',
+      },
       {
         question: 'Wie gieße ich richtig?',
         answer:
-          'Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Jungbäume (0-15 Jahre), benötigen mehr Wasser als mittelalte Bäume (15-40 Jahre). Altbäume (ab 40 Jahre) sind meist komplette Selbstversorger. Da frisch gepflanzte Bäume bis zum Alter von drei Jahren in der Regel von den bezirklichen Grünflächenämtern mit Wasser versorgt werden, benötigen besonders die Bäume zwischen vier und 15 Jahren unsere Aufmerksamkeit, beziehungsweise unser Wasser. Dies haben wir mit den Kennzeichungen des geringen, mittleren oder hohen Wasserbedarfs hervorgehoben.<br><br> Angelehnt an das Berliner <a traget="blank" href="https://www.berlin.de/senuvk/umwelt/stadtgruen/pflege_unterhaltung/de/hgp/index.shtml">Handbuch Gute Pflege</a> empfehlen wir euch, lieber seltener zu wässern, dafür mit einer größeren Menge an Wasser. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Im Endeffekt schaden aber auch kleinere Mengen gerade im Hochsommer nicht. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht wegläuft oder sich falsch anstaut. Auch zu empfehlen sind sog. Geißsäcke aus denen das Wasser nur sehr langsam ausstritt, kaum oberflächig abläuft und somit kontinuierlich in den Boden sickert.'
-        },
-      { 
+          'Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Jungbäume (0-15 Jahre), benötigen mehr Wasser als mittelalte Bäume (15-40 Jahre). Altbäume (ab 40 Jahre) sind meist komplette Selbstversorger. Da frisch gepflanzte Bäume bis zum Alter von drei Jahren in der Regel von den bezirklichen Grünflächenämtern mit Wasser versorgt werden, benötigen besonders die Bäume zwischen vier und 15 Jahren unsere Aufmerksamkeit, beziehungsweise unser Wasser. Dies haben wir mit den Kennzeichungen des geringen, mittleren oder hohen Wasserbedarfs hervorgehoben.<br><br> Angelehnt an das Berliner <a traget="blank" href="https://www.berlin.de/senuvk/umwelt/stadtgruen/pflege_unterhaltung/de/hgp/index.shtml">Handbuch Gute Pflege</a> empfehlen wir euch, lieber seltener zu wässern, dafür mit einer größeren Menge an Wasser. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Im Endeffekt schaden aber auch kleinere Mengen gerade im Hochsommer nicht. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht wegläuft oder sich falsch anstaut. Auch zu empfehlen sind sog. Geißsäcke aus denen das Wasser nur sehr langsam ausstritt, kaum oberflächig abläuft und somit kontinuierlich in den Boden sickert.',
+      },
+      {
         question: 'Wie wird mit technischen Problemen umgegangen?',
         answer:
-          'Bei der Beteiligungsplattform “Giess den Kiez” handelt es sich um einen Prototypen, respektive um eine Beta-Version einer Web-App. Wir sind uns einigen technischen Hürden bewusst und wollen die Plattform in Zukunft performanter und stabiler gestalten, bitten euch aber diesbezüglich um etwas Geduld und Verständnis. <br><br> Euer technisches Feedback und eure Fragen nehmen wir gerne in unserem <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack Channel</a> oder per Mail entgegen. Wer sich in der “Tech-Welt” zu Hause fühlt, ist herzlich zur Mitarbeit in unserem <a target="blank" href="https://github.com/technologiestiftung/tsb-trees-frontend">Open Source GitHub Repository</a> eingeladen und kann seine Issues oder Code Fixes direkt in das Repository kommentieren.'
-        },
+          'Bei der Beteiligungsplattform “Giess den Kiez” handelt es sich um einen Prototypen, respektive um eine Beta-Version einer Web-App. Wir sind uns einigen technischen Hürden bewusst und wollen die Plattform in Zukunft performanter und stabiler gestalten, bitten euch aber diesbezüglich um etwas Geduld und Verständnis. <br><br> Euer technisches Feedback und eure Fragen nehmen wir gerne in unserem <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack Channel</a> oder per Mail entgegen. Wer sich in der “Tech-Welt” zu Hause fühlt, ist herzlich zur Mitarbeit in unserem <a target="blank" href="https://github.com/technologiestiftung/tsb-trees-frontend">Open Source GitHub Repository</a> eingeladen und kann seine Issues oder Code Fixes direkt in das Repository kommentieren.',
+      },
       {
         question: 'Warum lädt die Website nicht oder nur sehr langsam?',
         answer:
-          'Wenn die Seite zum ersten Mal geöffnet wird, lädt der Browser über 625.000 Datenpunkte – das kann eine Weile dauern! Unabhängig davon, kann es zu leicht unterschiedlichen  Darstellungen bei der Verwendung unterschiedlicher Browser kommen. Für die beste “Experience” empfehlen wir die Nutzung des Chrome-Browsers am Desktop. Die häufigsten Probleme lassen sich erfahrungsgemäß beseitigen, wenn der Browser nicht veraltet, respektive die neueste Version installiert ist und eine stabile Internetverbindung (LAN oder WLAN) besteht. <br><br> Die Nutzung via Mobilfunknetz kann zu Performance-Problemen (Seite lädt langsam) führen. Sollten wiederholt Probleme auftreten, könnt ihr diese auf <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack</a>, per Mail oder via GitHub Issue unter Angabe des benutzten Geräts, des Betriebssystems, des Browsers und Version des Browsers melden.'
-        },
+          'Wenn die Seite zum ersten Mal geöffnet wird, lädt der Browser über 625.000 Datenpunkte – das kann eine Weile dauern! Unabhängig davon, kann es zu leicht unterschiedlichen  Darstellungen bei der Verwendung unterschiedlicher Browser kommen. Für die beste “Experience” empfehlen wir die Nutzung des Chrome-Browsers am Desktop. Die häufigsten Probleme lassen sich erfahrungsgemäß beseitigen, wenn der Browser nicht veraltet, respektive die neueste Version installiert ist und eine stabile Internetverbindung (LAN oder WLAN) besteht. <br><br> Die Nutzung via Mobilfunknetz kann zu Performance-Problemen (Seite lädt langsam) führen. Sollten wiederholt Probleme auftreten, könnt ihr diese auf <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack</a>, per Mail oder via GitHub Issue unter Angabe des benutzten Geräts, des Betriebssystems, des Browsers und Version des Browsers melden.',
+      },
       {
-        question: 'Was tun, wenn ich einen Baum fälschlicherweise gegossen habe?',
+        question:
+          'Was tun, wenn ich einen Baum fälschlicherweise gegossen habe?',
         answer:
-          'Eine Funktion, um Gieß-Aktivitäten rückgängig zu machen, weil bspw. stattdessen der Nachbarbaum gegossen wurde, existiert leider nicht.'
-        },
-        {
-        question: 'An wen kann ich mich wenden, wenn Pumpen kaputt oder beschädigt sind?',
+          'Eine Funktion, um Gieß-Aktivitäten rückgängig zu machen, weil bspw. stattdessen der Nachbarbaum gegossen wurde, existiert leider nicht.',
+      },
+      {
+        question:
+          'An wen kann ich mich wenden, wenn Pumpen kaputt oder beschädigt sind?',
         answer:
-          'Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Eine tolle Übersicht über alle verfügbaren Berliner Straßenbrunnen, von welcher auch wir unsere Pumpen-Daten aggregieren, gibt es in dieser Karte von <a target="blank" href="https://umap.openstreetmap.fr/de/map/straenbrunnen-berlin_405759#11/52.5272/13.5363">Open Street Map</a>.'
-        },
-        {
+          'Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Eine tolle Übersicht über alle verfügbaren Berliner Straßenbrunnen, von welcher auch wir unsere Pumpen-Daten aggregieren, gibt es in dieser Karte von <a target="blank" href="https://umap.openstreetmap.fr/de/map/straenbrunnen-berlin_405759#11/52.5272/13.5363">Open Street Map</a>.',
+      },
+      {
         question: 'Ist das Prinzip auf andere Städte übertragbar?',
         answer:
-          'Die “Gieß den Kiez” Plattform ist ein Open Source Software Projekt und läuft unter einer MIT Lizenz. Dementsprechend kann die Idee, aber auch der Quellcode für die Umsetzung in anderen Städte kostenlos genutzt und weiterentwickelt werden. Wenn Du dich dafür interessierst, schau gerne in unserem <a target="blank" href="https://github.com/technologiestiftung/tsb-trees-frontend">GitHub Repository</a> vorbei oder kontaktiere uns via Mail.'
-        },
-      ],
-    },
+          'Die “Gieß den Kiez” Plattform ist ein Open Source Software Projekt und läuft unter einer MIT Lizenz. Dementsprechend kann die Idee, aber auch der Quellcode für die Umsetzung in anderen Städte kostenlos genutzt und weiterentwickelt werden. Wenn Du dich dafür interessierst, schau gerne in unserem <a target="blank" href="https://github.com/technologiestiftung/tsb-trees-frontend">GitHub Repository</a> vorbei oder kontaktiere uns via Mail.',
+      },
+    ],
+  },
   imprintAndPrivacy: {
     title: 'Impressum und Datenschutz',
     description:
@@ -106,7 +109,7 @@ const content: Content = {
     disclaimer:
       'Hinweis: Das Laden von 625.000 Bäumen ist ressourcenintensiv und funktioniert aktuell nicht auf allen Mobilgeräten einwandfrei. Wir empfehlen die Nutzung via Desktop-Computer',
     description: [
-      'Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume abonnieren und markieren, wenn Du sie gegossen hast.',
+      'Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.',
       'Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
     ],
   },
@@ -205,9 +208,9 @@ const content: Content = {
       },
       {
         icon: 'subscribe',
-        title: 'Bäume abonnieren',
+        title: 'Bäume adoptieren',
         description:
-          'Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst du sie abonnieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.',
+          'Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst du sie adoptieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.',
       },
       {
         icon: 'zoom',

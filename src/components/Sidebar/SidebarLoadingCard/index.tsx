@@ -27,7 +27,7 @@ const SidebarLoadingCard = p => {
       break;
 
     case 'ADOPT':
-      content = 'Lade abonnierte Bäume ...';
+      content = 'Lade adoptierte Bäume ...';
       break;
 
     case 'PROFILE':

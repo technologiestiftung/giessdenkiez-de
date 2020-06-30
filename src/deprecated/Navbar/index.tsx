@@ -117,7 +117,7 @@ const NavBar = p => {
               setActive(e.target.id);
             }}
           >
-            Abonnierte Bäume
+            Adoptierte Bäume
           </Link>
           <Link
             id='profile'
