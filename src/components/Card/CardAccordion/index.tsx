@@ -3,6 +3,7 @@ import { PanelWrapper } from '../Panels/PanelWrapper';
 import { PanelHeader } from '../Panels/PanelHeader';
 import { PanelBody } from '../Panels/PanelBody';
 import { PanelIndicator } from '../Panels/PanelIndicator';
+import { PanelTitle } from '../Panels/PanelTitle';
 
 const CardAccordion = (p: {
   title: string;
@@ -20,8 +21,11 @@ const CardAccordion = (p: {
 
   return (
     <PanelWrapper>
-      <PanelHeader onClick={() => toggleActive(!localActive)}>
-        {title}
+      <PanelHeader
+        expanded={localActive}
+        onClick={() => toggleActive(!localActive)}
+      >
+        <PanelTitle>{title}</PanelTitle>
         <PanelIndicator onClick={() => toggleActive(!localActive)}>
           {indicator}
         </PanelIndicator>

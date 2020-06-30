@@ -57,6 +57,9 @@ const SidebarAbout = _p => {
 
       <SidebarTitle>{content.faq.title}</SidebarTitle>
       <StyledCardDescription>{content.faq.description}</StyledCardDescription>
+      {/* Meh.
+      Make some room since the element above is an span and it does not allow to addd padding */}
+      <div style={{ paddingBottom: '1rem' }}></div>
       {content.faq.qa.map((item, i) => (
         <CardAccordion key={i} title={item.question}>
           <StyledCardDescription
