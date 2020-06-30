@@ -96,7 +96,7 @@ const content: Content = {
           'Die “Gieß den Kiez” Plattform ist ein Open Source Software Projekt und läuft unter einer MIT Lizenz. Dementsprechend kann die Idee, aber auch der Quellcode für die Umsetzung in anderen Städten kostenlos genutzt und weiterentwickelt werden. Wenn Du dich dafür interessierst, schau gerne in unserem <a target="blank" href="https://github.com/technologiestiftung/tsb-trees-frontend">GitHub Repository</a> vorbei oder kontaktiere uns via Mail.',
       },
       {
-        question: 'Ich habe immer noch ein Frage!',
+        question: 'Ich habe immer noch eine Frage!',
         answer:
           'Das FAQ konnte dir nicht wieterhelfen oder du hast eine komplexere Anfrage an uns? Dann schreib uns eine <a href="mailto:hallo@giessdenkiez.de?subject=[Giess Den Kiez] Frage:...">Email.</a>',
       },
