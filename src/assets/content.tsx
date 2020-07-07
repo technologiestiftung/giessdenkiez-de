@@ -98,7 +98,12 @@ const content: Content = {
       {
         question: 'Ich habe immer noch eine Frage!',
         answer:
-          'Das FAQ konnte dir nicht wieterhelfen oder du hast eine komplexere Anfrage an uns? Dann schreib uns eine <a href="mailto:hallo@giessdenkiez.de?subject=[Giess Den Kiez] Frage:...">Email.</a>',
+          'Das FAQ konnte dir nicht weiterhelfen oder du hast eine komplexere Anfrage? Dann schreib uns eine <a href="mailto:hallo@giessdenkiez.de?subject=[Giess Den Kiez] Frage:...">Email.</a>',
+      },
+      {
+        question: 'I don’t speak any German: What’s going on here?',
+        answer:
+          'Gieß den Kiez is a participatory platform where you can inform yourself about the trees in your neighbourhood and their water needs. You can explore individual trees in Berlin and find out about the proper watering of trees. If you want to water the same trees regularly, you should create an account, adopt the trees and show that they are taken care of. This way, coordination takes place in the neighbourhood.',
       },
     ],
   },
@@ -174,19 +179,19 @@ const content: Content = {
         id: 'LINDE',
         title: 'Linde (Tilia)',
         description:
-          'Die Linde gilt seit Jahren als der berlintypische Straßenbaum. Mit einem Anteil von gut einem Drittel prägt sie den Straßenbaumbestand. 10 verschiedene Arten lassen sich unterscheiden. Bevorzugt gepflanzt wird die Winter-Linde (Tilia cordata), die als mittelgroßer Baum auch in schmaleren Straßen noch Raum findet. Die großkronige Kaiserlinde (Tilia intermedia) ist dagegen den weiträumigen Alleen vorbehalten.',
+          'Die Linde gilt seit Jahren als der berlintypische Straßenbaum. Mit einem Anteil von gut einem Drittel prägt sie den Straßenbaumbestand. Insgesamt lassen sich 10 verschiedene Arten unterscheiden. Bevorzugt gepflanzt wird die Winter-Linde (Tilia cordata), die als mittelgroßer Baum auch in schmaleren Straßen noch Raum findet. Die großkronige Kaiserlinde (Tilia intermedia) ist dagegen den weiträumigen Alleen vorbehalten.',
       },
       {
         id: 'AHORN',
         title: 'Ahorn (Acer)',
         description:
-          'Die Gattung der Ahorne umfasst ca. 20% des Gesamtbestandes. Für den Standort Straße ist vor allem der Spitzahorn (Acer platanoides) geeignet. Die frühe Blüte und die bunte Herbstfärbung machen ihn besonders beliebt.',
+          'Die Gattung der Ahorne umfasst ca. 20% des Gesamtbestandes. Für den Standort "Straße" ist vor allem der Spitzahorn (Acer platanoides) geeignet. Die frühe Blüte und die bunte Herbstfärbung machen den Ahorn zu einer besonders beliebten Baumgattung.',
       },
       {
         id: 'EICHE',
         title: 'Eiche (Quercus)',
         description:
-          'Der Anteil der Eichen beträgt rund 9% des Gesamtbestandes. Vor allem wird die Stiel-Eiche (Quercus robur) angepflanzt. Als Lichtbaum ist die Eiche nicht für enge Straßen geeignet. Die jüngsten Alleen im Parlaments- und Regierungsviertel wurden mit der sog. Spree-Eiche (Quercus palustris) bepflanzt, die sich u.a. durch ihre besonders schöne Herbstfärbung auszeichnet.',
+          'Der Anteil der Eichen beträgt rund 9% des Gesamtbestandes. In Berlin wird vor allem die Stiel-Eiche (Quercus robur) angepflanzt. Als Lichtbaum ist die Eiche nicht für enge Straßen geeignet. Die jüngsten Alleen im Parlaments- und Regierungsviertel wurden mit der sog. Spree-Eiche (Quercus palustris) bepflanzt, die sich u.a. durch ihre besonders schöne Herbstfärbung auszeichnet.',
       },
       {
         id: 'PLATANE',
@@ -198,7 +203,7 @@ const content: Content = {
         id: 'KASTANIE',
         title: 'Kastanie (Aesculus)',
         description:
-          'Die Rosskastanie (Aesculus hippocastanum) mit ebenfalls einem Anteil von ca. 5% am Gesamtbestand, belegt den fünften Platz unter den Berliner Straßenbäumen.',
+          'Die Rosskastanie (Aesculus hippocastanum) hat einem Anteil von ca. 5% am Gesamtbestand, belegt damit den fünften Platz unter den Berliner Straßenbäumen.',
       },
     ],
   },
@@ -209,19 +214,19 @@ const content: Content = {
         icon: 'water',
         title: 'Bäume bewässern',
         description:
-          'Informiere Dich auf unserer Plattform, ob die Bäume in deiner Straße Wasser benötigen. Wenn ja, schnapp Dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst du die Bewässerung hier ein.',
+          'Informiere Dich auf unserer Plattform, ob die Bäume in deiner Straße Wasser benötigen. Wenn ja, schnapp Dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst Du die Bewässerung hier ein.',
       },
       {
         icon: 'subscribe',
         title: 'Bäume adoptieren',
         description:
-          'Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst du sie adoptieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.',
+          'Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst Du sie adoptieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.',
       },
       {
         icon: 'zoom',
         title: 'Den Baumbestand erkunden',
         description:
-          'Unsere Karte ermöglicht es, mehr über einzelne Bäume und auch den gesamten Baumbestand zu erfahren. Nutze die Filter- und Suchfunktion um mehr über die Bäume Berlins zu lernen.',
+          'Unsere Karte ermöglicht es, mehr über einzelne Bäume und auch den gesamten Baumbestand zu erfahren. Nutze die Filter- und Suchfunktion, um mehr über die Bäume Berlins zu lernen.',
       },
       {
         icon: 'info',
