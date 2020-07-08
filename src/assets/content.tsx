@@ -88,7 +88,7 @@ const content: Content = {
         question:
           'An wen kann ich mich wenden, wenn Pumpen kaputt oder beschädigt sind?',
         answer:
-          'Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Eine tolle Übersicht über alle verfügbaren Berliner Straßenbrunnen, von welcher auch wir unsere Pumpen-Daten aggregieren, gibt es in dieser Karte von <a target="blank" href="https://umap.openstreetmap.fr/de/map/straenbrunnen-berlin_405759#11/52.5272/13.5363">Open Street Map</a>.',
+          'Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Eine tolle Übersicht über alle verfügbaren Berliner Straßenbrunnen, von welcher auch wir unsere Pumpen-Daten aggregieren, gibt es in dieser Karte von <a target="blank" href="https://umap.openstreetmap.de/de/map/strassenbrunnen-berlin_2234#14/52.4963/13.3630">Open Street Map</a>.',
       },
       {
         question: 'Ist das Prinzip auf andere Städte übertragbar?',
