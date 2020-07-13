@@ -10,20 +10,20 @@ const StyledDiv = styled.div`
   right: 12px;
   font-family: 'IBM Plex Sans';
   font-size: 0.8rem;
-  opacity: 0.5;
+  opacity: 1;
   a {
     color: ${p => p.theme.colorTextDark};
     &:hover {
-      opacity: 0.33;
+      opacity: 0.66;
     }
   }
 `;
 const StyledSpan = styled.span`
-  opacity:0.66;
+  opacity: 1;
   a {
     color: ${p => p.theme.colorTextDark};
     &:hover {
-      opacity: 0.33;
+      opacity: 0.66;
     }
   }
 `;
