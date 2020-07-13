@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 `;
 
 const StyledParargraph = styled.p`
-  font-size: ${p => p.theme.fontSizeL};
+  font-size: ${p => p.theme.fontSizeLl};
   line-height: ${p => p.theme.lineHeightBody};
   font-weight: regular;
   margin: 0;
