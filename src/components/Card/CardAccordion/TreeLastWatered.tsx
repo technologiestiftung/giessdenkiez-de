@@ -4,11 +4,16 @@ import styled from 'styled-components';
 import { convertTime } from '../../../utils/';
 
 import TreeType from './TreeType';
-import CardWaterDrops from '../CardWaterDrops';
+
+const iconDrop = '/images/icon-drop.svg';
 
 const StyledTreeType = styled(TreeType)`
   padding: 0;
   padding-left: 5px;
+`;
+
+const StyledIcon = styled.img`
+  margin-left: 5px;
 `;
 
 const Wrapper = styled.div`
@@ -66,13 +71,13 @@ const TreeLastWatered = (p: { data: any }) => {
             <FlexRow>
               <Title>{info.username}</Title>
               <StyledTreeType>
-                ({convertTime(info.timestamp)}, {info.amount}l)
+                ({convertTime(info.timestamp)})
               </StyledTreeType>
             </FlexRow>
-            <CardWaterDrops
-              liters={info.amount}
-              data={calcWaterDrops(info.amount)}
-            />
+            <TreeType>
+              {info.amount}l
+            </TreeType>
+            <StyledIcon src={iconDrop} alt="Water drop icon" />
           </Wrapper>
         );
       })}
