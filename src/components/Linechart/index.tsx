@@ -73,7 +73,7 @@ const Linechart = p => {
       setScaleTime(() => scaleTime);
 
       const scaleRain = scaleLinear()
-        .domain([0, 300]) // @TODO: check the hours of the day
+        .domain([0, 100]) // @TODO: check the hours of the day
         .range([height - margin.top - margin.bottom, 0]);
       setScaleRain(() => scaleRain);
 
