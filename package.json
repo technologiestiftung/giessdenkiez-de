@@ -6,8 +6,8 @@
     "test": "jest",
     "eslint": "eslint ./src/",
     "brechstange": "eslint --fix ./src/",
-    "start": "webpack-dev-server --config webpack/dev.config.js",
-    "build": "webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects",
     "prettier:list": "prettier --list-different './src/**/*'",
     "prettier:write": "prettier --write './src/**/*'"
   },
@@ -39,6 +39,7 @@
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.1",
+    "cross-env": "7.0.2",
     "css-loader": "^3.5.3",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.8.0",

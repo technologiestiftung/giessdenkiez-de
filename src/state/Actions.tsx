@@ -37,20 +37,18 @@ export const setAgeRange = (_state, payload) => {
 export const loadCommunityData = Store => async () => {
   const fetchCommunityDataUrl = createAPIUrl(
     Store.getState(),
-    `/get-watered-and-adopted`
+    `/get?queryType=wateredandadopted`
   );
   const communityData = await fetchAPI(fetchCommunityDataUrl);
-
+  console.log(communityData);
   let obj = {};
   const communityDataWatered = [];
   const communityDataAdopted = [];
 
   // TODO: Review https://eslint.org/docs/rules/array-callback-return
   // create community data object for map
-  //@ts-ignore
-  if (communityData.data) {
-    //@ts-ignore
-    communityData.data.map(item => {
+  if (communityData.data.data) {
+    communityData.data.data.map(item => {
       obj[item[0]] = {
         adopted: item[1] === 1 ? true : false,
         watered: item[2] === 1 ? true : false,
@@ -125,11 +123,13 @@ function setView(_state, payload) {
 
 export const getWateredTrees = Store => async () => {
   Store.setState({ isLoading: true });
-  const url = createAPIUrl(Store.getState(), '/get-watered-trees');
+  const url = createAPIUrl(Store.getState(), '/get?queryType=watered');
   const res = await fetchAPI(url);
 
+  if (res.data === undefined) {
+    throw new Error('data is not defined on getWateredTrees');
+  }
   return {
-    //@ts-ignore
     wateredTrees: res.data.watered,
   };
 };

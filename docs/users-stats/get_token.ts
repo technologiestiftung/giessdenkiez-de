@@ -9,12 +9,12 @@ async function getToken(options: {
     client_id,
     client_secret,
     audience,
-    grant_type: "client_credentials",
+    grant_type: 'client_credentials',
   };
   try {
     const res = await fetch(url, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify(body),
     });
     if (res.ok) {
@@ -22,7 +22,7 @@ async function getToken(options: {
       const { access_token, token_type } = json;
       return access_token;
     } else {
-      throw new Error("could not get toke from auth0");
+      throw new Error('could not get toke from auth0');
     }
   } catch (error) {
     console.error(error);
@@ -31,13 +31,14 @@ async function getToken(options: {
 }
 
 if (import.meta.main) {
-  console.log("running standalone");
-  import("./mod.ts")
-    .then(async (module) => {
+  console.log('running standalone');
+  import('./mod.ts')
+    .then(async module => {
       await module.load();
       const { url, audience, client_id, client_secret } = Deno.env.toObject();
       const token = await getToken({ url, audience, client_id, client_secret });
-      module.writeFileStrSync("./token", token);
+      module.writeFileStrSync('./token', token);
+      return;
     })
     .catch(console.error);
 }

@@ -19,7 +19,6 @@ const onRedirectCallback = appState => {
       : window.location.pathname
   );
 };
-
 function startApp() {
   const rootElement = document.getElementById('app');
 

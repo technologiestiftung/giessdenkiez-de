@@ -55,14 +55,14 @@ export function flatten(ary) {
   return ret;
 }
 
-export function createAPIUrl(state, entrypoint) {
+export function createAPIUrl(state: any, entrypoint: string): string {
   return state.local
     ? `${state.endpoints.local}${entrypoint}`
     : `${state.endpoints.prod}${entrypoint}`;
 }
 
-export async function fetchAPI(url, config = {}) {
-  return axios
+export async function fetchAPI(url: string, config = {}) {
+  const res = axios
     .get(url, config)
     .then(r => {
       return r;
@@ -70,6 +70,13 @@ export async function fetchAPI(url, config = {}) {
     .catch(function (error) {
       console.log(error);
     });
+  const result = await res;
+  if (result === undefined) {
+    throw new Error('result of fetch request is undefined');
+  }
+  console.log(url, result);
+
+  return result;
 }
 
 export const STATI = {
@@ -87,19 +94,28 @@ export const createIncludedTrees = data => {
   return obj;
 };
 
-export const waterNeed = age => {
-  if (!age) return null;
-  if (age < 15) return [1, 1, 1];
-  if (age >= 15 && age < 40) return [1, 1];
-  if (age >= 40) return [1];
+export const waterNeed = (age?: number): null | number[] => {
+  if (!age) {
+    return null;
+  }
+  if (age < 15) {
+    return [1, 1, 1];
+  }
+  if (age >= 15 && age < 40) {
+    return [1, 1];
+  }
+  if (age >= 40) {
+    return [1];
+  }
+  return null;
 };
 
-export const getCookieValue = a => {
+export const getCookieValue = (a: string | number) => {
   const b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
   return b ? b.pop() : '';
 };
 
-export const convertTime = unix_timestamp => {
+export const convertTime = (unix_timestamp: string): string => {
   const sliced = unix_timestamp.slice(0, 16);
   let date = new Date(sliced);
   let months = [

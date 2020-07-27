@@ -26,11 +26,10 @@ const Store = createStore({
   ageRange: [0, 320],
   pumps: null,
   data: null,
-  local: false,
+  local: process.env.NODE_ENV === 'production' ? false : true,
   endpoints: {
-    local: 'http://localhost:3000/',
-    // TODO: Don't hardcode this @fdnklg !!11!!!
-    prod: 'https://tsb-tree-api-now-express.now.sh',
+    local: process.env.ENDPOINT_DEV,
+    prod: process.env.ENDPOINT_PROD,
   },
   tabActive: 'id-0',
   selectedTree: false,
