@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const config = require('@inpyjamas/scripts/dist/config/jest/typescript');
 const { merge } = require('@inpyjamas/scripts/dist/utlities/merge');
 module.exports = merge(config, {
@@ -6,6 +7,7 @@ module.exports = merge(config, {
   //   '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
   //   '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}',
   // ],
+  clearMocks: true,
   transform: {
     '^.+\\.[t|j]sx?$': 'babel-jest',
   },

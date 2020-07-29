@@ -19,7 +19,7 @@ async function getToken(options: {
     });
     if (res.ok) {
       const json = await res.json();
-      const { access_token, token_type } = json;
+      const { access_token } = json;
       return access_token;
     } else {
       throw new Error('could not get toke from auth0');
