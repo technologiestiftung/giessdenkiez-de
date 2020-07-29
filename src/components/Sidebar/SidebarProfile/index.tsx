@@ -76,43 +76,55 @@ const SidebarProfile = p => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isAuthenticated && adoptedTrees) {
-        const token = await getTokenSilently();
-        const concatReducer = (acc, curr, currentIndex, array) => {
-          if (currentIndex + 1 === array.length) {
-            return acc + curr + '}';
-          } else {
-            return acc + curr + ',';
-          }
-        };
+      try {
+        if (adoptedTrees) {
+          // const token = await getTokenSilently();
+          const concatReducer = (acc, curr, currentIndex, array) => {
+            if (currentIndex + 1 === array.length) {
+              return acc + curr + '}';
+            } else {
+              return acc + curr + ',';
+            }
+          };
 
-        const queryStr = adoptedTrees.reduce(concatReducer, '{');
+          const queryStr = adoptedTrees.reduce(concatReducer, '{');
+          console.log('in SidebarProfile', adoptedTrees);
+          console.log('in SidebarProfile', queryStr);
+          const urlAdoptedTreesDetails = createAPIUrl(
+            state,
+            // `/private/get-adopted-trees-details?tree_ids=${queryStr}`
+            `/get/?queryType=treesbyids&tree_ids=${queryStr}`
+          );
+          const res = await requests(urlAdoptedTreesDetails);
+          console.log(res);
+          store.setState({ adoptedTreesDetails: res.data });
 
-        const urlAdoptedTreesDetails = createAPIUrl(
-          state,
-          `/private/get-adopted-trees-details?tree_ids=${queryStr}`
-        );
-
-        fetchAPI(urlAdoptedTreesDetails, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        })
-          .then(r => {
-            //@ts-ignore
-            Store.setState({ adoptedTreesDetails: r.data });
-            return;
-          })
-          .catch(err => {
-            console.error(err);
-          });
+          // fetchAPI(urlAdoptedTreesDetails, {
+          //   headers: {
+          //     Authorization: 'Bearer ' + token,
+          //   },
+          // })
+          //   .then(r => {
+          //     //@ts-ignore
+          //     store.setState({ adoptedTreesDetails: r.data });
+          //     return;
+          //   })
+          //   .catch(err => {
+          //     console.error(err);
+          //   });
+        }
+      } catch (error) {
+        throw error;
       }
     };
     if (adoptedTrees.length === 0) {
       //@ts-ignore
-      Store.setState({ adoptedTreesDetails: [] });
+      store.setState({ adoptedTreesDetails: [] });
     } else {
-      fetchData();
+      fetchData().catch(err => {
+        console.error(err);
+        throw err;
+      });
     }
   }, [adoptedTrees]);
 
@@ -144,6 +156,7 @@ const SidebarProfile = p => {
       }
     } catch (error) {
       console.error(error);
+      throw error;
     }
   };
 
