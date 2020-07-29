@@ -4,7 +4,7 @@ import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 const DEFAULT_REDIRECT_CALLBACK = (appState?: any) =>
   window.history.replaceState({}, document.title, window.location.pathname);
-type ContextProps = {
+export type ContextProps = {
   isAuthenticated: boolean;
   user: any;
   loading: boolean;
@@ -40,6 +40,7 @@ export const Auth0Provider = ({
 
       if (window.location.search.includes('code=')) {
         const { appState } = await auth0FromHook.handleRedirectCallback();
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         //@ts-ignore
         onRedirectCallback(appState);
       }
@@ -65,6 +66,7 @@ export const Auth0Provider = ({
       await auth0Client?.loginWithPopup(params);
     } catch (error) {
       console.error(error);
+      throw error;
     } finally {
       setPopupOpen(false);
     }
