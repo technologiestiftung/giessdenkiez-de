@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'unistore/react';
 import Actions from '../../../state/Actions';
-import { timeDifference } from '../../../utils/index';
+import { timeDifference, requests } from '../../../utils/index';
 
 import SidebarLoadingCard from '../SidebarLoadingCard';
 import CardWrapper from '../../Card/CardWrapper/';
@@ -11,7 +11,7 @@ import SidebarTitle from '../SidebarTitle/';
 
 import { colorByState } from '../../../assets/theme';
 
-import Store from '../../../state/Store';
+import store from '../../../state/Store';
 import { useAuth0 } from '../../../utils/auth0';
 import { fetchAPI, createAPIUrl } from '../../../utils';
 
@@ -60,9 +60,9 @@ const SidebarAdopted = p => {
 
     const geometry = [Number(tree.lng), Number(tree.lat)];
 
-    Store.setState({ selectedTreeState: 'LOADING' });
+    store.setState({ selectedTreeState: 'LOADING' });
 
-    const url = createAPIUrl(state, `/get-tree?id=${id}`);
+    const url = createAPIUrl(state, `/get?&queryType=byid&id=${id}`);
 
     fetchAPI(url)
       .then(r => {
@@ -73,7 +73,7 @@ const SidebarAdopted = p => {
         //@ts-ignore
         r.data.radolan_sum = r.data.radolan_sum / 10;
         //@ts-ignore
-        Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
+        store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
         setViewport(geometry);
         setDetailRouteWithListPath(id);
         return;
@@ -81,36 +81,68 @@ const SidebarAdopted = p => {
       .catch(console.error);
   };
 
-  const unadoptTree = async id => {
-    Store.setState({ selectedTreeState: 'ADOPT' });
-    const token = await getTokenSilently();
-    const url = createAPIUrl(state, `/private/unadopt-tree?id=${id}`);
-    const header = {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    };
+  // FIXME: Duplicate code appears also in
+  // SidebarAdopted
+  // TreesAdopted
+  // ButtonAdopted
+  // all three have a little bit different code
+  const unadoptTree = async (id: string) => {
+    try {
+      store.setState({ selectedTreeState: 'ADOPT' });
+      const token = await getTokenSilently();
+      // const urlDel = createAPIUrl(state, `/delete?id=${id}`);
+      // const header = {
+      //   headers: {
+      //     Authorization: 'Bearer ' + token,
+      //   },
+      // };
 
-    await fetchAPI(url, header)
-      .then(r => {
-        const url = createAPIUrl(
-          state,
-          `/private/get-adopted-trees?mail=${user.email}`
-        );
-        // TODO: Avoid nesting promises. eslintpromise/no-nesting
-        fetchAPI(url, header)
-          .then(r => {
-            Store.setState({
-              selectedTreeState: 'FETCHED',
-              //@ts-ignore
-              adoptedTrees: r.data.adopted,
-            });
-            return;
-          })
-          .catch(console.error);
-        return;
-      })
-      .catch(console.error);
+      /* TODO: replace URL */
+      console.log(user);
+
+      await requests(createAPIUrl(state, `/delete?id=${id}`), {
+        token,
+        override: {
+          method: 'DELETE',
+          body: JSON.stringify({
+            tree_id: id,
+            uuid: user.sub,
+            queryType: 'unadopt',
+          }),
+        },
+      });
+      const jsonAdopted = await requests(
+        createAPIUrl(state, `/get?queryType=adopted&uuid=${user.sub}`)
+      );
+      store.setState({
+        selectedTreeState: 'FETCHED',
+        //@ts-ignore
+        adoptedTrees: jsonAdopted.data,
+      });
+      // await fetchAPI(url, header)
+      //   .then(r => {
+      // const url = createAPIUrl(
+      //   state,
+      //   `/private/get-adopted-trees?mail=${user.email}`
+      // );
+      // TODO: Avoid nesting promises. eslintpromise/no-nesting
+      // fetchAPI(url, header)
+      //   .then(r => {
+      //     store.setState({
+      //       selectedTreeState: 'FETCHED',
+      //       //@ts-ignore
+      //       adoptedTrees: r.data.adopted,
+      //     });
+      //     return;
+      //   })
+      //   .catch(console.error);
+      //   return;
+      // })
+      // .catch(console.error);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   };
 
   return (

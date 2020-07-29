@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
-
 import { connect } from 'unistore/react';
-import Store from '../../state/Store';
+import store from '../../state/Store';
 import Actions from '../../state/Actions';
 import { useAuth0 } from '../../utils/auth0';
-import { fetchAPI, createAPIUrl } from '../../utils';
-import { AxiosResponse } from 'axios';
+import { createAPIUrl, requests, isTreeAdopted } from '../../utils';
 
 const StyledButtonAdopted = styled.div`
   font-size: 12px;
@@ -57,69 +55,110 @@ const ButtonAdopted = p => {
     selectedTree ? unadoptTree(selectedTree.id) : '';
   };
 
-  const unadoptTree = async id => {
+  // FIXME: Duplicate code appears also in
+  // SidebarAdopted
+  // TreesAdopted
+  // ButtonAdopted
+  // all three have a little bit different code
+
+  const unadoptTree = async (id: string) => {
     try {
-      Store.setState({ selectedTreeState: 'ADOPT' });
+      store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
-      const header = {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      };
+      // const header = {
+      //   headers: {
+      //     Authorization: 'Bearer ' + token,
+      //   },
+      // };
 
       const urlUnadopt = createAPIUrl(
         state,
-        `/private/unadopt-tree?tree_id=${id}&uuid=${user.user_id}`
+        '/delete'
+        // `/private/unadopt-tree?tree_id=${id}&uuid=${user.user_id}`
       );
-
       const urlAdoptedTrees = createAPIUrl(
-        Store.getState(),
-        `/private/get-adopted-trees?uuid=${user.user_id}`
+        store.getState(),
+        `/get?queryType=adopted&uuid=${user.user_id}`
+        // `/private/get-adopted-trees?uuid=${user.user_id}`
       );
-
       setUnadopting(true);
 
-      await fetchAPI(urlUnadopt, header);
+      /* TODO: replace URL */
+      // await fetchAPI(urlUnadopt, header);
+      await requests(urlUnadopt, {
+        token,
+        override: {
+          method: 'DELETE',
+          body: JSON.stringify({
+            uuid: user.user_id,
+            tree_id: id,
+            queryType: 'unadopt',
+          }),
+        },
+      });
 
-      const resAdoptedTrees = await fetchAPI(urlAdoptedTrees, header);
-
-      Store.setState({
+      /* TODO: replace URL */
+      // const resAdoptedTrees = await fetchAPI(urlAdoptedTrees, header);
+      const jsonAdoptedTrees = await requests(
+        urlAdoptedTrees,
+        // `/get?queryType=adopted&uuid=${user.user_id}`,
+        {
+          token,
+        }
+      );
+      store.setState({
         selectedTreeState: 'FETCHED',
         //@ts-ignore
-        adoptedTrees: resAdoptedTrees.data,
+        adoptedTrees: jsonAdoptedTrees.data,
       });
       setUnadopting(false);
 
-      await isTreeAdopted(id, user.user_id);
+      await isTreeAdopted({
+        id,
+        uuid: user.user_id,
+        token,
+        isAuthenticated,
+        state,
+        store,
+      });
     } catch (error) {
       console.error(error);
+      throw error;
     }
   };
 
-  const isTreeAdopted = async (treeid, uuid) => {
-    if (isAuthenticated) {
-      const token = await getTokenSilently();
-      try {
-        const url = createAPIUrl(
-          state,
-          `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
-        );
-        const r = await fetchAPI(url, {
-          headers: { Authorization: 'Bearer ' + token },
-        });
-        //@ts-ignore
-        Store.setState({ treeAdopted: r.data as AxiosResponse });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+  // const isTreeAdopted = async (treeid, uuid) => {
+  //   try {
+  //     if (isAuthenticated) {
+  //       const token = await getTokenSilently();
+  //       const url = createAPIUrl(
+  //         state,
+  //         `/get?queryType=istreeadopted&uuid=${uuid}&id=${treeid}`
+  //       );
+  //       // const r =
+  //       //   /* TODO: replace URL */
+  //       //   /* TODO: replace URL */
+  //       //   /* TODO: replace URL */
+  //       //   await fetchAPI(url, {
+  //       //     headers: { Authorization: 'Bearer ' + token },
+  //       //   });
+  //       const json = await requests(url, { token });
+
+  //       store.setState({ treeAdopted: json.data });
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <StyledButtonAdopted
       role={'button'}
       tabIndex={0}
-      onClick={() => handleClick()}
+      onClick={() => {
+        console.log('Clicked unadopt');
+        handleClick();
+      }}
     >
       <Label>{unadopting ? 'Entferne' : 'Adoptiert'}</Label>
       <CloseIcon />

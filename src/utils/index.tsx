@@ -1,5 +1,31 @@
 import { interpolateViridis, scaleLinear } from 'd3';
 import axios from 'axios';
+import { IsTreeAdoptedProps } from '../common/interfaces';
+
+export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
+  const { isAuthenticated, state, uuid, id, token, store, signal } = opts;
+  try {
+    if (isAuthenticated) {
+      // const token = await getTokenSilently();
+      const url = createAPIUrl(
+        state,
+        `/get?queryType=istreeadopted&uuid=${uuid}&id=${id}`
+      );
+      // const r =
+      //   /* TODO: replace URL */
+      //   /* TODO: replace URL */
+      //   /* TODO: replace URL */
+      //   await fetchAPI(url, {
+      //     headers: { Authorization: 'Bearer ' + token },
+      //   });
+      const json = await requests(url, { token, override: { signal } });
+
+      store.setState({ treeAdopted: json.data });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export function createGeojson(data) {
   const geojson: { type: 'FeatureCollection'; features: any[] } = {
@@ -61,6 +87,54 @@ export function createAPIUrl(state: any, entrypoint: string): string {
     : `${state.endpoints.prod}${entrypoint}`;
 }
 
+export function waitFor(
+  millisenconds: number,
+  callback: () => void
+): Promise<void> {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      callback();
+      resolve();
+    }, millisenconds);
+  });
+}
+// export const waitFor = (millisenconds: number, callback: () => void) =>
+//   new Promise(resolve => {
+//     setTimeout(() => {
+//       callback();
+//       resolve();
+//     }, millisenconds);
+//   });
+
+/**
+ * Deliberately does not hande errors. You will have to handle them in the calling function
+ */
+export async function requests<T>(
+  url: string,
+  opts?: { token?: string; override?: T }
+) {
+  // try {
+  const headers = new Headers({ 'content-type': 'application/json' });
+  if (opts?.token) {
+    headers.set('authorization', `Bearer ${opts.token}`);
+  }
+  const response = await fetch(url, {
+    headers,
+    ...opts?.override,
+  });
+  if (!response.ok) {
+    const msg = await response.text();
+    console.error(msg);
+    throw new Error(msg);
+  }
+  const json = await response.json();
+  return json;
+  // } catch (error) {
+  //   console.error(error);
+  //   return;
+  // }
+}
+
 export async function fetchAPI(url: string, config = {}) {
   const res = axios
     .get(url, config)
@@ -74,7 +148,7 @@ export async function fetchAPI(url: string, config = {}) {
   if (result === undefined) {
     throw new Error('result of fetch request is undefined');
   }
-  console.log(url, result);
+  //console.log(url, result);
 
   return result;
 }

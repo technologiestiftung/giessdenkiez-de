@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { waterNeed } from '../../utils/';
+import { waterNeed, isTreeAdopted } from '../../utils/';
 import Actions from '../../state/Actions';
 import { useAuth0 } from '../../utils/auth0';
 import { connect } from 'unistore/react';
-import { fetchAPI, createAPIUrl } from '../../utils';
-import Store from '../../state/Store';
+import store from '../../state/Store';
 
 import CardWrapper from './CardWrapper/';
 import CardProperty from './CardProperty/';
@@ -22,6 +21,7 @@ import CardWaterDrops from './CardWaterDrops';
 import ButtonAdopted from '../ButtonAdopted';
 
 import content from '../../assets/content';
+import { IsTreeAdoptedProps, Generic } from '../../common/interfaces';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
 
@@ -57,6 +57,9 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
+const controller = new AbortController();
+const { signal } = controller;
+
 const Card = p => {
   const { data, treeLastWatered, treeAdopted, user, selectedTree, state } = p;
   const { getTokenSilently, isAuthenticated } = useAuth0();
@@ -69,35 +72,71 @@ const Card = p => {
     gattungdeutsch,
   } = data;
 
-  const getTreeProp = p => {
+  const getTreeProp = (p: Generic | string | null) => {
     return p === 'null' ? null : p;
+  };
+  type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'>;
+
+  const fetchData: (opts: FetchDataOpts) => Promise<void> = async ({
+    id,
+    uuid,
+    store,
+    state,
+    isAuthenticated,
+  }) => {
+    try {
+      if (user && selectedTree) {
+        const token = await getTokenSilently();
+
+        await isTreeAdopted({
+          id,
+          uuid,
+          token,
+          isAuthenticated,
+          store,
+          state,
+          signal,
+        });
+        // isTreeAdopted(selectedTree.id, user.user_id);
+      }
+    } catch (error) {}
   };
 
   useEffect(() => {
     if (!user) return;
-    if (user && selectedTree) {
-      isTreeAdopted(selectedTree.id, user.user_id);
-    }
-  }, [user]);
+    fetchData({
+      id: selectedTree.id,
+      uuid: user.user_id,
+      store,
+      state,
+      isAuthenticated,
+    }).catch(console.error);
+    return () => {
+      // cleanup
+      controller.abort();
+    };
+  }, [user, selectedTree, treeAdopted]);
 
-  const isTreeAdopted = async (treeid, uuid) => {
-    if (isAuthenticated) {
-      const token = await getTokenSilently();
-      try {
-        const url = createAPIUrl(
-          state,
-          `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
-        );
-        const r = await fetchAPI(url, {
-          headers: { Authorization: 'Bearer ' + token },
-        });
-        //@ts-ignore
-        Store.setState({ treeAdopted: r.data });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+  // const isTreeAdopted = async (treeid, uuid) => {
+  //   if (isAuthenticated) {
+  //     const token = await getTokenSilently();
+  //     try {
+  //       const url = createAPIUrl(
+  //         state,
+  //         `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
+  //       );
+  //       const r =
+  //         /* TODO: replace URL */
+  //         await fetchAPI(url, {
+  //           headers: { Authorization: 'Bearer ' + token },
+  //         });
+  //       //@ts-ignore
+  //       store.setState({ treeAdopted: r.data });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // };
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 

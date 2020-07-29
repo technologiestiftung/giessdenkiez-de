@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import Store from '../../state/Store';
+import store from '../../state/Store';
 
-import { fetchAPI, createAPIUrl } from '../../utils';
+import { createAPIUrl, requests } from '../../utils';
 import { useAuth0 } from '../../utils/auth0';
 
 import ButtonRound from '../ButtonRound/';
@@ -18,43 +18,57 @@ const Login = p => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isAuthenticated) {
-        const token = await getTokenSilently();
-        const urlWateredByUser = createAPIUrl(
-          Store.getState(),
-          `/private/get-watered-trees-by-user?uuid=${user.sub}`
-        );
-        const urlAdoptedTrees = createAPIUrl(
-          Store.getState(),
-          `/private/get-adopted-trees?uuid=${user.sub}`
-        );
+      try {
+        if (isAuthenticated) {
+          const token = await getTokenSilently();
+          const urlWateredByUser = createAPIUrl(
+            store.getState(),
+            // `/private/get-watered-trees-by-user?uuid=${user.sub}`
+            `/get?queryType=wateredbyuser&uuid=${user.sub}`
+          );
+          const urlAdoptedTrees = createAPIUrl(
+            store.getState(),
+            // `/private/get-adopted-trees?uuid=${user.sub}`
+            `/get?queryType=adopted&uuid=${user.sub}`
+          );
+          const jsonWateredByUser = await requests(urlWateredByUser, { token });
+          store.setState({ wateredByUser: jsonWateredByUser.data });
+          const jsonAdoptedByUser = await requests(urlAdoptedTrees, { token });
+          store.setState({ adoptedTrees: jsonAdoptedByUser.data });
 
-        fetchAPI(urlWateredByUser, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        })
-          .then(r => {
-            //@ts-ignore
-            Store.setState({ wateredByUser: r.data });
-            return;
-          })
-          .catch(console.error);
+          // fetchAPI(urlWateredByUser, {
+          //   headers: {
+          //     Authorization: 'Bearer ' + token,
+          //   },
+          // })
+          //   .then(r => {
+          //     //@ts-ignore
+          //     store.setState({ wateredByUser: r.data });
+          //     return;
+          //   })
+          //   .catch(console.error);
 
-        fetchAPI(urlAdoptedTrees, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        })
-          .then(r => {
-            //@ts-ignore
-            Store.setState({ adoptedTrees: r.data });
-            return;
-          })
-          .catch(console.error);
+          // fetchAPI(urlAdoptedTrees, {
+          //   headers: {
+          //     Authorization: 'Bearer ' + token,
+          //   },
+          // })
+          //   .then(r => {
+          //     //@ts-ignore
+          //     store.setState({ adoptedTrees: r.data });
+          //     return;
+          //   })
+          //   .catch(console.error);
+        }
+      } catch (error) {
+        throw error;
       }
     };
 
+    /**
+     * This request goes to a different API
+     *
+     */
     const getUserDataFromManagementApi = async () => {
       try {
         // event.preventDefault();
@@ -63,20 +77,24 @@ const Login = p => {
           process.env.USER_DATA_API_URL
         }/api/user?userid=${encodeURIComponent(user.sub)}`;
 
-        const res = await fetchAPI(apiUrl, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        });
+        // const res =
+        //   /* TODO: replace URL */
+        //   await fetchAPI(apiUrl, {
+        //     headers: {
+        //       Authorization: 'Bearer ' + token,
+        //     },
+        //   });
+        const res = await requests(apiUrl, { token });
         //@ts-ignore
-        Store.setState({ user: res.data.data });
+        store.setState({ user: res.data });
       } catch (error) {
+        // throw error
         console.error(error);
       }
     };
     if (isAuthenticated && user) {
-      getUserDataFromManagementApi();
-      fetchData();
+      getUserDataFromManagementApi().catch(console.error);
+      fetchData().catch(console.error);
     }
   }, [isAuthenticated, user, getTokenSilently]);
 

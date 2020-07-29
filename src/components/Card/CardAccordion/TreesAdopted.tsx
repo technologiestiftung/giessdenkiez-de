@@ -65,27 +65,43 @@ const TreesAdopted = p => {
     try {
       Store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
-      const header = {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      };
+      // const header = {
+      //   headers: {
+      //     Authorization: 'Bearer ' + token,
+      //   },
+      // };
 
       const urlUnadopt = createAPIUrl(
         state,
-        `/private/unadopt-tree?tree_id=${id}&uuid=${user.sub}`
+        // `/private/unadopt-tree?tree_id=${id}&uuid=${user.sub}`
+        `/delete?tree_id=${id}&uuid=${user.sub}`
       );
 
       const urlAdoptedTrees = createAPIUrl(
-        Store.getState(),
-        `/private/get-adopted-trees?uuid=${user.sub}`
+        store.getState(),
+        // `/private/get-adopted-trees?uuid=${user.sub}`
+        `/get?queryType=adopted&uuid=${user.sub}`
       );
 
-      await fetchAPI(urlUnadopt, header);
+      /* TODO: replace URL */
+      // await fetchAPI(urlUnadopt, header);
+      await requests(urlUnadopt, {
+        token,
+        override: {
+          method: 'DELETE',
+          body: JSON.stringify({
+            tree_id: id,
+            uuid: user.sub,
+            queryType: 'unadopt',
+          }),
+        },
+      });
 
-      const resAdoptedTrees = await fetchAPI(urlAdoptedTrees, header);
-
-      Store.setState({
+      // const resAdoptedTrees =
+      //   /* TODO: replace URL */
+      //   await fetchAPI(urlAdoptedTrees, header);
+      const resAdoptedTrees = await requests(urlAdoptedTrees, { token });
+      store.setState({
         selectedTreeState: 'FETCHED',
         //@ts-ignore
         adoptedTrees: resAdoptedTrees.data,
@@ -93,6 +109,7 @@ const TreesAdopted = p => {
       setUnadopting(false);
     } catch (error) {
       console.error(error);
+      throw error;
     }
   };
 

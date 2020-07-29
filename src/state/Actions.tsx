@@ -1,13 +1,15 @@
 import { isMobile } from 'react-device-detect';
 import { dsv as d3Dsv, easeCubic as d3EaseCubic } from 'd3';
 import history from '../history';
-import { createAPIUrl, fetchAPI, createGeojson } from '../utils';
+import { createAPIUrl, createGeojson, requests } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
+import { Store } from 'unistore';
+import { IStore, Generic } from '../common/interfaces';
 
-export const loadTrees = Store => async () => {
+export const loadTrees = (store: Store<IStore>) => async () => {
   if (isMobile) {
     // TODO: Load the user's trees from API
-    Store.setState({
+    store.setState({
       data: {
         type: 'FeatureCollection',
         features: [],
@@ -18,10 +20,10 @@ export const loadTrees = Store => async () => {
     const dataUrl =
       'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
 
-    d3Dsv(',', dataUrl)
+    d3Dsv(',', dataUrl, { cache: 'force-cache' })
       .then(data => {
         const geojson = createGeojson(data);
-        Store.setState({ data: geojson, isLoading: false });
+        store.setState({ data: geojson, isLoading: false });
         return;
       })
       .catch(console.error);
@@ -34,65 +36,76 @@ export const setAgeRange = (_state, payload) => {
   };
 };
 
-export const loadCommunityData = Store => async () => {
-  const fetchCommunityDataUrl = createAPIUrl(
-    Store.getState(),
-    `/get?queryType=wateredandadopted`
-  );
-  const communityData = await fetchAPI(fetchCommunityDataUrl);
-  console.log(communityData);
-  let obj = {};
-  const communityDataWatered = [];
-  const communityDataAdopted = [];
+export const loadCommunityData = (store: Store<IStore>) => async () => {
+  try {
+    const fetchCommunityDataUrl = createAPIUrl(
+      store.getState(),
+      `/get?queryType=wateredandadopted`
+    );
+    const json = await requests(fetchCommunityDataUrl);
 
-  // TODO: Review https://eslint.org/docs/rules/array-callback-return
-  // create community data object for map
-  if (communityData.data.data) {
-    communityData.data.data.map(item => {
-      obj[item[0]] = {
-        adopted: item[1] === 1 ? true : false,
-        watered: item[2] === 1 ? true : false,
-      };
-      if (item[1] === 1) {
-        //@ts-ignore
-        communityDataWatered.push(item[0]);
-      }
-      if (item[2] === 1) {
-        //@ts-ignore
-        communityDataAdopted.push(item[0]);
-      }
-    });
-    Store.setState({ communityData: obj });
-    Store.setState({ communityDataAdopted });
-    Store.setState({ communityDataWatered });
+    let obj = {};
+    const communityDataWatered: Generic[] = [];
+    const communityDataAdopted: Generic[] = [];
+
+    // TODO: Review https://eslint.org/docs/rules/array-callback-return
+    // create community data object for map
+    if (json.data) {
+      json.data.map(item => {
+        obj[item[0]] = {
+          adopted: item[1] === 1 ? true : false,
+          watered: item[2] === 1 ? true : false,
+        };
+        if (item[1] === 1) {
+          //@ts-ignore
+          communityDataWatered.push(item[0]);
+        }
+        if (item[2] === 1) {
+          //@ts-ignore
+          communityDataAdopted.push(item[0]);
+        }
+      });
+      store.setState({ communityData: obj });
+      store.setState({ communityDataAdopted });
+      store.setState({ communityDataWatered });
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
 
-export const loadData = Store => async () => {
-  Store.setState({ isLoading: true });
-  // let geojson = [];
+export const loadData = (store: Store<IStore>) => async () => {
+  try {
+    store.setState({ isLoading: true });
+    // let geojson = [];
 
-  const dataUrl =
-    'https://tsb-trees.s3.eu-central-1.amazonaws.com/weather_light.geojson.gz';
+    const dataUrl =
+      'https://tsb-trees.s3.eu-central-1.amazonaws.com/weather_light.geojson.gz';
 
-  fetch(dataUrl)
-    .then(res => res.json())
-    .then(r => Store.setState({ rainGeojson: r }))
-    .catch(console.error);
-
-  fetch('/data/pumps.geojson')
-    .then(r => r.json())
-    .then(r => Store.setState({ pumps: r }))
-    .catch(console.error);
+    const rainGeojson = await requests(dataUrl);
+    store.setState({ rainGeojson });
+    // fetch(dataUrl)
+    //   .then(res => res.json())
+    //   .then(r => Store.setState({ rainGeojson: r }))
+    //   .catch(console.error);
+    const pumps = await requests('/data/pumps.geojson');
+    store.setState({ pumps });
+    // fetch('/data/pumps.geojson')
+    //   .then(r => r.json())
+    //   .then(r => Store.setState({ pumps: r }))
+    //   .catch(console.error);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-export const setAppState = (state, payload) => {
+export const setAppState = (_state, payload) => {
   return {
     AppState: payload,
   };
 };
 
-export const setDataView = (state, payload) => {
+export const setDataView = (_state, payload) => {
   return {
     dataView: payload,
   };
@@ -122,38 +135,55 @@ function setView(_state, payload) {
 }
 
 export const getWateredTrees = Store => async () => {
-  Store.setState({ isLoading: true });
-  const url = createAPIUrl(Store.getState(), '/get?queryType=watered');
-  const res = await fetchAPI(url);
+  try {
+    Store.setState({ isLoading: true });
+    const url = createAPIUrl(Store.getState(), '/get?queryType=watered');
+    // const res = /* TODO: replace URL */ await fetchAPI(url);
+    const result = await requests(url);
+    // console.log('get watered trees fetch', result);
 
-  if (res.data === undefined) {
-    throw new Error('data is not defined on getWateredTrees');
+    if (result.data === undefined) {
+      throw new Error('data is not defined on getWateredTrees');
+    }
+    return {
+      wateredTrees: result.data.watered,
+    };
+  } catch (error) {
+    console.error(error);
   }
-  return {
-    wateredTrees: res.data.watered,
-  };
 };
 
 export const getTree = Store => async id => {
-  const url = createAPIUrl(Store.getState(), `/get-tree?id=${id}`);
-  const urlWatered = createAPIUrl(
-    Store.getState(),
-    `/get-tree-last-watered?id=${id}`
-  );
+  try {
+    const url = createAPIUrl(Store.getState(), `/get?queryType=byid&id=${id}`);
+    const urlWatered = createAPIUrl(
+      Store.getState(),
+      `/get?queryType=lastwatered&id=${id}`
+    );
 
-  const res = await fetchAPI(url);
-  const resWatered = await fetchAPI(urlWatered);
+    const res = await requests(url);
+    const resWatered = await requests(urlWatered);
 
-  // ISSUE:141
-  //@ts-ignore
-  res.data.radolan_days = res.data.radolan_days.map(d => d / 10);
-  //@ts-ignore
-  res.data.radolan_sum = res.data.radolan_sum / 10;
+    if (res.data.length > 0) {
+      // ISSUE:141
+      //@ts-ignore
+      res.data[0].radolan_days = res.data[0].radolan_days.map(d => d / 10);
+      //@ts-ignore
+      res.data[0].radolan_sum = res.data[0].radolan_sum / 10;
 
-  return {
-    selectedTree: res,
-    treeLastWatered: resWatered,
-  };
+      return {
+        selectedTree: res.data[0],
+        treeLastWatered: resWatered,
+      };
+    } else {
+      return {
+        selectedTree: undefined,
+        treeLastWatered: resWatered,
+      };
+    }
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const removeSelectedTree = () => {
@@ -163,20 +193,29 @@ export const removeSelectedTree = () => {
   };
 };
 
-export const getTreeByAge = Store => async (state, start, end) => {
-  Store.setState({ selectedTreeState: 'LOADING' });
-  const url = createAPIUrl(state, `/get-tree-by-age?start=${start}&end=${end}`);
+export const getTreeByAge = Store => async (
+  state: any,
+  start: string,
+  end: string
+) => {
+  try {
+    Store.setState({ selectedTreeState: 'LOADING' });
+    const url = createAPIUrl(
+      state,
+      `/get??queryType=byage&start=${start}&end=${end}`
+    );
 
-  await fetchAPI(url)
-    .then(r => {
-      Store.setState({
-        selectedTreeState: 'LOADED',
-        //@ts-ignore
-        selectedTrees: r.data,
-      });
-      return;
-    })
-    .catch(console.error);
+    /* TODO: replace URL */
+    const res = await requests(url);
+
+    Store.setState({
+      selectedTreeState: 'LOADED',
+      //@ts-ignore
+      selectedTrees: res.data,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const toggleOverlay = (_state, payload) => ({

@@ -274,32 +274,63 @@ class DeckGLMap extends React.Component {
   _onClick(x, y, object) {
     const { setViewport } = this.props;
 
-    Store.setState({ selectedTreeState: 'LOADING' });
+    store.setState({ selectedTreeState: 'LOADING' });
 
     setViewport(object.geometry.coordinates);
 
     const { state } = this.props;
     const id = object.properties.id;
-    const url = createAPIUrl(state, `/get-tree?id=${id}`);
-    const urlWatered = createAPIUrl(state, `/get-tree-last-watered?id=${id}`);
-
-    fetchAPI(urlWatered)
-      .then(r => {
-        Store.setState({ treeLastWatered: r.data });
-        return;
+    const url = createAPIUrl(state, `/get?queryType=byid&id=${id}`);
+    const urlWatered = createAPIUrl(
+      state,
+      `/get?queryType=lastwatered&id=${id}`
+    );
+    requests(urlWatered)
+      .then(json => {
+        store.setState({ treeLastWatered: json.data });
       })
       .catch(console.error);
 
-    fetchAPI(url)
-      .then(r => {
+    requests(url)
+      .then(treeJson => {
+        console.log(treeJson);
+        if (treeJson.data.length === 0) {
+          // store.setState({
+          //   selectedTreeState: 'NOT_FOUND',
+          //   selectedTree: undefined,
+          // });
+          return;
+        }
+        const selectedTree = treeJson.data[0];
+        console.log('res data', selectedTree);
         // ISSUE:141
-        r.data.radolan_days = r.data.radolan_days.map(d => d / 10);
-        r.data.radolan_sum = r.data.radolan_sum / 10;
+        selectedTree.radolan_days = selectedTree.radolan_days.map(d => d / 10);
+        selectedTree.radolan_sum = selectedTree.radolan_sum / 10;
 
-        Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
+        store.setState({ selectedTreeState: 'LOADED', selectedTree });
         return;
       })
       .catch(console.error);
+
+    // fetchAPI(url)
+    //   .then(r => {
+    //     if (r.data.length === 0) {
+    //       store.setState({
+    //         selectedTreeState: 'NOT_FOUND',
+    //         selectedTree: undefined,
+    //       });
+    //       return;
+    //     }
+    //     const selectedTree = r.data[0];
+    //     console.log('res data', selectedTree);
+    //     // ISSUE:141
+    //     selectedTree.radolan_days = selectedTree.radolan_days.map(d => d / 10);
+    //     selectedTree.radolan_sum = selectedTree.radolan_sum / 10;
+
+    //     store.setState({ selectedTreeState: 'LOADED', selectedTree });
+    //     return;
+    //   })
+    //   .catch(console.error);
   }
 
   _renderTooltip() {
