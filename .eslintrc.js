@@ -36,6 +36,10 @@ module.exports = merge(config, {
     'react/prop-types': 'off',
     'no-var': 'error',
     'prettier/prettier': 'error',
+    'jest/consistent-test-it': [
+      'error',
+      { fn: 'test', withinDescribe: 'test' },
+    ],
   },
   plugins: ['promise', 'react', 'jest', 'prettier'],
 });
