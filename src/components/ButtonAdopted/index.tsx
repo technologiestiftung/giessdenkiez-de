@@ -7,9 +7,10 @@ import Actions from '../../state/Actions';
 import { useAuth0 } from '../../utils/auth0';
 import { createAPIUrl, requests, isTreeAdopted } from '../../utils';
 
+const colorText: (p: any) => string = p => p.theme.colorTextDark;
 const StyledButtonAdopted = styled.div`
   font-size: 12px;
-  border: 1px solid ${p => p.theme.colorTextDark};
+  border: 1px solid ${colorText};
   width: 75px;
   border-radius: 100px;
   display: flex;
@@ -23,7 +24,7 @@ const StyledButtonAdopted = styled.div`
 
   &:hover {
     transition: 0.125s opacity ease-in-out;
-    background: ${p => p.theme.colorTextDark};
+    background: ${colorText};
     color: white;
 
     svg {
@@ -46,22 +47,13 @@ const ButtonAdopted = p => {
   const { selectedTree, state, user } = p;
   const [unadopting, setUnadopting] = useState(false);
 
-  /**
-   * FIXME: What is the purpose of this function?
-   * What should it do
-   *
-   */
-  const handleClick = () => {
-    selectedTree ? unadoptTree(selectedTree.id) : '';
-  };
-
   // FIXME: Duplicate code appears also in
   // SidebarAdopted
   // TreesAdopted
   // ButtonAdopted
   // all three have a little bit different code
 
-  const unadoptTree = async (id: string) => {
+  const unadoptTree: (id: string) => Promise<void> = async id => {
     try {
       store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
@@ -91,6 +83,7 @@ const ButtonAdopted = p => {
           method: 'DELETE',
           body: JSON.stringify({
             uuid: user.user_id,
+            // eslint-disable-next-line @typescript-eslint/camelcase
             tree_id: id,
             queryType: 'unadopt',
           }),
@@ -108,7 +101,6 @@ const ButtonAdopted = p => {
       );
       store.setState({
         selectedTreeState: 'FETCHED',
-        //@ts-ignore
         adoptedTrees: jsonAdoptedTrees.data,
       });
       setUnadopting(false);
@@ -125,6 +117,15 @@ const ButtonAdopted = p => {
       console.error(error);
       throw error;
     }
+  };
+
+  /**
+   * FIXME: What is the purpose of this function?
+   * What should it do
+   *
+   */
+  const handleClick = () => {
+    selectedTree ? unadoptTree(selectedTree.id) : '';
   };
 
   // const isTreeAdopted = async (treeid, uuid) => {
