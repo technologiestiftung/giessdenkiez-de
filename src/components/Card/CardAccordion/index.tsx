@@ -6,7 +6,7 @@ import { PanelIndicator } from '../Panels/PanelIndicator';
 import { PanelTitle } from '../Panels/PanelTitle';
 
 const CardAccordion = (p: {
-  title: string;
+  title: string | JSX.Element;
   children: JSX.Element;
   active?: boolean;
 }) => {

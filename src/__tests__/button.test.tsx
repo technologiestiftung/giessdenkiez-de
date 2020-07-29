@@ -4,7 +4,7 @@ import ButtonRound from '../components/ButtonRound';
 import ButtonBorder from '../components/ButtonBorder';
 import ButtonAdopted from '../components/ButtonAdopted';
 import { Provider } from 'unistore/react';
-import Store from '../state/Store';
+import store from '../state/Store';
 import { useAuth0 } from '../utils/auth0';
 
 /**
@@ -68,7 +68,7 @@ describe('button tests', () => {
   test('Adopted button should have a basic functionality', () => {
     // const onClick = jest.fn();
     const { getByRole, getByText } = render(
-      <Provider store={Store}>
+      <Provider store={store}>
         <ButtonAdopted />
       </Provider>
     );

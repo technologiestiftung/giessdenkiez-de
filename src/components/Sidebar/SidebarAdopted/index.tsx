@@ -97,7 +97,6 @@ const SidebarAdopted = p => {
       //   },
       // };
 
-      /* TODO: replace URL */
       console.log(user);
 
       await requests(createAPIUrl(state, `/delete?id=${id}`), {

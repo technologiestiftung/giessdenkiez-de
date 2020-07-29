@@ -3,13 +3,7 @@ import { connect } from 'unistore/react';
 import styled from 'styled-components';
 import store from '../../state/Store';
 import Actions, { loadCommunityData } from '../../state/Actions';
-import {
-  fetchAPI,
-  createAPIUrl,
-  requests,
-  waitFor,
-  isTreeAdopted,
-} from '../../utils';
+import { createAPIUrl, requests, waitFor, isTreeAdopted } from '../../utils';
 import { useAuth0 } from '../../utils/auth0';
 import history from '../../history';
 import Login from '../Login';
