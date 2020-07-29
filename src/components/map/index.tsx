@@ -9,13 +9,14 @@ import {
   /*GeolocateControl,*/ NavigationControl,
 } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
-import Store from '../../state/Store';
+import store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import {
   fetchAPI,
   createAPIUrl,
   interpolateColor,
   hexToRgb,
+  requests,
   // checkGeolocationFeature,
 } from '../../utils';
 
@@ -177,7 +178,7 @@ class DeckGLMap extends React.Component {
             this._onClick(info.x, info.y, info.object);
 
             if (info.object !== undefined) {
-              Store.setState({
+              store.setState({
                 highlightedObject: info.object.properties['id'],
               });
               setDetailRouteWithListPath(info.object.properties.id);
@@ -256,7 +257,7 @@ class DeckGLMap extends React.Component {
         const { setDetailRouteWithListPath } = this.props;
         this._onClick(event.x, event.y, features[0]);
 
-        Store.setState({
+        store.setState({
           highlightedObject: features[0].properties['id'],
         });
 

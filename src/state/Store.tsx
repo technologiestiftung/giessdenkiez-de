@@ -1,12 +1,12 @@
 import { isMobile } from 'react-device-detect';
 import createStore from 'unistore';
+import { IStore } from '../common/interfaces';
 
-const Store = createStore({
+const store = createStore<IStore>({
   wateredTrees: [],
   includedTrees: {},
   // TODO: which one is it @fdnklg !!!!1!!11!!!
   adoptedTrees: [],
-  // adoptedTrees: false,
   dataView: 'rain',
   communityData: null,
   wateredByUser: false,
@@ -32,9 +32,9 @@ const Store = createStore({
     prod: process.env.ENDPOINT_PROD,
   },
   tabActive: 'id-0',
-  selectedTree: false,
+  selectedTree: undefined,
   treeLastWatered: false,
-  selectedTreeState: '',
+  selectedTreeState: undefined,
   overlay: true,
   isLoading: true,
   AppState: 'watered',
@@ -50,4 +50,4 @@ const Store = createStore({
   },
 });
 
-export default Store;
+export default store;

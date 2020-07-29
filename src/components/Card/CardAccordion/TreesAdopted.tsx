@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Actions from '../../../state/Actions';
 import { connect } from 'unistore/react';
-import Store from '../../../state/Store';
+import store from '../../../state/Store';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { useAuth0 } from '../../../utils/auth0';
-import { fetchAPI, createAPIUrl } from '../../../utils';
+import { createAPIUrl, requests } from '../../../utils';
 
 const WrapperRow = styled.div`
   display: flex;
@@ -51,19 +51,24 @@ const TreesAdopted = p => {
   const { user, getTokenSilently } = useAuth0();
 
   const handleClick = async info => {
-    Store.setState({ selectedTree: info });
+    store.setState({ selectedTree: info });
     const coordinates = [parseFloat(info.lat), parseFloat(info.lng)];
     setViewport(coordinates);
   };
 
-  const handleClickUnadopt = id => {
-    setUnadopting(id);
+  const handleClickUnadopt = (id: string) => {
+    setUnadopting(true);
     unadoptTree(id);
   };
 
-  const unadoptTree = async id => {
+  // FIXME: Duplicate code appears also in
+  // SidebarAdopted
+  // TreesAdopted
+  // ButtonAdopted
+  // all three have a little bit different code
+  const unadoptTree = async (id: string) => {
     try {
-      Store.setState({ selectedTreeState: 'ADOPT' });
+      store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
       // const header = {
       //   headers: {

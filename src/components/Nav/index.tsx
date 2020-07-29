@@ -6,7 +6,7 @@ import Actions from '../../state/Actions';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-import Store from '../../state/Store';
+import store from '../../state/Store';
 
 import EdgeButton from '../EdgeComponent/';
 
@@ -63,7 +63,7 @@ const Nav = p => {
   };
 
   useEffect(() => {
-    Store.setState({ isNavOpen: isNavOpen });
+    store.setState({ isNavOpen: isNavOpen });
   }, [isNavOpen]);
 
   return (

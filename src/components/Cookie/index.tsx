@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Store from '../../state/Store';
+import store from '../../state/Store';
 
 import Actions from '../../state/Actions';
 import { connect } from 'unistore/react';
@@ -47,7 +47,7 @@ const Cookie = p => {
 
   const setCookie = () => {
     document.cookie = 'disclaimerAccepted=true;path=/;';
-    Store.setState({ cookiesAccepted: true });
+    store.setState({ cookiesAccepted: true });
   };
 
   return (
@@ -60,14 +60,18 @@ const Cookie = p => {
               ermöglichen und das Angebot zu verbessern. Indem du hier
               fortfährst stimmst du der Nutzung von Cookies zu.{' '}
               <a
-                href="https://www.technologiestiftung-berlin.de/de/datenschutz/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href='https://www.technologiestiftung-berlin.de/de/datenschutz/'
+                target='_blank'
+                rel='noopener noreferrer'
               >
                 Weitere Informationen.
               </a>
             </StyledCardDescription>
-            <ButtonRound width="fit-content" fontSize={'.8rem'} toggle={() => setCookie()}>
+            <ButtonRound
+              width='fit-content'
+              fontSize={'.8rem'}
+              toggle={() => setCookie()}
+            >
               Einverstanden
             </ButtonRound>
           </Inner>

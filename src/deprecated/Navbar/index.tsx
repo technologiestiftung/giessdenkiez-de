@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth0 } from '../../utils/auth0';
 import styled from 'styled-components';
-import Store from '../../state/Store';
+import store from '../../state/Store';
 import { connect } from 'unistore/react';
 import { fetchAPI, createAPIUrl } from '../../utils';
 import Actions from '../../state/Actions';
@@ -47,7 +47,7 @@ const NavBar = p => {
   } = useAuth0();
 
   const getAdoptedTrees = async () => {
-    Store.setState({ selectedTreeState: 'LOADING' });
+    store.setState({ selectedTreeState: 'LOADING' });
     const token = await getTokenSilently();
     // const mail = user.mail;
     const url = createAPIUrl(
@@ -61,7 +61,7 @@ const NavBar = p => {
       },
     })
       .then(r => {
-        Store.setState({
+        store.setState({
           selectedTreeState: 'FETCHED',
           adoptedTrees: r.data.adopted,
         });

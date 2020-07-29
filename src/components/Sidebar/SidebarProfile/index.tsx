@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { useAuth0 } from '../../../utils/auth0';
 import Actions from '../../../state/Actions';
 import { connect } from 'unistore/react';
-import Store from '../../../state/Store';
-import { fetchAPI, createAPIUrl } from '../../../utils';
+import store from '../../../state/Store';
+import { createAPIUrl, requests } from '../../../utils';
 
 import SidebarTitle from '../SidebarTitle/';
 import Login from '../../Login';
