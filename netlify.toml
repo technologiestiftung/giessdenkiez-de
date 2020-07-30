@@ -1,6 +1,6 @@
 [build]
 
-command = "npm run build"
+command = "node ./create-env.js && npm run build"
 
 [build.environment]
 
@@ -9,7 +9,7 @@ NODE_ENV = "production"
 
 [context.demo]
 
-command = "npm run build"
+command = "node ./create-env.js && npm run build"
 # environment = {BUILD_TARGET = "DEMO", NODE_ENV = "production"}
 
 [context.demo.environment]
