@@ -1,0 +1,23 @@
+[build]
+
+command = "npm run build"
+
+[build.environment]
+
+BUILD_TARGET = "DEFAULT"
+NODE_ENV = "production"
+
+[context.demo]
+
+command = "npm run build"
+# environment = {BUILD_TARGET = "DEMO", NODE_ENV = "production"}
+
+[context.demo.environment]
+
+BUILD_TARGET = "DEMO"
+NODE_ENV = "production"
+
+[[redirects]]
+from = "/*"
+status = 200
+to = "/index.html"
