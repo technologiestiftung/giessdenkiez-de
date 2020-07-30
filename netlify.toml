@@ -1,7 +1,7 @@
 [build]
 
 command = "npm run build"
-
+  publish = "dist/"
 [build.environment]
 
 BUILD_TARGET = "DEFAULT"
@@ -11,6 +11,7 @@ NODE_ENV = "production"
 
 command = "npm run build"
 # environment = {BUILD_TARGET = "DEMO", NODE_ENV = "production"}
+publish = "dist/"
 
 [context.demo.environment]
 
