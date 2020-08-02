@@ -154,13 +154,13 @@ class DeckGLMap extends React.Component {
             const { id, radolan_sum, age, pflanzjahr } = properties;
             const age = 2020 - Pflanzjahr;
 
-            if (dataView === 'watered' && communityData[id]) {
+            if (dataView === 'watered' && Array.isArray(communityData) && communityData[id]) {
               return communityData[id].watered
                 ? [53, 117, 177, 200]
                 : [0, 0, 0, 0];
             }
 
-            if (dataView === 'adopted' && communityData[id]) {
+            if (dataView === 'adopted' && Array.isArray(communityData) && communityData[id]) {
               return communityData[id].adopted
                 ? [0, 128, 128, 200]
                 : [0, 0, 0, 0];

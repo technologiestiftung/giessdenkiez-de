@@ -85,7 +85,8 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
     gattungdeutsch,
     caretaker,
   } = data;
-  const standalter = pflanzjahr && (2020 - parseInt(pflanzjahr));
+  const currentYear = new Date().getFullYear();
+  const standalter = pflanzjahr && (currentYear - parseInt(pflanzjahr));
 
   const getTreeProp = (p: Generic | string | null) => {
     return p === 'null' || p === undefined ? null : p;
@@ -124,7 +125,7 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
     }).catch(console.error);
   }, [user, selectedTree, treeAdopted]);
 
-  const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
+  const treeType = treetypes.find(treetype => treetype.id === artdtsch);
 
   return (
     <CardWrapper>
