@@ -4,36 +4,16 @@
   "description": "Source repo for [giessdenkiez.de](https://www.giessdenkiez.de)",
   "scripts": {
     "test": "inpyjamas-scripts test",
-<<<<<<< HEAD
-    "lint": "eslint ./src/",
-    "lint-fix": "npm run lint -- --fix",
-    "type-check": "tsc --project tsconfig.json --pretty --noEmit",
-=======
     "eslint": "eslint ./src/",
     "brechstange": "eslint --fix ./src/",
-<<<<<<< HEAD
->>>>>>> 2b843f5... Use commands from node_modules/.bin
     "dev": "npm start",
-=======
-<<<<<<< HEAD
->>>>>>> Use commands from node_modules/.bin
     "start": "cross-env BUILD_TARGET=DEFAULT NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
     "start:demo": "cross-env BUILD_TARGET=DEMO NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
     "build": "cross-env BUILD_TARGET=DEFAULT NODE_ENV=production webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects",
     "prettier:list": "prettier --list-different './src/**/*'",
-<<<<<<< HEAD
     "prettier:write": "prettier --write './src/**/*'",
     "storybook": "cross-env BUILD_TARGET=DEFAULT  NODE_ENV=development start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook -s ./public"
-=======
-    "prettier:write": "prettier --write './src/**/*'"
-=======
-    "start": "./node_modules/.bin/webpack-dev-server --config webpack/dev.config.js",
-    "build": "./node_modules/.bin/webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects",
-    "prettier:list": "./node_modules/.bin/prettier --list-different './src/**/*'",
-    "prettier:write": "./node_modules/.bin/prettier --write './src/**/*'"
->>>>>>> 7b69b97... Use commands from node_modules/.bin
->>>>>>> Use commands from node_modules/.bin
   },
   "keywords": [],
   "author": "Fabian Dinklage",

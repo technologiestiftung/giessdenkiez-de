@@ -1,11 +1,7 @@
 [build]
 
-<<<<<<< HEAD
 command = "node ./create-env.js && npm install && npm run build"
 publish = "dist/"
-=======
-command = "node ./create-env.js && webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects"
->>>>>>> 017da9c... Use commands from node_modules/.bin
 
 [build.environment]
 
