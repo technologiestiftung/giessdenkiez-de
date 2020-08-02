@@ -9,7 +9,7 @@ BUILD_TARGET = "DEFAULT"
 
 [context.demo]
 
-command = "node ./create-env.js && webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects"
+command = "node ./create-env.js && npm install -g webpack && npm install -g webpack-cli && npm install -g webpack-merge && npm install -g webpack-dev-server && webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects"
 # environment = {BUILD_TARGET = "DEMO", NODE_ENV = "production"}
 publish = "dist/"
 
