@@ -2,11 +2,13 @@
 const config = require('@inpyjamas/scripts/dist/config/jest/typescript');
 const { merge } = require('@inpyjamas/scripts/dist/utlities/merge');
 module.exports = merge(config, {
+  preset: 'ts-jest',
   // roots: ['<rootDir>/src'],
-  // testMatch: [
-  //   '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',
-  //   '<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}',
-  // ],
+  testMatch: [
+    '<rootDir>/src/**/__tests__/**/*.{ts,tsx}',
+    '<rootDir>/src/**/*.{spec,test}.{ts,tsx}',
+  ],
+  // testRegex: '(/__tests__/.*|(\\.|/)(test))\\.tsx?$',
   clearMocks: true,
   transform: {
     '^.+\\.[t|j]sx?$': 'babel-jest',
@@ -16,7 +18,7 @@ module.exports = merge(config, {
   // coverageReporters: ['lcov', 'text'],
   setupFilesAfterEnv: ['<rootDir>test/setup-test-env.js'],
   collectCoverageFrom: [
-    'src/**/*.{js,jsx}',
+    'src/**/*.{ts,tsx}',
     '!**/node_modules/**',
     '!**/coverage/**',
     '!src/deprecated/**/*',
