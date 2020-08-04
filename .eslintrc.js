@@ -33,6 +33,10 @@ module.exports = merge(config, {
     'prettier',
   ],
   rules: {
+    'require-top-level-describe': 'off',
+    'jest/no-hooks': 'error',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'react/prop-types': 'off',
     'no-var': 'error',
     'prettier/prettier': 'error',
