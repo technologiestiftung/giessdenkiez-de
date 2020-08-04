@@ -28,8 +28,8 @@ const store = createStore<IStore>({
   data: null,
   local: process.env.NODE_ENV === 'production' ? false : true,
   endpoints: {
-    local: process.env.ENDPOINT_DEV,
-    prod: process.env.ENDPOINT_PROD,
+    local: process.env.API_ENDPOINT_DEV,
+    prod: process.env.API_ENDPOINT_PROD,
   },
   tabActive: 'id-0',
   selectedTree: undefined,
