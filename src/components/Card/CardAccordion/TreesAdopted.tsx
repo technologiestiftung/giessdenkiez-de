@@ -5,7 +5,7 @@ import { connect } from 'unistore/react';
 import store from '../../../state/Store';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { useAuth0 } from '../../../utils/auth0';
+import { useAuth0 } from '../../../utils/auth/auth0';
 import { createAPIUrl, requests } from '../../../utils';
 
 const WrapperRow = styled.div`
@@ -45,7 +45,13 @@ const Title = styled.span`
   }
 `;
 
-const TreesAdopted = p => {
+interface TreesAdoptedProps {
+  data: any;
+  setViewport: any;
+  state: any;
+  adoptedTrees: any;
+}
+const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
   const { data, setViewport, state } = p;
   const [unadopting, setUnadopting] = useState(false);
   const { user, getTokenSilently } = useAuth0();
@@ -54,11 +60,6 @@ const TreesAdopted = p => {
     store.setState({ selectedTree: info });
     const coordinates = [parseFloat(info.lat), parseFloat(info.lng)];
     setViewport(coordinates);
-  };
-
-  const handleClickUnadopt = (id: string) => {
-    setUnadopting(true);
-    unadoptTree(id);
   };
 
   // FIXME: Duplicate code appears also in
@@ -95,6 +96,7 @@ const TreesAdopted = p => {
         override: {
           method: 'DELETE',
           body: JSON.stringify({
+            // eslint-disable-next-line @typescript-eslint/camelcase
             tree_id: id,
             uuid: user.sub,
             queryType: 'unadopt',
@@ -108,7 +110,6 @@ const TreesAdopted = p => {
       const resAdoptedTrees = await requests(urlAdoptedTrees, { token });
       store.setState({
         selectedTreeState: 'FETCHED',
-        //@ts-ignore
         adoptedTrees: resAdoptedTrees.data,
       });
       setUnadopting(false);
@@ -116,6 +117,11 @@ const TreesAdopted = p => {
       console.error(error);
       throw error;
     }
+  };
+
+  const handleClickUnadopt = (id: string) => {
+    setUnadopting(true);
+    unadoptTree(id);
   };
 
   if (data.length === 0) {
@@ -144,7 +150,7 @@ const TreesAdopted = p => {
   }
 };
 
-export default connect(
+export default connect<TreesAdoptedProps, any, any, any>(
   state => ({
     state: state,
     adoptedTrees: state.adoptedTrees,

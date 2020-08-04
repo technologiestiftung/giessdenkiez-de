@@ -45,22 +45,10 @@ class DeckGLMap extends React.Component {
   constructor(props) {
     super(props);
 
-    //@ts-ignore
     this.bool = true;
-    //@ts-ignore
     this.test = false;
     // this.geoLocationAvailable = false;
 
-    // checkGeolocationFeature(
-    //   () => {
-    //     this.geoLocationAvailable = false;
-    //     console.log('Geolocation access denied');
-    //   },
-    //   () => {
-    //     this.geoLocationAvailable = true;
-    //     console.log('Geolocation available');
-    //   }
-    // );
     this.state = {
       hoveredObject: null,
       data: null,
@@ -78,19 +66,12 @@ class DeckGLMap extends React.Component {
   }
 
   _renderLayers() {
-    //@ts-ignore
     const {
-      //@ts-ignore
       data,
-      //@ts-ignore
       rainGeojson,
-      //@ts-ignore
       treesVisible,
-      //@ts-ignore
       pumpsVisible,
-      //@ts-ignore
       rainVisible,
-      //@ts-ignore
       pumps,
     } = this.props;
 
@@ -101,7 +82,6 @@ class DeckGLMap extends React.Component {
           data: isMobile ? [] : data,
           opacity: 1,
           getLineWidth: (info: any) => {
-            //@ts-ignore
             const { selectedTree } = this.props;
             const id = info.properties['id'];
 
@@ -139,6 +119,7 @@ class DeckGLMap extends React.Component {
               communityData,
             } = this.props;
             const { properties } = info;
+            // eslint-disable-next-line @typescript-eslint/camelcase
             const { id, radolan_sum, age } = properties;
 
             if (dataView === 'watered' && communityData[id]) {
@@ -294,7 +275,6 @@ class DeckGLMap extends React.Component {
 
     requests(url)
       .then(treeJson => {
-        console.log(treeJson);
         if (treeJson.data.length === 0) {
           // store.setState({
           //   selectedTreeState: 'NOT_FOUND',
@@ -303,35 +283,16 @@ class DeckGLMap extends React.Component {
           return;
         }
         const selectedTree = treeJson.data[0];
-        console.log('res data', selectedTree);
         // ISSUE:141
+        // eslint-disable-next-line @typescript-eslint/camelcase
         selectedTree.radolan_days = selectedTree.radolan_days.map(d => d / 10);
+        // eslint-disable-next-line @typescript-eslint/camelcase
         selectedTree.radolan_sum = selectedTree.radolan_sum / 10;
 
         store.setState({ selectedTreeState: 'LOADED', selectedTree });
         return;
       })
       .catch(console.error);
-
-    // fetchAPI(url)
-    //   .then(r => {
-    //     if (r.data.length === 0) {
-    //       store.setState({
-    //         selectedTreeState: 'NOT_FOUND',
-    //         selectedTree: undefined,
-    //       });
-    //       return;
-    //     }
-    //     const selectedTree = r.data[0];
-    //     console.log('res data', selectedTree);
-    //     // ISSUE:141
-    //     selectedTree.radolan_days = selectedTree.radolan_days.map(d => d / 10);
-    //     selectedTree.radolan_sum = selectedTree.radolan_sum / 10;
-
-    //     store.setState({ selectedTreeState: 'LOADED', selectedTree });
-    //     return;
-    //   })
-    //   .catch(console.error);
   }
 
   _renderTooltip() {
@@ -583,16 +544,6 @@ class DeckGLMap extends React.Component {
               onLoad={this._onload.bind(this)}
             >
               <ControlWrapper isNavOpen={isNavOpen}>
-                {/* {this.state.geoLocationAvailable === true && ( */}
-                {/* <GeolocateControl
-                  positionOptions={{ enableHighAccuracy: true }}
-                  trackUserLocation={true}
-                  onViewStateChange={e => setView(e.viewState)}
-                  onGeolocate={options => {
-                    console.log(options, 'in geolocateControl');
-                  }}
-                /> */}
-                {/* )} */}
                 <NavigationControl
                   onViewStateChange={e => setView(e.viewState)}
                 />

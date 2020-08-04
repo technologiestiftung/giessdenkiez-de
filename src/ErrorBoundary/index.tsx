@@ -12,16 +12,16 @@ export default class ErrorBoundary extends React.Component<
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
   }
-  static getDerivedStateFromError(_error) {
+  static getDerivedStateFromError(_): { hasError: boolean } {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
-  componentDidMount() {
+  componentDidMount(): void {
     // eslint-disable-next-line no-console
     // console.log("Context=" + JSON.stringify(this.context));
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error, errorInfo): void {
     // You can also log the error to an error reporting service
 
     this.setState({ hasError: this.state.hasError, error, errorInfo });
@@ -72,7 +72,6 @@ export default class ErrorBoundary extends React.Component<
         </>
       );
     }
-
     return this.props.children;
   }
 }

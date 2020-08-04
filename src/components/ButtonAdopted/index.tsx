@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import { connect } from 'unistore/react';
 import store from '../../state/Store';
 import Actions from '../../state/Actions';
-import { useAuth0 } from '../../utils/auth0';
+import { useAuth0 } from '../../utils/auth/auth0';
 import { createAPIUrl, requests, isTreeAdopted } from '../../utils';
 
 const colorText: (p: any) => string = p => p.theme.colorTextDark;
@@ -46,7 +46,12 @@ const ButtonAdopted = p => {
   const { getTokenSilently, isAuthenticated } = useAuth0();
   const { selectedTree, state, user } = p;
   const [unadopting, setUnadopting] = useState(false);
-
+  let isMounted = true;
+  useEffect(() => {
+    return () => {
+      isMounted = false;
+    };
+  });
   // FIXME: Duplicate code appears also in
   // SidebarAdopted
   // TreesAdopted
@@ -106,6 +111,7 @@ const ButtonAdopted = p => {
       setUnadopting(false);
 
       await isTreeAdopted({
+        isMounted,
         id,
         uuid: user.user_id,
         token,
@@ -148,7 +154,7 @@ const ButtonAdopted = p => {
   //       store.setState({ treeAdopted: json.data });
   //     }
   //   } catch (error) {
-  //     console.log(error);
+  //     console.error(error);
   //   }
   // };
 

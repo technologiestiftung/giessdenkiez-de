@@ -1,9 +1,53 @@
 import { interpolateViridis, scaleLinear } from 'd3';
 import axios from 'axios';
-import { IsTreeAdoptedProps } from '../common/interfaces';
+import { IsTreeAdoptedProps, Generic } from '../common/interfaces';
+
+export function createAPIUrl(state: any, entrypoint: string): string {
+  return state.local
+    ? `${state.endpoints.local}${entrypoint}`
+    : `${state.endpoints.prod}${entrypoint}`;
+}
+
+/**
+ * Deliberately does not hande errors. You will have to handle them in the calling function
+ */
+export async function requests<T>(
+  url: string,
+  opts?: { token?: string; override?: T }
+): Promise<Generic> {
+  // try {
+  const headers = new Headers({ 'content-type': 'application/json' });
+  if (opts?.token) {
+    headers.set('authorization', `Bearer ${opts.token}`);
+  }
+  const response = await fetch(url, {
+    headers,
+    ...opts?.override,
+  });
+  if (!response.ok) {
+    const msg = await response.text();
+    console.error(msg);
+    return new Error(msg);
+  }
+  const json = await response.json();
+  return json;
+  // } catch (error) {
+  //   console.error(error);
+  //   return;
+  // }
+}
 
 export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
-  const { isAuthenticated, state, uuid, id, token, store, signal } = opts;
+  const {
+    isAuthenticated,
+    state,
+    uuid,
+    id,
+    token,
+    store,
+    signal,
+    isMounted,
+  } = opts;
   try {
     if (isAuthenticated) {
       // const token = await getTokenSilently();
@@ -19,8 +63,9 @@ export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
       //     headers: { Authorization: 'Bearer ' + token },
       //   });
       const json = await requests(url, { token, override: { signal } });
-
-      store.setState({ treeAdopted: json.data });
+      if (isMounted) {
+        store.setState({ treeAdopted: json.data });
+      }
     }
   } catch (error) {
     console.log(error);
@@ -48,6 +93,7 @@ export function createGeojson(data) {
        */
       properties: {
         id: tree.id,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         radolan_sum: +tree.radolan_sum / 10,
         age: +tree.age,
       },
@@ -62,7 +108,7 @@ export function createGeojson(data) {
 // Expected to return a value in arrow function.eslintarray-callback-return
 //
 export function createCSVJson(data) {
-  let csvArr: Array<[number, number, number, number]> = [];
+  const csvArr: Array<[number, number, number, number]> = [];
   data.map(item => {
     csvArr.push([+item[1], +item[2], item[0], +item[3]]);
   });
@@ -79,12 +125,6 @@ export function flatten(ary) {
     }
   }
   return ret;
-}
-
-export function createAPIUrl(state: any, entrypoint: string): string {
-  return state.local
-    ? `${state.endpoints.local}${entrypoint}`
-    : `${state.endpoints.prod}${entrypoint}`;
 }
 
 export function waitFor(
@@ -105,35 +145,6 @@ export function waitFor(
 //       resolve();
 //     }, millisenconds);
 //   });
-
-/**
- * Deliberately does not hande errors. You will have to handle them in the calling function
- */
-export async function requests<T>(
-  url: string,
-  opts?: { token?: string; override?: T }
-) {
-  // try {
-  const headers = new Headers({ 'content-type': 'application/json' });
-  if (opts?.token) {
-    headers.set('authorization', `Bearer ${opts.token}`);
-  }
-  const response = await fetch(url, {
-    headers,
-    ...opts?.override,
-  });
-  if (!response.ok) {
-    const msg = await response.text();
-    console.error(msg);
-    throw new Error(msg);
-  }
-  const json = await response.json();
-  return json;
-  // } catch (error) {
-  //   console.error(error);
-  //   return;
-  // }
-}
 
 export async function fetchAPI(url: string, config = {}) {
   const res = axios
@@ -161,7 +172,7 @@ export const STATI = {
 };
 
 export const createIncludedTrees = data => {
-  let obj = {};
+  const obj = {};
   data.forEach(id => {
     obj[id] = { included: true };
   });
@@ -189,10 +200,12 @@ export const getCookieValue = (a: string | number) => {
   return b ? b.pop() : '';
 };
 
+// eslint-disable-next-line @typescript-eslint/camelcase
 export const convertTime = (unix_timestamp: string): string => {
+  // eslint-disable-next-line @typescript-eslint/camelcase
   const sliced = unix_timestamp.slice(0, 16);
-  let date = new Date(sliced);
-  let months = [
+  const date = new Date(sliced);
+  const months = [
     'Jan',
     'Feb',
     'Mar',
@@ -206,9 +219,9 @@ export const convertTime = (unix_timestamp: string): string => {
     'Nov',
     'Dec',
   ];
-  let year = date.getFullYear();
-  let month = months[date.getMonth()];
-  let day = date.getDate();
+  const year = date.getFullYear();
+  const month = months[date.getMonth()];
+  const day = date.getDate();
 
   // let hours = date.getHours();
   // Minutes part from the timestamp
@@ -224,15 +237,15 @@ export const convertTime = (unix_timestamp: string): string => {
 };
 
 export const removeOverlay = () => {
-  let elem: HTMLElement | null = document.querySelector('#tempOverlay');
+  const elem: HTMLElement | null = document.querySelector('#tempOverlay');
   if (elem) {
     elem.style.display = 'none';
   }
 };
 
 export const timeDifference = (date1, date2) => {
-  let difference = date1 - date2;
-  let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+  const difference = date1 - date2;
+  const daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
 
   let label = '';
 
@@ -262,7 +275,7 @@ export const interpolateColor = val => {
 };
 
 export const hexToRgb = hex => {
-  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? [
         parseInt(result[1], 16),

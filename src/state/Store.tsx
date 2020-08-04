@@ -1,8 +1,9 @@
 import { isMobile } from 'react-device-detect';
 import createStore from 'unistore';
-import { IStore } from '../common/interfaces';
+// import devtools from 'unistore/devtools';
+import { StoreProps } from '../common/interfaces';
 
-const store = createStore<IStore>({
+const initialState = {
   wateredTrees: [],
   includedTrees: {},
   // TODO: which one is it @fdnklg !!!!1!!11!!!
@@ -14,7 +15,7 @@ const store = createStore<IStore>({
   cookiesAccepted: false,
   overlayIsVisible: true,
   legendExpanded: false,
-  treeAdopted: false,
+  treeAdopted: undefined,
   isNavOpen: false,
   pumpsVisible: false,
   highlightedObject: false,
@@ -48,6 +49,10 @@ const store = createStore<IStore>({
     pitch: isMobile ? 0 : 45,
     bearing: 0,
   },
-});
-
+};
+// const store =
+//   process.env.NODE_ENV === 'production'
+//     ? createStore<StoreProps>(initialState)
+//     : devtools(createStore(initialState));
+const store = createStore<StoreProps>(initialState);
 export default store;

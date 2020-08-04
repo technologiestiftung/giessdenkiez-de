@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { waterNeed, isTreeAdopted } from '../../utils/';
 import Actions from '../../state/Actions';
-import { useAuth0 } from '../../utils/auth0';
+import { useAuth0 } from '../../utils/auth/auth0';
 import { connect } from 'unistore/react';
 import store from '../../state/Store';
 
@@ -75,7 +76,8 @@ const Card = p => {
   const getTreeProp = (p: Generic | string | null) => {
     return p === 'null' ? null : p;
   };
-  type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'>;
+  type IsMountedType = { isMounted: boolean };
+  type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'> & IsMountedType;
 
   const fetchData: (opts: FetchDataOpts) => Promise<void> = async ({
     id,
@@ -83,28 +85,37 @@ const Card = p => {
     store,
     state,
     isAuthenticated,
+    isMounted,
   }) => {
     try {
       if (user && selectedTree) {
         const token = await getTokenSilently();
 
-        await isTreeAdopted({
-          id,
-          uuid,
-          token,
-          isAuthenticated,
-          store,
-          state,
-          signal,
-        });
+        if (isMounted) {
+          await isTreeAdopted({
+            id,
+            uuid,
+            token,
+            isAuthenticated,
+            store,
+            state,
+            signal,
+            isMounted,
+          });
+        }
+
         // isTreeAdopted(selectedTree.id, user.user_id);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
     if (!user) return;
+    let isMounted = true;
     fetchData({
+      isMounted,
       id: selectedTree.id,
       uuid: user.user_id,
       store,
@@ -113,6 +124,7 @@ const Card = p => {
     }).catch(console.error);
     return () => {
       // cleanup
+      isMounted = false;
       controller.abort();
     };
   }, [user, selectedTree, treeAdopted]);
@@ -148,7 +160,6 @@ const Card = p => {
           <SublineSpan>{getTreeProp(gattungdeutsch.toLowerCase())}</SublineSpan>
         )}
         {treeAdopted && <ButtonAdopted />}
-
         {treeType && treeType.title !== null && (
           <CardAccordion
             title={
@@ -160,11 +171,9 @@ const Card = p => {
             <TreeType>{treeType.description}</TreeType>
           </CardAccordion>
         )}
-
         {standalter && standalter !== 'undefined' && (
           <CardProperty name='Standalter' value={standalter + ' Jahre'} />
         )}
-
         {standalter !== 'null' && standalter !== 'undefined' && (
           <CardAccordion
             title={
@@ -179,7 +188,6 @@ const Card = p => {
             <TreeWatering data={watering} />
           </CardAccordion>
         )}
-
         <RainContainer>
           <FlexRowDiv>
             <CardHeadline>Niederschlag</CardHeadline>
@@ -189,7 +197,6 @@ const Card = p => {
           <Linechart data={radolan_days} sum={radolan_sum} />
           {/* <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription> */}
         </RainContainer>
-
         {treeLastWatered.length > 0 && (
           <CardAccordion
             active={true}
@@ -198,7 +205,6 @@ const Card = p => {
             <TreeLastWatered data={treeLastWatered} />
           </CardAccordion>
         )}
-
         <ButtonWater />
       </FlexColumnDiv>
     </CardWrapper>

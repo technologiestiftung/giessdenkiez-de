@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import store from '../../state/Store';
 
 import { createAPIUrl, requests } from '../../utils';
-import { useAuth0 } from '../../utils/auth0';
+import { useAuth0 } from '../../utils/auth/auth0';
 
 import ButtonRound from '../ButtonRound/';
 
@@ -35,32 +35,9 @@ const Login = p => {
           store.setState({ wateredByUser: jsonWateredByUser.data });
           const jsonAdoptedByUser = await requests(urlAdoptedTrees, { token });
           store.setState({ adoptedTrees: jsonAdoptedByUser.data });
-
-          // fetchAPI(urlWateredByUser, {
-          //   headers: {
-          //     Authorization: 'Bearer ' + token,
-          //   },
-          // })
-          //   .then(r => {
-          //     //@ts-ignore
-          //     store.setState({ wateredByUser: r.data });
-          //     return;
-          //   })
-          //   .catch(console.error);
-
-          // fetchAPI(urlAdoptedTrees, {
-          //   headers: {
-          //     Authorization: 'Bearer ' + token,
-          //   },
-          // })
-          //   .then(r => {
-          //     //@ts-ignore
-          //     store.setState({ adoptedTrees: r.data });
-          //     return;
-          //   })
-          //   .catch(console.error);
         }
       } catch (error) {
+        console.error(error);
         throw error;
       }
     };
@@ -77,18 +54,9 @@ const Login = p => {
           process.env.USER_DATA_API_URL
         }/api/user?userid=${encodeURIComponent(user.sub)}`;
 
-        // const res =
-        //   /* TODO: replace URL */
-        //   await fetchAPI(apiUrl, {
-        //     headers: {
-        //       Authorization: 'Bearer ' + token,
-        //     },
-        //   });
         const res = await requests(apiUrl, { token });
-        //@ts-ignore
         store.setState({ user: res.data });
       } catch (error) {
-        // throw error
         console.error(error);
       }
     };
@@ -100,6 +68,7 @@ const Login = p => {
 
   const handleClick = type => {
     if (type === 'login') {
+      // eslint-disable-next-line @typescript-eslint/camelcase
       loginWithRedirect({ ui_locales: 'de' });
     } else if (type === 'logout') {
       logout();

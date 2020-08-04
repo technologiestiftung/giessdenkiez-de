@@ -12,7 +12,7 @@ import SidebarTitle from '../SidebarTitle/';
 import { colorByState } from '../../../assets/theme';
 
 import store from '../../../state/Store';
-import { useAuth0 } from '../../../utils/auth0';
+import { useAuth0 } from '../../../utils/auth/auth0';
 import { fetchAPI, createAPIUrl } from '../../../utils';
 
 const StyledCardWrapper = styled(CardWrapper)`
@@ -67,11 +67,15 @@ const SidebarAdopted = p => {
     fetchAPI(url)
       .then(r => {
         // ISSUE:141
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         //@ts-ignore
-
+        // eslint-disable-next-line @typescript-eslint/camelcase
         r.data.radolan_days = r.data.radolan_days.map(d => d / 10);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         //@ts-ignore
+        // eslint-disable-next-line @typescript-eslint/camelcase
         r.data.radolan_sum = r.data.radolan_sum / 10;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         //@ts-ignore
         store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
         setViewport(geometry);
@@ -97,13 +101,12 @@ const SidebarAdopted = p => {
       //   },
       // };
 
-      console.log(user);
-
       await requests(createAPIUrl(state, `/delete?id=${id}`), {
         token,
         override: {
           method: 'DELETE',
           body: JSON.stringify({
+            // eslint-disable-next-line @typescript-eslint/camelcase
             tree_id: id,
             uuid: user.sub,
             queryType: 'unadopt',

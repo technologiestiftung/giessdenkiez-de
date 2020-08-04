@@ -4,9 +4,9 @@ import history from '../history';
 import { createAPIUrl, createGeojson, requests } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
 import { Store } from 'unistore';
-import { IStore, Generic } from '../common/interfaces';
+import { StoreProps, Generic } from '../common/interfaces';
 
-export const loadTrees = (store: Store<IStore>) => async () => {
+export const loadTrees = (store: Store<StoreProps>) => async () => {
   if (isMobile) {
     // TODO: Load the user's trees from API
     store.setState({
@@ -36,7 +36,7 @@ export const setAgeRange = (_state, payload) => {
   };
 };
 
-export const loadCommunityData = (store: Store<IStore>) => async () => {
+export const loadCommunityData = (store: Store<StoreProps>) => async () => {
   try {
     const fetchCommunityDataUrl = createAPIUrl(
       store.getState(),
@@ -44,7 +44,7 @@ export const loadCommunityData = (store: Store<IStore>) => async () => {
     );
     const json = await requests(fetchCommunityDataUrl);
 
-    let obj = {};
+    const obj = {};
     const communityDataWatered: Generic[] = [];
     const communityDataAdopted: Generic[] = [];
 
@@ -57,11 +57,9 @@ export const loadCommunityData = (store: Store<IStore>) => async () => {
           watered: item[2] === 1 ? true : false,
         };
         if (item[1] === 1) {
-          //@ts-ignore
           communityDataWatered.push(item[0]);
         }
         if (item[2] === 1) {
-          //@ts-ignore
           communityDataAdopted.push(item[0]);
         }
       });
@@ -74,7 +72,7 @@ export const loadCommunityData = (store: Store<IStore>) => async () => {
   }
 };
 
-export const loadData = (store: Store<IStore>) => async () => {
+export const loadData = (store: Store<StoreProps>) => async () => {
   try {
     store.setState({ isLoading: true });
     // let geojson = [];
@@ -166,9 +164,9 @@ export const getTree = Store => async id => {
 
     if (res.data.length > 0) {
       // ISSUE:141
-      //@ts-ignore
+      // eslint-disable-next-line @typescript-eslint/camelcase
       res.data[0].radolan_days = res.data[0].radolan_days.map(d => d / 10);
-      //@ts-ignore
+      // eslint-disable-next-line @typescript-eslint/camelcase
       res.data[0].radolan_sum = res.data[0].radolan_sum / 10;
 
       return {
@@ -210,7 +208,6 @@ export const getTreeByAge = Store => async (
 
     Store.setState({
       selectedTreeState: 'LOADED',
-      //@ts-ignore
       selectedTrees: res.data,
     });
   } catch (error) {

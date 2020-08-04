@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'unistore/react';
 import styled from 'styled-components';
 import store from '../../state/Store';
 import Actions, { loadCommunityData } from '../../state/Actions';
 import { createAPIUrl, requests, waitFor, isTreeAdopted } from '../../utils';
-import { useAuth0 } from '../../utils/auth0';
+import { useAuth0 } from '../../utils/auth/auth0';
 import history from '../../history';
 import Login from '../Login';
 import ButtonRound from '../ButtonRound';
@@ -12,7 +13,6 @@ import ButtonWaterGroup from './BtnWaterGroup';
 import CardDescription from '../Card/CardDescription';
 import { NonVerfiedMailCardParagraph } from '../Card/non-verified-mail';
 import CardParagraph from '../Card/CardParagraph';
-import { Generic } from '../../common/interfaces';
 
 const loadCommunityDataAction = store.action(loadCommunityData(store));
 
@@ -57,7 +57,12 @@ const ButtonWater = p => {
   const [adopted] = useState(false);
 
   const [isEmailVerifiyed, setIsEmailVerifiyed] = useState(false);
-
+  let isMounted = true;
+  useEffect(() => {
+    return () => {
+      isMounted = false;
+    };
+  });
   useEffect(() => {
     if (!user) return;
     setIsEmailVerifiyed(user.email_verified);
@@ -84,14 +89,6 @@ const ButtonWater = p => {
     toggleOverlay(true);
   };
 
-  const setWaterAmount = (id: any, amount: any) => {
-    setWaterGroup('watered');
-    waterTree(id, amount, userdata.username);
-    setTimeout(() => {
-      setWaterGroup('visible');
-    }, 1000);
-  };
-
   // const isTreeAdopted = async (treeid: any, uuid: any) => {
   //   const token = await getTokenSilently();
   //   try {
@@ -107,7 +104,7 @@ const ButtonWater = p => {
   //     //@ts-ignore
   //     store.setState({ treeAdopted: r.data });
   //   } catch (error) {
-  //     console.log(error);
+  //     console.error(error);
   //   }
   // };
 
@@ -136,19 +133,15 @@ const ButtonWater = p => {
         },
       });
       const geturl = createAPIUrl(state, `/get?id=${id}&queryType=byid`);
-      const json: { data: Generic[] } = await requests(geturl);
+      const json = await requests(geturl);
       if (json.data.length > 0) {
         const tree = json.data[0];
         // ISSUE:141
-        //@ts-ignore
         tree.radolan_days = tree.radolan_days.map(d => d / 10);
-        //@ts-ignore
         tree.radolan_sum = tree.radolan_sum / 10;
 
         store.setState({
-          //@ts-ignore
           selectedTreeState: 'WATERED',
-          //@ts-ignore
           selectedTree: tree,
         });
 
@@ -167,6 +160,7 @@ const ButtonWater = p => {
             .then(json => {
               console.log('waited for 500 ms for watered data', json);
               store.setState({ wateredTrees: json.data.watered });
+              return;
             })
             .catch(console.error);
         });
@@ -225,6 +219,13 @@ const ButtonWater = p => {
     }
   };
 
+  const setWaterAmount = (id: any, amount: any) => {
+    setWaterGroup('watered');
+    waterTree(id, amount, userdata.username);
+    setTimeout(() => {
+      setWaterGroup('visible');
+    }, 1000);
+  };
   const adoptTree = async (id: string) => {
     try {
       store.setState({ selectedTreeState: 'ADOPT' });
@@ -245,6 +246,7 @@ const ButtonWater = p => {
           }),
         },
       });
+
       const res = await requests(
         createAPIUrl(state, `/get?&queryType=byid&id=${id}`)
       );
@@ -258,13 +260,13 @@ const ButtonWater = p => {
 
         store.setState({
           selectedTreeState: 'ADOPTED',
-          //@ts-ignore
           selectedTree: tree,
         });
 
         await waitFor(250, loadCommunityDataAction);
 
         await isTreeAdopted({
+          isMounted,
           id,
           uuid: user.sub,
           token,

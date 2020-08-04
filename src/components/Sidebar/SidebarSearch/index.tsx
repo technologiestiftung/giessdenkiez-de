@@ -33,7 +33,6 @@ const SidebarSearch = p => {
         </Container>
       )}
       {selectedTree && selectedTreeState !== 'LOADING' && (
-        //@ts-ignore
         <Card data={selectedTree} />
       )}
       {!selectedTree && selectedTreeState !== 'LOADING' && <CardLegend />}

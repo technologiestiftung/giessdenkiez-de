@@ -70,14 +70,10 @@ const TreeLastWatered = (p: { data: any }) => {
           <Wrapper key={`Lastadopted-key-${i}`}>
             <FlexRow>
               <Title>{info.username}</Title>
-              <StyledTreeType>
-                ({convertTime(info.timestamp)})
-              </StyledTreeType>
+              <StyledTreeType>({convertTime(info.timestamp)})</StyledTreeType>
             </FlexRow>
-            <TreeType>
-              {info.amount}l
-            </TreeType>
-            <StyledIcon src={iconDrop} alt="Water drop icon" />
+            <TreeType>{info.amount}l</TreeType>
+            <StyledIcon src={iconDrop} alt='Water drop icon' />
           </Wrapper>
         );
       })}

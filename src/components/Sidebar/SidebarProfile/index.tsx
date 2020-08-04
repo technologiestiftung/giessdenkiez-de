@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useAuth0 } from '../../../utils/auth0';
+import { useAuth0 } from '../../../utils/auth/auth0';
 import Actions from '../../../state/Actions';
 import { connect } from 'unistore/react';
 import store from '../../../state/Store';
@@ -88,15 +88,12 @@ const SidebarProfile = p => {
           };
 
           const queryStr = adoptedTrees.reduce(concatReducer, '{');
-          console.log('in SidebarProfile', adoptedTrees);
-          console.log('in SidebarProfile', queryStr);
           const urlAdoptedTreesDetails = createAPIUrl(
             state,
             // `/private/get-adopted-trees-details?tree_ids=${queryStr}`
             `/get/?queryType=treesbyids&tree_ids=${queryStr}`
           );
           const res = await requests(urlAdoptedTreesDetails);
-          console.log(res);
           store.setState({ adoptedTreesDetails: res.data });
 
           // fetchAPI(urlAdoptedTreesDetails, {
@@ -114,11 +111,11 @@ const SidebarProfile = p => {
           //   });
         }
       } catch (error) {
+        console.error(error);
         throw error;
       }
     };
-    if (adoptedTrees.length === 0) {
-      //@ts-ignore
+    if (adoptedTrees && adoptedTrees.length === 0) {
       store.setState({ adoptedTreesDetails: [] });
     } else {
       fetchData().catch(err => {
@@ -205,7 +202,6 @@ const SidebarProfile = p => {
                     title={<span>Adoptierte Bäume</span>}
                   >
                     {adoptedTreesDetails && (
-                      //@ts-ignore
                       <TreesAdopted data={adoptedTreesDetails} />
                     )}
                   </CardAccordion>
