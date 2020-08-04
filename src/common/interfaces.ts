@@ -3,12 +3,13 @@ import { Store } from 'unistore';
 export interface Generic {
   [key: string]: any;
 }
-export interface IStore {
+
+export interface StoreProps {
   wateredTrees: Generic[];
   includedTrees: Generic;
   // TODO: which one is it @fdnklg !!!!1!!11!!!
   adoptedTrees: Generic[];
-  dataView: 'rain' | 'adopted' | 'watered';
+  dataView: 'rain' | 'adopted' | 'watered' | string;
   communityData: Generic | null;
   communityDataAdopted?: Generic[];
   communityDataWatered?: Generic[];
@@ -17,14 +18,14 @@ export interface IStore {
   cookiesAccepted: boolean;
   overlayIsVisible: boolean;
   legendExpanded: boolean;
-  treeAdopted: boolean;
+  treeAdopted?: boolean;
   isNavOpen: boolean;
   pumpsVisible: boolean;
   highlightedObject: boolean;
   user: boolean;
   rainVisible: boolean;
   rainGeojson: null | null;
-  adoptedTreesDetails: boolean;
+  adoptedTreesDetails: any;
   csvdata: null;
   ageRange: number[];
   pumps: Generic | null;
@@ -44,7 +45,8 @@ export interface IStore {
     | 'ADOPTED'
     | 'WATERING'
     | 'FETCHED'
-    | 'NOT_FOUND';
+    | 'NOT_FOUND'
+    | 'WATERED';
   overlay: boolean;
   isLoading: boolean;
   AppState: string;
@@ -52,10 +54,10 @@ export interface IStore {
   viewport: {
     latitude: number;
     longitude: number;
-    zoom: 13 | 11;
-    maxZoom: 19;
-    minZoom: 11 | 9;
-    pitch: 0 | 45;
+    zoom: number;
+    maxZoom: number;
+    minZoom: number;
+    pitch: number;
     bearing: number;
   };
 }
@@ -65,7 +67,8 @@ export interface IsTreeAdoptedProps {
   uuid: string;
   token: string;
   state: any;
-  store: Store<IStore>;
+  store: Store<StoreProps>;
   isAuthenticated?: boolean;
   signal?: AbortSignal;
+  isMounted: boolean;
 }
