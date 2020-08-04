@@ -7,7 +7,7 @@ import ButtonBorder from '../components/ButtonBorder';
 import ButtonAdopted from '../components/ButtonAdopted';
 import { Provider } from 'unistore/react';
 import store from '../state/Store';
-import { useAuth0 } from '../utils/auth0';
+import { useAuth0 } from '../utils/auth/auth0';
 
 /**
  * Auth0 mock taken from here
@@ -20,6 +20,7 @@ import { useAuth0 } from '../utils/auth0';
  */
 const dummyUser = {
   email: 'foo@bah.com',
+  // eslint-disable-next-line @typescript-eslint/camelcase
   email_verified: true,
   sub: 'auth0|12345678912345678901234',
   name: 'foo',
@@ -27,10 +28,11 @@ const dummyUser = {
   metadata: { name: 'foo' },
 };
 // intercept the useAuth0 function and mock it
-jest.mock('../utils/auth0');
+jest.mock('../utils/auth/auth0');
 
 beforeEach(() => {
   // Mock the Auth0 hook and make it return a logged in state
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   //@ts-ignore
   useAuth0.mockReturnValue({
     isAuthenticated: true,
