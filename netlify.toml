@@ -1,7 +1,7 @@
 [build]
 
-command = "npm run build"
-  publish = "dist/"
+command = "node ./create-env.js && npm run build"
+
 [build.environment]
 
 BUILD_TARGET = "DEFAULT"
@@ -9,7 +9,7 @@ NODE_ENV = "production"
 
 [context.demo]
 
-command = "npm run build"
+command = "node ./create-env.js && npm run build"
 # environment = {BUILD_TARGET = "DEMO", NODE_ENV = "production"}
 publish = "dist/"
 
