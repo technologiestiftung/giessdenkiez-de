@@ -1,9 +1,15 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { NormalModuleReplacementPlugin, DefinePlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const { setupMSW } = require('./service-worker-setup');
 const path = require('path');
 const domain = 'https://www.giessdenkiez.de';
+
+
+setupMSW();
 
 module.exports = {
   mode: 'development',
@@ -35,6 +41,11 @@ module.exports = {
         },
       },
       {
+        enforce: 'pre',
+        test: /\.js$/,
+        use: ['source-map-loader'],
+      },
+      {
         test: /\.(scss|css)$/,
         use: [
           'style-loader', // creates style nodes from JS strings
@@ -45,7 +56,18 @@ module.exports = {
     ],
   },
   plugins: [
+    new DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.BUILD_TARGET': JSON.stringify(process.env.BUILD_TARGET),
+    }),
     new Dotenv(),
+    new NormalModuleReplacementPlugin(/(\.*)\/auth\/(\.*)/, function (
+      resource
+    ) {
+      if (process.env.BUILD_TARGET === 'DEMO') {
+        resource.request = resource.request.replace(/auth/, `/auth-mock/`);
+      }
+    }),
     new CleanWebpackPlugin(),
     new CopyPlugin({ patterns: [{ context: 'public/', from: '**/*' }] }),
     new HtmlWebpackPlugin({
