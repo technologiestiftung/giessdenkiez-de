@@ -1,10 +1,11 @@
 import 'react-app-polyfill/stable';
 import 'whatwg-fetch';
 import 'core-js';
+import './mocks/mocks-init'; // should be first import after polyfills
+// -------------------------------------------------------------------
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './Root';
-
 import history from './history';
 import ErrorBoundary from './ErrorBoundary';
 
