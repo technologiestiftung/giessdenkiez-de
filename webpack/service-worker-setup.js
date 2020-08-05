@@ -43,7 +43,9 @@ function mswFileExists() {
 
 module.exports = {
   setupMSW: function () {
-    console.log('Setting up MSW https://mswjs.io/ for demo purpose.');
+    if (buildTarget === 'DEMO') {
+      console.log('Setting up MSW https://mswjs.io/ for demo purpose.');
+    }
     // if node env === prod && buildTarget default rm sw
     // of target === DEMO and not present setup sw
     // if node env dev || test and sw not present call msw setup
