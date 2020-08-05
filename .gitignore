@@ -127,3 +127,6 @@ dist/
 public/.DS_Store
 docs/users-stats/request.sh
 docs/users-stats/token
+
+# Local Netlify folder
+.netlify
