@@ -11,6 +11,7 @@ NODE_ENV = "production"
 
 command = "node ./create-env.js && npm run build"
 # environment = {BUILD_TARGET = "DEMO", NODE_ENV = "production"}
+publish = "dist/"
 
 [context.demo.environment]
 
