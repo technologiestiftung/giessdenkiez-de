@@ -24,12 +24,12 @@ module.exports = merge(config, {
     '!src/deprecated/**/*',
   ],
   // TODO: When we have some coverage we can activate this
-  // coverageThreshold: {
-  //   global: {
-  //     branches: 75,
-  //     functions: 75,
-  //     lines: 75,
-  //     statements: 75,
-  //   },
-  // },
+  coverageThreshold: {
+    global: {
+      branches: 1,
+      functions: 1,
+      lines: 1,
+      statements: 1,
+    },
+  },
 });
