@@ -84,6 +84,4 @@ To start the DEMO mode run.
 ```bash
 npm run demo
 ```
-
-
-
+<!-- trigger deploy 2020-08-05 12:55:46 :rocket: -->
