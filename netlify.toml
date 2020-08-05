@@ -1,0 +1,23 @@
+[build]
+
+command = "node ./create-env.js && npm run build"
+publish = "dist/"
+
+[build.environment]
+
+BUILD_TARGET = "DEFAULT"
+
+[context.demo]
+
+command = "node ./create-env.js && npm run build"
+# environment = {BUILD_TARGET = "DEMO", NODE_ENV = "production"}
+publish = "dist/"
+
+[context.demo.environment]
+
+BUILD_TARGET = "DEMO"
+
+[[redirects]]
+from = "/*"
+status = 200
+to = "/index.html"
