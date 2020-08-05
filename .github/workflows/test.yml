@@ -5,15 +5,15 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, staging, demo ]
   pull_request:
-    branches: [ master, staging ]
+    branches: [ master, staging, demo ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x]
