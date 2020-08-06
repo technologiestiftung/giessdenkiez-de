@@ -36,7 +36,7 @@ beforeEach(() => {
   //@ts-ignore
   useAuth0.mockReturnValue({
     isAuthenticated: true,
-    dummyUser,
+    user: dummyUser,
     logout: jest.fn(),
     loginWithRedirect: jest.fn(),
     getTokenSilently: jest.fn().mockImplementation(() => 'xxx'),
