@@ -1,18 +1,14 @@
 /* eslint-disable jest/no-hooks */
 /* eslint-disable jest/require-top-level-describe */
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import Card from './index';
 import React from 'react';
 import store from '../../state/Store';
 import { Provider } from 'unistore/react';
 import { useAuth0 } from '../../utils/auth/auth0';
-// import * as utils from '../../utils';
-// jest.mock('../../utils', () => {
-//   return {
-//     requests: () => jest.fn().mockImplementation(() => {
-//     retun
-//   })}
-// });
+import { requests as mockRequests } from '../../utils';
+
+jest.mock('../../utils');
 /**
  * Auth0 mock taken from here
  * https://itnext.io/how-to-mock-auth0-spa-hooks-to-test-your-react-components-e45b6a38fddb
@@ -52,7 +48,10 @@ afterAll(() => {
 });
 
 describe('card test', () => {
-  test('should render', () => {
+  test('should render', async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    //@ts-ignore
+    mockRequests.mockResolvedValueOnce({ data: 'adopted' });
     store.setState({ selectedTree: { id: '_123' } });
     const { getByText } = render(
       <Provider store={store}>
@@ -63,6 +62,8 @@ describe('card test', () => {
     const button1 = getByText(/adoptieren/i);
     expect(button1).toBeInTheDocument();
     fireEvent.click(button1);
+    await waitFor(() => expect(mockRequests).toHaveBeenCalledTimes(1));
+
     const button2 = getByText(/adoptiere/i);
     expect(button2).toBeInTheDocument();
     store.setState({ treeAdopted: true });
