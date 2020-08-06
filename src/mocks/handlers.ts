@@ -65,7 +65,7 @@ export const handlers = [
     return res(ctx.status(201));
   }),
 
-  rest.delete(`${location}/post`, (req, res, ctx) => {
+  rest.delete(`${location}/delete`, (req, res, ctx) => {
     // console.log('intercepting DELETE requests');
     let json: Payload = {};
     let body: Record<string, any> = {};
@@ -78,6 +78,12 @@ export const handlers = [
     // console.log(body);
     switch (queryType) {
       case 'unadopt': {
+        // remove from adopted trees list
+        // adoptedTreeIds[]
+        // reduce adopted list by one
+        //wateredAndAdopted
+        // get a call to adopted
+        // and is tree adopted
         break;
       }
       case undefined:
