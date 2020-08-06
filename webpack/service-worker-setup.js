@@ -62,10 +62,13 @@ module.exports = {
         }
       }
     } else if (nodeEnv === 'test' || nodeEnv === 'development') {
-      console.log(`Setting up MSW https://mswjs.io/ for demo purpose.in ${process.env.NODE_ENV}`);
-      if (mswFileExists() === false) {
-        console.log('MSW setup in NODE_ENV test or development');
-        setupMSW();
+      if (buildTarget === 'DEMO') {
+
+        console.log(`Setting up MSW https://mswjs.io/ for demo purpose.in ${process.env.NODE_ENV}`);
+        if (mswFileExists() === false) {
+          console.log('MSW setup in NODE_ENV test or development');
+          setupMSW();
+        }
       }
     } else {
       console.info(`No case for NODE_ENV ${process.env.NODE_ENV} with BUILD_TARGET ${process.env.BUILD_TARGET} defined`);
