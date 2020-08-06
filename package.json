@@ -7,6 +7,7 @@
     "eslint": "eslint ./src/",
     "brechstange": "eslint --fix ./src/",
     "start": "cross-env BUILD_TARGET=DEFAULT NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
+    "start:demo": "cross-env BUILD_TARGET=DEMO NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
     "demo": "cross-env BUILD_TARGET=DEMO NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects",
     "prettier:list": "prettier --list-different './src/**/*'",
