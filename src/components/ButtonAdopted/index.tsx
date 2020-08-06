@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import { connect } from 'unistore/react';
@@ -47,11 +47,7 @@ const ButtonAdopted = p => {
   const { selectedTree, state, user } = p;
   const [unadopting, setUnadopting] = useState(false);
   // let isMounted = true;
-  useEffect(() => {
-    return () => {
-      // isMounted = false;
-    };
-  });
+
   // FIXME: Duplicate code appears also in
   // SidebarAdopted
   // TreesAdopted
@@ -80,8 +76,6 @@ const ButtonAdopted = p => {
       );
       setUnadopting(true);
 
-      /* TODO: replace URL */
-      // await fetchAPI(urlUnadopt, header);
       await requests(urlUnadopt, {
         token,
         override: {
@@ -95,8 +89,6 @@ const ButtonAdopted = p => {
         },
       });
 
-      /* TODO: replace URL */
-      // const resAdoptedTrees = await fetchAPI(urlAdoptedTrees, header);
       const jsonAdoptedTrees = await requests(
         urlAdoptedTrees,
         // `/get?queryType=adopted&uuid=${user.user_id}`,
@@ -109,9 +101,7 @@ const ButtonAdopted = p => {
         adoptedTrees: jsonAdoptedTrees.data,
       });
       setUnadopting(false);
-
       await isTreeAdopted({
-        // isMounted,
         id,
         uuid: user.user_id,
         token,
@@ -134,36 +124,11 @@ const ButtonAdopted = p => {
     selectedTree ? unadoptTree(selectedTree.id) : '';
   };
 
-  // const isTreeAdopted = async (treeid, uuid) => {
-  //   try {
-  //     if (isAuthenticated) {
-  //       const token = await getTokenSilently();
-  //       const url = createAPIUrl(
-  //         state,
-  //         `/get?queryType=istreeadopted&uuid=${uuid}&id=${treeid}`
-  //       );
-  //       // const r =
-  //       //   /* TODO: replace URL */
-  //       //   /* TODO: replace URL */
-  //       //   /* TODO: replace URL */
-  //       //   await fetchAPI(url, {
-  //       //     headers: { Authorization: 'Bearer ' + token },
-  //       //   });
-  //       const json = await requests(url, { token });
-
-  //       store.setState({ treeAdopted: json.data });
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   return (
     <StyledButtonAdopted
       role={'button'}
       tabIndex={0}
       onClick={() => {
-        console.log('Clicked unadopt');
         handleClick();
       }}
     >

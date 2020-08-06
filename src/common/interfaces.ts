@@ -7,7 +7,6 @@ export interface Generic {
 export interface StoreProps {
   wateredTrees: Generic[];
   includedTrees: Generic;
-  // TODO: which one is it @fdnklg !!!!1!!11!!!
   adoptedTrees: Generic[];
   dataView: 'rain' | 'adopted' | 'watered' | string;
   communityData: Generic | null;

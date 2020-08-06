@@ -18,7 +18,6 @@ export default class ErrorBoundary extends React.Component<
   }
   componentDidMount(): void {
     // eslint-disable-next-line no-console
-    // console.log("Context=" + JSON.stringify(this.context));
   }
 
   componentDidCatch(error, errorInfo): void {

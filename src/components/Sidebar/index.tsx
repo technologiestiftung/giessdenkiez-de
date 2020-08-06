@@ -38,9 +38,6 @@ const SidebarContent = styled.div`
   padding: 0px 15px;
 `;
 
-// TODO: Review Prevent passing of children as props (react/no-children-prop)
-// https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md
-
 const Sidebar = _p => {
   return (
     <Route

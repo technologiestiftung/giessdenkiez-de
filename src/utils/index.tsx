@@ -31,41 +31,19 @@ export async function requests<T>(
   }
   const json = await response.json();
   return json;
-  // } catch (error) {
-  //   console.error(error);
-  //   return;
-  // }
 }
 
 export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
-  const {
-    isAuthenticated,
-    state,
-    uuid,
-    id,
-    token,
-    store,
-    signal,
-    // isMounted,
-  } = opts;
+  const { isAuthenticated, state, uuid, id, token, store, signal } = opts;
   try {
     if (isAuthenticated) {
-      // const token = await getTokenSilently();
       const url = createAPIUrl(
         state,
         `/get?queryType=istreeadopted&uuid=${uuid}&id=${id}`
       );
-      // const r =
-      //   /* TODO: replace URL */
-      //   /* TODO: replace URL */
-      //   /* TODO: replace URL */
-      //   await fetchAPI(url, {
-      //     headers: { Authorization: 'Bearer ' + token },
-      //   });
+
       const json = await requests(url, { token, override: { signal } });
-      //  if (isMounted) {
       store.setState({ treeAdopted: json.data });
-      // }
     }
   } catch (error) {
     console.log(error);
@@ -107,7 +85,7 @@ export function createGeojson(data) {
 // TODO: review array callback return
 // Expected to return a value in arrow function.eslintarray-callback-return
 //
-export function createCSVJson(data) {
+export function createCSVJson(data): [number, number, number, number][] {
   const csvArr: Array<[number, number, number, number]> = [];
   data.map(item => {
     csvArr.push([+item[1], +item[2], item[0], +item[3]]);
@@ -115,7 +93,7 @@ export function createCSVJson(data) {
   return csvArr;
 }
 
-export function flatten(ary) {
+export function flatten(ary): any[] {
   let ret: any[] = [];
   for (let i = 0; i < ary.length; i++) {
     if (Array.isArray(ary[i])) {
@@ -127,7 +105,7 @@ export function flatten(ary) {
   return ret;
 }
 
-export function waitFor(
+export async function waitFor(
   millisenconds: number,
   callback: () => void
 ): Promise<void> {
@@ -146,6 +124,11 @@ export function waitFor(
 //     }, millisenconds);
 //   });
 
+/**
+ * Shoulf not be used anymoe
+ * @deprecated
+ *
+ */
 export async function fetchAPI(url: string, config = {}) {
   const res = axios
     .get(url, config)

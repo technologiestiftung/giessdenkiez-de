@@ -89,8 +89,6 @@ const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
         `/get?queryType=adopted&uuid=${user.sub}`
       );
 
-      /* TODO: replace URL */
-      // await fetchAPI(urlUnadopt, header);
       await requests(urlUnadopt, {
         token,
         override: {
@@ -104,9 +102,6 @@ const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
         },
       });
 
-      // const resAdoptedTrees =
-      //   /* TODO: replace URL */
-      //   await fetchAPI(urlAdoptedTrees, header);
       const resAdoptedTrees = await requests(urlAdoptedTrees, { token });
       store.setState({
         selectedTreeState: 'FETCHED',

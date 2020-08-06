@@ -90,8 +90,6 @@ const Card = p => {
     try {
       if (user && selectedTree) {
         const token = await getTokenSilently();
-
-        // if (isMounted) {
         await isTreeAdopted({
           id,
           uuid,
@@ -99,12 +97,7 @@ const Card = p => {
           isAuthenticated,
           store,
           state,
-          // signal,
-          // isMounted,
         });
-        // }
-
-        // isTreeAdopted(selectedTree.id, user.user_id);
       }
     } catch (error) {
       console.error(error);
@@ -122,33 +115,7 @@ const Card = p => {
       state,
       isAuthenticated,
     }).catch(console.error);
-    return () => {
-      // cleanup
-      // isMounted = false;
-      // controller.abort();
-    };
   }, [user, selectedTree, treeAdopted]);
-
-  // const isTreeAdopted = async (treeid, uuid) => {
-  //   if (isAuthenticated) {
-  //     const token = await getTokenSilently();
-  //     try {
-  //       const url = createAPIUrl(
-  //         state,
-  //         `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
-  //       );
-  //       const r =
-  //         /* TODO: replace URL */
-  //         await fetchAPI(url, {
-  //           headers: { Authorization: 'Bearer ' + token },
-  //         });
-  //       //@ts-ignore
-  //       store.setState({ treeAdopted: r.data });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  // };
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 

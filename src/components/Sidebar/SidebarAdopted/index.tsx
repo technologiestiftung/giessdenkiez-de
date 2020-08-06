@@ -118,29 +118,8 @@ const SidebarAdopted = p => {
       );
       store.setState({
         selectedTreeState: 'FETCHED',
-        //@ts-ignore
         adoptedTrees: jsonAdopted.data,
       });
-      // await fetchAPI(url, header)
-      //   .then(r => {
-      // const url = createAPIUrl(
-      //   state,
-      //   `/private/get-adopted-trees?mail=${user.email}`
-      // );
-      // TODO: Avoid nesting promises. eslintpromise/no-nesting
-      // fetchAPI(url, header)
-      //   .then(r => {
-      //     store.setState({
-      //       selectedTreeState: 'FETCHED',
-      //       //@ts-ignore
-      //       adoptedTrees: r.data.adopted,
-      //     });
-      //     return;
-      //   })
-      //   .catch(console.error);
-      //   return;
-      // })
-      // .catch(console.error);
     } catch (error) {
       console.error(error);
       throw error;
