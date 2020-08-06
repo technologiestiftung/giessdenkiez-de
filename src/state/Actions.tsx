@@ -8,7 +8,6 @@ import { StoreProps, Generic } from '../common/interfaces';
 
 export const loadTrees = (store: Store<StoreProps>) => async () => {
   if (isMobile) {
-    // TODO: Load the user's trees from API
     store.setState({
       data: {
         type: 'FeatureCollection',
@@ -36,40 +35,39 @@ export const setAgeRange = (_state, payload) => {
   };
 };
 
-export const loadCommunityData = (store: Store<StoreProps>) => async () => {
-  try {
-    const fetchCommunityDataUrl = createAPIUrl(
-      store.getState(),
-      `/get?queryType=wateredandadopted`
-    );
-    const json = await requests(fetchCommunityDataUrl);
+export const loadCommunityData = (store: Store<StoreProps>) => () => {
+  const fetchCommunityDataUrl = createAPIUrl(
+    store.getState(),
+    `/get?queryType=wateredandadopted`
+  );
+  requests(fetchCommunityDataUrl)
+    .then(json => {
+      const obj = {};
+      const communityDataWatered: Generic[] = [];
+      const communityDataAdopted: Generic[] = [];
 
-    const obj = {};
-    const communityDataWatered: Generic[] = [];
-    const communityDataAdopted: Generic[] = [];
-
-    // TODO: Review https://eslint.org/docs/rules/array-callback-return
-    // create community data object for map
-    if (json.data) {
-      json.data.map(item => {
-        obj[item[0]] = {
-          adopted: item[1] === 1 ? true : false,
-          watered: item[2] === 1 ? true : false,
-        };
-        if (item[1] === 1) {
-          communityDataWatered.push(item[0]);
-        }
-        if (item[2] === 1) {
-          communityDataAdopted.push(item[0]);
-        }
-      });
-      store.setState({ communityData: obj });
-      store.setState({ communityDataAdopted });
-      store.setState({ communityDataWatered });
-    }
-  } catch (error) {
-    console.error(error);
-  }
+      // TODO: Review https://eslint.org/docs/rules/array-callback-return
+      // create community data object for map
+      if (json.data) {
+        json.data.map(item => {
+          obj[item[0]] = {
+            adopted: item[1] === 1 ? true : false,
+            watered: item[2] === 1 ? true : false,
+          };
+          if (item[1] === 1) {
+            communityDataWatered.push(item[0]);
+          }
+          if (item[2] === 1) {
+            communityDataAdopted.push(item[0]);
+          }
+        });
+        store.setState({ communityData: obj });
+        store.setState({ communityDataAdopted });
+        store.setState({ communityDataWatered });
+      }
+      return;
+    })
+    .catch(console.error);
 };
 
 export const loadData = (store: Store<StoreProps>) => async () => {
@@ -136,9 +134,7 @@ export const getWateredTrees = Store => async () => {
   try {
     Store.setState({ isLoading: true });
     const url = createAPIUrl(Store.getState(), '/get?queryType=watered');
-    // const res = /* TODO: replace URL */ await fetchAPI(url);
     const result = await requests(url);
-    // console.log('get watered trees fetch', result);
 
     if (result.data === undefined) {
       throw new Error('data is not defined on getWateredTrees');
@@ -203,7 +199,6 @@ export const getTreeByAge = Store => async (
       `/get??queryType=byage&start=${start}&end=${end}`
     );
 
-    /* TODO: replace URL */
     const res = await requests(url);
 
     Store.setState({
