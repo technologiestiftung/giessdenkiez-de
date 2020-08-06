@@ -19,7 +19,7 @@ interface WateredTree {
 }
 let location = '';
 if (process.env.NODE_ENV === 'test') {
-  location = 'http://localhost:3000';
+  location = '';
 } else {
   if (process.env.NODE_ENV === 'development') {
     location = process.env.API_ENDPOINT_DEV ? process.env.API_ENDPOINT_DEV : '';
@@ -195,6 +195,9 @@ export const handlers = [
       case 'byid': {
         const originalResponse = await ctx.fetch(req);
         json = { ...originalResponse };
+        // if (process.env.NODE_ENV === 'test') {
+        //   json = { data: [{ id: '_abc' }] };
+        // }
         break;
       }
       case 'adopted': {
