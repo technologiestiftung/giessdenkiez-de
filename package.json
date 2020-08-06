@@ -100,7 +100,7 @@
     "react-app-polyfill": "^1.0.6",
     "react-device-detect": "^1.12.1",
     "react-dom": "16.13.1",
-    "react-map-gl": "^5.2.5",
+    "react-map-gl": "5.2.7",
     "react-router-dom": "5.2.0",
     "react-share": "^4.1.0",
     "react-tag-input": "^6.4.2",
