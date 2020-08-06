@@ -106,7 +106,7 @@
     "react-tag-input": "^6.4.2",
     "react-transition-group": "^4.3.0",
     "reselect": "^4.0.0",
-    "styled-components": "^4.3.2",
+    "styled-components": "5.1.1",
     "styled-normalize": "^8.0.7",
     "unistore": "^3.5.1"
   },
