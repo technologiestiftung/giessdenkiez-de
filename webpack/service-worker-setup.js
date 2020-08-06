@@ -20,7 +20,6 @@ if (!buildTarget) {
 
 function setupMSW() {
   const result = spawn.sync('npx', ['msw', 'init', 'public'], { stdio: 'inherit', cwd: process.cwd() });
-  // console.log(result);
 }
 
 function rmMSW() {
