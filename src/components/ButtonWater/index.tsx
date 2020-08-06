@@ -57,12 +57,12 @@ const ButtonWater = p => {
   const [adopted] = useState(false);
 
   const [isEmailVerifiyed, setIsEmailVerifiyed] = useState(false);
-  let isMounted = true;
-  useEffect(() => {
-    return () => {
-      isMounted = false;
-    };
-  });
+  // let isMounted = true;
+  // useEffect(() => {
+  //   return () => {
+  //     // isMounted = false;
+  //   };
+  // });
   useEffect(() => {
     if (!user) return;
     setIsEmailVerifiyed(user.email_verified);
@@ -266,7 +266,7 @@ const ButtonWater = p => {
         await waitFor(250, loadCommunityDataAction);
 
         await isTreeAdopted({
-          isMounted,
+          // isMounted,
           id,
           uuid: user.sub,
           token,

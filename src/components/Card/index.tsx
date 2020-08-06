@@ -58,8 +58,8 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
-const controller = new AbortController();
-const { signal } = controller;
+// const controller = new AbortController();
+// const { signal } = controller;
 
 const Card = p => {
   const { data, treeLastWatered, treeAdopted, user, selectedTree, state } = p;
@@ -76,8 +76,8 @@ const Card = p => {
   const getTreeProp = (p: Generic | string | null) => {
     return p === 'null' ? null : p;
   };
-  type IsMountedType = { isMounted: boolean };
-  type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'> & IsMountedType;
+  // type IsMountedType = { isMounted: boolean };
+  type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'>;
 
   const fetchData: (opts: FetchDataOpts) => Promise<void> = async ({
     id,
@@ -85,24 +85,24 @@ const Card = p => {
     store,
     state,
     isAuthenticated,
-    isMounted,
+    // isMounted,
   }) => {
     try {
       if (user && selectedTree) {
         const token = await getTokenSilently();
 
-        if (isMounted) {
-          await isTreeAdopted({
-            id,
-            uuid,
-            token,
-            isAuthenticated,
-            store,
-            state,
-            signal,
-            isMounted,
-          });
-        }
+        // if (isMounted) {
+        await isTreeAdopted({
+          id,
+          uuid,
+          token,
+          isAuthenticated,
+          store,
+          state,
+          // signal,
+          // isMounted,
+        });
+        // }
 
         // isTreeAdopted(selectedTree.id, user.user_id);
       }
@@ -113,9 +113,9 @@ const Card = p => {
 
   useEffect(() => {
     if (!user) return;
-    let isMounted = true;
+    // let isMounted = true;
     fetchData({
-      isMounted,
+      // isMounted,
       id: selectedTree.id,
       uuid: user.user_id,
       store,
@@ -124,8 +124,8 @@ const Card = p => {
     }).catch(console.error);
     return () => {
       // cleanup
-      isMounted = false;
-      controller.abort();
+      // isMounted = false;
+      // controller.abort();
     };
   }, [user, selectedTree, treeAdopted]);
 

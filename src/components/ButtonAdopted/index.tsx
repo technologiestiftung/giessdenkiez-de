@@ -46,10 +46,10 @@ const ButtonAdopted = p => {
   const { getTokenSilently, isAuthenticated } = useAuth0();
   const { selectedTree, state, user } = p;
   const [unadopting, setUnadopting] = useState(false);
-  let isMounted = true;
+  // let isMounted = true;
   useEffect(() => {
     return () => {
-      isMounted = false;
+      // isMounted = false;
     };
   });
   // FIXME: Duplicate code appears also in
@@ -111,7 +111,7 @@ const ButtonAdopted = p => {
       setUnadopting(false);
 
       await isTreeAdopted({
-        isMounted,
+        // isMounted,
         id,
         uuid: user.user_id,
         token,

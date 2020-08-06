@@ -46,7 +46,7 @@ export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
     token,
     store,
     signal,
-    isMounted,
+    // isMounted,
   } = opts;
   try {
     if (isAuthenticated) {
@@ -63,9 +63,9 @@ export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
       //     headers: { Authorization: 'Bearer ' + token },
       //   });
       const json = await requests(url, { token, override: { signal } });
-      if (isMounted) {
-        store.setState({ treeAdopted: json.data });
-      }
+      //  if (isMounted) {
+      store.setState({ treeAdopted: json.data });
+      // }
     }
   } catch (error) {
     console.log(error);
