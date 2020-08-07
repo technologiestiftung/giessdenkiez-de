@@ -15,7 +15,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 describe('api interaction tests', () => {
   test('should call the mocked api', async () => {
-    const res = await fetch('http://localhost:3000/user/');
+    const res = await fetch('/');
     // eslint-disable-next-line jest/no-if
     if (!res.ok) {
       throw new Error('Could not fetch');

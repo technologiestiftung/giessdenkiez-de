@@ -175,7 +175,7 @@ export const handlers = [
 
   // Handles a GET /user request
 
-  rest.get(`${location}/user`, async (_req, res, ctx) => {
+  rest.get(`${location}/`, async (_req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ foo: 'bar' }));
   }),
 
@@ -201,9 +201,9 @@ export const handlers = [
       case 'byid': {
         const originalResponse = await ctx.fetch(req);
         json = { ...originalResponse };
-        // if (process.env.NODE_ENV === 'test') {
-        //   json = { data: [{ id: '_abc' }] };
-        // }
+        if (process.env.NODE_ENV === 'test') {
+          json = { data: [{ id: '_abc' }] };
+        }
         break;
       }
       case 'adopted': {

@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-hooks */
 /* eslint-disable jest/require-top-level-describe */
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import ButtonWater from './index';
 import React from 'react';
 import store from '../../state/Store';
@@ -49,6 +49,12 @@ afterAll(() => {
 describe('button water test', () => {
   test('button click should switch to "adoptiere" and then vanish', () => {
     store.setState({ selectedTree: { id: '_123' } });
+    jest
+      .spyOn(utils, 'requests')
+      .mockResolvedValueOnce({ data: 'adopted' })
+      .mockResolvedValueOnce({
+        data: [{ id: '_123', radolan_days: [0, 1, 2, 0], radolan_sum: 0 }],
+      });
     const { getByText } = render(
       <Provider store={store}>
         <ButtonWater />
@@ -60,7 +66,6 @@ describe('button water test', () => {
     const button2 = getByText(/adoptiere/i);
     expect(button2).toBeInTheDocument();
     store.setState({ treeAdopted: true });
-    screen.debug();
     expect(button1).not.toBeInTheDocument();
     expect(button2).not.toBeInTheDocument();
   });
