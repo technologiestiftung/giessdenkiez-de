@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nockeck
 import React from 'react';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
@@ -12,14 +12,14 @@ import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import {
-  fetchAPI,
+  // fetchAPI,
   createAPIUrl,
   interpolateColor,
   hexToRgb,
   requests,
   // checkGeolocationFeature,
 } from '../../utils';
-
+// import { HoverObject } from './pump-hover';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -45,11 +45,12 @@ class DeckGLMap extends React.Component {
   constructor(props) {
     super(props);
 
-    this.bool = true;
-    this.test = false;
     // this.geoLocationAvailable = false;
 
     this.state = {
+      // isHovered: false,
+      // hoverObjectPointer: [],
+      // hoverObjectMessage: '',
       hoveredObject: null,
       data: null,
       included: null,
@@ -178,7 +179,7 @@ class DeckGLMap extends React.Component {
         new GeoJsonLayer({
           id: 'rain',
           data: rainGeojson,
-          opacity: 0.5,
+          opacity: 0.95,
           visible: rainVisible,
           stroked: false,
           filled: true,
@@ -215,6 +216,17 @@ class DeckGLMap extends React.Component {
           pickable: true,
           lineWidthScale: 2,
           lineWidthMinPixels: 1,
+          // onHover: info => {
+          //   if (info.object === undefined) {
+          //     this.setState({ isHovered: false });
+          //     return;
+          //   }
+          //   this.setState({ isHovered: true });
+          //   console.log(info);
+          //   this.setState({ hoverObjectMessage: info.object.geometry.type });
+          //   this.setState({ hoverObjectPointer: [info.x, info.y] });
+          //   console.log(this.state);
+          // },
         }),
       ];
 
@@ -522,36 +534,46 @@ class DeckGLMap extends React.Component {
       return <span>Lade Berlins Baumdaten ...</span>;
     } else if (!isLoading) {
       return (
-        <DeckGL
-          layers={this._renderLayers()}
-          initialViewState={viewport}
-          viewState={viewport}
-          getCursor={e => {
-            return this.state.cursor;
-          }}
-          onHover={(info, event) => {
-            this.setCursor(info.layer);
-          }}
-          onClick={this._deckClick}
-          onViewStateChange={e => this.handleDrag(e)}
-          controller={controller}
-        >
-          {baseMap && (
-            <StaticMap
-              reuseMaps
-              mapStyle='mapbox://styles/mapbox/light-v9'
-              preventStyleDiffing={true}
-              mapboxApiAccessToken={MAPBOX_TOKEN}
-              onLoad={this._onload.bind(this)}
-            >
-              <ControlWrapper isNavOpen={isNavOpen}>
-                <NavigationControl
-                  onViewStateChange={e => setView(e.viewState)}
-                />
-              </ControlWrapper>
-            </StaticMap>
-          )}
-        </DeckGL>
+        <>
+          {/* THis code below could be used to display some info for the pumps */}
+          {/* {this.state.isHovered &&
+            this.state.hoverObjectPointer.length === 2 && (
+              <HoverObject
+                message={this.state.hoverObjectMessage}
+                pointer={this.state.hoverObjectPointer}
+              ></HoverObject>
+            )} */}
+          <DeckGL
+            layers={this._renderLayers()}
+            initialViewState={viewport}
+            viewState={viewport}
+            getCursor={e => {
+              return this.state.cursor;
+            }}
+            onHover={(info, event) => {
+              this.setCursor(info.layer);
+            }}
+            onClick={this._deckClick}
+            onViewStateChange={e => this.handleDrag(e)}
+            controller={controller}
+          >
+            {baseMap && (
+              <StaticMap
+                reuseMaps
+                mapStyle='mapbox://styles/mapbox/light-v9'
+                preventStyleDiffing={true}
+                mapboxApiAccessToken={MAPBOX_TOKEN}
+                onLoad={this._onload.bind(this)}
+              >
+                <ControlWrapper isNavOpen={isNavOpen}>
+                  <NavigationControl
+                    onViewStateChange={e => setView(e.viewState)}
+                  />
+                </ControlWrapper>
+              </StaticMap>
+            )}
+          </DeckGL>
+        </>
       );
     }
   }
