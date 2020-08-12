@@ -124,13 +124,13 @@ class DeckGLMap extends React.Component {
 
             if (dataView === 'watered' && communityData[id]) {
               return communityData[id].watered
-                ? [0, 0, 255, 200]
+                ? [53, 117, 177, 200]
                 : [0, 0, 0, 0];
             }
 
             if (dataView === 'adopted' && communityData[id]) {
               return communityData[id].adopted
-                ? [255, 0, 0, 200]
+                ? [0, 128, 128, 200]
                 : [0, 0, 0, 0];
             }
 
