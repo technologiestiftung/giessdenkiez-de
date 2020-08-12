@@ -1,4 +1,4 @@
-import { interpolateRdYlGn, scaleLinear, color } from 'd3';
+import { scaleLinear, interpolateViridis } from 'd3';
 import axios from 'axios';
 import { IsTreeAdoptedProps, Generic } from '../common/interfaces';
 
@@ -252,16 +252,17 @@ export const timeDifference = (date1, date2) => {
 };
 
 export const interpolateColor = val => {
-  const scale = scaleLinear().domain([0, 300]).range([0.1, 0.9]);
-  // const oldRes = interpolateViridis(scale(val));
-  const rgbString = interpolateRdYlGn(scale(val));
-  const col = color(rgbString);
-  const hex = col?.hex();
-  if (hex) {
-    return hex;
-  } else {
-    return '#868686'; // fallback grey https://www.color-hex.com/color/868686
-  }
+  const scale = scaleLinear().domain([0, 300]).range([1, 0.6]);
+  const hexColor = interpolateViridis(scale(val));
+  // const rgbString = interpolateRdYlGn(scale(val));
+  // const col = color(rgbString);
+  // debugger;
+  // const hex = col?.hex();
+  // if (hex) {
+  return hexColor;
+  // } else {
+  // return '#868686'; // fallback grey https://www.color-hex.com/color/868686
+  // }
 };
 
 export const hexToRgb = hex => {
