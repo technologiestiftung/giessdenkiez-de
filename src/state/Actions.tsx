@@ -45,20 +45,19 @@ export const loadCommunityData = (store: Store<StoreProps>) => () => {
       const obj = {};
       const communityDataWatered: Generic[] = [];
       const communityDataAdopted: Generic[] = [];
-
       // TODO: Review https://eslint.org/docs/rules/array-callback-return
       // create community data object for map
       if (json.data) {
         json.data.map(item => {
-          obj[item[0]] = {
-            adopted: item[1] === 1 ? true : false,
-            watered: item[2] === 1 ? true : false,
+          obj[item.tree_id] = {
+            adopted: item.adopted > 0 ? true : false,
+            watered: item.watered > 0 ? true : false,
           };
-          if (item[1] === 1) {
-            communityDataWatered.push(item[0]);
+          if (item.adopted > 0) {
+            communityDataWatered.push(item.tree_id);
           }
-          if (item[2] === 1) {
-            communityDataAdopted.push(item[0]);
+          if (item.watered > 0) {
+            communityDataAdopted.push(item.tree_id);
           }
         });
         store.setState({ communityData: obj });
