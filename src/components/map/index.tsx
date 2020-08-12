@@ -270,6 +270,7 @@ class DeckGLMap extends React.Component {
     requests(urlWatered)
       .then(json => {
         store.setState({ treeLastWatered: json.data });
+        return;
       })
       .catch(console.error);
 
