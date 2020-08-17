@@ -1,6 +1,6 @@
 # giessdenkiez.de  
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/08c96eab-42a0-45d4-9767-656b62b441bc/deploy-status)](https://app.netlify.com/sites/internetoftrees/deploys) ![Node.js CI](https://github.com/technologiestiftung/tsb-trees-frontend/workflows/Node.js%20CI/badge.svg?branch=master)  ![love badge](https://img.shields.io/badge/build%20with-%E2%99%A5-red) ![citylab badge](https://img.shields.io/badge/@-CityLAB%20Berlin-blue)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/08c96eab-42a0-45d4-9767-656b62b441bc/deploy-status)](https://app.netlify.com/sites/internetoftrees/deploys) ![Node.js CI](https://github.com/technologiestiftung/giessdenkiez-de/workflows/Node.js%20CI/badge.svg?branch=master)  ![love badge](https://img.shields.io/badge/build%20with-%E2%99%A5-red) ![citylab badge](https://img.shields.io/badge/@-CityLAB%20Berlin-blue)
 
 Source repo for [giessdenkiez.de](https://www.giessdenkiez.de) project by Technologiestiftung Berlin and CityLAB Berlin.  
 
@@ -16,7 +16,7 @@ This is a short list of the things that are needed for running this project your
 
 These are the related repos:  
 
-- [React frontend (this is here)](https://github.com/technologiestiftung/tsb-trees-frontend)
+- [React frontend (this is here)](https://github.com/technologiestiftung/giessdenkiez-de)
 - [vercel.com DB API](https://github.com/technologiestiftung/giessdenkiez-de-postgres-api)
 - [vercel.com Auth0 API (currently only for username and user deletion)](https://github.com/technologiestiftung/tsb-trees-api-user-management)
 - [AWS Fargate Service for DWD rain data and Mapbox API vector tiles](https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester) 

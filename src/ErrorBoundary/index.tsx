@@ -61,7 +61,7 @@ export default class ErrorBoundary extends React.Component<
                 Bitte wende dich an das{' '}
                 <a href='https://www.citylab-berlin.org/'>CityLAB</a> oder
                 schreib uns einen Issue auf{' '}
-                <a href='https://github.com/technologiestiftung/tsb-trees-frontend/issues/new'>
+                <a href='https://github.com/technologiestiftung/giessdenkiez-de/issues/new'>
                   GitHub
                 </a>
                 . Vielleicht hilft es auch die Seite neu zu laden?

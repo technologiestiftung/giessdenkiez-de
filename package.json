@@ -115,12 +115,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/technologiestiftung/tsb-trees-frontend.git"
+    "url": "git+https://github.com/technologiestiftung/giessdenkiez-de.git"
   },
   "bugs": {
-    "url": "https://github.com/technologiestiftung/tsb-trees-frontend/issues"
+    "url": "https://github.com/technologiestiftung/giessdenkiez-de/issues"
   },
-  "homepage": "https://github.com/technologiestiftung/tsb-trees-frontend#readme",
+  "homepage": "https://github.com/technologiestiftung/giessdenkiez-de#readme",
   "browserslist": [
     "defaults"
   ],
