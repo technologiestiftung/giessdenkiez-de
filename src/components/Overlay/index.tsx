@@ -19,9 +19,7 @@ const StyledWrapper = styled.div`
   box-shadow: ${p => p.theme.boxShadow};
   z-index: 3;
 
-
-
-  @media screen and (max-width: ${p => '600px'}) {
+  @media screen and (max-width: ${_p => '600px'}) {
     width: 100%;
     height: 100%;
     box-shadow: none;
@@ -40,14 +38,14 @@ const Wrapper = styled.div`
   min-height: 60vh;
   max-height: 70vh;
 
-  @media screen and (max-width: ${p => '600px'}) {
+  @media screen and (max-width: ${_p => '600px'}) {
     width: 100%;
     height: 100%;
     box-shadow: none;
   }
 `;
 
-const Overlay = () => {
+const Overlay: () => JSX.Element = () => {
   return (
     <StyledOverlayWrapper>
       <StyledWrapper>

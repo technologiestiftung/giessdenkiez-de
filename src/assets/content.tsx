@@ -27,6 +27,10 @@ interface Content {
     disclaimer: string;
     description: string[];
   };
+  whatsNew?: {
+    title: string;
+    description: string[];
+  };
   loading: {
     snippets: string[];
   };
@@ -121,6 +125,38 @@ const content: Content = {
     description: [
       'Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.',
       'Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
+    ],
+  },
+  whatsNew: {
+    title: 'Was ist neu?',
+    description: [
+      `Wir haben die Farben angepasst, damit der Wasserbedarf der Berliner Bäume intuitiver zu erfassen ist. Es beginnt bei einem trockenem Gelb und geht bis in ein sattes Grün.<br /><br /><div style="display:flex">
+      <div
+        style=" background-color:#fde725; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#fde725"
+      ></div>
+      <div
+        style=" background-color:#cae11f; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#cae11f"
+      ></div>
+      <div
+        style=" background-color:#95d840; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#95d840"
+      ></div>
+      <div
+        style=" background-color:#63cb5f; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#63cb5f"
+      ></div>
+      <div
+        style=" background-color:#3bbb75; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#3bbb75"
+      ></div>
+      <div
+        style=" background-color:#22a884; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#22a884"
+      ></div>
+    </div>`,
+      'Hinzu kommen Updates der Open Source Bibliotheken die wir verwenden um die Seite schneller und stabiler laufen zu lassen. Ebenfalls wurden von euch einge Fehler gefunden und von uns behoben.',
     ],
   },
   loading: {
