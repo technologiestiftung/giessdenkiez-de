@@ -156,7 +156,7 @@ const content: Content = {
         color="#22a884"
       ></div>
     </div>`,
-      'Hinzu kommen Updates der Open Source Bibliotheken die wir verwenden um die Seite schneller und stabiler laufen zu lassen. Ebenfalls wurden von euch einge Fehler gefunden und von uns behoben.',
+      'Hinzu kommen Updates der Open Source Bibliotheken die wir verwenden um die Seite schneller und stabiler laufen zu lassen. Ebenfalls wurden von euch einige Fehler gefunden und von uns behoben.',
     ],
   },
   loading: {
