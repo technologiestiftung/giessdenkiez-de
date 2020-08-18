@@ -21,12 +21,18 @@ const GithubIcon = styled.img`
 const OpenSourceNote: FC = () => {
   return (
     <OpenSourceContainer>
+<<<<<<< HEAD
       <GithubIcon alt='GitHub Mark' src={iconGithub} />
       <SmallParagraph>
         Giess den Kiez ist ein&nbsp;
+=======
+	  <GithubIcon alt='GitHub Mark' src={iconGithub} />
+      <CardDescription>
+        Giess dein Viertel ist ein&nbsp;
+>>>>>>> 5fe2135... exchange logos
         <a
           target='blank'
-          href='https://github.com/technologiestiftung/giessdenkiez-de'
+          href='https://github.com/codeforleipzig/tsb-trees-frontend'
         >
           Open Source Projekt!
         </a>

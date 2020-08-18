@@ -1,11 +1,7 @@
 [build]
 
-<<<<<<< HEAD
 command = "node ./create-env.js && npm install && npm run build"
 publish = "dist/"
-=======
-command = "node ./create-env.js && NODE_ENV=development && npm install && NODE_ENV=production && npm install -g webpack && npm install -g webpack-cli && npm install -g webpack-merge && npm install -g webpack-dev-server && webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects"
->>>>>>> 4254107... install with NODE_ENV != production
 
 [build.environment]
 

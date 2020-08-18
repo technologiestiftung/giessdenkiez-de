@@ -126,12 +126,21 @@
   },
   "repository": {
     "type": "git",
+<<<<<<< HEAD
     "url": "git+https://github.com/technologiestiftung/giessdenkiez-de.git"
   },
   "bugs": {
     "url": "https://github.com/technologiestiftung/giessdenkiez-de/issues"
   },
   "homepage": "https://github.com/technologiestiftung/giessdenkiez-de#readme",
+=======
+    "url": "git+https://github.com/codeforleipzig/tsb-trees-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/codeforleipzig/tsb-trees-frontend/issues"
+  },
+  "homepage": "https://github.com/codeforleipzig/tsb-trees-frontend#readme",
+>>>>>>> 2b09a51... exchange logos
   "browserslist": [
     "defaults"
   ],

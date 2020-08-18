@@ -2,8 +2,9 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const logoCitylab = '/images/citylab-logo.svg';
-const logoTSB = '/images/tsb-logo-coloured.svg';
-const logoBerlin = '/images/berlin.svg';
+const logoCodeForLeipzig = '/images/cfg-leipzig-logo.svg';
+const logoWirImQuartier = '/images/wiq-logo.svg';
+const logoStiftungEckenWecken = '/images/sew-logo.png';
 
 const CreditsContainer = styled.div`
   width: 150px;
@@ -27,6 +28,7 @@ const Label = styled.span`
   font-size: ${p => p.theme.fontSizeL};
 `;
 
+<<<<<<< HEAD
 const TSBLink = styled.a`
   width: fit-content;
 `;
@@ -47,12 +49,42 @@ const FoerderlogoContainer = styled.div`
 const BerlinLogo = styled.img`
   width: 120px;
   margin: 10px 0 5px 0;
+=======
+  a.citylab {
+    img {
+      width: 150px;
+      margin: 10px 0 5px 0;
+    }
+  }
+
+  a.wiq {
+    img {
+      width: 150px;
+      margin: 10px 0 5px 0;
+    }
+  }
+
+  a.sew {
+    img {
+      width: 150px;
+      margin: 10px 0 5px 0;
+    }
+  }
+
+  a.cfg {
+    img {
+      width: 150px;
+      margin: 10px 0 5px 0;
+    }
+  }
+>>>>>>> 5fe2135... exchange logos
 `;
 
 const Credits: FC = () => {
   return (
     <CreditsContainer>
       <a
+<<<<<<< HEAD
         href='https://citylab-berlin.org'
         rel='noopener noreferrer'
         target='_blank'
@@ -72,6 +104,43 @@ const Credits: FC = () => {
         <BerlinLogo src={logoBerlin} alt='Logo Berlin' />
       </FoerderlogoContainer>
     </CreditsContainer>
+=======
+        className='wiq'
+        href='https://stiftung-ecken-wecken.de/WIQ'
+        rel='noopener noreferrer'
+        target='_blank'
+      >
+        <img src={logoWirImQuartier} alt='Logo Wir im Quartier' />
+      </a>
+      <span>Ein Projekt der</span>
+      <a
+        className='seq'
+        href='https://stiftung-ecken-wecken.de'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <img src={logoStiftungEckenWecken} alt='Logo Stiftung Ecken Wecken' />
+      </a>
+      <span>Migriert für Leipzig</span>
+      <a
+        className='cfg'
+        href='https://codefor.de/leipzig'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <img src={logoCodeForLeipzig} alt='Logo Code for Leipzig' />
+      </a>
+      <span>Unterstützt von</span>
+      <a
+        className='citylab'
+        href='https://www.citylab-berlin.org'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <img src={logoCitylab} alt='Logo CityLab Berlin' />
+      </a>
+    </StyledCreditsContainer>
+>>>>>>> 5fe2135... exchange logos
   );
 };
 
