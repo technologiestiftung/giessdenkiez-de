@@ -52,28 +52,28 @@ const BerlinLogo = styled.img`
 =======
   a.citylab {
     img {
-      width: 150px;
+      height: 50px;
       margin: 10px 0 5px 0;
     }
   }
 
   a.wiq {
     img {
-      width: 150px;
+      height: 50px;
       margin: 10px 0 5px 0;
     }
   }
 
   a.sew {
     img {
-      width: 150px;
+      height: 80px;
       margin: 10px 0 5px 0;
     }
   }
 
   a.cfg {
     img {
-      width: 150px;
+      height: 50px;
       margin: 10px 0 5px 0;
     }
   }
