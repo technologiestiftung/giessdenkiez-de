@@ -56,10 +56,10 @@ export default class ErrorBoundary extends React.Component<
             >
               <h1>Irgendwas ist schief gelaufen.</h1>
               <p>
-                Bitte wende dich an das{' '}
-                <a href='https://www.citylab-berlin.org/'>CityLAB</a> oder
+                Bitte wende dich an {' '}
+                <a href='https://codeforleipzig.de/'>Code for Leipzig</a> oder
                 schreib uns einen Issue auf{' '}
-                <a href='https://github.com/technologiestiftung/giessdenkiez-de/issues/new'>
+                <a href='https://github.com/codeforleipzig/tsb-trees-frontend/issues/new'>
                   GitHub
                 </a>
                 . Vielleicht hilft es auch die Seite neu zu laden?
