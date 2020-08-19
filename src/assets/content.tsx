@@ -98,7 +98,7 @@ const content: Content = {
       {
         question: 'Ich habe immer noch eine Frage!',
         answer:
-          'Das FAQ konnte dir nicht weiterhelfen oder du hast eine komplexere Anfrage? Dann schreib uns eine <a href="mailto:hallo@giessdenkiez.de?subject=[Giess Den Kiez] Frage:...">Email.</a>',
+          'Das FAQ konnte dir nicht weiterhelfen oder du hast eine komplexere Anfrage? Dann schreib uns eine <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Frage:...">Email.</a>',
       },
       {
         question: 'I don’t speak any German: What’s going on here?',
