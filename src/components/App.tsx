@@ -4,7 +4,7 @@ import { theme } from '../assets/theme';
 import { Router } from 'react-router-dom';
 import history from '../history';
 import { connect } from 'unistore/react';
-import Store from '../state/Store';
+import store from '../state/Store';
 
 import { getCookieValue } from '../utils/';
 
@@ -18,10 +18,10 @@ import '../assets/style.scss';
 
 import AppWrapper from './AppWrapper';
 
-const loadEntryDataAction = Store.action(loadData(Store));
-const loadTreesAction = Store.action(loadTrees(Store));
-const loadWateredTreesAction = Store.action(getWateredTrees(Store));
-const loadCommunityDataAction = Store.action(loadCommunityData(Store));
+const loadEntryDataAction = store.action(loadData(store));
+const loadTreesAction = store.action(loadTrees(store));
+const loadWateredTreesAction = store.action(getWateredTrees(store));
+const loadCommunityDataAction = store.action(loadCommunityData(store));
 
 loadEntryDataAction();
 loadWateredTreesAction();
@@ -31,7 +31,7 @@ loadCommunityDataAction();
 const cookie = getCookieValue('disclaimerAccepted');
 
 if (cookie === 'true') {
-  Store.setState({ cookiesAccepted: true });
+  store.setState({ cookiesAccepted: true });
 }
 
 // const AppWrapperDiv = styled.div`

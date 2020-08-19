@@ -24,7 +24,7 @@ const OpenSourceNote = () => {
         Giess den Kiez ist ein&nbsp;
         <a
           target='blank'
-          href='https://github.com/technologiestiftung/tsb-trees-frontend'
+          href='https://github.com/technologiestiftung/giessdenkiez-de'
         >
           Open Source Projekt!
         </a>

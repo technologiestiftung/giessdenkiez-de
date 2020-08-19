@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useAuth0 } from '../../../utils/auth0';
+import { useAuth0 } from '../../../utils/auth/auth0';
 import Actions from '../../../state/Actions';
 import { connect } from 'unistore/react';
-import Store from '../../../state/Store';
-import { fetchAPI, createAPIUrl } from '../../../utils';
+import store from '../../../state/Store';
+import { createAPIUrl, requests } from '../../../utils';
 
 import SidebarTitle from '../SidebarTitle/';
 import Login from '../../Login';
@@ -76,43 +76,52 @@ const SidebarProfile = p => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isAuthenticated && adoptedTrees) {
-        const token = await getTokenSilently();
-        const concatReducer = (acc, curr, currentIndex, array) => {
-          if (currentIndex + 1 === array.length) {
-            return acc + curr + '}';
-          } else {
-            return acc + curr + ',';
-          }
-        };
+      try {
+        if (adoptedTrees) {
+          // const token = await getTokenSilently();
+          const concatReducer = (acc, curr, currentIndex, array) => {
+            if (currentIndex + 1 === array.length) {
+              return acc + curr + '}';
+            } else {
+              return acc + curr + ',';
+            }
+          };
 
-        const queryStr = adoptedTrees.reduce(concatReducer, '{');
+          const queryStr = adoptedTrees.reduce(concatReducer, '{');
+          const urlAdoptedTreesDetails = createAPIUrl(
+            state,
+            // `/private/get-adopted-trees-details?tree_ids=${queryStr}`
+            `/get/?queryType=treesbyids&tree_ids=${queryStr}`
+          );
+          const res = await requests(urlAdoptedTreesDetails);
+          store.setState({ adoptedTreesDetails: res.data });
 
-        const urlAdoptedTreesDetails = createAPIUrl(
-          state,
-          `/private/get-adopted-trees-details?tree_ids=${queryStr}`
-        );
-
-        fetchAPI(urlAdoptedTreesDetails, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        })
-          .then(r => {
-            //@ts-ignore
-            Store.setState({ adoptedTreesDetails: r.data });
-            return;
-          })
-          .catch(err => {
-            console.error(err);
-          });
+          // fetchAPI(urlAdoptedTreesDetails, {
+          //   headers: {
+          //     Authorization: 'Bearer ' + token,
+          //   },
+          // })
+          //   .then(r => {
+          //     //@ts-ignore
+          //     store.setState({ adoptedTreesDetails: r.data });
+          //     return;
+          //   })
+          //   .catch(err => {
+          //     console.error(err);
+          //   });
+        }
+      } catch (error) {
+        console.error(error);
+        throw error;
       }
     };
-    if (adoptedTrees.length === 0) {
-      //@ts-ignore
-      Store.setState({ adoptedTreesDetails: [] });
+    if (adoptedTrees && adoptedTrees.length === 0) {
+      store.setState({ adoptedTreesDetails: [] });
     } else {
-      fetchData();
+      fetchData().catch(err => {
+        console.error(err);
+        throw err;
+      });
     }
   }, [adoptedTrees]);
 
@@ -144,6 +153,7 @@ const SidebarProfile = p => {
       }
     } catch (error) {
       console.error(error);
+      throw error;
     }
   };
 
@@ -192,7 +202,6 @@ const SidebarProfile = p => {
                     title={<span>Adoptierte Bäume</span>}
                   >
                     {adoptedTreesDetails && (
-                      //@ts-ignore
                       <TreesAdopted data={adoptedTreesDetails} />
                     )}
                   </CardAccordion>

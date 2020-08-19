@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nockeck
 import React from 'react';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
@@ -9,16 +9,17 @@ import {
   /*GeolocateControl,*/ NavigationControl,
 } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
-import Store from '../../state/Store';
+import store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import {
-  fetchAPI,
+  // fetchAPI,
   createAPIUrl,
   interpolateColor,
   hexToRgb,
+  requests,
   // checkGeolocationFeature,
 } from '../../utils';
-
+// import { HoverObject } from './pump-hover';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -44,23 +45,12 @@ class DeckGLMap extends React.Component {
   constructor(props) {
     super(props);
 
-    //@ts-ignore
-    this.bool = true;
-    //@ts-ignore
-    this.test = false;
     // this.geoLocationAvailable = false;
 
-    // checkGeolocationFeature(
-    //   () => {
-    //     this.geoLocationAvailable = false;
-    //     console.log('Geolocation access denied');
-    //   },
-    //   () => {
-    //     this.geoLocationAvailable = true;
-    //     console.log('Geolocation available');
-    //   }
-    // );
     this.state = {
+      // isHovered: false,
+      // hoverObjectPointer: [],
+      // hoverObjectMessage: '',
       hoveredObject: null,
       data: null,
       included: null,
@@ -77,19 +67,12 @@ class DeckGLMap extends React.Component {
   }
 
   _renderLayers() {
-    //@ts-ignore
     const {
-      //@ts-ignore
       data,
-      //@ts-ignore
       rainGeojson,
-      //@ts-ignore
       treesVisible,
-      //@ts-ignore
       pumpsVisible,
-      //@ts-ignore
       rainVisible,
-      //@ts-ignore
       pumps,
     } = this.props;
 
@@ -100,7 +83,6 @@ class DeckGLMap extends React.Component {
           data: isMobile ? [] : data,
           opacity: 1,
           getLineWidth: (info: any) => {
-            //@ts-ignore
             const { selectedTree } = this.props;
             const id = info.properties['id'];
 
@@ -138,17 +120,18 @@ class DeckGLMap extends React.Component {
               communityData,
             } = this.props;
             const { properties } = info;
+            // eslint-disable-next-line @typescript-eslint/camelcase
             const { id, radolan_sum, age } = properties;
 
             if (dataView === 'watered' && communityData[id]) {
               return communityData[id].watered
-                ? [0, 0, 255, 200]
+                ? [53, 117, 177, 200]
                 : [0, 0, 0, 0];
             }
 
             if (dataView === 'adopted' && communityData[id]) {
               return communityData[id].adopted
-                ? [255, 0, 0, 200]
+                ? [0, 128, 128, 200]
                 : [0, 0, 0, 0];
             }
 
@@ -177,7 +160,7 @@ class DeckGLMap extends React.Component {
             this._onClick(info.x, info.y, info.object);
 
             if (info.object !== undefined) {
-              Store.setState({
+              store.setState({
                 highlightedObject: info.object.properties['id'],
               });
               setDetailRouteWithListPath(info.object.properties.id);
@@ -196,7 +179,7 @@ class DeckGLMap extends React.Component {
         new GeoJsonLayer({
           id: 'rain',
           data: rainGeojson,
-          opacity: 0.5,
+          opacity: 0.95,
           visible: rainVisible,
           stroked: false,
           filled: true,
@@ -233,6 +216,17 @@ class DeckGLMap extends React.Component {
           pickable: true,
           lineWidthScale: 2,
           lineWidthMinPixels: 1,
+          // onHover: info => {
+          //   if (info.object === undefined) {
+          //     this.setState({ isHovered: false });
+          //     return;
+          //   }
+          //   this.setState({ isHovered: true });
+          //   console.log(info);
+          //   this.setState({ hoverObjectMessage: info.object.geometry.type });
+          //   this.setState({ hoverObjectPointer: [info.x, info.y] });
+          //   console.log(this.state);
+          // },
         }),
       ];
 
@@ -256,7 +250,7 @@ class DeckGLMap extends React.Component {
         const { setDetailRouteWithListPath } = this.props;
         this._onClick(event.x, event.y, features[0]);
 
-        Store.setState({
+        store.setState({
           highlightedObject: features[0].properties['id'],
         });
 
@@ -274,29 +268,41 @@ class DeckGLMap extends React.Component {
   _onClick(x, y, object) {
     const { setViewport } = this.props;
 
-    Store.setState({ selectedTreeState: 'LOADING' });
+    store.setState({ selectedTreeState: 'LOADING' });
 
     setViewport(object.geometry.coordinates);
 
     const { state } = this.props;
     const id = object.properties.id;
-    const url = createAPIUrl(state, `/get-tree?id=${id}`);
-    const urlWatered = createAPIUrl(state, `/get-tree-last-watered?id=${id}`);
-
-    fetchAPI(urlWatered)
-      .then(r => {
-        Store.setState({ treeLastWatered: r.data });
+    const url = createAPIUrl(state, `/get?queryType=byid&id=${id}`);
+    const urlWatered = createAPIUrl(
+      state,
+      `/get?queryType=lastwatered&id=${id}`
+    );
+    requests(urlWatered)
+      .then(json => {
+        store.setState({ treeLastWatered: json.data });
         return;
       })
       .catch(console.error);
 
-    fetchAPI(url)
-      .then(r => {
+    requests(url)
+      .then(treeJson => {
+        if (treeJson.data.length === 0) {
+          // store.setState({
+          //   selectedTreeState: 'NOT_FOUND',
+          //   selectedTree: undefined,
+          // });
+          return;
+        }
+        const selectedTree = treeJson.data[0];
         // ISSUE:141
-        r.data.radolan_days = r.data.radolan_days.map(d => d / 10);
-        r.data.radolan_sum = r.data.radolan_sum / 10;
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        selectedTree.radolan_days = selectedTree.radolan_days.map(d => d / 10);
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        selectedTree.radolan_sum = selectedTree.radolan_sum / 10;
 
-        Store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
+        store.setState({ selectedTreeState: 'LOADED', selectedTree });
         return;
       })
       .catch(console.error);
@@ -528,46 +534,46 @@ class DeckGLMap extends React.Component {
       return <span>Lade Berlins Baumdaten ...</span>;
     } else if (!isLoading) {
       return (
-        <DeckGL
-          layers={this._renderLayers()}
-          initialViewState={viewport}
-          viewState={viewport}
-          getCursor={e => {
-            return this.state.cursor;
-          }}
-          onHover={(info, event) => {
-            this.setCursor(info.layer);
-          }}
-          onClick={this._deckClick}
-          onViewStateChange={e => this.handleDrag(e)}
-          controller={controller}
-        >
-          {baseMap && (
-            <StaticMap
-              reuseMaps
-              mapStyle='mapbox://styles/mapbox/light-v9'
-              preventStyleDiffing={true}
-              mapboxApiAccessToken={MAPBOX_TOKEN}
-              onLoad={this._onload.bind(this)}
-            >
-              <ControlWrapper isNavOpen={isNavOpen}>
-                {/* {this.state.geoLocationAvailable === true && ( */}
-                {/* <GeolocateControl
-                  positionOptions={{ enableHighAccuracy: true }}
-                  trackUserLocation={true}
-                  onViewStateChange={e => setView(e.viewState)}
-                  onGeolocate={options => {
-                    console.log(options, 'in geolocateControl');
-                  }}
-                /> */}
-                {/* )} */}
-                <NavigationControl
-                  onViewStateChange={e => setView(e.viewState)}
-                />
-              </ControlWrapper>
-            </StaticMap>
-          )}
-        </DeckGL>
+        <>
+          {/* THis code below could be used to display some info for the pumps */}
+          {/* {this.state.isHovered &&
+            this.state.hoverObjectPointer.length === 2 && (
+              <HoverObject
+                message={this.state.hoverObjectMessage}
+                pointer={this.state.hoverObjectPointer}
+              ></HoverObject>
+            )} */}
+          <DeckGL
+            layers={this._renderLayers()}
+            initialViewState={viewport}
+            viewState={viewport}
+            getCursor={e => {
+              return this.state.cursor;
+            }}
+            onHover={(info, event) => {
+              this.setCursor(info.layer);
+            }}
+            onClick={this._deckClick}
+            onViewStateChange={e => this.handleDrag(e)}
+            controller={controller}
+          >
+            {baseMap && (
+              <StaticMap
+                reuseMaps
+                mapStyle='mapbox://styles/mapbox/light-v9'
+                preventStyleDiffing={true}
+                mapboxApiAccessToken={MAPBOX_TOKEN}
+                onLoad={this._onload.bind(this)}
+              >
+                <ControlWrapper isNavOpen={isNavOpen}>
+                  <NavigationControl
+                    onViewStateChange={e => setView(e.viewState)}
+                  />
+                </ControlWrapper>
+              </StaticMap>
+            )}
+          </DeckGL>
+        </>
       );
     }
   }

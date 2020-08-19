@@ -12,16 +12,15 @@ export default class ErrorBoundary extends React.Component<
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
   }
-  static getDerivedStateFromError(_error) {
+  static getDerivedStateFromError(_): { hasError: boolean } {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
-  componentDidMount() {
+  componentDidMount(): void {
     // eslint-disable-next-line no-console
-    // console.log("Context=" + JSON.stringify(this.context));
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error, errorInfo): void {
     // You can also log the error to an error reporting service
 
     this.setState({ hasError: this.state.hasError, error, errorInfo });
@@ -62,7 +61,7 @@ export default class ErrorBoundary extends React.Component<
                 Bitte wende dich an das{' '}
                 <a href='https://www.citylab-berlin.org/'>CityLAB</a> oder
                 schreib uns einen Issue auf{' '}
-                <a href='https://github.com/technologiestiftung/tsb-trees-frontend/issues/new'>
+                <a href='https://github.com/technologiestiftung/giessdenkiez-de/issues/new'>
                   GitHub
                 </a>
                 . Vielleicht hilft es auch die Seite neu zu laden?
@@ -72,7 +71,6 @@ export default class ErrorBoundary extends React.Component<
         </>
       );
     }
-
     return this.props.children;
   }
 }

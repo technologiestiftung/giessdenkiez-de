@@ -27,6 +27,10 @@ interface Content {
     disclaimer: string;
     description: string[];
   };
+  whatsNew?: {
+    title: string;
+    description: string[];
+  };
   loading: {
     snippets: string[];
   };
@@ -71,7 +75,7 @@ const content: Content = {
       {
         question: 'Wie wird mit technischen Problemen umgegangen?',
         answer:
-          'Bei der Beteiligungsplattform “Giess den Kiez” handelt es sich um einen Prototypen, respektive um eine Beta-Version einer Web-App. Wir sind uns einigen technischen Hürden bewusst und wollen die Plattform in Zukunft performanter und stabiler gestalten, bitten euch aber diesbezüglich um etwas Geduld und Verständnis. <br><br> Euer technisches Feedback und eure Fragen nehmen wir gerne in unserem <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack Channel</a> oder per Mail entgegen. Wer sich in der “Tech-Welt” zu Hause fühlt, ist herzlich zur Mitarbeit in unserem <a target="blank" href="https://github.com/technologiestiftung/tsb-trees-frontend">Open Source GitHub Repository</a> eingeladen und kann seine Issues oder Code Fixes direkt in das Repository kommentieren.',
+          'Bei der Beteiligungsplattform “Giess den Kiez” handelt es sich um einen Prototypen, respektive um eine Beta-Version einer Web-App. Wir sind uns einigen technischen Hürden bewusst und wollen die Plattform in Zukunft performanter und stabiler gestalten, bitten euch aber diesbezüglich um etwas Geduld und Verständnis. <br><br> Euer technisches Feedback und eure Fragen nehmen wir gerne in unserem <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack Channel</a> oder per Mail entgegen. Wer sich in der “Tech-Welt” zu Hause fühlt, ist herzlich zur Mitarbeit in unserem <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">Open Source GitHub Repository</a> eingeladen und kann seine Issues oder Code Fixes direkt in das Repository kommentieren.',
       },
       {
         question: 'Warum lädt die Website nicht oder nur sehr langsam?',
@@ -93,7 +97,7 @@ const content: Content = {
       {
         question: 'Ist das Prinzip auf andere Städte übertragbar?',
         answer:
-          'Die “Gieß den Kiez” Plattform ist ein Open Source Software Projekt und läuft unter einer MIT Lizenz. Dementsprechend kann die Idee, aber auch der Quellcode für die Umsetzung in anderen Städten kostenlos genutzt und weiterentwickelt werden. Wenn Du dich dafür interessierst, schau gerne in unserem <a target="blank" href="https://github.com/technologiestiftung/tsb-trees-frontend">GitHub Repository</a> vorbei oder kontaktiere uns via Mail.',
+          'Die “Gieß den Kiez” Plattform ist ein Open Source Software Projekt und läuft unter einer MIT Lizenz. Dementsprechend kann die Idee, aber auch der Quellcode für die Umsetzung in anderen Städten kostenlos genutzt und weiterentwickelt werden. Wenn Du dich dafür interessierst, schau gerne in unserem <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">GitHub Repository</a> vorbei oder kontaktiere uns via Mail.',
       },
       {
         question: 'Ich habe immer noch eine Frage!',
@@ -123,6 +127,38 @@ const content: Content = {
       'Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
     ],
   },
+  whatsNew: {
+    title: 'Was ist neu?',
+    description: [
+      `Wir haben die Farben angepasst, damit der Wasserbedarf der Berliner Bäume intuitiver zu erfassen ist. Es beginnt bei einem trockenem Gelb und geht bis in ein sattes Grün.<br /><br /><div style="display:flex">
+      <div
+        style=" background-color:#fde725; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#fde725"
+      ></div>
+      <div
+        style=" background-color:#cae11f; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#cae11f"
+      ></div>
+      <div
+        style=" background-color:#95d840; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#95d840"
+      ></div>
+      <div
+        style=" background-color:#63cb5f; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#63cb5f"
+      ></div>
+      <div
+        style=" background-color:#3bbb75; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#3bbb75"
+      ></div>
+      <div
+        style=" background-color:#22a884; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
+        color="#22a884"
+      ></div>
+    </div>`,
+      'Hinzu kommen Updates der Open Source Bibliotheken die wir verwenden um die Seite schneller und stabiler laufen zu lassen. Ebenfalls wurden von euch einige Fehler gefunden und von uns behoben.',
+    ],
+  },
   loading: {
     snippets: [
       'Wir laden gerade 625.000 Bäume aus dem Berliner Baumbestand.',
@@ -145,8 +181,8 @@ const content: Content = {
       },
       {
         title: 'Über uns',
-        description:
-          '“Gieß den Kiez” ist ein Projekt des <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>. Das CityLAB ist ein öffentliches Innovationslabor für die Stadt der Zukunft im ehemaligen Flughafen Berlin-Tempelhof. Gemeinsam mit einem großen Netzwerk aus Verwaltung, Zivilgesellschaft, Wissenschaft und Start-ups arbeiten wir an neuen Ideen für ein lebenswertes Berlin. Das CityLAB ist ein offener Ort zum Mitmachen! Wenn ihr mehr wissen wollt, schaut euch auf unserer Webseite um oder kommt einfach mal vorbei! <br /> <br /> Das CityLAB ist ein Projekt der Technologiestiftung Berlin und wird gefördert durch die Berliner Senatskanzlei. <br /> <br /> Du hast Feedback? Wir würden uns sehr darüber freuen, in unserem dafür eingerichteten <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack-Kanal</a> von Dir zu hören.',
+        description: `“Gieß den Kiez” ist ein Projekt des <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>. Das CityLAB ist ein öffentliches Innovationslabor für die Stadt der Zukunft im ehemaligen Flughafen Berlin-Tempelhof. Gemeinsam mit einem großen Netzwerk aus Verwaltung, Zivilgesellschaft, Wissenschaft und Start-ups arbeiten wir an neuen Ideen für ein lebenswertes Berlin. Das CityLAB ist ein offener Ort zum Mitmachen! Wenn ihr mehr wissen wollt, schaut euch auf unserer Webseite um oder kommt einfach mal vorbei! <br /> <br /> Das CityLAB ist ein Projekt der Technologiestiftung Berlin und wird gefördert durch die Berliner Senatskanzlei. <br /> <br /> Du hast Feedback? Wir würden uns sehr darüber freuen, in unserem dafür eingerichteten <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack-Kanal</a> von Dir zu hören.<br /> <br />Presseanfragen gehen am besten an:<br /> Frauke Nippel<br /><a href="mailto:nippel@technologiestiftung-berlin.de?subject=giessdenkiez.de%20Presseanfrage">nippel@technologiestiftung-berlin.de</a><br />
+          <a href="tel:01757236451">0175 72 36 451</a>`,
       },
       {
         title: 'Datenquellen',

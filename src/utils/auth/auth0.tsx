@@ -1,22 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/react-auth0-spa.js
 import React, { useState, useEffect, useContext } from 'react';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
-const DEFAULT_REDIRECT_CALLBACK = (appState?: any) =>
+import { ContextProps } from '../../common/types';
+const DEFAULT_REDIRECT_CALLBACK: (appState: any) => void = _appState =>
   window.history.replaceState({}, document.title, window.location.pathname);
-type ContextProps = {
-  isAuthenticated: boolean;
-  user: any;
-  loading: boolean;
-  popupOpen: any;
-  loginWithPopup: any;
-  handleRedirectCallback: any;
-  getIdTokenClaims: any;
-  loginWithRedirect: any;
-  getTokenSilently: any;
-  getTokenWithPopup: any;
-  logout: any;
-};
 
 export const Auth0Context = React.createContext<Partial<ContextProps>>({});
 export const useAuth0 = () => useContext(Auth0Context);
@@ -40,6 +29,7 @@ export const Auth0Provider = ({
 
       if (window.location.search.includes('code=')) {
         const { appState } = await auth0FromHook.handleRedirectCallback();
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         //@ts-ignore
         onRedirectCallback(appState);
       }
@@ -65,6 +55,7 @@ export const Auth0Provider = ({
       await auth0Client?.loginWithPopup(params);
     } catch (error) {
       console.error(error);
+      throw error;
     } finally {
       setPopupOpen(false);
     }

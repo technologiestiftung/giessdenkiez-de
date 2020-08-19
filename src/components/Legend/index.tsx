@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { interpolateColor } from '../../utils/';
-import Store from '../../state/Store';
+import store from '../../state/Store';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
 
@@ -182,7 +182,7 @@ const Legend = p => {
       <FlexSpace active={legendExpanded}>
         <FlexColumn>
           <StyledCardDescription
-            onClick={() => Store.setState({ legendExpanded: !legendExpanded })}
+            onClick={() => store.setState({ legendExpanded: !legendExpanded })}
           >
             {legendExpanded ? 'Niederschlag' : 'Legende'}
           </StyledCardDescription>
@@ -193,7 +193,7 @@ const Legend = p => {
           )}
         </FlexColumn>
         <StyledToggle
-          onClick={() => Store.setState({ legendExpanded: !legendExpanded })}
+          onClick={() => store.setState({ legendExpanded: !legendExpanded })}
         >
           {legendExpanded ? '—' : '+'}
         </StyledToggle>
@@ -219,9 +219,9 @@ const Legend = p => {
           <UnstyledFlexWidth
             active={treesVisible}
             onClick={() => {
-              Store.setState({ treesVisible: !treesVisible });
-              Store.setState({ pumpsVisible: false });
-              Store.setState({ rainVisible: false });
+              store.setState({ treesVisible: !treesVisible });
+              store.setState({ pumpsVisible: false });
+              store.setState({ rainVisible: false });
             }}
           >
             <LegendDot color={'#2c303b'} />
@@ -230,9 +230,9 @@ const Legend = p => {
           <UnstyledFlexWidth
             active={pumpsVisible}
             onClick={() => {
-              Store.setState({ treesVisible: false });
-              Store.setState({ pumpsVisible: !pumpsVisible });
-              Store.setState({ rainVisible: false });
+              store.setState({ treesVisible: false });
+              store.setState({ pumpsVisible: !pumpsVisible });
+              store.setState({ rainVisible: false });
             }}
           >
             <StrokedLegendDot />
@@ -241,9 +241,9 @@ const Legend = p => {
           <UnstyledFlexWidth
             active={rainVisible}
             onClick={() => {
-              Store.setState({ treesVisible: false });
-              Store.setState({ pumpsVisible: false });
-              Store.setState({ rainVisible: !rainVisible });
+              store.setState({ treesVisible: false });
+              store.setState({ pumpsVisible: false });
+              store.setState({ rainVisible: !rainVisible });
             }}
           >
             <LegendRect />

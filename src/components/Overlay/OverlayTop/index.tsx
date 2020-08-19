@@ -2,7 +2,7 @@ import React, { cloneElement, Children } from 'react';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 import Actions from '../../../state/Actions';
-import Store from '../../../state/Store';
+import store from '../../../state/Store';
 import { connect } from 'unistore/react';
 
 // import history from '../../../history';
@@ -34,7 +34,7 @@ const StyledTop = styled.div`
 
 const StyledWrapper = styled.div`
   display: flex;
-  margin: 20px 40px 0 40px;
+  margin: 20px 40px 20px 40px;
   cursor: pointer;
   div {
     margin-right: 10px;
@@ -50,22 +50,23 @@ const StyledWrapper = styled.div`
 
 const OverlayTop = p => {
   const { children, toggleOverlay } = p;
-  const { intro } = content;
+  const { intro, whatsNew } = content;
+
   const { title, subline, description, disclaimer } = intro;
 
   const handleClick = () => {
-    Store.setState({ legendExpanded: true });
+    store.setState({ legendExpanded: true });
     toggleOverlay(false);
   };
 
   return (
     <StyledTop>
       <Wrapper>
-        <OverlayTitle size='large' title={title} />
+        <OverlayTitle size='xxl' title={title} />
         <OverlayIcon icon='trees' />
         <OverlayBeta />
       </Wrapper>
-      <OverlayTitle size='large' title={subline} />
+      <OverlayTitle size='xxl' title={subline} />
 
       {isMobile && <OverlayTitle size='medium' title={disclaimer} />}
       {/* the beow is here for local testing */}
@@ -80,6 +81,12 @@ const OverlayTop = p => {
         </ButtonRound>
         <Login width='fit-content' noLogout={true} />
       </StyledWrapper>
+      {whatsNew && (
+        <>
+          <OverlayTitle size='xl' title={whatsNew.title} />
+          <OverlayDescription content={whatsNew.description} />
+        </>
+      )}
     </StyledTop>
   );
 };

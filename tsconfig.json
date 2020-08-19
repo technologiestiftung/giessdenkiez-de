@@ -2,14 +2,16 @@
   "include": ["src/**/*"],
   "compilerOptions": {
     "target": "esnext",
+    "module": "esnext",
+    // "module": "es6",
     "outDir": "./dist/",
     "rootDir": "./src",
     "typeRoots": ["node_modules/@types"],
     "strictNullChecks": true,
     "moduleResolution": "node",
-    "allowJs": true,
+    "allowJs": false,
     "noEmit": true,
-
+    "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
     "jsx": "react",
@@ -20,7 +22,6 @@
       "es2017.object",
       "dom"
     ],
-    "module": "es6",
     "alwaysStrict": true,
     "allowUnreachableCode": false,
     "noImplicitAny": false,
@@ -30,6 +31,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true
   }
 }

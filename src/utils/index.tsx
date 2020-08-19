@@ -1,5 +1,54 @@
-import { interpolateViridis, scaleLinear } from 'd3';
+import { scaleLinear, interpolateViridis } from 'd3';
 import axios from 'axios';
+import { IsTreeAdoptedProps, Generic } from '../common/interfaces';
+
+export function createAPIUrl(state: any, entrypoint: string): string {
+  return state.local
+    ? `${state.endpoints.local}${entrypoint}`
+    : `${state.endpoints.prod}${entrypoint}`;
+}
+
+/**
+ * Deliberately does not hande errors. You will have to handle them in the calling function
+ */
+export async function requests<T>(
+  url: string,
+  opts?: { token?: string; override?: T }
+): Promise<Generic> {
+  // try {
+  const headers = new Headers({ 'content-type': 'application/json' });
+  if (opts?.token) {
+    headers.set('authorization', `Bearer ${opts.token}`);
+  }
+  const response = await fetch(url, {
+    headers,
+    ...opts?.override,
+  });
+  if (!response.ok) {
+    const msg = await response.text();
+    console.error(msg);
+    return new Error(msg);
+  }
+  const json = await response.json();
+  return json;
+}
+
+export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
+  const { isAuthenticated, state, uuid, id, token, store, signal } = opts;
+  try {
+    if (isAuthenticated) {
+      const url = createAPIUrl(
+        state,
+        `/get?queryType=istreeadopted&uuid=${uuid}&id=${id}`
+      );
+
+      const json = await requests(url, { token, override: { signal } });
+      store.setState({ treeAdopted: json.data });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export function createGeojson(data) {
   const geojson: { type: 'FeatureCollection'; features: any[] } = {
@@ -22,6 +71,7 @@ export function createGeojson(data) {
        */
       properties: {
         id: tree.id,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         radolan_sum: +tree.radolan_sum / 10,
         age: +tree.age,
       },
@@ -35,15 +85,15 @@ export function createGeojson(data) {
 // TODO: review array callback return
 // Expected to return a value in arrow function.eslintarray-callback-return
 //
-export function createCSVJson(data) {
-  let csvArr: Array<[number, number, number, number]> = [];
+export function createCSVJson(data): [number, number, number, number][] {
+  const csvArr: Array<[number, number, number, number]> = [];
   data.map(item => {
     csvArr.push([+item[1], +item[2], item[0], +item[3]]);
   });
   return csvArr;
 }
 
-export function flatten(ary) {
+export function flatten(ary): any[] {
   let ret: any[] = [];
   for (let i = 0; i < ary.length; i++) {
     if (Array.isArray(ary[i])) {
@@ -55,14 +105,32 @@ export function flatten(ary) {
   return ret;
 }
 
-export function createAPIUrl(state, entrypoint) {
-  return state.local
-    ? `${state.endpoints.local}${entrypoint}`
-    : `${state.endpoints.prod}${entrypoint}`;
+export async function waitFor(
+  millisenconds: number,
+  callback: () => void
+): Promise<void> {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      callback();
+      resolve();
+    }, millisenconds);
+  });
 }
+// export const waitFor = (millisenconds: number, callback: () => void) =>
+//   new Promise(resolve => {
+//     setTimeout(() => {
+//       callback();
+//       resolve();
+//     }, millisenconds);
+//   });
 
-export async function fetchAPI(url, config = {}) {
-  return axios
+/**
+ * Shoulf not be used anymoe
+ * @deprecated
+ *
+ */
+export async function fetchAPI(url: string, config = {}) {
+  const res = axios
     .get(url, config)
     .then(r => {
       return r;
@@ -70,6 +138,13 @@ export async function fetchAPI(url, config = {}) {
     .catch(function (error) {
       console.log(error);
     });
+  const result = await res;
+  if (result === undefined) {
+    throw new Error('result of fetch request is undefined');
+  }
+  //console.log(url, result);
+
+  return result;
 }
 
 export const STATI = {
@@ -80,29 +155,40 @@ export const STATI = {
 };
 
 export const createIncludedTrees = data => {
-  let obj = {};
+  const obj = {};
   data.forEach(id => {
     obj[id] = { included: true };
   });
   return obj;
 };
 
-export const waterNeed = age => {
-  if (!age) return null;
-  if (age < 15) return [1, 1, 1];
-  if (age >= 15 && age < 40) return [1, 1];
-  if (age >= 40) return [1];
+export const waterNeed = (age?: number): null | number[] => {
+  if (!age) {
+    return null;
+  }
+  if (age < 15) {
+    return [1, 1, 1];
+  }
+  if (age >= 15 && age < 40) {
+    return [1, 1];
+  }
+  if (age >= 40) {
+    return [1];
+  }
+  return null;
 };
 
-export const getCookieValue = a => {
+export const getCookieValue = (a: string | number) => {
   const b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
   return b ? b.pop() : '';
 };
 
-export const convertTime = unix_timestamp => {
+// eslint-disable-next-line @typescript-eslint/camelcase
+export const convertTime = (unix_timestamp: string): string => {
+  // eslint-disable-next-line @typescript-eslint/camelcase
   const sliced = unix_timestamp.slice(0, 16);
-  let date = new Date(sliced);
-  let months = [
+  const date = new Date(sliced);
+  const months = [
     'Jan',
     'Feb',
     'Mar',
@@ -116,9 +202,9 @@ export const convertTime = unix_timestamp => {
     'Nov',
     'Dec',
   ];
-  let year = date.getFullYear();
-  let month = months[date.getMonth()];
-  let day = date.getDate();
+  const year = date.getFullYear();
+  const month = months[date.getMonth()];
+  const day = date.getDate();
 
   // let hours = date.getHours();
   // Minutes part from the timestamp
@@ -134,15 +220,15 @@ export const convertTime = unix_timestamp => {
 };
 
 export const removeOverlay = () => {
-  let elem: HTMLElement | null = document.querySelector('#tempOverlay');
+  const elem: HTMLElement | null = document.querySelector('#tempOverlay');
   if (elem) {
     elem.style.display = 'none';
   }
 };
 
 export const timeDifference = (date1, date2) => {
-  let difference = date1 - date2;
-  let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+  const difference = date1 - date2;
+  const daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
 
   let label = '';
 
@@ -166,13 +252,21 @@ export const timeDifference = (date1, date2) => {
 };
 
 export const interpolateColor = val => {
-  const scale = scaleLinear().domain([0, 300]).range([1, 0]);
-  // const interpolatedValue = scale(val);
-  return interpolateViridis(scale(val));
+  const scale = scaleLinear().domain([0, 300]).range([1, 0.6]);
+  const hexColor = interpolateViridis(scale(val));
+  // const rgbString = interpolateRdYlGn(scale(val));
+  // const col = color(rgbString);
+  // debugger;
+  // const hex = col?.hex();
+  // if (hex) {
+  return hexColor;
+  // } else {
+  // return '#868686'; // fallback grey https://www.color-hex.com/color/868686
+  // }
 };
 
 export const hexToRgb = hex => {
-  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? [
         parseInt(result[1], 16),

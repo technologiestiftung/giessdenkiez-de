@@ -1,19 +1,20 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { connect } from 'unistore/react';
+/* eslint-disable @typescript-eslint/camelcase */
+import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Store from '../../state/Store';
-import Actions, { loadCommunityData } from '../../state/Actions';
-import { fetchAPI, createAPIUrl } from '../../utils';
-import { useAuth0 } from '../../utils/auth0';
+import { connect } from 'unistore/react';
 import history from '../../history';
-import Login from '../Login';
+import Actions, { loadCommunityData } from '../../state/Actions';
+import store from '../../state/Store';
+import { createAPIUrl, isTreeAdopted, requests, waitFor } from '../../utils';
+import { useAuth0 } from '../../utils/auth/auth0';
 import ButtonRound from '../ButtonRound';
-import ButtonWaterGroup from './BtnWaterGroup';
 import CardDescription from '../Card/CardDescription';
-import { NonVerfiedMailCardParagraph } from '../Card/non-verified-mail';
 import CardParagraph from '../Card/CardParagraph';
+import { NonVerfiedMailCardParagraph } from '../Card/non-verified-mail';
+import Login from '../Login';
+import ButtonWaterGroup from './BtnWaterGroup';
 
-const loadCommunityDataAction = Store.action(loadCommunityData(Store));
+const loadCommunityDataAction = store.action(loadCommunityData(store));
 
 const BtnContainer = styled.div`
   display: flex;
@@ -55,8 +56,15 @@ const ButtonWater = p => {
   const { user, isAuthenticated, getTokenSilently } = useAuth0();
   const [adopted] = useState(false);
 
-  const [isEmailVerifiyed, setIsEmailVerifiyed] = useState(false);
-
+  const [isEmailVerifiyed, setIsEmailVerifiyed] = useState<boolean | undefined>(
+    undefined
+  );
+  // let isMounted = true;
+  // useEffect(() => {
+  //   return () => {
+  //     // isMounted = false;
+  //   };
+  // });
   useEffect(() => {
     if (!user) return;
     setIsEmailVerifiyed(user.email_verified);
@@ -83,6 +91,62 @@ const ButtonWater = p => {
     toggleOverlay(true);
   };
 
+  const waterTree = async (id, amount, username) => {
+    try {
+      store.setState({ selectedTreeState: 'WATERING' });
+      const token = await getTokenSilently();
+      const urlPostWatering = createAPIUrl(
+        state,
+        `/post?id=${id}&uuid=${user.sub}&amount=${amount}&username=${username}&comment=URL_QUERY_NOT_NEEDED_USE_BODY`
+      );
+
+      await requests<{ method: 'POST'; body: string }>(urlPostWatering, {
+        token,
+        override: {
+          method: 'POST',
+          body: JSON.stringify({
+            tree_id: id,
+            amount,
+            uuid: user.sub,
+            username,
+            queryType: 'water',
+          }),
+        },
+      });
+      const geturl = createAPIUrl(state, `/get?id=${id}&queryType=byid`);
+      const json = await requests(geturl);
+      if (json.data.length > 0) {
+        const tree = json.data[0];
+        // ISSUE:141
+        tree.radolan_days = tree.radolan_days.map(d => d / 10);
+        tree.radolan_sum = tree.radolan_sum / 10;
+
+        store.setState({
+          selectedTreeState: 'WATERED',
+          selectedTree: tree,
+        });
+
+        await waitFor(250, loadCommunityDataAction);
+        const jsonWatered = await requests(
+          `${endpoints.prod}/get?queryType=lastwatered&id=${id}`
+        );
+        store.setState({ treeLastWatered: jsonWatered.data });
+        await waitFor(500, () => {
+          const url = createAPIUrl(state, `/get?queryType=watered`);
+          requests(url)
+            .then(json => {
+              store.setState({ wateredTrees: json.data.watered });
+              return;
+            })
+            .catch(console.error);
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   const setWaterAmount = (id: any, amount: any) => {
     setWaterGroup('watered');
     waterTree(id, amount, userdata.username);
@@ -90,124 +154,61 @@ const ButtonWater = p => {
       setWaterGroup('visible');
     }, 1000);
   };
-
-  const isTreeAdopted = async (treeid: any, uuid: any) => {
-    const token = await getTokenSilently();
+  const adoptTree = async (id: string) => {
     try {
-      const url = createAPIUrl(
-        state,
-        `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
-      );
-      const r = await fetchAPI(url, {
-        headers: { Authorization: 'Bearer ' + token },
-      });
-      //@ts-ignore
-      Store.setState({ treeAdopted: r.data });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+      store.setState({ selectedTreeState: 'ADOPT' });
+      const token = await getTokenSilently();
+      // const time = timeNow();
+      const url = createAPIUrl(state, `/post?tree_id=${id}&uuid=${user.sub}`);
 
-  const waterTree = async (id, amount, username) => {
-    Store.setState({ selectedTreeState: 'WATERING' });
-    const token = await getTokenSilently();
-    const url = createAPIUrl(
-      state,
-      `/private/water-tree?id=${id}&uuid=${user.sub}&amount=${amount}&username=${username}`
-    );
-
-    // TODO: neste promises
-    await fetchAPI(url, {
-      headers: { Authorization: 'Bearer ' + token },
-    })
-      .then(_r => {
-        const url = createAPIUrl(state, `/get-tree?id=${id}`);
-        fetchAPI(url)
-          .then(r => {
-            // ISSUE:141
-            //@ts-ignore
-            r.data.radolan_days = r.data.radolan_days.map(d => d / 10);
-            //@ts-ignore
-            r.data.radolan_sum = r.data.radolan_sum / 10;
-
-            Store.setState({
-              //@ts-ignore
-              selectedTreeState: 'WATERED',
-              //@ts-ignore
-              selectedTree: r.data,
-            });
-            setTimeout(() => {
-              loadCommunityDataAction();
-            }, 250);
-            return;
-          })
-          .catch(console.error);
-        return;
+      await requests(url, {
+        token,
+        override: {
+          method: 'POST',
+          body: JSON.stringify({
+            tree_id: id,
+            uuid: user.sub,
+            queryType: 'adopt',
+          }),
+        },
       })
-      .then(r => {
-        fetchAPI(`${endpoints.prod}/get-tree-last-watered?id=${id}`)
-          .then(r => {
-            //@ts-ignore
-            Store.setState({ treeLastWatered: r.data });
-            return;
-          })
-          .catch(console.error);
-        setTimeout(() => {
-          const url = createAPIUrl(state, `/get-watered-trees`);
-          fetchAPI(url)
-            .then(r => {
-              //@ts-ignore
-              Store.setState({ wateredTrees: r.data.watered });
-              return;
-            })
-            .catch(console.error);
-        }, 500);
-        return;
-      })
-      .catch(console.error);
-  };
-
-  const adoptTree = async id => {
-    Store.setState({ selectedTreeState: 'ADOPT' });
-    const token = await getTokenSilently();
-    // const time = timeNow();
-    const url = createAPIUrl(
-      state,
-      `/private/adopt-tree?tree_id=${id}&uuid=${user.sub}`
-    );
-
-    // TODO: nested promises
-    await fetchAPI(url, {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    })
-      .then(r => {
-        const url = createAPIUrl(state, `/get-tree?id=${id}`);
-        fetchAPI(url)
-          .then(r => {
+        .then(() => {
+          return requests(createAPIUrl(state, `/get?&queryType=byid&id=${id}`));
+        })
+        .then(res => {
+          if (res.data.length > 0) {
+            const tree = res.data[0];
             // ISSUE:141
-            //@ts-ignore
-            r.data.radolan_days = r.data.radolan_days.map(d => d / 10);
-            //@ts-ignore
-            r.data.radolan_sum = r.data.radolan_sum / 10;
 
-            Store.setState({
+            tree.radolan_days = tree.radolan_days.map(d => d / 10);
+
+            tree.radolan_sum = tree.radolan_sum / 10;
+
+            store.setState({
               selectedTreeState: 'ADOPTED',
-              //@ts-ignore
-              selectedTree: r.data,
+              selectedTree: tree,
             });
-            setTimeout(() => {
-              loadCommunityDataAction();
-            }, 250);
-            return;
-          })
-          .catch(console.error);
-        return;
-      })
-      .catch(console.error);
-
-    await isTreeAdopted(id, user.sub);
+          }
+          return waitFor(250, loadCommunityDataAction);
+        })
+        .then(() => {
+          return waitFor(500, () => undefined);
+        })
+        .then(() => {
+          return isTreeAdopted({
+            // isMounted,
+            id,
+            uuid: user.sub,
+            token,
+            isAuthenticated,
+            store,
+            state,
+          });
+        })
+        .catch(console.error);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (isAuthenticated) {
@@ -219,7 +220,9 @@ const ButtonWater = p => {
               <BtnContainer>
                 <ButtonRound
                   margin='15px'
-                  toggle={() => adoptTree(id)}
+                  toggle={() => {
+                    adoptTree(id);
+                  }}
                   type='secondary'
                 >
                   {!adopted &&
@@ -261,7 +264,7 @@ const ButtonWater = p => {
         )}
       </>
     );
-  } else if (!isAuthenticated) {
+  } else {
     return (
       <BtnContainer>
         <StyledLogin width='-webkit-fill-available' />

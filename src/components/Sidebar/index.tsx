@@ -38,25 +38,25 @@ const SidebarContent = styled.div`
   padding: 0px 15px;
 `;
 
-// TODO: Review Prevent passing of children as props (react/no-children-prop)
-// https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md
-const Sidebar = p => {
+const Sidebar = _p => {
   return (
     <Route
       path={['/about', '/search', '/adopted', '/profile', '/selected']}
-      children={({ match }) => (
-        <SidebarWrapper isVisible={match}>
-          <SidebarClose />
-          <SidebarContent>
-            <Switch>
-              <Route path='/about' component={SidebarAbout} />
-              <Route path='/search' component={SidebarSearch} />
-              <Route path='/adopted' component={SidebarAdopted} />
-              <Route path='/profile' component={SidebarProfile} />
-            </Switch>
-          </SidebarContent>
-        </SidebarWrapper>
-      )}
+      render={({ match }) => {
+        return (
+          <SidebarWrapper isVisible={match}>
+            <SidebarClose />
+            <SidebarContent>
+              <Switch>
+                <Route path='/about' component={SidebarAbout} />
+                <Route path='/search' component={SidebarSearch} />
+                <Route path='/adopted' component={SidebarAdopted} />
+                <Route path='/profile' component={SidebarProfile} />
+              </Switch>
+            </SidebarContent>
+          </SidebarWrapper>
+        );
+      }}
     />
   );
 };

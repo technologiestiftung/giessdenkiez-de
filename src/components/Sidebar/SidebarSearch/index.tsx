@@ -10,7 +10,7 @@ import LoadingIcon from '../../LoadingIcon/';
 
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - 125px);
+  height: calc(60vh - 125px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,8 +27,12 @@ const SidebarSearch = p => {
           <LoadingIcon text='Lade Baum ...' />
         </Container>
       )}
+      {selectedTree === undefined && selectedTreeState === 'NOT_FOUND' && (
+        <Container>
+          <LoadingIcon text='Baumdaten nicht gefunden. Probier einen anderen ...' />
+        </Container>
+      )}
       {selectedTree && selectedTreeState !== 'LOADING' && (
-        //@ts-ignore
         <Card data={selectedTree} />
       )}
       {!selectedTree && selectedTreeState !== 'LOADING' && <CardLegend />}

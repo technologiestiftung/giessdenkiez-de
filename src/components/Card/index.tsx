@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { waterNeed } from '../../utils/';
+import { waterNeed, isTreeAdopted } from '../../utils/';
 import Actions from '../../state/Actions';
-import { useAuth0 } from '../../utils/auth0';
+import { useAuth0 } from '../../utils/auth/auth0';
 import { connect } from 'unistore/react';
-import { fetchAPI, createAPIUrl } from '../../utils';
-import Store from '../../state/Store';
+import store from '../../state/Store';
 
 import CardWrapper from './CardWrapper/';
 import CardProperty from './CardProperty/';
@@ -22,6 +22,7 @@ import CardWaterDrops from './CardWaterDrops';
 import ButtonAdopted from '../ButtonAdopted';
 
 import content from '../../assets/content';
+import { IsTreeAdoptedProps, Generic } from '../../common/interfaces';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
 
@@ -57,6 +58,9 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
+// const controller = new AbortController();
+// const { signal } = controller;
+
 const Card = p => {
   const { data, treeLastWatered, treeAdopted, user, selectedTree, state } = p;
   const { getTokenSilently, isAuthenticated } = useAuth0();
@@ -69,35 +73,49 @@ const Card = p => {
     gattungdeutsch,
   } = data;
 
-  const getTreeProp = p => {
+  const getTreeProp = (p: Generic | string | null) => {
     return p === 'null' ? null : p;
+  };
+  // type IsMountedType = { isMounted: boolean };
+  type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'>;
+
+  const fetchData: (opts: FetchDataOpts) => Promise<void> = async ({
+    id,
+    uuid,
+    store,
+    state,
+    isAuthenticated,
+    // isMounted,
+  }) => {
+    try {
+      if (user && selectedTree) {
+        const token = await getTokenSilently();
+        await isTreeAdopted({
+          id,
+          uuid,
+          token,
+          isAuthenticated,
+          store,
+          state,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
     if (!user) return;
-    if (user && selectedTree) {
-      isTreeAdopted(selectedTree.id, user.user_id);
-    }
-  }, [user]);
-
-  const isTreeAdopted = async (treeid, uuid) => {
-    if (isAuthenticated) {
-      const token = await getTokenSilently();
-      try {
-        const url = createAPIUrl(
-          state,
-          `/private/get-is-tree-adopted?uuid=${uuid}&treeid=${treeid}`
-        );
-        const r = await fetchAPI(url, {
-          headers: { Authorization: 'Bearer ' + token },
-        });
-        //@ts-ignore
-        Store.setState({ treeAdopted: r.data });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+    // let isMounted = true;
+    fetchData({
+      // isMounted,
+      id: selectedTree.id,
+      uuid: user.user_id,
+      store,
+      state,
+      isAuthenticated,
+    }).catch(console.error);
+  }, [user, selectedTree, treeAdopted]);
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
@@ -109,7 +127,6 @@ const Card = p => {
           <SublineSpan>{getTreeProp(gattungdeutsch.toLowerCase())}</SublineSpan>
         )}
         {treeAdopted && <ButtonAdopted />}
-
         {treeType && treeType.title !== null && (
           <CardAccordion
             title={
@@ -121,11 +138,9 @@ const Card = p => {
             <TreeType>{treeType.description}</TreeType>
           </CardAccordion>
         )}
-
         {standalter && standalter !== 'undefined' && (
           <CardProperty name='Standalter' value={standalter + ' Jahre'} />
         )}
-
         {standalter !== 'null' && standalter !== 'undefined' && (
           <CardAccordion
             title={
@@ -140,7 +155,6 @@ const Card = p => {
             <TreeWatering data={watering} />
           </CardAccordion>
         )}
-
         <RainContainer>
           <FlexRowDiv>
             <CardHeadline>Niederschlag</CardHeadline>
@@ -150,7 +164,6 @@ const Card = p => {
           <Linechart data={radolan_days} sum={radolan_sum} />
           {/* <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription> */}
         </RainContainer>
-
         {treeLastWatered.length > 0 && (
           <CardAccordion
             active={true}
@@ -159,7 +172,6 @@ const Card = p => {
             <TreeLastWatered data={treeLastWatered} />
           </CardAccordion>
         )}
-
         <ButtonWater />
       </FlexColumnDiv>
     </CardWrapper>
