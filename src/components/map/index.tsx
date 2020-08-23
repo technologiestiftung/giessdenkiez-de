@@ -151,8 +151,7 @@ class DeckGLMap extends React.Component {
             } = this.props;
             const { properties } = info;
             // eslint-disable-next-line @typescript-eslint/camelcase
-            const { id, radolan_sum, age, pflanzjahr } = properties;
-            const age = 2020 - Pflanzjahr;
+            const { id, radolan_sum, age } = properties;
 
             if (dataView === 'watered' && Array.isArray(communityData) && communityData[id]) {
               return communityData[id].watered
