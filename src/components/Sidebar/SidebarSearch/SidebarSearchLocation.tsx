@@ -77,6 +77,7 @@ const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
 
   if (value.length < 3) return [];
 
+<<<<<<< HEAD
   const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?autocomplete=true&language=de&country=de&bbox=12.236652,51.23817,12.542441,51.448114&access_token=${MAPBOX_TOKEN}`;
   const res = await fetch(geocodingUrl);
 
@@ -92,6 +93,26 @@ const SidebarSearchLocation: FC = () => {
   const { data: results } = useQuery(['sidebarSearch', value], fetchSearch, {
     staleTime: Infinity,
   });
+=======
+  const updateSearch = async e => {
+    setValue(e.target.value);
+    try {
+      if (e.target.value.length >= 3) {
+        const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${e.target.value}.json?autocomplete=true&language=de&country=de&bbox=12.236652,51.23817,12.542441,51.448114&access_token=${process.env.MAPBOX_TOKEN}`;
+        const res = await fetch(geocodingUrl);
+        if (res.ok) {
+          const json = await res.json();
+          setResults(json.features);
+        } else {
+          return;
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+  };
+>>>>>>> 8e12506... retrieve mapbox token as env again
 
   useEffect(
     () => () => {
