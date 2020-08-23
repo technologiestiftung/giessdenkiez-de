@@ -132,7 +132,7 @@ const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
           return (
             <WrapperRow key={info.id}>
               <Title onClick={() => handleClick(info)}>
-                {info.id === unadopting ? 'Entferne Baum ...' : info.artdtsch}
+                {info.id === unadopting ? 'Entferne Baum ...' : `<a href="../search?location=${info.id}">${info.artDtsch}</a>` }
               </Title>
               <CloseIcon onClick={() => handleClickUnadopt(info.id)}>
                 x
