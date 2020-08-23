@@ -6,7 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { setupMSW } = require('./service-worker-setup');
 const path = require('path');
-const domain = 'https://www.giessdenkiez.de';
+const domain = 'https://giessdeinviertel.codeforleipzig.de';
 
 setupMSW();
 
