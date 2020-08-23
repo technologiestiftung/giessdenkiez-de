@@ -43,35 +43,6 @@ let map = null;
 let selectedStateId = false;
 
 const MAPBOX_TOKEN = process.env.MAPBOX_API_KEY;
-
-const pumpsColor: (info: Generic) => RGBAColor = info => {
-  if (info === undefined) {
-    return defaultColor.rgba;
-  }
-  if (info.properties['pump:status']) {
-    const status = info.properties['pump:status'];
-    switch (status) {
-      case 'unbekannt': {
-        return defaultColor.rgba;
-      }
-      case 'defekt': {
-        return brokenColor.rgba;
-      }
-      case 'funktionsfähig': {
-        return workingColor.rgba;
-      }
-      case 'verriegelt': {
-        return lockedColor.rgba;
-      }
-
-      default: {
-        return defaultColor.rgba;
-      }
-    }
-  }
-  return defaultColor.rgba;
-};
-
 class DeckGLMap extends React.Component {
   constructor(props) {
     super(props);
@@ -102,12 +73,10 @@ class DeckGLMap extends React.Component {
       data,
       rainGeojson,
       treesVisible,
-      pumpsVisible,
       rainVisible,
-      pumps,
     } = this.props;
 
-    if (data && rainGeojson && pumps) {
+    if (data && rainGeojson) {
       const layers = [
         new GeoJsonLayer({
           id: 'geojson',
@@ -154,13 +123,13 @@ class DeckGLMap extends React.Component {
             // eslint-disable-next-line @typescript-eslint/camelcase
             const { id, radolan_sum, age } = properties;
 
-            if (dataView === 'watered' && Array.isArray(communityData) && communityData[id]) {
+            if (dataView === 'watered' && communityData[id]) {
               return communityData[id].watered
                 ? [53, 117, 177, 200]
                 : [0, 0, 0, 0];
             }
 
-            if (dataView === 'adopted' && Array.isArray(communityData) && communityData[id]) {
+            if (dataView === 'adopted' && communityData[id]) {
               return communityData[id].adopted
                 ? [0, 128, 128, 200]
                 : [0, 0, 0, 0];
@@ -170,7 +139,7 @@ class DeckGLMap extends React.Component {
               return [0, 0, 0, 0];
             }
 
-            if (age >= ageRange[0] && age <= ageRange[1]) {
+            if (age >= parseInt(ageRange[0]) && age <= parseInt(ageRange[1])) {
               const interpolated = interpolateColor(radolan_sum);
               const hex = hexToRgb(interpolated);
 
@@ -229,63 +198,6 @@ class DeckGLMap extends React.Component {
             return hex;
           },
           pickable: true,
-        }),
-        new GeoJsonLayer({
-          id: 'pumps',
-          data: pumps,
-          opacity: 1,
-          visible: pumpsVisible,
-          stroked: true,
-          filled: true,
-          extruded: true,
-          wireframe: true,
-          getElevation: 1,
-          getLineColor: [0, 0, 0, 200],
-          // info => {
-          //   const defaultColor = [44, 48, 59, 200];
-          //   const brokenColor = [207, 222, 231, 200];
-          //   const workingColor = [10, 54, 157, 200];
-          //   const lockedColor = [207, 222, 231, 200];
-
-          //   if (info === undefined) {
-          //     return defaultColor;
-          //   }
-          //   if (info.properties['pump:status']) {
-          //     const status = info.properties['pump:status'];
-          //     switch (status) {
-          //       case 'unbekannt': {
-          //         return defaultColor;
-          //       }
-          //       case 'defekt': {
-          //         return brokenColor;
-          //       }
-          //       case 'funktionsfähig': {
-          //         return workingColor;
-          //       }
-          //       case 'locked': {
-          //         return lockedColor;
-          //       }
-          //     }
-          //   }
-          //   return [44, 48, 59, 200];
-          // },
-          getFillColor: pumpsColor, //[255, 255, 255, 255],
-          getRadius: 9,
-          pointRadiusMinPixels: 4,
-          pickable: true,
-          lineWidthScale: 3,
-          lineWidthMinPixels: 1.5,
-          onHover: info => {
-            if (info.object === undefined) {
-              this.setState({ isHovered: false });
-              return;
-            }
-            this.setState({ isHovered: true });
-            this.setState({
-              hoverObjectMessage: info.object.properties['pump:status'],
-            });
-            this.setState({ hoverObjectPointer: [info.x, info.y] });
-          },
         }),
       ];
 
@@ -658,9 +570,13 @@ export default connect(
     data: state.data,
     rainGeojson: state.rainGeojson,
     dataView: state.dataView,
+<<<<<<< HEAD
     pumps: state.pumps,
     pumpsVisible: state.pumpsVisible,
     isTreeDataLoading: state.isTreeDataLoading,
+=======
+    isLoading: state.isLoading,
+>>>>>>> show additional attributes, fix adopted / watered filter, remove pumps
     isNavOpen: state.isNavOpen,
     overlay: state.overlay,
     wateredTrees: wateredTreesSelector(state),

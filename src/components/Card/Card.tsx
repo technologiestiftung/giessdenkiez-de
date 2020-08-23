@@ -81,7 +81,9 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
 
   const {
     pflanzjahr,
+    artBot,
     artdtsch,
+    gattung,
     gattungdeutsch,
     caretaker,
   } = data;
@@ -125,7 +127,7 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
     }).catch(console.error);
   }, [user, selectedTree, treeAdopted]);
 
-  const treeType = treetypes.find(treetype => treetype.id === artdtsch);
+  const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
   return (
     <CardWrapper>
@@ -157,6 +159,12 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
           >
             <TreeType>{treeType.description}</TreeType>
           </CardAccordion>
+        )}
+        {artBot && (
+          <CardProperty name='Name (wiss.)' value={artBot} />
+        )}
+        {gattung && (
+          <CardProperty name='Gattung (wiss.)' value={gattung} />
         )}
         { standalter && (
           <>
