@@ -11,7 +11,7 @@ on:
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: A job to aggregate pumps data from open street maps
+    name: Aggregate pumps data from open street maps
     steps:
       # To use add these to the repo again
       # you must check out the repository
@@ -21,7 +21,7 @@ jobs:
         uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.0.2
         id: pumps
         with:
-          outfile-path: "test/pumps.geojson"
+          outfile-path: "public/data/pumps.geojson"
       # Use the output from the `pumps` step
       - name: File output
         run: echo "The file was written to ${{ steps.pumps.outputs.file }}"
@@ -29,10 +29,10 @@ jobs:
       - name: Add & Commit
         uses: EndBug/add-and-commit@v4.4.0 # You can change this to use a specific version
         with:
-          add: test
+          add: public/data
           author_name: tsboter
           author_email: roboter@tsb-berlin.de
-          message: "Update ${{ steps.pumps.outputs.file }} [ci skip] [skip ci]"
+          message: "Update ${{ steps.pumps.outputs.file }} via workflow"
         env:
           # This is necessary in order to push a commit to the repo
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
