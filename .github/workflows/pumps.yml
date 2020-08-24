@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to aggregate pumps data from open street maps
     steps:
+      # To use add these to the repo again
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Pumps data generate step
         uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.0.2
         id: pumps
