@@ -14,7 +14,7 @@ jobs:
     name: A job to aggregate pumps data from open street maps
     steps:
       - name: Pumps data generate step
-        uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.0.1
+        uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.0.2
         id: pumps
         with:
           outfile-path: "test/pumps.geojson"
@@ -28,7 +28,7 @@ jobs:
           add: out
           author_name: tsboter
           author_email: roboter@tsb-berlin.de
-          message: "Update ${{ steps.pumps.outputs.file }}"
+          message: "Update ${{ steps.pumps.outputs.file }} [ci skip] [skip ci]"
         env:
           # This is necessary in order to push a commit to the repo
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
