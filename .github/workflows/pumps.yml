@@ -17,7 +17,7 @@ jobs:
         uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.0.0
         id: pumps
         with:
-          outfile-path: "out/pumps.geojson"
+          outfile-path: "test/pumps.geojson"
       # Use the output from the `pumps` step
       - name: File output
         run: echo "The file was written to ${{ steps.pumps.outputs.file }}"
