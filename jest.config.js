@@ -22,6 +22,7 @@ module.exports = merge(config, {
     '!**/node_modules/**',
     '!**/coverage/**',
     '!src/deprecated/**/*',
+    '!src/**/*.stories.{ts,tsx}',
   ],
   // TODO: When we have some coverage we can activate this
   coverageThreshold: {
