@@ -19,7 +19,7 @@ import {
   requests,
   // checkGeolocationFeature,
 } from '../../utils';
-// import { HoverObject } from './pump-hover';
+import { HoverObject } from './HoverObject';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -48,9 +48,9 @@ class DeckGLMap extends React.Component {
     // this.geoLocationAvailable = false;
 
     this.state = {
-      // isHovered: false,
-      // hoverObjectPointer: [],
-      // hoverObjectMessage: '',
+      isHovered: false,
+      hoverObjectPointer: [],
+      hoverObjectMessage: '',
       hoveredObject: null,
       data: null,
       included: null,
@@ -120,7 +120,6 @@ class DeckGLMap extends React.Component {
               communityData,
             } = this.props;
             const { properties } = info;
-            // eslint-disable-next-line @typescript-eslint/camelcase
             const { id, radolan_sum, age } = properties;
 
             if (dataView === 'watered' && communityData[id]) {
@@ -205,28 +204,30 @@ class DeckGLMap extends React.Component {
           opacity: 1,
           visible: pumpsVisible,
           stroked: true,
-          filled: false,
+          filled: true,
           extruded: true,
           wireframe: true,
           getElevation: 1,
           getLineColor: [44, 48, 59, 200],
-          getFillColor: [0, 0, 0, 0],
+          getFillColor: [255, 255, 255, 255],
           getRadius: 9,
           pointRadiusMinPixels: 4,
           pickable: true,
           lineWidthScale: 2,
           lineWidthMinPixels: 1,
-          // onHover: info => {
-          //   if (info.object === undefined) {
-          //     this.setState({ isHovered: false });
-          //     return;
-          //   }
-          //   this.setState({ isHovered: true });
-          //   console.log(info);
-          //   this.setState({ hoverObjectMessage: info.object.geometry.type });
-          //   this.setState({ hoverObjectPointer: [info.x, info.y] });
-          //   console.log(this.state);
-          // },
+          onHover: info => {
+            if (info.object === undefined) {
+              this.setState({ isHovered: false });
+              return;
+            }
+            this.setState({ isHovered: true });
+            console.log(info);
+            this.setState({
+              hoverObjectMessage: info.object.properties['pump:status'],
+            });
+            this.setState({ hoverObjectPointer: [info.x, info.y] });
+            console.log(this.state);
+          },
         }),
       ];
 
@@ -297,9 +298,7 @@ class DeckGLMap extends React.Component {
         }
         const selectedTree = treeJson.data[0];
         // ISSUE:141
-        // eslint-disable-next-line @typescript-eslint/camelcase
         selectedTree.radolan_days = selectedTree.radolan_days.map(d => d / 10);
-        // eslint-disable-next-line @typescript-eslint/camelcase
         selectedTree.radolan_sum = selectedTree.radolan_sum / 10;
 
         store.setState({ selectedTreeState: 'LOADED', selectedTree });
@@ -536,13 +535,13 @@ class DeckGLMap extends React.Component {
       return (
         <>
           {/* THis code below could be used to display some info for the pumps */}
-          {/* {this.state.isHovered &&
+          {this.state.isHovered &&
             this.state.hoverObjectPointer.length === 2 && (
               <HoverObject
                 message={this.state.hoverObjectMessage}
                 pointer={this.state.hoverObjectPointer}
               ></HoverObject>
-            )} */}
+            )}
           <DeckGL
             layers={this._renderLayers()}
             initialViewState={viewport}
