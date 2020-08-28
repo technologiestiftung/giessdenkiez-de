@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Maps Pump HoverTip Hover Object Story 1`] = `
+<div>
+  <div
+    className="sc-AxirZ lhfSoP is-size-7"
+    height={0}
+    width={0}
+  >
+    <span
+      className="sc-AxjAm gFWave"
+    >
+      Status: 
+      unbekannt
+    </span>
+  </div>
+</div>
+`;
