@@ -79,16 +79,9 @@ export const loadData = (store: Store<StoreProps>) => async () => {
 
     const rainGeojson = await requests(dataUrl);
     store.setState({ rainGeojson });
-    // fetch(dataUrl)
-    //   .then(res => res.json())
-    //   .then(r => Store.setState({ rainGeojson: r }))
-    //   .catch(console.error);
-    const pumps = await requests('/data/pumps.geojson');
+    // load min version
+    const pumps = await requests('/data/pumps.geojson.min.json');
     store.setState({ pumps });
-    // fetch('/data/pumps.geojson')
-    //   .then(r => r.json())
-    //   .then(r => Store.setState({ pumps: r }))
-    //   .catch(console.error);
   } catch (error) {
     console.error(error);
   }
@@ -159,9 +152,7 @@ export const getTree = Store => async id => {
 
     if (res.data.length > 0) {
       // ISSUE:141
-      // eslint-disable-next-line @typescript-eslint/camelcase
       res.data[0].radolan_days = res.data[0].radolan_days.map(d => d / 10);
-      // eslint-disable-next-line @typescript-eslint/camelcase
       res.data[0].radolan_sum = res.data[0].radolan_sum / 10;
 
       return {

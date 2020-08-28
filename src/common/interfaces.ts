@@ -23,7 +23,7 @@ export interface StoreProps {
   highlightedObject: boolean;
   user: boolean;
   rainVisible: boolean;
-  rainGeojson: null | null;
+  rainGeojson: Generic | null;
   adoptedTreesDetails: any;
   csvdata: null;
   ageRange: number[];
