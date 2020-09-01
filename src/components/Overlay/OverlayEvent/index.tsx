@@ -5,7 +5,7 @@ interface StyledProps {
   active?: boolean;
   size?: string;
 }
-const StyledOverlayTitle = styled.h2<StyledProps>`
+const StyledOverlayEvent = styled.h2<StyledProps>`
   font-size: ${p => {
     switch (p.size) {
       case 'xxl':
@@ -15,7 +15,7 @@ const StyledOverlayTitle = styled.h2<StyledProps>`
       case 'large':
         return p.theme.fontSizeL;
       case 'Ll':
-          return p.theme.fontSizeLl;
+        return p.theme.fontSizeLl;
       case 'medium':
         return p.theme.fontSizeM;
       case 'small':
@@ -25,6 +25,9 @@ const StyledOverlayTitle = styled.h2<StyledProps>`
       }
     }
   }};
+  background-color: ${p => p.theme.colorPrimary};
+  color: white;
+  padding: 1rem;
   font-weight: normal;
   line-height: ${p => p.theme.lineHeightHeadline};
   margin: 0px 40px 20px 40px;
@@ -42,16 +45,16 @@ const StyledOverlayTitle = styled.h2<StyledProps>`
   }
 `;
 
-const OverlayTitle: React.FC<{ title: string; size?: any }> = ({
+const OverlayEvent: React.FC<{ title: string; size?: any }> = ({
   title,
   size,
 }) => {
   return (
-    <StyledOverlayTitle
+    <StyledOverlayEvent
       size={size}
       dangerouslySetInnerHTML={{ __html: `${title}` }}
     />
   );
 };
 
-export default OverlayTitle;
+export default OverlayEvent;
