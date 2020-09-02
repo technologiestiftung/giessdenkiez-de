@@ -1,7 +1,11 @@
 // @ts-nockeck
 import React from 'react';
 import { connect } from 'unistore/react';
-import Actions from '../../state/Actions';
+import Actions, {
+  missingBeamPumpText,
+  lockedpumpText,
+} from '../../state/Actions';
+
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 import {
@@ -20,6 +24,7 @@ import {
   // checkGeolocationFeature,
 } from '../../utils';
 import { HoverObject } from './HoverObject';
+import { Generic } from '../../common/interfaces';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -40,7 +45,44 @@ let map = null;
 let selectedStateId = false;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
+type RGBAColor = [number, number, number, number];
+const pumpsColor: (info: Generic) => RGBAColor = info => {
+  // console.log(info);
+  const defaultColor: RGBAColor = [44, 48, 59, 200];
+  const brokenColor: RGBAColor = [207, 222, 231, 200];
+  const workingColor: RGBAColor = [10, 54, 157, 200];
+  const lockedColor: RGBAColor = [207, 222, 231, 200];
 
+  if (info === undefined) {
+    return defaultColor;
+  }
+  if (info.properties['pump:status']) {
+    const status = info.properties['pump:status'];
+    switch (status) {
+      case 'unbekannt': {
+        return defaultColor;
+      }
+      case 'defekt': {
+        return brokenColor;
+      }
+      case 'funktionsfähig': {
+        return workingColor;
+      }
+      case lockedpumpText: {
+        return lockedColor;
+        // lockedColor;
+      }
+      case missingBeamPumpText: {
+        return lockedColor;
+      }
+
+      default: {
+        return defaultColor;
+      }
+    }
+  }
+  return defaultColor;
+};
 class DeckGLMap extends React.Component {
   constructor(props) {
     super(props);
@@ -208,8 +250,37 @@ class DeckGLMap extends React.Component {
           extruded: true,
           wireframe: true,
           getElevation: 1,
-          getLineColor: [44, 48, 59, 200],
-          getFillColor: [255, 255, 255, 255],
+          getLineColor: pumpsColor,
+          // info => {
+          //   // console.log(info);
+          //   const defaultColor = [44, 48, 59, 200];
+          //   const brokenColor = [207, 222, 231, 200];
+          //   const workingColor = [10, 54, 157, 200];
+          //   const lockedColor = [207, 222, 231, 200];
+
+          //   if (info === undefined) {
+          //     return defaultColor;
+          //   }
+          //   if (info.properties['pump:status']) {
+          //     const status = info.properties['pump:status'];
+          //     switch (status) {
+          //       case 'unbekannt': {
+          //         return defaultColor;
+          //       }
+          //       case 'defekt': {
+          //         return brokenColor;
+          //       }
+          //       case 'funktionsfähig': {
+          //         return workingColor;
+          //       }
+          //       case 'locked': {
+          //         return lockedColor;
+          //       }
+          //     }
+          //   }
+          //   return [44, 48, 59, 200];
+          // },
+          getFillColor: pumpsColor, //[255, 255, 255, 255],
           getRadius: 9,
           pointRadiusMinPixels: 4,
           pickable: true,
@@ -221,12 +292,12 @@ class DeckGLMap extends React.Component {
               return;
             }
             this.setState({ isHovered: true });
-            console.log(info);
+            // console.log(info);
             this.setState({
               hoverObjectMessage: info.object.properties['pump:status'],
             });
             this.setState({ hoverObjectPointer: [info.x, info.y] });
-            console.log(this.state);
+            // console.log(this.state);
           },
         }),
       ];
