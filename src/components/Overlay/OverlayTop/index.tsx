@@ -68,13 +68,6 @@ const OverlayTop = p => {
         <OverlayBeta />
       </Wrapper>
       <OverlayTitle size='xxl' title={subline} />
-      <div>
-      {eventNote && (
-        <>
-          <OverlayEvent size='Ll' title={eventNote.title} />
-        </>
-      )}
-      </div>
       {isMobile && <OverlayTitle size='medium' title={disclaimer} />}
       {/* the beow is here for local testing */}
       {/* {true && <OverlayTitle size='medium' content={disclaimer} />} */}
@@ -88,6 +81,7 @@ const OverlayTop = p => {
         </ButtonRound>
         <Login width='fit-content' noLogout={true} />
       </StyledWrapper>
+      {eventNote && <OverlayEvent size='Ll' title={eventNote.title} />}
       {whatsNew && (
         <>
           <OverlayTitle size='xl' title={whatsNew.title} />
