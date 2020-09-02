@@ -81,13 +81,12 @@ const OverlayTop = p => {
         </ButtonRound>
         <Login width='fit-content' noLogout={true} />
       </StyledWrapper>
-      {eventNote && <OverlayEvent size='Ll' title={eventNote.title} />}
-      {whatsNew && (
-        <>
-          <OverlayTitle size='xl' title={whatsNew.title} />
-          <OverlayDescription content={whatsNew.description} />
-        </>
+      {(eventNote !== undefined || whatsNew !== undefined) && (
+        <OverlayTitle size='xl' title={'News & Updates'} />
       )}
+
+      {eventNote && <OverlayEvent size='Ll' title={eventNote.title} />}
+      {whatsNew && <OverlayDescription content={whatsNew.description} />}
     </StyledTop>
   );
 };

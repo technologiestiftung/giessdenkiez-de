@@ -26,7 +26,7 @@ const StyledOverlayEvent = styled.h2<StyledProps>`
     }
   }};
   background-color: ${p => p.theme.colorPrimary};
-  color: white;
+  color: black;
   padding: 1rem;
   font-weight: normal;
   border-radius: 4px;
@@ -40,6 +40,9 @@ const StyledOverlayEvent = styled.h2<StyledProps>`
   }
   span {
     color: ${p => p.theme.colorPrimary};
+  }
+  a {
+    color: black;
   }
 `;
 
