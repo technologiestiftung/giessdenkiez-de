@@ -8,6 +8,7 @@ import { connect } from 'unistore/react';
 // import history from '../../../history';
 
 import OverlayTitle from '../OverlayTitle/';
+import OverlayEvent from '../OverlayEvent/';
 import OverlayIcon from '../OverlayIcon/';
 import OverlayBeta from '../OverlayBeta/';
 import OverlayDescription from '../OverlayDescription/';
@@ -50,7 +51,7 @@ const StyledWrapper = styled.div`
 
 const OverlayTop = p => {
   const { children, toggleOverlay } = p;
-  const { intro, whatsNew } = content;
+  const { intro, eventNote, whatsNew } = content;
 
   const { title, subline, description, disclaimer } = intro;
 
@@ -67,7 +68,6 @@ const OverlayTop = p => {
         <OverlayBeta />
       </Wrapper>
       <OverlayTitle size='xxl' title={subline} />
-
       {isMobile && <OverlayTitle size='medium' title={disclaimer} />}
       {/* the beow is here for local testing */}
       {/* {true && <OverlayTitle size='medium' content={disclaimer} />} */}
@@ -81,12 +81,12 @@ const OverlayTop = p => {
         </ButtonRound>
         <Login width='fit-content' noLogout={true} />
       </StyledWrapper>
-      {whatsNew && (
-        <>
-          <OverlayTitle size='xl' title={whatsNew.title} />
-          <OverlayDescription content={whatsNew.description} />
-        </>
+      {(eventNote !== undefined || whatsNew !== undefined) && (
+        <OverlayTitle size='xl' title={'News & Updates'} />
       )}
+
+      {eventNote && <OverlayEvent size='Ll' title={eventNote.title} />}
+      {whatsNew && <OverlayDescription content={whatsNew.description} />}
     </StyledTop>
   );
 };
