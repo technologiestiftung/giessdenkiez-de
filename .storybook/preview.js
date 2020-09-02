@@ -1,6 +1,6 @@
 import { withThemesProvider } from 'themeprovider-storybook';
 import * as theming from '../src/assets/theme';
-import '../src/assets/style.scss';
+// import style from '../src/assets/style.scss';
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };

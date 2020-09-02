@@ -1,18 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Storyshots Maps Pump HoverTip Hover Object Story 1`] = `
-<div>
-  <div
-    className="sc-AxirZ lhfSoP is-size-7"
-    height={0}
-    width={0}
-  >
-    <span
-      className="sc-AxjAm gFWave"
+Array [
+  <div>
+    <div
+      className="sc-AxheI gMHGLM is-size-7"
+      height={0}
+      width={0}
     >
-      Status: 
-      unbekannt
-    </span>
-  </div>
-</div>
+      <span
+        className="sc-AxgMl kSACOy"
+      >
+        <b>
+          Status:
+        </b>
+         
+        unbekannt
+      </span>
+    </div>
+  </div>,
+  <div />,
+]
 `;
