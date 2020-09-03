@@ -1,15 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Legend Legend Story 1`] = `
+Array [
+  <div
+    className="sc-fzoLag dMBwzu"
+  >
+    <div
+      className="sc-fzqNJr hhOPjI"
+    >
+      <div
+        className="sc-fzoyAV bjPTFw"
+      >
+        <span
+          className="sc-AxgMl sc-fzoXzr ljZEme"
+          onClick={[Function]}
+        >
+          Legende
+        </span>
+      </div>
+      <span
+        className="sc-fznxsB dElQrK"
+        onClick={[Function]}
+      >
+        +
+      </span>
+    </div>
+  </div>,
+  <div />,
+]
+`;
+
 exports[`Storyshots Maps Pump HoverTip Hover Object Story 1`] = `
 Array [
   <div>
     <div
-      className="sc-AxheI gMHGLM is-size-7"
+      className="sc-fznWqX kzijlp is-size-7"
       height={0}
       width={0}
     >
       <span
-        className="sc-AxgMl kSACOy"
+        className="sc-fznJRM gHCkaG"
       >
         <b>
           Status:
