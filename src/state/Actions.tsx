@@ -5,8 +5,6 @@ import { createAPIUrl, createGeojson, requests } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
 import { Store } from 'unistore';
 import { StoreProps, Generic } from '../common/interfaces';
-export const missingBeamPumpText = 'Schwengel fehlt';
-export const lockedpumpText = 'abgeschlossen';
 export const loadTrees = (store: Store<StoreProps>) => async () => {
   if (isMobile) {
     store.setState({
@@ -82,15 +80,6 @@ export const loadData = (store: Store<StoreProps>) => async () => {
     store.setState({ rainGeojson });
     // load min version
     const pumps = await requests('/data/pumps.geojson.min.json');
-
-    pumps.features.forEach((pump: Generic, i: number, arr: Generic[]) => {
-      if (pump.properties['pump:status'] === 'missing_beam') {
-        arr[i].properties['pump:status'] = missingBeamPumpText;
-      }
-      if (pump.properties['pump:status'] === 'locked') {
-        arr[i].properties['pump:status'] = lockedpumpText;
-      }
-    });
     store.setState({ pumps });
   } catch (error) {
     console.error(error);
