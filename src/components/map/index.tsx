@@ -1,10 +1,7 @@
 // @ts-nockeck
 import React from 'react';
 import { connect } from 'unistore/react';
-import Actions, {
-  missingBeamPumpText,
-  lockedpumpText,
-} from '../../state/Actions';
+import Actions from '../../state/Actions';
 
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
@@ -25,6 +22,13 @@ import {
 } from '../../utils';
 import { HoverObject } from './HoverObject';
 import { Generic } from '../../common/interfaces';
+import {
+  RGBAColor,
+  defaultColor,
+  brokenColor,
+  workingColor,
+  lockedColor,
+} from './colors';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -45,43 +49,32 @@ let map = null;
 let selectedStateId = false;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
-type RGBAColor = [number, number, number, number];
 const pumpsColor: (info: Generic) => RGBAColor = info => {
-  // console.log(info);
-  const defaultColor: RGBAColor = [44, 48, 59, 200];
-  const brokenColor: RGBAColor = [207, 222, 231, 200];
-  const workingColor: RGBAColor = [10, 54, 157, 200];
-  const lockedColor: RGBAColor = [207, 222, 231, 200];
-
   if (info === undefined) {
-    return defaultColor;
+    return defaultColor.rgba;
   }
   if (info.properties['pump:status']) {
     const status = info.properties['pump:status'];
     switch (status) {
       case 'unbekannt': {
-        return defaultColor;
+        return defaultColor.rgba;
       }
       case 'defekt': {
-        return brokenColor;
+        return brokenColor.rgba;
       }
       case 'funktionsfähig': {
-        return workingColor;
+        return workingColor.rgba;
       }
-      case lockedpumpText: {
-        return lockedColor;
-        // lockedColor;
-      }
-      case missingBeamPumpText: {
-        return lockedColor;
+      case 'verriegelt': {
+        return lockedColor.rgba;
       }
 
       default: {
-        return defaultColor;
+        return defaultColor.rgba;
       }
     }
   }
-  return defaultColor;
+  return defaultColor.rgba;
 };
 class DeckGLMap extends React.Component {
   constructor(props) {
@@ -250,7 +243,7 @@ class DeckGLMap extends React.Component {
           extruded: true,
           wireframe: true,
           getElevation: 1,
-          getLineColor: pumpsColor,
+          getLineColor: defaultColor.rgba,
           // info => {
           //   // console.log(info);
           //   const defaultColor = [44, 48, 59, 200];
@@ -606,7 +599,8 @@ class DeckGLMap extends React.Component {
       return (
         <>
           {/* THis code below could be used to display some info for the pumps */}
-          {this.state.isHovered &&
+          {isMobile === false &&
+            this.state.isHovered === true &&
             this.state.hoverObjectPointer.length === 2 && (
               <HoverObject
                 message={this.state.hoverObjectMessage}
