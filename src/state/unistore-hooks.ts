@@ -78,7 +78,7 @@ function bindActionsToStore(actions, store) {
   return bound;
 }
 
-export function useActions(actions, mapping, deps) {
+export function useActions(actions, mapping?, deps?) {
   if (typeof deps == 'function') [deps, mapping] = [mapping, deps];
   const store = useContext(StoreContext);
   const boundActions = useMemo(() => bindActionsToStore(actions, store), [

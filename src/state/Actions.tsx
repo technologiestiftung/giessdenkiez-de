@@ -199,7 +199,10 @@ export const getTreeByAge = Store => async (
   }
 };
 
-export const toggleOverlay = (_state, payload) => ({
+export const toggleOverlay: (_state: any, payload: any) => { overlay: any } = (
+  _state,
+  payload
+) => ({
   overlay: payload,
 });
 

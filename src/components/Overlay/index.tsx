@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import OverlayClose from './OverlayClose';
 import OverlayTop from './OverlayTop';
 import OverlayBottom from './OverlayBottom';
+import { useActions } from '../../state/unistore-hooks';
+import Actions from '../../state/Actions';
 
 const StyledWrapper = styled.div`
   width: 60%;
@@ -46,12 +48,14 @@ const Wrapper = styled.div`
 `;
 
 const Overlay: () => JSX.Element = () => {
+  const { toggleOverlay } = useActions(Actions);
+
   return (
     <StyledOverlayWrapper>
       <StyledWrapper>
         <Wrapper>
-          <OverlayTop>
-            <OverlayClose />
+          <OverlayTop toggleOverlay={toggleOverlay}>
+            <OverlayClose toggleOverlay={toggleOverlay} />
           </OverlayTop>
           <OverlayBottom />
         </Wrapper>
