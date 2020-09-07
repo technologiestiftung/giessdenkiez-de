@@ -156,7 +156,7 @@ const content: Content = {
         color="#22a884"
       ></div>
     </div>`,
-      'Hinzu kommen Updates der Open Source Bibliotheken die wir verwenden um die Seite schneller und stabiler laufen zu lassen. Ebenfalls wurden von euch einige Fehler gefunden und von uns behoben.',
+      'Ebenfalls haben wir unsere Pumpen-Daten geupdated. Die kommen jetzt jede Woche frisch von Open Street Maps und zeigen ob Pumpen: "funktionsfähig", "defekt" oder "verriegelt" sind. Für einige gibt es leider noch den Status "unbekannt".',
     ],
   },
   loading: {

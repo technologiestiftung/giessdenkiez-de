@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
-import Actions from '../../../state/Actions';
-import { connect } from 'unistore/react';
+// import Actions from '../../../state/Actions';
+// import { connect } from 'unistore/react';
 
 import RoundButton from '../../../components/RoundButton';
 
@@ -32,5 +32,5 @@ const OverlayClose = p => {
 };
 
 // export default OverlayClose;
-
-export default connect(_state => ({}), Actions)(OverlayClose);
+export default OverlayClose;
+// export default connect(_state => ({}), Actions)(OverlayClose);
