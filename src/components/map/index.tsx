@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
+
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 import {
@@ -19,7 +20,15 @@ import {
   requests,
   // checkGeolocationFeature,
 } from '../../utils';
-// import { HoverObject } from './pump-hover';
+import { HoverObject } from './HoverObject';
+import { Generic } from '../../common/interfaces';
+import {
+  RGBAColor,
+  defaultColor,
+  brokenColor,
+  workingColor,
+  lockedColor,
+} from './colors';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -40,7 +49,33 @@ let map = null;
 let selectedStateId = false;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
+const pumpsColor: (info: Generic) => RGBAColor = info => {
+  if (info === undefined) {
+    return defaultColor.rgba;
+  }
+  if (info.properties['pump:status']) {
+    const status = info.properties['pump:status'];
+    switch (status) {
+      case 'unbekannt': {
+        return defaultColor.rgba;
+      }
+      case 'defekt': {
+        return brokenColor.rgba;
+      }
+      case 'funktionsfähig': {
+        return workingColor.rgba;
+      }
+      case 'verriegelt': {
+        return lockedColor.rgba;
+      }
 
+      default: {
+        return defaultColor.rgba;
+      }
+    }
+  }
+  return defaultColor.rgba;
+};
 class DeckGLMap extends React.Component {
   constructor(props) {
     super(props);
@@ -48,9 +83,9 @@ class DeckGLMap extends React.Component {
     // this.geoLocationAvailable = false;
 
     this.state = {
-      // isHovered: false,
-      // hoverObjectPointer: [],
-      // hoverObjectMessage: '',
+      isHovered: false,
+      hoverObjectPointer: [],
+      hoverObjectMessage: '',
       hoveredObject: null,
       data: null,
       included: null,
@@ -120,7 +155,6 @@ class DeckGLMap extends React.Component {
               communityData,
             } = this.props;
             const { properties } = info;
-            // eslint-disable-next-line @typescript-eslint/camelcase
             const { id, radolan_sum, age } = properties;
 
             if (dataView === 'watered' && communityData[id]) {
@@ -205,28 +239,59 @@ class DeckGLMap extends React.Component {
           opacity: 1,
           visible: pumpsVisible,
           stroked: true,
-          filled: false,
+          filled: true,
           extruded: true,
           wireframe: true,
           getElevation: 1,
-          getLineColor: [44, 48, 59, 200],
-          getFillColor: [0, 0, 0, 0],
+          getLineColor: [0, 0, 0, 200],
+          // info => {
+          //   // console.log(info);
+          //   const defaultColor = [44, 48, 59, 200];
+          //   const brokenColor = [207, 222, 231, 200];
+          //   const workingColor = [10, 54, 157, 200];
+          //   const lockedColor = [207, 222, 231, 200];
+
+          //   if (info === undefined) {
+          //     return defaultColor;
+          //   }
+          //   if (info.properties['pump:status']) {
+          //     const status = info.properties['pump:status'];
+          //     switch (status) {
+          //       case 'unbekannt': {
+          //         return defaultColor;
+          //       }
+          //       case 'defekt': {
+          //         return brokenColor;
+          //       }
+          //       case 'funktionsfähig': {
+          //         return workingColor;
+          //       }
+          //       case 'locked': {
+          //         return lockedColor;
+          //       }
+          //     }
+          //   }
+          //   return [44, 48, 59, 200];
+          // },
+          getFillColor: pumpsColor, //[255, 255, 255, 255],
           getRadius: 9,
           pointRadiusMinPixels: 4,
           pickable: true,
-          lineWidthScale: 2,
-          lineWidthMinPixels: 1,
-          // onHover: info => {
-          //   if (info.object === undefined) {
-          //     this.setState({ isHovered: false });
-          //     return;
-          //   }
-          //   this.setState({ isHovered: true });
-          //   console.log(info);
-          //   this.setState({ hoverObjectMessage: info.object.geometry.type });
-          //   this.setState({ hoverObjectPointer: [info.x, info.y] });
-          //   console.log(this.state);
-          // },
+          lineWidthScale: 3,
+          lineWidthMinPixels: 1.5,
+          onHover: info => {
+            if (info.object === undefined) {
+              this.setState({ isHovered: false });
+              return;
+            }
+            this.setState({ isHovered: true });
+            // console.log(info);
+            this.setState({
+              hoverObjectMessage: info.object.properties['pump:status'],
+            });
+            this.setState({ hoverObjectPointer: [info.x, info.y] });
+            // console.log(this.state);
+          },
         }),
       ];
 
@@ -297,9 +362,7 @@ class DeckGLMap extends React.Component {
         }
         const selectedTree = treeJson.data[0];
         // ISSUE:141
-        // eslint-disable-next-line @typescript-eslint/camelcase
         selectedTree.radolan_days = selectedTree.radolan_days.map(d => d / 10);
-        // eslint-disable-next-line @typescript-eslint/camelcase
         selectedTree.radolan_sum = selectedTree.radolan_sum / 10;
 
         store.setState({ selectedTreeState: 'LOADED', selectedTree });
@@ -536,13 +599,14 @@ class DeckGLMap extends React.Component {
       return (
         <>
           {/* THis code below could be used to display some info for the pumps */}
-          {/* {this.state.isHovered &&
+          {isMobile === false &&
+            this.state.isHovered === true &&
             this.state.hoverObjectPointer.length === 2 && (
               <HoverObject
                 message={this.state.hoverObjectMessage}
                 pointer={this.state.hoverObjectPointer}
               ></HoverObject>
-            )} */}
+            )}
           <DeckGL
             layers={this._renderLayers()}
             initialViewState={viewport}

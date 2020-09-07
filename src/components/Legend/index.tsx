@@ -2,15 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 import { interpolateColor } from '../../utils/';
 import store from '../../state/Store';
-import { connect } from 'unistore/react';
-import Actions from '../../state/Actions';
-
+// import { connect } from 'unistore/react';
+// import Actions from '../../state/Actions';
+import { useStoreState } from '../../state/unistore-hooks';
 import CardDescription from '../Card/CardDescription/';
+import {
+  workingColor,
+  defaultColor,
+  brokenColor,
+  lockedColor,
+} from '../map/colors';
 
 interface StyledProps {
   active?: boolean;
 }
 
+interface FlexColumnProps {
+  isLast?: boolean;
+}
 interface ItemContainerProps extends StyledProps {
   active?: boolean;
 }
@@ -30,13 +39,30 @@ const ItemContainer = styled.div<ItemContainerProps>`
 //   margin-bottom: 10px;
 //   transform: translateX(-4px);
 // `;
-
 const LegendDot = styled.div`
   width: 13px;
   height: 13px;
   border-radius: 100px;
   margin-right: 5px;
   background-color: ${p => p.color};
+`;
+
+interface PumpsDot {
+  color: string;
+  size: number;
+}
+const PumpsDot = styled.div<PumpsDot>`
+  width: ${p => p.size + 1}px;
+  height: ${p => p.size}px;
+  border-radius: ${p => p.size / 2}px;
+  margin-right: 6px;
+  background-color: ${p => p.color};
+`;
+
+const PumpLabel = styled.label`
+  font-size: ${p => p.theme.fontSizeL};
+  opacity: 0.66;
+  width: 100%;
 `;
 
 const LegendRect = styled.div`
@@ -81,6 +107,18 @@ const UnstyledFlex = styled(Flex)`
   margin-bottom: 0;
 `;
 
+const FlexRow = styled.div`
+  display: flex;
+  flex-direction: colmun;
+  height: 16px;
+  line-height: 16px;
+  padding: 4px 9px;
+  width: 100%;
+  align-items: center;
+
+  margin-right: 10px;
+`;
+
 const UnstyledFlexWidth = styled(UnstyledFlex)<StyledProps>`
   border-bottom: none;
   width: fit-content;
@@ -107,9 +145,10 @@ const FlexSpace = styled.div<StyledProps>`
   justify-content: space-between;
 `;
 
-const FlexColumn = styled.div`
+const FlexColumn = styled.div<FlexColumnProps>`
   display: flex;
   flex-direction: column;
+  ${props => (props.isLast === true ? 'margin-top:auto;' : '')}
 `;
 
 const LegendDiv = styled.div<StyledProps>`
@@ -123,6 +162,7 @@ const LegendDiv = styled.div<StyledProps>`
   font-size: 12px;
   box-shadow: ${p => p.theme.boxShadow};
   height: min-content;
+  ${props => (props.active ? 'min-height: 230px;' : '')}
   padding: 12px;
   width: ${p => (p.active ? '210px' : '90px')};
   background: white;
@@ -174,9 +214,18 @@ const StyledToggle = styled.span`
     opacity: 0.66;
   }
 `;
+export interface LegendProps {
+  treesVisible: boolean;
+  rainVisible: boolean;
+  pumpsVisible: boolean;
+  legendExpanded: boolean;
+}
+const Legend: React.FC = () => {
+  const { legendExpanded } = useStoreState('legendExpanded');
+  const { pumpsVisible } = useStoreState('pumpsVisible');
+  const { rainVisible } = useStoreState('rainVisible');
+  const { treesVisible } = useStoreState('treesVisible');
 
-const Legend = p => {
-  const { treesVisible, rainVisible, pumpsVisible, legendExpanded } = p;
   return (
     <LegendDiv active={legendExpanded}>
       <FlexSpace active={legendExpanded}>
@@ -184,9 +233,19 @@ const Legend = p => {
           <StyledCardDescription
             onClick={() => store.setState({ legendExpanded: !legendExpanded })}
           >
-            {legendExpanded ? 'Niederschlag' : 'Legende'}
+            {(() => {
+              if (legendExpanded) {
+                if (pumpsVisible) {
+                  return 'Öffentliche Pumpen';
+                }
+                return 'Niederschlag';
+              } else {
+                return 'Legende';
+              }
+            })()}
+            {/* {legendExpanded ? 'Niederschlag' : 'Legende'} */}
           </StyledCardDescription>
-          {legendExpanded && (
+          {legendExpanded === true && pumpsVisible === false && (
             <StyledCardDescriptionSecond>
               der letzten 30 Tage (Liter)
             </StyledCardDescriptionSecond>
@@ -198,7 +257,7 @@ const Legend = p => {
           {legendExpanded ? '—' : '+'}
         </StyledToggle>
       </FlexSpace>
-      {legendExpanded && (
+      {legendExpanded === true && pumpsVisible === false && (
         <UnstyledFlex>
           {legendArray.map((item, i) => (
             <React.Fragment key={i}>
@@ -210,8 +269,30 @@ const Legend = p => {
           ))}
         </UnstyledFlex>
       )}
+      {legendExpanded === true && pumpsVisible === true && (
+        <UnstyledFlex>
+          <FlexRow>
+            <PumpsDot color={workingColor.hex} size={13} />
+            <PumpLabel>{'funktionsfähig'}</PumpLabel>
+          </FlexRow>
+          <FlexRow>
+            <PumpsDot color={brokenColor.hex} size={13} />
+            <PumpLabel>{'defekt'}</PumpLabel>
+          </FlexRow>
+
+          <FlexRow>
+            <PumpsDot color={lockedColor.hex} size={13} />
+            <PumpLabel>{'verriegelt'}</PumpLabel>
+          </FlexRow>
+
+          <FlexRow>
+            <PumpsDot color={defaultColor.hex} size={13} />
+            <PumpLabel>{'unbekannt'}</PumpLabel>
+          </FlexRow>
+        </UnstyledFlex>
+      )}
       {legendExpanded && (
-        <FlexColumn>
+        <FlexColumn isLast={true}>
           <StyledCardDescription>Datenpunkte</StyledCardDescription>
           <StyledCardDescriptionSecond>
             durch Klick ein- & ausblenden.
@@ -236,7 +317,7 @@ const Legend = p => {
             }}
           >
             <StrokedLegendDot />
-            <StyledItemLabel>Öffentl. Pumpe</StyledItemLabel>
+            <StyledItemLabel>Öffentl. Pumpen</StyledItemLabel>
           </UnstyledFlexWidth>
           <UnstyledFlexWidth
             active={rainVisible}
@@ -255,12 +336,14 @@ const Legend = p => {
   );
 };
 
-export default connect(
-  state => ({
-    treesVisible: state.treesVisible,
-    rainVisible: state.rainVisible,
-    legendExpanded: state.legendExpanded,
-    pumpsVisible: state.pumpsVisible,
-  }),
-  Actions
-)(Legend);
+// export default connect(
+//   state => ({
+//     treesVisible: state.treesVisible,
+//     rainVisible: state.rainVisible,
+//     legendExpanded: state.legendExpanded,
+//     pumpsVisible: state.pumpsVisible,
+//   }),
+//   Actions
+// )(Legend);
+
+export default Legend;

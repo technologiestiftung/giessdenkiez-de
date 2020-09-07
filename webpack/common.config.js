@@ -8,7 +8,6 @@ const { setupMSW } = require('./service-worker-setup');
 const path = require('path');
 const domain = 'https://www.giessdenkiez.de';
 
-
 setupMSW();
 
 module.exports = {

@@ -1,9 +1,10 @@
 import React, { cloneElement, Children } from 'react';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-import Actions from '../../../state/Actions';
+// import Actions from '../../../state/Actions';
 import store from '../../../state/Store';
-import { connect } from 'unistore/react';
+// import { connect } from 'unistore/react';
+// import { useStoreState } from '../../../state/unistore-hooks';
 
 // import history from '../../../history';
 
@@ -91,9 +92,11 @@ const OverlayTop = p => {
   );
 };
 
-export default connect(
-  state => ({
-    user: state.user,
-  }),
-  Actions
-)(OverlayTop);
+// export default connect(
+//   state => ({
+//     user: state.user,
+//   }),
+//   Actions
+// )(OverlayTop);
+
+export default OverlayTop;

@@ -1,3 +1,9 @@
+import {
+  workingColor,
+  lockedColor,
+  brokenColor,
+  defaultColor,
+} from '../components/map/colors';
 interface Item {
   title: string;
   description: string;
@@ -76,6 +82,12 @@ const content: Content = {
           'Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Jungbäume <br> (0-15 Jahre), benötigen mehr Wasser als mittelalte Bäume (15-40 Jahre). Altbäume (ab 40 Jahre) sind meist komplette Selbstversorger. <br>Da frisch gepflanzte Bäume bis zum Alter von drei Jahren in der Regel von den bezirklichen Grünflächenämtern mit Wasser versorgt werden, benötigen besonders die Bäume zwischen vier und 15 Jahren unsere Aufmerksamkeit, beziehungsweise unser Wasser. Dies haben wir mit den Kennzeichungen des geringen, mittleren oder hohen Wasserbedarfs hervorgehoben.<br><br> Angelehnt an das Berliner <a traget="blank" href="https://www.berlin.de/senuvk/umwelt/stadtgruen/pflege_unterhaltung/de/hgp/index.shtml">Handbuch Gute Pflege</a> empfehlen wir euch, lieber seltener zu wässern, dafür mit einer größeren Menge an Wasser. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Im Endeffekt schaden aber auch kleinere Mengen gerade im Hochsommer nicht. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht wegläuft oder sich falsch anstaut. Auch zu empfehlen sind sog. Gießsäcke aus denen das Wasser nur sehr langsam ausstritt, kaum oberflächig abläuft und somit kontinuierlich in den Boden sickert.',
       },
       {
+        question:
+          'An wen kann ich mich wenden, wenn Pumpen kaputt oder beschädigt sind?',
+        answer: `Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Die Standorte der Pumpen in der Karte werden regelmäßig aus der Open Street Map geladen. Wenn Ihr helfen wollt die Daten zu verbessern, indem ihr zum Beispiel eine defekte Pumpe meldet, könnt ihr das in unserem <a target="blank" href=" https://app.slack.com/client/T012K4SDYBY/">Slack Channel #pumpen-melden </a>
+        tun. Die OSM-Community hat dann die Möglichkeit eure Informationen in die Datenbank einzutragen.`,
+      },
+      {
         question: 'Wie wird mit technischen Problemen umgegangen?',
         answer:
           'Bei der Beteiligungsplattform “Giess den Kiez” handelt es sich um einen Prototypen, respektive um eine Beta-Version einer Web-App. Wir sind uns einigen technischen Hürden bewusst und wollen die Plattform in Zukunft performanter und stabiler gestalten, bitten euch aber diesbezüglich um etwas Geduld und Verständnis. <br><br> Euer technisches Feedback und eure Fragen nehmen wir gerne in unserem <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack Channel</a> oder per Mail entgegen. Wer sich in der “Tech-Welt” zu Hause fühlt, ist herzlich zur Mitarbeit in unserem <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">Open Source GitHub Repository</a> eingeladen und kann seine Issues oder Code Fixes direkt in das Repository kommentieren.',
@@ -137,7 +149,7 @@ const content: Content = {
   whatsNew: {
     title: 'Was ist neu?',
     description: [
-      `Wir haben die Farben angepasst, damit der Wasserbedarf der Berliner Bäume intuitiver zu erfassen ist. Es beginnt bei einem trockenem Gelb und geht bis in ein sattes Grün.<br /><br /><div style="display:flex">
+      `Wir haben die Farben angepasst, damit der Wasserbedarf der Berliner Bäume intuitiver zu erfassen ist. Es beginnt bei einem trockenem Gelb und geht bis in ein sattes Grün.<br /><div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
       <div
         style=" background-color:#fde725; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
         color="#fde725"
@@ -162,8 +174,46 @@ const content: Content = {
         style=" background-color:#22a884; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
         color="#22a884"
       ></div>
-    </div>`,
-      'Hinzu kommen Updates der Open Source Bibliotheken die wir verwenden um die Seite schneller und stabiler laufen zu lassen. Ebenfalls wurden von euch einige Fehler gefunden und von uns behoben.',
+    </div> Ebenfalls haben wir unsere Pumpen-Daten geupdated. Die kommen jetzt jede Woche frisch von Open Street Maps. `,
+      `Ihr könnt sehen ob Pumpen: "funktionsfähig" <span
+       style=
+       "display: inline-block;
+        background-color: ${workingColor.hex};
+        width: 13px;
+        height: 13px;
+        border-radius: 100px;
+        margin-right: 5px;"
+
+        color="${workingColor.hex}"
+        ></span>,
+        "defekt" <span
+        style=
+        "display: inline-block;
+         background-color: ${brokenColor.hex};
+         width: 13px;
+         height: 13px;
+         border-radius: 100px;
+         margin-right: 5px;"
+        color="${brokenColor.hex}"
+        ></span> oder "verriegelt" <span
+        style=
+        "display: inline-block;
+         background-color: ${lockedColor.hex};
+         width: 13px;
+         height: 13px;
+         border-radius: 100px;
+         margin-right: 5px;"
+         color="${lockedColor.hex}"
+         ></span> sind. Für einige gibt es leider noch den Status "unbekannt" <span
+         style=
+         "display: inline-block;
+         background-color:${defaultColor.hex};
+         width: 13px;
+         height: 13px;
+         border-radius: 100px;
+         margin-right: 5px;"
+         color="${defaultColor.hex}"
+         ></span>. Informationen wir ihr der Open Street Maps Community helfen könnt dies zu beheben, findet ihr in unserem F.A.Q und in unserem <a target="blank" href=" https://app.slack.com/client/T012K4SDYBY/">Slack Channel #pumpen-melden </a>.`,
     ],
   },
   loading: {
@@ -193,8 +243,20 @@ const content: Content = {
       },
       {
         title: 'Datenquellen',
-        description:
-          'Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (625.000; Stand: 14.06.2019). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind: <ul><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS">Geoportal Berlin / Straßenbäume</a></li><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand_an@senstadt&type=WFS">Geoportal Berlin / Anlagenbäume</a></li><li><a target="blank" href="https://www.dwd.de/">Deutscher Wetterdienst</a></li><li>Pumpen aus <a target="blank" href="https://fbinter.stadt-berlin.de/fb/index.jsp?loginkey=zoomStart&mapId=atkis_basis_dlm@senstadt&bbox=388352,5818784,390972,5820270">ATKIS über Geoportal Berlin</a></li></ul>',
+        description: `Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (625.000; Stand: 14.06.2019). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind:
+          <ul>
+            <li>
+              <a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS">Geoportal Berlin / Straßenbäume</a>
+            </li>
+            <li>
+              <a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand_an@senstadt&type=WFS">Geoportal Berlin / Anlagenbäume</a>
+            </li>
+            <li>
+              <a target="blank" href="https://www.dwd.de/">Deutscher Wetterdienst</a>
+            </li>
+            <li>Pumpen aus <a target="blank" href=" https://www.openstreetmap.de"> Open Street Map</a>
+            </li>
+          </ul>`,
       },
     ],
     watering: [
