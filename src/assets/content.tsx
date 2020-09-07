@@ -27,6 +27,9 @@ interface Content {
     disclaimer: string;
     description: string[];
   };
+  eventNote?: {
+    title: string;
+  };
   whatsNew?: {
     title: string;
     description: string[];
@@ -126,6 +129,10 @@ const content: Content = {
       'Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.',
       'Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
     ],
+  },
+  eventNote: {
+    title:
+      '<b>Gieß den Kiez LIVE: </b><br>Der Sommer neigt sich dem Ende zu und wir werden analog! Melde Dich jetzt für unser <a target="blank" href="https://www.citylab-berlin.org/events/freiwilligentage/">Mitmach-Event</a> am 11. September an und besuche uns im CityLAB Berlin.',
   },
   whatsNew: {
     title: 'Was ist neu?',
