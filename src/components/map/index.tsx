@@ -243,7 +243,7 @@ class DeckGLMap extends React.Component {
           extruded: true,
           wireframe: true,
           getElevation: 1,
-          getLineColor: defaultColor.rgba,
+          getLineColor: [0, 0, 0, 200],
           // info => {
           //   // console.log(info);
           //   const defaultColor = [44, 48, 59, 200];

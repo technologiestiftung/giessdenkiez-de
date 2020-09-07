@@ -2,15 +2,17 @@ import { Generic } from '../../common/interfaces';
 
 /*
 https://coolors.co/df2954-69747c-84dd63-edff4d
-df2954,69747c,84dd63,edff4d
+
+141f20,45a447,7599a9,d7eae5
 
 
-["df2954","69747c","84dd63","edff4d"]
+["141f20","45a447","7599a9","d7eae5"]
 
 
-{"Amaranth":"df2954","Sonic Silver":"69747c","Light Green":"84dd63","Chartreuse Traditional":"edff4d"}
+{"Dark Jungle Green":"141f20","Green Pigment":"45a447","Pewter Blue":"7599a9","Azure X 11 Web Color":"d7eae5"}
 
-[{"name":"Amaranth","hex":"df2954","rgb":[223,41,84],"cmyk":[0,82,62,13],"hsb":[346,82,87],"hsl":[346,74,52],"lab":[49,69,22]},{"name":"Sonic Silver","hex":"69747c","rgb":[105,116,124],"cmyk":[15,6,0,51],"hsb":[205,15,49],"hsl":[205,8,45],"lab":[48,-2,-6]},{"name":"Light Green","hex":"84dd63","rgb":[132,221,99],"cmyk":[40,0,55,13],"hsb":[104,55,87],"hsl":[104,64,63],"lab":[80,-49,51]},{"name":"Chartreuse Traditional","hex":"edff4d","rgb":[237,255,77],"cmyk":[7,0,70,0],"hsb":[66,70,100],"hsl":[66,100,65],"lab":[96,-27,78]}]
+
+[{"name":"Dark Jungle Green","hex":"141f20","rgb":[20,31,32],"cmyk":[38,3,0,87],"hsb":[185,38,13],"hsl":[185,23,10],"lab":[11,-5,-2]},{"name":"Green Pigment","hex":"45a447","rgb":[69,164,71],"cmyk":[58,0,57,36],"hsb":[121,58,64],"hsl":[121,41,46],"lab":[60,-47,39]},{"name":"Pewter Blue","hex":"7599a9","rgb":[117,153,169],"cmyk":[31,9,0,34],"hsb":[198,31,66],"hsl":[198,23,56],"lab":[61,-8,-12]},{"name":"Azure X 11 Web Color","hex":"d7eae5","rgb":[215,234,229],"cmyk":[8,0,2,8],"hsb":[164,8,92],"hsl":[164,31,88],"lab":[91,-7,0]}]
 */
 export type RGBAColor = [number, number, number, number];
 interface Color extends Generic {
@@ -19,38 +21,38 @@ interface Color extends Generic {
   hex: string;
 }
 export const brokenColor: Color = {
-  name: 'Amaranth',
-  hex: '#df2954',
-  rgba: [223, 41, 84, 200],
-  cmyk: [0, 82, 62, 13],
-  hsb: [346, 82, 87],
-  hsl: [346, 74, 52],
-  lab: [49, 69, 22],
+  name: 'Dark Jungle Green',
+  hex: '#141f20',
+  rgba: [20, 31, 32, 200],
+  cmyk: [38, 3, 0, 87],
+  hsb: [185, 38, 13],
+  hsl: [185, 23, 10],
+  lab: [11, -5, -2],
 }; // [105, 116, 124, 200];
 export const defaultColor: Color = {
-  name: 'Sonic Silver',
-  hex: '#69747c',
-  rgba: [105, 116, 124, 200],
-  cmyk: [15, 6, 0, 51],
-  hsb: [205, 15, 49],
-  hsl: [205, 8, 45],
-  lab: [48, -2, -6],
+  name: 'Pewter Blue',
+  hex: '#7599a9',
+  rgba: [117, 153, 169, 200],
+  cmyk: [31, 9, 0, 34],
+  hsb: [198, 31, 66],
+  hsl: [198, 23, 56],
+  lab: [61, -8, -12],
 }; //[223, 41, 84, 200];
 export const workingColor: Color = {
-  name: 'Light Green',
-  hex: '#84dd63',
-  rgba: [132, 221, 99, 200],
-  cmyk: [40, 0, 55, 13],
-  hsb: [104, 55, 87],
-  hsl: [104, 64, 63],
-  lab: [80, -49, 51],
+  name: 'Green Pigment',
+  hex: '#45a447',
+  rgba: [69, 164, 71, 200],
+  cmyk: [58, 0, 57, 36],
+  hsb: [121, 58, 64],
+  hsl: [121, 41, 46],
+  lab: [60, -47, 39],
 }; // [1132, 221, 99, 200];
 export const lockedColor: Color = {
-  name: 'Chartreuse Traditional',
-  hex: '#edff4d',
-  rgba: [237, 255, 77, 200],
-  cmyk: [7, 0, 70, 0],
-  hsb: [66, 70, 100],
-  hsl: [66, 100, 65],
-  lab: [96, -27, 78],
+  name: 'Azure X 11 Web Color',
+  hex: '#d7eae5',
+  rgba: [215, 234, 229, 200],
+  cmyk: [8, 0, 2, 8],
+  hsb: [164, 8, 92],
+  hsl: [164, 31, 88],
+  lab: [91, -7, 0],
 }; // [203, 225, 77, 200];
