@@ -277,8 +277,8 @@ class DeckGLMap extends React.Component {
           getRadius: 9,
           pointRadiusMinPixels: 4,
           pickable: true,
-          lineWidthScale: 2,
-          lineWidthMinPixels: 1,
+          lineWidthScale: 3,
+          lineWidthMinPixels: 1.5,
           onHover: info => {
             if (info.object === undefined) {
               this.setState({ isHovered: false });
