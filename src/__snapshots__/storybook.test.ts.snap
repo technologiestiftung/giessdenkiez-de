@@ -34,12 +34,12 @@ exports[`Storyshots Maps Pump HoverTip Hover Object Story 1`] = `
 Array [
   <div>
     <div
-      className="sc-fznWqX kzijlp is-size-7"
+      className="sc-fzqAbL jggWPb is-size-7"
       height={0}
       width={0}
     >
       <span
-        className="sc-fznJRM gHCkaG"
+        className="sc-fzomME haXEOX"
       >
         <b>
           Status:
@@ -47,6 +47,359 @@ Array [
          
         unbekannt
       </span>
+    </div>
+  </div>,
+  <div />,
+]
+`;
+
+exports[`Storyshots Overlay Legend Story 1`] = `
+Array [
+  <div
+    className="sc-fznMnq fpRcGK"
+  >
+    <div
+      className="sc-fznzOf JnxWg"
+    >
+      <div
+        className="sc-fzoant wHYhW"
+      >
+        <div
+          className="sc-fznWOq dOxzwf"
+        >
+          <div
+            className="sc-fznMAR gsbayx"
+          >
+            <h2
+              className="sc-fzoiQi ckvEoT"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<b>Gieß den <span>Kiez</span></b>",
+                }
+              }
+              size="xxl"
+            />
+            <div
+              className="sc-fzqNqU cwdazr"
+            >
+              <img
+                className="sc-fzoyTs dwUDVB"
+                src="/images/icon-trees.svg"
+              />
+            </div>
+            <div
+              className="sc-fzoNJl lmnEnr"
+            >
+              <span>
+                BETA
+              </span>
+            </div>
+          </div>
+          <h2
+            className="sc-fzoiQi ckvEoT"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Die Berliner Stadtbäume leiden unter Trockenheit <br class=\\"large\\" /> und Du kannst ihnen helfen!",
+              }
+            }
+            size="xxl"
+          />
+          
+          <div
+            className="sc-fzoXWK kxLZku"
+          >
+            <p
+              className="sc-fzpmMD cAZEhT"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.",
+                }
+              }
+            />
+            <p
+              className="sc-fzpmMD cAZEhT"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.",
+                }
+              }
+            />
+          </div>
+          <button
+            aria-label="Leiste schließen"
+            className="sc-fznJRM sc-fznWqX enbKia"
+            onClick={[Function]}
+            title="Leiste schließen"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              />
+            </svg>
+          </button>
+          <div
+            className="sc-fzolEj koHCOf"
+          >
+            <div
+              className="sc-fznxKY iqjNod"
+              onClick={[Function]}
+              role="button"
+              tabIndex={0}
+              type="primary"
+              width="fit-content"
+            >
+              Los geht's
+            </div>
+            <div
+              className="sc-fznxKY dVdUWc"
+              onClick={[Function]}
+              role="button"
+              tabIndex={0}
+              width="fit-content"
+            >
+              Konto anlegen / Einloggen
+            </div>
+          </div>
+          <h2
+            className="sc-fzoiQi iVJMHJ"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "News & Updates",
+              }
+            }
+            size="xl"
+          />
+          <h2
+            className="sc-fzqARJ fywzUR"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<b>Gieß den Kiez LIVE: </b><br>Der Sommer neigt sich dem Ende zu und wir werden analog! Melde Dich jetzt für unser <a target=\\"blank\\" href=\\"https://www.citylab-berlin.org/events/freiwilligentage/\\">Mitmach-Event</a> am 11. September an und besuche uns im CityLAB Berlin.",
+              }
+            }
+            size="Ll"
+          />
+          <div
+            className="sc-fzoXWK kxLZku"
+          >
+            <p
+              className="sc-fzpmMD cAZEhT"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Wir haben die Farben angepasst, damit der Wasserbedarf der Berliner Bäume intuitiver zu erfassen ist. Es beginnt bei einem trockenem Gelb und geht bis in ein sattes Grün.<br /><div style=\\"padding-top:0.5rem;padding-bottom:0.5rem; display:flex\\">
+      <div
+        style=\\" background-color:#fde725; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;\\"
+        color=\\"#fde725\\"
+      ></div>
+      <div
+        style=\\" background-color:#cae11f; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;\\"
+        color=\\"#cae11f\\"
+      ></div>
+      <div
+        style=\\" background-color:#95d840; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;\\"
+        color=\\"#95d840\\"
+      ></div>
+      <div
+        style=\\" background-color:#63cb5f; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;\\"
+        color=\\"#63cb5f\\"
+      ></div>
+      <div
+        style=\\" background-color:#3bbb75; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;\\"
+        color=\\"#3bbb75\\"
+      ></div>
+      <div
+        style=\\" background-color:#22a884; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;\\"
+        color=\\"#22a884\\"
+      ></div>
+    </div> Ebenfalls haben wir unsere Pumpen-Daten geupdated. Die kommen jetzt jede Woche frisch von Open Street Maps. ",
+                }
+              }
+            />
+            <p
+              className="sc-fzpmMD cAZEhT"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Ihr könnt sehen ob Pumpen: \\"funktionsfähig\\" <span
+       style=
+       \\"display: inline-block;
+        background-color: #45a447;
+        width: 13px;
+        height: 13px;
+        border-radius: 100px;
+        margin-right: 5px;\\"
+
+        color=\\"#45a447\\"
+        ></span>,
+        \\"defekt\\" <span
+        style=
+        \\"display: inline-block;
+         background-color: #141f20;
+         width: 13px;
+         height: 13px;
+         border-radius: 100px;
+         margin-right: 5px;\\"
+        color=\\"#141f20\\"
+        ></span> oder \\"verriegelt\\" <span
+        style=
+        \\"display: inline-block;
+         background-color: #d7eae5;
+         width: 13px;
+         height: 13px;
+         border-radius: 100px;
+         margin-right: 5px;\\"
+         color=\\"#d7eae5\\"
+         ></span> sind. Für einige gibt es leider noch den Status \\"unbekannt\\" <span
+         style=
+         \\"display: inline-block;
+         background-color:#7599a9;
+         width: 13px;
+         height: 13px;
+         border-radius: 100px;
+         margin-right: 5px;\\"
+         color=\\"#7599a9\\"
+         ></span>. Informationen wir ihr der Open Street Maps Community helfen könnt dies zu beheben, findet ihr in unserem F.A.Q und in unserem <a target=\\"blank\\" href=\\" https://app.slack.com/client/T012K4SDYBY/\\">Slack Channel #pumpen-melden </a>.",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="sc-fzpkJw QXGRC"
+        >
+          <h2
+            className="sc-fzoiQi iVJMHJ"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<b>Wie kann ich mitmachen?</b>",
+              }
+            }
+          />
+          <div
+            className="sc-fzoYkl dyemIz"
+          >
+            <div
+              className="sc-fzqPZZ dgWtDC"
+            >
+              <div
+                className="sc-fzqNqU cwdazr"
+              >
+                <img
+                  className="sc-fzoyTs dwUDVB"
+                  src="/images/icon-water.svg"
+                />
+              </div>
+              <div
+                className="sc-fzoxKX kHIKJD"
+              >
+                <h2
+                  className="sc-fzoKki itPWVk"
+                >
+                  Bäume bewässern
+                </h2>
+                <div
+                  className="sc-fzqBkg RjOku"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Informiere Dich auf unserer Plattform, ob die Bäume in deiner Straße Wasser benötigen. Wenn ja, schnapp Dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst Du die Bewässerung hier ein.",
+                    }
+                  }
+                />
+              </div>
+            </div>
+            <div
+              className="sc-fzqPZZ dgWtDC"
+            >
+              <div
+                className="sc-fzqNqU cwdazr"
+              >
+                <img
+                  className="sc-fzoyTs dwUDVB"
+                  src="/images/icon-subscribe.svg"
+                />
+              </div>
+              <div
+                className="sc-fzoxKX kHIKJD"
+              >
+                <h2
+                  className="sc-fzoKki itPWVk"
+                >
+                  Bäume adoptieren
+                </h2>
+                <div
+                  className="sc-fzqBkg RjOku"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst Du sie adoptieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.",
+                    }
+                  }
+                />
+              </div>
+            </div>
+            <div
+              className="sc-fzqPZZ dgWtDC"
+            >
+              <div
+                className="sc-fzqNqU cwdazr"
+              >
+                <img
+                  className="sc-fzoyTs dwUDVB"
+                  src="/images/icon-zoom.svg"
+                />
+              </div>
+              <div
+                className="sc-fzoxKX kHIKJD"
+              >
+                <h2
+                  className="sc-fzoKki itPWVk"
+                >
+                  Den Baumbestand erkunden
+                </h2>
+                <div
+                  className="sc-fzqBkg RjOku"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Unsere Karte ermöglicht es, mehr über einzelne Bäume und auch den gesamten Baumbestand zu erfahren. Nutze die Filter- und Suchfunktion, um mehr über die Bäume Berlins zu lernen.",
+                    }
+                  }
+                />
+              </div>
+            </div>
+            <div
+              className="sc-fzqPZZ dgWtDC"
+            >
+              <div
+                className="sc-fzqNqU cwdazr"
+              >
+                <img
+                  className="sc-fzoyTs dwUDVB"
+                  src="/images/icon-info.svg"
+                />
+              </div>
+              <div
+                className="sc-fzoxKX kHIKJD"
+              >
+                <h2
+                  className="sc-fzoKki itPWVk"
+                >
+                  Mit anderen austauschen
+                </h2>
+                <div
+                  className="sc-fzqBkg RjOku"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Tritt unserem <a target=\\"_blank\\" href=\\"https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ\\">Slack-Kanal</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>,
   <div />,
