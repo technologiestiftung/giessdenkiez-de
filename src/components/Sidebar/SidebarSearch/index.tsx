@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'unistore/react';
-import Actions from '../../../state/Actions';
-
+// import { connect } from 'unistore/react';
+// import Actions from '../../../state/Actions';
+import { useStoreState } from '../../../state/unistore-hooks';
 import SidebarTitle from '../SidebarTitle/';
-import Card from '../../Card/';
+import Card from '../../Card/Card';
 import CardLegend from '../../Card/CardLegend/';
 import LoadingIcon from '../../LoadingIcon/';
 
@@ -17,8 +17,10 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const SidebarSearch = p => {
-  const { selectedTree, selectedTreeState } = p;
+const SidebarSearch = () => {
+  const { selectedTree } = useStoreState('selectedTree');
+  const { selectedTreeState } = useStoreState('selectedTreeState');
+
   return (
     <>
       <SidebarTitle>Suche & Filter</SidebarTitle>
@@ -40,10 +42,4 @@ const SidebarSearch = p => {
   );
 };
 
-export default connect(
-  state => ({
-    selectedTree: state.selectedTree,
-    selectedTreeState: state.selectedTreeState,
-  }),
-  Actions
-)(SidebarSearch);
+export default SidebarSearch;

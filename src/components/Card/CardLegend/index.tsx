@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import store from '../../../state/Store';
-import { connect } from 'unistore/react';
-import Actions from '../../../state/Actions';
+import { useStoreState } from '../../../state/unistore-hooks';
+// import { connect } from 'unistore/react';
+// import Actions from '../../../state/Actions';
 
 import CardDescription from '../CardDescription/';
 import SidebarSearchAge from '../../Sidebar/SidebarSearch/SidebarSearchAge';
@@ -94,8 +95,8 @@ const UnstyledFlexWidth = styled(UnstyledFlex)<UnstyledFlexWidthProps>`
 //   align-items: center;
 // `;
 
-const Cardlegend = p => {
-  const { dataView } = p;
+const Cardlegend = () => {
+  const { dataView } = useStoreState('dataView');
 
   return (
     <>
@@ -146,12 +147,4 @@ const Cardlegend = p => {
   );
 };
 
-export default connect(
-  state => ({
-    treesVisible: state.treesVisible,
-    rainVisible: state.rainVisible,
-    pumpsVisible: state.pumpsVisible,
-    dataView: state.dataView,
-  }),
-  Actions
-)(Cardlegend);
+export default Cardlegend;

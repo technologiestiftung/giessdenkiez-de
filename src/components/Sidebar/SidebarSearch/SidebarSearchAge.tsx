@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Slider from 'rc-slider';
 import Actions from '../../../state/Actions';
-
-import { connect } from 'unistore/react';
+import { useStoreState, useActions } from '../../../state/unistore-hooks';
 
 const FilterAgeDiv = styled.div`
   display: flex;
@@ -31,11 +30,12 @@ const TileHeadline = styled.span`
   transform: translateX(-4px);
 `;
 
-const SidebarAgeRange = p => {
-  const {ageRange} = p;
+const SidebarAgeRange: React.FC = () => {
+  const { ageRange } = useStoreState('ageRange');
+
   const createSliderWithTooltip = Slider.createSliderWithTooltip;
   const Range = createSliderWithTooltip(Slider.Range);
-  const { setAgeRange } = p;
+  const { setAgeRange } = useActions(Actions);
 
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(320);
@@ -43,7 +43,7 @@ const SidebarAgeRange = p => {
   useEffect(() => {
     setMin(ageRange[0]);
     setMax(ageRange[1]);
-  }, [])
+  }, []);
 
   return (
     <FilterAgeDiv>
@@ -67,10 +67,4 @@ const SidebarAgeRange = p => {
   );
 };
 
-export default connect(
-  state => ({
-    isLoading: state.isLoading,
-    ageRange: state.ageRange
-  }),
-  Actions
-)(SidebarAgeRange);
+export default SidebarAgeRange;
