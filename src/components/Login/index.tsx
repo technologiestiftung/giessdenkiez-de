@@ -68,7 +68,6 @@ const Login = p => {
 
   const handleClick = type => {
     if (type === 'login') {
-      // eslint-disable-next-line @typescript-eslint/camelcase
       loginWithRedirect({ ui_locales: 'de' });
     } else if (type === 'logout') {
       logout();
