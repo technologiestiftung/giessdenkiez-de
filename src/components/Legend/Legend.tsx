@@ -57,11 +57,12 @@ interface PumpsDot {
   size: number;
 }
 const PumpsDot = styled.div<PumpsDot>`
-  width: ${p => p.size + 1}px;
-  height: ${p => p.size}px;
+  width: ${p => p.size - 2}px;
+  height: ${p => p.size - 3}px;
   border-radius: ${p => p.size / 2}px;
   margin-right: 6px;
   background-color: ${p => p.color};
+  border: 2px solid ${p => p.theme.colorTextDark};
 `;
 
 const PumpLabel = styled.label`
@@ -284,14 +285,24 @@ const Legend: React.FC = () => {
       </FlexSpace>
       {legendExpanded === true && pumpsVisible === false && (
         <UnstyledFlex>
-          {legendArray.map((item, i) => (
-            <React.Fragment key={i}>
-              <ItemContainer>
-                <LegendDot color={interpolateColor(item.value)} />
-                <ItemLabel>{item.label}</ItemLabel>
-              </ItemContainer>
-            </React.Fragment>
-          ))}
+          {treesVisible === true &&
+            legendArray.map((item, i) => (
+              <React.Fragment key={i}>
+                <ItemContainer>
+                  <LegendDot color={interpolateColor(item.value)} />
+                  <ItemLabel>{item.label}</ItemLabel>
+                </ItemContainer>
+              </React.Fragment>
+            ))}
+          {rainVisible === true &&
+            legendArray.map((item, i) => (
+              <React.Fragment key={i}>
+                <ItemContainer>
+                  <LegendRect gradient={interpolateColor(item.value)} />
+                  <ItemLabel>{item.label}</ItemLabel>
+                </ItemContainer>
+              </React.Fragment>
+            ))}
         </UnstyledFlex>
       )}
       {legendExpanded === true && pumpsVisible === true && (
