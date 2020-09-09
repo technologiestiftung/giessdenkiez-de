@@ -103,12 +103,6 @@ const content: Content = {
         answer:
           'Eine Funktion, um Gieß-Aktivitäten rückgängig zu machen, weil bspw. stattdessen der Nachbarbaum gegossen wurde, existiert leider nicht.',
       },
-      // {
-      //   question:
-      //     'An wen kann ich mich wenden, wenn Pumpen kaputt oder beschädigt sind?',
-      //   answer:
-      //     'Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Die Standorte der Pumpen stammen aus dem <a target="blank" href="https://fbinter.stadt-berlin.de/fb/index.jsp?loginkey=zoomStart&mapId=atkis_basis_dlm@senstadt&bbox=388352,5818784,390972,5820270">Amtlich Topografisch-Kartografischen Informationssystem (ATKIS)</a>, das über das Geodatenportal Berlin verfügbar ist und von den jeweiligen Bezirken gepflegt wird.',
-      // },
       {
         question: 'Ist das Prinzip auf andere Städte übertragbar?',
         answer:
