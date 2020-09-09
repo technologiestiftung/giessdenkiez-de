@@ -1,5 +1,5 @@
 import React from 'react';
-import Legend from './index';
+import Legend from './Legend';
 import { Story } from '@storybook/react/types-6-0';
 
 export default {
