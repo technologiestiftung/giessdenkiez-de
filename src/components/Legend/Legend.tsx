@@ -244,19 +244,6 @@ function createCSSGradient(colors: string[], degrees = 90): string {
 }
 const rainColors = legendArray.map(item => interpolateColor(item.value));
 const rainGradient = createCSSGradient(rainColors);
-const pumpsColors: string[] = [
-  workingColor.hex,
-  brokenColor.hex,
-  lockedColor.hex,
-  defaultColor.hex,
-].map((color, i, arr) => {
-  const percent = 100 / arr.length;
-  return `${color} ${percent * i}%, ${color} ${percent * (i + 1)}%`;
-});
-const pumpsGradient = createCSSGradient(pumpsColors);
-console.log(pumpsGradient);
-
-console.log(rainGradient);
 
 const Legend: React.FC = () => {
   const { legendExpanded } = useStoreState('legendExpanded');
