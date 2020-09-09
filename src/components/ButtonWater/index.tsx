@@ -44,10 +44,9 @@ const StyledLogin = styled(Login)`
 const ButtonWater = () => {
   // const {
   const { selectedTree } = useStoreState('selectedTree');
-  const { state } = useStoreState('state');
   const { toggleOverlay } = useStoreState('toggleOverlay');
   const { selectedTreeState } = useStoreState('selectedTreeState');
-  const { user: userdata } = useStoreState('userdata');
+  const { user: userdata } = useStoreState('user');
   const { treeAdopted } = useStoreState('treeAdopted');
   const { endpoints } = useStoreState('endpoints');
 
@@ -113,7 +112,10 @@ const ButtonWater = () => {
           }),
         },
       });
-      const geturl = createAPIUrl(state, `/get?id=${id}&queryType=byid`);
+      const geturl = createAPIUrl(
+        store.getState(),
+        `/get?id=${id}&queryType=byid`
+      );
       const json = await requests(geturl);
       if (json.data.length > 0) {
         const tree = json.data[0];
@@ -132,7 +134,7 @@ const ButtonWater = () => {
         );
         store.setState({ treeLastWatered: jsonWatered.data });
         await waitFor(500, () => {
-          const url = createAPIUrl(state, `/get?queryType=watered`);
+          const url = createAPIUrl(store.getState(), `/get?queryType=watered`);
           requests(url)
             .then(json => {
               store.setState({ wateredTrees: json.data.watered });
@@ -150,6 +152,8 @@ const ButtonWater = () => {
   const setWaterAmount = (id: any, amount: any) => {
     setWaterGroup('watered');
     waterTree(id, amount, userdata.username);
+    console.log(userdata);
+
     setTimeout(() => {
       setWaterGroup('visible');
     }, 1000);

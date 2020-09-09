@@ -85,12 +85,6 @@ const SidebarAdopted = () => {
     try {
       store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
-      // const urlDel = createAPIUrl(state, `/delete?id=${id}`);
-      // const header = {
-      //   headers: {
-      //     Authorization: 'Bearer ' + token,
-      //   },
-      // };
 
       await requests(createAPIUrl(store.getState(), `/delete?id=${id}`), {
         token,
