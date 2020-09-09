@@ -9,6 +9,7 @@ import {
   select,
   axisLeft,
   axisBottom,
+  ScaleLinear,
 } from 'd3';
 
 const LineChartWrapper = styled.div`
