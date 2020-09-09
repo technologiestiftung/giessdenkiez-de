@@ -148,6 +148,7 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
         {!treeType &&
           treeType !== 'undefined' &&
           gattungdeutsch !== null &&
+          gattungdeutsch !== 'undefined' &&
           gattungdeutsch !== undefined && (
             <SublineSpan>
               {getTreeProp(gattungdeutsch.toLowerCase())}
