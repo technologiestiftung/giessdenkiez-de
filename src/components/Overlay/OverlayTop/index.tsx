@@ -10,7 +10,7 @@ import store from '../../../state/Store';
 
 import OverlayTitle from '../OverlayTitle/';
 import OverlayEvent from '../OverlayEvent/';
-import OverlayIcon from '../OverlayIcon/';
+import Icon from '../../Icons';
 import OverlayBeta from '../OverlayBeta/';
 import OverlayDescription from '../OverlayDescription/';
 import ButtonRound from '../../../components/ButtonRound/';
@@ -65,7 +65,7 @@ const OverlayTop = p => {
     <StyledTop>
       <Wrapper>
         <OverlayTitle size='xxl' title={title} />
-        <OverlayIcon icon='trees' />
+        <Icon iconType='trees' />
         <OverlayBeta />
       </Wrapper>
       <OverlayTitle size='xxl' title={subline} />
