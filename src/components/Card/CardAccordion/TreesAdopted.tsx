@@ -52,7 +52,7 @@ interface TreesAdoptedProps {
   adoptedTrees: any;
 }
 const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
-  const { data, setViewport, state } = p;
+  const { data, setViewport } = p;
   const [unadopting, setUnadopting] = useState(false);
   const { user, getTokenSilently } = useAuth0();
 
@@ -78,7 +78,7 @@ const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
       // };
 
       const urlUnadopt = createAPIUrl(
-        state,
+        store.getState(),
         // `/private/unadopt-tree?tree_id=${id}&uuid=${user.sub}`
         `/delete?tree_id=${id}&uuid=${user.sub}`
       );

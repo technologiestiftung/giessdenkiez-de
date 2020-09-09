@@ -96,7 +96,7 @@ const ButtonWater = () => {
       store.setState({ selectedTreeState: 'WATERING' });
       const token = await getTokenSilently();
       const urlPostWatering = createAPIUrl(
-        state,
+        store.getState(),
         `/post?id=${id}&uuid=${user.sub}&amount=${amount}&username=${username}&comment=URL_QUERY_NOT_NEEDED_USE_BODY`
       );
 
@@ -176,7 +176,9 @@ const ButtonWater = () => {
         },
       })
         .then(() => {
-          return requests(createAPIUrl(state, `/get?&queryType=byid&id=${id}`));
+          return requests(
+            createAPIUrl(store.getState(), `/get?&queryType=byid&id=${id}`)
+          );
         })
         .then(res => {
           if (res.data.length > 0) {
