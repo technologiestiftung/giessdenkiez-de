@@ -54,7 +54,7 @@ export function useStore() {
   return useContext(StoreContext);
 }
 
-export function useStoreState(selector) {
+export function useStoreState(selector: string) {
   const store = useContext(StoreContext);
   const filter = useMemo(() => createSelector(selector), []);
   const [state, setState] = useReducer(
