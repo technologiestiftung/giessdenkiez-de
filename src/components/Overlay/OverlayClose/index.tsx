@@ -30,6 +30,4 @@ const OverlayClose: React.FC<{
   );
 };
 
-// export default OverlayClose;
 export default OverlayClose;
-// export default connect(_state => ({}), Actions)(OverlayClose);

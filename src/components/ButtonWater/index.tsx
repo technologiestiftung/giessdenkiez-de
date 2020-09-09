@@ -159,7 +159,10 @@ const ButtonWater = () => {
       store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
       // const time = timeNow();
-      const url = createAPIUrl(state, `/post?tree_id=${id}&uuid=${user.sub}`);
+      const url = createAPIUrl(
+        store.getState(),
+        `/post?tree_id=${id}&uuid=${user.sub}`
+      );
 
       await requests(url, {
         token,

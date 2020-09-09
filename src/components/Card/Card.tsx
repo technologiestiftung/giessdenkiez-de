@@ -139,18 +139,20 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
     }).catch(console.error);
   }, [user, selectedTree, treeAdopted]);
 
-  useEffect(() => {
-    console.log(selectedTree);
-  }, [selectedTree]);
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
   return (
     <CardWrapper>
       <FlexColumnDiv>
         <TreeTitle>{artdtsch}</TreeTitle>
-        {!treeType && treeType !== 'undefined' && (
-          <SublineSpan>{getTreeProp(gattungdeutsch.toLowerCase())}</SublineSpan>
-        )}
+        {!treeType &&
+          treeType !== 'undefined' &&
+          gattungdeutsch !== null &&
+          gattungdeutsch !== undefined && (
+            <SublineSpan>
+              {getTreeProp(gattungdeutsch.toLowerCase())}
+            </SublineSpan>
+          )}
         {caretaker && caretaker.length > 0 && (
           <CaretakerDiv>
             <Icon iconType='water' height={32}></Icon>

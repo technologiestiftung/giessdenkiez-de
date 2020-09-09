@@ -6,8 +6,7 @@ import { theme } from '../src/assets/theme';
 import { Provider } from 'unistore/react';
 import { Auth0Provider } from '../src/utils/auth-mock/auth0';
 import store from '../src/state/Store';
-// import { StoryContext, StoryGetter, StoryWrapper } from '@storybook/addons';
-import '!style-loader!css-loader!sass-loader!../src/assets/style.scss';
+// import '!style-loader!css-loader!sass-loader!../src/assets/style.scss';
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };

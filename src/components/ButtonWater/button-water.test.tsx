@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-hooks */
 /* eslint-disable jest/require-top-level-describe */
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import ButtonWater from './index';
 import React from 'react';
 import store from '../../state/Store';
@@ -19,7 +19,6 @@ jest.mock('../../utils');
  */
 const dummyUser = {
   email: 'foo@bah.com',
-  // eslint-disable-next-line @typescript-eslint/camelcase
   email_verified: true,
   sub: 'auth0|12345678912345678901234',
   name: 'foo',
@@ -31,7 +30,7 @@ jest.mock('../../utils/auth/auth0');
 
 beforeEach(() => {
   // Mock the Auth0 hook and make it return a logged in state
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
   useAuth0.mockReturnValue({
     isAuthenticated: true,
@@ -47,7 +46,7 @@ afterAll(() => {
 });
 
 describe('button water test', () => {
-  test('button click should switch to "adoptiere" and then vanish', () => {
+  test('button click should switch to "adoptiere" and then vanish', async () => {
     store.setState({ selectedTree: { id: '_123' } });
     jest
       .spyOn(utils, 'requests')
@@ -61,12 +60,12 @@ describe('button water test', () => {
       </Provider>
     );
     const button1 = getByText(/adoptieren/i);
-    expect(button1).toBeInTheDocument();
+    await waitFor(() => expect(button1).toBeInTheDocument());
     fireEvent.click(button1);
     const button2 = getByText(/adoptiere/i);
-    expect(button2).toBeInTheDocument();
+    await waitFor(() => expect(button2).toBeInTheDocument());
     store.setState({ treeAdopted: true });
-    expect(button1).not.toBeInTheDocument();
-    expect(button2).not.toBeInTheDocument();
+    await waitFor(() => expect(button1).not.toBeInTheDocument());
+    await waitFor(() => expect(button2).not.toBeInTheDocument());
   });
 });

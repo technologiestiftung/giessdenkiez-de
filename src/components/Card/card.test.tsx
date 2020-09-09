@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-hooks */
 /* eslint-disable jest/require-top-level-describe */
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import Card from './Card';
 import React from 'react';
 import store from '../../state/Store';
@@ -52,20 +52,22 @@ describe('card test', () => {
     store.setState({ selectedTree: { id: '_123' } });
     const { getByText } = render(
       <Provider store={store}>
-        <Card data={{ standalter: '50', gattungdeutsch: 'EICHE' }} />
+        <Card
+          data={{ id: '_123', standalter: '50', gattungdeutsch: 'EICHE' }}
+        />
       </Provider>
     );
     // debug();
     const button1 = getByText(/adoptieren/i);
-    expect(button1).toBeInTheDocument();
-    fireEvent.click(button1);
+    await waitFor(() => expect(button1).toBeInTheDocument());
+    await waitFor(() => fireEvent.click(button1));
     // await waitFor(() => expect(mockRequests).toHaveBeenCalledTimes(1));
 
     const button2 = getByText(/adoptiere/i);
-    expect(button2).toBeInTheDocument();
-    store.setState({ treeAdopted: true });
+    await waitFor(() => expect(button2).toBeInTheDocument());
+    await waitFor(() => store.setState({ treeAdopted: true }));
     // screen.debug();
-    expect(button1).not.toBeInTheDocument();
-    expect(button2).not.toBeInTheDocument();
+    await waitFor(() => expect(button1).not.toBeInTheDocument());
+    await waitFor(() => expect(button2).not.toBeInTheDocument());
   });
 });
