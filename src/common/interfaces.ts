@@ -65,9 +65,37 @@ export interface IsTreeAdoptedProps {
   id: string;
   uuid: string;
   token: string;
-  state: any;
   store: Store<StoreProps>;
   isAuthenticated?: boolean;
   signal?: AbortSignal;
   // isMounted: boolean;
+}
+
+export interface Tree {
+  id: string | null;
+  lat?: string | null;
+  lng?: string | null;
+  artdtsch?: string | null;
+  artBot?: string | null;
+  gattungdeutsch?: string | null;
+  gattung?: string | null;
+  strname?: string | null;
+  hausnr?: string | null;
+  zusatz?: string | null;
+  pflanzjahr?: string | null;
+  standalter?: string | null;
+  kronedurch?: string | null;
+  stammumfg?: string | null;
+  type?: string | null;
+  baumhoehe?: string | null;
+  bezirk?: string | null;
+  eigentuemer?: string | null;
+  adopted?: null | any;
+  watered?: null | any;
+  radolan_sum?: number | null;
+  radolan_days?: number[];
+  geom?: string | null;
+  standortnr?: string | null;
+  kennzeich?: string | null;
+  caretaker?: string | null;
 }
