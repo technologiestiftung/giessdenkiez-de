@@ -34,11 +34,11 @@ export async function requests<T>(
 }
 
 export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
-  const { isAuthenticated, state, uuid, id, token, store, signal } = opts;
+  const { isAuthenticated, uuid, id, token, store, signal } = opts;
   try {
     if (isAuthenticated) {
       const url = createAPIUrl(
-        state,
+        store.getState(),
         `/get?queryType=istreeadopted&uuid=${uuid}&id=${id}`
       );
 
@@ -71,7 +71,6 @@ export function createGeojson(data) {
        */
       properties: {
         id: tree.id,
-        // eslint-disable-next-line @typescript-eslint/camelcase
         radolan_sum: +tree.radolan_sum / 10,
         age: +tree.age,
       },
@@ -183,9 +182,7 @@ export const getCookieValue = (a: string | number) => {
   return b ? b.pop() : '';
 };
 
-// eslint-disable-next-line @typescript-eslint/camelcase
 export const convertTime = (unix_timestamp: string): string => {
-  // eslint-disable-next-line @typescript-eslint/camelcase
   const sliced = unix_timestamp.slice(0, 16);
   const date = new Date(sliced);
   const months = [
