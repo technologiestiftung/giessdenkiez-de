@@ -1,4 +1,4 @@
-const path = require('path');
+require('dotenv').config();
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
