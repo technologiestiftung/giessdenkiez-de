@@ -152,7 +152,6 @@ const ButtonWater = () => {
   const setWaterAmount = (id: any, amount: any) => {
     setWaterGroup('watered');
     waterTree(id, amount, userdata.username);
-    console.log(userdata);
 
     setTimeout(() => {
       setWaterGroup('visible');

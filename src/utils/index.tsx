@@ -141,7 +141,6 @@ export async function fetchAPI(url: string, config = {}) {
   if (result === undefined) {
     throw new Error('result of fetch request is undefined');
   }
-  //console.log(url, result);
 
   return result;
 }

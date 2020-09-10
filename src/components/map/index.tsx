@@ -245,7 +245,6 @@ class DeckGLMap extends React.Component {
           getElevation: 1,
           getLineColor: [0, 0, 0, 200],
           // info => {
-          //   // console.log(info);
           //   const defaultColor = [44, 48, 59, 200];
           //   const brokenColor = [207, 222, 231, 200];
           //   const workingColor = [10, 54, 157, 200];
@@ -285,12 +284,10 @@ class DeckGLMap extends React.Component {
               return;
             }
             this.setState({ isHovered: true });
-            // console.log(info);
             this.setState({
               hoverObjectMessage: info.object.properties['pump:status'],
             });
             this.setState({ hoverObjectPointer: [info.x, info.y] });
-            // console.log(this.state);
           },
         }),
       ];
