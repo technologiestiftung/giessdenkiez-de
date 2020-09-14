@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import CardHeadline from '../../Card/CardHeadline/';
 import CardDescription from '../../Card/CardDescription/';
-import OverlayIcon from '../../Overlay/OverlayIcon/';
+import Icon from '../../Icons';
 
 const FlexOuter = styled.div`
   display: flex;
@@ -61,7 +61,7 @@ const CardProgress = p => {
     <Flex>
       {progressItems.map((item, i) => (
         <FlexOuter key={i}>
-          <OverlayIcon icon={item.id === 'timesSpend' ? 'trees' : 'water'} />
+          <Icon iconType={item.id === 'timesSpend' ? 'trees' : 'water'} />
           <FlexColumn>
             <CardHeadline>{item.id === 'liters' ? liters : times}</CardHeadline>
             <StyledCardDescription>{item.label}</StyledCardDescription>

@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-hooks */
 /* eslint-disable jest/require-top-level-describe */
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import Card from './index';
+import Card from './Card';
 import React from 'react';
 import store from '../../state/Store';
 import { Provider } from 'unistore/react';
@@ -20,7 +20,6 @@ import { useAuth0 } from '../../utils/auth/auth0';
  */
 const dummyUser = {
   email: 'foo@bah.com',
-  // eslint-disable-next-line @typescript-eslint/camelcase
   email_verified: true,
   sub: 'auth0|12345678912345678901234',
   name: 'foo',
@@ -32,8 +31,9 @@ jest.mock('../../utils/auth/auth0');
 
 beforeEach(() => {
   // Mock the Auth0 hook and make it return a logged in state
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  //@ts-ignore
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   useAuth0.mockReturnValue({
     isAuthenticated: true,
     user: dummyUser,
@@ -49,26 +49,25 @@ afterAll(() => {
 
 describe('card test', () => {
   test('should render', async () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    //@ts-ignore
-    // mockRequests.mockResolvedValueOnce({ data: 'adopted' });
     store.setState({ selectedTree: { id: '_123' } });
     const { getByText } = render(
       <Provider store={store}>
-        <Card data={{ standalter: '50', gattungdeutsch: 'EICHE' }} />
+        <Card
+          data={{ id: '_123', standalter: '50', gattungdeutsch: 'EICHE' }}
+        />
       </Provider>
     );
     // debug();
     const button1 = getByText(/adoptieren/i);
-    expect(button1).toBeInTheDocument();
-    fireEvent.click(button1);
+    await waitFor(() => expect(button1).toBeInTheDocument());
+    await waitFor(() => fireEvent.click(button1));
     // await waitFor(() => expect(mockRequests).toHaveBeenCalledTimes(1));
 
     const button2 = getByText(/adoptiere/i);
-    expect(button2).toBeInTheDocument();
-    store.setState({ treeAdopted: true });
+    await waitFor(() => expect(button2).toBeInTheDocument());
+    await waitFor(() => store.setState({ treeAdopted: true }));
     // screen.debug();
-    expect(button1).not.toBeInTheDocument();
-    expect(button2).not.toBeInTheDocument();
+    await waitFor(() => expect(button1).not.toBeInTheDocument());
+    await waitFor(() => expect(button2).not.toBeInTheDocument());
   });
 });

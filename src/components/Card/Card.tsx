@@ -1,28 +1,29 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { waterNeed, isTreeAdopted } from '../../utils/';
-import Actions from '../../state/Actions';
+import { waterNeed, isTreeAdopted } from '../../utils';
+// import Actions from '../../state/Actions';
+import { useStoreState } from '../../state/unistore-hooks';
 import { useAuth0 } from '../../utils/auth/auth0';
-import { connect } from 'unistore/react';
+// import { connect } from 'unistore/react';
 import store from '../../state/Store';
 
-import CardWrapper from './CardWrapper/';
-import CardProperty from './CardProperty/';
-import Linechart from '../Linechart/';
-import CardAccordion from './CardAccordion/';
-import CardHeadline from './CardHeadline/';
-import CardDescription from './CardDescription/';
+import CardWrapper from './CardWrapper';
+import CardProperty from './CardProperty';
+import Linechart from '../Linechart';
+import CardAccordion from './CardAccordion';
+import CardHeadline from './CardHeadline';
+import CardDescription from './CardDescription';
 import CardAccordionTitle from './CardAccordion/CardAccordionTitle';
 import TreeType from './CardAccordion/TreeType';
 import TreeWatering from './CardAccordion/TreeWatering';
 import TreeLastWatered from './CardAccordion/TreeLastWatered';
-import ButtonWater from '../ButtonWater/';
+import ButtonWater from '../ButtonWater';
 import CardWaterDrops from './CardWaterDrops';
 import ButtonAdopted from '../ButtonAdopted';
 
 import content from '../../assets/content';
-import { IsTreeAdoptedProps, Generic } from '../../common/interfaces';
+import { IsTreeAdoptedProps, Generic, Tree } from '../../common/interfaces';
+import Icon from '../Icons';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
 
@@ -38,8 +39,23 @@ const FlexRowDiv = styled.div`
   justify-content: space-between;
 `;
 
+const CaretakerDiv = styled.div`
+  padding-bottom: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  line-height: ${p =>
+    parseFloat(p.theme.fontSizeM.replace('rem', '')) * 1.2}rem;
+`;
+
+const CaretakerSublineSpan = styled.span`
+  font-size: ${p => p.theme.fontSizeM};
+  margin-top: -${p => parseFloat(p.theme.fontSizeM.replace('rem', '')) / 2 + 0.1}rem;
+  margin-left: -${p => p.theme.fontSizeM};
+`;
 const SublineSpan = styled.span`
-  margin-bottom: 20px;
+  margin-bottom: 0.75rem;
   text-transform: capitalize;
 `;
 
@@ -61,8 +77,15 @@ const TreeTitle = styled.h2`
 // const controller = new AbortController();
 // const { signal } = controller;
 
-const Card = p => {
-  const { data, treeLastWatered, treeAdopted, user, selectedTree, state } = p;
+const Card: React.FC<{ data: Tree }> = ({ data }) => {
+  const { treeLastWatered } = useStoreState('treeLastWatered');
+
+  const { treeAdopted } = useStoreState('treeAdopted');
+
+  const { user } = useStoreState('user');
+
+  const { selectedTree } = useStoreState('selectedTree');
+
   const { getTokenSilently, isAuthenticated } = useAuth0();
 
   const {
@@ -71,10 +94,11 @@ const Card = p => {
     artdtsch,
     radolan_days,
     gattungdeutsch,
+    caretaker,
   } = data;
 
   const getTreeProp = (p: Generic | string | null) => {
-    return p === 'null' ? null : p;
+    return p === 'null' || p === undefined ? null : p;
   };
   // type IsMountedType = { isMounted: boolean };
   type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'>;
@@ -83,7 +107,6 @@ const Card = p => {
     id,
     uuid,
     store,
-    state,
     isAuthenticated,
     // isMounted,
   }) => {
@@ -96,7 +119,6 @@ const Card = p => {
           token,
           isAuthenticated,
           store,
-          state,
         });
       }
     } catch (error) {
@@ -106,13 +128,13 @@ const Card = p => {
 
   useEffect(() => {
     if (!user) return;
+    if (!selectedTree) return;
     // let isMounted = true;
     fetchData({
       // isMounted,
       id: selectedTree.id,
       uuid: user.user_id,
       store,
-      state,
       isAuthenticated,
     }).catch(console.error);
   }, [user, selectedTree, treeAdopted]);
@@ -123,8 +145,20 @@ const Card = p => {
     <CardWrapper>
       <FlexColumnDiv>
         <TreeTitle>{artdtsch}</TreeTitle>
-        {!treeType && treeType !== 'undefined' && (
-          <SublineSpan>{getTreeProp(gattungdeutsch.toLowerCase())}</SublineSpan>
+        {!treeType &&
+          treeType !== 'undefined' &&
+          gattungdeutsch !== null &&
+          gattungdeutsch !== 'undefined' &&
+          gattungdeutsch !== undefined && (
+            <SublineSpan>
+              {getTreeProp(gattungdeutsch.toLowerCase())}
+            </SublineSpan>
+          )}
+        {caretaker && caretaker.length > 0 && (
+          <CaretakerDiv>
+            <Icon iconType='water' height={32}></Icon>
+            <CaretakerSublineSpan>{`Dieser Baum wird regelmäßig vom ${caretaker} gewässert.`}</CaretakerSublineSpan>
+          </CaretakerDiv>
         )}
         {treeAdopted && <ButtonAdopted />}
         {treeType && treeType.title !== null && (
@@ -178,14 +212,4 @@ const Card = p => {
   );
 };
 
-export default connect(
-  state => ({
-    selectedTree: state.selectedTree,
-    treeLastWatered: state.treeLastWatered,
-    selectedTreeState: state.selectedTreeState,
-    treeAdopted: state.treeAdopted,
-    user: state.user,
-    state: state,
-  }),
-  Actions
-)(Card);
+export default Card;

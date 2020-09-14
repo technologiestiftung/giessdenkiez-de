@@ -1,196 +1,484 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Legend Legend Story 1`] = `
-Array [
+exports[`Storyshots Card Card Story 1`] = `
+<div
+  className="sc-AxjAm dojkTr"
+>
   <div
-    className="sc-fzoLag dMBwzu"
+    className="sc-fznWOq lbHbxO"
   >
+    <h2
+      className="sc-fzoYkl cXfux"
+    >
+      Baum-Hasel
+    </h2>
+    <span
+      className="sc-fzoxKX giXogq"
+    >
+      hasel
+    </span>
     <div
-      className="sc-fzqNJr hhOPjI"
+      className="sc-fzqBkg kQVqPR"
     >
       <div
-        className="sc-fzoyAV bjPTFw"
+        className="sc-fznxKY NKDLg"
       >
+        <img
+          className="sc-fznMAR kDyNvU"
+          height={32}
+          src="/images/icon-water.svg"
+        />
+      </div>
+      <span
+        className="sc-fzqPZZ fjpLYr"
+      >
+        Dieser Baum wird regelmäßig vom Bezirk Friedrichshain-Kreuzberg gewässert.
+      </span>
+    </div>
+    <div
+      className="sc-AxirZ haVOMp"
+    >
+      <span
+        className="sc-AxiKw bOTXee"
+      >
+        Standalter
+      </span>
+      <span
+        className="sc-AxhCb dWnWvi"
+      >
+        66 Jahre
+      </span>
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          <span
+            className="sc-fzplWN itqWgp"
+          >
+            Wasserbedarf:
+            <div
+              className="sc-fznKkj bigKUL"
+            >
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+            </div>
+          </span>
+        </div>
         <span
-          className="sc-AxgMl sc-fzoXzr ljZEme"
+          className="sc-AxmLO hcRSLx"
           onClick={[Function]}
         >
-          Legende
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <div
+          className="sc-fzqBZW bZyTJf"
+        >
+          <div
+            className="sc-fzokOt dzwgXr"
+          >
+            <div
+              className="sc-fznKkj bigKUL"
+            >
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+            </div>
+            <span
+              className="sc-fzqNJr kaClBr"
+            >
+              Niedriger Wasserbedarf
+            </span>
+            <span
+              className="sc-fznyAO sc-fznZeY rRTDR"
+            >
+              Straßenbäume höheren Alters (&gt;40 Jahre) haben in der Regel gelernt, sich über das Grundwasser selbst zu versorgen, aber auch sie leiden unter der zunehmenden Hitze und freuen sich über zusätzliches Wasser. Jungbäume unter 3 Jahren hingegen haben einen niedrigen Wasserbedarf, da diese im Normalfall durch die bezirklichen Grünflächenämter versorgt werden.
+            </span>
+          </div>
+          <div
+            className="sc-fzokOt dzwgXr"
+          >
+            <div
+              className="sc-fznKkj bigKUL"
+            >
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+            </div>
+            <span
+              className="sc-fzqNJr kaClBr"
+            >
+              Mittlerer Wasserbedarf
+            </span>
+            <span
+              className="sc-fznyAO sc-fznZeY rRTDR"
+            >
+              Mittelalte Bäume zwischen 15 und 40 Jahren werden in der Regel nicht mehr durch die Grünflächenämter bewässert, haben aber schon ein gewisses Durchhaltevermögen. Aber auch für sie sind die Hitzesommer ungewohnt und sie freuen sich über jeden Eimer: Gerne ein Mal in der Woche mit bis zu 100l gießen. 
+            </span>
+          </div>
+          <div
+            className="sc-fzokOt dzwgXr"
+          >
+            <div
+              className="sc-fznKkj bigKUL"
+            >
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+            </div>
+            <span
+              className="sc-fzqNJr kaClBr"
+            >
+              Hoher Wasserbedarf
+            </span>
+            <span
+              className="sc-fznyAO sc-fznZeY rRTDR"
+            >
+              Jungbäume zwischen vier und 15 Jahren werden nicht in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Sie freuen sich über viel Wasser von bis zu 200l pro Gießung (ein Mal in der Woche).
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="sc-fzoKki itHOpi"
+    >
+      <div
+        className="sc-fzolEj gEpKPu"
+      >
+        <span
+          className="sc-fzoLsD fGgTNG"
+        >
+          Niederschlag
+        </span>
+        <span
+          className="sc-fzoLsD fGgTNG"
+        >
+          57.3
+           Liter pro m²
         </span>
       </div>
       <span
-        className="sc-fznxsB dElQrK"
+        className="sc-fzpans kIsBQt"
+      >
+        in den letzten 30 Tagen
+      </span>
+      <div
+        className="sc-AxhUy kpFNwp"
+        id="linechart"
+      />
+    </div>
+    <div
+      className="sc-fzqNqU nRXBb"
+    >
+      <div
+        className="sc-fznWqX ivDCAS"
+        onClick={[Function]}
+        role="button"
+        tabIndex={0}
+        width="-webkit-fill-available"
+      >
+        Konto anlegen / Einloggen
+      </div>
+      <span
+        className="sc-fzpans sc-fzoyTs duDVsy"
         onClick={[Function]}
       >
-        +
+        Wie kann ich mitmachen?
       </span>
     </div>
-  </div>,
-  <div />,
-]
+  </div>
+</div>
+`;
+
+exports[`Storyshots Legend Legend Story 1`] = `
+<div
+  className="sc-fzomuh eIrUsQ"
+>
+  <div
+    className="sc-fznLPX cAKwYJ"
+  >
+    <div
+      className="sc-fzoaKM kqqRHx"
+    >
+      <span
+        className="sc-fzpans sc-fzqAui cZJWJl"
+        onClick={[Function]}
+      >
+        Legende
+      </span>
+    </div>
+    <span
+      className="sc-fzowVh fANvcH"
+      onClick={[Function]}
+    >
+      +
+    </span>
+  </div>
+</div>
 `;
 
 exports[`Storyshots Maps Pump HoverTip Hover Object Story 1`] = `
-Array [
-  <div>
-    <div
-      className="sc-fzqAbL jggWPb is-size-7"
-      height={0}
-      width={0}
+<div>
+  <div
+    className="sc-pciEQ ciJEbL is-size-7"
+    height={0}
+    width={0}
+  >
+    <span
+      className="sc-oTNDV zfOYy"
     >
-      <span
-        className="sc-fzomME haXEOX"
-      >
-        <b>
-          Status:
-        </b>
-         
-        unbekannt
-      </span>
-    </div>
-  </div>,
-  <div />,
-]
+      <b>
+        Status:
+      </b>
+       
+      unbekannt
+    </span>
+  </div>
+</div>
 `;
 
 exports[`Storyshots Overlay Legend Story 1`] = `
-Array [
+<div
+  className="sc-fzqzEs kppOnb"
+>
   <div
-    className="sc-fznMnq fpRcGK"
+    className="sc-fzonjX jvxyyy"
   >
     <div
-      className="sc-fznzOf JnxWg"
+      className="sc-fzqOul iKPRYx"
     >
       <div
-        className="sc-fzoant wHYhW"
+        className="sc-fzqLLg kfleWC"
       >
         <div
-          className="sc-fznWOq dOxzwf"
+          className="sc-fzqzlV bcUSVQ"
         >
-          <div
-            className="sc-fznMAR gsbayx"
-          >
-            <h2
-              className="sc-fzoiQi ckvEoT"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "<b>Gieß den <span>Kiez</span></b>",
-                }
-              }
-              size="xxl"
-            />
-            <div
-              className="sc-fzqNqU cwdazr"
-            >
-              <img
-                className="sc-fzoyTs dwUDVB"
-                src="/images/icon-trees.svg"
-              />
-            </div>
-            <div
-              className="sc-fzoNJl lmnEnr"
-            >
-              <span>
-                BETA
-              </span>
-            </div>
-          </div>
           <h2
-            className="sc-fzoiQi ckvEoT"
+            className="sc-fzpisO eIsXAg"
             dangerouslySetInnerHTML={
               Object {
-                "__html": "Die Berliner Stadtbäume leiden unter Trockenheit <br class=\\"large\\" /> und Du kannst ihnen helfen!",
+                "__html": "<b>Gieß den <span>Kiez</span></b>",
               }
             }
             size="xxl"
           />
-          
           <div
-            className="sc-fzoXWK kxLZku"
+            className="sc-fznxKY NKDLg"
           >
-            <p
-              className="sc-fzpmMD cAZEhT"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.",
-                }
-              }
-            />
-            <p
-              className="sc-fzpmMD cAZEhT"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.",
-                }
-              }
+            <img
+              className="sc-fznMAR ihPnSY"
+              src="/images/icon-trees.svg"
             />
           </div>
-          <button
-            aria-label="Leiste schließen"
-            className="sc-fznJRM sc-fznWqX enbKia"
+          <div
+            className="sc-fznLxA jyDJtD"
+          >
+            <span>
+              BETA
+            </span>
+          </div>
+        </div>
+        <h2
+          className="sc-fzpisO eIsXAg"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Die Berliner Stadtbäume leiden unter Trockenheit <br class=\\"large\\" /> und Du kannst ihnen helfen!",
+            }
+          }
+          size="xxl"
+        />
+        
+        <div
+          className="sc-fznXWL galrCQ"
+        >
+          <p
+            className="sc-fzokvW dKYCca"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.",
+              }
+            }
+          />
+          <p
+            className="sc-fzokvW dKYCca"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.",
+              }
+            }
+          />
+        </div>
+        <button
+          aria-label="Leiste schließen"
+          className="sc-fzoJus sc-fzoVTD jxmdij"
+          onClick={[Function]}
+          title="Leiste schließen"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            />
+          </svg>
+        </button>
+        <div
+          className="sc-fzoxnE gzuTBj"
+        >
+          <div
+            className="sc-fznWqX lmaEKV"
             onClick={[Function]}
-            title="Leiste schließen"
+            role="button"
+            tabIndex={0}
+            type="primary"
+            width="fit-content"
           >
-            <svg
-              aria-hidden={true}
-              className="MuiSvgIcon-root"
-              focusable="false"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-              />
-            </svg>
-          </button>
-          <div
-            className="sc-fzolEj koHCOf"
-          >
-            <div
-              className="sc-fznxKY iqjNod"
-              onClick={[Function]}
-              role="button"
-              tabIndex={0}
-              type="primary"
-              width="fit-content"
-            >
-              Los geht's
-            </div>
-            <div
-              className="sc-fznxKY dVdUWc"
-              onClick={[Function]}
-              role="button"
-              tabIndex={0}
-              width="fit-content"
-            >
-              Konto anlegen / Einloggen
-            </div>
+            Los geht's
           </div>
-          <h2
-            className="sc-fzoiQi iVJMHJ"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "News & Updates",
-              }
-            }
-            size="xl"
-          />
-          <h2
-            className="sc-fzqARJ fywzUR"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<b>Gieß den Kiez LIVE: </b><br>Der Sommer neigt sich dem Ende zu und wir werden analog! Melde Dich jetzt für unser <a target=\\"blank\\" href=\\"https://www.citylab-berlin.org/events/freiwilligentage/\\">Mitmach-Event</a> am 11. September an und besuche uns im CityLAB Berlin.",
-              }
-            }
-            size="Ll"
-          />
           <div
-            className="sc-fzoXWK kxLZku"
+            className="sc-fznWqX iWmA-DY"
+            onClick={[Function]}
+            role="button"
+            tabIndex={0}
+            width="fit-content"
           >
-            <p
-              className="sc-fzpmMD cAZEhT"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Wir haben die Farben angepasst, damit der Wasserbedarf der Berliner Bäume intuitiver zu erfassen ist. Es beginnt bei einem trockenem Gelb und geht bis in ein sattes Grün.<br /><div style=\\"padding-top:0.5rem;padding-bottom:0.5rem; display:flex\\">
+            Konto anlegen / Einloggen
+          </div>
+        </div>
+        <h2
+          className="sc-fzpisO caPZVW"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "News & Updates",
+            }
+          }
+          size="xl"
+        />
+        <h2
+          className="sc-fznyYp gtfVlz"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<b>Gieß den Kiez LIVE: </b><br>Der Sommer neigt sich dem Ende zu und wir werden analog! Melde Dich jetzt für unser <a target=\\"blank\\" href=\\"https://www.citylab-berlin.org/events/freiwilligentage/\\">Mitmach-Event</a> am 11. September an und besuche uns im CityLAB Berlin.",
+            }
+          }
+          size="Ll"
+        />
+        <div
+          className="sc-fznXWL galrCQ"
+        >
+          <p
+            className="sc-fzokvW dKYCca"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Wir haben die Farben angepasst, damit der Wasserbedarf der Berliner Bäume intuitiver zu erfassen ist. Es beginnt bei einem trockenem Gelb und geht bis in ein sattes Grün.<br /><div style=\\"padding-top:0.5rem;padding-bottom:0.5rem; display:flex\\">
       <div
         style=\\" background-color:#fde725; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;\\"
         color=\\"#fde725\\"
@@ -216,14 +504,14 @@ Array [
         color=\\"#22a884\\"
       ></div>
     </div> Ebenfalls haben wir unsere Pumpen-Daten geupdated. Die kommen jetzt jede Woche frisch von Open Street Maps. ",
-                }
               }
-            />
-            <p
-              className="sc-fzpmMD cAZEhT"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Ihr könnt sehen ob Pumpen: \\"funktionsfähig\\" <span
+            }
+          />
+          <p
+            className="sc-fzokvW dKYCca"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Ihr könnt sehen ob Pumpen: \\"funktionsfähig\\" <span
        style=
        \\"display: inline-block;
         background-color: #45a447;
@@ -261,147 +549,1612 @@ Array [
          border-radius: 100px;
          margin-right: 5px;\\"
          color=\\"#7599a9\\"
-         ></span>. Informationen wir ihr der Open Street Maps Community helfen könnt dies zu beheben, findet ihr in unserem F.A.Q und in unserem <a target=\\"blank\\" href=\\" https://app.slack.com/client/T012K4SDYBY/\\">Slack Channel #pumpen-melden </a>.",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="sc-fzpkJw QXGRC"
-        >
-          <h2
-            className="sc-fzoiQi iVJMHJ"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<b>Wie kann ich mitmachen?</b>",
+         ></span>. Informationen wie ihr der Open Street Maps Community helfen könnt dies zu beheben, findet ihr in unserem F.A.Q und in unserem <a target=\\"blank\\" href=\\"https://app.slack.com/client/T012K4SDYBY/C019SJQDPL7\\">Slack Channel #pumpen-melden </a>.",
               }
             }
           />
+        </div>
+      </div>
+      <div
+        className="sc-fznYue hMHyEb"
+      >
+        <h2
+          className="sc-fzpisO caPZVW"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<b>Wie kann ich mitmachen?</b>",
+            }
+          }
+        />
+        <div
+          className="sc-fznOgF cGcxnC"
+        >
           <div
-            className="sc-fzoYkl dyemIz"
+            className="sc-fzoWqW cmHNzl"
           >
             <div
-              className="sc-fzqPZZ dgWtDC"
+              className="sc-fznxKY NKDLg"
             >
-              <div
-                className="sc-fzqNqU cwdazr"
-              >
-                <img
-                  className="sc-fzoyTs dwUDVB"
-                  src="/images/icon-water.svg"
-                />
-              </div>
-              <div
-                className="sc-fzoxKX kHIKJD"
-              >
-                <h2
-                  className="sc-fzoKki itPWVk"
-                >
-                  Bäume bewässern
-                </h2>
-                <div
-                  className="sc-fzqBkg RjOku"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Informiere Dich auf unserer Plattform, ob die Bäume in deiner Straße Wasser benötigen. Wenn ja, schnapp Dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst Du die Bewässerung hier ein.",
-                    }
-                  }
-                />
-              </div>
+              <img
+                className="sc-fznMAR ihPnSY"
+                src="/images/icon-water.svg"
+              />
             </div>
             <div
-              className="sc-fzqPZZ dgWtDC"
+              className="sc-fzplgP yNlyM"
             >
-              <div
-                className="sc-fzqNqU cwdazr"
+              <h2
+                className="sc-fznzqM bXKYBC"
               >
-                <img
-                  className="sc-fzoyTs dwUDVB"
-                  src="/images/icon-subscribe.svg"
-                />
-              </div>
+                Bäume bewässern
+              </h2>
               <div
-                className="sc-fzoxKX kHIKJD"
-              >
-                <h2
-                  className="sc-fzoKki itPWVk"
-                >
-                  Bäume adoptieren
-                </h2>
-                <div
-                  className="sc-fzqBkg RjOku"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst Du sie adoptieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.",
-                    }
+                className="sc-fzoMdx bdsxin"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Informiere Dich auf unserer Plattform, ob die Bäume in deiner Straße Wasser benötigen. Wenn ja, schnapp Dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst Du die Bewässerung hier ein.",
                   }
-                />
-              </div>
+                }
+              />
+            </div>
+          </div>
+          <div
+            className="sc-fzoWqW cmHNzl"
+          >
+            <div
+              className="sc-fznxKY NKDLg"
+            >
+              <img
+                className="sc-fznMAR ihPnSY"
+                src="/images/icon-subscribe.svg"
+              />
             </div>
             <div
-              className="sc-fzqPZZ dgWtDC"
+              className="sc-fzplgP yNlyM"
             >
-              <div
-                className="sc-fzqNqU cwdazr"
+              <h2
+                className="sc-fznzqM bXKYBC"
               >
-                <img
-                  className="sc-fzoyTs dwUDVB"
-                  src="/images/icon-zoom.svg"
-                />
-              </div>
+                Bäume adoptieren
+              </h2>
               <div
-                className="sc-fzoxKX kHIKJD"
-              >
-                <h2
-                  className="sc-fzoKki itPWVk"
-                >
-                  Den Baumbestand erkunden
-                </h2>
-                <div
-                  className="sc-fzqBkg RjOku"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Unsere Karte ermöglicht es, mehr über einzelne Bäume und auch den gesamten Baumbestand zu erfahren. Nutze die Filter- und Suchfunktion, um mehr über die Bäume Berlins zu lernen.",
-                    }
+                className="sc-fzoMdx bdsxin"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst Du sie adoptieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.",
                   }
-                />
-              </div>
+                }
+              />
+            </div>
+          </div>
+          <div
+            className="sc-fzoWqW cmHNzl"
+          >
+            <div
+              className="sc-fznxKY NKDLg"
+            >
+              <img
+                className="sc-fznMAR ihPnSY"
+                src="/images/icon-zoom.svg"
+              />
             </div>
             <div
-              className="sc-fzqPZZ dgWtDC"
+              className="sc-fzplgP yNlyM"
             >
-              <div
-                className="sc-fzqNqU cwdazr"
+              <h2
+                className="sc-fznzqM bXKYBC"
               >
-                <img
-                  className="sc-fzoyTs dwUDVB"
-                  src="/images/icon-info.svg"
-                />
-              </div>
+                Den Baumbestand erkunden
+              </h2>
               <div
-                className="sc-fzoxKX kHIKJD"
-              >
-                <h2
-                  className="sc-fzoKki itPWVk"
-                >
-                  Mit anderen austauschen
-                </h2>
-                <div
-                  className="sc-fzqBkg RjOku"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Tritt unserem <a target=\\"_blank\\" href=\\"https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ\\">Slack-Kanal</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.",
-                    }
+                className="sc-fzoMdx bdsxin"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Unsere Karte ermöglicht es, mehr über einzelne Bäume und auch den gesamten Baumbestand zu erfahren. Nutze die Filter- und Suchfunktion, um mehr über die Bäume Berlins zu lernen.",
                   }
-                />
-              </div>
+                }
+              />
+            </div>
+          </div>
+          <div
+            className="sc-fzoWqW cmHNzl"
+          >
+            <div
+              className="sc-fznxKY NKDLg"
+            >
+              <img
+                className="sc-fznMAR ihPnSY"
+                src="/images/icon-info.svg"
+              />
+            </div>
+            <div
+              className="sc-fzplgP yNlyM"
+            >
+              <h2
+                className="sc-fznzqM bXKYBC"
+              >
+                Mit anderen austauschen
+              </h2>
+              <div
+                className="sc-fzoMdx bdsxin"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Tritt unserem <a target=\\"_blank\\" href=\\"https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ\\">Slack-Kanal</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.",
+                  }
+                }
+              />
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>,
-  <div />,
-]
+  </div>
+</div>
+`;
+
+exports[`Storyshots Sidebar About 1`] = `
+<div
+  className="sc-pRtAn fLWcwd"
+>
+  <a
+    className="sc-pJUVA gKpAlB"
+    href="/"
+    onClick={[Function]}
+  >
+    <button
+      aria-label="Leiste schließen"
+      className="sc-fzoJus gmPprs"
+      title="Leiste schließen"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+        />
+      </svg>
+    </button>
+  </a>
+  <div
+    className="sc-pZOBi eyLUVw"
+  >
+    <h2
+      className="sc-fzoCCn hqNcCS"
+    >
+      Weitere Infos
+    </h2>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <span
+        className="sc-fzoPby sc-fzooss WWGlw"
+      >
+        Über das Projekt
+      </span>
+      <span
+        className="sc-fzpans sc-fzqyvX iicrtY"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Die Folgen des Klimawandels, insbesondere die trockenen und heißen Sommer, belasten das Berliner Ökosystem. Unsere Stadtbäume vertrocknen und tragen langfristige Schäden davon: In den letzten Jahren mussten immer mehr Bäume gefällt werden und ihre Lebensdauer sinkt. Inzwischen wird die Bevölkerung regelmäßig zur Unterstützung aufgerufen, allerdings weitgehend unkoordiniert. Dies möchten wir ändern und mit diesem Projekt eine koordinierte Bürger*innenbeteiligung bei der Bewässerung städtischen Grüns ermöglichen.",
+          }
+        }
+      />
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <span
+        className="sc-fzoPby sc-fzooss WWGlw"
+      >
+        Nützliche Links
+      </span>
+      <span
+        className="sc-fzpans sc-fzqyvX iicrtY"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<ul><li><a target=\\"blank\\" href=\\"https://www.lieblingsbaum-initiative.de/\\">Initiative Lieblingsbaum</a></li><li><a target=\\"blank\\" href=\\"https://www.bund-berlin.de/mitmachen/aktion-baeume-giessen/\\">BUND - Aktion Bäume gießen</a></li><li><a target=\\"blank\\" href=\\"https://www.baumpflegeportal.de/baumpflege/trockenheit-duerre-wann-baeume-giessen/\\">Baumpflegeportal - Gießen bei Trockenheit</a></li><li><a target=\\"blank\\" href=\\"https://www.berlin.de/senuvk/umwelt/stadtgruen/stadtbaeume/kampagne/start.shtml\\">Stadtbaumkampagne Berlin</a></li><li><a target=\\"blank\\" href=\\"https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/\\">Projekt Bodenfeuchte Berlin</a></li><li><a target=\\"blank\\" href=\\"https://www.bmi.bund.de/SharedDocs/downloads/DE/publikationen/themen/bauen/wohnen/weissbuch-stadtgruen.html\\">Grünbuch Stadtgrün</a></li><li><a target=\\"blank\\" href=\\"https://www.hcu-hamburg.de/fileadmin/documents/REAP/files/Bildungsmaterial_Stadtbaeume_im_Klimawandel_2017.pdf\\">Stadtbäume - Bedeutung und Herausforderungen in Zeiten des Klimawandels</a></li><li><a target=\\"blank\\" href=\\"https://www.bund-naturschutz.de/natur-und-landschaft/stadt-als-lebensraum/stadtbaeume/funktionen-von-stadtbaeumen.html\\">BUND - Funktionen von Stadtbäumen</a></li></ul>",
+          }
+        }
+      />
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <span
+        className="sc-fzoPby sc-fzooss WWGlw"
+      >
+        Über uns
+      </span>
+      <span
+        className="sc-fzpans sc-fzqyvX iicrtY"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "“Gieß den Kiez” ist ein Projekt des <a target=\\"blank\\" href=\\"https://www.citylab-berlin.org/\\">CityLAB Berlin</a>. Das CityLAB ist ein öffentliches Innovationslabor für die Stadt der Zukunft im ehemaligen Flughafen Berlin-Tempelhof. Gemeinsam mit einem großen Netzwerk aus Verwaltung, Zivilgesellschaft, Wissenschaft und Start-ups arbeiten wir an neuen Ideen für ein lebenswertes Berlin. Das CityLAB ist ein offener Ort zum Mitmachen! Wenn ihr mehr wissen wollt, schaut euch auf unserer Webseite um oder kommt einfach mal vorbei! <br /> <br /> Das CityLAB ist ein Projekt der Technologiestiftung Berlin und wird gefördert durch die Berliner Senatskanzlei. <br /> <br /> Du hast Feedback? Wir würden uns sehr darüber freuen, in unserem dafür eingerichteten <a target=\\"blank\\" href=\\"https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ\\">Slack-Kanal</a> von Dir zu hören.<br /> <br />Presseanfragen gehen am besten an:<br /> Frauke Nippel<br /><a href=\\"mailto:nippel@technologiestiftung-berlin.de?subject=giessdenkiez.de%20Presseanfrage\\">nippel@technologiestiftung-berlin.de</a><br />
+          <a href=\\"tel:01757236451\\">0175 72 36 451</a>",
+          }
+        }
+      />
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <span
+        className="sc-fzoPby sc-fzooss WWGlw"
+      >
+        Datenquellen
+      </span>
+      <span
+        className="sc-fzpans sc-fzqyvX iicrtY"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (625.000; Stand: 14.06.2019). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind:
+          <ul>
+            <li>
+              <a target=\\"blank\\" href=\\"https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS\\">Geoportal Berlin / Straßenbäume</a>
+            </li>
+            <li>
+              <a target=\\"blank\\" href=\\"https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand_an@senstadt&type=WFS\\">Geoportal Berlin / Anlagenbäume</a>
+            </li>
+            <li>
+              <a target=\\"blank\\" href=\\"https://www.dwd.de/\\">Deutscher Wetterdienst</a>
+            </li>
+            <li>Pumpen aus <a target=\\"blank\\" href=\\" https://www.openstreetmap.de\\"> Open Street Map</a>
+            </li>
+          </ul>",
+          }
+        }
+      />
+    </div>
+    <h2
+      className="sc-fzoCCn hqNcCS"
+    >
+      F.A.Q.
+    </h2>
+    <span
+      className="sc-fzpans sc-fzqyvX iicrtY"
+    >
+      Basierend auf dem regen Austausch unserer Community auf Slack & euren Rückmeldungen per Email und Telefon, haben wir ein kleines FAQ angelegt. Hier werden die am häuftigsten gestellten Fragen beantwortet.
+    </span>
+    <div
+      style={
+        Object {
+          "paddingBottom": "1rem",
+        }
+      }
+    />
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          Wie kann ich mitmachen?
+        </div>
+        <span
+          className="sc-AxmLO hcRSLx"
+          onClick={[Function]}
+        >
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <span
+          className="sc-fzpans sc-fzqyvX iicrtY"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Du bist einfach nur neugierig welcher Baum vor deiner Tür steht? Kein Problem: navigiere und zoome zum gewünschten Standort und klicke auf den farbigen Punkt. Nun werden dir im Menüband links zahlreiche Informationen zum ausgewählten Baum angezeigt. <br> <br> Du möchtest aktiv werden oder bist breits aktiv am Gießen? Dann kannst du hier einen oder mehrere Bäume adoptieren. Lege dazu zunächst ein Profil mit einer gültigen Email-Adresse an und logge dich im Anschluss ein. Nun kannst du deine Gieß-Aktionen entsprechend dokumentieren und sehen ob und wie oft Bäume in deinem Kiez bereits von anderen Nutzer*innen gegossen wurden.",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          Was kann ich tun, wenn Bäume nicht richtig eingetragen sind?
+        </div>
+        <span
+          className="sc-AxmLO hcRSLx"
+          onClick={[Function]}
+        >
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <span
+          className="sc-fzpans sc-fzqyvX iicrtY"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Wir beziehen den Baum-Datensatz mit allen Attributen wie bspw. Adresse, Baumart und Pflanzjahr je Baum aus dem Geoportal der Stadt Berlin, dem FIS-Broker. Die im Geoportal bereitgestellten Daten basieren wiederum auf den bezirklich aggregierten Daten der Straßen- und Grünflächenämter. Es kann daher immer wieder vorkommen, dass Daten von Bäumen veraltet sind oder Eigenschaften der tagesaktuellen Realität abweichen. <br><br> Wir arbeiten bereits an einer Idee, damit Bürger*innen Informationen zu Bäumen in Zukunft selbst melden können. Aktuell jedoch gibt es keinen solchen Meldedialog. Etwaige Abweichungen können direkt bei der zuständigen bezirklichen Behörde gemeldet werden.",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          Warum sollte ich aktiv werden und Bäume gießen?
+        </div>
+        <span
+          className="sc-AxmLO hcRSLx"
+          onClick={[Function]}
+        >
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <span
+          className="sc-fzpans sc-fzqyvX iicrtY"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Die langanhaltenden Dürre- und Hitzeperioden der letzten zwei Jahre haben dem Stadtgrün Berlins immens zugesetzt. Wenngleich nicht nur auf Trockenschäden zurückzuführen, mussten allein in diesem Zeitraum über 7.000 Bäume gefällt werden. <br><br> Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit dem Gießen nicht hinterher. Da die Grünflächenämter bezirklich organisiert sind, arbeitet jeder Bezirk etwas anders, sodass eine ganzheitliche und bedarfsgerechte Koordination durchaus mit Hürden verbunden ist. Durch die Plattform möchten wir auch Bürger*innen die Möglichkeit geben, Bäumen gezielt auf Grundlage deren aktuellen Wasserversorgung zu helfen. Ziel ist es, möglichst viele Bäume durch nachbarschaftliches Engagement zu retten.",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          Wie gieße ich richtig?
+        </div>
+        <span
+          className="sc-AxmLO hcRSLx"
+          onClick={[Function]}
+        >
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <span
+          className="sc-fzpans sc-fzqyvX iicrtY"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Jungbäume <br> (0-15 Jahre), benötigen mehr Wasser als mittelalte Bäume (15-40 Jahre). Altbäume (ab 40 Jahre) sind meist komplette Selbstversorger. <br>Da frisch gepflanzte Bäume bis zum Alter von drei Jahren in der Regel von den bezirklichen Grünflächenämtern mit Wasser versorgt werden, benötigen besonders die Bäume zwischen vier und 15 Jahren unsere Aufmerksamkeit, beziehungsweise unser Wasser. Dies haben wir mit den Kennzeichungen des geringen, mittleren oder hohen Wasserbedarfs hervorgehoben.<br><br> Angelehnt an das Berliner <a traget=\\"blank\\" href=\\"https://www.berlin.de/senuvk/umwelt/stadtgruen/pflege_unterhaltung/de/hgp/index.shtml\\">Handbuch Gute Pflege</a> empfehlen wir euch, lieber seltener zu wässern, dafür mit einer größeren Menge an Wasser. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Im Endeffekt schaden aber auch kleinere Mengen gerade im Hochsommer nicht. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht wegläuft oder sich falsch anstaut. Auch zu empfehlen sind sog. Gießsäcke aus denen das Wasser nur sehr langsam ausstritt, kaum oberflächig abläuft und somit kontinuierlich in den Boden sickert.",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          An wen kann ich mich wenden, wenn Pumpen kaputt oder beschädigt sind?
+        </div>
+        <span
+          className="sc-AxmLO hcRSLx"
+          onClick={[Function]}
+        >
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <span
+          className="sc-fzpans sc-fzqyvX iicrtY"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Die Standorte der Pumpen in der Karte werden regelmäßig aus der Open Street Map geladen. Wenn Ihr helfen wollt die Daten zu verbessern, indem ihr zum Beispiel eine defekte Pumpe meldet, könnt ihr das in unserem <a target=\\"blank\\" href=\\"https://app.slack.com/client/T012K4SDYBY/C019SJQDPL7\\">Slack Channel #pumpen-melden </a>
+        tun. Die OSM-Community hat dann die Möglichkeit eure Informationen in die Datenbank einzutragen.",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          Wie wird mit technischen Problemen umgegangen?
+        </div>
+        <span
+          className="sc-AxmLO hcRSLx"
+          onClick={[Function]}
+        >
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <span
+          className="sc-fzpans sc-fzqyvX iicrtY"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Bei der Beteiligungsplattform “Giess den Kiez” handelt es sich um einen Prototypen, respektive um eine Beta-Version einer Web-App. Wir sind uns einigen technischen Hürden bewusst und wollen die Plattform in Zukunft performanter und stabiler gestalten, bitten euch aber diesbezüglich um etwas Geduld und Verständnis. <br><br> Euer technisches Feedback und eure Fragen nehmen wir gerne in unserem <a target=\\"blank\\" href=\\"https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ\\">Slack Channel</a> oder per Mail entgegen. Wer sich in der “Tech-Welt” zu Hause fühlt, ist herzlich zur Mitarbeit in unserem <a target=\\"blank\\" href=\\"https://github.com/technologiestiftung/giessdenkiez-de\\">Open Source GitHub Repository</a> eingeladen und kann seine Issues oder Code Fixes direkt in das Repository kommentieren.",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          Warum lädt die Website nicht oder nur sehr langsam?
+        </div>
+        <span
+          className="sc-AxmLO hcRSLx"
+          onClick={[Function]}
+        >
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <span
+          className="sc-fzpans sc-fzqyvX iicrtY"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Wenn die Seite zum ersten Mal geöffnet wird, lädt der Browser über 625.000 Datenpunkte – das kann eine Weile dauern! Unabhängig davon, kann es zu leicht unterschiedlichen  Darstellungen bei der Verwendung unterschiedlicher Browser kommen. Für die beste “Experience” empfehlen wir die Nutzung des Chrome-Browsers am Desktop. Die häufigsten Probleme lassen sich erfahrungsgemäß beseitigen, wenn der Browser nicht veraltet, respektive die neueste Version installiert ist und eine stabile Internetverbindung (LAN oder WLAN) besteht. <br><br> Die Nutzung via Mobilfunknetz kann zu Performance-Problemen (Seite lädt langsam) führen. Sollten wiederholt Probleme auftreten, könnt ihr diese auf <a target=\\"blank\\" href=\\"https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ\\">Slack</a>, per Mail oder via GitHub Issue unter Angabe des benutzten Geräts, des Betriebssystems, des Browsers und Version des Browsers melden.",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          Was tun, wenn ich einen Baum fälschlicherweise gegossen habe?
+        </div>
+        <span
+          className="sc-AxmLO hcRSLx"
+          onClick={[Function]}
+        >
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <span
+          className="sc-fzpans sc-fzqyvX iicrtY"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Eine Funktion, um Gieß-Aktivitäten rückgängig zu machen, weil bspw. stattdessen der Nachbarbaum gegossen wurde, existiert leider nicht.",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          Ist das Prinzip auf andere Städte übertragbar?
+        </div>
+        <span
+          className="sc-AxmLO hcRSLx"
+          onClick={[Function]}
+        >
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <span
+          className="sc-fzpans sc-fzqyvX iicrtY"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Die “Gieß den Kiez” Plattform ist ein Open Source Software Projekt und läuft unter einer MIT Lizenz. Dementsprechend kann die Idee, aber auch der Quellcode für die Umsetzung in anderen Städten kostenlos genutzt und weiterentwickelt werden. Wenn Du dich dafür interessierst, schau gerne in unserem <a target=\\"blank\\" href=\\"https://github.com/technologiestiftung/giessdenkiez-de\\">GitHub Repository</a> vorbei oder kontaktiere uns via Mail.",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          Ich habe immer noch eine Frage!
+        </div>
+        <span
+          className="sc-AxmLO hcRSLx"
+          onClick={[Function]}
+        >
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <span
+          className="sc-fzpans sc-fzqyvX iicrtY"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Das FAQ konnte dir nicht weiterhelfen oder du hast eine komplexere Anfrage? Dann schreib uns eine <a href=\\"mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Frage:...\\">Email.</a>",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-AxgMl gOOTwl"
+    >
+      <div
+        className="sc-AxheI bxHLeP"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-fzozJi Worwi"
+        >
+          I don’t speak any German: What’s going on here?
+        </div>
+        <span
+          className="sc-AxmLO hcRSLx"
+          onClick={[Function]}
+        >
+          +
+        </span>
+      </div>
+      <div
+        className="sc-Axmtr hyKxwW"
+      >
+        <span
+          className="sc-fzpans sc-fzqyvX iicrtY"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Gieß den Kiez is a participatory platform where you can inform yourself about the trees in your neighbourhood and their water needs. You can explore individual trees in Berlin and find out about the proper watering of trees. If you want to water the same trees regularly, you should create an account, adopt the trees and show that they are taken care of. This way, coordination takes place in the neighbourhood.",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-fzoCUK dlmyHH"
+    >
+      <div
+        className="sc-fzpdbB gHVowW"
+      >
+        <a
+          className="citylab"
+          href="https://citylab-berlin.org"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Logo Citylab"
+            src="/images/citylab-logo.svg"
+          />
+        </a>
+        <span>
+          Ein Projekt der
+        </span>
+        <a
+          className="tsb"
+          href="https://technologiestiftung-berlin.de"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt="Logo Technologiestiftung Berlin"
+            src="/images/tsb-logo-coloured.svg"
+          />
+        </a>
+        <div
+          className="sc-fzppAM fnGGSW"
+        >
+          <span>
+            Gefördert durch
+          </span>
+          <img
+            alt="Logo Berlin"
+            className="berlin"
+            src="/images/berlin.svg"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="sc-fzqKVi lhnvlF"
+    >
+      <div
+        className="sc-fznBtT gPiWoK"
+      >
+        <span>
+          Teilen:
+        </span>
+        <div
+          className="sc-fznNTe kDnGEY"
+        >
+          <button
+            aria-label="facebook"
+            className="react-share__ShareButton"
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+                "border": "none",
+                "color": "inherit",
+                "cursor": "pointer",
+                "font": "inherit",
+                "padding": 0,
+              }
+            }
+          >
+            <svg
+              height={36}
+              viewBox="0 0 64 64"
+              width={36}
+            >
+              <circle
+                cx="32"
+                cy="32"
+                fill="#3b5998"
+                r="31"
+                style={Object {}}
+              />
+              <path
+                d="M34.1,47V33.3h4.6l0.7-5.3h-5.3v-3.4c0-1.5,0.4-2.6,2.6-2.6l2.8,0v-4.8c-0.5-0.1-2.2-0.2-4.1-0.2 c-4.1,0-6.9,2.5-6.9,7V28H24v5.3h4.6V47H34.1z"
+                fill="white"
+              />
+            </svg>
+          </button>
+          <button
+            aria-label="twitter"
+            className="react-share__ShareButton"
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+                "border": "none",
+                "color": "inherit",
+                "cursor": "pointer",
+                "font": "inherit",
+                "padding": 0,
+              }
+            }
+          >
+            <svg
+              height={36}
+              viewBox="0 0 64 64"
+              width={36}
+            >
+              <circle
+                cx="32"
+                cy="32"
+                fill="#00aced"
+                r="31"
+                style={Object {}}
+              />
+              <path
+                d="M48,22.1c-1.2,0.5-2.4,0.9-3.8,1c1.4-0.8,2.4-2.1,2.9-3.6c-1.3,0.8-2.7,1.3-4.2,1.6 C41.7,19.8,40,19,38.2,19c-3.6,0-6.6,2.9-6.6,6.6c0,0.5,0.1,1,0.2,1.5c-5.5-0.3-10.3-2.9-13.5-6.9c-0.6,1-0.9,2.1-0.9,3.3 c0,2.3,1.2,4.3,2.9,5.5c-1.1,0-2.1-0.3-3-0.8c0,0,0,0.1,0,0.1c0,3.2,2.3,5.8,5.3,6.4c-0.6,0.1-1.1,0.2-1.7,0.2c-0.4,0-0.8,0-1.2-0.1 c0.8,2.6,3.3,4.5,6.1,4.6c-2.2,1.8-5.1,2.8-8.2,2.8c-0.5,0-1.1,0-1.6-0.1c2.9,1.9,6.4,2.9,10.1,2.9c12.1,0,18.7-10,18.7-18.7 c0-0.3,0-0.6,0-0.8C46,24.5,47.1,23.4,48,22.1z"
+                fill="white"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="sc-fzobTh eMxZy"
+    >
+      <img
+        alt="GitHub Mark"
+        src="/images/icon-github.svg"
+      />
+      <span
+        className="sc-fzpans kIsBQt"
+      >
+        Giess den Kiez ist ein 
+        <a
+          href="https://github.com/technologiestiftung/giessdenkiez-de"
+          target="blank"
+        >
+          Open Source Projekt!
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Sidebar Adopted 1`] = `
+<div
+  className="sc-pRtAn fLWcwd"
+>
+  <a
+    className="sc-pJUVA gKpAlB"
+    href="/"
+    onClick={[Function]}
+  >
+    <button
+      aria-label="Leiste schließen"
+      className="sc-fzoJus gmPprs"
+      title="Leiste schließen"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+        />
+      </svg>
+    </button>
+  </a>
+  <div
+    className="sc-pZOBi eyLUVw"
+  >
+    <h2
+      className="sc-fzoCCn hqNcCS"
+    >
+      Adoptierte Bäume:
+    </h2>
+    <div
+      className="sc-pJurq jPPjiU"
+    >
+      <div
+        className="sc-pAZqv kNInGk"
+      >
+        <div
+          className="double-bounce1"
+        />
+        <div
+          className="double-bounce2"
+        />
+      </div>
+      <span>
+        
+      </span>
+    </div>
+    <div
+      className="sc-AxjAm dojkTr"
+    >
+      Du hast noch keine Bäume adoptiert.
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Sidebar Profile Logged In 1`] = `
+<div
+  className="sc-pRtAn fLWcwd"
+>
+  <a
+    className="sc-pJUVA gKpAlB"
+    href="/"
+    onClick={[Function]}
+  >
+    <button
+      aria-label="Leiste schließen"
+      className="sc-fzoJus gmPprs"
+      title="Leiste schließen"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+        />
+      </svg>
+    </button>
+  </a>
+  <div
+    className="sc-pZOBi eyLUVw"
+  >
+    <h2
+      className="sc-fzoCCn hqNcCS"
+    >
+      Profil
+    </h2>
+    <div
+      className="sc-pBzUF hzVIgL"
+    >
+      <p
+        className="sc-fzoiQi bYPyvF"
+      >
+        Du bist momentan nicht eingeloggt. Wenn du das Gießen von Bäumen in deiner Umgebung hier eintragen möchtest, dann registriere dich oder logge dich ein.
+      </p>
+      <div
+        className="sc-fznWqX ivDCAS"
+        onClick={[Function]}
+        role="button"
+        tabIndex={0}
+        width="-webkit-fill-available"
+      >
+        Konto anlegen / Einloggen
+      </div>
+      <span
+        className="sc-fzpans sc-qQMSE fOVUrj"
+        onClick={[Function]}
+      >
+        Wie kann ich mitmachen?
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Sidebar Profile Logged Out 1`] = `
+<div
+  className="sc-pRtAn fLWcwd"
+>
+  <a
+    className="sc-pJUVA gKpAlB"
+    href="/"
+    onClick={[Function]}
+  >
+    <button
+      aria-label="Leiste schließen"
+      className="sc-fzoJus gmPprs"
+      title="Leiste schließen"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+        />
+      </svg>
+    </button>
+  </a>
+  <div
+    className="sc-pZOBi eyLUVw"
+  >
+    <h2
+      className="sc-fzoCCn hqNcCS"
+    >
+      Profil
+    </h2>
+    <div
+      className="sc-pBzUF hzVIgL"
+    >
+      <p
+        className="sc-fzoiQi bYPyvF"
+      >
+        Du bist momentan nicht eingeloggt. Wenn du das Gießen von Bäumen in deiner Umgebung hier eintragen möchtest, dann registriere dich oder logge dich ein.
+      </p>
+      <div
+        className="sc-fznWqX ivDCAS"
+        onClick={[Function]}
+        role="button"
+        tabIndex={0}
+        width="-webkit-fill-available"
+      >
+        Konto anlegen / Einloggen
+      </div>
+      <span
+        className="sc-fzpans sc-qQMSE fOVUrj"
+        onClick={[Function]}
+      >
+        Wie kann ich mitmachen?
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Sidebar Search 1`] = `
+<div
+  className="sc-pRtAn fLWcwd"
+>
+  <a
+    className="sc-pJUVA gKpAlB"
+    href="/"
+    onClick={[Function]}
+  >
+    <button
+      aria-label="Leiste schließen"
+      className="sc-fzoJus gmPprs"
+      title="Leiste schließen"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+        />
+      </svg>
+    </button>
+  </a>
+  <div
+    className="sc-pZOBi eyLUVw"
+  >
+    <h2
+      className="sc-fzoCCn hqNcCS"
+    >
+      Suche & Filter
+    </h2>
+    <div
+      className="sc-fzqyOu gqHbzu"
+    >
+      <span
+        className="sc-fzpans sc-fzqKxP kfKHxs"
+      >
+        Datenansicht
+      </span>
+      <span
+        className="sc-fzpans sc-pANHa haFDkS"
+      >
+        Betrachte welche Bäume bereits von anderen Nutzern gegossen wurden. Oder finde heraus, wieviel Niederschlag die Bäume in den letzten 30 Tagen erreicht hat.
+      </span>
+      <div
+        className="sc-fzqyOu sc-pZBmh sc-oTbqq gBcOGu"
+        onClick={[Function]}
+      >
+        <label
+          className="sc-pIJJz sc-pRFjI iktqoh"
+        >
+          Niederschläge
+        </label>
+      </div>
+      <div
+        className="sc-fzqyOu sc-pZBmh sc-oTbqq hxvpuJ"
+        onClick={[Function]}
+      >
+        <label
+          className="sc-pIJJz sc-pRFjI iktqoh"
+        >
+          Bereits adoptiert
+        </label>
+      </div>
+      <div
+        className="sc-fzqyOu sc-pZBmh sc-oTbqq hxvpuJ"
+        onClick={[Function]}
+      >
+        <label
+          className="sc-pIJJz sc-pRFjI iktqoh"
+        >
+          In den letzten 30 Tagen gegossen
+        </label>
+      </div>
+    </div>
+    <div
+      className="sc-fzqyOu gqHbzu"
+    >
+      <span
+        className="sc-fzpans sc-fzqKxP kfKHxs"
+      >
+        Baumalter
+      </span>
+      <span
+        className="sc-fzpans sc-pANHa haFDkS"
+      >
+        Erkunde die Geschichte von Berlins Baumlandschaft
+      </span>
+      <div
+        className="sc-fzoOEf LVKyS"
+      >
+        <span
+          className="sc-fzppip khzuLq"
+        >
+          0
+           - 
+          320
+           Jahre
+        </span>
+        <div
+          className="sc-fzpdyU dacGCY"
+        >
+          <div
+            className="rc-slider rc-slider-with-marks"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+            onTouchStart={[Function]}
+          >
+            <div
+              className="rc-slider-rail"
+              style={Object {}}
+            />
+            <div
+              className="rc-slider-track rc-slider-track-1"
+              style={
+                Object {
+                  "left": "0%",
+                  "right": "auto",
+                  "width": "100%",
+                }
+              }
+            />
+            <div
+              className="rc-slider-step"
+            >
+              <span
+                className="rc-slider-dot rc-slider-dot-active"
+                style={
+                  Object {
+                    "left": "0%",
+                  }
+                }
+              />
+              <span
+                className="rc-slider-dot rc-slider-dot-active"
+                style={
+                  Object {
+                    "left": "25%",
+                  }
+                }
+              />
+              <span
+                className="rc-slider-dot rc-slider-dot-active"
+                style={
+                  Object {
+                    "left": "50%",
+                  }
+                }
+              />
+              <span
+                className="rc-slider-dot rc-slider-dot-active"
+                style={
+                  Object {
+                    "left": "75%",
+                  }
+                }
+              />
+              <span
+                className="rc-slider-dot rc-slider-dot-active"
+                style={
+                  Object {
+                    "left": "100%",
+                  }
+                }
+              />
+            </div>
+            <div
+              aria-disabled={false}
+              aria-valuemax={320}
+              aria-valuemin={0}
+              aria-valuenow={0}
+              className="rc-slider-handle rc-slider-handle-1"
+              onBlur={[Function]}
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="slider"
+              style={
+                Object {
+                  "left": "0%",
+                  "right": "auto",
+                  "transform": "translateX(-50%)",
+                }
+              }
+              tabIndex={0}
+            />
+            <div
+              aria-disabled={false}
+              aria-valuemax={320}
+              aria-valuemin={0}
+              aria-valuenow={320}
+              className="rc-slider-handle rc-slider-handle-2"
+              onBlur={[Function]}
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="slider"
+              style={
+                Object {
+                  "left": "100%",
+                  "right": "auto",
+                  "transform": "translateX(-50%)",
+                }
+              }
+              tabIndex={0}
+            />
+            <div
+              className="rc-slider-mark"
+            >
+              <span
+                className="rc-slider-mark-text rc-slider-mark-text-active"
+                onMouseDown={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "0%",
+                    "msTransform": "translateX(-50%)",
+                    "transform": "translateX(-50%)",
+                  }
+                }
+              >
+                0
+              </span>
+              <span
+                className="rc-slider-mark-text rc-slider-mark-text-active"
+                onMouseDown={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "25%",
+                    "msTransform": "translateX(-50%)",
+                    "transform": "translateX(-50%)",
+                  }
+                }
+              >
+                80
+              </span>
+              <span
+                className="rc-slider-mark-text rc-slider-mark-text-active"
+                onMouseDown={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "50%",
+                    "msTransform": "translateX(-50%)",
+                    "transform": "translateX(-50%)",
+                  }
+                }
+              >
+                160
+              </span>
+              <span
+                className="rc-slider-mark-text rc-slider-mark-text-active"
+                onMouseDown={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "75%",
+                    "msTransform": "translateX(-50%)",
+                    "transform": "translateX(-50%)",
+                  }
+                }
+              >
+                240
+              </span>
+              <span
+                className="rc-slider-mark-text rc-slider-mark-text-active"
+                onMouseDown={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "100%",
+                    "msTransform": "translateX(-50%)",
+                    "transform": "translateX(-50%)",
+                  }
+                }
+              >
+                320
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="sc-fzqyOu gqHbzu"
+    >
+      <span
+        className="sc-fzpans sc-fzqKxP kfKHxs"
+      >
+        Standortsuche
+      </span>
+      <div
+        className="sc-fznBMq iOKdOv"
+      >
+        <div
+          className="sc-fznNvL pjMaa"
+        >
+          <input
+            onChange={[Function]}
+            placeholder="Adresse"
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          className="sc-fzocqA cgsLXo"
+        >
+          <ul />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Sidebar Search Location 1`] = `
+<div
+  className="sc-pRtAn fLWcwd"
+>
+  <a
+    className="sc-pJUVA gKpAlB"
+    href="/"
+    onClick={[Function]}
+  >
+    <button
+      aria-label="Leiste schließen"
+      className="sc-fzoJus gmPprs"
+      title="Leiste schließen"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+        />
+      </svg>
+    </button>
+  </a>
+  <div
+    className="sc-pZOBi eyLUVw"
+  >
+    <h2
+      className="sc-fzoCCn hqNcCS"
+    >
+      Suche & Filter
+    </h2>
+    <div
+      className="sc-fzqyOu gqHbzu"
+    >
+      <span
+        className="sc-fzpans sc-fzqKxP kfKHxs"
+      >
+        Datenansicht
+      </span>
+      <span
+        className="sc-fzpans sc-pANHa haFDkS"
+      >
+        Betrachte welche Bäume bereits von anderen Nutzern gegossen wurden. Oder finde heraus, wieviel Niederschlag die Bäume in den letzten 30 Tagen erreicht hat.
+      </span>
+      <div
+        className="sc-fzqyOu sc-pZBmh sc-oTbqq gBcOGu"
+        onClick={[Function]}
+      >
+        <label
+          className="sc-pIJJz sc-pRFjI iktqoh"
+        >
+          Niederschläge
+        </label>
+      </div>
+      <div
+        className="sc-fzqyOu sc-pZBmh sc-oTbqq hxvpuJ"
+        onClick={[Function]}
+      >
+        <label
+          className="sc-pIJJz sc-pRFjI iktqoh"
+        >
+          Bereits adoptiert
+        </label>
+      </div>
+      <div
+        className="sc-fzqyOu sc-pZBmh sc-oTbqq hxvpuJ"
+        onClick={[Function]}
+      >
+        <label
+          className="sc-pIJJz sc-pRFjI iktqoh"
+        >
+          In den letzten 30 Tagen gegossen
+        </label>
+      </div>
+    </div>
+    <div
+      className="sc-fzqyOu gqHbzu"
+    >
+      <span
+        className="sc-fzpans sc-fzqKxP kfKHxs"
+      >
+        Baumalter
+      </span>
+      <span
+        className="sc-fzpans sc-pANHa haFDkS"
+      >
+        Erkunde die Geschichte von Berlins Baumlandschaft
+      </span>
+      <div
+        className="sc-fzoOEf LVKyS"
+      >
+        <span
+          className="sc-fzppip khzuLq"
+        >
+          0
+           - 
+          320
+           Jahre
+        </span>
+        <div
+          className="sc-fzpdyU dacGCY"
+        >
+          <div
+            className="rc-slider rc-slider-with-marks"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onMouseUp={[Function]}
+            onTouchStart={[Function]}
+          >
+            <div
+              className="rc-slider-rail"
+              style={Object {}}
+            />
+            <div
+              className="rc-slider-track rc-slider-track-1"
+              style={
+                Object {
+                  "left": "0%",
+                  "right": "auto",
+                  "width": "100%",
+                }
+              }
+            />
+            <div
+              className="rc-slider-step"
+            >
+              <span
+                className="rc-slider-dot rc-slider-dot-active"
+                style={
+                  Object {
+                    "left": "0%",
+                  }
+                }
+              />
+              <span
+                className="rc-slider-dot rc-slider-dot-active"
+                style={
+                  Object {
+                    "left": "25%",
+                  }
+                }
+              />
+              <span
+                className="rc-slider-dot rc-slider-dot-active"
+                style={
+                  Object {
+                    "left": "50%",
+                  }
+                }
+              />
+              <span
+                className="rc-slider-dot rc-slider-dot-active"
+                style={
+                  Object {
+                    "left": "75%",
+                  }
+                }
+              />
+              <span
+                className="rc-slider-dot rc-slider-dot-active"
+                style={
+                  Object {
+                    "left": "100%",
+                  }
+                }
+              />
+            </div>
+            <div
+              aria-disabled={false}
+              aria-valuemax={320}
+              aria-valuemin={0}
+              aria-valuenow={0}
+              className="rc-slider-handle rc-slider-handle-1"
+              onBlur={[Function]}
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="slider"
+              style={
+                Object {
+                  "left": "0%",
+                  "right": "auto",
+                  "transform": "translateX(-50%)",
+                }
+              }
+              tabIndex={0}
+            />
+            <div
+              aria-disabled={false}
+              aria-valuemax={320}
+              aria-valuemin={0}
+              aria-valuenow={320}
+              className="rc-slider-handle rc-slider-handle-2"
+              onBlur={[Function]}
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="slider"
+              style={
+                Object {
+                  "left": "100%",
+                  "right": "auto",
+                  "transform": "translateX(-50%)",
+                }
+              }
+              tabIndex={0}
+            />
+            <div
+              className="rc-slider-mark"
+            >
+              <span
+                className="rc-slider-mark-text rc-slider-mark-text-active"
+                onMouseDown={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "0%",
+                    "msTransform": "translateX(-50%)",
+                    "transform": "translateX(-50%)",
+                  }
+                }
+              >
+                0
+              </span>
+              <span
+                className="rc-slider-mark-text rc-slider-mark-text-active"
+                onMouseDown={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "25%",
+                    "msTransform": "translateX(-50%)",
+                    "transform": "translateX(-50%)",
+                  }
+                }
+              >
+                80
+              </span>
+              <span
+                className="rc-slider-mark-text rc-slider-mark-text-active"
+                onMouseDown={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "50%",
+                    "msTransform": "translateX(-50%)",
+                    "transform": "translateX(-50%)",
+                  }
+                }
+              >
+                160
+              </span>
+              <span
+                className="rc-slider-mark-text rc-slider-mark-text-active"
+                onMouseDown={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "75%",
+                    "msTransform": "translateX(-50%)",
+                    "transform": "translateX(-50%)",
+                  }
+                }
+              >
+                240
+              </span>
+              <span
+                className="rc-slider-mark-text rc-slider-mark-text-active"
+                onMouseDown={[Function]}
+                onTouchStart={[Function]}
+                style={
+                  Object {
+                    "left": "100%",
+                    "msTransform": "translateX(-50%)",
+                    "transform": "translateX(-50%)",
+                  }
+                }
+              >
+                320
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="sc-fzqyOu gqHbzu"
+    >
+      <span
+        className="sc-fzpans sc-fzqKxP kfKHxs"
+      >
+        Standortsuche
+      </span>
+      <div
+        className="sc-fznBMq iOKdOv"
+      >
+        <div
+          className="sc-fznNvL pjMaa"
+        >
+          <input
+            onChange={[Function]}
+            placeholder="Adresse"
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          className="sc-fzocqA cgsLXo"
+        >
+          <ul />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;

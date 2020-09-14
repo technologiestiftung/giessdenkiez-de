@@ -38,7 +38,7 @@ const SidebarContent = styled.div`
   padding: 0px 15px;
 `;
 
-const Sidebar = _p => {
+const Sidebar: React.FC = () => {
   return (
     <Route
       path={['/about', '/search', '/adopted', '/profile', '/selected']}

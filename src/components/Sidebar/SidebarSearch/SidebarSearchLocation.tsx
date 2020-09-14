@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useActions } from '../../../state/unistore-hooks';
 import Actions from '../../../state/Actions';
 
-import { connect } from 'unistore/react';
+// import { connect } from 'unistore/react';
 
 const SearchDiv = styled.div`
   display: flex;
@@ -59,8 +60,8 @@ const ResultElement = styled.li`
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
-const SidebarSearchLocation = p => {
-  const { setViewport } = p;
+const SidebarSearchLocation: React.FC = () => {
+  const { setViewport } = useActions(Actions);
 
   const [value, setValue] = React.useState('');
   const [results, setResults] = React.useState([]);
@@ -103,7 +104,7 @@ const SidebarSearchLocation = p => {
             <ResultElement
               className={index % 2 ? 'even' : 'odd'}
               key={index}
-              onClick={e => setViewport(item.geometry.coordinates)}
+              onClick={() => setViewport(item.geometry.coordinates)}
             >
               {item.place_name_de}
             </ResultElement>
@@ -114,9 +115,4 @@ const SidebarSearchLocation = p => {
   );
 };
 
-export default connect(
-  state => ({
-    isLoading: state.isLoading,
-  }),
-  Actions
-)(SidebarSearchLocation);
+export default SidebarSearchLocation;

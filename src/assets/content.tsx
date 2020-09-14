@@ -84,7 +84,7 @@ const content: Content = {
       {
         question:
           'An wen kann ich mich wenden, wenn Pumpen kaputt oder beschädigt sind?',
-        answer: `Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Die Standorte der Pumpen in der Karte werden regelmäßig aus der Open Street Map geladen. Wenn Ihr helfen wollt die Daten zu verbessern, indem ihr zum Beispiel eine defekte Pumpe meldet, könnt ihr das in unserem <a target="blank" href=" https://app.slack.com/client/T012K4SDYBY/">Slack Channel #pumpen-melden </a>
+        answer: `Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Die Standorte der Pumpen in der Karte werden regelmäßig aus der Open Street Map geladen. Wenn Ihr helfen wollt die Daten zu verbessern, indem ihr zum Beispiel eine defekte Pumpe meldet, könnt ihr das in unserem <a target="blank" href="https://app.slack.com/client/T012K4SDYBY/C019SJQDPL7">Slack Channel #pumpen-melden </a>
         tun. Die OSM-Community hat dann die Möglichkeit eure Informationen in die Datenbank einzutragen.`,
       },
       {
@@ -102,12 +102,6 @@ const content: Content = {
           'Was tun, wenn ich einen Baum fälschlicherweise gegossen habe?',
         answer:
           'Eine Funktion, um Gieß-Aktivitäten rückgängig zu machen, weil bspw. stattdessen der Nachbarbaum gegossen wurde, existiert leider nicht.',
-      },
-      {
-        question:
-          'An wen kann ich mich wenden, wenn Pumpen kaputt oder beschädigt sind?',
-        answer:
-          'Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Die Standorte der Pumpen stammen aus dem <a target="blank" href="https://fbinter.stadt-berlin.de/fb/index.jsp?loginkey=zoomStart&mapId=atkis_basis_dlm@senstadt&bbox=388352,5818784,390972,5820270">Amtlich Topografisch-Kartografischen Informationssystem (ATKIS)</a>, das über das Geodatenportal Berlin verfügbar ist und von den jeweiligen Bezirken gepflegt wird.',
       },
       {
         question: 'Ist das Prinzip auf andere Städte übertragbar?',
@@ -213,7 +207,7 @@ const content: Content = {
          border-radius: 100px;
          margin-right: 5px;"
          color="${defaultColor.hex}"
-         ></span>. Informationen wir ihr der Open Street Maps Community helfen könnt dies zu beheben, findet ihr in unserem F.A.Q und in unserem <a target="blank" href=" https://app.slack.com/client/T012K4SDYBY/">Slack Channel #pumpen-melden </a>.`,
+         ></span>. Informationen wie ihr der Open Street Maps Community helfen könnt dies zu beheben, findet ihr in unserem F.A.Q und in unserem <a target="blank" href="https://app.slack.com/client/T012K4SDYBY/C019SJQDPL7">Slack Channel #pumpen-melden </a>.`,
     ],
   },
   loading: {

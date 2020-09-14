@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'unistore/react';
 import Actions from '../../../state/Actions';
+import { useStoreState, useActions } from '../../../state/unistore-hooks';
 import { timeDifference, requests } from '../../../utils/index';
 
 import SidebarLoadingCard from '../SidebarLoadingCard';
@@ -45,14 +45,12 @@ const StyledTableRow = styled.tr`
   }
 `;
 
-const SidebarAdopted = p => {
-  const {
-    selectedTreeState,
-    adoptedTrees,
-    state,
-    setDetailRouteWithListPath,
-    setViewport,
-  } = p;
+const SidebarAdopted = () => {
+  const { selectedTreeState } = useStoreState('selectedTreeState');
+  const { adoptedTrees } = useStoreState('adoptedTrees');
+  const { setDetailRouteWithListPath } = useActions(Actions);
+  const { setViewport } = useActions(Actions);
+
   const { user, getTokenSilently } = useAuth0();
 
   const getTree = async tree => {
@@ -62,21 +60,14 @@ const SidebarAdopted = p => {
 
     store.setState({ selectedTreeState: 'LOADING' });
 
-    const url = createAPIUrl(state, `/get?&queryType=byid&id=${id}`);
+    const url = createAPIUrl(store.getState(), `/get?&queryType=byid&id=${id}`);
 
+    // TODO: Replace with requests
     fetchAPI(url)
       .then(r => {
         // ISSUE:141
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        //@ts-ignore
-        // eslint-disable-next-line @typescript-eslint/camelcase
         r.data.radolan_days = r.data.radolan_days.map(d => d / 10);
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        //@ts-ignore
-        // eslint-disable-next-line @typescript-eslint/camelcase
         r.data.radolan_sum = r.data.radolan_sum / 10;
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-        //@ts-ignore
         store.setState({ selectedTreeState: 'LOADED', selectedTree: r.data });
         setViewport(geometry);
         setDetailRouteWithListPath(id);
@@ -94,19 +85,12 @@ const SidebarAdopted = p => {
     try {
       store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
-      // const urlDel = createAPIUrl(state, `/delete?id=${id}`);
-      // const header = {
-      //   headers: {
-      //     Authorization: 'Bearer ' + token,
-      //   },
-      // };
 
-      await requests(createAPIUrl(state, `/delete?id=${id}`), {
+      await requests(createAPIUrl(store.getState(), `/delete?id=${id}`), {
         token,
         override: {
           method: 'DELETE',
           body: JSON.stringify({
-            // eslint-disable-next-line @typescript-eslint/camelcase
             tree_id: id,
             uuid: user.sub,
             queryType: 'unadopt',
@@ -114,7 +98,10 @@ const SidebarAdopted = p => {
         },
       });
       const jsonAdopted = await requests(
-        createAPIUrl(state, `/get?queryType=adopted&uuid=${user.sub}`)
+        createAPIUrl(
+          store.getState(),
+          `/get?queryType=adopted&uuid=${user.sub}`
+        )
       );
       store.setState({
         selectedTreeState: 'FETCHED',
@@ -163,7 +150,7 @@ const SidebarAdopted = p => {
                       {timeDiff[1]}
                     </StyledTDColor>
                     <StyledTD
-                      onClick={e => {
+                      onClick={() => {
                         unadoptTree(tree.id);
                       }}
                     >
@@ -184,12 +171,4 @@ const SidebarAdopted = p => {
   );
 };
 
-export default connect(
-  state => ({
-    selectedTree: state.selectedTree,
-    selectedTreeState: state.selectedTreeState,
-    adoptedTrees: state.adoptedTrees,
-    state: state,
-  }),
-  Actions
-)(SidebarAdopted);
+export default SidebarAdopted;

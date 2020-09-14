@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { connect } from 'unistore/react';
+// import { connect } from 'unistore/react';
 import history from '../../history';
-import Actions, { loadCommunityData } from '../../state/Actions';
+import { loadCommunityData } from '../../state/Actions';
+import { useStoreState } from '../../state/unistore-hooks';
 import store from '../../state/Store';
 import { createAPIUrl, isTreeAdopted, requests, waitFor } from '../../utils';
 import { useAuth0 } from '../../utils/auth/auth0';
@@ -41,17 +41,16 @@ const StyledLogin = styled(Login)`
   align-self: stretch;
 `;
 
-const ButtonWater = p => {
-  const {
-    selectedTree,
-    state,
-    toggleOverlay,
-    selectedTreeState,
-    userdata,
-    treeAdopted,
-    endpoints,
-  } = p;
-  const { id } = selectedTree;
+const ButtonWater = () => {
+  // const {
+  const { selectedTree } = useStoreState('selectedTree');
+  const { toggleOverlay } = useStoreState('toggleOverlay');
+  const { selectedTreeState } = useStoreState('selectedTreeState');
+  const { user: userdata } = useStoreState('user');
+  const { treeAdopted } = useStoreState('treeAdopted');
+  const { endpoints } = useStoreState('endpoints');
+
+  // const { id } = selectedTree;
   const [waterGroup, setWaterGroup] = useState('visible');
   const { user, isAuthenticated, getTokenSilently } = useAuth0();
   const [adopted] = useState(false);
@@ -96,7 +95,7 @@ const ButtonWater = p => {
       store.setState({ selectedTreeState: 'WATERING' });
       const token = await getTokenSilently();
       const urlPostWatering = createAPIUrl(
-        state,
+        store.getState(),
         `/post?id=${id}&uuid=${user.sub}&amount=${amount}&username=${username}&comment=URL_QUERY_NOT_NEEDED_USE_BODY`
       );
 
@@ -113,7 +112,10 @@ const ButtonWater = p => {
           }),
         },
       });
-      const geturl = createAPIUrl(state, `/get?id=${id}&queryType=byid`);
+      const geturl = createAPIUrl(
+        store.getState(),
+        `/get?id=${id}&queryType=byid`
+      );
       const json = await requests(geturl);
       if (json.data.length > 0) {
         const tree = json.data[0];
@@ -132,7 +134,7 @@ const ButtonWater = p => {
         );
         store.setState({ treeLastWatered: jsonWatered.data });
         await waitFor(500, () => {
-          const url = createAPIUrl(state, `/get?queryType=watered`);
+          const url = createAPIUrl(store.getState(), `/get?queryType=watered`);
           requests(url)
             .then(json => {
               store.setState({ wateredTrees: json.data.watered });
@@ -150,6 +152,7 @@ const ButtonWater = p => {
   const setWaterAmount = (id: any, amount: any) => {
     setWaterGroup('watered');
     waterTree(id, amount, userdata.username);
+
     setTimeout(() => {
       setWaterGroup('visible');
     }, 1000);
@@ -159,7 +162,10 @@ const ButtonWater = p => {
       store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
       // const time = timeNow();
-      const url = createAPIUrl(state, `/post?tree_id=${id}&uuid=${user.sub}`);
+      const url = createAPIUrl(
+        store.getState(),
+        `/post?tree_id=${id}&uuid=${user.sub}`
+      );
 
       await requests(url, {
         token,
@@ -173,7 +179,9 @@ const ButtonWater = p => {
         },
       })
         .then(() => {
-          return requests(createAPIUrl(state, `/get?&queryType=byid&id=${id}`));
+          return requests(
+            createAPIUrl(store.getState(), `/get?&queryType=byid&id=${id}`)
+          );
         })
         .then(res => {
           if (res.data.length > 0) {
@@ -202,7 +210,6 @@ const ButtonWater = p => {
             token,
             isAuthenticated,
             store,
-            state,
           });
         })
         .catch(console.error);
@@ -221,7 +228,7 @@ const ButtonWater = p => {
                 <ButtonRound
                   margin='15px'
                   toggle={() => {
-                    adoptTree(id);
+                    adoptTree(selectedTree.id);
                   }}
                   type='secondary'
                 >
@@ -247,7 +254,7 @@ const ButtonWater = p => {
               {btnLabel(waterGroup)}
             </ButtonRound>
             {waterGroup === 'watering' && (
-              <ButtonWaterGroup id={id} toggle={setWaterAmount} />
+              <ButtonWaterGroup id={selectedTree.id} toggle={setWaterAmount} />
             )}
             <StyledCardDescription onClick={() => handleClick()}>
               Wie kann ich mitmachen?
@@ -276,14 +283,4 @@ const ButtonWater = p => {
   }
 };
 
-export default connect(
-  state => ({
-    selectedTree: state.selectedTree,
-    selectedTreeState: state.selectedTreeState,
-    treeAdopted: state.treeAdopted,
-    state: state,
-    userdata: state.user,
-    endpoints: state.endpoints,
-  }),
-  Actions
-)(ButtonWater);
+export default ButtonWater;

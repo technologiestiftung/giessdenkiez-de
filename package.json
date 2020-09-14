@@ -12,8 +12,8 @@
     "build": "cross-env NODE_ENV=production webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects",
     "prettier:list": "prettier --list-different './src/**/*'",
     "prettier:write": "prettier --write './src/**/*'",
-    "storybook": "start-storybook -p 6006 -s ./public",
-    "build-storybook": "build-storybook"
+    "storybook": "cross-env BUILD_TARGET=DEFAULT  NODE_ENV=development start-storybook -s ./public -p 6006",
+    "build-storybook": "build-storybook -s ./public"
   },
   "keywords": [],
   "author": "Fabian Dinklage",
@@ -85,7 +85,6 @@
     "sass-loader": "9.0.3",
     "source-map-loader": "1.0.1",
     "style-loader": "1.2.1",
-    "themeprovider-storybook": "1.6.2",
     "typescript": "3.9.5",
     "url-loader": "4.1.0",
     "webpack": "4.44.1",

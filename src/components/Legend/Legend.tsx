@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { interpolateColor } from '../../utils/';
+import { interpolateColor } from '../../utils';
 import store from '../../state/Store';
 // import { connect } from 'unistore/react';
 // import Actions from '../../state/Actions';
 import { useStoreState } from '../../state/unistore-hooks';
-import CardDescription from '../Card/CardDescription/';
+import CardDescription from '../Card/CardDescription';
 import {
   workingColor,
   defaultColor,
@@ -39,12 +39,17 @@ const ItemContainer = styled.div<ItemContainerProps>`
 //   margin-bottom: 10px;
 //   transform: translateX(-4px);
 // `;
-const LegendDot = styled.div`
+interface LegendDotProps {
+  color: string;
+  gradient?: string;
+}
+const LegendDot = styled.div<LegendDotProps>`
   width: 13px;
   height: 13px;
   border-radius: 100px;
   margin-right: 5px;
-  background-color: ${p => p.color};
+  ${p =>
+    p.gradient ? `background: ${p.gradient}` : `background-color: ${p.color}`};
 `;
 
 interface PumpsDot {
@@ -52,11 +57,12 @@ interface PumpsDot {
   size: number;
 }
 const PumpsDot = styled.div<PumpsDot>`
-  width: ${p => p.size + 1}px;
-  height: ${p => p.size}px;
+  width: ${p => p.size - 2}px;
+  height: ${p => p.size - 3}px;
   border-radius: ${p => p.size / 2}px;
   margin-right: 6px;
   background-color: ${p => p.color};
+  border: 2px solid ${p => p.theme.colorTextDark};
 `;
 
 const PumpLabel = styled.label`
@@ -65,16 +71,18 @@ const PumpLabel = styled.label`
   width: 100%;
 `;
 
-const LegendRect = styled.div`
+const LegendRect = styled.div<Pick<LegendDotProps, 'gradient'>>`
   width: 9px;
   height: 9px;
   margin-right: 5px;
   border: 2px solid ${p => p.theme.colorTextDark};
-  background-color: none;
+  ${p => (p.gradient ? `background: ${p.gradient}` : 'background-color: none')};
 `;
 
-const StrokedLegendDot = styled(LegendDot)`
-  background: none;
+const StrokedLegendDot = styled.div<Pick<LegendDotProps, 'gradient'>>`
+  border-radius: 100px;
+  margin-right: 5px;
+  ${p => (p.gradient ? `background: ${p.gradient}` : 'background-color: none')};
   width: 10px;
   height: 10px;
   border: 2px solid ${p => p.theme.colorTextDark};
@@ -220,6 +228,24 @@ export interface LegendProps {
   pumpsVisible: boolean;
   legendExpanded: boolean;
 }
+
+function createCSSGradient(colors: string[], degrees = 90): string {
+  let gradient = `linear-gradient(${degrees}deg, `;
+  const len = colors.length;
+  let i = 0;
+  for (const color of colors) {
+    gradient += color;
+    if (i !== len - 1) {
+      gradient += ', ';
+    }
+    i++;
+  }
+  gradient += ')';
+  return gradient;
+}
+const rainColors = legendArray.map(item => interpolateColor(item.value));
+const rainGradient = createCSSGradient(rainColors);
+
 const Legend: React.FC = () => {
   const { legendExpanded } = useStoreState('legendExpanded');
   const { pumpsVisible } = useStoreState('pumpsVisible');
@@ -259,14 +285,24 @@ const Legend: React.FC = () => {
       </FlexSpace>
       {legendExpanded === true && pumpsVisible === false && (
         <UnstyledFlex>
-          {legendArray.map((item, i) => (
-            <React.Fragment key={i}>
-              <ItemContainer>
-                <LegendDot color={interpolateColor(item.value)} />
-                <ItemLabel>{item.label}</ItemLabel>
-              </ItemContainer>
-            </React.Fragment>
-          ))}
+          {treesVisible === true &&
+            legendArray.map((item, i) => (
+              <React.Fragment key={i}>
+                <ItemContainer>
+                  <LegendDot color={interpolateColor(item.value)} />
+                  <ItemLabel>{item.label}</ItemLabel>
+                </ItemContainer>
+              </React.Fragment>
+            ))}
+          {rainVisible === true &&
+            legendArray.map((item, i) => (
+              <React.Fragment key={i}>
+                <ItemContainer>
+                  <LegendRect gradient={interpolateColor(item.value)} />
+                  <ItemLabel>{item.label}</ItemLabel>
+                </ItemContainer>
+              </React.Fragment>
+            ))}
         </UnstyledFlex>
       )}
       {legendExpanded === true && pumpsVisible === true && (
@@ -305,7 +341,15 @@ const Legend: React.FC = () => {
               store.setState({ rainVisible: false });
             }}
           >
-            <LegendDot color={'#2c303b'} />
+            {treesVisible === true ? (
+              <LegendDot
+                className={'legend-dot'}
+                color={'#2c303b'}
+                gradient={rainGradient}
+              />
+            ) : (
+              <LegendDot className={'legend-dot'} color={'#2c303b'} />
+            )}
             <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
           </UnstyledFlexWidth>
           <UnstyledFlexWidth
@@ -316,7 +360,11 @@ const Legend: React.FC = () => {
               store.setState({ rainVisible: false });
             }}
           >
-            <StrokedLegendDot />
+            {pumpsVisible === true ? (
+              <StrokedLegendDot gradient={`${workingColor.hex}`} />
+            ) : (
+              <StrokedLegendDot />
+            )}
             <StyledItemLabel>Öffentl. Pumpen</StyledItemLabel>
           </UnstyledFlexWidth>
           <UnstyledFlexWidth
@@ -327,7 +375,11 @@ const Legend: React.FC = () => {
               store.setState({ rainVisible: !rainVisible });
             }}
           >
-            <LegendRect />
+            {rainVisible === true ? (
+              <LegendRect gradient={rainGradient} />
+            ) : (
+              <LegendRect />
+            )}
             <StyledItemLabel>Niederschlagsflächen</StyledItemLabel>
           </UnstyledFlexWidth>
         </FlexColumn>

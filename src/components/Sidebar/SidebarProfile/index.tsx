@@ -1,9 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth0 } from '../../../utils/auth/auth0';
-import Actions from '../../../state/Actions';
-import { connect } from 'unistore/react';
+// import Actions from '../../../state/Actions';
+// import { connect } from 'unistore/react';
 import store from '../../../state/Store';
+import { useStoreState } from '../../../state/unistore-hooks';
+
 import { createAPIUrl, requests } from '../../../utils';
 
 import SidebarTitle from '../SidebarTitle/';
@@ -49,15 +51,13 @@ const FlexCol = styled.div`
   flex-direction: column;
 `;
 
-const SidebarProfile = p => {
-  const {
-    state,
-    wateredByUser,
-    adoptedTrees,
-    adoptedTreesDetails,
-    toggleOverlay,
-    userdata,
-  } = p;
+const SidebarProfile = () => {
+  const { wateredByUser } = useStoreState('wateredByUser');
+  const { adoptedTrees } = useStoreState('adoptedTrees');
+  const { adoptedTreesDetails } = useStoreState('adoptedTreesDetails');
+  const { toggleOverlay } = useStoreState('toggleOverlay');
+  const { user: userdata } = useStoreState('user');
+
   const {
     loading,
     user,
@@ -66,6 +66,12 @@ const SidebarProfile = p => {
     logout,
   } = useAuth0();
   const [isEmailVerifiyed, setIsEmailVerifiyed] = useState(false);
+  // useEffect(() => {
+  //   if (userdata === undefined && isAuthenticated === true) {
+  //     console.log('logout');
+  //     logout();
+  //   }
+  // }, []);
   /**
    * Check weather the email of the user is verified
    */
@@ -89,7 +95,7 @@ const SidebarProfile = p => {
 
           const queryStr = adoptedTrees.reduce(concatReducer, '{');
           const urlAdoptedTreesDetails = createAPIUrl(
-            state,
+            store.getState(),
             // `/private/get-adopted-trees-details?tree_ids=${queryStr}`
             `/get/?queryType=treesbyids&tree_ids=${queryStr}`
           );
@@ -241,14 +247,4 @@ const SidebarProfile = p => {
   );
 };
 
-export default connect(
-  state => ({
-    treeLastWatered: state.treeLastWatered,
-    state: state,
-    userdata: state.user,
-    wateredByUser: state.wateredByUser,
-    adoptedTrees: state.adoptedTrees,
-    adoptedTreesDetails: state.adoptedTreesDetails,
-  }),
-  Actions
-)(SidebarProfile);
+export default SidebarProfile;

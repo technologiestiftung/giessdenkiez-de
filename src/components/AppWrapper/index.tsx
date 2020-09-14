@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import DeckGlMap from '../map';
 import Sidebar from '../Sidebar';
 import Nav from '../Nav';
-import Legend from '../Legend';
+import Legend from '../Legend/Legend';
 import Cookie from '../Cookie';
 import Loading from '../Loading';
 import Overlay from '../Overlay';

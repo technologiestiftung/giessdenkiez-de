@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect, useContext } from 'react';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { ContextProps } from '../../common/types';
+import { Auth0ClientOptions, IdToken } from '@auth0/auth0-spa-js';
 
 interface FakeToken {
   access_token: string;
@@ -95,7 +94,6 @@ export const Auth0Provider = ({
         auth0FromHook.handleRedirectCallback !== undefined
       ) {
         const { appState } = await auth0FromHook.handleRedirectCallback();
-        //@ts-ignore
         onRedirectCallback(appState);
       }
 

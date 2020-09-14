@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 // src/mocks/handlers.js
 
 import { rest } from 'msw';
@@ -67,7 +66,7 @@ export const handlers = [
 
   rest.delete(`${location}/delete`, (req, res, ctx) => {
     // console.log('intercepting DELETE requests');
-    let json: Payload = {};
+    const json: Payload = {};
     let body: Record<string, any> = {};
     if (typeof req.body === 'string') {
       body = JSON.parse(req.body);
