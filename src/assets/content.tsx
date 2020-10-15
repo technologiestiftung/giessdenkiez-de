@@ -33,9 +33,11 @@ interface Content {
     disclaimer: string;
     description: string[];
   };
-  eventNote?: {
-    title: string;
-  };
+  //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
+  //if event announcemnt is needed just de-comment this section and fill in the announcement text below
+  // eventNote?: {
+  //   title: string;
+  // };
   whatsNew?: {
     title: string;
     description: string[];
@@ -136,10 +138,11 @@ const content: Content = {
       'Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
     ],
   },
-  eventNote: {
-    title:
-      '<b>Gieß den Kiez LIVE: </b><br>Der Sommer neigt sich dem Ende zu und wir werden analog! Melde Dich jetzt für unser <a target="blank" href="https://www.citylab-berlin.org/events/freiwilligentage/">Mitmach-Event</a> am 11. September an und besuche uns im CityLAB Berlin.',
-  },
+  //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
+  // eventNote: {
+  //   title:
+  //     '<b>Gieß den Kiez LIVE: </b><br>Der Sommer neigt sich dem Ende zu und wir werden analog! Melde Dich jetzt für unser <a target="blank" href="https://www.citylab-berlin.org/events/freiwilligentage/">Mitmach-Event</a> am 11. September an und besuche uns im CityLAB Berlin.',
+  // },
   whatsNew: {
     title: 'Was ist neu?',
     description: [
