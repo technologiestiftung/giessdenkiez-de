@@ -1,20 +1,82 @@
 import React, { useEffect } from 'react';
 /* import styled from 'styled-components'; */
 
-import { select, scaleBand, scaleLinear, axisLeft, axisBottom } from 'd3';
+import d3, {
+  select,
+  scaleBand,
+  scaleLinear,
+  axisLeft,
+  axisBottom,
+  // timeFormat,
+  // timParse,
+  // stack,
+} from 'd3';
 
 const data = [
   {
-    day: '2021-01-01',
-    rainValue: 70,
-    wateringValue: 10,
+    day: new Date(2021, 1, 20),
+    values: {
+      rainValue: 0,
+      wateringValue: 40,
+    },
   },
   {
-    day: '2021-01-02',
-    rainValue: 50,
-    wateringValue: 50,
+    day: new Date(2021, 1, 21),
+    values: {
+      rainValue: 20,
+      wateringValue: 0,
+    },
+  },
+  {
+    day: new Date(2021, 1, 22),
+    values: {
+      rainValue: 10,
+      wateringValue: 40,
+    },
+  },
+  {
+    day: new Date(2021, 1, 23),
+    values: {
+      rainValue: 0,
+      wateringValue: 40,
+    },
+  },
+  {
+    day: new Date(2021, 1, 24),
+    values: {
+      rainValue: 20,
+      wateringValue: 0,
+    },
+  },
+  {
+    day: new Date(2021, 1, 25),
+    values: {
+      rainValue: 10,
+      wateringValue: 40,
+    },
   },
 ];
+
+// format Date time
+// // to create Date out of String
+// const parser = timeParse('%Y-%m-%d');
+// to create string out of Date
+// const formatter = timeFormat('%d-%m');
+
+// let myDates = [];
+
+// data.forEach(function (d) {
+//   const dayString = formatter(d.day);
+//   myDates.push(dayString);
+// });
+
+// CONTINUE FROM HERE
+// console.log('this is my dates:', myDates);
+
+// // create new stack generator
+// const stackGen = stack().keys(['rainValue', 'wateringValue']);
+// const stackedData = stackGen(data.values);
+// console.log(stackedData);
 
 /* const LineChartWrapper = styled.div`
   width: 100%;
@@ -28,7 +90,7 @@ const StackedBarChart = p => {
   const [, setScaleRain] = useState<ScaleLinear<number, number> | null>(null); */
 
   const margin = {
-    top: 30,
+    top: 10,
     right: 15,
     bottom: 40,
     left: 30,
@@ -68,11 +130,17 @@ const StackedBarChart = p => {
       }
 
       const width = (wrapper.node() as HTMLElement).clientWidth;
-      const height = (wrapper.node() as HTMLElement).clientHeight;
+      const height = 300;
+      // FIX LATER
+      // const height = (wrapper.node() as HTMLElement).clientHeight;
       console.log(width, height);
 
+      const key = data.map(function (d) {
+        return d.day;
+      });
+
       const xScale = scaleBand()
-        .domain(['0', '30'])
+        .domain(key)
         .range([margin.left, width - margin.right])
         .padding(0.1);
 
@@ -91,7 +159,26 @@ const StackedBarChart = p => {
         .attr('y', 0)
         .attr('width', width)
         .attr('height', height)
-        .style('fill', 'red');
+        .style('fill', 'lightgrey');
+
+      // apend rectangles
+      svg
+        .selectAll('div')
+        .data(data)
+        .enter()
+        .append('rect')
+        .attr('class', 'bar')
+        .attr('x', function (d) {
+          return xScale(d.day);
+        })
+        .attr('y', function (d) {
+          return yScale(d.values.rainValue) - margin.bottom + margin.top;
+        })
+        .attr('width', xScale.bandwidth())
+        .attr('height', function (d) {
+          return height - yScale(d.values.rainValue);
+        })
+        .style('fill', 'steelblue');
 
       // const today = new Date();
       // const priorDate = new Date().setDate(today.getDate() - 30);
@@ -108,20 +195,31 @@ const StackedBarChart = p => {
 
       const yAxis = axisLeft(yScale).ticks(2);
 
-      const xAxis = axisBottom(xScale).ticks(3);
+      const xAxis = axisBottom(xScale).tickFormat(d => {
+        // get sysdate for x Axis
+        const today = new Date().toISOString().slice(0, 10);
+        if (d === today) {
+          return 'Heute';
+        } else if (d !== null) {
+          // replace with Date
+          return `vor xyz Tagen`;
+        }
+      });
 
       svg
         .append('g')
-        .attr('transform', `translate(${margin.left}, ${margin.top})`)
+        .attr('transform', `translate(${margin.left}, ${margin.top} )`)
         .call(yAxis);
 
       svg
         .append('g')
         .attr(
           'transform',
-          `translate(${margin.left}, ${height - margin.bottom})`
+          `translate( 0, ${height - margin.bottom + margin.top})`
         )
         .call(xAxis);
+
+      svg.append();
 
       /* const areaDefault = d3Area()
         .x((d, i) => scaleTime(i))
