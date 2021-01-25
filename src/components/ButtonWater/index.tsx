@@ -2,7 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import { connect } from 'unistore/react';
 import history from '../../history';
-import { loadCommunityData } from '../../state/Actions';
+import Actions, { loadCommunityData } from '../../state/Actions';
+import { useActions } from '../../state/unistore-hooks';
 import { useStoreState } from '../../state/unistore-hooks';
 import store from '../../state/Store';
 import { createAPIUrl, isTreeAdopted, requests, waitFor } from '../../utils';
@@ -44,7 +45,7 @@ const StyledLogin = styled(Login)`
 const ButtonWater = () => {
   // const {
   const { selectedTree } = useStoreState('selectedTree');
-  const { toggleOverlay } = useStoreState('toggleOverlay');
+  const { toggleOverlay } = useActions(Actions);
   const { selectedTreeState } = useStoreState('selectedTreeState');
   const { user: userdata } = useStoreState('user');
   const { treeAdopted } = useStoreState('treeAdopted');
