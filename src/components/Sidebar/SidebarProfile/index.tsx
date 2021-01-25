@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { useAuth0 } from '../../../utils/auth/auth0';
 // import Actions from '../../../state/Actions';
 // import { connect } from 'unistore/react';
+import history from '../../../history';
 import store from '../../../state/Store';
-import { useStoreState } from '../../../state/unistore-hooks';
+import { useActions, useStoreState } from '../../../state/unistore-hooks';
 
 import { createAPIUrl, requests } from '../../../utils';
 
@@ -20,6 +21,7 @@ import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
 import ButtonRound from '../../ButtonRound';
 import LoadingIcon from '../../LoadingIcon/';
 import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
+import Actions from '../../../state/Actions';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
@@ -55,7 +57,7 @@ const SidebarProfile = () => {
   const { wateredByUser } = useStoreState('wateredByUser');
   const { adoptedTrees } = useStoreState('adoptedTrees');
   const { adoptedTreesDetails } = useStoreState('adoptedTreesDetails');
-  const { toggleOverlay } = useStoreState('toggleOverlay');
+  const { toggleOverlay } = useActions(Actions);
   const { user: userdata } = useStoreState('user');
 
   const {
@@ -163,6 +165,11 @@ const SidebarProfile = () => {
     }
   };
 
+  const handleParticipateClick = (): void => {
+    history.push('/');
+    toggleOverlay(true);
+  };
+
   if (loading) {
     return (
       <>
@@ -187,7 +194,7 @@ const SidebarProfile = () => {
             logge dich ein.
           </CardParagraph>
           <Login width='-webkit-fill-available' />
-          <StyledCardDescription onClick={() => toggleOverlay(true)}>
+          <StyledCardDescription onClick={handleParticipateClick}>
             Wie kann ich mitmachen?
           </StyledCardDescription>
         </FlexCol>
