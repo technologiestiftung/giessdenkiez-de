@@ -2,7 +2,10 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 export interface HoverObjectProps {
-  message: string;
+  message_addr: string;
+  message_status: string;
+  message_date: string;
+  message_style;
   pointer: number[];
 }
 export interface StyledProps {
@@ -17,7 +20,7 @@ const StyledSpan = styled.span`
   color: ${props => props.theme.colorTextLight};
 `;
 const Bubble = styled.div<StyledProps>`
-  height: 30px;
+  height: 150px;
   line-height: 30px;
   font-size: ${props => props.theme.fontSizeL};
   box-sizing: border-box;
@@ -48,7 +51,10 @@ const Bubble = styled.div<StyledProps>`
 `;
 // type BubbleProps = Pick<HoverObjectProps, 'pointer'>;
 export const HoverObject: React.FC<HoverObjectProps> = ({
-  message,
+  message_addr,
+  message_status,
+  message_date,
+  message_style,
   pointer,
 }) => {
   const refBubble = useRef<HTMLDivElement | null>(null);
@@ -74,7 +80,23 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
           height={heightBubble}
         >
           <StyledSpan>
-            <b>Status:</b> {message}
+            <b>Öffentliche Straßenpumpe</b>
+          </StyledSpan>
+          <br></br>
+          <StyledSpan>
+            <b>Status:</b> {message_status}
+          </StyledSpan>
+          <br></br>
+          <StyledSpan>
+            <b>Standort:</b> {message_addr}
+          </StyledSpan>
+          <br></br>
+          <StyledSpan>
+            <b>Pumpentyp:</b> {message_style}
+          </StyledSpan>
+          <br></br>
+          <StyledSpan>
+            <b>Letzter Status-Check:</b> {message_date}
           </StyledSpan>
         </Bubble>
       </div>

@@ -85,7 +85,10 @@ class DeckGLMap extends React.Component {
     this.state = {
       isHovered: false,
       hoverObjectPointer: [],
-      hoverObjectMessage: '',
+      hoverObjectMessageAddr: '',
+      hoverObjectMessageStatus: '',
+      hoverObjectMessageDate: '',
+      hoverObjectMessageStyle: '',
       hoveredObject: null,
       data: null,
       included: null,
@@ -285,7 +288,16 @@ class DeckGLMap extends React.Component {
             }
             this.setState({ isHovered: true });
             this.setState({
-              hoverObjectMessage: info.object.properties['pump:status'],
+              hoverObjectMessageAddr: info.object.properties['addr:full'],
+            });
+            this.setState({
+              hoverObjectMessageDate: info.object.properties['check_date'],
+            });
+            this.setState({
+              hoverObjectMessageStatus: info.object.properties['pump:status'],
+            });
+            this.setState({
+              hoverObjectMessageStyle: info.object.properties['pump:style'],
             });
             this.setState({ hoverObjectPointer: [info.x, info.y] });
           },
@@ -600,7 +612,10 @@ class DeckGLMap extends React.Component {
             this.state.isHovered === true &&
             this.state.hoverObjectPointer.length === 2 && (
               <HoverObject
-                message={this.state.hoverObjectMessage}
+                message_addr={this.state.hoverObjectMessageAddr}
+                message_status={this.state.hoverObjectMessageStatus}
+                message_date={this.state.hoverObjectMessageDate}
+                message_style={this.state.hoverObjectMessageStyle}
                 pointer={this.state.hoverObjectPointer}
               ></HoverObject>
             )}
