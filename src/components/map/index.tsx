@@ -14,10 +14,8 @@ import store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import {
   // fetchAPI,
-  createAPIUrl,
   interpolateColor,
   hexToRgb,
-  requests,
   // checkGeolocationFeature,
 } from '../../utils';
 import { HoverObject } from './HoverObject';
@@ -76,6 +74,7 @@ const pumpsColor: (info: Generic) => RGBAColor = info => {
   }
   return defaultColor.rgba;
 };
+
 class DeckGLMap extends React.Component {
   constructor(props) {
     super(props);
@@ -327,45 +326,42 @@ class DeckGLMap extends React.Component {
     }
   }
 
-  _onClick(x, y, object) {
+  async selectTree(treeId: string) {
     const { setViewport } = this.props;
-
     store.setState({ selectedTreeState: 'LOADING' });
+    const { getTree } = Actions(store);
+
+    try {
+      const { treeLastWatered, selectedTree } = await getTree(treeId);
+      const commonState = {
+        treeLastWatered,
+        selectedTreeState: 'LOADED' as const,
+      };
+      store.setState(
+        selectedTree
+          ? { ...commonState, selectedTree }
+          : { ...commonState, highlightedObject: undefined }
+      );
+
+      if (!selectedTree) return { treeLastWatered };
+
+      setViewport([parseFloat(selectedTree.lat), parseFloat(selectedTree.lng)]);
+      return { treeLastWatered, selectedTree };
+    } catch (error) {
+      console.error(error);
+      return Promise.reject(error);
+    }
+  }
+
+  _onClick(_x?: number, _y?: number, object) {
+    const { setViewport, setDetailRouteWithListPath } = this.props;
 
     setViewport(object.geometry.coordinates);
-
-    const { state } = this.props;
-    const id = object.properties.id;
-    const url = createAPIUrl(state, `/get?queryType=byid&id=${id}`);
-    const urlWatered = createAPIUrl(
-      state,
-      `/get?queryType=lastwatered&id=${id}`
-    );
-    requests(urlWatered)
-      .then(json => {
-        store.setState({ treeLastWatered: json.data });
-        return;
-      })
-      .catch(console.error);
-
-    requests(url)
-      .then(treeJson => {
-        if (treeJson.data.length === 0) {
-          // store.setState({
-          //   selectedTreeState: 'NOT_FOUND',
-          //   selectedTree: undefined,
-          // });
-          return;
-        }
-        const selectedTree = treeJson.data[0];
-        // ISSUE:141
-        selectedTree.radolan_days = selectedTree.radolan_days.map(d => d / 10);
-        selectedTree.radolan_sum = selectedTree.radolan_sum / 10;
-
-        store.setState({ selectedTreeState: 'LOADED', selectedTree });
-        return;
-      })
-      .catch(console.error);
+    const id: string = object.properties.id;
+    store.setState({
+      highlightedObject: id,
+    });
+    setDetailRouteWithListPath(id);
   }
 
   _renderTooltip() {
@@ -488,6 +484,8 @@ class DeckGLMap extends React.Component {
         },
       });
     }
+
+    store.setState({ isTreeMapLoading: false });
   }
 
   _updateStyles(prevProps) {
@@ -560,6 +558,12 @@ class DeckGLMap extends React.Component {
       if (changed) {
         this._updateStyles(prevProps);
       }
+      if (
+        prevProps.highlightedObject !== this.props.highlightedObject &&
+        this.props.highlightedObject
+      ) {
+        this.selectTree(this.props.highlightedObject);
+      }
     }
   }
 
@@ -579,20 +583,22 @@ class DeckGLMap extends React.Component {
   //     }
   //   );
   // }
+
   render() {
     const {
       viewport,
       controller = true,
       baseMap = true,
-      isLoading,
+      isTreeDataLoading,
       isNavOpen,
       // setViewport,
       setView,
+      overlay,
     } = this.props;
 
-    if (isLoading) {
+    if (isTreeDataLoading) {
       return <span>Lade Berlins Baumdaten ...</span>;
-    } else if (!isLoading) {
+    } else if (!isTreeDataLoading) {
       return (
         <>
           {/* THis code below could be used to display some info for the pumps */}
@@ -626,11 +632,13 @@ class DeckGLMap extends React.Component {
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 onLoad={this._onload.bind(this)}
               >
-                <ControlWrapper isNavOpen={isNavOpen}>
-                  <NavigationControl
-                    onViewStateChange={e => setView(e.viewState)}
-                  />
-                </ControlWrapper>
+                {!overlay && (
+                  <ControlWrapper isNavOpen={isNavOpen}>
+                    <NavigationControl
+                      onViewStateChange={e => setView(e.viewState)}
+                    />
+                  </ControlWrapper>
+                )}
               </StaticMap>
             )}
           </DeckGL>
@@ -647,8 +655,9 @@ export default connect(
     dataView: state.dataView,
     pumps: state.pumps,
     pumpsVisible: state.pumpsVisible,
-    isLoading: state.isLoading,
+    isTreeDataLoading: state.isTreeDataLoading,
     isNavOpen: state.isNavOpen,
+    overlay: state.overlay,
     wateredTrees: wateredTreesSelector(state),
     state: state,
     highlightedObject: state.highlightedObject,

@@ -12,7 +12,7 @@ export const loadTrees = (store: Store<StoreProps>) => async () => {
         type: 'FeatureCollection',
         features: [],
       },
-      isLoading: false,
+      isTreeDataLoading: false,
     });
   } else {
     const dataUrl =
@@ -21,7 +21,7 @@ export const loadTrees = (store: Store<StoreProps>) => async () => {
     d3Dsv(',', dataUrl, { cache: 'force-cache' })
       .then(data => {
         const geojson = createGeojson(data);
-        store.setState({ data: geojson, isLoading: false });
+        store.setState({ data: geojson, isTreeDataLoading: false });
         return;
       })
       .catch(console.error);
@@ -70,7 +70,7 @@ export const loadCommunityData = (store: Store<StoreProps>) => () => {
 
 export const loadData = (store: Store<StoreProps>) => async () => {
   try {
-    store.setState({ isLoading: true });
+    store.setState({ isTreeDataLoading: true });
     // let geojson = [];
 
     const dataUrl =
@@ -99,6 +99,8 @@ export const setDataView = (_state, payload) => {
 };
 
 function setViewport(_state, payload) {
+  // TODO: lat long are reversed in the database
+  // that is why we need to switch them here.
   return {
     viewport: {
       latitude: payload[1],
@@ -123,7 +125,7 @@ function setView(_state, payload) {
 
 export const getWateredTrees = Store => async () => {
   try {
-    Store.setState({ isLoading: true });
+    Store.setState({ isTreeDataLoading: true });
     const url = createAPIUrl(Store.getState(), '/get?queryType=watered');
     const result = await requests(url);
 
@@ -138,34 +140,72 @@ export const getWateredTrees = Store => async () => {
   }
 };
 
-export const getTree = Store => async id => {
+const calcuateRadolan = (radolanDays: number): number => radolanDays / 10;
+
+type SelectedTreeResponseType = {
+  data: Array<{
+    radolan_days: number[];
+    radolan_sum: number;
+    lat: string;
+    lng: string;
+    id: string;
+    [key: string]: any;
+  }>;
+};
+
+const parseSelectedTreeResponse = (
+  selectedTreeResponse: SelectedTreeResponseType
+) => {
+  const selectedTree = selectedTreeResponse.data[0];
+  // ISSUE:141
+  return {
+    ...selectedTree,
+    radolan_days: selectedTree.radolan_days.map(calcuateRadolan),
+    radolan_sum: calcuateRadolan(selectedTree.radolan_sum),
+  };
+};
+
+const parseTreeLastWateredResponse = (treeLastWateredResponse?: boolean) =>
+  Boolean(treeLastWateredResponse);
+
+export const getTree = (Store: Store<StoreProps>) => async (
+  id: string
+): Promise<{
+  treeLastWatered: boolean;
+  selectedTree?: { [key: string]: any };
+}> => {
   try {
-    const url = createAPIUrl(Store.getState(), `/get?queryType=byid&id=${id}`);
-    const urlWatered = createAPIUrl(
+    const urlSelectedTree = createAPIUrl(
+      Store.getState(),
+      `/get?queryType=byid&id=${id}`
+    );
+    const urlLastWatered = createAPIUrl(
       Store.getState(),
       `/get?queryType=lastwatered&id=${id}`
     );
 
-    const res = await requests(url);
-    const resWatered = await requests(urlWatered);
+    const [resSelectedTree, resLastWatered] = await Promise.all([
+      requests(urlSelectedTree),
+      requests(urlLastWatered),
+    ]);
+    const treeLastWatered = parseTreeLastWateredResponse(!!resLastWatered);
 
-    if (res.data.length > 0) {
-      // ISSUE:141
-      res.data[0].radolan_days = res.data[0].radolan_days.map(d => d / 10);
-      res.data[0].radolan_sum = res.data[0].radolan_sum / 10;
-
+    if (resSelectedTree.data.length > 0) {
       return {
-        selectedTree: res.data[0],
-        treeLastWatered: resWatered,
+        selectedTree: parseSelectedTreeResponse(
+          resSelectedTree as SelectedTreeResponseType
+        ),
+        treeLastWatered,
       };
     } else {
       return {
         selectedTree: undefined,
-        treeLastWatered: resWatered,
+        treeLastWatered,
       };
     }
   } catch (error) {
     console.error(error);
+    return Promise.reject(error);
   }
 };
 
@@ -211,7 +251,7 @@ const setDetailRouteWithListPath = (_state, treeId) => {
   history.push(nextLocation);
 };
 
-export default Store => ({
+export default (Store: Store<StoreProps>) => ({
   loadData: loadData(Store),
   setDataView,
   getWateredTrees: getWateredTrees(Store),
