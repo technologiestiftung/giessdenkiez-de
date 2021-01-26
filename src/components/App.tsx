@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../assets/theme';
 import { Router } from 'react-router-dom';
@@ -17,6 +17,7 @@ import Actions, {
 import '../assets/style.scss';
 
 import AppWrapper from './AppWrapper';
+import { StoreProps } from '../common/interfaces';
 
 const loadEntryDataAction = store.action(loadData(store));
 const loadTreesAction = store.action(loadTrees(store));
@@ -68,23 +69,32 @@ if (cookie === 'true') {
 //   );
 // };
 
-const AppContainer = p => {
-  const { isTreeDataLoading, data, overlay } = p;
-  return (
-    <Router history={history}>
-      <ThemeProvider theme={theme}>
-        <AppWrapper
-          isTreeDataLoading={isTreeDataLoading}
-          overlay={overlay}
-          data={data}
-        />
-      </ThemeProvider>
-    </Router>
-  );
-};
+type AppContainerPropsType = Pick<
+  StoreProps,
+  'isTreeDataLoading' | 'isTreeMapLoading' | 'data' | 'overlay'
+>;
+
+const AppContainer: FC<AppContainerPropsType> = ({
+  isTreeDataLoading,
+  isTreeMapLoading,
+  data,
+  overlay,
+}) => (
+  <Router history={history}>
+    <ThemeProvider theme={theme}>
+      <AppWrapper
+        isTreeDataLoading={isTreeDataLoading}
+        isTreeMapLoading={isTreeMapLoading}
+        overlay={overlay}
+        data={data}
+      />
+    </ThemeProvider>
+  </Router>
+);
 
 export default connect(
   state => ({
+    isTreeMapLoading: state.isTreeMapLoading,
     isTreeDataLoading: state.isTreeDataLoading,
     overlay: state.overlay,
     data: state.data,

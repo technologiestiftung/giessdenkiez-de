@@ -20,7 +20,7 @@ export interface StoreProps {
   treeAdopted?: boolean;
   isNavOpen: boolean;
   pumpsVisible: boolean;
-  highlightedObject: boolean;
+  highlightedObject?: string;
   user: boolean;
   rainVisible: boolean;
   rainGeojson: Generic | null;
@@ -48,6 +48,7 @@ export interface StoreProps {
     | 'WATERED';
   overlay: boolean;
   isTreeDataLoading: boolean;
+  isTreeMapLoading: boolean;
   AppState: string;
   hoveredObject: boolean;
   viewport: {

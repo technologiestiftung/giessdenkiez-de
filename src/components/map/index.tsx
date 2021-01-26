@@ -480,6 +480,8 @@ class DeckGLMap extends React.Component {
         },
       });
     }
+
+    store.setState({ isTreeMapLoading: false });
   }
 
   _updateStyles(prevProps) {
@@ -584,6 +586,7 @@ class DeckGLMap extends React.Component {
       isNavOpen,
       // setViewport,
       setView,
+      overlay,
     } = this.props;
 
     if (isTreeDataLoading) {
@@ -622,11 +625,13 @@ class DeckGLMap extends React.Component {
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 onLoad={this._onload.bind(this)}
               >
-                <ControlWrapper isNavOpen={isNavOpen}>
-                  <NavigationControl
-                    onViewStateChange={e => setView(e.viewState)}
-                  />
-                </ControlWrapper>
+                {!overlay && (
+                  <ControlWrapper isNavOpen={isNavOpen}>
+                    <NavigationControl
+                      onViewStateChange={e => setView(e.viewState)}
+                    />
+                  </ControlWrapper>
+                )}
               </StaticMap>
             )}
           </DeckGL>
@@ -645,6 +650,7 @@ export default connect(
     pumpsVisible: state.pumpsVisible,
     isTreeDataLoading: state.isTreeDataLoading,
     isNavOpen: state.isNavOpen,
+    overlay: state.overlay,
     wateredTrees: wateredTreesSelector(state),
     state: state,
     highlightedObject: state.highlightedObject,
