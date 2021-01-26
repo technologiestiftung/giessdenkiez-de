@@ -8,24 +8,24 @@ import d3, {
   scaleOrdinal,
   axisLeft,
   axisBottom,
-  // timeFormat,
+  timeFormat,
   // timParse,
   stack,
 } from 'd3';
 
 const data = [
   {
-    day: new Date(2021, 1, 24),
+    day: new Date(2021, 0, 24), // month is zero-indexed :(
     rainValue: 30,
     wateringValue: 30,
   },
   {
-    day: new Date(2021, 1, 25),
+    day: new Date(2021, 0, 25),
     rainValue: 10,
     wateringValue: 30,
   },
   {
-    day: new Date(2021, 1, 26),
+    day: new Date(2021, 0, 26),
     rainValue: 10,
     wateringValue: 40,
   },
@@ -35,7 +35,7 @@ const data = [
 // to create Date out of String
 // const parser = timeParse('%Y-%m-%d');
 // to create string out of Date
-// const formatter = timeFormat('%d-%m');
+const formatter = timeFormat('%d-%m');
 
 // let myDates = [];
 
@@ -50,7 +50,6 @@ const data = [
 // create new stack generator
 const generateStack = stack().keys(['rainValue', 'wateringValue']);
 const stackedData = generateStack(data);
-console.log(stackedData);
 
 /* const LineChartWrapper = styled.div`
   width: 100%;
@@ -139,17 +138,24 @@ const StackedBarChart = p => {
         .style('fill', 'lightgrey');
 
       // append stacked rectangles
-      const seriesGroup = svg.append('g').attr('class', 'yay');
+      const seriesGroup = svg.append('g').attr('class', 'series-wrapper');
 
       seriesGroup
-        // .select('g')
-        .selectAll('g.series')
+        .selectAll('g')
         .data(stackedData)
-        .join('g')
-        .classed('series', true)
-        .style('fill', d => colorScale(d.key));
-
-      // START FROM HERE
+        .enter()
+        .append('g')
+        .attr('fill', function (d) {
+          return colorScale(d.key);
+        })
+        .selectAll('rect')
+        .data(d => d)
+        .enter()
+        .append('rect')
+        .attr('x', d => xScale(d.data.day))
+        .attr('y', d => yScale(d[1]))
+        .attr('height', d => yScale(d[0]) - yScale(d[1]))
+        .attr('width', 20);
 
       // seriesGroup
       //   .selectAll('rect')
@@ -175,16 +181,27 @@ const StackedBarChart = p => {
 
       const yAxis = axisLeft(yScale).ticks(2);
 
-      const xAxis = axisBottom(xScale).tickFormat(d => {
-        // get sysdate for x Axis
-        const today = new Date().toISOString().slice(0, 10);
-        if (d === today) {
-          return 'Heute';
-        } else if (d !== null) {
-          // replace with Date
-          return `vor xyz Tagen`;
-        }
-      });
+      const xAxis = axisBottom(xScale)
+        .ticks(2)
+        .tickFormat(d => {
+          // get sysdate for x Axis
+          const today = new Date();
+          const formattedDate = new Date(d);
+
+          const dateIsToday =
+            formattedDate.getFullYear() === today.getFullYear() &&
+            formattedDate.getMonth() === today.getMonth() &&
+            formattedDate.getDate() === today.getDate();
+
+          if (dateIsToday) {
+            return 'Heute';
+          } else if (d !== null) {
+            //const differenceToToday =
+            const formattedTime = formatter(d);
+            // replace with Date
+            return formattedTime;
+          }
+        });
 
       svg
         .append('g')
