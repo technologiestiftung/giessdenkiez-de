@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import {
   select,
   scaleTime,
+  scaleBand,
   scaleLinear,
   scaleOrdinal,
   axisLeft,
@@ -14,19 +15,21 @@ import {
 } from 'd3';
 import { useStoreState } from '../../state/unistore-hooks';
 
+const dailrain = { '2020-12-30': 10, '2020-12-31': 20 };
+
 const data = [
   {
-    day: new Date(2021, 0, 24), // month is zero-indexed :(
+    timestamp: new Date(2021, 0, 24), // month is zero-indexed :(
     rainValue: 30,
     wateringValue: 30,
   },
   {
-    day: new Date(2021, 0, 25),
+    timestamp: new Date(2021, 0, 25),
     rainValue: 10,
     wateringValue: 30,
   },
   {
-    day: new Date(2021, 0, 26),
+    timestamp: new Date(2021, 0, 26),
     rainValue: 10,
     wateringValue: 40,
   },
@@ -36,21 +39,7 @@ const data = [
 // to create Date out of String
 // const parser = timeParse('%Y-%m-%d');
 // to create string out of Date
-const formatter = timeFormat('%d-%m');
-
-// let myDates = [];
-
-// data.forEach(function (d) {
-//   const dayString = formatter(d.day);
-//   myDates.push(dayString);
-// });
-
-// console.log('this is my dates:', myDates);
-
-// CONTINUE FROM HERE
-// create new stack generator
-const generateStack = stack().keys(['rainValue', 'wateringValue']);
-const stackedData = generateStack(data);
+const formatter = timeFormat('%d.%m.');
 
 const BarChartWrapper = styled.div`
   width: 100%;
@@ -58,12 +47,106 @@ const BarChartWrapper = styled.div`
   margin: 5px 0;
 `;
 
-const StackedBarChart = (p: any) => {
-  const selectedTree = useStoreState('selectedTree');
-  const treeLastWatered = useStoreState('treeLastWatered');
+const StyledLegendWrapper = styled.div`
+  display: flex;
+  > div {
+    display: flex;
+  }
+`;
+
+const StyledLegendCircle = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+`;
+
+const transformData = d => {
+  let sumPerDay = 0;
+
+  const hours: number[] = [];
+
+  if (d) {
+    // aggregate hours to days
+    d.forEach((hour, i) => {
+      sumPerDay += hour;
+      const fullDay = i % 24 === 23;
+      if (fullDay) {
+        const sum = sumPerDay;
+        sumPerDay = 0;
+        hours.push(sum);
+      }
+    });
+  }
+
+  return hours.reverse();
+};
+
+const createDateList = (len: number) => {
+  const today = new Date();
+  let iter = 1;
+  const last30Dates: string[] = [];
+  while (iter < 1 + len) {
+    const priorDate = new Date().setDate(today.getDate() - iter);
+
+    last30Dates.push(new Date(priorDate).toISOString().split('T')[0]);
+    iter++;
+  }
+  return last30Dates;
+};
+
+const _createRadolanMap: (
+  radolanDays: number[]
+) => { [key: string]: number } = radolanDays => {
+  const rainOfMonth = transformData(radolanDays);
+  const last30Days = createDateList(rainOfMonth.length);
+  const map = {};
+  rainOfMonth.forEach((ele, i) => {
+    map[last30Days[i]] = ele;
+  });
+  return map;
+};
+
+const timestamp2stringKey = (timestamp: string): string =>
+  timestamp.split('T')[0];
+
+type WateredDayType = {
+  tree_id: string;
+  time: string;
+  uuid: string;
+  amount: string;
+  timestamp: string;
+  username: string;
+};
+
+const _createTreeLastWateredMap = (
+  treeLastWatered: WateredDayType[]
+): { [key: string]: number } =>
+  treeLastWatered.reduce(
+    (acc, currentDay) => ({
+      ...acc,
+      [timestamp2stringKey(currentDay.timestamp)]: parseInt(
+        currentDay.amount,
+        10
+      ),
+    }),
+    {}
+  );
+
+const StackedBarChart = () => {
+  const { selectedTree } = useStoreState('selectedTree');
+  const { treeLastWatered } = useStoreState('treeLastWatered');
   /* const { data } = p;
   const [, setScaleTime] = useState<ScaleLinear<number, number> | null>(null);
   const [, setScaleRain] = useState<ScaleLinear<number, number> | null>(null); */
+  interface DailyWaterAmountsType {
+    timestamp: Date;
+    rainValue: number;
+    wateringValue: number;
+  }
+
+  const [waterAmountInLast30Days, setWaterAmountInLast30Days] = useState<
+    DailyWaterAmountsType[] | null
+  >(null);
 
   const margin = {
     top: 10,
@@ -71,36 +154,43 @@ const StackedBarChart = (p: any) => {
     bottom: 40,
     left: 30,
   };
+
   useEffect(() => {
     console.log(selectedTree);
     console.log(treeLastWatered);
+    console.log(waterAmountInLast30Days);
+  }, [selectedTree, treeLastWatered, waterAmountInLast30Days]);
+
+  useEffect(() => {
+    console.log(selectedTree);
+    console.log(transformData(selectedTree.radolan_days));
+    if (!treeLastWatered) return;
+
+    const treeLastWateredMap = _createTreeLastWateredMap(treeLastWatered);
+    const selectedTreeMap = _createRadolanMap(selectedTree.radolan_days);
+
+    setWaterAmountInLast30Days(
+      Object.keys(selectedTreeMap).map(selectedTreeKey => {
+        const dailyAmount = selectedTreeMap[selectedTreeKey];
+
+        return {
+          timestamp: new Date(selectedTreeKey),
+          rainValue: dailyAmount,
+          wateringValue: treeLastWateredMap[selectedTreeKey] || 0,
+        };
+      })
+    );
   }, [selectedTree, treeLastWatered]);
 
   useEffect(() => {
-    if (data === undefined) return;
+    if (waterAmountInLast30Days === null) return;
 
-    const transformData = d => {
-      let sumPerDay = 0;
+    // CONTINUE FROM HERE
+    // create new stack generator
+    const generateStack = stack().keys(['rainValue', 'wateringValue']);
+    const stackedData = generateStack(waterAmountInLast30Days);
 
-      const hours: number[] = [];
-
-      if (d) {
-        // aggregate hours to days
-        d.forEach((hour, i) => {
-          sumPerDay += hour;
-          const fullDay = i % 24 === 23;
-          if (fullDay) {
-            const sum = sumPerDay;
-            sumPerDay = 0;
-            hours.push(sum);
-          }
-        });
-      }
-
-      return hours.reverse();
-    };
-
-    const init = incomingData => {
+    const init = _incomingData => {
       const wrapper = select('#barchart');
       if (wrapper === null) {
         return;
@@ -110,32 +200,34 @@ const StackedBarChart = (p: any) => {
       }
 
       const width = (wrapper.node() as HTMLElement).clientWidth;
-      console.log(width);
-
-      //const height = 300;
-      // FIX LATER
       const height = (wrapper.node() as HTMLElement).clientHeight;
 
-      const key = data.map(function (d) {
-        return d.day;
+      const key = waterAmountInLast30Days.map(function (d) {
+        return d.timestamp;
       });
 
       const xScale = scaleTime()
-        .domain([data[0].day, data[data.length - 1].day])
+        .domain([
+          waterAmountInLast30Days[waterAmountInLast30Days.length - 1].timestamp,
+          waterAmountInLast30Days[0].timestamp,
+        ])
         .range([margin.left, width - margin.right]);
 
       const maxWaterValue = Math.max(
-        ...data.map(dayData => dayData.rainValue + dayData.wateringValue)
+        ...waterAmountInLast30Days.map(
+          dayData => dayData.rainValue + dayData.wateringValue
+        )
       );
 
       const yScale = scaleLinear()
-        .domain([0, maxWaterValue])
+        .domain([0, maxWaterValue * 1.2])
         .rangeRound([height - margin.bottom, margin.top]);
 
       const colorScale = scaleOrdinal()
         .domain(['rainValue', 'wateringValue'])
         .range(['steelblue', 'blue']);
 
+      wrapper.selectAll('svg').remove();
       const svg = wrapper
         .append('svg')
         .attr('width', width)
@@ -150,7 +242,10 @@ const StackedBarChart = (p: any) => {
         .style('fill', 'lightgrey');
 
       // append stacked rectangles
-      const seriesGroup = svg.append('g').attr('class', 'series-wrapper');
+      const seriesGroup = svg
+        .append('g')
+        .attr('class', 'series-wrapper')
+        .attr('transform', `translate(0, ${margin.top})`);
 
       seriesGroup
         .selectAll('g')
@@ -164,10 +259,10 @@ const StackedBarChart = (p: any) => {
         .data(d => d)
         .enter()
         .append('rect')
-        .attr('x', d => xScale(d.data.day))
+        .attr('x', d => xScale(d.data.timestamp))
         .attr('y', d => yScale(d[1]))
         .attr('height', d => yScale(d[0]) - yScale(d[1]))
-        .attr('width', 20);
+        .attr('width', 5);
 
       // const today = new Date();
       // const priorDate = new Date().setDate(today.getDate() - 30);
@@ -185,7 +280,7 @@ const StackedBarChart = (p: any) => {
       const yAxis = axisLeft(yScale).ticks(2);
 
       const xAxis = axisBottom(xScale)
-        .ticks(2)
+        .ticks(5)
         .tickFormat(d => {
           // get sysdate for x Axis
           const today = new Date();
@@ -199,16 +294,14 @@ const StackedBarChart = (p: any) => {
           if (dateIsToday) {
             return 'Heute';
           } else if (d !== null) {
-            //const differenceToToday =
             const formattedTime = formatter(d);
-            // replace with Date
             return formattedTime;
           }
         });
 
       svg
         .append('g')
-        .attr('transform', `translate(${margin.left}, ${margin.top} )`)
+        .attr('transform', `translate(${margin.left - 2}, ${margin.top} )`)
         .call(yAxis);
 
       svg
@@ -218,98 +311,36 @@ const StackedBarChart = (p: any) => {
           `translate( 0, ${height - margin.bottom + margin.top})`
         )
         .call(xAxis);
-
-      // svg.append();
-
-      /* const areaDefault = d3Area()
-        .x((d, i) => scaleTime(i))
-        .y0(d => scaleRain(0))
-        .y1(70);
-
-      const area = d3Area()
-        .x((d, i) => scaleTime(i))
-        .y0(d => scaleRain(d))
-        .y1(70);
-
-      svg
-        .append('g')
-        .append('text')
-        .attr('style', 'font-size: 10px;')
-        .attr('transform', `translate(${2},${20})`)
-        .text('↑ Liter pro m²');
-
-      // areaShape
-      const areaPath = svg
-        .append('path')
-        .datum(incomingData)
-        .attr('fill', 'url(#linear-gradient)')
-        .attr('opacity', '1')
-        .attr('transform', `translate(${margin.left}, ${margin.top})`)
-        .attr('id', `rain-areaShape`)
-        .attr('class', 'area')
-        .attr('d', areaDefault)
-        .transition()
-        .duration(500);
-
-      areaPath.attr('d', area).transition().delay(500).duration(500);
-
-      svg
-        .append('linearGradient')
-        .attr('id', 'linear-gradient')
-        .attr('gradientUnits', 'userSpaceOnUse')
-        .attr('x1', 0)
-        .attr('y1', scaleRain(100))
-        .attr('x2', 0)
-        .attr('y2', scaleRain(0))
-        .selectAll('stop')
-        .data([
-          { offset: '0%', color: '#75ADE8' },
-          { offset: '100%', color: '#FFFFFF' },
-        ])
-        .enter()
-        .append('stop')
-        .attr('offset', d => d.offset)
-        .attr('stop-color', d => d.color);
-
-      const line = d3Line()
-        .x((_d, i) => {
-          return scaleTime(i);
-        })
-        .y((d, _i) => {
-          return scaleRain(d);
-        });
-
-      const lineDefault = d3Line()
-        .x((_d, i) => {
-          return scaleTime(i);
-        })
-        .y((d, _i) => {
-          return scaleRain(0);
-        });
-
-      // linechape
-      const linePath = svg
-        .append('path')
-        .datum(incomingData)
-        .attr('fill', 'none')
-        .attr('stroke', '#75ADE8')
-        .attr('transform', `translate(${margin.left}, ${margin.top})`)
-        .attr('stroke-width', 2)
-        .attr('stroke-linejoin', 'round')
-        .attr('stroke-linecap', 'round')
-        .attr('d', lineDefault)
-        .transition()
-        .duration(500);
-
-      linePath.attr('d', line).transition().delay(500).duration(500); */
     };
-    const transformedData = transformData(data);
+    const transformedData = transformData(waterAmountInLast30Days);
     init(transformedData);
-    // we explicitly want this hook to only run once on creation
-    // of the componenet
-  }, []);
 
-  return <BarChartWrapper id='barchart'></BarChartWrapper>;
+    /* return () => {
+      document.querySelector('')
+    } */
+  }, [waterAmountInLast30Days]);
+
+  return (
+    <>
+      <BarChartWrapper id='barchart'></BarChartWrapper>
+      <StyledLegendWrapper>
+        <div>
+          <StyledLegendCircle
+            style={{ backgroundColor: 'steelblue' }}
+          ></StyledLegendCircle>
+          <div>Regen</div>
+        </div>
+        <div>
+          <StyledLegendCircle
+            style={{
+              backgroundColor: 'blue',
+            }}
+          ></StyledLegendCircle>
+          <div>Gießungen</div>
+        </div>
+      </StyledLegendWrapper>
+    </>
+  );
 };
 
 export default StackedBarChart;
