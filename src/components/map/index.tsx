@@ -607,18 +607,6 @@ class DeckGLMap extends React.Component {
     } else if (!isLoading) {
       return (
         <>
-          {/* THis code below could be used to display some info for the pumps */}
-          {isMobile === false &&
-            this.state.isHovered === true &&
-            this.state.hoverObjectPointer.length === 2 && (
-              <HoverObject
-                message_addr={this.state.hoverObjectMessageAddr}
-                message_status={this.state.hoverObjectMessageStatus}
-                message_date={this.state.hoverObjectMessageDate}
-                message_style={this.state.hoverObjectMessageStyle}
-                pointer={this.state.hoverObjectPointer}
-              ></HoverObject>
-            )}
           <DeckGL
             layers={this._renderLayers()}
             initialViewState={viewport}
@@ -645,6 +633,17 @@ class DeckGLMap extends React.Component {
                   <NavigationControl
                     onViewStateChange={e => setView(e.viewState)}
                   />
+                  {isMobile === false &&
+                    this.state.isHovered === true &&
+                    this.state.hoverObjectPointer.length === 2 && (
+                      <HoverObject
+                        message_addr={this.state.hoverObjectMessageAddr}
+                        message_status={this.state.hoverObjectMessageStatus}
+                        message_date={this.state.hoverObjectMessageDate}
+                        message_style={this.state.hoverObjectMessageStyle}
+                        pointer={this.state.hoverObjectPointer}
+                      ></HoverObject>
+                    )}
                 </ControlWrapper>
               </StaticMap>
             )}

@@ -325,7 +325,7 @@ exports[`Storyshots Legend Legend Story 1`] = `
 exports[`Storyshots Maps Pump HoverTip Hover Object Story 1`] = `
 <div>
   <div
-    className="sc-pciEQ ciJEbL is-size-7"
+    className="sc-pciEQ bBQGpc is-size-7"
     height={0}
     width={0}
   >
@@ -333,10 +333,44 @@ exports[`Storyshots Maps Pump HoverTip Hover Object Story 1`] = `
       className="sc-oTNDV zfOYy"
     >
       <b>
+        Öffentliche Straßenpumpe
+      </b>
+    </span>
+    <br />
+    <span
+      className="sc-oTNDV zfOYy"
+    >
+      <b>
         Status:
       </b>
        
-      unbekannt
+    </span>
+    <br />
+    <span
+      className="sc-oTNDV zfOYy"
+    >
+      <b>
+        Standort:
+      </b>
+       
+    </span>
+    <br />
+    <span
+      className="sc-oTNDV zfOYy"
+    >
+      <b>
+        Pumpentyp:
+      </b>
+       
+    </span>
+    <br />
+    <span
+      className="sc-oTNDV zfOYy"
+    >
+      <b>
+        Letzter Status-Check:
+      </b>
+       
     </span>
   </div>
 </div>

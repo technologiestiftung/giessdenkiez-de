@@ -1,11 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { Popup } from 'react-map-gl';
 import styled from 'styled-components';
 
 export interface HoverObjectProps {
   message_addr: string;
   message_status: string;
   message_date: string;
-  message_style;
+  message_style: string;
   pointer: number[];
 }
 export interface StyledProps {
@@ -70,7 +71,37 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
   }, [refBubble.current]);
 
   return (
-    <>
+    <Popup
+      latitude={52.520008}
+      longitude={13.404954}
+      closeButton={false}
+      closeOnClick={false}
+      anchor={'top'}
+      /* onClose={() => this.setState({ showPopup: false })} */
+    >
+      <div>
+        <StyledSpan>
+          <b>Öffentliche Straßenpumpe</b>
+        </StyledSpan>
+        <br></br>
+        <StyledSpan>
+          <b>Status:</b> {message_status}
+        </StyledSpan>
+        <br></br>
+        <StyledSpan>
+          <b>Standort:</b> {message_addr}
+        </StyledSpan>
+        <br></br>
+        <StyledSpan>
+          <b>Pumpentyp:</b> {message_style}
+        </StyledSpan>
+        <br></br>
+        <StyledSpan>
+          <b>Letzter Status-Check:</b> {message_date}
+        </StyledSpan>
+      </div>
+    </Popup>
+    /* <Pop>
       <div>
         <Bubble
           className='is-size-7'
@@ -100,6 +131,6 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
           </StyledSpan>
         </Bubble>
       </div>
-    </>
+    </Popup> */
   );
 };
