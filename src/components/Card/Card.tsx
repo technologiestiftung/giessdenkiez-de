@@ -24,6 +24,7 @@ import ButtonAdopted from '../ButtonAdopted';
 import content from '../../assets/content';
 import { IsTreeAdoptedProps, Generic, Tree } from '../../common/interfaces';
 import Icon from '../Icons';
+import StackedBarChart from '../StackedBarChart';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
 
@@ -190,11 +191,9 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
           </CardAccordion>
         )}
         <RainContainer>
-          <FlexRowDiv>
-            <CardHeadline>Niederschlag</CardHeadline>
-            <CardHeadline>{radolan_sum} Liter pro m²</CardHeadline>
-          </FlexRowDiv>
+          <CardHeadline>Wassermenge</CardHeadline>
           <CardDescription>in den letzten 30 Tagen</CardDescription>
+          <StackedBarChart />
           <Linechart data={radolan_days} sum={radolan_sum} />
           {/* <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription> */}
         </RainContainer>

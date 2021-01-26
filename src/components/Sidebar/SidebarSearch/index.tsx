@@ -7,7 +7,6 @@ import SidebarTitle from '../SidebarTitle/';
 import Card from '../../Card/Card';
 import CardLegend from '../../Card/CardLegend/';
 import LoadingIcon from '../../LoadingIcon/';
-import StackedBarChart from '../../StackedBarChart';
 
 const Container = styled.div`
   width: 100%;
@@ -25,7 +24,6 @@ const SidebarSearch = () => {
   return (
     <>
       <SidebarTitle>Suche & Filter</SidebarTitle>
-      <StackedBarChart />
       {selectedTreeState === 'LOADING' && (
         <Container>
           <LoadingIcon text='Lade Baum ...' />
