@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-/* import styled from 'styled-components'; */
+import styled from 'styled-components';
 
-import d3, {
+import {
   select,
   scaleTime,
   scaleLinear,
@@ -52,11 +52,11 @@ const formatter = timeFormat('%d-%m');
 const generateStack = stack().keys(['rainValue', 'wateringValue']);
 const stackedData = generateStack(data);
 
-/* const LineChartWrapper = styled.div`
+const BarChartWrapper = styled.div`
   width: 100%;
   height: 140px;
   margin: 5px 0;
-`; */
+`;
 
 const StackedBarChart = (p: any) => {
   const selectedTree = useStoreState('selectedTree');
@@ -75,6 +75,7 @@ const StackedBarChart = (p: any) => {
     console.log(selectedTree);
     console.log(treeLastWatered);
   }, [selectedTree, treeLastWatered]);
+
   useEffect(() => {
     if (data === undefined) return;
 
@@ -109,10 +110,11 @@ const StackedBarChart = (p: any) => {
       }
 
       const width = (wrapper.node() as HTMLElement).clientWidth;
-      const height = 300;
+      console.log(width);
+
+      //const height = 300;
       // FIX LATER
-      // const height = (wrapper.node() as HTMLElement).clientHeight;
-      console.log(width, height);
+      const height = (wrapper.node() as HTMLElement).clientHeight;
 
       const key = data.map(function (d) {
         return d.day;
@@ -122,8 +124,12 @@ const StackedBarChart = (p: any) => {
         .domain([data[0].day, data[data.length - 1].day])
         .range([margin.left, width - margin.right]);
 
+      const maxWaterValue = Math.max(
+        ...data.map(dayData => dayData.rainValue + dayData.wateringValue)
+      );
+
       const yScale = scaleLinear()
-        .domain([0, 100]) //max value rainfall
+        .domain([0, maxWaterValue])
         .rangeRound([height - margin.bottom, margin.top]);
 
       const colorScale = scaleOrdinal()
@@ -162,15 +168,6 @@ const StackedBarChart = (p: any) => {
         .attr('y', d => yScale(d[1]))
         .attr('height', d => yScale(d[0]) - yScale(d[1]))
         .attr('width', 20);
-
-      // seriesGroup
-      //   .selectAll('rect')
-      //   .datum(d => d)
-      //   .join('rect')
-      //   .attr('width', 40)
-      //   .attr('y', d => yScale(d[1]))
-      //   .attr('x', d => xScale(d.data.day) - 20)
-      //   .attr('height', d => yScale(d[0]) - yScale(d[1]));
 
       // const today = new Date();
       // const priorDate = new Date().setDate(today.getDate() - 30);
@@ -312,7 +309,7 @@ const StackedBarChart = (p: any) => {
     // of the componenet
   }, []);
 
-  return <div id='barchart'></div>;
+  return <BarChartWrapper id='barchart'></BarChartWrapper>;
 };
 
 export default StackedBarChart;
