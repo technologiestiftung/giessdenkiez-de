@@ -112,7 +112,7 @@
     "react-app-polyfill": "1.0.6",
     "react-device-detect": "1.13.1",
     "react-dom": "16.13.1",
-    "react-map-gl": "5.2.7",
+    "react-map-gl": "5.2.12",
     "react-router-dom": "5.2.0",
     "react-share": "4.2.1",
     "reselect": "4.0.0",
