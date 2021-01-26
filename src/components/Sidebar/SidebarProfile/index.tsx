@@ -57,7 +57,6 @@ const SidebarProfile = () => {
   const { wateredByUser } = useStoreState('wateredByUser');
   const { adoptedTrees } = useStoreState('adoptedTrees');
   const { adoptedTreesDetails } = useStoreState('adoptedTreesDetails');
-  const { toggleOverlay } = useActions(Actions);
   const { user: userdata } = useStoreState('user');
 
   const {
@@ -165,11 +164,6 @@ const SidebarProfile = () => {
     }
   };
 
-  const handleParticipateClick = (): void => {
-    history.push('/');
-    toggleOverlay(true);
-  };
-
   if (loading) {
     return (
       <>
@@ -194,7 +188,9 @@ const SidebarProfile = () => {
             logge dich ein.
           </CardParagraph>
           <Login width='-webkit-fill-available' />
-          <StyledCardDescription onClick={handleParticipateClick}>
+          <StyledCardDescription
+            onClick={() => store.setState({ overlay: true })}
+          >
             Wie kann ich mitmachen?
           </StyledCardDescription>
         </FlexCol>
