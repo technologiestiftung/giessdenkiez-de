@@ -12,6 +12,7 @@ import d3, {
   // timParse,
   stack,
 } from 'd3';
+import { useStoreState } from '../../state/unistore-hooks';
 
 const data = [
   {
@@ -57,7 +58,9 @@ const stackedData = generateStack(data);
   margin: 5px 0;
 `; */
 
-const StackedBarChart = p => {
+const StackedBarChart = (p: any) => {
+  const selectedTree = useStoreState('selectedTree');
+  const treeLastWatered = useStoreState('treeLastWatered');
   /* const { data } = p;
   const [, setScaleTime] = useState<ScaleLinear<number, number> | null>(null);
   const [, setScaleRain] = useState<ScaleLinear<number, number> | null>(null); */
@@ -68,7 +71,10 @@ const StackedBarChart = p => {
     bottom: 40,
     left: 30,
   };
-
+  useEffect(() => {
+    console.log(selectedTree);
+    console.log(treeLastWatered);
+  }, [selectedTree, treeLastWatered]);
   useEffect(() => {
     if (data === undefined) return;
 
