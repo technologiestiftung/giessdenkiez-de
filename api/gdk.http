@@ -1,0 +1,37 @@
+# needs ther Name: REST Client
+# Id: humao.rest-client
+# Description: REST Client for Visual Studio Code
+# Version: 0.24.4
+# Publisher: Huachao Mao
+#  GitHub Link: https://github.com/Huachao/vscode-restclient
+# VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+
+
+@host = giessdenkiez-de-postgres-api.vercel.app
+@protocol = https
+
+@token = 123
+
+
+
+### root request
+
+GET {{protocol}}://{{host}}
+Content-Type: application/application/json
+Authorization: "Bearer {{token}}"
+
+
+### get trees by id
+
+GET {{protocol}}://{{host}}/get?id=_03ftfji3n&queryType=byid
+Content-Type: application/application/json
+Authorization: "Bearer {{token}}"
+
+
+### get watered trees
+
+
+GET {{protocol}}://{{host}}/get?queryType=lastwatered&id=_03ftfji3n
+Content-Type: application/application/json
+Authorization: "Bearer {{token}}"
