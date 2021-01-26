@@ -72,7 +72,7 @@ To deploy the frontend we use netlify.com
 
 Take a look at the `netlify.toml` for the the used commands to deploy it. Make sure to set all the variables you have in your `.env` file in the environment section of your projects build & deploy settings.
 
-
+ 
 
 ## Demo Mode
 
