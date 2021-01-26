@@ -12,7 +12,7 @@ export const loadTrees = (store: Store<StoreProps>) => async () => {
         type: 'FeatureCollection',
         features: [],
       },
-      isLoading: false,
+      isTreeDataLoading: false,
     });
   } else {
     const dataUrl =
@@ -21,7 +21,7 @@ export const loadTrees = (store: Store<StoreProps>) => async () => {
     d3Dsv(',', dataUrl, { cache: 'force-cache' })
       .then(data => {
         const geojson = createGeojson(data);
-        store.setState({ data: geojson, isLoading: false });
+        store.setState({ data: geojson, isTreeDataLoading: false });
         return;
       })
       .catch(console.error);
@@ -70,7 +70,7 @@ export const loadCommunityData = (store: Store<StoreProps>) => () => {
 
 export const loadData = (store: Store<StoreProps>) => async () => {
   try {
-    store.setState({ isLoading: true });
+    store.setState({ isTreeDataLoading: true });
     // let geojson = [];
 
     const dataUrl =
@@ -125,7 +125,7 @@ function setView(_state, payload) {
 
 export const getWateredTrees = Store => async () => {
   try {
-    Store.setState({ isLoading: true });
+    Store.setState({ isTreeDataLoading: true });
     const url = createAPIUrl(Store.getState(), '/get?queryType=watered');
     const result = await requests(url);
 

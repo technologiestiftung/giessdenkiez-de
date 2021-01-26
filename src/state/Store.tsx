@@ -37,7 +37,7 @@ const initialState = {
   treeLastWatered: false,
   selectedTreeState: undefined,
   overlay: true,
-  isLoading: true,
+  isTreeDataLoading: true,
   AppState: 'watered',
   hoveredObject: false,
   viewport: {

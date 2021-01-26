@@ -47,7 +47,7 @@ export interface StoreProps {
     | 'NOT_FOUND'
     | 'WATERED';
   overlay: boolean;
-  isLoading: boolean;
+  isTreeDataLoading: boolean;
   AppState: string;
   hoveredObject: boolean;
   viewport: {

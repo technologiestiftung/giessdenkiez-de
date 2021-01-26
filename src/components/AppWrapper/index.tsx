@@ -49,15 +49,15 @@ const CookieContainer = styled.div`
 `;
 
 const AppWrapper = p => {
-  const { isLoading, data, overlay } = p;
+  const { isTreeDataLoading, data, overlay } = p;
 
   removeOverlay();
 
   return (
     <AppWrapperDiv>
-      {isLoading && <Loading />}
-      {!isLoading && data && <DeckGlMap data={data} />}
-      {!isLoading && data && <Sidebar />}
+      {isTreeDataLoading && <Loading />}
+      {!isTreeDataLoading && data && <DeckGlMap data={data} />}
+      {!isTreeDataLoading && data && <Sidebar />}
       {overlay && data && <Overlay />}
       <Nav />
       <CreditsContainer>

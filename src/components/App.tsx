@@ -69,11 +69,15 @@ if (cookie === 'true') {
 // };
 
 const AppContainer = p => {
-  const { isLoading, data, overlay } = p;
+  const { isTreeDataLoading, data, overlay } = p;
   return (
     <Router history={history}>
       <ThemeProvider theme={theme}>
-        <AppWrapper isLoading={isLoading} overlay={overlay} data={data} />
+        <AppWrapper
+          isTreeDataLoading={isTreeDataLoading}
+          overlay={overlay}
+          data={data}
+        />
       </ThemeProvider>
     </Router>
   );
@@ -81,7 +85,7 @@ const AppContainer = p => {
 
 export default connect(
   state => ({
-    isLoading: state.isLoading,
+    isTreeDataLoading: state.isTreeDataLoading,
     overlay: state.overlay,
     data: state.data,
   }),
