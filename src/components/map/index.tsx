@@ -5,10 +5,7 @@ import Actions from '../../state/Actions';
 
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-import {
-  StaticMap,
-  /*GeolocateControl,*/ NavigationControl,
-} from 'react-map-gl';
+import { StaticMap, GeolocateControl, NavigationControl } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
@@ -586,7 +583,7 @@ class DeckGLMap extends React.Component {
       baseMap = true,
       isLoading,
       isNavOpen,
-      // setViewport,
+      setViewport,
       setView,
     } = this.props;
 
@@ -627,6 +624,16 @@ class DeckGLMap extends React.Component {
                 onLoad={this._onload.bind(this)}
               >
                 <ControlWrapper isNavOpen={isNavOpen}>
+                  <GeolocateControl
+                    positionOptions={{ enableHighAccuracy: true }}
+                    trackUserLocation={true}
+                    onGeolocate={posOptions => {
+                      setViewport([
+                        posOptions.coords.longitude,
+                        posOptions.coords.latitude,
+                      ]);
+                    }}
+                  />
                   <NavigationControl
                     onViewStateChange={e => setView(e.viewState)}
                   />
