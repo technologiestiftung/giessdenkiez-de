@@ -41,11 +41,11 @@ const CookieContainer = styled.div`
   width: 60%;
   transform: translate(50%, 0%);
   right: 50%;
+  z-index: 3;
 
   @media screen and (max-width: ${p => p.theme.screens.mobile}) {
     width: 100%;
     bottom: 0px;
-    z-index: 2;
   }
 `;
 
