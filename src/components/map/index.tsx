@@ -333,19 +333,23 @@ class DeckGLMap extends React.Component {
 
     try {
       const { treeLastWatered, selectedTree } = await getTree(treeId);
+      const commonState = {
+        treeLastWatered,
+        selectedTreeState: 'LOADED' as const,
+      };
       store.setState(
-        selectedTree ? { treeLastWatered, selectedTree } : { treeLastWatered }
+        selectedTree
+          ? { ...commonState, selectedTree }
+          : { ...commonState, highlightedObject: undefined }
       );
 
-      if (!selectedTree) return;
+      if (!selectedTree) return { treeLastWatered };
 
       setViewport([parseFloat(selectedTree.lat), parseFloat(selectedTree.lng)]);
-
-      store.setState({ selectedTreeState: 'LOADED', selectedTree });
-
-      return;
+      return { treeLastWatered, selectedTree };
     } catch (error) {
       console.error(error);
+      return Promise.reject(error);
     }
   }
 
@@ -554,7 +558,10 @@ class DeckGLMap extends React.Component {
       if (changed) {
         this._updateStyles(prevProps);
       }
-      if (prevProps.highlightedObject !== this.props.highlightedObject) {
+      if (
+        prevProps.highlightedObject !== this.props.highlightedObject &&
+        this.props.highlightedObject
+      ) {
         this.selectTree(this.props.highlightedObject);
       }
     }
