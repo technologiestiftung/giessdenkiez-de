@@ -192,9 +192,9 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
         )}
         <RainContainer>
           <CardHeadline>Wassermenge</CardHeadline>
-          <CardDescription>in den letzten 30 Tagen</CardDescription>
+          <CardDescription>der letzten 30 Tage</CardDescription>
           <StackedBarChart />
-          <Linechart data={radolan_days} sum={radolan_sum} />
+          {/* <Linechart data={radolan_days} sum={radolan_sum} /> */}
           {/* <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription> */}
         </RainContainer>
         {treeLastWatered.length > 0 && (

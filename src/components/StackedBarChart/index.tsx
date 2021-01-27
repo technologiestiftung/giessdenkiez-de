@@ -49,14 +49,17 @@ const BarChartWrapper = styled.div`
 
 const StyledLegendWrapper = styled.div`
   display: flex;
+  padding-bottom: 1em;
   > div {
     display: flex;
+    font-size: 10px;
+    padding-right: 1em;
   }
 `;
 
 const StyledLegendCircle = styled.div`
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
 `;
 
@@ -149,8 +152,8 @@ const StackedBarChart = () => {
   >(null);
 
   const margin = {
-    top: 10,
-    right: 15,
+    top: 15,
+    right: 10,
     bottom: 40,
     left: 30,
   };
@@ -225,21 +228,41 @@ const StackedBarChart = () => {
 
       const colorScale = scaleOrdinal()
         .domain(['rainValue', 'wateringValue'])
-        .range(['steelblue', 'blue']);
+        .range(['#75ADE8', '#8B77F7']);
 
+      // remove double loaded svg
       wrapper.selectAll('svg').remove();
       const svg = wrapper
         .append('svg')
         .attr('width', width)
         .attr('height', height);
 
+      // rect so see dimensions of svg
+      // svg
+      //   .append('rect')
+      //   .attr('x', 0)
+      //   .attr('y', 0)
+      //   .attr('width', width)
+      //   .attr('height', height)
+      //   .style('fill', 'lightgrey');
+
+      // add y axis labeling
       svg
-        .append('rect')
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('width', width)
-        .attr('height', height)
-        .style('fill', 'lightgrey');
+        .append('g')
+        .append('text')
+        .attr('style', 'font-size: 10px;')
+        .attr('transform', `translate(${2},${margin.top})`)
+        .text('↑ Liter pro m²');
+
+      // manually ad x axis line (fix later)
+      svg
+        .append('line')
+        .style('stroke', 'black')
+        .style('stroke-width', 1)
+        .attr('x1', margin.left)
+        .attr('y1', height - margin.bottom + margin.top + 0.5)
+        .attr('x2', width - margin.right + 5)
+        .attr('y2', height - margin.bottom + margin.top + 0.5);
 
       // append stacked rectangles
       const seriesGroup = svg
@@ -280,7 +303,7 @@ const StackedBarChart = () => {
       const yAxis = axisLeft(yScale).ticks(2);
 
       const xAxis = axisBottom(xScale)
-        .ticks(5)
+        .ticks(6)
         .tickFormat(d => {
           // get sysdate for x Axis
           const today = new Date();
@@ -326,17 +349,17 @@ const StackedBarChart = () => {
       <StyledLegendWrapper>
         <div>
           <StyledLegendCircle
-            style={{ backgroundColor: 'steelblue' }}
+            style={{ backgroundColor: '#75ADE8' }} // waterdrop blue
           ></StyledLegendCircle>
-          <div>Regen</div>
+          <div>&nbsp;Regen</div>
         </div>
         <div>
           <StyledLegendCircle
             style={{
-              backgroundColor: 'blue',
+              backgroundColor: '#8B77F7', // light citylab primary color
             }}
           ></StyledLegendCircle>
-          <div>Gießungen</div>
+          <div>&nbsp;Gießungen</div>
         </div>
       </StyledLegendWrapper>
     </>
