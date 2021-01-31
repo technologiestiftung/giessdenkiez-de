@@ -360,21 +360,6 @@ const Legend: React.FC = () => {
             <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
           </UnstyledFlexWidth>
           <UnstyledFlexWidth
-            active={pumpsVisible}
-            onClick={() => {
-              store.setState({ treesVisible: false });
-              store.setState({ pumpsVisible: !pumpsVisible });
-              store.setState({ rainVisible: false });
-            }}
-          >
-            {pumpsVisible === true ? (
-              <StrokedLegendDot gradient={`${workingColor.hex}`} />
-            ) : (
-              <StrokedLegendDot />
-            )}
-            <StyledItemLabel>Öffentl. Pumpen</StyledItemLabel>
-          </UnstyledFlexWidth>
-          <UnstyledFlexWidth
             active={rainVisible}
             onClick={() => {
               store.setState({ treesVisible: false });

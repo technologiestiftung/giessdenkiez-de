@@ -95,12 +95,10 @@ export const setDataView = (_state, payload) => {
 };
 
 function setViewport(_state, payload) {
-  // TODO: lat long are reversed in the database
-  // that is why we need to switch them here.
   return {
     viewport: {
-      latitude: payload[1],
-      longitude: payload[0],
+      latitude: payload[0],
+      longitude: payload[1],
       zoom: 19,
       maxZoom: 19,
       transitionDuration: 2000,
