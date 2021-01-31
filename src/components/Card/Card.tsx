@@ -81,7 +81,7 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
 
   const {
     pflanzjahr,
-    artBot,
+    artbot,
     artdtsch,
     gattung,
     gattungdeutsch,
@@ -160,8 +160,8 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
             <TreeType>{treeType.description}</TreeType>
           </CardAccordion>
         )}
-        {artBot && (
-          <CardProperty name='Name (wiss.)' value={artBot} />
+        {artbot && (
+          <CardProperty name='Name (wiss.)' value={artbot} />
         )}
         {gattung && (
           <CardProperty name='Gattung (wiss.)' value={gattung} />

@@ -70,12 +70,20 @@ const ResultElement = styled.li`
   }
 `;
 
+<<<<<<< HEAD
 const MAPBOX_TOKEN = process.env.MAPBOX_API_KEY;
 
+<<<<<<< HEAD
 const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
   const [, value] = queryKey;
 
   if (value.length < 3) return [];
+=======
+=======
+>>>>>>> merge in progress
+const SidebarSearchLocation: React.FC = () => {
+  const { setViewport } = useActions(Actions);
+>>>>>>> 021d78c... merge in progress
 
 <<<<<<< HEAD
   const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?autocomplete=true&language=de&country=de&bbox=12.236652,51.23817,12.542441,51.448114&access_token=${MAPBOX_TOKEN}`;
