@@ -77,12 +77,6 @@ const StackedBarChart: FC<{
     setWaterAmountInLast30Days(mapStackedBarchartData(selectedTreeData, today));
   }, [selectedTreeData, today]);
 
-  useEffect(() => {
-    if (waterAmountInLast30Days === null) return;
-
-    drawD3Chart(waterAmountInLast30Days, today);
-  }, [waterAmountInLast30Days, today]);
-
   const wateredCircle = (
     <StyledLegendCircle style={{ backgroundColor: '#8B77F7' }} />
   );
