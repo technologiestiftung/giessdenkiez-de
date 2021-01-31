@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Slider from 'rc-slider';
+import ButtonRound from '../../../components/ButtonRound';
 import { useStoreState, useActions } from '../../../state/unistore-hooks';
 
 const FilterAgeDiv = styled.div`
@@ -50,6 +51,28 @@ const SidebarAgeRange: React.FC = () => {
 
   return (
     <FilterAgeDiv>
+      <ButtonRound
+        margin='15px'
+        toggle={() => {
+          setMin(4);
+          setMax(15);
+          setAgeRange([4, 15]);
+        }}
+        type='secondary'
+      >
+        Giessbedürftige Bäume anzeigen
+      </ButtonRound>
+      <ButtonRound
+        margin='15px'
+        toggle={() => {
+          setMin(0);
+          setMax(320);
+          setAgeRange([0, 320]);
+        }}
+        type='secondary'
+      >
+        Alle Bäume anzeigen
+      </ButtonRound>
       <TileHeadline>
         {min} - {max} Jahre
       </TileHeadline>

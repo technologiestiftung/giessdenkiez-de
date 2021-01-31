@@ -538,6 +538,7 @@ class DeckGLMap extends React.Component {
                 mapboxApiAccessToken={process.env.MAPBOX_TOKEN}
                 onLoad={this._onload.bind(this)}
               >
+<<<<<<< HEAD
                 {!overlay && (
                   <ControlWrapper isNavOpen={isNavOpen}>
                     <GeolocateControl
@@ -556,6 +557,24 @@ class DeckGLMap extends React.Component {
                     />
                   </ControlWrapper>
                 )}
+=======
+              {!overlay && (<ControlWrapper isNavOpen={isNavOpen}>
+                  <GeolocateControl
+                    positionOptions={{ enableHighAccuracy: true }}
+                    trackUserLocation={isMobile ? true : false}
+                    showUserLocation={true}
+                    onGeolocate={posOptions => {
+                      setViewport([
+                        posOptions.coords.latitude,
+                        posOptions.coords.longitude,
+                      ]);
+                    }}
+                  />
+                  <NavigationControl
+                    onViewStateChange={e => setView(e.viewState)}
+                  />
+                </ControlWrapper>)}
+>>>>>>> Add quick select trees between 4th and 15th year
               </StaticMap>
             )}
           </DeckGL>
