@@ -285,25 +285,21 @@ const Legend: React.FC = () => {
       </FlexSpace>
       {legendExpanded === true && pumpsVisible === false && (
         <UnstyledFlex>
-          {/*
-            // TODO: [GDK-8] Using i as key is not good. Might mess up the sort order
-            // https://reactjs.org/docs/lists-and-keys.html#keys
-          */}
           {treesVisible === true &&
-            legendArray.map((item, i) => (
-              <React.Fragment key={i}>
-                <ItemContainer>
-                  <LegendDot color={interpolateColor(item.value)} />
-                  <ItemLabel>{item.label}</ItemLabel>
-                </ItemContainer>
-              </React.Fragment>
-            ))}
-          {/*
-          // TODO: [GDK-8] Using i as key is not good. Might mess up the sort order
-          // https://reactjs.org/docs/lists-and-keys.html#keys */}
+            legendArray.map(item => {
+              return (
+                <React.Fragment key={item.label}>
+                  <ItemContainer>
+                    <LegendDot color={interpolateColor(item.value)} />
+                    <ItemLabel>{item.label}</ItemLabel>
+                  </ItemContainer>
+                </React.Fragment>
+              );
+            })}
+
           {rainVisible === true &&
-            legendArray.map((item, i) => (
-              <React.Fragment key={i}>
+            legendArray.map(item => (
+              <React.Fragment key={item.label}>
                 <ItemContainer>
                   <LegendRect gradient={interpolateColor(item.value)} />
                   <ItemLabel>{item.label}</ItemLabel>

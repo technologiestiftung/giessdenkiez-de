@@ -100,18 +100,17 @@ const SidebarSearchLocation: React.FC = () => {
       </FlexRowDiv>
       <ResultDiv>
         <ul>
-          {/*
-          // TODO: [GDK-8] Using i as key is not good. Might mess up the sort order
-          // https://reactjs.org/docs/lists-and-keys.html#keys */}
-          {results.map((item: any, index: number) => (
-            <ResultElement
-              className={index % 2 ? 'even' : 'odd'}
-              key={index}
-              onClick={() => setViewport(item.geometry.coordinates)}
-            >
-              {item.place_name_de}
-            </ResultElement>
-          ))}
+          {results.map((item: any, index: number) => {
+            return (
+              <ResultElement
+                className={index % 2 ? 'even' : 'odd'}
+                key={item.id}
+                onClick={() => setViewport(item.geometry.coordinates)}
+              >
+                {item.place_name_de}
+              </ResultElement>
+            );
+          })}
         </ul>
       </ResultDiv>
     </SearchDiv>

@@ -46,12 +46,8 @@ const SidebarAbout = _p => {
   return (
     <>
       <SidebarTitle>Weitere Infos</SidebarTitle>
-      {/*
-        // TODO: [GDK-8] Using i as key is not good. Might mess up the sort order
-        // https://reactjs.org/docs/lists-and-keys.html#keys
-      */}
-      {about.map((item, i) => (
-        <PanelWrapper key={i}>
+      {about.map(item => (
+        <PanelWrapper key={item.title}>
           <StyledCardDescriptionTitle>{item.title}</StyledCardDescriptionTitle>
           <StyledCardDescription
             dangerouslySetInnerHTML={createMarkup(item.description)}
@@ -64,11 +60,8 @@ const SidebarAbout = _p => {
       {/* Meh.
       Make some room since the element above is an span and it does not allow to addd padding */}
       <div style={{ paddingBottom: '1rem' }}></div>
-      {/*
-        // TODO: [GDK-8] Using i as key is not good. Might mess up the sort order
-        // https://reactjs.org/docs/lists-and-keys.html#keys */}
-      {content.faq.qa.map((item, i) => (
-        <CardAccordion key={i} title={item.question}>
+      {content.faq.qa.map(item => (
+        <CardAccordion key={item.question} title={item.question}>
           <StyledCardDescription
             dangerouslySetInnerHTML={{ __html: item.answer }}
           ></StyledCardDescription>
