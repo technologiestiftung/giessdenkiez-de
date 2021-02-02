@@ -14,7 +14,8 @@ interface StyledProps {
 const SidebarWrapper = styled.div<StyledProps>`
   z-index: 3;
   position: absolute;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   display: block;
   transform: ${props =>
     props.isVisible
