@@ -7,6 +7,7 @@ import {
   axisBottom,
   stack,
 } from 'd3';
+import { DailyWaterAmountsType } from './mapStackedBarchartData';
 
 const margin = {
   top: 15,
@@ -14,13 +15,6 @@ const margin = {
   bottom: 40,
   left: 22,
 };
-
-type WaterAmountPerDayType = {
-  timestamp: Date;
-  rainValue: number;
-  wateringValue: number;
-};
-
 // helper function for interaction
 function mouseOver() {
   const allBars = select('.series-wrapper').selectAll('g');
@@ -51,13 +45,13 @@ function mouseOut() {
 }
 
 export function drawD3Chart(
-  waterAmountInLast30Days: WaterAmountPerDayType[]
+  waterAmountInLast30Days: DailyWaterAmountsType[]
 ): void {
   if (waterAmountInLast30Days === null) return;
 
   const generateStack = stack<
-    WaterAmountPerDayType,
-    WaterAmountPerDayType,
+    DailyWaterAmountsType,
+    DailyWaterAmountsType,
     string
   >().keys(['rainValue', 'wateringValue']);
   const stackedData = generateStack(waterAmountInLast30Days);
