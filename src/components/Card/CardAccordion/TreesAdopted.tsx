@@ -126,6 +126,8 @@ const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
       </WrapperOuter>
     );
   } else {
+    // TODO: [GDK-8] Using i as key is not good. Might mess up the sort order
+    // https://reactjs.org/docs/lists-and-keys.html#keys
     return (
       <WrapperOuter>
         {data.map((info, i) => {

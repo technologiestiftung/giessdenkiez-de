@@ -57,6 +57,8 @@ const CardProgress = p => {
       id: 'liters',
     },
   ];
+  // TODO: [GDK-8] Using i as key is not good. Might mess up the sort order
+  // https://reactjs.org/docs/lists-and-keys.html#keys
   return (
     <Flex>
       {progressItems.map((item, i) => (

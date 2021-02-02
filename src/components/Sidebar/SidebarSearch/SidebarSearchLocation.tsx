@@ -100,6 +100,9 @@ const SidebarSearchLocation: React.FC = () => {
       </FlexRowDiv>
       <ResultDiv>
         <ul>
+          {/*
+          // TODO: [GDK-8] Using i as key is not good. Might mess up the sort order
+          // https://reactjs.org/docs/lists-and-keys.html#keys */}
           {results.map((item: any, index: number) => (
             <ResultElement
               className={index % 2 ? 'even' : 'odd'}
