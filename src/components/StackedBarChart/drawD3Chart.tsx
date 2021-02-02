@@ -6,6 +6,7 @@ import {
   axisLeft,
   axisBottom,
   stack,
+  ScaleLinear,
 } from 'd3';
 import { DailyWaterAmountsType } from './mapStackedBarchartData';
 
@@ -16,10 +17,13 @@ const margin = {
   left: 22,
 };
 // helper function for interaction
-function mouseOver() {
+function mouseOver(
+  _: unknown,
+  __: number,
+  groups: SVGGElement[] | ArrayLike<SVGGElement>
+) {
   const allBars = select('.series-wrapper').selectAll('g');
-  const selectedBar = select(this);
-
+  const selectedBar = select(groups[0]);
   selectedBar.style('opacity', 1).style('cursor', 'pointer');
 
   selectedBar
@@ -31,13 +35,16 @@ function mouseOver() {
 
   console.log('allBars:', allBars);
   console.log('selectedBar', selectedBar);
-  console.log(selectedBar == allBars);
 
   console.log('inside function');
 }
 
-function mouseOut() {
-  const selectedBar = select(this);
+function mouseOut(
+  _: unknown,
+  __: number,
+  groups: SVGGElement[] | ArrayLike<SVGGElement>
+) {
+  const selectedBar = select(groups[0]);
 
   selectedBar.style('opacity', 0.8);
 
@@ -80,7 +87,7 @@ export function drawD3Chart(
     )
   );
 
-  let yScale;
+  let yScale: ScaleLinear<number, number>;
   // create dynamic yScales based on maxWaterValue
   // fix scale for watering amounts below 70l
   if (maxWaterValue <= 70) {
