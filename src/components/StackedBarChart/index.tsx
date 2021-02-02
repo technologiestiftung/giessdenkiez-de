@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import {
   select,
+  selectAll,
   scaleTime,
-  scaleBand,
   scaleLinear,
   scaleOrdinal,
   axisLeft,
@@ -15,27 +15,6 @@ import {
 } from 'd3';
 import { useStoreState } from '../../state/unistore-hooks';
 
-const dailrain = { '2020-12-30': 10, '2020-12-31': 20 };
-
-const data = [
-  {
-    timestamp: new Date(2021, 0, 24), // month is zero-indexed :(
-    rainValue: 30,
-    wateringValue: 30,
-  },
-  {
-    timestamp: new Date(2021, 0, 25),
-    rainValue: 10,
-    wateringValue: 30,
-  },
-  {
-    timestamp: new Date(2021, 0, 26),
-    rainValue: 10,
-    wateringValue: 40,
-  },
-];
-
-// format Date time
 // to create Date out of String
 // const parser = timeParse('%Y-%m-%d');
 // to create string out of Date
@@ -138,9 +117,6 @@ const _createTreeLastWateredMap = (
 const StackedBarChart = () => {
   const { selectedTree } = useStoreState('selectedTree');
   const { treeLastWatered } = useStoreState('treeLastWatered');
-  /* const { data } = p;
-  const [, setScaleTime] = useState<ScaleLinear<number, number> | null>(null);
-  const [, setScaleRain] = useState<ScaleLinear<number, number> | null>(null); */
   interface DailyWaterAmountsType {
     timestamp: Date;
     rainValue: number;
@@ -155,7 +131,7 @@ const StackedBarChart = () => {
     top: 15,
     right: 10,
     bottom: 40,
-    left: 30,
+    left: 22,
   };
 
   useEffect(() => {
@@ -188,7 +164,6 @@ const StackedBarChart = () => {
   useEffect(() => {
     if (waterAmountInLast30Days === null) return;
 
-    // CONTINUE FROM HERE
     // create new stack generator
     const generateStack = stack().keys(['rainValue', 'wateringValue']);
     const stackedData = generateStack(waterAmountInLast30Days);
@@ -205,9 +180,9 @@ const StackedBarChart = () => {
       const width = (wrapper.node() as HTMLElement).clientWidth;
       const height = (wrapper.node() as HTMLElement).clientHeight;
 
-      const key = waterAmountInLast30Days.map(function (d) {
-        return d.timestamp;
-      });
+      // const key = waterAmountInLast30Days.map(function (d) {
+      //   return d.timestamp;
+      // });
 
       const xScale = scaleTime()
         .domain([
@@ -222,9 +197,18 @@ const StackedBarChart = () => {
         )
       );
 
-      const yScale = scaleLinear()
-        .domain([0, maxWaterValue * 1.2])
-        .rangeRound([height - margin.bottom, margin.top]);
+      let yScale;
+      // create dynamic yScales based on maxWaterValue
+      // fix scale for watering amounts below 70l
+      if (maxWaterValue < 70) {
+        yScale = scaleLinear()
+          .domain([0, 70])
+          .rangeRound([height - margin.bottom, margin.top]);
+      } else {
+        yScale = scaleLinear()
+          .domain([0, maxWaterValue * 1.2])
+          .rangeRound([height - margin.bottom, margin.top]);
+      }
 
       const colorScale = scaleOrdinal()
         .domain(['rainValue', 'wateringValue'])
@@ -254,6 +238,24 @@ const StackedBarChart = () => {
         .attr('transform', `translate(${2},${margin.top})`)
         .text('↑ Liter pro m²');
 
+      // add y grid lines
+      svg
+        .append('g')
+        .attr('class', 'grid-lines')
+        .selectAll('.grid-line')
+        .data(yScale.ticks(4))
+        .enter()
+        .append('line')
+        .attr('class', 'grid-line')
+        .attr('transform', `translate(${4}, ${margin.top + 0.5})`)
+        .attr('x1', 0 + margin.left)
+        .attr('x2', width - margin.right + 3)
+        .attr('y1', yScale)
+        .attr('y2', yScale)
+        .style('fill', 'none')
+        .style('stroke', 'lightgray')
+        .style('stroke-dasharray', '3');
+
       // manually ad x axis line (fix later)
       svg
         .append('line')
@@ -261,7 +263,7 @@ const StackedBarChart = () => {
         .style('stroke-width', 1)
         .attr('x1', margin.left)
         .attr('y1', height - margin.bottom + margin.top + 0.5)
-        .attr('x2', width - margin.right + 5)
+        .attr('x2', width - margin.right + 7)
         .attr('y2', height - margin.bottom + margin.top + 0.5);
 
       // append stacked rectangles
@@ -283,24 +285,40 @@ const StackedBarChart = () => {
         .enter()
         .append('rect')
         .attr('x', d => xScale(d.data.timestamp))
-        .attr('y', d => yScale(d[1]))
+        .attr('width', 6)
+        .transition() // transition the width
+        .duration(1000) // 1 second
         .attr('height', d => yScale(d[0]) - yScale(d[1]))
-        .attr('width', 5);
+        .attr('y', d => yScale(d[1]))
+        .style('opacity', 0.8);
 
-      // const today = new Date();
-      // const priorDate = new Date().setDate(today.getDate() - 30);
+      // seriesGroup.on('mouseover', mouseOver).on('mouseout', mouseOut);
 
-      /* const scaleTime = scaleLinear()
-        .domain([0, 30]) // @TODO: check the hours of the day
-        .range([width - margin.left - margin.right, 0]);
-      setScaleTime(() => scaleTime);
+      // helper function for interaction
+      // function mouseOver(d) {
+      //   let allBars = select('.series-wrapper').selectAll('g');
+      //   let selectedBar = select(this);
 
-      const scaleRain = scaleLinear()
-        .domain([0, 100]) // @TODO: check the hours of the day
-        .range([height - margin.top - margin.bottom, 0]);
-      setScaleRain(() => scaleRain); */
+      //   selectedBar.style('opacity', 1).style('cursor', 'pointer');
 
-      const yAxis = axisLeft(yScale).ticks(2);
+      //   console.log('allBars:', allBars);
+      //   console.log('selectedBar', selectedBar);
+      //   console.log(selectedBar == allBars);
+
+      //   console.log('inside function');
+      // }
+
+      // function mouseOut() {
+      //   let allBars = select('.series-wrapper').selectAll('g');
+      //   let selectedBar = select(this);
+
+      //   selectedBar.style('opacity', 0.8);
+
+      //   console.log('I am out');
+      // }
+
+      // style y and x axis
+      const yAxis = axisLeft(yScale).ticks(4);
 
       const xAxis = axisBottom(xScale)
         .ticks(6)
@@ -322,9 +340,10 @@ const StackedBarChart = () => {
           }
         });
 
+      // append y and x axis to chart
       svg
         .append('g')
-        .attr('transform', `translate(${margin.left - 2}, ${margin.top} )`)
+        .attr('transform', `translate(${margin.left}, ${margin.top} )`)
         .call(yAxis);
 
       svg
