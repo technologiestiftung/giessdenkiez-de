@@ -685,7 +685,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
 
 exports[`Storyshots Sidebar About 1`] = `
 <div
-  className="sc-pRtAn fLWcwd"
+  className="sc-pRtAn iWNjrd"
 >
   <a
     className="sc-pJUVA gKpAlB"
@@ -713,7 +713,7 @@ exports[`Storyshots Sidebar About 1`] = `
     className="sc-pZOBi eyLUVw"
   >
     <h2
-      className="sc-fzoCCn hqNcCS"
+      className="sc-fzoCCn OrWQc"
     >
       Weitere Infos
     </h2>
@@ -800,7 +800,7 @@ exports[`Storyshots Sidebar About 1`] = `
       />
     </div>
     <h2
-      className="sc-fzoCCn hqNcCS"
+      className="sc-fzoCCn OrWQc"
     >
       F.A.Q.
     </h2>
@@ -1320,7 +1320,7 @@ exports[`Storyshots Sidebar About 1`] = `
 
 exports[`Storyshots Sidebar Adopted 1`] = `
 <div
-  className="sc-pRtAn fLWcwd"
+  className="sc-pRtAn iWNjrd"
 >
   <a
     className="sc-pJUVA gKpAlB"
@@ -1348,7 +1348,7 @@ exports[`Storyshots Sidebar Adopted 1`] = `
     className="sc-pZOBi eyLUVw"
   >
     <h2
-      className="sc-fzoCCn hqNcCS"
+      className="sc-fzoCCn OrWQc"
     >
       Adoptierte Bäume:
     </h2>
@@ -1380,7 +1380,7 @@ exports[`Storyshots Sidebar Adopted 1`] = `
 
 exports[`Storyshots Sidebar Profile Logged In 1`] = `
 <div
-  className="sc-pRtAn fLWcwd"
+  className="sc-pRtAn iWNjrd"
 >
   <a
     className="sc-pJUVA gKpAlB"
@@ -1408,7 +1408,7 @@ exports[`Storyshots Sidebar Profile Logged In 1`] = `
     className="sc-pZOBi eyLUVw"
   >
     <h2
-      className="sc-fzoCCn hqNcCS"
+      className="sc-fzoCCn OrWQc"
     >
       Profil
     </h2>
@@ -1442,7 +1442,7 @@ exports[`Storyshots Sidebar Profile Logged In 1`] = `
 
 exports[`Storyshots Sidebar Profile Logged Out 1`] = `
 <div
-  className="sc-pRtAn fLWcwd"
+  className="sc-pRtAn iWNjrd"
 >
   <a
     className="sc-pJUVA gKpAlB"
@@ -1470,7 +1470,7 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
     className="sc-pZOBi eyLUVw"
   >
     <h2
-      className="sc-fzoCCn hqNcCS"
+      className="sc-fzoCCn OrWQc"
     >
       Profil
     </h2>
@@ -1504,7 +1504,7 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
 
 exports[`Storyshots Sidebar Search 1`] = `
 <div
-  className="sc-pRtAn fLWcwd"
+  className="sc-pRtAn iWNjrd"
 >
   <a
     className="sc-pJUVA gKpAlB"
@@ -1532,7 +1532,7 @@ exports[`Storyshots Sidebar Search 1`] = `
     className="sc-pZOBi eyLUVw"
   >
     <h2
-      className="sc-fzoCCn hqNcCS"
+      className="sc-fzoCCn OrWQc"
     >
       Suche & Filter
     </h2>
@@ -1828,7 +1828,7 @@ exports[`Storyshots Sidebar Search 1`] = `
 
 exports[`Storyshots Sidebar Search Location 1`] = `
 <div
-  className="sc-pRtAn fLWcwd"
+  className="sc-pRtAn iWNjrd"
 >
   <a
     className="sc-pJUVA gKpAlB"
@@ -1856,7 +1856,7 @@ exports[`Storyshots Sidebar Search Location 1`] = `
     className="sc-pZOBi eyLUVw"
   >
     <h2
-      className="sc-fzoCCn hqNcCS"
+      className="sc-fzoCCn OrWQc"
     >
       Suche & Filter
     </h2>
