@@ -200,7 +200,7 @@ const StackedBarChart = () => {
       let yScale;
       // create dynamic yScales based on maxWaterValue
       // fix scale for watering amounts below 70l
-      if (maxWaterValue < 70) {
+      if (maxWaterValue <= 70) {
         yScale = scaleLinear()
           .domain([0, 70])
           .rangeRound([height - margin.bottom, margin.top]);
@@ -214,12 +214,55 @@ const StackedBarChart = () => {
         .domain(['rainValue', 'wateringValue'])
         .range(['#75ADE8', '#8B77F7']);
 
+      const yTicks = 4;
+      // style y and x axis
+      const yAxis = axisLeft(yScale).ticks(yTicks);
+
+      const xAxis = axisBottom(xScale)
+        .ticks(6)
+        .tickFormat(d => {
+          // get sysdate for x Axis
+          const today = new Date();
+          const formattedDate = new Date(d);
+
+          const dateIsToday =
+            formattedDate.getFullYear() === today.getFullYear() &&
+            formattedDate.getMonth() === today.getMonth() &&
+            formattedDate.getDate() === today.getDate();
+
+          if (dateIsToday) {
+            return 'Heute';
+          } else if (d !== null) {
+            // let formattedTime = formatter(d);
+            let daysBack = today.getTime() - formattedDate.getTime();
+            daysBack = daysBack / (1000 * 3600 * 24);
+            daysBack = Math.round(daysBack);
+            //
+            return `Vor ${daysBack} Tagen`;
+            // return formattedTime;
+          }
+        });
+
       // remove double loaded svg
       wrapper.selectAll('svg').remove();
       const svg = wrapper
         .append('svg')
         .attr('width', width)
         .attr('height', height);
+
+      // append y and x axis to chart
+      svg
+        .append('g')
+        .attr('transform', `translate(${margin.left}, ${margin.top} )`)
+        .call(yAxis);
+
+      svg
+        .append('g')
+        .attr(
+          'transform',
+          `translate( 0, ${height - margin.bottom + margin.top})`
+        )
+        .call(xAxis);
 
       // rect so see dimensions of svg
       // svg
@@ -243,7 +286,7 @@ const StackedBarChart = () => {
         .append('g')
         .attr('class', 'grid-lines')
         .selectAll('.grid-line')
-        .data(yScale.ticks(4))
+        .data(yScale.ticks(yTicks))
         .enter()
         .append('line')
         .attr('class', 'grid-line')
@@ -292,74 +335,40 @@ const StackedBarChart = () => {
         .attr('y', d => yScale(d[1]))
         .style('opacity', 0.8);
 
-      // seriesGroup.on('mouseover', mouseOver).on('mouseout', mouseOut);
+      seriesGroup.on('mouseover', mouseOver).on('mouseout', mouseOut);
 
       // helper function for interaction
-      // function mouseOver(d) {
-      //   let allBars = select('.series-wrapper').selectAll('g');
-      //   let selectedBar = select(this);
+      function mouseOver() {
+        let allBars = select('.series-wrapper').selectAll('g');
+        let selectedBar = select(this);
 
-      //   selectedBar.style('opacity', 1).style('cursor', 'pointer');
+        selectedBar.style('opacity', 1).style('cursor', 'pointer');
 
-      //   console.log('allBars:', allBars);
-      //   console.log('selectedBar', selectedBar);
-      //   console.log(selectedBar == allBars);
+        selectedBar
+          .append('text')
+          .attr('x', 20)
+          .attr('y', 50)
+          .attr('text', 'this is my tooltip')
+          .style('color', 'black');
 
-      //   console.log('inside function');
-      // }
+        console.log('allBars:', allBars);
+        console.log('selectedBar', selectedBar);
+        console.log(selectedBar == allBars);
 
-      // function mouseOut() {
-      //   let allBars = select('.series-wrapper').selectAll('g');
-      //   let selectedBar = select(this);
+        console.log('inside function');
+      }
 
-      //   selectedBar.style('opacity', 0.8);
+      function mouseOut() {
+        let allBars = select('.series-wrapper').selectAll('g');
+        let selectedBar = select(this);
 
-      //   console.log('I am out');
-      // }
+        selectedBar.style('opacity', 0.8);
 
-      // style y and x axis
-      const yAxis = axisLeft(yScale).ticks(4);
-
-      const xAxis = axisBottom(xScale)
-        .ticks(6)
-        .tickFormat(d => {
-          // get sysdate for x Axis
-          const today = new Date();
-          const formattedDate = new Date(d);
-
-          const dateIsToday =
-            formattedDate.getFullYear() === today.getFullYear() &&
-            formattedDate.getMonth() === today.getMonth() &&
-            formattedDate.getDate() === today.getDate();
-
-          if (dateIsToday) {
-            return 'Heute';
-          } else if (d !== null) {
-            const formattedTime = formatter(d);
-            return formattedTime;
-          }
-        });
-
-      // append y and x axis to chart
-      svg
-        .append('g')
-        .attr('transform', `translate(${margin.left}, ${margin.top} )`)
-        .call(yAxis);
-
-      svg
-        .append('g')
-        .attr(
-          'transform',
-          `translate( 0, ${height - margin.bottom + margin.top})`
-        )
-        .call(xAxis);
+        console.log('I am out');
+      }
     };
     const transformedData = transformData(waterAmountInLast30Days);
     init(transformedData);
-
-    /* return () => {
-      document.querySelector('')
-    } */
   }, [waterAmountInLast30Days]);
 
   return (
