@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 
 import DeckGlMap from '../map';
@@ -10,8 +10,9 @@ import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
-
 import { removeOverlay } from '../../utils';
+import { StoreProps } from '../../common/interfaces';
+import store from '../../state/Store';
 
 const AppWrapperDiv = styled.div`
   font-family: ${(props: any) => props.theme.fontFamily};
@@ -40,33 +41,62 @@ const CookieContainer = styled.div`
   width: 60%;
   transform: translate(50%, 0%);
   right: 50%;
+  z-index: 3;
 
   @media screen and (max-width: ${p => p.theme.screens.mobile}) {
     width: 100%;
     bottom: 0px;
-    z-index: 2;
   }
 `;
 
-const AppWrapper = p => {
-  const { isLoading, data, overlay } = p;
+const getUrlQueryParameter = (name = ''): string => {
+  name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
+  const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  const results = regex.exec(window.location.search);
+  return results === null
+    ? ''
+    : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
 
-  removeOverlay();
+type AppWrapperPropsType = Pick<
+  StoreProps,
+  'isTreeDataLoading' | 'isTreeMapLoading' | 'data' | 'overlay'
+>;
+
+const AppWrapper: FC<AppWrapperPropsType> = ({
+  isTreeDataLoading,
+  isTreeMapLoading,
+  data,
+  overlay: showOverlay,
+}) => {
+  const showLoading = isTreeMapLoading;
+  const showMap = !isTreeDataLoading && data;
+  const showMapUI = showMap && !showOverlay;
+
+  useEffect(() => {
+    if (isTreeMapLoading) return;
+    const treeId = getUrlQueryParameter('location');
+    store.setState({
+      ...(treeId ? { highlightedObject: treeId } : {}),
+      overlay: !treeId,
+    });
+    removeOverlay();
+  }, [isTreeMapLoading]);
 
   return (
     <AppWrapperDiv>
-      {isLoading && <Loading />}
-      {!isLoading && data && <DeckGlMap data={data} />}
-      {!isLoading && data && <Sidebar />}
-      {overlay && data && <Overlay />}
-      <Nav />
+      {showLoading && <Loading />}
+      {showMap && <DeckGlMap data={data} />}
+      {showMapUI && <Sidebar />}
+      {showOverlay && <Overlay />}
+      {showMapUI && <Nav />}
       <CreditsContainer>
         <Credits />
       </CreditsContainer>
       <CookieContainer>
         <Cookie />
       </CookieContainer>
-      <Legend />
+      {showMapUI && <Legend />}
       <ImprintAndPrivacyContainer></ImprintAndPrivacyContainer>
     </AppWrapperDiv>
   );

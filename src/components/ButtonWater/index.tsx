@@ -2,7 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import { connect } from 'unistore/react';
 import history from '../../history';
-import { loadCommunityData } from '../../state/Actions';
+import Actions, { loadCommunityData } from '../../state/Actions';
+import { useActions } from '../../state/unistore-hooks';
 import { useStoreState } from '../../state/unistore-hooks';
 import store from '../../state/Store';
 import { createAPIUrl, isTreeAdopted, requests, waitFor } from '../../utils';
@@ -44,7 +45,6 @@ const StyledLogin = styled(Login)`
 const ButtonWater = () => {
   // const {
   const { selectedTree } = useStoreState('selectedTree');
-  const { toggleOverlay } = useStoreState('toggleOverlay');
   const { selectedTreeState } = useStoreState('selectedTreeState');
   const { user: userdata } = useStoreState('user');
   const { treeAdopted } = useStoreState('treeAdopted');
@@ -83,11 +83,6 @@ const ButtonWater = () => {
       default:
         return;
     }
-  };
-
-  const handleClick = () => {
-    history.push('/');
-    toggleOverlay(true);
   };
 
   const waterTree = async (id, amount, username) => {
@@ -256,7 +251,9 @@ const ButtonWater = () => {
             {waterGroup === 'watering' && (
               <ButtonWaterGroup id={selectedTree.id} toggle={setWaterAmount} />
             )}
-            <StyledCardDescription onClick={() => handleClick()}>
+            <StyledCardDescription
+              onClick={() => store.setState({ overlay: true })}
+            >
               Wie kann ich mitmachen?
             </StyledCardDescription>
           </Fragment>
@@ -275,7 +272,9 @@ const ButtonWater = () => {
     return (
       <BtnContainer>
         <StyledLogin width='-webkit-fill-available' />
-        <StyledCardDescription onClick={() => handleClick()}>
+        <StyledCardDescription
+          onClick={() => store.setState({ overlay: true })}
+        >
           Wie kann ich mitmachen?
         </StyledCardDescription>
       </BtnContainer>
