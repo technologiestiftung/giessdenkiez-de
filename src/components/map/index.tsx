@@ -624,7 +624,7 @@ class DeckGLMap extends React.Component {
             {baseMap && (
               <StaticMap
                 reuseMaps
-                mapStyle='mapbox://styles/mapbox/light-v9'
+                mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
                 preventStyleDiffing={true}
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 onLoad={this._onload.bind(this)}
