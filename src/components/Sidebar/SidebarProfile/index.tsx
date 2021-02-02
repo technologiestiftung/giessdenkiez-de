@@ -102,20 +102,6 @@ const SidebarProfile = () => {
           );
           const res = await requests(urlAdoptedTreesDetails);
           store.setState({ adoptedTreesDetails: res.data });
-
-          // fetchAPI(urlAdoptedTreesDetails, {
-          //   headers: {
-          //     Authorization: 'Bearer ' + token,
-          //   },
-          // })
-          //   .then(r => {
-          //     //@ts-ignore
-          //     store.setState({ adoptedTreesDetails: r.data });
-          //     return;
-          //   })
-          //   .catch(err => {
-          //     console.error(err);
-          //   });
         }
       } catch (error) {
         console.error(error);

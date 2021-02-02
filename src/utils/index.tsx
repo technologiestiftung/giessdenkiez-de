@@ -1,5 +1,4 @@
 import { scaleLinear, interpolateViridis } from 'd3';
-import axios from 'axios';
 import { IsTreeAdoptedProps, Generic } from '../common/interfaces';
 
 export function createAPIUrl(state: any, entrypoint: string): string {
@@ -128,22 +127,6 @@ export async function waitFor(
  * @deprecated
  *
  */
-export async function fetchAPI(url: string, config = {}) {
-  const res = axios
-    .get(url, config)
-    .then(r => {
-      return r;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  const result = await res;
-  if (result === undefined) {
-    throw new Error('result of fetch request is undefined');
-  }
-
-  return result;
-}
 
 export const STATI = {
   STATUS_IDLE: 'IDLE',
@@ -304,6 +287,5 @@ export default {
   createCSVJson,
   createAPIUrl,
   getCookieValue,
-  fetchAPI,
   flatten,
 };
