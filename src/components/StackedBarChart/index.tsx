@@ -36,12 +36,6 @@ const StackedBarChart: FC = () => {
   >(null);
 
   useEffect(() => {
-    console.log(selectedTree);
-    console.log(treeLastWatered);
-    console.log(waterAmountInLast30Days);
-  }, [selectedTree, treeLastWatered, waterAmountInLast30Days]);
-
-  useEffect(() => {
     if (!treeLastWatered || !treeLastWatered) return;
 
     setWaterAmountInLast30Days(
