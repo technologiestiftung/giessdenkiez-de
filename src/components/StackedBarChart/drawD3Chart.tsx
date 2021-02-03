@@ -46,13 +46,13 @@ const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
   },
   onMouseMove(d) {
     if (!svg) return;
-    const [mouseX] = mouse(svg);
+    const [mouseX, mouseY] = mouse(svg);
     const amount = d[1];
     tooltip
       .html(`${amount.toFixed(1)}l`)
       .style(
         'transform',
-        `translate(calc(-50% + ${mouseX}px), ${MARGIN.top}px)`
+        `translate(calc(-50% + ${mouseX}px), ${mouseY - 30}px)`
       );
   },
   onMouseLeave() {
@@ -250,8 +250,8 @@ export function drawD3Chart(
     .attr('x', 0)
     .attr('y', 0)
     .attr('width', BAR_WIDTH)
-    .attr('height', d => yScale(d[0]) - yScale(d[1]))
     .transition() // transition the width
     .duration(1000) // 1 second
+    .attr('height', d => yScale(d[0]) - yScale(d[1]))
     .style('opacity', DEFAULT_BAR_OPACITY);
 }
