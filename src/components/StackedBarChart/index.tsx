@@ -1,11 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { DailyWaterAmountsType } from '../../common/types';
 import { useStoreState } from '../../state/unistore-hooks';
 import { drawD3Chart } from './drawD3Chart';
-import {
-  DailyWaterAmountsType,
-  mapStackedBarchartData,
-} from './mapStackedBarchartData';
+import { mapStackedBarchartData } from './mapStackedBarchartData';
 
 const BarChartWrapper = styled.div`
   width: 100%;
@@ -44,7 +42,7 @@ const StackedBarChart: FC = () => {
   }, [selectedTree, treeLastWatered, waterAmountInLast30Days]);
 
   useEffect(() => {
-    if (!treeLastWatered) return;
+    if (!treeLastWatered || !treeLastWatered) return;
 
     setWaterAmountInLast30Days(
       mapStackedBarchartData({ selectedTree, treeLastWatered })

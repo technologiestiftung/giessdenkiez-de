@@ -197,7 +197,7 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
           {/* <Linechart data={radolan_days} sum={radolan_sum} /> */}
           {/* <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription> */}
         </RainContainer>
-        {treeLastWatered.length > 0 && (
+        {Array.isArray(treeLastWatered) && treeLastWatered.length > 0 && (
           <CardAccordion
             active={true}
             title={<CardAccordionTitle>Zuletzt gegossen</CardAccordionTitle>}

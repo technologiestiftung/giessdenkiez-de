@@ -1,4 +1,5 @@
 import { Store } from 'unistore';
+import { SelectedTreeType, TreeLastWateredType } from './types';
 
 export interface Generic {
   [key: string]: any;
@@ -35,8 +36,8 @@ export interface StoreProps {
     prod: string | undefined;
   };
   tabActive: string;
-  selectedTree?: Generic;
-  treeLastWatered: boolean;
+  selectedTree: SelectedTreeType | undefined;
+  treeLastWatered: TreeLastWateredType | undefined;
   selectedTreeState?:
     | 'LOADED'
     | 'LOADING'

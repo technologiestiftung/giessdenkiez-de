@@ -11,10 +11,13 @@ export function createAPIUrl(state: any, entrypoint: string): string {
 /**
  * Deliberately does not hande errors. You will have to handle them in the calling function
  */
-export async function requests<T>(
+export async function requests<
+  ReturnType = Generic,
+  OptionOverrides = undefined
+>(
   url: string,
-  opts?: { token?: string; override?: T }
-): Promise<Generic> {
+  opts?: { token?: string; override?: OptionOverrides }
+): Promise<ReturnType | Error> {
   // try {
   const headers = new Headers({ 'content-type': 'application/json' });
   if (opts?.token) {
@@ -42,8 +45,17 @@ export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
         `/get?queryType=istreeadopted&uuid=${uuid}&id=${id}`
       );
 
-      const json = await requests(url, { token, override: { signal } });
-      store.setState({ treeAdopted: json.data });
+      const json = await requests<
+        { data: IsTreeAdoptedProps },
+        { signal: AbortSignal | undefined }
+      >(url, {
+        token,
+        override: { signal },
+      });
+      if (json instanceof Error) {
+        throw json;
+      }
+      store.setState({ treeAdopted: Boolean(json.data) });
     }
   } catch (error) {
     console.log(error);

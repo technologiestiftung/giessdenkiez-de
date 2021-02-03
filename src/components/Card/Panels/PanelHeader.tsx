@@ -10,4 +10,5 @@ export const PanelHeader = styled.div<PanelHeaderProps>`
   align-items: flex-start;
   line-height: 1.3rem;
   padding-bottom: ${props => (props.expanded ? '1.3rem' : 'auto')};
+  cursor: pointer;
 `;

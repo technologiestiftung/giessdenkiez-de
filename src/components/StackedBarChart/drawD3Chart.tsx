@@ -8,7 +8,7 @@ import {
   stack,
   ScaleLinear,
 } from 'd3';
-import { DailyWaterAmountsType } from './mapStackedBarchartData';
+import { DailyWaterAmountsType } from '../../common/types';
 
 const margin = {
   top: 15,

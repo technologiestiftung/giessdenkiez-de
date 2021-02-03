@@ -1,12 +1,10 @@
-export type DailyWaterAmountsType = {
-  timestamp: Date;
-  rainValue: number;
-  wateringValue: number;
-};
+import {
+  DailyWaterAmountsType,
+  RadolanDays,
+  WateredDayType,
+} from '../../common/types';
 
-type RadolanDays = number[];
-
-const radolanDaysToHours = (radolanDays: RadolanDays): number[] => {
+const _radolanDaysToHours = (radolanDays: RadolanDays): number[] => {
   let sumPerDay = 0;
 
   const hours: number[] = [];
@@ -25,7 +23,7 @@ const radolanDaysToHours = (radolanDays: RadolanDays): number[] => {
   return hours.reverse();
 };
 
-const createDateList = (len: number) => {
+const _createDateList = (len: number) => {
   const today = new Date();
   let iter = 1;
   const last30Dates: string[] = [];
@@ -41,8 +39,8 @@ const createDateList = (len: number) => {
 const _createRadolanMap: (
   radolanDays: RadolanDays
 ) => { [key: string]: number } = radolanDays => {
-  const rainOfMonth = radolanDaysToHours(radolanDays);
-  const last30Days = createDateList(rainOfMonth.length);
+  const rainOfMonth = _radolanDaysToHours(radolanDays);
+  const last30Days = _createDateList(rainOfMonth.length);
   const map = {};
   rainOfMonth.forEach((ele, i) => {
     map[last30Days[i]] = ele;
@@ -50,17 +48,8 @@ const _createRadolanMap: (
   return map;
 };
 
-const timestamp2stringKey = (timestamp: string): string =>
+const _timestamp2stringKey = (timestamp: string): string =>
   timestamp.split('T')[0];
-
-type WateredDayType = {
-  tree_id: string;
-  time: string;
-  uuid: string;
-  amount: string;
-  timestamp: string;
-  username: string;
-};
 
 const _createTreeLastWateredMap = (
   treeLastWatered: WateredDayType[]
@@ -68,7 +57,7 @@ const _createTreeLastWateredMap = (
   treeLastWatered.reduce(
     (acc, currentDay) => ({
       ...acc,
-      [timestamp2stringKey(currentDay.timestamp)]: parseInt(
+      [_timestamp2stringKey(currentDay.timestamp)]: parseInt(
         currentDay.amount,
         10
       ),
