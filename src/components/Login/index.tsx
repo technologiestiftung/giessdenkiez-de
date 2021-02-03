@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect } from 'react';
 import store from '../../state/Store';
-
+const { SNOWPACK_PUBLIC_USER_DATA_API_URL } = import.meta.env;
 import { createAPIUrl, requests } from '../../utils';
 import { useAuth0 } from '../../utils/auth/auth0';
 
@@ -50,9 +51,10 @@ const Login = p => {
       try {
         // event.preventDefault();
         const token = await getTokenSilently();
-        const apiUrl = `${
-          process.env.USER_DATA_API_URL
-        }/api/user?userid=${encodeURIComponent(user.sub)}`;
+        // @ts-ignore
+        const apiUrl = `${SNOWPACK_PUBLIC_USER_DATA_API_URL}/api/user?userid=${encodeURIComponent(
+          user.sub
+        )}`;
 
         const res = await requests(apiUrl, { token });
         store.setState({ user: res.data });

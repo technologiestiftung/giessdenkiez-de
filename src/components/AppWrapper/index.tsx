@@ -86,6 +86,7 @@ const AppWrapper: FC<AppWrapperPropsType> = ({
   return (
     <AppWrapperDiv>
       {showLoading && <Loading />}
+      {/* @ts-ignore */}
       {showMap && <DeckGlMap data={data} />}
       {showMapUI && <Sidebar />}
       {showOverlay && <Overlay />}

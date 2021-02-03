@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nockeck
 import React from 'react';
 import { connect } from 'unistore/react';
 import Actions from '../../state/Actions';
-
+const { SNOWPACK_PUBLIC_API_KEY } = import.meta.env;
 import styled from 'styled-components';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 import { StaticMap, GeolocateControl, NavigationControl } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import store from '../../state/Store';
@@ -27,6 +28,8 @@ import {
 interface StyledProps {
   isNavOpen?: boolean;
 }
+const isMobile = false;
+
 const ControlWrapper = styled.div<StyledProps>`
   position: absolute;
   bottom: 12px;
@@ -42,8 +45,7 @@ const ControlWrapper = styled.div<StyledProps>`
 
 let map = null;
 let selectedStateId = false;
-
-const MAPBOX_TOKEN = process.env.API_KEY;
+const MAPBOX_TOKEN = SNOWPACK_PUBLIC_API_KEY;
 const pumpsColor: (info: Generic) => RGBAColor = info => {
   if (info === undefined) {
     return defaultColor.rgba;
@@ -99,11 +101,21 @@ class DeckGLMap extends React.Component {
 
   _renderLayers() {
     const {
+      //@ts-expect-error
       data,
+      //@ts-expect-error
+
       rainGeojson,
+      //@ts-expect-error
+
       treesVisible,
+      //@ts-expect-error
+
       pumpsVisible,
+      //@ts-expect-error
       rainVisible,
+      //@ts-ignore
+
       pumps,
     } = this.props;
 
@@ -113,7 +125,11 @@ class DeckGLMap extends React.Component {
           id: 'geojson',
           data: isMobile ? [] : data,
           opacity: 1,
+          //@ts-ignore
+
           getLineWidth: (info: any) => {
+            //@ts-ignore
+
             const { selectedTree } = this.props;
             const id = info.properties['id'];
 
@@ -142,12 +158,18 @@ class DeckGLMap extends React.Component {
           transitions: {
             getFillColor: 500,
           },
-          getFillColor: (info, i) => {
+          getFillColor: info => {
             const {
               // wateredTrees,
               // AppState,
+              //@ts-ignore
+
               ageRange,
+              //@ts-ignore
+
               dataView,
+              //@ts-ignore
+
               communityData,
             } = this.props;
             const { properties } = info;
@@ -186,6 +208,8 @@ class DeckGLMap extends React.Component {
             return [200, 200, 200, 0];
           },
           onClick: info => {
+            //@ts-ignore
+
             const { setDetailRouteWithListPath } = this.props;
             this._onClick(info.x, info.y, info.object);
 
@@ -196,13 +220,24 @@ class DeckGLMap extends React.Component {
               setDetailRouteWithListPath(info.object.properties.id);
             }
           },
+
           updateTriggers: {
             getFillColor: [
+              //@ts-ignore
+
               this.props.wateredTrees,
+              //@ts-ignore
+
               this.props.highlightedObject,
+              //@ts-ignore
+
               this.props.ageRange,
+              //@ts-ignore
+
               this.props.dataView,
             ],
+            //@ts-ignore
+
             getLineWidth: [this.props.selectedTree],
           },
         }),
@@ -305,6 +340,8 @@ class DeckGLMap extends React.Component {
         layers: ['trees'],
       });
       if (features.length > 0) {
+        //@ts-ignore
+
         const { setDetailRouteWithListPath } = this.props;
         this._onClick(event.x, event.y, features[0]);
 
@@ -324,6 +361,8 @@ class DeckGLMap extends React.Component {
   }
 
   async selectTree(treeId: string) {
+    //@ts-ignore
+
     const { setViewport } = this.props;
     store.setState({ selectedTreeState: 'LOADING' });
     const { getTree } = Actions(store);
@@ -349,8 +388,11 @@ class DeckGLMap extends React.Component {
       return Promise.reject(error);
     }
   }
+  //@ts-ignore
 
   _onClick(_x?: number, _y?: number, object) {
+    //@ts-ignore
+
     const { setViewport, setDetailRouteWithListPath } = this.props;
 
     setViewport(object.geometry.coordinates);
@@ -362,6 +404,8 @@ class DeckGLMap extends React.Component {
   }
 
   _renderTooltip() {
+    //@ts-ignore
+
     const { hoveredObject } = this.state;
 
     if (hoveredObject != null) {
@@ -376,7 +420,9 @@ class DeckGLMap extends React.Component {
       this.setState({ cursor: 'grab' });
     }
   }
+  //@ts-ignore
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   _getFillColor() {}
 
   _onload(evt) {
@@ -487,6 +533,8 @@ class DeckGLMap extends React.Component {
 
   _updateStyles(prevProps) {
     if (map && isMobile) {
+      //@ts-ignore
+
       if (this.props.selectedTree && selectedStateId) {
         // This replicates the original interaction,
         // but i believe leaving the highlight on the marker
@@ -497,34 +545,50 @@ class DeckGLMap extends React.Component {
         // );
         // selectedStateId = null;
       }
+      //@ts-ignore
+
       if (!this.props.treesVisible) {
         map.setLayoutProperty('trees', 'visibility', 'none');
       } else {
         map.setLayoutProperty('trees', 'visibility', 'visible');
       }
+      //@ts-ignore
+
       if (prevProps.ageRange !== this.props.ageRange) {
         map.setPaintProperty('trees', 'circle-opacity', [
           'case',
+          //@ts-ignore
+
           ['>=', ['get', 'age'], this.props.ageRange[0]],
+
+          //@ts-ignore
+
           ['case', ['<=', ['get', 'age'], this.props.ageRange[1]], 1, 0],
           0,
         ]);
       }
+      //@ts-ignore
+
       if (this.props.dataView === 'watered') {
         // TODO: check if there is a performance up for any of the two
         // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
         const filter = [
           'match',
           ['get', 'id'],
+          //@ts-ignore
+
           this.props.communityDataWatered,
           true,
           false,
         ];
         map.setFilter('trees', filter);
+        //@ts-ignore
       } else if (this.props.dataView === 'adopted') {
         const filter = [
           'match',
           ['get', 'id'],
+          //@ts-ignore
+
           this.props.communityDataAdopted,
           true,
           false,
@@ -555,10 +619,17 @@ class DeckGLMap extends React.Component {
       if (changed) {
         this._updateStyles(prevProps);
       }
+      //@ts-ignore
       if (
-        prevProps.highlightedObject !== this.props.highlightedObject &&
+        prevProps.highlightedObject !==
+          //@ts-ignore
+
+          this.props.highlightedObject &&
+        //@ts-ignore
         this.props.highlightedObject
       ) {
+        //@ts-ignore
+
         this.selectTree(this.props.highlightedObject);
       }
     }
@@ -566,6 +637,8 @@ class DeckGLMap extends React.Component {
 
   handleDrag(e) {
     setTimeout(() => {
+      //@ts-ignore
+
       this.props.setView(e.viewstate);
     }, 2000);
   }
@@ -583,13 +656,29 @@ class DeckGLMap extends React.Component {
 
   render() {
     const {
+      //@ts-ignore
+
       viewport,
+      //@ts-ignore
+
       controller = true,
+      //@ts-ignore
+
       baseMap = true,
+      //@ts-ignore
+
       isTreeDataLoading,
+      //@ts-ignore
+
       isNavOpen,
+      //@ts-ignore
+
       setViewport,
+      //@ts-ignore
+
       setView,
+      //@ts-ignore
+
       overlay,
     } = this.props;
 
@@ -600,10 +689,18 @@ class DeckGLMap extends React.Component {
         <>
           {/* THis code below could be used to display some info for the pumps */}
           {isMobile === false &&
+            //@ts-ignore
+
             this.state.isHovered === true &&
+            //@ts-ignore
+
             this.state.hoverObjectPointer.length === 2 && (
               <HoverObject
+                //@ts-ignore
+
                 message={this.state.hoverObjectMessage}
+                //@ts-ignore
+
                 pointer={this.state.hoverObjectPointer}
               ></HoverObject>
             )}
@@ -612,9 +709,12 @@ class DeckGLMap extends React.Component {
             initialViewState={viewport}
             viewState={viewport}
             getCursor={e => {
+              //@ts-ignore
+
               return this.state.cursor;
             }}
-            onHover={(info, event) => {
+            //@ts-ignore
+            onHover={(info, _event) => {
               this.setCursor(info.layer);
             }}
             onClick={this._deckClick}
@@ -622,6 +722,7 @@ class DeckGLMap extends React.Component {
             controller={controller}
           >
             {baseMap && (
+              // @ts-ignore
               <StaticMap
                 reuseMaps
                 mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
@@ -629,22 +730,26 @@ class DeckGLMap extends React.Component {
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 onLoad={this._onload.bind(this)}
               >
-              {!overlay && (<ControlWrapper isNavOpen={isNavOpen}>
-                  <GeolocateControl
-                    positionOptions={{ enableHighAccuracy: true }}
-                    trackUserLocation={isMobile ? true : false}
-                    showUserLocation={true}
-                    onGeolocate={posOptions => {
-                      setViewport([
-                        posOptions.coords.longitude,
-                        posOptions.coords.latitude,
-                      ]);
-                    }}
-                  />
-                  <NavigationControl
-                    onViewStateChange={e => setView(e.viewState)}
-                  />
-                </ControlWrapper>)}
+                {!overlay && (
+                  <ControlWrapper isNavOpen={isNavOpen}>
+                    <GeolocateControl
+                      positionOptions={{ enableHighAccuracy: true }}
+                      trackUserLocation={isMobile ? true : false}
+                      showUserLocation={true}
+                      onGeolocate={posOptions => {
+                        setViewport([
+                          //@ts-ignore
+                          posOptions.coords.longitude,
+                          //@ts-ignore
+                          posOptions.coords.latitude,
+                        ]);
+                      }}
+                    />
+                    <NavigationControl
+                      onViewStateChange={e => setView(e.viewState)}
+                    />
+                  </ControlWrapper>
+                )}
               </StaticMap>
             )}
           </DeckGL>
@@ -679,4 +784,5 @@ export default connect(
     selectedTree: state.selectedTree,
   }),
   Actions
+  // @ts-ignore
 )(DeckGLMap);

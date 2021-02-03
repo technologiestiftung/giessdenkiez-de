@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useState, useEffect, useContext } from 'react';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
+// import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { ContextProps } from '../../common/types';
 import { Auth0ClientOptions, IdToken } from '@auth0/auth0-spa-js';
 
@@ -57,7 +57,7 @@ const logout: () => Promise<void> = () => Promise.resolve();
 
 async function createFakeAuth0Client(
   _options: Partial<Auth0ClientOptions>
-): Promise<Partial<Auth0Client>> {
+): Promise<Partial<any>> {
   return {
     handleRedirectCallback,
     getUser,
@@ -78,7 +78,7 @@ export const Auth0Provider = ({
   document.cookie = 'auth0.is.authenticated=true;path=/';
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
   const [user, setUser] = useState(defaultFakeUser);
-  const [auth0Client, setAuth0] = useState<Partial<Auth0Client> | undefined>();
+  const [auth0Client, setAuth0] = useState<Partial<any> | undefined>();
   const [loading, setLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
   useEffect(() => {

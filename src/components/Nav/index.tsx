@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { NavLink, withRouter, matchPath } from 'react-router-dom';
@@ -90,6 +91,7 @@ const Nav = p => {
 };
 
 export default withRouter(
+  //@ts-ignore
   connect(
     state => ({
       state: state,

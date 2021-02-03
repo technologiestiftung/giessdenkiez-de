@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { isDemoMode } from '../../../mocks/mocks-utils';
+// import { isDemoMode } from '../../../__mocks/mocks-utils';
+function isDemoMode() {
+  return false;
+}
 const BetaNote = styled.div`
   transform: translate(-20px, 0);
 

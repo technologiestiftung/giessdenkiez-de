@@ -1,6 +1,6 @@
 import React, { cloneElement, Children } from 'react';
 import styled from 'styled-components';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 // import Actions from '../../../state/Actions';
 import store from '../../../state/Store';
 // import { connect } from 'unistore/react';
@@ -9,7 +9,6 @@ import store from '../../../state/Store';
 // import history from '../../../history';
 
 import OverlayTitle from '../OverlayTitle/';
-import OverlayEvent from '../OverlayEvent/';
 import Icon from '../../Icons';
 import OverlayBeta from '../OverlayBeta/';
 import OverlayDescription from '../OverlayDescription/';
@@ -17,6 +16,7 @@ import ButtonRound from '../../../components/ButtonRound/';
 import Login from '../../../components/Login/';
 
 import content from '../../../assets/content';
+const isMobile = false;
 
 const Wrapper = styled.div`
   display: flex;
@@ -52,7 +52,7 @@ const StyledWrapper = styled.div`
 
 const OverlayTop = p => {
   const { children, toggleOverlay } = p;
-  const { intro, eventNote, whatsNew } = content;
+  const { intro, whatsNew } = content;
 
   const { title, subline, description, disclaimer } = intro;
 
@@ -82,11 +82,11 @@ const OverlayTop = p => {
         </ButtonRound>
         <Login width='fit-content' noLogout={true} />
       </StyledWrapper>
-      {(eventNote !== undefined || whatsNew !== undefined) && (
+      {whatsNew !== undefined && (
         <OverlayTitle size='xl' title={'News & Updates'} />
       )}
 
-      {eventNote && <OverlayEvent size='Ll' title={eventNote.title} />}
+      {/* {eventNote && <OverlayEvent size='Ll' title={eventNote.title} />} */}
       {whatsNew && <OverlayDescription content={whatsNew.description} />}
     </StyledTop>
   );

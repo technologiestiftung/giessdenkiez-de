@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
@@ -82,7 +83,6 @@ const ButtonAdopted = p => {
           method: 'DELETE',
           body: JSON.stringify({
             uuid: user.user_id,
-            // eslint-disable-next-line @typescript-eslint/camelcase
             tree_id: id,
             queryType: 'unadopt',
           }),
@@ -106,6 +106,8 @@ const ButtonAdopted = p => {
         uuid: user.user_id,
         token,
         isAuthenticated,
+        //@ts-ignore
+
         state,
         store,
       });

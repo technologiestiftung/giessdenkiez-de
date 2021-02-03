@@ -1,7 +1,14 @@
-import { isMobile } from 'react-device-detect';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// import { isMobile } from 'react-device-detect';
 import createStore from 'unistore';
 // import devtools from 'unistore/devtools';
 import { StoreProps } from '../common/interfaces';
+const isMobile = false;
+const {
+  SNOWPACK_PUBLIC_API_ENDPOINT_DEV,
+  SNOWPACK_PUBLIC_API_ENDPOINT_PROD,
+  SNOWPACK_PUBLIC_NODE_ENV,
+} = import.meta.env;
 
 const initialState = {
   wateredTrees: [],
@@ -27,10 +34,11 @@ const initialState = {
   ageRange: [0, 320],
   pumps: null,
   data: null,
-  local: process.env.NODE_ENV === 'production' ? false : true,
+  local: SNOWPACK_PUBLIC_NODE_ENV === 'production' ? false : true,
   endpoints: {
-    local: process.env.API_ENDPOINT_DEV,
-    prod: process.env.API_ENDPOINT_PROD,
+    local: SNOWPACK_PUBLIC_API_ENDPOINT_DEV,
+
+    prod: SNOWPACK_PUBLIC_API_ENDPOINT_PROD,
   },
   tabActive: 'id-0',
   selectedTree: undefined,
@@ -52,7 +60,7 @@ const initialState = {
   },
 };
 // const store =
-//   process.env.NODE_ENV === 'production'
+//   SNOWPACK_PUBLIC_NODE_ENV === 'production'
 //     ? createStore<StoreProps>(initialState)
 //     : devtools(createStore(initialState));
 const store = createStore<StoreProps>(initialState);

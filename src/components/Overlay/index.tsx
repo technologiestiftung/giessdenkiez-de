@@ -55,7 +55,12 @@ const Overlay: () => JSX.Element = () => {
       <StyledWrapper>
         <Wrapper>
           <OverlayTop toggleOverlay={toggleOverlay}>
-            <OverlayClose toggleOverlay={toggleOverlay} />
+            <OverlayClose
+              toggleOverlay={() => {
+                console.log('closing');
+                toggleOverlay();
+              }}
+            />
           </OverlayTop>
           <OverlayBottom />
         </Wrapper>

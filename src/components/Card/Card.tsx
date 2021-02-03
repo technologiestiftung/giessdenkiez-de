@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { waterNeed, isTreeAdopted } from '../../utils';
@@ -146,6 +147,8 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
       <FlexColumnDiv>
         <TreeTitle>{artdtsch}</TreeTitle>
         {!treeType &&
+          //@ts-ignore
+
           treeType !== 'undefined' &&
           gattungdeutsch !== null &&
           gattungdeutsch !== 'undefined' &&

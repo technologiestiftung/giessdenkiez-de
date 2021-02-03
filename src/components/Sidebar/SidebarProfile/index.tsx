@@ -143,7 +143,8 @@ const SidebarProfile = () => {
       }
       const token = await getTokenSilently();
       const res = await window.fetch(
-        `${process.env.USER_DATA_API_URL}/api/user?userid=${encodeURIComponent(
+        //@ts-ignore
+        `${SNOWPACK_PUBLIC_USER_DATA_API_URL}/api/user?userid=${encodeURIComponent(
           user.sub
         )}`,
         {

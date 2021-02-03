@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-// import { isMobile } from 'react-device-detect';
 
 import LoadingIcon from '../LoadingIcon/';
 import content from '../../assets/content';

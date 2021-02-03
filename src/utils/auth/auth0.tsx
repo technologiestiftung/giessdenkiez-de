@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // src/react-auth0-spa.js
 import React, { useState, useEffect, useContext } from 'react';
-import createAuth0Client from '@auth0/auth0-spa-js';
-import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
+import createAuth0Client, { Auth0ClientOptions } from '@auth0/auth0-spa-js';
+// import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { ContextProps } from '../../common/types';
 const DEFAULT_REDIRECT_CALLBACK: (appState: any) => void = _appState =>
   window.history.replaceState({}, document.title, window.location.pathname);
@@ -16,7 +17,7 @@ export const Auth0Provider = ({
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>();
   const [user, setUser] = useState();
-  const [auth0Client, setAuth0] = useState<Auth0Client | undefined>();
+  const [auth0Client, setAuth0] = useState<any | undefined>();
   const [loading, setLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
 
@@ -29,7 +30,7 @@ export const Auth0Provider = ({
 
       if (window.location.search.includes('code=')) {
         const { appState } = await auth0FromHook.handleRedirectCallback();
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
         onRedirectCallback(appState);
       }
@@ -40,6 +41,7 @@ export const Auth0Provider = ({
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
+        //@ts-ignore
         setUser(user);
       }
 

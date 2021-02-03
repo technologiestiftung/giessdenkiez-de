@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import styled from 'styled-components';
 import { useActions } from '../../../state/unistore-hooks';
 import Actions from '../../../state/Actions';
-
+const { SNOWPACK_PUBLIC_API_KEY } = import.meta.env;
 // import { connect } from 'unistore/react';
 
 const SearchDiv = styled.div`
@@ -58,7 +59,7 @@ const ResultElement = styled.li`
   }
 `;
 
-const MAPBOX_TOKEN = process.env.API_KEY;
+const MAPBOX_TOKEN = SNOWPACK_PUBLIC_API_KEY;
 
 const SidebarSearchLocation: React.FC = () => {
   const { setViewport } = useActions(Actions);

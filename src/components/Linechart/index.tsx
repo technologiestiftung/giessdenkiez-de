@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -111,11 +112,14 @@ const Linechart = p => {
 
       const areaDefault = d3Area()
         .x((d, i) => scaleTime(i))
-        .y0(d => scaleRain(0))
+        //@ts-ignore
+        .y0(_d => scaleRain(0))
         .y1(70);
-
       const area = d3Area()
+        //@ts-ignore
         .x((d, i) => scaleTime(i))
+        //@ts-ignore
+
         .y0(d => scaleRain(d))
         .y1(70);
 
@@ -164,6 +168,8 @@ const Linechart = p => {
           return scaleTime(i);
         })
         .y((d, _i) => {
+          //@ts-ignore
+
           return scaleRain(d);
         });
 

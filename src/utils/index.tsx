@@ -293,7 +293,10 @@ export function checkGeolocationFeature(
   }
 }
 
+const isMobile = false;
+
 export default {
+  isMobile,
   convertTime,
   timeDifference,
   waterNeed,

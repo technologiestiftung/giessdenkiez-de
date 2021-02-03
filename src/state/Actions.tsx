@@ -1,10 +1,12 @@
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 import { dsv as d3Dsv, easeCubic as d3EaseCubic } from 'd3';
 import history from '../history';
 import { createAPIUrl, createGeojson, requests } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
 import { Store } from 'unistore';
 import { StoreProps, Generic } from '../common/interfaces';
+const isMobile = false;
+
 export const loadTrees = (store: Store<StoreProps>) => async () => {
   if (isMobile) {
     store.setState({

@@ -1,7 +1,13 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import 'react-app-polyfill/stable';
 import 'whatwg-fetch';
 import 'core-js/stable';
-import './mocks/mocks-utils'; // should be first import after polyfills
+const {
+  SNOWPACK_PUBLIC_AUTH0_DOMAIN,
+  SNOWPACK_PUBLIC_AUTH0_CLIENT_ID,
+  SNOWPACK_PUBLIC_AUTH0_AUDIENCE,
+} = import.meta.env;
+// import './mocks/mocks-utils'; // should be first import after polyfills
 // -------------------------------------------------------------------
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -26,9 +32,9 @@ const onRedirectCallback: (appState: any) => void = appState => {
 ReactDOM.render(
   <ErrorBoundary>
     <Auth0Provider
-      domain={process.env.AUTH0_DOMAIN}
-      client_id={process.env.AUTH0_CLIENT_ID}
-      audience={process.env.AUTH0_AUDIENCE}
+      domain={SNOWPACK_PUBLIC_AUTH0_DOMAIN}
+      client_id={SNOWPACK_PUBLIC_AUTH0_CLIENT_ID}
+      audience={SNOWPACK_PUBLIC_AUTH0_AUDIENCE}
       redirect_uri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
     >

@@ -11,6 +11,8 @@ const StyledLink = styled(Link)`
   font-size: 13px;
   border: 1px solid
     ${p => {
+      //@ts-ignore
+
       if (p.state === p.id) {
         return p.theme.colorPrimary;
       } else {
@@ -19,6 +21,8 @@ const StyledLink = styled(Link)`
     }};
   border-radius: ${p => p.theme.borderRadius};
   color: ${p => {
+    //@ts-ignore
+
     if (p.state === p.id) {
       return p.theme.colorPrimary;
     } else {
@@ -34,6 +38,8 @@ const StyledLink = styled(Link)`
 
   &:hover {
     color: ${p => {
+      //@ts-ignore
+
       if (p.state === p.id) {
         return p.theme.colorPrimaryHover;
       } else {

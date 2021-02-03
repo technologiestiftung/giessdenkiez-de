@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
+// import { isMobile } from '../../utils';
 import content from '../../assets/content';
 
 const iconTrees = '/images/icon-trees.svg';
-
+const isMobile = false;
 const IconContainer = styled.div`
   display: flex;
   flex-direction: column;
