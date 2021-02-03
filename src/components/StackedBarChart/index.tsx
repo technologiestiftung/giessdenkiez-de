@@ -56,17 +56,17 @@ const StackedBarChart: FC = () => {
       <StyledLegendWrapper>
         <div>
           <StyledLegendCircle
-            style={{ backgroundColor: '#75ADE8' }} // waterdrop blue
-          ></StyledLegendCircle>
-          <div>&nbsp;Regen</div>
-        </div>
-        <div>
-          <StyledLegendCircle
             style={{
               backgroundColor: '#8B77F7', // light citylab primary color
             }}
           ></StyledLegendCircle>
           <div>&nbsp;Gießungen</div>
+        </div>
+        <div>
+          <StyledLegendCircle
+            style={{ backgroundColor: '#75ADE8' }} // waterdrop blue
+          ></StyledLegendCircle>
+          <div>&nbsp;Regen</div>
         </div>
       </StyledLegendWrapper>
     </>
