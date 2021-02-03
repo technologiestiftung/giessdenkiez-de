@@ -258,25 +258,12 @@ exports[`Storyshots Card Card Story 1`] = `
         der letzten 30 Tage
       </span>
       <div
-        className="sc-fznMAR eLqqyM"
+        className="sc-fznMAR eyPOuW"
         id="barchart"
       />
       <div
         className="sc-fznWOq iTzyOm"
       >
-        <div>
-          <div
-            className="sc-fzolEj kCLrND"
-            style={
-              Object {
-                "backgroundColor": "#75ADE8",
-              }
-            }
-          />
-          <div>
-             Regen
-          </div>
-        </div>
         <div>
           <div
             className="sc-fzolEj kCLrND"
@@ -288,6 +275,19 @@ exports[`Storyshots Card Card Story 1`] = `
           />
           <div>
              Gießungen
+          </div>
+        </div>
+        <div>
+          <div
+            className="sc-fzolEj kCLrND"
+            style={
+              Object {
+                "backgroundColor": "#75ADE8",
+              }
+            }
+          />
+          <div>
+             Regen
           </div>
         </div>
       </div>
