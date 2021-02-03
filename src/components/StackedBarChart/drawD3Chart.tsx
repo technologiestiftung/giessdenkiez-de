@@ -47,12 +47,26 @@ const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
   onMouseMove(d) {
     if (!svg) return;
     const [mouseX, mouseY] = mouse(svg);
-    const amount = d[1];
+    if (!d.data) return;
+    const rainValue = d.data.rainValue;
+    const wateringValue = d.data.wateringValue;
+    const sum = rainValue + wateringValue;
+
+    console.log('sum', sum);
+
     tooltip
-      .html(`${amount.toFixed(1)}l`)
+      .html(
+        `<p style="margin: 0 0 0 0"><span style="color:#8B77F7; font-size:80%; display:inline-block; transform: translateY(-2px); width:15px;">⬤</span>${wateringValue.toFixed(
+          1
+        )}l</p><p style="margin: 5px 0 5px 0"><span style="color:#75ADE8; font-size:80%; display:inline-block; transform: translateY(-2px); width:15px;">⬤</span>${rainValue.toFixed(
+          1
+        )}l </p><p style="margin: 0 0 0 0"><span style="font-weight:bold; display:inline-block; transform: translate(2px, -2px); width:15px;">∑</span>${sum.toFixed(
+          1
+        )}l</p>`
+      )
       .style(
         'transform',
-        `translate(calc(-50% + ${mouseX}px), ${mouseY - 30}px)`
+        `translate(calc(-50% + ${mouseX}px), calc(-100% + ${mouseY}px))`
       );
   },
   onMouseLeave() {
@@ -151,7 +165,7 @@ export function drawD3Chart(
     .attr('class', 'tooltip')
     .style('background-color', 'white')
     .style('position', 'absolute')
-    .style('top', '0')
+    .style('top', '-10px')
     .style('left', '0')
     .style('transition', 'transform 200ms ease-out')
     .style('pointer-events', 'none')
@@ -196,10 +210,8 @@ export function drawD3Chart(
     .enter()
     .append('line')
     .attr('class', 'grid-line')
-    .attr(
-      'transform',
-      `translate(${4}, ${MARGIN.top + 0.5}), opacity 200ms ease-out`
-    )
+    .attr('transform', `translate(${4}, ${MARGIN.top + 0.5})`)
+    .style('transition', 'opacity 200ms ease-out')
     .attr('x1', 0 + MARGIN.left)
     .attr('x2', width - MARGIN.right + 3)
     .attr('y1', yScale)
