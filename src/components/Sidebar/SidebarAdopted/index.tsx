@@ -136,7 +136,8 @@ const SidebarAdopted = () => {
                 }
 
                 const timeDiff = timeDifference(+new Date(), watered);
-
+                // TODO: [GDK-8] Using i as key is not good. Might mess up the sort order
+                // https://reactjs.org/docs/lists-and-keys.html#keys
                 return (
                   <StyledTableRow key={`row-key-${i}`}>
                     <StyledTD
