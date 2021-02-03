@@ -9,6 +9,7 @@ const BarChartWrapper = styled.div`
   width: 100%;
   height: 140px;
   margin: 5px 0;
+  position: relative;
 `;
 
 const StyledLegendWrapper = styled.div`
@@ -51,7 +52,7 @@ const StackedBarChart: FC = () => {
 
   return (
     <>
-      <BarChartWrapper id='barchart'></BarChartWrapper>
+      <BarChartWrapper id='barchart' />
       <StyledLegendWrapper>
         <div>
           <StyledLegendCircle
