@@ -14,15 +14,6 @@ import {
 } from 'd3';
 import { DailyWaterAmountsType } from '../../common/interfaces';
 
-const BAR_WIDTH = 6;
-const DEFAULT_BAR_OPACITY = 0.6;
-const MARGIN = {
-  top: 15,
-  right: 10,
-  bottom: 40,
-  left: 22,
-};
-
 type mouseFunctionSignature = (
   this: ContainerElement,
   d: SeriesPoint<DailyWaterAmountsType>
@@ -39,6 +30,15 @@ type getMouseHandlersSignature = (
   tooltip: Selection<HTMLDivElement, unknown, HTMLElement, void>
 ) => getMouseHandlersReturnType;
 
+const BAR_WIDTH = 6;
+const DEFAULT_BAR_OPACITY = 0.6;
+const MARGIN = {
+  top: 15,
+  right: 10,
+  bottom: 40,
+  left: 22,
+};
+
 const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
   onMouseOver() {
     tooltip.style('opacity', 1);
@@ -51,8 +51,6 @@ const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
     const rainValue = d.data.rainValue;
     const wateringValue = d.data.wateringValue;
     const sum = rainValue + wateringValue;
-
-    console.log('sum', sum);
 
     tooltip
       .html(
