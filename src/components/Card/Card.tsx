@@ -7,7 +7,6 @@ import store from '../../state/Store';
 
 import CardWrapper from './CardWrapper';
 import CardProperty from './CardProperty';
-import Linechart from '../Linechart';
 import CardAccordion from './CardAccordion';
 import CardHeadline from './CardHeadline';
 import CardDescription from './CardDescription';
@@ -32,12 +31,6 @@ const FlexColumnDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-`;
-
-const FlexRowDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 `;
 
 const CaretakerDiv = styled.div`
@@ -86,14 +79,7 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
 
   const { getTokenSilently, isAuthenticated } = useAuth0();
 
-  const {
-    standalter,
-    radolan_sum,
-    artdtsch,
-    radolan_days,
-    gattungdeutsch,
-    caretaker,
-  } = data;
+  const { standalter, artdtsch, gattungdeutsch, caretaker } = data;
 
   const getTreeProp = (p: Generic | string | null) => {
     return p === 'null' || p === undefined ? null : p;
