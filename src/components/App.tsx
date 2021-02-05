@@ -19,6 +19,11 @@ import '../assets/style.scss';
 import AppWrapper from './AppWrapper';
 import { StoreProps } from '../common/interfaces';
 
+type AppContainerPropsType = Pick<
+  StoreProps,
+  'isTreeDataLoading' | 'isTreeMapLoading' | 'data' | 'overlay'
+>;
+
 const loadEntryDataAction = store.action(loadData(store));
 const loadTreesAction = store.action(loadTrees(store));
 const loadWateredTreesAction = store.action(getWateredTrees(store));
@@ -68,11 +73,6 @@ if (cookie === 'true') {
 //     </TsbLinkDiv>
 //   );
 // };
-
-type AppContainerPropsType = Pick<
-  StoreProps,
-  'isTreeDataLoading' | 'isTreeMapLoading' | 'data' | 'overlay'
->;
 
 const AppContainer: FC<AppContainerPropsType> = ({
   isTreeDataLoading,

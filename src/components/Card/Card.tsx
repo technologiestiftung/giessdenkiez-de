@@ -28,6 +28,8 @@ import StackedBarChart from '../StackedBarChart';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
 
+type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'>;
+
 const FlexColumnDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -102,7 +104,6 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
     return p === 'null' || p === undefined ? null : p;
   };
   // type IsMountedType = { isMounted: boolean };
-  type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'>;
 
   const fetchData: (opts: FetchDataOpts) => Promise<void> = async ({
     id,

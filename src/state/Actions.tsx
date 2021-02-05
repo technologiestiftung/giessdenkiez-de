@@ -6,6 +6,15 @@ import { FlyToInterpolator } from 'react-map-gl';
 import { Store } from 'unistore';
 import { SelectedTreeType, StoreProps, Generic } from '../common/interfaces';
 import { TreeLastWateredType } from '../common/types';
+
+interface TreeLastWateredResponseType {
+  data: TreeLastWateredType | undefined;
+}
+
+interface SelectedTreeResponseType {
+  data: SelectedTreeType[];
+}
+
 export const loadTrees = (store: Store<StoreProps>) => async () => {
   if (isMobile) {
     store.setState({
@@ -145,10 +154,6 @@ export const getWateredTrees = Store => async () => {
 
 const calcuateRadolan = (radolanDays: number): number => radolanDays / 10;
 
-type SelectedTreeResponseType = {
-  data: SelectedTreeType[];
-};
-
 const parseSelectedTreeResponse = (
   selectedTreeResponse: SelectedTreeResponseType
 ) => {
@@ -160,8 +165,6 @@ const parseSelectedTreeResponse = (
     radolan_sum: calcuateRadolan(selectedTree.radolan_sum),
   };
 };
-
-type TreeLastWateredResponseType = { data: TreeLastWateredType | undefined };
 
 const parseTreeLastWateredResponse = (
   treeLastWateredResponse: TreeLastWateredResponseType
