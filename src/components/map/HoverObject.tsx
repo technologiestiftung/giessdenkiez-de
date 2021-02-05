@@ -46,7 +46,7 @@ const Bubble = styled.div<StyledProps>`
     box-shadow: rgba(51, 51, 102, 0.5) 2px 2px 2px;
   }
 `;
-// type BubbleProps = Pick<HoverObjectProps, 'pointer'>;
+
 export const HoverObject: React.FC<HoverObjectProps> = ({
   message,
   pointer,
