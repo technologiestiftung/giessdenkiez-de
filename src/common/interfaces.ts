@@ -93,7 +93,6 @@ export interface IsTreeAdoptedProps {
   store: Store<StoreProps>;
   isAuthenticated?: boolean;
   signal?: AbortSignal;
-  // isMounted: boolean;
 }
 
 export interface Tree {
