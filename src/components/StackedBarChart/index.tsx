@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { DailyWaterAmountsType } from '../../common/types';
+import { DailyWaterAmountsType } from '../../common/interfaces';
 import { useStoreState } from '../../state/unistore-hooks';
 import { drawD3Chart } from './drawD3Chart';
 import { mapStackedBarchartData } from './mapStackedBarchartData';

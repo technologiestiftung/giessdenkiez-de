@@ -1,8 +1,5 @@
-import {
-  DailyWaterAmountsType,
-  RadolanDays,
-  WateredDayType,
-} from '../../common/types';
+import { DailyWaterAmountsType, WateredDayType } from '../../common/interfaces';
+import { RadolanDays } from '../../common/types';
 
 const _radolanDaysToHours = (radolanDays: RadolanDays): number[] => {
   let sumPerDay = 0;

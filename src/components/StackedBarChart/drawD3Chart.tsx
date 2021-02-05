@@ -12,7 +12,7 @@ import {
   ContainerElement,
   SeriesPoint,
 } from 'd3';
-import { DailyWaterAmountsType } from '../../common/types';
+import { DailyWaterAmountsType } from '../../common/interfaces';
 
 const BAR_WIDTH = 6;
 const DEFAULT_BAR_OPACITY = 0.6;

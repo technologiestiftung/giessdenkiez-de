@@ -1,8 +1,31 @@
 import { Store } from 'unistore';
-import { SelectedTreeType, TreeLastWateredType } from './types';
+import { RadolanDays, TreeLastWateredType } from './types';
 
 export interface Generic {
   [key: string]: any;
+}
+
+export interface DailyWaterAmountsType {
+  timestamp: Date;
+  rainValue: number;
+  wateringValue: number;
+}
+
+export interface WateredDayType {
+  tree_id: string;
+  time: string;
+  uuid: string;
+  amount: string;
+  timestamp: string;
+  username: string;
+}
+
+export interface SelectedTreeType {
+  radolan_days: RadolanDays;
+  radolan_sum: number;
+  lat: string;
+  lng: string;
+  id: string;
 }
 
 export interface StoreProps {

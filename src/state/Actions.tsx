@@ -4,8 +4,8 @@ import history from '../history';
 import { createAPIUrl, createGeojson, requests } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
 import { Store } from 'unistore';
-import { StoreProps, Generic } from '../common/interfaces';
-import { SelectedTreeType, TreeLastWateredType } from '../common/types';
+import { SelectedTreeType, StoreProps, Generic } from '../common/interfaces';
+import { TreeLastWateredType } from '../common/types';
 export const loadTrees = (store: Store<StoreProps>) => async () => {
   if (isMobile) {
     store.setState({
