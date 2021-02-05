@@ -28,6 +28,35 @@ const StyledLegendCircle = styled.div`
   border-radius: 50%;
 `;
 
+const StyledTooltip = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1em auto;
+  grid-column-gap: 4px;
+  grid-row-gap: 2px;
+  transform: translateY(-50%);
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity 200ms ease-out,
+    transform 2s cubic-bezier(0, 0.86, 0.27, 1.01);
+
+  &.hovered {
+    opacity: 1;
+    transform: translateY(-60%);
+  }
+`;
+
+const StyledTooltipTotalSymbol = styled.span`
+  display: inline-block;
+  line-height: 9px;
+  vertical-align: middle;
+  font-size: 12px;
+  transform: translateX(1px);
+  font-weight: bold;
+`;
+
 const StackedBarChart: FC = () => {
   const { selectedTree } = useStoreState('selectedTree');
   const { treeLastWatered } = useStoreState('treeLastWatered');
@@ -50,22 +79,31 @@ const StackedBarChart: FC = () => {
     drawD3Chart(waterAmountInLast30Days);
   }, [waterAmountInLast30Days]);
 
+  const wateredCircle = (
+    <StyledLegendCircle style={{ backgroundColor: '#8B77F7' }} />
+  );
+  const rainCircle = (
+    <StyledLegendCircle style={{ backgroundColor: '#75ADE8' }} />
+  );
   return (
     <>
-      <BarChartWrapper id='barchart' />
+      <BarChartWrapper id='barchart'>
+        <StyledTooltip id='barchart-tooltip'>
+          <strong>{wateredCircle}</strong>
+          <span id='barchart-tooltip-val-watered' />
+          <strong>{rainCircle}</strong>
+          <span id='barchart-tooltip-val-rain' />
+          <StyledTooltipTotalSymbol>∑</StyledTooltipTotalSymbol>
+          <span id='barchart-tooltip-val-total' />
+        </StyledTooltip>
+      </BarChartWrapper>
       <StyledLegendWrapper>
         <div>
-          <StyledLegendCircle
-            style={{
-              backgroundColor: '#8B77F7', // light citylab primary color
-            }}
-          ></StyledLegendCircle>
+          {wateredCircle}
           <div>&nbsp;Gießungen</div>
         </div>
         <div>
-          <StyledLegendCircle
-            style={{ backgroundColor: '#75ADE8' }} // waterdrop blue
-          ></StyledLegendCircle>
+          {rainCircle}
           <div>&nbsp;Regen</div>
         </div>
       </StyledLegendWrapper>

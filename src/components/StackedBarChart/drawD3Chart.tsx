@@ -7,7 +7,6 @@ import {
   axisBottom,
   stack,
   ScaleLinear,
-  mouse,
   Selection,
   ContainerElement,
   SeriesPoint,
@@ -39,36 +38,29 @@ const MARGIN = {
   left: 22,
 };
 
+const formatTooltipValue: (val: number) => string = val => `${val.toFixed(1)}l`;
 const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
   onMouseOver() {
-    tooltip.style('opacity', 1);
+    tooltip.classed('hovered', true);
+    select(svg).style('cursor', 'pointer');
     select(this).style('opacity', 1);
   },
   onMouseMove(d) {
-    if (!svg) return;
-    const [mouseX, mouseY] = mouse(svg);
-    if (!d.data) return;
-    const rainValue = d.data.rainValue;
-    const wateringValue = d.data.wateringValue;
-    const sum = rainValue + wateringValue;
+    if (!d.data || !svg) return;
+    const { rainValue, wateringValue } = d.data;
 
+    const sum = rainValue + wateringValue;
     tooltip
-      .html(
-        `<p style="margin: 0 0 0 0"><span style="color:#8B77F7; font-size:80%; display:inline-block; transform: translateY(-2px); width:15px;">⬤</span>${wateringValue.toFixed(
-          1
-        )}l</p><p style="margin: 5px 0 5px 0"><span style="color:#75ADE8; font-size:80%; display:inline-block; transform: translateY(-2px); width:15px;">⬤</span>${rainValue.toFixed(
-          1
-        )}l </p><p style="margin: 0 0 0 0"><span style="font-weight:bold; display:inline-block; transform: translate(2px, -2px); width:15px;">∑</span>${sum.toFixed(
-          1
-        )}l</p>`
-      )
-      .style(
-        'transform',
-        `translate(calc(-50% + ${mouseX}px), calc(-100% + ${mouseY}px))`
-      );
+      .select('#barchart-tooltip-val-watered')
+      .text(formatTooltipValue(wateringValue));
+    tooltip
+      .select('#barchart-tooltip-val-rain')
+      .text(formatTooltipValue(rainValue));
+    tooltip.select('#barchart-tooltip-val-total').text(formatTooltipValue(sum));
   },
   onMouseLeave() {
-    tooltip.style('opacity', 0);
+    tooltip.classed('hovered', false);
+    select(svg).style('cursor', 'default');
     select(this).style('opacity', DEFAULT_BAR_OPACITY);
   },
 });
@@ -157,20 +149,6 @@ export function drawD3Chart(
   wrapper.selectAll('svg').remove();
   const svg = wrapper.append('svg').attr('width', width).attr('height', height);
 
-  const tooltip = wrapper
-    .append('div')
-    .style('opacity', 0)
-    .attr('class', 'tooltip')
-    .style('background-color', 'white')
-    .style('position', 'absolute')
-    .style('top', '-10px')
-    .style('left', '0')
-    .style('transition', 'transform 200ms ease-out')
-    .style('pointer-events', 'none')
-    .style('font-size', '13px')
-    .style('box-shadow', '0 2px 10px -4px rgba(0,0,0,0.2)')
-    .style('padding', '5px');
-
   // append y and x axis to chart
   svg
     .append('g')
@@ -234,7 +212,10 @@ export function drawD3Chart(
     .attr('class', 'series-wrapper')
     .attr('transform', `translate(0, ${MARGIN.top})`);
 
-  const mouseHandlers = getMouseHandlers(svg.node(), tooltip);
+  const mouseHandlers = getMouseHandlers(
+    svg.node(),
+    wrapper.select('#barchart-tooltip')
+  );
   const barGroups = seriesGroup
     .selectAll('g')
     .data(stackedData)
