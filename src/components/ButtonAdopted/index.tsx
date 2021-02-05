@@ -101,7 +101,6 @@ const ButtonAdopted = p => {
         uuid: user.user_id,
         token,
         isAuthenticated,
-        state,
         store,
       });
     } catch (error) {
