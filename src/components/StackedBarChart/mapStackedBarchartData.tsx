@@ -1,4 +1,8 @@
-import { DailyWaterAmountsType, WateredDayType } from '../../common/interfaces';
+import {
+  DailyWaterAmountsType,
+  SelectedTreeType,
+  WateredDayType,
+} from '../../common/interfaces';
 import { RadolanDays } from '../../common/types';
 
 const _radolanDaysToHours = (radolanDays: RadolanDays): number[] => {
@@ -67,16 +71,18 @@ export function mapStackedBarchartData({
   selectedTree,
 }: {
   treeLastWatered: WateredDayType[];
-  selectedTree: { radolan_days: RadolanDays };
+  selectedTree: SelectedTreeType;
 }): DailyWaterAmountsType[] {
   const treeLastWateredMap = _createTreeLastWateredMap(treeLastWatered);
   const selectedTreeMap = _createRadolanMap(selectedTree.radolan_days);
 
   return Object.keys(selectedTreeMap).map(selectedTreeKey => {
     const dailyAmount = selectedTreeMap[selectedTreeKey];
+    const timestamp = new Date(selectedTreeKey);
 
     return {
-      timestamp: new Date(selectedTreeKey),
+      id: `${timestamp.valueOf()}`,
+      timestamp,
       rainValue: dailyAmount,
       wateringValue: treeLastWateredMap[selectedTreeKey] || 0,
     };

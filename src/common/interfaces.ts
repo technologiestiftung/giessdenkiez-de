@@ -6,6 +6,7 @@ export interface Generic {
 }
 
 export interface DailyWaterAmountsType {
+  id: string;
   timestamp: Date;
   rainValue: number;
   wateringValue: number;

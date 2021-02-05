@@ -1,5 +1,6 @@
 import {
   select,
+  selectAll,
   scaleTime,
   scaleLinear,
   scaleOrdinal,
@@ -40,10 +41,12 @@ const MARGIN = {
 
 const formatTooltipValue: (val: number) => string = val => `${val.toFixed(1)}l`;
 const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
-  onMouseOver() {
+  onMouseOver(d) {
+    if (!d.data || !svg) return;
     tooltip.classed('hovered', true);
     select(svg).style('cursor', 'pointer');
-    select(this).style('opacity', 1);
+
+    selectAll(`.bar-${d.data.id}`).style('opacity', 1);
   },
   onMouseMove(d) {
     if (!d.data || !svg) return;
@@ -58,10 +61,11 @@ const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
       .text(formatTooltipValue(rainValue));
     tooltip.select('#barchart-tooltip-val-total').text(formatTooltipValue(sum));
   },
-  onMouseLeave() {
+  onMouseLeave(d) {
+    if (!d.data || !svg) return;
     tooltip.classed('hovered', false);
     select(svg).style('cursor', 'default');
-    select(this).style('opacity', DEFAULT_BAR_OPACITY);
+    selectAll(`.bar-${d.data.id}`).style('opacity', DEFAULT_BAR_OPACITY);
   },
 });
 
@@ -87,6 +91,7 @@ export function drawD3Chart(
 
   const width = (wrapper.node() as HTMLElement).clientWidth;
   const height = (wrapper.node() as HTMLElement).clientHeight;
+  const chartHeight = height - MARGIN.top - MARGIN.bottom;
 
   const xScale = scaleTime()
     .domain([
@@ -105,13 +110,11 @@ export function drawD3Chart(
   // create dynamic yScales based on maxWaterValue
   // fix scale for watering amounts below 70l
   if (maxWaterValue <= 70) {
-    yScale = scaleLinear()
-      .domain([0, 70])
-      .rangeRound([height - MARGIN.bottom, MARGIN.top]);
+    yScale = scaleLinear().domain([0, 70]).rangeRound([chartHeight, 0]);
   } else {
     yScale = scaleLinear()
       .domain([0, maxWaterValue * 1.2])
-      .rangeRound([height - MARGIN.bottom, MARGIN.top]);
+      .rangeRound([chartHeight, 0]);
   }
 
   const colorScale = scaleOrdinal<string>()
@@ -157,7 +160,7 @@ export function drawD3Chart(
 
   svg
     .append('g')
-    .attr('transform', `translate( 0, ${height - MARGIN.bottom + MARGIN.top})`)
+    .attr('transform', `translate(0, ${chartHeight + MARGIN.top})`)
     .call(xAxis);
 
   // rect so see dimensions of svg
@@ -174,7 +177,7 @@ export function drawD3Chart(
     .append('g')
     .append('text')
     .attr('style', 'font-size: 10px;')
-    .attr('transform', `translate(${2},${MARGIN.top})`)
+    .attr('transform', `translate(2, ${MARGIN.top})`)
     .text('↑ Liter pro m²');
 
   // add y grid lines
@@ -186,7 +189,7 @@ export function drawD3Chart(
     .enter()
     .append('line')
     .attr('class', 'grid-line')
-    .attr('transform', `translate(${4}, ${MARGIN.top + 0.5})`)
+    .attr('transform', `translate(4, ${MARGIN.top + 0.5})`)
     .style('transition', 'opacity 200ms ease-out')
     .attr('x1', 0 + MARGIN.left)
     .attr('x2', width - MARGIN.right + 3)
@@ -202,9 +205,9 @@ export function drawD3Chart(
     .style('stroke', 'black')
     .style('stroke-width', 1)
     .attr('x1', MARGIN.left)
-    .attr('y1', height - MARGIN.bottom + MARGIN.top + 0.5)
+    .attr('y1', chartHeight + MARGIN.top + 0.5)
     .attr('x2', width - MARGIN.right + 7)
-    .attr('y2', height - MARGIN.bottom + MARGIN.top + 0.5);
+    .attr('y2', chartHeight + MARGIN.top + 0.5);
 
   // append stacked rectangles
   const seriesGroup = svg
@@ -216,6 +219,8 @@ export function drawD3Chart(
     svg.node(),
     wrapper.select('#barchart-tooltip')
   );
+
+  // Create colour groups in which to render the bars and position on x axis
   const barGroups = seriesGroup
     .selectAll('g')
     .data(stackedData)
@@ -226,23 +231,31 @@ export function drawD3Chart(
     .data(d => d)
     .enter()
     .append('g')
-    .attr(
-      'transform',
-      d => `translate(${xScale(d.data.timestamp)}, ${yScale(d[1])})`
-    )
+    .attr('transform', d => `translate(${xScale(d.data.timestamp)}, 0)`)
     .attr('width', BAR_WIDTH)
-    .attr('height', d => yScale(d[0]) - yScale(d[1]))
-    .on('mouseover', mouseHandlers.onMouseOver)
-    .on('mouseleave', mouseHandlers.onMouseLeave)
-    .on('mousemove', mouseHandlers.onMouseMove);
+    .attr('height', chartHeight);
 
+  // Draw the coloured bars
   barGroups
     .append('rect')
     .attr('x', 0)
-    .attr('y', 0)
+    .attr('y', d => yScale(d[1]))
+    .attr('class', d => `bar-${d.data.id}`)
     .attr('width', BAR_WIDTH)
     .transition() // transition the width
     .duration(1000) // 1 second
     .attr('height', d => yScale(d[0]) - yScale(d[1]))
     .style('opacity', DEFAULT_BAR_OPACITY);
+
+  // Draw invisible bars that take the full height and can be hovered
+  barGroups
+    .append('rect')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', BAR_WIDTH)
+    .attr('height', chartHeight)
+    .attr('fill', 'transparent')
+    .on('mouseover', mouseHandlers.onMouseOver)
+    .on('mouseleave', mouseHandlers.onMouseLeave)
+    .on('mousemove', mouseHandlers.onMouseMove);
 }
