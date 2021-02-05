@@ -160,7 +160,10 @@ export function drawD3Chart(
 
   svg
     .append('g')
-    .attr('transform', `translate(0, ${chartHeight + MARGIN.top})`)
+    .attr(
+      'transform',
+      `translate(${BAR_WIDTH / 2}, ${chartHeight + MARGIN.top})`
+    )
     .call(xAxis);
 
   // rect so see dimensions of svg
