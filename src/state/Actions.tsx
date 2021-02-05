@@ -51,7 +51,6 @@ export const loadCommunityData = (store: Store<StoreProps>) => () => {
   );
   requests(fetchCommunityDataUrl)
     .then(json => {
-      if (json instanceof Error) throw json;
       const obj = {};
       const communityDataWatered: Generic[] = [];
       const communityDataAdopted: Generic[] = [];
@@ -139,7 +138,6 @@ export const getWateredTrees = Store => async () => {
     Store.setState({ isTreeDataLoading: true });
     const url = createAPIUrl(Store.getState(), '/get?queryType=watered');
     const result = await requests(url);
-    if (result instanceof Error) throw result;
 
     if (result.data === undefined) {
       throw new Error('data is not defined on getWateredTrees');
@@ -190,8 +188,6 @@ export const getTree = (Store: Store<StoreProps>) => async (
       requests<SelectedTreeResponseType>(urlSelectedTree),
       requests<TreeLastWateredResponseType>(urlLastWatered),
     ]);
-    if (resSelectedTree instanceof Error) throw resSelectedTree;
-    if (resLastWatered instanceof Error) throw resLastWatered;
     const treeLastWatered = parseTreeLastWateredResponse(resLastWatered);
 
     if (resSelectedTree.data.length > 0) {
@@ -233,7 +229,6 @@ export const getTreeByAge = Store => async (
     );
 
     const res = await requests(url);
-    if (res instanceof Error) throw res;
 
     Store.setState({
       selectedTreeState: 'LOADED',

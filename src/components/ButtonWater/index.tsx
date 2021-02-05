@@ -112,9 +112,6 @@ const ButtonWater = () => {
         `/get?id=${id}&queryType=byid`
       );
       const json = await requests(geturl);
-      if (json instanceof Error) {
-        throw json;
-      }
       if (json.data.length > 0) {
         const tree = json.data[0];
         // ISSUE:141
@@ -130,17 +127,11 @@ const ButtonWater = () => {
         const jsonWatered = await requests(
           `${endpoints.prod}/get?queryType=lastwatered&id=${id}`
         );
-        if (jsonWatered instanceof Error) {
-          throw jsonWatered;
-        }
         store.setState({ treeLastWatered: jsonWatered.data });
         await waitFor(500, () => {
           const url = createAPIUrl(store.getState(), `/get?queryType=watered`);
           requests(url)
             .then(json => {
-              if (json instanceof Error) {
-                throw json;
-              }
               store.setState({ wateredTrees: json.data.watered });
               return;
             })
@@ -188,9 +179,6 @@ const ButtonWater = () => {
           );
         })
         .then(res => {
-          if (res instanceof Error) {
-            throw res;
-          }
           if (res.data.length > 0) {
             const tree = res.data[0];
             // ISSUE:141
