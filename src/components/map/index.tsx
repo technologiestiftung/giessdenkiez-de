@@ -253,7 +253,12 @@ class DeckGLMap extends React.Component {
 
       if (!selectedTree) return;
 
+<<<<<<< HEAD
       setViewport([parseFloat(selectedTree.lat), parseFloat(selectedTree.lng)]);
+=======
+      setViewport([parseFloat(selectedTree.lng), parseFloat(selectedTree.lat)]);
+      return { treeLastWatered, selectedTree };
+>>>>>>> Fix lat lon once again
     } catch (error) {
       console.error(error);
     }
@@ -351,7 +356,7 @@ class DeckGLMap extends React.Component {
         'source-layer': 'original',
         paint: {
           'circle-radius': {
-            base: 1.75,
+            base: 10.75,
             stops: [
               [11, 1],
               [22, 100],
@@ -533,31 +538,11 @@ class DeckGLMap extends React.Component {
             {baseMap && (
               <StaticMap
                 reuseMaps
-                mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
+                //mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
                 preventStyleDiffing={true}
                 mapboxApiAccessToken={process.env.MAPBOX_TOKEN}
                 onLoad={this._onload.bind(this)}
               >
-<<<<<<< HEAD
-                {!overlay && (
-                  <ControlWrapper isNavOpen={isNavOpen}>
-                    <GeolocateControl
-                      positionOptions={{ enableHighAccuracy: true }}
-                      trackUserLocation={isMobile ? true : false}
-                      showUserLocation={true}
-                      onGeolocate={posOptions => {
-                        setViewport([
-                          posOptions.coords.longitude,
-                          posOptions.coords.latitude,
-                        ]);
-                      }}
-                    />
-                    <NavigationControl
-                      onViewStateChange={e => setView(e.viewState)}
-                    />
-                  </ControlWrapper>
-                )}
-=======
               {!overlay && (<ControlWrapper isNavOpen={isNavOpen}>
                   <GeolocateControl
                     positionOptions={{ enableHighAccuracy: true }}
@@ -565,8 +550,8 @@ class DeckGLMap extends React.Component {
                     showUserLocation={true}
                     onGeolocate={posOptions => {
                       setViewport([
-                        posOptions.coords.latitude,
                         posOptions.coords.longitude,
+                        posOptions.coords.latitude,
                       ]);
                     }}
                   />
@@ -574,7 +559,6 @@ class DeckGLMap extends React.Component {
                     onViewStateChange={e => setView(e.viewState)}
                   />
                 </ControlWrapper>)}
->>>>>>> Add quick select trees between 4th and 15th year
               </StaticMap>
             )}
           </DeckGL>

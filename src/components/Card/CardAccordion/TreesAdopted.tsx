@@ -58,7 +58,7 @@ const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
 
   const handleClick = async info => {
     store.setState({ selectedTree: info });
-    const coordinates = [parseFloat(info.lat), parseFloat(info.lng)];
+    const coordinates = [parseFloat(info.lng), parseFloat(info.lat)];
     setViewport(coordinates);
   };
 
