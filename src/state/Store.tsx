@@ -34,7 +34,7 @@ const initialState = {
   },
   tabActive: 'id-0',
   selectedTree: undefined,
-  treeLastWatered: false,
+  treeLastWatered: undefined,
   selectedTreeState: undefined,
   overlay: false,
   isTreeDataLoading: true,

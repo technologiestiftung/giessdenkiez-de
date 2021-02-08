@@ -322,30 +322,26 @@ class DeckGLMap extends React.Component {
     }
   }
 
-  async selectTree(treeId: string) {
+  async selectTree(treeId: string): Promise<void> {
     const { setViewport } = this.props;
     store.setState({ selectedTreeState: 'LOADING' });
     const { getTree } = Actions(store);
 
     try {
       const { treeLastWatered, selectedTree } = await getTree(treeId);
-      const commonState = {
-        treeLastWatered,
-        selectedTreeState: 'LOADED' as const,
-      };
-      store.setState(
-        selectedTree
-          ? { ...commonState, selectedTree }
-          : { ...commonState, highlightedObject: undefined }
-      );
+      store.setState({ treeLastWatered });
+      store.setState({ selectedTreeState: 'LOADED' });
+      store.setState({ selectedTree });
+      store.setState({
+        highlightedObject:
+          selectedTree && selectedTree.id ? selectedTree.id : undefined,
+      });
 
-      if (!selectedTree) return { treeLastWatered };
+      if (!selectedTree) return;
 
       setViewport([parseFloat(selectedTree.lat), parseFloat(selectedTree.lng)]);
-      return { treeLastWatered, selectedTree };
     } catch (error) {
       console.error(error);
-      return Promise.reject(error);
     }
   }
 

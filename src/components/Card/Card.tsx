@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { waterNeed, isTreeAdopted } from '../../utils';
-// import Actions from '../../state/Actions';
 import { useStoreState } from '../../state/unistore-hooks';
 import { useAuth0 } from '../../utils/auth/auth0';
-// import { connect } from 'unistore/react';
 import store from '../../state/Store';
 
 import CardWrapper from './CardWrapper';
 import CardProperty from './CardProperty';
-import Linechart from '../Linechart';
 import CardAccordion from './CardAccordion';
 import CardHeadline from './CardHeadline';
 import CardDescription from './CardDescription';
@@ -24,19 +21,16 @@ import ButtonAdopted from '../ButtonAdopted';
 import content from '../../assets/content';
 import { IsTreeAdoptedProps, Generic, Tree } from '../../common/interfaces';
 import Icon from '../Icons';
+import StackedBarChart from '../StackedBarChart';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
+
+type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'>;
 
 const FlexColumnDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-`;
-
-const FlexRowDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 `;
 
 const CaretakerDiv = styled.div`
@@ -74,9 +68,6 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
-// const controller = new AbortController();
-// const { signal } = controller;
-
 const Card: React.FC<{ data: Tree }> = ({ data }) => {
   const { treeLastWatered } = useStoreState('treeLastWatered');
 
@@ -88,27 +79,17 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
 
   const { getTokenSilently, isAuthenticated } = useAuth0();
 
-  const {
-    standalter,
-    radolan_sum,
-    artdtsch,
-    radolan_days,
-    gattungdeutsch,
-    caretaker,
-  } = data;
+  const { standalter, artdtsch, gattungdeutsch, caretaker } = data;
 
   const getTreeProp = (p: Generic | string | null) => {
     return p === 'null' || p === undefined ? null : p;
   };
-  // type IsMountedType = { isMounted: boolean };
-  type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'>;
 
   const fetchData: (opts: FetchDataOpts) => Promise<void> = async ({
     id,
     uuid,
     store,
     isAuthenticated,
-    // isMounted,
   }) => {
     try {
       if (user && selectedTree) {
@@ -129,9 +110,7 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
   useEffect(() => {
     if (!user) return;
     if (!selectedTree) return;
-    // let isMounted = true;
     fetchData({
-      // isMounted,
       id: selectedTree.id,
       uuid: user.user_id,
       store,
@@ -190,15 +169,11 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
           </CardAccordion>
         )}
         <RainContainer>
-          <FlexRowDiv>
-            <CardHeadline>Niederschlag</CardHeadline>
-            <CardHeadline>{radolan_sum} Liter pro m²</CardHeadline>
-          </FlexRowDiv>
-          <CardDescription>in den letzten 30 Tagen</CardDescription>
-          <Linechart data={radolan_days} sum={radolan_sum} />
-          {/* <CardDescription>Eine Niederschlagshöhe von  {radolan_sum} mm entspricht einer Niederschlagsmenge von {radolan_sum} l/m².</CardDescription> */}
+          <CardHeadline>Wassermenge</CardHeadline>
+          <CardDescription>der letzten 30 Tage</CardDescription>
+          <StackedBarChart />
         </RainContainer>
-        {treeLastWatered.length > 0 && (
+        {Array.isArray(treeLastWatered) && treeLastWatered.length > 0 && (
           <CardAccordion
             active={true}
             title={<CardAccordionTitle>Zuletzt gegossen</CardAccordionTitle>}

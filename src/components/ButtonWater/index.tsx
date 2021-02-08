@@ -1,9 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-// import { connect } from 'unistore/react';
-import history from '../../history';
-import Actions, { loadCommunityData } from '../../state/Actions';
-import { useActions } from '../../state/unistore-hooks';
+import { loadCommunityData } from '../../state/Actions';
 import { useStoreState } from '../../state/unistore-hooks';
 import store from '../../state/Store';
 import { createAPIUrl, isTreeAdopted, requests, waitFor } from '../../utils';
@@ -94,19 +91,22 @@ const ButtonWater = () => {
         `/post?id=${id}&uuid=${user.sub}&amount=${amount}&username=${username}&comment=URL_QUERY_NOT_NEEDED_USE_BODY`
       );
 
-      await requests<{ method: 'POST'; body: string }>(urlPostWatering, {
-        token,
-        override: {
-          method: 'POST',
-          body: JSON.stringify({
-            tree_id: id,
-            amount,
-            uuid: user.sub,
-            username,
-            queryType: 'water',
-          }),
-        },
-      });
+      await requests<undefined, { method: 'POST'; body: string }>(
+        urlPostWatering,
+        {
+          token,
+          override: {
+            method: 'POST',
+            body: JSON.stringify({
+              tree_id: id,
+              amount,
+              uuid: user.sub,
+              username,
+              queryType: 'water',
+            }),
+          },
+        }
+      );
       const geturl = createAPIUrl(
         store.getState(),
         `/get?id=${id}&queryType=byid`

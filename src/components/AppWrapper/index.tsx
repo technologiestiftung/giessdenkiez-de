@@ -14,6 +14,11 @@ import { removeOverlay } from '../../utils';
 import { StoreProps } from '../../common/interfaces';
 import store from '../../state/Store';
 
+type AppWrapperPropsType = Pick<
+  StoreProps,
+  'isTreeDataLoading' | 'isTreeMapLoading' | 'data' | 'overlay'
+>;
+
 const AppWrapperDiv = styled.div`
   font-family: ${(props: any) => props.theme.fontFamily};
   height: 100vh;
@@ -57,11 +62,6 @@ const getUrlQueryParameter = (name = ''): string => {
     ? ''
     : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
-
-type AppWrapperPropsType = Pick<
-  StoreProps,
-  'isTreeDataLoading' | 'isTreeMapLoading' | 'data' | 'overlay'
->;
 
 const AppWrapper: FC<AppWrapperPropsType> = ({
   isTreeDataLoading,
