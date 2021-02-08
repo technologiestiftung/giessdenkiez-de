@@ -4,7 +4,6 @@ import { Route, withRouter, Switch } from 'react-router-dom';
 
 import SidebarAbout from './SidebarAbout/';
 import SidebarSearch from './SidebarSearch/';
-import SidebarAdopted from './SidebarAdopted/';
 import SidebarProfile from './SidebarProfile/';
 import SidebarClose from './SidebarClose';
 
@@ -42,7 +41,7 @@ const SidebarContent = styled.div`
 const Sidebar: React.FC = () => {
   return (
     <Route
-      path={['/about', '/search', '/adopted', '/profile', '/selected']}
+      path={['/about', '/search', '/profile']}
       render={({ match }) => {
         return (
           <SidebarWrapper isVisible={match}>
@@ -51,7 +50,6 @@ const Sidebar: React.FC = () => {
               <Switch>
                 <Route path='/about' component={SidebarAbout} />
                 <Route path='/search' component={SidebarSearch} />
-                <Route path='/adopted' component={SidebarAdopted} />
                 <Route path='/profile' component={SidebarProfile} />
               </Switch>
             </SidebarContent>

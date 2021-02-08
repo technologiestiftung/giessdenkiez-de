@@ -10,7 +10,6 @@ import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import {
-  // fetchAPI,
   interpolateColor,
   hexToRgb,
   // checkGeolocationFeature,

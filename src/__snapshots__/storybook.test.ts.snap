@@ -385,12 +385,12 @@ exports[`Storyshots Legend Legend Story 1`] = `
 exports[`Storyshots Maps Pump HoverTip Hover Object Story 1`] = `
 <div>
   <div
-    className="sc-qZtCU hIPgBc is-size-7"
+    className="sc-pRtAn hRzVmo is-size-7"
     height={0}
     width={0}
   >
     <span
-      className="sc-qQYBZ fPvpJA"
+      className="sc-pJUVA cQgvNd"
     >
       <b>
         Status:
@@ -745,10 +745,10 @@ exports[`Storyshots Overlay Legend Story 1`] = `
 
 exports[`Storyshots Sidebar About 1`] = `
 <div
-  className="sc-pjHjD hdiKms"
+  className="sc-qYIQh iyNQhA"
 >
   <a
-    className="sc-pciEQ jwNCer"
+    className="sc-qQMSE iytjie"
     href="/"
     onClick={[Function]}
   >
@@ -770,7 +770,7 @@ exports[`Storyshots Sidebar About 1`] = `
     </button>
   </a>
   <div
-    className="sc-pscky gPZIgM"
+    className="sc-pBzUF dBAVLd"
   >
     <h2
       className="sc-fzppAM kMNBlB"
@@ -1379,72 +1379,12 @@ exports[`Storyshots Sidebar About 1`] = `
 </div>
 `;
 
-exports[`Storyshots Sidebar Adopted 1`] = `
-<div
-  className="sc-pjHjD hdiKms"
->
-  <a
-    className="sc-pciEQ jwNCer"
-    href="/"
-    onClick={[Function]}
-  >
-    <button
-      aria-label="Leiste schließen"
-      className="sc-fznyYp cHrgil"
-      title="Leiste schließen"
-    >
-      <svg
-        aria-hidden={true}
-        className="MuiSvgIcon-root"
-        focusable="false"
-        viewBox="0 0 24 24"
-      >
-        <path
-          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-        />
-      </svg>
-    </button>
-  </a>
-  <div
-    className="sc-pscky gPZIgM"
-  >
-    <h2
-      className="sc-fzppAM kMNBlB"
-    >
-      Adoptierte Bäume:
-    </h2>
-    <div
-      className="sc-pbIaG fkcTTB"
-    >
-      <div
-        className="sc-oTmZL ftFYrI"
-      >
-        <div
-          className="double-bounce1"
-        />
-        <div
-          className="double-bounce2"
-        />
-      </div>
-      <span>
-        
-      </span>
-    </div>
-    <div
-      className="sc-AxjAm dojkTr"
-    >
-      Du hast noch keine Bäume adoptiert.
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Storyshots Sidebar Profile Logged In 1`] = `
 <div
-  className="sc-pjHjD hdiKms"
+  className="sc-qYIQh iyNQhA"
 >
   <a
-    className="sc-pciEQ jwNCer"
+    className="sc-qQMSE iytjie"
     href="/"
     onClick={[Function]}
   >
@@ -1466,7 +1406,7 @@ exports[`Storyshots Sidebar Profile Logged In 1`] = `
     </button>
   </a>
   <div
-    className="sc-pscky gPZIgM"
+    className="sc-pBzUF dBAVLd"
   >
     <h2
       className="sc-fzppAM kMNBlB"
@@ -1474,7 +1414,7 @@ exports[`Storyshots Sidebar Profile Logged In 1`] = `
       Profil
     </h2>
     <div
-      className="sc-oTNDV dCshxf"
+      className="sc-prorn liKFiN"
     >
       <p
         className="sc-fznWqX cfqJNr"
@@ -1491,7 +1431,7 @@ exports[`Storyshots Sidebar Profile Logged In 1`] = `
         Konto anlegen / Einloggen
       </div>
       <span
-        className="sc-fzoLsD sc-pRtAn jCCxmF"
+        className="sc-fzoLsD sc-pbxSd ilShfN"
         onClick={[Function]}
       >
         Wie kann ich mitmachen?
@@ -1503,10 +1443,10 @@ exports[`Storyshots Sidebar Profile Logged In 1`] = `
 
 exports[`Storyshots Sidebar Profile Logged Out 1`] = `
 <div
-  className="sc-pjHjD hdiKms"
+  className="sc-qYIQh iyNQhA"
 >
   <a
-    className="sc-pciEQ jwNCer"
+    className="sc-qQMSE iytjie"
     href="/"
     onClick={[Function]}
   >
@@ -1528,7 +1468,7 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
     </button>
   </a>
   <div
-    className="sc-pscky gPZIgM"
+    className="sc-pBzUF dBAVLd"
   >
     <h2
       className="sc-fzppAM kMNBlB"
@@ -1536,7 +1476,7 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
       Profil
     </h2>
     <div
-      className="sc-oTNDV dCshxf"
+      className="sc-prorn liKFiN"
     >
       <p
         className="sc-fznWqX cfqJNr"
@@ -1553,7 +1493,7 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
         Konto anlegen / Einloggen
       </div>
       <span
-        className="sc-fzoLsD sc-pRtAn jCCxmF"
+        className="sc-fzoLsD sc-pbxSd ilShfN"
         onClick={[Function]}
       >
         Wie kann ich mitmachen?
@@ -1565,10 +1505,10 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
 
 exports[`Storyshots Sidebar Search 1`] = `
 <div
-  className="sc-pjHjD hdiKms"
+  className="sc-qYIQh iyNQhA"
 >
   <a
-    className="sc-pciEQ jwNCer"
+    className="sc-qQMSE iytjie"
     href="/"
     onClick={[Function]}
   >
@@ -1590,7 +1530,7 @@ exports[`Storyshots Sidebar Search 1`] = `
     </button>
   </a>
   <div
-    className="sc-pscky gPZIgM"
+    className="sc-pBzUF dBAVLd"
   >
     <h2
       className="sc-fzppAM kMNBlB"
@@ -1889,10 +1829,10 @@ exports[`Storyshots Sidebar Search 1`] = `
 
 exports[`Storyshots Sidebar Search Location 1`] = `
 <div
-  className="sc-pjHjD hdiKms"
+  className="sc-qYIQh iyNQhA"
 >
   <a
-    className="sc-pciEQ jwNCer"
+    className="sc-qQMSE iytjie"
     href="/"
     onClick={[Function]}
   >
@@ -1914,7 +1854,7 @@ exports[`Storyshots Sidebar Search Location 1`] = `
     </button>
   </a>
   <div
-    className="sc-pscky gPZIgM"
+    className="sc-pBzUF dBAVLd"
   >
     <h2
       className="sc-fzppAM kMNBlB"
