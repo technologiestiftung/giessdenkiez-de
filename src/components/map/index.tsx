@@ -10,7 +10,6 @@ import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import {
-  // fetchAPI,
   interpolateColor,
   hexToRgb,
   // checkGeolocationFeature,
@@ -629,22 +628,24 @@ class DeckGLMap extends React.Component {
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 onLoad={this._onload.bind(this)}
               >
-              {!overlay && (<ControlWrapper isNavOpen={isNavOpen}>
-                  <GeolocateControl
-                    positionOptions={{ enableHighAccuracy: true }}
-                    trackUserLocation={isMobile ? true : false}
-                    showUserLocation={true}
-                    onGeolocate={posOptions => {
-                      setViewport([
-                        posOptions.coords.longitude,
-                        posOptions.coords.latitude,
-                      ]);
-                    }}
-                  />
-                  <NavigationControl
-                    onViewStateChange={e => setView(e.viewState)}
-                  />
-                </ControlWrapper>)}
+                {!overlay && (
+                  <ControlWrapper isNavOpen={isNavOpen}>
+                    <GeolocateControl
+                      positionOptions={{ enableHighAccuracy: true }}
+                      trackUserLocation={isMobile ? true : false}
+                      showUserLocation={true}
+                      onGeolocate={posOptions => {
+                        setViewport([
+                          posOptions.coords.longitude,
+                          posOptions.coords.latitude,
+                        ]);
+                      }}
+                    />
+                    <NavigationControl
+                      onViewStateChange={e => setView(e.viewState)}
+                    />
+                  </ControlWrapper>
+                )}
               </StaticMap>
             )}
           </DeckGL>
