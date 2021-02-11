@@ -1,9 +1,3 @@
-import {
-  workingColor,
-  lockedColor,
-  brokenColor,
-  defaultColor,
-} from '../components/map/colors';
 interface Item {
   title: string;
   description: string;
