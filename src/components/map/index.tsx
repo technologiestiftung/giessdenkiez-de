@@ -15,14 +15,6 @@ import {
   // checkGeolocationFeature,
 } from '../../utils';
 import { HoverObject } from './HoverObject';
-import { Generic } from '../../common/interfaces';
-import {
-  RGBAColor,
-  defaultColor,
-  brokenColor,
-  workingColor,
-  lockedColor,
-} from './colors';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -253,12 +245,7 @@ class DeckGLMap extends React.Component {
 
       if (!selectedTree) return;
 
-<<<<<<< HEAD
-      setViewport([parseFloat(selectedTree.lat), parseFloat(selectedTree.lng)]);
-=======
       setViewport([parseFloat(selectedTree.lng), parseFloat(selectedTree.lat)]);
-      return { treeLastWatered, selectedTree };
->>>>>>> Fix lat lon once again
     } catch (error) {
       console.error(error);
     }
@@ -356,7 +343,7 @@ class DeckGLMap extends React.Component {
         'source-layer': 'original',
         paint: {
           'circle-radius': {
-            base: 10.75,
+            base: 1.75,
             stops: [
               [11, 1],
               [22, 100],

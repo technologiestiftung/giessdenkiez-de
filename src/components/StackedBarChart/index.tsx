@@ -4,7 +4,6 @@ import {
   DailyWaterAmountsType,
   SelectedTreeType,
 } from '../../common/interfaces';
-import { drawD3Chart } from './drawD3Chart';
 import { mapStackedBarchartData } from './mapStackedBarchartData';
 
 const BarChartWrapper = styled.div`
