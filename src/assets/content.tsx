@@ -1,9 +1,3 @@
-import {
-  workingColor,
-  lockedColor,
-  brokenColor,
-  defaultColor,
-} from '../components/map/colors';
 interface Item {
   title: string;
   description: string;
@@ -146,71 +140,29 @@ const content: Content = {
   whatsNew: {
     title: 'Was ist neu?',
     description: [
-      `Wir haben die Farben angepasst, damit der Wasserbedarf der Berliner Bäume intuitiver zu erfassen ist. Es beginnt bei einem trockenem Gelb und geht bis in ein sattes Grün.<br /><div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
-      <div
-        style=" background-color:#fde725; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#fde725"
-      ></div>
-      <div
-        style=" background-color:#cae11f; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#cae11f"
-      ></div>
-      <div
-        style=" background-color:#95d840; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#95d840"
-      ></div>
-      <div
-        style=" background-color:#63cb5f; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#63cb5f"
-      ></div>
-      <div
-        style=" background-color:#3bbb75; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#3bbb75"
-      ></div>
-      <div
-        style=" background-color:#22a884; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#22a884"
-      ></div>
-    </div> Ebenfalls haben wir unsere Pumpen-Daten geupdated. Die kommen jetzt jede Woche frisch von Open Street Maps. `,
-      `Ihr könnt sehen ob Pumpen: "funktionsfähig" <span
-       style=
-       "display: inline-block;
-        background-color: ${workingColor.hex};
-        width: 13px;
-        height: 13px;
-        border-radius: 100px;
-        margin-right: 5px;"
+      `Der Frühling kann kommen! Wir haben unser Backlog aufgeräumt, einige Funktionen verbessert und neue Funktionen hinzugefügt. Die wichtigsten Verbesserungen im Überblick:<br />
+      <div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
+        <div>
+          <img style="max-width:14px; margin-right: 5px;" alt="Geolocate Icon" src="/images/geolocate-icon.png"/><b>Geolokalisierung</b><br>
+          Mit einem Klick auf das Icon am unteren linken Bildschirmrand zum eigenen Standort navigieren.
+        </div>
+      </div>
+      <div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
+        <div>   
+          <span style="display:inline-block; background-color:#75ADE8; width: 13px; height: 13px; border-radius: 100px; margin-right: 4px;"></span>
+          <b>Map-Layout</b><br>
+          Die Hintergrundkarte erstrahlt in neuen Farben und zeigt euch Hausnummern & ÖPNV-Haltestellen.`,
 
-        color="${workingColor.hex}"
-        ></span>,
-        "defekt" <span
-        style=
-        "display: inline-block;
-         background-color: ${brokenColor.hex};
-         width: 13px;
-         height: 13px;
-         border-radius: 100px;
-         margin-right: 5px;"
-        color="${brokenColor.hex}"
-        ></span> oder "verriegelt" <span
-        style=
-        "display: inline-block;
-         background-color: ${lockedColor.hex};
-         width: 13px;
-         height: 13px;
-         border-radius: 100px;
-         margin-right: 5px;"
-         color="${lockedColor.hex}"
-         ></span> sind. Für einige gibt es leider noch den Status "unbekannt" <span
-         style=
-         "display: inline-block;
-         background-color:${defaultColor.hex};
-         width: 13px;
-         height: 13px;
-         border-radius: 100px;
-         margin-right: 5px;"
-         color="${defaultColor.hex}"
-         ></span>. Informationen wie ihr der Open Street Maps Community helfen könnt dies zu beheben, findet ihr in unserem F.A.Q und in unserem <a target="blank" href="https://app.slack.com/client/T012K4SDYBY/C019SJQDPL7">Slack Channel #pumpen-melden </a>.`,
+      `<div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
+      <div>Mit dem 
+        <span style="display:inline-block; background-color:#37DE8A; width: 13px; height: 13px; border-radius: 100px; margin: 0 4px 0 4px;"></span>
+        <b>Baum-Routing</b>
+        verfügt nun jeder Baum über einen ganz persönlichen Link, der sich prima mit Gieß-Freund:innen oder Grünflächenämtern teilen lässt.
+      </div>
+    </div>
+  Wenn ihr in Sachen <i>technische Releases</i> auf dem Laufenden bleiben wollt, dann schaut doch mal in unserem Open Source
+  <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">GitHub Repository</a>
+  vorbei und unterstützt uns beim Entwickeln. Die nächsten Features sind schon in Planung.`,
     ],
   },
   loading: {
@@ -218,7 +170,7 @@ const content: Content = {
       'Wir laden gerade 625.000 Bäume aus dem Berliner Baumbestand.',
       'Wenn du diese Seite über das Mobilfunknetz aufrufst, kann es etwas dauern.',
       'Sammle Informationen aller Bäume aus Berlins Stadtkataster.',
-      'Schon gewusst? Ein junger Stadtbaum benötigt etwa 200l Wasser in der Woche.',
+      'Schon gewusst? Ein Stadtbaum benötigt etwa 70 Wasser in der Woche.',
     ],
   },
   sidebar: {
