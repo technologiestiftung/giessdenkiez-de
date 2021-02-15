@@ -144,7 +144,7 @@ const content: Content = {
       <div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
         <div>
           <img style="max-width:18px; margin-right: 5px;" alt="Geolocate Icon" src="/images/geolocate-icon.png"/><b>Geolokalisierung</b><br>
-          Mit einem Klick auf das Icon am unteren linken Bildschirmr  and zum eigenen Standort navigieren.
+          Mit einem Klick auf das Icon am unteren linken Bildschirmrand zum eigenen Standort navigieren.
         </div>
       </div>
       <div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
@@ -162,7 +162,7 @@ const content: Content = {
     </div>
   Wenn ihr in Sachen <i>technische Releases</i> auf dem Laufenden bleiben wollt, dann schaut doch mal in unserem Open Source
   <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">GitHub Repository</a>
-  vorbei und unterstützen uns beim Entwickeln. Die nächsten Features sind schon in Planung.`,
+  vorbei und unterstützt uns beim Entwickeln. Die nächsten Features sind schon in Planung.`,
     ],
   },
   loading: {
