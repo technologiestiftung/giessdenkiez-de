@@ -143,19 +143,19 @@ const content: Content = {
       `Der Frühling kann kommen! Wir haben unser Backlog aufgeräumt, einige Funktionen verbessert und neue Funktionen hinzugefügt. Die wichtigsten Verbesserungen im Überblick:<br />
       <div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
         <div>
-          <img style="max-width:18px; margin-right: 5px;" alt="Geolocate Icon" src="/images/geolocate-icon.png"/><b>Geolokalisierung</b><br>
+          <img style="max-width:14px; margin-right: 5px;" alt="Geolocate Icon" src="/images/geolocate-icon.png"/><b>Geolokalisierung</b><br>
           Mit einem Klick auf das Icon am unteren linken Bildschirmrand zum eigenen Standort navigieren.
         </div>
       </div>
       <div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
         <div>   
-          <span style="display:inline-block; background-color:#75ADE8; width: 16px; height: 16px; border-radius: 100px; margin-right: 4px;"></span>
+          <span style="display:inline-block; background-color:#75ADE8; width: 13px; height: 13px; border-radius: 100px; margin-right: 4px;"></span>
           <b>Map-Layout</b><br>
           Die Hintergrundkarte erstrahlt in neuen Farben und zeigt euch Hausnummern & ÖPNV-Haltestellen.`,
 
       `<div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
       <div>Mit dem 
-        <span style="display:inline-block; background-color:#37DE8A; width: 16px; height: 16px; border-radius: 100px; margin: 0 4px 0 4px;"></span>
+        <span style="display:inline-block; background-color:#37DE8A; width: 13px; height: 13px; border-radius: 100px; margin: 0 4px 0 4px;"></span>
         <b>Baum-Routing</b>
         verfügt nun jeder Baum über einen ganz persönlichen Link, der sich prima mit Gieß-Freund:innen oder Grünflächenämtern teilen lässt.
       </div>
