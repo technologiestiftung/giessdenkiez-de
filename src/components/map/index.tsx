@@ -71,6 +71,48 @@ const pumpsColor: (info: Generic) => RGBAColor = info => {
   return defaultColor.rgba;
 };
 
+const getTreeDotColor = (
+  info: {
+    properties: { id: string; radolan_sum: number; age: number };
+  },
+  props: {
+    ageRange: [number, number];
+    dataView: 'watered' | 'adopted';
+    communityData: Record<string, { adopted: boolean; watered: boolean }>;
+  }
+): RGBAColor => {
+  const { ageRange, dataView, communityData } = props;
+  const { properties } = info;
+  const { id, radolan_sum, age } = properties;
+
+  if (dataView === 'watered' && communityData[id]) {
+    return communityData[id].watered ? [53, 117, 177, 200] : [0, 0, 0, 0];
+  }
+
+  if (dataView === 'adopted' && communityData[id]) {
+    return communityData[id].adopted ? [0, 128, 128, 200] : [0, 0, 0, 0];
+  }
+
+  if (dataView === 'adopted' || dataView === 'watered') {
+    return [0, 0, 0, 0];
+  }
+
+  if (age >= ageRange[0] && age <= ageRange[1]) {
+    const interpolated = interpolateColor(radolan_sum);
+    const hex = hexToRgb(interpolated);
+
+    return hex && hex.length === 4
+      ? [hex[0], hex[1], hex[2], hex[3]]
+      : [0, 0, 0, 0];
+  }
+
+  if (Number.isNaN(age)) {
+    return [200, 200, 200, 0];
+  }
+
+  return [200, 200, 200, 0];
+};
+
 class DeckGLMap extends React.Component {
   constructor(props) {
     super(props);
@@ -112,21 +154,35 @@ class DeckGLMap extends React.Component {
           id: 'geojson',
           data: isMobile ? [] : data,
           opacity: 1,
-          getLineWidth: (info: any) => {
+          getLineWidth: (info: { properties: { id: string } }) => {
             const { selectedTree } = this.props;
-            const id = info.properties['id'];
+            const id = info.properties.id;
 
-            if (selectedTree) {
-              if (id === selectedTree.id) {
-                return 2;
-              } else {
-                return 0;
-              }
-            } else {
-              return 0;
+            if (selectedTree && selectedTree.id === id) {
+              return 2;
             }
+            return 0;
           },
-          getLineColor: [247, 105, 6, 255],
+          getLineColor: (info: {
+            properties: { id: string; radolan_sum: number; age: number };
+          }) => {
+            const {
+              selectedTree,
+              ageRange,
+              dataView,
+              communityData,
+            } = this.props;
+            const id = info.properties.id;
+
+            if (selectedTree && selectedTree.id === id) {
+              return [247, 105, 6, 255];
+            }
+            return getTreeDotColor(info, {
+              ageRange,
+              dataView,
+              communityData,
+            });
+          },
           visible: treesVisible,
           filled: true,
           parameters: {
@@ -141,48 +197,11 @@ class DeckGLMap extends React.Component {
           transitions: {
             getFillColor: 500,
           },
-          getFillColor: (info, i) => {
-            const {
-              // wateredTrees,
-              // AppState,
-              ageRange,
-              dataView,
-              communityData,
-            } = this.props;
-            const { properties } = info;
-            const { id, radolan_sum, age } = properties;
-
-            if (dataView === 'watered' && communityData[id]) {
-              return communityData[id].watered
-                ? [53, 117, 177, 200]
-                : [0, 0, 0, 0];
-            }
-
-            if (dataView === 'adopted' && communityData[id]) {
-              return communityData[id].adopted
-                ? [0, 128, 128, 200]
-                : [0, 0, 0, 0];
-            }
-
-            if (dataView === 'adopted' || dataView === 'watered') {
-              return [0, 0, 0, 0];
-            }
-
-            if (age >= ageRange[0] && age <= ageRange[1]) {
-              const interpolated = interpolateColor(radolan_sum);
-              const hex = hexToRgb(interpolated);
-
-              return hex;
-            }
-
-            if (Number.isNaN(age)) {
-              // const interpolated = interpolateColor(radolan_sum);
-              // const hex = hexToRgb(interpolated);
-              return [200, 200, 200, 0];
-              // return hex;
-            }
-
-            return [200, 200, 200, 0];
+          getFillColor: (info: {
+            properties: { id: string; radolan_sum: number; age: number };
+          }) => {
+            const { ageRange, dataView, communityData } = this.props;
+            return getTreeDotColor(info, { ageRange, dataView, communityData });
           },
           onClick: info => {
             const { setDetailRouteWithListPath } = this.props;
@@ -198,11 +217,17 @@ class DeckGLMap extends React.Component {
           updateTriggers: {
             getFillColor: [
               this.props.wateredTrees,
-              this.props.highlightedObject,
+              this.props.selectedTree,
               this.props.ageRange,
               this.props.dataView,
             ],
             getLineWidth: [this.props.selectedTree],
+            getLineColor: [
+              this.props.wateredTrees,
+              this.props.selectedTree,
+              this.props.ageRange,
+              this.props.dataView,
+            ],
           },
         }),
         new GeoJsonLayer({
@@ -239,35 +264,7 @@ class DeckGLMap extends React.Component {
           wireframe: true,
           getElevation: 1,
           getLineColor: [0, 0, 0, 200],
-          // info => {
-          //   const defaultColor = [44, 48, 59, 200];
-          //   const brokenColor = [207, 222, 231, 200];
-          //   const workingColor = [10, 54, 157, 200];
-          //   const lockedColor = [207, 222, 231, 200];
-
-          //   if (info === undefined) {
-          //     return defaultColor;
-          //   }
-          //   if (info.properties['pump:status']) {
-          //     const status = info.properties['pump:status'];
-          //     switch (status) {
-          //       case 'unbekannt': {
-          //         return defaultColor;
-          //       }
-          //       case 'defekt': {
-          //         return brokenColor;
-          //       }
-          //       case 'funktionsfähig': {
-          //         return workingColor;
-          //       }
-          //       case 'locked': {
-          //         return lockedColor;
-          //       }
-          //     }
-          //   }
-          //   return [44, 48, 59, 200];
-          // },
-          getFillColor: pumpsColor, //[255, 255, 255, 255],
+          getFillColor: pumpsColor,
           getRadius: 9,
           pointRadiusMinPixels: 4,
           pickable: true,
@@ -376,7 +373,6 @@ class DeckGLMap extends React.Component {
 
   _onload(evt) {
     map = evt.target;
-    // const insertBefore = map.getStyle();
 
     const firstLabelLayerId = map
       .getStyle()
@@ -482,16 +478,6 @@ class DeckGLMap extends React.Component {
 
   _updateStyles(prevProps) {
     if (map && isMobile) {
-      if (this.props.selectedTree && selectedStateId) {
-        // This replicates the original interaction,
-        // but i believe leaving the highlight on the marker
-        // even if the info window closes, makes more sense on mobile
-        // map.setFeatureState(
-        //   { sourceLayer: 'original', source: 'trees', id: selectedStateId },
-        //   { select: false }
-        // );
-        // selectedStateId = null;
-      }
       if (!this.props.treesVisible) {
         map.setLayoutProperty('trees', 'visibility', 'none');
       } else {
@@ -565,17 +551,6 @@ class DeckGLMap extends React.Component {
     }, 2000);
   }
 
-  // componentDidMount() {
-  //   checkGeolocationFeature(
-  //     error => {
-  //       console.error(error);
-  //     },
-  //     () => {
-  //       this.setState({ ...this.state, geoLocationAvailable: true });
-  //     }
-  //   );
-  // }
-
   render() {
     const {
       viewport,
@@ -606,10 +581,10 @@ class DeckGLMap extends React.Component {
             layers={this._renderLayers()}
             initialViewState={viewport}
             viewState={viewport}
-            getCursor={e => {
+            getCursor={() => {
               return this.state.cursor;
             }}
-            onHover={(info, event) => {
+            onHover={info => {
               this.setCursor(info.layer);
             }}
             onClick={this._deckClick}
