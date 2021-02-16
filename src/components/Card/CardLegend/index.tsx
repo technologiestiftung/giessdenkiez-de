@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Store from '../../../state/Store';
-import { connect } from 'unistore/react';
-import Actions from '../../../state/Actions';
+import store from '../../../state/Store';
+import { useStoreState } from '../../../state/unistore-hooks';
+// import { connect } from 'unistore/react';
+// import Actions from '../../../state/Actions';
 
 import CardDescription from '../CardDescription/';
 import SidebarSearchAge from '../../Sidebar/SidebarSearch/SidebarSearchAge';
@@ -94,8 +95,8 @@ const UnstyledFlexWidth = styled(UnstyledFlex)<UnstyledFlexWidthProps>`
 //   align-items: center;
 // `;
 
-const Cardlegend = p => {
-  const { dataView } = p;
+const Cardlegend = () => {
+  const { dataView } = useStoreState('dataView');
 
   return (
     <>
@@ -109,7 +110,7 @@ const Cardlegend = p => {
         <UnstyledFlexWidth
           active={dataView === 'rain'}
           onClick={() => {
-            Store.setState({ dataView: 'rain' });
+            store.setState({ dataView: 'rain' });
           }}
         >
           <StyledItemLabel>Niederschläge</StyledItemLabel>
@@ -117,7 +118,7 @@ const Cardlegend = p => {
         <UnstyledFlexWidth
           active={dataView === 'adopted'}
           onClick={() => {
-            Store.setState({ dataView: 'adopted' });
+            store.setState({ dataView: 'adopted' });
           }}
         >
           <StyledItemLabel>Bereits adoptiert</StyledItemLabel>
@@ -125,7 +126,7 @@ const Cardlegend = p => {
         <UnstyledFlexWidth
           active={dataView === 'watered'}
           onClick={() => {
-            Store.setState({ dataView: 'watered' });
+            store.setState({ dataView: 'watered' });
           }}
         >
           <StyledItemLabel>In den letzten 30 Tagen gegossen</StyledItemLabel>
@@ -146,12 +147,4 @@ const Cardlegend = p => {
   );
 };
 
-export default connect(
-  state => ({
-    treesVisible: state.treesVisible,
-    rainVisible: state.rainVisible,
-    pumpsVisible: state.pumpsVisible,
-    dataView: state.dataView,
-  }),
-  Actions
-)(Cardlegend);
+export default Cardlegend;

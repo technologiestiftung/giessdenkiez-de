@@ -22,16 +22,22 @@ const IconWrapper = styled.div`
     height: 70px;
   }
 `;
-
-const StyledIcon = styled.img`
-  width: 45px;
-  height: 55px;
+interface StyledIconProps {
+  height?: number;
+}
+const width = 45;
+const height = 55;
+const ratio = width / height;
+const StyledIcon = styled.img<StyledIconProps>`
+  width: ${p => (p.height ? p.height * ratio : `${width}`)}px;
+  height: ${p => (p.height ? p.height : `${height}`)}px;
 `;
 
-const OverlayIcon = p => {
-  const { icon } = p;
-
-  const geticon = type => {
+const Icon: React.FC<{ iconType: string; height?: number }> = ({
+  iconType,
+  height,
+}) => {
+  const geticon = (type: string) => {
     switch (type) {
       case 'water':
         return iconWater;
@@ -50,9 +56,9 @@ const OverlayIcon = p => {
 
   return (
     <IconWrapper>
-      <StyledIcon src={geticon(icon)} />
+      <StyledIcon src={geticon(iconType)} height={height} />
     </IconWrapper>
   );
 };
 
-export default OverlayIcon;
+export default Icon;

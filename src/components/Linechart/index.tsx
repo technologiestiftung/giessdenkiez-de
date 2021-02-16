@@ -9,6 +9,7 @@ import {
   select,
   axisLeft,
   axisBottom,
+  ScaleLinear,
 } from 'd3';
 
 const LineChartWrapper = styled.div`
@@ -19,8 +20,8 @@ const LineChartWrapper = styled.div`
 
 const Linechart = p => {
   const { data } = p;
-  const [, setScaleTime] = useState(null);
-  const [, setScaleRain] = useState(null);
+  const [, setScaleTime] = useState<ScaleLinear<number, number> | null>(null);
+  const [, setScaleRain] = useState<ScaleLinear<number, number> | null>(null);
 
   const margin = {
     top: 30,
@@ -35,7 +36,7 @@ const Linechart = p => {
     const transformData = d => {
       let sumPerDay = 0;
 
-      let hours: number[] = [];
+      const hours: number[] = [];
 
       if (d) {
         // aggregate hours to days
@@ -55,9 +56,15 @@ const Linechart = p => {
 
     const init = incomingData => {
       const wrapper = select('#linechart');
+      if (wrapper === null) {
+        return;
+      }
+      if (wrapper.node() === null) {
+        return;
+      }
 
-      const width = wrapper.node().clientWidth;
-      const height = wrapper.node().clientHeight;
+      const width = (wrapper.node() as HTMLElement).clientWidth;
+      const height = (wrapper.node() as HTMLElement).clientHeight;
 
       const svg = wrapper
         .append('svg')
@@ -184,12 +191,10 @@ const Linechart = p => {
 
       linePath.attr('d', line).transition().delay(500).duration(500);
     };
-
     const transformedData = transformData(data);
     init(transformedData);
     // we explicitly want this hook to only run once on creation
     // of the componenet
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <LineChartWrapper id='linechart'></LineChartWrapper>;

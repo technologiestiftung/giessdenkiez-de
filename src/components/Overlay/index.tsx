@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import OverlayClose from './OverlayClose';
 import OverlayTop from './OverlayTop';
 import OverlayBottom from './OverlayBottom';
+import { useActions } from '../../state/unistore-hooks';
+import Actions from '../../state/Actions';
 
 const StyledWrapper = styled.div`
   width: 60%;
@@ -19,9 +21,7 @@ const StyledWrapper = styled.div`
   box-shadow: ${p => p.theme.boxShadow};
   z-index: 3;
 
-
-
-  @media screen and (max-width: ${p => '600px'}) {
+  @media screen and (max-width: ${_p => '600px'}) {
     width: 100%;
     height: 100%;
     box-shadow: none;
@@ -40,20 +40,22 @@ const Wrapper = styled.div`
   min-height: 60vh;
   max-height: 70vh;
 
-  @media screen and (max-width: ${p => '600px'}) {
+  @media screen and (max-width: ${_p => '600px'}) {
     width: 100%;
     height: 100%;
     box-shadow: none;
   }
 `;
 
-const Overlay = () => {
+const Overlay: () => JSX.Element = () => {
+  const { toggleOverlay } = useActions(Actions);
+
   return (
     <StyledOverlayWrapper>
       <StyledWrapper>
         <Wrapper>
-          <OverlayTop>
-            <OverlayClose />
+          <OverlayTop toggleOverlay={toggleOverlay}>
+            <OverlayClose toggleOverlay={toggleOverlay} />
           </OverlayTop>
           <OverlayBottom />
         </Wrapper>

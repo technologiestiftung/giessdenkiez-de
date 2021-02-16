@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const merge = require('webpack-merge');
 const common = require('./common.config');
 const webpack = require('webpack'); // to access built-in plugins

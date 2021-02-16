@@ -16,9 +16,7 @@ const SidebarLoadingCardDiv = styled.div`
   box-shadow: 0px 2px 3px 0px rgba(44, 48, 59, 0.1);
 `;
 
-const SidebarLoadingCard = p => {
-  const { state } = p;
-
+const SidebarLoadingCard: React.FC<{ state: string }> = ({ state }) => {
   let content = '';
 
   switch (state) {

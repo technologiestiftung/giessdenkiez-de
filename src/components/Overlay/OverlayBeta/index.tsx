@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { isDemoMode } from '../../../mocks/mocks-utils';
 const BetaNote = styled.div`
   transform: translate(-20px, 0);
 
@@ -16,7 +16,7 @@ const BetaNote = styled.div`
 const OverlayBeta = () => {
   return (
     <BetaNote>
-      <span>BETA</span>
+      <span>BETA{isDemoMode() && ' in DEMO MODE'}</span>
     </BetaNote>
   );
 };

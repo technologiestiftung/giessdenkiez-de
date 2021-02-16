@@ -1,27 +1,37 @@
 import { isMobile } from 'react-device-detect';
 import { dsv as d3Dsv, easeCubic as d3EaseCubic } from 'd3';
 import history from '../history';
-import { createAPIUrl, fetchAPI, createGeojson } from '../utils';
+import { createAPIUrl, createGeojson, requests } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
+import { Store } from 'unistore';
+import { SelectedTreeType, StoreProps, Generic } from '../common/interfaces';
+import { TreeLastWateredType } from '../common/types';
 
-export const loadTrees = Store => async () => {
+interface TreeLastWateredResponseType {
+  data: TreeLastWateredType | undefined;
+}
+
+interface SelectedTreeResponseType {
+  data: SelectedTreeType[];
+}
+
+export const loadTrees = (store: Store<StoreProps>) => async () => {
   if (isMobile) {
-    // TODO: Load the user's trees from API
-    Store.setState({
+    store.setState({
       data: {
         type: 'FeatureCollection',
         features: [],
       },
-      isLoading: false,
+      isTreeDataLoading: false,
     });
   } else {
     const dataUrl =
       'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
 
-    d3Dsv(',', dataUrl)
+    d3Dsv(',', dataUrl, { cache: 'force-cache' })
       .then(data => {
         const geojson = createGeojson(data);
-        Store.setState({ data: geojson, isLoading: false });
+        store.setState({ data: geojson, isTreeDataLoading: false });
         return;
       })
       .catch(console.error);
@@ -34,73 +44,73 @@ export const setAgeRange = (_state, payload) => {
   };
 };
 
-export const loadCommunityData = Store => async () => {
+export const loadCommunityData = (store: Store<StoreProps>) => () => {
   const fetchCommunityDataUrl = createAPIUrl(
-    Store.getState(),
-    `/get-watered-and-adopted`
+    store.getState(),
+    `/get?queryType=wateredandadopted`
   );
-  const communityData = await fetchAPI(fetchCommunityDataUrl);
-
-  let obj = {};
-  const communityDataWatered = [];
-  const communityDataAdopted = [];
-
-  // TODO: Review https://eslint.org/docs/rules/array-callback-return
-  // create community data object for map
-  //@ts-ignore
-  if (communityData.data) {
-    //@ts-ignore
-    communityData.data.map(item => {
-      obj[item[0]] = {
-        adopted: item[1] === 1 ? true : false,
-        watered: item[2] === 1 ? true : false,
-      };
-      if (item[1] === 1) {
-        //@ts-ignore
-        communityDataWatered.push(item[0]);
+  requests(fetchCommunityDataUrl)
+    .then(json => {
+      const obj = {};
+      const communityDataWatered: Generic[] = [];
+      const communityDataAdopted: Generic[] = [];
+      // TODO: Review https://eslint.org/docs/rules/array-callback-return
+      // create community data object for map
+      if (json.data) {
+        json.data.map(item => {
+          obj[item.tree_id] = {
+            adopted: item.adopted > 0 ? true : false,
+            watered: item.watered > 0 ? true : false,
+          };
+          if (item.adopted > 0) {
+            communityDataWatered.push(item.tree_id);
+          }
+          if (item.watered > 0) {
+            communityDataAdopted.push(item.tree_id);
+          }
+        });
+        store.setState({ communityData: obj });
+        store.setState({ communityDataAdopted });
+        store.setState({ communityDataWatered });
       }
-      if (item[2] === 1) {
-        //@ts-ignore
-        communityDataAdopted.push(item[0]);
-      }
-    });
-    Store.setState({ communityData: obj });
-    Store.setState({ communityDataAdopted });
-    Store.setState({ communityDataWatered });
+      return;
+    })
+    .catch(console.error);
+};
+
+export const loadData = (store: Store<StoreProps>) => async () => {
+  try {
+    store.setState({ isTreeDataLoading: true });
+    // let geojson = [];
+
+    const dataUrl =
+      'https://tsb-trees.s3.eu-central-1.amazonaws.com/weather_light.geojson.gz';
+
+    const rainGeojson = await requests(dataUrl);
+    store.setState({ rainGeojson });
+    // load min version
+    const pumps = await requests('/data/pumps.geojson.min.json');
+    store.setState({ pumps });
+  } catch (error) {
+    console.error(error);
   }
 };
 
-export const loadData = Store => async () => {
-  Store.setState({ isLoading: true });
-  // let geojson = [];
-
-  const dataUrl =
-    'https://tsb-trees.s3.eu-central-1.amazonaws.com/weather_light.geojson.gz';
-
-  fetch(dataUrl)
-    .then(res => res.json())
-    .then(r => Store.setState({ rainGeojson: r }))
-    .catch(console.error);
-
-  fetch('/data/pumps.geojson')
-    .then(r => r.json())
-    .then(r => Store.setState({ pumps: r }))
-    .catch(console.error);
-};
-
-export const setAppState = (state, payload) => {
+export const setAppState = (_state, payload) => {
   return {
     AppState: payload,
   };
 };
 
-export const setDataView = (state, payload) => {
+export const setDataView = (_state, payload) => {
   return {
     dataView: payload,
   };
 };
 
 function setViewport(_state, payload) {
+  // TODO: lat long are reversed in the database
+  // that is why we need to switch them here.
   return {
     viewport: {
       latitude: payload[1],
@@ -124,36 +134,79 @@ function setView(_state, payload) {
 }
 
 export const getWateredTrees = Store => async () => {
-  Store.setState({ isLoading: true });
-  const url = createAPIUrl(Store.getState(), '/get-watered-trees');
-  const res = await fetchAPI(url);
+  try {
+    Store.setState({ isTreeDataLoading: true });
+    const url = createAPIUrl(Store.getState(), '/get?queryType=watered');
+    const result = await requests(url);
 
+    if (result.data === undefined) {
+      throw new Error('data is not defined on getWateredTrees');
+    }
+    return {
+      wateredTrees: result.data.watered,
+    };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const calcuateRadolan = (radolanDays: number): number => radolanDays / 10;
+
+const parseSelectedTreeResponse = (
+  selectedTreeResponse: SelectedTreeResponseType
+) => {
+  const selectedTree = selectedTreeResponse.data[0];
+  // ISSUE:141
   return {
-    //@ts-ignore
-    wateredTrees: res.data.watered,
+    ...selectedTree,
+    radolan_days: selectedTree.radolan_days.map(calcuateRadolan),
+    radolan_sum: calcuateRadolan(selectedTree.radolan_sum),
   };
 };
 
-export const getTree = Store => async id => {
-  const url = createAPIUrl(Store.getState(), `/get-tree?id=${id}`);
-  const urlWatered = createAPIUrl(
-    Store.getState(),
-    `/get-tree-last-watered?id=${id}`
-  );
+const parseTreeLastWateredResponse = (
+  treeLastWateredResponse: TreeLastWateredResponseType
+): TreeLastWateredType => treeLastWateredResponse.data || [];
 
-  const res = await fetchAPI(url);
-  const resWatered = await fetchAPI(urlWatered);
+export const getTree = (Store: Store<StoreProps>) => async (
+  id: string
+): Promise<{
+  treeLastWatered?: TreeLastWateredType;
+  selectedTree?: SelectedTreeType;
+}> => {
+  try {
+    const urlSelectedTree = createAPIUrl(
+      Store.getState(),
+      `/get?queryType=byid&id=${id}`
+    );
+    const urlLastWatered = createAPIUrl(
+      Store.getState(),
+      `/get?queryType=lastwatered&id=${id}`
+    );
 
-  // ISSUE:141
-  //@ts-ignore
-  res.data.radolan_days = res.data.radolan_days.map(d => d / 10);
-  //@ts-ignore
-  res.data.radolan_sum = res.data.radolan_sum / 10;
+    const [resSelectedTree, resLastWatered] = await Promise.all([
+      requests<SelectedTreeResponseType>(urlSelectedTree),
+      requests<TreeLastWateredResponseType>(urlLastWatered),
+    ]);
+    const treeLastWatered = parseTreeLastWateredResponse(resLastWatered);
 
-  return {
-    selectedTree: res,
-    treeLastWatered: resWatered,
-  };
+    if (resSelectedTree.data.length > 0) {
+      return {
+        selectedTree: parseSelectedTreeResponse(
+          resSelectedTree as SelectedTreeResponseType
+        ),
+        treeLastWatered,
+      };
+    } else {
+      return {
+        selectedTree: undefined,
+        treeLastWatered,
+      };
+    }
+  } catch (error) {
+    console.error(error);
+    return Promise.reject(error);
+  }
 };
 
 export const removeSelectedTree = () => {
@@ -163,23 +216,33 @@ export const removeSelectedTree = () => {
   };
 };
 
-export const getTreeByAge = Store => async (state, start, end) => {
-  Store.setState({ selectedTreeState: 'LOADING' });
-  const url = createAPIUrl(state, `/get-tree-by-age?start=${start}&end=${end}`);
+export const getTreeByAge = Store => async (
+  state: any,
+  start: string,
+  end: string
+) => {
+  try {
+    Store.setState({ selectedTreeState: 'LOADING' });
+    const url = createAPIUrl(
+      state,
+      `/get??queryType=byage&start=${start}&end=${end}`
+    );
 
-  await fetchAPI(url)
-    .then(r => {
-      Store.setState({
-        selectedTreeState: 'LOADED',
-        //@ts-ignore
-        selectedTrees: r.data,
-      });
-      return;
-    })
-    .catch(console.error);
+    const res = await requests(url);
+
+    Store.setState({
+      selectedTreeState: 'LOADED',
+      selectedTrees: res.data,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-export const toggleOverlay = (_state, payload) => ({
+export const toggleOverlay: (_state: any, payload: any) => { overlay: any } = (
+  _state,
+  payload
+) => ({
   overlay: payload,
 });
 
@@ -188,7 +251,7 @@ const setDetailRouteWithListPath = (_state, treeId) => {
   history.push(nextLocation);
 };
 
-export default Store => ({
+export default (Store: Store<StoreProps>) => ({
   loadData: loadData(Store),
   setDataView,
   getWateredTrees: getWateredTrees(Store),

@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
-import Actions from '../../../state/Actions';
-import { connect } from 'unistore/react';
-
 import RoundButton from '../../../components/RoundButton';
 
 const StyledRoundButton = styled(RoundButton)`
@@ -13,9 +10,11 @@ const StyledRoundButton = styled(RoundButton)`
   z-index: 10;
 `;
 
-const OverlayClose = p => {
-  const { toggleOverlay } = p;
-
+const OverlayClose: React.FC<{
+  toggleOverlay: (state: any, payload?: any) => { overlay: any };
+}> = ({ toggleOverlay }) => {
+  // const { toggleOverlay } = p;
+  // const { toggleOverlay } = useActions(Actions);
   const handleClick = (_evt: React.ChangeEvent<any>) => {
     toggleOverlay(false);
   };
@@ -31,6 +30,4 @@ const OverlayClose = p => {
   );
 };
 
-// export default OverlayClose;
-
-export default connect(_state => ({}), Actions)(OverlayClose);
+export default OverlayClose;

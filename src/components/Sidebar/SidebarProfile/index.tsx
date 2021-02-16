@@ -1,10 +1,13 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useAuth0 } from '../../../utils/auth0';
-import Actions from '../../../state/Actions';
-import { connect } from 'unistore/react';
-import Store from '../../../state/Store';
-import { fetchAPI, createAPIUrl } from '../../../utils';
+import { useAuth0 } from '../../../utils/auth/auth0';
+// import Actions from '../../../state/Actions';
+// import { connect } from 'unistore/react';
+import history from '../../../history';
+import store from '../../../state/Store';
+import { useActions, useStoreState } from '../../../state/unistore-hooks';
+
+import { createAPIUrl, requests } from '../../../utils';
 
 import SidebarTitle from '../SidebarTitle/';
 import Login from '../../Login';
@@ -18,6 +21,7 @@ import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
 import ButtonRound from '../../ButtonRound';
 import LoadingIcon from '../../LoadingIcon/';
 import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
+import Actions from '../../../state/Actions';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
@@ -49,15 +53,12 @@ const FlexCol = styled.div`
   flex-direction: column;
 `;
 
-const SidebarProfile = p => {
-  const {
-    state,
-    wateredByUser,
-    adoptedTrees,
-    adoptedTreesDetails,
-    toggleOverlay,
-    userdata,
-  } = p;
+const SidebarProfile = () => {
+  const { wateredByUser } = useStoreState('wateredByUser');
+  const { adoptedTrees } = useStoreState('adoptedTrees');
+  const { adoptedTreesDetails } = useStoreState('adoptedTreesDetails');
+  const { user: userdata } = useStoreState('user');
+
   const {
     loading,
     user,
@@ -66,6 +67,12 @@ const SidebarProfile = p => {
     logout,
   } = useAuth0();
   const [isEmailVerifiyed, setIsEmailVerifiyed] = useState(false);
+  // useEffect(() => {
+  //   if (userdata === undefined && isAuthenticated === true) {
+  //     console.log('logout');
+  //     logout();
+  //   }
+  // }, []);
   /**
    * Check weather the email of the user is verified
    */
@@ -76,43 +83,38 @@ const SidebarProfile = p => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (isAuthenticated && adoptedTrees) {
-        const token = await getTokenSilently();
-        const concatReducer = (acc, curr, currentIndex, array) => {
-          if (currentIndex + 1 === array.length) {
-            return acc + curr + '}';
-          } else {
-            return acc + curr + ',';
-          }
-        };
+      try {
+        if (adoptedTrees) {
+          // const token = await getTokenSilently();
+          const concatReducer = (acc, curr, currentIndex, array) => {
+            if (currentIndex + 1 === array.length) {
+              return acc + curr + '}';
+            } else {
+              return acc + curr + ',';
+            }
+          };
 
-        const queryStr = adoptedTrees.reduce(concatReducer, '{');
-
-        const urlAdoptedTreesDetails = createAPIUrl(
-          state,
-          `/private/get-adopted-trees-details?tree_ids=${queryStr}`
-        );
-
-        fetchAPI(urlAdoptedTreesDetails, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        })
-          .then(r => {
-            //@ts-ignore
-            Store.setState({ adoptedTreesDetails: r.data });
-            return;
-          })
-          .catch(err => {
-            console.error(err);
-          });
+          const queryStr = adoptedTrees.reduce(concatReducer, '{');
+          const urlAdoptedTreesDetails = createAPIUrl(
+            store.getState(),
+            // `/private/get-adopted-trees-details?tree_ids=${queryStr}`
+            `/get/?queryType=treesbyids&tree_ids=${queryStr}`
+          );
+          const res = await requests(urlAdoptedTreesDetails);
+          store.setState({ adoptedTreesDetails: res.data });
+        }
+      } catch (error) {
+        console.error(error);
+        throw error;
       }
     };
-    if (adoptedTrees.length === 0) {
-      //@ts-ignore
-      Store.setState({ adoptedTreesDetails: [] });
+    if (adoptedTrees && adoptedTrees.length === 0) {
+      store.setState({ adoptedTreesDetails: [] });
     } else {
-      fetchData();
+      fetchData().catch(err => {
+        console.error(err);
+        throw err;
+      });
     }
   }, [adoptedTrees]);
 
@@ -144,6 +146,7 @@ const SidebarProfile = p => {
       }
     } catch (error) {
       console.error(error);
+      throw error;
     }
   };
 
@@ -171,7 +174,9 @@ const SidebarProfile = p => {
             logge dich ein.
           </CardParagraph>
           <Login width='-webkit-fill-available' />
-          <StyledCardDescription onClick={() => toggleOverlay(true)}>
+          <StyledCardDescription
+            onClick={() => store.setState({ overlay: true })}
+          >
             Wie kann ich mitmachen?
           </StyledCardDescription>
         </FlexCol>
@@ -192,7 +197,6 @@ const SidebarProfile = p => {
                     title={<span>Adoptierte Bäume</span>}
                   >
                     {adoptedTreesDetails && (
-                      //@ts-ignore
                       <TreesAdopted data={adoptedTreesDetails} />
                     )}
                   </CardAccordion>
@@ -232,14 +236,4 @@ const SidebarProfile = p => {
   );
 };
 
-export default connect(
-  state => ({
-    treeLastWatered: state.treeLastWatered,
-    state: state,
-    userdata: state.user,
-    wateredByUser: state.wateredByUser,
-    adoptedTrees: state.adoptedTrees,
-    adoptedTreesDetails: state.adoptedTreesDetails,
-  }),
-  Actions
-)(SidebarProfile);
+export default SidebarProfile;

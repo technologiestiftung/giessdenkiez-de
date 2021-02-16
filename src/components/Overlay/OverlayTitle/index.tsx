@@ -13,8 +13,9 @@ const StyledOverlayTitle = styled.h2<StyledProps>`
       case 'xl':
         return p.theme.fontSizeXl;
       case 'large':
-        return p.theme.fontSizeXxl;
-
+        return p.theme.fontSizeL;
+      case 'Ll':
+          return p.theme.fontSizeLl;
       case 'medium':
         return p.theme.fontSizeM;
       case 'small':

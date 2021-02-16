@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useActions } from '../../../state/unistore-hooks';
 import Actions from '../../../state/Actions';
 
-import { connect } from 'unistore/react';
+// import { connect } from 'unistore/react';
 
 const SearchDiv = styled.div`
   display: flex;
@@ -59,8 +60,8 @@ const ResultElement = styled.li`
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
-const SidebarSearchLocation = p => {
-  const { setViewport } = p;
+const SidebarSearchLocation: React.FC = () => {
+  const { setViewport } = useActions(Actions);
 
   const [value, setValue] = React.useState('');
   const [results, setResults] = React.useState([]);
@@ -99,24 +100,21 @@ const SidebarSearchLocation = p => {
       </FlexRowDiv>
       <ResultDiv>
         <ul>
-          {results.map((item: any, index: number) => (
-            <ResultElement
-              className={index % 2 ? 'even' : 'odd'}
-              key={index}
-              onClick={e => setViewport(item.geometry.coordinates)}
-            >
-              {item.place_name_de}
-            </ResultElement>
-          ))}
+          {results.map((item: any, index: number) => {
+            return (
+              <ResultElement
+                className={index % 2 ? 'even' : 'odd'}
+                key={item.id}
+                onClick={() => setViewport(item.geometry.coordinates)}
+              >
+                {item.place_name_de}
+              </ResultElement>
+            );
+          })}
         </ul>
       </ResultDiv>
     </SearchDiv>
   );
 };
 
-export default connect(
-  state => ({
-    isLoading: state.isLoading,
-  }),
-  Actions
-)(SidebarSearchLocation);
+export default SidebarSearchLocation;

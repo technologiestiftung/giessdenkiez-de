@@ -1,14 +1,16 @@
 import React, { cloneElement, Children } from 'react';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-import Actions from '../../../state/Actions';
-import Store from '../../../state/Store';
-import { connect } from 'unistore/react';
+// import Actions from '../../../state/Actions';
+import store from '../../../state/Store';
+// import { connect } from 'unistore/react';
+// import { useStoreState } from '../../../state/unistore-hooks';
 
 // import history from '../../../history';
 
 import OverlayTitle from '../OverlayTitle/';
-import OverlayIcon from '../OverlayIcon/';
+import OverlayEvent from '../OverlayEvent/';
+import Icon from '../../Icons';
 import OverlayBeta from '../OverlayBeta/';
 import OverlayDescription from '../OverlayDescription/';
 import ButtonRound from '../../../components/ButtonRound/';
@@ -34,7 +36,7 @@ const StyledTop = styled.div`
 
 const StyledWrapper = styled.div`
   display: flex;
-  margin: 20px 40px 0 40px;
+  margin: 20px 40px 20px 40px;
   cursor: pointer;
   div {
     margin-right: 10px;
@@ -50,23 +52,23 @@ const StyledWrapper = styled.div`
 
 const OverlayTop = p => {
   const { children, toggleOverlay } = p;
-  const { intro } = content;
+  const { intro, eventNote, whatsNew } = content;
+
   const { title, subline, description, disclaimer } = intro;
 
   const handleClick = () => {
-    Store.setState({ legendExpanded: true });
+    store.setState({ legendExpanded: true });
     toggleOverlay(false);
   };
 
   return (
     <StyledTop>
       <Wrapper>
-        <OverlayTitle size='large' title={title} />
-        <OverlayIcon icon='trees' />
+        <OverlayTitle size='xxl' title={title} />
+        <Icon iconType='trees' />
         <OverlayBeta />
       </Wrapper>
-      <OverlayTitle size='large' title={subline} />
-
+      <OverlayTitle size='xxl' title={subline} />
       {isMobile && <OverlayTitle size='medium' title={disclaimer} />}
       {/* the beow is here for local testing */}
       {/* {true && <OverlayTitle size='medium' content={disclaimer} />} */}
@@ -80,13 +82,21 @@ const OverlayTop = p => {
         </ButtonRound>
         <Login width='fit-content' noLogout={true} />
       </StyledWrapper>
+      {(eventNote !== undefined || whatsNew !== undefined) && (
+        <OverlayTitle size='xl' title={'News & Updates'} />
+      )}
+
+      {eventNote && <OverlayEvent size='Ll' title={eventNote.title} />}
+      {whatsNew && <OverlayDescription content={whatsNew.description} />}
     </StyledTop>
   );
 };
 
-export default connect(
-  state => ({
-    user: state.user,
-  }),
-  Actions
-)(OverlayTop);
+// export default connect(
+//   state => ({
+//     user: state.user,
+//   }),
+//   Actions
+// )(OverlayTop);
+
+export default OverlayTop;

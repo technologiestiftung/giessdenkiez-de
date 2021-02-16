@@ -1,16 +1,9 @@
+
 {
   "extends": [
-    "config:base"
+    "@inpyjamas"
   ],
-  "packageRules": [
-    {
-      "updateTypes": [
-        "minor",
-        "patch",
-        "pin",
-        "digest"
-      ],
-      "automerge": true
-    }
+    "baseBranches": [
+    "staging" 
   ]
 }

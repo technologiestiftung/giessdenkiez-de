@@ -6,25 +6,27 @@ import CardDescription from '../Card/CardDescription';
 const iconGithub = '/images/icon-github.svg';
 
 const OpenSourceContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 12px;
   margin-bottom: 10px;
-
-  img {
-    width: 16px;
-    height: auto;
-    margin-right: 5px;
-  }
+  place-items: center;
 `;
+
+const GithubIcon = styled.img`
+  width: 16px;
+  height: 16px;
+`
 
 const OpenSourceNote = () => {
   return (
     <OpenSourceContainer>
-      <img alt='GitHub Mark' src={iconGithub} />
+	  <GithubIcon alt='GitHub Mark' src={iconGithub} />
       <CardDescription>
         Giess den Kiez ist ein&nbsp;
         <a
           target='blank'
-          href='https://github.com/technologiestiftung/tsb-trees-frontend'
+          href='https://github.com/technologiestiftung/giessdenkiez-de'
         >
           Open Source Projekt!
         </a>

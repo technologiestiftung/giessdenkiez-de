@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import OverlayParagraph from '../OverlayParagraph/';
-import OverlayIcon from '../OverlayIcon/';
+import Icon from '../../Icons';
 import { CollaborationItem } from '../../../assets/content';
 
 const StyledTileWrapper = styled.div`
@@ -34,7 +34,7 @@ const OverlayTile: React.FC<{ collaborationItem: CollaborationItem }> = ({
 }) => {
   return (
     <StyledTileWrapper>
-      <OverlayIcon icon={collaborationItem.icon} />
+      <Icon iconType={collaborationItem.icon} />
       <StyledContentWrapper>
         <StyledTileTitle>{collaborationItem.title}</StyledTileTitle>
         <OverlayParagraph content={collaborationItem.description} />

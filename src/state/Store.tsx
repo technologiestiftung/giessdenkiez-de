@@ -1,12 +1,13 @@
 import { isMobile } from 'react-device-detect';
 import createStore from 'unistore';
+// import devtools from 'unistore/devtools';
+import { StoreProps } from '../common/interfaces';
 
-const Store = createStore({
+const initialState = {
   wateredTrees: [],
   includedTrees: {},
   // TODO: which one is it @fdnklg !!!!1!!11!!!
   adoptedTrees: [],
-  // adoptedTrees: false,
   dataView: 'rain',
   communityData: null,
   wateredByUser: false,
@@ -14,10 +15,10 @@ const Store = createStore({
   cookiesAccepted: false,
   overlayIsVisible: true,
   legendExpanded: false,
-  treeAdopted: false,
+  treeAdopted: undefined,
   isNavOpen: false,
   pumpsVisible: false,
-  highlightedObject: false,
+  highlightedObject: undefined,
   user: false,
   rainVisible: false,
   rainGeojson: null,
@@ -26,18 +27,18 @@ const Store = createStore({
   ageRange: [0, 320],
   pumps: null,
   data: null,
-  local: false,
+  local: process.env.NODE_ENV === 'production' ? false : true,
   endpoints: {
-    local: 'http://localhost:3000/',
-    // TODO: Don't hardcode this @fdnklg !!11!!!
-    prod: 'https://tsb-tree-api-now-express.now.sh',
+    local: process.env.API_ENDPOINT_DEV,
+    prod: process.env.API_ENDPOINT_PROD,
   },
   tabActive: 'id-0',
-  selectedTree: false,
-  treeLastWatered: false,
-  selectedTreeState: '',
-  overlay: true,
-  isLoading: true,
+  selectedTree: undefined,
+  treeLastWatered: undefined,
+  selectedTreeState: undefined,
+  overlay: false,
+  isTreeDataLoading: true,
+  isTreeMapLoading: true,
   AppState: 'watered',
   hoveredObject: false,
   viewport: {
@@ -49,6 +50,10 @@ const Store = createStore({
     pitch: isMobile ? 0 : 45,
     bearing: 0,
   },
-});
-
-export default Store;
+};
+// const store =
+//   process.env.NODE_ENV === 'production'
+//     ? createStore<StoreProps>(initialState)
+//     : devtools(createStore(initialState));
+const store = createStore<StoreProps>(initialState);
+export default store;

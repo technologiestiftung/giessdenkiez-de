@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../assets/theme';
 import { Router } from 'react-router-dom';
 import history from '../history';
 import { connect } from 'unistore/react';
-import Store from '../state/Store';
+import store from '../state/Store';
 
 import { getCookieValue } from '../utils/';
 
@@ -17,11 +17,17 @@ import Actions, {
 import '../assets/style.scss';
 
 import AppWrapper from './AppWrapper';
+import { StoreProps } from '../common/interfaces';
 
-const loadEntryDataAction = Store.action(loadData(Store));
-const loadTreesAction = Store.action(loadTrees(Store));
-const loadWateredTreesAction = Store.action(getWateredTrees(Store));
-const loadCommunityDataAction = Store.action(loadCommunityData(Store));
+type AppContainerPropsType = Pick<
+  StoreProps,
+  'isTreeDataLoading' | 'isTreeMapLoading' | 'data' | 'overlay'
+>;
+
+const loadEntryDataAction = store.action(loadData(store));
+const loadTreesAction = store.action(loadTrees(store));
+const loadWateredTreesAction = store.action(getWateredTrees(store));
+const loadCommunityDataAction = store.action(loadCommunityData(store));
 
 loadEntryDataAction();
 loadWateredTreesAction();
@@ -31,7 +37,7 @@ loadCommunityDataAction();
 const cookie = getCookieValue('disclaimerAccepted');
 
 if (cookie === 'true') {
-  Store.setState({ cookiesAccepted: true });
+  store.setState({ cookiesAccepted: true });
 }
 
 // const AppWrapperDiv = styled.div`
@@ -68,20 +74,28 @@ if (cookie === 'true') {
 //   );
 // };
 
-const AppContainer = p => {
-  const { isLoading, data, overlay } = p;
-  return (
-    <Router history={history}>
-      <ThemeProvider theme={theme}>
-        <AppWrapper isLoading={isLoading} overlay={overlay} data={data} />
-      </ThemeProvider>
-    </Router>
-  );
-};
+const AppContainer: FC<AppContainerPropsType> = ({
+  isTreeDataLoading,
+  isTreeMapLoading,
+  data,
+  overlay,
+}) => (
+  <Router history={history}>
+    <ThemeProvider theme={theme}>
+      <AppWrapper
+        isTreeDataLoading={isTreeDataLoading}
+        isTreeMapLoading={isTreeMapLoading}
+        overlay={overlay}
+        data={data}
+      />
+    </ThemeProvider>
+  </Router>
+);
 
 export default connect(
   state => ({
-    isLoading: state.isLoading,
+    isTreeMapLoading: state.isTreeMapLoading,
+    isTreeDataLoading: state.isTreeDataLoading,
     overlay: state.overlay,
     data: state.data,
   }),

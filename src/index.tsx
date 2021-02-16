@@ -1,18 +1,21 @@
 import 'react-app-polyfill/stable';
+import 'whatwg-fetch';
+import 'core-js/stable';
+import './mocks/mocks-utils'; // should be first import after polyfills
+// -------------------------------------------------------------------
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './Root';
-
 import history from './history';
 import ErrorBoundary from './ErrorBoundary';
 
 import { Provider } from 'unistore/react';
-import Store from './state/Store';
+import store from './state/Store';
 import GlobalStyles from './assets/Global';
 
-import { Auth0Provider } from './utils/auth0';
-
-const onRedirectCallback = appState => {
+import { Auth0Provider } from './utils/auth/auth0';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const onRedirectCallback: (appState: any) => void = appState => {
   history.push(
     appState && appState.targetUrl
       ? appState.targetUrl
@@ -20,33 +23,31 @@ const onRedirectCallback = appState => {
   );
 };
 
-function startApp() {
-  const rootElement = document.getElementById('app');
+ReactDOM.render(
+  <ErrorBoundary>
+    <Auth0Provider
+      domain={process.env.AUTH0_DOMAIN}
+      client_id={process.env.AUTH0_CLIENT_ID}
+      audience={process.env.AUTH0_AUDIENCE}
+      redirect_uri={window.location.origin}
+      onRedirectCallback={onRedirectCallback}
+    >
+      <Provider store={store}>
+        <>
+          <GlobalStyles />
+          <Root />
+        </>
+      </Provider>
+    </Auth0Provider>
+  </ErrorBoundary>,
 
-  function renderApp(RootComponent) {
-    ReactDOM.render(
-      <ErrorBoundary>
-        <Auth0Provider
-          domain={process.env.AUTH0_DOMAIN}
-          client_id={process.env.AUTH0_CLIENT_ID}
-          audience={process.env.AUTH0_AUDIENCE}
-          redirect_uri={window.location.origin}
-          onRedirectCallback={onRedirectCallback}
-        >
-          <Provider store={Store}>
-            <>
-              <GlobalStyles />
-              <RootComponent />
-            </>
-          </Provider>
-        </Auth0Provider>
-      </ErrorBoundary>,
-      rootElement
-    );
-  }
+  document.getElementById('app')
+);
 
-  // Mount the react-app
-  renderApp(Root);
-}
+// function renderApp(RootComponent: () => JSX.Element): void {}
 
-startApp();
+// Mount the react-app
+// renderApp(Root);
+// }
+
+// startApp();

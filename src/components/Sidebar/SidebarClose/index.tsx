@@ -12,7 +12,7 @@ const StyledLink = styled(Link)`
   z-index: 10;
 `;
 
-const SidebarClose = _p => {
+const SidebarClose = () => {
   // const handleClick = _evt => {};
 
   return (
@@ -22,7 +22,7 @@ const SidebarClose = _p => {
       // }}
       to={{ pathname: '/', search: '' }}
     >
-      <RoundButton aria-label="Leiste schließen" title="Leiste schließen">
+      <RoundButton aria-label='Leiste schließen' title='Leiste schließen'>
         <CloseIcon />
       </RoundButton>
     </StyledLink>

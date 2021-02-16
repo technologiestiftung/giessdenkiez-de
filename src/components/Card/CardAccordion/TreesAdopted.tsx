@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Actions from '../../../state/Actions';
 import { connect } from 'unistore/react';
-import Store from '../../../state/Store';
+import store from '../../../state/Store';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { useAuth0 } from '../../../utils/auth0';
-import { fetchAPI, createAPIUrl } from '../../../utils';
+import { useAuth0 } from '../../../utils/auth/auth0';
+import { createAPIUrl, requests } from '../../../utils';
 
 const WrapperRow = styled.div`
   display: flex;
@@ -45,55 +45,76 @@ const Title = styled.span`
   }
 `;
 
-const TreesAdopted = p => {
-  const { data, setViewport, state } = p;
+interface TreesAdoptedProps {
+  data: any;
+  setViewport: any;
+  state: any;
+  adoptedTrees: any;
+}
+const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
+  const { data, setViewport } = p;
   const [unadopting, setUnadopting] = useState(false);
   const { user, getTokenSilently } = useAuth0();
 
   const handleClick = async info => {
-    Store.setState({ selectedTree: info });
+    store.setState({ selectedTree: info });
     const coordinates = [parseFloat(info.lat), parseFloat(info.lng)];
     setViewport(coordinates);
   };
 
-  const handleClickUnadopt = id => {
-    setUnadopting(id);
-    unadoptTree(id);
-  };
-
-  const unadoptTree = async id => {
+  // FIXME: Duplicate code appears also in
+  // TreesAdopted
+  // ButtonAdopted
+  // all three have a little bit different code
+  const unadoptTree = async (id: string) => {
     try {
-      Store.setState({ selectedTreeState: 'ADOPT' });
+      store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
-      const header = {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      };
+      // const header = {
+      //   headers: {
+      //     Authorization: 'Bearer ' + token,
+      //   },
+      // };
 
       const urlUnadopt = createAPIUrl(
-        state,
-        `/private/unadopt-tree?tree_id=${id}&uuid=${user.sub}`
+        store.getState(),
+        // `/private/unadopt-tree?tree_id=${id}&uuid=${user.sub}`
+        `/delete?tree_id=${id}&uuid=${user.sub}`
       );
 
       const urlAdoptedTrees = createAPIUrl(
-        Store.getState(),
-        `/private/get-adopted-trees?uuid=${user.sub}`
+        store.getState(),
+        // `/private/get-adopted-trees?uuid=${user.sub}`
+        `/get?queryType=adopted&uuid=${user.sub}`
       );
 
-      await fetchAPI(urlUnadopt, header);
+      await requests(urlUnadopt, {
+        token,
+        override: {
+          method: 'DELETE',
+          body: JSON.stringify({
+            tree_id: id,
+            uuid: user.sub,
+            queryType: 'unadopt',
+          }),
+        },
+      });
 
-      const resAdoptedTrees = await fetchAPI(urlAdoptedTrees, header);
-
-      Store.setState({
+      const resAdoptedTrees = await requests(urlAdoptedTrees, { token });
+      store.setState({
         selectedTreeState: 'FETCHED',
-        //@ts-ignore
         adoptedTrees: resAdoptedTrees.data,
       });
       setUnadopting(false);
     } catch (error) {
       console.error(error);
+      throw error;
     }
+  };
+
+  const handleClickUnadopt = (id: string) => {
+    setUnadopting(true);
+    unadoptTree(id);
   };
 
   if (data.length === 0) {
@@ -105,9 +126,9 @@ const TreesAdopted = p => {
   } else {
     return (
       <WrapperOuter>
-        {data.map((info, i) => {
+        {data.map(info => {
           return (
-            <WrapperRow key={i}>
+            <WrapperRow key={info.id}>
               <Title onClick={() => handleClick(info)}>
                 {info.id === unadopting ? 'Entferne Baum ...' : info.artdtsch}
               </Title>
@@ -122,7 +143,7 @@ const TreesAdopted = p => {
   }
 };
 
-export default connect(
+export default connect<TreesAdoptedProps, any, any, any>(
   state => ({
     state: state,
     adoptedTrees: state.adoptedTrees,

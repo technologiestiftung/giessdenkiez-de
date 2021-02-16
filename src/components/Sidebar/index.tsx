@@ -4,7 +4,6 @@ import { Route, withRouter, Switch } from 'react-router-dom';
 
 import SidebarAbout from './SidebarAbout/';
 import SidebarSearch from './SidebarSearch/';
-import SidebarAdopted from './SidebarAdopted/';
 import SidebarProfile from './SidebarProfile/';
 import SidebarClose from './SidebarClose';
 
@@ -14,7 +13,8 @@ interface StyledProps {
 const SidebarWrapper = styled.div<StyledProps>`
   z-index: 3;
   position: absolute;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   display: block;
   transform: ${props =>
     props.isVisible
@@ -38,25 +38,24 @@ const SidebarContent = styled.div`
   padding: 0px 15px;
 `;
 
-// TODO: Review Prevent passing of children as props (react/no-children-prop)
-// https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-children-prop.md
-const Sidebar = p => {
+const Sidebar: React.FC = () => {
   return (
     <Route
-      path={['/about', '/search', '/adopted', '/profile', '/selected']}
-      children={({ match }) => (
-        <SidebarWrapper isVisible={match}>
-          <SidebarClose />
-          <SidebarContent>
-            <Switch>
-              <Route path='/about' component={SidebarAbout} />
-              <Route path='/search' component={SidebarSearch} />
-              <Route path='/adopted' component={SidebarAdopted} />
-              <Route path='/profile' component={SidebarProfile} />
-            </Switch>
-          </SidebarContent>
-        </SidebarWrapper>
-      )}
+      path={['/about', '/search', '/profile']}
+      render={({ match }) => {
+        return (
+          <SidebarWrapper isVisible={match}>
+            <SidebarClose />
+            <SidebarContent>
+              <Switch>
+                <Route path='/about' component={SidebarAbout} />
+                <Route path='/search' component={SidebarSearch} />
+                <Route path='/profile' component={SidebarProfile} />
+              </Switch>
+            </SidebarContent>
+          </SidebarWrapper>
+        );
+      }}
     />
   );
 };
