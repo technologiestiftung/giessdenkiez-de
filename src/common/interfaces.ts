@@ -1,3 +1,5 @@
+import { easeCubic } from 'd3';
+import ViewportFlyToInterpolator from 'react-map-gl/src/utils/transition/viewport-fly-to-interpolator';
 import { Store } from 'unistore';
 import { RadolanDays, TreeLastWateredType } from './types';
 
@@ -27,6 +29,19 @@ export interface SelectedTreeType {
   lat: string;
   lng: string;
   id: string;
+}
+
+export interface ViewportType {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  maxZoom: number;
+  transitionDuration: number;
+  transitionEasing: typeof easeCubic;
+  transitionInterpolator: ViewportFlyToInterpolator;
+  minZoom: number;
+  pitch: number;
+  bearing: number;
 }
 
 export interface StoreProps {
@@ -76,15 +91,7 @@ export interface StoreProps {
   isTreeMapLoading: boolean;
   AppState: string;
   hoveredObject: boolean;
-  viewport: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-    maxZoom: number;
-    minZoom: number;
-    pitch: number;
-    bearing: number;
-  };
+  viewport: ViewportType;
 }
 
 export interface IsTreeAdoptedProps {

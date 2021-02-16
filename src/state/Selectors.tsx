@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
 export const wateredTreesResponse = state => state.wateredTrees;
-export const treeLastWateredSelector = state => state.wateredTrees;
 export const wateredTreesStatusSelector = state => state;
+const treeLastWateredSelector = state => state.wateredTrees;
 
 export const litersSpendSelector = createSelector(
   [treeLastWateredSelector],
@@ -21,9 +21,9 @@ export const litersSpendSelector = createSelector(
 
 export const wateredTreesSelector = createSelector(
   [wateredTreesResponse],
-  data => {
+  (data: string[]): Record<string, string> | null => {
     if (data) {
-      let obj = {};
+      const obj = {};
       data.forEach(id => {
         obj[id] = { included: true };
       });

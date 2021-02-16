@@ -11,11 +11,25 @@ interface TreeLastWateredResponseType {
   data: TreeLastWateredType | undefined;
 }
 
+export type SetDetailRouteWithListPathType = (treeId: string) => void;
+
+export type SetViewportType = (
+  payload: [number, number]
+) => { viewport: StoreProps['viewport'] };
+
+export type SetViewType = (
+  payload: StoreProps['viewport']
+) => {
+  viewport: StoreProps['viewport'];
+};
+
 interface SelectedTreeResponseType {
   data: SelectedTreeType[];
 }
 
-export const loadTrees = (store: Store<StoreProps>) => async () => {
+export const loadTrees = (
+  store: Store<StoreProps>
+) => async (): Promise<void> => {
   if (isMobile) {
     store.setState({
       data: {
@@ -38,13 +52,18 @@ export const loadTrees = (store: Store<StoreProps>) => async () => {
   }
 };
 
-export const setAgeRange = (_state, payload) => {
+export const setAgeRange = (
+  _state: StoreProps,
+  payload: StoreProps['ageRange']
+): {
+  ageRange: StoreProps['ageRange'];
+} => {
   return {
     ageRange: payload,
   };
 };
 
-export const loadCommunityData = (store: Store<StoreProps>) => () => {
+export const loadCommunityData = (store: Store<StoreProps>) => (): void => {
   const fetchCommunityDataUrl = createAPIUrl(
     store.getState(),
     `/get?queryType=wateredandadopted`
@@ -78,7 +97,9 @@ export const loadCommunityData = (store: Store<StoreProps>) => () => {
     .catch(console.error);
 };
 
-export const loadData = (store: Store<StoreProps>) => async () => {
+export const loadData = (
+  store: Store<StoreProps>
+) => async (): Promise<void> => {
   try {
     store.setState({ isTreeDataLoading: true });
     // let geojson = [];
@@ -96,19 +117,34 @@ export const loadData = (store: Store<StoreProps>) => async () => {
   }
 };
 
-export const setAppState = (_state, payload) => {
+export function setAppState<State>(
+  _state: StoreProps,
+  payload: State
+): {
+  AppState: State;
+} {
   return {
     AppState: payload,
   };
-};
+}
 
-export const setDataView = (_state, payload) => {
+export function setDataView(
+  _state: StoreProps,
+  payload: StoreProps['dataView']
+): {
+  dataView: StoreProps['dataView'];
+} {
   return {
     dataView: payload,
   };
-};
+}
 
-function setViewport(_state, payload) {
+const setViewport = (
+  _state: StoreProps,
+  payload: [number, number]
+): {
+  viewport: StoreProps['viewport'];
+} => {
   // TODO: lat long are reversed in the database
   // that is why we need to switch them here.
   return {
@@ -125,15 +161,24 @@ function setViewport(_state, payload) {
       bearing: 0,
     },
   };
-}
+};
 
-function setView(_state, payload) {
+const setView = (
+  _state: StoreProps,
+  payload: StoreProps['viewport']
+): {
+  viewport: StoreProps['viewport'];
+} => {
   return {
     viewport: payload,
   };
-}
+};
 
-export const getWateredTrees = Store => async () => {
+export const getWateredTrees = (
+  Store: Store<StoreProps>
+) => async (): Promise<void | {
+  wateredTrees: StoreProps['wateredTrees'];
+}> => {
   try {
     Store.setState({ isTreeDataLoading: true });
     const url = createAPIUrl(Store.getState(), '/get?queryType=watered');
@@ -209,18 +254,21 @@ export const getTree = (Store: Store<StoreProps>) => async (
   }
 };
 
-export const removeSelectedTree = () => {
+export const removeSelectedTree = (): {
+  selectedTree: boolean;
+  selectedTreeState: boolean;
+} => {
   return {
     selectedTree: false,
     selectedTreeState: false,
   };
 };
 
-export const getTreeByAge = Store => async (
-  state: any,
+export const getTreeByAge = (Store: Store<StoreProps>) => async (
+  state: StoreProps,
   start: string,
   end: string
-) => {
+): Promise<void> => {
   try {
     Store.setState({ selectedTreeState: 'LOADING' });
     const url = createAPIUrl(
@@ -232,21 +280,24 @@ export const getTreeByAge = Store => async (
 
     Store.setState({
       selectedTreeState: 'LOADED',
-      selectedTrees: res.data,
+      selectedTree: res.data,
     });
   } catch (error) {
     console.error(error);
   }
 };
 
-export const toggleOverlay: (_state: any, payload: any) => { overlay: any } = (
-  _state,
-  payload
-) => ({
+export const toggleOverlay: (
+  _state: StoreProps,
+  payload: StoreProps['overlay']
+) => { overlay: StoreProps['overlay'] } = (_state, payload) => ({
   overlay: payload,
 });
 
-const setDetailRouteWithListPath = (_state, treeId) => {
+const setDetailRouteWithListPath = (
+  _state: StoreProps,
+  treeId: string
+): void => {
   const nextLocation = `/search?location=${treeId}`;
   history.push(nextLocation);
 };
@@ -261,7 +312,6 @@ export default (Store: Store<StoreProps>) => ({
   setDetailRouteWithListPath,
   setViewport,
   setView,
-  // setView,
   loadTrees: loadTrees(Store),
   removeSelectedTree,
   setAppState,
