@@ -10,7 +10,6 @@ import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import {
-  // fetchAPI,
   interpolateColor,
   hexToRgb,
   // checkGeolocationFeature,
@@ -323,30 +322,26 @@ class DeckGLMap extends React.Component {
     }
   }
 
-  async selectTree(treeId: string) {
+  async selectTree(treeId: string): Promise<void> {
     const { setViewport } = this.props;
     store.setState({ selectedTreeState: 'LOADING' });
     const { getTree } = Actions(store);
 
     try {
       const { treeLastWatered, selectedTree } = await getTree(treeId);
-      const commonState = {
-        treeLastWatered,
-        selectedTreeState: 'LOADED' as const,
-      };
-      store.setState(
-        selectedTree
-          ? { ...commonState, selectedTree }
-          : { ...commonState, highlightedObject: undefined }
-      );
+      store.setState({ treeLastWatered });
+      store.setState({ selectedTreeState: 'LOADED' });
+      store.setState({ selectedTree });
+      store.setState({
+        highlightedObject:
+          selectedTree && selectedTree.id ? selectedTree.id : undefined,
+      });
 
-      if (!selectedTree) return { treeLastWatered };
+      if (!selectedTree) return;
 
       setViewport([parseFloat(selectedTree.lat), parseFloat(selectedTree.lng)]);
-      return { treeLastWatered, selectedTree };
     } catch (error) {
       console.error(error);
-      return Promise.reject(error);
     }
   }
 
@@ -629,22 +624,24 @@ class DeckGLMap extends React.Component {
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 onLoad={this._onload.bind(this)}
               >
-              {!overlay && (<ControlWrapper isNavOpen={isNavOpen}>
-                  <GeolocateControl
-                    positionOptions={{ enableHighAccuracy: true }}
-                    trackUserLocation={isMobile ? true : false}
-                    showUserLocation={true}
-                    onGeolocate={posOptions => {
-                      setViewport([
-                        posOptions.coords.longitude,
-                        posOptions.coords.latitude,
-                      ]);
-                    }}
-                  />
-                  <NavigationControl
-                    onViewStateChange={e => setView(e.viewState)}
-                  />
-                </ControlWrapper>)}
+                {!overlay && (
+                  <ControlWrapper isNavOpen={isNavOpen}>
+                    <GeolocateControl
+                      positionOptions={{ enableHighAccuracy: true }}
+                      trackUserLocation={isMobile ? true : false}
+                      showUserLocation={true}
+                      onGeolocate={posOptions => {
+                        setViewport([
+                          posOptions.coords.longitude,
+                          posOptions.coords.latitude,
+                        ]);
+                      }}
+                    />
+                    <NavigationControl
+                      onViewStateChange={e => setView(e.viewState)}
+                    />
+                  </ControlWrapper>
+                )}
               </StaticMap>
             )}
           </DeckGL>

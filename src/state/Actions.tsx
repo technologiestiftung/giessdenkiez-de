@@ -4,7 +4,17 @@ import history from '../history';
 import { createAPIUrl, createGeojson, requests } from '../utils';
 import { FlyToInterpolator } from 'react-map-gl';
 import { Store } from 'unistore';
-import { StoreProps, Generic } from '../common/interfaces';
+import { SelectedTreeType, StoreProps, Generic } from '../common/interfaces';
+import { TreeLastWateredType } from '../common/types';
+
+interface TreeLastWateredResponseType {
+  data: TreeLastWateredType | undefined;
+}
+
+interface SelectedTreeResponseType {
+  data: SelectedTreeType[];
+}
+
 export const loadTrees = (store: Store<StoreProps>) => async () => {
   if (isMobile) {
     store.setState({
@@ -142,17 +152,6 @@ export const getWateredTrees = Store => async () => {
 
 const calcuateRadolan = (radolanDays: number): number => radolanDays / 10;
 
-type SelectedTreeResponseType = {
-  data: Array<{
-    radolan_days: number[];
-    radolan_sum: number;
-    lat: string;
-    lng: string;
-    id: string;
-    [key: string]: any;
-  }>;
-};
-
 const parseSelectedTreeResponse = (
   selectedTreeResponse: SelectedTreeResponseType
 ) => {
@@ -165,14 +164,15 @@ const parseSelectedTreeResponse = (
   };
 };
 
-const parseTreeLastWateredResponse = (treeLastWateredResponse?: boolean) =>
-  Boolean(treeLastWateredResponse);
+const parseTreeLastWateredResponse = (
+  treeLastWateredResponse: TreeLastWateredResponseType
+): TreeLastWateredType => treeLastWateredResponse.data || [];
 
 export const getTree = (Store: Store<StoreProps>) => async (
   id: string
 ): Promise<{
-  treeLastWatered: boolean;
-  selectedTree?: { [key: string]: any };
+  treeLastWatered?: TreeLastWateredType;
+  selectedTree?: SelectedTreeType;
 }> => {
   try {
     const urlSelectedTree = createAPIUrl(
@@ -185,10 +185,10 @@ export const getTree = (Store: Store<StoreProps>) => async (
     );
 
     const [resSelectedTree, resLastWatered] = await Promise.all([
-      requests(urlSelectedTree),
-      requests(urlLastWatered),
+      requests<SelectedTreeResponseType>(urlSelectedTree),
+      requests<TreeLastWateredResponseType>(urlLastWatered),
     ]);
-    const treeLastWatered = parseTreeLastWateredResponse(!!resLastWatered);
+    const treeLastWatered = parseTreeLastWateredResponse(resLastWatered);
 
     if (resSelectedTree.data.length > 0) {
       return {

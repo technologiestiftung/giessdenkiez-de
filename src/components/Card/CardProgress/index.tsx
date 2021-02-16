@@ -57,10 +57,11 @@ const CardProgress = p => {
       id: 'liters',
     },
   ];
+
   return (
     <Flex>
-      {progressItems.map((item, i) => (
-        <FlexOuter key={i}>
+      {progressItems.map(item => (
+        <FlexOuter key={item.id}>
           <Icon iconType={item.id === 'timesSpend' ? 'trees' : 'water'} />
           <FlexColumn>
             <CardHeadline>{item.id === 'liters' ? liters : times}</CardHeadline>

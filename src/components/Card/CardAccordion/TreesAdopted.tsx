@@ -63,7 +63,6 @@ const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
   };
 
   // FIXME: Duplicate code appears also in
-  // SidebarAdopted
   // TreesAdopted
   // ButtonAdopted
   // all three have a little bit different code
@@ -94,7 +93,6 @@ const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
         override: {
           method: 'DELETE',
           body: JSON.stringify({
-            // eslint-disable-next-line @typescript-eslint/camelcase
             tree_id: id,
             uuid: user.sub,
             queryType: 'unadopt',
@@ -128,9 +126,9 @@ const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
   } else {
     return (
       <WrapperOuter>
-        {data.map((info, i) => {
+        {data.map(info => {
           return (
-            <WrapperRow key={i}>
+            <WrapperRow key={info.id}>
               <Title onClick={() => handleClick(info)}>
                 {info.id === unadopting ? 'Entferne Baum ...' : info.artdtsch}
               </Title>
