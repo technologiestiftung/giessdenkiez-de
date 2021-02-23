@@ -1,3 +1,5 @@
+import { WateredDayType } from './interfaces';
+
 export type ContextProps = {
   isAuthenticated: boolean;
   user: any;
@@ -11,3 +13,7 @@ export type ContextProps = {
   getTokenWithPopup: any;
   logout: any;
 };
+
+export type RadolanDays = number[];
+
+export type TreeLastWateredType = WateredDayType[];

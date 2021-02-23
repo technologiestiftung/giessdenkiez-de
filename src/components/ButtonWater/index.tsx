@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-// import { connect } from 'unistore/react';
-import history from '../../history';
 import { loadCommunityData } from '../../state/Actions';
 import { useStoreState } from '../../state/unistore-hooks';
 import store from '../../state/Store';
@@ -44,7 +42,6 @@ const StyledLogin = styled(Login)`
 const ButtonWater = () => {
   // const {
   const { selectedTree } = useStoreState('selectedTree');
-  const { toggleOverlay } = useStoreState('toggleOverlay');
   const { selectedTreeState } = useStoreState('selectedTreeState');
   const { user: userdata } = useStoreState('user');
   const { treeAdopted } = useStoreState('treeAdopted');
@@ -85,11 +82,6 @@ const ButtonWater = () => {
     }
   };
 
-  const handleClick = () => {
-    history.push('/');
-    toggleOverlay(true);
-  };
-
   const waterTree = async (id, amount, username) => {
     try {
       store.setState({ selectedTreeState: 'WATERING' });
@@ -99,19 +91,22 @@ const ButtonWater = () => {
         `/post?id=${id}&uuid=${user.sub}&amount=${amount}&username=${username}&comment=URL_QUERY_NOT_NEEDED_USE_BODY`
       );
 
-      await requests<{ method: 'POST'; body: string }>(urlPostWatering, {
-        token,
-        override: {
-          method: 'POST',
-          body: JSON.stringify({
-            tree_id: id,
-            amount,
-            uuid: user.sub,
-            username,
-            queryType: 'water',
-          }),
-        },
-      });
+      await requests<undefined, { method: 'POST'; body: string }>(
+        urlPostWatering,
+        {
+          token,
+          override: {
+            method: 'POST',
+            body: JSON.stringify({
+              tree_id: id,
+              amount,
+              uuid: user.sub,
+              username,
+              queryType: 'water',
+            }),
+          },
+        }
+      );
       const geturl = createAPIUrl(
         store.getState(),
         `/get?id=${id}&queryType=byid`
@@ -256,7 +251,9 @@ const ButtonWater = () => {
             {waterGroup === 'watering' && (
               <ButtonWaterGroup id={selectedTree.id} toggle={setWaterAmount} />
             )}
-            <StyledCardDescription onClick={() => handleClick()}>
+            <StyledCardDescription
+              onClick={() => store.setState({ overlay: true })}
+            >
               Wie kann ich mitmachen?
             </StyledCardDescription>
           </Fragment>
@@ -275,7 +272,9 @@ const ButtonWater = () => {
     return (
       <BtnContainer>
         <StyledLogin width='-webkit-fill-available' />
-        <StyledCardDescription onClick={() => handleClick()}>
+        <StyledCardDescription
+          onClick={() => store.setState({ overlay: true })}
+        >
           Wie kann ich mitmachen?
         </StyledCardDescription>
       </BtnContainer>

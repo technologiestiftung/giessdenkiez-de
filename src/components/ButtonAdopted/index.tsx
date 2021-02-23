@@ -82,20 +82,15 @@ const ButtonAdopted = p => {
           method: 'DELETE',
           body: JSON.stringify({
             uuid: user.user_id,
-            // eslint-disable-next-line @typescript-eslint/camelcase
             tree_id: id,
             queryType: 'unadopt',
           }),
         },
       });
 
-      const jsonAdoptedTrees = await requests(
-        urlAdoptedTrees,
-        // `/get?queryType=adopted&uuid=${user.user_id}`,
-        {
-          token,
-        }
-      );
+      const jsonAdoptedTrees = await requests(urlAdoptedTrees, {
+        token,
+      });
       store.setState({
         selectedTreeState: 'FETCHED',
         adoptedTrees: jsonAdoptedTrees.data,
@@ -106,7 +101,6 @@ const ButtonAdopted = p => {
         uuid: user.user_id,
         token,
         isAuthenticated,
-        state,
         store,
       });
     } catch (error) {

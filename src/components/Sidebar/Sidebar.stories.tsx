@@ -44,7 +44,3 @@ export const ProfileLoggedIn = Template.bind({});
 ProfileLoggedIn.args = {
   match: 'profile',
 };
-export const Adopted = Template.bind({});
-Adopted.args = {
-  match: 'adopted',
-};

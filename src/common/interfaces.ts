@@ -1,7 +1,32 @@
 import { Store } from 'unistore';
+import { RadolanDays, TreeLastWateredType } from './types';
 
 export interface Generic {
   [key: string]: any;
+}
+
+export interface DailyWaterAmountsType {
+  id: string;
+  timestamp: Date;
+  rainValue: number;
+  wateringValue: number;
+}
+
+export interface WateredDayType {
+  tree_id: string;
+  time: string;
+  uuid: string;
+  amount: string;
+  timestamp: string;
+  username: string;
+}
+
+export interface SelectedTreeType {
+  radolan_days: RadolanDays;
+  radolan_sum: number;
+  lat: string;
+  lng: string;
+  id: string;
 }
 
 export interface StoreProps {
@@ -20,7 +45,7 @@ export interface StoreProps {
   treeAdopted?: boolean;
   isNavOpen: boolean;
   pumpsVisible: boolean;
-  highlightedObject: boolean;
+  highlightedObject?: string;
   user: boolean;
   rainVisible: boolean;
   rainGeojson: Generic | null;
@@ -35,8 +60,8 @@ export interface StoreProps {
     prod: string | undefined;
   };
   tabActive: string;
-  selectedTree?: Generic;
-  treeLastWatered: boolean;
+  selectedTree: SelectedTreeType | undefined;
+  treeLastWatered: TreeLastWateredType | undefined;
   selectedTreeState?:
     | 'LOADED'
     | 'LOADING'
@@ -47,7 +72,8 @@ export interface StoreProps {
     | 'NOT_FOUND'
     | 'WATERED';
   overlay: boolean;
-  isLoading: boolean;
+  isTreeDataLoading: boolean;
+  isTreeMapLoading: boolean;
   AppState: string;
   hoveredObject: boolean;
   viewport: {
@@ -68,7 +94,6 @@ export interface IsTreeAdoptedProps {
   store: Store<StoreProps>;
   isAuthenticated?: boolean;
   signal?: AbortSignal;
-  // isMounted: boolean;
 }
 
 export interface Tree {

@@ -1,5 +1,4 @@
 import { scaleLinear, interpolateViridis } from 'd3';
-import axios from 'axios';
 import { IsTreeAdoptedProps, Generic } from '../common/interfaces';
 
 export function createAPIUrl(state: any, entrypoint: string): string {
@@ -8,29 +7,31 @@ export function createAPIUrl(state: any, entrypoint: string): string {
     : `${state.endpoints.prod}${entrypoint}`;
 }
 
-/**
- * Deliberately does not hande errors. You will have to handle them in the calling function
- */
-export async function requests<T>(
+export async function requests<
+  ReturnType = Generic,
+  OptionOverrides = undefined
+>(
   url: string,
-  opts?: { token?: string; override?: T }
-): Promise<Generic> {
-  // try {
+  opts?: { token?: string; override?: OptionOverrides }
+): Promise<ReturnType> {
   const headers = new Headers({ 'content-type': 'application/json' });
   if (opts?.token) {
     headers.set('authorization', `Bearer ${opts.token}`);
   }
-  const response = await fetch(url, {
-    headers,
-    ...opts?.override,
-  });
-  if (!response.ok) {
-    const msg = await response.text();
-    console.error(msg);
-    return new Error(msg);
+  try {
+    const response = await fetch(url, {
+      headers,
+      ...opts?.override,
+    });
+    if (!response.ok) {
+      const msg = await response.text();
+      throw new Error(msg);
+    }
+    const json = await response.json();
+    return json;
+  } catch (err) {
+    throw new Error(err);
   }
-  const json = await response.json();
-  return json;
 }
 
 export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
@@ -42,8 +43,14 @@ export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
         `/get?queryType=istreeadopted&uuid=${uuid}&id=${id}`
       );
 
-      const json = await requests(url, { token, override: { signal } });
-      store.setState({ treeAdopted: json.data });
+      const json = await requests<
+        { data: IsTreeAdoptedProps },
+        { signal: AbortSignal | undefined }
+      >(url, {
+        token,
+        override: { signal },
+      });
+      store.setState({ treeAdopted: Boolean(json.data) });
     }
   } catch (error) {
     console.log(error);
@@ -128,22 +135,6 @@ export async function waitFor(
  * @deprecated
  *
  */
-export async function fetchAPI(url: string, config = {}) {
-  const res = axios
-    .get(url, config)
-    .then(r => {
-      return r;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  const result = await res;
-  if (result === undefined) {
-    throw new Error('result of fetch request is undefined');
-  }
-
-  return result;
-}
 
 export const STATI = {
   STATUS_IDLE: 'IDLE',
@@ -304,6 +295,5 @@ export default {
   createCSVJson,
   createAPIUrl,
   getCookieValue,
-  fetchAPI,
   flatten,
 };

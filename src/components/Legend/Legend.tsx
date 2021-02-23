@@ -286,17 +286,20 @@ const Legend: React.FC = () => {
       {legendExpanded === true && pumpsVisible === false && (
         <UnstyledFlex>
           {treesVisible === true &&
-            legendArray.map((item, i) => (
-              <React.Fragment key={i}>
-                <ItemContainer>
-                  <LegendDot color={interpolateColor(item.value)} />
-                  <ItemLabel>{item.label}</ItemLabel>
-                </ItemContainer>
-              </React.Fragment>
-            ))}
+            legendArray.map(item => {
+              return (
+                <React.Fragment key={item.label}>
+                  <ItemContainer>
+                    <LegendDot color={interpolateColor(item.value)} />
+                    <ItemLabel>{item.label}</ItemLabel>
+                  </ItemContainer>
+                </React.Fragment>
+              );
+            })}
+
           {rainVisible === true &&
-            legendArray.map((item, i) => (
-              <React.Fragment key={i}>
+            legendArray.map(item => (
+              <React.Fragment key={item.label}>
                 <ItemContainer>
                   <LegendRect gradient={interpolateColor(item.value)} />
                   <ItemLabel>{item.label}</ItemLabel>
