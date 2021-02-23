@@ -79,11 +79,11 @@ class DeckGLMap extends React.Component {
 
     this.state = {
       isHovered: false,
-      hoverObjectPointer: [],
       hoverObjectMessageAddr: '',
       hoverObjectMessageStatus: '',
       hoverObjectMessageDate: '',
       hoverObjectMessageStyle: '',
+      hoverObjectCoordinates: [],
       hoveredObject: null,
       data: null,
       included: null,
@@ -294,7 +294,9 @@ class DeckGLMap extends React.Component {
             this.setState({
               hoverObjectMessageStyle: info.object.properties['pump:style'],
             });
-            this.setState({ hoverObjectPointer: [info.x, info.y] });
+            this.setState({
+              hoverObjectCoordinates: info.object.geometry.coordinates,
+            });
           },
         }),
       ];
@@ -628,33 +630,35 @@ class DeckGLMap extends React.Component {
                 onLoad={this._onload.bind(this)}
               >
                 {!overlay && (
-                  <ControlWrapper isNavOpen={isNavOpen}>
-                    <GeolocateControl
-                      positionOptions={{ enableHighAccuracy: true }}
-                      trackUserLocation={isMobile ? true : false}
-                      showUserLocation={true}
-                      onGeolocate={posOptions => {
-                        setViewport([
-                          posOptions.coords.longitude,
-                          posOptions.coords.latitude,
-                        ]);
-                      }}
-                    />
-                    <NavigationControl
-                      onViewStateChange={e => setView(e.viewState)}
-                    />
+                  <>
+                    <ControlWrapper isNavOpen={isNavOpen}>
+                      <GeolocateControl
+                        positionOptions={{ enableHighAccuracy: true }}
+                        trackUserLocation={isMobile ? true : false}
+                        showUserLocation={true}
+                        onGeolocate={posOptions => {
+                          setViewport([
+                            posOptions.coords.longitude,
+                            posOptions.coords.latitude,
+                          ]);
+                        }}
+                      />
+                      <NavigationControl
+                        onViewStateChange={e => setView(e.viewState)}
+                      />
+                    </ControlWrapper>
                     {isMobile === false &&
                       this.state.isHovered === true &&
-                      this.state.hoverObjectPointer.length === 2 && (
+                      this.state.hoverObjectCoordinates.length === 2 && (
                         <HoverObject
                           message_addr={this.state.hoverObjectMessageAddr}
                           message_status={this.state.hoverObjectMessageStatus}
                           message_date={this.state.hoverObjectMessageDate}
                           message_style={this.state.hoverObjectMessageStyle}
-                          pointer={this.state.hoverObjectPointer}
+                          coordinates={this.state.hoverObjectCoordinates}
                         ></HoverObject>
-                    )}
-                  </ControlWrapper>
+                      )}
+                  </>
                 )}
               </StaticMap>
             )}
