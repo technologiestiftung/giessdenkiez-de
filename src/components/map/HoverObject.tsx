@@ -26,8 +26,10 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
   message_status,
   message_date,
   message_style,
-  coordinates: [longitude, latitude],
+  coordinates,
 }) => {
+  const [longitude, latitude] = coordinates;
+
   return (
     <Popup
       latitude={latitude}
