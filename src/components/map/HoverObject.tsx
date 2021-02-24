@@ -1,6 +1,9 @@
 import React from 'react';
 import { Popup } from 'react-map-gl';
 import styled from 'styled-components';
+import CardWrapper from './../Card/CardWrapper';
+import CardHeadline from './../Card/CardHeadline';
+import CardProperty from './../Card/CardProperty';
 
 export interface HoverObjectProps {
   message_addr: string;
@@ -9,16 +12,29 @@ export interface HoverObjectProps {
   message_style: string;
   coordinates: number[];
 }
+
+// TODO: check why this is exported and where it's used
 export interface StyledProps {
   pointer: number[];
   width: number;
   height: number;
 }
 
-const StyledSpan = styled.span`
-  padding: 1rem 1rem 0.2rem 1rem;
-  margin: 2rem auto;
-  color: ${props => props.theme.colorTextLight};
+const StyledLocation = styled.span`
+  padding-bottom: ${({ theme }) => theme.spacingS};
+  margin-bottom: ${({ theme }) => theme.spacingS};
+  color: ${({ theme }) => theme.colorTextLight};
+  border-bottom: 1px solid ${({ theme }) => theme.colorGreyLight};
+`;
+
+const ModifiedCardHeadline = styled(CardHeadline)`
+  margin-bottom: 2px;
+`;
+
+const ModifiedCardWrapper = styled(CardWrapper)`
+  width: 340px;
+  padding ${({ theme }) => theme.spacingS};
+  margin-bottom: 0;
 `;
 
 export const HoverObject: React.FC<HoverObjectProps> = ({
@@ -36,29 +52,14 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
       longitude={longitude}
       closeButton={false}
       closeOnClick={false}
-      offsetTop={-20}
     >
-      <div>
-        <StyledSpan>
-          <b>Öffentliche Straßenpumpe</b>
-        </StyledSpan>
-        <br></br>
-        <StyledSpan>
-          <b>Status:</b> {message_status}
-        </StyledSpan>
-        <br></br>
-        <StyledSpan>
-          <b>Standort:</b> {message_addr}
-        </StyledSpan>
-        <br></br>
-        <StyledSpan>
-          <b>Pumpentyp:</b> {message_style}
-        </StyledSpan>
-        <br></br>
-        <StyledSpan>
-          <b>Letzter Status-Check:</b> {message_date}
-        </StyledSpan>
-      </div>
+      <ModifiedCardWrapper>
+        <ModifiedCardHeadline>Öffentliche Straßenpumpe</ModifiedCardHeadline>
+        <StyledLocation>{message_addr}</StyledLocation>
+        <CardProperty name='Status' value={message_status} />
+        <CardProperty name='Letzter Check' value={message_date} />
+        <CardProperty name='Pumpentyp' value={message_style} />
+      </ModifiedCardWrapper>
     </Popup>
   );
 };
