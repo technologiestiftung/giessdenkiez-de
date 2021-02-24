@@ -34,6 +34,10 @@ const FlexColumn = styled.div`
   justify-content: center;
 `;
 
+const ModifiedCardHeadline = styled(CardHeadline)`
+  font-size: ${p => p.theme.fontSizeLl};
+`;
+
 const CardProgress = p => {
   const { data } = p;
   const [liters, setLiters] = useState(0);
@@ -64,7 +68,9 @@ const CardProgress = p => {
         <FlexOuter key={item.id}>
           <Icon iconType={item.id === 'timesSpend' ? 'trees' : 'water'} />
           <FlexColumn>
-            <CardHeadline>{item.id === 'liters' ? liters : times}</CardHeadline>
+            <ModifiedCardHeadline>
+              {item.id === 'liters' ? liters : times}
+            </ModifiedCardHeadline>
             <StyledCardDescription>{item.label}</StyledCardDescription>
           </FlexColumn>
         </FlexOuter>

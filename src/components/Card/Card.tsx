@@ -68,6 +68,10 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
+const ModifiedCardHeadline = styled(CardHeadline)`
+  font-size: ${p => p.theme.fontSizeLl};
+`;
+
 const Card: React.FC<{ data: Tree }> = ({ data }) => {
   const { treeLastWatered } = useStoreState('treeLastWatered');
 
@@ -169,7 +173,7 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
           </CardAccordion>
         )}
         <RainContainer>
-          <CardHeadline>Wassermenge</CardHeadline>
+          <ModifiedCardHeadline>Wassermenge</ModifiedCardHeadline>
           <CardDescription>der letzten 30 Tage</CardDescription>
           <StackedBarChart />
         </RainContainer>

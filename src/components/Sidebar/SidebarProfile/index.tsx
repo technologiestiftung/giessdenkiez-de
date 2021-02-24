@@ -53,6 +53,10 @@ const FlexCol = styled.div`
   flex-direction: column;
 `;
 
+const ModifiedCardHeadline = styled(CardHeadline)`
+  font-size: ${p => p.theme.fontSizeLl};
+`;
+
 const SidebarProfile = () => {
   const { wateredByUser } = useStoreState('wateredByUser');
   const { adoptedTrees } = useStoreState('adoptedTrees');
@@ -190,7 +194,9 @@ const SidebarProfile = () => {
               {/* the user is autheticated and has trees and adopted trees */}
               {wateredByUser && adoptedTreesDetails && (
                 <Fragment>
-                  <CardHeadline>Dein Gießfortschritt</CardHeadline>
+                  <ModifiedCardHeadline>
+                    Dein Gießfortschritt
+                  </ModifiedCardHeadline>
                   <CardProgress data={wateredByUser} />
                   <CardAccordion
                     active={true}
