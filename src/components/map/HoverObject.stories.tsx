@@ -11,6 +11,9 @@ const Template: Story<HoverObjectProps> = args => <HoverObject {...args} />;
 
 export const HoverObjectStory = Template.bind({});
 HoverObjectStory.args = {
-  message: 'unbekannt',
-  pointer: [100, 100],
+  address: 'address',
+  status: 'status',
+  check_date: 'date',
+  style: 'style',
+  coordinates: [100, 100],
 };
