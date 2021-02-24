@@ -78,13 +78,8 @@ class DeckGLMap extends React.Component {
     // this.geoLocationAvailable = false;
 
     this.state = {
-      isHovered: false,
-      hoverObjectMessageAddr: '',
-      hoverObjectMessageStatus: '',
-      hoverObjectMessageDate: '',
-      hoverObjectMessageStyle: '',
-      hoverObjectCoordinates: [],
-      hoveredObject: null,
+      pumpIsHovered: false,
+      hoveredPump: null,
       data: null,
       included: null,
       cursor: 'grab',
@@ -278,24 +273,18 @@ class DeckGLMap extends React.Component {
           lineWidthMinPixels: 1.5,
           onHover: info => {
             if (info.object === undefined) {
-              this.setState({ isHovered: false });
+              this.setState({ pumpIsHovered: false });
               return;
             }
-            this.setState({ isHovered: true });
+            this.setState({ pumpIsHovered: true });
             this.setState({
-              hoverObjectMessageAddr: info.object.properties['addr:full'],
-            });
-            this.setState({
-              hoverObjectMessageDate: info.object.properties['check_date'],
-            });
-            this.setState({
-              hoverObjectMessageStatus: info.object.properties['pump:status'],
-            });
-            this.setState({
-              hoverObjectMessageStyle: info.object.properties['pump:style'],
-            });
-            this.setState({
-              hoverObjectCoordinates: info.object.geometry.coordinates,
+              hoveredPump: {
+                address: info.object.properties['addr:full'],
+                check_date: info.object.properties['check_date'],
+                status: info.object.properties['pump:status'],
+                style: info.object.properties['pump:style'],
+                coordinates: info.object.geometry.coordinates,
+              },
             });
           },
         }),
@@ -648,15 +637,9 @@ class DeckGLMap extends React.Component {
                       />
                     </ControlWrapper>
                     {isMobile === false &&
-                      this.state.isHovered === true &&
-                      this.state.hoverObjectCoordinates.length === 2 && (
-                        <HoverObject
-                          message_addr={this.state.hoverObjectMessageAddr}
-                          message_status={this.state.hoverObjectMessageStatus}
-                          message_date={this.state.hoverObjectMessageDate}
-                          message_style={this.state.hoverObjectMessageStyle}
-                          coordinates={this.state.hoverObjectCoordinates}
-                        ></HoverObject>
+                      this.state.pumpIsHovered &&
+                      this.state.hoveredPump && (
+                        <HoverObject {...this.state.hoveredPump} />
                       )}
                   </>
                 )}

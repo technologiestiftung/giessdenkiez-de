@@ -6,11 +6,11 @@ import CardHeadline from './../Card/CardHeadline';
 import CardProperty from './../Card/CardProperty';
 
 export interface HoverObjectProps {
-  message_addr: string;
-  message_status: string;
-  message_date: string;
-  message_style: string;
-  coordinates: number[];
+  address: string;
+  status: string;
+  check_date: string;
+  style: string;
+  coordinates: [number, number];
 }
 
 // TODO: check why this is exported and where it's used
@@ -38,10 +38,10 @@ const ModifiedCardWrapper = styled(CardWrapper)`
 `;
 
 export const HoverObject: React.FC<HoverObjectProps> = ({
-  message_addr,
-  message_status,
-  message_date,
-  message_style,
+  address,
+  check_date,
+  status,
+  style,
   coordinates,
 }) => {
   const [longitude, latitude] = coordinates;
@@ -56,10 +56,10 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
     >
       <ModifiedCardWrapper>
         <ModifiedCardHeadline>Öffentliche Straßenpumpe</ModifiedCardHeadline>
-        <StyledLocation>{message_addr}</StyledLocation>
-        <CardProperty name='Status' value={message_status} />
-        <CardProperty name='Letzter Check' value={message_date} />
-        <CardProperty name='Pumpentyp' value={message_style} />
+        <StyledLocation>{address}</StyledLocation>
+        <CardProperty name='Status' value={status} />
+        <CardProperty name='Letzter Check' value={check_date} />
+        <CardProperty name='Pumpentyp' value={style} />
       </ModifiedCardWrapper>
     </Popup>
   );
