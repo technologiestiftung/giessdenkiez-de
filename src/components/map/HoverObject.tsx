@@ -52,6 +52,7 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
       longitude={longitude}
       closeButton={false}
       closeOnClick={false}
+      sortByDepth={true}
     >
       <ModifiedCardWrapper>
         <ModifiedCardHeadline>Öffentliche Straßenpumpe</ModifiedCardHeadline>
