@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Pumps data generate step
-        uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@master
+        uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.2.2
         id: pumps
         with:
           outfile-path: "public/data/pumps.geojson"
