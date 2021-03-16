@@ -1,11 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useAuth0 } from '../../../utils/auth/auth0';
-// import Actions from '../../../state/Actions';
-// import { connect } from 'unistore/react';
-import history from '../../../history';
 import store from '../../../state/Store';
-import { useActions, useStoreState } from '../../../state/unistore-hooks';
+import { useStoreState } from '../../../state/unistore-hooks';
 
 import { createAPIUrl, requests } from '../../../utils';
 
@@ -21,7 +18,6 @@ import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
 import ButtonRound from '../../ButtonRound';
 import LoadingIcon from '../../LoadingIcon/';
 import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
-import Actions from '../../../state/Actions';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
@@ -53,7 +49,7 @@ const FlexCol = styled.div`
   flex-direction: column;
 `;
 
-const SidebarProfile = () => {
+const SidebarProfile: FC = () => {
   const { wateredByUser } = useStoreState('wateredByUser');
   const { adoptedTrees } = useStoreState('adoptedTrees');
   const { adoptedTreesDetails } = useStoreState('adoptedTreesDetails');
@@ -67,14 +63,9 @@ const SidebarProfile = () => {
     logout,
   } = useAuth0();
   const [isEmailVerifiyed, setIsEmailVerifiyed] = useState(false);
-  // useEffect(() => {
-  //   if (userdata === undefined && isAuthenticated === true) {
-  //     console.log('logout');
-  //     logout();
-  //   }
-  // }, []);
+
   /**
-   * Check weather the email of the user is verified
+   * Check whether the email of the user is verified
    */
   useEffect(() => {
     if (!user) return;
@@ -85,7 +76,6 @@ const SidebarProfile = () => {
     const fetchData = async () => {
       try {
         if (adoptedTrees) {
-          // const token = await getTokenSilently();
           const concatReducer = (acc, curr, currentIndex, array) => {
             if (currentIndex + 1 === array.length) {
               return acc + curr + '}';
@@ -97,7 +87,6 @@ const SidebarProfile = () => {
           const queryStr = adoptedTrees.reduce(concatReducer, '{');
           const urlAdoptedTreesDetails = createAPIUrl(
             store.getState(),
-            // `/private/get-adopted-trees-details?tree_ids=${queryStr}`
             `/get/?queryType=treesbyids&tree_ids=${queryStr}`
           );
           const res = await requests(urlAdoptedTreesDetails);
@@ -118,7 +107,7 @@ const SidebarProfile = () => {
     }
   }, [adoptedTrees]);
 
-  const handleDeleteClick = async event => {
+  const handleDeleteClick = async (event: React.MouseEvent<HTMLDivElement>) => {
     try {
       event.preventDefault();
       const promptRes = window.confirm(
@@ -158,14 +147,10 @@ const SidebarProfile = () => {
       </>
     );
   }
-  // Deep nested ternary operations
-  // should this resolved to if else states?
-  // or to
+
   return (
     <>
-      {/* <button onClick={() => {getUserDataFromManagementApi()}}>get user data from management api</button> */}
       <SidebarTitle>Profil</SidebarTitle>
-      {/* If the user is not authenticated give him the notice */}
       {!isAuthenticated ? (
         <FlexCol>
           <CardParagraph>
@@ -182,12 +167,10 @@ const SidebarProfile = () => {
         </FlexCol>
       ) : (
         <>
-          {/* okay we are aoutheticated but we don't have a email verification */}
           {!isEmailVerifiyed ? (
             <NonVerfiedMailCardParagraph />
           ) : (
             <>
-              {/* the user is autheticated and has trees and adopted trees */}
               {wateredByUser && adoptedTreesDetails && (
                 <Fragment>
                   <CardHeadline>Dein Gießfortschritt</CardHeadline>

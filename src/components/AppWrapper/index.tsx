@@ -11,16 +11,11 @@ import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
 import { removeOverlay } from '../../utils';
-import { StoreProps } from '../../common/interfaces';
 import store from '../../state/Store';
-
-type AppWrapperPropsType = Pick<
-  StoreProps,
-  'isTreeDataLoading' | 'isTreeMapLoading' | 'data' | 'overlay'
->;
+import { useStoreState } from '../../state/unistore-hooks';
 
 const AppWrapperDiv = styled.div`
-  font-family: ${(props: any) => props.theme.fontFamily};
+  font-family: ${({ theme: { fontFamily } }): string => fontFamily};
   height: 100vh;
   width: 100vw;
 `;
@@ -63,12 +58,12 @@ const getUrlQueryParameter = (name = ''): string => {
     : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
 
-const AppWrapper: FC<AppWrapperPropsType> = ({
-  isTreeDataLoading,
-  isTreeMapLoading,
-  data,
-  overlay: showOverlay,
-}) => {
+const AppWrapper: FC = () => {
+  const { isTreeDataLoading } = useStoreState('isTreeDataLoading');
+  const { isTreeMapLoading } = useStoreState('isTreeMapLoading');
+  const { data } = useStoreState('data');
+  const { overlay: showOverlay } = useStoreState('overlay');
+
   const showLoading = isTreeMapLoading;
   const showMap = !isTreeDataLoading && data;
   const showMapUI = showMap && !showOverlay;
@@ -86,7 +81,7 @@ const AppWrapper: FC<AppWrapperPropsType> = ({
   return (
     <AppWrapperDiv>
       {showLoading && <Loading />}
-      {showMap && <DeckGlMap data={data} />}
+      {showMap && <DeckGlMap />}
       {showMapUI && <Sidebar />}
       {showOverlay && <Overlay />}
       {showMapUI && <Nav />}

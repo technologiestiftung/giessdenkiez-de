@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import Actions from '../../../state/Actions';
-import { connect } from 'unistore/react';
 import store from '../../../state/Store';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { useAuth0 } from '../../../utils/auth/auth0';
 import { createAPIUrl, requests } from '../../../utils';
+import { useActions } from '../../../state/unistore-hooks';
+import Actions from '../../../state/Actions';
 
 const WrapperRow = styled.div`
   display: flex;
@@ -45,14 +45,13 @@ const Title = styled.span`
   }
 `;
 
-interface TreesAdoptedProps {
-  data: any;
-  setViewport: any;
-  state: any;
-  adoptedTrees: any;
-}
-const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
-  const { data, setViewport } = p;
+const TreesAdopted: FC<{
+  data: Array<{
+    id: string;
+    artdtsch: string;
+  }>;
+}> = ({ data }) => {
+  const { setViewport } = useActions(Actions);
   const [unadopting, setUnadopting] = useState(false);
   const { user, getTokenSilently } = useAuth0();
 
@@ -70,21 +69,14 @@ const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
     try {
       store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
-      // const header = {
-      //   headers: {
-      //     Authorization: 'Bearer ' + token,
-      //   },
-      // };
 
       const urlUnadopt = createAPIUrl(
         store.getState(),
-        // `/private/unadopt-tree?tree_id=${id}&uuid=${user.sub}`
         `/delete?tree_id=${id}&uuid=${user.sub}`
       );
 
       const urlAdoptedTrees = createAPIUrl(
         store.getState(),
-        // `/private/get-adopted-trees?uuid=${user.sub}`
         `/get?queryType=adopted&uuid=${user.sub}`
       );
 
@@ -143,10 +135,4 @@ const TreesAdopted: React.FC<TreesAdoptedProps> = p => {
   }
 };
 
-export default connect<TreesAdoptedProps, any, any, any>(
-  state => ({
-    state: state,
-    adoptedTrees: state.adoptedTrees,
-  }),
-  Actions
-)(TreesAdopted);
+export default TreesAdopted;

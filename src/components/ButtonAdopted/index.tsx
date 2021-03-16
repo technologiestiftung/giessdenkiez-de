@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
-import { connect } from 'unistore/react';
 import store from '../../state/Store';
-import Actions from '../../state/Actions';
 import { useAuth0 } from '../../utils/auth/auth0';
 import { createAPIUrl, requests, isTreeAdopted } from '../../utils';
+import { useStore, useStoreState } from '../../state/unistore-hooks';
 
 const colorText: (p: any) => string = p => p.theme.colorTextDark;
 const StyledButtonAdopted = styled.div`
@@ -42,9 +41,11 @@ const StyledButtonAdopted = styled.div`
 
 const Label = styled.span``;
 
-const ButtonAdopted = p => {
+const ButtonAdopted: FC = () => {
   const { getTokenSilently, isAuthenticated } = useAuth0();
-  const { selectedTree, state, user } = p;
+  const { selectedTree } = useStoreState('selectedTree');
+  const { user } = useStoreState('user');
+  const state = useStore().getState();
   const [unadopting, setUnadopting] = useState(false);
 
   // FIXME: Duplicate code appears also in
@@ -121,12 +122,4 @@ const ButtonAdopted = p => {
   );
 };
 
-export default connect(
-  state => ({
-    treeAdopted: state.treeAdopted,
-    selectedTree: state.selectedTree,
-    user: state.user,
-    state: state,
-  }),
-  Actions
-)(ButtonAdopted);
+export default ButtonAdopted;

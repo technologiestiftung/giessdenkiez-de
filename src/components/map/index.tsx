@@ -15,7 +15,7 @@ import {
   // checkGeolocationFeature,
 } from '../../utils';
 import { HoverObject } from './HoverObject';
-import { Generic } from '../../common/interfaces';
+import { Generic, StoreProps } from '../../common/interfaces';
 import {
   RGBAColor,
   defaultColor,
@@ -71,8 +71,26 @@ const pumpsColor: (info: Generic) => RGBAColor = info => {
   return defaultColor.rgba;
 };
 
-class DeckGLMap extends React.Component {
-  constructor(props) {
+interface DeckGLPropType {
+  data: StoreProps['data'];
+  rainGeojson: StoreProps['rainGeojson'];
+  treesVisible: StoreProps['treesVisible'];
+  pumpsVisible: StoreProps['pumpsVisible'];
+  rainVisible: StoreProps['rainVisible'];
+  pumps: StoreProps['pumps'];
+  selectedTree: StoreProps['selectedTree'];
+}
+
+interface DeckGLStateType {
+  isHovered: boolean;
+  hoverObjectPointer: number[];
+  hoverObjectMessage: string;
+  cursor: 'grab' | 'pointer';
+  geoLocationAvailable: boolean;
+}
+
+class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
+  constructor(props: DeckGLPropType) {
     super(props);
 
     // this.geoLocationAvailable = false;
@@ -81,9 +99,6 @@ class DeckGLMap extends React.Component {
       isHovered: false,
       hoverObjectPointer: [],
       hoverObjectMessage: '',
-      hoveredObject: null,
-      data: null,
-      included: null,
       cursor: 'grab',
       geoLocationAvailable: false,
     };
@@ -91,7 +106,6 @@ class DeckGLMap extends React.Component {
     this._onClick = this._onClick.bind(this);
     this._updateStyles = this._updateStyles.bind(this);
     this._deckClick = this._deckClick.bind(this);
-    this._renderTooltip = this._renderTooltip.bind(this);
     this._getFillColor = this._getFillColor.bind(this);
     this.setCursor = this.setCursor.bind(this);
   }
@@ -289,6 +303,8 @@ class DeckGLMap extends React.Component {
 
       return layers;
     }
+
+    return [];
   }
 
   _deckClick(event) {
@@ -354,14 +370,6 @@ class DeckGLMap extends React.Component {
       highlightedObject: id,
     });
     setDetailRouteWithListPath(id);
-  }
-
-  _renderTooltip() {
-    const { hoveredObject } = this.state;
-
-    if (hoveredObject != null) {
-      this.setState({ hoveredObject });
-    }
   }
 
   setCursor(val) {
@@ -653,27 +661,9 @@ class DeckGLMap extends React.Component {
 
 export default connect(
   state => ({
-    data: state.data,
-    rainGeojson: state.rainGeojson,
-    dataView: state.dataView,
-    pumps: state.pumps,
-    pumpsVisible: state.pumpsVisible,
-    isTreeDataLoading: state.isTreeDataLoading,
-    isNavOpen: state.isNavOpen,
-    overlay: state.overlay,
+    ...state,
     wateredTrees: wateredTreesSelector(state),
     state: state,
-    highlightedObject: state.highlightedObject,
-    ageRange: state.ageRange,
-    communityData: state.communityData,
-    communityDataWatered: state.communityDataWatered,
-    communityDataAdopted: state.communityDataAdopted,
-    user: state.user,
-    AppState: state.AppState,
-    rainVisible: state.rainVisible,
-    treesVisible: state.treesVisible,
-    viewport: state.viewport,
-    selectedTree: state.selectedTree,
   }),
   Actions
 )(DeckGLMap);
