@@ -12,7 +12,6 @@ const initialState = {
   wateredByUser: false,
   treesVisible: true,
   cookiesAccepted: false,
-  overlayIsVisible: true,
   legendExpanded: false,
   treeAdopted: undefined,
   isNavOpen: false,

@@ -40,7 +40,6 @@ export interface StoreProps {
   wateredByUser: boolean;
   treesVisible: boolean;
   cookiesAccepted: boolean;
-  overlayIsVisible: boolean;
   legendExpanded: boolean;
   treeAdopted?: boolean;
   isNavOpen: boolean;
