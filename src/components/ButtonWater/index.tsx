@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { loadCommunityData } from '../../state/Actions';
 import { useStoreState } from '../../state/unistore-hooks';
@@ -39,15 +39,13 @@ const StyledLogin = styled(Login)`
   align-self: stretch;
 `;
 
-const ButtonWater = () => {
-  // const {
+const ButtonWater: FC = () => {
   const { selectedTree } = useStoreState('selectedTree');
   const { selectedTreeState } = useStoreState('selectedTreeState');
   const { user: userdata } = useStoreState('user');
   const { treeAdopted } = useStoreState('treeAdopted');
   const { endpoints } = useStoreState('endpoints');
 
-  // const { id } = selectedTree;
   const [waterGroup, setWaterGroup] = useState('visible');
   const { user, isAuthenticated, getTokenSilently } = useAuth0();
   const [adopted] = useState(false);
@@ -55,12 +53,7 @@ const ButtonWater = () => {
   const [isEmailVerifiyed, setIsEmailVerifiyed] = useState<boolean | undefined>(
     undefined
   );
-  // let isMounted = true;
-  // useEffect(() => {
-  //   return () => {
-  //     // isMounted = false;
-  //   };
-  // });
+
   useEffect(() => {
     if (!user) return;
     setIsEmailVerifiyed(user.email_verified);
@@ -144,7 +137,7 @@ const ButtonWater = () => {
     }
   };
 
-  const setWaterAmount = (id: any, amount: any) => {
+  const setWaterAmount = (id: string, amount: number) => {
     setWaterGroup('watered');
     waterTree(id, amount, userdata.username);
 

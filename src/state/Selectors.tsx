@@ -23,8 +23,8 @@ export const wateredTreesSelector = createSelector(
   [wateredTreesResponse],
   data => {
     if (data) {
-      let obj = {};
-      data.forEach(id => {
+      const obj = {};
+      data.forEach((id: string) => {
         obj[id] = { included: true };
       });
       return obj;

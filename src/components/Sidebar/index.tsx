@@ -8,7 +8,7 @@ import SidebarProfile from './SidebarProfile/';
 import SidebarClose from './SidebarClose';
 
 interface StyledProps {
-  isVisible?: boolean | any;
+  isVisible: boolean;
 }
 const SidebarWrapper = styled.div<StyledProps>`
   z-index: 3;
@@ -44,7 +44,7 @@ const Sidebar: React.FC = () => {
       path={['/about', '/search', '/profile']}
       render={({ match }) => {
         return (
-          <SidebarWrapper isVisible={match}>
+          <SidebarWrapper isVisible={!!match}>
             <SidebarClose />
             <SidebarContent>
               <Switch>

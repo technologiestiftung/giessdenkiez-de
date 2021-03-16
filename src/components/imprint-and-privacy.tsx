@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import CardParagraph from './Card/CardParagraph';
@@ -28,26 +28,20 @@ const StyledSpan = styled.span`
   }
 `;
 
-export const ImprintAndPrivacyCard = () => {
-  return (
-
-    <CardParagraph>
-      <StyledSpan
-        dangerouslySetInnerHTML={{
-          __html: content.imprintAndPrivacy.description,
-        }}
-      />
-    </CardParagraph>
-  );
-};
-
-export const ImprintAndPrivacyContainer = () => {
-  return (
-    <StyledDiv
+export const ImprintAndPrivacyCard: FC = () => (
+  <CardParagraph>
+    <StyledSpan
       dangerouslySetInnerHTML={{
         __html: content.imprintAndPrivacy.description,
       }}
-    >
-    </StyledDiv>
-  );
-};
+    />
+  </CardParagraph>
+);
+
+export const ImprintAndPrivacyContainer: FC = () => (
+  <StyledDiv
+    dangerouslySetInnerHTML={{
+      __html: content.imprintAndPrivacy.description,
+    }}
+  ></StyledDiv>
+);

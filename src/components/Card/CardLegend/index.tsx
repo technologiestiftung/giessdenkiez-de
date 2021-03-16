@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import store from '../../../state/Store';
 import { useStoreState } from '../../../state/unistore-hooks';
-// import { connect } from 'unistore/react';
-// import Actions from '../../../state/Actions';
 
 import CardDescription from '../CardDescription/';
 import SidebarSearchAge from '../../Sidebar/SidebarSearch/SidebarSearchAge';
@@ -69,33 +67,7 @@ const UnstyledFlexWidth = styled(UnstyledFlex)<UnstyledFlexWidthProps>`
   }
 `;
 
-// const Btn = styled.span`
-//   font-size: 0.8rem;
-//   margin-right: 10px;
-//   cursor: pointer;
-//   border: 1px solid ${p => p.theme.colorTextDark};
-//   background: ${p => (p.active ? p.theme.colorTextDark : 'white')};
-//   color: ${p => (p.active ? 'white' : p.theme.colorTextDark)};
-//   padding: 10px;
-//   border-radius: 3px;
-// `;
-
-// const LegendDot = styled.div`
-//   width: 13px;
-//   height: 13px;
-//   border-radius: 100px;
-//   margin-right: 5px;
-//   background-color: ${p => p.color};
-// `;
-
-// const ItemContainer = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   height: 20px;
-//   align-items: center;
-// `;
-
-const Cardlegend = () => {
+const Cardlegend: FC = () => {
   const { dataView } = useStoreState('dataView');
 
   return (

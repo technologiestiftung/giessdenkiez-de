@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import CardDescription from '../Card/CardDescription';
+
 // file-loader will be removed in separate issue
-// eslint-disable-next-line import/no-webpack-loader-syntax
 const iconGithub = '/images/icon-github.svg';
 
 const OpenSourceContainer = styled.div`
@@ -16,12 +16,12 @@ const OpenSourceContainer = styled.div`
 const GithubIcon = styled.img`
   width: 16px;
   height: 16px;
-`
+`;
 
-const OpenSourceNote = () => {
+const OpenSourceNote: FC = () => {
   return (
     <OpenSourceContainer>
-	  <GithubIcon alt='GitHub Mark' src={iconGithub} />
+      <GithubIcon alt='GitHub Mark' src={iconGithub} />
       <CardDescription>
         Giess den Kiez ist ein&nbsp;
         <a

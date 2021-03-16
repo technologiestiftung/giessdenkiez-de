@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import CloseIcon from '@material-ui/icons/Close';
@@ -12,21 +12,12 @@ const StyledLink = styled(Link)`
   z-index: 10;
 `;
 
-const SidebarClose = () => {
-  // const handleClick = _evt => {};
-
-  return (
-    <StyledLink
-      // onClick={() => {
-      //   handleClick();
-      // }}
-      to={{ pathname: '/', search: '' }}
-    >
-      <RoundButton aria-label='Leiste schließen' title='Leiste schließen'>
-        <CloseIcon />
-      </RoundButton>
-    </StyledLink>
-  );
-};
+const SidebarClose: FC = () => (
+  <StyledLink to={{ pathname: '/', search: '' }}>
+    <RoundButton aria-label='Leiste schließen' title='Leiste schließen'>
+      <CloseIcon />
+    </RoundButton>
+  </StyledLink>
+);
 
 export default SidebarClose;

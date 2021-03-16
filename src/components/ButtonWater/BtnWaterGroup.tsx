@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import ButtonRound from '../ButtonRound';
@@ -29,26 +29,26 @@ const btnArray = [
   },
 ];
 
-const BtnWaterGroup = (p: { toggle: any; id: any }) => {
-  const { toggle, id } = p;
-  return (
-    <BtnWaterContainer>
-      {btnArray.map((btn, i) => {
-        return (
-          <ButtonRound
-            key={`Btn-water-${i}`}
-            width='fit-content'
-            toggle={() => {
-              toggle(id, btn.id);
-            }}
-            type='primary'
-          >
-            {btn.label}
-          </ButtonRound>
-        );
-      })}
-    </BtnWaterContainer>
-  );
-};
+const BtnWaterGroup: FC<{
+  toggle: (id: string, btnId: number) => void;
+  id: string;
+}> = ({ toggle, id }) => (
+  <BtnWaterContainer>
+    {btnArray.map((btn, i) => {
+      return (
+        <ButtonRound
+          key={`Btn-water-${i}`}
+          width='fit-content'
+          toggle={() => {
+            toggle(id, btn.id);
+          }}
+          type='primary'
+        >
+          {btn.label}
+        </ButtonRound>
+      );
+    })}
+  </BtnWaterContainer>
+);
 
 export default BtnWaterGroup;

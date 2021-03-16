@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 import content from '../../assets/content';
@@ -49,10 +49,9 @@ const StyledLabelBottom = styled.div`
   position: absolute;
   bottom: 15px;
 `;
-const LoadingIcon = (p: { text: any }) => {
+const LoadingIcon: FC<{ text?: string }> = ({ text }) => {
   const { intro, imprintAndPrivacy } = content;
   const { disclaimer } = intro;
-  const { text } = p;
   return (
     <IconContainer>
       <StyledIcon src={iconTrees} />

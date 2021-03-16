@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-const Icon = (_p: any) => {
+const Icon: FC = () => {
   return (
     <svg width='9px' height='14px' viewBox='0 0 9 14'>
       <g id='water-drop' fill='#75ADE8'>
@@ -23,19 +23,16 @@ const IconWrapper = styled.div`
   }
 `;
 
-const CardWaterDrops = p => {
-  const { data } = p;
-  return (
-    <>
-      {data && (
-        <IconWrapper>
-          {data.map((drop, i) => (
-            <Icon key={`water-drop-key-${i}`} />
-          ))}
-        </IconWrapper>
-      )}
-    </>
-  );
-};
+const CardWaterDrops: FC<{ data: unknown[] }> = ({ data }) => (
+  <>
+    {data && (
+      <IconWrapper>
+        {data.map((_, i) => (
+          <Icon key={`water-drop-key-${i}`} />
+        ))}
+      </IconWrapper>
+    )}
+  </>
+);
 
 export default CardWaterDrops;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import store from '../../state/Store';
 
 import { createAPIUrl, requests } from '../../utils';
@@ -6,8 +6,10 @@ import { useAuth0 } from '../../utils/auth/auth0';
 
 import ButtonRound from '../ButtonRound/';
 
-const Login = p => {
-  const { width, noLogout } = p;
+const Login: FC<{
+  width?: string;
+  noLogout?: boolean;
+}> = ({ width, noLogout }) => {
   const {
     isAuthenticated,
     getTokenSilently,
@@ -23,12 +25,10 @@ const Login = p => {
           const token = await getTokenSilently();
           const urlWateredByUser = createAPIUrl(
             store.getState(),
-            // `/private/get-watered-trees-by-user?uuid=${user.sub}`
             `/get?queryType=wateredbyuser&uuid=${user.sub}`
           );
           const urlAdoptedTrees = createAPIUrl(
             store.getState(),
-            // `/private/get-adopted-trees?uuid=${user.sub}`
             `/get?queryType=adopted&uuid=${user.sub}`
           );
           const jsonWateredByUser = await requests(urlWateredByUser, { token });
@@ -42,13 +42,8 @@ const Login = p => {
       }
     };
 
-    /**
-     * This request goes to a different API
-     *
-     */
     const getUserDataFromManagementApi = async () => {
       try {
-        // event.preventDefault();
         const token = await getTokenSilently();
         const apiUrl = `${
           process.env.USER_DATA_API_URL

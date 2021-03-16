@@ -209,12 +209,13 @@ export const getTree = (Store: Store<StoreProps>) => async (
   }
 };
 
-export const removeSelectedTree = () => {
-  return {
-    selectedTree: false,
-    selectedTreeState: false,
-  };
-};
+export const removeSelectedTree = (): {
+  selectedTree: boolean;
+  selectedTreeState: boolean;
+} => ({
+  selectedTree: false,
+  selectedTreeState: false,
+});
 
 export const getTreeByAge = Store => async (
   state: any,

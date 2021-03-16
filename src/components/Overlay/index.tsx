@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import OverlayClose from './OverlayClose';
@@ -47,7 +47,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Overlay: () => JSX.Element = () => {
+const Overlay: FC = () => {
   const { toggleOverlay } = useActions(Actions);
 
   return (

@@ -1,12 +1,7 @@
-import React, { cloneElement, Children } from 'react';
+import React, { FC, cloneElement, Children } from 'react';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-// import Actions from '../../../state/Actions';
 import store from '../../../state/Store';
-// import { connect } from 'unistore/react';
-// import { useStoreState } from '../../../state/unistore-hooks';
-
-// import history from '../../../history';
 
 import OverlayTitle from '../OverlayTitle/';
 import OverlayEvent from '../OverlayEvent/';
@@ -50,8 +45,9 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const OverlayTop = p => {
-  const { children, toggleOverlay } = p;
+const OverlayTop: FC<{
+  toggleOverlay: (isToggled: boolean) => void;
+}> = ({ children, toggleOverlay }) => {
   const { intro, eventNote, whatsNew } = content;
 
   const { title, subline, description, disclaimer } = intro;
@@ -73,9 +69,7 @@ const OverlayTop = p => {
       {/* the beow is here for local testing */}
       {/* {true && <OverlayTitle size='medium' content={disclaimer} />} */}
       <OverlayDescription content={description} />
-      {Children.map(children, childElement => {
-        return cloneElement(childElement, {});
-      })}
+      {Children.map(children, childElement => cloneElement(childElement, {}))}
       <StyledWrapper>
         <ButtonRound width='fit-content' toggle={handleClick} type='primary'>
           Los geht&apos;s
@@ -91,12 +85,5 @@ const OverlayTop = p => {
     </StyledTop>
   );
 };
-
-// export default connect(
-//   state => ({
-//     user: state.user,
-//   }),
-//   Actions
-// )(OverlayTop);
 
 export default OverlayTop;

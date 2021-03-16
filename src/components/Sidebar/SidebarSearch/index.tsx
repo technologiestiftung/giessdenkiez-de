@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-// import { connect } from 'unistore/react';
-// import Actions from '../../../state/Actions';
 import { useStoreState } from '../../../state/unistore-hooks';
 import SidebarTitle from '../SidebarTitle/';
 import Card from '../../Card/Card';
@@ -17,7 +15,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const SidebarSearch = () => {
+const SidebarSearch: FC = () => {
   const { selectedTree } = useStoreState('selectedTree');
   const { selectedTreeState } = useStoreState('selectedTreeState');
 

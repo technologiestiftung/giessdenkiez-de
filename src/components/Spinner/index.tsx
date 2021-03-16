@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const SpinnerDiv = styled.div`
@@ -53,11 +53,11 @@ const SpinnerDiv = styled.div`
   }
 `;
 
-const Spinner = _p => {
+const Spinner: FC = () => {
   return (
     <SpinnerDiv>
-      <div className="double-bounce1"></div>
-      <div className="double-bounce2"></div>
+      <div className='double-bounce1'></div>
+      <div className='double-bounce2'></div>
     </SpinnerDiv>
   );
 };

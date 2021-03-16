@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { interpolateColor } from '../../utils';
 import store from '../../state/Store';
-// import { connect } from 'unistore/react';
-// import Actions from '../../state/Actions';
 import { useStoreState } from '../../state/unistore-hooks';
 import CardDescription from '../Card/CardDescription';
 import {
@@ -32,13 +30,6 @@ const ItemContainer = styled.div<ItemContainerProps>`
   margin-right: 10px;
 `;
 
-// const TileHeadline = styled.span`
-//   opacity: 1;
-//   font-size: 0.8rem;
-//   font-weight: 600;
-//   margin-bottom: 10px;
-//   transform: translateX(-4px);
-// `;
 interface LegendDotProps {
   color: string;
   gradient?: string;
@@ -390,15 +381,5 @@ const Legend: React.FC = () => {
     </LegendDiv>
   );
 };
-
-// export default connect(
-//   state => ({
-//     treesVisible: state.treesVisible,
-//     rainVisible: state.rainVisible,
-//     legendExpanded: state.legendExpanded,
-//     pumpsVisible: state.pumpsVisible,
-//   }),
-//   Actions
-// )(Legend);
 
 export default Legend;

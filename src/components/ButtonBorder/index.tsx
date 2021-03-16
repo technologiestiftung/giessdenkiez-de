@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.div`
@@ -30,7 +30,7 @@ const StyledButton = styled.div`
   }
 `;
 
-const ButtonBorder = () => (
+const ButtonBorder: FC = () => (
   <StyledButton role={'button'} tabIndex={0}></StyledButton>
 );
 

@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { useActions } from '../../../state/unistore-hooks';
 import Actions from '../../../state/Actions';
 
-// import { connect } from 'unistore/react';
-
 const SearchDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,11 +64,11 @@ const SidebarSearchLocation: React.FC = () => {
   const [value, setValue] = React.useState('');
   const [results, setResults] = React.useState([]);
 
-  const updateSearch = async e => {
-    setValue(e.target.value);
+  const updateSearch = async (value: string) => {
+    setValue(value);
     try {
-      if (e.target.value.length >= 3) {
-        const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${e.target.value}.json?autocomplete=true&language=de&country=de&bbox=13.0824446341071,52.3281202651866,13.7682544186827,52.681600197973&access_token=${MAPBOX_TOKEN}`;
+      if (value.length >= 3) {
+        const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?autocomplete=true&language=de&country=de&bbox=13.0824446341071,52.3281202651866,13.7682544186827,52.681600197973&access_token=${MAPBOX_TOKEN}`;
         const res = await fetch(geocodingUrl);
         if (res.ok) {
           const json = await res.json();
@@ -85,8 +83,8 @@ const SidebarSearchLocation: React.FC = () => {
     }
   };
 
-  const handleOnChange = e => {
-    updateSearch(e).catch(console.error);
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateSearch(e.target.value).catch(console.error);
   };
   return (
     <SearchDiv>
@@ -100,8 +98,17 @@ const SidebarSearchLocation: React.FC = () => {
       </FlexRowDiv>
       <ResultDiv>
         <ul>
-          {results.map((item: any, index: number) => {
-            return (
+          {results.map(
+            (
+              item: {
+                id: string;
+                place_name_de: string;
+                geometry: {
+                  coordinates: [number, number];
+                };
+              },
+              index: number
+            ) => (
               <ResultElement
                 className={index % 2 ? 'even' : 'odd'}
                 key={item.id}
@@ -109,8 +116,8 @@ const SidebarSearchLocation: React.FC = () => {
               >
                 {item.place_name_de}
               </ResultElement>
-            );
-          })}
+            )
+          )}
         </ul>
       </ResultDiv>
     </SearchDiv>

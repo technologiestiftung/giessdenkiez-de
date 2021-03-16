@@ -46,7 +46,6 @@ const ButtonAdopted = p => {
   const { getTokenSilently, isAuthenticated } = useAuth0();
   const { selectedTree, state, user } = p;
   const [unadopting, setUnadopting] = useState(false);
-  // let isMounted = true;
 
   // FIXME: Duplicate code appears also in
   // SidebarAdopted
@@ -58,21 +57,11 @@ const ButtonAdopted = p => {
     try {
       store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
-      // const header = {
-      //   headers: {
-      //     Authorization: 'Bearer ' + token,
-      //   },
-      // };
 
-      const urlUnadopt = createAPIUrl(
-        state,
-        '/delete'
-        // `/private/unadopt-tree?tree_id=${id}&uuid=${user.user_id}`
-      );
+      const urlUnadopt = createAPIUrl(state, '/delete');
       const urlAdoptedTrees = createAPIUrl(
         store.getState(),
         `/get?queryType=adopted&uuid=${user.user_id}`
-        // `/private/get-adopted-trees?uuid=${user.user_id}`
       );
       setUnadopting(true);
 

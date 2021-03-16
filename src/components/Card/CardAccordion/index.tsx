@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { PanelWrapper } from '../Panels/PanelWrapper';
 import { PanelHeader } from '../Panels/PanelHeader';
 import { PanelBody } from '../Panels/PanelBody';
 import { PanelIndicator } from '../Panels/PanelIndicator';
 import { PanelTitle } from '../Panels/PanelTitle';
 
-const CardAccordion = (p: {
+const CardAccordion: FC<{
   title: string | JSX.Element;
-  children: JSX.Element;
   active?: boolean;
-}) => {
-  const { title, children, active = false } = p;
+}> = ({ title, children, active = false }) => {
   const [localActive, toggleActive] = useState(active);
 
   useEffect(() => {

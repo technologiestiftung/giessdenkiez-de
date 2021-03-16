@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 interface StyledButtonProps {
@@ -44,28 +44,24 @@ const StyledButton = styled.div<StyledButtonProps>`
   }
 `;
 
-const ButtonRound = (p: {
+const ButtonRound: FC<{
   type?: string;
-  children: any;
-  toggle: any;
+  toggle: (event: React.MouseEvent<HTMLDivElement>) => Promise<void>;
   width?: string;
   fontSize?: string;
   margin?: string;
-}) => {
-  const { type, children, toggle, width, fontSize, margin = '0px' } = p;
-  return (
-    <StyledButton
-      fontSize={fontSize}
-      margin={margin}
-      width={width}
-      onClick={toggle}
-      type={type}
-      role={'button'}
-      tabIndex={0}
-    >
-      {children}
-    </StyledButton>
-  );
-};
+}> = ({ type, children, toggle, width, fontSize, margin = '0px' }) => (
+  <StyledButton
+    fontSize={fontSize}
+    margin={margin}
+    width={width}
+    onClick={toggle}
+    type={type}
+    role={'button'}
+    tabIndex={0}
+  >
+    {children}
+  </StyledButton>
+);
 
 export default ButtonRound;

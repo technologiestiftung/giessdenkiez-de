@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const FlexRowDiv = styled.div`
@@ -16,15 +16,14 @@ const SublineSpanDesc = styled.span`
   margin-bottom: 10px;
 `;
 
-const CardProperty = p => {
-  const { value, name } = p;
-
-  return (
-    <FlexRowDiv>
-      <DescriptionSpan>{name}</DescriptionSpan>
-      <SublineSpanDesc>{value}</SublineSpanDesc>
-    </FlexRowDiv>
-  );
-};
+const CardProperty: FC<{
+  value: string;
+  name: string;
+}> = ({ value, name }) => (
+  <FlexRowDiv>
+    <DescriptionSpan>{name}</DescriptionSpan>
+    <SublineSpanDesc>{value}</SublineSpanDesc>
+  </FlexRowDiv>
+);
 
 export default CardProperty;

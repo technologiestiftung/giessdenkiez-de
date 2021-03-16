@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import CardParagraph from './CardParagraph';
 
-export const NonVerfiedMailCardParagraph = () => {
+export const NonVerfiedMailCardParagraph: FC = () => {
   return (
     <CardParagraph>
       Du hast deine E-Mail Adresse noch nicht verifiziert. Bitte wirf einen
