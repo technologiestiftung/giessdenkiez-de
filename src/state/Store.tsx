@@ -31,7 +31,6 @@ const initialState = {
   overlay: false,
   isTreeDataLoading: true,
   isTreeMapLoading: true,
-  AppState: 'watered',
   hoveredObject: false,
   viewport: {
     latitude: 52.500869,

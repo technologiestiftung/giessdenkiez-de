@@ -67,7 +67,6 @@ export interface StoreProps {
   overlay: boolean;
   isTreeDataLoading: boolean;
   isTreeMapLoading: boolean;
-  AppState: string;
   hoveredObject: boolean;
   viewport: {
     latitude: number;

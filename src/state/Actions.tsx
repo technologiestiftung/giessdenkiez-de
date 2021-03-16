@@ -95,12 +95,6 @@ export const loadData = (store: Store<StoreProps>) => async () => {
   }
 };
 
-export const setAppState = (_state, payload) => {
-  return {
-    AppState: payload,
-  };
-};
-
 export const setDataView = (_state, payload) => {
   return {
     dataView: payload,
@@ -257,7 +251,6 @@ export default (Store: Store<StoreProps>) => ({
   // setView,
   loadTrees: loadTrees(Store),
   removeSelectedTree,
-  setAppState,
   setAgeRange,
   toggleOverlay,
 });
