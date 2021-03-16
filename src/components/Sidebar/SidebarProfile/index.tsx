@@ -86,7 +86,6 @@ const SidebarProfile: FC = () => {
 
           const queryStr = adoptedTrees.reduce(concatReducer, '{');
           const urlAdoptedTreesDetails = createAPIUrl(
-            store.getState(),
             `/get/?queryType=treesbyids&tree_ids=${queryStr}`
           );
           const res = await requests(urlAdoptedTreesDetails);

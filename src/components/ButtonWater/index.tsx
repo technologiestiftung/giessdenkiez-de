@@ -44,7 +44,6 @@ const ButtonWater: FC = () => {
   const { selectedTreeState } = useStoreState('selectedTreeState');
   const { user: userdata } = useStoreState('user');
   const { treeAdopted } = useStoreState('treeAdopted');
-  const { endpoints } = useStoreState('endpoints');
 
   const [waterGroup, setWaterGroup] = useState('visible');
   const { user, isAuthenticated, getTokenSilently } = useAuth0();
@@ -79,10 +78,7 @@ const ButtonWater: FC = () => {
     try {
       store.setState({ selectedTreeState: 'WATERING' });
       const token = await getTokenSilently();
-      const urlPostWatering = createAPIUrl(
-        store.getState(),
-        `/post?id=${id}&uuid=${user.sub}&amount=${amount}&username=${username}&comment=URL_QUERY_NOT_NEEDED_USE_BODY`
-      );
+      const urlPostWatering = createAPIUrl(`/post`);
 
       await requests<undefined, { method: 'POST'; body: string }>(
         urlPostWatering,
@@ -100,10 +96,7 @@ const ButtonWater: FC = () => {
           },
         }
       );
-      const geturl = createAPIUrl(
-        store.getState(),
-        `/get?id=${id}&queryType=byid`
-      );
+      const geturl = createAPIUrl(`/get?id=${id}&queryType=byid`);
       const json = await requests(geturl);
       if (json.data.length > 0) {
         const tree = json.data[0];
@@ -118,11 +111,11 @@ const ButtonWater: FC = () => {
 
         await waitFor(250, loadCommunityDataAction);
         const jsonWatered = await requests(
-          `${endpoints.prod}/get?queryType=lastwatered&id=${id}`
+          createAPIUrl(`/get?queryType=lastwatered&id=${id}`)
         );
         store.setState({ treeLastWatered: jsonWatered.data });
         await waitFor(500, () => {
-          const url = createAPIUrl(store.getState(), `/get?queryType=watered`);
+          const url = createAPIUrl(`/get?queryType=watered`);
           requests(url)
             .then(json => {
               store.setState({ wateredTrees: json.data.watered });
@@ -149,11 +142,7 @@ const ButtonWater: FC = () => {
     try {
       store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
-      // const time = timeNow();
-      const url = createAPIUrl(
-        store.getState(),
-        `/post?tree_id=${id}&uuid=${user.sub}`
-      );
+      const url = createAPIUrl(`/post?tree_id=${id}&uuid=${user.sub}`);
 
       await requests(url, {
         token,
@@ -167,9 +156,7 @@ const ButtonWater: FC = () => {
         },
       })
         .then(() => {
-          return requests(
-            createAPIUrl(store.getState(), `/get?&queryType=byid&id=${id}`)
-          );
+          return requests(createAPIUrl(`/get?&queryType=byid&id=${id}`));
         })
         .then(res => {
           if (res.data.length > 0) {

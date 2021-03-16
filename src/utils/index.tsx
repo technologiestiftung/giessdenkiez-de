@@ -1,10 +1,10 @@
 import { scaleLinear, interpolateViridis } from 'd3';
 import { IsTreeAdoptedProps, Generic } from '../common/interfaces';
 
-export function createAPIUrl(state: any, entrypoint: string): string {
-  return state.local
-    ? `${state.endpoints.local}${entrypoint}`
-    : `${state.endpoints.prod}${entrypoint}`;
+export function createAPIUrl(entrypoint: string): string {
+  return process.env.NODE_ENV === 'production'
+    ? `${process.env.API_ENDPOINT_DEV}${entrypoint}`
+    : `${process.env.API_ENDPOINT_PROD}${entrypoint}`;
 }
 
 export async function requests<
@@ -39,7 +39,6 @@ export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
   try {
     if (isAuthenticated) {
       const url = createAPIUrl(
-        store.getState(),
         `/get?queryType=istreeadopted&uuid=${uuid}&id=${id}`
       );
 

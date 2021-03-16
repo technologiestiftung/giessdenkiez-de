@@ -5,17 +5,16 @@ import './mocks/mocks-utils'; // should be first import after polyfills
 // -------------------------------------------------------------------
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Root from './Root';
-import history from './history';
-import ErrorBoundary from './ErrorBoundary';
-
 import { Provider } from 'unistore/react';
+
 import store from './state/Store';
 import GlobalStyles from './assets/Global';
-
 import { Auth0Provider } from './utils/auth/auth0';
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const onRedirectCallback: (appState: any) => void = appState => {
+import Root from './Root';
+import ErrorBoundary from './ErrorBoundary';
+import history from './history';
+
+const onRedirectCallback = (appState?: { targetUrl?: string }): void => {
   history.push(
     appState && appState.targetUrl
       ? appState.targetUrl
@@ -24,30 +23,22 @@ const onRedirectCallback: (appState: any) => void = appState => {
 };
 
 ReactDOM.render(
-  <ErrorBoundary>
-    <Auth0Provider
-      domain={process.env.AUTH0_DOMAIN}
-      client_id={process.env.AUTH0_CLIENT_ID}
-      audience={process.env.AUTH0_AUDIENCE}
-      redirect_uri={window.location.origin}
-      onRedirectCallback={onRedirectCallback}
-    >
-      <Provider store={store}>
-        <>
-          <GlobalStyles />
+  <>
+    <GlobalStyles />
+    <ErrorBoundary>
+      <Auth0Provider
+        domain={process.env.AUTH0_DOMAIN}
+        client_id={process.env.AUTH0_CLIENT_ID}
+        audience={process.env.AUTH0_AUDIENCE}
+        redirect_uri={window.location.origin}
+        onRedirectCallback={onRedirectCallback}
+      >
+        <Provider store={store}>
           <Root />
-        </>
-      </Provider>
-    </Auth0Provider>
-  </ErrorBoundary>,
+        </Provider>
+      </Auth0Provider>
+    </ErrorBoundary>
+  </>,
 
   document.getElementById('app')
 );
-
-// function renderApp(RootComponent: () => JSX.Element): void {}
-
-// Mount the react-app
-// renderApp(Root);
-// }
-
-// startApp();

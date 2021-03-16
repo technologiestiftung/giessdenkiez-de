@@ -46,7 +46,6 @@ export const setAgeRange = (_state, payload) => {
 
 export const loadCommunityData = (store: Store<StoreProps>) => () => {
   const fetchCommunityDataUrl = createAPIUrl(
-    store.getState(),
     `/get?queryType=wateredandadopted`
   );
   requests(fetchCommunityDataUrl)
@@ -133,10 +132,12 @@ function setView(_state, payload) {
   };
 }
 
-export const getWateredTrees = Store => async () => {
+export const getWateredTrees = (Store: Store<StoreProps>) => async (): Promise<{
+  wateredTrees: StoreProps['wateredTrees'];
+}> => {
   try {
     Store.setState({ isTreeDataLoading: true });
-    const url = createAPIUrl(Store.getState(), '/get?queryType=watered');
+    const url = createAPIUrl('/get?queryType=watered');
     const result = await requests(url);
 
     if (result.data === undefined) {
@@ -147,6 +148,7 @@ export const getWateredTrees = Store => async () => {
     };
   } catch (error) {
     console.error(error);
+    return { wateredTrees: [] };
   }
 };
 
@@ -168,21 +170,15 @@ const parseTreeLastWateredResponse = (
   treeLastWateredResponse: TreeLastWateredResponseType
 ): TreeLastWateredType => treeLastWateredResponse.data || [];
 
-export const getTree = (Store: Store<StoreProps>) => async (
+export const getTree = () => async (
   id: string
 ): Promise<{
   treeLastWatered?: TreeLastWateredType;
   selectedTree?: SelectedTreeType;
 }> => {
   try {
-    const urlSelectedTree = createAPIUrl(
-      Store.getState(),
-      `/get?queryType=byid&id=${id}`
-    );
-    const urlLastWatered = createAPIUrl(
-      Store.getState(),
-      `/get?queryType=lastwatered&id=${id}`
-    );
+    const urlSelectedTree = createAPIUrl(`/get?queryType=byid&id=${id}`);
+    const urlLastWatered = createAPIUrl(`/get?queryType=lastwatered&id=${id}`);
 
     const [resSelectedTree, resLastWatered] = await Promise.all([
       requests<SelectedTreeResponseType>(urlSelectedTree),
@@ -217,23 +213,19 @@ export const removeSelectedTree = (): {
   selectedTreeState: false,
 });
 
-export const getTreeByAge = Store => async (
-  state: any,
+export const getTreeByAge = (store: Store<StoreProps>) => async (
   start: string,
   end: string
-) => {
+): Promise<void> => {
   try {
-    Store.setState({ selectedTreeState: 'LOADING' });
-    const url = createAPIUrl(
-      state,
-      `/get??queryType=byage&start=${start}&end=${end}`
-    );
+    store.setState({ selectedTreeState: 'LOADING' });
+    const url = createAPIUrl(`/get?queryType=byage&start=${start}&end=${end}`);
 
     const res = await requests(url);
 
-    Store.setState({
+    store.setState({
       selectedTreeState: 'LOADED',
-      selectedTrees: res.data,
+      selectedTree: res.data,
     });
   } catch (error) {
     console.error(error);
@@ -257,7 +249,7 @@ export default (Store: Store<StoreProps>) => ({
   setDataView,
   getWateredTrees: getWateredTrees(Store),
   loadCommunityData: loadCommunityData(Store),
-  getTree: getTree(Store),
+  getTree,
   getTreeByAge: getTreeByAge(Store),
   setDetailRouteWithListPath,
   setViewport,

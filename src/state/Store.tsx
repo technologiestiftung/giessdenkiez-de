@@ -1,6 +1,5 @@
 import { isMobile } from 'react-device-detect';
 import createStore from 'unistore';
-// import devtools from 'unistore/devtools';
 import { StoreProps } from '../common/interfaces';
 
 const initialState = {
@@ -27,11 +26,6 @@ const initialState = {
   ageRange: [0, 320],
   pumps: null,
   data: null,
-  local: process.env.NODE_ENV === 'production' ? false : true,
-  endpoints: {
-    local: process.env.API_ENDPOINT_DEV,
-    prod: process.env.API_ENDPOINT_PROD,
-  },
   tabActive: 'id-0',
   selectedTree: undefined,
   treeLastWatered: undefined,
@@ -51,9 +45,6 @@ const initialState = {
     bearing: 0,
   },
 };
-// const store =
-//   process.env.NODE_ENV === 'production'
-//     ? createStore<StoreProps>(initialState)
-//     : devtools(createStore(initialState));
+
 const store = createStore<StoreProps>(initialState);
 export default store;

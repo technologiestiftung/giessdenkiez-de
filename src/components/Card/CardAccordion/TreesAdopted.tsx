@@ -70,13 +70,9 @@ const TreesAdopted: FC<{
       store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
 
-      const urlUnadopt = createAPIUrl(
-        store.getState(),
-        `/delete?tree_id=${id}&uuid=${user.sub}`
-      );
+      const urlUnadopt = createAPIUrl(`/delete?tree_id=${id}&uuid=${user.sub}`);
 
       const urlAdoptedTrees = createAPIUrl(
-        store.getState(),
         `/get?queryType=adopted&uuid=${user.sub}`
       );
 

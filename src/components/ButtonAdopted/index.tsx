@@ -4,7 +4,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import store from '../../state/Store';
 import { useAuth0 } from '../../utils/auth/auth0';
 import { createAPIUrl, requests, isTreeAdopted } from '../../utils';
-import { useStore, useStoreState } from '../../state/unistore-hooks';
+import { useStoreState } from '../../state/unistore-hooks';
 
 const colorText: (p: any) => string = p => p.theme.colorTextDark;
 const StyledButtonAdopted = styled.div`
@@ -45,7 +45,6 @@ const ButtonAdopted: FC = () => {
   const { getTokenSilently, isAuthenticated } = useAuth0();
   const { selectedTree } = useStoreState('selectedTree');
   const { user } = useStoreState('user');
-  const state = useStore().getState();
   const [unadopting, setUnadopting] = useState(false);
 
   // FIXME: Duplicate code appears also in
@@ -59,9 +58,8 @@ const ButtonAdopted: FC = () => {
       store.setState({ selectedTreeState: 'ADOPT' });
       const token = await getTokenSilently();
 
-      const urlUnadopt = createAPIUrl(state, '/delete');
+      const urlUnadopt = createAPIUrl('/delete');
       const urlAdoptedTrees = createAPIUrl(
-        store.getState(),
         `/get?queryType=adopted&uuid=${user.user_id}`
       );
       setUnadopting(true);

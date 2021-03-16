@@ -54,11 +54,6 @@ export interface StoreProps {
   ageRange: number[];
   pumps: Generic | null;
   data: Generic | null;
-  local: boolean;
-  endpoints: {
-    local: string | undefined;
-    prod: string | undefined;
-  };
   tabActive: string;
   selectedTree: SelectedTreeType | undefined;
   treeLastWatered: TreeLastWateredType | undefined;

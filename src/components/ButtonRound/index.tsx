@@ -46,7 +46,7 @@ const StyledButton = styled.div<StyledButtonProps>`
 
 const ButtonRound: FC<{
   type?: string;
-  toggle: (event: React.MouseEvent<HTMLDivElement>) => Promise<void>;
+  toggle: (event?: React.MouseEvent<HTMLDivElement>) => Promise<void> | void;
   width?: string;
   fontSize?: string;
   margin?: string;

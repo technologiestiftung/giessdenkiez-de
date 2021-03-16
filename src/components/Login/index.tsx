@@ -24,11 +24,9 @@ const Login: FC<{
         if (isAuthenticated) {
           const token = await getTokenSilently();
           const urlWateredByUser = createAPIUrl(
-            store.getState(),
             `/get?queryType=wateredbyuser&uuid=${user.sub}`
           );
           const urlAdoptedTrees = createAPIUrl(
-            store.getState(),
             `/get?queryType=adopted&uuid=${user.sub}`
           );
           const jsonWateredByUser = await requests(urlWateredByUser, { token });
