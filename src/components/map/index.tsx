@@ -156,13 +156,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             getFillColor: 500,
           },
           getFillColor: (info, i) => {
-            const {
-              // wateredTrees,
-              // AppState,
-              ageRange,
-              dataView,
-              communityData,
-            } = this.props;
+            const { ageRange, dataView, communityData } = this.props;
             const { properties } = info;
             const { id, radolan_sum, age } = properties;
 

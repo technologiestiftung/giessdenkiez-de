@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { ThemeProvider } from 'styled-components';
+
 import { theme } from '../assets/theme';
 import { Router } from 'react-router-dom';
 import history from '../history';
