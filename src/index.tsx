@@ -11,7 +11,6 @@ import ErrorBoundary from './ErrorBoundary';
 
 import { Provider } from 'unistore/react';
 import store from './state/Store';
-import ReduxProvider from './state/redux/ReduxProvider';
 import GlobalStyles from './assets/Global';
 
 import { Auth0Provider } from './utils/auth/auth0';
@@ -34,10 +33,10 @@ ReactDOM.render(
       onRedirectCallback={onRedirectCallback}
     >
       <Provider store={store}>
-        <ReduxProvider>
+        <>
           <GlobalStyles />
           <Root />
-        </ReduxProvider>
+        </>
       </Provider>
     </Auth0Provider>
   </ErrorBoundary>,
