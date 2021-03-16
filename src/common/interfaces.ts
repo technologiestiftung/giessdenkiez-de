@@ -39,7 +39,6 @@ export interface StoreProps {
   communityDataWatered?: Generic[];
   wateredByUser: boolean;
   treesVisible: boolean;
-  cookiesAccepted: boolean;
   legendExpanded: boolean;
   treeAdopted?: boolean;
   isNavOpen: boolean;

@@ -11,7 +11,6 @@ const initialState = {
   communityData: null,
   wateredByUser: false,
   treesVisible: true,
-  cookiesAccepted: false,
   legendExpanded: false,
   treeAdopted: undefined,
   isNavOpen: false,

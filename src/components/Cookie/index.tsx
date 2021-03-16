@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import store from '../../state/Store';
 
-import ButtonRound from '../ButtonRound/';
-import { useStoreState } from '../../state/unistore-hooks';
+import ButtonRound from '../ButtonRound';
+import { getCookieValue } from '../../utils';
+
+const cookie = getCookieValue('disclaimerAccepted');
 
 const CookieDiv = styled.div`
   z-index: 1;
@@ -41,11 +42,13 @@ const StyledCardDescription = styled.div`
 `;
 
 const Cookie: FC = () => {
-  const { cookiesAccepted } = useStoreState('cookiesAccepted');
+  const [cookiesAccepted, setCookieAccepted] = useState<boolean>(
+    cookie === 'true'
+  );
 
   const setCookie = () => {
     document.cookie = 'disclaimerAccepted=true;path=/;';
-    store.setState({ cookiesAccepted: true });
+    setCookieAccepted(true);
   };
 
   return (
