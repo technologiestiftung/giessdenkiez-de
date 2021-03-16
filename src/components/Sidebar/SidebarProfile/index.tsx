@@ -106,9 +106,8 @@ const SidebarProfile: FC = () => {
     }
   }, [adoptedTrees]);
 
-  const handleDeleteClick = async (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleDeleteClick = async () => {
     try {
-      event.preventDefault();
       const promptRes = window.confirm(
         '🚨 🚨 🚨 Willst du deinen Account wirklich löschen? Diese Aktion ist  endgültig.\nAlle deine Benutzerdaten werden damit sofort gelöscht!'
       );
@@ -197,7 +196,10 @@ const SidebarProfile: FC = () => {
                     </CardParagraph>
                     <LastButtonRound
                       width='-webkit-fill-available'
-                      toggle={handleDeleteClick}
+                      toggle={evt => {
+                        evt.preventDefault();
+                        handleDeleteClick();
+                      }}
                     >
                       Account Löschen
                     </LastButtonRound>

@@ -48,7 +48,6 @@ export interface StoreProps {
   rainVisible: boolean;
   rainGeojson: Generic | null;
   adoptedTreesDetails: any;
-  csvdata: null;
   ageRange: number[];
   pumps: Generic | null;
   data: Generic | null;

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import styled from 'styled-components';
 
 interface StyledButtonProps {
@@ -46,7 +46,7 @@ const StyledButton = styled.div<StyledButtonProps>`
 
 const ButtonRound: FC<{
   type?: string;
-  toggle: (event?: React.MouseEvent<HTMLDivElement>) => Promise<void> | void;
+  toggle: (event?: MouseEvent<HTMLDivElement>) => Promise<void> | void;
   width?: string;
   fontSize?: string;
   margin?: string;
