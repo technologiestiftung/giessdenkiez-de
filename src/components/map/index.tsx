@@ -9,11 +9,7 @@ import { StaticMap, GeolocateControl, NavigationControl } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
-import {
-  interpolateColor,
-  hexToRgb,
-  // checkGeolocationFeature,
-} from '../../utils';
+import { interpolateColor, hexToRgb } from '../../utils';
 import { HoverObject } from './HoverObject';
 import { Generic, StoreProps } from '../../common/interfaces';
 import {
@@ -184,10 +180,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             }
 
             if (Number.isNaN(age)) {
-              // const interpolated = interpolateColor(radolan_sum);
-              // const hex = hexToRgb(interpolated);
               return [200, 200, 200, 0];
-              // return hex;
             }
 
             return [200, 200, 200, 0];
@@ -566,17 +559,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       this.props.setView(e.viewstate);
     }, 2000);
   }
-
-  // componentDidMount() {
-  //   checkGeolocationFeature(
-  //     error => {
-  //       console.error(error);
-  //     },
-  //     () => {
-  //       this.setState({ ...this.state, geoLocationAvailable: true });
-  //     }
-  //   );
-  // }
 
   render() {
     const {

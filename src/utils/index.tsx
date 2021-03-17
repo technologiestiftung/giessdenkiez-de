@@ -121,13 +121,6 @@ export async function waitFor(
     }, millisenconds);
   });
 }
-// export const waitFor = (millisenconds: number, callback: () => void) =>
-//   new Promise(resolve => {
-//     setTimeout(() => {
-//       callback();
-//       resolve();
-//     }, millisenconds);
-//   });
 
 /**
  * Shoulf not be used anymoe
@@ -192,66 +185,18 @@ export const convertTime = (unix_timestamp: string): string => {
   const month = months[date.getMonth()];
   const day = date.getDate();
 
-  // let hours = date.getHours();
-  // Minutes part from the timestamp
-  // let minutes = date.getMinutes();
-  // Seconds part from the timestamp
-  // var seconds = '0' + date.getSeconds();
-
-  // let min = String(minutes).length === 2 ? minutes : `0${minutes}`;
-
   // Will display time in 10:30:23 format
   return `${day}. ${month}. ${year}`;
-  // return day month + '.' + year + '. //' + hours + ':' + minutes.substr(-2);
 };
 
-export const removeOverlay = () => {
-  const elem: HTMLElement | null = document.querySelector('#tempOverlay');
-  if (elem) {
-    elem.style.display = 'none';
-  }
+const colorScale = scaleLinear().domain([0, 300]).range([1, 0.6]);
+export const interpolateColor = (val: number): string => {
+  return interpolateViridis(colorScale(val));
 };
 
-export const timeDifference = (date1, date2) => {
-  const difference = date1 - date2;
-  const daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-
-  let label = '';
-
-  if (date2 === 'Keine Info') {
-    label = 'Keine Info';
-  }
-
-  if (daysDifference === 0) {
-    label = 'Heute';
-  }
-
-  if (daysDifference === 1) {
-    label = 'Vor 1 Tag';
-  }
-
-  if (daysDifference > 1) {
-    label = `Vor ${daysDifference} Tagen`;
-  }
-
-  return [daysDifference, label];
-};
-
-export const interpolateColor = val => {
-  const scale = scaleLinear().domain([0, 300]).range([1, 0.6]);
-  const hexColor = interpolateViridis(scale(val));
-  // const rgbString = interpolateRdYlGn(scale(val));
-  // const col = color(rgbString);
-  // debugger;
-  // const hex = col?.hex();
-  // if (hex) {
-  return hexColor;
-  // } else {
-  // return '#868686'; // fallback grey https://www.color-hex.com/color/868686
-  // }
-};
-
-export const hexToRgb = hex => {
+export const hexToRgb = (
+  hex: string
+): [number, number, number, number] | null => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? [
@@ -263,32 +208,10 @@ export const hexToRgb = hex => {
     : null;
 };
 
-/**
- * Test uf the user has geolocation activeted or not
- * @param geoLocationErrorHandler Function
- * @param geoLocationSuccessHandler Function
- * @returns void
- */
-export function checkGeolocationFeature(
-  geoLocationErrorHandler,
-  geoLocationSuccessHandler
-) {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      geoLocationSuccessHandler,
-      geoLocationErrorHandler
-    );
-  } else {
-    throw new Error('Could not find feature navigator.geolocation');
-  }
-}
-
 export default {
   convertTime,
-  timeDifference,
-  waterNeed,
   interpolateColor,
-  removeOverlay,
+  waterNeed,
   hexToRgb,
   createGeojson,
   createCSVJson,

@@ -30,7 +30,13 @@ ReactDOM.render(
   <>
     <GlobalStyles />
     <ErrorBoundary>
-      <Auth0Provider onRedirectCallback={onRedirectCallback}>
+      <Auth0Provider
+        domain={process.env.AUTH0_DOMAIN}
+        client_id={process.env.AUTH0_CLIENT_ID}
+        audience={process.env.AUTH0_AUDIENCE}
+        redirect_uri={window.location.origin}
+        onRedirectCallback={onRedirectCallback}
+      >
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
           <Provider store={store}>

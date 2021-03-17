@@ -10,7 +10,6 @@ import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
-import { removeOverlay } from '../../utils';
 import store from '../../state/Store';
 import { useStoreState } from '../../state/unistore-hooks';
 
@@ -48,6 +47,13 @@ const CookieContainer = styled.div`
     bottom: 0px;
   }
 `;
+
+const removeOverlay = () => {
+  const elem: HTMLElement | null = document.querySelector('#tempOverlay');
+  if (elem) {
+    elem.style.display = 'none';
+  }
+};
 
 const getUrlQueryParameter = (name = ''): string => {
   name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');

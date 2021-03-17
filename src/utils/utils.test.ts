@@ -1,6 +1,5 @@
 /* eslint-disable jest/consistent-test-it */
 /* eslint-disable jest/no-hooks */
-import { checkGeolocationFeature } from './index';
 
 const result = {
   coords: {
@@ -13,25 +12,18 @@ const result = {
  * Taken from here https://stackoverflow.com/a/51829561/1770432
  */
 const mockGeolocation = {
-  getCurrentPosition: jest.fn().mockImplementation((success, fail) => {
+  getCurrentPosition: jest.fn().mockImplementation(success => {
     return Promise.resolve(success(result));
   }),
 };
 
 describe('utilities geolocation', () => {
   beforeAll(() => {
-    //@ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     global.navigator.geolocation = mockGeolocation;
   });
   afterAll(() => {
     jest.restoreAllMocks();
-  });
-  test('checkGeolocationFeature success', () => {
-    const successHandler = jest.fn();
-    const errorHandler = jest.fn();
-    checkGeolocationFeature(errorHandler, successHandler);
-    expect(successHandler).toHaveBeenCalledTimes(1);
-    expect(successHandler).toHaveBeenCalledWith(result);
-    expect(errorHandler).not.toHaveBeenCalled();
   });
 });
