@@ -4,10 +4,9 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from '../assets/theme';
 import { Router } from 'react-router-dom';
 import history from '../history';
-import { connect } from 'unistore/react';
 import store from '../state/Store';
 
-import Actions, {
+import {
   loadData,
   getWateredTrees,
   loadTrees,
@@ -16,12 +15,6 @@ import Actions, {
 import '../assets/style.scss';
 
 import AppWrapper from './AppWrapper';
-import { StoreProps } from '../common/interfaces';
-
-type AppContainerPropsType = Pick<
-  StoreProps,
-  'isTreeDataLoading' | 'isTreeMapLoading' | 'data' | 'overlay'
->;
 
 const loadEntryDataAction = store.action(loadData(store));
 const loadTreesAction = store.action(loadTrees(store));
@@ -33,7 +26,7 @@ loadWateredTreesAction();
 loadTreesAction();
 loadCommunityDataAction();
 
-const AppContainer: FC<AppContainerPropsType> = () => (
+const AppContainer: FC = () => (
   <Router history={history}>
     <ThemeProvider theme={theme}>
       <AppWrapper />
@@ -41,12 +34,4 @@ const AppContainer: FC<AppContainerPropsType> = () => (
   </Router>
 );
 
-export default connect(
-  state => ({
-    isTreeMapLoading: state.isTreeMapLoading,
-    isTreeDataLoading: state.isTreeDataLoading,
-    overlay: state.overlay,
-    data: state.data,
-  }),
-  Actions
-)(AppContainer);
+export default AppContainer;

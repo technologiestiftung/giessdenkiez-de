@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import DeckGlMap from '../map';
@@ -10,7 +10,6 @@ import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
-import store from '../../state/Store';
 import { useStoreState } from '../../state/unistore-hooks';
 
 const AppWrapperDiv = styled.div`
@@ -48,41 +47,14 @@ const CookieContainer = styled.div`
   }
 `;
 
-const removeOverlay = () => {
-  const elem: HTMLElement | null = document.querySelector('#tempOverlay');
-  if (elem) {
-    elem.style.display = 'none';
-  }
-};
-
-const getUrlQueryParameter = (name = ''): string => {
-  name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
-  const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-  const results = regex.exec(window.location.search);
-  return results === null
-    ? ''
-    : decodeURIComponent(results[1].replace(/\+/g, ' '));
-};
-
 const AppWrapper: FC = () => {
   const { isTreeDataLoading } = useStoreState('isTreeDataLoading');
-  const { isTreeMapLoading } = useStoreState('isTreeMapLoading');
   const { data } = useStoreState('data');
   const { overlay: showOverlay } = useStoreState('overlay');
 
-  const showLoading = isTreeMapLoading;
   const showMap = !isTreeDataLoading && data;
+  const showLoading = !showMap;
   const showMapUI = showMap && !showOverlay;
-
-  useEffect(() => {
-    if (isTreeMapLoading) return;
-    const treeId = getUrlQueryParameter('location');
-    store.setState({
-      ...(treeId ? { highlightedObject: treeId } : {}),
-      overlay: !treeId,
-    });
-    removeOverlay();
-  }, [isTreeMapLoading]);
 
   return (
     <AppWrapperDiv>

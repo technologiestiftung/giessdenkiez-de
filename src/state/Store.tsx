@@ -1,6 +1,8 @@
 import { isMobile } from 'react-device-detect';
 import createStore from 'unistore';
+import { easeCubic as d3EaseCubic } from 'd3';
 import { StoreProps } from '../common/interfaces';
+import { FlyToInterpolator } from 'react-map-gl';
 
 const initialState = {
   wateredTrees: [],
@@ -8,7 +10,9 @@ const initialState = {
   // TODO: which one is it @fdnklg !!!!1!!11!!!
   adoptedTrees: [],
   dataView: 'rain',
-  communityData: null,
+  communityData: {},
+  communityDataAdopted: [],
+  communityDataWatered: [],
   wateredByUser: false,
   treesVisible: true,
   legendExpanded: false,
@@ -29,7 +33,6 @@ const initialState = {
   selectedTreeState: undefined,
   overlay: false,
   isTreeDataLoading: true,
-  isTreeMapLoading: true,
   hoveredObject: false,
   viewport: {
     latitude: 52.500869,
@@ -39,6 +42,9 @@ const initialState = {
     minZoom: isMobile ? 11 : 9,
     pitch: isMobile ? 0 : 45,
     bearing: 0,
+    transitionDuration: 2000,
+    transitionEasing: d3EaseCubic,
+    transitionInterpolator: new FlyToInterpolator(),
   },
 };
 

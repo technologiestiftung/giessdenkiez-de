@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { useStoreState } from '../../../state/unistore-hooks';
 
 import CardDescription from '../CardDescription/';
 
@@ -20,17 +21,17 @@ const StyledCardHeadlineMail = styled.div`
   font-size: 0.8rem;
 `;
 
-const CardCredentials: FC<{ email: string; username: string }> = ({
-  email,
-  username,
-}) => (
-  <Flex>
-    <StyledCardHeadline>Dein Account:</StyledCardHeadline>
+const CardCredentials: FC = () => {
+  const { user } = useStoreState('user');
+  return (
+    <Flex>
+      <StyledCardHeadline>Dein Account:</StyledCardHeadline>
 
-    <StyledCardHeadlineMail>{username}</StyledCardHeadlineMail>
-    <StyledCardHeadlineMail>{email}</StyledCardHeadlineMail>
-    <CardDescription>Registrierte E-Mail Adresse</CardDescription>
-  </Flex>
-);
+      <StyledCardHeadlineMail>{user.username}</StyledCardHeadlineMail>
+      <StyledCardHeadlineMail>{user.email}</StyledCardHeadlineMail>
+      <CardDescription>Registrierte E-Mail Adresse</CardDescription>
+    </Flex>
+  );
+};
 
 export default CardCredentials;

@@ -1,42 +1,30 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useAuth0 } from '../../../utils/auth/auth0';
-import store from '../../../state/Store';
-import { useStoreState } from '../../../state/unistore-hooks';
+import { useQuery, QueryFunction } from 'react-query';
 
+import { useAuth0 } from '../../../utils/auth/auth0';
+import { useStoreState } from '../../../state/unistore-hooks';
 import { createAPIUrl, requests } from '../../../utils';
 
-import SidebarTitle from '../SidebarTitle/';
-import Login from '../../Login';
 import CardHeadline from '../../Card/CardHeadline/';
 import CardParagraph from '../../Card/CardParagraph/';
-import CardDescription from '../../Card/CardDescription/';
 import CardProgress from '../../Card/CardProgress/';
 import CardAccordion from '../../Card/CardAccordion/';
 import CardCredentials from '../../Card/CardCredentials/';
 import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
+import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
+import Login from '../../Login';
 import ButtonRound from '../../ButtonRound';
 import LoadingIcon from '../../LoadingIcon/';
-import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
+import SidebarTitle from '../SidebarTitle/';
+import { Tree } from '../../../common/interfaces';
+import { ParticipateButton } from '../../ParticipateButton';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
 `;
 
-const StyledCardDescription = styled(CardDescription)`
-  opacity: 0.66;
-  text-decoration: underline;
-  padding-top: 10px;
-  cursor: pointer;
-  margin: 0 auto;
-  text-align: center;
-  &:hover {
-    opacity: 0.5;
-  }
-`;
-
 const Container = styled.div`
-  width: 100%;
   height: calc(100vh - 125px);
   display: flex;
   flex-direction: column;
@@ -49,11 +37,32 @@ const FlexCol = styled.div`
   flex-direction: column;
 `;
 
+const fetchData: QueryFunction<Tree[]> = async ({ queryKey }) => {
+  const [_key, { adoptedTrees }] = queryKey;
+
+  if (adoptedTrees.length === 0) return [];
+
+  const queryStr = adoptedTrees.reduce(
+    (acc: string, curr: string, idx: number) =>
+      idx + 1 === adoptedTrees.length ? `${acc}${curr}}` : `${acc}${curr},`,
+    '{'
+  );
+
+  const urlAdoptedTreesDetails = createAPIUrl(
+    `/get/?queryType=treesbyids&tree_ids=${queryStr}`
+  );
+  const res = await requests(urlAdoptedTreesDetails);
+  return res.data;
+};
+
 const SidebarProfile: FC = () => {
   const { wateredByUser } = useStoreState('wateredByUser');
   const { adoptedTrees } = useStoreState('adoptedTrees');
-  const { adoptedTreesDetails } = useStoreState('adoptedTreesDetails');
-  const { user: userdata } = useStoreState('user');
+  const { data: adoptedTreesDetails } = useQuery(
+    ['adoptedTreesDetails', { adoptedTrees: (adoptedTrees || []) as string[] }],
+    fetchData,
+    { staleTime: 10000 }
+  );
 
   const {
     loading,
@@ -71,40 +80,6 @@ const SidebarProfile: FC = () => {
     if (!user) return;
     setIsEmailVerifiyed(user.email_verified);
   }, [user, setIsEmailVerifiyed]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (adoptedTrees) {
-          const concatReducer = (acc, curr, currentIndex, array) => {
-            if (currentIndex + 1 === array.length) {
-              return acc + curr + '}';
-            } else {
-              return acc + curr + ',';
-            }
-          };
-
-          const queryStr = adoptedTrees.reduce(concatReducer, '{');
-          const urlAdoptedTreesDetails = createAPIUrl(
-            `/get/?queryType=treesbyids&tree_ids=${queryStr}`
-          );
-          const res = await requests(urlAdoptedTreesDetails);
-          store.setState({ adoptedTreesDetails: res.data });
-        }
-      } catch (error) {
-        console.error(error);
-        throw error;
-      }
-    };
-    if (adoptedTrees && adoptedTrees.length === 0) {
-      store.setState({ adoptedTreesDetails: [] });
-    } else {
-      fetchData().catch(err => {
-        console.error(err);
-        throw err;
-      });
-    }
-  }, [adoptedTrees]);
 
   const handleDeleteClick = async () => {
     try {
@@ -157,11 +132,7 @@ const SidebarProfile: FC = () => {
             logge dich ein.
           </CardParagraph>
           <Login width='-webkit-fill-available' />
-          <StyledCardDescription
-            onClick={() => store.setState({ overlay: true })}
-          >
-            Wie kann ich mitmachen?
-          </StyledCardDescription>
+          <ParticipateButton />
         </FlexCol>
       ) : (
         <>
@@ -178,13 +149,10 @@ const SidebarProfile: FC = () => {
                     title={<span>Adoptierte Bäume</span>}
                   >
                     {adoptedTreesDetails && (
-                      <TreesAdopted data={adoptedTreesDetails} />
+                      <TreesAdopted trees={adoptedTreesDetails} />
                     )}
                   </CardAccordion>
-                  <CardCredentials
-                    email={userdata.email}
-                    username={userdata.username}
-                  ></CardCredentials>
+                  <CardCredentials />
                   <Login width='-webkit-fill-available' />
                   <>
                     <CardParagraph>
@@ -197,7 +165,7 @@ const SidebarProfile: FC = () => {
                     <LastButtonRound
                       width='-webkit-fill-available'
                       toggle={evt => {
-                        evt.preventDefault();
+                        evt?.preventDefault();
                         handleDeleteClick();
                       }}
                     >

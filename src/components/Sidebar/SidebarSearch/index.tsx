@@ -32,9 +32,7 @@ const SidebarSearch: FC = () => {
           <LoadingIcon text='Baumdaten nicht gefunden. Probier einen anderen ...' />
         </Container>
       )}
-      {selectedTree && selectedTreeState !== 'LOADING' && (
-        <Card data={selectedTree} />
-      )}
+      {selectedTree && selectedTreeState !== 'LOADING' && <Card />}
       {!selectedTree && selectedTreeState !== 'LOADING' && <CardLegend />}
     </>
   );

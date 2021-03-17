@@ -3,14 +3,21 @@ import styled from 'styled-components';
 import { loadCommunityData } from '../../state/Actions';
 import { useStoreState } from '../../state/unistore-hooks';
 import store from '../../state/Store';
-import { createAPIUrl, isTreeAdopted, requests, waitFor } from '../../utils';
+import {
+  createAPIUrl,
+  isTreeAdopted,
+  requests,
+  waitFor,
+  loadCommunityData as loadCommunityD,
+} from '../../utils';
 import { useAuth0 } from '../../utils/auth/auth0';
 import ButtonRound from '../ButtonRound';
-import CardDescription from '../Card/CardDescription';
 import CardParagraph from '../Card/CardParagraph';
 import { NonVerfiedMailCardParagraph } from '../Card/non-verified-mail';
 import Login from '../Login';
 import ButtonWaterGroup from './BtnWaterGroup';
+import { ParticipateButton } from '../ParticipateButton';
+import { SelectedTreeType, Tree } from '../../common/interfaces';
 
 const loadCommunityDataAction = store.action(loadCommunityData(store));
 
@@ -21,23 +28,47 @@ const BtnContainer = styled.div`
   align-items: center;
 `;
 
-const StyledCardDescription = styled(CardDescription)`
-  text-decoration: underline;
-  padding-top: 6px;
-  width: fit-content;
-  margin: 0 auto;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.5;
-    transition: all 0.125s ease-in-out;
-  }
-`;
-
 const StyledLogin = styled(Login)`
   cursor: pointer;
   align-self: stretch;
 `;
+
+const adoptTree = async (
+  id: string,
+  token: string,
+  userId: string
+): Promise<Tree> => {
+  const url = createAPIUrl(`/post`);
+
+  await requests(url, {
+    token,
+    override: {
+      method: 'POST',
+      body: JSON.stringify({ tree_id: id, uuid: userId, queryType: 'adopt' }),
+    },
+  });
+
+  const res = await requests<{ data: Tree[] }>(
+    createAPIUrl(`/get?&queryType=byid&id=${id}`)
+  );
+  const tree = res.data[0];
+
+  tree.radolan_days = (tree.radolan_days || []).map(
+    (d: number): number => d / 10
+  ) as number[];
+
+  tree.radolan_sum = (tree.radolan_sum || 0) / 10;
+
+  const adopted = await isTreeAdopted({
+    id,
+    uuid: userId,
+    token,
+    isAuthenticated: !!userId,
+    store,
+  });
+
+  return { ...tree, adopted };
+};
 
 const ButtonWater: FC = () => {
   const { selectedTree } = useStoreState('selectedTree');
@@ -138,59 +169,20 @@ const ButtonWater: FC = () => {
       setWaterGroup('visible');
     }, 1000);
   };
-  const adoptTree = async (id: string) => {
-    try {
-      store.setState({ selectedTreeState: 'ADOPT' });
-      const token = await getTokenSilently();
-      const url = createAPIUrl(`/post?tree_id=${id}&uuid=${user.sub}`);
 
-      await requests(url, {
-        token,
-        override: {
-          method: 'POST',
-          body: JSON.stringify({
-            tree_id: id,
-            uuid: user.sub,
-            queryType: 'adopt',
-          }),
-        },
-      })
-        .then(() => {
-          return requests(createAPIUrl(`/get?&queryType=byid&id=${id}`));
+  const onAdoptClick = async () => {
+    store.setState({ selectedTreeState: 'ADOPT' });
+    const token = await getTokenSilently();
+    await adoptTree(selectedTree.id, token, user.sub)
+      .then(tree =>
+        store.setState({
+          selectedTreeState: 'ADOPTED',
+          selectedTree: tree as SelectedTreeType,
         })
-        .then(res => {
-          if (res.data.length > 0) {
-            const tree = res.data[0];
-            // ISSUE:141
-
-            tree.radolan_days = tree.radolan_days.map(d => d / 10);
-
-            tree.radolan_sum = tree.radolan_sum / 10;
-
-            store.setState({
-              selectedTreeState: 'ADOPTED',
-              selectedTree: tree,
-            });
-          }
-          return waitFor(250, loadCommunityDataAction);
-        })
-        .then(() => {
-          return waitFor(500, () => undefined);
-        })
-        .then(() => {
-          return isTreeAdopted({
-            // isMounted,
-            id,
-            uuid: user.sub,
-            token,
-            isAuthenticated,
-            store,
-          });
-        })
-        .catch(console.error);
-    } catch (error) {
-      console.error(error);
-    }
+      )
+      .then(() => loadCommunityD())
+      .then(store.setState)
+      .catch(console.error);
   };
 
   if (isAuthenticated) {
@@ -202,9 +194,7 @@ const ButtonWater: FC = () => {
               <BtnContainer>
                 <ButtonRound
                   margin='15px'
-                  toggle={() => {
-                    adoptTree(selectedTree.id);
-                  }}
+                  toggle={onAdoptClick}
                   type='secondary'
                 >
                   {!adopted &&
@@ -231,11 +221,7 @@ const ButtonWater: FC = () => {
             {waterGroup === 'watering' && (
               <ButtonWaterGroup id={selectedTree.id} toggle={setWaterAmount} />
             )}
-            <StyledCardDescription
-              onClick={() => store.setState({ overlay: true })}
-            >
-              Wie kann ich mitmachen?
-            </StyledCardDescription>
+            <ParticipateButton />
           </Fragment>
         ) : (
           <>
@@ -250,14 +236,10 @@ const ButtonWater: FC = () => {
     );
   } else {
     return (
-      <BtnContainer>
+      <div>
         <StyledLogin width='-webkit-fill-available' />
-        <StyledCardDescription
-          onClick={() => store.setState({ overlay: true })}
-        >
-          Wie kann ich mitmachen?
-        </StyledCardDescription>
-      </BtnContainer>
+        <ParticipateButton />
+      </div>
     );
   }
 };

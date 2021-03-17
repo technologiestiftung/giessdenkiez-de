@@ -1,24 +1,19 @@
-// @ts-nockeck
 import React from 'react';
 import { connect } from 'unistore/react';
-import Actions from '../../state/Actions';
-
+import { Map as MapboxMap, MapboxGeoJSONFeature } from 'mapbox-gl';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 import { StaticMap, GeolocateControl, NavigationControl } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
+
+import Actions from '../../state/Actions';
 import store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
 import { interpolateColor, hexToRgb } from '../../utils';
 import { HoverObject } from './HoverObject';
-import { Generic, StoreProps } from '../../common/interfaces';
-import {
-  RGBAColor,
-  defaultColor,
-  brokenColor,
-  workingColor,
-  lockedColor,
-} from './colors';
+import { StoreProps, ViewportType } from '../../common/interfaces';
+import { pumpToColor } from './colors';
+import { getUrlQueryParameter } from '../../utils/queryUtil';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -35,37 +30,10 @@ const ControlWrapper = styled.div<StyledProps>`
   }
 `;
 
-let map = null;
-let selectedStateId = false;
+let map: MapboxMap | null = null;
+let selectedStateId: string | number | undefined = undefined;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
-const pumpsColor: (info: Generic) => RGBAColor = info => {
-  if (info === undefined) {
-    return defaultColor.rgba;
-  }
-  if (info.properties['pump:status']) {
-    const status = info.properties['pump:status'];
-    switch (status) {
-      case 'unbekannt': {
-        return defaultColor.rgba;
-      }
-      case 'defekt': {
-        return brokenColor.rgba;
-      }
-      case 'funktionsfähig': {
-        return workingColor.rgba;
-      }
-      case 'verriegelt': {
-        return lockedColor.rgba;
-      }
-
-      default: {
-        return defaultColor.rgba;
-      }
-    }
-  }
-  return defaultColor.rgba;
-};
 
 interface DeckGLPropType {
   data: StoreProps['data'];
@@ -75,34 +43,48 @@ interface DeckGLPropType {
   rainVisible: StoreProps['rainVisible'];
   pumps: StoreProps['pumps'];
   selectedTree: StoreProps['selectedTree'];
+  highlightedObject: StoreProps['highlightedObject'];
+  ageRange: StoreProps['ageRange'];
+  dataView: StoreProps['dataView'];
+  communityData: StoreProps['communityData'];
+  wateredTrees: StoreProps['wateredTrees'];
+  communityDataWatered: StoreProps['communityDataWatered'];
+  communityDataAdopted: StoreProps['communityDataAdopted'];
+  viewport: StoreProps['viewport'];
+  isTreeDataLoading: StoreProps['isTreeDataLoading'];
+  isNavOpen: StoreProps['isNavOpen'];
+  overlay: StoreProps['overlay'];
+  setDetailRouteWithListPath: (id: string) => void;
+  setViewport: (viewport: [number, number]) => void;
+  setView: (viewport: ViewportType) => void;
+  extendView: (viewport: Partial<ViewportType>) => void;
 }
 
 interface DeckGLStateType {
   isHovered: boolean;
-  hoverObjectPointer: number[];
+  hoverObjectPointer: [number, number];
   hoverObjectMessage: string;
   cursor: 'grab' | 'pointer';
   geoLocationAvailable: boolean;
+  isTreeMapLoading: boolean;
 }
 
 class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   constructor(props: DeckGLPropType) {
     super(props);
 
-    // this.geoLocationAvailable = false;
-
     this.state = {
       isHovered: false,
-      hoverObjectPointer: [],
+      hoverObjectPointer: [0, 0],
       hoverObjectMessage: '',
       cursor: 'grab',
       geoLocationAvailable: false,
+      isTreeMapLoading: true,
     };
 
     this._onClick = this._onClick.bind(this);
     this._updateStyles = this._updateStyles.bind(this);
     this._deckClick = this._deckClick.bind(this);
-    this._getFillColor = this._getFillColor.bind(this);
     this.setCursor = this.setCursor.bind(this);
   }
 
@@ -122,7 +104,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           id: 'geojson',
           data: isMobile ? [] : data,
           opacity: 1,
-          getLineWidth: (info: any) => {
+          getLineWidth: info => {
             const { selectedTree } = this.props;
             const id = info.properties['id'];
 
@@ -151,18 +133,18 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           transitions: {
             getFillColor: 500,
           },
-          getFillColor: (info, i) => {
+          getFillColor: info => {
             const { ageRange, dataView, communityData } = this.props;
             const { properties } = info;
             const { id, radolan_sum, age } = properties;
 
-            if (dataView === 'watered' && communityData[id]) {
+            if (dataView === 'watered' && communityData && communityData[id]) {
               return communityData[id].watered
                 ? [53, 117, 177, 200]
                 : [0, 0, 0, 0];
             }
 
-            if (dataView === 'adopted' && communityData[id]) {
+            if (dataView === 'adopted' && communityData && communityData[id]) {
               return communityData[id].adopted
                 ? [0, 128, 128, 200]
                 : [0, 0, 0, 0];
@@ -240,35 +222,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           wireframe: true,
           getElevation: 1,
           getLineColor: [0, 0, 0, 200],
-          // info => {
-          //   const defaultColor = [44, 48, 59, 200];
-          //   const brokenColor = [207, 222, 231, 200];
-          //   const workingColor = [10, 54, 157, 200];
-          //   const lockedColor = [207, 222, 231, 200];
-
-          //   if (info === undefined) {
-          //     return defaultColor;
-          //   }
-          //   if (info.properties['pump:status']) {
-          //     const status = info.properties['pump:status'];
-          //     switch (status) {
-          //       case 'unbekannt': {
-          //         return defaultColor;
-          //       }
-          //       case 'defekt': {
-          //         return brokenColor;
-          //       }
-          //       case 'funktionsfähig': {
-          //         return workingColor;
-          //       }
-          //       case 'locked': {
-          //         return lockedColor;
-          //       }
-          //     }
-          //   }
-          //   return [44, 48, 59, 200];
-          // },
-          getFillColor: pumpsColor, //[255, 255, 255, 255],
+          getFillColor: pumpToColor,
           getRadius: 9,
           pointRadiusMinPixels: 4,
           pickable: true,
@@ -295,13 +249,13 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   _deckClick(event) {
-    if (isMobile) {
+    if (isMobile && map) {
       if (selectedStateId) {
         map.setFeatureState(
           { sourceLayer: 'original', source: 'trees', id: selectedStateId },
           { select: false }
         );
-        selectedStateId = null;
+        selectedStateId = undefined;
       }
       const features = map.queryRenderedFeatures([event.x, event.y], {
         layers: ['trees'],
@@ -309,6 +263,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       if (features.length > 0) {
         const { setDetailRouteWithListPath } = this.props;
         this._onClick(event.x, event.y, features[0]);
+
+        if (!features[0].properties) return;
 
         store.setState({
           highlightedObject: features[0].properties['id'],
@@ -326,12 +282,13 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   async selectTree(treeId: string): Promise<void> {
-    const { setViewport } = this.props;
+    const { extendView } = this.props;
     store.setState({ selectedTreeState: 'LOADING' });
     const { getTree } = Actions(store);
 
     try {
-      const { treeLastWatered, selectedTree } = await getTree(treeId);
+      const tree = await getTree(treeId);
+      const { treeLastWatered, selectedTree } = tree;
       store.setState({ treeLastWatered });
       store.setState({ selectedTreeState: 'LOADED' });
       store.setState({ selectedTree });
@@ -342,17 +299,26 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
       if (!selectedTree) return;
 
-      setViewport([parseFloat(selectedTree.lat), parseFloat(selectedTree.lng)]);
+      extendView({
+        longitude: parseFloat(selectedTree.lat),
+        latitude: parseFloat(selectedTree.lng),
+        zoom: 19,
+      });
     } catch (error) {
       console.error(error);
     }
   }
 
-  _onClick(_x?: number, _y?: number, object) {
+  _onClick(_x: number, _y: number, object: MapboxGeoJSONFeature) {
     const { setViewport, setDetailRouteWithListPath } = this.props;
+    const { coordinates } = (object.geometry as unknown) as {
+      coordinates: [number, number];
+    };
 
-    setViewport(object.geometry.coordinates);
-    const id: string = object.properties.id;
+    if (!coordinates || !Array.isArray(coordinates)) return;
+    setViewport(coordinates);
+    const id: string = object.properties?.id;
+    if (!id) return;
     store.setState({
       highlightedObject: id,
     });
@@ -367,15 +333,16 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     }
   }
 
-  _getFillColor() {}
-
-  _onload(evt) {
+  _onload(evt: { target: MapboxMap }) {
     map = evt.target;
-    // const insertBefore = map.getStyle();
+
+    if (!map || typeof map === 'undefined') return;
 
     const firstLabelLayerId = map
       .getStyle()
-      .layers.find(layer => layer.type === 'symbol').id;
+      .layers?.find(layer => layer.type === 'symbol')?.id;
+
+    if (!firstLabelLayerId) return;
 
     if (!isMobile) {
       map.addLayer(
@@ -472,21 +439,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       });
     }
 
-    store.setState({ isTreeMapLoading: false });
+    this.setState({ isTreeMapLoading: false });
   }
 
-  _updateStyles(prevProps) {
+  _updateStyles(prevProps: DeckGLPropType) {
     if (map && isMobile) {
-      if (this.props.selectedTree && selectedStateId) {
-        // This replicates the original interaction,
-        // but i believe leaving the highlight on the marker
-        // even if the info window closes, makes more sense on mobile
-        // map.setFeatureState(
-        //   { sourceLayer: 'original', source: 'trees', id: selectedStateId },
-        //   { select: false }
-        // );
-        // selectedStateId = null;
-      }
       if (!this.props.treesVisible) {
         map.setLayoutProperty('trees', 'visibility', 'none');
       } else {
@@ -526,7 +483,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: DeckGLPropType) {
     if (map) {
       const mapProps = [
         'wateredTrees',
@@ -554,17 +511,18 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     }
   }
 
-  handleDrag(e) {
-    setTimeout(() => {
-      this.props.setView(e.viewstate);
-    }, 2000);
+  componentDidMount() {
+    const treeId = getUrlQueryParameter('location');
+
+    if (treeId) {
+      store.setState({ overlay: false });
+      this.selectTree(treeId);
+    }
   }
 
   render() {
     const {
       viewport,
-      controller = true,
-      baseMap = true,
       isTreeDataLoading,
       isNavOpen,
       setViewport,
@@ -574,64 +532,64 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
     if (isTreeDataLoading) {
       return <span>Lade Berlins Baumdaten ...</span>;
-    } else if (!isTreeDataLoading) {
-      return (
-        <>
-          {/* THis code below could be used to display some info for the pumps */}
-          {isMobile === false &&
-            this.state.isHovered === true &&
-            this.state.hoverObjectPointer.length === 2 && (
-              <HoverObject
-                message={this.state.hoverObjectMessage}
-                pointer={this.state.hoverObjectPointer}
-              ></HoverObject>
-            )}
-          <DeckGL
-            layers={this._renderLayers()}
-            initialViewState={viewport}
-            viewState={viewport}
-            getCursor={e => {
-              return this.state.cursor;
-            }}
-            onHover={(info, event) => {
-              this.setCursor(info.layer);
-            }}
-            onClick={this._deckClick}
-            onViewStateChange={e => this.handleDrag(e)}
-            controller={controller}
-          >
-            {baseMap && (
-              <StaticMap
-                reuseMaps
-                mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
-                preventStyleDiffing={true}
-                mapboxApiAccessToken={MAPBOX_TOKEN}
-                onLoad={this._onload.bind(this)}
-              >
-                {!overlay && (
-                  <ControlWrapper isNavOpen={isNavOpen}>
-                    <GeolocateControl
-                      positionOptions={{ enableHighAccuracy: true }}
-                      trackUserLocation={isMobile ? true : false}
-                      showUserLocation={true}
-                      onGeolocate={posOptions => {
-                        setViewport([
-                          posOptions.coords.longitude,
-                          posOptions.coords.latitude,
-                        ]);
-                      }}
-                    />
-                    <NavigationControl
-                      onViewStateChange={e => setView(e.viewState)}
-                    />
-                  </ControlWrapper>
-                )}
-              </StaticMap>
-            )}
-          </DeckGL>
-        </>
-      );
     }
+    return (
+      <>
+        {/* This code below could be used to display some info for the pumps */}
+        {isMobile === false &&
+          this.state.isHovered === true &&
+          this.state.hoverObjectPointer.length === 2 && (
+            <HoverObject
+              message={this.state.hoverObjectMessage}
+              pointer={this.state.hoverObjectPointer}
+            ></HoverObject>
+          )}
+        <DeckGL
+          layers={this._renderLayers()}
+          initialViewState={viewport}
+          viewState={viewport}
+          getCursor={() => this.state.cursor}
+          onHover={({ layer }) => this.setCursor(layer)}
+          onClick={this._deckClick}
+          onViewStateChange={e => setView(e.viewState)}
+          controller
+        >
+          <StaticMap
+            reuseMaps
+            mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
+            preventStyleDiffing={true}
+            mapboxApiAccessToken={MAPBOX_TOKEN}
+            onLoad={this._onload.bind(this)}
+            width='100%'
+            height='100%'
+          >
+            {!overlay && (
+              <ControlWrapper isNavOpen={isNavOpen}>
+                <GeolocateControl
+                  positionOptions={{ enableHighAccuracy: true }}
+                  trackUserLocation={isMobile ? true : false}
+                  showUserLocation={true}
+                  onGeolocate={posOptions => {
+                    const {
+                      coords: { latitude, longitude },
+                    } = (posOptions as unknown) as {
+                      coords: {
+                        latitude: number;
+                        longitude: number;
+                      };
+                    };
+                    setViewport([longitude, latitude]);
+                  }}
+                />
+                <NavigationControl
+                  onViewStateChange={e => setView(e.viewState)}
+                />
+              </ControlWrapper>
+            )}
+          </StaticMap>
+        </DeckGL>
+      </>
+    );
   }
 }
 

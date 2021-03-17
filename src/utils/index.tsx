@@ -1,10 +1,10 @@
 import { scaleLinear, interpolateViridis } from 'd3';
-import { IsTreeAdoptedProps, Generic } from '../common/interfaces';
+import { IsTreeAdoptedProps, Generic, StoreProps } from '../common/interfaces';
 
 export function createAPIUrl(entrypoint: string): string {
   return process.env.NODE_ENV === 'production'
-    ? `${process.env.API_ENDPOINT_DEV}${entrypoint}`
-    : `${process.env.API_ENDPOINT_PROD}${entrypoint}`;
+    ? `${process.env.API_ENDPOINT_PROD}${entrypoint}`
+    : `${process.env.API_ENDPOINT_DEV}${entrypoint}`;
 }
 
 export async function requests<
@@ -34,35 +34,32 @@ export async function requests<
   }
 }
 
-export async function isTreeAdopted(opts: IsTreeAdoptedProps): Promise<void> {
-  const { isAuthenticated, uuid, id, token, store, signal } = opts;
-  try {
-    if (isAuthenticated) {
-      const url = createAPIUrl(
-        `/get?queryType=istreeadopted&uuid=${uuid}&id=${id}`
-      );
+export async function isTreeAdopted(
+  opts: IsTreeAdoptedProps
+): Promise<boolean> {
+  const { isAuthenticated, uuid, id, token, signal } = opts;
+  if (!isAuthenticated) return false;
+  const url = createAPIUrl(
+    `/get?queryType=istreeadopted&uuid=${uuid}&id=${id}`
+  );
 
-      const json = await requests<
-        { data: IsTreeAdoptedProps },
-        { signal: AbortSignal | undefined }
-      >(url, {
-        token,
-        override: { signal },
-      });
-      store.setState({ treeAdopted: Boolean(json.data) });
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  const json = await requests<
+    { data: IsTreeAdoptedProps },
+    { signal: AbortSignal | undefined }
+  >(url, {
+    token,
+    override: { signal },
+  });
+  return Boolean(json.data);
 }
 
-export function createGeojson(data) {
+export function createGeojson(trees: Tree[]) {
   const geojson: { type: 'FeatureCollection'; features: any[] } = {
     type: 'FeatureCollection',
     features: [],
   };
 
-  data.forEach(tree => {
+  trees.forEach(tree => {
     const feature = {
       type: 'Feature',
       geometry: {
@@ -121,6 +118,51 @@ export async function waitFor(
     }, millisenconds);
   });
 }
+
+interface CommunityDataType {
+  communityData: StoreProps['communityData'];
+  communityDataWatered: StoreProps['communityDataWatered'];
+  communityDataAdopted: StoreProps['communityDataAdopted'];
+}
+
+export const loadCommunityData = async (): Promise<CommunityDataType> => {
+  const fetchCommunityDataUrl = createAPIUrl(
+    `/get?queryType=wateredandadopted`
+  );
+
+  const json = await requests<{
+    data: {
+      tree_id: string;
+      adopted: '1' | '2';
+      watered: '1' | '2';
+    }[];
+  }>(fetchCommunityDataUrl);
+
+  const defaultCommunityData: CommunityDataType = {
+    communityData: {},
+    communityDataWatered: [],
+    communityDataAdopted: [],
+  };
+
+  if (!json.data) return defaultCommunityData;
+
+  const newState = json.data.reduce(
+    (acc: CommunityDataType, { tree_id: id, adopted, watered }) => ({
+      communityData: {
+        ...acc.communityData,
+        [id]: {
+          adopted: adopted === '1' ? true : false,
+          watered: watered === '1' ? true : false,
+        },
+      },
+      communityDataWatered: [...acc.communityDataWatered, id],
+      communityDataAdopted: [...acc.communityDataAdopted, id],
+    }),
+    defaultCommunityData
+  );
+
+  return newState;
+};
 
 /**
  * Shoulf not be used anymoe

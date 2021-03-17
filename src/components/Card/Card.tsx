@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import { waterNeed, isTreeAdopted } from '../../utils';
 import { useStoreState } from '../../state/unistore-hooks';
@@ -16,16 +16,14 @@ import TreeWatering from './CardAccordion/TreeWatering';
 import TreeLastWatered from './CardAccordion/TreeLastWatered';
 import ButtonWater from '../ButtonWater';
 import CardWaterDrops from './CardWaterDrops';
-import ButtonAdopted from '../ButtonAdopted';
+import TreeButton from '../TreeButton';
 
 import content from '../../assets/content';
-import { IsTreeAdoptedProps, Generic, Tree } from '../../common/interfaces';
+import { Generic } from '../../common/interfaces';
 import Icon from '../Icons';
 import StackedBarChart from '../StackedBarChart';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
-
-type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'>;
 
 const FlexColumnDiv = styled.div`
   display: flex;
@@ -68,54 +66,31 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
-const Card: React.FC<{ data: Tree }> = ({ data }) => {
+const getTreeProp = (p: Generic | string | null) => {
+  return p === 'null' || p === undefined ? null : p;
+};
+
+const Card: FC = () => {
   const { treeLastWatered } = useStoreState('treeLastWatered');
-
   const { treeAdopted } = useStoreState('treeAdopted');
-
-  const { user } = useStoreState('user');
-
   const { selectedTree } = useStoreState('selectedTree');
+  const { getTokenSilently, isAuthenticated, user } = useAuth0();
 
-  const { getTokenSilently, isAuthenticated } = useAuth0();
+  const { standalter, artdtsch, gattungdeutsch, caretaker } = selectedTree;
 
-  const { standalter, artdtsch, gattungdeutsch, caretaker } = data;
-
-  const getTreeProp = (p: Generic | string | null) => {
-    return p === 'null' || p === undefined ? null : p;
-  };
-
-  const fetchData: (opts: FetchDataOpts) => Promise<void> = async ({
-    id,
-    uuid,
-    store,
-    isAuthenticated,
-  }) => {
-    try {
-      if (user && selectedTree) {
-        const token = await getTokenSilently();
-        await isTreeAdopted({
-          id,
-          uuid,
+  useEffect(() => {
+    if (!user || !selectedTree) return;
+    getTokenSilently()
+      .then((token: string) =>
+        isTreeAdopted({
+          id: selectedTree.id,
+          uuid: user.sub,
           token,
           isAuthenticated,
           store,
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    if (!user) return;
-    if (!selectedTree) return;
-    fetchData({
-      id: selectedTree.id,
-      uuid: user.user_id,
-      store,
-      isAuthenticated,
-    }).catch(console.error);
+        })
+      )
+      .catch(console.error);
   }, [user, selectedTree, treeAdopted]);
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
@@ -139,7 +114,9 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
             <CaretakerSublineSpan>{`Dieser Baum wird regelmäßig vom ${caretaker} gewässert.`}</CaretakerSublineSpan>
           </CaretakerDiv>
         )}
-        {treeAdopted && <ButtonAdopted />}
+        {treeAdopted && selectedTree && (
+          <TreeButton tree={selectedTree} label='Adoptiert' />
+        )}
         {treeType && treeType.title !== null && (
           <CardAccordion
             title={
@@ -160,7 +137,9 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
               <CardAccordionTitle>
                 Wasserbedarf:
                 {standalter && (
-                  <CardWaterDrops data={waterNeed(parseInt(standalter))} />
+                  <CardWaterDrops
+                    data={waterNeed(parseInt(standalter)) || []}
+                  />
                 )}
               </CardAccordionTitle>
             }

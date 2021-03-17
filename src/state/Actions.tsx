@@ -1,10 +1,18 @@
 import { isMobile } from 'react-device-detect';
-import { dsv as d3Dsv, easeCubic as d3EaseCubic } from 'd3';
+import { dsv as d3Dsv } from 'd3';
 import history from '../history';
-import { createAPIUrl, createGeojson, requests } from '../utils';
-import { FlyToInterpolator } from 'react-map-gl';
+import {
+  createAPIUrl,
+  createGeojson,
+  requests,
+  loadCommunityData as loadCommunityD,
+} from '../utils';
 import { Store } from 'unistore';
-import { SelectedTreeType, StoreProps, Generic } from '../common/interfaces';
+import {
+  SelectedTreeType,
+  StoreProps,
+  ViewportType,
+} from '../common/interfaces';
 import { TreeLastWateredType } from '../common/types';
 
 interface TreeLastWateredResponseType {
@@ -15,7 +23,9 @@ interface SelectedTreeResponseType {
   data: SelectedTreeType[];
 }
 
-export const loadTrees = (store: Store<StoreProps>) => async () => {
+export const loadTrees = (
+  store: Store<StoreProps>
+) => async (): Promise<void> => {
   if (isMobile) {
     store.setState({
       data: {
@@ -38,46 +48,28 @@ export const loadTrees = (store: Store<StoreProps>) => async () => {
   }
 };
 
-export const setAgeRange = (_state, payload) => {
+export const setAgeRange = (
+  _state: StoreProps,
+  payload: StoreProps['ageRange']
+): {
+  ageRange: StoreProps['ageRange'];
+} => {
   return {
     ageRange: payload,
   };
 };
 
-export const loadCommunityData = (store: Store<StoreProps>) => () => {
-  const fetchCommunityDataUrl = createAPIUrl(
-    `/get?queryType=wateredandadopted`
-  );
-  requests(fetchCommunityDataUrl)
-    .then(json => {
-      const obj = {};
-      const communityDataWatered: Generic[] = [];
-      const communityDataAdopted: Generic[] = [];
-      // TODO: Review https://eslint.org/docs/rules/array-callback-return
-      // create community data object for map
-      if (json.data) {
-        json.data.map(item => {
-          obj[item.tree_id] = {
-            adopted: item.adopted > 0 ? true : false,
-            watered: item.watered > 0 ? true : false,
-          };
-          if (item.adopted > 0) {
-            communityDataWatered.push(item.tree_id);
-          }
-          if (item.watered > 0) {
-            communityDataAdopted.push(item.tree_id);
-          }
-        });
-        store.setState({ communityData: obj });
-        store.setState({ communityDataAdopted });
-        store.setState({ communityDataWatered });
-      }
-      return;
-    })
-    .catch(console.error);
+export const loadCommunityData = (
+  store: Store<StoreProps>
+): (() => Promise<void>) => async () => {
+  const newState = await loadCommunityD();
+
+  store.setState(newState);
 };
 
-export const loadData = (store: Store<StoreProps>) => async () => {
+export const loadData = (
+  store: Store<StoreProps>
+) => async (): Promise<void> => {
   try {
     store.setState({ isTreeDataLoading: true });
     // let geojson = [];
@@ -95,34 +87,44 @@ export const loadData = (store: Store<StoreProps>) => async () => {
   }
 };
 
-export const setDataView = (_state, payload) => {
-  return {
-    dataView: payload,
-  };
-};
-
-function setViewport(_state, payload) {
+function setViewport(
+  state: StoreProps,
+  [latitude, longitude]: [number, number]
+): { viewport: ViewportType } {
   // TODO: lat long are reversed in the database
   // that is why we need to switch them here.
   return {
     viewport: {
-      latitude: payload[1],
-      longitude: payload[0],
-      zoom: 19,
-      maxZoom: 19,
+      ...state.viewport,
+      latitude: longitude,
+      longitude: latitude,
       transitionDuration: 2000,
-      transitionEasing: d3EaseCubic,
-      transitionInterpolator: new FlyToInterpolator(),
-      minZoom: isMobile ? 11 : 9,
-      pitch: isMobile ? 0 : 45,
-      bearing: 0,
     },
   };
 }
 
-function setView(_state, payload) {
+function setView(
+  _state: StoreProps,
+  payload: ViewportType
+): { viewport: ViewportType } {
   return {
-    viewport: payload,
+    viewport: {
+      ...payload,
+      transitionDuration: 0,
+    },
+  };
+}
+
+function extendView(
+  state: StoreProps,
+  payload: Partial<ViewportType>
+): { viewport: ViewportType } {
+  return {
+    viewport: {
+      ...state.viewport,
+      ...payload,
+      transitionDuration: 2000,
+    },
   };
 }
 
@@ -164,7 +166,7 @@ const parseTreeLastWateredResponse = (
   treeLastWateredResponse: TreeLastWateredResponseType
 ): TreeLastWateredType => treeLastWateredResponse.data || [];
 
-export const getTree = () => async (
+export const getTree = async (
   id: string
 ): Promise<{
   treeLastWatered?: TreeLastWateredType;
@@ -226,21 +228,20 @@ export const getTreeByAge = (store: Store<StoreProps>) => async (
   }
 };
 
-export const toggleOverlay: (_state: any, payload: any) => { overlay: any } = (
-  _state,
-  payload
-) => ({
+export const toggleOverlay: (
+  _state: StoreProps,
+  payload: StoreProps['overlay']
+) => { overlay: StoreProps['overlay'] } = (_state, payload) => ({
   overlay: payload,
 });
 
-const setDetailRouteWithListPath = (_state, treeId) => {
+const setDetailRouteWithListPath = (_state: StoreProps, treeId: string) => {
   const nextLocation = `/search?location=${treeId}`;
   history.push(nextLocation);
 };
 
 export default (Store: Store<StoreProps>) => ({
   loadData: loadData(Store),
-  setDataView,
   getWateredTrees: getWateredTrees(Store),
   loadCommunityData: loadCommunityData(Store),
   getTree,
@@ -248,7 +249,7 @@ export default (Store: Store<StoreProps>) => ({
   setDetailRouteWithListPath,
   setViewport,
   setView,
-  // setView,
+  extendView,
   loadTrees: loadTrees(Store),
   removeSelectedTree,
   setAgeRange,

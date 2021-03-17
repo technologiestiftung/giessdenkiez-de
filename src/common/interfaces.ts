@@ -1,3 +1,4 @@
+import { ViewportProps } from 'react-map-gl';
 import { Store } from 'unistore';
 import { RadolanDays, TreeLastWateredType } from './types';
 
@@ -21,7 +22,7 @@ export interface WateredDayType {
   username: string;
 }
 
-export interface SelectedTreeType {
+export interface SelectedTreeType extends Tree {
   radolan_days: RadolanDays;
   radolan_sum: number;
   lat: string;
@@ -29,14 +30,23 @@ export interface SelectedTreeType {
   id: string;
 }
 
+export interface ViewportType extends Partial<ViewportProps> {
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  maxZoom: number;
+  minZoom: number;
+  pitch: number;
+  bearing: number;
+}
 export interface StoreProps {
   wateredTrees: Generic[];
   includedTrees: Generic;
   adoptedTrees: Generic[];
   dataView: 'rain' | 'adopted' | 'watered' | string;
-  communityData: Generic | null;
-  communityDataAdopted?: Generic[];
-  communityDataWatered?: Generic[];
+  communityData: Record<string, { adopted: boolean; watered: boolean }> | null;
+  communityDataAdopted: string[];
+  communityDataWatered: string[];
   wateredByUser: boolean;
   treesVisible: boolean;
   legendExpanded: boolean;
@@ -65,17 +75,8 @@ export interface StoreProps {
     | 'WATERED';
   overlay: boolean;
   isTreeDataLoading: boolean;
-  isTreeMapLoading: boolean;
   hoveredObject: boolean;
-  viewport: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-    maxZoom: number;
-    minZoom: number;
-    pitch: number;
-    bearing: number;
-  };
+  viewport: ViewportType;
 }
 
 export interface IsTreeAdoptedProps {
