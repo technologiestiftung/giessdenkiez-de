@@ -85,10 +85,14 @@ const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
 const SidebarSearchLocation: React.FC = () => {
   const { setViewport } = useActions(Actions);
   const [value, setValue] = React.useState('');
-  const { data: results } = useQuery(['', { value }], fetchSearch, {
-    cacheTime: 1000,
-    staleTime: 5000,
-  });
+  const { data: results } = useQuery(
+    ['sidebarSearch', { value }],
+    fetchSearch,
+    {
+      cacheTime: 1000,
+      staleTime: 5000,
+    }
+  );
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
