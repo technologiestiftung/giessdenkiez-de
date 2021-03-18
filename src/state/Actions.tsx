@@ -1,11 +1,11 @@
 import { isMobile } from 'react-device-detect';
 import history from '../history';
-import { loadCommunityData as loadCommunityD } from '../utils';
 import { Store } from 'unistore';
 import { StoreProps, ViewportType } from '../common/interfaces';
 import { loadTreesGeoJson } from '../utils/requests/loadTreesGeoJson';
 import { loadRainGeoJson } from '../utils/requests/loadRainGeoJson';
 import { loadPumpsData } from '../utils/requests/loadPumpsData';
+import { getCommunityData } from '../utils/requests/getCommunityData';
 import { getWateredTrees as getWateredTreesReq } from '../utils/requests/getWateredTrees';
 
 export const loadTrees = (
@@ -39,8 +39,7 @@ export const setAgeRange = (
 export const loadCommunityData = (
   store: Store<StoreProps>
 ): (() => Promise<void>) => async () => {
-  const newState = await loadCommunityD();
-
+  const newState = await getCommunityData();
   store.setState(newState);
 };
 
@@ -139,11 +138,11 @@ export default (Store: Store<StoreProps>) => ({
   loadData: loadData(Store),
   getWateredTrees: getWateredTrees(Store),
   loadCommunityData: loadCommunityData(Store),
+  loadTrees: loadTrees(Store),
   setDetailRouteWithListPath,
   setViewport,
   setView,
   extendView,
-  loadTrees: loadTrees(Store),
   removeSelectedTree,
   setAgeRange,
   toggleOverlay,
