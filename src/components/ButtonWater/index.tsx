@@ -48,13 +48,13 @@ const ButtonWater: FC = () => {
   const { selectedTreeState } = useStoreState('selectedTreeState');
   const { user: userdata } = useStoreState('user');
   const { treeAdopted } = useStoreState('treeAdopted');
-
   const [waterGroup, setWaterGroup] = useState('visible');
+
   const { user, isAuthenticated, getTokenSilently } = useAuth0();
   const [adopted] = useState(false);
   const isEmailVerified = user && user.email_verified;
 
-  const setWaterAmount = async (id: string, amount: number) => {
+  const onButtonWaterClick = async (id: string, amount: number) => {
     setWaterGroup('watered');
     const token = await getTokenSilently();
     await waterTree({
@@ -130,7 +130,7 @@ const ButtonWater: FC = () => {
         {getButtonLabel(waterGroup)}
       </ButtonRound>
       {waterGroup === 'watering' && (
-        <ButtonWaterGroup id={selectedTree.id} toggle={setWaterAmount} />
+        <ButtonWaterGroup id={selectedTree.id} onClick={onButtonWaterClick} />
       )}
       <ParticipateButton />
     </>

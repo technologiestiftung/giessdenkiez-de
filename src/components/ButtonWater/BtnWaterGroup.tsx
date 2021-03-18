@@ -30,9 +30,9 @@ const btnArray = [
 ];
 
 const BtnWaterGroup: FC<{
-  toggle: (id: string, btnId: number) => void;
+  onClick: (id: string, btnId: number) => void;
   id: string;
-}> = ({ toggle, id }) => (
+}> = ({ onClick, id }) => (
   <BtnWaterContainer>
     {btnArray.map((btn, i) => {
       return (
@@ -40,7 +40,7 @@ const BtnWaterGroup: FC<{
           key={`Btn-water-${i}`}
           width='fit-content'
           toggle={() => {
-            toggle(id, btn.id);
+            onClick(id, btn.id);
           }}
           type='primary'
         >
