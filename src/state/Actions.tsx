@@ -1,10 +1,6 @@
 import { isMobile } from 'react-device-detect';
 import history from '../history';
-import {
-  createAPIUrl,
-  requests,
-  loadCommunityData as loadCommunityD,
-} from '../utils';
+import { loadCommunityData as loadCommunityD } from '../utils';
 import { Store } from 'unistore';
 import { StoreProps, ViewportType } from '../common/interfaces';
 import { loadTreesGeoJson } from '../utils/requests/loadTreesGeoJson';
@@ -127,25 +123,6 @@ export const removeSelectedTree = (): {
   selectedTreeState: false,
 });
 
-export const getTreeByAge = (store: Store<StoreProps>) => async (
-  start: string,
-  end: string
-): Promise<void> => {
-  try {
-    store.setState({ selectedTreeState: 'LOADING' });
-    const url = createAPIUrl(`/get?queryType=byage&start=${start}&end=${end}`);
-
-    const res = await requests(url);
-
-    store.setState({
-      selectedTreeState: 'LOADED',
-      selectedTree: res.data,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 export const toggleOverlay: (
   _state: StoreProps,
   payload: StoreProps['overlay']
@@ -162,7 +139,6 @@ export default (Store: Store<StoreProps>) => ({
   loadData: loadData(Store),
   getWateredTrees: getWateredTrees(Store),
   loadCommunityData: loadCommunityData(Store),
-  getTreeByAge: getTreeByAge(Store),
   setDetailRouteWithListPath,
   setViewport,
   setView,
