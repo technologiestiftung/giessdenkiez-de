@@ -1,9 +1,7 @@
 import { isMobile } from 'react-device-detect';
-import { dsv as d3Dsv } from 'd3';
 import history from '../history';
 import {
   createAPIUrl,
-  createGeojson,
   requests,
   loadCommunityData as loadCommunityD,
 } from '../utils';
@@ -14,6 +12,9 @@ import {
   ViewportType,
 } from '../common/interfaces';
 import { TreeLastWateredType } from '../common/types';
+import { loadTreesGeoJson } from '../utils/requests/loadTreesGeoJson';
+import { loadRainGeoJson } from '../utils/requests/loadRainGeoJson';
+import { loadPumpsData } from '../utils/requests/loadPumpsData';
 import { getWateredTrees as getWateredTreesReq } from '../utils/requests/getWateredTrees';
 
 interface TreeLastWateredResponseType {
@@ -36,16 +37,8 @@ export const loadTrees = (
       isTreeDataLoading: false,
     });
   } else {
-    const dataUrl =
-      'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
-
-    d3Dsv(',', dataUrl, { cache: 'force-cache' })
-      .then(data => {
-        const geojson = createGeojson(data);
-        store.setState({ data: geojson, isTreeDataLoading: false });
-        return;
-      })
-      .catch(console.error);
+    const geoJson = await loadTreesGeoJson();
+    store.setState({ data: geoJson, isTreeDataLoading: false });
   }
 };
 
@@ -73,16 +66,12 @@ export const loadData = (
 ) => async (): Promise<void> => {
   try {
     store.setState({ isTreeDataLoading: true });
-    // let geojson = [];
 
-    const dataUrl =
-      'https://tsb-trees.s3.eu-central-1.amazonaws.com/weather_light.geojson.gz';
-
-    const rainGeojson = await requests(dataUrl);
-    store.setState({ rainGeojson });
-    // load min version
-    const pumps = await requests('/data/pumps.geojson.min.json');
-    store.setState({ pumps });
+    const [rainGeojson, pumpsGeojson] = await Promise.all([
+      loadRainGeoJson(),
+      loadPumpsData(),
+    ]);
+    store.setState({ rainGeojson: rainGeojson, pumps: pumpsGeojson });
   } catch (error) {
     console.error(error);
   }
