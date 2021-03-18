@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import store from '../../state/Store';
 import { useAuth0 } from '../../utils/auth/auth0';
-import { createAPIUrl, requests } from '../../utils';
 import { Tree } from '../../common/interfaces';
 import { useActions } from '../../state/unistore-hooks';
 import Actions from '../../state/Actions';
+import { getTreesAdoptedByUser } from '../../utils/requests/getTreesAdoptedByUser';
+import { unadoptTree } from '../../utils/requests/unadoptTree';
 
 const StyledTreeButton = styled.div`
   font-size: 12px;
@@ -47,36 +48,6 @@ const StyledTreeButton = styled.div`
 
 const Label = styled.span``;
 
-export const fetchTrees = async (
-  userId: string,
-  token: string
-): Promise<Tree[]> => {
-  const urlAdoptedTrees = createAPIUrl(`/get?queryType=adopted&uuid=${userId}`);
-
-  const res = await requests<{ data: Tree[] }>(urlAdoptedTrees, { token });
-  return res.data;
-};
-
-export const unadoptTree = async (
-  id: string,
-  userId: string,
-  token: string
-): Promise<void> => {
-  const urlUnadopt = createAPIUrl(`/delete`);
-
-  await requests(urlUnadopt, {
-    token,
-    override: {
-      method: 'DELETE',
-      body: JSON.stringify({
-        tree_id: id,
-        uuid: userId,
-        queryType: 'unadopt',
-      }),
-    },
-  });
-};
-
 const TreeButton: FC<{
   tree: Tree;
   label?: string;
@@ -85,15 +56,18 @@ const TreeButton: FC<{
   const { extendView } = useActions(Actions);
   const [unadopting, setUnadopting] = useState<string | undefined>(undefined);
 
-  const onButtonClick = async (tree: Tree) => {
-    if (!tree.lat || !tree.lng) return;
-    extendView({
-      // The DB has the lat/lng reversed this is why we correct that here
-      latitude: parseFloat(tree.lng),
-      longitude: parseFloat(tree.lat),
-      zoom: 19,
-    });
-  };
+  const onButtonClick = useCallback(
+    (tree: Tree) => {
+      if (!tree.lat || !tree.lng) return;
+      extendView({
+        // The DB has the lat/lng reversed this is why we correct that here
+        latitude: parseFloat(tree.lng),
+        longitude: parseFloat(tree.lat),
+        zoom: 19,
+      });
+    },
+    [extendView]
+  );
 
   const onCloseIconClick = useCallback(
     async (id: string, userId: string) => {
@@ -103,7 +77,7 @@ const TreeButton: FC<{
 
         const token = await getTokenSilently();
         await unadoptTree(id, userId, token);
-        const adoptedTrees = await fetchTrees(userId, token);
+        const adoptedTrees = await getTreesAdoptedByUser({ userId, token });
         store.setState({
           selectedTreeState: 'FETCHED',
           adoptedTrees,
