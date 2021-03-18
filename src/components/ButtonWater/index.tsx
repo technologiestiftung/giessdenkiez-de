@@ -55,6 +55,7 @@ const ButtonWater: FC = () => {
   const isEmailVerified = user && user.email_verified;
 
   const onButtonWaterClick = async (id: string, amount: number) => {
+    if (!userdata) return;
     setWaterGroup('watered');
     const token = await getTokenSilently();
     await waterTree({
@@ -71,6 +72,7 @@ const ButtonWater: FC = () => {
   };
 
   const onAdoptClick = async () => {
+    if (!selectedTree) return;
     store.setState({ selectedTreeState: 'ADOPT' });
     const token = await getTokenSilently();
     const tree = await adoptTree(selectedTree.id, token, user.sub);
@@ -129,7 +131,7 @@ const ButtonWater: FC = () => {
       >
         {getButtonLabel(waterGroup)}
       </ButtonRound>
-      {waterGroup === 'watering' && (
+      {waterGroup === 'watering' && selectedTree && (
         <ButtonWaterGroup id={selectedTree.id} onClick={onButtonWaterClick} />
       )}
       <ParticipateButton />
