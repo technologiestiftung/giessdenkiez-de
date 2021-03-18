@@ -1,5 +1,4 @@
 import { ViewportProps } from 'react-map-gl';
-import { Store } from 'unistore';
 import { RadolanDays, TreeLastWateredType } from './types';
 
 export interface Generic {
@@ -77,15 +76,6 @@ export interface StoreProps {
   isTreeDataLoading: boolean;
   hoveredObject: boolean;
   viewport: ViewportType;
-}
-
-export interface IsTreeAdoptedProps {
-  id: string;
-  uuid: string;
-  token: string;
-  store: Store<StoreProps>;
-  isAuthenticated?: boolean;
-  signal?: AbortSignal;
 }
 
 export interface Tree {

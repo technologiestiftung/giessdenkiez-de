@@ -1,9 +1,8 @@
 import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
-import { waterNeed, isTreeAdopted } from '../../utils';
+import { waterNeed } from '../../utils';
 import { useStoreState } from '../../state/unistore-hooks';
 import { useAuth0 } from '../../utils/auth/auth0';
-import store from '../../state/Store';
 
 import CardWrapper from './CardWrapper';
 import CardProperty from './CardProperty';
@@ -22,6 +21,7 @@ import content from '../../assets/content';
 import { Generic } from '../../common/interfaces';
 import Icon from '../Icons';
 import StackedBarChart from '../StackedBarChart';
+import { isTreeAdopted } from '../../utils/requests/isTreeAdopted';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
 
@@ -87,7 +87,6 @@ const Card: FC = () => {
           uuid: user.sub,
           token,
           isAuthenticated,
-          store,
         })
       )
       .catch(console.error);

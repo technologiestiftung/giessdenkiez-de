@@ -1,5 +1,5 @@
 import { scaleLinear, interpolateViridis } from 'd3';
-import { IsTreeAdoptedProps, Generic, StoreProps } from '../common/interfaces';
+import { Generic, StoreProps } from '../common/interfaces';
 
 export function createAPIUrl(entrypoint: string): string {
   return process.env.NODE_ENV === 'production'
@@ -32,25 +32,6 @@ export async function requests<
   } catch (err) {
     throw new Error(err);
   }
-}
-
-export async function isTreeAdopted(
-  opts: IsTreeAdoptedProps
-): Promise<boolean> {
-  const { isAuthenticated, uuid, id, token, signal } = opts;
-  if (!isAuthenticated) return false;
-  const url = createAPIUrl(
-    `/get?queryType=istreeadopted&uuid=${uuid}&id=${id}`
-  );
-
-  const json = await requests<
-    { data: IsTreeAdoptedProps },
-    { signal: AbortSignal | undefined }
-  >(url, {
-    token,
-    override: { signal },
-  });
-  return Boolean(json.data);
 }
 
 export function createGeojson(trees: Tree[]) {

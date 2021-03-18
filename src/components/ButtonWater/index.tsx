@@ -5,7 +5,6 @@ import { useStoreState } from '../../state/unistore-hooks';
 import store from '../../state/Store';
 import {
   createAPIUrl,
-  isTreeAdopted,
   requests,
   waitFor,
   loadCommunityData as loadCommunityD,
@@ -17,7 +16,8 @@ import { NonVerfiedMailCardParagraph } from '../Card/non-verified-mail';
 import Login from '../Login';
 import ButtonWaterGroup from './BtnWaterGroup';
 import { ParticipateButton } from '../ParticipateButton';
-import { SelectedTreeType, Tree } from '../../common/interfaces';
+import { SelectedTreeType } from '../../common/interfaces';
+import { adoptTree } from '../../utils/requests/adoptTree';
 
 const loadCommunityDataAction = store.action(loadCommunityData(store));
 
@@ -32,43 +32,6 @@ const StyledLogin = styled(Login)`
   cursor: pointer;
   align-self: stretch;
 `;
-
-const adoptTree = async (
-  id: string,
-  token: string,
-  userId: string
-): Promise<Tree> => {
-  const url = createAPIUrl(`/post`);
-
-  await requests(url, {
-    token,
-    override: {
-      method: 'POST',
-      body: JSON.stringify({ tree_id: id, uuid: userId, queryType: 'adopt' }),
-    },
-  });
-
-  const res = await requests<{ data: Tree[] }>(
-    createAPIUrl(`/get?&queryType=byid&id=${id}`)
-  );
-  const tree = res.data[0];
-
-  tree.radolan_days = (tree.radolan_days || []).map(
-    (d: number): number => d / 10
-  ) as number[];
-
-  tree.radolan_sum = (tree.radolan_sum || 0) / 10;
-
-  const adopted = await isTreeAdopted({
-    id,
-    uuid: userId,
-    token,
-    isAuthenticated: !!userId,
-    store,
-  });
-
-  return { ...tree, adopted };
-};
 
 const ButtonWater: FC = () => {
   const { selectedTree } = useStoreState('selectedTree');
