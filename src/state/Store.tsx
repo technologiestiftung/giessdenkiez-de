@@ -6,8 +6,6 @@ import { FlyToInterpolator } from 'react-map-gl';
 
 const initialState = {
   wateredTrees: [],
-  includedTrees: {},
-  // TODO: which one is it @fdnklg !!!!1!!11!!!
   adoptedTrees: [],
   dataView: 'rain',
   communityData: {},

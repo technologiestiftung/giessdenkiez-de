@@ -82,14 +82,6 @@ export const STATI = {
   STATUS_ERROR: 'ERROR',
 };
 
-export const createIncludedTrees = data => {
-  const obj = {};
-  data.forEach(id => {
-    obj[id] = { included: true };
-  });
-  return obj;
-};
-
 export const waterNeed = (age?: number): null | number[] => {
   if (!age) {
     return null;

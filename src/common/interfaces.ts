@@ -44,7 +44,6 @@ export interface ViewportType extends Partial<ViewportProps> {
 }
 export interface StoreProps {
   wateredTrees: string[];
-  includedTrees: Generic;
   adoptedTrees: Generic[];
   dataView: 'rain' | 'adopted' | 'watered' | string;
   communityData: Record<string, { adopted: boolean; watered: boolean }> | null;
