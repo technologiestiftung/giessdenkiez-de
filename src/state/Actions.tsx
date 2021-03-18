@@ -14,6 +14,7 @@ import {
   ViewportType,
 } from '../common/interfaces';
 import { TreeLastWateredType } from '../common/types';
+import { getWateredTrees as getWateredTreesReq } from '../utils/requests/getWateredTrees';
 
 interface TreeLastWateredResponseType {
   data: TreeLastWateredType | undefined;
@@ -133,15 +134,9 @@ export const getWateredTrees = (Store: Store<StoreProps>) => async (): Promise<{
 }> => {
   try {
     Store.setState({ isTreeDataLoading: true });
-    const url = createAPIUrl('/get?queryType=watered');
-    const result = await requests(url);
+    const wateredTrees = await getWateredTreesReq();
 
-    if (result.data === undefined) {
-      throw new Error('data is not defined on getWateredTrees');
-    }
-    return {
-      wateredTrees: result.data.watered,
-    };
+    return { wateredTrees };
   } catch (error) {
     console.error(error);
     return { wateredTrees: [] };

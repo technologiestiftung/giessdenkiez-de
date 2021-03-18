@@ -40,7 +40,7 @@ export interface ViewportType extends Partial<ViewportProps> {
   bearing: number;
 }
 export interface StoreProps {
-  wateredTrees: Generic[];
+  wateredTrees: string[];
   includedTrees: Generic;
   adoptedTrees: Generic[];
   dataView: 'rain' | 'adopted' | 'watered' | string;
