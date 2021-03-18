@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import React, { FC } from 'react';
 import CardDescription from '../Card/CardDescription';
 import { useActions } from '../../state/unistore-hooks';
-import Actions from '../../state/Actions';
 
 const StyledCardDescription = styled(CardDescription)`
   display: block;
@@ -18,7 +17,7 @@ const StyledCardDescription = styled(CardDescription)`
 `;
 
 export const ParticipateButton: FC = () => {
-  const { openOverlay } = useActions(Actions);
+  const { openOverlay } = useActions();
 
   return (
     <StyledCardDescription onClick={openOverlay}>

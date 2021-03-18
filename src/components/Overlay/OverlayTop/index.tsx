@@ -12,7 +12,6 @@ import Login from '../../../components/Login/';
 
 import content from '../../../assets/content';
 import { useActions } from '../../../state/unistore-hooks';
-import Actions from '../../../state/Actions';
 import OverlayClose from '../OverlayClose';
 
 const Wrapper = styled.div`
@@ -48,7 +47,7 @@ const StyledWrapper = styled.div`
 `;
 
 const OverlayTop: FC = () => {
-  const { closeOverlay } = useActions(Actions);
+  const { closeOverlay } = useActions();
   const { intro, eventNote, whatsNew } = content;
 
   const { title, subline, description, disclaimer } = intro;
@@ -67,7 +66,13 @@ const OverlayTop: FC = () => {
       <OverlayDescription content={description} />
       <OverlayClose onClick={closeOverlay} />
       <StyledWrapper>
-        <ButtonRound width='fit-content' toggle={closeOverlay} type='primary'>
+        <ButtonRound
+          width='fit-content'
+          toggle={() => {
+            closeOverlay();
+          }}
+          type='primary'
+        >
           Los geht&apos;s
         </ButtonRound>
         <Login width='fit-content' noLogout={true} />

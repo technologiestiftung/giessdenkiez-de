@@ -99,4 +99,5 @@ const allActions = {
   closeOverlay,
 };
 
-export default (): typeof allActions => allActions;
+export type ActionsType = typeof allActions;
+export default (): ActionsType => allActions;

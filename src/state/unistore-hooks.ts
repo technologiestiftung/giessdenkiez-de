@@ -3,23 +3,20 @@ import {
   createContext,
   useContext,
   useMemo,
-  useCallback,
   useReducer,
   useEffect,
 } from 'react';
+import delve from 'dlv';
+import { StoreProps } from '../common/interfaces';
+import Actions, { ActionsType } from './Actions';
 import Store from './Store';
-// npm.im/dlv
-function dlv(t, e, l?, n?, r?) {
-  for (e = e.split ? e.split('.') : e, n = 0; n < e.length; n++)
-    t = t ? t[e[n]] : r;
-  return t === r ? l : t;
-}
+import { Store as StoreType } from 'unistore';
 
 const StoreContext = createContext(Store);
 
 export const Provider = StoreContext.Provider;
 
-function flatUpdate(state, update) {
+function flatUpdate(state: Partial<StoreProps>, update: Partial<StoreProps>) {
   let changed = false;
   for (const i in update) {
     if (state[i] !== update[i]) {
@@ -33,28 +30,22 @@ function flatUpdate(state, update) {
   return state;
 }
 
-function createSelector(sel) {
-  const type = typeof sel;
-  if (type == 'function') return sel;
-  if (type == 'string') sel = sel.split(/\s*,\s*/);
-  if (Array.isArray(sel))
-    sel = sel.reduce((obj, key) => ((obj[key] = key), obj), {});
-  return state => {
+function createSelector(sel: string) {
+  const newSel = sel
+    .split(/\s*,\s*/)
+    .reduce((obj, key) => ((obj[key] = key), obj), {});
+  return (state: StoreProps) => {
     const selected = {};
     if (state) {
-      for (const key in sel) {
-        selected[key] = key in state ? state[key] : dlv(state, sel[key]);
+      for (const key in newSel) {
+        selected[key] = key in state ? state[key] : delve(state, newSel[key]);
       }
     }
     return selected;
   };
 }
 
-export function useStore() {
-  return useContext(StoreContext);
-}
-
-export function useStoreState(selector: string) {
+export function useStoreState(selector: string): Partial<StoreProps> {
   const store = useContext(StoreContext);
   const filter = useMemo(() => createSelector(selector), []);
   const [state, setState] = useReducer(
@@ -65,44 +56,25 @@ export function useStoreState(selector: string) {
   return state;
 }
 
-function bindActionsToStore(actions, store) {
-  const bindings =
-    store.bindings ||
-    (store.bindings = new (typeof WeakMap == 'function' ? WeakMap : Map)());
+function bindActionsToStore(
+  actions: (store: StoreType<StoreProps>) => ActionsType,
+  store: StoreType<StoreProps>
+) {
+  const bindings = new (typeof WeakMap == 'function' ? WeakMap : Map)();
   let bound = bindings.get(actions);
   if (!bound) {
-    bindings.set(actions, (bound = {}));
-    if (typeof actions === 'function') actions = actions(store);
-    for (const i in actions) bound[i] = store.action(actions[i]);
+    const newActions = actions(store);
+    bindings.set(newActions, (bound = {}));
+    for (const i in newActions) bound[i] = store.action(newActions[i]);
   }
   return bound;
 }
 
-export function useActions(actions, mapping?, deps?) {
-  if (typeof deps == 'function') [deps, mapping] = [mapping, deps];
+export function useActions(): ActionsType {
   const store = useContext(StoreContext);
-  const boundActions = useMemo(() => bindActionsToStore(actions, store), [
-    actions,
+  const boundActions = useMemo(() => bindActionsToStore(Actions, store), [
+    Actions,
     store,
   ]);
-  mapping = useCallback(mapping, deps || []);
-  const boundMapping = useMemo(() => {
-    let a = mapping;
-    const map = {};
-    if (!a) return boundActions;
-    if (typeof a === 'function') a = a(boundActions);
-    for (const i in a) {
-      let v = a[i];
-      if (Array.isArray(v)) {
-        v = v[0].bind(...v);
-        // const f = v[0];
-        // const a = v;
-        // v = s => f.apply(this, (a[0]=s, a));
-      }
-      // map[i] = store.action(v);
-      map[i] = v;
-    }
-    return map;
-  }, [boundActions, mapping]);
-  return boundMapping;
+  return useMemo(() => boundActions, [boundActions]);
 }

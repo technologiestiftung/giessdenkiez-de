@@ -5,7 +5,6 @@ import store from '../../state/Store';
 import { useAuth0 } from '../../utils/auth/auth0';
 import { Tree } from '../../common/interfaces';
 import { useActions } from '../../state/unistore-hooks';
-import Actions from '../../state/Actions';
 import { getTreesAdoptedByUser } from '../../utils/requests/getTreesAdoptedByUser';
 import { unadoptTree } from '../../utils/requests/unadoptTree';
 
@@ -53,7 +52,7 @@ const TreeButton: FC<{
   label?: string;
 }> = ({ tree, label }) => {
   const { user, getTokenSilently } = useAuth0();
-  const { extendView } = useActions(Actions);
+  const { extendView } = useActions();
   const [unadopting, setUnadopting] = useState<string | undefined>(undefined);
 
   const onButtonClick = useCallback(

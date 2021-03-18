@@ -4,7 +4,6 @@ import { NavLink, matchPath, useLocation } from 'react-router-dom';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-import Actions from '../../state/Actions';
 import { useActions } from '../../state/unistore-hooks';
 import store from '../../state/Store';
 import EdgeButton from '../EdgeComponent/';
@@ -50,7 +49,7 @@ const navConfig = [
 
 const Nav: FC = () => {
   const location = useLocation();
-  const { removeSelectedTree } = useActions(Actions);
+  const { removeSelectedTree } = useActions();
   const { pathname } = location;
 
   const isNavOpen =

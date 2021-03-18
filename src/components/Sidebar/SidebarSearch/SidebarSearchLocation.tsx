@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useQuery, QueryFunction } from 'react-query';
 
 import { useActions } from '../../../state/unistore-hooks';
-import Actions from '../../../state/Actions';
 
 interface FeatureType {
   id: string;
@@ -83,7 +82,7 @@ const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
 };
 
 const SidebarSearchLocation: React.FC = () => {
-  const { setViewport } = useActions(Actions);
+  const { setViewport } = useActions();
   const [value, setValue] = React.useState('');
   const { data: results } = useQuery(
     ['sidebarSearch', { value }],
