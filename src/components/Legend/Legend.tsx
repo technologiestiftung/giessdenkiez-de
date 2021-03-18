@@ -238,7 +238,7 @@ const rainColors = legendArray.map(item => interpolateColor(item.value));
 const rainGradient = createCSSGradient(rainColors);
 
 const Legend: React.FC = () => {
-  const { legendExpanded } = useStoreState('legendExpanded');
+  const { overlay: legendExpanded } = useStoreState('overlay');
   const { pumpsVisible } = useStoreState('pumpsVisible');
   const { rainVisible } = useStoreState('rainVisible');
   const { treesVisible } = useStoreState('treesVisible');
@@ -276,7 +276,7 @@ const Legend: React.FC = () => {
       </FlexSpace>
       {legendExpanded === true && pumpsVisible === false && (
         <UnstyledFlex>
-          {treesVisible === true &&
+          {treesVisible &&
             legendArray.map(item => {
               return (
                 <React.Fragment key={item.label}>

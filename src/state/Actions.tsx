@@ -73,11 +73,12 @@ const removeSelectedTree = (): {
   selectedTreeState: false,
 });
 
-const toggleOverlay: (
-  _state: StoreProps,
-  payload: StoreProps['overlay']
-) => { overlay: StoreProps['overlay'] } = (_state, payload) => ({
-  overlay: payload,
+const openOverlay = (): { overlay: StoreProps['overlay'] } => ({
+  overlay: true,
+});
+
+const closeOverlay = (): { overlay: StoreProps['overlay'] } => ({
+  overlay: false,
 });
 
 const setDetailRouteWithListPath = (_state: StoreProps, treeId: string) => {
@@ -94,7 +95,8 @@ const allActions = {
   extendView,
   removeSelectedTree,
   setAgeRange,
-  toggleOverlay,
+  openOverlay,
+  closeOverlay,
 };
 
 export default (): typeof allActions => allActions;

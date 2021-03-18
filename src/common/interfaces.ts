@@ -43,23 +43,25 @@ export interface ViewportType extends Partial<ViewportProps> {
   bearing: number;
 }
 export interface StoreProps {
-  wateredTrees: string[];
-  adoptedTrees: Generic[];
   dataView: 'rain' | 'adopted' | 'watered' | string;
+
   communityData: Record<string, { adopted: boolean; watered: boolean }> | null;
   communityDataAdopted: string[];
   communityDataWatered: string[];
+
   wateredByUser: Tree[];
+  wateredTrees: string[];
+  adoptedTrees: Generic[];
+
   treesVisible: boolean;
-  legendExpanded: boolean;
+  pumpsVisible: boolean;
+  rainVisible: boolean;
+
   treeAdopted?: boolean;
   isNavOpen: boolean;
-  pumpsVisible: boolean;
   highlightedObject?: string;
   user?: UserType;
-  rainVisible: boolean;
   rainGeojson: Generic | null;
-  adoptedTreesDetails: any;
   ageRange: number[];
   pumps: Generic | null;
   data: Generic | null;
@@ -100,8 +102,8 @@ export interface Tree {
   baumhoehe?: string | null;
   bezirk?: string | null;
   eigentuemer?: string | null;
-  adopted?: null | any;
-  watered?: null | any;
+  adopted?: boolean;
+  watered?: boolean;
   radolan_sum?: number | null;
   radolan_days?: number[];
   geom?: string | null;

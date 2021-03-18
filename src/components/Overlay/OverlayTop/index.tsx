@@ -1,7 +1,6 @@
-import React, { FC, cloneElement, Children } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-import store from '../../../state/Store';
 
 import OverlayTitle from '../OverlayTitle/';
 import OverlayEvent from '../OverlayEvent/';
@@ -12,6 +11,9 @@ import ButtonRound from '../../../components/ButtonRound/';
 import Login from '../../../components/Login/';
 
 import content from '../../../assets/content';
+import { useActions } from '../../../state/unistore-hooks';
+import Actions from '../../../state/Actions';
+import OverlayClose from '../OverlayClose';
 
 const Wrapper = styled.div`
   display: flex;
@@ -45,17 +47,11 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const OverlayTop: FC<{
-  toggleOverlay: (isToggled: boolean) => void;
-}> = ({ children, toggleOverlay }) => {
+const OverlayTop: FC = () => {
+  const { closeOverlay } = useActions(Actions);
   const { intro, eventNote, whatsNew } = content;
 
   const { title, subline, description, disclaimer } = intro;
-
-  const handleClick = () => {
-    store.setState({ legendExpanded: true });
-    toggleOverlay(false);
-  };
 
   return (
     <StyledTop>
@@ -69,9 +65,9 @@ const OverlayTop: FC<{
       {/* the beow is here for local testing */}
       {/* {true && <OverlayTitle size='medium' content={disclaimer} />} */}
       <OverlayDescription content={description} />
-      {Children.map(children, childElement => cloneElement(childElement, {}))}
+      <OverlayClose onClick={closeOverlay} />
       <StyledWrapper>
-        <ButtonRound width='fit-content' toggle={handleClick} type='primary'>
+        <ButtonRound width='fit-content' toggle={closeOverlay} type='primary'>
           Los geht&apos;s
         </ButtonRound>
         <Login width='fit-content' noLogout={true} />

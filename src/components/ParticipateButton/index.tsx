@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import React, { FC } from 'react';
 import CardDescription from '../Card/CardDescription';
-import store from '../../state/Store';
+import { useActions } from '../../state/unistore-hooks';
+import Actions from '../../state/Actions';
 
 const StyledCardDescription = styled(CardDescription)`
   display: block;
@@ -16,8 +17,12 @@ const StyledCardDescription = styled(CardDescription)`
   }
 `;
 
-export const ParticipateButton: FC = () => (
-  <StyledCardDescription onClick={() => store.setState({ overlay: true })}>
-    Wie kann ich mitmachen?
-  </StyledCardDescription>
-);
+export const ParticipateButton: FC = () => {
+  const { openOverlay } = useActions(Actions);
+
+  return (
+    <StyledCardDescription onClick={openOverlay}>
+      Wie kann ich mitmachen?
+    </StyledCardDescription>
+  );
+};

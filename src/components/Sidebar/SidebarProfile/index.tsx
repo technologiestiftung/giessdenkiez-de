@@ -115,7 +115,7 @@ const SidebarProfile: FC = () => {
     );
   }
 
-  if (!wateredByUser || !adoptedTreesDetails) {
+  if (!wateredByUser || adoptedTreesDetails?.length === 0) {
     return (
       <>
         <SidebarTitle>Profil</SidebarTitle>
@@ -132,7 +132,9 @@ const SidebarProfile: FC = () => {
       <CardHeadline>Dein Gießfortschritt</CardHeadline>
       <CardProgress trees={wateredByUser} />
       <CardAccordion active={true} title={<span>Adoptierte Bäume</span>}>
-        {adoptedTreesDetails && <TreesAdopted trees={adoptedTreesDetails} />}
+        {adoptedTreesDetails && adoptedTreesDetails.length > 0 && (
+          <TreesAdopted trees={adoptedTreesDetails} />
+        )}
       </CardAccordion>
       <CardCredentials />
       <Login width='-webkit-fill-available' />
