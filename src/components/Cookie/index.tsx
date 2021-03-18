@@ -2,9 +2,9 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 
 import ButtonRound from '../ButtonRound';
-import { getCookieValue } from '../../utils';
+import { areCookiesAccepted } from '../../utils';
 
-const cookie = getCookieValue('disclaimerAccepted');
+const cookieAreAccepted = areCookiesAccepted('disclaimerAccepted');
 
 const CookieDiv = styled.div`
   z-index: 1;
@@ -43,7 +43,7 @@ const StyledCardDescription = styled.div`
 
 const Cookie: FC = () => {
   const [cookiesAccepted, setCookieAccepted] = useState<boolean>(
-    cookie === 'true'
+    cookieAreAccepted
   );
 
   const setCookie = () => {

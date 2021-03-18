@@ -34,54 +34,6 @@ export async function requests<
   }
 }
 
-// TODO: review array callback return
-// Expected to return a value in arrow function.eslintarray-callback-return
-//
-export function createCSVJson(data): [number, number, number, number][] {
-  const csvArr: Array<[number, number, number, number]> = [];
-  data.map(item => {
-    csvArr.push([+item[1], +item[2], item[0], +item[3]]);
-  });
-  return csvArr;
-}
-
-export function flatten(ary): any[] {
-  let ret: any[] = [];
-  for (let i = 0; i < ary.length; i++) {
-    if (Array.isArray(ary[i])) {
-      ret = ret.concat(flatten(ary[i]));
-    } else {
-      ret.push(ary[i]);
-    }
-  }
-  return ret;
-}
-
-export async function waitFor(
-  millisenconds: number,
-  callback: () => void
-): Promise<void> {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      callback();
-      resolve();
-    }, millisenconds);
-  });
-}
-
-/**
- * Shoulf not be used anymoe
- * @deprecated
- *
- */
-
-export const STATI = {
-  STATUS_IDLE: 'IDLE',
-  STATUS_LOADING: 'LOADING',
-  STATUS_SUCCESS: 'SUCCESS',
-  STATUS_ERROR: 'ERROR',
-};
-
 export const waterNeed = (age?: number): null | number[] => {
   if (!age) {
     return null;
@@ -98,9 +50,9 @@ export const waterNeed = (age?: number): null | number[] => {
   return null;
 };
 
-export const getCookieValue = (a: string | number) => {
+export const areCookiesAccepted = (a: string | number): boolean => {
   const b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
-  return b ? b.pop() : '';
+  return b ? b.pop() === 'true' : false;
 };
 
 export const convertTime = (unix_timestamp: string): string => {
@@ -152,8 +104,6 @@ export default {
   interpolateColor,
   waterNeed,
   hexToRgb,
-  createCSVJson,
   createAPIUrl,
-  getCookieValue,
-  flatten,
+  areCookiesAccepted,
 };
