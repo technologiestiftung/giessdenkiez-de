@@ -9,7 +9,7 @@ import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import Actions from '../../state/Actions';
 import store from '../../state/Store';
 import { wateredTreesSelector } from '../../state/Selectors';
-import { interpolateColor, hexToRgb } from '../../utils';
+import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { HoverObject } from './HoverObject';
 import { StoreProps, ViewportType } from '../../common/interfaces';
 import { pumpToColor } from './colors';

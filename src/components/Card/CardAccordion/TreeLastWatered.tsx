@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { StoreProps } from '../../../common/interfaces';
 
-import { convertTime } from '../../../utils/';
+import { formatUnixTimestamp } from '../../../utils/formatUnixTimestamp';
 
 import TreeType from './TreeType';
 
@@ -65,7 +65,9 @@ const TreeLastWatered: FC<{
             <Wrapper key={`Lastadopted-key-${i}`}>
               <FlexRow>
                 <Title>{info.username}</Title>
-                <StyledTreeType>({convertTime(info.timestamp)})</StyledTreeType>
+                <StyledTreeType>
+                  ({formatUnixTimestamp(info.timestamp)})
+                </StyledTreeType>
               </FlexRow>
               <TreeType>{info.amount}l</TreeType>
               <StyledIcon src={iconDrop} alt='Water drop icon' />

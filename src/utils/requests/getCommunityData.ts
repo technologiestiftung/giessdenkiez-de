@@ -1,4 +1,5 @@
-import { createAPIUrl, requests } from '..';
+import { createAPIUrl } from '../createAPIUrl';
+import { requests } from '../requestUtil';
 
 interface CommunityDataType {
   communityData: Record<string, { adopted: boolean; watered: boolean }> | null;

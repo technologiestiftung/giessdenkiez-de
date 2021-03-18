@@ -1,4 +1,4 @@
-import { requests } from '..';
+import { requests } from '../requestUtil';
 
 export const deleteAccount = async ({
   token,

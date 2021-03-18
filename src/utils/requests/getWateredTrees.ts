@@ -1,4 +1,5 @@
-import { createAPIUrl, requests } from '..';
+import { createAPIUrl } from '../createAPIUrl';
+import { requests } from '../requestUtil';
 
 export const getWateredTrees = async (): Promise<string[]> => {
   const url = createAPIUrl('/get?queryType=watered');

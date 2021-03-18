@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
-import { waterNeed } from '../../utils';
+import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
 import { useStoreState } from '../../state/unistore-hooks';
 import { useAuth0 } from '../../utils/auth/auth0';
 
@@ -137,7 +137,7 @@ const Card: FC = () => {
                 Wasserbedarf:
                 {standalter && (
                   <CardWaterDrops
-                    data={waterNeed(parseInt(standalter)) || []}
+                    data={getWaterNeedByAge(parseInt(standalter)) || []}
                   />
                 )}
               </CardAccordionTitle>

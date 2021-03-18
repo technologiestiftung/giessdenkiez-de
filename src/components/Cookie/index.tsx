@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 
 import ButtonRound from '../ButtonRound';
-import { areCookiesAccepted } from '../../utils';
+import { areCookiesAccepted } from '../../utils/areCookiesAccepted';
 
 const cookieAreAccepted = areCookiesAccepted('disclaimerAccepted');
 

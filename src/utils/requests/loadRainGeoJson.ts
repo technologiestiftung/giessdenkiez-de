@@ -1,5 +1,5 @@
 import { ExtendedFeatureCollection } from 'd3-geo';
-import { requests } from '..';
+import { requests } from '../requestUtil';
 
 export const loadRainGeoJson = async (): Promise<ExtendedFeatureCollection> => {
   const dataUrl =

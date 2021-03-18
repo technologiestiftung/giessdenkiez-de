@@ -1,4 +1,5 @@
-import { createAPIUrl, requests } from '..';
+import { createAPIUrl } from '../createAPIUrl';
+import { requests } from '../requestUtil';
 import { Tree } from '../../common/interfaces';
 
 export const getTreesWateredByUser = async ({

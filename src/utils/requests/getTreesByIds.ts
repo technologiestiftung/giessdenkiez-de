@@ -1,5 +1,6 @@
 import { Tree } from './../../common/interfaces';
-import { createAPIUrl, requests } from '..';
+import { createAPIUrl } from '../createAPIUrl';
+import { requests } from '../requestUtil';
 
 export const getTreesByIds = async (ids: string[]): Promise<Tree[]> => {
   const queryStr = ids.reduce(

@@ -6,7 +6,7 @@ import React from 'react';
 import store from '../../state/Store';
 import { Provider } from 'unistore/react';
 import { useAuth0 } from '../../utils/auth/auth0';
-import * as utils from '../../utils';
+import * as requestUtil from '../../utils/requestUtil';
 jest.mock('../../utils');
 /**
  * Auth0 mock taken from here
@@ -49,7 +49,7 @@ describe('button water test', () => {
   test('button click should switch to "adoptiere" and then vanish', async () => {
     store.setState({ selectedTree: { id: '_123' } });
     jest
-      .spyOn(utils, 'requests')
+      .spyOn(requestUtil, 'requests')
       .mockResolvedValueOnce({ data: 'adopted' })
       .mockResolvedValueOnce({
         data: [{ id: '_123', radolan_days: [0, 1, 2, 0], radolan_sum: 0 }],

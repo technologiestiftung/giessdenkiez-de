@@ -1,4 +1,4 @@
-import { requests } from '..';
+import { requests } from '../requestUtil';
 import { StoreProps } from '../../common/interfaces';
 
 export const getUserInfo = async ({

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { interpolateColor } from '../../utils';
+import { interpolateColor } from '../../utils/colorUtil';
 import store from '../../state/Store';
 import { useStoreState } from '../../state/unistore-hooks';
 import CardDescription from '../Card/CardDescription';
@@ -237,18 +237,18 @@ function createCSSGradient(colors: string[], degrees = 90): string {
 const rainColors = legendArray.map(item => interpolateColor(item.value));
 const rainGradient = createCSSGradient(rainColors);
 
-const Legend: React.FC = () => {
-  const { overlay: legendExpanded } = useStoreState('overlay');
+const Legend: FC = () => {
   const { pumpsVisible } = useStoreState('pumpsVisible');
   const { rainVisible } = useStoreState('rainVisible');
   const { treesVisible } = useStoreState('treesVisible');
+  const [legendExpanded, setLegendExpanded] = useState<boolean>(true);
 
   return (
     <LegendDiv active={legendExpanded}>
       <FlexSpace active={legendExpanded}>
         <FlexColumn>
           <StyledCardDescription
-            onClick={() => store.setState({ legendExpanded: !legendExpanded })}
+            onClick={() => setLegendExpanded(!legendExpanded)}
           >
             {(() => {
               if (legendExpanded) {
@@ -268,9 +268,7 @@ const Legend: React.FC = () => {
             </StyledCardDescriptionSecond>
           )}
         </FlexColumn>
-        <StyledToggle
-          onClick={() => store.setState({ legendExpanded: !legendExpanded })}
-        >
+        <StyledToggle onClick={() => setLegendExpanded(!legendExpanded)}>
           {legendExpanded ? '—' : '+'}
         </StyledToggle>
       </FlexSpace>

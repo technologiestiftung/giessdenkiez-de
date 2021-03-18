@@ -1,4 +1,5 @@
-import { createAPIUrl, requests } from '..';
+import { createAPIUrl } from '../createAPIUrl';
+import { requests } from '../requestUtil';
 import { SelectedTreeType } from '../../common/interfaces';
 import { TreeLastWateredType } from '../../common/types';
 
