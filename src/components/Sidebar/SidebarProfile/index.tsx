@@ -143,7 +143,7 @@ const SidebarProfile: FC = () => {
               {wateredByUser && adoptedTreesDetails && (
                 <Fragment>
                   <CardHeadline>Dein Gießfortschritt</CardHeadline>
-                  <CardProgress data={wateredByUser} />
+                  <CardProgress trees={wateredByUser} />
                   <CardAccordion
                     active={true}
                     title={<span>Adoptierte Bäume</span>}

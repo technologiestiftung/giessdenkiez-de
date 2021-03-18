@@ -21,6 +21,10 @@ export interface WateredDayType {
   username: string;
 }
 
+interface UserType {
+  username: string;
+  email: string;
+}
 export interface SelectedTreeType extends Tree {
   radolan_days: RadolanDays;
   radolan_sum: number;
@@ -46,14 +50,14 @@ export interface StoreProps {
   communityData: Record<string, { adopted: boolean; watered: boolean }> | null;
   communityDataAdopted: string[];
   communityDataWatered: string[];
-  wateredByUser: boolean;
+  wateredByUser: Tree[];
   treesVisible: boolean;
   legendExpanded: boolean;
   treeAdopted?: boolean;
   isNavOpen: boolean;
   pumpsVisible: boolean;
   highlightedObject?: string;
-  user: boolean;
+  user?: UserType;
   rainVisible: boolean;
   rainGeojson: Generic | null;
   adoptedTreesDetails: any;
@@ -61,7 +65,7 @@ export interface StoreProps {
   pumps: Generic | null;
   data: Generic | null;
   tabActive: string;
-  selectedTree: SelectedTreeType | undefined;
+  selectedTree?: SelectedTreeType | undefined;
   treeLastWatered: TreeLastWateredType | undefined;
   selectedTreeState?:
     | 'LOADED'

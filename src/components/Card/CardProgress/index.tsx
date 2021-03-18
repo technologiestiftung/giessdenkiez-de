@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import CardHeadline from '../../Card/CardHeadline/';
 import CardDescription from '../../Card/CardDescription/';
 import Icon from '../../Icons';
+import { WateredDayType } from '../../../common/interfaces';
 
 const FlexOuter = styled.div`
   display: flex;
@@ -27,16 +28,19 @@ const FlexColumn = styled.div`
   justify-content: center;
 `;
 
-const CardProgress: FC<{ data: { amount: string }[] }> = ({ data }) => {
+const CardProgress: FC<{ trees: WateredDayType[] }> = ({ trees }) => {
   const [liters, setLiters] = useState(0);
   const [times, setTimes] = useState(0);
 
-  useEffect(() => {
-    const sumReducer = (acc: number, curr: { amount: string }) =>
-      acc + parseInt(curr.amount);
-    setTimes(data.length);
-    setLiters(data.reduce(sumReducer, 0));
-  }, [data]);
+  useEffect(
+    () => {
+      const sumReducer = (acc: number, curr: WateredDayType) =>
+        acc + parseInt(curr.amount);
+      setTimes(trees.length);
+      setLiters(trees.reduce(sumReducer, 0));
+    },
+    [...trees] as WateredDayType[]
+  );
 
   const progressItems = [
     {

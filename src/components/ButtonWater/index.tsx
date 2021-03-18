@@ -1,14 +1,8 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { loadCommunityData } from '../../state/Actions';
 import { useStoreState } from '../../state/unistore-hooks';
 import store from '../../state/Store';
-import {
-  createAPIUrl,
-  requests,
-  waitFor,
-  loadCommunityData as loadCommunityD,
-} from '../../utils';
+import { loadCommunityData } from '../../utils';
 import { useAuth0 } from '../../utils/auth/auth0';
 import ButtonRound from '../ButtonRound';
 import CardParagraph from '../Card/CardParagraph';
@@ -18,8 +12,8 @@ import ButtonWaterGroup from './BtnWaterGroup';
 import { ParticipateButton } from '../ParticipateButton';
 import { SelectedTreeType } from '../../common/interfaces';
 import { adoptTree } from '../../utils/requests/adoptTree';
-
-const loadCommunityDataAction = store.action(loadCommunityData(store));
+import { waterTree } from '../../utils/requests/waterTree';
+import { getTreeData } from '../../utils/requests/getTreeData';
 
 const BtnContainer = styled.div`
   display: flex;
@@ -68,84 +62,32 @@ const ButtonWater: FC = () => {
     }
   };
 
-  const waterTree = async (id, amount, username) => {
-    try {
-      store.setState({ selectedTreeState: 'WATERING' });
-      const token = await getTokenSilently();
-      const urlPostWatering = createAPIUrl(`/post`);
-
-      await requests<undefined, { method: 'POST'; body: string }>(
-        urlPostWatering,
-        {
-          token,
-          override: {
-            method: 'POST',
-            body: JSON.stringify({
-              tree_id: id,
-              amount,
-              uuid: user.sub,
-              username,
-              queryType: 'water',
-            }),
-          },
-        }
-      );
-      const geturl = createAPIUrl(`/get?id=${id}&queryType=byid`);
-      const json = await requests(geturl);
-      if (json.data.length > 0) {
-        const tree = json.data[0];
-        // ISSUE:141
-        tree.radolan_days = tree.radolan_days.map(d => d / 10);
-        tree.radolan_sum = tree.radolan_sum / 10;
-
-        store.setState({
-          selectedTreeState: 'WATERED',
-          selectedTree: tree,
-        });
-
-        await waitFor(250, loadCommunityDataAction);
-        const jsonWatered = await requests(
-          createAPIUrl(`/get?queryType=lastwatered&id=${id}`)
-        );
-        store.setState({ treeLastWatered: jsonWatered.data });
-        await waitFor(500, () => {
-          const url = createAPIUrl(`/get?queryType=watered`);
-          requests(url)
-            .then(json => {
-              store.setState({ wateredTrees: json.data.watered });
-              return;
-            })
-            .catch(console.error);
-        });
-      }
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  };
-
-  const setWaterAmount = (id: string, amount: number) => {
+  const setWaterAmount = async (id: string, amount: number) => {
     setWaterGroup('watered');
-    waterTree(id, amount, userdata.username);
+    const token = await getTokenSilently();
+    await waterTree({
+      id,
+      amount,
+      username: userdata.username,
+      userId: user.sub,
+      token,
+    });
 
-    setTimeout(() => {
-      setWaterGroup('visible');
-    }, 1000);
+    const treeData = await getTreeData(id);
+    store.setState(treeData);
+    setWaterGroup('visible');
   };
 
   const onAdoptClick = async () => {
     store.setState({ selectedTreeState: 'ADOPT' });
     const token = await getTokenSilently();
-    await adoptTree(selectedTree.id, token, user.sub)
-      .then(tree =>
-        store.setState({
-          selectedTreeState: 'ADOPTED',
-          selectedTree: tree as SelectedTreeType,
-        })
-      )
-      .then(() => loadCommunityD())
-      .then(store.setState)
-      .catch(console.error);
+    const tree = await adoptTree(selectedTree.id, token, user.sub);
+    store.setState({
+      selectedTreeState: 'ADOPTED',
+      selectedTree: tree as SelectedTreeType,
+    });
+    const communityData = await loadCommunityData();
+    store.setState(communityData);
   };
 
   if (isAuthenticated) {
