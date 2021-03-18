@@ -8,7 +8,6 @@ import DeckGL, { GeoJsonLayer } from 'deck.gl';
 
 import Actions from '../../state/Actions';
 import store from '../../state/Store';
-import { wateredTreesSelector } from '../../state/Selectors';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { HoverObject } from './HoverObject';
 import { StoreProps, ViewportType } from '../../common/interfaces';
@@ -595,7 +594,10 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 export default connect(
   state => ({
     ...state,
-    wateredTrees: wateredTreesSelector(state),
+    wateredTrees: (state.wateredTrees || []).reduce(
+      (acc, key) => ({ ...acc, [key]: { included: true } }),
+      []
+    ),
     state: state,
   }),
   Actions
