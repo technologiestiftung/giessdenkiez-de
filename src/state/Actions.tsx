@@ -1,29 +1,8 @@
-import { isMobile } from 'react-device-detect';
 import history from '../history';
 import { Store } from 'unistore';
 import { StoreProps, ViewportType } from '../common/interfaces';
-import { loadTreesGeoJson } from '../utils/requests/loadTreesGeoJson';
-import { loadRainGeoJson } from '../utils/requests/loadRainGeoJson';
-import { loadPumpsData } from '../utils/requests/loadPumpsData';
 import { getCommunityData } from '../utils/requests/getCommunityData';
 import { getWateredTrees as getWateredTreesReq } from '../utils/requests/getWateredTrees';
-
-export const loadTrees = (
-  store: Store<StoreProps>
-) => async (): Promise<void> => {
-  if (isMobile) {
-    store.setState({
-      data: {
-        type: 'FeatureCollection',
-        features: [],
-      },
-      isTreeDataLoading: false,
-    });
-  } else {
-    const geoJson = await loadTreesGeoJson();
-    store.setState({ data: geoJson, isTreeDataLoading: false });
-  }
-};
 
 export const setAgeRange = (
   _state: StoreProps,
@@ -43,21 +22,17 @@ export const loadCommunityData = (
   store.setState(newState);
 };
 
-export const loadData = (
-  store: Store<StoreProps>
-) => async (): Promise<void> => {
-  try {
-    store.setState({ isTreeDataLoading: true });
+function startLoading(): {
+  isTreeDataLoading: true;
+} {
+  return { isTreeDataLoading: true };
+}
 
-    const [rainGeojson, pumpsGeojson] = await Promise.all([
-      loadRainGeoJson(),
-      loadPumpsData(),
-    ]);
-    store.setState({ rainGeojson: rainGeojson, pumps: pumpsGeojson });
-  } catch (error) {
-    console.error(error);
-  }
-};
+function stopLoading(): {
+  isTreeDataLoading: false;
+} {
+  return { isTreeDataLoading: false };
+}
 
 function setViewport(
   state: StoreProps,
@@ -135,10 +110,10 @@ const setDetailRouteWithListPath = (_state: StoreProps, treeId: string) => {
 };
 
 export default (Store: Store<StoreProps>) => ({
-  loadData: loadData(Store),
   getWateredTrees: getWateredTrees(Store),
   loadCommunityData: loadCommunityData(Store),
-  loadTrees: loadTrees(Store),
+  startLoading,
+  stopLoading,
   setDetailRouteWithListPath,
   setViewport,
   setView,

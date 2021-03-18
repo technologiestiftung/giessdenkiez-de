@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import { theme } from '../assets/theme';
@@ -6,32 +6,31 @@ import { Router } from 'react-router-dom';
 import history from '../history';
 import store from '../state/Store';
 
-import {
-  loadData,
-  getWateredTrees,
-  loadTrees,
-  loadCommunityData,
-} from '../state/Actions';
 import '../assets/style.scss';
 
 import AppWrapper from './AppWrapper';
+import { useActions } from '../state/unistore-hooks';
+import Actions from '../state/Actions';
+import { loadAllData } from '../utils/requests/loadAllData';
 
-const loadEntryDataAction = store.action(loadData(store));
-const loadTreesAction = store.action(loadTrees(store));
-const loadWateredTreesAction = store.action(getWateredTrees(store));
-const loadCommunityDataAction = store.action(loadCommunityData(store));
+const AppContainer: FC = () => {
+  const { startLoading, stopLoading } = useActions(Actions);
 
-loadEntryDataAction();
-loadWateredTreesAction();
-loadTreesAction();
-loadCommunityDataAction();
+  useEffect(() => {
+    startLoading();
+    loadAllData()
+      .then(storeData => store.setState(storeData))
+      .finally(() => stopLoading())
+      .catch(console.error);
+  }, []);
 
-const AppContainer: FC = () => (
-  <Router history={history}>
-    <ThemeProvider theme={theme}>
-      <AppWrapper />
-    </ThemeProvider>
-  </Router>
-);
+  return (
+    <Router history={history}>
+      <ThemeProvider theme={theme}>
+        <AppWrapper />
+      </ThemeProvider>
+    </Router>
+  );
+};
 
 export default AppContainer;
