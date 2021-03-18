@@ -1,10 +1,7 @@
 import history from '../history';
-import { Store } from 'unistore';
 import { StoreProps, ViewportType } from '../common/interfaces';
-import { getCommunityData } from '../utils/requests/getCommunityData';
-import { getWateredTrees as getWateredTreesReq } from '../utils/requests/getWateredTrees';
 
-export const setAgeRange = (
+const setAgeRange = (
   _state: StoreProps,
   payload: StoreProps['ageRange']
 ): {
@@ -13,13 +10,6 @@ export const setAgeRange = (
   return {
     ageRange: payload,
   };
-};
-
-export const loadCommunityData = (
-  store: Store<StoreProps>
-): (() => Promise<void>) => async () => {
-  const newState = await getCommunityData();
-  store.setState(newState);
 };
 
 function startLoading(): {
@@ -75,21 +65,7 @@ function extendView(
   };
 }
 
-export const getWateredTrees = (Store: Store<StoreProps>) => async (): Promise<{
-  wateredTrees: StoreProps['wateredTrees'];
-}> => {
-  try {
-    Store.setState({ isTreeDataLoading: true });
-    const wateredTrees = await getWateredTreesReq();
-
-    return { wateredTrees };
-  } catch (error) {
-    console.error(error);
-    return { wateredTrees: [] };
-  }
-};
-
-export const removeSelectedTree = (): {
+const removeSelectedTree = (): {
   selectedTree: boolean;
   selectedTreeState: boolean;
 } => ({
@@ -97,7 +73,7 @@ export const removeSelectedTree = (): {
   selectedTreeState: false,
 });
 
-export const toggleOverlay: (
+const toggleOverlay: (
   _state: StoreProps,
   payload: StoreProps['overlay']
 ) => { overlay: StoreProps['overlay'] } = (_state, payload) => ({
@@ -109,9 +85,7 @@ const setDetailRouteWithListPath = (_state: StoreProps, treeId: string) => {
   history.push(nextLocation);
 };
 
-export default (Store: Store<StoreProps>) => ({
-  getWateredTrees: getWateredTrees(Store),
-  loadCommunityData: loadCommunityData(Store),
+const allActions = {
   startLoading,
   stopLoading,
   setDetailRouteWithListPath,
@@ -121,4 +95,6 @@ export default (Store: Store<StoreProps>) => ({
   removeSelectedTree,
   setAgeRange,
   toggleOverlay,
-});
+};
+
+export default (): typeof allActions => allActions;

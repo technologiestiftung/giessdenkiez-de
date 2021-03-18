@@ -1,5 +1,5 @@
 import { scaleLinear, interpolateViridis } from 'd3';
-import { Generic, StoreProps } from '../common/interfaces';
+import { Generic } from '../common/interfaces';
 
 export function createAPIUrl(entrypoint: string): string {
   return process.env.NODE_ENV === 'production'
@@ -68,51 +68,6 @@ export async function waitFor(
     }, millisenconds);
   });
 }
-
-interface CommunityDataType {
-  communityData: StoreProps['communityData'];
-  communityDataWatered: StoreProps['communityDataWatered'];
-  communityDataAdopted: StoreProps['communityDataAdopted'];
-}
-
-export const loadCommunityData = async (): Promise<CommunityDataType> => {
-  const fetchCommunityDataUrl = createAPIUrl(
-    `/get?queryType=wateredandadopted`
-  );
-
-  const json = await requests<{
-    data: {
-      tree_id: string;
-      adopted: '1' | '2';
-      watered: '1' | '2';
-    }[];
-  }>(fetchCommunityDataUrl);
-
-  const defaultCommunityData: CommunityDataType = {
-    communityData: {},
-    communityDataWatered: [],
-    communityDataAdopted: [],
-  };
-
-  if (!json.data) return defaultCommunityData;
-
-  const newState = json.data.reduce(
-    (acc: CommunityDataType, { tree_id: id, adopted, watered }) => ({
-      communityData: {
-        ...acc.communityData,
-        [id]: {
-          adopted: adopted === '1' ? true : false,
-          watered: watered === '1' ? true : false,
-        },
-      },
-      communityDataWatered: [...acc.communityDataWatered, id],
-      communityDataAdopted: [...acc.communityDataAdopted, id],
-    }),
-    defaultCommunityData
-  );
-
-  return newState;
-};
 
 /**
  * Shoulf not be used anymoe

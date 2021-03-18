@@ -2,7 +2,7 @@ import React, { FC, Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useStoreState } from '../../state/unistore-hooks';
 import store from '../../state/Store';
-import { loadCommunityData } from '../../utils';
+import { getCommunityData } from '../../utils/requests/getCommunityData';
 import { useAuth0 } from '../../utils/auth/auth0';
 import ButtonRound from '../ButtonRound';
 import CardParagraph from '../Card/CardParagraph';
@@ -86,7 +86,7 @@ const ButtonWater: FC = () => {
       selectedTreeState: 'ADOPTED',
       selectedTree: tree as SelectedTreeType,
     });
-    const communityData = await loadCommunityData();
+    const communityData = await getCommunityData();
     store.setState(communityData);
   };
 
