@@ -9,7 +9,7 @@ export function createAPIUrl(entrypoint: string): string {
 
 export async function requests<
   ReturnType = Generic,
-  OptionOverrides = undefined
+  OptionOverrides = Record<string, unknown>
 >(
   url: string,
   opts?: { token?: string; override?: OptionOverrides }

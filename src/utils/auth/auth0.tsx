@@ -95,7 +95,9 @@ export const Auth0Provider: FC<{
         getTokenWithPopup: auth0Client
           ? auth0Client.getTokenWithPopup.bind(auth0Client)
           : () => undefined,
-        logout: auth0Client ? auth0Client.logout : () => undefined,
+        logout: auth0Client
+          ? auth0Client.logout.bind(auth0Client)
+          : () => undefined,
       }}
     >
       {children}
