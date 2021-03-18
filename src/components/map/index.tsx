@@ -14,6 +14,7 @@ import { HoverObject } from './HoverObject';
 import { StoreProps, ViewportType } from '../../common/interfaces';
 import { pumpToColor } from './colors';
 import { getUrlQueryParameter } from '../../utils/queryUtil';
+import { getTreeData } from '../../utils/requests/getTreeData';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -284,17 +285,15 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   async selectTree(treeId: string): Promise<void> {
     const { extendView } = this.props;
     store.setState({ selectedTreeState: 'LOADING' });
-    const { getTree } = Actions(store);
 
     try {
-      const tree = await getTree(treeId);
-      const { treeLastWatered, selectedTree } = tree;
-      store.setState({ treeLastWatered });
-      store.setState({ selectedTreeState: 'LOADED' });
-      store.setState({ selectedTree });
+      const treeData = await getTreeData(treeId);
+      const { treeLastWatered, selectedTree } = treeData;
       store.setState({
-        highlightedObject:
-          selectedTree && selectedTree.id ? selectedTree.id : undefined,
+        treeLastWatered,
+        selectedTree,
+        selectedTreeState: 'LOADED',
+        highlightedObject: (selectedTree && selectedTree.id) || undefined,
       });
 
       if (!selectedTree) return;

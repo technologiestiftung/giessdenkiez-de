@@ -6,24 +6,11 @@ import {
   loadCommunityData as loadCommunityD,
 } from '../utils';
 import { Store } from 'unistore';
-import {
-  SelectedTreeType,
-  StoreProps,
-  ViewportType,
-} from '../common/interfaces';
-import { TreeLastWateredType } from '../common/types';
+import { StoreProps, ViewportType } from '../common/interfaces';
 import { loadTreesGeoJson } from '../utils/requests/loadTreesGeoJson';
 import { loadRainGeoJson } from '../utils/requests/loadRainGeoJson';
 import { loadPumpsData } from '../utils/requests/loadPumpsData';
 import { getWateredTrees as getWateredTreesReq } from '../utils/requests/getWateredTrees';
-
-interface TreeLastWateredResponseType {
-  data: TreeLastWateredType | undefined;
-}
-
-interface SelectedTreeResponseType {
-  data: SelectedTreeType[];
-}
 
 export const loadTrees = (
   store: Store<StoreProps>
@@ -132,59 +119,6 @@ export const getWateredTrees = (Store: Store<StoreProps>) => async (): Promise<{
   }
 };
 
-const calcuateRadolan = (radolanDays: number): number => radolanDays / 10;
-
-const parseSelectedTreeResponse = (
-  selectedTreeResponse: SelectedTreeResponseType
-) => {
-  const selectedTree = selectedTreeResponse.data[0];
-  // ISSUE:141
-  return {
-    ...selectedTree,
-    radolan_days: selectedTree.radolan_days.map(calcuateRadolan),
-    radolan_sum: calcuateRadolan(selectedTree.radolan_sum),
-  };
-};
-
-const parseTreeLastWateredResponse = (
-  treeLastWateredResponse: TreeLastWateredResponseType
-): TreeLastWateredType => treeLastWateredResponse.data || [];
-
-export const getTree = async (
-  id: string
-): Promise<{
-  treeLastWatered?: TreeLastWateredType;
-  selectedTree?: SelectedTreeType;
-}> => {
-  try {
-    const urlSelectedTree = createAPIUrl(`/get?queryType=byid&id=${id}`);
-    const urlLastWatered = createAPIUrl(`/get?queryType=lastwatered&id=${id}`);
-
-    const [resSelectedTree, resLastWatered] = await Promise.all([
-      requests<SelectedTreeResponseType>(urlSelectedTree),
-      requests<TreeLastWateredResponseType>(urlLastWatered),
-    ]);
-    const treeLastWatered = parseTreeLastWateredResponse(resLastWatered);
-
-    if (resSelectedTree.data.length > 0) {
-      return {
-        selectedTree: parseSelectedTreeResponse(
-          resSelectedTree as SelectedTreeResponseType
-        ),
-        treeLastWatered,
-      };
-    } else {
-      return {
-        selectedTree: undefined,
-        treeLastWatered,
-      };
-    }
-  } catch (error) {
-    console.error(error);
-    return Promise.reject(error);
-  }
-};
-
 export const removeSelectedTree = (): {
   selectedTree: boolean;
   selectedTreeState: boolean;
@@ -228,7 +162,6 @@ export default (Store: Store<StoreProps>) => ({
   loadData: loadData(Store),
   getWateredTrees: getWateredTrees(Store),
   loadCommunityData: loadCommunityData(Store),
-  getTree,
   getTreeByAge: getTreeByAge(Store),
   setDetailRouteWithListPath,
   setViewport,
