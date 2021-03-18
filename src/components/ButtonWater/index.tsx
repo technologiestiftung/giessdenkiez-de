@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { useStoreState } from '../../state/unistore-hooks';
 import store from '../../state/Store';
@@ -27,6 +27,22 @@ const StyledLogin = styled(Login)`
   align-self: stretch;
 `;
 
+const getButtonLabel = (state: string) => {
+  switch (state) {
+    case 'visible':
+      return 'Ich habe gegossen!';
+
+    case 'watering':
+      return 'Wieviel Wasser?';
+
+    case 'watered':
+      return 'Begießung wurde eingetragen.';
+
+    default:
+      return;
+  }
+};
+
 const ButtonWater: FC = () => {
   const { selectedTree } = useStoreState('selectedTree');
   const { selectedTreeState } = useStoreState('selectedTreeState');
@@ -36,31 +52,7 @@ const ButtonWater: FC = () => {
   const [waterGroup, setWaterGroup] = useState('visible');
   const { user, isAuthenticated, getTokenSilently } = useAuth0();
   const [adopted] = useState(false);
-
-  const [isEmailVerifiyed, setIsEmailVerifiyed] = useState<boolean | undefined>(
-    undefined
-  );
-
-  useEffect(() => {
-    if (!user) return;
-    setIsEmailVerifiyed(user.email_verified);
-  }, [user, setIsEmailVerifiyed]);
-
-  const btnLabel = (state: string) => {
-    switch (state) {
-      case 'visible':
-        return 'Ich habe gegossen!';
-
-      case 'watering':
-        return 'Wieviel Wasser?';
-
-      case 'watered':
-        return 'Begießung wurde eingetragen.';
-
-      default:
-        return;
-    }
-  };
+  const isEmailVerified = user && user.email_verified;
 
   const setWaterAmount = async (id: string, amount: number) => {
     setWaterGroup('watered');
@@ -90,56 +82,7 @@ const ButtonWater: FC = () => {
     store.setState(communityData);
   };
 
-  if (isAuthenticated) {
-    return (
-      <>
-        {isEmailVerifiyed ? (
-          <Fragment>
-            {!treeAdopted && (
-              <BtnContainer>
-                <ButtonRound
-                  margin='15px'
-                  toggle={onAdoptClick}
-                  type='secondary'
-                >
-                  {!adopted &&
-                  selectedTreeState !== 'ADOPT' &&
-                  selectedTreeState !== 'ADOPTED'
-                    ? 'Baum adoptieren'
-                    : ''}
-                  {!adopted && selectedTreeState === 'ADOPT'
-                    ? 'Adoptiere Baum ...'
-                    : ''}
-                  {!adopted && selectedTreeState === 'ADOPTED'
-                    ? 'Baum adoptiert!'
-                    : ''}
-                </ButtonRound>
-              </BtnContainer>
-            )}
-            <ButtonRound
-              width='-webkit-fill-available'
-              toggle={() => setWaterGroup('watering')}
-              type='primary'
-            >
-              {btnLabel(waterGroup)}
-            </ButtonRound>
-            {waterGroup === 'watering' && (
-              <ButtonWaterGroup id={selectedTree.id} toggle={setWaterAmount} />
-            )}
-            <ParticipateButton />
-          </Fragment>
-        ) : (
-          <>
-            <CardParagraph>
-              Bäume adoptieren und wässern ist nur möglich mit verifiziertem
-              Account.
-            </CardParagraph>
-            <NonVerfiedMailCardParagraph></NonVerfiedMailCardParagraph>
-          </>
-        )}
-      </>
-    );
-  } else {
+  if (!isAuthenticated) {
     return (
       <div>
         <StyledLogin width='-webkit-fill-available' />
@@ -147,6 +90,51 @@ const ButtonWater: FC = () => {
       </div>
     );
   }
+
+  if (!isEmailVerified) {
+    return (
+      <>
+        <CardParagraph>
+          Bäume adoptieren und wässern ist nur möglich mit verifiziertem
+          Account.
+        </CardParagraph>
+        <NonVerfiedMailCardParagraph></NonVerfiedMailCardParagraph>
+      </>
+    );
+  }
+
+  return (
+    <>
+      {!treeAdopted && (
+        <BtnContainer>
+          <ButtonRound margin='15px' toggle={onAdoptClick} type='secondary'>
+            {!adopted &&
+            selectedTreeState !== 'ADOPT' &&
+            selectedTreeState !== 'ADOPTED'
+              ? 'Baum adoptieren'
+              : ''}
+            {!adopted && selectedTreeState === 'ADOPT'
+              ? 'Adoptiere Baum ...'
+              : ''}
+            {!adopted && selectedTreeState === 'ADOPTED'
+              ? 'Baum adoptiert!'
+              : ''}
+          </ButtonRound>
+        </BtnContainer>
+      )}
+      <ButtonRound
+        width='-webkit-fill-available'
+        toggle={() => setWaterGroup('watering')}
+        type='primary'
+      >
+        {getButtonLabel(waterGroup)}
+      </ButtonRound>
+      {waterGroup === 'watering' && (
+        <ButtonWaterGroup id={selectedTree.id} toggle={setWaterAmount} />
+      )}
+      <ParticipateButton />
+    </>
+  );
 };
 
 export default ButtonWater;
