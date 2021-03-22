@@ -12,11 +12,11 @@ export function useStoreState<Key extends keyof StoreProps>(
   selector: Key
 ): StoreProps[Key] {
   const store = useContext(StoreContext);
-  const [state, setState] = useState<StoreProps[Key]>(
+  const [stateItem, setState] = useState<StoreProps[Key]>(
     store.getState()[selector]
   );
   useEffect(() => store.subscribe(state => setState(state[selector])), [store]);
-  return (state as unknown) as StoreProps[Key];
+  return stateItem;
 }
 
 export function useActions(): ActionsType {
