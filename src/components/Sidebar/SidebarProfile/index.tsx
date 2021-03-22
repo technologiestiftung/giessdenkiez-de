@@ -54,10 +54,13 @@ Alle deine Benutzerdaten werden damit sofort gelöscht!`
   );
 
 const SidebarProfile: FC = () => {
-  const { wateredByUser } = useStoreState('wateredByUser');
-  const { adoptedTrees } = useStoreState('adoptedTrees');
+  const wateredByUser = useStoreState('wateredByUser');
+  const adoptedTrees = useStoreState('adoptedTrees');
   const { data: adoptedTreesDetails } = useQuery(
-    ['adoptedTreesDetails', { adoptedTrees: (adoptedTrees || []) as string[] }],
+    [
+      'adoptedTreesDetails',
+      { adoptedTrees: ((adoptedTrees || []) as unknown) as string[] },
+    ],
     fetchAdoptedTreesDetails,
     { staleTime: 10000 }
   );

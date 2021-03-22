@@ -1,12 +1,5 @@
 // taken from https://www.npmjs.com/package/unistore-hooks/v/0.1.0
-import {
-  createContext,
-  useContext,
-  useMemo,
-  useReducer,
-  useEffect,
-} from 'react';
-import delve from 'dlv';
+import { createContext, useContext, useMemo, useState, useEffect } from 'react';
 import { StoreProps } from '../common/interfaces';
 import Actions, { ActionsType } from './Actions';
 import Store from './Store';
@@ -15,44 +8,15 @@ const StoreContext = createContext(Store);
 
 export const Provider = StoreContext.Provider;
 
-function flatUpdate(state: Partial<StoreProps>, update: Partial<StoreProps>) {
-  let changed = false;
-  for (const i in update) {
-    if (state[i] !== update[i]) {
-      if (changed === false) {
-        changed = true;
-        state = Object.assign({}, state);
-      }
-      state[i] = update[i];
-    }
-  }
-  return state;
-}
-
-function createSelector(sel: string) {
-  const newSel = sel
-    .split(/\s*,\s*/)
-    .reduce((obj, key) => ((obj[key] = key), obj), {});
-  return (state: StoreProps) => {
-    const selected = {};
-    if (state) {
-      for (const key in newSel) {
-        selected[key] = key in state ? state[key] : delve(state, newSel[key]);
-      }
-    }
-    return selected;
-  };
-}
-
-export function useStoreState(selector: string): Partial<StoreProps> {
+export function useStoreState<Key extends keyof StoreProps>(
+  selector: Key
+): StoreProps[Key] {
   const store = useContext(StoreContext);
-  const filter = useMemo(() => createSelector(selector), []);
-  const [state, setState] = useReducer(
-    flatUpdate,
-    store ? filter(store.getState()) : {}
+  const [state, setState] = useState<StoreProps[Key]>(
+    store.getState()[selector]
   );
-  useEffect(() => store.subscribe(state => setState(filter(state))), [store]);
-  return state;
+  useEffect(() => store.subscribe(state => setState(state[selector])), [store]);
+  return (state as unknown) as StoreProps[Key];
 }
 
 export function useActions(): ActionsType {

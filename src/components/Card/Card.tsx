@@ -71,9 +71,9 @@ const getTreeProp = (p: Generic | string | null) => {
 };
 
 const Card: FC = () => {
-  const { treeAdopted } = useStoreState('treeAdopted');
-  const { selectedTreeId } = useStoreState('selectedTreeId');
-  const { selectedTreeData } = useStoreState('selectedTreeData');
+  const treeAdopted = useStoreState('treeAdopted');
+  const selectedTreeId = useStoreState('selectedTreeId');
+  const selectedTreeData = useStoreState('selectedTreeData');
   const { getTokenSilently, isAuthenticated, user } = useAuth0();
 
   const { standalter, artdtsch, gattungdeutsch, caretaker, wateredDays } =

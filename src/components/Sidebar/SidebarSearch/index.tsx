@@ -16,8 +16,8 @@ const Container = styled.div`
 `;
 
 const SidebarSearch: FC = () => {
-  const { selectedTreeId } = useStoreState('selectedTreeId');
-  const { selectedTreeState } = useStoreState('selectedTreeState');
+  const selectedTreeId = useStoreState('selectedTreeId');
+  const selectedTreeState = useStoreState('selectedTreeState');
 
   return (
     <>

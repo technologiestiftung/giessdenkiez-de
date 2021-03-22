@@ -68,7 +68,7 @@ const UnstyledFlexWidth = styled(UnstyledFlex)<UnstyledFlexWidthProps>`
 `;
 
 const Cardlegend: FC = () => {
-  const { dataView } = useStoreState('dataView');
+  const dataView = useStoreState('dataView');
 
   return (
     <>

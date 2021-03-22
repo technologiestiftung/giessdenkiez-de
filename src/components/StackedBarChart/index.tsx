@@ -58,7 +58,7 @@ const StyledTooltipTotalSymbol = styled.span`
 `;
 
 const StackedBarChart: FC = () => {
-  const { selectedTreeData } = useStoreState('selectedTreeData');
+  const selectedTreeData = useStoreState('selectedTreeData');
 
   const [waterAmountInLast30Days, setWaterAmountInLast30Days] = useState<
     DailyWaterAmountsType[] | null

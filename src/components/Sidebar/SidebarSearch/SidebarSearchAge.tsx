@@ -30,7 +30,7 @@ const TileHeadline = styled.span`
 `;
 
 const SidebarAgeRange: React.FC = () => {
-  const { ageRange } = useStoreState('ageRange');
+  const ageRange = useStoreState('ageRange');
 
   const createSliderWithTooltip = Slider.createSliderWithTooltip;
   const Range = createSliderWithTooltip(Slider.Range);

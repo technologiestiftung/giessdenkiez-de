@@ -238,9 +238,9 @@ const rainColors = legendArray.map(item => interpolateColor(item.value));
 const rainGradient = createCSSGradient(rainColors);
 
 const Legend: FC = () => {
-  const { pumpsVisible } = useStoreState('pumpsVisible');
-  const { rainVisible } = useStoreState('rainVisible');
-  const { treesVisible } = useStoreState('treesVisible');
+  const pumpsVisible = useStoreState('pumpsVisible');
+  const rainVisible = useStoreState('rainVisible');
+  const treesVisible = useStoreState('treesVisible');
   const [legendExpanded, setLegendExpanded] = useState<boolean>(true);
 
   return (

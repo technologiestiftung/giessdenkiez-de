@@ -43,10 +43,10 @@ const getButtonLabel = (state: string) => {
 };
 
 const ButtonWater: FC = () => {
-  const { selectedTreeId } = useStoreState('selectedTreeId');
-  const { selectedTreeState } = useStoreState('selectedTreeState');
-  const { user: userdata } = useStoreState('user');
-  const { treeAdopted } = useStoreState('treeAdopted');
+  const selectedTreeId = useStoreState('selectedTreeId');
+  const selectedTreeState = useStoreState('selectedTreeState');
+  const userdata = useStoreState('user');
+  const treeAdopted = useStoreState('treeAdopted');
   const [waterGroup, setWaterGroup] = useState('visible');
 
   const { user, isAuthenticated, getTokenSilently } = useAuth0();

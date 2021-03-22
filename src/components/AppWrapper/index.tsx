@@ -50,22 +50,22 @@ const CookieContainer = styled.div`
 `;
 
 const Map: FC = () => {
-  const { data } = useStoreState('data');
-  const { rainGeojson } = useStoreState('rainGeojson');
-  const { treesVisible } = useStoreState('treesVisible');
-  const { pumpsVisible } = useStoreState('pumpsVisible');
-  const { rainVisible } = useStoreState('rainVisible');
-  const { pumps } = useStoreState('pumps');
-  const { ageRange } = useStoreState('ageRange');
-  const { dataView } = useStoreState('dataView');
-  const { communityData } = useStoreState('communityData');
-  const { wateredTrees } = useStoreState('wateredTrees');
-  const { communityDataWatered } = useStoreState('communityDataWatered');
-  const { communityDataAdopted } = useStoreState('communityDataAdopted');
-  const { isTreeDataLoading } = useStoreState('isTreeDataLoading');
-  const { isNavOpen } = useStoreState('isNavOpen');
-  const { overlay } = useStoreState('overlay');
-  const { selectedTreeId } = useStoreState('selectedTreeId');
+  const data = useStoreState('data');
+  const rainGeojson = useStoreState('rainGeojson');
+  const treesVisible = useStoreState('treesVisible');
+  const pumpsVisible = useStoreState('pumpsVisible');
+  const rainVisible = useStoreState('rainVisible');
+  const pumps = useStoreState('pumps');
+  const ageRange = useStoreState('ageRange');
+  const dataView = useStoreState('dataView');
+  const communityData = useStoreState('communityData');
+  const wateredTrees = useStoreState('wateredTrees');
+  const communityDataWatered = useStoreState('communityDataWatered');
+  const communityDataAdopted = useStoreState('communityDataAdopted');
+  const isTreeDataLoading = useStoreState('isTreeDataLoading');
+  const isNavOpen = useStoreState('isNavOpen');
+  const overlay = useStoreState('overlay');
+  const selectedTreeId = useStoreState('selectedTreeId');
   const { selectTree, setSelectedTreeData } = useActions();
 
   return (
@@ -100,9 +100,9 @@ const Map: FC = () => {
 };
 
 const AppWrapper: FC = () => {
-  const { isTreeDataLoading } = useStoreState('isTreeDataLoading');
-  const { data } = useStoreState('data');
-  const { overlay: showOverlay } = useStoreState('overlay');
+  const isTreeDataLoading = useStoreState('isTreeDataLoading');
+  const data = useStoreState('data');
+  const showOverlay = useStoreState('overlay');
 
   const showMap = !isTreeDataLoading && data;
   const showLoading = !showMap;

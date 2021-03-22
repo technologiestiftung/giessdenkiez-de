@@ -38,7 +38,7 @@ export interface StoreProps {
   communityDataAdopted: string[];
   communityDataWatered: string[];
 
-  wateredByUser: Tree[];
+  wateredByUser: WateredDayType[];
   wateredTrees: string[];
   adoptedTrees: Generic[];
 
