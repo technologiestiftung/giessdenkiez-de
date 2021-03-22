@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const SidebarSearch: FC = () => {
-  const { selectedTree } = useStoreState('selectedTree');
+  const { selectedTreeId } = useStoreState('selectedTree');
   const { selectedTreeState } = useStoreState('selectedTreeState');
 
   return (
@@ -27,13 +27,13 @@ const SidebarSearch: FC = () => {
           <LoadingIcon text='Lade Baum ...' />
         </Container>
       )}
-      {selectedTree === undefined && selectedTreeState === 'NOT_FOUND' && (
+      {selectedTreeId === undefined && selectedTreeState === 'NOT_FOUND' && (
         <Container>
           <LoadingIcon text='Baumdaten nicht gefunden. Probier einen anderen ...' />
         </Container>
       )}
-      {selectedTree && selectedTreeState !== 'LOADING' && <Card />}
-      {!selectedTree && selectedTreeState !== 'LOADING' && <CardLegend />}
+      {selectedTreeId && selectedTreeState !== 'LOADING' && <Card />}
+      {!selectedTreeId && selectedTreeState !== 'LOADING' && <CardLegend />}
     </>
   );
 };

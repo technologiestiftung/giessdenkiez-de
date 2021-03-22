@@ -75,13 +75,9 @@ const Map: FC = () => {
       ): Promise<StoreProps['selectedTreeData']> => {
         selectTree(treeId);
         const treeData = await getTreeData(treeId);
-        const { treeLastWatered, selectedTree } = treeData;
-        const newTreeData = selectedTree && {
-          ...selectedTree,
-          wateredDays: treeLastWatered,
-        };
-        setSelectedTreeData(newTreeData);
-        return newTreeData;
+        const { selectedTreeData } = treeData;
+        setSelectedTreeData(selectedTreeData);
+        return selectedTreeData;
       }}
       data={data || null}
       rainGeojson={rainGeojson || null}

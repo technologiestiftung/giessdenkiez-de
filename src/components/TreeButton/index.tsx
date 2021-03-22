@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import store from '../../state/Store';
 import { useAuth0 } from '../../utils/auth/auth0';
-import { SelectedTreeType, Tree } from '../../common/interfaces';
+import { Tree } from '../../common/interfaces';
 import { useActions } from '../../state/unistore-hooks';
 import { getTreesAdoptedByUser } from '../../utils/requests/getTreesAdoptedByUser';
 import { unadoptTree } from '../../utils/requests/unadoptTree';
@@ -57,11 +57,8 @@ const TreeButton: FC<{
 
   const onButtonClick = useCallback(
     (tree: Tree) => {
-      if (!tree) return;
-      selectTree({
-        selectedTree: tree as SelectedTreeType,
-        treeLastWatered: [],
-      });
+      if (!tree?.id) return;
+      selectTree(tree.id);
     },
     [selectTree]
   );

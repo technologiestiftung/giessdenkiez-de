@@ -10,7 +10,6 @@ import { NonVerfiedMailCardParagraph } from '../Card/non-verified-mail';
 import Login from '../Login';
 import ButtonWaterGroup from './BtnWaterGroup';
 import { ParticipateButton } from '../ParticipateButton';
-import { SelectedTreeType } from '../../common/interfaces';
 import { adoptTree } from '../../utils/requests/adoptTree';
 import { waterTree } from '../../utils/requests/waterTree';
 import { getTreeData } from '../../utils/requests/getTreeData';
@@ -44,7 +43,7 @@ const getButtonLabel = (state: string) => {
 };
 
 const ButtonWater: FC = () => {
-  const { selectedTree } = useStoreState('selectedTree');
+  const { selectedTreeId } = useStoreState('selectedTreeId');
   const { selectedTreeState } = useStoreState('selectedTreeState');
   const { user: userdata } = useStoreState('user');
   const { treeAdopted } = useStoreState('treeAdopted');
@@ -72,13 +71,12 @@ const ButtonWater: FC = () => {
   };
 
   const onAdoptClick = async () => {
-    if (!selectedTree) return;
+    if (!selectedTreeId) return;
     store.setState({ selectedTreeState: 'ADOPT' });
     const token = await getTokenSilently();
-    const tree = await adoptTree(selectedTree.id, token, user.sub);
+    await adoptTree(selectedTreeId, token, user.sub);
     store.setState({
       selectedTreeState: 'ADOPTED',
-      selectedTree: tree as SelectedTreeType,
     });
     const communityData = await getCommunityData();
     store.setState(communityData);
@@ -131,8 +129,8 @@ const ButtonWater: FC = () => {
       >
         {getButtonLabel(waterGroup)}
       </ButtonRound>
-      {waterGroup === 'watering' && selectedTree && (
-        <ButtonWaterGroup id={selectedTree.id} onClick={onButtonWaterClick} />
+      {waterGroup === 'watering' && selectedTreeId && (
+        <ButtonWaterGroup id={selectedTreeId} onClick={onButtonWaterClick} />
       )}
       <ParticipateButton />
     </>

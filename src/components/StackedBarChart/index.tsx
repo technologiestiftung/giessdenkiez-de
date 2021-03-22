@@ -58,20 +58,22 @@ const StyledTooltipTotalSymbol = styled.span`
 `;
 
 const StackedBarChart: FC = () => {
-  const { selectedTree } = useStoreState('selectedTree');
-  const { treeLastWatered } = useStoreState('treeLastWatered');
+  const { selectedTreeData } = useStoreState('selectedTreeData');
 
   const [waterAmountInLast30Days, setWaterAmountInLast30Days] = useState<
     DailyWaterAmountsType[] | null
   >(null);
 
   useEffect(() => {
-    if (!treeLastWatered || !treeLastWatered) return;
+    if (!selectedTreeData) return;
 
     setWaterAmountInLast30Days(
-      mapStackedBarchartData({ selectedTree, treeLastWatered })
+      mapStackedBarchartData({
+        selectedTree: selectedTreeData,
+        treeLastWatered: selectedTreeData.wateredDays || [],
+      })
     );
-  }, [selectedTree, treeLastWatered]);
+  }, [selectedTreeData]);
 
   useEffect(() => {
     if (waterAmountInLast30Days === null) return;

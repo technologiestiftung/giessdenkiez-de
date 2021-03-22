@@ -24,11 +24,13 @@ function stopLoading(): {
 }
 
 const removeSelectedTree = (): {
-  selectedTree: boolean;
-  selectedTreeState: boolean;
+  selectedTreeId: StoreProps['selectedTreeId'];
+  selectedTreeData: StoreProps['selectedTreeData'];
+  selectedTreeState: StoreProps['selectedTreeState'];
 } => ({
-  selectedTree: false,
-  selectedTreeState: false,
+  selectedTreeId: undefined,
+  selectedTreeData: undefined,
+  selectedTreeState: 'LOADED',
 });
 
 const openOverlay = (): { overlay: StoreProps['overlay'] } => ({

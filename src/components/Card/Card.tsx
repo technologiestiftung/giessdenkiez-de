@@ -71,26 +71,27 @@ const getTreeProp = (p: Generic | string | null) => {
 };
 
 const Card: FC = () => {
-  const { treeLastWatered } = useStoreState('treeLastWatered');
   const { treeAdopted } = useStoreState('treeAdopted');
-  const { selectedTree } = useStoreState('selectedTree');
+  const { selectedTreeId } = useStoreState('selectedTreeId');
+  const { selectedTreeData } = useStoreState('selectedTreeData');
   const { getTokenSilently, isAuthenticated, user } = useAuth0();
 
-  const { standalter, artdtsch, gattungdeutsch, caretaker } = selectedTree;
+  const { standalter, artdtsch, gattungdeutsch, caretaker, wateredDays } =
+    selectedTreeData || {};
 
   useEffect(() => {
-    if (!user || !selectedTree) return;
+    if (!user || !selectedTreeId) return;
     getTokenSilently()
       .then((token: string) =>
         isTreeAdopted({
-          id: selectedTree.id,
+          id: selectedTreeId,
           uuid: user.sub,
           token,
           isAuthenticated,
         })
       )
       .catch(console.error);
-  }, [user, selectedTree, treeAdopted]);
+  }, [user, selectedTreeId, treeAdopted]);
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
@@ -113,8 +114,8 @@ const Card: FC = () => {
             <CaretakerSublineSpan>{`Dieser Baum wird regelmäßig vom ${caretaker} gewässert.`}</CaretakerSublineSpan>
           </CaretakerDiv>
         )}
-        {treeAdopted && selectedTree && (
-          <TreeButton tree={selectedTree} label='Adoptiert' />
+        {treeAdopted && selectedTreeData && (
+          <TreeButton tree={selectedTreeData} label='Adoptiert' />
         )}
         {treeType && treeType.title !== null && (
           <CardAccordion
@@ -151,12 +152,12 @@ const Card: FC = () => {
           <CardDescription>der letzten 30 Tage</CardDescription>
           <StackedBarChart />
         </RainContainer>
-        {Array.isArray(treeLastWatered) && treeLastWatered.length > 0 && (
+        {Array.isArray(wateredDays) && wateredDays.length > 0 && (
           <CardAccordion
             active={true}
             title={<CardAccordionTitle>Zuletzt gegossen</CardAccordionTitle>}
           >
-            <TreeLastWatered data={treeLastWatered} />
+            <TreeLastWatered data={wateredDays} />
           </CardAccordion>
         )}
         <ButtonWater />

@@ -13,13 +13,15 @@ interface SelectedTreeResponseType {
 const calcuateRadolan = (radolanDays: number): number => radolanDays / 10;
 
 const parseSelectedTreeResponse = (
-  selectedTreeResponse: SelectedTreeResponseType
+  selectedTreeResponse: SelectedTreeResponseType,
+  wateredDays: WateredDayType[]
 ): SelectedTreeType => {
-  const selectedTree = selectedTreeResponse.data[0];
+  const selectedTreeData = selectedTreeResponse.data[0];
   return {
-    ...selectedTree,
-    radolan_days: selectedTree.radolan_days.map(calcuateRadolan),
-    radolan_sum: calcuateRadolan(selectedTree.radolan_sum),
+    ...selectedTreeData,
+    radolan_days: selectedTreeData.radolan_days.map(calcuateRadolan),
+    radolan_sum: calcuateRadolan(selectedTreeData.radolan_sum),
+    wateredDays,
   };
 };
 
@@ -30,8 +32,7 @@ const parseTreeLastWateredResponse = (
 export const getTreeData = async (
   id: string
 ): Promise<{
-  selectedTree?: SelectedTreeType;
-  treeLastWatered: WateredDayType[];
+  selectedTreeData: SelectedTreeType | undefined;
 }> => {
   const urlSelectedTree = createAPIUrl(`/get?queryType=byid&id=${id}`);
   const urlLastWatered = createAPIUrl(`/get?queryType=lastwatered&id=${id}`);
@@ -40,13 +41,15 @@ export const getTreeData = async (
     requests<SelectedTreeResponseType>(urlSelectedTree),
     requests<TreeLastWateredResponseType>(urlLastWatered),
   ]);
-  const treeLastWatered = parseTreeLastWateredResponse(resLastWatered);
+  const wateredDays = parseTreeLastWateredResponse(resLastWatered);
 
   return {
-    selectedTree:
+    selectedTreeData:
       resSelectedTree.data.length > 0
-        ? parseSelectedTreeResponse(resSelectedTree as SelectedTreeResponseType)
+        ? parseSelectedTreeResponse(
+            resSelectedTree as SelectedTreeResponseType,
+            wateredDays
+          )
         : undefined,
-    treeLastWatered,
   };
 };
