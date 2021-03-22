@@ -1,4 +1,4 @@
-import { RadolanDays, TreeLastWateredType } from './types';
+import { RadolanDays } from './types';
 
 export interface Generic {
   [key: string]: any;
@@ -29,6 +29,7 @@ export interface SelectedTreeType extends Tree {
   lat: string;
   lng: string;
   id: string;
+  wateredDays: WateredDayType[] | undefined;
 }
 export interface StoreProps {
   dataView: 'rain' | 'adopted' | 'watered' | string;
@@ -53,9 +54,9 @@ export interface StoreProps {
   pumps: Generic | null;
   data: Generic | null;
   tabActive: string;
-  selectedTree?: SelectedTreeType | undefined;
-  treeLastWatered: TreeLastWateredType | undefined;
-  selectedTreeState?:
+  selectedTreeId: string | undefined;
+  selectedTreeData: SelectedTreeType | undefined;
+  selectedTreeState:
     | 'LOADED'
     | 'LOADING'
     | 'ADOPT'
@@ -63,7 +64,8 @@ export interface StoreProps {
     | 'WATERING'
     | 'FETCHED'
     | 'NOT_FOUND'
-    | 'WATERED';
+    | 'WATERED'
+    | undefined;
   overlay: boolean;
   isTreeDataLoading: boolean;
   hoveredObject: boolean;

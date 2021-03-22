@@ -1,5 +1,5 @@
 import history from '../history';
-import { SelectedTreeType, StoreProps } from '../common/interfaces';
+import { StoreProps } from '../common/interfaces';
 
 const setAgeRange = (
   payload: StoreProps['ageRange']
@@ -39,32 +39,42 @@ const closeOverlay = (): { overlay: StoreProps['overlay'] } => ({
   overlay: false,
 });
 
-const selectTree = ({
-  selectedTree,
-  treeLastWatered,
-}: {
-  selectedTree: SelectedTreeType | undefined;
-  treeLastWatered: StoreProps['treeLastWatered'];
-}): {
-  selectedTree?: SelectedTreeType;
+const selectTree = (
+  selectedTreeId: StoreProps['selectedTreeId']
+): {
+  selectedTreeId: StoreProps['selectedTreeId'];
+  selectedTreeData: StoreProps['selectedTreeData'];
   selectedTreeState: StoreProps['selectedTreeState'];
-  treeLastWatered: StoreProps['treeLastWatered'];
 } => {
-  if (selectedTree?.id) {
-    const nextLocation = `/search?location=${selectedTree.id}`;
+  if (selectedTreeId) {
+    const nextLocation = `/search?location=${selectedTreeId}`;
     history.push(nextLocation);
   }
+
   return {
-    treeLastWatered,
-    selectedTree,
-    selectedTreeState: 'LOADED',
+    selectedTreeId,
+    selectedTreeData: undefined,
+    selectedTreeState: 'LOADING',
   };
 };
+
+const setSelectedTreeData = (
+  selectedTreeData: StoreProps['selectedTreeData']
+): {
+  selectedTreeId: StoreProps['selectedTreeId'];
+  selectedTreeData: StoreProps['selectedTreeData'];
+  selectedTreeState: StoreProps['selectedTreeState'];
+} => ({
+  selectedTreeId: selectedTreeData?.id,
+  selectedTreeData,
+  selectedTreeState: 'LOADED',
+});
 
 const allActions = {
   startLoading,
   stopLoading,
   selectTree,
+  setSelectedTreeData,
   removeSelectedTree,
   setAgeRange,
   openOverlay,

@@ -1,10 +1,9 @@
 import { createAPIUrl } from '../createAPIUrl';
 import { requests } from '../requestUtil';
-import { SelectedTreeType } from '../../common/interfaces';
-import { TreeLastWateredType } from '../../common/types';
+import { SelectedTreeType, WateredDayType } from '../../common/interfaces';
 
 interface TreeLastWateredResponseType {
-  data: TreeLastWateredType | undefined;
+  data: WateredDayType[] | undefined;
 }
 
 interface SelectedTreeResponseType {
@@ -26,13 +25,13 @@ const parseSelectedTreeResponse = (
 
 const parseTreeLastWateredResponse = (
   treeLastWateredResponse: TreeLastWateredResponseType
-): TreeLastWateredType => treeLastWateredResponse.data || [];
+): WateredDayType[] => treeLastWateredResponse.data || [];
 
 export const getTreeData = async (
   id: string
 ): Promise<{
   selectedTree?: SelectedTreeType;
-  treeLastWatered: TreeLastWateredType;
+  treeLastWatered: WateredDayType[];
 }> => {
   const urlSelectedTree = createAPIUrl(`/get?queryType=byid&id=${id}`);
   const urlLastWatered = createAPIUrl(`/get?queryType=lastwatered&id=${id}`);

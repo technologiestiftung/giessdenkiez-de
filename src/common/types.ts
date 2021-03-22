@@ -1,5 +1,3 @@
-import { WateredDayType } from './interfaces';
-
 export type ContextProps = {
   isAuthenticated: boolean;
   user: any;
@@ -15,5 +13,3 @@ export type ContextProps = {
 };
 
 export type RadolanDays = number[];
-
-export type TreeLastWateredType = WateredDayType[];

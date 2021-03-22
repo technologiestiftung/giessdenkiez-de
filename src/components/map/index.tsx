@@ -19,8 +19,6 @@ import { HoverObject } from './HoverObject';
 import { StoreProps } from '../../common/interfaces';
 import { pumpToColor } from './colors';
 import { getUrlQueryParameter } from '../../utils/queryUtil';
-import { getTreeData } from '../../utils/requests/getTreeData';
-import { ActionsType } from '../../state/Actions';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -49,7 +47,7 @@ interface DeckGLPropType {
   pumpsVisible: StoreProps['pumpsVisible'];
   rainVisible: StoreProps['rainVisible'];
   pumps: StoreProps['pumps'];
-  selectedTree?: StoreProps['selectedTree'];
+  selectedTreeId: StoreProps['selectedTreeId'];
   ageRange: StoreProps['ageRange'];
   dataView: StoreProps['dataView'];
   communityData: StoreProps['communityData'];
@@ -59,7 +57,7 @@ interface DeckGLPropType {
   isTreeDataLoading: StoreProps['isTreeDataLoading'];
   isNavOpen: StoreProps['isNavOpen'];
   overlay: StoreProps['overlay'];
-  onTreeSelect: ActionsType['selectTree'];
+  onTreeSelect: (id: string) => Promise<StoreProps['selectedTreeData']>;
 }
 
 interface ViewportType extends Partial<ViewportProps> {
@@ -133,11 +131,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             id: string;
           };
         }): 0 | 2 => {
-          const { selectedTree } = this.props;
+          const { selectedTreeId } = this.props;
           const id = info.properties.id;
 
-          if (selectedTree) {
-            if (id === selectedTree.id) {
+          if (selectedTreeId) {
+            if (id === selectedTreeId) {
               return 2;
             } else {
               return 0;
@@ -211,7 +209,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             this.props.ageRange,
             this.props.dataView,
           ],
-          getLineWidth: [this.props.selectedTree],
+          getLineWidth: [this.props.selectedTreeId],
         },
       }),
       new GeoJsonLayer({
@@ -311,7 +309,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     treeId: string,
     coordinates?: [number, number]
   ): Promise<void> {
-    store.setState({ selectedTreeState: 'LOADING' });
+    this.props.onTreeSelect(treeId);
+    this.setState({ highlightedObject: treeId || null });
 
     if (coordinates) {
       this.setViewport({
@@ -321,27 +320,20 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       });
     }
 
-    try {
-      const treeData = await getTreeData(treeId);
-      const { treeLastWatered, selectedTree } = treeData;
-      this.props.onTreeSelect({
-        treeLastWatered,
-        selectedTree,
-      });
-      this.setState({ highlightedObject: selectedTree?.id || null });
+    this.props
+      .onTreeSelect(treeId)
+      .then(selectedTreeData => {
+        if (!coordinates && selectedTreeData) {
+          this.setViewport({
+            longitude: parseFloat(selectedTreeData.lat),
+            latitude: parseFloat(selectedTreeData.lng),
+            zoom: 19,
+          });
+        }
 
-      if (!selectedTree) return;
-
-      if (!coordinates) {
-        this.setViewport({
-          longitude: parseFloat(selectedTree.lat),
-          latitude: parseFloat(selectedTree.lng),
-          zoom: 19,
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
+        return selectedTreeData;
+      })
+      .catch(console.error);
   }
 
   _onClick(_x: number, _y: number, object: MapboxGeoJSONFeature): void {
@@ -552,12 +544,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     this._updateStyles(prevProps);
 
     const selectTreeChanged =
-      prevProps.selectedTree?.id !== this.props.selectedTree?.id;
-    if (selectTreeChanged && this.props.selectedTree?.id) {
-      this.selectTree(this.props.selectedTree.id, [
-        parseFloat(this.props.selectedTree.lat),
-        parseFloat(this.props.selectedTree.lng),
-      ]);
+      prevProps.selectedTreeId !== this.props.selectedTreeId;
+    if (selectTreeChanged && this.props.selectedTreeId) {
+      this.selectTree(this.props.selectedTreeId);
     }
 
     return true;

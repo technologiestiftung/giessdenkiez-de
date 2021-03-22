@@ -11,6 +11,8 @@ import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
+import { getTreeData } from '../../utils/requests/getTreeData';
+import { StoreProps } from '../../common/interfaces';
 
 const AppWrapperDiv = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
@@ -63,11 +65,24 @@ const Map: FC = () => {
   const { isTreeDataLoading } = useStoreState('isTreeDataLoading');
   const { isNavOpen } = useStoreState('isNavOpen');
   const { overlay } = useStoreState('overlay');
-  const { selectTree } = useActions();
+  const { selectedTreeId } = useStoreState('selectedTreeId');
+  const { selectTree, setSelectedTreeData } = useActions();
 
   return (
     <DeckGlMap
-      onTreeSelect={selectTree}
+      onTreeSelect={async (
+        treeId: string
+      ): Promise<StoreProps['selectedTreeData']> => {
+        selectTree(treeId);
+        const treeData = await getTreeData(treeId);
+        const { treeLastWatered, selectedTree } = treeData;
+        const newTreeData = selectedTree && {
+          ...selectedTree,
+          wateredDays: treeLastWatered,
+        };
+        setSelectedTreeData(newTreeData);
+        return newTreeData;
+      }}
       data={data || null}
       rainGeojson={rainGeojson || null}
       treesVisible={!!treesVisible}
@@ -83,6 +98,7 @@ const Map: FC = () => {
       wateredTrees={wateredTrees || []}
       communityDataWatered={communityDataWatered || []}
       communityDataAdopted={communityDataAdopted || []}
+      selectedTreeId={selectedTreeId}
     />
   );
 };
