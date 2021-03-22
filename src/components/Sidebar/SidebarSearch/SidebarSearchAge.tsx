@@ -39,6 +39,8 @@ const SidebarAgeRange: React.FC = () => {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(320);
 
+  if (!ageRange) return null;
+
   useEffect(() => {
     setMin(ageRange[0]);
     setMax(ageRange[1]);

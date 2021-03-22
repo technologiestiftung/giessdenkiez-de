@@ -1,10 +1,8 @@
-import { ViewportProps } from 'react-map-gl';
 import { RadolanDays, TreeLastWateredType } from './types';
 
 export interface Generic {
   [key: string]: any;
 }
-
 export interface DailyWaterAmountsType {
   id: string;
   timestamp: Date;
@@ -32,16 +30,6 @@ export interface SelectedTreeType extends Tree {
   lng: string;
   id: string;
 }
-
-export interface ViewportType extends Partial<ViewportProps> {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  maxZoom: number;
-  minZoom: number;
-  pitch: number;
-  bearing: number;
-}
 export interface StoreProps {
   dataView: 'rain' | 'adopted' | 'watered' | string;
 
@@ -59,7 +47,6 @@ export interface StoreProps {
 
   treeAdopted?: boolean;
   isNavOpen: boolean;
-  highlightedObject?: string;
   user?: UserType;
   rainGeojson: Generic | null;
   ageRange: number[];
@@ -80,7 +67,6 @@ export interface StoreProps {
   overlay: boolean;
   isTreeDataLoading: boolean;
   hoveredObject: boolean;
-  viewport: ViewportType;
 }
 
 export interface Tree {

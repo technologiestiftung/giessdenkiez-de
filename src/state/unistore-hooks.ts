@@ -10,7 +10,6 @@ import delve from 'dlv';
 import { StoreProps } from '../common/interfaces';
 import Actions, { ActionsType } from './Actions';
 import Store from './Store';
-import { Store as StoreType } from 'unistore';
 
 const StoreContext = createContext(Store);
 
@@ -56,25 +55,23 @@ export function useStoreState(selector: string): Partial<StoreProps> {
   return state;
 }
 
-function bindActionsToStore(
-  actions: (store: StoreType<StoreProps>) => ActionsType,
-  store: StoreType<StoreProps>
-) {
-  const bindings = new (typeof WeakMap == 'function' ? WeakMap : Map)();
-  let bound = bindings.get(actions);
-  if (!bound) {
-    const newActions = actions(store);
-    bindings.set(newActions, (bound = {}));
-    for (const i in newActions) bound[i] = store.action(newActions[i]);
-  }
-  return bound;
-}
-
 export function useActions(): ActionsType {
   const store = useContext(StoreContext);
-  const boundActions = useMemo(() => bindActionsToStore(Actions, store), [
-    Actions,
-    store,
-  ]);
+  const boundActions = useMemo<ActionsType>(
+    () =>
+      Object.keys(Actions).reduce((acc, key) => {
+        const action = Actions[key];
+        return {
+          ...acc,
+          [key]: (...args: Parameters<typeof action>) => {
+            const state = store.getState();
+            const newState = action(...args, state);
+            store.setState(newState);
+            return { ...state, ...newState };
+          },
+        };
+      }, Actions),
+    [Actions, store]
+  );
   return useMemo(() => boundActions, [boundActions]);
 }

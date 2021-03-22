@@ -11,6 +11,10 @@ export const Auth0Context = React.createContext<Partial<ContextProps>>({});
 export const useAuth0 = (): Partial<ContextProps> => useContext(Auth0Context);
 export const Auth0Provider: FC<{
   onRedirectCallback: (appState: any) => void;
+  domain: string;
+  client_id: string;
+  audience: string;
+  redirect_uri: string;
 }> = ({
   children,
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,

@@ -82,7 +82,7 @@ const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
 };
 
 const SidebarSearchLocation: React.FC = () => {
-  const { setViewport } = useActions();
+  const { selectTree } = useActions();
   const [value, setValue] = React.useState('');
   const { data: results } = useQuery(
     ['sidebarSearch', { value }],
@@ -113,7 +113,18 @@ const SidebarSearchLocation: React.FC = () => {
               <ResultElement
                 className={index % 2 ? 'even' : 'odd'}
                 key={item.id}
-                onClick={() => setViewport(item.geometry.coordinates)}
+                onClick={() =>
+                  selectTree({
+                    selectedTree: {
+                      id: item.id,
+                      lat: `${item.geometry.coordinates[0]}`,
+                      lng: `${item.geometry.coordinates[1]}`,
+                      radolan_days: [],
+                      radolan_sum: 0,
+                    },
+                    treeLastWatered: [],
+                  })
+                }
               >
                 {item.place_name_de}
               </ResultElement>

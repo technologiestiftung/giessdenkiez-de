@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import store from '../../state/Store';
 import { useAuth0 } from '../../utils/auth/auth0';
-import { Tree } from '../../common/interfaces';
+import { SelectedTreeType, Tree } from '../../common/interfaces';
 import { useActions } from '../../state/unistore-hooks';
 import { getTreesAdoptedByUser } from '../../utils/requests/getTreesAdoptedByUser';
 import { unadoptTree } from '../../utils/requests/unadoptTree';
@@ -52,20 +52,18 @@ const TreeButton: FC<{
   label?: string;
 }> = ({ tree, label }) => {
   const { user, getTokenSilently } = useAuth0();
-  const { extendView } = useActions();
+  const { selectTree } = useActions();
   const [unadopting, setUnadopting] = useState<string | undefined>(undefined);
 
   const onButtonClick = useCallback(
     (tree: Tree) => {
-      if (!tree.lat || !tree.lng) return;
-      extendView({
-        // The DB has the lat/lng reversed this is why we correct that here
-        latitude: parseFloat(tree.lng),
-        longitude: parseFloat(tree.lat),
-        zoom: 19,
+      if (!tree) return;
+      selectTree({
+        selectedTree: tree as SelectedTreeType,
+        treeLastWatered: [],
       });
     },
-    [extendView]
+    [selectTree]
   );
 
   const onCloseIconClick = useCallback(

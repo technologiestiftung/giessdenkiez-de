@@ -6,9 +6,7 @@ export const interpolateColor = (val: number): string => {
   return interpolateViridis(colorScale(val));
 };
 
-export const hexToRgb = (
-  hex: string
-): [number, number, number, number] | null => {
+export const hexToRgb = (hex: string): [number, number, number, number] => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? [
@@ -17,5 +15,5 @@ export const hexToRgb = (
         parseInt(result[3], 16),
         200,
       ]
-    : null;
+    : [0, 0, 0, 0];
 };

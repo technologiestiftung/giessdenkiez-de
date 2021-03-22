@@ -10,7 +10,7 @@ import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
-import { useStoreState } from '../../state/unistore-hooks';
+import { useActions, useStoreState } from '../../state/unistore-hooks';
 
 const AppWrapperDiv = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
@@ -47,6 +47,46 @@ const CookieContainer = styled.div`
   }
 `;
 
+const Map: FC = () => {
+  const { data } = useStoreState('data');
+  const { rainGeojson } = useStoreState('rainGeojson');
+  const { treesVisible } = useStoreState('treesVisible');
+  const { pumpsVisible } = useStoreState('pumpsVisible');
+  const { rainVisible } = useStoreState('rainVisible');
+  const { pumps } = useStoreState('pumps');
+  const { ageRange } = useStoreState('ageRange');
+  const { dataView } = useStoreState('dataView');
+  const { communityData } = useStoreState('communityData');
+  const { wateredTrees } = useStoreState('wateredTrees');
+  const { communityDataWatered } = useStoreState('communityDataWatered');
+  const { communityDataAdopted } = useStoreState('communityDataAdopted');
+  const { isTreeDataLoading } = useStoreState('isTreeDataLoading');
+  const { isNavOpen } = useStoreState('isNavOpen');
+  const { overlay } = useStoreState('overlay');
+  const { selectTree } = useActions();
+
+  return (
+    <DeckGlMap
+      onTreeSelect={selectTree}
+      data={data || null}
+      rainGeojson={rainGeojson || null}
+      treesVisible={!!treesVisible}
+      pumpsVisible={!!pumpsVisible}
+      rainVisible={!!rainVisible}
+      isTreeDataLoading={!!isTreeDataLoading}
+      isNavOpen={!!isNavOpen}
+      overlay={!!overlay}
+      pumps={pumps || null}
+      ageRange={ageRange || []}
+      dataView={dataView || 'watered'}
+      communityData={communityData || null}
+      wateredTrees={wateredTrees || []}
+      communityDataWatered={communityDataWatered || []}
+      communityDataAdopted={communityDataAdopted || []}
+    />
+  );
+};
+
 const AppWrapper: FC = () => {
   const { isTreeDataLoading } = useStoreState('isTreeDataLoading');
   const { data } = useStoreState('data');
@@ -59,7 +99,7 @@ const AppWrapper: FC = () => {
   return (
     <AppWrapperDiv>
       {showLoading && <Loading />}
-      {showMap && <DeckGlMap />}
+      {showMap && <Map />}
       {showMapUI && <Sidebar />}
       {showOverlay && <Overlay />}
       {showMapUI && <Nav />}
