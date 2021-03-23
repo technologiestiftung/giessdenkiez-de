@@ -105,7 +105,9 @@ const Card: FC = () => {
       .catch(console.error);
   }, [getTokenSilently]);
   useEffect(() => {
-    if (!user || !selectedTreeId) return;
+    if (!getTokenSilently) return;
+    if (!selectedTreeId) return;
+    if (!user) return;
     if (!user.sub) return;
     getTokenSilently()
       .then((token: string) =>
