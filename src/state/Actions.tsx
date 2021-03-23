@@ -41,13 +41,13 @@ const closeOverlay = (): { overlay: StoreProps['overlay'] } => ({
   overlay: false,
 });
 
-const selectTree = (
+const selectTree: (
   selectedTreeId: StoreProps['selectedTreeId']
-): {
+) => {
   selectedTreeId: StoreProps['selectedTreeId'];
   selectedTreeData: StoreProps['selectedTreeData'];
   selectedTreeState: StoreProps['selectedTreeState'];
-} => {
+} = selectedTreeId => {
   if (selectedTreeId) {
     const nextLocation = `/search?location=${selectedTreeId}`;
     history.push(nextLocation);
