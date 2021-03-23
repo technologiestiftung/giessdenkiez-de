@@ -33,16 +33,24 @@ export interface ButtonWaterProps {
   isAuthenticated?: boolean;
   // token: string;
   isEmailVerified: boolean;
+  onAdoptTreeClick: () => Promise<void>;
+  onWaterTreeClick: (treeId: string, amount: number) => Promise<void>;
+  waterGroup: ButtonWaterGroup;
+  setWaterGroup: React.Dispatch<React.SetStateAction<ButtonWaterGroup>>;
+  selectedTreeId: StoreProps['selectedTreeId'];
+  selectedTreeState: StoreProps['selectedTreeState'];
   isSelectedTreeAdopted?: boolean;
 }
 
 const ButtonWater: FC<ButtonWaterProps> = ({
-  adoptTreeClickHandler,
-  waterTreeClickHandler,
+  onAdoptTreeClick,
+  onWaterTreeClick,
   isEmailVerified,
   isAuthenticated,
   waterGroup,
   setWaterGroup,
+  selectedTreeId,
+  selectedTreeState,
   isSelectedTreeAdopted,
 }) => {
   if (!isAuthenticated) {
