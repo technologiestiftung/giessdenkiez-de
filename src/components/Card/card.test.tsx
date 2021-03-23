@@ -65,7 +65,6 @@ describe('card test', () => {
 
     const button2 = getByText(/adoptiere/i);
     await waitFor(() => expect(button2).toBeInTheDocument());
-    await waitFor(() => store.setState({ treeAdopted: true }));
     // screen.debug();
     await waitFor(() => expect(button1).not.toBeInTheDocument());
     await waitFor(() => expect(button2).not.toBeInTheDocument());

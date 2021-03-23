@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useStoreState } from '../../state/unistore-hooks';
+import { StoreProps } from '../../common/interfaces';
+import { ButtonWaterGroup } from '../../common/types';
 
 import ButtonRound from '../ButtonRound';
 import CardParagraph from '../Card/CardParagraph';
@@ -68,10 +69,7 @@ export interface ButtonWaterProps {
   isAuthenticated?: boolean;
   // token: string;
   isEmailVerified: boolean;
-  adoptTreeClickHandler: () => Promise<void>;
-  waterTreeClickHandler: (treeId: string, amount: number) => Promise<void>;
-  waterGroup: WaterGroup;
-  setWaterGroup: React.Dispatch<React.SetStateAction<WaterGroup>>;
+  isSelectedTreeAdopted?: boolean;
 }
 
 const ButtonWater: FC<ButtonWaterProps> = ({
@@ -81,47 +79,8 @@ const ButtonWater: FC<ButtonWaterProps> = ({
   isAuthenticated,
   waterGroup,
   setWaterGroup,
+  isSelectedTreeAdopted,
 }) => {
-  const selectedTreeId = useStoreState('selectedTreeId');
-  const selectedTreeState = useStoreState('selectedTreeState');
-  // const userdata = useStoreState('user');
-  const treeAdopted = useStoreState('treeAdopted');
-  // const [waterGroup, setWaterGroup] = useState('visible');
-
-  // const { user, isAuthenticated, getTokenSilently } = useAuth0();
-  const [adopted] = useState(false);
-  // const isEmailVerified = user && user.email_verified;
-
-  const onButtonWaterClick = async (_id: string, _amount: number) => {
-    // if (!userdata) return;
-    // if (!user.sub) return;
-    // setWaterGroup('watered');
-    // // const token = await getTokenSilently();
-    // await waterTree({
-    //   id,
-    //   amount,
-    //   username: userdata.username,
-    //   userId: user.sub,
-    //   token,
-    // });
-    // const treeData = await getTreeData(id);
-    // store.setState(treeData);
-    // setWaterGroup('visible');
-  };
-
-  const onAdoptClick = async () => {
-    // if (!selectedTreeId) return;
-    // if (!user.sub) return;
-    // store.setState({ selectedTreeState: 'ADOPT' });
-    // // const token = await getTokenSilently();
-    // await adoptTree(selectedTreeId, token, user.sub);
-    // store.setState({
-    //   selectedTreeState: 'ADOPTED',
-    // });
-    // const communityData = await getCommunityData();
-    // store.setState(communityData);
-  };
-
   if (!isAuthenticated) {
     return (
       <div>

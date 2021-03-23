@@ -77,11 +77,12 @@ const getTreeProp = (p: Generic | string | null) => {
 
 const Card: FC = () => {
   const [token, setToken] = useState<string | undefined>(undefined);
-  const treeAdopted = useStoreState('treeAdopted');
   const selectedTreeId = useStoreState('selectedTreeId');
   const selectedTreeData = useStoreState('selectedTreeData');
   const userdata = useStoreState('user');
-  const [waterGroup, setWaterGroup] = useState<WaterGroup>('visible');
+  const [isSelectedTreeAdopted, setIsSelectedTreeAdopted] = useState<
+    boolean | undefined
+  >(undefined);
 
   const { getTokenSilently, isAuthenticated, user } = useAuth0();
 
