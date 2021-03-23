@@ -28,8 +28,15 @@ import { getCommunityData } from '../../utils/requests/getCommunityData';
 import { waterTree } from '../../utils/requests/waterTree';
 import { getTreeData } from '../../utils/requests/getTreeData';
 import { ButtonWaterGroup } from '../../common/types';
+import { getTreesAdoptedByUser } from '../../utils/requests/getTreesAdoptedByUser';
+import { unadoptTree } from '../../utils/requests/unadoptTree';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
+
+const TreeButtonWrapper = styled.div`
+  display: flex;
+  gap: 8px;
+`;
 
 const FlexColumnDiv = styled.div`
   display: flex;
@@ -77,58 +84,127 @@ const getTreeProp = (p: Generic | string | null) => {
 };
 
 const Card: FC = () => {
-  const [token, setToken] = useState<string | undefined>(undefined);
   const selectedTreeId = useStoreState('selectedTreeId');
   const selectedTreeData = useStoreState('selectedTreeData');
   const selectedTreeState = useStoreState('selectedTreeState');
+  const userdata = useStoreState('userData');
 
-  const userdata = useStoreState('user');
   const [waterGroup, setWaterGroup] = useState<ButtonWaterGroup>('visible');
-  const [isSelectedTreeAdopted, setIsSelectedTreeAdopted] = useState<
-    boolean | undefined
-  >(undefined);
+  const [_, setUnadopting] = useState<string | undefined>(undefined);
+
+  const [isSelectedTreeAdopted, setIsSelectedTreeAdopted] = useState<boolean>(
+    false
+  );
 
   const { getTokenSilently, isAuthenticated, user } = useAuth0();
+  // const token = useGetTokenSilently();
 
   const { standalter, artdtsch, gattungdeutsch, caretaker, wateredDays } =
     selectedTreeData || {};
 
-  useEffect(() => {
-    if (getTokenSilently === undefined) return;
-
-    getTokenSilently()
-      .then((token: string) => {
-        setToken(token);
-        return;
-      })
-      .catch(console.error);
-  }, [getTokenSilently]);
-
-  useEffect(() => {
-    if (!getTokenSilently) return;
+  const adoptTreeClick = async () => {
     if (!selectedTreeId) return;
     if (!user) return;
     if (!user.sub) return;
+    if (typeof getTokenSilently !== 'function') return;
+
+    store.setState({ selectedTreeState: 'ADOPT' });
+    const token = await getTokenSilently();
+    await adoptTree(selectedTreeId, token, user.sub);
+    store.setState({
+      selectedTreeState: 'ADOPTED',
+    });
+    const communityData = await getCommunityData();
+    store.setState(communityData);
+    setIsSelectedTreeAdopted(true);
+  };
+
+  const waterTreeClick = async (treeId: string, amount: number) => {
+    if (!userdata) return;
+    if (!user) return;
+    if (!user.sub) return;
+    if (typeof getTokenSilently !== 'function') return;
+
+    setWaterGroup('watered');
+    const token = await getTokenSilently();
+    await waterTree({
+      id: treeId,
+      amount,
+      username: userdata.username,
+      userId: user.sub,
+      token,
+    });
+
+    const treeData = await getTreeData(treeId);
+    store.setState(treeData);
+    setWaterGroup('visible');
+  };
+
+  const unadoptTreeClickHandler = () => {
+    setUnadopting(selectedTreeId);
+
+    if (!user) return;
+    if (!user.sub) return;
+    if (!selectedTreeId) return;
+    if (typeof getTokenSilently !== 'function') return;
+
+    let localToken = '';
+    store.setState({ selectedTreeState: 'ADOPT' });
+
     getTokenSilently()
-      .then((token: string) =>
-        isTreeAdopted({
+      .then(token => {
+        localToken = token;
+        setIsSelectedTreeAdopted(false);
+        return unadoptTree(selectedTreeId, user.sub as string, token);
+      })
+      .then(() =>
+        getTreesAdoptedByUser({
+          userId: user.sub as string,
+          token: localToken,
+        })
+      )
+      .then(adoptedTrees => {
+        store.setState({
+          selectedTreeState: 'FETCHED',
+          adoptedTrees,
+        });
+        return;
+      })
+      .catch(console.error);
+    setUnadopting(undefined);
+  };
+  useEffect(() => {
+    if (typeof getTokenSilently !== 'function') return;
+
+    if (!selectedTreeId) return;
+    if (!user) return;
+    if (!user.sub) return;
+    /**
+     * I would love to remove the call to getTokenSilently here, but
+     * then the isTreeAdopted does not get triggerd from the effect.
+     * @vogelino any idea why?
+     *
+     */
+    getTokenSilently()
+      .then((token: string) => {
+        return isTreeAdopted({
           id: selectedTreeId,
           uuid: user.sub as string,
           token,
           isAuthenticated,
-        })
-      )
+        });
+      })
       .then((isTreeAdoptedState: boolean) => {
         if (isTreeAdoptedState === true) {
           store.setState({
             selectedTreeState: 'ADOPTED',
           });
+          setIsSelectedTreeAdopted(isTreeAdoptedState);
         }
-        setIsSelectedTreeAdopted(isTreeAdoptedState);
         return;
       })
       .catch(console.error);
-  }, [user, selectedTreeId, isSelectedTreeAdopted]);
+  }, [user, selectedTreeId, getTokenSilently, isAuthenticated]);
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
@@ -151,9 +227,16 @@ const Card: FC = () => {
             <CaretakerSublineSpan>{`Dieser Baum wird regelmäßig vom ${caretaker} gewässert.`}</CaretakerSublineSpan>
           </CaretakerDiv>
         )}
-        {isSelectedTreeAdopted && selectedTreeData && (
-          <TreeButton tree={selectedTreeData} label='Adoptiert' />
-        )}
+        {
+          <TreeButtonWrapper>
+            {isSelectedTreeAdopted === true && (
+              <TreeButton
+                label='Freigeben'
+                onClickHandler={unadoptTreeClickHandler}
+              />
+            )}
+          </TreeButtonWrapper>
+        }
         {treeType && treeType.title !== null && (
           <CardAccordion
             title={
@@ -168,7 +251,7 @@ const Card: FC = () => {
         {standalter && standalter !== 'undefined' && (
           <CardProperty name='Standalter' value={standalter + ' Jahre'} />
         )}
-        {standalter !== 'null' && standalter !== 'undefined' && (
+        {standalter && (
           <CardAccordion
             title={
               <CardAccordionTitle>
@@ -205,39 +288,8 @@ const Card: FC = () => {
           isEmailVerified
           isAuthenticated={isAuthenticated}
           setWaterGroup={setWaterGroup}
-          onAdoptTreeClick={async () => {
-            if (!selectedTreeId) return;
-            if (!user) return;
-            if (!user.sub) return;
-            if (!token) return;
-            store.setState({ selectedTreeState: 'ADOPT' });
-            // const token = await getTokenSilently();
-            await adoptTree(selectedTreeId, token, user.sub);
-            store.setState({
-              selectedTreeState: 'ADOPTED',
-            });
-            const communityData = await getCommunityData();
-            store.setState(communityData);
-          }}
-          onWaterTreeClick={async (treeId, amount) => {
-            if (!userdata) return;
-            if (!user) return;
-            if (!user.sub) return;
-            if (!token) return;
-            setWaterGroup('watered');
-            // const token = await getTokenSilently();
-            await waterTree({
-              id: treeId,
-              amount,
-              username: userdata.username,
-              userId: user.sub,
-              token,
-            });
-
-            const treeData = await getTreeData(treeId);
-            store.setState(treeData);
-            setWaterGroup('visible');
-          }}
+          onAdoptTreeClick={adoptTreeClick}
+          onWaterTreeClick={waterTreeClick}
         />
       </FlexColumnDiv>
     </CardWrapper>
