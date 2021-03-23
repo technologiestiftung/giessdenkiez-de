@@ -49,7 +49,7 @@ afterAll(() => {
 
 describe('card test', () => {
   test('should render', async () => {
-    store.setState({ selectedTree: { id: '_123' } });
+    store.setState({ selectedTreeId: '_123' });
     const { getByText } = render(
       <Provider store={store}>
         <Card

@@ -47,7 +47,7 @@ afterAll(() => {
 
 describe('button water test', () => {
   test('button click should switch to "adoptiere" and then vanish', async () => {
-    store.setState({ selectedTree: { id: '_123' } });
+    store.setState({ selectedTreeId: '_123' });
     jest
       .spyOn(requestUtil, 'requests')
       .mockResolvedValueOnce({ data: 'adopted' })
@@ -56,7 +56,18 @@ describe('button water test', () => {
       });
     const { getByText } = render(
       <Provider store={store}>
-        <ButtonWater />
+        <ButtonWater
+          {...{
+            isAuthenticated: true,
+            isEmailVerified: true,
+            onAdoptTreeClick: async () => console.log('adopt'),
+            onWaterTreeClick: async () => console.log('water'),
+            waterGroup: 'visible',
+            selectedTreeId: '_123',
+            selectedTreeState: undefined,
+            setWaterGroup: jest.fn(),
+          }}
+        />
       </Provider>
     );
     const button1 = getByText(/adoptieren/i);
@@ -64,7 +75,6 @@ describe('button water test', () => {
     fireEvent.click(button1);
     const button2 = getByText(/adoptiere/i);
     await waitFor(() => expect(button2).toBeInTheDocument());
-    store.setState({ treeAdopted: true });
     await waitFor(() => expect(button1).not.toBeInTheDocument());
     await waitFor(() => expect(button2).not.toBeInTheDocument());
   });
