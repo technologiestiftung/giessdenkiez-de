@@ -15,13 +15,13 @@ const Login: FC<{
       {!isAuthenticated && (
         <ButtonRound
           width={width}
-          toggle={() => loginWithRedirect({ ui_locales: 'de' })}
+          onClick={() => loginWithRedirect({ ui_locales: 'de' })}
         >
           Konto anlegen / Einloggen
         </ButtonRound>
       )}
       {isAuthenticated && !noLogout && (
-        <ButtonRound width={width} toggle={() => logout()}>
+        <ButtonRound width={width} onClick={() => logout()}>
           Ausloggen
         </ButtonRound>
       )}

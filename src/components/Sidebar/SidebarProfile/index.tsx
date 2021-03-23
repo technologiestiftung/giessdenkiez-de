@@ -150,7 +150,7 @@ const SidebarProfile: FC = () => {
         </CardParagraph>
         <LastButtonRound
           width='-webkit-fill-available'
-          toggle={evt => {
+          onClick={evt => {
             evt?.preventDefault();
             handleDeleteClick();
           }}

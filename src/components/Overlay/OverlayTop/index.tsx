@@ -68,7 +68,7 @@ const OverlayTop: FC = () => {
       <StyledWrapper>
         <ButtonRound
           width='fit-content'
-          toggle={() => {
+          onClick={() => {
             closeOverlay();
           }}
           type='primary'

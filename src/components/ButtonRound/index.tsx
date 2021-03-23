@@ -60,14 +60,14 @@ const StyledButton = styled.div<StyledButtonProps>`
 
 const ButtonRound: FC<{
   type?: string;
-  toggle?: (event?: MouseEvent<HTMLDivElement>) => Promise<void> | void;
+  onClick?: (event?: MouseEvent<HTMLDivElement>) => Promise<void> | void;
   width?: string;
   fontSize?: string;
   margin?: string;
 }> = ({
   type,
   children,
-  toggle = () => undefined,
+  onClick = () => undefined,
   width,
   fontSize,
   margin = '0px',
@@ -76,7 +76,7 @@ const ButtonRound: FC<{
     fontSize={fontSize}
     margin={margin}
     width={width}
-    onClick={toggle}
+    onClick={onClick}
     type={type}
     role={'button'}
     tabIndex={0}

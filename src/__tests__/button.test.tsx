@@ -48,7 +48,7 @@ describe('button tests', () => {
   test('round button should have a basic functionality', () => {
     const onClick = jest.fn();
     const { getByText } = render(
-      <ButtonRound toggle={onClick}>Round</ButtonRound>
+      <ButtonRound onClick={onClick}>Round</ButtonRound>
     );
     const button = getByText(/round/i);
     fireEvent.click(button);

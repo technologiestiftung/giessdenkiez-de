@@ -71,7 +71,7 @@ const Cookie: FC = () => {
             <ButtonRound
               width='fit-content'
               fontSize={'.8rem'}
-              toggle={() => setCookie()}
+              onClick={() => setCookie()}
             >
               Einverstanden
             </ButtonRound>
