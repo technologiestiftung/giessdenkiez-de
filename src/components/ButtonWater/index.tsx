@@ -68,30 +68,24 @@ const ButtonWater: FC<ButtonWaterProps> = ({
 
   return (
     <>
-      {!treeAdopted && (
+      {
         <BtnContainer>
           <ButtonRound
             margin='15px'
             onClick={() => {
-              onAdoptClick();
-              adoptTreeClickHandler().catch(console.error);
+              if (isSelectedTreeAdopted) return;
+              onAdoptTreeClick().catch(console.error);
             }}
             type='secondary'
           >
-            {!adopted &&
-            selectedTreeState !== 'ADOPT' &&
-            selectedTreeState !== 'ADOPTED'
+            {selectedTreeState !== 'ADOPT' && selectedTreeState !== 'ADOPTED'
               ? 'Baum adoptieren'
               : ''}
-            {!adopted && selectedTreeState === 'ADOPT'
-              ? 'Adoptiere Baum ...'
-              : ''}
-            {!adopted && selectedTreeState === 'ADOPTED'
-              ? 'Baum adoptiert!'
-              : ''}
+            {selectedTreeState === 'ADOPT' ? 'Adoptiere Baum ...' : ''}
+            {selectedTreeState === 'ADOPTED' ? 'Baum adoptiert!' : ''}
           </ButtonRound>
         </BtnContainer>
-      )}
+      }
       <ButtonRound
         width='-webkit-fill-available'
         onClick={() => setWaterGroup('watering')}
