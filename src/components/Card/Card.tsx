@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
 import { useStoreState } from '../../state/unistore-hooks';
@@ -13,15 +13,20 @@ import CardAccordionTitle from './CardAccordion/CardAccordionTitle';
 import TreeType from './CardAccordion/TreeType';
 import TreeWatering from './CardAccordion/TreeWatering';
 import TreeLastWatered from './CardAccordion/TreeLastWatered';
-import ButtonWater from '../ButtonWater';
+import ButtonWater, { WaterGroup } from '../ButtonWater';
 import CardWaterDrops from './CardWaterDrops';
 import TreeButton from '../TreeButton';
+import store from '../../state/Store';
 
 import content from '../../assets/content';
 import { Generic } from '../../common/interfaces';
 import Icon from '../Icons';
 import StackedBarChart from '../StackedBarChart';
 import { isTreeAdopted } from '../../utils/requests/isTreeAdopted';
+import { adoptTree } from '../../utils/requests/adoptTree';
+import { getCommunityData } from '../../utils/requests/getCommunityData';
+import { waterTree } from '../../utils/requests/waterTree';
+import { getTreeData } from '../../utils/requests/getTreeData';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
 
@@ -71,21 +76,37 @@ const getTreeProp = (p: Generic | string | null) => {
 };
 
 const Card: FC = () => {
+  const [token, setToken] = useState<string | undefined>(undefined);
   const treeAdopted = useStoreState('treeAdopted');
   const selectedTreeId = useStoreState('selectedTreeId');
   const selectedTreeData = useStoreState('selectedTreeData');
+  const userdata = useStoreState('user');
+  const [waterGroup, setWaterGroup] = useState<WaterGroup>('visible');
+
   const { getTokenSilently, isAuthenticated, user } = useAuth0();
 
   const { standalter, artdtsch, gattungdeutsch, caretaker, wateredDays } =
     selectedTreeData || {};
 
   useEffect(() => {
+    if (getTokenSilently === undefined) return;
+
+    console.log(user);
+    getTokenSilently()
+      .then((token: string) => {
+        setToken(token);
+        return;
+      })
+      .catch(console.error);
+  }, [getTokenSilently]);
+  useEffect(() => {
     if (!user || !selectedTreeId) return;
+    if (!user.sub) return;
     getTokenSilently()
       .then((token: string) =>
         isTreeAdopted({
           id: selectedTreeId,
-          uuid: user.sub,
+          uuid: user.sub as string,
           token,
           isAuthenticated,
         })
@@ -160,7 +181,47 @@ const Card: FC = () => {
             <TreeLastWatered data={wateredDays} />
           </CardAccordion>
         )}
-        <ButtonWater />
+        <ButtonWater
+          // user={user}
+          waterGroup={waterGroup}
+          isEmailVerified
+          isAuthenticated={isAuthenticated}
+          setWaterGroup={setWaterGroup}
+          adoptTreeClickHandler={async () => {
+            if (!selectedTreeId) return;
+            if (!user) return;
+            if (!user.sub) return;
+            if (!token) return;
+            store.setState({ selectedTreeState: 'ADOPT' });
+            // const token = await getTokenSilently();
+            await adoptTree(selectedTreeId, token, user.sub);
+            store.setState({
+              selectedTreeState: 'ADOPTED',
+            });
+            const communityData = await getCommunityData();
+            store.setState(communityData);
+          }}
+          waterTreeClickHandler={async (treeId, amount) => {
+            console.log(`water tree ${treeId} with amount: ${amount}`);
+            if (!userdata) return;
+            if (!user) return;
+            if (!user.sub) return;
+            if (!token) return;
+            setWaterGroup('watered');
+            // const token = await getTokenSilently();
+            await waterTree({
+              id: treeId,
+              amount,
+              username: userdata.username,
+              userId: user.sub,
+              token,
+            });
+
+            const treeData = await getTreeData(treeId);
+            store.setState(treeData);
+            setWaterGroup('visible');
+          }}
+        />
       </FlexColumnDiv>
     </CardWrapper>
   );

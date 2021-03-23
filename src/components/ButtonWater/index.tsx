@@ -1,18 +1,32 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { useStoreState } from '../../state/unistore-hooks';
-import store from '../../state/Store';
-import { getCommunityData } from '../../utils/requests/getCommunityData';
-import { useAuth0 } from '../../utils/auth/auth0';
+
 import ButtonRound from '../ButtonRound';
 import CardParagraph from '../Card/CardParagraph';
 import { NonVerfiedMailCardParagraph } from '../Card/non-verified-mail';
 import Login from '../Login';
-import ButtonWaterGroup from './BtnWaterGroup';
+// import ButtonWaterGroup from './BtnWaterGroup';
 import { ParticipateButton } from '../ParticipateButton';
-import { adoptTree } from '../../utils/requests/adoptTree';
-import { waterTree } from '../../utils/requests/waterTree';
-import { getTreeData } from '../../utils/requests/getTreeData';
+
+const btnArray: { label: string; amount: number }[] = [
+  {
+    label: '5l',
+    amount: 5,
+  },
+  {
+    label: '10l',
+    amount: 10,
+  },
+  {
+    label: '25l',
+    amount: 25,
+  },
+  {
+    label: '50l',
+    amount: 50,
+  },
+];
 
 const BtnContainer = styled.div`
   display: flex;
@@ -20,13 +34,20 @@ const BtnContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
+const BtnWaterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 100%;
+`;
 const StyledLogin = styled(Login)`
   cursor: pointer;
   align-self: stretch;
 `;
 
-const getButtonLabel = (state: string) => {
+export type WaterGroup = 'visible' | 'watered' | 'watering';
+
+const getButtonLabel = (state: WaterGroup) => {
   switch (state) {
     case 'visible':
       return 'Ich habe gegossen!';
@@ -42,44 +63,63 @@ const getButtonLabel = (state: string) => {
   }
 };
 
-const ButtonWater: FC = () => {
+export interface ButtonWaterProps {
+  // user: User;
+  isAuthenticated?: boolean;
+  // token: string;
+  isEmailVerified: boolean;
+  adoptTreeClickHandler: () => Promise<void>;
+  waterTreeClickHandler: (treeId: string, amount: number) => Promise<void>;
+  waterGroup: WaterGroup;
+  setWaterGroup: React.Dispatch<React.SetStateAction<WaterGroup>>;
+}
+
+const ButtonWater: FC<ButtonWaterProps> = ({
+  adoptTreeClickHandler,
+  waterTreeClickHandler,
+  isEmailVerified,
+  isAuthenticated,
+  waterGroup,
+  setWaterGroup,
+}) => {
   const selectedTreeId = useStoreState('selectedTreeId');
   const selectedTreeState = useStoreState('selectedTreeState');
-  const userdata = useStoreState('user');
+  // const userdata = useStoreState('user');
   const treeAdopted = useStoreState('treeAdopted');
-  const [waterGroup, setWaterGroup] = useState('visible');
+  // const [waterGroup, setWaterGroup] = useState('visible');
 
-  const { user, isAuthenticated, getTokenSilently } = useAuth0();
+  // const { user, isAuthenticated, getTokenSilently } = useAuth0();
   const [adopted] = useState(false);
-  const isEmailVerified = user && user.email_verified;
+  // const isEmailVerified = user && user.email_verified;
 
-  const onButtonWaterClick = async (id: string, amount: number) => {
-    if (!userdata) return;
-    setWaterGroup('watered');
-    const token = await getTokenSilently();
-    await waterTree({
-      id,
-      amount,
-      username: userdata.username,
-      userId: user.sub,
-      token,
-    });
-
-    const treeData = await getTreeData(id);
-    store.setState(treeData);
-    setWaterGroup('visible');
+  const onButtonWaterClick = async (_id: string, _amount: number) => {
+    // if (!userdata) return;
+    // if (!user.sub) return;
+    // setWaterGroup('watered');
+    // // const token = await getTokenSilently();
+    // await waterTree({
+    //   id,
+    //   amount,
+    //   username: userdata.username,
+    //   userId: user.sub,
+    //   token,
+    // });
+    // const treeData = await getTreeData(id);
+    // store.setState(treeData);
+    // setWaterGroup('visible');
   };
 
   const onAdoptClick = async () => {
-    if (!selectedTreeId) return;
-    store.setState({ selectedTreeState: 'ADOPT' });
-    const token = await getTokenSilently();
-    await adoptTree(selectedTreeId, token, user.sub);
-    store.setState({
-      selectedTreeState: 'ADOPTED',
-    });
-    const communityData = await getCommunityData();
-    store.setState(communityData);
+    // if (!selectedTreeId) return;
+    // if (!user.sub) return;
+    // store.setState({ selectedTreeState: 'ADOPT' });
+    // // const token = await getTokenSilently();
+    // await adoptTree(selectedTreeId, token, user.sub);
+    // store.setState({
+    //   selectedTreeState: 'ADOPTED',
+    // });
+    // const communityData = await getCommunityData();
+    // store.setState(communityData);
   };
 
   if (!isAuthenticated) {
@@ -107,7 +147,14 @@ const ButtonWater: FC = () => {
     <>
       {!treeAdopted && (
         <BtnContainer>
-          <ButtonRound margin='15px' toggle={onAdoptClick} type='secondary'>
+          <ButtonRound
+            margin='15px'
+            onClick={() => {
+              onAdoptClick();
+              adoptTreeClickHandler().catch(console.error);
+            }}
+            type='secondary'
+          >
             {!adopted &&
             selectedTreeState !== 'ADOPT' &&
             selectedTreeState !== 'ADOPTED'
@@ -124,13 +171,32 @@ const ButtonWater: FC = () => {
       )}
       <ButtonRound
         width='-webkit-fill-available'
-        toggle={() => setWaterGroup('watering')}
+        onClick={() => setWaterGroup('watering')}
         type='primary'
       >
         {getButtonLabel(waterGroup)}
       </ButtonRound>
       {waterGroup === 'watering' && selectedTreeId && (
-        <ButtonWaterGroup id={selectedTreeId} onClick={onButtonWaterClick} />
+        <BtnWaterContainer>
+          {btnArray.map(btn => {
+            return (
+              <ButtonRound
+                key={`${btn.amount}`}
+                width='fit-content'
+                onClick={() => {
+                  onButtonWaterClick(selectedTreeId, btn.amount);
+                  waterTreeClickHandler(selectedTreeId, btn.amount).catch(
+                    console.error
+                  );
+                }}
+                type='primary'
+              >
+                {btn.label}
+              </ButtonRound>
+            );
+          })}
+        </BtnWaterContainer>
+        // <ButtonWaterGroup id={selectedTreeId} onClick={onButtonWaterClick} />
       )}
       <ParticipateButton />
     </>
