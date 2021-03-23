@@ -1,12 +1,6 @@
-import React, { FC, useState, useCallback } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
-import store from '../../state/Store';
-import { useAuth0 } from '../../utils/auth/auth0';
-import { Tree } from '../../common/interfaces';
-import { useActions } from '../../state/unistore-hooks';
-import { getTreesAdoptedByUser } from '../../utils/requests/getTreesAdoptedByUser';
-import { unadoptTree } from '../../utils/requests/unadoptTree';
 
 const StyledTreeButton = styled.div`
   font-size: 12px;
@@ -48,54 +42,13 @@ const StyledTreeButton = styled.div`
 const Label = styled.span``;
 
 const TreeButton: FC<{
-  tree: Tree;
   label?: string;
-}> = ({ tree, label }) => {
-  const { user, getTokenSilently } = useAuth0();
-  const { selectTree } = useActions();
-  const [unadopting, setUnadopting] = useState<string | undefined>(undefined);
-
-  const onButtonClick = useCallback(
-    (tree: Tree) => {
-      if (!tree?.id) return;
-      selectTree(tree.id);
-    },
-    [selectTree]
-  );
-
-  const onCloseIconClick = useCallback(
-    async (id: string, userId: string) => {
-      setUnadopting(id);
-      try {
-        store.setState({ selectedTreeState: 'ADOPT' });
-
-        const token = await getTokenSilently();
-        await unadoptTree(id, userId, token);
-        const adoptedTrees = await getTreesAdoptedByUser({ userId, token });
-        store.setState({
-          selectedTreeState: 'FETCHED',
-          adoptedTrees,
-        });
-      } catch (err) {
-        console.error(err);
-      }
-      setUnadopting(undefined);
-    },
-    [store, setUnadopting]
-  );
-
+  onClickHandler: () => void;
+}> = ({ label, onClickHandler }) => {
   return (
-    <StyledTreeButton
-      role={'button'}
-      tabIndex={0}
-      onClick={() => onButtonClick(tree)}
-    >
-      <Label>
-        {unadopting ? 'Entferne' : label || tree.artdtsch || 'Baum'}
-      </Label>
-      <CloseIcon
-        onClick={() => tree.id && onCloseIconClick(tree.id, user.sub)}
-      />
+    <StyledTreeButton role={'button'} tabIndex={0} onClick={onClickHandler}>
+      <Label>{label ? label : 'Baum'}</Label>
+      <CloseIcon />
     </StyledTreeButton>
   );
 };
