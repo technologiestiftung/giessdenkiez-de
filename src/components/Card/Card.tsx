@@ -96,7 +96,6 @@ const Card: FC = () => {
   useEffect(() => {
     if (getTokenSilently === undefined) return;
 
-    console.log(user);
     getTokenSilently()
       .then((token: string) => {
         setToken(token);
@@ -104,6 +103,7 @@ const Card: FC = () => {
       })
       .catch(console.error);
   }, [getTokenSilently]);
+
   useEffect(() => {
     if (!getTokenSilently) return;
     if (!selectedTreeId) return;
@@ -198,6 +198,7 @@ const Card: FC = () => {
           </CardAccordion>
         )}
         <ButtonWater
+          selectedTreeId={selectedTreeId}
           isSelectedTreeAdopted={isSelectedTreeAdopted}
           selectedTreeState={selectedTreeState}
           waterGroup={waterGroup}
