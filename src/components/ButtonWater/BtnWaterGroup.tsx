@@ -28,18 +28,21 @@ const btnArray = [
     id: 50,
   },
 ];
-
+/**
+ *
+ * @deprecated
+ */
 const BtnWaterGroup: FC<{
   onClick: (id: string, btnId: number) => void;
   id: string;
 }> = ({ onClick, id }) => (
   <BtnWaterContainer>
-    {btnArray.map((btn, i) => {
+    {btnArray.map(btn => {
       return (
         <ButtonRound
-          key={`Btn-water-${i}`}
+          key={`${btn.id}`}
           width='fit-content'
-          toggle={() => {
+          onClick={() => {
             onClick(id, btn.id);
           }}
           type='primary'
