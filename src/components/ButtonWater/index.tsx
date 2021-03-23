@@ -109,8 +109,7 @@ const ButtonWater: FC<ButtonWaterProps> = ({
                 key={`${btn.amount}`}
                 width='fit-content'
                 onClick={() => {
-                  onButtonWaterClick(selectedTreeId, btn.amount);
-                  waterTreeClickHandler(selectedTreeId, btn.amount).catch(
+                  onWaterTreeClick(selectedTreeId, btn.amount).catch(
                     console.error
                   );
                 }}
@@ -121,7 +120,6 @@ const ButtonWater: FC<ButtonWaterProps> = ({
             );
           })}
         </BtnWaterContainer>
-        // <ButtonWaterGroup id={selectedTreeId} onClick={onButtonWaterClick} />
       )}
       <ParticipateButton />
     </>
