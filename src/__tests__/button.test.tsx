@@ -66,10 +66,10 @@ describe('button tests', () => {
     );
 
     const button = getByRole(/button/i);
-    const label = getByText(/adoptiert/i);
+    const label = getByText(/test/i);
     expect(button).toHaveAttribute('role', 'button');
     expect(label).toBeDefined();
-    expect(label).toHaveTextContent(/adoptiert/i);
+    expect(label).toHaveTextContent(/test/i);
     expect(button).toHaveAttribute('tabindex', '0');
   });
 });

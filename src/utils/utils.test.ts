@@ -1,6 +1,8 @@
 /* eslint-disable jest/consistent-test-it */
 /* eslint-disable jest/no-hooks */
 
+import { getWaterNeedByAge } from './getWaterNeedByAge';
+
 const result = {
   coords: {
     latitude: 52,
@@ -25,5 +27,21 @@ describe('utilities geolocation', () => {
   });
   afterAll(() => {
     jest.restoreAllMocks();
+  });
+
+  test('should test getWaterNeedByAge', () => {
+    expect(getWaterNeedByAge()).toBeNull();
+    expect(getWaterNeedByAge(Math.floor(Math.random() * 15))).toStrictEqual([
+      1,
+      1,
+      1,
+    ]);
+    expect(
+      getWaterNeedByAge(Math.floor(Math.random() * (40 - 15)) + 15)
+    ).toStrictEqual([1, 1]);
+
+    expect(
+      getWaterNeedByAge(Math.floor(Math.random() * 1000 + 40))
+    ).toStrictEqual([1]);
   });
 });
