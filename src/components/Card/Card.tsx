@@ -151,7 +151,7 @@ const Card: FC = () => {
             <CaretakerSublineSpan>{`Dieser Baum wird regelmäßig vom ${caretaker} gewässert.`}</CaretakerSublineSpan>
           </CaretakerDiv>
         )}
-        {treeAdopted && selectedTreeData && (
+        {isSelectedTreeAdopted && selectedTreeData && (
           <TreeButton tree={selectedTreeData} label='Adoptiert' />
         )}
         {treeType && treeType.title !== null && (
@@ -198,7 +198,8 @@ const Card: FC = () => {
           </CardAccordion>
         )}
         <ButtonWater
-          // user={user}
+          isSelectedTreeAdopted={isSelectedTreeAdopted}
+          selectedTreeState={selectedTreeState}
           waterGroup={waterGroup}
           isEmailVerified
           isAuthenticated={isAuthenticated}
