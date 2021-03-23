@@ -1,6 +1,6 @@
 import { createAPIUrl } from '../createAPIUrl';
 import { requests } from '../requestUtil';
-import { Tree } from '../../common/interfaces';
+import { WateredDayType } from '../../common/interfaces';
 
 export const getTreesWateredByUser = async ({
   userId,
@@ -8,10 +8,12 @@ export const getTreesWateredByUser = async ({
 }: {
   userId: string;
   token: string;
-}): Promise<Tree[]> => {
+}): Promise<WateredDayType[]> => {
   const urlWateredByUser = createAPIUrl(
     `/get?queryType=wateredbyuser&uuid=${userId}`
   );
-  const res = await requests<{ data: Tree[] }>(urlWateredByUser, { token });
+  const res = await requests<{ data: WateredDayType[] }>(urlWateredByUser, {
+    token,
+  });
   return res.data;
 };
