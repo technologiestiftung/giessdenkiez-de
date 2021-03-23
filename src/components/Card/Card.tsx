@@ -13,7 +13,7 @@ import CardAccordionTitle from './CardAccordion/CardAccordionTitle';
 import TreeType from './CardAccordion/TreeType';
 import TreeWatering from './CardAccordion/TreeWatering';
 import TreeLastWatered from './CardAccordion/TreeLastWatered';
-import ButtonWater, { WaterGroup } from '../ButtonWater';
+import ButtonWater from '../ButtonWater';
 import CardWaterDrops from './CardWaterDrops';
 import TreeButton from '../TreeButton';
 import store from '../../state/Store';
@@ -27,6 +27,7 @@ import { adoptTree } from '../../utils/requests/adoptTree';
 import { getCommunityData } from '../../utils/requests/getCommunityData';
 import { waterTree } from '../../utils/requests/waterTree';
 import { getTreeData } from '../../utils/requests/getTreeData';
+import { ButtonWaterGroup } from '../../common/types';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
 
