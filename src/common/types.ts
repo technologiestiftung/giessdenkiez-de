@@ -9,9 +9,11 @@ export type ContextProps = {
   handleRedirectCallback: any;
   getIdTokenClaims: any;
   loginWithRedirect: any;
-  getTokenSilently: any;
+  getTokenSilently: () => Promise<string>;
   getTokenWithPopup: any;
   logout: any;
 };
 
 export type RadolanDays = number[];
+
+export type ButtonWaterGroup = 'visible' | 'watered' | 'watering';
