@@ -103,7 +103,7 @@ const ButtonWater: FC<ButtonWaterProps> = ({
       </ButtonRound>
       {waterGroup === 'watering' && selectedTreeId && (
         <BtnWaterContainer>
-          {btnArray.map(btn => {
+          {buttonLabels.map(btn => {
             return (
               <ButtonRound
                 key={`${btn.amount}`}
