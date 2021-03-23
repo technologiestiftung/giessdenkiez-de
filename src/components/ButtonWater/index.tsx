@@ -39,7 +39,7 @@ export interface ButtonWaterProps {
   setWaterGroup: React.Dispatch<React.SetStateAction<ButtonWaterGroup>>;
   selectedTreeId: StoreProps['selectedTreeId'];
   selectedTreeState: StoreProps['selectedTreeState'];
-  isSelectedTreeAdopted?: boolean;
+  isSelectedTreeAdopted: boolean;
 }
 
 const ButtonWater: FC<ButtonWaterProps> = ({
@@ -78,20 +78,22 @@ const ButtonWater: FC<ButtonWaterProps> = ({
     <>
       {
         <BtnContainer>
-          <ButtonRound
-            margin='15px'
-            onClick={() => {
-              if (isSelectedTreeAdopted) return;
-              onAdoptTreeClick().catch(console.error);
-            }}
-            type='secondary'
-          >
-            {selectedTreeState !== 'ADOPT' && selectedTreeState !== 'ADOPTED'
-              ? 'Baum adoptieren'
-              : ''}
-            {selectedTreeState === 'ADOPT' ? 'Adoptiere Baum ...' : ''}
-            {selectedTreeState === 'ADOPTED' ? 'Baum adoptiert!' : ''}
-          </ButtonRound>
+          {!isSelectedTreeAdopted && (
+            <ButtonRound
+              margin='15px'
+              onClick={() => {
+                if (isSelectedTreeAdopted) return;
+                onAdoptTreeClick().catch(console.error);
+              }}
+              type='secondary'
+            >
+              {selectedTreeState !== 'ADOPT' && selectedTreeState !== 'ADOPTED'
+                ? 'Baum adoptieren'
+                : ''}
+              {selectedTreeState === 'ADOPT' ? 'Adoptiere Baum ...' : ''}
+              {selectedTreeState === 'ADOPTED' ? 'Baum adoptiert!' : ''}
+            </ButtonRound>
+          )}
         </BtnContainer>
       }
       <ButtonRound
