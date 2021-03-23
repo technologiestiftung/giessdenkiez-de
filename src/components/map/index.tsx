@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import { Map as MapboxMap, MapboxGeoJSONFeature } from 'mapbox-gl';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-import debounce from 'lodash.debounce';
 import {
   StaticMap,
   GeolocateControl,
@@ -39,6 +38,8 @@ let map: MapboxMap | null = null;
 let selectedStateId: string | number | undefined = undefined;
 
 const MAPBOX_TOKEN = process.env.API_KEY;
+const VIEWSTATE_TRANSITION_DURATION = 1000;
+const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
 
 interface DeckGLPropType {
   data: StoreProps['data'];
@@ -48,6 +49,7 @@ interface DeckGLPropType {
   rainVisible: StoreProps['rainVisible'];
   pumps: StoreProps['pumps'];
   selectedTreeId: StoreProps['selectedTreeId'];
+  selectedTreeData: StoreProps['selectedTreeData'];
   ageRange: StoreProps['ageRange'];
   dataView: StoreProps['dataView'];
   communityData: StoreProps['communityData'];
@@ -73,7 +75,6 @@ interface DeckGLStateType {
   cursor: 'grab' | 'pointer';
   geoLocationAvailable: boolean;
   isTreeMapLoading: boolean;
-  highlightedObject: string | null;
   viewport: ViewportType;
 }
 
@@ -88,12 +89,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       cursor: 'grab',
       geoLocationAvailable: false,
       isTreeMapLoading: true,
-      highlightedObject: null,
       viewport: {
         latitude: 52.500869,
         longitude: 13.419047,
         zoom: isMobile ? 13 : 11,
-        maxZoom: 19,
+        maxZoom: VIEWSTATE_ZOOMEDIN_ZOOM,
         minZoom: isMobile ? 11 : 9,
         pitch: isMobile ? 0 : 45,
         bearing: 0,
@@ -107,7 +107,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     this._updateStyles = this._updateStyles.bind(this);
     this._deckClick = this._deckClick.bind(this);
     this.setCursor = this.setCursor.bind(this);
-    this.onViewStateChange = debounce(this.onViewStateChange.bind(this), 2000);
+    this.onViewStateChange = this.onViewStateChange.bind(this);
   }
 
   _renderLayers(): unknown[] {
@@ -205,7 +205,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         updateTriggers: {
           getFillColor: [
             this.props.wateredTrees,
-            this.state.highlightedObject,
+            this.props.selectedTreeId,
             this.props.ageRange,
             this.props.dataView,
           ],
@@ -309,31 +309,25 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     treeId: string,
     coordinates?: [number, number]
   ): Promise<void> {
-    this.props.onTreeSelect(treeId);
-    this.setState({ highlightedObject: treeId || null });
-
     if (coordinates) {
       this.setViewport({
         longitude: coordinates[0],
         latitude: coordinates[1],
-        zoom: 19,
+        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
       });
     }
 
-    this.props
-      .onTreeSelect(treeId)
-      .then(selectedTreeData => {
-        if (!coordinates && selectedTreeData) {
-          this.setViewport({
-            longitude: parseFloat(selectedTreeData.lat),
-            latitude: parseFloat(selectedTreeData.lng),
-            zoom: 19,
-          });
-        }
+    const selectedTreeData = await this.props.onTreeSelect(treeId);
 
-        return selectedTreeData;
-      })
-      .catch(console.error);
+    if (!coordinates && selectedTreeData) {
+      this.setViewport({
+        longitude: parseFloat(selectedTreeData.lat),
+        latitude: parseFloat(selectedTreeData.lng),
+        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+      });
+    }
   }
 
   _onClick(_x: number, _y: number, object: MapboxGeoJSONFeature): void {
@@ -504,49 +498,32 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     }
   }
 
-  shouldComponentUpdate(
-    prevProps: DeckGLPropType,
-    prevState: DeckGLStateType
-  ): boolean {
-    const changed = this.componentDidUpdate(prevProps, prevState);
-    const pp = prevProps;
-    const np = this.props;
-    const ps = prevState;
-    const ns = this.state;
-    const shouldChange =
-      changed ||
-      ps.viewport.latitude !== ns.viewport.latitude ||
-      ps.viewport.longitude !== ns.viewport.longitude ||
-      ps.viewport.zoom !== ns.viewport.zoom ||
-      ps.viewport.transitionDuration !== ns.viewport.transitionDuration ||
-      pp.isTreeDataLoading !== np.isTreeDataLoading ||
-      pp.isNavOpen !== np.isNavOpen ||
-      pp.overlay !== np.overlay;
-    return shouldChange;
-  }
-
-  componentDidUpdate(
-    prevProps: DeckGLPropType,
-    prevState: DeckGLStateType
-  ): boolean {
+  componentDidUpdate(prevProps: DeckGLPropType): boolean {
     if (!map) return false;
-    const mapProps = ['wateredTrees', 'ageRange', 'dataView', 'treesVisible'];
+    const mapProps = [
+      'wateredTrees',
+      'ageRange',
+      'dataView',
+      'treesVisible',
+      'selectedTreeId',
+    ];
     let changed = false;
     mapProps.forEach(prop => {
       if (prevProps[prop] !== this.props[prop]) {
         changed = true;
       }
     });
-    changed =
-      prevState.highlightedObject !== this.state.highlightedObject || changed;
 
     if (!changed) return false;
     this._updateStyles(prevProps);
 
-    const selectTreeChanged =
-      prevProps.selectedTreeId !== this.props.selectedTreeId;
-    if (selectTreeChanged && this.props.selectedTreeId) {
-      this.selectTree(this.props.selectedTreeId);
+    if (!prevProps.selectedTreeData && this.props.selectedTreeData) {
+      this.setViewport({
+        latitude: parseFloat(this.props.selectedTreeData.lat),
+        longitude: parseFloat(this.props.selectedTreeData.lng),
+        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+      });
     }
 
     return true;
@@ -622,7 +599,12 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                         longitude: number;
                       };
                     };
-                    this.setViewport({ longitude, latitude });
+                    this.setViewport({
+                      longitude,
+                      latitude,
+                      zoom: 500,
+                      transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+                    });
                   }}
                 />
                 <NavigationControl
@@ -631,7 +613,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                       latitude: e.viewState.latitude,
                       longitude: e.viewState.longitude,
                       zoom: e.viewState.zoom,
-                      transitionDuration: 500,
+                      transitionDuration: VIEWSTATE_TRANSITION_DURATION,
                     })
                   }
                 />

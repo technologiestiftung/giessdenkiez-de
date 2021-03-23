@@ -66,6 +66,7 @@ const Map: FC = () => {
   const isNavOpen = useStoreState('isNavOpen');
   const overlay = useStoreState('overlay');
   const selectedTreeId = useStoreState('selectedTreeId');
+  const selectedTreeData = useStoreState('selectedTreeData');
   const { selectTree, setSelectedTreeData } = useActions();
 
   return (
@@ -95,6 +96,7 @@ const Map: FC = () => {
       communityDataWatered={communityDataWatered || []}
       communityDataAdopted={communityDataAdopted || []}
       selectedTreeId={selectedTreeId}
+      selectedTreeData={selectedTreeData}
     />
   );
 };

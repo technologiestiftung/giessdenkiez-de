@@ -113,18 +113,7 @@ const SidebarSearchLocation: React.FC = () => {
               <ResultElement
                 className={index % 2 ? 'even' : 'odd'}
                 key={item.id}
-                onClick={() =>
-                  selectTree({
-                    selectedTree: {
-                      id: item.id,
-                      lat: `${item.geometry.coordinates[0]}`,
-                      lng: `${item.geometry.coordinates[1]}`,
-                      radolan_days: [],
-                      radolan_sum: 0,
-                    },
-                    treeLastWatered: [],
-                  })
-                }
+                onClick={() => selectTree(item.id)}
               >
                 {item.place_name_de}
               </ResultElement>
