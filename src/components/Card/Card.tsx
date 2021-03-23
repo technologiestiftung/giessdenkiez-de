@@ -118,8 +118,17 @@ const Card: FC = () => {
           isAuthenticated,
         })
       )
+      .then((isTreeAdoptedState: boolean) => {
+        if (isTreeAdoptedState === true) {
+          store.setState({
+            selectedTreeState: 'ADOPTED',
+          });
+        }
+        setIsSelectedTreeAdopted(isTreeAdoptedState);
+        return;
+      })
       .catch(console.error);
-  }, [user, selectedTreeId, treeAdopted]);
+  }, [user, selectedTreeId, isSelectedTreeAdopted]);
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
