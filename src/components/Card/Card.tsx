@@ -204,7 +204,7 @@ const Card: FC = () => {
           isEmailVerified
           isAuthenticated={isAuthenticated}
           setWaterGroup={setWaterGroup}
-          adoptTreeClickHandler={async () => {
+          onAdoptTreeClick={async () => {
             if (!selectedTreeId) return;
             if (!user) return;
             if (!user.sub) return;
@@ -218,8 +218,7 @@ const Card: FC = () => {
             const communityData = await getCommunityData();
             store.setState(communityData);
           }}
-          waterTreeClickHandler={async (treeId, amount) => {
-            console.log(`water tree ${treeId} with amount: ${amount}`);
+          onWaterTreeClick={async (treeId, amount) => {
             if (!userdata) return;
             if (!user) return;
             if (!user.sub) return;
