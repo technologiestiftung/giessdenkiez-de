@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Tree } from '../../../common/interfaces';
+import { useActions } from '../../../state/unistore-hooks';
 import TreeButton from '../../TreeButton';
 
 const WrapperOuter = styled.div`
@@ -14,10 +15,12 @@ const Title = styled.span`
   font-weight: normal;
   font-size: ${p => p.theme.fontSizeL};
 `;
-
+// TODO: This is WIP. Not working yet
 const TreesAdopted: FC<{
   trees: Tree[];
 }> = ({ trees }) => {
+  const { selectTree } = useActions();
+
   if (trees.length === 0) {
     return (
       <WrapperOuter>
@@ -28,7 +31,14 @@ const TreesAdopted: FC<{
   return (
     <WrapperOuter>
       {trees.map(tree =>
-        tree && tree.id ? <TreeButton key={tree.id} tree={tree} /> : null
+        tree && tree.id ? (
+          <TreeButton
+            key={tree.id}
+            onClickHandler={async () => {
+              selectTree(tree.id ? tree.id : undefined);
+            }}
+          />
+        ) : null
       )}
     </WrapperOuter>
   );

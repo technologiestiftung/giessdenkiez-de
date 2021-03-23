@@ -10,7 +10,7 @@ export const getUserData = async ({
   userId: string;
   token: string;
 }): Promise<{
-  user: StoreProps['user'];
+  user: StoreProps['userData'];
   wateredByUser: StoreProps['wateredByUser'];
   adoptedTrees: StoreProps['adoptedTrees'];
 }> => {

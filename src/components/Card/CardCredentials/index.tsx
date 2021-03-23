@@ -22,7 +22,7 @@ const StyledCardHeadlineMail = styled.div`
 `;
 
 const CardCredentials: FC = () => {
-  const user = useStoreState('user');
+  const user = useStoreState('userData');
   return (
     <Flex>
       <StyledCardHeadline>Dein Account:</StyledCardHeadline>
