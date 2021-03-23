@@ -11,5 +11,6 @@ export const getWaterNeedByAge = (age?: number): null | number[] => {
   if (age >= 40) {
     return [1];
   }
+  // TODO: How can this state happen?
   return null;
 };
