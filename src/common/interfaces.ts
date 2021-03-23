@@ -20,7 +20,7 @@ export interface WateredDayType {
 }
 
 // TODO: There is an exported type for user from auh0-spa
-interface UserType {
+interface UserData {
   username: string;
   email: string;
 }
@@ -48,7 +48,7 @@ export interface StoreProps {
   rainVisible: boolean;
 
   isNavOpen: boolean;
-  user?: UserType;
+  userData?: UserData;
   rainGeojson: Generic | null;
   ageRange: number[];
   pumps: Generic | null;
