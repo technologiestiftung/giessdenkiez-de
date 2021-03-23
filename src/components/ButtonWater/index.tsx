@@ -9,25 +9,7 @@ import { NonVerfiedMailCardParagraph } from '../Card/non-verified-mail';
 import Login from '../Login';
 // import ButtonWaterGroup from './BtnWaterGroup';
 import { ParticipateButton } from '../ParticipateButton';
-
-const btnArray: { label: string; amount: number }[] = [
-  {
-    label: '5l',
-    amount: 5,
-  },
-  {
-    label: '10l',
-    amount: 10,
-  },
-  {
-    label: '25l',
-    amount: 25,
-  },
-  {
-    label: '50l',
-    amount: 50,
-  },
-];
+import { buttonLabels, getButtonLabel } from './button-water-label-maker';
 
 const BtnContainer = styled.div`
   display: flex;
@@ -45,24 +27,6 @@ const StyledLogin = styled(Login)`
   cursor: pointer;
   align-self: stretch;
 `;
-
-export type WaterGroup = 'visible' | 'watered' | 'watering';
-
-const getButtonLabel = (state: WaterGroup) => {
-  switch (state) {
-    case 'visible':
-      return 'Ich habe gegossen!';
-
-    case 'watering':
-      return 'Wieviel Wasser?';
-
-    case 'watered':
-      return 'Begießung wurde eingetragen.';
-
-    default:
-      return;
-  }
-};
 
 export interface ButtonWaterProps {
   // user: User;
