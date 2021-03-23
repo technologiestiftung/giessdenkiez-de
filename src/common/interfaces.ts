@@ -41,7 +41,7 @@ export interface StoreProps {
 
   wateredByUser: WateredDayType[];
   wateredTrees: string[];
-  adoptedTrees: Generic[];
+  adoptedTrees: Pick<Tree, 'id'>[];
 
   treesVisible: boolean;
   pumpsVisible: boolean;
