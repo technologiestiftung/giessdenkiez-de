@@ -80,7 +80,10 @@ const Card: FC = () => {
   const [token, setToken] = useState<string | undefined>(undefined);
   const selectedTreeId = useStoreState('selectedTreeId');
   const selectedTreeData = useStoreState('selectedTreeData');
+  const selectedTreeState = useStoreState('selectedTreeState');
+
   const userdata = useStoreState('user');
+  const [waterGroup, setWaterGroup] = useState<ButtonWaterGroup>('visible');
   const [isSelectedTreeAdopted, setIsSelectedTreeAdopted] = useState<
     boolean | undefined
   >(undefined);
