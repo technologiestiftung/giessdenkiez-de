@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import React, { FC, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 
@@ -43,4 +44,4 @@ const AppContainer: FC = () => {
   );
 };
 
-export default AppContainer;
+export default hot(AppContainer);

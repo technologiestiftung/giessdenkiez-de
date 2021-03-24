@@ -1,3 +1,4 @@
+import 'react-hot-loader';
 import 'react-app-polyfill/stable';
 import 'whatwg-fetch';
 import 'core-js/stable';
