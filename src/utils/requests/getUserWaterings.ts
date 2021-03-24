@@ -1,27 +1,7 @@
-import { WateringType } from '../../common/interfaces';
+import { RawWateringType, WateringType } from '../../common/interfaces';
 import { createAPIUrl } from '../createAPIUrl';
+import { parseRawWaterings } from '../parsing/parseRawWaterings';
 import { requests } from '../requestUtil';
-
-interface RawWateringType {
-  amount: string;
-  id: number;
-  time: string;
-  timestamp: string;
-  tree_id: string;
-  username: string;
-  uuid: string;
-}
-
-const parseRawWatering = (rawWatering: RawWateringType): WateringType => ({
-  id: `watering-${rawWatering.id}`,
-  amount: parseFloat(rawWatering.amount),
-  timestamp: rawWatering.timestamp,
-  treeId: rawWatering.tree_id,
-  username: rawWatering.username,
-});
-
-const parseRawWaterings = (rawWaterings: RawWateringType[]): WateringType[] =>
-  rawWaterings.map(parseRawWatering);
 
 export const getUserWaterings = async ({
   userId,

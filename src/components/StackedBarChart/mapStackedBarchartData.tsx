@@ -52,13 +52,13 @@ const createRadolanMap: (
 const timestamp2stringKey = (timestamp: string): string =>
   timestamp.split('T')[0];
 
-const createTreeLastWateredMap = (
-  treeLastWatered: WateringType[]
-): { [key: string]: number } =>
-  treeLastWatered.reduce(
-    (acc, currentDay) => ({
+const createTreeWateringsMap = (
+  waterings: WateringType[]
+): { [key: string]: WateringType['amount'] } =>
+  waterings.reduce(
+    (acc, watering) => ({
       ...acc,
-      [timestamp2stringKey(currentDay.timestamp)]: currentDay.amount,
+      [timestamp2stringKey(watering.timestamp)]: watering.amount,
     }),
     {}
   );
@@ -66,9 +66,7 @@ const createTreeLastWateredMap = (
 export function mapStackedBarchartData(
   selectedTree: SelectedTreeType
 ): DailyWaterAmountsType[] {
-  const treeLastWateredMap = createTreeLastWateredMap(
-    selectedTree.waterings || []
-  );
+  const treeWateringsMap = createTreeWateringsMap(selectedTree.waterings || []);
   const selectedTreeMap = createRadolanMap(selectedTree.radolan_days);
 
   return Object.keys(selectedTreeMap).map(selectedTreeKey => {
@@ -79,7 +77,7 @@ export function mapStackedBarchartData(
       id: `${timestamp.valueOf()}`,
       timestamp,
       rainValue: dailyAmount,
-      wateringValue: treeLastWateredMap[selectedTreeKey] || 0,
+      wateringValue: treeWateringsMap[selectedTreeKey] || 0,
     };
   });
 }
