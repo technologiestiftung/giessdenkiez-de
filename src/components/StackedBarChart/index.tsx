@@ -10,7 +10,7 @@ import { mapStackedBarchartData } from './mapStackedBarchartData';
 const BarChartWrapper = styled.div`
   width: 100%;
   height: 140px;
-  margin: 5px 0;
+  margin: 0 0 5px 0;
   position: relative;
 `;
 
@@ -31,14 +31,12 @@ const StyledLegendCircle = styled.div`
 `;
 
 const StyledTooltip = styled.div`
-  min-width: 50px;
   position: absolute;
-  top: 0;
+  top: 14px;
   right: 0;
-  display: grid;
-  grid-template-columns: 1em auto;
-  grid-column-gap: 4px;
-  grid-row-gap: 2px;
+  min-width: 50%;
+  display: flex;
+  justify-content: space-between;
   transform: translateY(-60%);
   font-size: 13px;
   opacity: 0;
@@ -48,6 +46,11 @@ const StyledTooltip = styled.div`
     opacity: 1;
     transition: opacity 200ms ease-out 0s;
   }
+`;
+
+const StyledTooltipValue = styled.span`
+  display: inline-grid;
+  grid-template-columns: 16px auto;
 `;
 
 const StyledTooltipTotalSymbol = styled.span`
@@ -88,12 +91,18 @@ const StackedBarChart: FC<{
     <>
       <BarChartWrapper id='barchart'>
         <StyledTooltip id='barchart-tooltip'>
-          <strong>{wateredCircle}</strong>
-          <span id='barchart-tooltip-val-watered' />
-          <strong>{rainCircle}</strong>
-          <span id='barchart-tooltip-val-rain' />
-          <StyledTooltipTotalSymbol>∑</StyledTooltipTotalSymbol>
-          <span id='barchart-tooltip-val-total' />
+          <StyledTooltipValue>
+            <strong>{wateredCircle}</strong>
+            <span id='barchart-tooltip-val-watered' />
+          </StyledTooltipValue>
+          <StyledTooltipValue>
+            <strong>{rainCircle}</strong>
+            <span id='barchart-tooltip-val-rain' />
+          </StyledTooltipValue>
+          <StyledTooltipValue>
+            <StyledTooltipTotalSymbol>∑</StyledTooltipTotalSymbol>
+            <span id='barchart-tooltip-val-total' />
+          </StyledTooltipValue>
         </StyledTooltip>
       </BarChartWrapper>
       <StyledLegendWrapper>

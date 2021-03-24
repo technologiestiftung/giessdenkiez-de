@@ -4,19 +4,17 @@ import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
 
 import CardWrapper from './CardWrapper';
 import CardProperty from './CardProperty';
-import CardAccordion from './CardAccordion';
-import CardHeadline from './CardHeadline';
+import ExpandablePanel from '../ExpandablePanel';
 import CardDescription from './CardDescription';
-import CardAccordionTitle from './CardAccordion/CardAccordionTitle';
 import TreeType from './CardAccordion/TreeType';
-import TreeWatering from './CardAccordion/TreeWatering';
+import WaterNeedsAccordion from './CardAccordion/TreeWatering';
 import TreeLastWatered from './CardAccordion/TreeLastWatered';
 import ButtonWater from '../ButtonWater';
 import WaterDrops from '../WaterDrops';
 import Login from '../Login';
 
 import content from '../../assets/content';
-import { Generic, SelectedTreeType } from '../../common/interfaces';
+import { SelectedTreeType } from '../../common/interfaces';
 import Icon from '../Icons';
 import StackedBarChart from '../StackedBarChart';
 import { useUserState } from '../../utils/hooks/useUserState';
@@ -53,13 +51,6 @@ const SublineSpan = styled.span`
   text-transform: capitalize;
 `;
 
-const RainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: ${p => p.theme.spacingM};
-  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
-`;
-
 const TreeTitle = styled.h2`
   font-size: 24px;
   font-weight: 600;
@@ -67,10 +58,6 @@ const TreeTitle = styled.h2`
   line-height: 125%;
   margin-bottom: 5px;
 `;
-
-const getTreeProp = (p: Generic | string | null) => {
-  return p === 'null' || p === undefined ? null : p;
-};
 
 const Card: FC<{
   selectedTreeData: SelectedTreeType;
@@ -95,64 +82,55 @@ const Card: FC<{
     <CardWrapper>
       <FlexColumnDiv>
         <TreeTitle>{artdtsch}</TreeTitle>
-        {!treeType &&
-          treeType !== 'undefined' &&
-          gattungdeutsch !== null &&
-          gattungdeutsch !== 'undefined' &&
-          gattungdeutsch !== undefined && (
-            <SublineSpan>
-              {getTreeProp(gattungdeutsch.toLowerCase())}
-            </SublineSpan>
-          )}
+        {!treeType && gattungdeutsch && gattungdeutsch !== 'undefined' && (
+          <SublineSpan>{gattungdeutsch.toLowerCase()}</SublineSpan>
+        )}
         {caretaker && caretaker.length > 0 && (
           <CaretakerDiv>
             <Icon iconType='water' height={32}></Icon>
             <CaretakerSublineSpan>{`Dieser Baum wird regelmäßig vom ${caretaker} gewässert.`}</CaretakerSublineSpan>
           </CaretakerDiv>
         )}
-        {treeType && treeType.title !== null && (
-          <CardAccordion
-            title={
-              <CardAccordionTitle>
-                {getTreeProp(treeType.title)}
-              </CardAccordionTitle>
-            }
-          >
+        {treeType && treeType.title && (
+          <ExpandablePanel title={treeType.title}>
             <TreeType>{treeType.description}</TreeType>
-          </CardAccordion>
+          </ExpandablePanel>
         )}
         {standalter && standalter !== 'undefined' && (
-          <CardProperty name='Standalter' value={standalter + ' Jahre'} />
-        )}
-        {standalter && (
-          <CardAccordion
-            title={
-              <CardAccordionTitle>
-                Wasserbedarf:
-                {standalter && (
+          <>
+            <CardProperty name='Standalter' value={standalter + ' Jahre'} />
+            <ExpandablePanel
+              title={
+                <>
+                  <span style={{ marginRight: 8 }}>Wasserbedarf:</span>
                   <WaterDrops
                     dropsAmount={getWaterNeedByAge(parseInt(standalter))}
                   />
-                )}
-              </CardAccordionTitle>
-            }
-          >
-            <TreeWatering />
-          </CardAccordion>
+                </>
+              }
+            >
+              <WaterNeedsAccordion />
+            </ExpandablePanel>
+          </>
         )}
-        <RainContainer>
-          <CardHeadline>Wassermenge</CardHeadline>
-          <CardDescription>der letzten 30 Tage</CardDescription>
+        <ExpandablePanel
+          title={
+            <>
+              <div>Wassermenge</div>
+              <CardDescription>der letzten 30 Tage</CardDescription>
+            </>
+          }
+          isExpanded
+        >
           <StackedBarChart selectedTreeData={selectedTreeData} />
-        </RainContainer>
+        </ExpandablePanel>
         {Array.isArray(waterings) && waterings.length > 0 && (
-          <CardAccordion
-            active={true}
-            title={<CardAccordionTitle>Zuletzt gegossen</CardAccordionTitle>}
-          >
+          <ExpandablePanel isExpanded={true} title='Zuletzt gegossen'>
             <TreeLastWatered waterings={waterings} />
-          </CardAccordion>
+          </ExpandablePanel>
         )}
+
+        <br />
         {!userData && (
           <div>
             <Login />
@@ -170,7 +148,7 @@ const Card: FC<{
           </>
         )}
 
-        {treeId && userData && userData.isVerified && (
+        {userData && userData.isVerified && (
           <>
             <ButtonRound
               margin='15px'

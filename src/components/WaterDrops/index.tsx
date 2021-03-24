@@ -15,12 +15,8 @@ const Icon: FC = () => {
 };
 
 const IconWrapper = styled.div`
-  display: flex;
-  margin-bottom: 5px;
-
-  svg {
-    margin-right: 5px;
-  }
+  display: inline-flex;
+  gap: 5px;
 `;
 
 const WaterDrops: FC<{ dropsAmount?: number }> = ({ dropsAmount = 0 }) => (

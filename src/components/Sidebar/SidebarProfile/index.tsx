@@ -6,7 +6,7 @@ import { useUserState } from '../../../utils/hooks/useUserState';
 import CardHeadline from '../../Card/CardHeadline/';
 import Paragraph from '../../Paragraph';
 import WateredTreesIndicator from '../../WateredTreesIndicator';
-import CardAccordion from '../../Card/CardAccordion/';
+import ExpandablePanel from '../../ExpandablePanel';
 import CardCredentials from '../../Card/CardCredentials/';
 import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
 import { NonVerfiedMailMessage } from '../../Card/non-verified-mail';
@@ -91,9 +91,9 @@ const SidebarProfile: FC = () => {
       <SidebarTitle>Profil</SidebarTitle>
       <CardHeadline>Dein Gießfortschritt</CardHeadline>
       <WateredTreesIndicator waterings={userData.waterings} />
-      <CardAccordion active={true} title={<span>Adoptierte Bäume</span>}>
+      <ExpandablePanel isExpanded={true} title={<span>Adoptierte Bäume</span>}>
         <TreesAdopted trees={userData.adoptedTrees} />
-      </CardAccordion>
+      </ExpandablePanel>
       <CardCredentials />
       <Login width='-webkit-fill-available' />
       <>

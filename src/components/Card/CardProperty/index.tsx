@@ -5,15 +5,15 @@ const FlexRowDiv = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
-  padding-bottom: 5px;
-  margin-bottom: 10px;
+  padding: 12px 0;
+  margin-top: 8px;
   font-weight: bold;
 `;
 
 const DescriptionSpan = styled.span``;
 
 const SublineSpanDesc = styled.span`
-  margin-bottom: 10px;
+  font-weight: normal;
 `;
 
 const CardProperty: FC<{

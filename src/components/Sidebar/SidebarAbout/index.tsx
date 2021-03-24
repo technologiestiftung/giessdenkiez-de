@@ -9,7 +9,7 @@ import SocialSharing from '../../SocialSharing';
 import OpenSourceNote from '../../OpenSource';
 import content from '../../../assets/content';
 import { PanelWrapper } from '../../Card/Panels/PanelWrapper';
-import CardAccordion from '../../Card/CardAccordion';
+import ExpandablePanel from '../../ExpandablePanel';
 
 const StyledCardDescriptionTitle = styled(CardDescriptionTitle)`
   margin-bottom: 5px;
@@ -61,11 +61,11 @@ const SidebarAbout: FC = () => {
       Make some room since the element above is an span and it does not allow to addd padding */}
       <div style={{ paddingBottom: '1rem' }}></div>
       {content.faq.qa.map(item => (
-        <CardAccordion key={item.question} title={item.question}>
+        <ExpandablePanel key={item.question} title={item.question}>
           <StyledCardDescription
             dangerouslySetInnerHTML={{ __html: item.answer }}
           ></StyledCardDescription>
-        </CardAccordion>
+        </ExpandablePanel>
       ))}
       <CreditsContainer>
         <Credits />
