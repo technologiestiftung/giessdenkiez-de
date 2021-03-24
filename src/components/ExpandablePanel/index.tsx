@@ -1,16 +1,17 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, ReactNode } from 'react';
 import styled from 'styled-components';
+import SmallParagraph from '../SmallParagraph';
 
-export const Title = styled.div`
+const Title = styled.div`
   max-width: 90%;
 `;
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
   animation: sweep 0.125s ease-in-out;
 `;
 
-export const Header = styled.div`
+const Header = styled.div`
   display: flex;
   font-weight: bold;
   justify-content: space-between;
@@ -20,12 +21,12 @@ export const Header = styled.div`
   cursor: pointer;
 `;
 
-export const Content = styled.div`
+const Content = styled.div`
   animation: sweep 200ms ease-out forwards;
   padding-bottom: 8px;
 `;
 
-export const Indicator = styled.span`
+const Indicator = styled.span`
   width: 28px;
   justify-content: center;
   height: 28px;
@@ -44,7 +45,7 @@ export const Indicator = styled.span`
 `;
 
 const ExpandablePanel: FC<{
-  title: string | JSX.Element;
+  title: ReactNode;
   isExpanded?: boolean;
 }> = ({ title, children, isExpanded: isExpandedExternal = false }) => {
   const [isExpandedLocal, toggleIsExpanded] = useState(isExpandedExternal);
@@ -61,7 +62,15 @@ const ExpandablePanel: FC<{
           {isExpandedLocal ? '–' : '+'}
         </Indicator>
       </Header>
-      {isExpandedLocal && <Content>{children}</Content>}
+      {isExpandedLocal && (
+        <Content>
+          {typeof children === 'string' ? (
+            <SmallParagraph>{children}</SmallParagraph>
+          ) : (
+            children
+          )}
+        </Content>
+      )}
     </Wrapper>
   );
 };

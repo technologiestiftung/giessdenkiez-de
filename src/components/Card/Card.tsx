@@ -5,9 +5,7 @@ import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
 import CardWrapper from './CardWrapper';
 import CardProperty from './CardProperty';
 import ExpandablePanel from '../ExpandablePanel';
-import CardDescription from './CardDescription';
-import TreeType from './CardAccordion/TreeType';
-import WaterNeedsAccordion from './CardAccordion/TreeWatering';
+import WaterNeedsInfo from '../WaterNeedsInfo';
 import TreeLastWatered from './CardAccordion/TreeLastWatered';
 import ButtonWater from '../ButtonWater';
 import WaterDrops from '../WaterDrops';
@@ -22,6 +20,7 @@ import { ParticipateButton } from '../ParticipateButton';
 import Paragraph from '../Paragraph';
 import { NonVerfiedMailMessage } from './non-verified-mail';
 import ButtonRound from '../ButtonRound';
+import SmallParagraph from '../SmallParagraph';
 
 const { treetypes } = content.sidebar;
 
@@ -74,6 +73,7 @@ const Card: FC<{
   const { userData, unadoptTree, adoptTree, waterTree } = useUserState();
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
+  // const treeType = treetypes[0];
 
   const treeIsAdopted =
     userData && userData.adoptedTrees.find(({ id }) => id === treeId);
@@ -81,10 +81,15 @@ const Card: FC<{
   return (
     <CardWrapper>
       <FlexColumnDiv>
-        <TreeTitle>{artdtsch}</TreeTitle>
-        {!treeType && gattungdeutsch && gattungdeutsch !== 'undefined' && (
-          <SublineSpan>{gattungdeutsch.toLowerCase()}</SublineSpan>
+        {(artdtsch || gattungdeutsch || treeType?.title) && (
+          <TreeTitle>{artdtsch || gattungdeutsch || treeType?.title}</TreeTitle>
         )}
+        {!treeType &&
+          gattungdeutsch &&
+          gattungdeutsch !== 'undefined' &&
+          gattungdeutsch.toLowerCase() !== artdtsch?.toLowerCase() && (
+            <SublineSpan>{gattungdeutsch.toLowerCase()}</SublineSpan>
+          )}
         {caretaker && caretaker.length > 0 && (
           <CaretakerDiv>
             <Icon iconType='water' height={32}></Icon>
@@ -93,7 +98,7 @@ const Card: FC<{
         )}
         {treeType && treeType.title && (
           <ExpandablePanel title={treeType.title}>
-            <TreeType>{treeType.description}</TreeType>
+            {treeType.description}
           </ExpandablePanel>
         )}
         {standalter && standalter !== 'undefined' && (
@@ -109,7 +114,7 @@ const Card: FC<{
                 </>
               }
             >
-              <WaterNeedsAccordion />
+              <WaterNeedsInfo />
             </ExpandablePanel>
           </>
         )}
@@ -117,7 +122,7 @@ const Card: FC<{
           title={
             <>
               <div>Wassermenge</div>
-              <CardDescription>der letzten 30 Tage</CardDescription>
+              <SmallParagraph>der letzten 30 Tage</SmallParagraph>
             </>
           }
           isExpanded

@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import { WateringType } from '../../../common/interfaces';
 
 import { formatUnixTimestamp } from '../../../utils/formatUnixTimestamp';
-
-import TreeType from './TreeType';
+import SmallParagraph from '../../SmallParagraph';
 
 const iconDrop = '/images/icon-drop.svg';
 
-const StyledTreeType = styled(TreeType)`
+const StyledTreeType = styled(SmallParagraph)`
   padding: 0;
   padding-left: 5px;
 `;
@@ -60,7 +59,7 @@ const TreeLastWatered: FC<{
                 ({formatUnixTimestamp(timestamp)})
               </StyledTreeType>
             </FlexRow>
-            <TreeType>{amount}l</TreeType>
+            <SmallParagraph>{amount}l</SmallParagraph>
             <StyledIcon src={iconDrop} alt='Water drop icon' />
           </Wrapper>
         );

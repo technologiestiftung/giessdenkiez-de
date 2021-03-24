@@ -1,14 +1,11 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import content from '../../../assets/content';
-import WaterDrops from '../../WaterDrops';
+import content from '../../assets/content';
+import SmallParagraph from '../SmallParagraph';
+import WaterDrops from '../WaterDrops';
 
-const StyledDescription = styled.p`
-  line-height: 150%;
-  font-size: ${p => p.theme.fontSizeL};
-  opacity: 0.66;
-  letter-spacing: 0.125px;
+const StyledDescription = styled(SmallParagraph)`
   padding: 4px 0 8px;
   margin: 0;
 `;
