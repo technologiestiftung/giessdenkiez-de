@@ -16,11 +16,13 @@ const LoadingContainer = styled.div`
 
 const SidebarTree: FC = () => {
   const { treeData: selectedTreeData, error } = useTreeData();
-  const isLoading = !error && !selectedTreeData;
   return (
     <>
       <SidebarTitle>Bauminformation</SidebarTitle>
-      {isLoading && (
+      {!error && selectedTreeData && (
+        <Card selectedTreeData={selectedTreeData} />
+      )}
+      {!error && !selectedTreeData && (
         <LoadingContainer>
           <LoadingIcon text='Lade Baum ...' />
         </LoadingContainer>
@@ -30,7 +32,6 @@ const SidebarTree: FC = () => {
           <LoadingIcon text={error.message} hasError={!!error} />
         </LoadingContainer>
       )}
-      {selectedTreeData && <Card selectedTreeData={selectedTreeData} />}
     </>
   );
 };
