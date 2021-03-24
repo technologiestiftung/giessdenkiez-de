@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { WateringType } from '../../../common/interfaces';
+import { WateringType } from '../../common/interfaces';
 
-import { formatUnixTimestamp } from '../../../utils/formatUnixTimestamp';
-import SmallParagraph from '../../SmallParagraph';
+import { formatUnixTimestamp } from '../../utils/formatUnixTimestamp';
+import SmallParagraph from '../SmallParagraph';
 
 const iconDrop = '/images/icon-drop.svg';
 
@@ -45,7 +45,7 @@ const Title = styled.span`
   font-size: ${p => p.theme.fontSizeL};
 `;
 
-const TreeLastWatered: FC<{
+const UsersWateringsList: FC<{
   waterings: WateringType[];
 }> = ({ waterings }) => (
   <WrapperOuter>
@@ -68,4 +68,4 @@ const TreeLastWatered: FC<{
   </WrapperOuter>
 );
 
-export default TreeLastWatered;
+export default UsersWateringsList;

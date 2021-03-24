@@ -6,7 +6,7 @@ import CardWrapper from './CardWrapper';
 import CardProperty from './CardProperty';
 import ExpandablePanel from '../ExpandablePanel';
 import WaterNeedsInfo from '../WaterNeedsInfo';
-import TreeLastWatered from './CardAccordion/TreeLastWatered';
+import UsersWateringsList from '../UsersWateringsList';
 import ButtonWater from '../ButtonWater';
 import WaterDrops from '../WaterDrops';
 import Login from '../Login';
@@ -131,7 +131,7 @@ const Card: FC<{
         </ExpandablePanel>
         {Array.isArray(waterings) && waterings.length > 0 && (
           <ExpandablePanel isExpanded={true} title='Zuletzt gegossen'>
-            <TreeLastWatered waterings={waterings} />
+            <UsersWateringsList waterings={waterings} />
           </ExpandablePanel>
         )}
 
