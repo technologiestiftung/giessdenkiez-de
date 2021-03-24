@@ -1,4 +1,3 @@
-import history from '../history';
 import { StoreProps } from '../common/interfaces';
 
 const setAgeRange = (
@@ -23,64 +22,29 @@ function stopLoading(): {
   return { isTreeDataLoading: false };
 }
 
-const removeSelectedTree = (): {
-  selectedTreeId: StoreProps['selectedTreeId'];
-  selectedTreeData: StoreProps['selectedTreeData'];
-  selectedTreeState: StoreProps['selectedTreeState'];
+const openOverlay = (): {
+  overlay: StoreProps['overlay'];
+  isNavOpen: StoreProps['isNavOpen'];
 } => ({
-  selectedTreeId: undefined,
-  selectedTreeData: undefined,
-  selectedTreeState: 'LOADED',
-});
-
-const openOverlay = (): { overlay: StoreProps['overlay'] } => ({
   overlay: true,
+  isNavOpen: false,
 });
 
 const closeOverlay = (): { overlay: StoreProps['overlay'] } => ({
   overlay: false,
 });
 
-const selectTree: (
-  selectedTreeId: StoreProps['selectedTreeId']
-) => {
-  selectedTreeId: StoreProps['selectedTreeId'];
-  selectedTreeData: StoreProps['selectedTreeData'];
-  selectedTreeState: StoreProps['selectedTreeState'];
-} = selectedTreeId => {
-  if (selectedTreeId) {
-    const nextLocation = `/search?location=${selectedTreeId}`;
-    history.push(nextLocation);
-  }
-
-  return {
-    selectedTreeId,
-    selectedTreeData: undefined,
-    selectedTreeState: 'LOADING',
-  };
-};
-
-const setSelectedTreeData = (
-  selectedTreeData: StoreProps['selectedTreeData']
-): {
-  selectedTreeId: StoreProps['selectedTreeId'];
-  selectedTreeData: StoreProps['selectedTreeData'];
-  selectedTreeState: StoreProps['selectedTreeState'];
-} => ({
-  selectedTreeId: selectedTreeData?.id,
-  selectedTreeData,
-  selectedTreeState: 'LOADED',
+const closeNav = (): { isNavOpen: StoreProps['isNavOpen'] } => ({
+  isNavOpen: false,
 });
 
 const allActions = {
   startLoading,
   stopLoading,
-  selectTree,
-  setSelectedTreeData,
-  removeSelectedTree,
   setAgeRange,
   openOverlay,
   closeOverlay,
+  closeNav,
 };
 
 export type ActionsType = typeof allActions;

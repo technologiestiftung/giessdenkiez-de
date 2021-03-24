@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { FC } from 'react';
+import { useHistory } from 'react-router-dom';
 import CardDescription from '../Card/CardDescription';
 import { useActions } from '../../state/unistore-hooks';
 
@@ -18,9 +19,15 @@ const StyledCardDescription = styled(CardDescription)`
 
 export const ParticipateButton: FC = () => {
   const { openOverlay } = useActions();
+  const history = useHistory();
 
   return (
-    <StyledCardDescription onClick={openOverlay}>
+    <StyledCardDescription
+      onClick={() => {
+        openOverlay();
+        history.push('/');
+      }}
+    >
       Wie kann ich mitmachen?
     </StyledCardDescription>
   );

@@ -10,9 +10,9 @@ import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
-import { useActions, useStoreState } from '../../state/unistore-hooks';
-import { getTreeData } from '../../utils/requests/getTreeData';
-import { StoreProps } from '../../common/interfaces';
+import { useStoreState } from '../../state/unistore-hooks';
+import { useTreeData } from '../../utils/hooks/useTreeData';
+import { useHistory, useLocation } from 'react-router';
 
 const AppWrapperDiv = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
@@ -49,7 +49,10 @@ const CookieContainer = styled.div`
   }
 `;
 
-const Map: FC = () => {
+const Map: FC<{
+  showOverlay: boolean | undefined;
+  isNavOpened: boolean | undefined;
+}> = ({ showOverlay, isNavOpened }) => {
   const data = useStoreState('data');
   const rainGeojson = useStoreState('rainGeojson');
   const treesVisible = useStoreState('treesVisible');
@@ -63,21 +66,14 @@ const Map: FC = () => {
   const communityDataWatered = useStoreState('communityDataWatered');
   const communityDataAdopted = useStoreState('communityDataAdopted');
   const isTreeDataLoading = useStoreState('isTreeDataLoading');
-  const isNavOpen = useStoreState('isNavOpen');
-  const overlay = useStoreState('overlay');
-  const selectedTreeId = useStoreState('selectedTreeId');
-  const { selectTree, setSelectedTreeData } = useActions();
+  const { treeId, treeData: selectedTreeData } = useTreeData();
+  const history = useHistory();
 
   return (
     <DeckGlMap
-      onTreeSelect={async (
-        treeId: string
-      ): Promise<StoreProps['selectedTreeData']> => {
-        selectTree(treeId);
-        const treeData = await getTreeData(treeId);
-        const { selectedTreeData } = treeData;
-        setSelectedTreeData(selectedTreeData);
-        return selectedTreeData;
+      onTreeSelect={(id: string) => {
+        const nextLocation = `/tree/${id}`;
+        history.push(nextLocation);
       }}
       data={data || null}
       rainGeojson={rainGeojson || null}
@@ -85,8 +81,8 @@ const Map: FC = () => {
       pumpsVisible={!!pumpsVisible}
       rainVisible={!!rainVisible}
       isTreeDataLoading={!!isTreeDataLoading}
-      isNavOpen={!!isNavOpen}
-      overlay={!!overlay}
+      isNavOpen={!!isNavOpened}
+      showControls={showOverlay}
       pumps={pumps || null}
       ageRange={ageRange || []}
       dataView={dataView || 'watered'}
@@ -94,7 +90,8 @@ const Map: FC = () => {
       wateredTrees={wateredTrees || []}
       communityDataWatered={communityDataWatered || []}
       communityDataAdopted={communityDataAdopted || []}
-      selectedTreeId={selectedTreeId}
+      selectedTreeId={treeId}
+      selectedTreeData={selectedTreeData}
     />
   );
 };
@@ -102,19 +99,26 @@ const Map: FC = () => {
 const AppWrapper: FC = () => {
   const isTreeDataLoading = useStoreState('isTreeDataLoading');
   const data = useStoreState('data');
-  const showOverlay = useStoreState('overlay');
+  const overlay = useStoreState('overlay');
+  const isNavOpen = useStoreState('isNavOpen');
+  const { pathname } = useLocation();
+  const isHome = pathname === '/';
+  const showOverlay = isHome && overlay;
 
   const showMap = !isTreeDataLoading && data;
   const showLoading = !showMap;
   const showMapUI = showMap && !showOverlay;
+  const isSidebarOpened = !isHome && isNavOpen;
 
   return (
     <AppWrapperDiv>
       {showLoading && <Loading />}
-      {showMap && <Map />}
+      {showMap && (
+        <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} />
+      )}
       {showMapUI && <Sidebar />}
       {showOverlay && <Overlay />}
-      {showMapUI && <Nav />}
+      {showMapUI && <Nav isNavOpened={!isHome} />}
       <CreditsContainer>
         <Credits />
       </CreditsContainer>

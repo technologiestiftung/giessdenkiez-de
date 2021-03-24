@@ -27,10 +27,11 @@ interface UserData {
 export interface SelectedTreeType extends Tree {
   radolan_days: RadolanDays;
   radolan_sum: number;
-  lat: string;
-  lng: string;
+  latitude: number;
+  longitude: number;
   id: string;
   wateredDays: WateredDayType[] | undefined;
+  isAdopted: boolean | undefined;
 }
 export interface StoreProps {
   dataView: 'rain' | 'adopted' | 'watered' | string;
@@ -54,18 +55,6 @@ export interface StoreProps {
   pumps: Generic | null;
   data: Generic | null;
   tabActive: string;
-  selectedTreeId: string | undefined;
-  selectedTreeData: SelectedTreeType | undefined;
-  selectedTreeState:
-    | 'LOADED'
-    | 'LOADING'
-    | 'ADOPT'
-    | 'ADOPTED'
-    | 'WATERING'
-    | 'FETCHED'
-    | 'NOT_FOUND'
-    | 'WATERED'
-    | undefined;
   overlay: boolean;
   isTreeDataLoading: boolean;
   hoveredObject: boolean;

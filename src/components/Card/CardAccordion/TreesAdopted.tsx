@@ -19,7 +19,7 @@ const Title = styled.span`
 const TreesAdopted: FC<{
   trees: Tree[];
 }> = ({ trees }) => {
-  const { selectTree } = useActions();
+  // const { selectTree } = useActions();
 
   if (trees.length === 0) {
     return (
@@ -35,7 +35,9 @@ const TreesAdopted: FC<{
           <TreeButton
             key={tree.id}
             onClickHandler={async () => {
-              selectTree(tree.id ? tree.id : undefined);
+              // TODO: Merge We need a way to set the selected tree
+              alert('Need a way to set the selected tree');
+              // selectTree(tree.id ? tree.id : undefined);
             }}
           />
         ) : null

@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useQuery, QueryFunction } from 'react-query';
-
-import { useActions } from '../../../state/unistore-hooks';
+import { useHistory } from 'react-router';
 
 interface FeatureType {
   id: string;
@@ -68,7 +67,7 @@ const ResultElement = styled.li`
 const MAPBOX_TOKEN = process.env.API_KEY;
 
 const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
-  const [_key, { value }] = queryKey;
+  const [_key, value] = queryKey;
 
   if (value.length < 3) return [];
 
@@ -82,16 +81,12 @@ const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
 };
 
 const SidebarSearchLocation: React.FC = () => {
-  const { selectTree } = useActions();
   const [value, setValue] = React.useState('');
-  const { data: results } = useQuery(
-    ['sidebarSearch', { value }],
-    fetchSearch,
-    {
-      cacheTime: 1000,
-      staleTime: 5000,
-    }
-  );
+  const history = useHistory();
+  const { data: results } = useQuery(['sidebarSearch', value], fetchSearch, {
+    cacheTime: 1000,
+    staleTime: 5000,
+  });
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -113,18 +108,7 @@ const SidebarSearchLocation: React.FC = () => {
               <ResultElement
                 className={index % 2 ? 'even' : 'odd'}
                 key={item.id}
-                onClick={() =>
-                  selectTree({
-                    selectedTree: {
-                      id: item.id,
-                      lat: `${item.geometry.coordinates[0]}`,
-                      lng: `${item.geometry.coordinates[1]}`,
-                      radolan_days: [],
-                      radolan_sum: 0,
-                    },
-                    treeLastWatered: [],
-                  })
-                }
+                onClick={() => history.push(`/tree/${item.id}`)}
               >
                 {item.place_name_de}
               </ResultElement>

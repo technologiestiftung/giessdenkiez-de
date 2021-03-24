@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAuth0 } from '../utils/auth/auth0';
+import { useAuth0 } from '../auth/auth0';
 
 /**
  * Still WIP. I need to figure out how to make this failsafe so we can be sure we return a token.

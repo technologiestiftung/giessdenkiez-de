@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { StoreProps } from '../../common/interfaces';
 import { ButtonWaterGroup } from '../../common/types';
+import { useTreeData } from '../../utils/hooks/useTreeData';
 
 import ButtonRound from '../ButtonRound';
 import CardParagraph from '../Card/CardParagraph';
@@ -9,7 +9,11 @@ import { NonVerfiedMailCardParagraph } from '../Card/non-verified-mail';
 import Login from '../Login';
 // import ButtonWaterGroup from './BtnWaterGroup';
 import { ParticipateButton } from '../ParticipateButton';
+
 import { buttonLabels, getButtonLabel } from './button-water-label-maker';
+// import { adoptTree } from '../../utils/requests/adoptTree';
+// import { waterTree } from '../../utils/requests/waterTree';
+// import { useTreeData } from '../../utils/hooks/useTreeData';
 
 const BtnContainer = styled.div`
   display: flex;
@@ -37,10 +41,58 @@ export interface ButtonWaterProps {
   onWaterTreeClick: (treeId: string, amount: number) => Promise<void>;
   waterGroup: ButtonWaterGroup;
   setWaterGroup: React.Dispatch<React.SetStateAction<ButtonWaterGroup>>;
-  selectedTreeId: StoreProps['selectedTreeId'];
-  selectedTreeState: StoreProps['selectedTreeState'];
-  isSelectedTreeAdopted: boolean;
 }
+// =======
+// const getButtonLabel = (state: string) => {
+//   switch (state) {
+//     case 'visible':
+//       return 'Ich habe gegossen!';
+
+//     case 'watering':
+//       return 'Wieviel Wasser?';
+
+//     case 'watered':
+//       return 'Begießung wurde eingetragen.';
+
+//     default:
+//       return;
+//   }
+// };
+
+// const ButtonWater: FC = () => {
+//   const userdata = useStoreState('user');
+//   const [waterGroup, setWaterGroup] = useState('visible');
+
+//   const { user, isAuthenticated, getTokenSilently } = useAuth0();
+//   const isEmailVerified = user && user.email_verified;
+
+//   const onButtonWaterClick = async (id: string, amount: number) => {
+//     if (!userdata) return;
+//     setWaterGroup('watered');
+//     const token = await getTokenSilently();
+//     await waterTree({
+//       id,
+//       amount,
+//       username: userdata.username,
+//       userId: user.sub,
+//       token,
+//     });
+
+//     invalidate();
+//     setWaterGroup('visible');
+//   };
+
+//   const onAdoptClick = async () => {
+//     if (!treeId) return;
+//     setIsAdopting(true);
+//     const token = await getTokenSilently();
+//     await adoptTree(treeId, token, user.sub);
+//     const communityData = await getCommunityData();
+//     store.setState(communityData);
+//     invalidate();
+//     setIsAdopting(false);
+//   };
+// >>>>>>> bcd0547b653aa3fe3848547ebbb3ceead657a918
 
 const ButtonWater: FC<ButtonWaterProps> = ({
   onAdoptTreeClick,
@@ -49,10 +101,9 @@ const ButtonWater: FC<ButtonWaterProps> = ({
   isAuthenticated,
   waterGroup,
   setWaterGroup,
-  selectedTreeId,
-  selectedTreeState,
-  isSelectedTreeAdopted,
 }) => {
+  const [isAdopting, setIsAdopting] = useState<boolean>(false);
+  const { treeId, treeData, invalidate } = useTreeData();
   if (!isAuthenticated) {
     return (
       <div>
@@ -76,26 +127,25 @@ const ButtonWater: FC<ButtonWaterProps> = ({
 
   return (
     <>
-      {
+      {treeData && treeData.adopted === false && (
         <BtnContainer>
-          {!isSelectedTreeAdopted && (
-            <ButtonRound
-              margin='15px'
-              onClick={() => {
-                if (isSelectedTreeAdopted) return;
-                onAdoptTreeClick().catch(console.error);
-              }}
-              type='secondary'
-            >
-              {selectedTreeState !== 'ADOPT' && selectedTreeState !== 'ADOPTED'
-                ? 'Baum adoptieren'
-                : ''}
-              {selectedTreeState === 'ADOPT' ? 'Adoptiere Baum ...' : ''}
-              {selectedTreeState === 'ADOPTED' ? 'Baum adoptiert!' : ''}
-            </ButtonRound>
-          )}
+          <ButtonRound
+            margin='15px'
+            onClick={() => {
+              // TODO: The unadopt button is not showing anymore
+              if (!treeId) return;
+              setIsAdopting(true);
+              onAdoptTreeClick().catch(console.error);
+              invalidate();
+              setIsAdopting(false);
+            }}
+            type='secondary'
+          >
+            {treeData && !isAdopting && 'Baum adoptieren'}
+            {treeData && isAdopting && 'Adoptiere Baum ...'}
+          </ButtonRound>
         </BtnContainer>
-      }
+      )}
       <ButtonRound
         width='-webkit-fill-available'
         onClick={() => setWaterGroup('watering')}
@@ -103,7 +153,7 @@ const ButtonWater: FC<ButtonWaterProps> = ({
       >
         {getButtonLabel(waterGroup)}
       </ButtonRound>
-      {waterGroup === 'watering' && selectedTreeId && (
+      {waterGroup === 'watering' && treeId && (
         <BtnWaterContainer>
           {buttonLabels.map(btn => {
             return (
@@ -111,9 +161,9 @@ const ButtonWater: FC<ButtonWaterProps> = ({
                 key={`${btn.amount}`}
                 width='fit-content'
                 onClick={() => {
-                  onWaterTreeClick(selectedTreeId, btn.amount).catch(
-                    console.error
-                  );
+                  // TODO: Need to fix the watering of the tree
+                  alert('Trees should get water. Needs a fix');
+                  onWaterTreeClick(treeId, btn.amount).catch(console.error);
                 }}
                 type='primary'
               >
