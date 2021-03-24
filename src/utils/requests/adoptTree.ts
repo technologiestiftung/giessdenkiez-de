@@ -3,11 +3,15 @@ import { createAPIUrl } from '../createAPIUrl';
 import { requests } from '../requestUtil';
 import { isTreeAdopted } from './isTreeAdopted';
 
-export const adoptTree = async (
-  id: string,
-  token: string,
-  userId: string
-): Promise<Tree> => {
+export const adoptTree = async ({
+  id,
+  token,
+  userId,
+}: {
+  id: string;
+  token: string;
+  userId: string;
+}): Promise<Tree> => {
   const url = createAPIUrl(`/post`);
 
   await requests(url, {

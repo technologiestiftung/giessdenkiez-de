@@ -1,11 +1,15 @@
 import { createAPIUrl } from '../createAPIUrl';
 import { requests } from '../requestUtil';
 
-export const unadoptTree = async (
-  id: string,
-  userId: string,
-  token: string
-): Promise<void> => {
+export const unadoptTree = async ({
+  id,
+  token,
+  userId,
+}: {
+  id: string;
+  token: string;
+  userId: string;
+}): Promise<void> => {
   const urlUnadopt = createAPIUrl(
     `/delete?tree_id=${id}&uuid=${userId}&queryType=unadopt`
   );
