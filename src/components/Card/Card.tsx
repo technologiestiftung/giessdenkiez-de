@@ -1,9 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-import { waterNeed, isTreeAdopted } from '../../utils';
-import { useStoreState } from '../../state/unistore-hooks';
-import { useAuth0 } from '../../utils/auth/auth0';
-import store from '../../state/Store';
+import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
 
 import CardWrapper from './CardWrapper';
 import CardProperty from './CardProperty';
@@ -16,16 +13,20 @@ import TreeWatering from './CardAccordion/TreeWatering';
 import TreeLastWatered from './CardAccordion/TreeLastWatered';
 import ButtonWater from '../ButtonWater';
 import CardWaterDrops from './CardWaterDrops';
-import ButtonAdopted from '../ButtonAdopted';
+import Login from '../Login';
 
 import content from '../../assets/content';
-import { IsTreeAdoptedProps, Generic, Tree } from '../../common/interfaces';
+import { Generic, SelectedTreeType } from '../../common/interfaces';
 import Icon from '../Icons';
 import StackedBarChart from '../StackedBarChart';
+import { useUserState } from '../../utils/hooks/useUserState';
+import { ParticipateButton } from '../ParticipateButton';
+import CardParagraph from './CardParagraph';
+import { NonVerfiedMailCardParagraph } from './non-verified-mail';
+import ButtonRound from '../ButtonRound';
+
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
-
-type FetchDataOpts = Omit<IsTreeAdoptedProps, 'token'>;
 
 const FlexColumnDiv = styled.div`
   display: flex;
@@ -68,57 +69,28 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
-const Card: React.FC<{ data: Tree }> = ({ data }) => {
-  const { treeLastWatered } = useStoreState('treeLastWatered');
+const getTreeProp = (p: Generic | string | null) => {
+  return p === 'null' || p === undefined ? null : p;
+};
 
-  const { treeAdopted } = useStoreState('treeAdopted');
+const Card: FC<{
+  selectedTreeData: SelectedTreeType;
+}> = ({ selectedTreeData }) => {
+  const {
+    id: treeId,
+    standalter,
+    artdtsch,
+    gattungdeutsch,
+    caretaker,
+    waterings,
+  } = selectedTreeData;
 
-  const { user } = useStoreState('user');
-
-  const { selectedTree } = useStoreState('selectedTree');
-
-  const { getTokenSilently, isAuthenticated } = useAuth0();
-
-  const { standalter, artdtsch, gattungdeutsch, caretaker } = data;
-
-  const getTreeProp = (p: Generic | string | null) => {
-    return p === 'null' || p === undefined ? null : p;
-  };
-
-  const fetchData: (opts: FetchDataOpts) => Promise<void> = async ({
-    id,
-    uuid,
-    store,
-    isAuthenticated,
-  }) => {
-    try {
-      if (user && selectedTree) {
-        const token = await getTokenSilently();
-        await isTreeAdopted({
-          id,
-          uuid,
-          token,
-          isAuthenticated,
-          store,
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    if (!user) return;
-    if (!selectedTree) return;
-    fetchData({
-      id: selectedTree.id,
-      uuid: user.user_id,
-      store,
-      isAuthenticated,
-    }).catch(console.error);
-  }, [user, selectedTree, treeAdopted]);
+  const { userData, unadoptTree, adoptTree, waterTree } = useUserState();
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
+
+  const treeIsAdopted =
+    userData && userData.adoptedTrees.find(({ id }) => id === treeId);
 
   return (
     <CardWrapper>
@@ -139,7 +111,6 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
             <CaretakerSublineSpan>{`Dieser Baum wird regelmäßig vom ${caretaker} gewässert.`}</CaretakerSublineSpan>
           </CaretakerDiv>
         )}
-        {treeAdopted && <ButtonAdopted />}
         {treeType && treeType.title !== null && (
           <CardAccordion
             title={
@@ -154,13 +125,15 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
         {standalter && standalter !== 'undefined' && (
           <CardProperty name='Standalter' value={standalter + ' Jahre'} />
         )}
-        {standalter !== 'null' && standalter !== 'undefined' && (
+        {standalter && (
           <CardAccordion
             title={
               <CardAccordionTitle>
                 Wasserbedarf:
                 {standalter && (
-                  <CardWaterDrops data={waterNeed(parseInt(standalter))} />
+                  <CardWaterDrops
+                    data={getWaterNeedByAge(parseInt(standalter)) || []}
+                  />
                 )}
               </CardAccordionTitle>
             }
@@ -171,17 +144,49 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
         <RainContainer>
           <CardHeadline>Wassermenge</CardHeadline>
           <CardDescription>der letzten 30 Tage</CardDescription>
-          <StackedBarChart />
+          <StackedBarChart selectedTreeData={selectedTreeData} />
         </RainContainer>
-        {Array.isArray(treeLastWatered) && treeLastWatered.length > 0 && (
+        {Array.isArray(waterings) && waterings.length > 0 && (
           <CardAccordion
             active={true}
             title={<CardAccordionTitle>Zuletzt gegossen</CardAccordionTitle>}
           >
-            <TreeLastWatered data={treeLastWatered} />
+            <TreeLastWatered waterings={waterings} />
           </CardAccordion>
         )}
-        <ButtonWater />
+        {!userData && (
+          <div>
+            <Login />
+            <ParticipateButton />
+          </div>
+        )}
+
+        {userData && !userData.isVerified && (
+          <>
+            <CardParagraph>
+              Bäume adoptieren und wässern ist nur möglich mit verifiziertem
+              Account.
+            </CardParagraph>
+            <NonVerfiedMailCardParagraph />
+          </>
+        )}
+
+        {treeId && userData && userData.isVerified && (
+          <>
+            <ButtonRound
+              margin='15px'
+              onClick={() =>
+                treeIsAdopted ? unadoptTree(treeId) : adoptTree(treeId)
+              }
+              type='secondary'
+            >
+              {treeIsAdopted ? 'Baum unadoptieren' : 'Baum adoptieren'}
+            </ButtonRound>
+            <ButtonWater
+              onClick={(amount: number) => waterTree(treeId, amount)}
+            />
+          </>
+        )}
       </FlexColumnDiv>
     </CardWrapper>
   );

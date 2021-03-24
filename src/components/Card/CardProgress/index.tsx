@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import CardHeadline from '../../Card/CardHeadline/';
 import CardDescription from '../../Card/CardDescription/';
 import Icon from '../../Icons';
+import { WateringType } from '../../../common/interfaces';
 
 const FlexOuter = styled.div`
   display: flex;
@@ -21,29 +22,24 @@ const Flex = styled.div`
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
 `;
 
-// const Icon = styled.div`
-//   width: 50px;
-//   height: 50px;
-//   margin-right: 5px;
-//   background: red;
-// `;
-
 const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
-const CardProgress = p => {
-  const { data } = p;
+const CardProgress: FC<{ waterings: WateringType[] }> = ({ waterings }) => {
   const [liters, setLiters] = useState(0);
   const [times, setTimes] = useState(0);
 
-  useEffect(() => {
-    const sumReducer = (acc, curr) => acc + parseInt(curr.amount);
-    setTimes(data.length);
-    setLiters(data.reduce(sumReducer, 0));
-  }, [data]);
+  useEffect(
+    () => {
+      const sumReducer = (acc: number, curr: WateringType) => acc + curr.amount;
+      setTimes(waterings.length);
+      setLiters(waterings.reduce(sumReducer, 0));
+    },
+    [...waterings] as WateringType[]
+  );
 
   const progressItems = [
     {

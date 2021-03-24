@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const StyledParargraph = styled.div`
   font-size: ${p => p.theme.fontSizeL};
   line-height: ${p => p.theme.lineHeightBody};
-  opactiy: 0.8;
+  opacity: 0.8;
   font-weight: regular;
   margin: 0;
 
@@ -18,9 +18,8 @@ const StyledParargraph = styled.div`
   }
 `;
 
-const OverlayParagraph = p => {
-  const { content } = p;
-  const createMarkup = content => {
+const OverlayParagraph: FC<{ content: string }> = ({ content }) => {
+  const createMarkup = (content: string) => {
     return { __html: content };
   };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { isDemoMode } from '../../../mocks/mocks-utils';
 const BetaNote = styled.div`
@@ -13,7 +13,7 @@ const BetaNote = styled.div`
   }
 `;
 
-const OverlayBeta = () => {
+const OverlayBeta: FC = () => {
   return (
     <BetaNote>
       <span>BETA{isDemoMode() && ' in DEMO MODE'}</span>

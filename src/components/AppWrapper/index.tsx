@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import DeckGlMap from '../map';
@@ -10,17 +10,12 @@ import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
-import { removeOverlay } from '../../utils';
-import { StoreProps } from '../../common/interfaces';
-import store from '../../state/Store';
-
-type AppWrapperPropsType = Pick<
-  StoreProps,
-  'isTreeDataLoading' | 'isTreeMapLoading' | 'data' | 'overlay'
->;
+import { useStoreState } from '../../state/unistore-hooks';
+import { useTreeData } from '../../utils/hooks/useTreeData';
+import { useHistory, useLocation } from 'react-router';
 
 const AppWrapperDiv = styled.div`
-  font-family: ${(props: any) => props.theme.fontFamily};
+  font-family: ${({ theme: { fontFamily } }): string => fontFamily};
   height: 100vh;
   width: 100vw;
 `;
@@ -54,42 +49,76 @@ const CookieContainer = styled.div`
   }
 `;
 
-const getUrlQueryParameter = (name = ''): string => {
-  name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
-  const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-  const results = regex.exec(window.location.search);
-  return results === null
-    ? ''
-    : decodeURIComponent(results[1].replace(/\+/g, ' '));
+const Map: FC<{
+  showOverlay: boolean | undefined;
+  isNavOpened: boolean | undefined;
+}> = ({ showOverlay, isNavOpened }) => {
+  const data = useStoreState('data');
+  const rainGeojson = useStoreState('rainGeojson');
+  const treesVisible = useStoreState('treesVisible');
+  const pumpsVisible = useStoreState('pumpsVisible');
+  const rainVisible = useStoreState('rainVisible');
+  const pumps = useStoreState('pumps');
+  const ageRange = useStoreState('ageRange');
+  const dataView = useStoreState('dataView');
+  const communityData = useStoreState('communityData');
+  const wateredTrees = useStoreState('wateredTrees');
+  const communityDataWatered = useStoreState('communityDataWatered');
+  const communityDataAdopted = useStoreState('communityDataAdopted');
+  const isTreeDataLoading = useStoreState('isTreeDataLoading');
+  const { treeId, treeData: selectedTreeData } = useTreeData();
+  const history = useHistory();
+
+  return (
+    <DeckGlMap
+      onTreeSelect={(id: string) => {
+        const nextLocation = `/tree/${id}`;
+        history.push(nextLocation);
+      }}
+      data={data || null}
+      rainGeojson={rainGeojson || null}
+      treesVisible={!!treesVisible}
+      pumpsVisible={!!pumpsVisible}
+      rainVisible={!!rainVisible}
+      isTreeDataLoading={!!isTreeDataLoading}
+      isNavOpen={!!isNavOpened}
+      showControls={showOverlay}
+      pumps={pumps || null}
+      ageRange={ageRange || []}
+      dataView={dataView || 'watered'}
+      communityData={communityData || null}
+      wateredTrees={wateredTrees || []}
+      communityDataWatered={communityDataWatered || []}
+      communityDataAdopted={communityDataAdopted || []}
+      selectedTreeId={treeId}
+      selectedTreeData={selectedTreeData}
+    />
+  );
 };
 
-const AppWrapper: FC<AppWrapperPropsType> = ({
-  isTreeDataLoading,
-  isTreeMapLoading,
-  data,
-  overlay: showOverlay,
-}) => {
-  const showLoading = isTreeMapLoading;
-  const showMap = !isTreeDataLoading && data;
-  const showMapUI = showMap && !showOverlay;
+const AppWrapper: FC = () => {
+  const isTreeDataLoading = useStoreState('isTreeDataLoading');
+  const data = useStoreState('data');
+  const overlay = useStoreState('overlay');
+  const isNavOpen = useStoreState('isNavOpen');
+  const { pathname } = useLocation();
+  const isHome = pathname === '/';
+  const showOverlay = isHome && overlay;
 
-  useEffect(() => {
-    if (isTreeMapLoading) return;
-    const treeId = getUrlQueryParameter('location');
-    store.setState({
-      ...(treeId ? { highlightedObject: treeId } : {}),
-      overlay: !treeId,
-    });
-    removeOverlay();
-  }, [isTreeMapLoading]);
+  const showMap = !isTreeDataLoading && data;
+  const showLoading = !showMap;
+  const showMapUI = showMap && !showOverlay;
+  const isSidebarOpened = !isHome && isNavOpen;
 
   return (
     <AppWrapperDiv>
       {showLoading && <Loading />}
-      {showMap && <DeckGlMap data={data} />}
+      {showMap && (
+        <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} />
+      )}
       {showMapUI && <Sidebar />}
       {showOverlay && <Overlay />}
-      {showMapUI && <Nav />}
+      {showMapUI && <Nav isNavOpened={!isHome} />}
       <CreditsContainer>
         <Credits />
       </CreditsContainer>

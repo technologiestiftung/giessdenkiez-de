@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { FC, useState, useEffect, useContext } from 'react';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { ContextProps } from '../../common/types';
 import { Auth0ClientOptions, IdToken } from '@auth0/auth0-spa-js';
@@ -29,11 +29,7 @@ export const defaultFakeUser: FakeUser = {
   sub: 'auth0|123',
 };
 export const Auth0Context = React.createContext<Partial<ContextProps>>({});
-export const useAuth0 = () => useContext(Auth0Context);
-
-const DEFAULT_REDIRECT_CALLBACK: (appState: any) => void = _appState => {
-  return;
-};
+export const useAuth0 = (): Partial<ContextProps> => useContext(Auth0Context);
 
 const getUser: () => Promise<FakeUser> = () => {
   return Promise.resolve(defaultFakeUser);
@@ -70,11 +66,9 @@ async function createFakeAuth0Client(
     logout,
   };
 }
-export const Auth0Provider = ({
-  children,
-  onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
-  ...initOptions
-}) => {
+export const Auth0Provider: FC<{
+  onRedirectCallback: (appState: any) => void;
+}> = ({ children, onRedirectCallback = () => undefined, ...initOptions }) => {
   document.cookie = 'auth0.is.authenticated=true;path=/';
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
   const [user, setUser] = useState(defaultFakeUser);

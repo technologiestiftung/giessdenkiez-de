@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const logoCitylab = '/images/citylab-logo.svg';
@@ -43,7 +43,7 @@ const FoerderlogoContainer = styled.div`
   }
 `;
 
-const Credits = p => {
+const Credits: FC = () => {
   return (
     <StyledCreditsContainer>
       <a

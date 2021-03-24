@@ -1,10 +1,8 @@
-import { Store } from 'unistore';
-import { RadolanDays, TreeLastWateredType } from './types';
+import { RadolanDays } from './types';
 
 export interface Generic {
   [key: string]: any;
 }
-
 export interface DailyWaterAmountsType {
   id: string;
   timestamp: Date;
@@ -12,88 +10,63 @@ export interface DailyWaterAmountsType {
   wateringValue: number;
 }
 
-export interface WateredDayType {
-  tree_id: string;
-  time: string;
-  uuid: string;
+export interface RawWateringType {
   amount: string;
+  id: number;
+  time: string;
   timestamp: string;
+  tree_id: string;
   username: string;
+  uuid: string;
 }
 
-export interface SelectedTreeType {
+export interface WateringType {
+  amount: number;
+  id: string;
+  username: string;
+  timestamp: string;
+  treeId: string;
+}
+export interface UserDataType {
+  id: string;
+  email: string;
+  username: string;
+  isVerified: boolean;
+  waterings: WateringType[];
+  adoptedTrees: Tree[];
+}
+export interface SelectedTreeType extends Tree {
   radolan_days: RadolanDays;
   radolan_sum: number;
-  lat: string;
-  lng: string;
+  latitude: number;
+  longitude: number;
   id: string;
+  waterings: WateringType[] | undefined;
+  isAdopted: boolean | undefined;
 }
-
 export interface StoreProps {
-  wateredTrees: Generic[];
-  includedTrees: Generic;
-  adoptedTrees: Generic[];
   dataView: 'rain' | 'adopted' | 'watered' | string;
-  communityData: Generic | null;
-  communityDataAdopted?: Generic[];
-  communityDataWatered?: Generic[];
-  wateredByUser: boolean;
+
+  communityData: Record<string, { adopted: boolean; watered: boolean }> | null;
+  communityDataAdopted: string[];
+  communityDataWatered: string[];
+
+  wateredTrees: string[];
+  adoptedTrees: Pick<Tree, 'id'>[];
+
   treesVisible: boolean;
-  cookiesAccepted: boolean;
-  overlayIsVisible: boolean;
-  legendExpanded: boolean;
-  treeAdopted?: boolean;
-  isNavOpen: boolean;
   pumpsVisible: boolean;
-  highlightedObject?: string;
-  user: boolean;
   rainVisible: boolean;
+
+  isNavOpen: boolean;
+  user?: UserDataType;
   rainGeojson: Generic | null;
-  adoptedTreesDetails: any;
-  csvdata: null;
   ageRange: number[];
   pumps: Generic | null;
   data: Generic | null;
-  local: boolean;
-  endpoints: {
-    local: string | undefined;
-    prod: string | undefined;
-  };
-  tabActive: string;
-  selectedTree: SelectedTreeType | undefined;
-  treeLastWatered: TreeLastWateredType | undefined;
-  selectedTreeState?:
-    | 'LOADED'
-    | 'LOADING'
-    | 'ADOPT'
-    | 'ADOPTED'
-    | 'WATERING'
-    | 'FETCHED'
-    | 'NOT_FOUND'
-    | 'WATERED';
   overlay: boolean;
   isTreeDataLoading: boolean;
-  isTreeMapLoading: boolean;
-  AppState: string;
   hoveredObject: boolean;
-  viewport: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-    maxZoom: number;
-    minZoom: number;
-    pitch: number;
-    bearing: number;
-  };
-}
-
-export interface IsTreeAdoptedProps {
-  id: string;
-  uuid: string;
-  token: string;
-  store: Store<StoreProps>;
-  isAuthenticated?: boolean;
-  signal?: AbortSignal;
 }
 
 export interface Tree {
@@ -115,8 +88,8 @@ export interface Tree {
   baumhoehe?: string | null;
   bezirk?: string | null;
   eigentuemer?: string | null;
-  adopted?: null | any;
-  watered?: null | any;
+  adopted?: boolean | null;
+  watered?: boolean;
   radolan_sum?: number | null;
   radolan_days?: number[];
   geom?: string | null;

@@ -143,8 +143,7 @@ export function drawD3Chart(
       let daysBack = today.getTime() - tickDate.getTime();
       daysBack = daysBack / (1000 * 3600 * 24);
       daysBack = Math.round(daysBack);
-	  return daysBack === 1 ? 'Gestern' : `Vor ${daysBack} Tagen`;
-      // return formattedTime;
+      return daysBack === 1 ? 'Gestern' : `Vor ${daysBack} Tagen`;
     });
 
   // remove double loaded svg
@@ -164,19 +163,11 @@ export function drawD3Chart(
       `translate(${BAR_WIDTH / 2}, ${chartHeight + MARGIN.top})`
     )
     .call(xAxis)
-	.selectAll('text')
+    .selectAll('text');
 
-  xAxisLabels
-	.attr('x', (_, idx) => xAxisLabels.nodes().length - 1 === idx ? -10 : 5);
-
-  // rect so see dimensions of svg
-  // svg
-  //   .append('rect')
-  //   .attr('x', 0)
-  //   .attr('y', 0)
-  //   .attr('width', width)
-  //   .attr('height', height)
-  //   .style('fill', 'lightgrey');
+  xAxisLabels.attr('x', (_, idx) =>
+    xAxisLabels.nodes().length - 1 === idx ? -10 : 5
+  );
 
   // add y axis labeling
   svg

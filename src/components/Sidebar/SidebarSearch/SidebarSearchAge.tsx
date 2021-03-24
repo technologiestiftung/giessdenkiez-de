@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Slider from 'rc-slider';
-import Actions from '../../../state/Actions';
 import { useStoreState, useActions } from '../../../state/unistore-hooks';
 
 const FilterAgeDiv = styled.div`
@@ -31,14 +30,16 @@ const TileHeadline = styled.span`
 `;
 
 const SidebarAgeRange: React.FC = () => {
-  const { ageRange } = useStoreState('ageRange');
+  const ageRange = useStoreState('ageRange');
 
   const createSliderWithTooltip = Slider.createSliderWithTooltip;
   const Range = createSliderWithTooltip(Slider.Range);
-  const { setAgeRange } = useActions(Actions);
+  const { setAgeRange } = useActions();
 
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(320);
+
+  if (!ageRange) return null;
 
   useEffect(() => {
     setMin(ageRange[0]);

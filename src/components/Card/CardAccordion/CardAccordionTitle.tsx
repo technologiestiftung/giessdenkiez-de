@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const PanelTitle = styled.span`
@@ -10,9 +10,8 @@ const PanelTitle = styled.span`
   }
 `;
 
-const CardAccordionTitle = (p: { children: any }) => {
-  const { children } = p;
-  return <PanelTitle>{children}</PanelTitle>;
-};
+const CardAccordionTitle: FC = ({ children }) => (
+  <PanelTitle>{children}</PanelTitle>
+);
 
 export default CardAccordionTitle;

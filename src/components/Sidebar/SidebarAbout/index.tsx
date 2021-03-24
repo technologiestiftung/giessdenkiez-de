@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import SidebarTitle from '../SidebarTitle/';
@@ -37,7 +37,7 @@ const CreditsContainer = styled.div`
   }
 `;
 
-const SidebarAbout = _p => {
+const SidebarAbout: FC = () => {
   const { sidebar } = content;
   const { about } = sidebar;
   function createMarkup(content) {
@@ -74,7 +74,6 @@ const SidebarAbout = _p => {
         <SocialSharing />
       </SocialSharingContainer>
       <OpenSourceNote />
-      {/* <ImprintAndPrivacyCard /> */}
     </>
   );
 };

@@ -49,7 +49,7 @@ afterAll(() => {
 
 describe('card test', () => {
   test('should render', async () => {
-    store.setState({ selectedTree: { id: '_123' } });
+    store.setState({ selectedTreeId: '_123' });
     const { getByText } = render(
       <Provider store={store}>
         <Card
@@ -65,7 +65,6 @@ describe('card test', () => {
 
     const button2 = getByText(/adoptiere/i);
     await waitFor(() => expect(button2).toBeInTheDocument());
-    await waitFor(() => store.setState({ treeAdopted: true }));
     // screen.debug();
     await waitFor(() => expect(button1).not.toBeInTheDocument());
     await waitFor(() => expect(button2).not.toBeInTheDocument());

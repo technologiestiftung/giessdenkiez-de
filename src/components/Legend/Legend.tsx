@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { interpolateColor } from '../../utils';
+import { interpolateColor } from '../../utils/colorUtil';
 import store from '../../state/Store';
-// import { connect } from 'unistore/react';
-// import Actions from '../../state/Actions';
 import { useStoreState } from '../../state/unistore-hooks';
 import CardDescription from '../Card/CardDescription';
 import {
@@ -32,13 +30,6 @@ const ItemContainer = styled.div<ItemContainerProps>`
   margin-right: 10px;
 `;
 
-// const TileHeadline = styled.span`
-//   opacity: 1;
-//   font-size: 0.8rem;
-//   font-weight: 600;
-//   margin-bottom: 10px;
-//   transform: translateX(-4px);
-// `;
 interface LegendDotProps {
   color: string;
   gradient?: string;
@@ -246,18 +237,18 @@ function createCSSGradient(colors: string[], degrees = 90): string {
 const rainColors = legendArray.map(item => interpolateColor(item.value));
 const rainGradient = createCSSGradient(rainColors);
 
-const Legend: React.FC = () => {
-  const { legendExpanded } = useStoreState('legendExpanded');
-  const { pumpsVisible } = useStoreState('pumpsVisible');
-  const { rainVisible } = useStoreState('rainVisible');
-  const { treesVisible } = useStoreState('treesVisible');
+const Legend: FC = () => {
+  const pumpsVisible = useStoreState('pumpsVisible');
+  const rainVisible = useStoreState('rainVisible');
+  const treesVisible = useStoreState('treesVisible');
+  const [legendExpanded, setLegendExpanded] = useState<boolean>(true);
 
   return (
     <LegendDiv active={legendExpanded}>
       <FlexSpace active={legendExpanded}>
         <FlexColumn>
           <StyledCardDescription
-            onClick={() => store.setState({ legendExpanded: !legendExpanded })}
+            onClick={() => setLegendExpanded(!legendExpanded)}
           >
             {(() => {
               if (legendExpanded) {
@@ -277,15 +268,13 @@ const Legend: React.FC = () => {
             </StyledCardDescriptionSecond>
           )}
         </FlexColumn>
-        <StyledToggle
-          onClick={() => store.setState({ legendExpanded: !legendExpanded })}
-        >
+        <StyledToggle onClick={() => setLegendExpanded(!legendExpanded)}>
           {legendExpanded ? '—' : '+'}
         </StyledToggle>
       </FlexSpace>
       {legendExpanded === true && pumpsVisible === false && (
         <UnstyledFlex>
-          {treesVisible === true &&
+          {treesVisible &&
             legendArray.map(item => {
               return (
                 <React.Fragment key={item.label}>
@@ -390,15 +379,5 @@ const Legend: React.FC = () => {
     </LegendDiv>
   );
 };
-
-// export default connect(
-//   state => ({
-//     treesVisible: state.treesVisible,
-//     rainVisible: state.rainVisible,
-//     legendExpanded: state.legendExpanded,
-//     pumpsVisible: state.pumpsVisible,
-//   }),
-//   Actions
-// )(Legend);
 
 export default Legend;

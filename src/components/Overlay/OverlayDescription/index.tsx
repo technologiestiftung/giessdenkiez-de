@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -20,10 +20,8 @@ const StyledParargraph = styled.p`
   margin: 0;
 `;
 
-const OverlayDescription = p => {
-  const { content } = p;
-
-  function createMarkup(content) {
+const OverlayDescription: FC<{ content: string[] }> = ({ content }) => {
+  function createMarkup(content: string) {
     return { __html: content };
   }
 

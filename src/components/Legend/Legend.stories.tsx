@@ -14,5 +14,5 @@ LegendStory.args = {
   treesVisible: true,
   rainVisible: false,
   pumpsVisible: false,
-  legendExpanded: false,
+  overlay: false,
 };

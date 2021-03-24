@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import TreeType from './TreeType';
@@ -26,8 +26,13 @@ const Title = styled.span`
   font-size: ${p => p.theme.fontSizeL};
 `;
 
-const TreeWatering = p => {
-  const { data } = p;
+const TreeWatering: FC<{
+  data: Array<{
+    waterdrops: unknown[];
+    title: string;
+    description: string;
+  }>;
+}> = ({ data }) => {
   return (
     <WrapperOuter>
       {data.map((info, i) => {

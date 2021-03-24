@@ -1,9 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useActions } from '../../../state/unistore-hooks';
-import Actions from '../../../state/Actions';
+import { useQuery, QueryFunction } from 'react-query';
+import { useHistory } from 'react-router';
 
-// import { connect } from 'unistore/react';
+interface FeatureType {
+  id: string;
+  place_name_de: string;
+  geometry: {
+    coordinates: [number, number];
+  };
+}
 
 const SearchDiv = styled.div`
   display: flex;
@@ -60,33 +66,30 @@ const ResultElement = styled.li`
 
 const MAPBOX_TOKEN = process.env.API_KEY;
 
+const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
+  const [_key, value] = queryKey;
+
+  if (value.length < 3) return [];
+
+  const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?autocomplete=true&language=de&country=de&bbox=13.0824446341071,52.3281202651866,13.7682544186827,52.681600197973&access_token=${MAPBOX_TOKEN}`;
+  const res = await fetch(geocodingUrl);
+
+  if (!res.ok) return [];
+
+  const json = await res.json();
+  return json.features;
+};
+
 const SidebarSearchLocation: React.FC = () => {
-  const { setViewport } = useActions(Actions);
-
   const [value, setValue] = React.useState('');
-  const [results, setResults] = React.useState([]);
+  const history = useHistory();
+  const { data: results } = useQuery(['sidebarSearch', value], fetchSearch, {
+    cacheTime: 1000,
+    staleTime: 5000,
+  });
 
-  const updateSearch = async e => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-    try {
-      if (e.target.value.length >= 3) {
-        const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${e.target.value}.json?autocomplete=true&language=de&country=de&bbox=13.0824446341071,52.3281202651866,13.7682544186827,52.681600197973&access_token=${MAPBOX_TOKEN}`;
-        const res = await fetch(geocodingUrl);
-        if (res.ok) {
-          const json = await res.json();
-          setResults(json.features);
-        } else {
-          return;
-        }
-      }
-    } catch (error) {
-      console.error(error);
-      return;
-    }
-  };
-
-  const handleOnChange = e => {
-    updateSearch(e).catch(console.error);
   };
   return (
     <SearchDiv>
@@ -100,17 +103,16 @@ const SidebarSearchLocation: React.FC = () => {
       </FlexRowDiv>
       <ResultDiv>
         <ul>
-          {results.map((item: any, index: number) => {
-            return (
+          {results &&
+            results.map((item: FeatureType, index: number) => (
               <ResultElement
                 className={index % 2 ? 'even' : 'odd'}
                 key={item.id}
-                onClick={() => setViewport(item.geometry.coordinates)}
+                onClick={() => history.push(`/tree/${item.id}`)}
               >
                 {item.place_name_de}
               </ResultElement>
-            );
-          })}
+            ))}
         </ul>
       </ResultDiv>
     </SearchDiv>

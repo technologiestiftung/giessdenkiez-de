@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import store from '../../state/Store';
 
-import Actions from '../../state/Actions';
-import { connect } from 'unistore/react';
+import ButtonRound from '../ButtonRound';
+import { areCookiesAccepted } from '../../utils/areCookiesAccepted';
 
-import ButtonRound from '../ButtonRound/';
+const cookieAreAccepted = areCookiesAccepted('disclaimerAccepted');
 
 const CookieDiv = styled.div`
   z-index: 1;
@@ -42,12 +41,14 @@ const StyledCardDescription = styled.div`
   }
 `;
 
-const Cookie = p => {
-  const { cookiesAccepted } = p;
+const Cookie: FC = () => {
+  const [cookiesAccepted, setCookieAccepted] = useState<boolean>(
+    cookieAreAccepted
+  );
 
   const setCookie = () => {
     document.cookie = 'disclaimerAccepted=true;path=/;';
-    store.setState({ cookiesAccepted: true });
+    setCookieAccepted(true);
   };
 
   return (
@@ -70,7 +71,7 @@ const Cookie = p => {
             <ButtonRound
               width='fit-content'
               fontSize={'.8rem'}
-              toggle={() => setCookie()}
+              onClick={() => setCookie()}
             >
               Einverstanden
             </ButtonRound>
@@ -81,9 +82,4 @@ const Cookie = p => {
   );
 };
 
-export default connect(
-  state => ({
-    cookiesAccepted: state.cookiesAccepted,
-  }),
-  Actions
-)(Cookie);
+export default Cookie;

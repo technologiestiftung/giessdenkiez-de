@@ -1,18 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-import { NavLink, withRouter, matchPath } from 'react-router-dom';
-import { connect } from 'unistore/react';
-import Actions from '../../state/Actions';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-import store from '../../state/Store';
-
 import EdgeButton from '../EdgeComponent/';
 
 interface StyledProps {
   active?: boolean;
-  isNavOpen?: boolean;
+  isNavOpened?: boolean;
 }
 const NavWrapper = styled.div<StyledProps>`
   display: flex;
@@ -29,7 +25,7 @@ const NavWrapper = styled.div<StyledProps>`
 
   @media screen and (min-width: ${p => p.theme.screens.tablet}) {
     transform: ${props =>
-      props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'none'};
+      props.isNavOpened ? 'translate3d(350px, 0, 0)' : 'none'};
   }
 `;
 
@@ -39,8 +35,7 @@ const NavItem = styled(NavLink)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 1
-  }}
+  opacity: 1;
   text-decoration: none;
 `;
 
@@ -50,29 +45,19 @@ const navConfig = [
   { path: '/profile', title: 'Profil', icon: <AccountCircle /> },
 ];
 
-const Nav = p => {
-  const { pathname } = p.location;
-
-  const isNavOpen =
-    matchPath(pathname, {
-      path: navConfig.map(m => m.path),
-    }) !== null;
-
-  const handleClick = () => {
-    p.removeSelectedTree();
-  };
-
-  useEffect(() => {
-    store.setState({ isNavOpen: isNavOpen });
-  }, [isNavOpen]);
+const Nav: FC<{
+  isNavOpened: boolean;
+}> = ({ isNavOpened }) => {
+  const { pathname } = useLocation();
+  const history = useHistory();
 
   return (
-    <NavWrapper isNavOpen={isNavOpen}>
+    <NavWrapper isNavOpened={isNavOpened}>
       {navConfig.map(item => (
         <NavItem
           exact
           to={{ pathname: item.path, search: '' }}
-          onClick={() => handleClick()}
+          onClick={() => history.push('/')}
           title={item.title}
           key={item.path}
         >
@@ -89,11 +74,4 @@ const Nav = p => {
   );
 };
 
-export default withRouter(
-  connect(
-    state => ({
-      state: state,
-    }),
-    Actions
-  )(Nav)
-);
+export default Nav;

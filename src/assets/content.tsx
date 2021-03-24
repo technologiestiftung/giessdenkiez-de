@@ -29,9 +29,9 @@ interface Content {
   };
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
   //if event announcemnt is needed just de-comment this section and fill in the announcement text below
-  // eventNote?: {
-  //   title: string;
-  // };
+  eventNote?: {
+    title: string;
+  };
   whatsNew?: {
     title: string;
     description: string[];

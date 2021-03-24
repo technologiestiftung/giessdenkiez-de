@@ -3,8 +3,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import ButtonRound from '../components/ButtonRound';
-import ButtonBorder from '../components/ButtonBorder';
-import ButtonAdopted from '../components/ButtonAdopted';
+import TreeButton from '../components/TreeButton';
 import { Provider } from 'unistore/react';
 import store from '../state/Store';
 import { useAuth0 } from '../utils/auth/auth0';
@@ -20,7 +19,6 @@ import { useAuth0 } from '../utils/auth/auth0';
  */
 const dummyUser = {
   email: 'foo@bah.com',
-  // eslint-disable-next-line @typescript-eslint/camelcase
   email_verified: true,
   sub: 'auth0|12345678912345678901234',
   name: 'foo',
@@ -32,8 +30,8 @@ jest.mock('../utils/auth/auth0');
 
 beforeEach(() => {
   // Mock the Auth0 hook and make it return a logged in state
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  //@ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   useAuth0.mockReturnValue({
     isAuthenticated: true,
     user: dummyUser,
@@ -50,7 +48,7 @@ describe('button tests', () => {
   test('round button should have a basic functionality', () => {
     const onClick = jest.fn();
     const { getByText } = render(
-      <ButtonRound toggle={onClick}>Round</ButtonRound>
+      <ButtonRound onClick={onClick}>Round</ButtonRound>
     );
     const button = getByText(/round/i);
     fireEvent.click(button);
@@ -59,33 +57,19 @@ describe('button tests', () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  test('border button should have a basic functionality (deprecated component)', () => {
-    // const onClick = jest.fn();
-    const { getByRole } = render(<ButtonBorder></ButtonBorder>);
-
-    const button = getByRole(/button/i);
-    // fireEvent.click(button);
-    expect(button).toHaveAttribute('role', 'button');
-    expect(button).toHaveAttribute('tabindex', '0');
-    // expect(onClick).toHaveBeenCalledTimes(1);
-  });
-
   test('adopted button should have a basic functionality', () => {
     // const onClick = jest.fn();
     const { getByRole, getByText } = render(
       <Provider store={store}>
-        <ButtonAdopted />
+        <TreeButton tree={{ id: 'test', artdtsch: 'test' }} />
       </Provider>
     );
 
     const button = getByRole(/button/i);
-    const label = getByText(/adoptiert/i);
+    const label = getByText(/test/i);
     expect(button).toHaveAttribute('role', 'button');
     expect(label).toBeDefined();
-    expect(label).toHaveTextContent(/adoptiert/i);
+    expect(label).toHaveTextContent(/test/i);
     expect(button).toHaveAttribute('tabindex', '0');
-    // fireEvent.click(button);
-    // expect(label).toHaveTextContent(/entferne/i);
-    // expect(onClick).toHaveBeenCalledTimes(1);
   });
 });
