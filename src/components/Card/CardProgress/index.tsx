@@ -32,14 +32,11 @@ const CardProgress: FC<{ waterings: WateringType[] }> = ({ waterings }) => {
   const [liters, setLiters] = useState(0);
   const [times, setTimes] = useState(0);
 
-  useEffect(
-    () => {
-      const sumReducer = (acc: number, curr: WateringType) => acc + curr.amount;
-      setTimes(waterings.length);
-      setLiters(waterings.reduce(sumReducer, 0));
-    },
-    [...waterings] as WateringType[]
-  );
+  useEffect(() => {
+    const sumReducer = (acc: number, curr: WateringType) => acc + curr.amount;
+    setTimes(waterings.length);
+    setLiters(waterings.reduce(sumReducer, 0));
+  }, [waterings]);
 
   const progressItems = [
     {
