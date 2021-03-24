@@ -22,8 +22,12 @@ function stopLoading(): {
   return { isTreeDataLoading: false };
 }
 
-const openOverlay = (): { overlay: StoreProps['overlay'] } => ({
+const openOverlay = (): {
+  overlay: StoreProps['overlay'];
+  isNavOpen: StoreProps['isNavOpen'];
+} => ({
   overlay: true,
+  isNavOpen: false,
 });
 
 const closeOverlay = (): { overlay: StoreProps['overlay'] } => ({
