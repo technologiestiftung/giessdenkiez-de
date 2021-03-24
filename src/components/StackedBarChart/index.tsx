@@ -69,12 +69,7 @@ const StackedBarChart: FC<{
   useEffect(() => {
     if (!selectedTreeData) return;
 
-    setWaterAmountInLast30Days(
-      mapStackedBarchartData({
-        selectedTree: selectedTreeData,
-        treeLastWatered: selectedTreeData.wateredDays || [],
-      })
-    );
+    setWaterAmountInLast30Days(mapStackedBarchartData(selectedTreeData));
   }, [selectedTreeData]);
 
   useEffect(() => {

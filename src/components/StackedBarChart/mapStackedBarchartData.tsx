@@ -1,11 +1,11 @@
 import {
   DailyWaterAmountsType,
   SelectedTreeType,
-  WateredDayType,
+  WateringType,
 } from '../../common/interfaces';
 import { RadolanDays } from '../../common/types';
 
-const _radolanDaysToHours = (radolanDays: RadolanDays): number[] => {
+const radolanDaysToHours = (radolanDays: RadolanDays): number[] => {
   let sumPerDay = 0;
 
   const hours: number[] = [];
@@ -24,7 +24,7 @@ const _radolanDaysToHours = (radolanDays: RadolanDays): number[] => {
   return hours.reverse();
 };
 
-const _createDateList = (len: number) => {
+const createDateList = (len: number) => {
   const today = new Date();
   let iter = 1;
   const last30Dates: string[] = [];
@@ -37,11 +37,11 @@ const _createDateList = (len: number) => {
   return last30Dates;
 };
 
-const _createRadolanMap: (
+const createRadolanMap: (
   radolanDays: RadolanDays
 ) => { [key: string]: number } = radolanDays => {
-  const rainOfMonth = _radolanDaysToHours(radolanDays);
-  const last30Days = _createDateList(rainOfMonth.length);
+  const rainOfMonth = radolanDaysToHours(radolanDays);
+  const last30Days = createDateList(rainOfMonth.length);
   const map = {};
   rainOfMonth.forEach((ele, i) => {
     map[last30Days[i]] = ele;
@@ -49,32 +49,27 @@ const _createRadolanMap: (
   return map;
 };
 
-const _timestamp2stringKey = (timestamp: string): string =>
+const timestamp2stringKey = (timestamp: string): string =>
   timestamp.split('T')[0];
 
-const _createTreeLastWateredMap = (
-  treeLastWatered: WateredDayType[]
+const createTreeLastWateredMap = (
+  treeLastWatered: WateringType[]
 ): { [key: string]: number } =>
   treeLastWatered.reduce(
     (acc, currentDay) => ({
       ...acc,
-      [_timestamp2stringKey(currentDay.timestamp)]: parseInt(
-        currentDay.amount,
-        10
-      ),
+      [timestamp2stringKey(currentDay.timestamp)]: currentDay.amount,
     }),
     {}
   );
 
-export function mapStackedBarchartData({
-  treeLastWatered,
-  selectedTree,
-}: {
-  treeLastWatered: WateredDayType[];
-  selectedTree: SelectedTreeType;
-}): DailyWaterAmountsType[] {
-  const treeLastWateredMap = _createTreeLastWateredMap(treeLastWatered);
-  const selectedTreeMap = _createRadolanMap(selectedTree.radolan_days);
+export function mapStackedBarchartData(
+  selectedTree: SelectedTreeType
+): DailyWaterAmountsType[] {
+  const treeLastWateredMap = createTreeLastWateredMap(
+    selectedTree.waterings || []
+  );
+  const selectedTreeMap = createRadolanMap(selectedTree.radolan_days);
 
   return Object.keys(selectedTreeMap).map(selectedTreeKey => {
     const dailyAmount = selectedTreeMap[selectedTreeKey];

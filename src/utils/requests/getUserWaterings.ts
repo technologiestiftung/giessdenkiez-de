@@ -17,12 +17,13 @@ const parseRawWatering = (rawWatering: RawWateringType): WateringType => ({
   amount: parseFloat(rawWatering.amount),
   timestamp: rawWatering.timestamp,
   treeId: rawWatering.tree_id,
+  username: rawWatering.username,
 });
 
 const parseRawWaterings = (rawWaterings: RawWateringType[]): WateringType[] =>
   rawWaterings.map(parseRawWatering);
 
-export const getTreesWateredByUser = async ({
+export const getUserWaterings = async ({
   userId,
   token,
 }: {

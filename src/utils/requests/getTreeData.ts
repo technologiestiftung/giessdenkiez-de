@@ -1,9 +1,9 @@
 import { createAPIUrl } from '../createAPIUrl';
 import { requests } from '../requestUtil';
-import { SelectedTreeType, WateredDayType } from '../../common/interfaces';
+import { SelectedTreeType, WateringType } from '../../common/interfaces';
 
 interface TreeLastWateredResponseType {
-  data: WateredDayType[] | undefined;
+  data: WateringType[] | undefined;
 }
 
 interface SelectedTreeApiResponse
@@ -20,7 +20,7 @@ const calcuateRadolan = (radolanDays: number): number => radolanDays / 10;
 
 const parseSelectedTreeResponse = (
   selectedTreeResponse: SelectedTreeResponseType,
-  wateredDays: WateredDayType[]
+  waterings: WateringType[]
 ): SelectedTreeType => {
   const selectedTreeData = selectedTreeResponse.data[0];
   return {
@@ -30,13 +30,13 @@ const parseSelectedTreeResponse = (
     longitude: parseFloat(selectedTreeData.lat),
     radolan_days: selectedTreeData.radolan_days.map(calcuateRadolan),
     radolan_sum: calcuateRadolan(selectedTreeData.radolan_sum),
-    wateredDays,
+    waterings,
   };
 };
 
 const parseTreeLastWateredResponse = (
   treeLastWateredResponse: TreeLastWateredResponseType
-): WateredDayType[] => treeLastWateredResponse.data || [];
+): WateringType[] => treeLastWateredResponse.data || [];
 
 export const getTreeData = async (
   id: string
@@ -50,14 +50,14 @@ export const getTreeData = async (
     requests<SelectedTreeResponseType>(urlSelectedTree),
     requests<TreeLastWateredResponseType>(urlLastWatered),
   ]);
-  const wateredDays = parseTreeLastWateredResponse(resLastWatered);
+  const waterings = parseTreeLastWateredResponse(resLastWatered);
 
   return {
     selectedTreeData:
       resSelectedTree.data.length > 0
         ? parseSelectedTreeResponse(
             resSelectedTree as SelectedTreeResponseType,
-            wateredDays
+            waterings
           )
         : undefined,
   };

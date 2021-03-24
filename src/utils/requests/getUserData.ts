@@ -1,6 +1,6 @@
 import { Tree, WateringType } from '../../common/interfaces';
 import { getTreesAdoptedByUser } from './getTreesAdoptedByUser';
-import { getTreesWateredByUser } from './getTreesWateredByUser';
+import { getUserWaterings } from './getUserWaterings';
 import { getUserInfo } from './getUserInfo';
 interface UserDataType {
   id: string;
@@ -20,7 +20,7 @@ export const getUserData = async ({
 }): Promise<UserDataType | undefined> => {
   const res = await Promise.all([
     getUserInfo({ userId, token }),
-    getTreesWateredByUser({ userId, token }),
+    getUserWaterings({ userId, token }),
     getTreesAdoptedByUser({ userId, token }),
   ]);
   const [user, waterings, adoptedTrees] = res;

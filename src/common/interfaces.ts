@@ -10,17 +10,10 @@ export interface DailyWaterAmountsType {
   wateringValue: number;
 }
 
-export interface WateredDayType {
-  tree_id: string;
-  time: string;
-  uuid: string;
-  amount: string;
-  timestamp: string;
-  username: string;
-}
 export interface WateringType {
   amount: number;
   id: string;
+  username: string;
   timestamp: string;
   treeId: string;
 }
@@ -35,7 +28,7 @@ export interface SelectedTreeType extends Tree {
   latitude: number;
   longitude: number;
   id: string;
-  wateredDays: WateredDayType[] | undefined;
+  waterings: WateringType[] | undefined;
   isAdopted: boolean | undefined;
 }
 export interface StoreProps {
@@ -45,7 +38,6 @@ export interface StoreProps {
   communityDataAdopted: string[];
   communityDataWatered: string[];
 
-  wateredByUser: WateredDayType[];
   wateredTrees: string[];
   adoptedTrees: Generic[];
 
