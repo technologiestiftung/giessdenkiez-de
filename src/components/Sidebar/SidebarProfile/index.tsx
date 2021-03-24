@@ -8,7 +8,7 @@ import Paragraph from '../../Paragraph';
 import WateredTreesIndicator from '../../WateredTreesIndicator';
 import ExpandablePanel from '../../ExpandablePanel';
 import CardCredentials from '../../Card/CardCredentials/';
-import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
+import TreesList from '../../TreesList';
 import { NonVerfiedMailMessage } from '../../Card/non-verified-mail';
 import Login from '../../Login';
 import ButtonRound from '../../ButtonRound';
@@ -92,7 +92,11 @@ const SidebarProfile: FC = () => {
       <CardHeadline>Dein Gießfortschritt</CardHeadline>
       <WateredTreesIndicator waterings={userData.waterings} />
       <ExpandablePanel isExpanded={true} title={<span>Adoptierte Bäume</span>}>
-        <TreesAdopted trees={userData.adoptedTrees} />
+        {userData.adoptedTrees.length === 0 ? (
+          'Du hast noch keine Bäume adoptiert.'
+        ) : (
+          <TreesList trees={userData.adoptedTrees} />
+        )}
       </ExpandablePanel>
       <CardCredentials />
       <Login width='-webkit-fill-available' />

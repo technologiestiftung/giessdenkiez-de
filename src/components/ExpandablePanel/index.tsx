@@ -23,7 +23,7 @@ const Header = styled.div`
 
 const Content = styled.div`
   animation: sweep 200ms ease-out forwards;
-  padding-bottom: 8px;
+  padding-bottom: 16px;
 `;
 
 const Indicator = styled.span`

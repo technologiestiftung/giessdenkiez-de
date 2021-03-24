@@ -1,34 +1,18 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { Tree } from '../../../common/interfaces';
+import { Tree } from '../../common/interfaces';
 import { useHistory } from 'react-router';
-import TreeButton from '../../TreeButton';
+import TreeButton from '../TreeButton';
 
 const WrapperOuter = styled.div`
   display: flex;
   gap: 8px;
 `;
 
-const Title = styled.span`
-  height: fit-content;
-  cursor: pointer;
-  font-weight: normal;
-  font-size: ${p => p.theme.fontSizeL};
-`;
-// TODO: This is WIP. Not working yet
-const TreesAdopted: FC<{
+const TreesList: FC<{
   trees: Tree[];
 }> = ({ trees }) => {
-  // const { selectTree } = useActions();
   const history = useHistory();
-
-  if (trees.length === 0) {
-    return (
-      <WrapperOuter>
-        <Title>Du hast noch keine Bäume adoptiert.</Title>
-      </WrapperOuter>
-    );
-  }
   return (
     <WrapperOuter>
       {trees.map(tree =>
@@ -46,4 +30,4 @@ const TreesAdopted: FC<{
   );
 };
 
-export default TreesAdopted;
+export default TreesList;
