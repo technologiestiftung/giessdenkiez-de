@@ -5,7 +5,7 @@ import { useUserState } from '../../../utils/hooks/useUserState';
 
 import CardHeadline from '../../Card/CardHeadline/';
 import CardParagraph from '../../Card/CardParagraph/';
-import CardProgress from '../../Card/CardProgress/';
+import WateredTreesIndicator from '../../WateredTreesIndicator';
 import CardAccordion from '../../Card/CardAccordion/';
 import CardCredentials from '../../Card/CardCredentials/';
 import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
@@ -90,7 +90,7 @@ const SidebarProfile: FC = () => {
     <>
       <SidebarTitle>Profil</SidebarTitle>
       <CardHeadline>Dein Gießfortschritt</CardHeadline>
-      <CardProgress waterings={userData.waterings} />
+      <WateredTreesIndicator waterings={userData.waterings} />
       <CardAccordion active={true} title={<span>Adoptierte Bäume</span>}>
         <TreesAdopted trees={userData.adoptedTrees} />
       </CardAccordion>

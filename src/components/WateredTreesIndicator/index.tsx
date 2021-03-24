@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import CardHeadline from '../../Card/CardHeadline/';
-import CardDescription from '../../Card/CardDescription/';
-import Icon from '../../Icons';
-import { WateringType } from '../../../common/interfaces';
+import CardHeadline from '../Card/CardHeadline';
+import CardDescription from '../Card/CardDescription';
+import Icon from '../Icons';
+import { WateringType } from '../../common/interfaces';
 
 const FlexOuter = styled.div`
   display: flex;
@@ -28,7 +28,9 @@ const FlexColumn = styled.div`
   justify-content: center;
 `;
 
-const CardProgress: FC<{ waterings: WateringType[] }> = ({ waterings }) => {
+const WateredTreesIndicator: FC<{ waterings: WateringType[] }> = ({
+  waterings,
+}) => {
   const [liters, setLiters] = useState(0);
   const [times, setTimes] = useState(0);
 
@@ -66,4 +68,4 @@ const CardProgress: FC<{ waterings: WateringType[] }> = ({ waterings }) => {
   );
 };
 
-export default CardProgress;
+export default WateredTreesIndicator;
