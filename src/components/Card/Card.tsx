@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
 
 import CardWrapper from './CardWrapper';
-import CardProperty from './CardProperty';
 import ExpandablePanel from '../ExpandablePanel';
 import WaterNeedsInfo from '../WaterNeedsInfo';
 import UsersWateringsList from '../UsersWateringsList';
@@ -58,6 +57,18 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
+const AgeInfoContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
+  padding: 12px 0;
+  font-weight: bold;
+`;
+
+const AgeInfoValue = styled.span`
+  font-weight: normal;
+`;
+
 const Card: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
@@ -103,7 +114,10 @@ const Card: FC<{
         )}
         {standalter && standalter !== 'undefined' && (
           <>
-            <CardProperty name='Standalter' value={standalter + ' Jahre'} />
+            <AgeInfoContainer>
+              <span>Standalter</span>
+              <AgeInfoValue>{standalter} Jahre</AgeInfoValue>
+            </AgeInfoContainer>
             <ExpandablePanel
               title={
                 <>
