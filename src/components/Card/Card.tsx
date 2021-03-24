@@ -86,7 +86,8 @@ const Card: FC<{
     artdtsch,
     gattungdeutsch,
     caretaker,
-    wateredDays,
+    waterings,
+    isAdopted,
   } = selectedTreeData;
 
   const userdata = useStoreState('userData');
@@ -213,12 +214,12 @@ const Card: FC<{
           <CardDescription>der letzten 30 Tage</CardDescription>
           <StackedBarChart selectedTreeData={selectedTreeData} />
         </RainContainer>
-        {Array.isArray(wateredDays) && wateredDays.length > 0 && (
+        {Array.isArray(waterings) && waterings.length > 0 && (
           <CardAccordion
             active={true}
             title={<CardAccordionTitle>Zuletzt gegossen</CardAccordionTitle>}
           >
-            <TreeLastWatered data={wateredDays} />
+            <TreeLastWatered waterings={waterings} />
           </CardAccordion>
         )}
         {treeId && (

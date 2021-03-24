@@ -10,19 +10,30 @@ export interface DailyWaterAmountsType {
   wateringValue: number;
 }
 
-export interface WateredDayType {
-  tree_id: string;
-  time: string;
-  uuid: string;
+export interface RawWateringType {
   amount: string;
+  id: number;
+  time: string;
   timestamp: string;
+  tree_id: string;
   username: string;
+  uuid: string;
 }
 
-// TODO: There is an exported type for user from auh0-spa
-interface UserData {
+export interface WateringType {
+  amount: number;
+  id: string;
   username: string;
+  timestamp: string;
+  treeId: string;
+}
+export interface UserDataType {
+  id: string;
   email: string;
+  username: string;
+  isVerified: boolean;
+  waterings: WateringType[];
+  adoptedTrees: Tree[];
 }
 export interface SelectedTreeType extends Tree {
   radolan_days: RadolanDays;
@@ -30,7 +41,7 @@ export interface SelectedTreeType extends Tree {
   latitude: number;
   longitude: number;
   id: string;
-  wateredDays: WateredDayType[] | undefined;
+  waterings: WateringType[] | undefined;
   isAdopted: boolean | undefined;
 }
 export interface StoreProps {
@@ -40,7 +51,6 @@ export interface StoreProps {
   communityDataAdopted: string[];
   communityDataWatered: string[];
 
-  wateredByUser: WateredDayType[];
   wateredTrees: string[];
   adoptedTrees: Pick<Tree, 'id'>[];
 
@@ -49,12 +59,11 @@ export interface StoreProps {
   rainVisible: boolean;
 
   isNavOpen: boolean;
-  userData?: UserData;
+  user?: UserDataType;
   rainGeojson: Generic | null;
   ageRange: number[];
   pumps: Generic | null;
   data: Generic | null;
-  tabActive: string;
   overlay: boolean;
   isTreeDataLoading: boolean;
   hoveredObject: boolean;

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { StoreProps } from '../../../common/interfaces';
+import { WateringType } from '../../../common/interfaces';
 
 import { formatUnixTimestamp } from '../../../utils/formatUnixTimestamp';
 
@@ -47,34 +47,25 @@ const Title = styled.span`
 `;
 
 const TreeLastWatered: FC<{
-  data: StoreProps['data'];
-}> = ({ data }) => (
+  waterings: WateringType[];
+}> = ({ waterings }) => (
   <WrapperOuter>
-    {data &&
-      Array.isArray(data) &&
-      data.map(
-        (
-          info: {
-            username: string;
-            timestamp: string;
-            amount: number;
-          },
-          i: number
-        ) => {
-          return (
-            <Wrapper key={`Lastadopted-key-${i}`}>
-              <FlexRow>
-                <Title>{info.username}</Title>
-                <StyledTreeType>
-                  ({formatUnixTimestamp(info.timestamp)})
-                </StyledTreeType>
-              </FlexRow>
-              <TreeType>{info.amount}l</TreeType>
-              <StyledIcon src={iconDrop} alt='Water drop icon' />
-            </Wrapper>
-          );
-        }
-      )}
+    {waterings.map(
+      ({ username, timestamp, amount }: WateringType, i: number) => {
+        return (
+          <Wrapper key={`Lastadopted-key-${i}`}>
+            <FlexRow>
+              <Title>{username}</Title>
+              <StyledTreeType>
+                ({formatUnixTimestamp(timestamp)})
+              </StyledTreeType>
+            </FlexRow>
+            <TreeType>{amount}l</TreeType>
+            <StyledIcon src={iconDrop} alt='Water drop icon' />
+          </Wrapper>
+        );
+      }
+    )}
   </WrapperOuter>
 );
 

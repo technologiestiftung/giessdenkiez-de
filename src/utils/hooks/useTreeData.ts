@@ -4,6 +4,7 @@ import { SelectedTreeType } from '../../common/interfaces';
 import { useAuth0 } from '../auth/auth0';
 import { getTreeData } from '../requests/getTreeData';
 import { isTreeAdopted as isTreeAdoptedReq } from '../requests/isTreeAdopted';
+import { useAuth0Token } from './useAuth0Token';
 
 const loadTree: QueryFunction<SelectedTreeType | undefined> = async ({
   queryKey,
@@ -20,17 +21,15 @@ const loadTree: QueryFunction<SelectedTreeType | undefined> = async ({
 const isTreeAdopted: QueryFunction<boolean | undefined> = async ({
   queryKey,
 }) => {
-  const [_key, treeId, getTokenSilently, isAuthenticated, userName] = queryKey;
+  const [_key, treeId, token, userName] = queryKey;
 
-  if (!treeId || !getTokenSilently || !isAuthenticated || !userName)
-    return undefined;
+  if (!treeId || !token || !userName) return undefined;
 
-  const token = await getTokenSilently();
   const isAdopted = await isTreeAdoptedReq({
     id: treeId,
     uuid: userName,
     token,
-    isAuthenticated,
+    isAuthenticated: !!userName,
   });
   return isAdopted;
 };
@@ -56,7 +55,9 @@ export const useTreeData = (): {
   const { pathname } = useLocation();
   const treeId = parseTreeIdParam(pathname);
   const queryClient = useQueryClient();
-  const { getTokenSilently, isAuthenticated, user } = useAuth0();
+  const { user } = useAuth0();
+  const token = useAuth0Token();
+
   const treeDataParams = [`tree-${treeId}`, treeId];
   const { data: treeData, error } = useQuery<
     SelectedTreeType | undefined,
@@ -66,13 +67,7 @@ export const useTreeData = (): {
     refetchOnWindowFocus: false,
   });
 
-  const isAdoptedParams = [
-    `tree-${treeId}-adopted`,
-    treeId,
-    getTokenSilently,
-    isAuthenticated,
-    user?.sub,
-  ];
+  const isAdoptedParams = [`tree-${treeId}-adopted`, treeId, token, user?.sub];
   const { data: isAdopted, error: adoptedError } = useQuery<
     boolean | undefined,
     Error
