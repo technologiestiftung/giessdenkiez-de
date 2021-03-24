@@ -55,9 +55,7 @@ const Map: FC<{
 }> = ({ showOverlay, isNavOpened }) => {
   const data = useStoreState('data');
   const rainGeojson = useStoreState('rainGeojson');
-  const treesVisible = useStoreState('treesVisible');
-  const pumpsVisible = useStoreState('pumpsVisible');
-  const rainVisible = useStoreState('rainVisible');
+  const visibleLayer = useStoreState('visibleLayer');
   const pumps = useStoreState('pumps');
   const ageRange = useStoreState('ageRange');
   const dataView = useStoreState('dataView');
@@ -77,9 +75,7 @@ const Map: FC<{
       }}
       data={data || null}
       rainGeojson={rainGeojson || null}
-      treesVisible={!!treesVisible}
-      pumpsVisible={!!pumpsVisible}
-      rainVisible={!!rainVisible}
+      visibleLayer={visibleLayer}
       isTreeDataLoading={!!isTreeDataLoading}
       isNavOpen={!!isNavOpened}
       showControls={showOverlay}

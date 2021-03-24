@@ -54,10 +54,6 @@ export interface StoreProps {
   wateredTrees: string[];
   adoptedTrees: Pick<Tree, 'id'>[];
 
-  treesVisible: boolean;
-  pumpsVisible: boolean;
-  rainVisible: boolean;
-
   visibleLayer: 'rain' | 'trees' | 'pumps';
 
   isNavOpen: boolean;

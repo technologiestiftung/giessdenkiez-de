@@ -11,8 +11,5 @@ const Template: Story = args => <Legend {...args} />;
 
 export const LegendStory = Template.bind({});
 LegendStory.args = {
-  treesVisible: true,
-  rainVisible: false,
-  pumpsVisible: false,
-  overlay: false,
+  visibleLayer: 'trees',
 };
