@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import ExpandablePanel from '../ExpandablePanel';
 
-import CardDescription from '../Card/CardDescription';
+import SmallParagraph from '../SmallParagraph';
 
 const StyledCardHeadlineMail = styled.div`
   font-size: 0.8rem;
@@ -15,7 +15,7 @@ const CardCredentials: FC<{
   <ExpandablePanel isExpanded title='Dein Account'>
     <StyledCardHeadlineMail>{username}</StyledCardHeadlineMail>
     <StyledCardHeadlineMail>{email}</StyledCardHeadlineMail>
-    <CardDescription>Registrierte E-Mail Adresse</CardDescription>
+    <SmallParagraph>Registrierte E-Mail Adresse</SmallParagraph>
   </ExpandablePanel>
 );
 

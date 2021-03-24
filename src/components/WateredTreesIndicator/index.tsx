@@ -2,17 +2,13 @@ import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import CardHeadline from '../Card/CardHeadline';
-import CardDescription from '../Card/CardDescription';
 import Icon from '../Icons';
 import { WateringType } from '../../common/interfaces';
+import SmallParagraph from '../SmallParagraph';
 
 const FlexOuter = styled.div`
   display: flex;
   width: 50%;
-`;
-
-const StyledCardDescription = styled(CardDescription)`
-  width: 100%;
 `;
 
 const Flex = styled.div`
@@ -60,7 +56,7 @@ const WateredTreesIndicator: FC<{ waterings: WateringType[] }> = ({
           <Icon iconType={item.id === 'timesSpend' ? 'trees' : 'water'} />
           <FlexColumn>
             <CardHeadline>{item.id === 'liters' ? liters : times}</CardHeadline>
-            <StyledCardDescription>{item.label}</StyledCardDescription>
+            <SmallParagraph>{item.label}</SmallParagraph>
           </FlexColumn>
         </FlexOuter>
       ))}
