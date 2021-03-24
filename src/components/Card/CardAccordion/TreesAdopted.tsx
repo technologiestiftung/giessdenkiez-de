@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Tree } from '../../../common/interfaces';
-import { useActions } from '../../../state/unistore-hooks';
+import { useHistory } from 'react-router';
 import TreeButton from '../../TreeButton';
 
 const WrapperOuter = styled.div`
@@ -20,6 +20,7 @@ const TreesAdopted: FC<{
   trees: Tree[];
 }> = ({ trees }) => {
   // const { selectTree } = useActions();
+  const history = useHistory();
 
   if (trees.length === 0) {
     return (
@@ -34,10 +35,9 @@ const TreesAdopted: FC<{
         tree && tree.id ? (
           <TreeButton
             key={tree.id}
+            label={tree.artdtsch ? tree.artdtsch : tree.id}
             onClickHandler={async () => {
-              // TODO: Merge We need a way to set the selected tree
-              alert('Need a way to set the selected tree');
-              // selectTree(tree.id ? tree.id : undefined);
+              history.push(`/tree/${tree.id}`);
             }}
           />
         ) : null
