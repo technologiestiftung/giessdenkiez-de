@@ -21,8 +21,8 @@ import Icon from '../Icons';
 import StackedBarChart from '../StackedBarChart';
 import { useUserState } from '../../utils/hooks/useUserState';
 import { ParticipateButton } from '../ParticipateButton';
-import CardParagraph from './CardParagraph';
-import { NonVerfiedMailCardParagraph } from './non-verified-mail';
+import Paragraph from '../Paragraph';
+import { NonVerfiedMailMessage } from './non-verified-mail';
 import ButtonRound from '../ButtonRound';
 
 const { sidebar } = content;
@@ -163,11 +163,11 @@ const Card: FC<{
 
         {userData && !userData.isVerified && (
           <>
-            <CardParagraph>
+            <Paragraph>
               Bäume adoptieren und wässern ist nur möglich mit verifiziertem
               Account.
-            </CardParagraph>
-            <NonVerfiedMailCardParagraph />
+            </Paragraph>
+            <NonVerfiedMailMessage />
           </>
         )}
 
