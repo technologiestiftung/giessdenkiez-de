@@ -35,10 +35,6 @@ const parseSelectedTreeResponse = (
   };
 };
 
-const parseWateringsResponse = (
-  wateringsResponse: TreeWateringsResponse
-): RawWateringType[] => wateringsResponse.data || [];
-
 export const getTreeData = async (
   id: string
 ): Promise<{
@@ -51,14 +47,13 @@ export const getTreeData = async (
     requests<SelectedTreeResponseType>(urlSelectedTree),
     requests<TreeWateringsResponse>(urlWaterings),
   ]);
-  const waterings = parseWateringsResponse(resWaterings);
 
   return {
     selectedTreeData:
       resSelectedTree.data.length > 0
         ? parseSelectedTreeResponse(
             resSelectedTree as SelectedTreeResponseType,
-            waterings
+            resWaterings.data || []
           )
         : undefined,
   };

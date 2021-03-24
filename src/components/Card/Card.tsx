@@ -165,7 +165,15 @@ const TreeInfos: FC<{
           <StackedBarChart selectedTreeData={selectedTreeData} />
         </ExpandablePanel>
         {Array.isArray(waterings) && waterings.length > 0 && (
-          <ExpandablePanel isExpanded={true} title='Zuletzt gegossen'>
+          <ExpandablePanel
+            isExpanded={true}
+            title={
+              <>
+                Letzte Bewässerungen
+                <SmallParagraph>Neueste zuerst</SmallParagraph>
+              </>
+            }
+          >
             <UsersWateringsList waterings={waterings} />
           </ExpandablePanel>
         )}

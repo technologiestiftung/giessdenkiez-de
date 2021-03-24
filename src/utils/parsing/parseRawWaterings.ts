@@ -10,4 +10,4 @@ const parseRawWatering = (rawWatering: RawWateringType): WateringType => ({
 
 export const parseRawWaterings = (
   rawWaterings: RawWateringType[]
-): WateringType[] => rawWaterings.map(parseRawWatering);
+): WateringType[] => rawWaterings.map(parseRawWatering).reverse();
