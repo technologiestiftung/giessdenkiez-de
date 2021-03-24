@@ -8,7 +8,7 @@ import WateredTreesIndicator from '../../WateredTreesIndicator';
 import ExpandablePanel from '../../ExpandablePanel';
 import UserCredentials from '../../UserCredentials';
 import TreesList from '../../TreesList';
-import { NonVerfiedMailMessage } from '../../Card/non-verified-mail';
+import { NonVerfiedMailMessage } from '../../NonVerfiedMailMessage';
 import Login from '../../Login';
 import ButtonRound from '../../ButtonRound';
 import LoadingIcon from '../../LoadingIcon/';

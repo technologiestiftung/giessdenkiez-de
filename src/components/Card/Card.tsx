@@ -16,7 +16,7 @@ import StackedBarChart from '../StackedBarChart';
 import { useUserState } from '../../utils/hooks/useUserState';
 import { ParticipateButton } from '../ParticipateButton';
 import Paragraph from '../Paragraph';
-import { NonVerfiedMailMessage } from './non-verified-mail';
+import { NonVerfiedMailMessage } from '../NonVerfiedMailMessage';
 import ButtonRound from '../ButtonRound';
 import SmallParagraph from '../SmallParagraph';
 
@@ -73,7 +73,7 @@ const AgeInfoValue = styled.span`
   font-weight: normal;
 `;
 
-const Card: FC<{
+const TreeInfos: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
   const {
@@ -192,4 +192,4 @@ const Card: FC<{
   );
 };
 
-export default Card;
+export default TreeInfos;
