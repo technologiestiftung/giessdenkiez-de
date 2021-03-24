@@ -4,7 +4,8 @@ interface ButtonProps {
   size?: number;
   isActive?: boolean;
 }
-export default styled.button<ButtonProps>`
+
+const SquareButton = styled.button<ButtonProps>`
   width: ${props => props.size || 64}px;
   height: ${props => props.size || 64}px;
   background-color: ${props =>
@@ -30,3 +31,5 @@ export default styled.button<ButtonProps>`
     color: ${props => (props.isActive ? '#fff' : props.theme.colorTextDark)};
   }
 `;
+
+export default SquareButton;
