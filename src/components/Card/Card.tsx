@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
 
@@ -13,22 +13,17 @@ import TreeWatering from './CardAccordion/TreeWatering';
 import TreeLastWatered from './CardAccordion/TreeLastWatered';
 import ButtonWater from '../ButtonWater';
 import CardWaterDrops from './CardWaterDrops';
-import store from '../../state/Store';
+import Login from '../Login';
 
 import content from '../../assets/content';
 import { Generic, SelectedTreeType } from '../../common/interfaces';
 import Icon from '../Icons';
 import StackedBarChart from '../StackedBarChart';
-import { isTreeAdopted } from '../../utils/requests/isTreeAdopted';
-import { adoptTree } from '../../utils/requests/adoptTree';
-import { getCommunityData } from '../../utils/requests/getCommunityData';
-import { waterTree } from '../../utils/requests/waterTree';
-import { ButtonWaterGroup } from '../../common/types';
-
-import { unadoptTree } from '../../utils/requests/unadoptTree';
-import { useTreeData } from '../../utils/hooks/useTreeData';
-import { useStoreState } from '../../state/unistore-hooks';
-import { useAuth0 } from '../../utils/auth/auth0';
+import { useUserState } from '../../utils/hooks/useUserState';
+import { ParticipateButton } from '../ParticipateButton';
+import CardParagraph from './CardParagraph';
+import { NonVerfiedMailCardParagraph } from './non-verified-mail';
+import ButtonRound from '../ButtonRound';
 
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
@@ -82,83 +77,20 @@ const Card: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
   const {
+    id: treeId,
     standalter,
     artdtsch,
     gattungdeutsch,
     caretaker,
     waterings,
-    isAdopted,
   } = selectedTreeData;
 
-  const userdata = useStoreState('userData');
-  const { treeId, treeData } = useTreeData();
-  const [isTreeAdoptedByUser, setIsTreeAdoptedByUser] = useState(false);
-  const [waterGroup, setWaterGroup] = useState<ButtonWaterGroup>('visible');
-
-  const { getTokenSilently, isAuthenticated, user } = useAuth0();
-
-  const unAdoptTreeClick = async () => {
-    if (!user) return;
-    if (!user.sub) return;
-    if (!treeId) return;
-    if (!treeData) return;
-    if (typeof getTokenSilently !== 'function') return;
-
-    const token = await getTokenSilently();
-    if (isTreeAdoptedByUser) {
-      console.log('clicked unadopt');
-      await unadoptTree({ id: treeId, token, userId: user.sub });
-      setIsTreeAdoptedByUser(false);
-    } else {
-      console.log('clicked adopt');
-      await adoptTree({ id: treeId, token, userId: user.sub });
-      setIsTreeAdoptedByUser(true);
-    }
-    const communityData = await getCommunityData();
-    store.setState(communityData);
-  };
-
-  const waterTreeClick = async (treeId: string, amount: number) => {
-    if (!user) return;
-    if (!user.sub) return;
-    if (!userdata) return;
-    if (typeof getTokenSilently !== 'function') return;
-
-    setWaterGroup('watered');
-    const token = await getTokenSilently();
-    await waterTree({
-      id: treeId,
-      amount,
-      username: userdata.username,
-      userId: user.sub,
-      token,
-    });
-    setWaterGroup('visible');
-  };
-
-  useEffect(() => {
-    if (typeof getTokenSilently !== 'function') return;
-    if (!treeId) return;
-    if (!user) return;
-    if (!user.sub) return;
-
-    getTokenSilently()
-      .then((token: string) => {
-        return isTreeAdopted({
-          id: treeId,
-          uuid: user.sub as string,
-          token,
-          isAuthenticated,
-        });
-      })
-      .then(isTreeAdoptedState => {
-        setIsTreeAdoptedByUser(isTreeAdoptedState);
-        return;
-      })
-      .catch(console.error);
-  }, [user, treeId, getTokenSilently, isAuthenticated, isTreeAdoptedByUser]);
+  const { userData, unadoptTree, adoptTree, waterTree } = useUserState();
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
+
+  const treeIsAdopted =
+    userData && userData.adoptedTrees.find(({ id }) => id === treeId);
 
   return (
     <CardWrapper>
@@ -222,17 +154,38 @@ const Card: FC<{
             <TreeLastWatered waterings={waterings} />
           </CardAccordion>
         )}
-        {treeId && (
-          <ButtonWater
-            waterGroup={waterGroup}
-            isEmailVerified
-            isAuthenticated={isAuthenticated}
-            setWaterGroup={setWaterGroup}
-            onAdoptTreeClick={unAdoptTreeClick}
-            onWaterTreeClick={waterTreeClick}
-            isTreeAdoptedByUser={isTreeAdoptedByUser}
-            treeId={treeId}
-          />
+        {!userData && (
+          <div>
+            <Login />
+            <ParticipateButton />
+          </div>
+        )}
+
+        {userData && !userData.isVerified && (
+          <>
+            <CardParagraph>
+              Bäume adoptieren und wässern ist nur möglich mit verifiziertem
+              Account.
+            </CardParagraph>
+            <NonVerfiedMailCardParagraph />
+          </>
+        )}
+
+        {treeId && userData && userData.isVerified && (
+          <>
+            <ButtonRound
+              margin='15px'
+              onClick={() =>
+                treeIsAdopted ? unadoptTree(treeId) : adoptTree(treeId)
+              }
+              type='secondary'
+            >
+              {treeIsAdopted ? 'Baum unadoptieren' : 'Baum adoptieren'}
+            </ButtonRound>
+            <ButtonWater
+              onClick={(amount: number) => waterTree(treeId, amount)}
+            />
+          </>
         )}
       </FlexColumnDiv>
     </CardWrapper>
