@@ -73,6 +73,19 @@ const AgeInfoValue = styled.span`
   font-weight: normal;
 `;
 
+const AdoptedIndication = styled.span`
+  display: inline-block;
+  margin-left: 8px;
+  border-radius: 2px;
+  font-size: ${p => p.theme.fontSizeM};
+  line-height: ${p => p.theme.fontSizeM};
+  color: ${p => p.theme.colorPrimary};
+  border: 1px solid;
+  padding: 4px 5px;
+  font-weight: normal;
+  transform: translateY(-4px);
+`;
+
 const TreeInfos: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
@@ -97,7 +110,12 @@ const TreeInfos: FC<{
     <Wrapper>
       <FlexColumnDiv>
         {(artdtsch || gattungdeutsch || treeType?.title) && (
-          <TreeTitle>{artdtsch || gattungdeutsch || treeType?.title}</TreeTitle>
+          <TreeTitle>
+            {artdtsch || gattungdeutsch || treeType?.title}
+            {treeIsAdopted && (
+              <AdoptedIndication>Adoptiert ✔</AdoptedIndication>
+            )}
+          </TreeTitle>
         )}
         {!treeType &&
           gattungdeutsch &&
