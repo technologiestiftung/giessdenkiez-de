@@ -5,7 +5,7 @@ import { adoptTree } from '../requests/adoptTree';
 import { deleteAccount } from '../requests/deleteAccount';
 import { getUserData } from '../requests/getUserData';
 import { unadoptTree } from '../requests/unadoptTree';
-import { useAuth0Token } from './useToken';
+import { useAuth0Token } from './useAuth0Token';
 
 type UserDataError = Error | null;
 
@@ -22,11 +22,12 @@ export const useUserState = (): {
   userData: UserDataType | undefined;
   error: Error | null;
   logout: () => void;
+  login: () => void;
   deleteAccount: () => Promise<void>;
   adoptTree: (treeId: string) => void;
   unadoptTree: (treeId: string) => void;
 } => {
-  const { user, logout } = useAuth0();
+  const { user, logout, loginWithRedirect } = useAuth0();
   const token = useAuth0Token();
   const queryClient = useQueryClient();
 
@@ -43,6 +44,9 @@ export const useUserState = (): {
       if (!user?.sub) return;
       logout();
       queryClient.invalidateQueries(queryParams);
+    },
+    login: () => {
+      loginWithRedirect({ ui_locales: 'de' });
     },
     deleteAccount: async () => {
       if (!user?.sub || !token) return;

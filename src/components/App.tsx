@@ -11,12 +11,9 @@ import '../assets/style.scss';
 import AppWrapper from './AppWrapper';
 import { useActions } from '../state/unistore-hooks';
 import { loadAllData } from '../utils/requests/loadAllData';
-import { getUserData } from '../utils/requests/getUserData';
-import { useAuth0 } from '../utils/auth/auth0';
 
 const AppContainer: FC = () => {
   const { startLoading, stopLoading } = useActions();
-  const { isAuthenticated, getTokenSilently, user } = useAuth0();
 
   useEffect(() => {
     startLoading();
@@ -25,14 +22,6 @@ const AppContainer: FC = () => {
       .finally(() => stopLoading())
       .catch(console.error);
   }, []);
-
-  useEffect(() => {
-    if (!isAuthenticated || !user) return;
-    getTokenSilently()
-      .then((token: string) => getUserData({ userId: user.sub, token }))
-      .then(store.setState)
-      .catch(console.error);
-  }, [isAuthenticated, user, getTokenSilently]);
 
   return (
     <Router history={history}>
