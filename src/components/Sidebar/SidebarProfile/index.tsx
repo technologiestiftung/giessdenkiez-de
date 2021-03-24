@@ -7,7 +7,7 @@ import CardHeadline from '../../Card/CardHeadline/';
 import Paragraph from '../../Paragraph';
 import WateredTreesIndicator from '../../WateredTreesIndicator';
 import ExpandablePanel from '../../ExpandablePanel';
-import CardCredentials from '../../Card/CardCredentials/';
+import UserCredentials from '../../UserCredentials';
 import TreesList from '../../TreesList';
 import { NonVerfiedMailMessage } from '../../Card/non-verified-mail';
 import Login from '../../Login';
@@ -91,14 +91,15 @@ const SidebarProfile: FC = () => {
       <SidebarTitle>Profil</SidebarTitle>
       <CardHeadline>Dein Gießfortschritt</CardHeadline>
       <WateredTreesIndicator waterings={userData.waterings} />
-      <ExpandablePanel isExpanded={true} title={<span>Adoptierte Bäume</span>}>
+      <ExpandablePanel isExpanded title={<span>Adoptierte Bäume</span>}>
         {userData.adoptedTrees.length === 0 ? (
           'Du hast noch keine Bäume adoptiert.'
         ) : (
           <TreesList trees={userData.adoptedTrees} />
         )}
       </ExpandablePanel>
-      <CardCredentials />
+      <UserCredentials email={userData.email} username={userData.username} />
+      <br />
       <Login width='-webkit-fill-available' />
       <>
         <Paragraph>
