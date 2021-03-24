@@ -1,7 +1,7 @@
 import createStore from 'unistore';
 import { StoreProps } from '../common/interfaces';
 
-const initialState = {
+const initialState: StoreProps = {
   wateredTrees: [],
   adoptedTrees: [],
   dataView: 'rain',
@@ -11,6 +11,7 @@ const initialState = {
   treesVisible: true,
   isNavOpen: false,
   pumpsVisible: false,
+  visibleLayer: 'trees',
   user: undefined,
   rainVisible: false,
   rainGeojson: null,

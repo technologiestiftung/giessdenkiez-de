@@ -58,6 +58,8 @@ export interface StoreProps {
   pumpsVisible: boolean;
   rainVisible: boolean;
 
+  visibleLayer: 'rain' | 'trees' | 'pumps';
+
   isNavOpen: boolean;
   user?: UserDataType;
   rainGeojson: Generic | null;
