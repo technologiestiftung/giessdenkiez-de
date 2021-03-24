@@ -1,6 +1,26 @@
+import { WateringType } from '../../common/interfaces';
 import { createAPIUrl } from '../createAPIUrl';
 import { requests } from '../requestUtil';
-import { Tree } from '../../common/interfaces';
+
+interface RawWateringType {
+  amount: string;
+  id: number;
+  time: string;
+  timestamp: string;
+  tree_id: string;
+  username: string;
+  uuid: string;
+}
+
+const parseRawWatering = (rawWatering: RawWateringType): WateringType => ({
+  id: `watering-${rawWatering.id}`,
+  amount: parseFloat(rawWatering.amount),
+  timestamp: rawWatering.timestamp,
+  treeId: rawWatering.tree_id,
+});
+
+const parseRawWaterings = (rawWaterings: RawWateringType[]): WateringType[] =>
+  rawWaterings.map(parseRawWatering);
 
 export const getTreesWateredByUser = async ({
   userId,
@@ -8,10 +28,13 @@ export const getTreesWateredByUser = async ({
 }: {
   userId: string;
   token: string;
-}): Promise<Tree[]> => {
+}): Promise<WateringType[]> => {
   const urlWateredByUser = createAPIUrl(
     `/get?queryType=wateredbyuser&uuid=${userId}`
   );
-  const res = await requests<{ data: Tree[] }>(urlWateredByUser, { token });
-  return res.data;
+  const res = await requests<{ data: RawWateringType[] }>(urlWateredByUser, {
+    token,
+  });
+  if (!res?.data) return [];
+  return parseRawWaterings(res.data);
 };

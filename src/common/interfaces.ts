@@ -18,6 +18,12 @@ export interface WateredDayType {
   timestamp: string;
   username: string;
 }
+export interface WateringType {
+  amount: number;
+  id: string;
+  timestamp: string;
+  treeId: string;
+}
 
 interface UserType {
   username: string;

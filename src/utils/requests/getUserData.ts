@@ -1,7 +1,15 @@
-import { StoreProps } from '../../common/interfaces';
+import { Tree, WateringType } from '../../common/interfaces';
 import { getTreesAdoptedByUser } from './getTreesAdoptedByUser';
 import { getTreesWateredByUser } from './getTreesWateredByUser';
 import { getUserInfo } from './getUserInfo';
+interface UserDataType {
+  id: string;
+  email: string;
+  username: string;
+  isVerified: boolean;
+  waterings: WateringType[];
+  adoptedTrees: Tree[];
+}
 
 export const getUserData = async ({
   userId,
@@ -9,16 +17,21 @@ export const getUserData = async ({
 }: {
   userId: string;
   token: string;
-}): Promise<{
-  user: StoreProps['user'];
-  wateredByUser: StoreProps['wateredByUser'];
-  adoptedTrees: StoreProps['adoptedTrees'];
-}> => {
+}): Promise<UserDataType | undefined> => {
   const res = await Promise.all([
     getUserInfo({ userId, token }),
     getTreesWateredByUser({ userId, token }),
     getTreesAdoptedByUser({ userId, token }),
   ]);
-  const [user, wateredByUser, adoptedTrees] = res;
-  return { user, wateredByUser, adoptedTrees };
+  const [user, waterings, adoptedTrees] = res;
+  if (!user) return undefined;
+
+  return {
+    id: userId,
+    email: user.email || '',
+    username: user.username || '',
+    isVerified: user.email_verified || false,
+    waterings,
+    adoptedTrees,
+  };
 };
