@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Route, withRouter, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import SidebarAbout from './SidebarAbout/';
 import SidebarSearch from './SidebarSearch/';
@@ -62,4 +62,4 @@ const Sidebar: React.FC = () => (
   />
 );
 
-export default withRouter(Sidebar);
+export default Sidebar;
