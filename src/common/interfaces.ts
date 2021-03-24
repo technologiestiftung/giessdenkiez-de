@@ -79,7 +79,7 @@ export interface Tree {
   baumhoehe?: string | null;
   bezirk?: string | null;
   eigentuemer?: string | null;
-  adopted?: boolean;
+  adopted?: boolean | null;
   watered?: boolean;
   radolan_sum?: number | null;
   radolan_days?: number[];
