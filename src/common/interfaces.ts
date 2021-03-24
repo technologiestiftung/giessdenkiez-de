@@ -95,3 +95,25 @@ export interface Tree {
   kennzeich?: string | null;
   caretaker?: string | null;
 }
+
+// Legend shared
+export interface StyledProps {
+  active?: boolean;
+}
+
+export interface FlexColumnProps {
+  isLast?: boolean;
+}
+export interface PumpsDotProps {
+  color: string;
+  size: number;
+}
+
+export interface LegendDotProps {
+  color: string;
+  gradient?: string;
+}
+
+export interface ItemContainerProps extends StyledProps {
+  active?: boolean;
+}

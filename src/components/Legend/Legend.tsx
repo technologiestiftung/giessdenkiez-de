@@ -4,70 +4,28 @@ import { interpolateColor } from '../../utils/colorUtil';
 import store from '../../state/Store';
 import { useStoreState } from '../../state/unistore-hooks';
 import CardDescription from '../Card/CardDescription';
+import { workingColor } from '../map/colors';
+import { createCSSGradient } from './createCSSGradient';
+import { legendLabels } from './legendLabels';
+import { PumpsColorLegend } from './PumpsColorLegend';
+import { RainColorLegend } from './RainColorLegend';
+import { TreesColorLegend } from './TreesColorLegend';
+import { UnstyledFlex } from './UnstyledFlex';
+import { ItemLabel } from './ItemLabel';
+import { LegendRect } from './LegendRect';
 import {
-  workingColor,
-  defaultColor,
-  brokenColor,
-  lockedColor,
-} from '../map/colors';
+  FlexColumnProps,
+  LegendDotProps,
+  StyledProps,
+} from '../../common/interfaces';
 
-interface StyledProps {
-  active?: boolean;
-}
-
-interface FlexColumnProps {
-  isLast?: boolean;
-}
-interface ItemContainerProps extends StyledProps {
-  active?: boolean;
-}
-const ItemContainer = styled.div<ItemContainerProps>`
-  display: flex;
-  flex-direction: column;
-  height: 40px;
-  align-items: ${p => (p.active ? 'baseline' : 'center')};
-  justify-content: center;
-  margin-right: 10px;
-`;
-
-interface LegendDotProps {
-  color: string;
-  gradient?: string;
-}
-const LegendDot = styled.div<LegendDotProps>`
+export const LegendDot = styled.div<LegendDotProps>`
   width: 13px;
   height: 13px;
   border-radius: 100px;
   margin-right: 5px;
   ${p =>
     p.gradient ? `background: ${p.gradient}` : `background-color: ${p.color}`};
-`;
-
-interface PumpsDot {
-  color: string;
-  size: number;
-}
-const PumpsDot = styled.div<PumpsDot>`
-  width: ${p => p.size - 2}px;
-  height: ${p => p.size - 3}px;
-  border-radius: ${p => p.size / 2}px;
-  margin-right: 6px;
-  background-color: ${p => p.color};
-  border: 2px solid ${p => p.theme.colorTextDark};
-`;
-
-const PumpLabel = styled.label`
-  font-size: ${p => p.theme.fontSizeL};
-  opacity: 0.66;
-  width: 100%;
-`;
-
-const LegendRect = styled.div<Pick<LegendDotProps, 'gradient'>>`
-  width: 9px;
-  height: 9px;
-  margin-right: 5px;
-  border: 2px solid ${p => p.theme.colorTextDark};
-  ${p => (p.gradient ? `background: ${p.gradient}` : 'background-color: none')};
 `;
 
 const StrokedLegendDot = styled.div<Pick<LegendDotProps, 'gradient'>>`
@@ -79,43 +37,9 @@ const StrokedLegendDot = styled.div<Pick<LegendDotProps, 'gradient'>>`
   border: 2px solid ${p => p.theme.colorTextDark};
 `;
 
-const ItemLabel = styled.label`
-  font-size: ${p => p.theme.fontSizeL};
-  opacity: 0.66;
-  padding-top: 5px;
-  width: 100%;
-`;
-
 const StyledItemLabel = styled(ItemLabel)`
   width: auto;
   padding: 0;
-`;
-
-const Flex = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
-`;
-
-const UnstyledFlex = styled(Flex)`
-  border-bottom: none;
-  justify-content: flex-start;
-  margin-bottom: 0;
-`;
-
-const FlexRow = styled.div`
-  display: flex;
-  flex-direction: colmun;
-  height: 16px;
-  line-height: 16px;
-  padding: 4px 9px;
-  width: 100%;
-  align-items: center;
-
-  margin-right: 10px;
 `;
 
 const UnstyledFlexWidth = styled(UnstyledFlex)<StyledProps>`
@@ -179,33 +103,6 @@ const StyledCardDescriptionSecond = styled(CardDescription)`
   width: 100%;
 `;
 
-const legendArray = [
-  {
-    label: '0',
-    value: 0,
-  },
-  {
-    label: '60',
-    value: 60,
-  },
-  {
-    label: '120',
-    value: 120,
-  },
-  {
-    label: '180',
-    value: 180,
-  },
-  {
-    label: '240',
-    value: 240,
-  },
-  {
-    label: '300',
-    value: 300,
-  },
-];
-
 const StyledToggle = styled.span`
   cursor: pointer;
   height: fit-content;
@@ -213,169 +110,106 @@ const StyledToggle = styled.span`
     opacity: 0.66;
   }
 `;
-export interface LegendProps {
-  treesVisible: boolean;
-  rainVisible: boolean;
-  pumpsVisible: boolean;
-  legendExpanded: boolean;
-}
 
-function createCSSGradient(colors: string[], degrees = 90): string {
-  let gradient = `linear-gradient(${degrees}deg, `;
-  const len = colors.length;
-  let i = 0;
-  for (const color of colors) {
-    gradient += color;
-    if (i !== len - 1) {
-      gradient += ', ';
-    }
-    i++;
-  }
-  gradient += ')';
-  return gradient;
-}
-const rainColors = legendArray.map(item => interpolateColor(item.value));
+const rainColors = legendLabels.map(item => interpolateColor(item.value));
 const rainGradient = createCSSGradient(rainColors);
 
 const Legend: FC = () => {
-  const pumpsVisible = useStoreState('pumpsVisible');
-  const rainVisible = useStoreState('rainVisible');
-  const treesVisible = useStoreState('treesVisible');
+  const visibleLayer = useStoreState('visibleLayer');
+
   const [legendExpanded, setLegendExpanded] = useState<boolean>(true);
 
+  if (legendExpanded === false) {
+    return (
+      <LegendDiv>
+        <FlexSpace>
+          <FlexColumn>
+            <StyledCardDescription onClick={() => setLegendExpanded(true)}>
+              {'Legende'}
+            </StyledCardDescription>
+          </FlexColumn>
+          <StyledToggle onClick={() => setLegendExpanded(true)}>
+            {'+'}
+          </StyledToggle>
+        </FlexSpace>
+      </LegendDiv>
+    );
+  }
+
   return (
-    <LegendDiv active={legendExpanded}>
-      <FlexSpace active={legendExpanded}>
+    <LegendDiv active>
+      <FlexSpace active>
         <FlexColumn>
-          <StyledCardDescription
-            onClick={() => setLegendExpanded(!legendExpanded)}
-          >
-            {(() => {
-              if (legendExpanded) {
-                if (pumpsVisible) {
-                  return 'Öffentliche Pumpen';
-                }
-                return 'Niederschlag';
-              } else {
-                return 'Legende';
-              }
-            })()}
-            {/* {legendExpanded ? 'Niederschlag' : 'Legende'} */}
+          <StyledCardDescription onClick={() => setLegendExpanded(false)}>
+            {visibleLayer === 'pumps' ? 'Öffentliche Pumpen' : 'Niederschlag'}
           </StyledCardDescription>
-          {legendExpanded === true && pumpsVisible === false && (
+          {visibleLayer !== 'pumps' && (
             <StyledCardDescriptionSecond>
               der letzten 30 Tage (Liter)
             </StyledCardDescriptionSecond>
           )}
         </FlexColumn>
-        <StyledToggle onClick={() => setLegendExpanded(!legendExpanded)}>
-          {legendExpanded ? '—' : '+'}
+        <StyledToggle onClick={() => setLegendExpanded(false)}>
+          {'—'}
         </StyledToggle>
       </FlexSpace>
-      {legendExpanded === true && pumpsVisible === false && (
+      {visibleLayer !== 'pumps' && (
         <UnstyledFlex>
-          {treesVisible &&
-            legendArray.map(item => {
-              return (
-                <React.Fragment key={item.label}>
-                  <ItemContainer>
-                    <LegendDot color={interpolateColor(item.value)} />
-                    <ItemLabel>{item.label}</ItemLabel>
-                  </ItemContainer>
-                </React.Fragment>
-              );
-            })}
-
-          {rainVisible === true &&
-            legendArray.map(item => (
-              <React.Fragment key={item.label}>
-                <ItemContainer>
-                  <LegendRect gradient={interpolateColor(item.value)} />
-                  <ItemLabel>{item.label}</ItemLabel>
-                </ItemContainer>
-              </React.Fragment>
-            ))}
+          {visibleLayer === 'trees' && <TreesColorLegend />}
+          {visibleLayer === 'rain' && <RainColorLegend />}
         </UnstyledFlex>
       )}
-      {legendExpanded === true && pumpsVisible === true && (
-        <UnstyledFlex>
-          <FlexRow>
-            <PumpsDot color={workingColor.hex} size={13} />
-            <PumpLabel>{'funktionsfähig'}</PumpLabel>
-          </FlexRow>
-          <FlexRow>
-            <PumpsDot color={brokenColor.hex} size={13} />
-            <PumpLabel>{'defekt'}</PumpLabel>
-          </FlexRow>
+      {visibleLayer === 'pumps' && <PumpsColorLegend />}
 
-          <FlexRow>
-            <PumpsDot color={lockedColor.hex} size={13} />
-            <PumpLabel>{'verriegelt'}</PumpLabel>
-          </FlexRow>
-
-          <FlexRow>
-            <PumpsDot color={defaultColor.hex} size={13} />
-            <PumpLabel>{'unbekannt'}</PumpLabel>
-          </FlexRow>
-        </UnstyledFlex>
-      )}
-      {legendExpanded && (
-        <FlexColumn isLast={true}>
-          <StyledCardDescription>Datenpunkte</StyledCardDescription>
-          <StyledCardDescriptionSecond>
-            durch Klick ein- & ausblenden.
-          </StyledCardDescriptionSecond>
-          <UnstyledFlexWidth
-            active={treesVisible}
-            onClick={() => {
-              store.setState({ treesVisible: !treesVisible });
-              store.setState({ pumpsVisible: false });
-              store.setState({ rainVisible: false });
-            }}
-          >
-            {treesVisible === true ? (
-              <LegendDot
-                className={'legend-dot'}
-                color={'#2c303b'}
-                gradient={rainGradient}
-              />
-            ) : (
-              <LegendDot className={'legend-dot'} color={'#2c303b'} />
-            )}
-            <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
-          </UnstyledFlexWidth>
-          <UnstyledFlexWidth
-            active={pumpsVisible}
-            onClick={() => {
-              store.setState({ treesVisible: false });
-              store.setState({ pumpsVisible: !pumpsVisible });
-              store.setState({ rainVisible: false });
-            }}
-          >
-            {pumpsVisible === true ? (
-              <StrokedLegendDot gradient={`${workingColor.hex}`} />
-            ) : (
-              <StrokedLegendDot />
-            )}
-            <StyledItemLabel>Öffentl. Pumpen</StyledItemLabel>
-          </UnstyledFlexWidth>
-          <UnstyledFlexWidth
-            active={rainVisible}
-            onClick={() => {
-              store.setState({ treesVisible: false });
-              store.setState({ pumpsVisible: false });
-              store.setState({ rainVisible: !rainVisible });
-            }}
-          >
-            {rainVisible === true ? (
-              <LegendRect gradient={rainGradient} />
-            ) : (
-              <LegendRect />
-            )}
-            <StyledItemLabel>Niederschlagsflächen</StyledItemLabel>
-          </UnstyledFlexWidth>
-        </FlexColumn>
-      )}
+      <FlexColumn isLast={true}>
+        <StyledCardDescription>Datenpunkte</StyledCardDescription>
+        <StyledCardDescriptionSecond>
+          durch Klick ein- & ausblenden.
+        </StyledCardDescriptionSecond>
+        <UnstyledFlexWidth
+          active={visibleLayer === 'trees' ? true : false}
+          onClick={() => {
+            store.setState({ visibleLayer: 'trees' });
+          }}
+        >
+          {visibleLayer === 'trees' ? (
+            <LegendDot
+              className={'legend-dot'}
+              color={'#2c303b'}
+              gradient={rainGradient}
+            />
+          ) : (
+            <LegendDot className={'legend-dot'} color={'#2c303b'} />
+          )}
+          <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
+        </UnstyledFlexWidth>
+        <UnstyledFlexWidth
+          active={visibleLayer === 'pumps' ? true : false}
+          onClick={() => {
+            store.setState({ visibleLayer: 'pumps' });
+          }}
+        >
+          {visibleLayer === 'pumps' ? (
+            <StrokedLegendDot gradient={`${workingColor.hex}`} />
+          ) : (
+            <StrokedLegendDot />
+          )}
+          <StyledItemLabel>Öffentl. Pumpen</StyledItemLabel>
+        </UnstyledFlexWidth>
+        <UnstyledFlexWidth
+          active={visibleLayer === 'rain' ? true : false}
+          onClick={() => {
+            store.setState({ visibleLayer: 'rain' });
+          }}
+        >
+          {visibleLayer === 'rain' ? (
+            <LegendRect gradient={rainGradient} />
+          ) : (
+            <LegendRect />
+          )}
+          <StyledItemLabel>Niederschlagsflächen</StyledItemLabel>
+        </UnstyledFlexWidth>
+      </FlexColumn>
     </LegendDiv>
   );
 };
