@@ -1,7 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { DailyWaterAmountsType } from '../../common/interfaces';
-import { useStoreState } from '../../state/unistore-hooks';
+import {
+  DailyWaterAmountsType,
+  SelectedTreeType,
+} from '../../common/interfaces';
 import { drawD3Chart } from './drawD3Chart';
 import { mapStackedBarchartData } from './mapStackedBarchartData';
 
@@ -57,9 +59,9 @@ const StyledTooltipTotalSymbol = styled.span`
   font-weight: bold;
 `;
 
-const StackedBarChart: FC = () => {
-  const selectedTreeData = useStoreState('selectedTreeData');
-
+const StackedBarChart: FC<{
+  selectedTreeData: SelectedTreeType;
+}> = ({ selectedTreeData }) => {
   const [waterAmountInLast30Days, setWaterAmountInLast30Days] = useState<
     DailyWaterAmountsType[] | null
   >(null);

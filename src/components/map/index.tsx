@@ -11,13 +11,10 @@ import {
 } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic } from 'd3';
-
-import store from '../../state/Store';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { HoverObject } from './HoverObject';
-import { StoreProps } from '../../common/interfaces';
+import { SelectedTreeType, StoreProps } from '../../common/interfaces';
 import { pumpToColor } from './colors';
-import { getUrlQueryParameter } from '../../utils/queryUtil';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -48,8 +45,8 @@ interface DeckGLPropType {
   pumpsVisible: StoreProps['pumpsVisible'];
   rainVisible: StoreProps['rainVisible'];
   pumps: StoreProps['pumps'];
-  selectedTreeId: StoreProps['selectedTreeId'];
-  selectedTreeData: StoreProps['selectedTreeData'];
+  selectedTreeId: string | undefined;
+  selectedTreeData: SelectedTreeType | undefined;
   ageRange: StoreProps['ageRange'];
   dataView: StoreProps['dataView'];
   communityData: StoreProps['communityData'];
@@ -58,8 +55,8 @@ interface DeckGLPropType {
   communityDataAdopted: StoreProps['communityDataAdopted'];
   isTreeDataLoading: StoreProps['isTreeDataLoading'];
   isNavOpen: StoreProps['isNavOpen'];
-  overlay: StoreProps['overlay'];
-  onTreeSelect: (id: string) => Promise<StoreProps['selectedTreeData']>;
+  showControls: boolean | undefined;
+  onTreeSelect: (id: string) => void;
 }
 
 interface ViewportType extends Partial<ViewportProps> {
@@ -305,39 +302,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     });
   }
 
-  async selectTree(
-    treeId: string,
-    coordinates?: [number, number]
-  ): Promise<void> {
-    if (coordinates) {
-      this.setViewport({
-        longitude: coordinates[0],
-        latitude: coordinates[1],
-        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-      });
-    }
-
-    const selectedTreeData = await this.props.onTreeSelect(treeId);
-
-    if (!coordinates && selectedTreeData) {
-      this.setViewport({
-        longitude: parseFloat(selectedTreeData.lat),
-        latitude: parseFloat(selectedTreeData.lng),
-        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-      });
-    }
-  }
-
   _onClick(_x: number, _y: number, object: MapboxGeoJSONFeature): void {
-    const { coordinates } = (object.geometry as unknown) as {
-      coordinates: [number, number];
-    };
-
     const id: string = object.properties?.id;
     if (!id) return;
-    this.selectTree(id, coordinates);
+
+    this.props.onTreeSelect(id);
   }
 
   setCursor(val: unknown): void {
@@ -455,6 +424,14 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     }
 
     this.setState({ isTreeMapLoading: false });
+
+    if (!this.props.selectedTreeData) return;
+    this.setViewport({
+      latitude: this.props.selectedTreeData.latitude,
+      longitude: this.props.selectedTreeData.longitude,
+      zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+      transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+    });
   }
 
   _updateStyles(prevProps: DeckGLPropType): void {
@@ -506,6 +483,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       'dataView',
       'treesVisible',
       'selectedTreeId',
+      'selectedTreeData',
     ];
     let changed = false;
     mapProps.forEach(prop => {
@@ -517,25 +495,19 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     if (!changed) return false;
     this._updateStyles(prevProps);
 
-    if (!prevProps.selectedTreeData && this.props.selectedTreeData) {
+    if (
+      this.props.selectedTreeData &&
+      prevProps.selectedTreeData?.id !== this.props.selectedTreeData?.id
+    ) {
       this.setViewport({
-        latitude: parseFloat(this.props.selectedTreeData.lat),
-        longitude: parseFloat(this.props.selectedTreeData.lng),
+        latitude: this.props.selectedTreeData.latitude,
+        longitude: this.props.selectedTreeData.longitude,
         zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
         transitionDuration: VIEWSTATE_TRANSITION_DURATION,
       });
     }
 
     return true;
-  }
-
-  componentDidMount(): void {
-    const treeId = getUrlQueryParameter('location');
-
-    if (treeId) {
-      store.setState({ overlay: false });
-      this.selectTree(treeId);
-    }
   }
 
   onViewStateChange(viewport: ViewportProps): void {
@@ -548,7 +520,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   render(): ReactNode {
-    const { isTreeDataLoading, isNavOpen, overlay } = this.props;
+    const { isTreeDataLoading, isNavOpen, showControls } = this.props;
     const { viewport } = this.state;
 
     if (isTreeDataLoading) {
@@ -584,7 +556,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             width='100%'
             height='100%'
           >
-            {!overlay && (
+            {!showControls && (
               <ControlWrapper isNavOpen={isNavOpen}>
                 <GeolocateControl
                   positionOptions={{ enableHighAccuracy: true }}

@@ -6,8 +6,14 @@ interface TreeLastWateredResponseType {
   data: WateredDayType[] | undefined;
 }
 
+interface SelectedTreeApiResponse
+  extends Omit<SelectedTreeType, 'latitude' | 'longitude'> {
+  lat: string;
+  lng: string;
+}
+
 interface SelectedTreeResponseType {
-  data: SelectedTreeType[];
+  data: SelectedTreeApiResponse[];
 }
 
 const calcuateRadolan = (radolanDays: number): number => radolanDays / 10;
@@ -19,6 +25,9 @@ const parseSelectedTreeResponse = (
   const selectedTreeData = selectedTreeResponse.data[0];
   return {
     ...selectedTreeData,
+    // lat/lng are inversed in the db this is why we switch them
+    latitude: parseFloat(selectedTreeData.lng),
+    longitude: parseFloat(selectedTreeData.lat),
     radolan_days: selectedTreeData.radolan_days.map(calcuateRadolan),
     radolan_sum: calcuateRadolan(selectedTreeData.radolan_sum),
     wateredDays,

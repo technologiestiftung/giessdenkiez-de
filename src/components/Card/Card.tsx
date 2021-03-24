@@ -1,8 +1,6 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
-import { useStoreState } from '../../state/unistore-hooks';
-import { useAuth0 } from '../../utils/auth/auth0';
 
 import CardWrapper from './CardWrapper';
 import CardProperty from './CardProperty';
@@ -18,10 +16,9 @@ import CardWaterDrops from './CardWaterDrops';
 import TreeButton from '../TreeButton';
 
 import content from '../../assets/content';
-import { Generic } from '../../common/interfaces';
+import { Generic, SelectedTreeType } from '../../common/interfaces';
 import Icon from '../Icons';
 import StackedBarChart from '../StackedBarChart';
-import { isTreeAdopted } from '../../utils/requests/isTreeAdopted';
 const { sidebar } = content;
 const { treetypes, watering } = sidebar;
 
@@ -70,28 +67,17 @@ const getTreeProp = (p: Generic | string | null) => {
   return p === 'null' || p === undefined ? null : p;
 };
 
-const Card: FC = () => {
-  const treeAdopted = useStoreState('treeAdopted');
-  const selectedTreeId = useStoreState('selectedTreeId');
-  const selectedTreeData = useStoreState('selectedTreeData');
-  const { getTokenSilently, isAuthenticated, user } = useAuth0();
-
-  const { standalter, artdtsch, gattungdeutsch, caretaker, wateredDays } =
-    selectedTreeData || {};
-
-  useEffect(() => {
-    if (!user || !selectedTreeId) return;
-    getTokenSilently()
-      .then((token: string) =>
-        isTreeAdopted({
-          id: selectedTreeId,
-          uuid: user.sub,
-          token,
-          isAuthenticated,
-        })
-      )
-      .catch(console.error);
-  }, [user, selectedTreeId, treeAdopted]);
+const Card: FC<{
+  selectedTreeData: SelectedTreeType;
+}> = ({ selectedTreeData }) => {
+  const {
+    standalter,
+    artdtsch,
+    gattungdeutsch,
+    caretaker,
+    wateredDays,
+    isAdopted,
+  } = selectedTreeData;
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
@@ -114,9 +100,7 @@ const Card: FC = () => {
             <CaretakerSublineSpan>{`Dieser Baum wird regelmäßig vom ${caretaker} gewässert.`}</CaretakerSublineSpan>
           </CaretakerDiv>
         )}
-        {treeAdopted && selectedTreeData && (
-          <TreeButton tree={selectedTreeData} label='Adoptiert' />
-        )}
+        {isAdopted && <TreeButton tree={selectedTreeData} label='Adoptiert' />}
         {treeType && treeType.title !== null && (
           <CardAccordion
             title={
@@ -150,7 +134,7 @@ const Card: FC = () => {
         <RainContainer>
           <CardHeadline>Wassermenge</CardHeadline>
           <CardDescription>der letzten 30 Tage</CardDescription>
-          <StackedBarChart />
+          <StackedBarChart selectedTreeData={selectedTreeData} />
         </RainContainer>
         {Array.isArray(wateredDays) && wateredDays.length > 0 && (
           <CardAccordion

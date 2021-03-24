@@ -4,9 +4,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import store from '../../state/Store';
 import { useAuth0 } from '../../utils/auth/auth0';
 import { Tree } from '../../common/interfaces';
-import { useActions } from '../../state/unistore-hooks';
 import { getTreesAdoptedByUser } from '../../utils/requests/getTreesAdoptedByUser';
 import { unadoptTree } from '../../utils/requests/unadoptTree';
+import { useHistory } from 'react-router';
 
 const StyledTreeButton = styled.div`
   font-size: 12px;
@@ -52,30 +52,17 @@ const TreeButton: FC<{
   label?: string;
 }> = ({ tree, label }) => {
   const { user, getTokenSilently } = useAuth0();
-  const { selectTree } = useActions();
+  const history = useHistory();
   const [unadopting, setUnadopting] = useState<string | undefined>(undefined);
-
-  const onButtonClick = useCallback(
-    (tree: Tree) => {
-      if (!tree?.id) return;
-      selectTree(tree.id);
-    },
-    [selectTree]
-  );
 
   const onCloseIconClick = useCallback(
     async (id: string, userId: string) => {
       setUnadopting(id);
       try {
-        store.setState({ selectedTreeState: 'ADOPT' });
-
         const token = await getTokenSilently();
         await unadoptTree(id, userId, token);
         const adoptedTrees = await getTreesAdoptedByUser({ userId, token });
-        store.setState({
-          selectedTreeState: 'FETCHED',
-          adoptedTrees,
-        });
+        store.setState({ adoptedTrees });
       } catch (err) {
         console.error(err);
       }
@@ -88,13 +75,20 @@ const TreeButton: FC<{
     <StyledTreeButton
       role={'button'}
       tabIndex={0}
-      onClick={() => onButtonClick(tree)}
+      onClick={evt => {
+        evt.preventDefault();
+        history.push(`/tree/${tree.id}`);
+      }}
     >
       <Label>
         {unadopting ? 'Entferne' : label || tree.artdtsch || 'Baum'}
       </Label>
       <CloseIcon
-        onClick={() => tree.id && onCloseIconClick(tree.id, user.sub)}
+        onClick={evt => {
+          evt.preventDefault();
+          evt.stopPropagation();
+          tree.id && onCloseIconClick(tree.id, user.sub);
+        }}
       />
     </StyledTreeButton>
   );

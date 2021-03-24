@@ -12,7 +12,7 @@ import ButtonWaterGroup from './BtnWaterGroup';
 import { ParticipateButton } from '../ParticipateButton';
 import { adoptTree } from '../../utils/requests/adoptTree';
 import { waterTree } from '../../utils/requests/waterTree';
-import { getTreeData } from '../../utils/requests/getTreeData';
+import { useTreeData } from '../../utils/hooks/useTreeData';
 
 const BtnContainer = styled.div`
   display: flex;
@@ -43,14 +43,12 @@ const getButtonLabel = (state: string) => {
 };
 
 const ButtonWater: FC = () => {
-  const selectedTreeId = useStoreState('selectedTreeId');
-  const selectedTreeState = useStoreState('selectedTreeState');
   const userdata = useStoreState('user');
-  const treeAdopted = useStoreState('treeAdopted');
   const [waterGroup, setWaterGroup] = useState('visible');
+  const [isAdopting, setIsAdopting] = useState<boolean>(false);
+  const { treeId, treeData, invalidate } = useTreeData();
 
   const { user, isAuthenticated, getTokenSilently } = useAuth0();
-  const [adopted] = useState(false);
   const isEmailVerified = user && user.email_verified;
 
   const onButtonWaterClick = async (id: string, amount: number) => {
@@ -65,21 +63,19 @@ const ButtonWater: FC = () => {
       token,
     });
 
-    const treeData = await getTreeData(id);
-    store.setState(treeData);
+    invalidate();
     setWaterGroup('visible');
   };
 
   const onAdoptClick = async () => {
-    if (!selectedTreeId) return;
-    store.setState({ selectedTreeState: 'ADOPT' });
+    if (!treeId) return;
+    setIsAdopting(true);
     const token = await getTokenSilently();
-    await adoptTree(selectedTreeId, token, user.sub);
-    store.setState({
-      selectedTreeState: 'ADOPTED',
-    });
+    await adoptTree(treeId, token, user.sub);
     const communityData = await getCommunityData();
     store.setState(communityData);
+    invalidate();
+    setIsAdopting(false);
   };
 
   if (!isAuthenticated) {
@@ -105,20 +101,11 @@ const ButtonWater: FC = () => {
 
   return (
     <>
-      {!treeAdopted && (
+      {treeData && treeData.adopted === false && (
         <BtnContainer>
           <ButtonRound margin='15px' toggle={onAdoptClick} type='secondary'>
-            {!adopted &&
-            selectedTreeState !== 'ADOPT' &&
-            selectedTreeState !== 'ADOPTED'
-              ? 'Baum adoptieren'
-              : ''}
-            {!adopted && selectedTreeState === 'ADOPT'
-              ? 'Adoptiere Baum ...'
-              : ''}
-            {!adopted && selectedTreeState === 'ADOPTED'
-              ? 'Baum adoptiert!'
-              : ''}
+            {treeData && !isAdopting && 'Baum adoptieren'}
+            {treeData && isAdopting && 'Adoptiere Baum ...'}
           </ButtonRound>
         </BtnContainer>
       )}
@@ -129,8 +116,8 @@ const ButtonWater: FC = () => {
       >
         {getButtonLabel(waterGroup)}
       </ButtonRound>
-      {waterGroup === 'watering' && selectedTreeId && (
-        <ButtonWaterGroup id={selectedTreeId} onClick={onButtonWaterClick} />
+      {waterGroup === 'watering' && treeId && (
+        <ButtonWaterGroup id={treeId} onClick={onButtonWaterClick} />
       )}
       <ParticipateButton />
     </>
