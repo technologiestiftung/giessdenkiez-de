@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useAuth0 } from '../../../utils/auth/auth0';
 import { useUserState } from '../../../utils/hooks/useUserState';
 
-import CardHeadline from '../../Card/CardHeadline/';
 import Paragraph from '../../Paragraph';
 import WateredTreesIndicator from '../../WateredTreesIndicator';
 import ExpandablePanel from '../../ExpandablePanel';
@@ -31,6 +30,11 @@ const Container = styled.div`
 const FlexCol = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const WateringsTitle = styled.span`
+  font-size: ${p => p.theme.fontSizeXl};
+  font-weight: bold;
 `;
 
 const confirmAccountDeletion = (): boolean =>
@@ -89,7 +93,7 @@ const SidebarProfile: FC = () => {
   return (
     <>
       <SidebarTitle>Profil</SidebarTitle>
-      <CardHeadline>Dein Gießfortschritt</CardHeadline>
+      <WateringsTitle>Dein Gießfortschritt</WateringsTitle>
       <WateredTreesIndicator waterings={userData.waterings} />
       <ExpandablePanel isExpanded title={<span>Adoptierte Bäume</span>}>
         {userData.adoptedTrees.length === 0 ? (

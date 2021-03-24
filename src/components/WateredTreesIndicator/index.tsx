@@ -1,27 +1,31 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import CardHeadline from '../Card/CardHeadline';
 import Icon from '../Icons';
 import { WateringType } from '../../common/interfaces';
 import SmallParagraph from '../SmallParagraph';
 
-const FlexOuter = styled.div`
-  display: flex;
-  width: 50%;
-`;
-
-const Flex = styled.div`
+const Wrapper = styled.div`
   display: flex;
   padding: 10px 0;
   margin-bottom: 10px;
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
 `;
 
-const FlexColumn = styled.div`
+const WateringInfoWrapper = styled.div`
+  display: flex;
+  width: 50%;
+`;
+
+const WateringInfoContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+const LitersAmountNumber = styled.span`
+  font-size: ${p => p.theme.fontSizeXl};
+  font-weight: bold;
 `;
 
 const WateredTreesIndicator: FC<{ waterings: WateringType[] }> = ({
@@ -50,17 +54,19 @@ const WateredTreesIndicator: FC<{ waterings: WateringType[] }> = ({
   ];
 
   return (
-    <Flex>
+    <Wrapper>
       {progressItems.map(item => (
-        <FlexOuter key={item.id}>
+        <WateringInfoWrapper key={item.id}>
           <Icon iconType={item.id === 'timesSpend' ? 'trees' : 'water'} />
-          <FlexColumn>
-            <CardHeadline>{item.id === 'liters' ? liters : times}</CardHeadline>
+          <WateringInfoContent>
+            <LitersAmountNumber>
+              {item.id === 'liters' ? liters : times}
+            </LitersAmountNumber>
             <SmallParagraph>{item.label}</SmallParagraph>
-          </FlexColumn>
-        </FlexOuter>
+          </WateringInfoContent>
+        </WateringInfoWrapper>
       ))}
-    </Flex>
+    </Wrapper>
   );
 };
 
