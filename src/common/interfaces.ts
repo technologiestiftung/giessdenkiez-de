@@ -17,10 +17,13 @@ export interface WateringType {
   timestamp: string;
   treeId: string;
 }
-
-interface UserType {
-  username: string;
+export interface UserDataType {
+  id: string;
   email: string;
+  username: string;
+  isVerified: boolean;
+  waterings: WateringType[];
+  adoptedTrees: Tree[];
 }
 export interface SelectedTreeType extends Tree {
   radolan_days: RadolanDays;
@@ -46,12 +49,11 @@ export interface StoreProps {
   rainVisible: boolean;
 
   isNavOpen: boolean;
-  user?: UserType;
+  user?: UserDataType;
   rainGeojson: Generic | null;
   ageRange: number[];
   pumps: Generic | null;
   data: Generic | null;
-  tabActive: string;
   overlay: boolean;
   isTreeDataLoading: boolean;
   hoveredObject: boolean;

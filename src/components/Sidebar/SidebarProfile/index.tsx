@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useQuery, QueryFunction } from 'react-query';
-
 import { useAuth0 } from '../../../utils/auth/auth0';
-import { useStoreState } from '../../../state/unistore-hooks';
+import { useUserState } from '../../../utils/hooks/useUserState';
 
 import CardHeadline from '../../Card/CardHeadline/';
 import CardParagraph from '../../Card/CardParagraph/';
@@ -16,10 +14,7 @@ import Login from '../../Login';
 import ButtonRound from '../../ButtonRound';
 import LoadingIcon from '../../LoadingIcon/';
 import SidebarTitle from '../SidebarTitle/';
-import { Tree } from '../../../common/interfaces';
 import { ParticipateButton } from '../../ParticipateButton';
-import { getTreesByIds } from '../../../utils/requests/getTreesByIds';
-import { deleteAccount } from '../../../utils/requests/deleteAccount';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
@@ -38,14 +33,6 @@ const FlexCol = styled.div`
   flex-direction: column;
 `;
 
-const fetchAdoptedTreesDetails: QueryFunction<Tree[]> = async ({
-  queryKey,
-}) => {
-  const [_key, { adoptedTrees }] = queryKey;
-  if (adoptedTrees.length === 0) return [];
-  return await getTreesByIds(adoptedTrees);
-};
-
 const confirmAccountDeletion = (): boolean =>
   window.confirm(
     `🚨 🚨 🚨
@@ -54,45 +41,26 @@ Alle deine Benutzerdaten werden damit sofort gelöscht!`
   );
 
 const SidebarProfile: FC = () => {
-  const wateredByUser = useStoreState('wateredByUser');
-  const adoptedTrees = useStoreState('adoptedTrees');
-  const { data: adoptedTreesDetails } = useQuery(
-    [
-      'adoptedTreesDetails',
-      { adoptedTrees: ((adoptedTrees || []) as unknown) as string[] },
-    ],
-    fetchAdoptedTreesDetails,
-    { staleTime: 10000 }
-  );
-
-  const {
-    loading,
-    user,
-    isAuthenticated,
-    getTokenSilently,
-    logout,
-  } = useAuth0();
-  const isEmailVerifiyed = user && user.email_verified;
+  const { userData, deleteAccount } = useUserState();
+  const { loading } = useAuth0();
 
   const handleDeleteClick = async () => {
     if (!confirmAccountDeletion()) return;
-
-    const token = await getTokenSilently();
-    await deleteAccount({ token, userId: user.sub })
-      .then(() => logout())
-      .catch(console.error);
+    deleteAccount();
   };
 
   if (loading) {
     return (
       <>
         <SidebarTitle>Profil</SidebarTitle>
-        Lade Profil ...
+        <Container>
+          <LoadingIcon text='Lade Profil ...' />
+        </Container>
       </>
     );
   }
 
-  if (!isAuthenticated) {
+  if (!userData) {
     return (
       <>
         <SidebarTitle>Profil</SidebarTitle>
@@ -109,7 +77,7 @@ const SidebarProfile: FC = () => {
     );
   }
 
-  if (!isEmailVerifiyed) {
+  if (!userData.isVerified) {
     return (
       <>
         <SidebarTitle>Profil</SidebarTitle>
@@ -118,26 +86,13 @@ const SidebarProfile: FC = () => {
     );
   }
 
-  if (!wateredByUser || adoptedTreesDetails?.length === 0) {
-    return (
-      <>
-        <SidebarTitle>Profil</SidebarTitle>
-        <Container>
-          <LoadingIcon text='Lade Profil ...' />
-        </Container>
-      </>
-    );
-  }
-
   return (
     <>
       <SidebarTitle>Profil</SidebarTitle>
       <CardHeadline>Dein Gießfortschritt</CardHeadline>
-      <CardProgress trees={wateredByUser} />
+      <CardProgress waterings={userData.waterings} />
       <CardAccordion active={true} title={<span>Adoptierte Bäume</span>}>
-        {adoptedTreesDetails && adoptedTreesDetails.length > 0 && (
-          <TreesAdopted trees={adoptedTreesDetails} />
-        )}
+        <TreesAdopted trees={userData.adoptedTrees} />
       </CardAccordion>
       <CardCredentials />
       <Login width='-webkit-fill-available' />

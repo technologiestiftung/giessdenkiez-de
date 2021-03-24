@@ -1,32 +1,28 @@
 import { QueryFunction, useQuery, useQueryClient } from 'react-query';
-import { Tree } from '../../common/interfaces';
+import { UserDataType } from '../../common/interfaces';
 import { useAuth0 } from '../auth/auth0';
 import { adoptTree } from '../requests/adoptTree';
+import { deleteAccount } from '../requests/deleteAccount';
 import { getUserData } from '../requests/getUserData';
 import { unadoptTree } from '../requests/unadoptTree';
 import { useAuth0Token } from './useToken';
 
-interface UserDataType {
-  id: string;
-  email: string;
-  isVerified: boolean;
-  adoptedTrees: Tree[];
-}
-
 type UserDataError = Error | null;
-type OptionalUserType = UserDataType | undefined;
 
-const fetchUserData: QueryFunction<OptionalUserType> = async ({ queryKey }) => {
+const fetchUserData: QueryFunction<UserDataType | undefined> = async ({
+  queryKey,
+}) => {
   const [_key, token, userId] = queryKey;
   if (!token || !userId) return undefined;
   const userData = await getUserData({ userId, token });
   return userData;
 };
 
-export const useUserData = (): {
-  userData: OptionalUserType;
+export const useUserState = (): {
+  userData: UserDataType | undefined;
   error: Error | null;
   logout: () => void;
+  deleteAccount: () => Promise<void>;
   adoptTree: (treeId: string) => void;
   unadoptTree: (treeId: string) => void;
 } => {
@@ -35,17 +31,23 @@ export const useUserData = (): {
   const queryClient = useQueryClient();
 
   const queryParams = ['userData', token, user?.sub];
-  const { data: userData, error } = useQuery<OptionalUserType, UserDataError>(
-    queryParams,
-    fetchUserData,
-    { staleTime: 10000 }
-  );
+  const { data: userData, error } = useQuery<
+    UserDataType | undefined,
+    UserDataError
+  >(queryParams, fetchUserData, { staleTime: 10000 });
 
   return {
     userData,
     error,
     logout: () => {
-      user?.sub && logout();
+      if (!user?.sub) return;
+      logout();
+      queryClient.invalidateQueries(queryParams);
+    },
+    deleteAccount: async () => {
+      if (!user?.sub || !token) return;
+      await deleteAccount({ token, userId: user.sub });
+      logout();
       queryClient.invalidateQueries(queryParams);
     },
     adoptTree: async (treeId: string): Promise<void> => {
