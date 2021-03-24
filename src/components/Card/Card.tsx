@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
 
-import CardWrapper from './CardWrapper';
 import ExpandablePanel from '../ExpandablePanel';
 import WaterNeedsInfo from '../WaterNeedsInfo';
 import UsersWateringsList from '../UsersWateringsList';
@@ -22,6 +21,11 @@ import ButtonRound from '../ButtonRound';
 import SmallParagraph from '../SmallParagraph';
 
 const { treetypes } = content.sidebar;
+
+const Wrapper = styled.div`
+  z-index: 3;
+  margin: 0 0 20px;
+`;
 
 const FlexColumnDiv = styled.div`
   display: flex;
@@ -90,7 +94,7 @@ const Card: FC<{
     userData && userData.adoptedTrees.find(({ id }) => id === treeId);
 
   return (
-    <CardWrapper>
+    <Wrapper>
       <FlexColumnDiv>
         {(artdtsch || gattungdeutsch || treeType?.title) && (
           <TreeTitle>{artdtsch || gattungdeutsch || treeType?.title}</TreeTitle>
@@ -184,7 +188,7 @@ const Card: FC<{
           </>
         )}
       </FlexColumnDiv>
-    </CardWrapper>
+    </Wrapper>
   );
 };
 
