@@ -12,7 +12,7 @@ import TreeType from './CardAccordion/TreeType';
 import TreeWatering from './CardAccordion/TreeWatering';
 import TreeLastWatered from './CardAccordion/TreeLastWatered';
 import ButtonWater from '../ButtonWater';
-import CardWaterDrops from './CardWaterDrops';
+import WaterDrops from '../WaterDrops';
 import Login from '../Login';
 
 import content from '../../assets/content';
@@ -25,8 +25,7 @@ import Paragraph from '../Paragraph';
 import { NonVerfiedMailMessage } from './non-verified-mail';
 import ButtonRound from '../ButtonRound';
 
-const { sidebar } = content;
-const { treetypes, watering } = sidebar;
+const { treetypes } = content.sidebar;
 
 const FlexColumnDiv = styled.div`
   display: flex;
@@ -131,14 +130,14 @@ const Card: FC<{
               <CardAccordionTitle>
                 Wasserbedarf:
                 {standalter && (
-                  <CardWaterDrops
-                    data={getWaterNeedByAge(parseInt(standalter)) || []}
+                  <WaterDrops
+                    dropsAmount={getWaterNeedByAge(parseInt(standalter))}
                   />
                 )}
               </CardAccordionTitle>
             }
           >
-            <TreeWatering data={watering} />
+            <TreeWatering />
           </CardAccordion>
         )}
         <RainContainer>

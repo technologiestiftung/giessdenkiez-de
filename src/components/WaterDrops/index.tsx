@@ -23,16 +23,14 @@ const IconWrapper = styled.div`
   }
 `;
 
-const CardWaterDrops: FC<{ data: unknown[] }> = ({ data }) => (
+const WaterDrops: FC<{ dropsAmount?: number }> = ({ dropsAmount = 0 }) => (
   <>
-    {data && (
-      <IconWrapper>
-        {data.map((_, i) => (
-          <Icon key={`water-drop-key-${i}`} />
-        ))}
-      </IconWrapper>
-    )}
+    <IconWrapper>
+      {[...Array(dropsAmount).keys()].map(i => (
+        <Icon key={`water-drop-key-${i}`} />
+      ))}
+    </IconWrapper>
   </>
 );
 
-export default CardWaterDrops;
+export default WaterDrops;

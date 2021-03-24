@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
+import content from '../../../assets/content';
 import TreeType from './TreeType';
-import CardWaterDrops from '../CardWaterDrops';
+import WaterDrops from '../../WaterDrops';
 
 const StyledTreeType = styled(TreeType)`
   padding-top: 5px;
@@ -26,21 +27,15 @@ const Title = styled.span`
   font-size: ${p => p.theme.fontSizeL};
 `;
 
-const TreeWatering: FC<{
-  data: Array<{
-    waterdrops: unknown[];
-    title: string;
-    description: string;
-  }>;
-}> = ({ data }) => {
+const TreeWatering: FC = () => {
   return (
     <WrapperOuter>
-      {data.map((info, i) => {
+      {content.sidebar.waterNeeds.map(({ title, description }, i) => {
         return (
           <Wrapper key={`Tree-watering-${i}`}>
-            <CardWaterDrops data={info.waterdrops} />
-            <Title>{info.title}</Title>
-            <StyledTreeType>{info.description}</StyledTreeType>
+            <WaterDrops dropsAmount={i + 1} />
+            <Title>{title}</Title>
+            <StyledTreeType>{description}</StyledTreeType>
           </Wrapper>
         );
       })}
