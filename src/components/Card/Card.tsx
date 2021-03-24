@@ -101,7 +101,6 @@ const TreeInfos: FC<{
   const { userData, unadoptTree, adoptTree, waterTree } = useUserState();
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
-  // const treeType = treetypes[0];
 
   const treeIsAdopted =
     userData && userData.adoptedTrees.find(({ id }) => id === treeId);
