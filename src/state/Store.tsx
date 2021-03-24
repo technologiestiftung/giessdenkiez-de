@@ -19,7 +19,6 @@ const initialState = {
   data: null,
   overlay: true,
   isTreeDataLoading: true,
-  hoveredObject: false,
 };
 
 const store = createStore<StoreProps>(initialState);
