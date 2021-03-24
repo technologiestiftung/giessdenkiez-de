@@ -43,6 +43,10 @@ const parseTreeIdParam = (path: string) => {
   return (location === 'tree' && treeId) || undefined;
 };
 
+/**
+ * useTreeData only works if we have a tree selected
+ *
+ */
 export const useTreeData = (): {
   treeId: string | undefined;
   treeData: SelectedTreeType | undefined;
