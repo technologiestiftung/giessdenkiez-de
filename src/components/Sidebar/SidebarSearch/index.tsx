@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import SidebarTitle from '../SidebarTitle/';
 import ExpandablePanel from '../../ExpandablePanel';
 import SmallParagraph from '../../SmallParagraph';
-import { useStoreState } from '../../../state/unistore-hooks';
-import store from '../../../state/Store';
+import { useActions, useStoreState } from '../../../state/unistore-hooks';
 import SidebarSearchAge from './SidebarSearchAge';
 import SidebarSearchLocation from './SidebarSearchLocation';
 
@@ -16,14 +15,14 @@ const FilterLinksContainer = styled.div`
   padding-top: 16px;
 `;
 
-const FilterLink = styled.span<{ active?: boolean }>`
+const FilterLink = styled.span<{ isActive?: boolean }>`
   display: inline-block;
   padding: 6px 10px;
   border-radius: 16px;
   cursor: pointer;
   font-size: ${p => p.theme.fontSizeL};
-  background: ${p => (p.active ? p.theme.colorTextMedium : 'white')};
-  color: ${p => (p.active ? p.theme.colorTextDark : p.theme.colorTextLight)};
+  background: ${p => (p.isActive ? p.theme.colorTextMedium : 'white')};
+  color: ${p => (p.isActive ? p.theme.colorTextDark : p.theme.colorTextLight)};
   transition: all 0.125s ease-in-out;
 
   &:hover {
@@ -33,7 +32,8 @@ const FilterLink = styled.span<{ active?: boolean }>`
 `;
 
 const SidebarSearch: FC = () => {
-  const dataView = useStoreState('dataView');
+  const mapViewFilter = useStoreState('mapViewFilter');
+  const { changemapViewFilter } = useActions();
 
   return (
     <>
@@ -46,26 +46,20 @@ const SidebarSearch: FC = () => {
         </SmallParagraph>
         <FilterLinksContainer>
           <FilterLink
-            active={dataView === 'rain'}
-            onClick={() => {
-              store.setState({ dataView: 'rain' });
-            }}
+            isActive={mapViewFilter === 'rain'}
+            onClick={() => changemapViewFilter('rain')}
           >
             Niederschläge
           </FilterLink>
           <FilterLink
-            active={dataView === 'adopted'}
-            onClick={() => {
-              store.setState({ dataView: 'adopted' });
-            }}
+            isActive={mapViewFilter === 'adopted'}
+            onClick={() => changemapViewFilter('adopted')}
           >
             Bereits adoptiert
           </FilterLink>
           <FilterLink
-            active={dataView === 'watered'}
-            onClick={() => {
-              store.setState({ dataView: 'watered' });
-            }}
+            isActive={mapViewFilter === 'watered'}
+            onClick={() => changemapViewFilter('watered')}
           >
             In den letzten 30 Tagen gegossen
           </FilterLink>

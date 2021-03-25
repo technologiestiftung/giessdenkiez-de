@@ -82,20 +82,16 @@ const UsersWateringsList: FC<{
 
   return (
     <WrapperOuter>
-      {listItems.map(
-        ({ username, timestamp, amount }: WateringType, i: number) => (
-          <Wrapper key={`Lastadopted-key-${i}`}>
-            <FlexRow>
-              <Title>{username}</Title>
-              <StyledTreeType>
-                ({formatUnixTimestamp(timestamp)})
-              </StyledTreeType>
-            </FlexRow>
-            <SmallParagraph>{amount}l</SmallParagraph>
-            <StyledIcon src={iconDrop} alt='Water drop icon' />
-          </Wrapper>
-        )
-      )}
+      {listItems.map(({ id, username, timestamp, amount }: WateringType) => (
+        <Wrapper key={`Lastadopted-key-${id}`}>
+          <FlexRow>
+            <Title>{username}</Title>
+            <StyledTreeType>({formatUnixTimestamp(timestamp)})</StyledTreeType>
+          </FlexRow>
+          <SmallParagraph>{amount}l</SmallParagraph>
+          <StyledIcon src={iconDrop} alt='Water drop icon' />
+        </Wrapper>
+      ))}
       {surpassedMaxItems && (
         <ToggleExpansionLink onClick={() => setIsExpanded(!isExpanded)}>
           {isExpanded

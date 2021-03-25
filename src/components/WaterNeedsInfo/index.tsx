@@ -33,7 +33,7 @@ const TreeWatering: FC = () => {
     <StyledWrapper>
       {content.sidebar.waterNeeds.map(({ title, description }, i) => {
         return (
-          <div key={`Tree-watering-${i}`}>
+          <div key={`${title}-${description}`}>
             <StyledTitle>
               <WaterDrops dropsAmount={i + 1} />
               <StyledTitleText>{title}</StyledTitleText>

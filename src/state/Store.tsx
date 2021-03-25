@@ -4,7 +4,7 @@ import { StoreProps } from '../common/interfaces';
 const initialState: StoreProps = {
   wateredTrees: [],
   adoptedTrees: [],
-  dataView: 'rain',
+  mapViewFilter: 'rain',
   communityData: {},
   communityDataAdopted: [],
   communityDataWatered: [],
