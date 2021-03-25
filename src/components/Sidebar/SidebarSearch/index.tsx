@@ -33,7 +33,7 @@ const FilterLink = styled.span<{ isActive?: boolean }>`
 
 const SidebarSearch: FC = () => {
   const mapViewFilter = useStoreState('mapViewFilter');
-  const { changemapViewFilter } = useActions();
+  const { setMapViewFilter } = useActions();
 
   return (
     <>
@@ -47,19 +47,19 @@ const SidebarSearch: FC = () => {
         <FilterLinksContainer>
           <FilterLink
             isActive={mapViewFilter === 'rain'}
-            onClick={() => changemapViewFilter('rain')}
+            onClick={() => setMapViewFilter('rain')}
           >
             Niederschläge
           </FilterLink>
           <FilterLink
             isActive={mapViewFilter === 'adopted'}
-            onClick={() => changemapViewFilter('adopted')}
+            onClick={() => setMapViewFilter('adopted')}
           >
             Bereits adoptiert
           </FilterLink>
           <FilterLink
             isActive={mapViewFilter === 'watered'}
-            onClick={() => changemapViewFilter('watered')}
+            onClick={() => setMapViewFilter('watered')}
           >
             In den letzten 30 Tagen gegossen
           </FilterLink>
