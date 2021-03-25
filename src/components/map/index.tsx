@@ -44,10 +44,10 @@ const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
 
 interface DeckGLPropType {
   data: StoreProps['data'];
-  rainGeojson: ExtendedFeatureCollection | null;
+  rainGeojson: ExtendedFeatureCollection;
 
   visibleMapLayer: StoreProps['visibleMapLayer'];
-  pumps: ExtendedFeatureCollection | null;
+  pumps: ExtendedFeatureCollection;
   selectedTreeId: string | undefined;
   selectedTreeData: SelectedTreeType | undefined;
   ageRange: StoreProps['ageRange'];
