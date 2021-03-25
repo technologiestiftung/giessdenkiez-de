@@ -15,7 +15,7 @@ const fetchUserData: QueryFunction<UserDataType | undefined> = async ({
   return userData;
 };
 
-export const useUserState = (): {
+export const useUserData = (): {
   userData: UserDataType | undefined;
   error: Error | null;
   invalidate: () => void;

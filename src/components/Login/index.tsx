@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useAccountActions } from '../../utils/hooks/useAccountActions';
 
-import { useUserState } from '../../utils/hooks/useUserState';
+import { useUserData } from '../../utils/hooks/useUserData';
 
 import ButtonRound from '../ButtonRound/';
 
@@ -9,7 +9,7 @@ const Login: FC<{
   width?: string;
   noLogout?: boolean;
 }> = ({ width, noLogout }) => {
-  const { userData } = useUserState();
+  const { userData } = useUserData();
   const { login, logout } = useAccountActions();
 
   return (

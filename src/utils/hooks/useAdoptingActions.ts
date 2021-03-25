@@ -4,7 +4,7 @@ import { adoptTree } from '../requests/adoptTree';
 import { unadoptTree } from '../requests/unadoptTree';
 import { useAuth0Token } from './useAuth0Token';
 import { useTreeData } from './useTreeData';
-import { useUserState } from './useUserState';
+import { useUserData } from './useUserData';
 
 export const useAdoptingActions = (
   treeId: string | null | undefined
@@ -16,7 +16,7 @@ export const useAdoptingActions = (
 } => {
   const { user } = useAuth0();
   const token = useAuth0Token();
-  const { invalidate: invalidateUserData } = useUserState();
+  const { invalidate: invalidateUserData } = useUserData();
   const { invalidate: invalidateTreeData } = useTreeData(treeId);
   const [isBeingAdopted, setIsBeingAdopted] = useState<boolean>(false);
   const [isBeingUnadopted, setIsBeingUnadopted] = useState<boolean>(false);

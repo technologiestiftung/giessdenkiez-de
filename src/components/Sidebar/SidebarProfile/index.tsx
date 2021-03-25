@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useAuth0 } from '../../../utils/auth/auth0';
-import { useUserState } from '../../../utils/hooks/useUserState';
+import { useUserData } from '../../../utils/hooks/useUserData';
 
 import Paragraph from '../../Paragraph';
 import WateredTreesIndicator from '../../WateredTreesIndicator';
@@ -46,7 +46,7 @@ Alle deine Benutzerdaten werden damit sofort gelöscht!`
   );
 
 const SidebarProfile: FC = () => {
-  const { userData } = useUserState();
+  const { userData } = useUserData();
   const { deleteAccount } = useAccountActions();
   const { loading } = useAuth0();
 

@@ -13,7 +13,7 @@ import content from '../../assets/content';
 import { SelectedTreeType } from '../../common/interfaces';
 import Icon from '../Icons';
 import StackedBarChart from '../StackedBarChart';
-import { useUserState } from '../../utils/hooks/useUserState';
+import { useUserData } from '../../utils/hooks/useUserData';
 import { ParticipateButton } from '../ParticipateButton';
 import Paragraph from '../Paragraph';
 import { NonVerfiedMailMessage } from '../NonVerfiedMailMessage';
@@ -99,7 +99,7 @@ const TreeInfos: FC<{
     waterings,
   } = selectedTreeData;
 
-  const { userData } = useUserState();
+  const { userData } = useUserData();
   const {
     unadoptTree,
     adoptTree,
