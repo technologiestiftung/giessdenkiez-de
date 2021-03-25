@@ -2,31 +2,30 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
 
-import CardWrapper from './CardWrapper';
-import CardProperty from './CardProperty';
-import CardAccordion from './CardAccordion';
-import CardHeadline from './CardHeadline';
-import CardDescription from './CardDescription';
-import CardAccordionTitle from './CardAccordion/CardAccordionTitle';
-import TreeType from './CardAccordion/TreeType';
-import TreeWatering from './CardAccordion/TreeWatering';
-import TreeLastWatered from './CardAccordion/TreeLastWatered';
+import ExpandablePanel from '../ExpandablePanel';
+import WaterNeedsInfo from '../WaterNeedsInfo';
+import UsersWateringsList from '../UsersWateringsList';
 import ButtonWater from '../ButtonWater';
-import CardWaterDrops from './CardWaterDrops';
+import WaterDrops from '../WaterDrops';
 import Login from '../Login';
 
 import content from '../../assets/content';
-import { Generic, SelectedTreeType } from '../../common/interfaces';
+import { SelectedTreeType } from '../../common/interfaces';
 import Icon from '../Icons';
 import StackedBarChart from '../StackedBarChart';
 import { useUserState } from '../../utils/hooks/useUserState';
 import { ParticipateButton } from '../ParticipateButton';
-import CardParagraph from './CardParagraph';
-import { NonVerfiedMailCardParagraph } from './non-verified-mail';
+import Paragraph from '../Paragraph';
+import { NonVerfiedMailMessage } from '../NonVerfiedMailMessage';
 import ButtonRound from '../ButtonRound';
+import SmallParagraph from '../SmallParagraph';
 
-const { sidebar } = content;
-const { treetypes, watering } = sidebar;
+const { treetypes } = content.sidebar;
+
+const Wrapper = styled.div`
+  z-index: 3;
+  margin: 0 0 20px;
+`;
 
 const FlexColumnDiv = styled.div`
   display: flex;
@@ -54,13 +53,6 @@ const SublineSpan = styled.span`
   text-transform: capitalize;
 `;
 
-const RainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: ${p => p.theme.spacingM};
-  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
-`;
-
 const TreeTitle = styled.h2`
   font-size: 24px;
   font-weight: 600;
@@ -69,11 +61,32 @@ const TreeTitle = styled.h2`
   margin-bottom: 5px;
 `;
 
-const getTreeProp = (p: Generic | string | null) => {
-  return p === 'null' || p === undefined ? null : p;
-};
+const AgeInfoContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
+  padding: 12px 0;
+  font-weight: bold;
+`;
 
-const Card: FC<{
+const AgeInfoValue = styled.span`
+  font-weight: normal;
+`;
+
+const AdoptedIndication = styled.span`
+  display: inline-block;
+  margin-left: 8px;
+  border-radius: 2px;
+  font-size: ${p => p.theme.fontSizeM};
+  line-height: ${p => p.theme.fontSizeM};
+  color: ${p => p.theme.colorPrimary};
+  border: 1px solid;
+  padding: 4px 5px;
+  font-weight: normal;
+  transform: translateY(-4px);
+`;
+
+const TreeInfos: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
   const {
@@ -93,17 +106,21 @@ const Card: FC<{
     userData && userData.adoptedTrees.find(({ id }) => id === treeId);
 
   return (
-    <CardWrapper>
+    <Wrapper>
       <FlexColumnDiv>
-        <TreeTitle>{artdtsch}</TreeTitle>
+        {(artdtsch || gattungdeutsch || treeType?.title) && (
+          <TreeTitle>
+            {artdtsch || gattungdeutsch || treeType?.title}
+            {treeIsAdopted && (
+              <AdoptedIndication>Adoptiert ✔</AdoptedIndication>
+            )}
+          </TreeTitle>
+        )}
         {!treeType &&
-          treeType !== 'undefined' &&
-          gattungdeutsch !== null &&
+          gattungdeutsch &&
           gattungdeutsch !== 'undefined' &&
-          gattungdeutsch !== undefined && (
-            <SublineSpan>
-              {getTreeProp(gattungdeutsch.toLowerCase())}
-            </SublineSpan>
+          gattungdeutsch.toLowerCase() !== artdtsch?.toLowerCase() && (
+            <SublineSpan>{gattungdeutsch.toLowerCase()}</SublineSpan>
           )}
         {caretaker && caretaker.length > 0 && (
           <CaretakerDiv>
@@ -111,49 +128,57 @@ const Card: FC<{
             <CaretakerSublineSpan>{`Dieser Baum wird regelmäßig vom ${caretaker} gewässert.`}</CaretakerSublineSpan>
           </CaretakerDiv>
         )}
-        {treeType && treeType.title !== null && (
-          <CardAccordion
-            title={
-              <CardAccordionTitle>
-                {getTreeProp(treeType.title)}
-              </CardAccordionTitle>
-            }
-          >
-            <TreeType>{treeType.description}</TreeType>
-          </CardAccordion>
+        {treeType && treeType.title && (
+          <ExpandablePanel title={treeType.title}>
+            {treeType.description}
+          </ExpandablePanel>
         )}
         {standalter && standalter !== 'undefined' && (
-          <CardProperty name='Standalter' value={standalter + ' Jahre'} />
-        )}
-        {standalter && (
-          <CardAccordion
-            title={
-              <CardAccordionTitle>
-                Wasserbedarf:
-                {standalter && (
-                  <CardWaterDrops
-                    data={getWaterNeedByAge(parseInt(standalter)) || []}
+          <>
+            <AgeInfoContainer>
+              <span>Standalter</span>
+              <AgeInfoValue>{standalter} Jahre</AgeInfoValue>
+            </AgeInfoContainer>
+            <ExpandablePanel
+              title={
+                <>
+                  <span style={{ marginRight: 8 }}>Wasserbedarf:</span>
+                  <WaterDrops
+                    dropsAmount={getWaterNeedByAge(parseInt(standalter))}
                   />
-                )}
-              </CardAccordionTitle>
+                </>
+              }
+            >
+              <WaterNeedsInfo />
+            </ExpandablePanel>
+          </>
+        )}
+        <ExpandablePanel
+          title={
+            <>
+              <div>Wassermenge</div>
+              <SmallParagraph>der letzten 30 Tage</SmallParagraph>
+            </>
+          }
+          isExpanded
+        >
+          <StackedBarChart selectedTreeData={selectedTreeData} />
+        </ExpandablePanel>
+        {Array.isArray(waterings) && waterings.length > 0 && (
+          <ExpandablePanel
+            isExpanded={true}
+            title={
+              <>
+                Letzte Bewässerungen
+                <SmallParagraph>Neueste zuerst</SmallParagraph>
+              </>
             }
           >
-            <TreeWatering data={watering} />
-          </CardAccordion>
+            <UsersWateringsList waterings={waterings} />
+          </ExpandablePanel>
         )}
-        <RainContainer>
-          <CardHeadline>Wassermenge</CardHeadline>
-          <CardDescription>der letzten 30 Tage</CardDescription>
-          <StackedBarChart selectedTreeData={selectedTreeData} />
-        </RainContainer>
-        {Array.isArray(waterings) && waterings.length > 0 && (
-          <CardAccordion
-            active={true}
-            title={<CardAccordionTitle>Zuletzt gegossen</CardAccordionTitle>}
-          >
-            <TreeLastWatered waterings={waterings} />
-          </CardAccordion>
-        )}
+
+        <br />
         {!userData && (
           <div>
             <Login />
@@ -163,15 +188,15 @@ const Card: FC<{
 
         {userData && !userData.isVerified && (
           <>
-            <CardParagraph>
+            <Paragraph>
               Bäume adoptieren und wässern ist nur möglich mit verifiziertem
               Account.
-            </CardParagraph>
-            <NonVerfiedMailCardParagraph />
+            </Paragraph>
+            <NonVerfiedMailMessage />
           </>
         )}
 
-        {treeId && userData && userData.isVerified && (
+        {userData && userData.isVerified && (
           <>
             <ButtonRound
               margin='15px'
@@ -188,8 +213,8 @@ const Card: FC<{
           </>
         )}
       </FlexColumnDiv>
-    </CardWrapper>
+    </Wrapper>
   );
 };
 
-export default Card;
+export default TreeInfos;

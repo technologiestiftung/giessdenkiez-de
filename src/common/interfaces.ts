@@ -66,7 +66,6 @@ export interface StoreProps {
   data: Generic | null;
   overlay: boolean;
   isTreeDataLoading: boolean;
-  hoveredObject: boolean;
 }
 
 export interface Tree {

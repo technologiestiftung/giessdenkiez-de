@@ -39,12 +39,14 @@ const SidebarAgeRange: React.FC = () => {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(320);
 
-  if (!ageRange) return null;
-
   useEffect(() => {
+    if (!ageRange) return;
+
     setMin(ageRange[0]);
     setMax(ageRange[1]);
-  }, []);
+  }, [ageRange]);
+
+  if (!ageRange) return null;
 
   return (
     <FilterAgeDiv>

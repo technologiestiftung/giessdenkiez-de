@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
-const TreeType = styled.span`
+const SmallParagraph = styled.p`
   line-height: 150%;
   font-size: ${p => p.theme.fontSizeL};
   opacity: 0.66;
   letter-spacing: 0.125px;
-  padding: 10px 0;
+  padding: 0;
+  margin: 0;
+  font-weight: normal;
 `;
 
-export default TreeType;
+export default SmallParagraph;

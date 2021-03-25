@@ -35,30 +35,25 @@ const parseSelectedTreeResponse = (
   };
 };
 
-const parseTreeLastWateredResponse = (
-  wateringsResponse: TreeWateringsResponse
-): RawWateringType[] => wateringsResponse.data || [];
-
 export const getTreeData = async (
   id: string
 ): Promise<{
   selectedTreeData: SelectedTreeType | undefined;
 }> => {
   const urlSelectedTree = createAPIUrl(`/get?queryType=byid&id=${id}`);
-  const urlLastWatered = createAPIUrl(`/get?queryType=lastwatered&id=${id}`);
+  const urlWaterings = createAPIUrl(`/get?queryType=lastwatered&id=${id}`);
 
-  const [resSelectedTree, resLastWatered] = await Promise.all([
+  const [resSelectedTree, resWaterings] = await Promise.all([
     requests<SelectedTreeResponseType>(urlSelectedTree),
-    requests<TreeWateringsResponse>(urlLastWatered),
+    requests<TreeWateringsResponse>(urlWaterings),
   ]);
-  const waterings = parseTreeLastWateredResponse(resLastWatered);
 
   return {
     selectedTreeData:
       resSelectedTree.data.length > 0
         ? parseSelectedTreeResponse(
             resSelectedTree as SelectedTreeResponseType,
-            waterings
+            resWaterings.data || []
           )
         : undefined,
   };
