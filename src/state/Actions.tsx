@@ -1,38 +1,18 @@
 import { StoreProps } from '../common/interfaces';
 
 const setAgeRange = (
-  payload: StoreProps['ageRange']
-): {
-  ageRange: StoreProps['ageRange'];
-} => {
-  return {
-    ageRange: payload,
-  };
-};
+  ageRange: StoreProps['ageRange']
+): Pick<StoreProps, 'ageRange'> => ({ ageRange });
 
 const setVisibleMapLayer = (
   type: StoreProps['visibleMapLayer']
-): { visibleMapLayer: StoreProps['visibleMapLayer'] } => {
-  return {
-    visibleMapLayer: type,
-  };
-};
-function startLoading(): {
-  isTreeDataLoading: true;
-} {
-  return { isTreeDataLoading: true };
-}
+): Pick<StoreProps, 'visibleMapLayer'> => ({ visibleMapLayer: type });
 
-function stopLoading(): {
-  isTreeDataLoading: false;
-} {
-  return { isTreeDataLoading: false };
-}
+const setMapViewFilter = (
+  mapViewFilter: StoreProps['mapViewFilter']
+): Pick<StoreProps, 'mapViewFilter'> => ({ mapViewFilter });
 
-const openOverlay = (): {
-  overlay: StoreProps['overlay'];
-  isNavOpen: StoreProps['isNavOpen'];
-} => ({
+const openOverlay = (): Pick<StoreProps, 'overlay' | 'isNavOpen'> => ({
   overlay: true,
   isNavOpen: false,
 });
@@ -45,21 +25,13 @@ const closeNav = (): { isNavOpen: StoreProps['isNavOpen'] } => ({
   isNavOpen: false,
 });
 
-const changemapViewFilter = (
-  filter: StoreProps['mapViewFilter']
-): { mapViewFilter: StoreProps['mapViewFilter'] } => ({
-  mapViewFilter: filter,
-});
-
 const allActions = {
-  startLoading,
-  stopLoading,
   setAgeRange,
   openOverlay,
   closeOverlay,
   closeNav,
   setVisibleMapLayer,
-  changemapViewFilter,
+  setMapViewFilter,
 };
 
 export type ActionsType = typeof allActions;

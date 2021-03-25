@@ -1,11 +1,6 @@
+import { CommunityDataType } from '../../common/interfaces';
 import { createAPIUrl } from '../createAPIUrl';
 import { requests } from '../requestUtil';
-
-interface CommunityDataType {
-  communityData: Record<string, { adopted: boolean; watered: boolean }> | null;
-  communityDataAdopted: string[];
-  communityDataWatered: string[];
-}
 
 export const getCommunityData = async (): Promise<CommunityDataType> => {
   const fetchCommunityDataUrl = createAPIUrl(
@@ -21,24 +16,24 @@ export const getCommunityData = async (): Promise<CommunityDataType> => {
   }>(fetchCommunityDataUrl);
 
   const defaultCommunityData: CommunityDataType = {
-    communityData: {},
-    communityDataWatered: [],
-    communityDataAdopted: [],
+    communityFlagsMap: {},
+    wateredTreesIds: [],
+    adoptedTreesIds: [],
   };
 
   if (!json.data) return defaultCommunityData;
 
   const newState = json.data.reduce(
     (acc: CommunityDataType, { tree_id: id, adopted, watered }) => ({
-      communityData: {
-        ...acc.communityData,
+      communityFlagsMap: {
+        ...acc.communityFlagsMap,
         [id]: {
-          adopted: adopted === '1' ? true : false,
-          watered: watered === '1' ? true : false,
+          isAdopted: adopted === '1' ? true : false,
+          isWatered: watered === '1' ? true : false,
         },
       },
-      communityDataWatered: [...acc.communityDataWatered, id],
-      communityDataAdopted: [...acc.communityDataAdopted, id],
+      wateredTreesIds: [...acc.wateredTreesIds, id],
+      adoptedTreesIds: [...acc.adoptedTreesIds, id],
     }),
     defaultCommunityData
   );

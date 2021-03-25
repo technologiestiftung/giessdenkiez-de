@@ -1,5 +1,4 @@
 import { QueryFunction, useQuery, useQueryClient } from 'react-query';
-import { useLocation } from 'react-router';
 import { SelectedTreeType } from '../../common/interfaces';
 import { useAuth0 } from '../auth/auth0';
 import { getTreeData } from '../requests/getTreeData';
@@ -34,26 +33,13 @@ const isTreeAdopted: QueryFunction<boolean | undefined> = async ({
   return isAdopted;
 };
 
-const parseTreeIdParam = (path: string) => {
-  const [location, treeId] = path
-    .replace(/\?.*$/g, '')
-    .split('/')
-    .filter((text: string) => Boolean(text));
-  return (location === 'tree' && treeId) || undefined;
-};
-
-/**
- * useTreeData only works if we have a tree selected
- *
- */
-export const useTreeData = (): {
-  treeId: string | undefined;
+export const useTreeData = (
+  treeId: string | undefined | null
+): {
   treeData: SelectedTreeType | undefined;
   error: Error | null;
   invalidate: () => void;
 } => {
-  const { pathname } = useLocation();
-  const treeId = parseTreeIdParam(pathname);
   const queryClient = useQueryClient();
   const { user } = useAuth0();
   const token = useAuth0Token();
@@ -77,7 +63,6 @@ export const useTreeData = (): {
   });
 
   return {
-    treeId,
     treeData: treeData && {
       ...treeData,
       isAdopted,

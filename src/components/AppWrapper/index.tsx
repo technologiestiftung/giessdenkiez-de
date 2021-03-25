@@ -13,6 +13,11 @@ import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
 import { useStoreState } from '../../state/unistore-hooks';
 import { useTreeData } from '../../utils/hooks/useTreeData';
 import { useHistory, useLocation } from 'react-router';
+import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
+import { useCommunityData } from '../../utils/hooks/useCommunityData';
+import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
+import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
+import { useTreesGeoJson } from '../../utils/hooks/useTreesGeoJson';
 
 const AppWrapperDiv = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
@@ -53,18 +58,16 @@ const Map: FC<{
   showOverlay: boolean | undefined;
   isNavOpened: boolean | undefined;
 }> = ({ showOverlay, isNavOpened }) => {
-  const data = useStoreState('data');
-  const rainGeojson = useStoreState('rainGeojson');
   const visibleMapLayer = useStoreState('visibleMapLayer');
-  const pumps = useStoreState('pumps');
   const ageRange = useStoreState('ageRange');
   const mapViewFilter = useStoreState('mapViewFilter');
-  const communityData = useStoreState('communityData');
-  const wateredTrees = useStoreState('wateredTrees');
-  const communityDataWatered = useStoreState('communityDataWatered');
-  const communityDataAdopted = useStoreState('communityDataAdopted');
-  const isTreeDataLoading = useStoreState('isTreeDataLoading');
-  const { treeId, treeData: selectedTreeData } = useTreeData();
+
+  const treeId = useCurrentTreeId();
+  const { data: communityData } = useCommunityData();
+  const { data: rainGeoJson } = useRainGeoJson();
+  const { data: pumpsGeoJson } = usePumpsGeoJson();
+  const { data: treesGeoJson } = useTreesGeoJson();
+  const { treeData: selectedTreeData } = useTreeData(treeId);
   const history = useHistory();
 
   return (
@@ -73,35 +76,37 @@ const Map: FC<{
         const nextLocation = `/tree/${id}`;
         history.push(nextLocation);
       }}
-      data={data || null}
-      rainGeojson={rainGeojson || null}
+      treesGeoJson={treesGeoJson || null}
+      rainGeojson={rainGeoJson || null}
       visibleMapLayer={visibleMapLayer}
-      isTreeDataLoading={!!isTreeDataLoading}
       isNavOpen={!!isNavOpened}
       showControls={showOverlay}
-      pumps={pumps || null}
+      pumpsGeoJson={pumpsGeoJson || null}
       ageRange={ageRange || []}
       mapViewFilter={mapViewFilter}
-      communityData={communityData || null}
-      wateredTrees={wateredTrees || []}
-      communityDataWatered={communityDataWatered || []}
-      communityDataAdopted={communityDataAdopted || []}
-      selectedTreeId={treeId}
+      communityData={communityData?.communityFlagsMap || null}
+      communityDataWatered={communityData?.wateredTreesIds || []}
+      communityDataAdopted={communityData?.adoptedTreesIds || []}
+      selectedTreeId={treeId || undefined}
       selectedTreeData={selectedTreeData}
     />
   );
 };
 
 const AppWrapper: FC = () => {
-  const isTreeDataLoading = useStoreState('isTreeDataLoading');
-  const data = useStoreState('data');
   const overlay = useStoreState('overlay');
   const isNavOpen = useStoreState('isNavOpen');
+  const { data: communityData } = useCommunityData();
+  const { data: rainGeoJson } = useRainGeoJson();
+  const { data: pumpsGeoJson } = usePumpsGeoJson();
+  const { data: treesGeoJson } = useTreesGeoJson();
   const { pathname } = useLocation();
   const isHome = pathname === '/';
   const showOverlay = isHome && overlay;
 
-  const showMap = !isTreeDataLoading && data;
+  const showMap = Boolean(
+    treesGeoJson && communityData && rainGeoJson && pumpsGeoJson
+  );
   const showLoading = !showMap;
   const showMapUI = showMap && !showOverlay;
   const isSidebarOpened = !isHome && isNavOpen;

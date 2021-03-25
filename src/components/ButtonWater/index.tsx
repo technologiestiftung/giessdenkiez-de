@@ -1,5 +1,7 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
+import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
+import { useWateringActions } from '../../utils/hooks/useWateringActions';
 
 import ButtonRound from '../ButtonRound';
 import { ParticipateButton } from '../ParticipateButton';
@@ -13,14 +15,14 @@ const BtnWaterContainer = styled.div`
   width: 100%;
 `;
 
-export interface ButtonWaterProps {
-  onClick: (amount: number) => void;
-}
-
-const ButtonWater: FC<ButtonWaterProps> = ({ onClick }) => {
+const ButtonWater: FC = () => {
+  const treeId = useCurrentTreeId();
+  const { isBeingWatered, waterTree } = useWateringActions(treeId);
   const [waterButtonIsOpened, setWaterButtonIsOpened] = useState<boolean>(
     false
   );
+
+  if (!treeId) return null;
   return (
     <>
       <ButtonRound
@@ -28,7 +30,9 @@ const ButtonWater: FC<ButtonWaterProps> = ({ onClick }) => {
         onClick={() => setWaterButtonIsOpened(!waterButtonIsOpened)}
         type='primary'
       >
-        {waterButtonIsOpened ? 'Wieviel Wasser?' : 'Ich habe gegossen!'}
+        {waterButtonIsOpened && isBeingWatered && 'Bewässerung wir eingetragen'}
+        {waterButtonIsOpened && !isBeingWatered && 'Wieviel Wasser?'}
+        {!waterButtonIsOpened && 'Ich habe gegossen!'}
       </ButtonRound>
       {waterButtonIsOpened && (
         <BtnWaterContainer>
@@ -37,7 +41,11 @@ const ButtonWater: FC<ButtonWaterProps> = ({ onClick }) => {
               <ButtonRound
                 key={`${btn.amount}`}
                 width='fit-content'
-                onClick={() => onClick(btn.amount)}
+                onClick={() =>
+                  waterTree(btn.amount).finally(() =>
+                    setWaterButtonIsOpened(false)
+                  )
+                }
                 type='primary'
               >
                 {btn.label}

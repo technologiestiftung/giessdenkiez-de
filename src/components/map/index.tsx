@@ -10,10 +10,14 @@ import {
   FlyToInterpolator,
 } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
-import { easeCubic as d3EaseCubic } from 'd3';
+import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { HoverObject } from './HoverObject';
-import { SelectedTreeType, StoreProps } from '../../common/interfaces';
+import {
+  CommunityDataType,
+  SelectedTreeType,
+  StoreProps,
+} from '../../common/interfaces';
 import { pumpToColor } from './colors';
 interface StyledProps {
   isNavOpen?: boolean;
@@ -39,20 +43,18 @@ const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
 
 interface DeckGLPropType {
-  data: StoreProps['data'];
-  rainGeojson: StoreProps['rainGeojson'];
+  treesGeoJson: ExtendedFeatureCollection | null;
+  rainGeojson: ExtendedFeatureCollection | null;
 
   visibleMapLayer: StoreProps['visibleMapLayer'];
-  pumps: StoreProps['pumps'];
+  pumpsGeoJson: ExtendedFeatureCollection | null;
   selectedTreeId: string | undefined;
   selectedTreeData: SelectedTreeType | undefined;
   ageRange: StoreProps['ageRange'];
   mapViewFilter: StoreProps['mapViewFilter'];
-  communityData: StoreProps['communityData'];
-  wateredTrees: StoreProps['wateredTrees'];
-  communityDataWatered: StoreProps['communityDataWatered'];
-  communityDataAdopted: StoreProps['communityDataAdopted'];
-  isTreeDataLoading: StoreProps['isTreeDataLoading'];
+  communityData: CommunityDataType['communityFlagsMap'];
+  communityDataWatered: CommunityDataType['wateredTreesIds'];
+  communityDataAdopted: CommunityDataType['adoptedTreesIds'];
   isNavOpen: StoreProps['isNavOpen'];
   showControls: boolean | undefined;
   onTreeSelect: (id: string) => void;
@@ -107,13 +109,13 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   _renderLayers(): unknown[] {
-    const { data, rainGeojson, visibleMapLayer, pumps } = this.props;
+    const { treesGeoJson, rainGeojson, visibleMapLayer, pumpsGeoJson } = this.props;
 
-    if (!data || !rainGeojson || !pumps) return [];
+    if (!treesGeoJson || !rainGeojson || !pumpsGeoJson) return [];
     const layers = [
       new GeoJsonLayer({
         id: 'geojson',
-        data: isMobile ? [] : data,
+        data: isMobile ? [] : treesGeoJson,
         opacity: 1,
         getLineWidth: (info: {
           properties: {
@@ -159,14 +161,22 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           const { properties } = info;
           const { id, radolan_sum, age } = properties;
 
-          if (mapViewFilter === 'watered' && communityData && communityData[id]) {
-            return communityData[id].watered
+          if (
+            mapViewFilter === 'watered' &&
+            communityData &&
+            communityData[id]
+          ) {
+            return communityData[id].isWatered
               ? [53, 117, 177, 200]
               : [0, 0, 0, 0];
           }
 
-          if (mapViewFilter === 'adopted' && communityData && communityData[id]) {
-            return communityData[id].adopted
+          if (
+            mapViewFilter === 'adopted' &&
+            communityData &&
+            communityData[id]
+          ) {
+            return communityData[id].isAdopted
               ? [0, 128, 128, 200]
               : [0, 0, 0, 0];
           }
@@ -193,7 +203,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         },
         updateTriggers: {
           getFillColor: [
-            this.props.wateredTrees,
+            this.props.communityData?.wateredTrees,
             this.props.selectedTreeId,
             this.props.ageRange,
             this.props.mapViewFilter,
@@ -226,7 +236,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       }),
       new GeoJsonLayer({
         id: 'pumps',
-        data: pumps,
+        data: pumpsGeoJson,
         opacity: 1,
         visible: visibleMapLayer === 'pumps' ? true : false,
         stroked: true,
@@ -447,7 +457,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         const filter = [
           'match',
           ['get', 'id'],
-          this.props.communityDataWatered,
+          this.props.communityData?.wateredTreesIds,
           true,
           false,
         ];
@@ -456,7 +466,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         const filter = [
           'match',
           ['get', 'id'],
-          this.props.communityDataAdopted,
+          this.props.communityData?.adoptedTreesIds,
           true,
           false,
         ];
@@ -470,7 +480,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   componentDidUpdate(prevProps: DeckGLPropType): boolean {
     if (!map) return false;
     const mapProps = [
-      'wateredTrees',
+      'communityData',
       'ageRange',
       'mapViewFilter',
       'treesVisible',
@@ -513,12 +523,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   render(): ReactNode {
-    const { isTreeDataLoading, isNavOpen, showControls } = this.props;
+    const { isNavOpen, showControls } = this.props;
     const { viewport } = this.state;
-
-    if (isTreeDataLoading) {
-      return <span>Lade Berlins Baumdaten ...</span>;
-    }
     return (
       <>
         {/* This code below could be used to display some info for the pumps */}

@@ -1,8 +1,5 @@
 import { RadolanDays } from './types';
 
-export interface Generic {
-  [key: string]: any;
-}
 export interface DailyWaterAmountsType {
   id: string;
   timestamp: Date;
@@ -46,24 +43,10 @@ export interface SelectedTreeType extends Tree {
 }
 export interface StoreProps {
   mapViewFilter: 'rain' | 'adopted' | 'watered';
-
-  communityData: Record<string, { adopted: boolean; watered: boolean }> | null;
-  communityDataAdopted: string[];
-  communityDataWatered: string[];
-
-  wateredTrees: string[];
-  adoptedTrees: Pick<Tree, 'id'>[];
-
   visibleMapLayer: 'rain' | 'trees' | 'pumps';
-
   isNavOpen: boolean;
-  user?: UserDataType;
-  rainGeojson: Generic | null;
   ageRange: number[];
-  pumps: Generic | null;
-  data: Generic | null;
   overlay: boolean;
-  isTreeDataLoading: boolean;
 }
 
 export interface Tree {
@@ -93,4 +76,15 @@ export interface Tree {
   standortnr?: string | null;
   kennzeich?: string | null;
   caretaker?: string | null;
+}
+
+type TreeId = string;
+interface CommunityFlagsMapType {
+  isAdopted: boolean;
+  isWatered: boolean;
+}
+export interface CommunityDataType {
+  communityFlagsMap: Record<TreeId, CommunityFlagsMapType> | null;
+  adoptedTreesIds: TreeId[];
+  wateredTreesIds: TreeId[];
 }

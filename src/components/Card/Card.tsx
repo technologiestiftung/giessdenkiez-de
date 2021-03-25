@@ -13,12 +13,13 @@ import content from '../../assets/content';
 import { SelectedTreeType } from '../../common/interfaces';
 import Icon from '../Icons';
 import StackedBarChart from '../StackedBarChart';
-import { useUserState } from '../../utils/hooks/useUserState';
+import { useUserData } from '../../utils/hooks/useUserData';
 import { ParticipateButton } from '../ParticipateButton';
 import Paragraph from '../Paragraph';
 import { NonVerfiedMailMessage } from '../NonVerfiedMailMessage';
 import ButtonRound from '../ButtonRound';
 import SmallParagraph from '../SmallParagraph';
+import { useAdoptingActions } from '../../utils/hooks/useAdoptingActions';
 
 const { treetypes } = content.sidebar;
 
@@ -98,7 +99,13 @@ const TreeInfos: FC<{
     waterings,
   } = selectedTreeData;
 
-  const { userData, unadoptTree, adoptTree, waterTree } = useUserState();
+  const { userData } = useUserData();
+  const {
+    unadoptTree,
+    adoptTree,
+    isBeingAdopted,
+    isBeingUnadopted,
+  } = useAdoptingActions(treeId);
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
@@ -200,16 +207,15 @@ const TreeInfos: FC<{
           <>
             <ButtonRound
               margin='15px'
-              onClick={() =>
-                treeIsAdopted ? unadoptTree(treeId) : adoptTree(treeId)
-              }
+              onClick={() => (treeIsAdopted ? unadoptTree() : adoptTree())}
               type='secondary'
             >
-              {treeIsAdopted ? 'Baum unadoptieren' : 'Baum adoptieren'}
+              {treeIsAdopted && !isBeingUnadopted && 'Baum unadoptieren'}
+              {treeIsAdopted && isBeingUnadopted && 'Baum wird unadoptiert'}
+              {!treeIsAdopted && !isBeingAdopted && 'Baum adoptieren'}
+              {!treeIsAdopted && isBeingAdopted && 'Baum wird adoptiert'}
             </ButtonRound>
-            <ButtonWater
-              onClick={(amount: number) => waterTree(treeId, amount)}
-            />
+            <ButtonWater />
           </>
         )}
       </FlexColumnDiv>
