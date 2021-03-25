@@ -91,7 +91,7 @@ const MapLayerLegend: FC = () => {
   return (
     <LegendDiv isActive>
       <FlexSpace isActive>
-        <FlexColumn>
+        <FlexColumnLast>
           <StyledCardDescription onClick={() => setLegendExpanded(false)}>
             {visibleMapLayer === 'pumps'
               ? 'Öffentliche Pumpen'
@@ -102,7 +102,7 @@ const MapLayerLegend: FC = () => {
               der letzten 30 Tage (Liter)
             </StyledCardDescriptionSecond>
           )}
-        </FlexColumn>
+        </FlexColumnLast>
         <LegendToggle onClick={() => setLegendExpanded(false)}>—</LegendToggle>
       </FlexSpace>
       {visibleMapLayer !== 'pumps' && (
