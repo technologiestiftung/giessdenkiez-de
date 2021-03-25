@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import DeckGlMap from '../map';
 import Sidebar from '../Sidebar';
 import Nav from '../Nav';
-import Legend from '../Legend/Legend';
+import MapLayerLegend from '../Legend/MapLayersLegend';
 import Cookie from '../Cookie';
 import Loading from '../Loading';
 import Overlay from '../Overlay';
@@ -56,9 +56,7 @@ const Map: FC<{
 }> = ({ showOverlay, isNavOpened }) => {
   const data = useStoreState('data');
   const rainGeojson = useStoreState('rainGeojson');
-  const treesVisible = useStoreState('treesVisible');
-  const pumpsVisible = useStoreState('pumpsVisible');
-  const rainVisible = useStoreState('rainVisible');
+  const visibleMapLayer = useStoreState('visibleMapLayer');
   const pumps = useStoreState('pumps');
   const ageRange = useStoreState('ageRange');
   const dataView = useStoreState('dataView');
@@ -79,9 +77,7 @@ const Map: FC<{
       }}
       data={data || null}
       rainGeojson={rainGeojson || null}
-      treesVisible={!!treesVisible}
-      pumpsVisible={!!pumpsVisible}
-      rainVisible={!!rainVisible}
+      visibleMapLayer={visibleMapLayer}
       isTreeDataLoading={!!isTreeDataLoading}
       isNavOpen={!!isNavOpened}
       showControls={showOverlay}
@@ -127,7 +123,7 @@ const AppWrapper: FC = () => {
       <CookieContainer>
         <Cookie />
       </CookieContainer>
-      {showMapUI && <Legend />}
+      {showMapUI && <MapLayerLegend />}
       <ImprintAndPrivacyContainer></ImprintAndPrivacyContainer>
     </AppWrapperDiv>
   );
