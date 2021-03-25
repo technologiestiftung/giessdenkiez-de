@@ -2,12 +2,9 @@ import createStore from 'unistore';
 import { StoreProps } from '../common/interfaces';
 
 const initialState: StoreProps = {
-  wateredTrees: [],
-  adoptedTrees: [],
   mapViewFilter: 'rain',
   isNavOpen: false,
   visibleMapLayer: 'trees',
-  user: undefined,
   ageRange: [0, 320],
   data: null,
   overlay: true,

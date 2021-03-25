@@ -44,14 +44,8 @@ export interface SelectedTreeType extends Tree {
 }
 export interface StoreProps {
   mapViewFilter: 'rain' | 'adopted' | 'watered';
-
-  wateredTrees: string[];
-  adoptedTrees: Pick<Tree, 'id'>[];
-
   visibleMapLayer: 'rain' | 'trees' | 'pumps';
-
   isNavOpen: boolean;
-  user?: UserDataType;
   ageRange: number[];
   data: ExtendedFeatureCollection | null;
   overlay: boolean;
