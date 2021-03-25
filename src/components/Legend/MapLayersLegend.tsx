@@ -2,7 +2,6 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { interpolateColor } from '../../utils/colorUtil';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
-import CardDescription from '../Card/CardDescription';
 import { workingColor } from '../map/colors';
 import { createCSSGradient } from './createCSSGradient';
 import { PumpsColorLegend } from './PumpsColorLegend';
@@ -17,6 +16,7 @@ import {
 } from './LegendFlexBoxes';
 import { LegendDot, LegendRect, StrokedLegendDot } from './LegendRectsDots';
 import { ItemLabel, legendLabels } from './LegendLabels';
+import SmallParagraph from '../SmallParagraph';
 
 export interface IsActiveProps {
   isActive?: boolean;
@@ -44,16 +44,10 @@ const LegendDiv = styled.div<IsActiveProps>`
   background: white;
 `;
 
-const StyledCardDescription = styled(CardDescription)`
+const StyledCardDescription = styled(SmallParagraph)`
   font-weight: bold;
   font-size: 0.8rem;
   opacity: 1;
-`;
-
-const StyledCardDescriptionSecond = styled(CardDescription)`
-  margin-bottom: 5px;
-  line-height: 130%;
-  width: 100%;
 `;
 
 const LegendToggle = styled.span`
@@ -98,9 +92,7 @@ const MapLayerLegend: FC = () => {
               : 'Niederschlag'}
           </StyledCardDescription>
           {visibleMapLayer !== 'pumps' && (
-            <StyledCardDescriptionSecond>
-              der letzten 30 Tage (Liter)
-            </StyledCardDescriptionSecond>
+            <SmallParagraph>der letzten 30 Tage (Liter)</SmallParagraph>
           )}
         </FlexColumnLast>
         <LegendToggle onClick={() => setLegendExpanded(false)}>—</LegendToggle>
@@ -115,9 +107,7 @@ const MapLayerLegend: FC = () => {
 
       <FlexColumnLast isLast={true}>
         <StyledCardDescription>Datenpunkte</StyledCardDescription>
-        <StyledCardDescriptionSecond>
-          durch Klick ein- & ausblenden.
-        </StyledCardDescriptionSecond>
+        <SmallParagraph>durch Klick ein- & ausblenden.</SmallParagraph>
         <FlexRowFit
           isActive={visibleMapLayer === 'trees'}
           onClick={() => {
