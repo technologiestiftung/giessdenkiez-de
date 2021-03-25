@@ -13,7 +13,11 @@ import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { HoverObject } from './HoverObject';
-import { SelectedTreeType, StoreProps } from '../../common/interfaces';
+import {
+  CommunityDataType,
+  SelectedTreeType,
+  StoreProps,
+} from '../../common/interfaces';
 import { pumpToColor } from './colors';
 interface StyledProps {
   isNavOpen?: boolean;
@@ -48,10 +52,10 @@ interface DeckGLPropType {
   selectedTreeData: SelectedTreeType | undefined;
   ageRange: StoreProps['ageRange'];
   mapViewFilter: StoreProps['mapViewFilter'];
-  communityData: StoreProps['communityData'];
   wateredTrees: StoreProps['wateredTrees'];
-  communityDataWatered: StoreProps['communityDataWatered'];
-  communityDataAdopted: StoreProps['communityDataAdopted'];
+  communityData: CommunityDataType['communityFlagsMap'];
+  communityDataWatered: CommunityDataType['wateredTreesIds'];
+  communityDataAdopted: CommunityDataType['adoptedTreesIds'];
   isTreeDataLoading: StoreProps['isTreeDataLoading'];
   isNavOpen: StoreProps['isNavOpen'];
   showControls: boolean | undefined;
@@ -159,14 +163,22 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           const { properties } = info;
           const { id, radolan_sum, age } = properties;
 
-          if (mapViewFilter === 'watered' && communityData && communityData[id]) {
-            return communityData[id].watered
+          if (
+            mapViewFilter === 'watered' &&
+            communityData &&
+            communityData[id]
+          ) {
+            return communityData[id].isWatered
               ? [53, 117, 177, 200]
               : [0, 0, 0, 0];
           }
 
-          if (mapViewFilter === 'adopted' && communityData && communityData[id]) {
-            return communityData[id].adopted
+          if (
+            mapViewFilter === 'adopted' &&
+            communityData &&
+            communityData[id]
+          ) {
+            return communityData[id].isAdopted
               ? [0, 128, 128, 200]
               : [0, 0, 0, 0];
           }
@@ -447,7 +459,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         const filter = [
           'match',
           ['get', 'id'],
-          this.props.communityDataWatered,
+          this.props.communityData?.wateredTreesIds,
           true,
           false,
         ];
@@ -456,7 +468,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         const filter = [
           'match',
           ['get', 'id'],
-          this.props.communityDataAdopted,
+          this.props.communityData?.adoptedTreesIds,
           true,
           false,
         ];

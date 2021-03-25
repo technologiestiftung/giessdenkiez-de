@@ -28,7 +28,7 @@ export const useUserData = (): {
   const { data: userData, error } = useQuery<
     UserDataType | undefined,
     UserDataError
-  >(queryParams, fetchUserData, { staleTime: 10000 });
+  >(queryParams, fetchUserData, { staleTime: Infinity });
 
   return {
     userData,

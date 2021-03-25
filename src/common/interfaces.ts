@@ -45,10 +45,6 @@ export interface SelectedTreeType extends Tree {
 export interface StoreProps {
   mapViewFilter: 'rain' | 'adopted' | 'watered';
 
-  communityData: Record<string, { adopted: boolean; watered: boolean }> | null;
-  communityDataAdopted: string[];
-  communityDataWatered: string[];
-
   wateredTrees: string[];
   adoptedTrees: Pick<Tree, 'id'>[];
 
@@ -91,4 +87,15 @@ export interface Tree {
   standortnr?: string | null;
   kennzeich?: string | null;
   caretaker?: string | null;
+}
+
+type TreeId = string;
+interface CommunityFlagsMapType {
+  isAdopted: boolean;
+  isWatered: boolean;
+}
+export interface CommunityDataType {
+  communityFlagsMap: Record<TreeId, CommunityFlagsMapType> | null;
+  adoptedTreesIds: TreeId[];
+  wateredTreesIds: TreeId[];
 }

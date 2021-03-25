@@ -14,6 +14,7 @@ import { useStoreState } from '../../state/unistore-hooks';
 import { useTreeData } from '../../utils/hooks/useTreeData';
 import { useHistory, useLocation } from 'react-router';
 import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
+import { useCommunityData } from '../../utils/hooks/useCommunityData';
 
 const AppWrapperDiv = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
@@ -60,12 +61,11 @@ const Map: FC<{
   const pumps = useStoreState('pumps');
   const ageRange = useStoreState('ageRange');
   const mapViewFilter = useStoreState('mapViewFilter');
-  const communityData = useStoreState('communityData');
   const wateredTrees = useStoreState('wateredTrees');
-  const communityDataWatered = useStoreState('communityDataWatered');
-  const communityDataAdopted = useStoreState('communityDataAdopted');
   const isTreeDataLoading = useStoreState('isTreeDataLoading');
+
   const treeId = useCurrentTreeId();
+  const { data: communityData } = useCommunityData();
   const { treeData: selectedTreeData } = useTreeData(treeId);
   const history = useHistory();
 
@@ -84,10 +84,10 @@ const Map: FC<{
       pumps={pumps || null}
       ageRange={ageRange || []}
       mapViewFilter={mapViewFilter}
-      communityData={communityData || null}
+      communityData={communityData?.communityFlagsMap || null}
       wateredTrees={wateredTrees || []}
-      communityDataWatered={communityDataWatered || []}
-      communityDataAdopted={communityDataAdopted || []}
+      communityDataWatered={communityData?.wateredTreesIds || []}
+      communityDataAdopted={communityData?.adoptedTreesIds || []}
       selectedTreeId={treeId || undefined}
       selectedTreeData={selectedTreeData}
     />

@@ -4,7 +4,6 @@ import { StoreProps } from '../../common/interfaces';
 import { getWateredTrees } from './getWateredTrees';
 import { isMobile } from 'react-device-detect';
 import { loadTreesGeoJson } from './loadTreesGeoJson';
-import { getCommunityData } from './getCommunityData';
 
 const loadTrees = async () => {
   if (isMobile) {
@@ -19,22 +18,12 @@ export const loadAllData = async (): Promise<{
   pumps: StoreProps['pumps'];
   wateredTrees: StoreProps['wateredTrees'];
   data: StoreProps['data'];
-  communityData: StoreProps['communityData'];
-  communityDataAdopted: StoreProps['communityDataAdopted'];
-  communityDataWatered: StoreProps['communityDataWatered'];
 }> => {
-  const [
-    rainGeojson,
-    pumps,
-    wateredTrees,
-    data,
-    communityData,
-  ] = await Promise.all([
+  const [rainGeojson, pumps, wateredTrees, data] = await Promise.all([
     loadRainGeoJson(),
     loadPumpsData(),
     getWateredTrees(),
     loadTrees(),
-    getCommunityData(),
   ]);
-  return { rainGeojson, pumps, wateredTrees, data, ...communityData };
+  return { rainGeojson, pumps, wateredTrees, data };
 };

@@ -6,7 +6,7 @@ export const useAuth0Token = (): string | undefined => {
   const { user, getTokenSilently } = useAuth0();
 
   useEffect(() => {
-    if (!user?.sub) return;
+    if (!user?.sub || !getTokenSilently) return;
     const getToken = async () => {
       try {
         const token = await getTokenSilently();

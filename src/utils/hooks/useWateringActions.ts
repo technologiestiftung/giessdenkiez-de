@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { waterTree } from '../requests/waterTree';
 import { useAuth0Token } from './useAuth0Token';
+import { useCommunityData } from './useCommunityData';
 import { useTreeData } from './useTreeData';
 import { useUserData } from './useUserData';
 
@@ -12,6 +13,7 @@ export const useWateringActions = (
 } => {
   const token = useAuth0Token();
   const { userData, invalidate: invalidateUserData } = useUserData();
+  const { invalidate: invalidateCommunityData } = useCommunityData();
   const { invalidate: invalidateTreeData } = useTreeData(treeId);
   const [isBeingWatered, setIsBeingWatered] = useState<boolean>(false);
 
@@ -32,6 +34,7 @@ export const useWateringActions = (
 
       invalidateUserData();
       invalidateTreeData();
+      invalidateCommunityData();
     },
   };
 };
