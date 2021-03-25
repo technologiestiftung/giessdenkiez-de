@@ -95,5 +95,3 @@ export interface Tree {
   kennzeich?: string | null;
   caretaker?: string | null;
 }
-
-// Legend shared
