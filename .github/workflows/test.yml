@@ -6,7 +6,7 @@ env:
   BUILD_TARGET: DEFAULT
 on:
   push:
-    branches: [master, staging, demo]
+    branches: [master, staging, demo, dev]
     paths: &watchPaths
       - 'src/**/*'
       - '.storybook/**/*'
@@ -20,6 +20,7 @@ on:
       - 'create-env.js'
       - 'tsconfig.json'
   pull_request:
+    branches: [master, staging, demo, dev]
     paths: *watchPaths
     types:
       - 'opened'
