@@ -45,7 +45,7 @@ export interface SelectedTreeType extends Tree {
   isAdopted: boolean | undefined;
 }
 export interface StoreProps {
-  dataView: 'rain' | 'adopted' | 'watered' | string;
+  mapViewFilter: 'rain' | 'adopted' | 'watered';
 
   communityData: Record<string, { adopted: boolean; watered: boolean }> | null;
   communityDataAdopted: string[];

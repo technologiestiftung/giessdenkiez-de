@@ -47,7 +47,7 @@ interface DeckGLPropType {
   selectedTreeId: string | undefined;
   selectedTreeData: SelectedTreeType | undefined;
   ageRange: StoreProps['ageRange'];
-  dataView: StoreProps['dataView'];
+  mapViewFilter: StoreProps['mapViewFilter'];
   communityData: StoreProps['communityData'];
   wateredTrees: StoreProps['wateredTrees'];
   communityDataWatered: StoreProps['communityDataWatered'];
@@ -155,23 +155,23 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             age: number;
           };
         }): [number, number, number, number] => {
-          const { ageRange, dataView, communityData } = this.props;
+          const { ageRange, mapViewFilter, communityData } = this.props;
           const { properties } = info;
           const { id, radolan_sum, age } = properties;
 
-          if (dataView === 'watered' && communityData && communityData[id]) {
+          if (mapViewFilter === 'watered' && communityData && communityData[id]) {
             return communityData[id].watered
               ? [53, 117, 177, 200]
               : [0, 0, 0, 0];
           }
 
-          if (dataView === 'adopted' && communityData && communityData[id]) {
+          if (mapViewFilter === 'adopted' && communityData && communityData[id]) {
             return communityData[id].adopted
               ? [0, 128, 128, 200]
               : [0, 0, 0, 0];
           }
 
-          if (dataView === 'adopted' || dataView === 'watered') {
+          if (mapViewFilter === 'adopted' || mapViewFilter === 'watered') {
             return [0, 0, 0, 0];
           }
 
@@ -196,7 +196,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             this.props.wateredTrees,
             this.props.selectedTreeId,
             this.props.ageRange,
-            this.props.dataView,
+            this.props.mapViewFilter,
           ],
           getLineWidth: [this.props.selectedTreeId],
         },
@@ -441,7 +441,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           0,
         ]);
       }
-      if (this.props.dataView === 'watered') {
+      if (this.props.mapViewFilter === 'watered') {
         // TODO: check if there is a performance up for any of the two
         // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
         const filter = [
@@ -452,7 +452,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           false,
         ];
         map.setFilter('trees', filter);
-      } else if (this.props.dataView === 'adopted') {
+      } else if (this.props.mapViewFilter === 'adopted') {
         const filter = [
           'match',
           ['get', 'id'],
@@ -472,7 +472,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     const mapProps = [
       'wateredTrees',
       'ageRange',
-      'dataView',
+      'mapViewFilter',
       'treesVisible',
       'visibleMapLayer',
       'selectedTreeId',

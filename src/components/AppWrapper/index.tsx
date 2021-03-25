@@ -58,7 +58,7 @@ const Map: FC<{
   const visibleMapLayer = useStoreState('visibleMapLayer');
   const pumps = useStoreState('pumps');
   const ageRange = useStoreState('ageRange');
-  const dataView = useStoreState('dataView');
+  const mapViewFilter = useStoreState('mapViewFilter');
   const communityData = useStoreState('communityData');
   const wateredTrees = useStoreState('wateredTrees');
   const communityDataWatered = useStoreState('communityDataWatered');
@@ -81,7 +81,7 @@ const Map: FC<{
       showControls={showOverlay}
       pumps={pumps || null}
       ageRange={ageRange || []}
-      dataView={dataView || 'watered'}
+      mapViewFilter={mapViewFilter}
       communityData={communityData || null}
       wateredTrees={wateredTrees || []}
       communityDataWatered={communityDataWatered || []}
