@@ -43,11 +43,11 @@ const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
 
 interface DeckGLPropType {
-  data: StoreProps['data'];
+  treesGeoJson: ExtendedFeatureCollection | null;
   rainGeojson: ExtendedFeatureCollection | null;
 
   visibleMapLayer: StoreProps['visibleMapLayer'];
-  pumps: ExtendedFeatureCollection | null;
+  pumpsGeoJson: ExtendedFeatureCollection | null;
   selectedTreeId: string | undefined;
   selectedTreeData: SelectedTreeType | undefined;
   ageRange: StoreProps['ageRange'];
@@ -55,7 +55,6 @@ interface DeckGLPropType {
   communityData: CommunityDataType['communityFlagsMap'];
   communityDataWatered: CommunityDataType['wateredTreesIds'];
   communityDataAdopted: CommunityDataType['adoptedTreesIds'];
-  isTreeDataLoading: StoreProps['isTreeDataLoading'];
   isNavOpen: StoreProps['isNavOpen'];
   showControls: boolean | undefined;
   onTreeSelect: (id: string) => void;
@@ -110,13 +109,13 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   _renderLayers(): unknown[] {
-    const { data, rainGeojson, visibleMapLayer, pumps } = this.props;
+    const { treesGeoJson, rainGeojson, visibleMapLayer, pumpsGeoJson } = this.props;
 
-    if (!data || !rainGeojson || !pumps) return [];
+    if (!treesGeoJson || !rainGeojson || !pumpsGeoJson) return [];
     const layers = [
       new GeoJsonLayer({
         id: 'geojson',
-        data: isMobile ? [] : data,
+        data: isMobile ? [] : treesGeoJson,
         opacity: 1,
         getLineWidth: (info: {
           properties: {
@@ -237,7 +236,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       }),
       new GeoJsonLayer({
         id: 'pumps',
-        data: pumps,
+        data: pumpsGeoJson,
         opacity: 1,
         visible: visibleMapLayer === 'pumps' ? true : false,
         stroked: true,
@@ -524,12 +523,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   render(): ReactNode {
-    const { isTreeDataLoading, isNavOpen, showControls } = this.props;
+    const { isNavOpen, showControls } = this.props;
     const { viewport } = this.state;
-
-    if (isTreeDataLoading) {
-      return <span>Lade Berlins Baumdaten ...</span>;
-    }
     return (
       <>
         {/* This code below could be used to display some info for the pumps */}

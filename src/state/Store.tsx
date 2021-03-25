@@ -6,9 +6,7 @@ const initialState: StoreProps = {
   isNavOpen: false,
   visibleMapLayer: 'trees',
   ageRange: [0, 320],
-  data: null,
   overlay: true,
-  isTreeDataLoading: true,
 };
 
 const store = createStore<StoreProps>(initialState);

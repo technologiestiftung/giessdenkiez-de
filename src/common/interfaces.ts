@@ -1,4 +1,3 @@
-import { ExtendedFeatureCollection } from 'd3-geo';
 import { RadolanDays } from './types';
 
 export interface DailyWaterAmountsType {
@@ -47,9 +46,7 @@ export interface StoreProps {
   visibleMapLayer: 'rain' | 'trees' | 'pumps';
   isNavOpen: boolean;
   ageRange: number[];
-  data: ExtendedFeatureCollection | null;
   overlay: boolean;
-  isTreeDataLoading: boolean;
 }
 
 export interface Tree {

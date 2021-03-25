@@ -10,7 +10,7 @@ export const usePumpsGeoJson = (): {
   data: ExtendedFeatureCollection | null;
   error: Error | null;
 } => {
-  const dataParams = 'pumps-data';
+  const dataParams = 'pumps-geojson';
   const { data, error } = useQuery<unknown, Error, ExtendedFeatureCollection>(
     dataParams,
     loadData,

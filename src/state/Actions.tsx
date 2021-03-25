@@ -12,14 +12,6 @@ const setMapViewFilter = (
   mapViewFilter: StoreProps['mapViewFilter']
 ): Pick<StoreProps, 'mapViewFilter'> => ({ mapViewFilter });
 
-const startLoading = (): Pick<StoreProps, 'isTreeDataLoading'> => ({
-  isTreeDataLoading: true,
-});
-
-const stopLoading = (): Pick<StoreProps, 'isTreeDataLoading'> => ({
-  isTreeDataLoading: false,
-});
-
 const openOverlay = (): Pick<StoreProps, 'overlay' | 'isNavOpen'> => ({
   overlay: true,
   isNavOpen: false,
@@ -34,8 +26,6 @@ const closeNav = (): { isNavOpen: StoreProps['isNavOpen'] } => ({
 });
 
 const allActions = {
-  startLoading,
-  stopLoading,
   setAgeRange,
   openOverlay,
   closeOverlay,

@@ -1,16 +1,21 @@
 import { QueryFunction, useQuery } from 'react-query';
 import { ExtendedFeatureCollection } from 'd3-geo';
-import { loadRainGeoJson } from '../requests/loadRainGeoJson';
+import { loadTreesGeoJson } from '../requests/loadTreesGeoJson';
+import { isMobile } from 'react-device-detect';
 
 const loadData: QueryFunction = async (): Promise<ExtendedFeatureCollection> => {
-  return await loadRainGeoJson();
+  if (isMobile) {
+    return { type: 'FeatureCollection', features: [] };
+  } else {
+    return await loadTreesGeoJson();
+  }
 };
 
-export const useRainGeoJson = (): {
+export const useTreesGeoJson = (): {
   data: ExtendedFeatureCollection | null;
   error: Error | null;
 } => {
-  const dataParams = 'rain-geojson';
+  const dataParams = 'trees-geojson';
   const { data, error } = useQuery<unknown, Error, ExtendedFeatureCollection>(
     dataParams,
     loadData,
