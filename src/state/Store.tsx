@@ -9,7 +9,7 @@ const initialState: StoreProps = {
   communityDataAdopted: [],
   communityDataWatered: [],
   isNavOpen: false,
-  visibleLayer: 'trees',
+  visibleMapLayer: 'trees',
   user: undefined,
   rainGeojson: null,
   ageRange: [0, 320],

@@ -54,7 +54,7 @@ export interface StoreProps {
   wateredTrees: string[];
   adoptedTrees: Pick<Tree, 'id'>[];
 
-  visibleLayer: 'rain' | 'trees' | 'pumps';
+  visibleMapLayer: 'rain' | 'trees' | 'pumps';
 
   isNavOpen: boolean;
   user?: UserDataType;
@@ -97,23 +97,3 @@ export interface Tree {
 }
 
 // Legend shared
-export interface StyledProps {
-  active?: boolean;
-}
-
-export interface FlexColumnProps {
-  isLast?: boolean;
-}
-export interface PumpsDotProps {
-  color: string;
-  size: number;
-}
-
-export interface LegendDotProps {
-  color: string;
-  gradient?: string;
-}
-
-export interface ItemContainerProps extends StyledProps {
-  active?: boolean;
-}

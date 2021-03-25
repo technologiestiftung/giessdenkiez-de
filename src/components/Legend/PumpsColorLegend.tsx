@@ -5,31 +5,29 @@ import {
   brokenColor,
   lockedColor,
 } from '../map/colors';
-import { PumpsDot } from './PumpsDot';
-import { PumpLabel } from './PumpLabel';
-import { UnstyledFlex } from './UnstyledFlex';
-import { FlexRow } from './FlexRow';
-
+import { FlexRow, FlexColumnLast } from './LegendFlexBoxes';
+import { PumpLabel } from './LegendLabels';
+import { PumpsDot } from './LegendRectsDots';
 export const PumpsColorLegend: React.FC = () => {
   return (
-    <UnstyledFlex>
-      <FlexRow>
+    <FlexRow>
+      <FlexColumnLast>
         <PumpsDot color={workingColor.hex} size={13} />
-        <PumpLabel>{'funktionsfähig'}</PumpLabel>
-      </FlexRow>
-      <FlexRow>
+        <PumpLabel>funktionsfähig</PumpLabel>
+      </FlexColumnLast>
+      <FlexColumnLast>
         <PumpsDot color={brokenColor.hex} size={13} />
-        <PumpLabel>{'defekt'}</PumpLabel>
-      </FlexRow>
+        <PumpLabel>defekt</PumpLabel>
+      </FlexColumnLast>
 
-      <FlexRow>
+      <FlexColumnLast>
         <PumpsDot color={lockedColor.hex} size={13} />
-        <PumpLabel>{'verriegelt'}</PumpLabel>
-      </FlexRow>
-      <FlexRow>
+        <PumpLabel>verriegelt</PumpLabel>
+      </FlexColumnLast>
+      <FlexColumnLast>
         <PumpsDot color={defaultColor.hex} size={13} />
-        <PumpLabel>{'unbekannt'}</PumpLabel>
-      </FlexRow>
-    </UnstyledFlex>
+        <PumpLabel>unbekannt</PumpLabel>
+      </FlexColumnLast>
+    </FlexRow>
   );
 };

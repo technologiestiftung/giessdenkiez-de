@@ -10,6 +10,13 @@ const setAgeRange = (
   };
 };
 
+const setVisibleMapLayer = (
+  type: StoreProps['visibleMapLayer']
+): { visibleMapLayer: StoreProps['visibleMapLayer'] } => {
+  return {
+    visibleMapLayer: type,
+  };
+};
 function startLoading(): {
   isTreeDataLoading: true;
 } {
@@ -45,6 +52,7 @@ const allActions = {
   openOverlay,
   closeOverlay,
   closeNav,
+  setVisibleMapLayer,
 };
 
 export type ActionsType = typeof allActions;

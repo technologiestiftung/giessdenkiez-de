@@ -42,7 +42,7 @@ interface DeckGLPropType {
   data: StoreProps['data'];
   rainGeojson: StoreProps['rainGeojson'];
 
-  visibleLayer: StoreProps['visibleLayer'];
+  visibleMapLayer: StoreProps['visibleMapLayer'];
   pumps: StoreProps['pumps'];
   selectedTreeId: string | undefined;
   selectedTreeData: SelectedTreeType | undefined;
@@ -107,7 +107,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   _renderLayers(): unknown[] {
-    const { data, rainGeojson, visibleLayer, pumps } = this.props;
+    const { data, rainGeojson, visibleMapLayer, pumps } = this.props;
 
     if (!data || !rainGeojson || !pumps) return [];
     const layers = [
@@ -134,7 +134,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           }
         },
         getLineColor: [247, 105, 6, 255],
-        visible: visibleLayer === 'trees' ? true : false,
+        visible: visibleMapLayer === 'trees',
         filled: true,
         parameters: {
           depthTest: false,
@@ -205,7 +205,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         id: 'rain',
         data: rainGeojson,
         opacity: 0.95,
-        visible: visibleLayer === 'rain' ? true : false,
+        visible: visibleMapLayer === 'rain' ? true : false,
         stroked: false,
         filled: true,
         extruded: true,
@@ -228,7 +228,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         id: 'pumps',
         data: pumps,
         opacity: 1,
-        visible: visibleLayer === 'pumps' ? true : false,
+        visible: visibleMapLayer === 'pumps' ? true : false,
         stroked: true,
         filled: true,
         extruded: true,
@@ -428,8 +428,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
   _updateStyles(prevProps: DeckGLPropType): void {
     if (map && isMobile) {
-      // if (!this.props.treesVisible) {
-      if (this.props.visibleLayer !== 'trees') {
+      if (this.props.visibleMapLayer !== 'trees') {
         map.setLayoutProperty('trees', 'visibility', 'none');
       } else {
         map.setLayoutProperty('trees', 'visibility', 'visible');
@@ -475,7 +474,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       'ageRange',
       'dataView',
       'treesVisible',
-      'visibleLayer',
+      'visibleMapLayer',
       'selectedTreeId',
       'selectedTreeData',
     ];

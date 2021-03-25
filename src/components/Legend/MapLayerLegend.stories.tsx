@@ -1,15 +1,15 @@
 import React from 'react';
-import Legend from './Legend';
+import MapLayerLegend from './MapLayersLegend';
 import { Story } from '@storybook/react/types-6-0';
 
 export default {
   title: 'Legend',
-  component: Legend,
+  component: MapLayerLegend,
 };
 
-const Template: Story = args => <Legend {...args} />;
+const Template: Story = args => <MapLayerLegend {...args} />;
 
 export const LegendStory = Template.bind({});
 LegendStory.args = {
-  visibleLayer: 'trees',
+  visibleMapLayer: 'trees',
 };

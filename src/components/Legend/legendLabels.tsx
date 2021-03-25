@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+
 export const legendLabels = [
   {
     label: '0',
@@ -24,3 +26,16 @@ export const legendLabels = [
     value: 300,
   },
 ];
+
+export const ItemLabel = styled.label`
+  font-size: ${p => p.theme.fontSizeL};
+  opacity: 0.66;
+  padding-top: 5px;
+  width: 100%;
+`;
+
+export const PumpLabel = styled.label`
+  font-size: ${p => p.theme.fontSizeL};
+  opacity: 0.66;
+  width: 100%;
+`;
