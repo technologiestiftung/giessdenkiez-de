@@ -44,15 +44,14 @@ const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
 
 interface DeckGLPropType {
   data: StoreProps['data'];
-  rainGeojson: ExtendedFeatureCollection;
+  rainGeojson: ExtendedFeatureCollection | null;
 
   visibleMapLayer: StoreProps['visibleMapLayer'];
-  pumps: ExtendedFeatureCollection;
+  pumps: ExtendedFeatureCollection | null;
   selectedTreeId: string | undefined;
   selectedTreeData: SelectedTreeType | undefined;
   ageRange: StoreProps['ageRange'];
   mapViewFilter: StoreProps['mapViewFilter'];
-  wateredTrees: StoreProps['wateredTrees'];
   communityData: CommunityDataType['communityFlagsMap'];
   communityDataWatered: CommunityDataType['wateredTreesIds'];
   communityDataAdopted: CommunityDataType['adoptedTreesIds'];
@@ -205,7 +204,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         },
         updateTriggers: {
           getFillColor: [
-            this.props.wateredTrees,
+            this.props.communityData?.wateredTrees,
             this.props.selectedTreeId,
             this.props.ageRange,
             this.props.mapViewFilter,
@@ -482,7 +481,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   componentDidUpdate(prevProps: DeckGLPropType): boolean {
     if (!map) return false;
     const mapProps = [
-      'wateredTrees',
+      'communityData',
       'ageRange',
       'mapViewFilter',
       'treesVisible',

@@ -1,5 +1,4 @@
 import { StoreProps } from '../../common/interfaces';
-import { getWateredTrees } from './getWateredTrees';
 import { isMobile } from 'react-device-detect';
 import { loadTreesGeoJson } from './loadTreesGeoJson';
 
@@ -15,9 +14,6 @@ export const loadAllData = async (): Promise<{
   wateredTrees: StoreProps['wateredTrees'];
   data: StoreProps['data'];
 }> => {
-  const [wateredTrees, data] = await Promise.all([
-    getWateredTrees(),
-    loadTrees(),
-  ]);
-  return { wateredTrees, data };
+  const treesGeoJson = loadTrees();
+  return { data: treesGeoJson };
 };

@@ -61,7 +61,6 @@ const Map: FC<{
   const visibleMapLayer = useStoreState('visibleMapLayer');
   const ageRange = useStoreState('ageRange');
   const mapViewFilter = useStoreState('mapViewFilter');
-  const wateredTrees = useStoreState('wateredTrees');
   const isTreeDataLoading = useStoreState('isTreeDataLoading');
 
   const treeId = useCurrentTreeId();
@@ -87,7 +86,6 @@ const Map: FC<{
       ageRange={ageRange || []}
       mapViewFilter={mapViewFilter}
       communityData={communityData?.communityFlagsMap || null}
-      wateredTrees={wateredTrees || []}
       communityDataWatered={communityData?.wateredTreesIds || []}
       communityDataAdopted={communityData?.adoptedTreesIds || []}
       selectedTreeId={treeId || undefined}
