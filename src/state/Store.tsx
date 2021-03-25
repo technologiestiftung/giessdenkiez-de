@@ -8,7 +8,6 @@ const initialState: StoreProps = {
   isNavOpen: false,
   visibleMapLayer: 'trees',
   user: undefined,
-  rainGeojson: null,
   ageRange: [0, 320],
   pumps: null,
   data: null,

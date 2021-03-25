@@ -52,7 +52,6 @@ export interface StoreProps {
 
   isNavOpen: boolean;
   user?: UserDataType;
-  rainGeojson: ExtendedFeatureCollection | null;
   ageRange: number[];
   pumps: ExtendedFeatureCollection | null;
   data: ExtendedFeatureCollection | null;

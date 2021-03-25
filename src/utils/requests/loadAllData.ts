@@ -1,4 +1,3 @@
-import { loadRainGeoJson } from './loadRainGeoJson';
 import { loadPumpsData } from './loadPumpsData';
 import { StoreProps } from '../../common/interfaces';
 import { getWateredTrees } from './getWateredTrees';
@@ -14,16 +13,14 @@ const loadTrees = async () => {
 };
 
 export const loadAllData = async (): Promise<{
-  rainGeojson: StoreProps['rainGeojson'];
   pumps: StoreProps['pumps'];
   wateredTrees: StoreProps['wateredTrees'];
   data: StoreProps['data'];
 }> => {
-  const [rainGeojson, pumps, wateredTrees, data] = await Promise.all([
-    loadRainGeoJson(),
+  const [pumps, wateredTrees, data] = await Promise.all([
     loadPumpsData(),
     getWateredTrees(),
     loadTrees(),
   ]);
-  return { rainGeojson, pumps, wateredTrees, data };
+  return { pumps, wateredTrees, data };
 };

@@ -15,6 +15,7 @@ import { useTreeData } from '../../utils/hooks/useTreeData';
 import { useHistory, useLocation } from 'react-router';
 import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
+import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 
 const AppWrapperDiv = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
@@ -56,7 +57,6 @@ const Map: FC<{
   isNavOpened: boolean | undefined;
 }> = ({ showOverlay, isNavOpened }) => {
   const data = useStoreState('data');
-  const rainGeojson = useStoreState('rainGeojson');
   const visibleMapLayer = useStoreState('visibleMapLayer');
   const pumps = useStoreState('pumps');
   const ageRange = useStoreState('ageRange');
@@ -66,6 +66,7 @@ const Map: FC<{
 
   const treeId = useCurrentTreeId();
   const { data: communityData } = useCommunityData();
+  const { data: rainGeoJson } = useRainGeoJson();
   const { treeData: selectedTreeData } = useTreeData(treeId);
   const history = useHistory();
 
@@ -76,9 +77,9 @@ const Map: FC<{
         history.push(nextLocation);
       }}
       data={data || null}
-      rainGeojson={rainGeojson || null}
+      rainGeojson={rainGeoJson || null}
       visibleMapLayer={visibleMapLayer}
-      isTreeDataLoading={!!isTreeDataLoading}
+      isTreeDataLoading={Boolean(isTreeDataLoading && rainGeoJson)}
       isNavOpen={!!isNavOpened}
       showControls={showOverlay}
       pumps={pumps || null}
@@ -100,10 +101,11 @@ const AppWrapper: FC = () => {
   const overlay = useStoreState('overlay');
   const isNavOpen = useStoreState('isNavOpen');
   const { pathname } = useLocation();
+  const { data: rainGeoJson } = useRainGeoJson();
   const isHome = pathname === '/';
   const showOverlay = isHome && overlay;
 
-  const showMap = !isTreeDataLoading && data;
+  const showMap = !isTreeDataLoading && rainGeoJson && data;
   const showLoading = !showMap;
   const showMapUI = showMap && !showOverlay;
   const isSidebarOpened = !isHome && isNavOpen;
