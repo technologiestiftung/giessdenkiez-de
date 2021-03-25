@@ -58,7 +58,6 @@ const Map: FC<{
 }> = ({ showOverlay, isNavOpened }) => {
   const data = useStoreState('data');
   const visibleMapLayer = useStoreState('visibleMapLayer');
-  const pumps = useStoreState('pumps');
   const ageRange = useStoreState('ageRange');
   const mapViewFilter = useStoreState('mapViewFilter');
   const wateredTrees = useStoreState('wateredTrees');
@@ -67,6 +66,7 @@ const Map: FC<{
   const treeId = useCurrentTreeId();
   const { data: communityData } = useCommunityData();
   const { data: rainGeoJson } = useRainGeoJson();
+  const { data: pumpsGeoJson } = useRainGeoJson();
   const { treeData: selectedTreeData } = useTreeData(treeId);
   const history = useHistory();
 
@@ -82,7 +82,7 @@ const Map: FC<{
       isTreeDataLoading={Boolean(isTreeDataLoading && rainGeoJson)}
       isNavOpen={!!isNavOpened}
       showControls={showOverlay}
-      pumps={pumps || null}
+      pumps={pumpsGeoJson || null}
       ageRange={ageRange || []}
       mapViewFilter={mapViewFilter}
       communityData={communityData?.communityFlagsMap || null}
@@ -101,11 +101,10 @@ const AppWrapper: FC = () => {
   const overlay = useStoreState('overlay');
   const isNavOpen = useStoreState('isNavOpen');
   const { pathname } = useLocation();
-  const { data: rainGeoJson } = useRainGeoJson();
   const isHome = pathname === '/';
   const showOverlay = isHome && overlay;
 
-  const showMap = !isTreeDataLoading && rainGeoJson && data;
+  const showMap = !isTreeDataLoading && data;
   const showLoading = !showMap;
   const showMapUI = showMap && !showOverlay;
   const isSidebarOpened = !isHome && isNavOpen;

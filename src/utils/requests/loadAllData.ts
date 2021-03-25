@@ -1,4 +1,3 @@
-import { loadPumpsData } from './loadPumpsData';
 import { StoreProps } from '../../common/interfaces';
 import { getWateredTrees } from './getWateredTrees';
 import { isMobile } from 'react-device-detect';
@@ -13,14 +12,12 @@ const loadTrees = async () => {
 };
 
 export const loadAllData = async (): Promise<{
-  pumps: StoreProps['pumps'];
   wateredTrees: StoreProps['wateredTrees'];
   data: StoreProps['data'];
 }> => {
-  const [pumps, wateredTrees, data] = await Promise.all([
-    loadPumpsData(),
+  const [wateredTrees, data] = await Promise.all([
     getWateredTrees(),
     loadTrees(),
   ]);
-  return { pumps, wateredTrees, data };
+  return { wateredTrees, data };
 };

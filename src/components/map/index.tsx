@@ -10,7 +10,7 @@ import {
   FlyToInterpolator,
 } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
-import { easeCubic as d3EaseCubic } from 'd3';
+import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { HoverObject } from './HoverObject';
 import {
@@ -44,10 +44,10 @@ const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
 
 interface DeckGLPropType {
   data: StoreProps['data'];
-  rainGeojson: StoreProps['rainGeojson'];
+  rainGeojson: ExtendedFeatureCollection;
 
   visibleMapLayer: StoreProps['visibleMapLayer'];
-  pumps: StoreProps['pumps'];
+  pumps: ExtendedFeatureCollection;
   selectedTreeId: string | undefined;
   selectedTreeData: SelectedTreeType | undefined;
   ageRange: StoreProps['ageRange'];

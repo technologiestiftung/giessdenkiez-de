@@ -9,7 +9,6 @@ const initialState: StoreProps = {
   visibleMapLayer: 'trees',
   user: undefined,
   ageRange: [0, 320],
-  pumps: null,
   data: null,
   overlay: true,
   isTreeDataLoading: true,

@@ -53,7 +53,6 @@ export interface StoreProps {
   isNavOpen: boolean;
   user?: UserDataType;
   ageRange: number[];
-  pumps: ExtendedFeatureCollection | null;
   data: ExtendedFeatureCollection | null;
   overlay: boolean;
   isTreeDataLoading: boolean;
