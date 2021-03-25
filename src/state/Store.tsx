@@ -7,6 +7,7 @@ const initialState: StoreProps = {
   visibleMapLayer: 'trees',
   ageRange: [0, 320],
   overlay: true,
+  mapFocusPoint: null,
 };
 
 const store = createStore<StoreProps>(initialState);

@@ -12,6 +12,10 @@ const setMapViewFilter = (
   mapViewFilter: StoreProps['mapViewFilter']
 ): Pick<StoreProps, 'mapViewFilter'> => ({ mapViewFilter });
 
+const setMapFocusPoint = (
+  mapFocusPoint: StoreProps['mapFocusPoint']
+): Pick<StoreProps, 'mapFocusPoint'> => ({ mapFocusPoint });
+
 const openOverlay = (): Pick<StoreProps, 'overlay' | 'isNavOpen'> => ({
   overlay: true,
   isNavOpen: false,
@@ -26,6 +30,7 @@ const closeNav = (): { isNavOpen: StoreProps['isNavOpen'] } => ({
 });
 
 const allActions = {
+  setMapFocusPoint,
   setAgeRange,
   openOverlay,
   closeOverlay,

@@ -41,12 +41,21 @@ export interface SelectedTreeType extends Tree {
   waterings: WateringType[] | undefined;
   isAdopted: boolean | undefined;
 }
+
+interface FocusPointType {
+  id: string;
+  latitude: number;
+  longitude: number;
+  zoom?: number;
+}
+
 export interface StoreProps {
   mapViewFilter: 'rain' | 'adopted' | 'watered';
   visibleMapLayer: 'rain' | 'trees' | 'pumps';
   isNavOpen: boolean;
   ageRange: number[];
   overlay: boolean;
+  mapFocusPoint: FocusPointType | null;
 }
 
 export interface Tree {

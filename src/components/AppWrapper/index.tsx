@@ -61,6 +61,7 @@ const Map: FC<{
   const visibleMapLayer = useStoreState('visibleMapLayer');
   const ageRange = useStoreState('ageRange');
   const mapViewFilter = useStoreState('mapViewFilter');
+  const mapFocusPoint = useStoreState('mapFocusPoint');
 
   const treeId = useCurrentTreeId();
   const { data: communityData } = useCommunityData();
@@ -88,7 +89,7 @@ const Map: FC<{
       communityDataWatered={communityData?.wateredTreesIds || []}
       communityDataAdopted={communityData?.adoptedTreesIds || []}
       selectedTreeId={treeId || undefined}
-      selectedTreeData={selectedTreeData}
+      focusPoint={selectedTreeData ? selectedTreeData : mapFocusPoint}
     />
   );
 };

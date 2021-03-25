@@ -47,15 +47,17 @@ interface DeckGLPropType {
   rainGeojson: ExtendedFeatureCollection | null;
 
   visibleMapLayer: StoreProps['visibleMapLayer'];
-  pumpsGeoJson: ExtendedFeatureCollection | null;
-  selectedTreeId: string | undefined;
-  selectedTreeData: SelectedTreeType | undefined;
   ageRange: StoreProps['ageRange'];
   mapViewFilter: StoreProps['mapViewFilter'];
+  isNavOpen: StoreProps['isNavOpen'];
+  focusPoint: StoreProps['mapFocusPoint'];
+
+  pumpsGeoJson: ExtendedFeatureCollection | null;
+  selectedTreeId: string | undefined;
   communityData: CommunityDataType['communityFlagsMap'];
   communityDataWatered: CommunityDataType['wateredTreesIds'];
   communityDataAdopted: CommunityDataType['adoptedTreesIds'];
-  isNavOpen: StoreProps['isNavOpen'];
+
   showControls: boolean | undefined;
   onTreeSelect: (id: string) => void;
 }
@@ -419,11 +421,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
     this.setState({ isTreeMapLoading: false });
 
-    if (!this.props.selectedTreeData) return;
+    if (!this.props.focusPoint) return;
     this.setViewport({
-      latitude: this.props.selectedTreeData.latitude,
-      longitude: this.props.selectedTreeData.longitude,
-      zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+      latitude: this.props.focusPoint.latitude,
+      longitude: this.props.focusPoint.longitude,
+      zoom: this.props.focusPoint.zoom || VIEWSTATE_ZOOMEDIN_ZOOM,
       transitionDuration: VIEWSTATE_TRANSITION_DURATION,
     });
   }
@@ -478,7 +480,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       'treesVisible',
       'visibleMapLayer',
       'selectedTreeId',
-      'selectedTreeData',
+      'focusPoint',
     ];
     let changed = false;
     mapProps.forEach(prop => {
@@ -491,13 +493,13 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     this._updateStyles(prevProps);
 
     if (
-      this.props.selectedTreeData &&
-      prevProps.selectedTreeData?.id !== this.props.selectedTreeData?.id
+      this.props.focusPoint &&
+      prevProps.focusPoint?.id !== this.props.focusPoint?.id
     ) {
       this.setViewport({
-        latitude: this.props.selectedTreeData.latitude,
-        longitude: this.props.selectedTreeData.longitude,
-        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+        latitude: this.props.focusPoint.latitude,
+        longitude: this.props.focusPoint.longitude,
+        zoom: this.props.focusPoint.zoom || VIEWSTATE_ZOOMEDIN_ZOOM,
         transitionDuration: VIEWSTATE_TRANSITION_DURATION,
       });
     }

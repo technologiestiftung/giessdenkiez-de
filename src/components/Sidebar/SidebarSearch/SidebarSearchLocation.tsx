@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC, useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
 import { useQuery, QueryFunction } from 'react-query';
-import { useHistory } from 'react-router';
+import { useActions } from '../../../state/unistore-hooks';
 
 interface FeatureType {
   id: string;
@@ -86,15 +86,14 @@ const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
   return json.features;
 };
 
-const SidebarSearchLocation: React.FC = () => {
-  const [value, setValue] = React.useState('');
-  const history = useHistory();
+const SidebarSearchLocation: FC = () => {
+  const [value, setValue] = useState('');
+  const { setMapFocusPoint } = useActions();
   const { data: results } = useQuery(['sidebarSearch', value], fetchSearch, {
-    cacheTime: 1000,
-    staleTime: 5000,
+    staleTime: Infinity,
   });
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
   return (
@@ -111,7 +110,14 @@ const SidebarSearchLocation: React.FC = () => {
             <ResultElement
               className={index % 2 ? 'even' : 'odd'}
               key={item.id}
-              onClick={() => history.push(`/tree/${item.id}`)}
+              onClick={() =>
+                setMapFocusPoint({
+                  id: item.id,
+                  latitude: item.geometry.coordinates[1],
+                  longitude: item.geometry.coordinates[0],
+                  zoom: 18,
+                })
+              }
             >
               {item.place_name_de}
             </ResultElement>
