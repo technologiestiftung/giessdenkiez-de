@@ -14,6 +14,7 @@ import ButtonRound from '../../ButtonRound';
 import LoadingIcon from '../../LoadingIcon/';
 import SidebarTitle from '../SidebarTitle/';
 import { ParticipateButton } from '../../ParticipateButton';
+import { useAccountActions } from '../../../utils/hooks/useAccountActions';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
@@ -45,7 +46,8 @@ Alle deine Benutzerdaten werden damit sofort gelöscht!`
   );
 
 const SidebarProfile: FC = () => {
-  const { userData, deleteAccount } = useUserState();
+  const { userData } = useUserState();
+  const { deleteAccount } = useAccountActions();
   const { loading } = useAuth0();
 
   const handleDeleteClick = async () => {

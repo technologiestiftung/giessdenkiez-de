@@ -1,7 +1,6 @@
 import { QueryFunction, useQuery, useQueryClient } from 'react-query';
 import { UserDataType } from '../../common/interfaces';
 import { useAuth0 } from '../auth/auth0';
-import { deleteAccount } from '../requests/deleteAccount';
 import { getUserData } from '../requests/getUserData';
 import { useAuth0Token } from './useAuth0Token';
 
@@ -19,12 +18,9 @@ const fetchUserData: QueryFunction<UserDataType | undefined> = async ({
 export const useUserState = (): {
   userData: UserDataType | undefined;
   error: Error | null;
-  logout: () => void;
-  login: () => void;
-  deleteAccount: () => Promise<void>;
   invalidate: () => void;
 } => {
-  const { user, logout, loginWithRedirect } = useAuth0();
+  const { user } = useAuth0();
   const token = useAuth0Token();
   const queryClient = useQueryClient();
 
@@ -38,19 +34,5 @@ export const useUserState = (): {
     userData,
     error,
     invalidate: () => queryClient.invalidateQueries(queryParams),
-    logout: () => {
-      if (!user?.sub) return;
-      logout();
-      queryClient.invalidateQueries(queryParams);
-    },
-    login: () => {
-      loginWithRedirect({ ui_locales: 'de' });
-    },
-    deleteAccount: async () => {
-      if (!user?.sub || !token) return;
-      await deleteAccount({ token, userId: user.sub });
-      logout();
-      queryClient.invalidateQueries(queryParams);
-    },
   };
 };

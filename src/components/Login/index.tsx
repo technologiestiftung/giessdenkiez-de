@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useAccountActions } from '../../utils/hooks/useAccountActions';
 
 import { useUserState } from '../../utils/hooks/useUserState';
 
@@ -8,7 +9,8 @@ const Login: FC<{
   width?: string;
   noLogout?: boolean;
 }> = ({ width, noLogout }) => {
-  const { userData, login, logout } = useUserState();
+  const { userData } = useUserState();
+  const { login, logout } = useAccountActions();
 
   return (
     <>
