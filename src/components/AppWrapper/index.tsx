@@ -13,6 +13,7 @@ import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
 import { useStoreState } from '../../state/unistore-hooks';
 import { useTreeData } from '../../utils/hooks/useTreeData';
 import { useHistory, useLocation } from 'react-router';
+import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 
 const AppWrapperDiv = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
@@ -66,7 +67,8 @@ const Map: FC<{
   const communityDataWatered = useStoreState('communityDataWatered');
   const communityDataAdopted = useStoreState('communityDataAdopted');
   const isTreeDataLoading = useStoreState('isTreeDataLoading');
-  const { treeId, treeData: selectedTreeData } = useTreeData();
+  const treeId = useCurrentTreeId();
+  const { treeData: selectedTreeData } = useTreeData(treeId);
   const history = useHistory();
 
   return (
@@ -90,7 +92,7 @@ const Map: FC<{
       wateredTrees={wateredTrees || []}
       communityDataWatered={communityDataWatered || []}
       communityDataAdopted={communityDataAdopted || []}
-      selectedTreeId={treeId}
+      selectedTreeId={treeId || undefined}
       selectedTreeData={selectedTreeData}
     />
   );

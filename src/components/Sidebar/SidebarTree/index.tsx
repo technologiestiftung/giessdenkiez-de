@@ -4,6 +4,7 @@ import SidebarTitle from '../SidebarTitle';
 import Card from '../../Card/Card';
 import LoadingIcon from '../../LoadingIcon';
 import { useTreeData } from '../../../utils/hooks/useTreeData';
+import { useCurrentTreeId } from '../../../utils/hooks/useCurrentTreeId';
 
 const LoadingContainer = styled.div`
   width: 100%;
@@ -15,7 +16,8 @@ const LoadingContainer = styled.div`
 `;
 
 const SidebarTree: FC = () => {
-  const { treeData: selectedTreeData, error } = useTreeData();
+  const treeId = useCurrentTreeId();
+  const { treeData: selectedTreeData, error } = useTreeData(treeId);
   return (
     <>
       <SidebarTitle>Bauminformation</SidebarTitle>
