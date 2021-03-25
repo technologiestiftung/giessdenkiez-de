@@ -6,7 +6,8 @@ import { ContextProviderValue } from '@deck.gl/core/lib/deck';
 
 import MapControls from './mapControls';
 
-import { ViewState, OnViewStateChange, Feature, Layer } from 'src/types';
+import { ViewState, Feature } from '../../common/interfaces';
+import { OnViewStateChange, Layer } from '../../common/types';
 
 const defaultMapboxApiAccessToken = process.env.REACT_APP_API_KEY;
 
@@ -37,7 +38,7 @@ const NewMap: FC<MapProps> = ({
       {pumpHover}
       <DeckGL
         viewState={viewState}
-        onViewStateChange={onViewStateChange}
+        onViewStateChange={e => onViewStateChange(e.viewState)}
         controller={true}
         layers={layers}
         ContextProvider={

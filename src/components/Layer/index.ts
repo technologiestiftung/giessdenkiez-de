@@ -1,5 +1,5 @@
 import { GeoJsonLayer, GeoJsonLayerProps } from '@deck.gl/layers';
-import { scaleLinear, interpolateViridis, easeCubic as d3EaseCubic } from 'd3';
+import { easeCubic as d3EaseCubic } from 'd3';
 import { FlyToInterpolator } from 'react-map-gl';
 
 import {
@@ -8,31 +8,35 @@ import {
   TreeFeature,
   PumpFeature,
   RainFeature,
+  CommunityData,
+  ViewState,
+} from '../../common/interfaces';
+
+import {
   OnViewStateChange,
   SetSelectedTree,
   SetHoveredPump,
-  CommunityData,
   Layer,
-  WhichLayer,
   AgeRange,
-} from 'src/types';
+} from '../../common/types';
 
 import { pumpColors, getRainColor } from './colors';
 
-const transitionViewState = (feature: Feature, isMobile: boolean) => {
+const transitionViewState = (
+  feature: Feature,
+  isMobile: boolean
+): ViewState => {
   return {
-    viewState: {
-      latitude: feature.geometry.coordinates[1],
-      longitude: feature.geometry.coordinates[0],
-      zoom: 19,
-      maxZoom: 19,
-      transitionDuration: 2000,
-      transitionEasing: d3EaseCubic,
-      transitionInterpolator: new FlyToInterpolator(),
-      minZoom: isMobile ? 11 : 9,
-      pitch: isMobile ? 0 : 45,
-      bearing: 0,
-    },
+    latitude: feature.geometry.coordinates[1],
+    longitude: feature.geometry.coordinates[0],
+    zoom: 19,
+    maxZoom: 19,
+    transitionDuration: 2000,
+    transitionEasing: d3EaseCubic,
+    transitionInterpolator: new FlyToInterpolator(),
+    minZoom: isMobile ? 11 : 9,
+    pitch: isMobile ? 0 : 45,
+    bearing: 0,
   };
 };
 
@@ -82,7 +86,7 @@ export const getTreeLayer = ({
      */
     getFillColor: tree => {
       const { radolan_sum, id, age } = tree.properties;
-      if (showTrees && ageRange[0] <= age && age <= ageRange[1])
+      if (showTrees && ageRange[0] <= age && age <= ageRange[1] && radolan_sum)
         return getRainColor(radolan_sum);
       else if (showWatered && communityData[id] && communityData[id].watered)
         return [53, 117, 177, 200];

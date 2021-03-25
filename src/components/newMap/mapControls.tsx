@@ -2,8 +2,10 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { GeolocateControl, NavigationControl } from 'react-map-gl';
 
+import { OnViewStateChange } from '../../common/types';
+
 interface mapControlsProps {
-  onViewStateChange: (e: unknown) => void;
+  onViewStateChange: OnViewStateChange;
 }
 
 interface StyledControlWrapper {
