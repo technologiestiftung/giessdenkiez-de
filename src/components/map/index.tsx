@@ -109,7 +109,12 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   _renderLayers(): unknown[] {
-    const { treesGeoJson, rainGeojson, visibleMapLayer, pumpsGeoJson } = this.props;
+    const {
+      treesGeoJson,
+      rainGeojson,
+      visibleMapLayer,
+      pumpsGeoJson,
+    } = this.props;
 
     if (!treesGeoJson || !rainGeojson || !pumpsGeoJson) return [];
     const layers = [
@@ -160,29 +165,20 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           const { ageRange, mapViewFilter, communityData } = this.props;
           const { properties } = info;
           const { id, radolan_sum, age } = properties;
+          const communityDataFlagMap = communityData && communityData[id];
+          const { isWatered, isAdopted } = communityDataFlagMap || {};
+          const transparent = [0, 0, 0, 0] as [number, number, number, number];
 
-          if (
-            mapViewFilter === 'watered' &&
-            communityData &&
-            communityData[id]
-          ) {
-            return communityData[id].isWatered
+          if (mapViewFilter === 'watered') {
+            return communityDataFlagMap && isWatered
               ? [53, 117, 177, 200]
-              : [0, 0, 0, 0];
+              : transparent;
           }
 
-          if (
-            mapViewFilter === 'adopted' &&
-            communityData &&
-            communityData[id]
-          ) {
-            return communityData[id].isAdopted
+          if (mapViewFilter === 'adopted') {
+            return communityDataFlagMap && isAdopted
               ? [0, 128, 128, 200]
-              : [0, 0, 0, 0];
-          }
-
-          if (mapViewFilter === 'adopted' || mapViewFilter === 'watered') {
-            return [0, 0, 0, 0];
+              : transparent;
           }
 
           if (age >= ageRange[0] && age <= ageRange[1]) {
@@ -192,11 +188,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             return hex;
           }
 
-          if (Number.isNaN(age)) {
-            return [200, 200, 200, 0];
-          }
-
-          return [200, 200, 200, 0];
+          return transparent;
         },
         onClick: info => {
           this._onClick(info.x, info.y, info.object);

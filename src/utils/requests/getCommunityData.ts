@@ -10,8 +10,8 @@ export const getCommunityData = async (): Promise<CommunityDataType> => {
   const json = await requests<{
     data: {
       tree_id: string;
-      adopted: '1' | '2';
-      watered: '1' | '2';
+      adopted: string;
+      watered: string;
     }[];
   }>(fetchCommunityDataUrl);
 
@@ -24,17 +24,23 @@ export const getCommunityData = async (): Promise<CommunityDataType> => {
   if (!json.data) return defaultCommunityData;
 
   const newState = json.data.reduce(
-    (acc: CommunityDataType, { tree_id: id, adopted, watered }) => ({
-      communityFlagsMap: {
-        ...acc.communityFlagsMap,
-        [id]: {
-          isAdopted: adopted === '1' ? true : false,
-          isWatered: watered === '1' ? true : false,
+    (acc: CommunityDataType, { tree_id: id, adopted, watered }) => {
+      const item = acc[id];
+      const isAdopted = item?.isAdopted || adopted !== '0';
+      const isWatered = item?.isWatered || watered !== '0';
+      return {
+        communityFlagsMap: {
+          ...acc.communityFlagsMap,
+          [id]: { isAdopted, isWatered },
         },
-      },
-      wateredTreesIds: [...acc.wateredTreesIds, id],
-      adoptedTreesIds: [...acc.adoptedTreesIds, id],
-    }),
+        wateredTreesIds: isWatered
+          ? [...acc.wateredTreesIds, id]
+          : acc.wateredTreesIds,
+        adoptedTreesIds: isAdopted
+          ? [...acc.adoptedTreesIds, id]
+          : acc.adoptedTreesIds,
+      };
+    },
     defaultCommunityData
   );
 
