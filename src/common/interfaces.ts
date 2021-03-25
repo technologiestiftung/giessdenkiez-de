@@ -1,8 +1,6 @@
+import { ExtendedFeatureCollection } from 'd3-geo';
 import { RadolanDays } from './types';
 
-export interface Generic {
-  [key: string]: any;
-}
 export interface DailyWaterAmountsType {
   id: string;
   timestamp: Date;
@@ -58,10 +56,10 @@ export interface StoreProps {
 
   isNavOpen: boolean;
   user?: UserDataType;
-  rainGeojson: Generic | null;
+  rainGeojson: ExtendedFeatureCollection | null;
   ageRange: number[];
-  pumps: Generic | null;
-  data: Generic | null;
+  pumps: ExtendedFeatureCollection | null;
+  data: ExtendedFeatureCollection | null;
   overlay: boolean;
   isTreeDataLoading: boolean;
 }

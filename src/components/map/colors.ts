@@ -1,16 +1,17 @@
-import { Generic } from '../../common/interfaces';
+type RGBAColor = [red: number, green: number, blue: number, alpha: number];
+type CMYKColor = [cyan: number, magenta: number, yellow: number, black: number];
+type HslColor = [hue: number, saturation: number, lightness: number];
+type HsbColor = [hue: number, saturation: number, brightness: number];
+type LabColor = [hue: number, saturation: number, brightness: number];
 
-type RGBAColor = [
-  number, // Red
-  number, // Green
-  number, // Blue
-  number // Alpha
-];
-
-interface Color extends Generic {
+interface Color {
   name: string;
   rgba: RGBAColor;
+  hsl: HslColor;
+  hsb: HsbColor;
+  cmyk: CMYKColor;
   hex: string;
+  lab: LabColor;
 }
 
 export const brokenColor: Color = {
