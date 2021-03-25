@@ -11,7 +11,7 @@ interface FeatureType {
   };
 }
 
-const SearchDiv = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 3;
@@ -21,29 +21,34 @@ const SearchDiv = styled.div`
   background: white;
 `;
 
-const FlexRowDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  input {
-    outline: none;
-    width: 100%;
-    border-radius: 5px;
-    padding: 5px 10px;
-    border: 1px solid rgba(0, 0, 0, 0.75);
-    margin: 5px 0 10px 0;
+const SearchInput = styled.input.attrs({
+  placeholderTextColor: p => p.theme.colorTextLight,
+})`
+  outline: none;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 5px 0 10px 0;
+  font-family: inherit;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  color: ${p => p.theme.colorTextDark};
+  font-size: ${p => p.theme.fontSizeL};
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  transition: border 200ms ease-out, box-shadow 100ms ease-out;
+
+  &:focus {
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
   }
 `;
 
-const ResultDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    display: block;
-  }
+const ResultsContainer = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: block;
 `;
 
 const ResultElement = styled.li`
@@ -55,8 +60,9 @@ const ResultElement = styled.li`
   font-size: 0.8rem;
   cursor: pointer;
   box-sizing: border-box;
+
   &.even {
-    background-color: rgba(217, 217, 217, 1);
+    background-color: rgba(0, 0, 0, 0.1);
   }
   &:hover,
   &.even:hover {
@@ -92,30 +98,26 @@ const SidebarSearchLocation: React.FC = () => {
     setValue(e.target.value);
   };
   return (
-    <SearchDiv>
-      <FlexRowDiv>
-        <input
-          type='text'
-          placeholder='Adresse'
-          value={value}
-          onChange={handleOnChange}
-        />
-      </FlexRowDiv>
-      <ResultDiv>
-        <ul>
-          {results &&
-            results.map((item: FeatureType, index: number) => (
-              <ResultElement
-                className={index % 2 ? 'even' : 'odd'}
-                key={item.id}
-                onClick={() => history.push(`/tree/${item.id}`)}
-              >
-                {item.place_name_de}
-              </ResultElement>
-            ))}
-        </ul>
-      </ResultDiv>
-    </SearchDiv>
+    <Wrapper>
+      <SearchInput
+        type='text'
+        placeholder='Adresse'
+        value={value}
+        onChange={handleOnChange}
+      />
+      <ResultsContainer>
+        {results &&
+          results.map((item: FeatureType, index: number) => (
+            <ResultElement
+              className={index % 2 ? 'even' : 'odd'}
+              key={item.id}
+              onClick={() => history.push(`/tree/${item.id}`)}
+            >
+              {item.place_name_de}
+            </ResultElement>
+          ))}
+      </ResultsContainer>
+    </Wrapper>
   );
 };
 

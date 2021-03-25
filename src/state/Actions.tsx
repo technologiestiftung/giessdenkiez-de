@@ -45,6 +45,12 @@ const closeNav = (): { isNavOpen: StoreProps['isNavOpen'] } => ({
   isNavOpen: false,
 });
 
+const changemapViewFilter = (
+  filter: StoreProps['mapViewFilter']
+): { mapViewFilter: StoreProps['mapViewFilter'] } => ({
+  mapViewFilter: filter,
+});
+
 const allActions = {
   startLoading,
   stopLoading,
@@ -53,6 +59,7 @@ const allActions = {
   closeOverlay,
   closeNav,
   setVisibleMapLayer,
+  changemapViewFilter,
 };
 
 export type ActionsType = typeof allActions;

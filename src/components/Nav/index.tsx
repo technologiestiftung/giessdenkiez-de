@@ -4,7 +4,7 @@ import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-import EdgeButton from '../EdgeComponent/';
+import SquareButton from '../SquareButton';
 
 interface StyledProps {
   active?: boolean;
@@ -61,13 +61,13 @@ const Nav: FC<{
           title={item.title}
           key={item.path}
         >
-          <EdgeButton
+          <SquareButton
             title={item.title}
             aria-label={item.title}
             isActive={pathname === item.path}
           >
             {item.icon}
-          </EdgeButton>
+          </SquareButton>
         </NavItem>
       ))}
     </NavWrapper>

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import CardParagraph from './Card/CardParagraph';
+import Paragraph from './Paragraph';
 import content from '../assets/content';
 
 const StyledDiv = styled.div`
@@ -29,13 +29,13 @@ const StyledSpan = styled.span`
 `;
 
 export const ImprintAndPrivacyCard: FC = () => (
-  <CardParagraph>
+  <Paragraph>
     <StyledSpan
       dangerouslySetInnerHTML={{
         __html: content.imprintAndPrivacy.description,
       }}
     />
-  </CardParagraph>
+  </Paragraph>
 );
 
 export const ImprintAndPrivacyContainer: FC = () => (

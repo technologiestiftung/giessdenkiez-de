@@ -15,24 +15,18 @@ const Icon: FC = () => {
 };
 
 const IconWrapper = styled.div`
-  display: flex;
-  margin-bottom: 5px;
-
-  svg {
-    margin-right: 5px;
-  }
+  display: inline-flex;
+  gap: 5px;
 `;
 
-const CardWaterDrops: FC<{ data: unknown[] }> = ({ data }) => (
+const WaterDrops: FC<{ dropsAmount?: number }> = ({ dropsAmount = 0 }) => (
   <>
-    {data && (
-      <IconWrapper>
-        {data.map((_, i) => (
-          <Icon key={`water-drop-key-${i}`} />
-        ))}
-      </IconWrapper>
-    )}
+    <IconWrapper>
+      {[...Array(dropsAmount).keys()].map(i => (
+        <Icon key={`water-drop-key-${i}`} />
+      ))}
+    </IconWrapper>
   </>
 );
 
-export default CardWaterDrops;
+export default WaterDrops;

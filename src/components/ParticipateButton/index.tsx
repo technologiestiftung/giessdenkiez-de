@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 import React, { FC } from 'react';
 import { useHistory } from 'react-router-dom';
-import CardDescription from '../Card/CardDescription';
 import { useActions } from '../../state/unistore-hooks';
+import SmallParagraph from '../SmallParagraph';
 
-const StyledCardDescription = styled(CardDescription)`
-  display: block;
-  opacity: 0.66;
-  text-decoration: underline;
+const Container = styled(SmallParagraph)`
   padding-top: 10px;
-  cursor: pointer;
-  margin: 0 auto;
   text-align: center;
+  text-decoration: underline;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 200ms ease-out;
+
   &:hover {
     opacity: 0.5;
   }
@@ -22,13 +22,13 @@ export const ParticipateButton: FC = () => {
   const history = useHistory();
 
   return (
-    <StyledCardDescription
+    <Container
       onClick={() => {
         openOverlay();
         history.push('/');
       }}
     >
       Wie kann ich mitmachen?
-    </StyledCardDescription>
+    </Container>
   );
 };

@@ -3,13 +3,12 @@ import styled from 'styled-components';
 import { useAuth0 } from '../../../utils/auth/auth0';
 import { useUserState } from '../../../utils/hooks/useUserState';
 
-import CardHeadline from '../../Card/CardHeadline/';
-import CardParagraph from '../../Card/CardParagraph/';
-import CardProgress from '../../Card/CardProgress/';
-import CardAccordion from '../../Card/CardAccordion/';
-import CardCredentials from '../../Card/CardCredentials/';
-import TreesAdopted from '../../Card/CardAccordion/TreesAdopted';
-import { NonVerfiedMailCardParagraph } from '../../Card/non-verified-mail';
+import Paragraph from '../../Paragraph';
+import WateredTreesIndicator from '../../WateredTreesIndicator';
+import ExpandablePanel from '../../ExpandablePanel';
+import UserCredentials from '../../UserCredentials';
+import TreesList from '../../TreesList';
+import { NonVerfiedMailMessage } from '../../NonVerfiedMailMessage';
 import Login from '../../Login';
 import ButtonRound from '../../ButtonRound';
 import LoadingIcon from '../../LoadingIcon/';
@@ -31,6 +30,11 @@ const Container = styled.div`
 const FlexCol = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const WateringsTitle = styled.span`
+  font-size: ${p => p.theme.fontSizeXl};
+  font-weight: bold;
 `;
 
 const confirmAccountDeletion = (): boolean =>
@@ -65,11 +69,11 @@ const SidebarProfile: FC = () => {
       <>
         <SidebarTitle>Profil</SidebarTitle>
         <FlexCol>
-          <CardParagraph>
+          <Paragraph>
             Du bist momentan nicht eingeloggt. Wenn du das Gießen von Bäumen in
             deiner Umgebung hier eintragen möchtest, dann registriere dich oder
             logge dich ein.
-          </CardParagraph>
+          </Paragraph>
           <Login width='-webkit-fill-available' />
           <ParticipateButton />
         </FlexCol>
@@ -81,7 +85,7 @@ const SidebarProfile: FC = () => {
     return (
       <>
         <SidebarTitle>Profil</SidebarTitle>
-        <NonVerfiedMailCardParagraph />
+        <NonVerfiedMailMessage />
       </>
     );
   }
@@ -89,20 +93,25 @@ const SidebarProfile: FC = () => {
   return (
     <>
       <SidebarTitle>Profil</SidebarTitle>
-      <CardHeadline>Dein Gießfortschritt</CardHeadline>
-      <CardProgress waterings={userData.waterings} />
-      <CardAccordion active={true} title={<span>Adoptierte Bäume</span>}>
-        <TreesAdopted trees={userData.adoptedTrees} />
-      </CardAccordion>
-      <CardCredentials />
+      <WateringsTitle>Dein Gießfortschritt</WateringsTitle>
+      <WateredTreesIndicator waterings={userData.waterings} />
+      <ExpandablePanel isExpanded title={<span>Adoptierte Bäume</span>}>
+        {userData.adoptedTrees.length === 0 ? (
+          'Du hast noch keine Bäume adoptiert.'
+        ) : (
+          <TreesList trees={userData.adoptedTrees} />
+        )}
+      </ExpandablePanel>
+      <UserCredentials email={userData.email} username={userData.username} />
+      <br />
       <Login width='-webkit-fill-available' />
       <>
-        <CardParagraph>
+        <Paragraph>
           Möchtest du deinen Account löschen? Damit werden alle von dir
           generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein
           Benutzer bei unserem Authentifizierungsdienst Auth0.com wird sofort
           und unwiderruflich gelöscht.
-        </CardParagraph>
+        </Paragraph>
         <LastButtonRound
           width='-webkit-fill-available'
           onClick={evt => {

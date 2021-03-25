@@ -24,7 +24,7 @@ const Inner = styled.div`
   padding: 10px;
 `;
 
-const StyledCardDescription = styled.div`
+const StyledDescription = styled.div`
   line-height: 150%;
   opacity: 0.66;
 
@@ -56,7 +56,7 @@ const Cookie: FC = () => {
       {!cookiesAccepted && (
         <CookieDiv>
           <Inner>
-            <StyledCardDescription>
+            <StyledDescription>
               Diese Webseite verwendet Cookies, um bestimmte Funktionen zu
               ermöglichen und das Angebot zu verbessern. Indem du hier
               fortfährst stimmst du der Nutzung von Cookies zu.{' '}
@@ -67,7 +67,7 @@ const Cookie: FC = () => {
               >
                 Weitere Informationen.
               </a>
-            </StyledCardDescription>
+            </StyledDescription>
             <ButtonRound
               width='fit-content'
               fontSize={'.8rem'}
