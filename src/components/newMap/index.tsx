@@ -6,7 +6,7 @@ import { ContextProviderValue } from '@deck.gl/core/lib/deck';
 
 import MapControls from './mapControls';
 
-import { ViewState, Feature } from '../../common/interfaces';
+import { ViewState, TreeFeature, PumpFeature, RainFeature } from '../../common/interfaces';
 import { OnViewStateChange, Layer } from '../../common/types';
 
 const defaultMapboxApiAccessToken = process.env.REACT_APP_API_KEY;
@@ -21,7 +21,7 @@ interface MapProps {
   mapStyle?: string;
   viewState: ViewState;
   onViewStateChange: OnViewStateChange;
-  layers: Layer<Feature>[];
+  layers: (Layer<TreeFeature> | Layer<PumpFeature> | Layer<RainFeature>)[];
 }
 
 const NewMap: FC<MapProps> = ({

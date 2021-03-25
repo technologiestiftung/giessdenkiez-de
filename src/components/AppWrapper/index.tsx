@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 
 import DeckGlMap from '../map';
 import Sidebar from '../Sidebar';
@@ -9,6 +10,7 @@ import Cookie from '../Cookie';
 import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
+import { getLayers } from '../Layer';
 import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
 import { useStoreState } from '../../state/unistore-hooks';
 import { useTreeData } from '../../utils/hooks/useTreeData';
@@ -18,6 +20,9 @@ import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
 import { useTreesGeoJson } from '../../utils/hooks/useTreesGeoJson';
+import { OnViewStateChange } from '../../common/types';
+import { HoveredPump, ViewState } from '../../common/interfaces';
+import NewMap from '../newMap';
 
 const AppWrapperDiv = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
@@ -93,6 +98,57 @@ const Map: FC<{
   );
 };
 
+const initialViewState: ViewState = {
+  bearing: 0,
+  latitude: 52.500869,
+  longitude: 13.419047,
+  maxZoom: 19,
+  minZoom: 9,
+  pitch: 45,
+  zoom: 11,
+};
+
+const NewMapWrapper: FC = () => {
+  const visibleMapLayer = useStoreState('visibleMapLayer');
+  const ageRange = useStoreState('ageRange');
+
+  const [viewState, setViewState] = useState<ViewState>(initialViewState);
+  const [selectedTree, setSelectedTree] = useState<string>('');
+  const [hoveredPump, setHoveredPump] = useState<HoveredPump | null>(null);
+
+  const { data: communityData } = useCommunityData();
+  const { data: rain } = useRainGeoJson();
+  const { data: pumps } = usePumpsGeoJson();
+  const { data: trees } = useTreesGeoJson();
+
+  const onViewStateChange: OnViewStateChange = newViewState =>
+    setViewState({ ...viewState, ...newViewState });
+
+  const layers = getLayers({
+    isMobile,
+    visibleMapLayer,
+    onViewStateChange,
+    selectedTree,
+    setSelectedTree,
+    setHoveredPump,
+    ageRange,
+    data: {
+      communityData,
+      rain,
+      pumps,
+      trees,
+    },
+  });
+  return (
+    <NewMap
+      mapboxApiAccessToken={process.env.API_KEY}
+      layers={layers}
+      viewState={viewState}
+      onViewStateChange={onViewStateChange}
+    />
+  );
+};
+
 const AppWrapper: FC = () => {
   const overlay = useStoreState('overlay');
   const isNavOpen = useStoreState('isNavOpen');
@@ -115,7 +171,8 @@ const AppWrapper: FC = () => {
     <AppWrapperDiv>
       {showLoading && <Loading />}
       {showMap && (
-        <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} />
+        // <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} />
+        <NewMapWrapper />
       )}
       {showMapUI && <Sidebar />}
       {showOverlay && <Overlay />}

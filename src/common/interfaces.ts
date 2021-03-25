@@ -1,3 +1,4 @@
+import { ViewportProps } from 'react-map-gl';
 import { RadolanDays } from './types';
 
 export interface DailyWaterAmountsType {
@@ -41,11 +42,13 @@ export interface SelectedTreeType extends Tree {
   waterings: WateringType[] | undefined;
   isAdopted: boolean | undefined;
 }
+
+export type VisibleMapLayer = 'rain' | 'adopted' | 'watered' | 'trees' | 'pumps';
 export interface StoreProps {
   mapViewFilter: 'rain' | 'adopted' | 'watered';
-  visibleMapLayer: 'rain' | 'trees' | 'pumps';
+  visibleMapLayer: VisibleMapLayer  ;
   isNavOpen: boolean;
-  ageRange: number[];
+  ageRange: [number, number];
   overlay: boolean;
 }
 
@@ -91,7 +94,7 @@ export interface CommunityDataType {
 
 //Map + Layers
 //ViewState
-export interface ViewState {
+export interface ViewState extends ViewportProps{
   bearing: number;
   latitude: number;
   longitude: number;

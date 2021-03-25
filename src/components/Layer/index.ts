@@ -1,15 +1,15 @@
-import { GeoJsonLayer, GeoJsonLayerProps } from '@deck.gl/layers';
-import { easeCubic as d3EaseCubic } from 'd3';
+import { GeoJsonLayer } from '@deck.gl/layers';
+import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { FlyToInterpolator } from 'react-map-gl';
 
 import {
-  FeatureCollection,
   Feature,
   TreeFeature,
   PumpFeature,
   RainFeature,
-  CommunityData,
   ViewState,
+  CommunityDataType,
+  VisibleMapLayer,
 } from '../../common/interfaces';
 
 import {
@@ -27,8 +27,8 @@ const transitionViewState = (
   isMobile: boolean
 ): ViewState => {
   return {
-    latitude: feature.geometry.coordinates[1],
-    longitude: feature.geometry.coordinates[0],
+    latitude: feature.geometry.coordinates[1] as number,
+    longitude: feature.geometry.coordinates[0] as number,
     zoom: 19,
     maxZoom: 19,
     transitionDuration: 2000,
@@ -44,8 +44,8 @@ interface GetTreeLayerProps {
   showTrees: boolean;
   showWatered: boolean;
   showAdopted: boolean;
-  trees: FeatureCollection;
-  communityData: CommunityData;
+  trees: ExtendedFeatureCollection | null;
+  communityData: CommunityDataType | null;
   selectedTree: string;
   setSelectedTree: SetSelectedTree;
   onViewStateChange: OnViewStateChange;
@@ -64,13 +64,10 @@ export const getTreeLayer = ({
   onViewStateChange,
   isMobile,
   ageRange,
-}: GetTreeLayerProps): GeoJsonLayer<
-  TreeFeature,
-  GeoJsonLayerProps<TreeFeature>
-> => {
+}: GetTreeLayerProps): Layer<TreeFeature> => {
   return new GeoJsonLayer({
     id: 'tree',
-    data: trees.features as TreeFeature[],
+    data: trees?.features as TreeFeature[],
     //Properties
     pickable: true,
     stroked: true,
@@ -86,11 +83,13 @@ export const getTreeLayer = ({
      */
     getFillColor: tree => {
       const { radolan_sum, id, age } = tree.properties;
+      const communityFlagsMap = communityData?.communityFlagsMap?.[id];
+
       if (showTrees && ageRange[0] <= age && age <= ageRange[1] && radolan_sum)
         return getRainColor(radolan_sum);
-      else if (showWatered && communityData[id] && communityData[id].watered)
+      else if (showWatered && communityFlagsMap?.isWatered)
         return [53, 117, 177, 200];
-      else if (showAdopted && communityData[id] && communityData[id].adopted)
+      else if (showAdopted && communityFlagsMap?.isAdopted)
         return [0, 128, 128, 200];
       else return [0, 0, 0, 0];
     },
@@ -125,12 +124,12 @@ export const getTreeLayer = ({
 
 export const getPumpLayer = (
   showPumps: boolean,
-  pumps: FeatureCollection,
+  pumps: ExtendedFeatureCollection | null,
   setHoveredPump: SetHoveredPump
 ): Layer<PumpFeature> => {
   return new GeoJsonLayer({
     id: 'pumps',
-    data: pumps.features as PumpFeature[],
+    data: pumps?.features as PumpFeature[],
     //Properties
     pickable: true,
     stroked: true,
@@ -164,11 +163,11 @@ export const getPumpLayer = (
 
 export const getRainLayer = (
   showRain: boolean,
-  rain: FeatureCollection
+  rain: ExtendedFeatureCollection | null
 ): Layer<RainFeature> => {
   return new GeoJsonLayer({
     id: 'rain',
-    data: rain.features as RainFeature[],
+    data: rain?.features as RainFeature[],
     //Properties
     pickable: true,
     stroked: false,
@@ -200,13 +199,13 @@ interface GetLayersProps {
 
   onViewStateChange: OnViewStateChange;
 
-  whichLayer: WhichLayer;
+  visibleMapLayer: VisibleMapLayer;
 
   data: {
-    trees: FeatureCollection;
-    pumps: FeatureCollection;
-    rain: FeatureCollection;
-    communityData: CommunityData;
+    trees: ExtendedFeatureCollection | null;
+    pumps: ExtendedFeatureCollection | null;
+    rain: ExtendedFeatureCollection | null;
+    communityData: CommunityDataType | null;
   };
 
   selectedTree: string;
@@ -220,13 +219,38 @@ interface GetLayersProps {
 export const getLayers = ({
   isMobile,
   onViewStateChange,
-  whichLayer: { showTrees, showWatered, showAdopted, showPumps, showRain },
+  // whichLayer: { showTrees, showWatered, showAdopted, showPumps, showRain },
   data: { trees, pumps, rain, communityData },
   selectedTree,
   setSelectedTree,
   setHoveredPump,
   ageRange,
-}: GetLayersProps): Layer<Feature>[] => {
+  visibleMapLayer,
+}: GetLayersProps): (Layer<TreeFeature> | Layer<PumpFeature> | Layer<RainFeature>)[] => {
+  let showTrees = false;
+  let showWatered = false;
+  let showAdopted = false;
+  let showPumps = false;
+  let showRain = false;
+
+  switch (visibleMapLayer) {
+    case 'trees':
+      showTrees = true;
+      break;
+    case 'adopted':
+      showAdopted = true;
+      break;
+    case 'watered':
+      showWatered = true;
+      break;
+    case 'pumps':
+      showPumps = true;
+      break;
+    case 'rain':
+      showRain = true;
+      break;
+  }
+
   const layers = [
     getTreeLayer({
       showTrees,
