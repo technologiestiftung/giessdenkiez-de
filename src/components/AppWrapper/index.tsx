@@ -16,6 +16,7 @@ import { useHistory, useLocation } from 'react-router';
 import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
+import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
 
 const AppWrapperDiv = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
@@ -66,7 +67,7 @@ const Map: FC<{
   const treeId = useCurrentTreeId();
   const { data: communityData } = useCommunityData();
   const { data: rainGeoJson } = useRainGeoJson();
-  const { data: pumpsGeoJson } = useRainGeoJson();
+  const { data: pumpsGeoJson } = usePumpsGeoJson();
   const { treeData: selectedTreeData } = useTreeData(treeId);
   const history = useHistory();
 
