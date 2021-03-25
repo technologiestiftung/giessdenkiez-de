@@ -20,7 +20,7 @@ export const FlexRow = styled.div`
 `;
 export const FlexColumn = styled.div`
   display: flex;
-  flex-direction: colmun;
+  flex-direction: column;
   height: 16px;
   line-height: 16px;
   padding: 4px 9px;
