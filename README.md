@@ -27,7 +27,7 @@ Below is a rough sketch of the architecture:
 
 ## Development
 
-To get the map tiles loaded you need to create a `.env` file and add the following:
+To get the map tiles loaded you need to create a `.env` file by `cp .env.sample .env` and setup your environment variables:
 
 ```env
 # mapbox token
@@ -42,9 +42,10 @@ AUTH0_AUDIENCE=*********
 USER_DATA_API_URL=******
 # url where your postgres api is deployed
 # currently vercel.com
-# https://github.com/technologiestiftung/giessdenkiez-de-postgres-api 
-API_ENDPOINT_DEV=*******
-API_ENDPOINT_PROD=******
+# https://github.com/technologiestiftung/giessdenkiez-de-postgres-api
+# ATTENTION: no trailing slash at the end of url!!
+API_ENDPOINT_DEV=http://localhost:3000
+API_ENDPOINT_PROD=https://giessdenkiez-de-postgres-api.vercel.app
 ```
 
 The environment variable `BUILD_TARGET` 
