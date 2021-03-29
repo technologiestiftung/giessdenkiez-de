@@ -27,34 +27,9 @@ Below is a rough sketch of the architecture:
 
 ## Development
 
-To get the map tiles loaded you need to create a `.env` file and add the following:
+Duplicate the `.env.sample` file, rename it `.env` and adapt the values to your needs.
 
-```env
-# mapbox token
-API_KEY=****************
-# auth0.com 
-AUTH0_DOMAIN=***********
-AUTH0_CLIENT_ID=********
-AUTH0_AUDIENCE=*********
-# url to where your user management api
-# is deployed (here at vercel.com)
-# https://github.com/technologiestiftung/tsb-trees-api-user-management
-USER_DATA_API_URL=******
-# url where your postgres api is deployed
-# currently vercel.com
-# https://github.com/technologiestiftung/giessdenkiez-de-postgres-api 
-API_ENDPOINT_DEV=*******
-API_ENDPOINT_PROD=******
-```
-
-The environment variable `BUILD_TARGET` 
-
-```env
-BUILD_TARGET=DEMO
-# or …=DEFAULT
-```
-
-could also be defined in the `.env` file. It is better though to define them in the `netlify.toml` in the build contexts or in the npm-scripts. You can use this to build the demo mode.
+Set the environment variable `BUILD_TARGET` in the `netlify.toml`, in your `.env` file, in the build contexts or via the npm-scripts. You can use this to build the demo mode.
 
 Make sure to set your `NODE_ENV` to either `test`, `development` or `production`
 

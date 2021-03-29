@@ -58,7 +58,7 @@ const ResultElement = styled.li`
   }
 `;
 
-const MAPBOX_TOKEN = process.env.API_KEY;
+const MAPBOX_TOKEN = process.env.MAPBOX_API_KEY;
 
 const SidebarSearchLocation: React.FC = () => {
   const { setViewport } = useActions(Actions);
