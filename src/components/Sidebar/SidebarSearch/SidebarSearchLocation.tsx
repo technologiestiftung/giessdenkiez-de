@@ -1,4 +1,4 @@
-import React, { FC, useState, ChangeEvent } from 'react';
+import React, { FC, useState, ChangeEvent, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQuery, QueryFunction } from 'react-query';
 import { useActions } from '../../../state/unistore-hooks';
@@ -92,6 +92,14 @@ const SidebarSearchLocation: FC = () => {
   const { data: results } = useQuery(['sidebarSearch', value], fetchSearch, {
     staleTime: Infinity,
   });
+
+  useEffect(
+    () => () => {
+      setMapFocusPoint(null);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
