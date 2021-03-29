@@ -38,7 +38,7 @@ const ControlWrapper = styled.div<StyledProps>`
 let map: MapboxMap | null = null;
 let selectedStateId: string | number | undefined = undefined;
 
-const MAPBOX_TOKEN = process.env.API_KEY;
+const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
 
