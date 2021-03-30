@@ -27,14 +27,15 @@ const AppContainer = styled.div`
 const App: FC = () => {
   const overlay = useStoreState('overlay');
   const isNavOpen = useStoreState('isNavOpen');
+
   const { data: communityData } = useCommunityData();
   const { data: rainGeoJson } = useRainGeoJson();
   const { data: pumpsGeoJson } = usePumpsGeoJson();
   const { data: treesGeoJson } = useTreesGeoJson();
   const { pathname } = useLocation();
+
   const isHome = pathname === '/';
   const showOverlay = isHome && overlay;
-
   const showMap = Boolean(
     treesGeoJson && communityData && rainGeoJson && pumpsGeoJson
   );
