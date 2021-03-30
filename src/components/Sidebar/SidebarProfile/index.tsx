@@ -11,21 +11,14 @@ import TreesList from '../../TreesList';
 import { NonVerfiedMailMessage } from '../../NonVerfiedMailMessage';
 import Login from '../../Login';
 import ButtonRound from '../../ButtonRound';
-import LoadingIcon from '../../LoadingIcon/';
 import SidebarTitle from '../SidebarTitle/';
 import { ParticipateButton } from '../../ParticipateButton';
 import { useAccountActions } from '../../../utils/hooks/useAccountActions';
+import { UserDataType } from '../../../common/interfaces';
+import { SidebarLoading } from '../SidebarLoading';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
-`;
-
-const Container = styled.div`
-  height: calc(100vh - 125px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 const FlexCol = styled.div`
@@ -45,25 +38,23 @@ Willst du deinen Account wirklich löschen? Diese Aktion ist endgültig.
 Alle deine Benutzerdaten werden damit sofort gelöscht!`
   );
 
-const SidebarProfile: FC = () => {
-  const { userData } = useUserData();
+const SidebarProfile: FC<{
+  isLoading?: boolean;
+  userData?: UserDataType | undefined;
+}> = ({ userData: userDataProps, isLoading: isLoadingProps }) => {
+  const { userData: userDataState } = useUserData();
   const { deleteAccount } = useAccountActions();
-  const { loading } = useAuth0();
+  const { loading: isLoadingState } = useAuth0();
+  const isLoading = isLoadingProps || isLoadingState;
+  const userData = userDataProps || userDataState || false;
 
   const handleDeleteClick = async () => {
     if (!confirmAccountDeletion()) return;
     deleteAccount();
   };
 
-  if (loading) {
-    return (
-      <>
-        <SidebarTitle>Profil</SidebarTitle>
-        <Container>
-          <LoadingIcon text='Lade Profil ...' />
-        </Container>
-      </>
-    );
+  if (isLoading) {
+    return <SidebarLoading title='Profil' />;
   }
 
   if (!userData) {

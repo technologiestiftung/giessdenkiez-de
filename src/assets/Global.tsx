@@ -1,12 +1,25 @@
 import styledNormalize from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components';
+import { RCSliderStyles } from './RCSliderStyles';
+import { IBMPlexFontStyles } from './IBMPlexFontStyles';
+import { MapboxStyleOverrides } from './MapboxStyleOverrides';
 
 export default createGlobalStyle`
   ${styledNormalize}
+  ${IBMPlexFontStyles}
 
-  @keyframes sweep {
-    0%    {opacity: 0;}
-    100%  {opacity: 1;}
+  body{
+    color: rgb(44, 48, 59);
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+
+  .fade {
+    animation: fadein 1.5s;
+  }
+
+  @keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 
   br.large {
@@ -16,33 +29,6 @@ export default createGlobalStyle`
     }
   }
 
-  a.mapboxgl-ctrl-logo {
-    display: none !important;
-  }
-
-  .mapbox-improve-map {
-      display: none;
-  }
-
-  .mapboxgl-user-location-dot {
-    display: none;
-  }
-
-  .mapboxgl-ctrl-group {
-    background-color: transparent !important;
-    box-shadow: none !important;
-    button.mapboxgl-ctrl-compass {
-      display: none;
-    }
-
-    button {
-      margin-top: 10px !important;
-      width: 40px !important;
-      border-radius: 100px !important;
-      box-shadow: 0 2px 40px 0 rgba(30,55,145,0.15) !important;
-      height: 40px !important;
-      background: white !important;
-    }
-  }
-
+  ${MapboxStyleOverrides}
+  ${RCSliderStyles}
 `;

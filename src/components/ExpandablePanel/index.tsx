@@ -7,6 +7,15 @@ const Title = styled.div`
 `;
 
 const Wrapper = styled.div`
+  @keyframes sweep {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
   animation: sweep 0.125s ease-in-out;
 `;

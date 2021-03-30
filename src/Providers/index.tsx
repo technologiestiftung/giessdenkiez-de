@@ -2,14 +2,15 @@ import React, { FC } from 'react';
 import { Provider } from 'unistore/react';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-
-import store from './state/Store';
-import { Auth0Provider } from './utils/auth/auth0';
-import ErrorBoundary from './ErrorBoundary';
-import history from './history';
-import { ThemeProvider } from 'styled-components';
-import { theme } from './assets/theme';
 import { Router } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+
+import store from '../state/Store';
+import { Auth0Provider } from '../utils/auth/auth0';
+import ErrorBoundary from '../ErrorBoundary';
+import history from '../history';
+import { theme } from '../assets/theme';
+import GlobalStyles from '../assets/Global';
 
 const onRedirectCallback = (appState?: { targetUrl?: string }): void => {
   history.push(
@@ -23,6 +24,7 @@ const queryClient = new QueryClient();
 
 export const Providers: FC = ({ children }) => (
   <ErrorBoundary>
+    <GlobalStyles />
     <Auth0Provider
       domain={process.env.AUTH0_DOMAIN || ''}
       client_id={process.env.AUTH0_CLIENT_ID || ''}

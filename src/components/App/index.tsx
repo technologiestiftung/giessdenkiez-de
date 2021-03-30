@@ -11,7 +11,7 @@ import Cookie from '../Cookie';
 import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
-import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
+import { ImprintAndPrivacy } from '../ImprintAndPrivacy';
 import { useStoreState } from '../../state/unistore-hooks';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
@@ -22,6 +22,15 @@ const AppContainer = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
   height: 100vh;
   width: 100vw;
+`;
+
+const ImprintAndPrivacyContainer = styled.div`
+  position: fixed;
+  bottom: 7px;
+  right: 16px;
+  width: auto;
+  height: 24px;
+  z-index: 10;
 `;
 
 const App: FC = () => {
@@ -55,7 +64,9 @@ const App: FC = () => {
       <Credits />
       <Cookie />
       {showMapUI && <MapLayerLegend />}
-      <ImprintAndPrivacyContainer />
+      <ImprintAndPrivacyContainer>
+        <ImprintAndPrivacy />
+      </ImprintAndPrivacyContainer>
     </AppContainer>
   );
 };

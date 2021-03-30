@@ -1,38 +1,35 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import SidebarTitle from '../SidebarTitle';
 import Card from '../../Card/Card';
-import LoadingIcon from '../../LoadingIcon';
+import LoadingIcon, { SidebarLoadingContainer } from '../../LoadingIcon';
 import { useTreeData } from '../../../utils/hooks/useTreeData';
 import { useCurrentTreeId } from '../../../utils/hooks/useCurrentTreeId';
+import { ImprintAndPrivacy } from '../../ImprintAndPrivacy';
+import { SidebarLoading } from '../SidebarLoading';
 
-const LoadingContainer = styled.div`
-  width: 100%;
-  min-height: calc(100% - 60px);
-  display: flex;
-  flex-direction: column;
-  place-items: center;
-  place-content: center;
-`;
-
-const SidebarTree: FC = () => {
+const SidebarTree: FC<{ isLoading?: boolean }> = ({
+  isLoading: isLoadingProps,
+}) => {
   const treeId = useCurrentTreeId();
   const { treeData: selectedTreeData, error } = useTreeData(treeId);
+  const isLoadingState = !error && !selectedTreeData;
+  const isLoading = isLoadingProps || isLoadingState || false;
+
+  if (isLoading) return <SidebarLoading title='Bauminformation' />;
+
   return (
     <>
       <SidebarTitle>Bauminformation</SidebarTitle>
-      {!error && selectedTreeData && (
+      {!isLoading && selectedTreeData && (
         <Card selectedTreeData={selectedTreeData} />
       )}
-      {!error && !selectedTreeData && (
-        <LoadingContainer>
-          <LoadingIcon text='Lade Baum ...' />
-        </LoadingContainer>
-      )}
       {error && (
-        <LoadingContainer>
-          <LoadingIcon text={error.message} hasError={!!error} />
-        </LoadingContainer>
+        <>
+          <SidebarLoadingContainer>
+            <LoadingIcon text={error.message} hasError={!!error} />
+            <ImprintAndPrivacy />
+          </SidebarLoadingContainer>
+        </>
       )}
     </>
   );
