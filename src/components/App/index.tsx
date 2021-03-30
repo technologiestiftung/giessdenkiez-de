@@ -18,39 +18,10 @@ import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
 import { useTreesGeoJson } from '../../utils/hooks/useTreesGeoJson';
 
-const StyledAppContainer = styled.div`
+const AppContainer = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
   height: 100vh;
   width: 100vw;
-`;
-
-const CreditsContainer = styled.div`
-  position: absolute;
-  top: 12px;
-  right: 12px;
-
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-    display: none;
-  }
-
-  @media screen and (min-width: ${p => p.theme.screens.tablet}) {
-    display: block;
-  }
-`;
-
-const CookieContainer = styled.div`
-  position: absolute;
-  bottom: 12px;
-  display: block;
-  width: 60%;
-  transform: translate(50%, 0%);
-  right: 50%;
-  z-index: 3;
-
-  @media screen and (max-width: ${p => p.theme.screens.mobile}) {
-    width: 100%;
-    bottom: 0px;
-  }
 `;
 
 const App: FC = () => {
@@ -72,7 +43,7 @@ const App: FC = () => {
   const isSidebarOpened = !isHome && isNavOpen;
 
   return (
-    <StyledAppContainer>
+    <AppContainer>
       {showLoading && <Loading />}
       {showMap && (
         <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} />
@@ -80,15 +51,11 @@ const App: FC = () => {
       {showMapUI && <Sidebar />}
       {showOverlay && <Overlay />}
       {showMapUI && <Nav isNavOpened={!isHome} />}
-      <CreditsContainer>
-        <Credits />
-      </CreditsContainer>
-      <CookieContainer>
-        <Cookie />
-      </CookieContainer>
+      <Credits />
+      <Cookie />
       {showMapUI && <MapLayerLegend />}
       <ImprintAndPrivacyContainer />
-    </StyledAppContainer>
+    </AppContainer>
   );
 };
 
