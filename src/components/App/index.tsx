@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { hot } from 'react-hot-loader/root';
+import { useLocation } from 'react-router';
 
 import { Map } from '../TreesMap';
 import Sidebar from '../Sidebar';
@@ -12,7 +13,6 @@ import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
 import { useStoreState } from '../../state/unistore-hooks';
-import { useLocation } from 'react-router';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';

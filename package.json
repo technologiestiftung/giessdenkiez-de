@@ -4,8 +4,9 @@
   "description": "Source repo for [giessdenkiez.de](https://www.giessdenkiez.de)",
   "scripts": {
     "test": "inpyjamas-scripts test",
-    "eslint": "eslint ./src/",
-    "brechstange": "eslint --fix ./src/",
+    "lint": "eslint ./src/",
+    "lint-fix": "npm run lint -- --fix",
+    "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "dev": "npm start",
     "start": "cross-env BUILD_TARGET=DEFAULT NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
     "start:demo": "cross-env BUILD_TARGET=DEMO NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
