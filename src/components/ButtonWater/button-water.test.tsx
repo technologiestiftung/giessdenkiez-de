@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-hooks */
 /* eslint-disable jest/require-top-level-describe */
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import ButtonWater from './index';
 import React from 'react';
 import store from '../../state/Store';
@@ -46,7 +46,6 @@ afterAll(() => {
 
 describe('button water test', () => {
   test('button click should switch to "adoptiere" and then vanish', async () => {
-    store.setState({ selectedTreeId: '_123' });
     jest
       .spyOn(requestUtil, 'requests')
       .mockResolvedValueOnce({ data: 'adopted' })
@@ -55,18 +54,7 @@ describe('button water test', () => {
       });
     const { getByText } = render(
       <Provider store={store}>
-        <ButtonWater
-          {...{
-            isAuthenticated: true,
-            isEmailVerified: true,
-            onAdoptTreeClick: async () => console.log('adopt'),
-            onWaterTreeClick: async () => console.log('water'),
-            waterGroup: 'visible',
-            selectedTreeId: '_123',
-            selectedTreeState: undefined,
-            setWaterGroup: jest.fn(),
-          }}
-        />
+        <ButtonWater />
       </Provider>
     );
     const button1 = getByText(/adoptieren/i);

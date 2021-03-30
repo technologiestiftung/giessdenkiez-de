@@ -2,7 +2,7 @@
 import React, { FC, useState, useEffect, useContext } from 'react';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { ContextProps } from '../../common/types';
-import { Auth0ClientOptions, IdToken } from '@auth0/auth0-spa-js';
+import { Auth0ClientOptions, IdToken, User } from '@auth0/auth0-spa-js';
 
 interface FakeToken {
   access_token: string;
@@ -14,12 +14,8 @@ const fakeToken: FakeToken = {
   expires_in: 86400,
   token_type: 'Bearer',
 };
-export interface FakeUser {
-  nickname: string;
-  email: string;
-  username: string;
-  email_verified: boolean;
-  sub: string;
+export interface FakeUser extends User {
+  sub?: string;
 }
 export const defaultFakeUser: FakeUser = {
   nickname: 'giessdenkiez.de demo',
@@ -31,8 +27,8 @@ export const defaultFakeUser: FakeUser = {
 export const Auth0Context = React.createContext<Partial<ContextProps>>({});
 export const useAuth0 = (): Partial<ContextProps> => useContext(Auth0Context);
 
-const getUser: () => Promise<FakeUser> = () => {
-  return Promise.resolve(defaultFakeUser);
+const getUser = <TUser extends User = User>(): Promise<TUser | undefined> => {
+  return Promise.resolve(defaultFakeUser as TUser);
 };
 const handleRedirectCallback: (url?: string) => Promise<any> = (
   _url?: string
@@ -98,6 +94,7 @@ export const Auth0Provider: FC<{
 
       if (isAuthenticated && auth0FromHook && auth0FromHook.getUser) {
         const user = await auth0FromHook.getUser();
+        if (!user) return;
         setUser(user);
       }
 
@@ -122,6 +119,7 @@ export const Auth0Provider: FC<{
     }
     if (auth0Client && auth0Client.getUser) {
       const user = await auth0Client.getUser();
+      if (!user) return;
       setUser(user);
       setIsAuthenticated(true);
     }
@@ -135,6 +133,7 @@ export const Auth0Provider: FC<{
       const user = await auth0Client.getUser();
       setLoading(false);
       setIsAuthenticated(true);
+      if (!user) return;
       setUser(user);
     }
   };

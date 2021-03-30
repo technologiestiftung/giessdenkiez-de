@@ -73,7 +73,7 @@ const ResultElement = styled.li`
 const MAPBOX_TOKEN = process.env.MAPBOX_API_KEY;
 
 const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
-  const [_key, value] = queryKey;
+  const [, value] = queryKey;
 
   if (value.length < 3) return [];
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Story } from '@storybook/react/types-6-0';
-import ButtonWater, { ButtonWaterProps } from './';
+import ButtonWater from './';
 export default {
   title: 'ButtonWater',
   component: ButtonWater,
@@ -13,9 +13,7 @@ export default {
   },
 };
 
-const Template: Story<ButtonWaterProps> = args => (
-  <ButtonWater {...args}></ButtonWater>
-);
+const Template: Story = args => <ButtonWater {...args}></ButtonWater>;
 
 export const ButtonWaterStory = Template.bind({});
 ButtonWaterStory.args = {

@@ -49,11 +49,20 @@ afterAll(() => {
 
 describe('card test', () => {
   test('should render', async () => {
-    store.setState({ selectedTreeId: '_123' });
     const { getByText } = render(
       <Provider store={store}>
         <Card
-          data={{ id: '_123', standalter: '50', gattungdeutsch: 'EICHE' }}
+          selectedTreeData={{
+            id: '_123',
+            standalter: '50',
+            gattungdeutsch: 'EICHE',
+            radolan_days: [0, 0, 0, 0, 0, 0, 0, 0],
+            radolan_sum: 0,
+            latitude: 0,
+            longitude: 0,
+            isAdopted: true,
+            waterings: [],
+          }}
         />
       </Provider>
     );

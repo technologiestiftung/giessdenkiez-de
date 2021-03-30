@@ -9,7 +9,7 @@ type UserDataError = Error | null;
 const fetchUserData: QueryFunction<UserDataType | undefined> = async ({
   queryKey,
 }) => {
-  const [_key, token, userId] = queryKey;
+  const [, token, userId] = queryKey;
   if (!token || !userId) return undefined;
   const userData = await getUserData({ userId, token });
   return userData;

@@ -8,7 +8,9 @@ export default {
   component: Card,
 };
 
-const Template: Story = args => <Card data={args.data} {...args}></Card>;
+const Template: Story = args => (
+  <Card selectedTreeData={args.data} {...args}></Card>
+);
 
 export const CardStory = Template.bind({});
 CardStory.args = {

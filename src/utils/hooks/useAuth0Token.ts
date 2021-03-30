@@ -10,7 +10,7 @@ export const useAuth0Token = (): string | undefined => {
     const getToken = async () => {
       try {
         const token = await getTokenSilently();
-        setToken(token);
+        setToken(token || undefined);
         return token;
       } catch (err) {
         console.error(err);

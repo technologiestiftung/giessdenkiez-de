@@ -1,8 +1,8 @@
 import React from 'react';
 import Sidebar from './index';
 import { Story } from '@storybook/react/types-6-0';
-import { Router } from 'react-router-dom';
 import history from '../../history';
+import { Providers } from '../../Providers';
 export default {
   title: 'Sidebar',
   component: Sidebar,
@@ -15,9 +15,9 @@ const Template: Story<{ location: string; match: string }> = args => {
   history.push(args.match);
   return (
     <>
-      <Router history={history}>
-        <Sidebar {...args} />
-      </Router>
+      <Providers>
+        <Sidebar />
+      </Providers>
     </>
   );
 };

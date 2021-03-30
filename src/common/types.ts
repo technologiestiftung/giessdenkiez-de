@@ -1,4 +1,4 @@
-import { User } from '@auth0/auth0-spa-js';
+import { GetTokenSilentlyOptions, User } from '@auth0/auth0-spa-js';
 
 export type ContextProps = {
   isAuthenticated: boolean;
@@ -9,7 +9,9 @@ export type ContextProps = {
   handleRedirectCallback: any;
   getIdTokenClaims: any;
   loginWithRedirect: any;
-  getTokenSilently: () => Promise<string>;
+  getTokenSilently: (
+    options?: GetTokenSilentlyOptions
+  ) => Promise<string> | void;
   getTokenWithPopup: any;
   logout: any;
 };

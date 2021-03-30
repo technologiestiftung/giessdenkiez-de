@@ -61,7 +61,7 @@ describe('button tests', () => {
     // const onClick = jest.fn();
     const { getByRole, getByText } = render(
       <Provider store={store}>
-        <TreeButton tree={{ id: 'test', artdtsch: 'test' }} />
+        <TreeButton label='Tree name' onClickHandler={() => undefined} />
       </Provider>
     );
 
