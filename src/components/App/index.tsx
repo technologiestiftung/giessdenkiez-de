@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { hot } from 'react-hot-loader/root';
 
-import DeckGlMap from '../map';
+import DeckGlMap from '../TreesMap';
 import Sidebar from '../Sidebar';
 import Nav from '../Nav';
 import MapLayerLegend from '../Legend/MapLayersLegend';
