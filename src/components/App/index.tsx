@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { hot } from 'react-hot-loader/root';
 
-import DeckGlMap from '../TreesMap';
+import { Map } from '../TreesMap';
 import Sidebar from '../Sidebar';
 import Nav from '../Nav';
 import MapLayerLegend from '../Legend/MapLayersLegend';
@@ -12,9 +12,7 @@ import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { ImprintAndPrivacyContainer } from '../imprint-and-privacy';
 import { useStoreState } from '../../state/unistore-hooks';
-import { useTreeData } from '../../utils/hooks/useTreeData';
-import { useHistory, useLocation } from 'react-router';
-import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
+import { useLocation } from 'react-router';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
@@ -54,46 +52,6 @@ const CookieContainer = styled.div`
     bottom: 0px;
   }
 `;
-
-const Map: FC<{
-  showOverlay: boolean | undefined;
-  isNavOpened: boolean | undefined;
-}> = ({ showOverlay, isNavOpened }) => {
-  const visibleMapLayer = useStoreState('visibleMapLayer');
-  const ageRange = useStoreState('ageRange');
-  const mapViewFilter = useStoreState('mapViewFilter');
-  const mapFocusPoint = useStoreState('mapFocusPoint');
-
-  const treeId = useCurrentTreeId();
-  const { data: communityData } = useCommunityData();
-  const { data: rainGeoJson } = useRainGeoJson();
-  const { data: pumpsGeoJson } = usePumpsGeoJson();
-  const { data: treesGeoJson } = useTreesGeoJson();
-  const { treeData: selectedTreeData } = useTreeData(treeId);
-  const history = useHistory();
-
-  return (
-    <DeckGlMap
-      onTreeSelect={(id: string) => {
-        const nextLocation = `/tree/${id}`;
-        history.push(nextLocation);
-      }}
-      treesGeoJson={treesGeoJson || null}
-      rainGeojson={rainGeoJson || null}
-      visibleMapLayer={visibleMapLayer}
-      isNavOpen={!!isNavOpened}
-      showControls={showOverlay}
-      pumpsGeoJson={pumpsGeoJson || null}
-      ageRange={ageRange || []}
-      mapViewFilter={mapViewFilter}
-      communityData={communityData?.communityFlagsMap || null}
-      communityDataWatered={communityData?.wateredTreesIds || []}
-      communityDataAdopted={communityData?.adoptedTreesIds || []}
-      selectedTreeId={treeId || undefined}
-      focusPoint={selectedTreeData ? selectedTreeData : mapFocusPoint}
-    />
-  );
-};
 
 const App: FC = () => {
   const overlay = useStoreState('overlay');
