@@ -1,5 +1,13 @@
 {
   "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "*.setup.js",
+    ".eslintrc.js",
+    ".importjs.js",
+    "*.config.js",
+    ".prettierrc.js",
+  ],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
