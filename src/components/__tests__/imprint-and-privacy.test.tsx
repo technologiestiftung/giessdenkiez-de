@@ -6,7 +6,7 @@ import {
 } from '../imprint-and-privacy';
 
 describe('imprint and privacy', () => {
-  it('should render two links in ImprintAndPrivacyContainer', () => {
+  test('should render two links in ImprintAndPrivacyContainer', () => {
     const { getByText } = render(<ImprintAndPrivacyContainer />);
     const impressumLink = getByText(/impressum/i);
     const datenschutzLink = getByText(/datenschutz/i);
@@ -16,7 +16,7 @@ describe('imprint and privacy', () => {
     expect(datenschutzLink).toBeInTheDocument();
     expect(datenschutzLink).toHaveAttribute('href');
   });
-  it('should render two links in ImprintAndPrivacyCard', () => {
+  test('should render two links in ImprintAndPrivacyCard', () => {
     const { getByText } = render(<ImprintAndPrivacyCard />);
     const impressumLink = getByText(/impressum/i);
     const datenschutzLink = getByText(/datenschutz/i);
