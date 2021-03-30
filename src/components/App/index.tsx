@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { hot } from 'react-hot-loader/root';
 
 import DeckGlMap from '../map';
 import Sidebar from '../Sidebar';
@@ -19,7 +20,7 @@ import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
 import { useTreesGeoJson } from '../../utils/hooks/useTreesGeoJson';
 
-const AppWrapperDiv = styled.div`
+const StyledAppContainer = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
   height: 100vh;
   width: 100vw;
@@ -94,7 +95,7 @@ const Map: FC<{
   );
 };
 
-const AppWrapper: FC = () => {
+const App: FC = () => {
   const overlay = useStoreState('overlay');
   const isNavOpen = useStoreState('isNavOpen');
   const { data: communityData } = useCommunityData();
@@ -113,7 +114,7 @@ const AppWrapper: FC = () => {
   const isSidebarOpened = !isHome && isNavOpen;
 
   return (
-    <AppWrapperDiv>
+    <StyledAppContainer>
       {showLoading && <Loading />}
       {showMap && (
         <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} />
@@ -128,9 +129,9 @@ const AppWrapper: FC = () => {
         <Cookie />
       </CookieContainer>
       {showMapUI && <MapLayerLegend />}
-      <ImprintAndPrivacyContainer></ImprintAndPrivacyContainer>
-    </AppWrapperDiv>
+      <ImprintAndPrivacyContainer />
+    </StyledAppContainer>
   );
 };
 
-export default AppWrapper;
+export default hot(App);

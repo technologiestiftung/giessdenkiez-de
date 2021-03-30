@@ -7,6 +7,9 @@ import store from './state/Store';
 import { Auth0Provider } from './utils/auth/auth0';
 import ErrorBoundary from './ErrorBoundary';
 import history from './history';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './assets/theme';
+import { Router } from 'react-router-dom';
 
 const onRedirectCallback = (appState?: { targetUrl?: string }): void => {
   history.push(
@@ -29,7 +32,11 @@ export const Providers: FC = ({ children }) => (
     >
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <Provider store={store}>{children}</Provider>
+        <Provider store={store}>
+          <Router history={history}>
+            <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          </Router>
+        </Provider>
       </QueryClientProvider>
     </Auth0Provider>
   </ErrorBoundary>
