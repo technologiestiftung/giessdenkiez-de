@@ -13,11 +13,7 @@ import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { HoverObject } from './HoverObject';
-import {
-  CommunityDataType,
-  SelectedTreeType,
-  StoreProps,
-} from '../../common/interfaces';
+import { CommunityDataType, StoreProps } from '../../common/interfaces';
 import { pumpToColor } from './colors';
 interface StyledProps {
   isNavOpen?: boolean;
