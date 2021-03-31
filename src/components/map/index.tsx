@@ -42,7 +42,7 @@ const ControlWrapper = styled.div<StyledProps>`
 let map = null;
 let selectedStateId = false;
 
-const MAPBOX_TOKEN = process.env.API_KEY;
+const MAPBOX_TOKEN = process.env.MAPBOX_API_KEY;
 const pumpsColor: (info: Generic) => RGBAColor = info => {
   if (info === undefined) {
     return defaultColor.rgba;
