@@ -1,4 +1,4 @@
-import { Tree } from '../../common/interfaces';
+import { Tree } from '../common/interfaces';
 
 export const treeData: Tree = {
   id: '_w6utdqycq',
@@ -19,8 +19,8 @@ export const treeData: Tree = {
   baumhoehe: '7',
   bezirk: 'Friedrichshain-Kreuzberg',
   eigentuemer: 'Land Berlin',
-  adopted: null,
-  watered: null,
+  adopted: true,
+  watered: false,
   radolan_sum: 57.3,
   radolan_days: [
     0,

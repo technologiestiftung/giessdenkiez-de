@@ -13,11 +13,7 @@ import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { HoverObject } from './HoverObject';
-import {
-  CommunityDataType,
-  SelectedTreeType,
-  StoreProps,
-} from '../../common/interfaces';
+import { CommunityDataType, StoreProps } from '../../common/interfaces';
 import { pumpToColor } from './colors';
 interface StyledProps {
   isNavOpen?: boolean;
@@ -122,7 +118,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     const layers = [
       new GeoJsonLayer({
         id: 'geojson',
-        data: isMobile ? [] : treesGeoJson,
+        data: isMobile ? [] : (treesGeoJson as any),
         opacity: 1,
         getLineWidth: (info: {
           properties: {
@@ -145,17 +141,20 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         getLineColor: [247, 105, 6, 255],
         visible: visibleMapLayer === 'trees',
         filled: true,
-        parameters: {
+        parameters: () => ({
           depthTest: false,
-        },
+        }),
         pickable: true,
         getRadius: 3,
-        type: 'circle',
         pointRadiusMinPixels: 0.5,
         autoHighlight: true,
         highlightColor: [200, 200, 200, 255],
         transitions: {
-          getFillColor: 500,
+          getFillColor: {
+            type: 'interpolation',
+            duration: 500,
+            easing: (t: number) => t,
+          },
         },
         getFillColor: (info: {
           properties: {
@@ -207,7 +206,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       }),
       new GeoJsonLayer({
         id: 'rain',
-        data: rainGeojson,
+        data: rainGeojson as any,
         opacity: 0.95,
         visible: visibleMapLayer === 'rain' ? true : false,
         stroked: false,
@@ -222,7 +221,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
            * transferring 625.000 "," characters, therefore,
            * changing it client-side makes more sense.
            */
-          const interpolated = interpolateColor(f.properties.data[0] / 10);
+          const interpolated = interpolateColor(
+            (f as any).properties.data[0] / 10
+          );
           const hex = hexToRgb(interpolated);
           return hex;
         },
@@ -230,7 +231,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       }),
       new GeoJsonLayer({
         id: 'pumps',
-        data: pumpsGeoJson,
+        data: pumpsGeoJson as any,
         opacity: 1,
         visible: visibleMapLayer === 'pumps' ? true : false,
         stroked: true,
@@ -298,7 +299,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     });
   }
 
-  _onClick(_x: number, _y: number, object: MapboxGeoJSONFeature): void {
+  _onClick(
+    _x: number,
+    _y: number,
+    object: Partial<MapboxGeoJSONFeature>
+  ): void {
     const id: string = object.properties?.id;
     if (!id) return;
 
@@ -531,9 +536,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             ></HoverObject>
           )}
         <DeckGL
-          layers={this._renderLayers()}
+          layers={this._renderLayers() as any}
           initialViewState={viewport}
-          viewState={viewport}
+          viewState={viewport as any}
           getCursor={() => this.state.cursor}
           onHover={({ layer }) => this.setCursor(layer)}
           onClick={this._deckClick}

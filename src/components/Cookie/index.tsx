@@ -6,7 +6,7 @@ import { areCookiesAccepted } from '../../utils/areCookiesAccepted';
 
 const cookieAreAccepted = areCookiesAccepted('disclaimerAccepted');
 
-const CookieDiv = styled.div`
+const CookieWrapper = styled.div`
   z-index: 1;
   font-size: 12px;
   box-shadow: ${p => p.theme.boxShadow};
@@ -24,7 +24,7 @@ const Inner = styled.div`
   padding: 10px;
 `;
 
-const StyledDescription = styled.div`
+const Text = styled.p`
   line-height: 150%;
   opacity: 0.66;
 
@@ -41,6 +41,21 @@ const StyledDescription = styled.div`
   }
 `;
 
+const CookieContainer = styled.div`
+  position: absolute;
+  bottom: 12px;
+  display: block;
+  width: 60%;
+  transform: translate(50%, 0%);
+  right: 50%;
+  z-index: 3;
+
+  @media screen and (max-width: ${p => p.theme.screens.mobile}) {
+    width: 100%;
+    bottom: 0px;
+  }
+`;
+
 const Cookie: FC = () => {
   const [cookiesAccepted, setCookieAccepted] = useState<boolean>(
     cookieAreAccepted
@@ -52,11 +67,11 @@ const Cookie: FC = () => {
   };
 
   return (
-    <>
+    <CookieContainer>
       {!cookiesAccepted && (
-        <CookieDiv>
+        <CookieWrapper>
           <Inner>
-            <StyledDescription>
+            <Text>
               Diese Webseite verwendet Cookies, um bestimmte Funktionen zu
               ermöglichen und das Angebot zu verbessern. Indem du hier
               fortfährst stimmst du der Nutzung von Cookies zu.{' '}
@@ -67,7 +82,7 @@ const Cookie: FC = () => {
               >
                 Weitere Informationen.
               </a>
-            </StyledDescription>
+            </Text>
             <ButtonRound
               width='fit-content'
               fontSize={'.8rem'}
@@ -76,9 +91,9 @@ const Cookie: FC = () => {
               Einverstanden
             </ButtonRound>
           </Inner>
-        </CookieDiv>
+        </CookieWrapper>
       )}
-    </>
+    </CookieContainer>
   );
 };
 

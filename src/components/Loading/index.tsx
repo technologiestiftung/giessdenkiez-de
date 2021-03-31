@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import LoadingIcon from '../LoadingIcon/';
 import content from '../../assets/content';
+import { ImprintAndPrivacy } from '../ImprintAndPrivacy';
 
 const LoadingDiv = styled.div`
   position: absolute;
@@ -61,6 +62,7 @@ const Loading: FC<{ show?: boolean }> = ({ show }) => {
       <LoadingDiv>
         <div>
           <LoadingIcon text={snippets[current]} />
+          <ImprintAndPrivacy />
         </div>
       </LoadingDiv>
     );

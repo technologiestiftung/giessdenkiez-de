@@ -8,6 +8,15 @@ const SmallParagraph = styled.p`
   padding: 0;
   margin: 0;
   font-weight: normal;
+
+  a {
+    color: ${p => p.theme.colorTextDark};
+    transition: opacity 200ms ease-out;
+    opacity: 1;
+  }
+  a:hover {
+    opacity: 0.33;
+  }
 `;
 
 export default SmallParagraph;

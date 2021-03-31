@@ -7,7 +7,7 @@ env:
 on:
   push:
     branches: [master, staging, demo, dev]
-    paths: &watchPaths
+    paths:
       - 'src/**/*'
       - '.storybook/**/*'
       - 'public/**/*'
@@ -21,7 +21,18 @@ on:
       - 'tsconfig.json'
   pull_request:
     branches: [master, staging, demo, dev]
-    paths: *watchPaths
+    paths:
+      - 'src/**/*'
+      - '.storybook/**/*'
+      - 'public/**/*'
+      - 'webpack/**/*'
+      - '.github/workflows/**/*'
+      - 'package*.json'
+      - 'jest.config.js'
+      - 'netlify.toml'
+      - 'babel.config.js'
+      - 'create-env.js'
+      - 'tsconfig.json'
     types:
       - 'opened'
       - 'synchronize'
@@ -45,4 +56,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run build --if-present
-      - run: npm test
+      - run: npm run lint
+      - run: npm run type-check
+      - run: npm run test

@@ -9,7 +9,7 @@ const IconContainer = styled.div`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  justify-content: centet;
+  justify-content: center;
   height: 100%;
   max-width: 200px;
 `;
@@ -46,29 +46,26 @@ const StyledLabel = styled.div`
   text-align: center;
 `;
 
-const StyledLabelBottom = styled.div`
-  font-size: ${p => p.theme.fontSizeM};
-  opacity: 0.66;
-  padding-bottom: 10px;
-  position: absolute;
-  bottom: 15px;
+export const SidebarLoadingContainer = styled.div`
+  /* 100vh - Sidebar outer margin - Sidebar title size - Sidebar bottom padding - Height of impressum link  */
+  min-height: calc(100vh - 48px - 57px - 24px - 19px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
+
 const LoadingIcon: FC<{ text?: string; hasError?: boolean }> = ({
   text,
   hasError,
 }) => {
-  const { intro, imprintAndPrivacy } = content;
+  const { intro } = content;
   const { disclaimer } = intro;
   return (
     <IconContainer>
       <StyledLoadingIcon src={iconTrees} hasError={hasError} />
       {text && <StyledLabel>{text}</StyledLabel>}
       {isMobile && <StyledLabel>{disclaimer}</StyledLabel>}
-      {
-        <StyledLabelBottom
-          dangerouslySetInnerHTML={{ __html: imprintAndPrivacy.description }}
-        />
-      }
     </IconContainer>
   );
 };

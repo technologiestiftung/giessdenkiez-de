@@ -20,7 +20,7 @@ const NavWrapper = styled.div<StyledProps>`
   top: 12px;
   left: 12px;
   background: white;
-  z-index: 2;
+  z-index: 1;
   transition: transform 500ms;
 
   @media screen and (min-width: ${p => p.theme.screens.tablet}) {

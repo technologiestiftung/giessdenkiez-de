@@ -8,7 +8,7 @@ import { useAuth0Token } from './useAuth0Token';
 const loadTree: QueryFunction<SelectedTreeType | undefined> = async ({
   queryKey,
 }) => {
-  const [_key, treeId] = queryKey;
+  const [, treeId] = queryKey;
   if (!treeId) return undefined;
   const data = await getTreeData(treeId);
   if (!data.selectedTreeData) {
@@ -20,7 +20,7 @@ const loadTree: QueryFunction<SelectedTreeType | undefined> = async ({
 const isTreeAdopted: QueryFunction<boolean | undefined> = async ({
   queryKey,
 }) => {
-  const [_key, treeId, token, userName] = queryKey;
+  const [, treeId, token, userName] = queryKey;
 
   if (!treeId || !token || !userName) return undefined;
 

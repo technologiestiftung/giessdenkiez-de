@@ -1,25 +1,25 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
+import { getWaterNeedByAge } from '../../../utils/getWaterNeedByAge';
 
-import ExpandablePanel from '../ExpandablePanel';
-import WaterNeedsInfo from '../WaterNeedsInfo';
-import UsersWateringsList from '../UsersWateringsList';
-import ButtonWater from '../ButtonWater';
-import WaterDrops from '../WaterDrops';
-import Login from '../Login';
+import ExpandablePanel from '../../ExpandablePanel';
+import WaterNeedsInfo from '../../WaterNeedsInfo';
+import UsersWateringsList from '../../UsersWateringsList';
+import ButtonWater from '../../ButtonWater';
+import WaterDrops from '../../WaterDrops';
+import Login from '../../Login';
 
-import content from '../../assets/content';
-import { SelectedTreeType } from '../../common/interfaces';
-import Icon from '../Icons';
-import StackedBarChart from '../StackedBarChart';
-import { useUserData } from '../../utils/hooks/useUserData';
-import { ParticipateButton } from '../ParticipateButton';
-import Paragraph from '../Paragraph';
-import { NonVerfiedMailMessage } from '../NonVerfiedMailMessage';
-import ButtonRound from '../ButtonRound';
-import SmallParagraph from '../SmallParagraph';
-import { useAdoptingActions } from '../../utils/hooks/useAdoptingActions';
+import content from '../../../assets/content';
+import { SelectedTreeType } from '../../../common/interfaces';
+import Icon from '../../Icons';
+import StackedBarChart from '../../StackedBarChart';
+import { useUserData } from '../../../utils/hooks/useUserData';
+import { ParticipateButton } from '../../ParticipateButton';
+import Paragraph from '../../Paragraph';
+import { NonVerfiedMailMessage } from '../../NonVerfiedMailMessage';
+import ButtonRound from '../../ButtonRound';
+import SmallParagraph from '../../SmallParagraph';
+import { useAdoptingActions } from '../../../utils/hooks/useAdoptingActions';
 
 const { treetypes } = content.sidebar;
 
@@ -49,6 +49,7 @@ const CaretakerSublineSpan = styled.span`
   margin-top: -${p => parseFloat(p.theme.fontSizeM.replace('rem', '')) / 2 + 0.1}rem;
   margin-left: -${p => p.theme.fontSizeM};
 `;
+
 const SublineSpan = styled.span`
   margin-bottom: 0.75rem;
   text-transform: capitalize;

@@ -34,8 +34,7 @@ const Bubble = styled.div<StyledProps>`
   background-color: #ffffff;
   margin: 0 auto;
   &::after {
-    -moz-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
     border-width: 7px;
     border-style: solid;
     border-color: transparent #fff #fff transparent;
@@ -61,7 +60,7 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
     const h = refBubble.current ? refBubble.current?.offsetHeight : 0;
     setWidthBubble(w);
     setHeightBubble(h);
-  }, [refBubble.current]);
+  }, [refBubble]);
 
   return (
     <>
