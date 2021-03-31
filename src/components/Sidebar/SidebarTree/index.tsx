@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import SidebarTitle from '../SidebarTitle';
-import Card from '../../Card/Card';
+import TreeInfos from './TreeInfos';
 import LoadingIcon, { SidebarLoadingContainer } from '../../LoadingIcon';
 import { useTreeData } from '../../../utils/hooks/useTreeData';
 import { useCurrentTreeId } from '../../../utils/hooks/useCurrentTreeId';
@@ -21,7 +21,7 @@ const SidebarTree: FC<{ isLoading?: boolean }> = ({
     <>
       <SidebarTitle>Bauminformation</SidebarTitle>
       {!isLoading && selectedTreeData && (
-        <Card selectedTreeData={selectedTreeData} />
+        <TreeInfos selectedTreeData={selectedTreeData} />
       )}
       {error && (
         <>

@@ -1,4 +1,4 @@
-import { mapStackedBarchartData } from '../StackedBarChart/mapStackedBarchartData';
+import { mapStackedBarchartData } from './mapStackedBarchartData';
 
 const arrayOf30 = [...Array(30)].map((_, idx) => idx + 1);
 const waterings = arrayOf30.map(val => ({

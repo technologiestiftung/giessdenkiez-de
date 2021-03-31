@@ -1,4 +1,4 @@
-import { Tree } from '../../common/interfaces';
+import { Tree } from '../common/interfaces';
 
 export const treeData: Tree = {
   id: '_w6utdqycq',

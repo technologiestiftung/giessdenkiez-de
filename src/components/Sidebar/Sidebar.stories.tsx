@@ -8,7 +8,7 @@ import SidebarAbout from './SidebarAbout';
 import SidebarTree from './SidebarTree';
 import SidebarSearch from './SidebarSearch';
 import SidebarProfile from './SidebarProfile';
-import { treeData } from '../Card/stories-data';
+import { treeData } from '../../assets/stories-data';
 export default {
   title: 'Sidebar',
   component: Sidebar,
