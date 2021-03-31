@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import store from '../../state/Store';
 
-import Actions from '../../state/Actions';
-import { connect } from 'unistore/react';
+import ButtonRound from '../ButtonRound';
+import { areCookiesAccepted } from '../../utils/areCookiesAccepted';
 
-import ButtonRound from '../ButtonRound/';
+const cookieAreAccepted = areCookiesAccepted('disclaimerAccepted');
 
-const CookieDiv = styled.div`
+const CookieWrapper = styled.div`
   z-index: 1;
   font-size: 12px;
   box-shadow: ${p => p.theme.boxShadow};
@@ -25,7 +24,7 @@ const Inner = styled.div`
   padding: 10px;
 `;
 
-const StyledCardDescription = styled.div`
+const Text = styled.p`
   line-height: 150%;
   opacity: 0.66;
 
@@ -42,20 +41,37 @@ const StyledCardDescription = styled.div`
   }
 `;
 
-const Cookie = p => {
-  const { cookiesAccepted } = p;
+const CookieContainer = styled.div`
+  position: absolute;
+  bottom: 12px;
+  display: block;
+  width: 60%;
+  transform: translate(50%, 0%);
+  right: 50%;
+  z-index: 3;
+
+  @media screen and (max-width: ${p => p.theme.screens.mobile}) {
+    width: 100%;
+    bottom: 0px;
+  }
+`;
+
+const Cookie: FC = () => {
+  const [cookiesAccepted, setCookieAccepted] = useState<boolean>(
+    cookieAreAccepted
+  );
 
   const setCookie = () => {
     document.cookie = 'disclaimerAccepted=true;path=/;';
-    store.setState({ cookiesAccepted: true });
+    setCookieAccepted(true);
   };
 
   return (
-    <>
+    <CookieContainer>
       {!cookiesAccepted && (
-        <CookieDiv>
+        <CookieWrapper>
           <Inner>
-            <StyledCardDescription>
+            <Text>
               Diese Webseite verwendet Cookies, um bestimmte Funktionen zu
               ermöglichen und das Angebot zu verbessern. Indem du hier
               fortfährst stimmst du der Nutzung von Cookies zu.{' '}
@@ -66,24 +82,19 @@ const Cookie = p => {
               >
                 Weitere Informationen.
               </a>
-            </StyledCardDescription>
+            </Text>
             <ButtonRound
               width='fit-content'
               fontSize={'.8rem'}
-              toggle={() => setCookie()}
+              onClick={() => setCookie()}
             >
               Einverstanden
             </ButtonRound>
           </Inner>
-        </CookieDiv>
+        </CookieWrapper>
       )}
-    </>
+    </CookieContainer>
   );
 };
 
-export default connect(
-  state => ({
-    cookiesAccepted: state.cookiesAccepted,
-  }),
-  Actions
-)(Cookie);
+export default Cookie;

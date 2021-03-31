@@ -1,14 +1,16 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { DailyWaterAmountsType } from '../../common/interfaces';
-import { useStoreState } from '../../state/unistore-hooks';
+import {
+  DailyWaterAmountsType,
+  SelectedTreeType,
+} from '../../common/interfaces';
 import { drawD3Chart } from './drawD3Chart';
 import { mapStackedBarchartData } from './mapStackedBarchartData';
 
 const BarChartWrapper = styled.div`
   width: 100%;
   height: 140px;
-  margin: 5px 0;
+  margin: 0 0 5px 0;
   position: relative;
 `;
 
@@ -29,14 +31,12 @@ const StyledLegendCircle = styled.div`
 `;
 
 const StyledTooltip = styled.div`
-  min-width: 50px;
   position: absolute;
-  top: 0;
+  top: 14px;
   right: 0;
-  display: grid;
-  grid-template-columns: 1em auto;
-  grid-column-gap: 4px;
-  grid-row-gap: 2px;
+  min-width: 50%;
+  display: flex;
+  justify-content: space-between;
   transform: translateY(-60%);
   font-size: 13px;
   opacity: 0;
@@ -48,6 +48,11 @@ const StyledTooltip = styled.div`
   }
 `;
 
+const StyledTooltipValue = styled.span`
+  display: inline-grid;
+  grid-template-columns: 16px auto;
+`;
+
 const StyledTooltipTotalSymbol = styled.span`
   display: inline-block;
   line-height: 9px;
@@ -57,21 +62,18 @@ const StyledTooltipTotalSymbol = styled.span`
   font-weight: bold;
 `;
 
-const StackedBarChart: FC = () => {
-  const { selectedTree } = useStoreState('selectedTree');
-  const { treeLastWatered } = useStoreState('treeLastWatered');
-
+const StackedBarChart: FC<{
+  selectedTreeData: SelectedTreeType;
+}> = ({ selectedTreeData }) => {
   const [waterAmountInLast30Days, setWaterAmountInLast30Days] = useState<
     DailyWaterAmountsType[] | null
   >(null);
 
   useEffect(() => {
-    if (!treeLastWatered || !treeLastWatered) return;
+    if (!selectedTreeData) return;
 
-    setWaterAmountInLast30Days(
-      mapStackedBarchartData({ selectedTree, treeLastWatered })
-    );
-  }, [selectedTree, treeLastWatered]);
+    setWaterAmountInLast30Days(mapStackedBarchartData(selectedTreeData));
+  }, [selectedTreeData]);
 
   useEffect(() => {
     if (waterAmountInLast30Days === null) return;
@@ -89,12 +91,18 @@ const StackedBarChart: FC = () => {
     <>
       <BarChartWrapper id='barchart'>
         <StyledTooltip id='barchart-tooltip'>
-          <strong>{wateredCircle}</strong>
-          <span id='barchart-tooltip-val-watered' />
-          <strong>{rainCircle}</strong>
-          <span id='barchart-tooltip-val-rain' />
-          <StyledTooltipTotalSymbol>∑</StyledTooltipTotalSymbol>
-          <span id='barchart-tooltip-val-total' />
+          <StyledTooltipValue>
+            <strong>{wateredCircle}</strong>
+            <span id='barchart-tooltip-val-watered' />
+          </StyledTooltipValue>
+          <StyledTooltipValue>
+            <strong>{rainCircle}</strong>
+            <span id='barchart-tooltip-val-rain' />
+          </StyledTooltipValue>
+          <StyledTooltipValue>
+            <StyledTooltipTotalSymbol>∑</StyledTooltipTotalSymbol>
+            <span id='barchart-tooltip-val-total' />
+          </StyledTooltipValue>
         </StyledTooltip>
       </BarChartWrapper>
       <StyledLegendWrapper>
