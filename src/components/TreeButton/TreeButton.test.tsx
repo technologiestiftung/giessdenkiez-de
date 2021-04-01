@@ -16,7 +16,7 @@ describe('component TreeButton', () => {
     const clickHandler = jest.fn();
     render(<TreeButton onClickHandler={clickHandler} />);
     const label = screen.getByText('Baum');
-    fireEvent.click(label)
+    fireEvent.click(label);
     expect(clickHandler).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import UserCredentials from '.';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../../assets/theme';
