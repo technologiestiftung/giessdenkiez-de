@@ -54,15 +54,12 @@ export const lockedColor: Color = {
   lab: [91, -7, 0],
 }; // [203, 225, 77, 200];
 
-export const pumpToColor: (pumpInfo: {
+export const pumpToColor: (pumpInfo?: {
   properties: {
     'pump:status': string;
   };
 }) => RGBAColor = pumpInfo => {
-  if (pumpInfo === undefined) {
-    return defaultColor.rgba;
-  }
-  if (pumpInfo.properties['pump:status']) {
+  if (pumpInfo?.properties && pumpInfo.properties['pump:status']) {
     const status = pumpInfo.properties['pump:status'];
     switch (status) {
       case 'unbekannt': {
