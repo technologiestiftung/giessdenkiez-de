@@ -24,7 +24,6 @@ const queryClient = new QueryClient();
 
 export const Providers: FC = ({ children }) => (
   <ErrorBoundary>
-    <GlobalStyles />
     <Auth0Provider
       domain={process.env.AUTH0_DOMAIN || ''}
       client_id={process.env.AUTH0_CLIENT_ID || ''}
@@ -36,7 +35,10 @@ export const Providers: FC = ({ children }) => (
         <ReactQueryDevtools initialIsOpen={false} />
         <Provider store={store}>
           <Router history={history}>
-            <ThemeProvider theme={theme}>{children}</ThemeProvider>
+            <ThemeProvider theme={theme}>
+              <GlobalStyles />
+              {children}
+            </ThemeProvider>
           </Router>
         </Provider>
       </QueryClientProvider>

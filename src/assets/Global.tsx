@@ -1,14 +1,12 @@
 import styledNormalize from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components';
 import { RCSliderStyles } from './RCSliderStyles';
-import { IBMPlexFontStyles } from './IBMPlexFontStyles';
 import { MapboxStyleOverrides } from './MapboxStyleOverrides';
 
 export default createGlobalStyle`
   ${styledNormalize}
-  ${IBMPlexFontStyles}
 
-  body{
+  body {
     color: rgb(44, 48, 59);
     font-family: 'IBM Plex Sans', sans-serif;
   }
