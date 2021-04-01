@@ -1,5 +1,5 @@
 import React from 'react';
-import { HoverObject, HoverObjectProps } from './HoverObject';
+import { HoverObject, HoverObjectProps } from '.';
 import { Story } from '@storybook/react/types-6-0';
 
 export default {

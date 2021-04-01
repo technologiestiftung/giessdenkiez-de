@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { HoverObject } from './HoverObject';
+import { HoverObject } from '.';
 
 describe('component HoverObject', () => {
   test('should render the provided message', () => {
