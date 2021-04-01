@@ -30,7 +30,7 @@ const ImprintAndPrivacyContainer = styled.div`
   right: 16px;
   width: auto;
   height: 24px;
-  z-index: 10;
+  z-index: 2;
 `;
 
 const App: FC = () => {

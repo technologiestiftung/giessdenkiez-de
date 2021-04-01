@@ -5,7 +5,7 @@ import OverlayTop from './OverlayTop';
 import OverlayBottom from './OverlayBottom';
 
 const StyledWrapper = styled.div`
-  width: 60%;
+  width: 100%;
   max-width: 1000px;
   height: auto;
   margin: 0 auto;
@@ -18,7 +18,7 @@ const StyledWrapper = styled.div`
   box-shadow: ${p => p.theme.boxShadow};
   z-index: 3;
 
-  @media screen and (max-width: ${_p => '600px'}) {
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     width: 100%;
     height: 100%;
     box-shadow: none;

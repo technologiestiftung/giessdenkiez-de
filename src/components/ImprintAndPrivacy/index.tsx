@@ -4,17 +4,13 @@ import SmallParagraph from '../SmallParagraph';
 import content from '../../assets/content';
 import styled from 'styled-components';
 
-const ImprintAndPrivacySpan = styled.span`
+const ImprintAndPrivacySpan = styled(SmallParagraph)`
   text-align: center;
   display: block;
 `;
 
 export const ImprintAndPrivacy: FC = () => (
-  <SmallParagraph>
-    <ImprintAndPrivacySpan
-      dangerouslySetInnerHTML={{
-        __html: content.imprintAndPrivacy.description,
-      }}
-    />
-  </SmallParagraph>
+  <ImprintAndPrivacySpan>
+    {content.imprintAndPrivacy.description}
+  </ImprintAndPrivacySpan>
 );

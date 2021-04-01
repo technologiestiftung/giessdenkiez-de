@@ -15,9 +15,7 @@ const SidebarAbout: FC = () => {
       <SidebarTitle>Weitere Infos</SidebarTitle>
       {about.map(item => (
         <ExpandablePanel isExpanded title={item.title} key={item.title}>
-          <SmallParagraph
-            dangerouslySetInnerHTML={{ __html: item.description }}
-          ></SmallParagraph>
+          <SmallParagraph>{item.description}</SmallParagraph>
         </ExpandablePanel>
       ))}
 
@@ -25,9 +23,7 @@ const SidebarAbout: FC = () => {
       <SmallParagraph>{content.faq.description}</SmallParagraph>
       {content.faq.qa.map(item => (
         <ExpandablePanel key={item.question} title={item.question}>
-          <SmallParagraph
-            dangerouslySetInnerHTML={{ __html: item.answer }}
-          ></SmallParagraph>
+          <SmallParagraph>{item.answer}</SmallParagraph>
         </ExpandablePanel>
       ))}
       <SocialSharing />

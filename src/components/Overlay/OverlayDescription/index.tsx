@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import OverlayParagraph from '../OverlayParagraph';
 
 const Wrapper = styled.div`
   display: grid;
@@ -13,30 +14,14 @@ const Wrapper = styled.div`
   }
 `;
 
-const StyledParargraph = styled.p`
-  font-size: ${p => p.theme.fontSizeLl};
-  line-height: ${p => p.theme.lineHeightBody};
-  font-weight: regular;
-  margin: 0;
-`;
-
-const OverlayDescription: FC<{ content: string[] }> = ({ content }) => {
-  function createMarkup(content: string) {
-    return { __html: content };
-  }
-
-  return (
-    <Wrapper>
-      {content.map((col, i) => {
-        return (
-          <StyledParargraph
-            dangerouslySetInnerHTML={createMarkup(col)}
-            key={`Overlay-description-${i}`}
-          ></StyledParargraph>
-        );
-      })}
-    </Wrapper>
-  );
-};
+const OverlayDescription: FC<{ content: string[] }> = ({ content }) => (
+  <Wrapper>
+    {content.map((col, i) => (
+      <OverlayParagraph key={`Overlay-description-${i}`}>
+        {col}
+      </OverlayParagraph>
+    ))}
+  </Wrapper>
+);
 
 export default OverlayDescription;

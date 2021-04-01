@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import OverlayParagraph from '../OverlayParagraph/';
 import Icon from '../../Icons';
 import { CollaborationItem } from '../../../assets/content';
+import SmallParagraph from '../../SmallParagraph';
 
 const StyledTileWrapper = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ const OverlayTile: React.FC<{ collaborationItem: CollaborationItem }> = ({
       <Icon iconType={collaborationItem.icon} />
       <StyledContentWrapper>
         <StyledTileTitle>{collaborationItem.title}</StyledTileTitle>
-        <OverlayParagraph content={collaborationItem.description} />
+        <SmallParagraph>{collaborationItem.description}</SmallParagraph>
       </StyledContentWrapper>
     </StyledTileWrapper>
   );
