@@ -34,7 +34,6 @@ const ControlWrapper = styled.div<StyledProps>`
 let map: MapboxMap | null = null;
 let selectedStateId: string | number | undefined = undefined;
 
-const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
 
@@ -553,7 +552,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             reuseMaps
             mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
             preventStyleDiffing={true}
-            mapboxApiAccessToken={MAPBOX_TOKEN}
+            mapboxApiAccessToken={process.env.MAPBOX_API_KEY}
             onLoad={this._onload.bind(this)}
             width='100%'
             height='100%'
