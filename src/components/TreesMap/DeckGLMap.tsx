@@ -253,7 +253,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           }
           this.setState({ isHovered: true });
           this.setState({
-            hoverObjectMessage: info.object.properties['pump:status'],
+            hoverObjectMessage: info?.object?.properties['pump:status'] || '',
           });
           this.setState({ hoverObjectPointer: [info.x, info.y] });
         },
