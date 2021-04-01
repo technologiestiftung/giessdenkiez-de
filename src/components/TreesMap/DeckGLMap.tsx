@@ -12,7 +12,7 @@ import {
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
-import { HoverObject } from './HoverObject';
+import { Tooltip } from '../Tooltip';
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
 import { pumpToColor } from './mapColorUtil';
 interface StyledProps {
@@ -531,10 +531,13 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         {isMobile === false &&
           this.state.isHovered === true &&
           this.state.hoverObjectPointer.length === 2 && (
-            <HoverObject
-              message={this.state.hoverObjectMessage}
-              pointer={this.state.hoverObjectPointer}
-            ></HoverObject>
+            <Tooltip
+              x={this.state.hoverObjectPointer[0]}
+              y={this.state.hoverObjectPointer[1]}
+            >
+              <b>Status:</b>
+              {this.state.hoverObjectMessage}
+            </Tooltip>
           )}
         <DeckGL
           layers={this._renderLayers() as any}

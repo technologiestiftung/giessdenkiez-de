@@ -1,16 +1,37 @@
-import React from 'react';
-import { HoverObject, HoverObjectProps } from '.';
+import React, { ReactNode } from 'react';
+import { Tooltip as TooltipComp } from '.';
 import { Story } from '@storybook/react/types-6-0';
+import WaterDrops from '../WaterDrops';
 
 export default {
-  title: 'Maps Pump HoverTip',
-  component: HoverObject,
+  title: 'Tooltip',
+  component: TooltipComp,
 };
 
-const Template: Story<HoverObjectProps> = args => <HoverObject {...args} />;
+const Template: Story<{
+  children: ReactNode;
+  x: number;
+  y: number;
+}> = ({ children, x, y }) => (
+  <TooltipComp x={x} y={y}>
+    {children}
+  </TooltipComp>
+);
 
-export const HoverObjectStory = Template.bind({});
-HoverObjectStory.args = {
-  message: 'unbekannt',
-  pointer: [100, 100],
+export const WithTextString = Template.bind({});
+WithTextString.args = {
+  x: 100,
+  y: 100,
+  children: 'This is a tooltip',
+};
+
+export const WithReactChildren = Template.bind({});
+WithReactChildren.args = {
+  x: 200,
+  y: 150,
+  children: (
+    <>
+      <b>Bold and sweaty</b> <WaterDrops dropsAmount={2} />
+    </>
+  ),
 };
