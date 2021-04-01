@@ -44,7 +44,7 @@ export const Map: FC<{
       communityDataWatered={communityData?.wateredTreesIds || []}
       communityDataAdopted={communityData?.adoptedTreesIds || []}
       selectedTreeId={treeId || undefined}
-      focusPoint={selectedTreeData ? selectedTreeData : mapFocusPoint}
+      focusPoint={selectedTreeData || mapFocusPoint}
     />
   );
 };

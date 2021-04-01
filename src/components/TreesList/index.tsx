@@ -20,7 +20,7 @@ const TreesList: FC<{
           <TreeButton
             key={tree.id}
             label={tree.artdtsch ? tree.artdtsch : tree.id}
-            onClickHandler={async () => {
+            onClickHandler={() => {
               history.push(`/tree/${tree.id}`);
             }}
           />

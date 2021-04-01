@@ -39,7 +39,7 @@ const FlexRow = styled.div`
   flex-direction: row;
 `;
 
-const Title = styled.span`
+const Title = styled.h3`
   height: fit-content;
   font-weight: normal;
   font-size: ${p => p.theme.fontSizeL};
@@ -88,7 +88,7 @@ const UsersWateringsList: FC<{
             <Title>{username}</Title>
             <StyledTreeType>({formatUnixTimestamp(timestamp)})</StyledTreeType>
           </FlexRow>
-          <SmallParagraph>{amount}l</SmallParagraph>
+          <SmallParagraph>{`${amount}l`}</SmallParagraph>
           <StyledIcon src={iconDrop} alt='Water drop icon' />
         </Wrapper>
       ))}

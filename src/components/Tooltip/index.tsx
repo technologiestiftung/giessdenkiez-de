@@ -1,12 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-export interface HoverObjectProps {
-  message: string;
-  pointer: number[];
+interface TooltipProps {
+  x: number;
+  y: number;
 }
-export interface StyledProps {
-  pointer: number[];
+interface StyledProps {
+  x: number;
+  y: number;
   width: number;
   height: number;
 }
@@ -29,8 +30,8 @@ const Bubble = styled.div<StyledProps>`
   display: inline-block;
   text-align: center;
   vertical-align: middle;
-  left: ${props => props.pointer[0] - props.width / 2 - 3}px;
-  top: ${props => props.pointer[1] - 45}px;
+  left: ${props => props.x - props.width / 2 - 3}px;
+  top: ${props => props.y - 45}px;
   background-color: #ffffff;
   margin: 0 auto;
   &::after {
@@ -46,35 +47,31 @@ const Bubble = styled.div<StyledProps>`
   }
 `;
 
-export const HoverObject: React.FC<HoverObjectProps> = ({
-  message,
-  pointer,
-}) => {
-  const refBubble = useRef<HTMLDivElement | null>(null);
-  const [widthBubble, setWidthBubble] = useState(0);
-  const [heightBubble, setHeightBubble] = useState(0);
+export const Tooltip: React.FC<TooltipProps> = ({ children, x, y }) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    if (!refBubble) return;
-    const w = refBubble.current ? refBubble.current?.offsetWidth : 0;
-    const h = refBubble.current ? refBubble.current?.offsetHeight : 0;
-    setWidthBubble(w);
-    setHeightBubble(h);
-  }, [refBubble]);
+    if (!ref) return;
+    const w = ref.current ? ref.current?.offsetWidth : 0;
+    const h = ref.current ? ref.current?.offsetHeight : 0;
+    setWidth(w);
+    setHeight(h);
+  }, [ref]);
 
   return (
     <>
       <div>
         <Bubble
-          className='is-size-7'
-          ref={refBubble}
-          pointer={pointer}
-          width={widthBubble}
-          height={heightBubble}
+          className='tooltip'
+          ref={ref}
+          x={x}
+          y={y}
+          width={width}
+          height={height}
         >
-          <StyledSpan>
-            <b>Status:</b> {message}
-          </StyledSpan>
+          <StyledSpan>{children}</StyledSpan>
         </Bubble>
       </div>
     </>

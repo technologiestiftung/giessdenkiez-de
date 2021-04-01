@@ -12,9 +12,9 @@ import {
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
-import { HoverObject } from './HoverObject';
+import { Tooltip } from '../Tooltip';
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
-import { pumpToColor } from './colors';
+import { pumpToColor } from './mapColorUtil';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -34,7 +34,6 @@ const ControlWrapper = styled.div<StyledProps>`
 let map: MapboxMap | null = null;
 let selectedStateId: string | number | undefined = undefined;
 
-const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN;
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
 
@@ -252,9 +251,10 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             return;
           }
           this.setState({ isHovered: true });
-          this.setState({
-            hoverObjectMessage: info.object.properties['pump:status'],
-          });
+          const properties = info?.object?.properties;
+          const hoverObjectMessage =
+            (properties && properties['pump:status']) || '';
+          this.setState({ hoverObjectMessage });
           this.setState({ hoverObjectPointer: [info.x, info.y] });
         },
       }),
@@ -530,10 +530,13 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         {isMobile === false &&
           this.state.isHovered === true &&
           this.state.hoverObjectPointer.length === 2 && (
-            <HoverObject
-              message={this.state.hoverObjectMessage}
-              pointer={this.state.hoverObjectPointer}
-            ></HoverObject>
+            <Tooltip
+              x={this.state.hoverObjectPointer[0]}
+              y={this.state.hoverObjectPointer[1]}
+            >
+              <b>Status:</b>
+              {this.state.hoverObjectMessage}
+            </Tooltip>
           )}
         <DeckGL
           layers={this._renderLayers() as any}
@@ -549,7 +552,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             reuseMaps
             mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
             preventStyleDiffing={true}
-            mapboxApiAccessToken={MAPBOX_TOKEN}
+            mapboxApiAccessToken={process.env.MAPBOX_API_KEY}
             onLoad={this._onload.bind(this)}
             width='100%'
             height='100%'

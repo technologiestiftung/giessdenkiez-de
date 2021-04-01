@@ -636,26 +636,6 @@ exports[`Storyshots Legend Legend Story 1`] = `
 </div>
 `;
 
-exports[`Storyshots Maps Pump HoverTip Hover Object Story 1`] = `
-<div>
-  <div
-    className="sc-fXoxut jTkSap is-size-7"
-    height={0}
-    width={0}
-  >
-    <span
-      className="sc-bQdQlF bsIekv"
-    >
-      <b>
-        Status:
-      </b>
-       
-      unbekannt
-    </span>
-  </div>
-</div>
-`;
-
 exports[`Storyshots Overlay Legend Story 1`] = `
 Array [
   <footer
@@ -8094,4 +8074,77 @@ Array [
     </div>
   </div>,
 ]
+`;
+
+exports[`Storyshots Tooltip With React Children 1`] = `
+<div>
+  <div
+    className="sc-fXoxut jlAoto tooltip"
+    height={0}
+    width={0}
+    x={200}
+    y={150}
+  >
+    <span
+      className="sc-bQdQlF bsIekv"
+    >
+      <b>
+        Bold and sweaty
+      </b>
+       
+      <div
+        className="sc-kIeTtH elciKP"
+      >
+        <svg
+          height="14px"
+          viewBox="0 0 9 14"
+          width="9px"
+        >
+          <g
+            fill="#75ADE8"
+            id="water-drop"
+          >
+            <path
+              d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+              id="water-drop-path"
+            />
+          </g>
+        </svg>
+        <svg
+          height="14px"
+          viewBox="0 0 9 14"
+          width="9px"
+        >
+          <g
+            fill="#75ADE8"
+            id="water-drop"
+          >
+            <path
+              d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+              id="water-drop-path"
+            />
+          </g>
+        </svg>
+      </div>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Tooltip With Text String 1`] = `
+<div>
+  <div
+    className="sc-fXoxut jTkSap tooltip"
+    height={0}
+    width={0}
+    x={100}
+    y={100}
+  >
+    <span
+      className="sc-bQdQlF bsIekv"
+    >
+      This is a tooltip
+    </span>
+  </div>
+</div>
 `;
