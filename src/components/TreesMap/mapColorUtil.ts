@@ -55,8 +55,8 @@ export const lockedColor: Color = {
 }; // [203, 225, 77, 200];
 
 export const pumpToColor: (pumpInfo?: {
-  properties: {
-    'pump:status': string;
+  properties?: {
+    'pump:status'?: string;
   };
 }) => RGBAColor = pumpInfo => {
   if (pumpInfo?.properties && pumpInfo.properties['pump:status']) {
