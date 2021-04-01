@@ -1,6 +1,7 @@
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-const SmallParagraph = styled.p`
+const SmallParagraphContainer = styled.p`
   line-height: 150%;
   font-size: ${p => p.theme.fontSizeL};
   opacity: 0.66;
@@ -18,5 +19,22 @@ const SmallParagraph = styled.p`
     opacity: 0.33;
   }
 `;
+
+const SmallParagraph: FC<{ className?: string; onClick?: () => void }> = ({
+  children,
+  className = '',
+  onClick = () => undefined,
+}) =>
+  typeof children === 'string' ? (
+    <SmallParagraphContainer
+      className={className}
+      onClick={onClick}
+      dangerouslySetInnerHTML={{ __html: children }}
+    />
+  ) : (
+    <SmallParagraphContainer className={className} onClick={onClick}>
+      {children}
+    </SmallParagraphContainer>
+  );
 
 export default SmallParagraph;

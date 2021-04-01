@@ -1,6 +1,7 @@
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-export default styled.p`
+const ParagraphContainer = styled.p`
   font-size: ${p => p.theme.fontSizeL};
   opacity: 1;
   line-height: 150%;
@@ -15,3 +16,22 @@ export default styled.p`
     opacity: 0.33;
   }
 `;
+
+const Paragraph: FC<{ className?: string; onClick?: () => void }> = ({
+  children,
+  className = '',
+  onClick = () => undefined,
+}) =>
+  typeof children === 'string' ? (
+    <ParagraphContainer
+      className={className}
+      onClick={onClick}
+      dangerouslySetInnerHTML={{ __html: children }}
+    />
+  ) : (
+    <ParagraphContainer className={className} onClick={onClick}>
+      {children}
+    </ParagraphContainer>
+  );
+
+export default Paragraph;
