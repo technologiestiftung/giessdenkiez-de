@@ -636,26 +636,6 @@ exports[`Storyshots Legend Legend Story 1`] = `
 </div>
 `;
 
-exports[`Storyshots Maps Pump HoverTip Hover Object Story 1`] = `
-<div>
-  <div
-    className="sc-fXoxut jTkSap tooltip"
-    height={0}
-    width={0}
-  >
-    <span
-      className="sc-bQdQlF bsIekv"
-    >
-      <b>
-        Status:
-      </b>
-       
-      unbekannt
-    </span>
-  </div>
-</div>
-`;
-
 exports[`Storyshots Overlay Legend Story 1`] = `
 Array [
   <footer
