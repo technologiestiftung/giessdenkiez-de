@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { interpolateColor } from '../../utils/colorUtil';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
-import { workingColor } from '../TreesMap/colors';
+import { workingColor } from '../TreesMap/mapColorUtil';
 import { createCSSGradient } from './createCSSGradient';
 import { PumpsColorLegend } from './PumpsColorLegend';
 import { RainColorLegend } from './RainColorLegend';

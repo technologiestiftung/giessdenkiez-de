@@ -5,7 +5,7 @@ import {
   defaultColor,
   brokenColor,
   lockedColor,
-} from '../TreesMap/colors';
+} from '../TreesMap/mapColorUtil';
 import { FlexRow, FlexColumn } from './LegendFlexBoxes';
 import { PumpLabel } from './LegendLabels';
 import { PumpsDot } from './LegendRectsDots';

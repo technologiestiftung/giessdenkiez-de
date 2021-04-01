@@ -14,7 +14,7 @@ import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { HoverObject } from './HoverObject';
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
-import { pumpToColor } from './colors';
+import { pumpToColor } from './mapColorUtil';
 interface StyledProps {
   isNavOpen?: boolean;
 }
