@@ -34,7 +34,6 @@ const ControlWrapper = styled.div<StyledProps>`
 let map = null;
 let selectedStateId = false;
 
-const MAPBOX_TOKEN = process.env.MAPBOX_API_KEY;
 class DeckGLMap extends React.Component {
   constructor(props) {
     super(props);
@@ -527,7 +526,7 @@ class DeckGLMap extends React.Component {
                 reuseMaps
                 //mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
                 preventStyleDiffing={true}
-                mapboxApiAccessToken={process.env.MAPBOX_TOKEN}
+                mapboxApiAccessToken={process.env.MAPBOX_API_KEY}
                 onLoad={this._onload.bind(this)}
               >
               {!overlay && (<ControlWrapper isNavOpen={isNavOpen}>

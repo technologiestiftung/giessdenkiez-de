@@ -61,7 +61,7 @@ const content: Content = {
       '<a target="blank" href="https://codefor.de/impressum/">Impressum</a> und <a target="blank" href="https://codefor.de/datenschutz/">Datenschutz</a>',
   },
   intro: {
-    title: '<b>Gieß dein <span>Viertel</span></b>',
+    title: '<b><span>LEIPZIG</span> GIESST</b>',
     subline:
       'Die Leipziger Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
     disclaimer:
@@ -100,7 +100,7 @@ const content: Content = {
       </div>
     </div>
   Wenn ihr in Sachen <i>technische Releases</i> auf dem Laufenden bleiben wollt, dann schaut doch mal in unserem Open Source
-  <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">GitHub Repository</a>
+  <a target="blank" href="https://github.com/CodeforLeipzig/tsb-trees-frontend">GitHub Repository</a>
   vorbei und unterstützt uns beim Entwickeln. Die nächsten Features sind schon in Planung.`,
     ],
   },
@@ -122,7 +122,7 @@ const content: Content = {
       {
         title: 'Über uns',
         description:
-          '“Gieß dein Viertel” ist eine Migration des Projekts “Gieß den Kiez” aus Berlin. Die Migration wurde vom <a target="blank" href="https://codefor.de/leipzig/">OKLab Leipzig</a> durchgeführt. “Gieß den Kiez” ist ein Projekt des <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>. Das CityLAB ist ein öffentliches Innovationslabor für die Stadt der Zukunft im ehemaligen Flughafen Berlin-Tempelhof. Gemeinsam mit einem großen Netzwerk aus Verwaltung, Zivilgesellschaft, Wissenschaft und Start-ups arbeiten wir an neuen Ideen für ein lebenswertes Berlin. Das CityLAB ist ein offener Ort zum Mitmachen! Wenn ihr mehr wissen wollt, schaut euch auf unserer Webseite um oder kommt einfach mal vorbei! <br /> <br /> Das CityLAB ist ein Projekt der Technologiestiftung Berlin und wird gefördert durch die Berliner Senatskanzlei.',
+          '“LEIPZIG GIESST” ist eine Migration des Projekts “Gieß den Kiez” aus Berlin. Die Migration wurde vom <a target="blank" href="https://codefor.de/leipzig/">OKLab Leipzig</a> durchgeführt. “Gieß den Kiez” ist ein Projekt des <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>. Das CityLAB ist ein öffentliches Innovationslabor für die Stadt der Zukunft im ehemaligen Flughafen Berlin-Tempelhof. Gemeinsam mit einem großen Netzwerk aus Verwaltung, Zivilgesellschaft, Wissenschaft und Start-ups arbeiten wir an neuen Ideen für ein lebenswertes Berlin. Das CityLAB ist ein offener Ort zum Mitmachen! Wenn ihr mehr wissen wollt, schaut euch auf unserer Webseite um oder kommt einfach mal vorbei! <br /> <br /> Das CityLAB ist ein Projekt der Technologiestiftung Berlin und wird gefördert durch die Berliner Senatskanzlei.',
       },
       {
         title: 'Datenquellen',
@@ -175,7 +175,7 @@ const content: Content = {
         icon: 'info',
         title: 'Mit anderen austauschen',
         description:
-          'Tritt unserem <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack-Kanal</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.',
+          'Tritt unserem <a target="_blank" href="https://app.element.io/#/room/#leipziggiesst:matrix.org">Matrix-Kanal</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.',
       },
     ],
   },
