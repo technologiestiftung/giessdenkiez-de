@@ -56,7 +56,7 @@ const OverlayTop: FC = () => {
     <StyledTop>
       <Wrapper>
         <OverlayTitle size='xxl' title={title} />
-        <img style={{ height: 160 }} src='images/leipzig-giesst-logo.png' />
+        <img style={{ height: 160 }} src='images/leipzig-giesst-logo.svg' />
       </Wrapper>
       <OverlayTitle size='xxl' title={subline} />
       {isMobile && <OverlayTitle size='medium' title={disclaimer} />}

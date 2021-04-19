@@ -49,26 +49,26 @@ interface Content {
 
 const content: Content = {
   faq: {
-    title: 'F.A.Q.',
+    title: 'Fragen & Antworten',
     description:
-      'Ist in Vorbereitung...',
+      '<a target="blank" href="https://stiftung-ecken-wecken.de/content/fragen-antworten">Hier</a> findest Du viele Tipps und Infos zum Gießen, zu Bäumen und zum Kontakt mit Anderen, die ebenfalls gießen.',
     qa: [
     ],
   },
   imprintAndPrivacy: {
     title: 'Impressum und Datenschutz',
     description:
-      '<a target="blank" href="https://codefor.de/impressum/">Impressum</a> und <a target="blank" href="https://codefor.de/datenschutz/">Datenschutz</a>',
+      '<a target="blank" href="https://stiftung-ecken-wecken.de/impressum-sew">Impressum</a> und <a target="blank" href="https://stiftung-ecken-wecken.de/datenschutz">Datenschutz</a>',
   },
   intro: {
     title: '',
     subline:
-      'Die Leipziger Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
+      'Die Leipziger Straßenbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
     disclaimer:
-      'Hinweis: Das Laden von über 60.000 Bäumen ist ressourcenintensiv und funktioniert aktuell nicht auf allen Mobilgeräten einwandfrei. Wir empfehlen die Nutzung via Desktop-Computer',
+      'Hinweis: Das Laden von über 60.000 Bäumen ist ressourcenintensiv und funktioniert aktuell nicht auf allen Mobilgeräten einwandfrei. Wir empfehlen die Nutzung via Desktop/Notebook-Computer',
     description: [
-      'Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.',
-      'Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
+      'Auf dieser Plattform kannst Du Dich über Bäume in Deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und/oder auch dokumentieren, wieviel erfrischende Kaltgetränke Du ihnen gegeben hast.',
+      'Informiere Dich <a target="blank" href="https://stiftung-ecken-wecken.de/content/fragen-antworten">hier</a> über das richtige Gießen von Bäumen. Wenn Du die Gieß-App von LEIPZIG GIESST regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
     ],
   },
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
@@ -79,7 +79,7 @@ const content: Content = {
   whatsNew: {
     title: 'Was ist neu?',
     description: [
-      `Der Frühling kann kommen! Wir haben unser Backlog aufgeräumt, einige Funktionen verbessert und neue Funktionen hinzugefügt. Die wichtigsten Verbesserungen im Überblick:<br />
+      `Der Frühling kann kommen! Wir haben einige Funktionen verbessert und neue Funktionen hinzugefügt. Die wichtigsten Verbesserungen im Überblick:<br />
       <div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
         <div>
           <img style="max-width:14px; margin-right: 5px;" alt="Geolocate Icon" src="/images/geolocate-icon.png"/><b>Geolokalisierung</b><br>
@@ -90,18 +90,18 @@ const content: Content = {
         <div>   
           <span style="display:inline-block; background-color:#75ADE8; width: 13px; height: 13px; border-radius: 100px; margin-right: 4px;"></span>
           <b>Map-Layout</b><br>
-          Die Hintergrundkarte erstrahlt in neuen Farben und zeigt euch Hausnummern & ÖPNV-Haltestellen.`,
+          Die Hintergrundkarte erstrahlt in neuen Farben und zeigt Dir Hausnummern & ÖPNV-Haltestellen.`,
 
       `<div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
       <div>Mit dem 
         <span style="display:inline-block; background-color:#37DE8A; width: 13px; height: 13px; border-radius: 100px; margin: 0 4px 0 4px;"></span>
         <b>Baum-Routing</b>
-        verfügt nun jeder Baum über einen ganz persönlichen Link, der sich prima mit Gieß-Freund:innen oder Grünflächenämtern teilen lässt.
+        verfügt nun jeder Baum über einen ganz persönlichen Link, der sich prima mit Gieß-Freund*innen oder Grünflächenämtern teilen lässt.
       </div>
     </div>
-  Wenn ihr in Sachen <i>technische Releases</i> auf dem Laufenden bleiben wollt, dann schaut doch mal in unserem Open Source
+  Wenn Du in Sachen <i>technische Releases</i> auf dem Laufenden bleiben möchtest, dann schau doch mal in unserem Open Source
   <a target="blank" href="https://github.com/CodeforLeipzig/tsb-trees-frontend">GitHub Repository</a>
-  vorbei und unterstützt uns beim Entwickeln. Die nächsten Features sind schon in Planung.`,
+  vorbei und unterstütze uns beim Entwickeln. Die nächsten Features sind schon in Planung.`,
     ],
   },
   loading: {
@@ -122,29 +122,30 @@ const content: Content = {
       {
         title: 'Über uns',
         description:
-          '“LEIPZIG GIESST” ist eine Migration des Projekts “Gieß den Kiez” aus Berlin. Die Migration wurde vom <a target="blank" href="https://codefor.de/leipzig/">OKLab Leipzig</a> durchgeführt. “Gieß den Kiez” ist ein Projekt des <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>. Das CityLAB ist ein öffentliches Innovationslabor für die Stadt der Zukunft im ehemaligen Flughafen Berlin-Tempelhof. Gemeinsam mit einem großen Netzwerk aus Verwaltung, Zivilgesellschaft, Wissenschaft und Start-ups arbeiten wir an neuen Ideen für ein lebenswertes Berlin. Das CityLAB ist ein offener Ort zum Mitmachen! Wenn ihr mehr wissen wollt, schaut euch auf unserer Webseite um oder kommt einfach mal vorbei! <br /> <br /> Das CityLAB ist ein Projekt der Technologiestiftung Berlin und wird gefördert durch die Berliner Senatskanzlei.',
+          `LEIPZIG GIESST ist ein gemeinsames Projekt von <a target="blank" href="https://codefor.de/leipzig/">OKLab Leipzig</a>, <a target="blank" href="https://www.leipzig.de/buergerservice-und-verwaltung/aemter-und-behoerdengaenge/behoerden-und-dienstleistungen/dienststelle/amt-fuer-stadtgruen-und-gewaesser-67/">Stadt Leipzig</a>, <a target="blank" href="https://stiftung-ecken-wecken.de/">Stiftung "Ecken wecken"</a>, <a target="blank" href="https://wir-im-quartier.net">Wir im Quartier</a> und <a target="blank" href="https://www.bund-leipzig.de">BUND Leipzig</a>. 
+Das Projekt wird unterstützt durch das <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a> - ein Projekt der Technologiestiftung Berlin - deren App <a target="blank" href="https://www.giessdenkiez.de">Gieß den Kiez</a> die Basis für die Leipziger App von LEIPZIG GIESST bildet.`,
       },
       {
         title: 'Datenquellen',
         description:
-          'Die Karte zeigt die Leipziger Straßenbäume. Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden.',
+          'Die Karte zeigt die Leipziger Straßenbäume. Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in dieser Zeit bereits gegossen wurden.',
       },
     ],
     waterNeeds: [
       {
         title: 'Niedriger Wasserbedarf',
         description:
-          'Straßenbäume höheren Alters (>40 Jahre) haben in der Regel gelernt, sich über das Grundwasser selbst zu versorgen, aber auch sie leiden unter der zunehmenden Hitze und freuen sich über zusätzliches Wasser. Jungbäume unter 3 Jahren hingegen haben einen niedrigen Wasserbedarf, da diese im Normalfall durch die bezirklichen Grünflächenämter versorgt werden.',
+          'Straßenbäume höheren Alters (>40 Jahre) haben in der Regel gelernt, sich über das Grundwasser selbst zu versorgen. Auch Jungbäume unter 3 Jahren haben einen niedrigen Wasserbedarf, da diese im Normalfall durch das Amt für Stadtgrün und Gewässer versorgt werden.',
       },
       {
         title: 'Mittlerer Wasserbedarf',
         description:
-          'Mittelalte Bäume zwischen 15 und 40 Jahren werden in der Regel nicht mehr durch die Grünflächenämter bewässert, haben aber schon ein gewisses Durchhaltevermögen. Aber auch für sie sind die Hitzesommer ungewohnt und sie freuen sich über jeden Eimer: Gerne ein Mal in der Woche mit bis zu 100l gießen. ',
+          'Mittelalte Bäume zwischen 15 und 40 Jahren werden in der Regel nicht mehr durch das Amt für Stadtgrün und Gewässer bewässert und haben schon ein gewisses Durchhaltevermögen. Aber auch für sie sind die Hitzesommer ungewohnt und sie freuen sich über jeden Eimer. ',
       },
       {
         title: 'Hoher Wasserbedarf',
         description:
-          'Jungbäume zwischen vier und 15 Jahren werden nicht in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Sie freuen sich über viel Wasser von bis zu 200l pro Gießung (ein Mal in der Woche).',
+          'Jungbäume zwischen 4 und 15 Jahren werden nur situationsbedingt durch das Amt für Stadtgrün und Gewässer bewässert und sie sind noch keine „Selbstversorger“. Sie freuen sich über viel Wasser, ca. 80 - 100 Liter pro Woche.',
       },
     ],
     treetypes: [
@@ -157,7 +158,7 @@ const content: Content = {
         icon: 'water',
         title: 'Bäume bewässern',
         description:
-          'Informiere Dich auf unserer Plattform, ob die Bäume in deiner Straße Wasser benötigen. Wenn ja, schnapp Dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst Du die Bewässerung hier ein.',
+          'Informiere Dich auf unserer Plattform, ob Bäume in deiner Nähe Wasser benötigen. Wenn ja, schnapp Dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst Du die Bewässerung hier ein. Auf unserer <a target="_blank" href="https://stiftung-ecken-wecken.de/content/wasserquellen-transport">Webseite</a> findest Du Infos zu Wasserquellen und zum Wassertransport.',
       },
       {
         icon: 'subscribe',
@@ -169,13 +170,19 @@ const content: Content = {
         icon: 'zoom',
         title: 'Den Baumbestand erkunden',
         description:
-          'Unsere Karte ermöglicht es, mehr über einzelne Bäume und auch den gesamten Baumbestand zu erfahren. Nutze die Filter- und Suchfunktion, um mehr über die Bäume Leipzigs zu lernen.',
+          'Unsere Karte ermöglicht es, mehr über einzelne Bäume und auch den gesamten Baumbestand zu erfahren. Nutze die Filter- und Suchfunktion, um mehr über die Bäume Leipzigs zu lernen. Auf unserer <a target="_blank" href="https://stiftung-ecken-wecken.de/content/fragen-antworten">Webseite</a> findest weitere Infos dazu.',
       },
       {
         icon: 'info',
         title: 'Mit anderen austauschen',
         description:
-          'Tritt unserem <a target="_blank" href="https://app.element.io/#/room/#leipziggiesst:matrix.org">Matrix-Kanal</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.',
+          'Tritt unserem <a target="_blank" href="https://app.element.io/#/room/#leipziggiesst:matrix.org">Matrix-Kanal</a> bei, um Dich mit anderen Nutzer*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.',
+      },
+      {
+        icon: 'info',
+        title: 'Noch mehr Mitmachen',
+        description:
+          'Durch kannst aber auch im Projektteam mitarbeiten, Wasserspender werden, Andere fürs Gießen begeistern, Links zu LEIPZIG GIESST viel teilen oder in der Presse über LEIPZIG GIESST berichten. Auf unserer <a target="_blank" href="https://stiftung-ecken-wecken.de/content/mitgie%C3%9Fen-mitmachen">Webseite</a> findest weitere Infos dazu. Und natürlich freuen wir uns immer über Posts/Likes bei <a href="https://www.instagram.com/leipziggiesst" target="_blank">instagram</a> oder <a href="https://www.facebook.com/leipziggiesst" target="_blank">facebook</a>.',
       },
     ],
   },
