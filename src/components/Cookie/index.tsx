@@ -117,7 +117,7 @@ const Cookie: FC = () => {
             </MoreInfoLink>
 =======
               <a
-                href="https://codefor.de/datenschutz/"
+                href="https://stiftung-ecken-wecken.de/datenschutz"
                 target="_blank"
                 rel="noopener noreferrer"
               >
