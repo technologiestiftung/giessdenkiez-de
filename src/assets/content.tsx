@@ -61,7 +61,7 @@ const content: Content = {
       '<a target="blank" href="https://codefor.de/impressum/">Impressum</a> und <a target="blank" href="https://codefor.de/datenschutz/">Datenschutz</a>',
   },
   intro: {
-    title: '<b><span>LEIPZIG</span> GIESST</b>',
+    title: '',
     subline:
       'Die Leipziger Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
     disclaimer:

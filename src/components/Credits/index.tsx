@@ -5,6 +5,8 @@ const logoCitylab = '/images/citylab-logo.svg';
 const logoCodeForLeipzig = '/images/cfg-leipzig-logo.svg';
 const logoWirImQuartier = '/images/wiq-logo.png';
 const logoStiftungEckenWecken = '/images/sew-logo.png';
+const logoBUNDLeipzig = '/images/bund-leipzig.png';
+const logoLeipzigASG = '/images/leipzig-asg.png';
 
 const CreditsContainer = styled.div`
   width: 150px;
@@ -21,126 +23,94 @@ const CreditsContainer = styled.div`
   }
 `;
 
-const Label = styled.span`
-  margin-top: 5px;
-  margin-bottom: 15px;
-  width: fit-content;
-  font-size: ${p => p.theme.fontSizeL};
-`;
-
-<<<<<<< HEAD
-const TSBLink = styled.a`
-  width: fit-content;
-`;
-
-const TSBLogo = styled.img`
-  width: 110px;
-`;
-
 const CityLABLogo = styled.img`
-  width: 150px;
+  width: 220px;
   margin: 10px 0 5px 0;
+  padding-left: 35px;
 `;
 
-const FoerderlogoContainer = styled.div`
-  margin-top: 10px;
+const ASGLogo = styled.img`
+  height: 60px;
+  margin: 10px 0 5px 0;
+  padding-left: 35px;
 `;
 
-const BerlinLogo = styled.img`
-  width: 120px;
+const BUNDLogo = styled.img`
+  height: 80px;
   margin: 10px 0 5px 0;
-=======
-  a.citylab {
-    img {
-      width: 100px;
-      margin: 10px 0 5px 0;
-    }
-  }
+  padding-left: 20px;
+`;
 
-  a.wiq {
-    img {
-      height: 40px;
-      margin: 10px 0 5px 0;
-    }
-  }
+const WIQLogo = styled.img`
+  height: 60px;
+  margin: 10px 0 5px 0;
+  padding-left: 35px;
+`;
 
-  a.sew {
-    img {
-      height: 60px;
-      margin: 10px 0 5px 0;
-    }
-  }
+const SEWLogo = styled.img`
+  height: 80px;
+  margin: 10px 0 5px 0;
+  padding-left: 35px;
+`;
 
-  a.cfg {
-    img {
-      height: 40px;
-      margin: 10px 0 5px 0;
-    }
-  }
->>>>>>> 5fe2135... exchange logos
+const CFGLogo = styled.img`
+  height: 80px;
+  margin: 0px 0 5px 0;
 `;
 
 const Credits: FC = () => {
   return (
     <CreditsContainer>
       <a
-<<<<<<< HEAD
-        href='https://citylab-berlin.org'
-        rel='noopener noreferrer'
+        className='cfg'
+        href='https://codefor.de/leipzig'
         target='_blank'
+        rel='noopener noreferrer'
       >
-        <CityLABLogo src={logoCitylab} alt='Logo Citylab' />
+        <CFGLogo src={logoCodeForLeipzig} alt='Logo Code for Leipzig' />
       </a>
-      <Label>Ein Projekt der</Label>
-      <TSBLink
-        href='https://technologiestiftung-berlin.de'
+      <a
+        className='asg'
+        href='https://www.leipzig.de/buergerservice-und-verwaltung/aemter-und-behoerdengaenge/behoerden-und-dienstleistungen/dienststelle/amt-fuer-stadtgruen-und-gewaesser-67/'
         target='_blank'
         rel='noopener noreferrer'
       >
-        <TSBLogo src={logoTSB} alt='Logo Technologiestiftung Berlin' />
-      </TSBLink>
-      <FoerderlogoContainer>
-        <Label>Gefördert durch</Label>
-        <BerlinLogo src={logoBerlin} alt='Logo Berlin' />
-      </FoerderlogoContainer>
-    </CreditsContainer>
-=======
-        className='wiq'
-        href='https://stiftung-ecken-wecken.de/WIQ'
-        rel='noopener noreferrer'
-        target='_blank'
-      >
-        <img src={logoWirImQuartier} alt='Logo Wir im Quartier' />
+        <ASGLogo src={logoLeipzigASG} alt='Logo Leipzig Amt für Stadtgrün und Gewässer' />
       </a>
-      <span>Ein Projekt der</span>
       <a
         className='sew'
         href='https://stiftung-ecken-wecken.de'
         target='_blank'
         rel='noopener noreferrer'
       >
-        <img src={logoStiftungEckenWecken} alt='Logo Stiftung Ecken Wecken' />
+        <SEWLogo src={logoStiftungEckenWecken} alt='Logo Stiftung Ecken Wecken' />
       </a>
-      <span>Migriert für Leipzig</span>
       <a
-        className='cfg'
-        href='https://codefor.de/leipzig'
-        target='_blank'
+        className='wiq'
+        href='https://stiftung-ecken-wecken.de/WIQ'
         rel='noopener noreferrer'
+        target='_blank'
       >
-        <img src={logoCodeForLeipzig} alt='Logo Code for Leipzig' />
+        <WIQLogo src={logoWirImQuartier} alt='Logo Wir im Quartier' />
       </a>
-      <span>Unterstützt von</span>
+      <a
+        className='bund'
+        href='https://www.bund-leipzig.de/'
+        rel='noopener noreferrer'
+        target='_blank'
+      >
+        <BUNDLogo src={logoBUNDLeipzig} alt='Logo BUND Leipzig' />
+      </a>
+      <span className="project">Unterstützt durch:</span>
       <a
         className='citylab'
         href='https://www.citylab-berlin.org'
         target='_blank'
         rel='noopener noreferrer'
       >
-        <img src={logoCitylab} alt='Logo CityLab Berlin' />
+        <CityLABLogo src={logoCitylab} alt='Logo CityLab Berlin' />
       </a>
-    </StyledCreditsContainer>
->>>>>>> 5fe2135... exchange logos
+    </CreditsContainer>
   );
 };
 
