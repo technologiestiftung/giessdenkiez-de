@@ -126,8 +126,8 @@ export function drawD3Chart(
   let yScale: ScaleLinear<number, number>;
   // create dynamic yScales based on maxWaterValue
   // fix scale for watering amounts below 70l
-  if (maxWaterValue <= 70) {
-    yScale = scaleLinear().domain([0, 70]).rangeRound([chartHeight, 0]);
+  if (maxWaterValue <= 20) {
+    yScale = scaleLinear().domain([0, 19]).rangeRound([chartHeight, 0]);
   } else {
     yScale = scaleLinear()
       .domain([0, maxWaterValue * 1.2])
