@@ -5,7 +5,7 @@ const iconWater = '/images/icon-water.svg';
 const iconInfo = '/images/icon-info.svg';
 const iconSubscribe = '/images/icon-subscribe.svg';
 const iconZoom = '/images/icon-zoom.svg';
-const iconTrees = '/images/leipzig-giesst-logo.svg';
+const iconTrees = '/images/icon-trees.svg';
 
 const IconWrapper = styled.div`
   height: auto;
