@@ -225,7 +225,7 @@ const StyledToggle = styled.span`
 export interface LegendProps {
   treesVisible: boolean;
   rainVisible: boolean;
-  pumpsVisible: boolean;
+  waterSourcesVisible: boolean;
   legendExpanded: boolean;
 }
 
@@ -248,7 +248,7 @@ const rainGradient = createCSSGradient(rainColors);
 
 const Legend: React.FC = () => {
   const { legendExpanded } = useStoreState('legendExpanded');
-  const { pumpsVisible } = useStoreState('pumpsVisible');
+  const { waterSourcesVisible } = useStoreState('waterSourcesVisible');
   const { rainVisible } = useStoreState('rainVisible');
   const { treesVisible } = useStoreState('treesVisible');
 
@@ -261,8 +261,8 @@ const Legend: React.FC = () => {
           >
             {(() => {
               if (legendExpanded) {
-                if (pumpsVisible) {
-                  return 'Öffentliche Pumpen';
+                if (waterSourcesVisible) {
+                  return 'Wasserquellen';
                 }
                 return 'Niederschlag';
               } else {
@@ -271,7 +271,7 @@ const Legend: React.FC = () => {
             })()}
             {/* {legendExpanded ? 'Niederschlag' : 'Legende'} */}
           </StyledCardDescription>
-          {legendExpanded === true && pumpsVisible === false && (
+          {legendExpanded === true && waterSourcesVisible === false && (
             <StyledCardDescriptionSecond>
               der letzten 30 Tage (Liter)
             </StyledCardDescriptionSecond>
@@ -283,7 +283,7 @@ const Legend: React.FC = () => {
           {legendExpanded ? '—' : '+'}
         </StyledToggle>
       </FlexSpace>
-      {legendExpanded === true && pumpsVisible === false && (
+      {legendExpanded === true && waterSourcesVisible === false && (
         <UnstyledFlex>
           {/*
             // TODO: [GDK-8] Using i as key is not good. Might mess up the sort order
@@ -312,26 +312,13 @@ const Legend: React.FC = () => {
             ))}
         </UnstyledFlex>
       )}
-      {legendExpanded === true && pumpsVisible === true && (
+      {legendExpanded === true && waterSourcesVisible === true && (
         <UnstyledFlex>
-          <FlexRow>
-            <PumpsDot color={workingColor.hex} size={13} />
-            <PumpLabel>{'funktionsfähig'}</PumpLabel>
-          </FlexRow>
-          <FlexRow>
-            <PumpsDot color={brokenColor.hex} size={13} />
-            <PumpLabel>{'defekt'}</PumpLabel>
-          </FlexRow>
-
-          <FlexRow>
-            <PumpsDot color={lockedColor.hex} size={13} />
-            <PumpLabel>{'verriegelt'}</PumpLabel>
-          </FlexRow>
-
-          <FlexRow>
-            <PumpsDot color={defaultColor.hex} size={13} />
-            <PumpLabel>{'unbekannt'}</PumpLabel>
-          </FlexRow>
+          <div>kostenlose, öffentlich zugängliche Wasserquellen, damit weite 
+            Wasser-Transportwege entfallen und möglichst geringe Wasserkosten 
+            entstehen. Möchtest Du auch anderen Wasser zum Gießen bereitstellen, 
+            melde Dich gerne bei <a href="mailto:wasserspende@leipziggiesst.de">uns</a>.
+          </div>
         </UnstyledFlex>
       )}
       {legendExpanded && (
@@ -344,7 +331,7 @@ const Legend: React.FC = () => {
             active={treesVisible}
             onClick={() => {
               store.setState({ treesVisible: !treesVisible });
-              store.setState({ pumpsVisible: false });
+              store.setState({ waterSourcesVisible: false });
               store.setState({ rainVisible: false });
             }}
           >
@@ -360,10 +347,25 @@ const Legend: React.FC = () => {
             <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
           </UnstyledFlexWidth>
           <UnstyledFlexWidth
+            active={waterSourcesVisible}
+            onClick={() => {
+              store.setState({ treesVisible: false });
+              store.setState({ waterSourcesVisible: !waterSourcesVisible });
+              store.setState({ rainVisible: false });
+            }}
+          >
+            {waterSourcesVisible === true ? (
+              <StrokedLegendDot gradient={`${"#0000ff"}`} />
+            ) : (
+              <StrokedLegendDot />
+            )}
+            <StyledItemLabel>Wasserquellen</StyledItemLabel>
+          </UnstyledFlexWidth>          
+          <UnstyledFlexWidth
             active={rainVisible}
             onClick={() => {
               store.setState({ treesVisible: false });
-              store.setState({ pumpsVisible: false });
+              store.setState({ waterSourcesVisible: false });
               store.setState({ rainVisible: !rainVisible });
             }}
           >
@@ -385,7 +387,7 @@ const Legend: React.FC = () => {
 //     treesVisible: state.treesVisible,
 //     rainVisible: state.rainVisible,
 //     legendExpanded: state.legendExpanded,
-//     pumpsVisible: state.pumpsVisible,
+//     waterSourcesVisible: state.waterSourcesVisible,
 //   }),
 //   Actions
 // )(Legend);

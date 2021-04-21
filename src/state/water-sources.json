@@ -1,0 +1,36 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Thorsten",
+        "organisation": "Stiftung Ecken Wecken",
+        "address": "Markranstädter Straße 29b",
+        "created": "15.04.2021",
+        "hints": [
+            "Zugang über graues Stahltor",
+            "Einfach rechts neben dem Tor klingeln. Dann öffnen wir. Gehe weiter über die Zufahrt und bediene Dich dann rechts hinten im Hof an dem grauen Wassercontainer."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.3243018, 51.3258151] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rüdiger",
+        "organisation": "KGV Mockau-Mitte, Garten 244",
+        "address": "04357 Leipzig",
+        "created": "21.04.2021",
+        "hints": [
+            "Vorher anrufen und Entnahmezeit vereinbaren (Schlauch reicht bis zur Straße)."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.411312, 51.369832] }
+    }
+  ]
+}

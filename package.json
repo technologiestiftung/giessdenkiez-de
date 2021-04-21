@@ -103,7 +103,13 @@
     "core-js": "3.8.3",
     "d3": "5.16.0",
     "deck.gl": "7.3.15",
+<<<<<<< HEAD
     "history": "4.10.1",
+=======
+    "json-loader": "^0.5.7",
+    "lodash": "4.17.20",
+    "pbf": "3.2.1",
+>>>>>>> 0d9af60... Add water sources
     "rc-slider": "9.7.1",
     "react": "16.14.0",
     "react-app-polyfill": "1.0.6",

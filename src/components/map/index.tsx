@@ -63,8 +63,10 @@ class DeckGLMap extends React.Component {
     const {
       data,
       rainGeojson,
+      waterSources,
       treesVisible,
       rainVisible,
+      waterSourcesVisible,
     } = this.props;
 
     if (data && rainGeojson) {
@@ -189,6 +191,35 @@ class DeckGLMap extends React.Component {
             return hex;
           },
           pickable: true,
+        }),
+        new GeoJsonLayer({
+          id: 'waterSources',
+          data: waterSources,
+          opacity: 1,
+          visible: waterSourcesVisible,
+          stroked: true,
+          filled: true,
+          extruded: true,
+          wireframe: true,
+          getElevation: 1,
+          getLineColor: [0, 0, 0, 200],
+          getFillColor: [0, 0, 255, 255],
+          getRadius: 9,
+          pointRadiusMinPixels: 4,
+          pickable: true,
+          lineWidthScale: 3,
+          lineWidthMinPixels: 1.5,
+          onHover: info => {
+            if (info.object === undefined) {
+              this.setState({ isHovered: false });
+              return;
+            }
+            this.setState({ isHovered: true });
+            this.setState({
+              hoverObjectMessage: info.object.properties,
+            });
+            this.setState({ hoverObjectPointer: [info.x, info.y] });
+          },
         }),
       ];
 
@@ -503,7 +534,7 @@ class DeckGLMap extends React.Component {
             this.state.isHovered === true &&
             this.state.hoverObjectPointer.length === 2 && (
               <HoverObject
-                message={this.state.hoverObjectMessage}
+                data={this.state.hoverObjectMessage}
                 pointer={this.state.hoverObjectPointer}
               ></HoverObject>
             )}
@@ -558,6 +589,7 @@ export default connect(
   state => ({
     data: state.data,
     rainGeojson: state.rainGeojson,
+    waterSources: state.waterSources,
     dataView: state.dataView,
     isTreeDataLoading: state.isTreeDataLoading,
     isNavOpen: state.isNavOpen,
@@ -573,6 +605,7 @@ export default connect(
     AppState: state.AppState,
     rainVisible: state.rainVisible,
     treesVisible: state.treesVisible,
+    waterSourcesVisible: state.waterSourcesVisible,
     viewport: state.viewport,
     selectedTree: state.selectedTree,
   }),
