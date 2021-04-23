@@ -31,6 +31,20 @@
         ]
       },
       "geometry": { "type": "Point", "coordinates": [12.411312, 51.369832] }
-    }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Peterskirche Leipzig",
+        "organisation": "Peterskirche Leipzig",
+        "address": "Gaudigplatz, 04107 Leipzig",
+        "created": "23.04.2021",
+        "hints": [          
+            "Rechts neben dem Kirchenportal/-eingang in einer Nische ist eine kleine graue Tür. Hinter dieser Tür befindet sich der Wasseranschluss.",
+            "Bitte einen Schlauch mitbringen (vorher mal anschauen) und vor Benutzung bitte kurz im Gemeindebüro unter 0341 2131612 anrufen."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.375264465808868, 51.33071303031487] }
+    }    
   ]
 }
