@@ -64,18 +64,16 @@ const Login: FC<{
         if (isAuthenticated) {
           const token = await getTokenSilently();
 
-          if (user.sub === "auth0|5f29bb0c53a5990037970148") {
-            const { username, email } = store.getState().user;
+          const { username, email } = store.getState().user;
 
-            const urlGetUserProfile = createAPIUrl(
-              store.getState(),
-              `/get?queryType=user-profile&uuid=${user.sub}`
-            );
-            var existingUserProfile = await requests(urlGetUserProfile, { token });
-            if (!existingUserProfile.data && username && email) {
-              existingUserProfile = await createUserProfile({ token, user, username, email })
-            }  
-          }
+          const urlGetUserProfile = createAPIUrl(
+            store.getState(),
+            `/get?queryType=user-profile&uuid=${user.sub}`
+          );
+          var existingUserProfile = await requests(urlGetUserProfile, { token });
+          if (!existingUserProfile.data && username && email) {
+            existingUserProfile = await createUserProfile({ token, user, username, email })
+          }  
 
           const urlWateredByUser = createAPIUrl(
             store.getState(),
