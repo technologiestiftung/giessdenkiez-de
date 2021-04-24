@@ -59,21 +59,10 @@ const Login: FC<{
   } = useAuth0();
 
   useEffect(() => {
-    const fetchData = async ({ username, email }) => {
+    const fetchData = async () => {
       try {
         if (isAuthenticated) {
           const token = await getTokenSilently();
-
-          if (user.sub === "auth0|5f29bb0c53a5990037970148" && username && email) {
-            const urlGetUserProfile = createAPIUrl(
-              store.getState(),
-              `/get?queryType=user-profile&uuid=${user.sub}`
-            );
-            var existingUserProfile = await requests(urlGetUserProfile, { token });
-            if (!existingUserProfile.data) {
-              existingUserProfile = await createUserProfile({ token, user, username, email })
-            }  
-          }
 
           const urlWateredByUser = createAPIUrl(
             store.getState(),
@@ -110,16 +99,28 @@ const Login: FC<{
 
         const res = await requests(apiUrl, { token });
         store.setState({ user: res.data });
+
+        const { username, email } = res.data ;
+
+        if (user.sub === "auth0|5f29bb0c53a5990037970148" && username && email) {
+          const urlGetUserProfile = createAPIUrl(
+            store.getState(),
+            `/get?queryType=user-profile&uuid=${user.sub}`
+          );
+          var existingUserProfile = await requests(urlGetUserProfile, { token });
+          if (!existingUserProfile.data) {
+            existingUserProfile = await createUserProfile({ token, user, username, email })
+          }  
+        }
+
         return res.data
       } catch (error) {
         console.error(error);
       }
     };
     if (isAuthenticated && user) {
-      getUserDataFromManagementApi().then(data => {
-        const { username, email } = data;
-        fetchData({ username, email }).catch(console.error);  
-      }).catch(console.error);
+      getUserDataFromManagementApi()
+      fetchData().catch(console.error);
     }
   }, [isAuthenticated, user, getTokenSilently]);
 
