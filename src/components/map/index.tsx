@@ -211,7 +211,7 @@ class DeckGLMap extends React.Component {
           lineWidthScale: 3,
           lineWidthMinPixels: 1.5,
           onHover: info => this._handleWaterPopUp(info.x, info.y, info.object, false),
-          onClick: info => this._handleWaterPopUp(info.x, info.y, info.object, true),
+          ontouchstart: info => this._handleWaterPopUp(info.x, info.y, info.object, true)
         }),
       ];
 
@@ -293,7 +293,7 @@ class DeckGLMap extends React.Component {
       hoverObjectMessage: object.properties,
     });
     const { hoverObjectPointer: currPointer, isHovered: currIsHovered } = this.state;
-    const isHovered = !isClick || currPointer[0] === _x && currPointer[1] === _y && !currIsHovered
+    const isHovered = (!isClick || currPointer[0] === _x && currPointer[1] === _y) && !currIsHovered
     this.setState({ isHovered: isHovered });
     this.setState({ hoverObjectPointer: [_x, _y] });
   }
