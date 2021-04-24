@@ -59,14 +59,12 @@ const Login: FC<{
   } = useAuth0();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async ({ username, email }) => {
       try {
         if (isAuthenticated) {
           const token = await getTokenSilently();
 
           if (user.sub === "auth0|5f29bb0c53a5990037970148") {
-            const { username, email } = store.getState().user;
-
             const urlGetUserProfile = createAPIUrl(
               store.getState(),
               `/get?queryType=user-profile&uuid=${user.sub}`
@@ -112,13 +110,16 @@ const Login: FC<{
 
         const res = await requests(apiUrl, { token });
         store.setState({ user: res.data });
+        return res.data
       } catch (error) {
         console.error(error);
       }
     };
     if (isAuthenticated && user) {
-      getUserDataFromManagementApi().catch(console.error);
-      fetchData().catch(console.error);
+      getUserDataFromManagementApi().then(data => {
+        const { username, email } = data;
+        fetchData({ username, email }).catch(console.error);  
+      }).catch(console.error);
     }
   }, [isAuthenticated, user, getTokenSilently]);
 
