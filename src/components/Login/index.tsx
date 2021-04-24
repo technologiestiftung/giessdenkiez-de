@@ -64,6 +64,19 @@ const Login: FC<{
         if (isAuthenticated) {
           const token = await getTokenSilently();
 
+          if (user.sub === "auth0|5f29bb0c53a5990037970148") {
+            const { username, email } = store.getState().user;
+
+            const urlGetUserProfile = createAPIUrl(
+              store.getState(),
+              `/get?queryType=user-profile&uuid=${user.sub}`
+            );
+            var existingUserProfile = await requests(urlGetUserProfile, { token });
+            if (!existingUserProfile.data && username && email) {
+              existingUserProfile = await createUserProfile({ token, user, username, email })
+            }  
+          }
+
           const urlWateredByUser = createAPIUrl(
             store.getState(),
             // `/private/get-watered-trees-by-user?uuid=${user.sub}`
@@ -99,28 +112,14 @@ const Login: FC<{
 
         const res = await requests(apiUrl, { token });
         store.setState({ user: res.data });
-
-        const { username, email } = res.data ;
-
-        if (user.sub === "auth0|5f29bb0c53a5990037970148" && username && email) {
-          const urlGetUserProfile = createAPIUrl(
-            store.getState(),
-            `/get?queryType=user-profile&uuid=${user.sub}`
-          );
-          var existingUserProfile = await requests(urlGetUserProfile, { token });
-          if (!existingUserProfile.data) {
-            existingUserProfile = await createUserProfile({ token, user, username, email })
-          }  
-        }
-
-        return res.data
       } catch (error) {
         console.error(error);
       }
     };
     if (isAuthenticated && user) {
-      getUserDataFromManagementApi()
-      fetchData().catch(console.error);
+      getUserDataFromManagementApi().then(() => {
+        fetchData().catch(console.error);  
+      }).catch(console.error);
     }
   }, [isAuthenticated, user, getTokenSilently]);
 
