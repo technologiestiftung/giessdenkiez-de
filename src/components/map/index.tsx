@@ -52,6 +52,7 @@ class DeckGLMap extends React.Component {
     };
 
     this._onClick = this._onClick.bind(this);
+    this._handleWaterPopUp = this._handleWaterPopUp.bind(this);
     this._updateStyles = this._updateStyles.bind(this);
     this._deckClick = this._deckClick.bind(this);
     this._renderTooltip = this._renderTooltip.bind(this);
@@ -209,17 +210,8 @@ class DeckGLMap extends React.Component {
           pickable: true,
           lineWidthScale: 3,
           lineWidthMinPixels: 1.5,
-          onHover: info => {
-            if (info.object === undefined) {
-              this.setState({ isHovered: false });
-              return;
-            }
-            this.setState({ isHovered: true });
-            this.setState({
-              hoverObjectMessage: info.object.properties,
-            });
-            this.setState({ hoverObjectPointer: [info.x, info.y] });
-          },
+          onHover: info => this._handleWaterPopUp(info.x, info.y, info.object, false),
+          onClick: info => this._handleWaterPopUp(info.x, info.y, info.object, true),
         }),
       ];
 
@@ -281,7 +273,7 @@ class DeckGLMap extends React.Component {
     }
   }
 
-  _onClick(_x?: number, _y?: number, object) {
+  _onClick(_x?: number, _y?: number, object?: any) {
     const { setViewport, setDetailRouteWithListPath } = this.props;
 
     setViewport(object.geometry.coordinates);
@@ -290,6 +282,20 @@ class DeckGLMap extends React.Component {
       highlightedObject: id,
     });
     setDetailRouteWithListPath(id);
+  }
+
+  _handleWaterPopUp(_x?: number, _y?: number, object?: any, isClick?: boolean) {
+    if (object === undefined) {
+      this.setState({ isHovered: false });
+      return;
+    }
+    this.setState({
+      hoverObjectMessage: object.properties,
+    });
+    const { hoverObjectPointer: currPointer, isHovered: currIsHovered } = this.state;
+    const isHovered = !isClick || currPointer[0] === _x && currPointer[1] === _y && !currIsHovered
+    this.setState({ isHovered: isHovered });
+    this.setState({ hoverObjectPointer: [_x, _y] });
   }
 
   _renderTooltip() {
@@ -530,8 +536,7 @@ class DeckGLMap extends React.Component {
       return (
         <>
           {/* THis code below could be used to display some info for the pumps */}
-          {isMobile === false &&
-            this.state.isHovered === true &&
+          {this.state.isHovered === true &&
             this.state.hoverObjectPointer.length === 2 && (
               <HoverObject
                 data={this.state.hoverObjectMessage}

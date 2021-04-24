@@ -261,17 +261,21 @@ const Legend: React.FC = () => {
           >
             {(() => {
               if (legendExpanded) {
-                if (waterSourcesVisible) {
-                  return 'Wasserquellen';
+                var labels = [];
+                if (treesVisible || rainVisible) {
+                  labels.push('Niederschlag');
                 }
-                return 'Niederschlag';
+                if (waterSourcesVisible) {
+                  labels.push('Wasserquellen');
+                }
+                return labels.length > 1 ? labels[0] + " / " + labels[1] : labels[0];
               } else {
                 return 'Legende';
               }
             })()}
             {/* {legendExpanded ? 'Niederschlag' : 'Legende'} */}
           </StyledCardDescription>
-          {legendExpanded === true && waterSourcesVisible === false && (
+          {legendExpanded === true && treesVisible && (
             <StyledCardDescriptionSecond>
               der letzten 30 Tage (Liter)
             </StyledCardDescriptionSecond>
@@ -283,7 +287,7 @@ const Legend: React.FC = () => {
           {legendExpanded ? '—' : '+'}
         </StyledToggle>
       </FlexSpace>
-      {legendExpanded === true && waterSourcesVisible === false && (
+      {legendExpanded === true && (
         <UnstyledFlex>
           {/*
             // TODO: [GDK-8] Using i as key is not good. Might mess up the sort order
@@ -312,15 +316,6 @@ const Legend: React.FC = () => {
             ))}
         </UnstyledFlex>
       )}
-      {legendExpanded === true && waterSourcesVisible === true && (
-        <UnstyledFlex>
-          <div>kostenlose, öffentlich zugängliche Wasserquellen, damit weite 
-            Wasser-Transportwege entfallen und möglichst geringe Wasserkosten 
-            entstehen. Möchtest Du auch anderen Wasser zum Gießen bereitstellen, 
-            melde Dich gerne bei <a href="mailto:wasserspende@leipziggiesst.de">uns</a>.
-          </div>
-        </UnstyledFlex>
-      )}
       {legendExpanded && (
         <FlexColumn isLast={true}>
           <StyledCardDescription>Datenpunkte</StyledCardDescription>
@@ -331,7 +326,6 @@ const Legend: React.FC = () => {
             active={treesVisible}
             onClick={() => {
               store.setState({ treesVisible: !treesVisible });
-              store.setState({ waterSourcesVisible: false });
               store.setState({ rainVisible: false });
             }}
           >
@@ -349,7 +343,6 @@ const Legend: React.FC = () => {
           <UnstyledFlexWidth
             active={waterSourcesVisible}
             onClick={() => {
-              store.setState({ treesVisible: false });
               store.setState({ waterSourcesVisible: !waterSourcesVisible });
               store.setState({ rainVisible: false });
             }}
@@ -360,6 +353,13 @@ const Legend: React.FC = () => {
               <StrokedLegendDot />
             )}
             <StyledItemLabel>Wasserquellen</StyledItemLabel>
+            {waterSourcesVisible === true && (
+              <div>kostenlose, öffentlich zugängliche Wasserquellen, damit weite 
+                Wasser-Transportwege entfallen und möglichst geringe Wasserkosten 
+                entstehen. Möchtest Du auch anderen Wasser zum Gießen bereitstellen, 
+                melde Dich gerne bei <a href="mailto:wasserspende@leipziggiesst.de">uns</a>.
+              </div>
+            )}
           </UnstyledFlexWidth>          
           <UnstyledFlexWidth
             active={rainVisible}

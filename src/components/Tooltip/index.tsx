@@ -62,7 +62,7 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
 
   return (
     <>
-      <div>
+      <div key={`${data.name}-${data.created}`}>
         <Bubble
           ref={refBubble}
           pointer={pointer}
@@ -70,13 +70,13 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
           height={heightBubble}
         >
           <div>
-            <b>Bereitsteller:</b> {data.name}<br />
+            <b>Bereitsteller*in:</b> {data.name}<br />
             <b>Adresse:</b> {data.address}<br />
             <b>Eingetragen am:</b> {data.created}<br />
             { data.hints && data.hints.length > 0 && (
               <><b>Hinweise:</b><ul>
-                { data.hints.map(hint => (
-                  <li>{hint}</li>
+                { data.hints.map((hint, index) => (
+                  <li key={`${data.name}-${data.created}-${index}`}>{hint}</li>
                 ))}
               </ul></>
             )}
