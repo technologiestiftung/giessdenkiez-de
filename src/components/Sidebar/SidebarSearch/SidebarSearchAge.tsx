@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Slider from 'rc-slider';
+<<<<<<< HEAD
+=======
+import 'rc-input-number/assets/index.css';
+import InputNumber from 'rc-input-number';
+import Actions from '../../../state/Actions';
+>>>>>>> 05ef22b... Add spinner number fields for age
 import ButtonRound from '../../../components/ButtonRound';
 import { useStoreState, useActions } from '../../../state/unistore-hooks';
 
@@ -21,6 +27,35 @@ const FlexRowDiv = styled.div`
   padding-right: 30px;
 `;
 
+const SpinnerDiv = styled.div`
+  font-size: .8rem;
+  font-weight: lighter;
+  padding-top: 7px;
+  padding-left: 5px;
+  padding-right: 5px; 
+  float: left;
+`;
+
+const UpArrow = styled.div`
+  cursor: pointer;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+`
+
+const DownArrow = styled.div`
+  cursor: pointer;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+`
+
 const TileHeadline = styled.span`
   opacity: 1;
   font-size: 16px;
@@ -36,9 +71,13 @@ const SidebarAgeRange: React.FC = () => {
   const createSliderWithTooltip = Slider.createSliderWithTooltip;
   const Range = createSliderWithTooltip(Slider.Range);
   const { setAgeRange } = useActions();
+  const maxAge = 320;
 
   const [min, setMin] = useState(0);
-  const [max, setMax] = useState(320);
+  const [max, setMax] = useState(maxAge);
+
+  const minRef = useRef(null)
+  const maxRef = useRef(null)
 
   useEffect(() => {
     if (!ageRange) return;
@@ -48,6 +87,62 @@ const SidebarAgeRange: React.FC = () => {
   }, [ageRange]);
 
   if (!ageRange) return null;
+
+  const handleMinChange = newValue => {
+    if (newValue >= 0 && newValue <= maxAge) {
+      setMin(newValue);
+      if (newValue > max) {
+        setMax(newValue);
+        setAgeRange([newValue, newValue]);
+      } else {
+        setAgeRange([newValue, max]);
+      }
+    }
+  }
+
+  const handleMaxChange = newValue => {
+    if (newValue >= 0 && newValue <= maxAge) {
+      setMax(newValue);
+      if (newValue < min) {
+        setMin(newValue);
+        setAgeRange([newValue, newValue]);          
+      } else {
+        setAgeRange([min, newValue]);
+      }
+    }    
+  }
+
+  const UpHandler = ({ fun, value }) => (
+    <UpArrow onClick={() => fun(parseInt(value()) + 1)} />
+  )
+
+  const DownHandler = ({ fun, value }) => (
+    <DownArrow onClick={() => fun(parseInt(value()) - 1)} />
+  )
+  
+  const MinInputField = () => (
+    <InputNumber ref={minRef} id={"minAgeField"} style={{ width: "80px", float: "left" }}
+      defaultValue={min} min={0} max={maxAge} value={min} 
+      step={1}
+      upHandler={<UpHandler fun={handleMinChange} value={() => minRef.current.value} />}
+      downHandler={<DownHandler fun={handleMinChange} value={() => minRef.current.value} />}
+      onBlur={() => {
+        const newValue = minRef.current.value;
+        handleMinChange(newValue);
+    }}/> 
+  )
+
+  const MaxInputField = () => (
+    <InputNumber ref={maxRef} id={"maxAgeField"} style={{ width: "80px", float: "left" }} 
+      defaultValue={max} value={max} min={0} max={maxAge} 
+      step={1}
+      upHandler={<UpHandler fun={handleMaxChange} value={() => maxRef.current.value} />}
+      downHandler={<DownHandler fun={handleMaxChange} value={() => maxRef.current.value} />}
+      onBlur={() => {
+        const newValue = maxRef.current.value;
+        handleMaxChange(newValue)
+    }}/>
+  )
 
   return (
     <FilterAgeDiv>
@@ -74,7 +169,11 @@ const SidebarAgeRange: React.FC = () => {
         Alle Bäume anzeigen
       </ButtonRound>
       <TileHeadline>
-        {min} - {max} Jahre
+        <SpinnerDiv>von </SpinnerDiv>
+        <MinInputField />
+        <SpinnerDiv> bis </SpinnerDiv>
+        <MaxInputField />
+        <SpinnerDiv> Jahre</SpinnerDiv>
       </TileHeadline>
       <FlexRowDiv>
         <Range

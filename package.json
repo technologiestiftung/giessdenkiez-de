@@ -109,7 +109,11 @@
     "json-loader": "^0.5.7",
     "lodash": "4.17.20",
     "pbf": "3.2.1",
+<<<<<<< HEAD
 >>>>>>> 0d9af60... Add water sources
+=======
+    "rc-input-number": "^7.0.6",
+>>>>>>> 05ef22b... Add spinner number fields for age
     "rc-slider": "9.7.1",
     "react": "16.14.0",
     "react-app-polyfill": "1.0.6",
