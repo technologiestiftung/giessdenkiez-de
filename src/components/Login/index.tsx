@@ -64,7 +64,7 @@ const Login: FC<{
         if (isAuthenticated) {
           const token = await getTokenSilently();
 
-          if (user.sub === "auth0|5f29bb0c53a5990037970148") {
+          if (user.sub === "auth0|5f29bb0c53a5990037970148" && username && email) {
             const urlGetUserProfile = createAPIUrl(
               store.getState(),
               `/get?queryType=user-profile&uuid=${user.sub}`
