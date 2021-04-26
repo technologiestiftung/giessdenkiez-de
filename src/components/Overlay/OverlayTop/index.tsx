@@ -1,12 +1,6 @@
-import React, { cloneElement, Children } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-// import Actions from '../../../state/Actions';
-import store from '../../../state/Store';
-// import { connect } from 'unistore/react';
-// import { useStoreState } from '../../../state/unistore-hooks';
-
-// import history from '../../../history';
 
 import OverlayTitle from '../OverlayTitle/';
 import OverlayEvent from '../OverlayEvent/';
@@ -17,6 +11,8 @@ import ButtonRound from '../../../components/ButtonRound/';
 import Login from '../../../components/Login/';
 
 import content from '../../../assets/content';
+import { useActions } from '../../../state/unistore-hooks';
+import OverlayClose from '../OverlayClose';
 
 const Wrapper = styled.div`
   display: flex;
@@ -50,16 +46,11 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const OverlayTop = p => {
-  const { children, toggleOverlay } = p;
+const OverlayTop: FC = () => {
+  const { closeOverlay } = useActions();
   const { intro, eventNote, whatsNew } = content;
 
   const { title, subline, description, disclaimer } = intro;
-
-  const handleClick = () => {
-    store.setState({ legendExpanded: true });
-    toggleOverlay(false);
-  };
 
   return (
     <StyledTop>
@@ -73,11 +64,15 @@ const OverlayTop = p => {
       {/* the beow is here for local testing */}
       {/* {true && <OverlayTitle size='medium' content={disclaimer} />} */}
       <OverlayDescription content={description} />
-      {Children.map(children, childElement => {
-        return cloneElement(childElement, {});
-      })}
+      <OverlayClose onClick={closeOverlay} />
       <StyledWrapper>
-        <ButtonRound width='fit-content' toggle={handleClick} type='primary'>
+        <ButtonRound
+          width='fit-content'
+          onClick={() => {
+            closeOverlay();
+          }}
+          type='primary'
+        >
           Los geht&apos;s
         </ButtonRound>
         <Login width='fit-content' noLogout={true} />
@@ -91,12 +86,5 @@ const OverlayTop = p => {
     </StyledTop>
   );
 };
-
-// export default connect(
-//   state => ({
-//     user: state.user,
-//   }),
-//   Actions
-// )(OverlayTop);
 
 export default OverlayTop;

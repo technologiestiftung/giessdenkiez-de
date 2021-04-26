@@ -12,9 +12,6 @@ type IconType = 'info' | 'zoom' | 'water' | 'subscribe';
 export interface CollaborationItem extends Item {
   icon: IconType;
 }
-interface Watering extends Item {
-  waterdrops: number[];
-}
 interface FAQ extends Item {
   qa: Array<{ question: string; answer: string }>;
 }
@@ -29,9 +26,9 @@ interface Content {
   };
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
   //if event announcemnt is needed just de-comment this section and fill in the announcement text below
-  // eventNote?: {
-  //   title: string;
-  // };
+  eventNote?: {
+    title: string;
+  };
   whatsNew?: {
     title: string;
     description: string[];
@@ -41,7 +38,7 @@ interface Content {
   };
   sidebar: {
     about: Item[];
-    watering: Watering[];
+    waterNeeds: Item[];
     treetypes: TreeType[];
   };
   collaborate: {
@@ -208,21 +205,18 @@ const content: Content = {
           </ul>`,
       },
     ],
-    watering: [
+    waterNeeds: [
       {
-        waterdrops: [1],
         title: 'Niedriger Wasserbedarf',
         description:
           'Straßenbäume höheren Alters (>40 Jahre) haben in der Regel gelernt, sich über das Grundwasser selbst zu versorgen, aber auch sie leiden unter der zunehmenden Hitze und freuen sich über zusätzliches Wasser. Jungbäume unter 3 Jahren hingegen haben einen niedrigen Wasserbedarf, da diese im Normalfall durch die bezirklichen Grünflächenämter versorgt werden.',
       },
       {
-        waterdrops: [1, 1],
         title: 'Mittlerer Wasserbedarf',
         description:
           'Mittelalte Bäume zwischen 15 und 40 Jahren werden in der Regel nicht mehr durch die Grünflächenämter bewässert, haben aber schon ein gewisses Durchhaltevermögen. Aber auch für sie sind die Hitzesommer ungewohnt und sie freuen sich über jeden Eimer: Gerne ein Mal in der Woche mit bis zu 100l gießen. ',
       },
       {
-        waterdrops: [1, 1, 1],
         title: 'Hoher Wasserbedarf',
         description:
           'Jungbäume zwischen vier und 15 Jahren werden nicht in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Sie freuen sich über viel Wasser von bis zu 200l pro Gießung (ein Mal in der Woche).',
