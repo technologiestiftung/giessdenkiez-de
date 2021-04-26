@@ -172,6 +172,7 @@ export function drawD3Chart(
   // add y axis labeling
   svg
     .append('g')
+    .attr('transform', 'translate(0,-5)')
     .append('text')
     .attr('style', 'font-size: 10px;')
     .attr('transform', `translate(2, ${MARGIN.top})`)
