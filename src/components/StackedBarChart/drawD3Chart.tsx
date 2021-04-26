@@ -72,6 +72,8 @@ const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
 export function drawD3Chart(
   waterAmountInLast30Days: DailyWaterAmountsType[]
 ): void {
+  console.log(waterAmountInLast30Days);
+
   if (waterAmountInLast30Days === null) return;
 
   const generateStack = stack<
@@ -96,7 +98,9 @@ export function drawD3Chart(
   const xScale = scaleTime()
     .domain([
       waterAmountInLast30Days[waterAmountInLast30Days.length - 1].timestamp,
-      waterAmountInLast30Days[0].timestamp,
+      new Date(
+        waterAmountInLast30Days[0].timestamp.getTime() + 60 * 60 * 24 * 1000
+      ),
     ])
     .range([MARGIN.left, width - MARGIN.right]);
 
@@ -125,26 +129,7 @@ export function drawD3Chart(
   // style y and x axis
   const yAxis = axisLeft(yScale).ticks(yTicks);
 
-  const xAxis = axisBottom<Date>(xScale)
-    .ticks(6)
-    .tickFormat((tickDate: Date): string => {
-      // get sysdate for x Axis
-      const today = new Date();
-
-      const dateIsToday =
-        tickDate.getFullYear() === today.getFullYear() &&
-        tickDate.getMonth() === today.getMonth() &&
-        tickDate.getDate() === today.getDate();
-
-      if (dateIsToday) {
-        return 'Heute';
-      }
-      // let formattedTime = formatter(d);
-      let daysBack = today.getTime() - tickDate.getTime();
-      daysBack = daysBack / (1000 * 3600 * 24);
-      daysBack = Math.round(daysBack);
-      return daysBack === 1 ? 'Gestern' : `Vor ${daysBack} Tagen`;
-    });
+  const xAxis = axisBottom<Date>(xScale).ticks(5);
 
   // remove double loaded svg
   wrapper.selectAll('svg').remove();
@@ -158,10 +143,7 @@ export function drawD3Chart(
 
   const xAxisLabels = svg
     .append('g')
-    .attr(
-      'transform',
-      `translate(${BAR_WIDTH / 2}, ${chartHeight + MARGIN.top})`
-    )
+    .attr('transform', `translate(0, ${chartHeight + MARGIN.top})`)
     .call(xAxis)
     .selectAll('text');
 
@@ -236,7 +218,7 @@ export function drawD3Chart(
   // Draw the coloured bars
   barGroups
     .append('rect')
-    .attr('x', 0)
+    .attr('x', (-1 * BAR_WIDTH) / 2)
     .attr('y', d => yScale(d[1]))
     .attr('class', d => `bar-${d.data.id}`)
     .attr('width', BAR_WIDTH)
