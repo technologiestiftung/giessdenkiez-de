@@ -129,7 +129,7 @@ export function drawD3Chart(
   // style y and x axis
   const yAxis = axisLeft(yScale).ticks(yTicks);
 
-  const xAxis = axisBottom<Date>(xScale).ticks(5);
+  const xAxis = axisBottom<Date>(xScale).ticks(5).tickSizeOuter(0);
 
   // remove double loaded svg
   wrapper.selectAll('svg').remove();
