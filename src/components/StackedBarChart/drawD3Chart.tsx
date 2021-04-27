@@ -72,8 +72,6 @@ const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
 export function drawD3Chart(
   waterAmountInLast30Days: DailyWaterAmountsType[]
 ): void {
-  console.log(waterAmountInLast30Days);
-
   if (waterAmountInLast30Days === null) return;
 
   const generateStack = stack<
