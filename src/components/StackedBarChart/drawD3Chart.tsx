@@ -39,6 +39,23 @@ const MARGIN = {
   left: 22,
 };
 
+const MONTH_ABBR = [
+  'Jan.',
+  'Feb.',
+  'Mär.',
+  'Apr.',
+  'Mai.',
+  'Jun.',
+  'Jul.',
+  'Aug.',
+  'Sep.',
+  'Okt.',
+  'Nov.',
+  'Dez.',
+];
+
+const TODAY = new Date(new Date().toISOString().split('T')[0]);
+
 const formatTooltipValue: (val: number) => string = val => `${val.toFixed(1)}l`;
 const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
   onMouseOver(d) {
@@ -95,10 +112,8 @@ export function drawD3Chart(
 
   const xScale = scaleTime()
     .domain([
-      waterAmountInLast30Days[waterAmountInLast30Days.length - 1].timestamp,
-      new Date(
-        waterAmountInLast30Days[0].timestamp.getTime() + 60 * 60 * 24 * 1000
-      ),
+      waterAmountInLast30Days[waterAmountInLast30Days.length - 1].id,
+      waterAmountInLast30Days[0].id + 60 * 60 * 24 * 1000,
     ])
     .range([MARGIN.left, width - MARGIN.right]);
 
@@ -127,7 +142,26 @@ export function drawD3Chart(
   // style y and x axis
   const yAxis = axisLeft(yScale).ticks(yTicks);
 
-  const xAxis = axisBottom<Date>(xScale).ticks(5).tickSizeOuter(0);
+  const getXTicks = () => {
+    const date = new Date(TODAY);
+    return new Array(6)
+      .fill(0)
+      .map(_ => {
+        const timestamp = new Date(date);
+        date.setDate(date.getDate() - 5);
+        return timestamp;
+      })
+      .reverse();
+  };
+
+  const xAxis = axisBottom<Date>(xScale)
+    .tickValues(getXTicks())
+    .tickFormat(date => {
+      if (date.getTime() === TODAY.getTime()) return 'Heute';
+      else return `${date.getDate()}. ${MONTH_ABBR[date.getMonth()]}`;
+    })
+    .ticks(6)
+    .tickSizeOuter(0);
 
   // remove double loaded svg
   wrapper.selectAll('svg').remove();
@@ -145,9 +179,7 @@ export function drawD3Chart(
     .call(xAxis)
     .selectAll('text');
 
-  xAxisLabels.attr('x', (_, idx) =>
-    xAxisLabels.nodes().length - 1 === idx ? -10 : 5
-  );
+  xAxisLabels.attr('x', -10);
 
   // add y axis labeling
   svg
