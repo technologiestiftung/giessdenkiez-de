@@ -13,7 +13,11 @@ import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { Tooltip } from '../Tooltip';
-import { CommunityDataType, StoreProps } from '../../common/interfaces';
+import {
+  CommunityDataType,
+  StoreProps,
+  TreeGeojsonFeatureProperties,
+} from '../../common/interfaces';
 import { pumpToColor } from './mapColorUtil';
 interface StyledProps {
   isNavOpen?: boolean;
@@ -120,9 +124,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         data: isMobile ? [] : (treesGeoJson as any),
         opacity: 1,
         getLineWidth: (info: {
-          properties: {
-            id: string;
-          };
+          properties: Pick<TreeGeojsonFeatureProperties, 'id'>;
         }): 0 | 2 => {
           const { selectedTreeId } = this.props;
           const id = info.properties.id;
@@ -156,18 +158,18 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           },
         },
         getFillColor: (info: {
-          properties: {
-            id: string;
-            radolan_sum: number;
-            age: number;
-          };
+          properties: TreeGeojsonFeatureProperties;
         }): [number, number, number, number] => {
           const { ageRange, mapViewFilter, communityData } = this.props;
           const { properties } = info;
           const { id, radolan_sum, age } = properties;
-          const communityDataFlagMap = communityData && communityData[id];
+          const communityDataFlagMap = communityData && id && communityData[id];
           const { isWatered, isAdopted } = communityDataFlagMap || {};
           const transparent = [0, 0, 0, 0] as [number, number, number, number];
+
+          if (!radolan_sum || !age) {
+            return transparent;
+          }
 
           if (mapViewFilter === 'watered') {
             return communityDataFlagMap && isWatered

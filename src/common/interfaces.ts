@@ -70,7 +70,8 @@ export interface Tree {
   hausnr?: string | null;
   zusatz?: string | null;
   pflanzjahr?: string | null;
-  standalter?: string | null;
+  standalter?: string | null; // this may be redundant now, but I'm not entirely sure
+  age?: string;
   kronedurch?: string | null;
   stammumfg?: string | null;
   type?: string | null;
@@ -85,6 +86,11 @@ export interface Tree {
   standortnr?: string | null;
   kennzeich?: string | null;
   caretaker?: string | null;
+}
+
+export interface TreeGeojsonFeatureProperties
+  extends Pick<Tree, 'id' | 'radolan_sum'> {
+  age?: number;
 }
 
 type TreeId = string;

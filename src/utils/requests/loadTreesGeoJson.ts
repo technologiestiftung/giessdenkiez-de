@@ -1,6 +1,6 @@
-import { dsv as d3Dsv } from 'd3';
+import { dsv as d3Dsv, GeoGeometryObjects } from 'd3';
 import { ExtendedFeatureCollection, ExtendedFeature } from 'd3-geo';
-import { Tree } from '../../common/interfaces';
+import { Tree, TreeGeojsonFeatureProperties } from '../../common/interfaces';
 
 function createGeojson(trees: Tree[]): ExtendedFeatureCollection {
   const geojson: ExtendedFeatureCollection = {
@@ -9,7 +9,10 @@ function createGeojson(trees: Tree[]): ExtendedFeatureCollection {
   };
 
   trees.forEach(tree => {
-    const feature: ExtendedFeature = {
+    const feature: ExtendedFeature<
+      GeoGeometryObjects | null,
+      TreeGeojsonFeatureProperties
+    > = {
       type: 'Feature',
       geometry: {
         type: 'Point',
@@ -27,7 +30,7 @@ function createGeojson(trees: Tree[]): ExtendedFeatureCollection {
       properties: {
         id: tree.id,
         radolan_sum: (tree?.radolan_sum || 0) / 10,
-        age: +(tree?.standalter || 0),
+        age: tree?.age ? parseInt(tree.age) : undefined,
       },
     };
     geojson.features.push(feature);
