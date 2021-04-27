@@ -555,7 +555,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             reuseMaps
             mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
             preventStyleDiffing={true}
-            mapboxApiAccessToken={process.env.MAPBOX_API_KEY}
+            mapboxApiAccessToken={
+              'pk.eyJ1IjoibHVjYXNvZXRoIiwiYSI6ImNrbWFyYWRydDF1OTkyeW42MXVmeWxtOG4ifQ.mD2nM5vbWilfbo61ZHc--Q'
+            }
             onLoad={this._onload.bind(this)}
             width='100%'
             height='100%'
