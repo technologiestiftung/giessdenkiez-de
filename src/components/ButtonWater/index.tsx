@@ -30,7 +30,9 @@ const ButtonWater: FC = () => {
         onClick={() => setWaterButtonIsOpened(!waterButtonIsOpened)}
         type='primary'
       >
-        {waterButtonIsOpened && isBeingWatered && 'Bewässerung wir eingetragen'}
+        {waterButtonIsOpened &&
+          isBeingWatered &&
+          'Bewässerung wird eingetragen'}
         {waterButtonIsOpened && !isBeingWatered && 'Wieviel Wasser?'}
         {!waterButtonIsOpened && 'Ich habe gegossen!'}
       </ButtonRound>
