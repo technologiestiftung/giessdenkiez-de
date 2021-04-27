@@ -27,7 +27,7 @@ export const mapStackedBarchartData = (
   const waterings = parseWaterings(selectedTree.waterings);
 
   //reverse because last element is most recent rain
-  const rainings = selectedTree.radolan_days.reverse();
+  const rainings = [...selectedTree.radolan_days].reverse();
 
   return new Array(30).fill(null).map((_, i) => {
     const timestamp = new Date(date);
