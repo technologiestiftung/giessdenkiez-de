@@ -45,6 +45,72 @@
         ]
       },
       "geometry": { "type": "Point", "coordinates": [12.375264465808868, 51.33071303031487] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kirche Mockau",
+        "organisation": "Kirche Mockau",
+        "address": "Höhe Kieler Str. 13, 04357 Leipzig",
+        "created": "27.04.2021",
+        "hints": [          
+            "neben Netto",
+            "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.4226045, 51.3772852] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gemeindehaus Mockau",
+        "organisation": "Gemeindehaus Mockau",
+        "address": "Kieler Str. 51, 04357 Leipzig",
+        "created": "27.04.2021",
+        "hints": [          
+            "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.41728134389, 51.3753762] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kirche Thekla",
+        "organisation": "Kirche Thekla",
+        "address": "Friedhof Thekla, 04349 Leipzig",
+        "created": "27.04.2021",
+        "hints": [          
+            "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.437738553812059, 51.38038418467387] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pfarrhaus Thekla",
+        "organisation": "Pfarrhaus Thekla",
+        "address": "Cleudner Str. 24, 04349 Leipzig",
+        "created": "27.04.2021",
+        "hints": [          
+            "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.44040755216, 51.3824922] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kirche Schönefeld und Pfarrhaus Schönefeld",
+        "organisation": "Kirche Schönefeld und Pfarrhaus Schönefeld",
+        "address": "Ossietzkystr. 39, 04347 Leipzig",
+        "created": "27.04.2021",
+        "hints": [          
+            "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.4096196, 51.3596718] }
     }    
   ]
 }
