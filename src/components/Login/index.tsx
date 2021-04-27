@@ -108,9 +108,10 @@ const Login: FC<{
         var existingUserProfile = await requests(urlGetUserProfile, { token });
         if (!existingUserProfile.data && username && email) {
           existingUserProfile = await createUserProfile({ token, user, username, email })
+          console.log("existingUserProfile %j", existingUserProfile)
         }
 
-        store.setState({ user: existingUserProfile || res.data });
+        store.setState({ user: (existingUserProfile && existingUserProfile.data) || res.data });
       } catch (error) {
         console.error(error);
       }
