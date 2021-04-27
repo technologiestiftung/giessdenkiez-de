@@ -64,17 +64,6 @@ const Login: FC<{
         if (isAuthenticated) {
           const token = await getTokenSilently();
 
-          const { username, email } = store.getState().user;
-
-          const urlGetUserProfile = createAPIUrl(
-            store.getState(),
-            `/get?queryType=user-profile&uuid=${user.sub}`
-          );
-          var existingUserProfile = await requests(urlGetUserProfile, { token });
-          if (!existingUserProfile.data && username && email) {
-            existingUserProfile = await createUserProfile({ token, user, username, email })
-          }  
-
           const urlWateredByUser = createAPIUrl(
             store.getState(),
             // `/private/get-watered-trees-by-user?uuid=${user.sub}`
@@ -109,7 +98,19 @@ const Login: FC<{
         }/api/user?userid=${encodeURIComponent(user.sub)}`;
 
         const res = await requests(apiUrl, { token });
-        store.setState({ user: res.data });
+
+        const { username, email } = res.data;
+
+        const urlGetUserProfile = createAPIUrl(
+          store.getState(),
+          `/get?queryType=user-profile&uuid=${user.sub}`
+        );
+        var existingUserProfile = await requests(urlGetUserProfile, { token });
+        if (!existingUserProfile.data && username && email) {
+          existingUserProfile = await createUserProfile({ token, user, username, email })
+        }
+
+        store.setState({ user: existingUserProfile || res.data });
       } catch (error) {
         console.error(error);
       }
