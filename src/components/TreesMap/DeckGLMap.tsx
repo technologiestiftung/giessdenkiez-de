@@ -382,6 +382,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         type: 'circle',
         source: 'trees',
         'source-layer': 'original',
+        // TODO: Below we add the style for the trees on mobile. The color updates should be inserted or replicated here.
         paint: {
           'circle-radius': {
             base: 1.75,
@@ -456,7 +457,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         const filter = [
           'match',
           ['get', 'id'],
-          this.props.communityData?.wateredTreesIds,
+          this.props.communityDataWatered,
           true,
           false,
         ];
@@ -465,7 +466,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         const filter = [
           'match',
           ['get', 'id'],
-          this.props.communityData?.adoptedTreesIds,
+          this.props.communityDataAdopted,
           true,
           false,
         ];
