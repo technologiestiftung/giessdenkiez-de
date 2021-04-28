@@ -23,6 +23,7 @@ const selectedTree = {
 describe('mapStackedBarchartData', () => {
   test('should combine waterings and selectedTree data', () => {
     const mappedStackedBarchartData = mapStackedBarchartData(selectedTree);
-    expect(mappedStackedBarchartData[0].rainValue).toBe(0.6000000000000001);
+    expect(mappedStackedBarchartData[0].rainValue).toBe(0);
+    expect(mappedStackedBarchartData[1].rainValue).toBe(0.6000000000000001);
   });
 });
