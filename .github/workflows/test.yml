@@ -7,7 +7,7 @@ env:
 on:
   push:
     branches: [master, staging, demo, dev]
-    paths: &watchPaths
+    paths:
       - 'src/**/*'
       - '.storybook/**/*'
       - 'public/**/*'
@@ -21,7 +21,18 @@ on:
       - 'tsconfig.json'
   pull_request:
     branches: [master, staging, demo, dev]
-    paths: *watchPaths
+    paths:
+      - 'src/**/*'
+      - '.storybook/**/*'
+      - 'public/**/*'
+      - 'webpack/**/*'
+      - '.github/workflows/**/*'
+      - 'package*.json'
+      - 'jest.config.js'
+      - 'netlify.toml'
+      - 'babel.config.js'
+      - 'create-env.js'
+      - 'tsconfig.json'
     types:
       - 'opened'
       - 'synchronize'
