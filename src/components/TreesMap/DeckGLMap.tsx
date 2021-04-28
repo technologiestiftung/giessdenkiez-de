@@ -187,7 +187,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
               !ageFilterIsApplied);
 
           const colorShallBeTransparent =
-            (ageFilterIsApplied && !treeAge) || !rainDataExists;
+            (ageFilterIsApplied && !treeAge) ||
+            (ageFilterIsApplied && !treeIsWithinAgeRange) ||
+            !rainDataExists;
 
           if (colorShallBeTransparent) return colors.transparent;
 
