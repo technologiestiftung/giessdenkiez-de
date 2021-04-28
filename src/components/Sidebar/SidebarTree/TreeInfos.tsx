@@ -93,7 +93,7 @@ const TreeInfos: FC<{
 }> = ({ selectedTreeData }) => {
   const {
     id: treeId,
-    standalter,
+    pflanzjahr,
     artdtsch,
     gattungdeutsch,
     caretaker,
@@ -112,6 +112,11 @@ const TreeInfos: FC<{
 
   const treeIsAdopted =
     userData && userData.adoptedTrees.find(({ id }) => id === treeId);
+
+  const treeAge =
+    pflanzjahr && pflanzjahr !== 'undefined' && pflanzjahr !== 'NaN'
+      ? new Date().getFullYear() - parseInt(pflanzjahr, 10)
+      : undefined;
 
   return (
     <Wrapper>
@@ -141,19 +146,17 @@ const TreeInfos: FC<{
             {treeType.description}
           </ExpandablePanel>
         )}
-        {standalter && standalter !== 'undefined' && (
+        {treeAge && (
           <>
             <AgeInfoContainer>
               <span>Standalter</span>
-              <AgeInfoValue>{standalter} Jahre</AgeInfoValue>
+              <AgeInfoValue>{treeAge} Jahre</AgeInfoValue>
             </AgeInfoContainer>
             <ExpandablePanel
               title={
                 <>
                   <span style={{ marginRight: 8 }}>Wasserbedarf:</span>
-                  <WaterDrops
-                    dropsAmount={getWaterNeedByAge(parseInt(standalter))}
-                  />
+                  <WaterDrops dropsAmount={getWaterNeedByAge(treeAge)} />
                 </>
               }
             >
