@@ -173,7 +173,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             turquoise: [0, 128, 128, 200] as [number, number, number, number],
           };
 
-          const rainDataExists = radolan_sum;
+          const rainDataExists = !!radolan_sum;
 
           const ageFilterIsApplied =
             minFilteredAge !== 0 || maxFilteredAge !== 320; // TODO: how to not hard-code these values?
