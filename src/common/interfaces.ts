@@ -1,7 +1,7 @@
 import { RadolanDays } from './types';
 
 export interface DailyWaterAmountsType {
-  id: string;
+  id: number;
   timestamp: Date;
   rainValue: number;
   wateringValue: number;
