@@ -44,7 +44,7 @@ const MONTH_ABBR = [
   'Feb.',
   'Mär.',
   'Apr.',
-  'Mai.',
+  'Mai',
   'Jun.',
   'Jul.',
   'Aug.',
@@ -140,11 +140,11 @@ export function drawD3Chart(
 
   const yTicks = 4;
   // style y and x axis
-  const yAxis = axisLeft(yScale).ticks(yTicks);
+  const yAxis = axisLeft(yScale).ticks(yTicks).tickSizeInner(3);
 
   const getXTicks = () => {
     const date = new Date(TODAY);
-    return new Array(6)
+    return new Array(7)
       .fill(0)
       .map(_ => {
         const timestamp = new Date(date);
@@ -160,7 +160,6 @@ export function drawD3Chart(
       if (date.getTime() === TODAY.getTime()) return 'Heute';
       else return `${date.getDate()}. ${MONTH_ABBR[date.getMonth()]}`;
     })
-    .ticks(6)
     .tickSizeOuter(0);
 
   // remove double loaded svg
@@ -171,15 +170,17 @@ export function drawD3Chart(
   svg
     .append('g')
     .attr('transform', `translate(${MARGIN.left}, ${MARGIN.top} )`)
-    .call(yAxis);
+    .call(yAxis)
+    .select('path')
+    .attr('stroke', '');
 
   const xAxisLabels = svg
     .append('g')
-    .attr('transform', `translate(0, ${chartHeight + MARGIN.top})`)
+    .attr('transform', `translate(12, ${chartHeight + MARGIN.top})`)
     .call(xAxis)
     .selectAll('text');
 
-  xAxisLabels.attr('x', -10);
+  xAxisLabels.attr('x', -6);
 
   // add y axis labeling
   svg
@@ -248,7 +249,7 @@ export function drawD3Chart(
   // Draw the coloured bars
   barGroups
     .append('rect')
-    .attr('x', (-1 * BAR_WIDTH) / 2)
+    .attr('x', 3 * (BAR_WIDTH / 2) + 0.5)
     .attr('y', d => yScale(d[1]))
     .attr('class', d => `bar-${d.data.id}`)
     .attr('width', BAR_WIDTH)
