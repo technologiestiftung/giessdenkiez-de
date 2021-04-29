@@ -261,7 +261,7 @@ export function drawD3Chart(
   // Draw invisible bars that take the full height and can be hovered
   barGroups
     .append('rect')
-    .attr('x', 0)
+    .attr('x', 3 * (BAR_WIDTH / 2) + 0.5)
     .attr('y', 0)
     .attr('width', BAR_WIDTH)
     .attr('height', chartHeight)
