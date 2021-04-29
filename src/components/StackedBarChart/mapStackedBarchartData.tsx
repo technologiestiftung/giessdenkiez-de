@@ -21,9 +21,10 @@ export const parseWaterings = (
 };
 
 export const mapStackedBarchartData = (
-  selectedTree: SelectedTreeType
+  selectedTree: SelectedTreeType,
+  today: Date = new Date()
 ): DailyWaterAmountsType[] => {
-  const date = new Date(new Date().toISOString().split('T')[0]);
+  const date = new Date(today.toISOString().split('T')[0]);
   const waterings = parseWaterings(selectedTree.waterings);
 
   //reverse because last element is most recent rain

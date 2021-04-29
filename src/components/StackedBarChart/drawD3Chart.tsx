@@ -54,8 +54,6 @@ const MONTH_ABBR = [
   'Dez.',
 ];
 
-const TODAY = new Date(new Date().toISOString().split('T')[0]);
-
 const formatTooltipValue: (val: number) => string = val => `${val.toFixed(1)}l`;
 const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
   onMouseOver(d) {
@@ -87,9 +85,11 @@ const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
 });
 
 export function drawD3Chart(
-  waterAmountInLast30Days: DailyWaterAmountsType[]
+  waterAmountInLast30Days: DailyWaterAmountsType[],
+  today: Date
 ): void {
   if (waterAmountInLast30Days === null) return;
+  const TODAY = new Date(today.toISOString().split('T')[0]);
 
   const generateStack = stack<
     DailyWaterAmountsType,
