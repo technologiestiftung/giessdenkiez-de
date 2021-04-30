@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import {
   DailyWaterAmountsType,
@@ -64,21 +64,24 @@ const StyledTooltipTotalSymbol = styled.span`
 
 const StackedBarChart: FC<{
   selectedTreeData: SelectedTreeType;
-}> = ({ selectedTreeData }) => {
+  date?: Date;
+}> = ({ selectedTreeData, date }) => {
+  const today = useMemo(() => date || new Date(), [date]);
+
   const [waterAmountInLast30Days, setWaterAmountInLast30Days] = useState<
     DailyWaterAmountsType[] | null
   >(null);
 
   useEffect(() => {
     if (!selectedTreeData) return;
-    setWaterAmountInLast30Days(mapStackedBarchartData(selectedTreeData));
-  }, [selectedTreeData]);
+    setWaterAmountInLast30Days(mapStackedBarchartData(selectedTreeData, today));
+  }, [selectedTreeData, today]);
 
   useEffect(() => {
     if (waterAmountInLast30Days === null) return;
 
-    drawD3Chart(waterAmountInLast30Days);
-  }, [waterAmountInLast30Days]);
+    drawD3Chart(waterAmountInLast30Days, today);
+  }, [waterAmountInLast30Days, today]);
 
   const wateredCircle = (
     <StyledLegendCircle style={{ backgroundColor: '#8B77F7' }} />
