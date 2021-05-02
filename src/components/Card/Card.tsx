@@ -1,6 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ShareIcon from '@material-ui/icons/Share';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import { waterNeed, isTreeAdopted } from '../../utils';
 import { useStoreState } from '../../state/unistore-hooks';
 import { useAuth0 } from '../../utils/auth/auth0';
@@ -70,6 +77,8 @@ const TreeTitle = styled.h2`
 `;
 
 const Card: React.FC<{ data: Tree }> = ({ data }) => {
+  const [open, setOpen] = useState(false);
+
   const { treeLastWatered } = useStoreState('treeLastWatered');
 
   const { treeAdopted } = useStoreState('treeAdopted');
@@ -135,19 +144,32 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
   const handleLink = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'Link zum Baum teilen',
+        title: 'Baum-Link',
+        text: 'Teile den Link zum Baum',
         url: getTreeLink()
       })
       .catch(console.error);
     } else {
-      alert(getTreeLink())
+      setOpen(true)
     }
   };
 
   return (
     <CardWrapper>
+      <Dialog onClose={() => setOpen(false)} aria-labelledby="share-tree-dialog-title" open={open}>
+        <DialogTitle id="share-tree-dialog-title">Baum-Link</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Teile den Link zum Baum:</DialogContentText>
+          <DialogContentText><a href={`${getTreeLink()}`}>{getTreeLink()}</a></DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} color="primary">
+            Schließen
+          </Button>
+        </DialogActions>
+      </Dialog>
       <FlexColumnDiv>
-        <TreeTitle>{artdtsch} <button onClick={handleLink}><ShareIcon /></button></TreeTitle>
+        <TreeTitle>{artdtsch} <IconButton onClick={handleLink}><ShareIcon /></IconButton></TreeTitle>
         {!treeType &&
           treeType !== 'undefined' &&
           gattungdeutsch !== null &&

@@ -353,14 +353,15 @@ const Legend: React.FC = () => {
               <StrokedLegendDot />
             )}
             <StyledItemLabel>Wasserquellen</StyledItemLabel>
-            {waterSourcesVisible === true && (
+          </UnstyledFlexWidth>          
+          {waterSourcesVisible === true && (
               <div>kostenlose, öffentlich zugängliche Wasserquellen, damit weite 
                 Wasser-Transportwege entfallen und möglichst geringe Wasserkosten 
                 entstehen. Möchtest Du auch anderen Wasser zum Gießen bereitstellen, 
                 melde Dich gerne bei <a href="mailto:wasserspende@leipziggiesst.de">uns</a>.
               </div>
             )}
-          </UnstyledFlexWidth>          
+
           <UnstyledFlexWidth
             active={rainVisible}
             onClick={() => {
