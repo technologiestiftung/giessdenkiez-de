@@ -568,7 +568,8 @@ class DeckGLMap extends React.Component {
               {!overlay && (<ControlWrapper isNavOpen={isNavOpen}>
                   <GeolocateControl
                     positionOptions={{ enableHighAccuracy: true }}
-                    trackUserLocation={isMobile ? true : false}
+                    // improvement: detect click on tree or water source and then disable tracking
+                    trackUserLocation={/*isMobile ? true : */false}
                     showUserLocation={true}
                     onGeolocate={posOptions => {
                       setViewport([
