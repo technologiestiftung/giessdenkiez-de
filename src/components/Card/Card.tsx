@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import ShareIcon from '@material-ui/icons/Share';
 import { waterNeed, isTreeAdopted } from '../../utils';
 import { useStoreState } from '../../state/unistore-hooks';
 import { useAuth0 } from '../../utils/auth/auth0';
@@ -129,10 +130,24 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
+  const getTreeLink = () => window.location.href;
+
+  const handleLink = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Link zum Baum teilen',
+        url: getTreeLink()
+      })
+      .catch(console.error);
+    } else {
+      alert(getTreeLink())
+    }
+  };
+
   return (
     <CardWrapper>
       <FlexColumnDiv>
-        <TreeTitle>{artdtsch}</TreeTitle>
+        <TreeTitle>{artdtsch} <button onClick={handleLink}><ShareIcon /></button></TreeTitle>
         {!treeType &&
           treeType !== 'undefined' &&
           gattungdeutsch !== null &&
