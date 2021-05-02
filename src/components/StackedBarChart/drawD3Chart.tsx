@@ -55,34 +55,57 @@ const MONTH_ABBR = [
 ];
 
 const formatTooltipValue: (val: number) => string = val => `${val.toFixed(1)}l`;
-const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
-  onMouseOver(d) {
-    if (!d.data || !svg) return;
+
+const showDefaultTooltip = ({ tooltip, watered, rain }) => {
+  if(tooltip) {
     tooltip.classed('hovered', true);
-    select(svg).style('cursor', 'pointer');
-
-    selectAll(`.bar-${d.data.id}`).style('opacity', 1);
-  },
-  onMouseMove(d) {
-    if (!d.data || !svg) return;
-    const { rainValue, wateringValue } = d.data;
-
-    const sum = rainValue + wateringValue;
     tooltip
       .select('#barchart-tooltip-val-watered')
-      .text(formatTooltipValue(wateringValue));
+      .text(formatTooltipValue(watered));
     tooltip
       .select('#barchart-tooltip-val-rain')
-      .text(formatTooltipValue(rainValue));
-    tooltip.select('#barchart-tooltip-val-total').text(formatTooltipValue(sum));
-  },
-  onMouseLeave(d) {
-    if (!d.data || !svg) return;
-    tooltip.classed('hovered', false);
-    select(svg).style('cursor', 'default');
-    selectAll(`.bar-${d.data.id}`).style('opacity', DEFAULT_BAR_OPACITY);
-  },
-});
+      .text(formatTooltipValue(rain));
+    tooltip.select('#barchart-tooltip-val-total').text(formatTooltipValue(watered + rain));  
+  }
+}
+
+const getMouseHandlers = ({ watered, rain }) => {
+  return (svg, tooltip) => ({
+    onMouseOver(d) {
+      if (!d.data || !svg) return;
+      tooltip.classed('hovered', true);
+      select(svg).style('cursor', 'pointer');
+  
+      selectAll(`.bar-${d.data.id}`).style('opacity', 1);
+    },
+    onMouseMove(d) {
+      if (!d.data || !svg) return;
+      const { rainValue, wateringValue } = d.data;
+  
+      const sum = rainValue + wateringValue;
+      tooltip
+        .select('#barchart-tooltip-val-watered')
+        .text(formatTooltipValue(wateringValue));
+      tooltip
+        .select('#barchart-tooltip-val-rain')
+        .text(formatTooltipValue(rainValue));
+      tooltip.select('#barchart-tooltip-val-total').text(formatTooltipValue(sum));
+    },
+    onMouseLeave(d) {
+      if (!d.data || !svg) return;
+      tooltip.classed('hovered', false);
+      select(svg).style('cursor', 'default');
+      selectAll(`.bar-${d.data.id}`).style('opacity', DEFAULT_BAR_OPACITY);
+      showDefaultTooltip({
+        tooltip,
+        watered,
+        rain
+      });
+    },
+  });
+}
+
+
 
 export function drawD3Chart(
   waterAmountInLast30Days: DailyWaterAmountsType[],
@@ -226,7 +249,10 @@ export function drawD3Chart(
     .attr('class', 'series-wrapper')
     .attr('transform', `translate(0, ${MARGIN.top})`);
 
-  const mouseHandlers = getMouseHandlers(
+  const watered = waterAmountInLast30Days.reduce((agg, value) => agg + value.wateringValue, 0);
+  const rain = waterAmountInLast30Days.reduce((agg, value) => agg + value.rainValue, 0);
+
+  const mouseHandlers = getMouseHandlers({ watered, rain })(
     svg.node(),
     wrapper.select('#barchart-tooltip')
   );
@@ -269,4 +295,10 @@ export function drawD3Chart(
     .on('mouseover', mouseHandlers.onMouseOver)
     .on('mouseleave', mouseHandlers.onMouseLeave)
     .on('mousemove', mouseHandlers.onMouseMove);
+
+  showDefaultTooltip({
+    tooltip: wrapper.select('#barchart-tooltip'),
+    watered,
+    rain,
+  });
 }
