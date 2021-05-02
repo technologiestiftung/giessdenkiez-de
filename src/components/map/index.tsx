@@ -132,12 +132,17 @@ class DeckGLMap extends React.Component {
             if (dataView === 'adopted' || dataView === 'watered') {
               return [0, 0, 0, 0];
             }
+            const numberOrDefault = (val, def = 0) => isNaN(parseInt(val)) ? def : parseInt(val)
+            const ageLower = numberOrDefault(ageRange[0]);
+            const ageUpper = numberOrDefault(ageRange[1], 320);
 
-            if (age >= parseInt(ageRange[0]) && age <= parseInt(ageRange[1])) {
-              const interpolated = interpolateColor(radolan_sum);
-              const hex = hexToRgb(interpolated);
-
-              return hex;
+            if (age >= ageLower && age <= ageUpper) {
+              const waterSum = (communityData && communityData[id] && communityData[id].watered) ? 
+                numberOrDefault(communityData[id].watered) : 0;
+              const radolanSum = numberOrDefault(radolan_sum);
+              const sum = radolanSum + waterSum; 
+              const interpolated = interpolateColor(sum > 300 ? 300 : sum);
+              return hexToRgb(interpolated);
             }
 
             if (Number.isNaN(age)) {

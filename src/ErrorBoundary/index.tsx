@@ -57,7 +57,7 @@ export default class ErrorBoundary extends React.Component<
               <h1>Irgendwas ist schief gelaufen.</h1>
               <p>
                 Bitte wende dich an {' '}
-                <a href='https://codeforleipzig.de/'>Code for Leipzig</a> oder
+                <a href='https://codefor.de/leipzig/'>Code for Leipzig</a> oder
                 schreib uns einen Issue auf{' '}
                 <a href='https://github.com/codeforleipzig/tsb-trees-frontend/issues/new'>
                   GitHub
