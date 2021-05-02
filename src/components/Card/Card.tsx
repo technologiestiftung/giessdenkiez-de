@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ShareIcon from '@material-ui/icons/Share';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from "@material-ui/core/DialogContent";
@@ -8,6 +9,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import copy from "copy-to-clipboard"; 
 import { waterNeed, isTreeAdopted } from '../../utils';
 import { useStoreState } from '../../state/unistore-hooks';
 import { useAuth0 } from '../../utils/auth/auth0';
@@ -141,9 +143,9 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
 
   const getTreeLink = () => window.location.href;
 
-  const handleLink = () => {
+  const handleLink = async () => {
     if (navigator.share) {
-      navigator.share({
+      await navigator.share({
         title: 'Baum-Link',
         text: 'Teile den Link zum Baum',
         url: getTreeLink()
@@ -160,7 +162,12 @@ const Card: React.FC<{ data: Tree }> = ({ data }) => {
         <DialogTitle id="share-tree-dialog-title">Baum-Link</DialogTitle>
         <DialogContent>
           <DialogContentText>Teile den Link zum Baum:</DialogContentText>
-          <DialogContentText><a href={`${getTreeLink()}`}>{getTreeLink()}</a></DialogContentText>
+          <DialogContentText>
+            <a href={`${getTreeLink()}`}>{getTreeLink()}</a>
+            <IconButton onClick={() => copy(getTreeLink())}>
+              <FileCopyIcon />
+            </IconButton>
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)} color="primary">
