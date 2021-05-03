@@ -17,11 +17,12 @@ The consequences of climate change, especially the dry and hot summers, are putt
 This project is composed of multiple repositories:
 
 - [React frontend (this is here)](https://github.com/technologiestiftung/giessdenkiez-de)
-- [vercel.com DB API](https://github.com/technologiestiftung/giessdenkiez-de-postgres-api)
-- [vercel.com Auth0 API (currently only for username and user deletion)](https://github.com/technologiestiftung/tsb-trees-api-user-management)
-- [AWS Fargate Service for DWD rain data and Mapbox API vector tiles](https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester) 
-
-Find more information about our Backend in the [documentation](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Backend---Overview).
+- [AWS RDS Provisioning](https://github.com/technologiestiftung/giessdenkiez-de-aws-rds-terraform)
+- [AWS S3 Provisioning](https://github.com/technologiestiftung/giessdenkiez-de-aws-s3-terraform)
+- [Database API](https://github.com/technologiestiftung/giessdenkiez-de-postgres-api)
+- [User Management API](https://github.com/technologiestiftung/tsb-trees-api-user-management)
+- [DWD Harvester](https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester)
+- [OSM Harvester](https://github.com/technologiestiftung/giessdenkiez-de-osm-pumpen-harvester)
 
 ---
 
