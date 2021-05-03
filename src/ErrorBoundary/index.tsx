@@ -1,32 +1,31 @@
-import React from 'react';
+import React, { ErrorInfo } from 'react';
 /**
  * For more info on the error boundary see
  * https://reactjs.org/docs/error-boundaries.html
  *
  */
 export default class ErrorBoundary extends React.Component<
-  {},
-  { hasError: boolean; error: Error | null; errorInfo: any }
+  Record<string, unknown>,
+  { hasError: boolean; error: Error | null }
 > {
-  constructor(props) {
+  constructor(props: Record<string, unknown>) {
     super(props);
-    this.state = { hasError: false, error: null, errorInfo: null };
+    this.state = { hasError: false, error: null };
   }
-  static getDerivedStateFromError(_): { hasError: boolean } {
+
+  static getDerivedStateFromError(): { hasError: boolean } {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
-  componentDidMount(): void {
-    // eslint-disable-next-line no-console
-  }
 
-  componentDidCatch(error, errorInfo): void {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     // You can also log the error to an error reporting service
 
-    this.setState({ hasError: this.state.hasError, error, errorInfo });
+    this.setState({ hasError: this.state.hasError, error });
     console.error(error, errorInfo);
   }
-  render() {
+
+  render(): React.ReactNode {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
@@ -39,7 +38,6 @@ export default class ErrorBoundary extends React.Component<
               height: '100%',
               zIndex: 2000,
               justifyContent: 'center',
-              // background: "white",
               top: 0,
               left: 0,
               display: 'flex',

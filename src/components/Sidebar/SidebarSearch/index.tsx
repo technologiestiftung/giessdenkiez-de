@@ -1,43 +1,80 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-// import { connect } from 'unistore/react';
-// import Actions from '../../../state/Actions';
-import { useStoreState } from '../../../state/unistore-hooks';
 import SidebarTitle from '../SidebarTitle/';
-import Card from '../../Card/Card';
-import CardLegend from '../../Card/CardLegend/';
-import LoadingIcon from '../../LoadingIcon/';
+import ExpandablePanel from '../../ExpandablePanel';
+import SmallParagraph from '../../SmallParagraph';
+import { useActions, useStoreState } from '../../../state/unistore-hooks';
+import SidebarSearchAge from './SidebarSearchAge';
+import SidebarSearchLocation from './SidebarSearchLocation';
 
-const Container = styled.div`
-  width: 100%;
-  height: calc(60vh - 125px);
+const FilterLinksContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  gap: 8px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding-top: 16px;
 `;
 
-const SidebarSearch = () => {
-  const { selectedTree } = useStoreState('selectedTree');
-  const { selectedTreeState } = useStoreState('selectedTreeState');
+const FilterLink = styled.span<{ isActive?: boolean }>`
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: ${p => p.theme.fontSizeL};
+  background: ${p => (p.isActive ? p.theme.colorTextMedium : 'white')};
+  color: ${p => (p.isActive ? p.theme.colorTextDark : p.theme.colorTextLight)};
+  transition: all 0.125s ease-in-out;
+
+  &:hover {
+    background: ${p => p.theme.colorGreyLight};
+    transition: all 0.125s ease-in-out;
+  }
+`;
+
+const SidebarSearch: FC = () => {
+  const mapViewFilter = useStoreState('mapViewFilter');
+  const { setMapViewFilter } = useActions();
 
   return (
     <>
       <SidebarTitle>Suche & Filter</SidebarTitle>
-      {selectedTreeState === 'LOADING' && (
-        <Container>
-          <LoadingIcon text='Lade Baum ...' />
-        </Container>
-      )}
-      {selectedTree === undefined && selectedTreeState === 'NOT_FOUND' && (
-        <Container>
-          <LoadingIcon text='Baumdaten nicht gefunden. Probier einen anderen ...' />
-        </Container>
-      )}
-      {selectedTree && selectedTreeState !== 'LOADING' && (
-        <Card data={selectedTree} />
-      )}
-      {!selectedTree && selectedTreeState !== 'LOADING' && <CardLegend />}
+      <ExpandablePanel title='Datenansicht' isExpanded>
+        <SmallParagraph>
+          Betrachte welche Bäume bereits von anderen Nutzern gegossen wurden.
+          Oder finde heraus, wieviel Niederschlag die Bäume in den letzten 30
+          Tagen erreicht hat.
+        </SmallParagraph>
+        <FilterLinksContainer>
+          <FilterLink
+            isActive={mapViewFilter === 'rain'}
+            onClick={() => setMapViewFilter('rain')}
+          >
+            Niederschläge
+          </FilterLink>
+          <FilterLink
+            isActive={mapViewFilter === 'adopted'}
+            onClick={() => setMapViewFilter('adopted')}
+          >
+            Bereits adoptiert
+          </FilterLink>
+          <FilterLink
+            isActive={mapViewFilter === 'watered'}
+            onClick={() => setMapViewFilter('watered')}
+          >
+            In den letzten 30 Tagen gegossen
+          </FilterLink>
+        </FilterLinksContainer>
+      </ExpandablePanel>
+      <ExpandablePanel title='Baumalter' isExpanded>
+        <SmallParagraph>
+          Erkunde die Geschichte von Berlins Baumlandschaft
+        </SmallParagraph>
+        <br />
+        <SidebarSearchAge />
+      </ExpandablePanel>
+      <ExpandablePanel title='Standortsuche' isExpanded>
+        <SidebarSearchLocation />
+      </ExpandablePanel>
     </>
   );
 };

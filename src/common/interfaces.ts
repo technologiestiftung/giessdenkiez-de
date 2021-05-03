@@ -1,99 +1,61 @@
-import { Store } from 'unistore';
-import { RadolanDays, TreeLastWateredType } from './types';
-
-export interface Generic {
-  [key: string]: any;
-}
+import { RadolanDays } from './types';
 
 export interface DailyWaterAmountsType {
-  id: string;
+  id: number;
   timestamp: Date;
   rainValue: number;
   wateringValue: number;
 }
 
-export interface WateredDayType {
-  tree_id: string;
-  time: string;
-  uuid: string;
+export interface RawWateringType {
   amount: string;
+  id: number;
+  time: string;
   timestamp: string;
+  tree_id: string;
   username: string;
+  uuid: string;
 }
 
-export interface SelectedTreeType {
+export interface WateringType {
+  amount: number;
+  id: string;
+  username: string;
+  timestamp: string;
+  treeId: string;
+}
+export interface UserDataType {
+  id: string;
+  email: string;
+  username: string;
+  isVerified: boolean;
+  waterings: WateringType[];
+  adoptedTrees: Tree[];
+}
+export interface SelectedTreeType extends Tree {
   radolan_days: RadolanDays;
   radolan_sum: number;
-  lat: string;
-  lng: string;
+  latitude: number;
+  longitude: number;
   id: string;
+  waterings: WateringType[] | undefined;
+  isAdopted: boolean | undefined;
+}
+
+interface FocusPointType {
+  id: string;
+  latitude: number;
+  longitude: number;
+  zoom?: number;
 }
 
 export interface StoreProps {
-  wateredTrees: Generic[];
-  includedTrees: Generic;
-  adoptedTrees: Generic[];
-  dataView: 'rain' | 'adopted' | 'watered' | string;
-  communityData: Generic | null;
-  communityDataAdopted?: Generic[];
-  communityDataWatered?: Generic[];
-  wateredByUser: boolean;
-  treesVisible: boolean;
-  cookiesAccepted: boolean;
-  overlayIsVisible: boolean;
-  legendExpanded: boolean;
-  treeAdopted?: boolean;
+  mapViewFilter: 'rain' | 'adopted' | 'watered';
+  visibleMapLayer: 'rain' | 'trees' | 'pumps';
   isNavOpen: boolean;
-  pumpsVisible: boolean;
-  highlightedObject?: string;
-  user: boolean;
-  rainVisible: boolean;
-  rainGeojson: Generic | null;
-  adoptedTreesDetails: any;
-  csvdata: null;
   ageRange: number[];
-  pumps: Generic | null;
-  data: Generic | null;
-  local: boolean;
-  endpoints: {
-    local: string | undefined;
-    prod: string | undefined;
-  };
-  tabActive: string;
-  selectedTree: SelectedTreeType | undefined;
-  treeLastWatered: TreeLastWateredType | undefined;
-  selectedTreeState?:
-    | 'LOADED'
-    | 'LOADING'
-    | 'ADOPT'
-    | 'ADOPTED'
-    | 'WATERING'
-    | 'FETCHED'
-    | 'NOT_FOUND'
-    | 'WATERED';
   overlay: boolean;
-  isTreeDataLoading: boolean;
-  isTreeMapLoading: boolean;
-  AppState: string;
-  hoveredObject: boolean;
-  viewport: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-    maxZoom: number;
-    minZoom: number;
-    pitch: number;
-    bearing: number;
-  };
-}
-
-export interface IsTreeAdoptedProps {
-  id: string;
-  uuid: string;
-  token: string;
-  store: Store<StoreProps>;
-  isAuthenticated?: boolean;
-  signal?: AbortSignal;
+  mapFocusPoint: FocusPointType | null;
 }
 
 export interface Tree {
@@ -108,19 +70,36 @@ export interface Tree {
   hausnr?: string | null;
   zusatz?: string | null;
   pflanzjahr?: string | null;
-  standalter?: string | null;
+  standalter?: string | null; // this may be redundant now, but I'm not entirely sure
+  age?: string;
   kronedurch?: string | null;
   stammumfg?: string | null;
   type?: string | null;
   baumhoehe?: string | null;
   bezirk?: string | null;
   eigentuemer?: string | null;
-  adopted?: null | any;
-  watered?: null | any;
+  adopted?: boolean | null;
+  watered?: boolean;
   radolan_sum?: number | null;
   radolan_days?: number[];
   geom?: string | null;
   standortnr?: string | null;
   kennzeich?: string | null;
   caretaker?: string | null;
+}
+
+export interface TreeGeojsonFeatureProperties
+  extends Pick<Tree, 'id' | 'radolan_sum'> {
+  age?: number;
+}
+
+type TreeId = string;
+interface CommunityFlagsMapType {
+  isAdopted: boolean;
+  isWatered: boolean;
+}
+export interface CommunityDataType {
+  communityFlagsMap: Record<TreeId, CommunityFlagsMapType> | null;
+  adoptedTreesIds: TreeId[];
+  wateredTreesIds: TreeId[];
 }

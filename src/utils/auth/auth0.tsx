@@ -1,44 +1,50 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// src/react-auth0-spa.js
-import React, { useState, useEffect, useContext } from 'react';
-import createAuth0Client from '@auth0/auth0-spa-js';
+import React, { FC, useState, useEffect, useContext } from 'react';
+import createAuth0Client, { Auth0ClientOptions } from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
+import { User } from 'auth0';
+
 import { ContextProps } from '../../common/types';
-const DEFAULT_REDIRECT_CALLBACK: (appState: any) => void = _appState =>
+const DEFAULT_REDIRECT_CALLBACK: () => void = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
 
 export const Auth0Context = React.createContext<Partial<ContextProps>>({});
-export const useAuth0 = () => useContext(Auth0Context);
-export const Auth0Provider = ({
+export const useAuth0 = (): Partial<ContextProps> => useContext(Auth0Context);
+export const Auth0Provider: FC<{
+  onRedirectCallback: (appState: any) => void;
+  domain: string;
+  client_id: string;
+  audience: string;
+  redirect_uri: string;
+}> = ({
   children,
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
   ...initOptions
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>();
-  const [user, setUser] = useState();
-  const [auth0Client, setAuth0] = useState<Auth0Client | undefined>();
-  const [loading, setLoading] = useState(true);
-  const [popupOpen, setPopupOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [user, setUser] = useState<User | undefined>();
+  const [auth0Client, setAuth0Client] = useState<Auth0Client>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [popupOpen, setPopupOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const initAuth0 = async () => {
       const auth0FromHook = await createAuth0Client(
         initOptions as Auth0ClientOptions
       );
-      setAuth0(auth0FromHook);
+      setAuth0Client(auth0FromHook);
 
       if (window.location.search.includes('code=')) {
         const { appState } = await auth0FromHook.handleRedirectCallback();
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
         onRedirectCallback(appState);
       }
 
-      const isAuthenticated = await auth0FromHook.isAuthenticated();
+      const isLoggedIn = await auth0FromHook.isAuthenticated();
 
-      setIsAuthenticated(isAuthenticated);
+      setIsAuthenticated(isLoggedIn);
 
-      if (isAuthenticated) {
+      if (isLoggedIn) {
         const user = await auth0FromHook.getUser();
         setUser(user);
       }
@@ -81,11 +87,21 @@ export const Auth0Provider = ({
         popupOpen,
         loginWithPopup,
         handleRedirectCallback,
-        getIdTokenClaims: (...p: any) => auth0Client?.getIdTokenClaims(...p),
-        loginWithRedirect: (...p: any) => auth0Client?.loginWithRedirect(...p),
-        getTokenSilently: (...p: any) => auth0Client?.getTokenSilently(...p),
-        getTokenWithPopup: (...p: any) => auth0Client?.getTokenWithPopup(...p),
-        logout: (...p: any) => auth0Client?.logout(...p),
+        getIdTokenClaims: auth0Client
+          ? auth0Client.getIdTokenClaims.bind(auth0Client)
+          : () => undefined,
+        loginWithRedirect: auth0Client
+          ? auth0Client.loginWithRedirect.bind(auth0Client)
+          : () => undefined,
+        getTokenSilently: auth0Client
+          ? auth0Client.getTokenSilently.bind(auth0Client)
+          : () => undefined,
+        getTokenWithPopup: auth0Client
+          ? auth0Client.getTokenWithPopup.bind(auth0Client)
+          : () => undefined,
+        logout: auth0Client
+          ? auth0Client.logout.bind(auth0Client)
+          : () => undefined,
       }}
     >
       {children}
