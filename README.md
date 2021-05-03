@@ -1,53 +1,41 @@
-# giessdenkiez.de  
-
 [![Netlify Status](https://api.netlify.com/api/v1/badges/08c96eab-42a0-45d4-9767-656b62b441bc/deploy-status)](https://app.netlify.com/sites/internetoftrees/deploys) ![Node.js CI](https://github.com/technologiestiftung/giessdenkiez-de/workflows/Node.js%20CI/badge.svg?branch=master)  ![love badge](https://img.shields.io/badge/build%20with-%E2%99%A5-red) ![citylab badge](https://img.shields.io/badge/@-CityLAB%20Berlin-blue)
 
-Source repo for [giessdenkiez.de](https://www.giessdenkiez.de) project by Technologiestiftung Berlin and CityLAB Berlin.  
+# [![Logo of _Gieß den Kiez_](./docs/images/logo.svg)](https://www.giessdenkiez.de)
 
-## Used Resources
+---
 
-This is a short list of the things that are needed for running this project yourselves.
+![Screenshot of _Gieß den Kiez_](./docs/images/screenshot.png)
 
-- Netlify.com for hosting
-- vercel.com for serverless functions to interact with the database
-- AWS RDS Postgres
-- auth0.com + vercel.com for user management
-- AWS Fargate python script in docker for rain data aggreagation from Deutsche Wetterdientst (DWD) + Mapbox API for creating vector tiles for mobile
+## About [_Gieß den Kiez_](https://www.giessdenkiez.de)
 
-These are the related repos:  
+The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin's ecosystem. Our urban trees are drying out and suffering long-term damage: In recent years, more and more trees have had to be cut down and their lifespan is declining. In the meantime, the population is regularly called upon to help, but largely uncoordinated. [_Gieß den Kiez_](https://www.giessdenkiez.de) is was made to change that and enable coordinated citizen* participation in the irrigation of urban trees. This project was made by the [Technologiestiftung Berlin](https://www.technologiestiftung-berlin.de/de/startseite/) and the [CityLAB Berlin](https://www.citylab-berlin.org/).
+
+---
+
+## Repositories
+
+This project is composed of multiple repositories:
 
 - [React frontend (this is here)](https://github.com/technologiestiftung/giessdenkiez-de)
 - [vercel.com DB API](https://github.com/technologiestiftung/giessdenkiez-de-postgres-api)
 - [vercel.com Auth0 API (currently only for username and user deletion)](https://github.com/technologiestiftung/tsb-trees-api-user-management)
 - [AWS Fargate Service for DWD rain data and Mapbox API vector tiles](https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester) 
 
-Below is a rough sketch of the architecture:
-
-![software architecture](./docs/images/software-architecture.png)
-
-## Development
-
-Duplicate the `.env.sample` file, rename it `.env` and adapt the values to your needs.
-
-Set the environment variable `BUILD_TARGET` in the `netlify.toml`, in your `.env` file, in the build contexts or via the npm-scripts. You can use this to build the demo mode.
-
-Make sure to set your `NODE_ENV` to either `test`, `development` or `production`
+Find more information about our Backend in the [documentation](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Backend---Overview).
 
 ---
 
-Start the project via  
+## Frontend Documentation
+- [Setup & Installation](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%93-Installation-&-Setup)
+- [Configuration files](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%93-Configuration-files)
+- [Code Structure](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%94-Code-Structure)
+- [Working With Data](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%94-Working-With-Data)
+- [How it works](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%93-How-it-works)
+- [Tesing & Code Quality](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%93-Testing-&-Code-Quality)
+- [Deploying on Netlify](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%94-Deployment-with-Netlify)
 
-```bash
-npm start
-```
+---
 
-## Deployment
-
-To deploy the frontend we use netlify.com
-
-Take a look at the `netlify.toml` for the the used commands to deploy it. Make sure to set all the variables you have in your `.env` file in the environment section of your projects build & deploy settings.
-
- 
 
 ## Demo Mode
 
