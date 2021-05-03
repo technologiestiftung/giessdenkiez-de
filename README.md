@@ -26,14 +26,9 @@ This project is composed of multiple repositories:
 
 ---
 
-## Frontend Documentation
-- [Setup & Installation](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%93-Installation-&-Setup)
-- [Configuration files](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%93-Configuration-files)
-- [Code Structure](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%94-Code-Structure)
-- [Working With Data](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%94-Working-With-Data)
-- [How it works](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%93-How-it-works)
-- [Tesing & Code Quality](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%93-Testing-&-Code-Quality)
-- [Deploying on Netlify](https://github.com/technologiestiftung/giessdenkiez-de/wiki/Frontend-%E2%80%94-Deployment-with-Netlify)
+## Documentation
+
+You can find the projects documentation in this repos [wiki](https://github.com/technologiestiftung/giessdenkiez-de/wiki).
 
 ---
 
