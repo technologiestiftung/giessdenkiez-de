@@ -1,21 +1,19 @@
-import React, { ReactNode } from 'react';
+import React, { HTMLProps } from 'react';
 import styled from 'styled-components';
 
 interface TableItemsType {
   [key: string]: string;
 }
-export interface DataTableType {
+export interface DataTableType extends HTMLProps<HTMLDivElement> {
   title: string;
   subtitle?: string;
   items: TableItemsType;
-  children?: ReactNode;
 }
 
 const StyledWrapper = styled.div`
-  max-width: 340px;
+  width: 260px;
   display: block;
-  /* box-shadow: rgba(51, 51, 102, 0.5) 2px 2px 2px; */
-  padding ${({ theme }) => theme.spacingM};
+  padding ${({ theme }) => theme.spacingS};
   background-color: ${({ theme }) => theme.colorWhite};
 `;
 
