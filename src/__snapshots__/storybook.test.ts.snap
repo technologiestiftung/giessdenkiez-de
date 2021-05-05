@@ -473,7 +473,7 @@ Array [
 
 exports[`Storyshots DataTable Default 1`] = `
 <div
-  className="sc-eCssSg ftSzBv"
+  className="sc-eCssSg fZXGpi"
 >
   <header
     className="sc-jSgupP iUjCLu"
@@ -484,46 +484,48 @@ exports[`Storyshots DataTable Default 1`] = `
       This is a title
     </h3>
   </header>
-  <div
-    className="sc-pFZIQ ksLDOc"
+  <table
+    className="sc-pFZIQ dHBYJo"
   >
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Status
-      </th>
-      <td>
-        Unknown
-      </td>
-    </tr>
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Last update
-      </th>
-      <td>
-        Yesterday
-      </td>
-    </tr>
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Type
-      </th>
-      <td>
-        Random type
-      </td>
-    </tr>
-  </div>
+    <tbody>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 `;
 
 exports[`Storyshots DataTable With Subtitle 1`] = `
 <div
-  className="sc-eCssSg ftSzBv"
+  className="sc-eCssSg fZXGpi"
 >
   <header
     className="sc-jSgupP iUjCLu"
@@ -539,46 +541,48 @@ exports[`Storyshots DataTable With Subtitle 1`] = `
       Subtitle
     </h4>
   </header>
-  <div
-    className="sc-pFZIQ ksLDOc"
+  <table
+    className="sc-pFZIQ dHBYJo"
   >
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Status
-      </th>
-      <td>
-        Unknown
-      </td>
-    </tr>
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Last update
-      </th>
-      <td>
-        Yesterday
-      </td>
-    </tr>
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Type
-      </th>
-      <td>
-        Random type
-      </td>
-    </tr>
-  </div>
+    <tbody>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 `;
 
 exports[`Storyshots DataTable With Subtitle And Children 1`] = `
 <div
-  className="sc-eCssSg ftSzBv"
+  className="sc-eCssSg fZXGpi"
 >
   <header
     className="sc-jSgupP iUjCLu"
@@ -601,46 +605,48 @@ exports[`Storyshots DataTable With Subtitle And Children 1`] = `
       </span>
     </div>
   </header>
-  <div
-    className="sc-pFZIQ ksLDOc"
+  <table
+    className="sc-pFZIQ dHBYJo"
   >
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Status
-      </th>
-      <td>
-        Unknown
-      </td>
-    </tr>
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Last update
-      </th>
-      <td>
-        Yesterday
-      </td>
-    </tr>
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Type
-      </th>
-      <td>
-        Random type
-      </td>
-    </tr>
-  </div>
+    <tbody>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 `;
 
 exports[`Storyshots DataTable Without Subtitle And With Children 1`] = `
 <div
-  className="sc-eCssSg ftSzBv"
+  className="sc-eCssSg fZXGpi"
 >
   <header
     className="sc-jSgupP iUjCLu"
@@ -658,40 +664,42 @@ exports[`Storyshots DataTable Without Subtitle And With Children 1`] = `
       </span>
     </div>
   </header>
-  <div
-    className="sc-pFZIQ ksLDOc"
+  <table
+    className="sc-pFZIQ dHBYJo"
   >
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Status
-      </th>
-      <td>
-        Unknown
-      </td>
-    </tr>
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Last update
-      </th>
-      <td>
-        Yesterday
-      </td>
-    </tr>
-    <tr
-      className="sc-jrAGrp hBErSp"
-    >
-      <th>
-        Type
-      </th>
-      <td>
-        Random type
-      </td>
-    </tr>
-  </div>
+    <tbody>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 `;
 
