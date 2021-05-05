@@ -8,17 +8,20 @@ import {
   NavigationControl,
   ViewportProps,
   FlyToInterpolator,
+  Popup,
 } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
-import { Tooltip } from '../Tooltip';
+import { DataTable } from '../DataTable';
 import {
   CommunityDataType,
   StoreProps,
   TreeGeojsonFeatureProperties,
 } from '../../common/interfaces';
 import { pumpToColor } from './mapColorUtil';
+
+import 'mapbox-gl/dist/mapbox-gl.css';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -68,7 +71,14 @@ interface ViewportType extends Partial<ViewportProps> {
 }
 
 interface DeckGLStateType {
-  isHovered: boolean;
+  hoveredPump: {
+    address: string;
+    status: string;
+    check_date: string;
+    style: string;
+    latitude: number;
+    longitude: number;
+  } | null;
   hoverObjectPointer: [number, number];
   hoverObjectMessage: string;
   cursor: 'grab' | 'pointer';
@@ -82,7 +92,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     super(props);
 
     this.state = {
-      isHovered: false,
+      hoveredPump: null,
       hoverObjectPointer: [0, 0],
       hoverObjectMessage: '',
       cursor: 'grab',
@@ -274,15 +284,19 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         lineWidthMinPixels: 1.5,
         onHover: info => {
           if (info.object === undefined) {
-            this.setState({ isHovered: false });
-            return;
+            this.setState({ hoveredPump: null });
+          } else {
+            this.setState({
+              hoveredPump: {
+                address: info.object.properties['addr:full'],
+                check_date: info.object.properties['check_date'],
+                status: info.object.properties['pump:status'],
+                style: info.object.properties['pump:style'],
+                latitude: info.object.geometry.coordinates[1],
+                longitude: info.object.geometry.coordinates[0],
+              },
+            });
           }
-          this.setState({ isHovered: true });
-          const properties = info?.object?.properties;
-          const hoverObjectMessage =
-            (properties && properties['pump:status']) || '';
-          this.setState({ hoverObjectMessage });
-          this.setState({ hoverObjectPointer: [info.x, info.y] });
         },
       }),
     ];
@@ -557,18 +571,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     const { viewport } = this.state;
     return (
       <>
-        {/* This code below could be used to display some info for the pumps */}
-        {isMobile === false &&
-          this.state.isHovered === true &&
-          this.state.hoverObjectPointer.length === 2 && (
-            <Tooltip
-              x={this.state.hoverObjectPointer[0]}
-              y={this.state.hoverObjectPointer[1]}
-            >
-              <b>Status:</b>
-              {this.state.hoverObjectMessage}
-            </Tooltip>
-          )}
         <DeckGL
           layers={this._renderLayers() as any}
           initialViewState={viewport}
@@ -589,39 +591,60 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             height='100%'
           >
             {!showControls && (
-              <ControlWrapper isNavOpen={isNavOpen}>
-                <GeolocateControl
-                  positionOptions={{ enableHighAccuracy: true }}
-                  trackUserLocation={isMobile ? true : false}
-                  showUserLocation={true}
-                  onGeolocate={posOptions => {
-                    const {
-                      coords: { latitude, longitude },
-                    } = (posOptions as unknown) as {
-                      coords: {
-                        latitude: number;
-                        longitude: number;
+              <>
+                <ControlWrapper isNavOpen={isNavOpen}>
+                  <GeolocateControl
+                    positionOptions={{ enableHighAccuracy: true }}
+                    trackUserLocation={isMobile ? true : false}
+                    showUserLocation={true}
+                    onGeolocate={posOptions => {
+                      const {
+                        coords: { latitude, longitude },
+                      } = (posOptions as unknown) as {
+                        coords: {
+                          latitude: number;
+                          longitude: number;
+                        };
                       };
-                    };
-                    this.setViewport({
-                      longitude,
-                      latitude,
-                      zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-                      transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-                    });
-                  }}
-                />
-                <NavigationControl
-                  onViewStateChange={e =>
-                    this.setViewport({
-                      latitude: e.viewState.latitude,
-                      longitude: e.viewState.longitude,
-                      zoom: e.viewState.zoom,
-                      transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-                    })
-                  }
-                />
-              </ControlWrapper>
+                      this.setViewport({
+                        longitude,
+                        latitude,
+                        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+                        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+                      });
+                    }}
+                  />
+                  <NavigationControl
+                    onViewStateChange={e =>
+                      this.setViewport({
+                        latitude: e.viewState.latitude,
+                        longitude: e.viewState.longitude,
+                        zoom: e.viewState.zoom,
+                        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+                      })
+                    }
+                  />
+                </ControlWrapper>
+                {!isMobile && this.state.hoveredPump && (
+                  <Popup
+                    latitude={this.state.hoveredPump.latitude}
+                    longitude={this.state.hoveredPump.longitude}
+                    closeButton={false}
+                    closeOnClick={false}
+                    sortByDepth={true}
+                  >
+                    <DataTable
+                      title='Öffentliche Straßenpumpe'
+                      subtitle={this.state.hoveredPump.address}
+                      items={{
+                        Status: this.state.hoveredPump.status,
+                        'Letzter Check': this.state.hoveredPump.check_date,
+                        Pumpenstil: this.state.hoveredPump.style,
+                      }}
+                    />
+                  </Popup>
+                )}
+              </>
             )}
           </StaticMap>
         </DeckGL>
