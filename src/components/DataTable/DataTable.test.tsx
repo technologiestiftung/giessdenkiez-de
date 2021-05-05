@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Tooltip, TooltipProps } from '.';
+import { DataTable, DataTableType } from '.';
 
-const exampleInput: TooltipProps = {
+const exampleInput: DataTableType = {
   title: 'title',
   subtitle: 'subtitle',
   items: {
@@ -11,9 +11,9 @@ const exampleInput: TooltipProps = {
   },
 };
 
-describe('component Tooltip', () => {
+describe('component DataTable', () => {
   test('should render the provided inputs', () => {
-    render(<Tooltip {...exampleInput}>hello gepetto</Tooltip>);
+    render(<DataTable {...exampleInput}>hello gepetto</DataTable>);
     const titleElement = screen.getByRole('heading', {
       level: 3,
       name: 'title',

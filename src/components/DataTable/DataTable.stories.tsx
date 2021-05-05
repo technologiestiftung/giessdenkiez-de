@@ -1,14 +1,14 @@
 import React from 'react';
-import { Tooltip as TooltipComp, TooltipProps } from '.';
+import { DataTable, DataTableType } from '.';
 import { Story } from '@storybook/react/types-6-0';
 
 export default {
-  title: 'Tooltip',
-  component: TooltipComp,
+  title: 'DataTable',
+  component: DataTable,
 };
 
-const Template: Story<TooltipProps> = args => (
-  <TooltipComp {...args}>{args.children}</TooltipComp>
+const Template: Story<DataTableType> = args => (
+  <DataTable {...args}>{args.children}</DataTable>
 );
 
 export const Default = Template.bind({});

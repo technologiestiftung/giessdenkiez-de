@@ -1,13 +1,13 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-interface TooltipValuesType {
+interface TableItemsType {
   [key: string]: string;
 }
-export interface TooltipProps {
+export interface DataTableType {
   title: string;
   subtitle?: string;
-  items: TooltipValuesType;
+  items: TableItemsType;
   children?: ReactNode;
 }
 
@@ -65,7 +65,7 @@ const StyledTableRow = styled.tr`
   }
 `;
 
-export const Tooltip: React.FC<TooltipProps> = ({
+export const DataTable: React.FC<DataTableType> = ({
   title,
   subtitle,
   items,
