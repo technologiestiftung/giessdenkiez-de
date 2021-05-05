@@ -8444,75 +8444,226 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
 </div>
 `;
 
-exports[`Storyshots Tooltip With React Children 1`] = `
-<div>
-  <div
-    className="sc-bQdQlF fyYMOo tooltip"
-    height={0}
-    width={0}
-    x={200}
-    y={150}
+exports[`Storyshots Tooltip Default 1`] = `
+<div
+  className="sc-jGVbCA gAKAyi"
+>
+  <header
+    className="sc-bQdQlF liHyzl"
   >
-    <span
-      className="sc-jGVbCA WykgY"
+    <h3
+      className="sc-fXoxut hmiKgb"
     >
-      <b>
-        Bold and sweaty
-      </b>
-       
-      <div
-        className="sc-bTvRPi jNQdyT"
-      >
-        <svg
-          height="14px"
-          viewBox="0 0 9 14"
-          width="9px"
-        >
-          <g
-            fill="#75ADE8"
-            id="water-drop"
-          >
-            <path
-              d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
-              id="water-drop-path"
-            />
-          </g>
-        </svg>
-        <svg
-          height="14px"
-          viewBox="0 0 9 14"
-          width="9px"
-        >
-          <g
-            fill="#75ADE8"
-            id="water-drop"
-          >
-            <path
-              d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
-              id="water-drop-path"
-            />
-          </g>
-        </svg>
-      </div>
-    </span>
+      This is a title
+    </h3>
+  </header>
+  <div
+    className="sc-eFubAy cyCewY"
+  >
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Status
+      </th>
+      <td>
+        Unknown
+      </td>
+    </tr>
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Last update
+      </th>
+      <td>
+        Yesterday
+      </td>
+    </tr>
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Type
+      </th>
+      <td>
+        Random type
+      </td>
+    </tr>
   </div>
 </div>
 `;
 
-exports[`Storyshots Tooltip With Text String 1`] = `
-<div>
-  <div
-    className="sc-bQdQlF hgvoWR tooltip"
-    height={0}
-    width={0}
-    x={100}
-    y={100}
+exports[`Storyshots Tooltip With Subtitle 1`] = `
+<div
+  className="sc-jGVbCA gAKAyi"
+>
+  <header
+    className="sc-bQdQlF liHyzl"
   >
-    <span
-      className="sc-jGVbCA WykgY"
+    <h3
+      className="sc-fXoxut hmiKgb"
     >
-      This is a tooltip
-    </span>
+      This is a title
+    </h3>
+    <h4
+      className="sc-Fyfyc kYFDqc"
+    >
+      Subtitle
+    </h4>
+  </header>
+  <div
+    className="sc-eFubAy cyCewY"
+  >
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Status
+      </th>
+      <td>
+        Unknown
+      </td>
+    </tr>
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Last update
+      </th>
+      <td>
+        Yesterday
+      </td>
+    </tr>
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Type
+      </th>
+      <td>
+        Random type
+      </td>
+    </tr>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Tooltip With Subtitle And Children 1`] = `
+<div
+  className="sc-jGVbCA gAKAyi"
+>
+  <header
+    className="sc-bQdQlF liHyzl"
+  >
+    <h3
+      className="sc-fXoxut hmiKgb"
+    >
+      This is a title
+    </h3>
+    <h4
+      className="sc-Fyfyc kYFDqc"
+    >
+      Subtitle
+    </h4>
+    <div
+      className="sc-jXktwP fnxDQO"
+    >
+      <span>
+        Here be React children.
+      </span>
+    </div>
+  </header>
+  <div
+    className="sc-eFubAy cyCewY"
+  >
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Status
+      </th>
+      <td>
+        Unknown
+      </td>
+    </tr>
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Last update
+      </th>
+      <td>
+        Yesterday
+      </td>
+    </tr>
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Type
+      </th>
+      <td>
+        Random type
+      </td>
+    </tr>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Tooltip Without Subtitle And With Children 1`] = `
+<div
+  className="sc-jGVbCA gAKAyi"
+>
+  <header
+    className="sc-bQdQlF liHyzl"
+  >
+    <h3
+      className="sc-fXoxut hmiKgb"
+    >
+      This is a title
+    </h3>
+    <div
+      className="sc-jXktwP fnxDQO"
+    >
+      <span>
+        Here be React children.
+      </span>
+    </div>
+  </header>
+  <div
+    className="sc-eFubAy cyCewY"
+  >
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Status
+      </th>
+      <td>
+        Unknown
+      </td>
+    </tr>
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Last update
+      </th>
+      <td>
+        Yesterday
+      </td>
+    </tr>
+    <tr
+      className="sc-fmlJLJ eQaNGi"
+    >
+      <th>
+        Type
+      </th>
+      <td>
+        Random type
+      </td>
+    </tr>
   </div>
 </div>
 `;

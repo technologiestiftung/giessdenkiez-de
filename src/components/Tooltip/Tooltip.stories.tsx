@@ -1,37 +1,56 @@
-import React, { ReactNode } from 'react';
-import { Tooltip as TooltipComp } from '.';
+import React from 'react';
+import { Tooltip as TooltipComp, TooltipProps } from '.';
 import { Story } from '@storybook/react/types-6-0';
-import WaterDrops from '../WaterDrops';
 
 export default {
   title: 'Tooltip',
   component: TooltipComp,
 };
 
-const Template: Story<{
-  children: ReactNode;
-  x: number;
-  y: number;
-}> = ({ children, x, y }) => (
-  <TooltipComp x={x} y={y}>
-    {children}
-  </TooltipComp>
+const Template: Story<TooltipProps> = args => (
+  <TooltipComp {...args}>{args.children}</TooltipComp>
 );
 
-export const WithTextString = Template.bind({});
-WithTextString.args = {
-  x: 100,
-  y: 100,
-  children: 'This is a tooltip',
+export const Default = Template.bind({});
+Default.args = {
+  title: 'This is a title',
+  items: {
+    Status: 'Unknown',
+    'Last update': 'Yesterday',
+    Type: 'Random type',
+  },
 };
 
-export const WithReactChildren = Template.bind({});
-WithReactChildren.args = {
-  x: 200,
-  y: 150,
-  children: (
-    <>
-      <b>Bold and sweaty</b> <WaterDrops dropsAmount={2} />
-    </>
-  ),
+export const WithSubtitle = Template.bind({});
+WithSubtitle.args = {
+  title: 'This is a title',
+  subtitle: 'Subtitle',
+  items: {
+    Status: 'Unknown',
+    'Last update': 'Yesterday',
+    Type: 'Random type',
+  },
+};
+
+export const WithoutSubtitleAndWithChildren = Template.bind({});
+WithoutSubtitleAndWithChildren.args = {
+  title: 'This is a title',
+  items: {
+    Status: 'Unknown',
+    'Last update': 'Yesterday',
+    Type: 'Random type',
+  },
+  children: <span>Here be React children.</span>,
+};
+
+export const WithSubtitleAndChildren = Template.bind({});
+WithSubtitleAndChildren.args = {
+  title: 'This is a title',
+  subtitle: 'Subtitle',
+  items: {
+    Status: 'Unknown',
+    'Last update': 'Yesterday',
+    Type: 'Random type',
+  },
+  children: <span>Here be React children.</span>,
 };
