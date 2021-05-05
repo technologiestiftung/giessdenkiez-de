@@ -41,11 +41,10 @@ const StyledChildrenWrapper = styled.div`
   }
 `;
 
-const StyledTable = styled.div`
+const StyledTable = styled.table`
   font-size: ${props => props.theme.fontSizeL};
   font-family: ${props => props.theme.fontFamily};
   width: 100%;
-  display: block;
 `;
 
 const StyledTableRow = styled.tr`
@@ -77,14 +76,16 @@ export const DataTable: React.FC<DataTableType> = ({
         {children && <StyledChildrenWrapper>{children}</StyledChildrenWrapper>}
       </StyledHeader>
       <StyledTable>
-        {Object.entries(items).map(([key, value]) => {
-          return (
-            <StyledTableRow key={`row-${key}`}>
-              <th>{key}</th>
-              <td>{value}</td>
-            </StyledTableRow>
-          );
-        })}
+        <tbody>
+          {Object.entries(items).map(([key, value]) => {
+            return (
+              <StyledTableRow key={`row-${key}`}>
+                <th>{key}</th>
+                <td>{value}</td>
+              </StyledTableRow>
+            );
+          })}
+        </tbody>
       </StyledTable>
     </StyledWrapper>
   );
