@@ -10,7 +10,7 @@ import {
   FlyToInterpolator,
   Popup,
 } from 'react-map-gl';
-import DeckGL, { GeoJsonLayer } from 'deck.gl';
+import DeckGL, { GeoJsonLayer, LayerInputHandler } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { DataTable } from '../DataTable';
@@ -282,20 +282,22 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         pickable: true,
         lineWidthScale: 3,
         lineWidthMinPixels: 1.5,
-        onHover: (info: {
-          object?: {
-            properties: {
-              'addr:full': string;
-              check_date: string;
-              id: number;
-              image: string;
-              'pump:status': string;
-              'pump:style': string;
+        onHover: (
+          info: LayerInputHandler<{
+            object?: {
+              properties: {
+                'addr:full': string;
+                check_date: string;
+                id: number;
+                image: string;
+                'pump:status': string;
+                'pump:style': string;
+              };
+              geometry: { type: string; coordinates: [number, number] };
             };
-            geometry: { type: string; coordinates: [number, number] };
-          };
-          [key: string]: unknown;
-        }) => {
+            [key: string]: unknown;
+          }>
+        ) => {
           if (info.object === undefined) {
             this.setState({ hoveredPump: null });
           } else {
