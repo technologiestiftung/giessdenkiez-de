@@ -283,12 +283,18 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         lineWidthScale: 3,
         lineWidthMinPixels: 1.5,
         onHover: (info: {
-          object:
-            | {
-                properties: { [x: string]: any };
-                geometry: { type: string; coordinates: [number, number] };
-              }
-            | undefined;
+          object?: {
+            properties: {
+              'addr:full': string;
+              check_date: string;
+              id: number;
+              image: string;
+              'pump:status': string;
+              'pump:style': string;
+            };
+            geometry: { type: string; coordinates: [number, number] };
+          };
+          [key: string]: unknown;
         }) => {
           if (info.object === undefined) {
             this.setState({ hoveredPump: null });
