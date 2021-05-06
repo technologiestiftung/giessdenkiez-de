@@ -2,9 +2,8 @@
 
 import { rest } from 'msw';
 import { defaultFakeUser } from '../utils/auth-mock/auth0';
-import { Generic } from '../common/interfaces';
 interface Payload {
-  data?: Generic | Generic[] | boolean | string;
+  data?: Record<string, any> | Record<string, any>[] | boolean | string;
   message?: string;
 }
 

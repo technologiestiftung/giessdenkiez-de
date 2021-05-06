@@ -39,6 +39,21 @@ const MARGIN = {
   left: 22,
 };
 
+const MONTH_ABBR = [
+  'Jan.',
+  'Feb.',
+  'Mär.',
+  'Apr.',
+  'Mai',
+  'Jun.',
+  'Jul.',
+  'Aug.',
+  'Sep.',
+  'Okt.',
+  'Nov.',
+  'Dez.',
+];
+
 const formatTooltipValue: (val: number) => string = val => `${val.toFixed(1)}l`;
 const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
   onMouseOver(d) {
@@ -70,9 +85,11 @@ const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
 });
 
 export function drawD3Chart(
-  waterAmountInLast30Days: DailyWaterAmountsType[]
+  waterAmountInLast30Days: DailyWaterAmountsType[],
+  today: Date
 ): void {
   if (waterAmountInLast30Days === null) return;
+  const TODAY = new Date(today.toISOString().split('T')[0]);
 
   const generateStack = stack<
     DailyWaterAmountsType,
@@ -95,8 +112,8 @@ export function drawD3Chart(
 
   const xScale = scaleTime()
     .domain([
-      waterAmountInLast30Days[waterAmountInLast30Days.length - 1].timestamp,
-      waterAmountInLast30Days[0].timestamp,
+      waterAmountInLast30Days[waterAmountInLast30Days.length - 1].id,
+      waterAmountInLast30Days[0].id + 60 * 60 * 24 * 1000,
     ])
     .range([MARGIN.left, width - MARGIN.right]);
 
@@ -123,29 +140,27 @@ export function drawD3Chart(
 
   const yTicks = 4;
   // style y and x axis
-  const yAxis = axisLeft(yScale).ticks(yTicks);
+  const yAxis = axisLeft(yScale).ticks(yTicks).tickSizeInner(3);
+
+  const getXTicks = () => {
+    const date = new Date(TODAY);
+    return new Array(7)
+      .fill(0)
+      .map(_ => {
+        const timestamp = new Date(date);
+        date.setDate(date.getDate() - 5);
+        return timestamp;
+      })
+      .reverse();
+  };
 
   const xAxis = axisBottom<Date>(xScale)
-    .ticks(6)
-    .tickFormat((tickDate: Date): string => {
-      // get sysdate for x Axis
-      const today = new Date();
-
-      const dateIsToday =
-        tickDate.getFullYear() === today.getFullYear() &&
-        tickDate.getMonth() === today.getMonth() &&
-        tickDate.getDate() === today.getDate();
-
-      if (dateIsToday) {
-        return 'Heute';
-      }
-      // let formattedTime = formatter(d);
-      let daysBack = today.getTime() - tickDate.getTime();
-      daysBack = daysBack / (1000 * 3600 * 24);
-      daysBack = Math.round(daysBack);
-	  return daysBack === 1 ? 'Gestern' : `Vor ${daysBack} Tagen`;
-      // return formattedTime;
-    });
+    .tickValues(getXTicks())
+    .tickFormat(date => {
+      if (date.getTime() === TODAY.getTime()) return 'Heute';
+      else return `${date.getDate()}. ${MONTH_ABBR[date.getMonth()]}`;
+    })
+    .tickSizeOuter(0);
 
   // remove double loaded svg
   wrapper.selectAll('svg').remove();
@@ -155,32 +170,22 @@ export function drawD3Chart(
   svg
     .append('g')
     .attr('transform', `translate(${MARGIN.left}, ${MARGIN.top} )`)
-    .call(yAxis);
+    .call(yAxis)
+    .select('path')
+    .attr('stroke', '');
 
   const xAxisLabels = svg
     .append('g')
-    .attr(
-      'transform',
-      `translate(${BAR_WIDTH / 2}, ${chartHeight + MARGIN.top})`
-    )
+    .attr('transform', `translate(12, ${chartHeight + MARGIN.top})`)
     .call(xAxis)
-	.selectAll('text')
+    .selectAll('text');
 
-  xAxisLabels
-	.attr('x', (_, idx) => xAxisLabels.nodes().length - 1 === idx ? -10 : 5);
-
-  // rect so see dimensions of svg
-  // svg
-  //   .append('rect')
-  //   .attr('x', 0)
-  //   .attr('y', 0)
-  //   .attr('width', width)
-  //   .attr('height', height)
-  //   .style('fill', 'lightgrey');
+  xAxisLabels.attr('x', -6);
 
   // add y axis labeling
   svg
     .append('g')
+    .attr('transform', 'translate(0,-5)')
     .append('text')
     .attr('style', 'font-size: 10px;')
     .attr('transform', `translate(2, ${MARGIN.top})`)
@@ -244,7 +249,7 @@ export function drawD3Chart(
   // Draw the coloured bars
   barGroups
     .append('rect')
-    .attr('x', 0)
+    .attr('x', 3 * (BAR_WIDTH / 2) + 0.5)
     .attr('y', d => yScale(d[1]))
     .attr('class', d => `bar-${d.data.id}`)
     .attr('width', BAR_WIDTH)
@@ -256,7 +261,7 @@ export function drawD3Chart(
   // Draw invisible bars that take the full height and can be hovered
   barGroups
     .append('rect')
-    .attr('x', 0)
+    .attr('x', 3 * (BAR_WIDTH / 2) + 0.5)
     .attr('y', 0)
     .attr('width', BAR_WIDTH)
     .attr('height', chartHeight)
