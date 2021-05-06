@@ -10,7 +10,7 @@ import {
   FlyToInterpolator,
   Popup,
 } from 'react-map-gl';
-import DeckGL, { GeoJsonLayer, LayerInputHandler } from 'deck.gl';
+import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { DataTable } from '../DataTable';
@@ -70,15 +70,17 @@ interface ViewportType extends Partial<ViewportProps> {
   zoom: ViewportProps['zoom'];
 }
 
+interface PumpPropertiesType {
+  address: string;
+  status: string;
+  check_date: string;
+  style: string;
+  latitude: number | undefined;
+  longitude: number | undefined;
+}
+
 interface DeckGLStateType {
-  hoveredPump: {
-    address: string;
-    status: string;
-    check_date: string;
-    style: string;
-    latitude: number;
-    longitude: number;
-  } | null;
+  hoveredPump: PumpPropertiesType | null;
   hoverObjectPointer: [number, number];
   hoverObjectMessage: string;
   cursor: 'grab' | 'pointer';
@@ -94,7 +96,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     this.state = {
       hoveredPump: null,
       hoverObjectPointer: [0, 0],
-      hoverObjectMessage: '',
+      hoverObjectMessage: '', // TODO: remove leftovers
       cursor: 'grab',
       geoLocationAvailable: false,
       isTreeMapLoading: true,
@@ -282,23 +284,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         pickable: true,
         lineWidthScale: 3,
         lineWidthMinPixels: 1.5,
-        onHover: (
-          info: LayerInputHandler<{
-            object?: {
-              properties: {
-                'addr:full': string;
-                check_date: string;
-                id: number;
-                image: string;
-                'pump:status': string;
-                'pump:style': string;
-              };
-              geometry: { type: string; coordinates: [number, number] };
-            };
-            [key: string]: unknown;
-          }>
-        ) => {
-          if (info.object === undefined) {
+        onHover: (info: any) => {
+          if (!info.object) {
             this.setState({ hoveredPump: null });
           } else {
             this.setState({
@@ -307,8 +294,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                 check_date: info.object.properties['check_date'] || '',
                 status: info.object.properties['pump:status'] || '',
                 style: info.object.properties['pump:style'] || '',
-                latitude: info.object.geometry.coordinates[1],
-                longitude: info.object.geometry.coordinates[0],
+                latitude: info.object.geometry.coordinates[1] || undefined,
+                longitude: info.object.geometry.coordinates[0] || undefined,
               },
             });
           }
@@ -583,7 +570,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
   render(): ReactNode {
     const { isNavOpen, showControls } = this.props;
-    const { viewport } = this.state;
+    const { viewport, hoveredPump } = this.state;
     return (
       <>
         <DeckGL
@@ -640,25 +627,28 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                     }
                   />
                 </ControlWrapper>
-                {!isMobile && this.state.hoveredPump && (
-                  <Popup
-                    latitude={this.state.hoveredPump.latitude}
-                    longitude={this.state.hoveredPump.longitude}
-                    closeButton={false}
-                    closeOnClick={false}
-                    sortByDepth={true}
-                  >
-                    <DataTable
-                      title='Öffentliche Straßenpumpe'
-                      subtitle={this.state.hoveredPump.address}
-                      items={{
-                        Status: this.state.hoveredPump.status,
-                        'Letzter Check': this.state.hoveredPump.check_date,
-                        Pumpenstil: this.state.hoveredPump.style,
-                      }}
-                    />
-                  </Popup>
-                )}
+                {!isMobile &&
+                  hoveredPump &&
+                  hoveredPump.latitude &&
+                  hoveredPump.longitude && (
+                    <Popup
+                      latitude={hoveredPump.latitude}
+                      longitude={hoveredPump.longitude}
+                      closeButton={false}
+                      closeOnClick={false}
+                      sortByDepth={true}
+                    >
+                      <DataTable
+                        title='Öffentliche Straßenpumpe'
+                        subtitle={hoveredPump.address}
+                        items={{
+                          Status: hoveredPump.status,
+                          'Letzter Check': hoveredPump.check_date,
+                          Pumpenstil: hoveredPump.style,
+                        }}
+                      />
+                    </Popup>
+                  )}
               </>
             )}
           </StaticMap>
