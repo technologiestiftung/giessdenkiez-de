@@ -16,6 +16,7 @@ import { DailyWaterAmountsType } from '../../common/interfaces';
 
 type mouseFunctionSignature = (
   this: ContainerElement,
+  _evt: MouseEvent,
   d: SeriesPoint<DailyWaterAmountsType>
 ) => void;
 
@@ -56,14 +57,14 @@ const MONTH_ABBR = [
 
 const formatTooltipValue: (val: number) => string = val => `${val.toFixed(1)}l`;
 const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
-  onMouseOver(d) {
+  onMouseOver(_evt, d) {
     if (!d.data || !svg) return;
     tooltip.classed('hovered', true);
     select(svg).style('cursor', 'pointer');
 
     selectAll(`.bar-${d.data.id}`).style('opacity', 1);
   },
-  onMouseMove(d) {
+  onMouseMove(_evt, d) {
     if (!d.data || !svg) return;
     const { rainValue, wateringValue } = d.data;
 
@@ -76,7 +77,7 @@ const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
       .text(formatTooltipValue(rainValue));
     tooltip.select('#barchart-tooltip-val-total').text(formatTooltipValue(sum));
   },
-  onMouseLeave(d) {
+  onMouseLeave(_evt, d) {
     if (!d.data || !svg) return;
     tooltip.classed('hovered', false);
     select(svg).style('cursor', 'default');
