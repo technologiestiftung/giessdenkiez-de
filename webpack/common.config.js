@@ -58,7 +58,6 @@ module.exports = {
     new DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.BUILD_TARGET': JSON.stringify(process.env.BUILD_TARGET),
-      'process.env.MAPBOX_API_KEY': JSON.stringify(process.env.MAPBOX_API_KEY),
     }),
     new Dotenv(),
     new NormalModuleReplacementPlugin(

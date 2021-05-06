@@ -17,6 +17,7 @@ import {
 import { LegendDot, LegendRect, StrokedLegendDot } from './LegendRectsDots';
 import { ItemLabel, legendLabels } from './LegendLabels';
 import SmallParagraph from '../SmallParagraph';
+import { isMobile } from 'react-device-detect';
 
 export interface IsActiveProps {
   isActive?: boolean;
@@ -65,7 +66,7 @@ const MapLayerLegend: FC = () => {
 
   const visibleMapLayer = useStoreState('visibleMapLayer');
 
-  const [legendExpanded, setLegendExpanded] = useState<boolean>(true);
+  const [legendExpanded, setLegendExpanded] = useState(isMobile ? false : true);
 
   if (legendExpanded === false) {
     return (
