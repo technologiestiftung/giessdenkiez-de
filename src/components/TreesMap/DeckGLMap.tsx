@@ -280,10 +280,20 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         pickable: true,
         lineWidthScale: 3,
         lineWidthMinPixels: 1.5,
-        onHover: (info: any) => {
-          if (!info.object) {
-            this.setState({ hoveredPump: null });
-          } else {
+        onHover: (info: {
+          object?: {
+            geometry: { coordinates: number[] };
+            properties?:
+              | {
+                  'pump:status'?: string;
+                  'addr:full'?: string;
+                  'pump:style'?: string;
+                  check_date?: string;
+                }
+              | undefined;
+          };
+        }) => {
+          if (info && info.object && info.object.properties) {
             this.setState({
               hoveredPump: {
                 address: info.object.properties['addr:full'] || '',
@@ -294,6 +304,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                 longitude: info.object.geometry.coordinates[0] || undefined,
               },
             });
+          } else {
+            this.setState({ hoveredPump: null });
           }
         },
       }),
