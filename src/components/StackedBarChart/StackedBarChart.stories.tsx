@@ -1,14 +1,18 @@
-import { mapStackedBarchartData } from './mapStackedBarchartData';
+import React from 'react';
+import StackedBarChart from '.';
+import { Story } from '@storybook/react/types-6-0';
+import { SelectedTreeType } from '../../common/interfaces';
 
-const arrayOf30 = [...Array(30)].map((_, idx) => idx + 1);
-const waterings = arrayOf30.map(val => ({
-  id: 'abc',
-  treeId: 'abc',
-  uuid: 'def',
-  amount: val,
-  timestamp: new Date().toISOString(),
-  username: 'vogelino',
-}));
+const waterings = [
+  {
+    id: 'abc',
+    treeId: 'abc',
+    uuid: 'def',
+    amount: 20,
+    timestamp: new Date().toISOString(),
+    username: 'vogelino',
+  },
+];
 
 const testSelectedTree = {
   // eslint-disable-next-line
@@ -21,21 +25,33 @@ const testSelectedTree = {
   waterings,
 };
 
-describe('mapStackedBarchartData', () => {
-  test('should combine waterings and selectedTree data', () => {
-    const mappedStackedBarchartData = mapStackedBarchartData(testSelectedTree);
-    expect(mappedStackedBarchartData[0].rainValue).toBe(0);
-    expect(mappedStackedBarchartData[1].rainValue).toBe(0.6000000000000001);
-  });
-  test('should have length 30', () => {
-    const mappedStackedBarchartData = mapStackedBarchartData(testSelectedTree);
-    expect(mappedStackedBarchartData).toHaveLength(30);
-  });
-  test('should have last 30 days', () => {
-    const mappedStackedBarchartData = mapStackedBarchartData(testSelectedTree);
-    const date = new Date(new Date().toISOString().split('T')[0]);
-    expect(mappedStackedBarchartData[0].id).toBe(+date);
-    date.setDate(date.getDate() - 29);
-    expect(mappedStackedBarchartData[29].id).toBe(+date);
-  });
-});
+export default {
+  title: 'StackedBarChart',
+  component: StackedBarChart,
+};
+
+const Template: Story<{
+  selectedTreeData: SelectedTreeType;
+  date?: Date;
+}> = ({ selectedTreeData, date }) => (
+  <div style={{ width: '310px' }}>
+    <StackedBarChart selectedTreeData={selectedTreeData} date={date} />
+  </div>
+);
+
+export const BarChart = Template.bind({});
+BarChart.args = {
+  selectedTreeData: testSelectedTree,
+};
+
+export const BarChartFebruary = Template.bind({});
+BarChartFebruary.args = {
+  date: new Date('2021-03-06'),
+  selectedTreeData: testSelectedTree,
+};
+
+export const BarChartNewYear = Template.bind({});
+BarChartNewYear.args = {
+  selectedTreeData: testSelectedTree,
+  date: new Date('2021-01-05'),
+};
