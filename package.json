@@ -102,7 +102,7 @@
     "@material-ui/icons": "4.11.2",
     "@material-ui/styles": "4.11.3",
     "core-js": "3.8.3",
-    "d3": "5.16.0",
+    "d3": "6.7.0",
     "deck.gl": "7.3.15",
     "history": "4.10.1",
     "rc-slider": "9.7.1",
