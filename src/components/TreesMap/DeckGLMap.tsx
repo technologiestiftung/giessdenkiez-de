@@ -81,8 +81,6 @@ interface PumpPropertiesType {
 
 interface DeckGLStateType {
   hoveredPump: PumpPropertiesType | null;
-  hoverObjectPointer: [number, number];
-  hoverObjectMessage: string;
   cursor: 'grab' | 'pointer';
   geoLocationAvailable: boolean;
   isTreeMapLoading: boolean;
@@ -95,8 +93,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
     this.state = {
       hoveredPump: null,
-      hoverObjectPointer: [0, 0],
-      hoverObjectMessage: '', // TODO: remove leftovers
       cursor: 'grab',
       geoLocationAvailable: false,
       isTreeMapLoading: true,
