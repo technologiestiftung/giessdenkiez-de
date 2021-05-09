@@ -4,6 +4,7 @@ import {
   DailyWaterAmountsType,
   SelectedTreeType,
 } from '../../common/interfaces';
+import { drawD3Chart } from './drawD3Chart';
 import { mapStackedBarchartData } from './mapStackedBarchartData';
 
 const BarChartWrapper = styled.div`
@@ -75,6 +76,12 @@ const StackedBarChart: FC<{
     if (!selectedTreeData) return;
     setWaterAmountInLast30Days(mapStackedBarchartData(selectedTreeData, today));
   }, [selectedTreeData, today]);
+
+  useEffect(() => {
+    if (waterAmountInLast30Days === null) return;
+
+    drawD3Chart(waterAmountInLast30Days, today);
+  }, [waterAmountInLast30Days, today]);
 
   const wateredCircle = (
     <StyledLegendCircle style={{ backgroundColor: '#8B77F7' }} />

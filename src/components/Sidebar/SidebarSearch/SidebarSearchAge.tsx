@@ -1,12 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Slider from 'rc-slider';
-<<<<<<< HEAD
-=======
 import 'rc-input-number/assets/index.css';
 import InputNumber from 'rc-input-number';
-import Actions from '../../../state/Actions';
->>>>>>> 05ef22b... Add spinner number fields for age
 import ButtonRound from '../../../components/ButtonRound';
 import { useStoreState, useActions } from '../../../state/unistore-hooks';
 
@@ -148,18 +144,18 @@ const SidebarAgeRange: React.FC = () => {
     <FilterAgeDiv>
       <ButtonRound
         margin='15px'
-        toggle={() => {
+        onClick={() => {
           setMin(4);
           setMax(15);
           setAgeRange([4, 15]);
         }}
         type='secondary'
       >
-        Giessbedürftige Bäume anzeigen
+        Gießbedürftige Bäume anzeigen
       </ButtonRound>
       <ButtonRound
         margin='15px'
-        toggle={() => {
+        onClick={() => {
           setMin(0);
           setMax(320);
           setAgeRange([0, 320]);

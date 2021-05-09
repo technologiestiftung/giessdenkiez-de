@@ -2,6 +2,8 @@ import { dsv as d3Dsv, GeoGeometryObjects } from 'd3';
 import { ExtendedFeatureCollection, ExtendedFeature } from 'd3-geo';
 import { Tree, TreeGeojsonFeatureProperties } from '../../common/interfaces';
 
+var isLocalTesting = process.env.LOCAL_TESTING
+
 function createGeojson(trees: Tree[]): ExtendedFeatureCollection {
   const geojson: ExtendedFeatureCollection = {
     type: 'FeatureCollection',
@@ -40,10 +42,21 @@ function createGeojson(trees: Tree[]): ExtendedFeatureCollection {
 }
 
 export const loadTreesGeoJson = async (): Promise<ExtendedFeatureCollection> => {
-  const dataUrl =
-    'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
-
-  const data = await d3Dsv(',', dataUrl, { cache: 'force-cache' });
-  const geojson = createGeojson((data as unknown) as Tree[]);
-  return geojson;
+  if (isLocalTesting) {
+    // http://localhost:8080/search?location=id-54243
+    const data = [{
+      'id': 'id-54243',
+      'lng': 12.465195780349760,
+      'lat': 51.436408951092531,
+      'radolan_sum': 457,
+      'age': 25
+    }]
+    const geojson = createGeojson((data as unknown) as Tree[]);
+    return geojson;  
+  } else {
+    const dataUrl = process.env.TREE_DATA_URL || 'https://trees-radolan-harvester-leipzig-dev.s3.eu-central-1.amazonaws.com/trees.csv.gz';
+    const data = await d3Dsv(',', dataUrl, { cache: 'force-cache' });
+    const geojson = createGeojson((data as unknown) as Tree[]);
+    return geojson;  
+  }
 };

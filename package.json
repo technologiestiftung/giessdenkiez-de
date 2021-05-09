@@ -1,11 +1,12 @@
 {
-  "name": "@tsb/giessdenkiez-de",
+  "name": "@codeforleipzig/app-leipziggiesst-de",
   "version": "2.0.0-alpha",
-  "description": "Source repo for [giessdenkiez.de](https://www.giessdenkiez.de)",
+  "description": "Source repo for [app.leipziggiesst.de](https://app.leipziggiesst.de)",
   "scripts": {
     "test": "inpyjamas-scripts test",
-    "eslint": "eslint ./src/",
-    "brechstange": "eslint --fix ./src/",
+    "lint": "eslint ./src/",
+    "lint-fix": "npm run lint -- --fix",
+    "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "dev": "npm start",
     "start": "cross-env BUILD_TARGET=DEFAULT NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
     "start:demo": "cross-env BUILD_TARGET=DEMO NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
@@ -18,7 +19,8 @@
   "keywords": [],
   "author": "Fabian Dinklage",
   "contributors": [
-    "Fabian Morón Zirfas"
+    "Fabian Morón Zirfas",
+    "Joerg Reichert"
   ],
   "license": "MIT",
   "devDependencies": {
@@ -31,11 +33,11 @@
     "@hot-loader/react-dom": "17.0.1",
     "@inpyjamas/scripts": "0.1.6-alpha",
     "@storybook/addon-actions": "6.1.18",
-    "@storybook/addon-essentials": "6.1.18",
+    "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-links": "6.1.18",
-    "@storybook/addon-storyshots": "6.1.18",
+    "@storybook/addon-storyshots": "^6.2.9",
     "@storybook/preset-scss": "1.0.3",
-    "@storybook/react": "6.1.18",
+    "@storybook/react": "^6.2.9",
     "@testing-library/dom": "7.29.4",
     "@testing-library/jest-dom": "5.11.9",
     "@testing-library/react": "11.2.5",
@@ -103,17 +105,8 @@
     "core-js": "3.8.3",
     "d3": "5.16.0",
     "deck.gl": "7.3.15",
-<<<<<<< HEAD
     "history": "4.10.1",
-=======
-    "json-loader": "^0.5.7",
-    "lodash": "4.17.20",
-    "pbf": "3.2.1",
-<<<<<<< HEAD
->>>>>>> 0d9af60... Add water sources
-=======
     "rc-input-number": "^7.0.6",
->>>>>>> 05ef22b... Add spinner number fields for age
     "rc-slider": "9.7.1",
     "react": "16.14.0",
     "react-app-polyfill": "1.0.6",

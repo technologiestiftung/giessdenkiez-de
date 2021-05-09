@@ -67,7 +67,7 @@ const SidebarSearch: FC = () => {
       </ExpandablePanel>
       <ExpandablePanel title='Baumalter' isExpanded>
         <SmallParagraph>
-          Erkunde die Geschichte von Berlins Baumlandschaft
+          Erkunde die Geschichte von Leipzigs Baumlandschaft
         </SmallParagraph>
         <br />
         <SidebarSearchAge />

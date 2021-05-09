@@ -1,6 +1,6 @@
 [build]
 
-command = "node ./create-env.js && npm install && npm run build"
+command = "node ./create-env.js && npm run build"
 publish = "dist/"
 
 [build.environment]
@@ -18,13 +18,13 @@ publish = "dist/"
 BUILD_TARGET = "DEMO"
 
 [context.deploy-preview.environment]
-API_ENDPOINT="https://giessdenkiez-de-postgres-api-git-dev-technologiestiftung1.vercel.app" # DEV
+API_ENDPOINT="https://leipzig-trees-express-now.vercel.app" # DEV
 
 [context.branch-deploy.environment]
-API_ENDPOINT="https://giessdenkiez-de-postgres-api-git-dev-technologiestiftung1.vercel.app" # DEV
+API_ENDPOINT="https://leipzig-trees-express-now.vercel.app" # DEV
 
 [context.staging.environment]
-API_ENDPOINT="https://giessdenkiez-de-postgres-api-git-dev-technologiestiftung1.vercel.app" # DEV
+API_ENDPOINT="https://leipzig-trees-express-now.vercel.app" # DEV
 
 [[redirects]]
 from = "/*"

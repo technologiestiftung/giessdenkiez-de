@@ -89,8 +89,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       geoLocationAvailable: false,
       isTreeMapLoading: true,
       viewport: {
-        latitude: 52.500869,
-        longitude: 13.419047,
+        latitude: 51.3399028,
+        longitude: 12.3742236,
         zoom: isMobile ? 13 : 11,
         maxZoom: VIEWSTATE_ZOOMEDIN_ZOOM,
         minZoom: isMobile ? 11 : 9,
@@ -399,7 +399,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
       map.addSource('trees', {
         type: 'vector',
-        url: 'mapbox://technologiestiftung.trees_s3',
+        url: 'mapbox://sannsie.6tujqvnq',
         minzoom: 11,
         maxzoom: 20,
       });
@@ -581,7 +581,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         >
           <StaticMap
             reuseMaps
-            mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
+            mapStyle='mapbox://sannsie.6tujqvnq'
             preventStyleDiffing={true}
             mapboxApiAccessToken={process.env.MAPBOX_API_KEY}
             onLoad={this._onload.bind(this)}

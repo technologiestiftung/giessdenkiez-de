@@ -9,7 +9,7 @@ const logoBUNDLeipzig = '/images/bund-leipzig.png';
 const logoLeipzigASG = '/images/leipzig-asg.png';
 
 const CreditsContainer = styled.div`
-  width: 150px;
+  width: 300px;
   height: auto;
   flex-direction: column;
   display: flex;
@@ -20,6 +20,17 @@ const CreditsContainer = styled.div`
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     display: none;
+  }
+
+  span {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    width: fit-content;
+    font-size: ${p => p.theme.fontSizeL};
+  }
+
+  span.project {
+    padding-left: 35px;
   }
 `;
 
@@ -61,6 +72,7 @@ const CFGLogo = styled.img`
 const Credits: FC = () => {
   return (
     <CreditsContainer>
+      <span className="project">Ein Projekt von:</span>
       <a
         className='cfg'
         href='https://codefor.de/leipzig'

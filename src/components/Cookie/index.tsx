@@ -106,25 +106,14 @@ const Cookie: FC = () => {
               Diese Webseite verwendet Cookies, um bestimmte Funktionen zu
               ermöglichen und das Angebot zu verbessern. Indem du hier
               fortfährst stimmst du der Nutzung von Cookies zu.{' '}
-<<<<<<< HEAD
             </Text>
             <MoreInfoLink
-              href='https://www.technologiestiftung-berlin.de/de/datenschutz/'
+              href='https://stiftung-ecken-wecken.de/datenschutz'
               target='_blank'
               rel='noopener noreferrer'
             >
               Weitere Informationen.
             </MoreInfoLink>
-=======
-              <a
-                href="https://stiftung-ecken-wecken.de/datenschutz"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Weitere Informationen.
-              </a>
-            </StyledCardDescription>
->>>>>>> aa02875... change impressum to point to Code for Germany, remove Berlin specific texts
             <ButtonRound
               width='fit-content'
               fontSize={'.8rem'}
