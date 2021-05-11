@@ -25,7 +25,7 @@ jobs:
         run: echo "The file was written to ${{ steps.pumps.outputs.file }}"
         # https://github.com/marketplace/actions/add-commit?version=v4.4.0
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v4.4.0
+        uses: EndBug/add-and-commit@v7.2.1
         with:
           add: public/data
           author_name: tsboter
