@@ -104,7 +104,7 @@
     "core-js": "3.8.3",
     "d3": "6.7.0",
     "deck.gl": "8.4.16",
-    "history": "4.10.1",
+    "history": "5.0.0",
     "rc-slider": "9.7.1",
     "react": "17.0.2",
     "react-app-polyfill": "1.0.6",
