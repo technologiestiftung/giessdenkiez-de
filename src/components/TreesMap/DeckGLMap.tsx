@@ -40,6 +40,12 @@ let selectedStateId: string | number | undefined = undefined;
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
+const colors = {
+  transparent: [200, 200, 200, 0] as [number, number, number, number],
+  blue: [53, 117, 177, 200] as [number, number, number, number],
+  turquoise: [0, 128, 128, 200] as [number, number, number, number],
+  red: [247, 105, 6, 255] as [number, number, number, number],
+};
 
 interface DeckGLPropType {
   treesGeoJson: ExtendedFeatureCollection | null;
@@ -109,6 +115,59 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     this.onViewStateChange = this.onViewStateChange.bind(this);
   }
 
+  _getFillColor(info: {
+    properties: TreeGeojsonFeatureProperties;
+  }): [number, number, number, number] {
+    const { ageRange, mapViewFilter, communityData } = this.props;
+    const [minFilteredAge, maxFilteredAge] = ageRange;
+    const { properties } = info;
+    const { id, radolan_sum, age: treeAge } = properties;
+    const communityDataFlatMap = communityData && id && communityData[id];
+    const { isWatered, isAdopted } = communityDataFlatMap || {};
+
+    const rainDataExists = !!radolan_sum;
+
+    const ageFilterIsApplied = minFilteredAge !== 0 || maxFilteredAge !== 320; // TODO: how to not hard-code these values?
+
+    const treeIsWithinAgeRange =
+      treeAge && treeAge >= minFilteredAge && treeAge <= maxFilteredAge;
+
+    const colorsShallBeInterpolated =
+      rainDataExists &&
+      ((ageFilterIsApplied && treeIsWithinAgeRange) || !ageFilterIsApplied);
+
+    const colorShallBeTransparent =
+      (ageFilterIsApplied && !treeAge) ||
+      (ageFilterIsApplied && !treeIsWithinAgeRange) ||
+      !rainDataExists;
+
+    if (colorShallBeTransparent) return colors.transparent;
+
+    if (mapViewFilter === 'watered') {
+      return communityDataFlatMap && isWatered && treeIsWithinAgeRange
+        ? colors.blue
+        : colors.transparent;
+    }
+
+    if (mapViewFilter === 'adopted') {
+      return communityDataFlatMap && isAdopted && treeIsWithinAgeRange
+        ? colors.turquoise
+        : colors.transparent;
+    }
+
+    if (colorsShallBeInterpolated) {
+      // Note: we do check if radolan_sum is defined by checking for rainDataExists, that's why the ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const interpolated = interpolateColor(radolan_sum);
+      const hex = hexToRgb(interpolated);
+
+      return hex;
+    }
+
+    return colors.transparent;
+  }
+
   _renderLayers(): unknown[] {
     const {
       treesGeoJson,
@@ -127,19 +186,17 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           properties: Pick<TreeGeojsonFeatureProperties, 'id'>;
         }): 0 | 2 => {
           const { selectedTreeId } = this.props;
-          const id = info.properties.id;
-
-          if (selectedTreeId) {
-            if (id === selectedTreeId) {
-              return 2;
-            } else {
-              return 0;
-            }
-          } else {
-            return 0;
-          }
+          if (selectedTreeId && info.properties.id == selectedTreeId) return 2;
+          return 0;
         },
-        getLineColor: [247, 105, 6, 255],
+        getLineColor: (info: {
+          properties: Pick<TreeGeojsonFeatureProperties, 'id'>;
+        }) => {
+          const { selectedTreeId } = this.props;
+          if (selectedTreeId && info.properties.id === selectedTreeId)
+            return colors.red;
+          return this._getFillColor(info);
+        },
         visible: visibleMapLayer === 'trees',
         filled: true,
         parameters: () => ({
@@ -157,66 +214,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             easing: (t: number) => t,
           },
         },
-        getFillColor: (info: {
-          properties: TreeGeojsonFeatureProperties;
-        }): [number, number, number, number] => {
-          const { ageRange, mapViewFilter, communityData } = this.props;
-          const [minFilteredAge, maxFilteredAge] = ageRange;
-          const { properties } = info;
-          const { id, radolan_sum, age: treeAge } = properties;
-          const communityDataFlagMap = communityData && id && communityData[id];
-          const { isWatered, isAdopted } = communityDataFlagMap || {};
-
-          const colors = {
-            transparent: [0, 0, 0, 0] as [number, number, number, number],
-            blue: [53, 117, 177, 200] as [number, number, number, number],
-            turquoise: [0, 128, 128, 200] as [number, number, number, number],
-          };
-
-          const rainDataExists = !!radolan_sum;
-
-          const ageFilterIsApplied =
-            minFilteredAge !== 0 || maxFilteredAge !== 320; // TODO: how to not hard-code these values?
-
-          const treeIsWithinAgeRange =
-            treeAge && treeAge >= minFilteredAge && treeAge <= maxFilteredAge;
-
-          const colorsShallBeInterpolated =
-            rainDataExists &&
-            ((ageFilterIsApplied && treeIsWithinAgeRange) ||
-              !ageFilterIsApplied);
-
-          const colorShallBeTransparent =
-            (ageFilterIsApplied && !treeAge) ||
-            (ageFilterIsApplied && !treeIsWithinAgeRange) ||
-            !rainDataExists;
-
-          if (colorShallBeTransparent) return colors.transparent;
-
-          if (mapViewFilter === 'watered') {
-            return communityDataFlagMap && isWatered && treeIsWithinAgeRange
-              ? colors.blue
-              : colors.transparent;
-          }
-
-          if (mapViewFilter === 'adopted') {
-            return communityDataFlagMap && isAdopted && treeIsWithinAgeRange
-              ? colors.turquoise
-              : colors.transparent;
-          }
-
-          if (colorsShallBeInterpolated) {
-            // Note: we do check if radolan_sum is defined by checking for rainDataExists, that's why the ts-ignore
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            const interpolated = interpolateColor(radolan_sum);
-            const hex = hexToRgb(interpolated);
-
-            return hex;
-          }
-
-          return colors.transparent;
-        },
+        getFillColor: this._getFillColor.bind(this),
         onClick: info => {
           this._onClick(info.x, info.y, info.object);
         },
@@ -228,6 +226,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             this.props.mapViewFilter,
           ],
           getLineWidth: [this.props.selectedTreeId],
+          getLineColor: [this.props.selectedTreeId],
         },
       }),
       new GeoJsonLayer({
