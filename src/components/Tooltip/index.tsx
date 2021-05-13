@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 export interface HoverObjectProps {
   data: any;
-  pointer: number[];
+  x: number;
+  y: number;
 }
 interface StyledProps {
   x: number;
@@ -26,12 +27,13 @@ const Bubble = styled.div<StyledProps>`
   display: inline-block;
   text-align: left;
   vertical-align: left;
-  left: ${props => props.pointer[0] - (props.width / 2-3)}px;
-  top: ${props => props.pointer[1] - props.height  - 15}px;
+  left: ${props => props.x - (props.width / 2-3)}px;
+  top: ${props => props.y - props.height  - 15}px;
   background-color: #ffffff;
   margin: 0 auto;
   &::after {
-    transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
     border-width: 7px;
     border-style: solid;
     border-color: transparent #fff #fff transparent;
@@ -45,7 +47,8 @@ const Bubble = styled.div<StyledProps>`
 
 export const HoverObject: React.FC<HoverObjectProps> = ({
   data,
-  pointer,
+  x,
+  y,
 }) => {
   const refBubble = useRef<HTMLDivElement | null>(null);
   const [widthBubble, setWidthBubble] = useState(0);
@@ -54,7 +57,7 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
   useEffect(() => {
     if (!refBubble) return;
     const w = refBubble.current ? 300 : 0;
-    const allHintLength = data.hints.reduce((all, hint) => all + hint, "").length
+    const allHintLength = data.hints ? data.hints.reduce((all, hint) => all + hint, "").length : 0;
     const h = refBubble.current ? Math.round(200 + (allHintLength * 0.32)) : 0;
     setWidthBubble(w);
     setHeightBubble(h);
@@ -65,7 +68,8 @@ export const HoverObject: React.FC<HoverObjectProps> = ({
       <div key={`${data.name}-${data.created}`}>
         <Bubble
           ref={refBubble}
-          pointer={pointer}
+          x={x}
+          y={y}
           width={widthBubble}
           height={heightBubble}
         >

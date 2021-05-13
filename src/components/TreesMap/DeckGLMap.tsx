@@ -115,7 +115,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       this.setState({ isHovered: false });
       return;
     }
-    this.setState({ isHovered: true });
     this.setState({
       hoverObjectMessage: object.properties,
     });
@@ -600,7 +599,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           this.state.hoverObjectPointer.length === 2 && (
             <HoverObject
               data={this.state.hoverObjectMessage}
-              pointer={this.state.hoverObjectPointer}
+              x={this.state.hoverObjectPointer[0]}
+              y={this.state.hoverObjectPointer[1]}
             >
               <b>Status:</b>
               {this.state.hoverObjectMessage}

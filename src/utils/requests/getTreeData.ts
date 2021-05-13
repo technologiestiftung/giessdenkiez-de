@@ -26,9 +26,8 @@ const parseSelectedTreeResponse = (
   const selectedTreeData = selectedTreeResponse.data[0];
   return {
     ...selectedTreeData,
-    // lat/lng are inversed in the db this is why we switch them
-    latitude: parseFloat(selectedTreeData.lng),
-    longitude: parseFloat(selectedTreeData.lat),
+    latitude: parseFloat(selectedTreeData.lat),
+    longitude: parseFloat(selectedTreeData.lng),
     radolan_days: selectedTreeData.radolan_days.map(calcuateRadolan),
     radolan_sum: calcuateRadolan(selectedTreeData.radolan_sum),
     waterings: parseRawWaterings(waterings),
