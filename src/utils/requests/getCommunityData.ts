@@ -26,14 +26,14 @@ export const getCommunityData = async (): Promise<CommunityDataType> => {
   const newState = json.data.reduce(
     (acc: CommunityDataType, { tree_id: id, adopted, watered }) => {
       const item = acc[id];
-      const isAdopted = item?.isAdopted || adopted !== '0';
-      const isWatered = item?.isWatered || watered !== '0';
+      const isAdopted = item?.adopted || adopted !== '0';
+      const wateredAmount = item?.watered || watered !== '0';
       return {
         communityFlagsMap: {
           ...acc.communityFlagsMap,
-          [id]: { isAdopted, isWatered },
+          [id]: { isAdopted, wateredAmount },
         },
-        wateredTreesIds: isWatered
+        wateredTreesIds: wateredAmount
           ? [...acc.wateredTreesIds, id]
           : acc.wateredTreesIds,
         adoptedTreesIds: isAdopted

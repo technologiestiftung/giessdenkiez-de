@@ -96,7 +96,7 @@ export interface TreeGeojsonFeatureProperties
 type TreeId = string;
 interface CommunityFlagsMapType {
   isAdopted: boolean;
-  isWatered: boolean;
+  wateredAmount: number;
 }
 export interface CommunityDataType {
   communityFlagsMap: Record<TreeId, CommunityFlagsMapType> | null;

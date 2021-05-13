@@ -177,11 +177,10 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           properties: TreeGeojsonFeatureProperties;
         }): [number, number, number, number] => {
           const { ageRange, mapViewFilter, communityData } = this.props;
-          const [minFilteredAge, maxFilteredAge] = ageRange;
           const { properties } = info;
           const { id, radolan_sum, age: treeAge } = properties;
           const communityDataFlagMap = communityData && id && communityData[id];
-          const { isWatered, isAdopted } = communityDataFlagMap || {};
+          const { wateredAmount, isAdopted } = communityDataFlagMap || {};
 
           const colors = {
             transparent: [0, 0, 0, 0] as [number, number, number, number],
@@ -190,6 +189,10 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           };
 
           const rainDataExists = !!radolan_sum;
+
+          const numberOrDefault = (val, def = 0) => isNaN(parseInt(val)) ? def : parseInt(val)
+          const minFilteredAge = numberOrDefault(ageRange[0]);
+          const maxFilteredAge = numberOrDefault(ageRange[1], 320);
 
           const ageFilterIsApplied =
             minFilteredAge !== 0 || maxFilteredAge !== 320; // TODO: how to not hard-code these values?
@@ -210,7 +213,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           if (colorShallBeTransparent) return colors.transparent;
 
           if (mapViewFilter === 'watered') {
-            return communityDataFlagMap && isWatered && treeIsWithinAgeRange
+            return communityDataFlagMap && wateredAmount && treeIsWithinAgeRange
               ? colors.blue
               : colors.transparent;
           }
@@ -225,7 +228,10 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             // Note: we do check if radolan_sum is defined by checking for rainDataExists, that's why the ts-ignore
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            const interpolated = interpolateColor(radolan_sum);
+            const waterSum = wateredAmount ? numberOrDefault(wateredAmount) : 0;
+            const radolanSum = numberOrDefault(radolan_sum);
+            const sum = radolanSum + waterSum; 
+            const interpolated = interpolateColor(sum);
             const hex = hexToRgb(interpolated);
 
             return hex;
