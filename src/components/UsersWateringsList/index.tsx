@@ -82,8 +82,8 @@ const UsersWateringsList: FC<{
 
   return (
     <WrapperOuter>
-      {listItems.map(({ id, username, timestamp, amount }: WateringType) => (
-        <Wrapper key={`Lastadopted-key-${id}`}>
+      {listItems.map(({ id, username, timestamp, amount }: WateringType, index: number) => (
+        <Wrapper key={`Lastadopted-key-${id}-${index}`}>
           <FlexRow>
             <Title>{username}</Title>
             <StyledTreeType>({formatUnixTimestamp(timestamp)})</StyledTreeType>

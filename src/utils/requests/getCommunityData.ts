@@ -27,7 +27,7 @@ export const getCommunityData = async (): Promise<CommunityDataType> => {
     (acc: CommunityDataType, { tree_id: id, adopted, watered }) => {
       const item = acc[id];
       const isAdopted = item?.adopted || adopted !== '0';
-      const wateredAmount = item?.watered || watered !== '0';
+      const wateredAmount = item?.watered || watered;
       return {
         communityFlagsMap: {
           ...acc.communityFlagsMap,
