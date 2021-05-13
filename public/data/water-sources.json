@@ -1,0 +1,116 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Thorsten",
+        "organisation": "Stiftung Ecken Wecken",
+        "address": "Markranstädter Straße 29b",
+        "created": "15.04.2021",
+        "hints": [
+            "Zugang über graues Stahltor",
+            "Einfach rechts neben dem Tor bei 'Mehnert' klingeln. Dann öffnen wir. Gehe weiter über die Zufahrt und bediene Dich dann rechts hinten im Hof an dem grauen Wassercontainer."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.32605,51.3250607] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rüdiger",
+        "organisation": "KGV Mockau-Mitte, Garten 244",
+        "address": "04357 Leipzig",
+        "created": "21.04.2021",
+        "hints": [
+            "Vorher anrufen und Entnahmezeit vereinbaren (Schlauch reicht bis zur Straße)."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.411312, 51.369832] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Peterskirche Leipzig",
+        "organisation": "Peterskirche Leipzig",
+        "address": "Gaudigplatz, 04107 Leipzig",
+        "created": "23.04.2021",
+        "hints": [          
+            "Rechts neben dem Kirchenportal/-eingang in einer Nische ist eine kleine graue Tür. Hinter dieser Tür befindet sich der Wasseranschluss.",
+            "Bitte einen Schlauch mitbringen (vorher mal anschauen) und vor Benutzung bitte kurz im Gemeindebüro unter 0341 2131612 anrufen."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.375264465808868, 51.33071303031487] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kirche Mockau",
+        "organisation": "Kirche Mockau",
+        "address": "Höhe Kieler Str. 13, 04357 Leipzig",
+        "created": "27.04.2021",
+        "hints": [          
+            "neben Netto",
+            "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.4226045, 51.3772852] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gemeindehaus Mockau",
+        "organisation": "Gemeindehaus Mockau",
+        "address": "Kieler Str. 51, 04357 Leipzig",
+        "created": "27.04.2021",
+        "hints": [          
+            "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.41728134389, 51.3753762] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kirche Thekla",
+        "organisation": "Kirche Thekla",
+        "address": "Friedhof Thekla, 04349 Leipzig",
+        "created": "27.04.2021",
+        "hints": [          
+            "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.437738553812059, 51.38038418467387] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pfarrhaus Thekla",
+        "organisation": "Pfarrhaus Thekla",
+        "address": "Cleudner Str. 24, 04349 Leipzig",
+        "created": "27.04.2021",
+        "hints": [          
+            "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.44040755216, 51.3824922] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kirche Schönefeld und Pfarrhaus Schönefeld",
+        "organisation": "Kirche Schönefeld und Pfarrhaus Schönefeld",
+        "address": "Ossietzkystr. 39, 04347 Leipzig",
+        "created": "27.04.2021",
+        "hints": [          
+            "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.4096196, 51.3596718] }
+    }    
+  ]
+}

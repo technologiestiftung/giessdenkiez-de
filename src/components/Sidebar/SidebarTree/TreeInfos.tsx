@@ -1,5 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
+import ShareIcon from '@material-ui/icons/Share';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import copy from "copy-to-clipboard"; 
+
 import { getWaterNeedByAge } from '../../../utils/getWaterNeedByAge';
 
 import ExpandablePanel from '../../ExpandablePanel';
@@ -61,9 +72,12 @@ const TreeTitle = styled.h2`
   margin-top: 0px;
   line-height: 125%;
   margin-bottom: 5px;
+  button {
+    padding-bottom: 15px;
+  }
 `;
 
-const AgeInfoContainer = styled.div`
+const InfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
@@ -71,7 +85,7 @@ const AgeInfoContainer = styled.div`
   font-weight: bold;
 `;
 
-const AgeInfoValue = styled.span`
+const InfoValue = styled.span`
   font-weight: normal;
 `;
 
@@ -94,11 +108,15 @@ const TreeInfos: FC<{
   const {
     id: treeId,
     pflanzjahr,
+    artbot,
     artdtsch,
+    gattung,
     gattungdeutsch,
     caretaker,
     waterings,
   } = selectedTreeData;
+
+  const [open, setOpen] = useState(false);
 
   const { userData } = useUserData();
   const {
@@ -118,8 +136,41 @@ const TreeInfos: FC<{
       ? new Date().getFullYear() - parseInt(pflanzjahr, 10)
       : undefined;
 
+
+  const getTreeLink = () => window.location.href;
+
+  const handleLink = async () => {
+    if (navigator.share) {
+      await navigator.share({
+        title: 'Baum-Link',
+        text: 'Teile den Link zum Baum',
+        url: getTreeLink()
+      })
+      .catch(console.error);
+    } else {
+      setOpen(true)
+    }
+  };
+
   return (
     <Wrapper>
+      <Dialog onClose={() => setOpen(false)} aria-labelledby="share-tree-dialog-title" open={open}>
+        <DialogTitle id="share-tree-dialog-title">Baum-Link</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Teile den Link zum Baum:</DialogContentText>
+          <DialogContentText>
+            <a href={`${getTreeLink()}`}>{getTreeLink()}</a>
+            <IconButton onClick={() => copy(getTreeLink())}>
+              <FileCopyIcon />
+            </IconButton>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} color="primary">
+            Schließen
+          </Button>
+        </DialogActions>
+      </Dialog>
       <FlexColumnDiv>
         {(artdtsch || gattungdeutsch || treeType?.title) && (
           <TreeTitle>
@@ -127,6 +178,7 @@ const TreeInfos: FC<{
             {treeIsAdopted && (
               <AdoptedIndication>Adoptiert ✔</AdoptedIndication>
             )}
+            <IconButton onClick={handleLink}><ShareIcon /></IconButton>
           </TreeTitle>
         )}
         {!treeType &&
@@ -146,12 +198,24 @@ const TreeInfos: FC<{
             {treeType.description}
           </ExpandablePanel>
         )}
+        {artbot && (
+          <InfoContainer>
+            <span>Name (wiss.)</span>
+            <InfoValue>{artbot}</InfoValue>
+          </InfoContainer>
+        )}
+        {gattung && (
+          <InfoContainer>
+            <span>Gattung (wiss.)</span>
+            <InfoValue>{gattung}</InfoValue>
+          </InfoContainer>
+        )}
         {treeAge && (
           <>
-            <AgeInfoContainer>
+            <InfoContainer>
               <span>Standalter</span>
-              <AgeInfoValue>{treeAge} Jahre</AgeInfoValue>
-            </AgeInfoContainer>
+              <InfoValue>{treeAge} Jahre</InfoValue>
+            </InfoContainer>
             <ExpandablePanel
               title={
                 <>

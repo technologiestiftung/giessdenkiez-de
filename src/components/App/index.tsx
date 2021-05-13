@@ -16,6 +16,7 @@ import { useStoreState } from '../../state/unistore-hooks';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
+import { useWaterSourcesGeoJson } from '../../utils/hooks/useWaterSourcesGeoJson';
 import { useTreesGeoJson } from '../../utils/hooks/useTreesGeoJson';
 
 const AppContainer = styled.div`
@@ -40,13 +41,14 @@ const App: FC = () => {
   const { data: communityData } = useCommunityData();
   const { data: rainGeoJson } = useRainGeoJson();
   const { data: pumpsGeoJson } = usePumpsGeoJson();
+  const { data: waterSourcesGeoJson } = useWaterSourcesGeoJson();
   const { data: treesGeoJson } = useTreesGeoJson();
   const { pathname } = useLocation();
 
   const isHome = pathname === '/';
   const showOverlay = isHome && overlay;
   const showMap = Boolean(
-    treesGeoJson && communityData && rainGeoJson && pumpsGeoJson
+    treesGeoJson && communityData && rainGeoJson && pumpsGeoJson && waterSourcesGeoJson
   );
   const showLoading = !showMap;
   const showMapUI = showMap && !showOverlay;

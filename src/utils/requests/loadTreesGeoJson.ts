@@ -43,9 +43,9 @@ function createGeojson(trees: Tree[]): ExtendedFeatureCollection {
 
 export const loadTreesGeoJson = async (): Promise<ExtendedFeatureCollection> => {
   if (isLocalTesting) {
-    // http://localhost:8080/search?location=id-54243
+    // http://localhost:8080/tree/id-9135
     const data = [{
-      'id': 'id-54243',
+      'id': 'id-9135',
       'lng': 12.465195780349760,
       'lat': 51.436408951092531,
       'radolan_sum': 457,

@@ -48,9 +48,20 @@ const StyledTooltip = styled.div`
   }
 `;
 
+const StyledTooltipDateValue = styled.span`
+  display: inline-grid;
+  grid-template-columns: 24px auto;
+  padding-right: 10px;
+`;
+
 const StyledTooltipValue = styled.span`
   display: inline-grid;
   grid-template-columns: 16px auto;
+  padding-right: 10px;
+  strong {
+    padding-top: 3px;
+    padding-left: 3px;
+  }
 `;
 
 const StyledTooltipTotalSymbol = styled.span`
@@ -60,6 +71,8 @@ const StyledTooltipTotalSymbol = styled.span`
   font-size: 12px;
   transform: translateX(1px);
   font-weight: bold;
+  padding-top: 2px;
+  padding-left: 3px;
 `;
 
 const StackedBarChart: FC<{
@@ -93,6 +106,9 @@ const StackedBarChart: FC<{
     <>
       <BarChartWrapper id='barchart'>
         <StyledTooltip id='barchart-tooltip'>
+          <StyledTooltipDateValue>
+            <span id='barchart-tooltip-val-date' />
+          </StyledTooltipDateValue>
           <StyledTooltipValue>
             <strong>{wateredCircle}</strong>
             <span id='barchart-tooltip-val-watered' />

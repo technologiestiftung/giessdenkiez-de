@@ -36,53 +36,71 @@ const MARGIN = {
   top: 15,
   right: 10,
   bottom: 40,
-  left: 22,
+  left: 28,
 };
 
-const MONTH_ABBR = [
-  'Jan.',
-  'Feb.',
-  'Mär.',
-  'Apr.',
-  'Mai',
-  'Jun.',
-  'Jul.',
-  'Aug.',
-  'Sep.',
-  'Okt.',
-  'Nov.',
-  'Dez.',
-];
-
 const formatTooltipValue: (val: number) => string = val => `${val.toFixed(1)}l`;
-const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
-  onMouseOver(d) {
-    if (!d.data || !svg) return;
+
+const formatDate = date => `${date.getDate()}.${date.getMonth()+1}`
+
+const showDefaultTooltip = ({ tooltip, watered, rain }) => {
+  if(tooltip) {
     tooltip.classed('hovered', true);
-    select(svg).style('cursor', 'pointer');
-
-    selectAll(`.bar-${d.data.id}`).style('opacity', 1);
-  },
-  onMouseMove(d) {
-    if (!d.data || !svg) return;
-    const { rainValue, wateringValue } = d.data;
-
-    const sum = rainValue + wateringValue;
+    tooltip
+      .select('#barchart-tooltip-val-date')
+      .text("");
     tooltip
       .select('#barchart-tooltip-val-watered')
-      .text(formatTooltipValue(wateringValue));
+      .text(formatTooltipValue(watered));
     tooltip
       .select('#barchart-tooltip-val-rain')
-      .text(formatTooltipValue(rainValue));
-    tooltip.select('#barchart-tooltip-val-total').text(formatTooltipValue(sum));
-  },
-  onMouseLeave(d) {
-    if (!d.data || !svg) return;
-    tooltip.classed('hovered', false);
-    select(svg).style('cursor', 'default');
-    selectAll(`.bar-${d.data.id}`).style('opacity', DEFAULT_BAR_OPACITY);
-  },
-});
+      .text(formatTooltipValue(rain));
+    tooltip
+      .select('#barchart-tooltip-val-total')
+      .text(formatTooltipValue(watered + rain));
+  }
+}
+
+
+const getMouseHandlers = ({ watered, rain }) => { 
+  const internalGetMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
+    onMouseOver(d) {
+      if (!d.data || !svg) return;
+      tooltip.classed('hovered', true);
+      select(svg).style('cursor', 'pointer');
+
+      selectAll(`.bar-${d.data.id}`).style('opacity', 1);
+    },
+    onMouseMove(d) {
+      if (!d.data || !svg) return;
+      const { timestamp, rainValue, wateringValue } = d.data;
+
+      const sum = rainValue + wateringValue;
+      tooltip
+        .select('#barchart-tooltip-val-date')
+        .text(`${formatDate(timestamp)}:`);
+      tooltip
+        .select('#barchart-tooltip-val-watered')
+        .text(formatTooltipValue(wateringValue));
+      tooltip
+        .select('#barchart-tooltip-val-rain')
+        .text(formatTooltipValue(rainValue));
+      tooltip.select('#barchart-tooltip-val-total').text(formatTooltipValue(sum));
+    },
+    onMouseLeave(d) {
+      if (!d.data || !svg) return;
+      tooltip.classed('hovered', false);
+      select(svg).style('cursor', 'default');
+      selectAll(`.bar-${d.data.id}`).style('opacity', DEFAULT_BAR_OPACITY);
+      showDefaultTooltip({
+        tooltip,
+        watered,
+        rain
+      });
+    },
+  });
+  return internalGetMouseHandlers;
+}
 
 export function drawD3Chart(
   waterAmountInLast30Days: DailyWaterAmountsType[],
@@ -156,10 +174,7 @@ export function drawD3Chart(
 
   const xAxis = axisBottom<Date>(xScale)
     .tickValues(getXTicks())
-    .tickFormat(date => {
-      if (date.getTime() === TODAY.getTime()) return 'Heute';
-      else return `${date.getDate()}. ${MONTH_ABBR[date.getMonth()]}`;
-    })
+    .tickFormat(formatDate)
     .tickSizeOuter(0);
 
   // remove double loaded svg
@@ -226,7 +241,10 @@ export function drawD3Chart(
     .attr('class', 'series-wrapper')
     .attr('transform', `translate(0, ${MARGIN.top})`);
 
-  const mouseHandlers = getMouseHandlers(
+  const watered = waterAmountInLast30Days.reduce((agg, value) => agg + value.wateringValue, 0);
+  const rain = waterAmountInLast30Days.reduce((agg, value) => agg + value.rainValue, 0);
+
+  const mouseHandlers = getMouseHandlers({ watered, rain })(
     svg.node(),
     wrapper.select('#barchart-tooltip')
   );
@@ -269,4 +287,10 @@ export function drawD3Chart(
     .on('mouseover', mouseHandlers.onMouseOver)
     .on('mouseleave', mouseHandlers.onMouseLeave)
     .on('mousemove', mouseHandlers.onMouseMove);
+
+  showDefaultTooltip({
+    tooltip: wrapper.select('#barchart-tooltip'),
+    watered,
+    rain,
+  });  
 }

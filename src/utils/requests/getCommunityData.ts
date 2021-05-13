@@ -2,26 +2,18 @@ import { CommunityDataType } from '../../common/interfaces';
 import { createAPIUrl } from '../createAPIUrl';
 import { requests } from '../requestUtil';
 
-const LOCAL_TESTING = true
-
 export const getCommunityData = async (): Promise<CommunityDataType> => {
   const fetchCommunityDataUrl = createAPIUrl(
     `/get?queryType=wateredandadopted`
   );
 
-  var json = {}
-  if (LOCAL_TESTING) {
-    json = {};
-  } else {
-    json = await requests<{
-      data: {
-        tree_id: string;
-        adopted: string;
-        watered: string;
-      }[];
-    }>(fetchCommunityDataUrl);  
-  }
-
+  var json = await requests<{
+    data: {
+      tree_id: string;
+      adopted: string;
+      watered: string;
+    }[];
+  }>(fetchCommunityDataUrl);  
 
   const defaultCommunityData: CommunityDataType = {
     communityFlagsMap: {},

@@ -52,6 +52,7 @@ interface DeckGLPropType {
   focusPoint: StoreProps['mapFocusPoint'];
 
   pumpsGeoJson: ExtendedFeatureCollection | null;
+  waterSourcesGeoJson: ExtendedFeatureCollection | null;
   selectedTreeId: string | undefined;
   communityData: CommunityDataType['communityFlagsMap'];
   communityDataWatered: CommunityDataType['wateredTreesIds'];
@@ -109,12 +110,28 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     this.onViewStateChange = this.onViewStateChange.bind(this);
   }
 
+  _handleWaterPopUp(_x: number, _y: number, object?: any, isClick?: boolean) {
+    if (object === undefined) {
+      this.setState({ isHovered: false });
+      return;
+    }
+    this.setState({ isHovered: true });
+    this.setState({
+      hoverObjectMessage: object.properties,
+    });
+    const { hoverObjectPointer: currPointer, isHovered: currIsHovered } = this.state;
+    const isHovered = (!isClick || currPointer[0] === _x && currPointer[1] === _y) && !currIsHovered
+    this.setState({ isHovered: isHovered });
+    this.setState({ hoverObjectPointer: [_x, _y] });
+  };
+
   _renderLayers(): unknown[] {
     const {
       treesGeoJson,
       rainGeojson,
       visibleMapLayer,
       pumpsGeoJson,
+      waterSourcesGeoJson,
     } = this.props;
 
     if (!treesGeoJson || !rainGeojson || !pumpsGeoJson) return [];
@@ -284,6 +301,26 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           this.setState({ hoverObjectMessage });
           this.setState({ hoverObjectPointer: [info.x, info.y] });
         },
+      }),
+      new GeoJsonLayer({
+        id: 'waterSources',
+        data: waterSourcesGeoJson as any,
+        opacity: 1,
+        visible: visibleMapLayer.indexOf('water_sources') >= 0 ? true : false,
+        stroked: true,
+        filled: true,
+        extruded: true,
+        wireframe: true,
+        getElevation: 1,
+        getLineColor: [0, 0, 0, 200],
+        getFillColor: [0, 0, 255, 255],
+        getRadius: 9,
+        pointRadiusMinPixels: 4,
+        pickable: true,
+        lineWidthScale: 3,
+        lineWidthMinPixels: 1.5,
+        onHover: info => this._handleWaterPopUp(info.x, info.y, info.object, false),
+        ontouchstart: info => this._handleWaterPopUp(info.x, info.y, info.object, true)
       }),
     ];
 
