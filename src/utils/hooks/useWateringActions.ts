@@ -28,7 +28,7 @@ export const useWateringActions = (
         token,
         amount,
         userId: userData.id,
-        username: userData.username,
+        username: userData.userProfile?.prefered_username || userData.username,
       });
       setIsBeingWatered(false);
 

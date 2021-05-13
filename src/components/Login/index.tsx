@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useAccountActions } from '../../utils/hooks/useAccountActions';
+import { useUserProfileActions } from '../../utils/hooks/useUserProfileActions';
 
 import { useUserData } from '../../utils/hooks/useUserData';
 
@@ -11,6 +12,11 @@ const Login: FC<{
 }> = ({ width, noLogout }) => {
   const { userData } = useUserData();
   const { login, logout } = useAccountActions();
+  const { createUserProfile } = useUserProfileActions();
+
+  if (userData && !userData.userProfile) {
+    createUserProfile();
+  }
 
   return (
     <>

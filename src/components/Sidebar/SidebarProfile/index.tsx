@@ -16,6 +16,7 @@ import { ParticipateButton } from '../../ParticipateButton';
 import { useAccountActions } from '../../../utils/hooks/useAccountActions';
 import { UserDataType } from '../../../common/interfaces';
 import { SidebarLoading } from '../SidebarLoading';
+import { useUserProfileActions } from '../../../utils/hooks/useUserProfileActions';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
@@ -43,6 +44,7 @@ const SidebarProfile: FC<{
   userData?: UserDataType | undefined;
 }> = ({ userData: userDataProps, isLoading: isLoadingProps }) => {
   const { userData: userDataState } = useUserData();
+  const { changeUsername } = useUserProfileActions();
   const { deleteAccount } = useAccountActions();
   const { loading: isLoadingState } = useAuth0();
   const isLoading = isLoadingProps || isLoadingState;
@@ -82,7 +84,7 @@ const SidebarProfile: FC<{
       </>
     );
   }
-
+  
   return (
     <>
       <SidebarTitle>Profil</SidebarTitle>
@@ -95,7 +97,12 @@ const SidebarProfile: FC<{
           <TreesList trees={userData.adoptedTrees} />
         )}
       </ExpandablePanel>
-      <UserCredentials email={userData.email} username={userData.username} />
+      <UserCredentials 
+        userId={userData.id} 
+        email={userData.email} 
+        preferedUserName={userData.userProfile?.prefered_username || userData.username} 
+        changeUsername={changeUsername}
+      />
       <br />
       <Login width='-webkit-fill-available' />
       <>

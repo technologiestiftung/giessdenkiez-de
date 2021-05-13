@@ -2,6 +2,7 @@ import { UserDataType } from '../../common/interfaces';
 import { getTreesAdoptedByUser } from './getTreesAdoptedByUser';
 import { getUserWaterings } from './getUserWaterings';
 import { getUserInfo } from './getUserInfo';
+import { getUserProfile } from './getUserProfile';
 
 export const getUserData = async ({
   userId,
@@ -14,8 +15,9 @@ export const getUserData = async ({
     getUserInfo({ userId, token }),
     getUserWaterings({ userId, token }),
     getTreesAdoptedByUser({ userId, token }),
+    getUserProfile({ userId, token }),
   ]);
-  const [user, waterings, adoptedTrees] = res;
+  const [user, waterings, adoptedTrees, userProfile] = res;
   if (!user) return undefined;
 
   return {
@@ -25,5 +27,6 @@ export const getUserData = async ({
     isVerified: user.email_verified || false,
     waterings,
     adoptedTrees,
+    userProfile,
   };
 };

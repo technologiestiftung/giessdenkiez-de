@@ -31,6 +31,22 @@ export interface UserDataType {
   isVerified: boolean;
   waterings: WateringType[];
   adoptedTrees: Tree[];
+  userProfile: UserProfile;
+}
+export interface UserProfile {
+  uuid: string;
+  email: string;
+  username?: string;
+  prefered_username?: string;
+  family_name?: string;
+  given_name?: string;
+  gender?: string;
+  street?: string;
+  street_number?: string;
+  city?: string;
+  zipcode?: string;
+  country?: string;
+  phone_number?: string;
 }
 export interface SelectedTreeType extends Tree {
   radolan_days: RadolanDays;

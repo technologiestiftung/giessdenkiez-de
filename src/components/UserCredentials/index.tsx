@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 import styled from 'styled-components';
 import ExpandablePanel from '../ExpandablePanel';
 import SmallParagraph from '../SmallParagraph';
@@ -10,14 +10,31 @@ const CredentialValue = styled.p`
 `;
 
 const CardCredentials: FC<{
-  username: string;
-  email: string;
-}> = ({ username, email }) => (
-  <ExpandablePanel isExpanded title='Dein Account'>
-    <CredentialValue>{username}</CredentialValue>
-    <CredentialValue>{email}</CredentialValue>
-    <SmallParagraph>Registrierte E-Mail Adresse</SmallParagraph>
-  </ExpandablePanel>
-);
+  email: string,
+  preferedUserName: string,
+  changeUsername: (username: string) => Promise<void | undefined>;
+}> = ({ email, preferedUserName, changeUsername }) => {
+  const inputRef = useRef(null)
+  return (
+    <ExpandablePanel isExpanded title='Dein Account'>
+      <SmallParagraph>Öffentlich angezeigter Benutzername:</SmallParagraph>
+      <CredentialValue>
+        <input
+          ref={inputRef}
+          onBlur={() => {
+            if (inputRef.current?.value && inputRef.current?.value.length > 0 && inputRef.current?.value !== preferedUserName) {
+              changeUsername(inputRef.current?.value)
+            }
+          }}
+          placeholder="Benutzername"
+          type="text"
+          defaultValue={preferedUserName}
+        />
+      </CredentialValue>
+      <SmallParagraph>Registrierte E-Mail Adresse:</SmallParagraph>
+      <CredentialValue>{email}</CredentialValue>
+    </ExpandablePanel>
+  );
+}
 
 export default CardCredentials;
