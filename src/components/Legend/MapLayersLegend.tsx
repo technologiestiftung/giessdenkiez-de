@@ -18,6 +18,7 @@ import { LegendDot, LegendRect, StrokedLegendDot } from './LegendRectsDots';
 import { ItemLabel, legendLabels } from './LegendLabels';
 import SmallParagraph from '../SmallParagraph';
 import { isMobile } from 'react-device-detect';
+import { VisibleMapLayerType } from '../../common/types';
 
 export interface IsActiveProps {
   isActive?: boolean;
@@ -72,8 +73,8 @@ const MapLayerLegend: FC = () => {
 
   const [legendExpanded, setLegendExpanded] = useState(isMobile ? false : true);
 
-  const removeFromList = (current: [ "rain" | "trees" | "water_sources" | "pumps" ], 
-      elem: "rain" | "trees" | "water_sources" | "pumps", setter: Dispatch<SetStateAction<boolean>>) => {
+  const removeFromList = (current: VisibleMapLayerType[], elem: VisibleMapLayerType, 
+      setter: Dispatch<SetStateAction<boolean>>) => {
     const index = current.indexOf(elem);
     if (index >= 0) {
       current.splice(index, 1)
@@ -139,6 +140,9 @@ const MapLayerLegend: FC = () => {
                 removeFromList(current, 'pumps', setPumpsVisible)
                 current.push('trees');
                 setTreesVisible(true)
+              } else {
+                removeFromList(current, 'trees', setRainVisible)
+                setTreesVisible(false)
               }
               return current
           })())}}
@@ -151,7 +155,7 @@ const MapLayerLegend: FC = () => {
 
           <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
         </FlexRowFit>
-        <FlexRowFit
+        { false && <FlexRowFit
           isActive={pumpsVisible}
           onClick={() => {
             setVisibleMapLayer((() => {
@@ -162,6 +166,9 @@ const MapLayerLegend: FC = () => {
                 removeFromList(current, 'water_sources', setWaterSourcesVisible)
                 current.push('pumps');
                 setPumpsVisible(true)
+              } else {
+                removeFromList(current, 'pumps', setRainVisible)
+                setPumpsVisible(false)
               }
               return current
           })())}}
@@ -173,7 +180,38 @@ const MapLayerLegend: FC = () => {
           />
 
           <StyledItemLabel>Öffentl. Pumpen</StyledItemLabel>
+        </FlexRowFit> }
+        <FlexRowFit
+          isActive={waterSourcesVisible}
+          onClick={() => {
+            setVisibleMapLayer((() => {
+              const current = visibleMapLayer
+              if (current.indexOf('water_sources') < 0) {
+                removeFromList(current, 'rain', setRainVisible)
+                removeFromList(current, 'pumps', setWaterSourcesVisible)
+                current.push('water_sources');
+                setWaterSourcesVisible(true)
+              } else {
+                removeFromList(current, 'water_sources', setRainVisible)
+                setWaterSourcesVisible(false)
+              }
+              return current
+          })())}}
+        >
+          <StrokedLegendDot
+            gradient={
+              waterSourcesVisible ? "#0000ff" : undefined
+            }
+          />
+          <StyledItemLabel>Wasserquellen</StyledItemLabel>
         </FlexRowFit>
+        {waterSourcesVisible === true && (
+              <div>kostenlose, öffentlich zugängliche Wasserquellen, damit weite 
+                Wasser-Transportwege entfallen und möglichst geringe Wasserkosten 
+                entstehen. Möchtest Du auch anderen Wasser zum Gießen bereitstellen, 
+                melde Dich gerne bei <a href="mailto:wasserspende@leipziggiesst.de">uns</a>.
+              </div>
+            )}
         <FlexRowFit
           isActive={rainVisible}
           onClick={() => {
@@ -185,6 +223,9 @@ const MapLayerLegend: FC = () => {
                 removeFromList(current, 'water_sources', setWaterSourcesVisible)
                 current.push('rain');
                 setRainVisible(true)
+              } else {
+                removeFromList(current, 'rain', setRainVisible)
+                setRainVisible(false)
               }
               return current
           })())}}

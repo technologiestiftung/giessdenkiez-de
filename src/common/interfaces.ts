@@ -1,4 +1,4 @@
-import { RadolanDays } from './types';
+import { RadolanDays, VisibleMapLayerType } from './types';
 
 export interface DailyWaterAmountsType {
   id: number;
@@ -51,7 +51,7 @@ interface FocusPointType {
 
 export interface StoreProps {
   mapViewFilter: 'rain' | 'adopted' | 'watered';
-  visibleMapLayer: [ 'rain' | 'trees' | 'pumps' | 'water_sources' ];
+  visibleMapLayer: VisibleMapLayerType[];
   isNavOpen: boolean;
   ageRange: number[];
   overlay: boolean;
