@@ -12,7 +12,7 @@ import {
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
-import { Tooltip } from '../Tooltip';
+import { HoverObject } from '../Tooltip';
 import {
   CommunityDataType,
   StoreProps,
@@ -140,7 +140,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           }
         },
         getLineColor: [247, 105, 6, 255],
-        visible: visibleMapLayer === 'trees',
+        visible: visibleMapLayer.indexOf('trees') >= 0,
         filled: true,
         parameters: () => ({
           depthTest: false,
@@ -234,7 +234,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         id: 'rain',
         data: rainGeojson as any,
         opacity: 0.95,
-        visible: visibleMapLayer === 'rain' ? true : false,
+        visible: visibleMapLayer.indexOf('rain') >= 0 ? true : false,
         stroked: false,
         filled: true,
         extruded: true,
@@ -259,7 +259,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         id: 'pumps',
         data: pumpsGeoJson as any,
         opacity: 1,
-        visible: visibleMapLayer === 'pumps' ? true : false,
+        visible: visibleMapLayer.indexOf('pumps') >= 0 ? true : false,
         stroked: true,
         filled: true,
         extruded: true,
@@ -465,7 +465,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
   _updateStyles(prevProps: DeckGLPropType): void {
     if (map && isMobile) {
-      if (this.props.visibleMapLayer !== 'trees') {
+      if (this.props.visibleMapLayer.indexOf('trees') < 0) {
         map.setLayoutProperty('trees', 'visibility', 'none');
       } else {
         map.setLayoutProperty('trees', 'visibility', 'visible');
@@ -561,13 +561,13 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         {isMobile === false &&
           this.state.isHovered === true &&
           this.state.hoverObjectPointer.length === 2 && (
-            <Tooltip
-              x={this.state.hoverObjectPointer[0]}
-              y={this.state.hoverObjectPointer[1]}
+            <HoverObject
+              data={this.state.hoverObjectMessage}
+              pointer={this.state.hoverObjectPointer}
             >
               <b>Status:</b>
               {this.state.hoverObjectMessage}
-            </Tooltip>
+            </HoverObject>
           )}
         <DeckGL
           layers={this._renderLayers() as any}
@@ -581,7 +581,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         >
           <StaticMap
             reuseMaps
-            mapStyle='mapbox://sannsie.6tujqvnq'
+            mapStyle='mapbox://styles/sannsie/cklfkrwfz6uyl17mq72yy8u2y'
             preventStyleDiffing={true}
             mapboxApiAccessToken={process.env.MAPBOX_API_KEY}
             onLoad={this._onload.bind(this)}

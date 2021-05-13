@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import styled from 'styled-components';
 import { interpolateColor } from '../../utils/colorUtil';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
@@ -65,8 +65,21 @@ const MapLayerLegend: FC = () => {
   const { setVisibleMapLayer } = useActions();
 
   const visibleMapLayer = useStoreState('visibleMapLayer');
+  const [waterSourcesVisible, setWaterSourcesVisible] = useState(visibleMapLayer.indexOf('water_sources') >= 0);
+  const [rainVisible, setRainVisible] = useState(visibleMapLayer.indexOf('rain') >= 0);
+  const [treesVisible, setTreesVisible] = useState(visibleMapLayer.indexOf('trees') >= 0);
+  const [pumpsVisible, setPumpsVisible] = useState(visibleMapLayer.indexOf('pumps') >= 0);
 
   const [legendExpanded, setLegendExpanded] = useState(isMobile ? false : true);
+
+  const removeFromList = (current: [ "rain" | "trees" | "water_sources" | "pumps" ], 
+      elem: "rain" | "trees" | "water_sources" | "pumps", setter: Dispatch<SetStateAction<boolean>>) => {
+    const index = current.indexOf(elem);
+    if (index >= 0) {
+      current.splice(index, 1)
+      setter(false)
+    }
+  }
 
   if (legendExpanded === false) {
     return (
@@ -88,63 +101,96 @@ const MapLayerLegend: FC = () => {
       <FlexSpace isActive>
         <FlexColumnLast>
           <StyledCardDescription onClick={() => setLegendExpanded(false)}>
-            {visibleMapLayer === 'pumps'
-              ? 'Öffentliche Pumpen'
-              : 'Niederschlag'}
+          {(() => {
+              var labels: string[] = [];
+              if (treesVisible || rainVisible) {
+                labels.push('Niederschlag');
+              }
+              if (waterSourcesVisible) {
+                labels.push('Wasserquellen');
+              }
+              return labels.length > 1 ? labels[0] + " / " + labels[1] : labels[0];
+            })()}                
           </StyledCardDescription>
-          {visibleMapLayer !== 'pumps' && (
+          {treesVisible && (
             <SmallParagraph>der letzten 30 Tage (Liter)</SmallParagraph>
           )}
         </FlexColumnLast>
         <LegendToggle onClick={() => setLegendExpanded(false)}>—</LegendToggle>
       </FlexSpace>
-      {visibleMapLayer !== 'pumps' && (
+      {!pumpsVisible && (
         <FlexRow>
-          {visibleMapLayer === 'trees' && <TreesColorLegend />}
-          {visibleMapLayer === 'rain' && <RainColorLegend />}
+          {treesVisible && <TreesColorLegend />}
+          {rainVisible && <RainColorLegend />}
         </FlexRow>
       )}
-      {visibleMapLayer === 'pumps' && <PumpsColorLegend />}
+      {pumpsVisible && <PumpsColorLegend />}
 
       <FlexColumnLast isLast={true}>
         <StyledCardDescription>Datenpunkte</StyledCardDescription>
         <SmallParagraph>durch Klick ein- & ausblenden.</SmallParagraph>
         <FlexRowFit
-          isActive={visibleMapLayer === 'trees'}
+          isActive={treesVisible}
           onClick={() => {
-            setVisibleMapLayer('trees');
-          }}
+            setVisibleMapLayer((() => {
+              const current = visibleMapLayer
+              if (current.indexOf('trees') < 0) {
+                removeFromList(current, 'rain', setRainVisible)
+                removeFromList(current, 'pumps', setPumpsVisible)
+                current.push('trees');
+                setTreesVisible(true)
+              }
+              return current
+          })())}}
         >
           <LegendDot
             className={'legend-dot'}
             color={'#2c303b'}
-            gradient={visibleMapLayer === 'trees' ? rainGradient : undefined}
+            gradient={treesVisible ? rainGradient : undefined}
           />
 
           <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
         </FlexRowFit>
         <FlexRowFit
-          isActive={visibleMapLayer === 'pumps'}
+          isActive={pumpsVisible}
           onClick={() => {
-            setVisibleMapLayer('pumps');
-          }}
+            setVisibleMapLayer((() => {
+              const current = visibleMapLayer
+              if (current.indexOf('pumps') < 0) {
+                removeFromList(current, 'trees', setTreesVisible)
+                removeFromList(current, 'rain', setRainVisible)
+                removeFromList(current, 'water_sources', setWaterSourcesVisible)
+                current.push('pumps');
+                setPumpsVisible(true)
+              }
+              return current
+          })())}}
         >
           <StrokedLegendDot
             gradient={
-              visibleMapLayer === 'pumps' ? workingColor.hex : undefined
+              pumpsVisible ? workingColor.hex : undefined
             }
           />
 
           <StyledItemLabel>Öffentl. Pumpen</StyledItemLabel>
         </FlexRowFit>
         <FlexRowFit
-          isActive={visibleMapLayer === 'rain'}
+          isActive={rainVisible}
           onClick={() => {
-            setVisibleMapLayer('rain');
-          }}
+            setVisibleMapLayer((() => {
+              const current = visibleMapLayer;
+              if (current.indexOf('rain') < 0) {
+                removeFromList(current, 'pumps', setPumpsVisible)
+                removeFromList(current, 'trees', setTreesVisible)
+                removeFromList(current, 'water_sources', setWaterSourcesVisible)
+                current.push('rain');
+                setRainVisible(true)
+              }
+              return current
+          })())}}
         >
           <LegendRect
-            gradient={visibleMapLayer === 'rain' ? rainGradient : undefined}
+            gradient={rainVisible ? rainGradient : undefined}
           />
 
           <StyledItemLabel>Niederschlagsflächen</StyledItemLabel>
