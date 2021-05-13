@@ -635,7 +635,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
               <ControlWrapper isNavOpen={isNavOpen}>
                 <GeolocateControl
                   positionOptions={{ enableHighAccuracy: true }}
-                  trackUserLocation={isMobile ? true : false}
+                  trackUserLocation={false}
                   showUserLocation={true}
                   onGeolocate={posOptions => {
                     const {
