@@ -51,12 +51,12 @@ const content: Content = {
   faq: {
     title: 'F.A.Q.',
     description:
-      'Basierend auf dem regen Austausch unserer Community auf Slack & euren Rückmeldungen per Email und Telefon, haben wir ein kleines FAQ angelegt. Hier werden die am häuftigsten gestellten Fragen beantwortet.',
+      'Basierend auf dem regen Austausch unserer Community auf Slack & euren Rückmeldungen per E-Mail und Telefon, haben wir ein kleines FAQ angelegt. Hier werden die am häuftigsten gestellten Fragen beantwortet.',
     qa: [
       {
         question: 'Wie kann ich mitmachen?',
         answer:
-          'Du bist einfach nur neugierig welcher Baum vor deiner Tür steht? Kein Problem: navigiere und zoome zum gewünschten Standort und klicke auf den farbigen Punkt. Nun werden dir im Menüband links zahlreiche Informationen zum ausgewählten Baum angezeigt. <br> <br> Du möchtest aktiv werden oder bist breits aktiv am Gießen? Dann kannst du hier einen oder mehrere Bäume adoptieren. Lege dazu zunächst ein Profil mit einer gültigen Email-Adresse an und logge dich im Anschluss ein. Nun kannst du deine Gieß-Aktionen entsprechend dokumentieren und sehen ob und wie oft Bäume in deinem Kiez bereits von anderen Nutzer*innen gegossen wurden.',
+          'Du bist einfach nur neugierig welcher Baum vor deiner Tür steht? Kein Problem: navigiere und zoome zum gewünschten Standort und klicke auf den farbigen Punkt. Nun werden dir im Menüband links zahlreiche Informationen zum ausgewählten Baum angezeigt. <br> <br> Du möchtest aktiv werden oder bist breits aktiv am Gießen? Dann kannst du hier einen oder mehrere Bäume adoptieren. Lege dazu zunächst ein Profil mit einer gültigen E-Mail-Adresse an und logge dich im Anschluss ein. Nun kannst du deine Gieß-Aktionen entsprechend dokumentieren und sehen ob und wie oft Bäume in deinem Kiez bereits von anderen Nutzer*innen gegossen wurden.',
       },
       {
         question:
@@ -72,7 +72,7 @@ const content: Content = {
       {
         question: 'Wie gieße ich richtig?',
         answer:
-          'Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Jungbäume <br> (0-15 Jahre), benötigen mehr Wasser als mittelalte Bäume (15-40 Jahre). Altbäume (ab 40 Jahre) sind meist komplette Selbstversorger. <br>Da frisch gepflanzte Bäume bis zum Alter von drei Jahren in der Regel von den bezirklichen Grünflächenämtern mit Wasser versorgt werden, benötigen besonders die Bäume zwischen vier und 15 Jahren unsere Aufmerksamkeit, beziehungsweise unser Wasser. Dies haben wir mit den Kennzeichungen des geringen, mittleren oder hohen Wasserbedarfs hervorgehoben.<br><br> Angelehnt an das Berliner <a traget="blank" href="https://www.berlin.de/senuvk/umwelt/stadtgruen/pflege_unterhaltung/de/hgp/index.shtml">Handbuch Gute Pflege</a> empfehlen wir euch, lieber seltener zu wässern, dafür mit einer größeren Menge an Wasser. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Im Endeffekt schaden aber auch kleinere Mengen gerade im Hochsommer nicht. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht wegläuft oder sich falsch anstaut. Auch zu empfehlen sind sog. Gießsäcke aus denen das Wasser nur sehr langsam ausstritt, kaum oberflächig abläuft und somit kontinuierlich in den Boden sickert.',
+          'Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Jungbäume <br> (0-15 Jahre), benötigen mehr Wasser als mittelalte Bäume (15-40 Jahre). Altbäume (ab 40 Jahre) sind meist komplette Selbstversorger. <br>Da frisch gepflanzte Bäume bis zum Alter von drei Jahren in der Regel von den bezirklichen Grünflächenämtern mit Wasser versorgt werden, benötigen besonders die Bäume zwischen vier und 15 Jahren unsere Aufmerksamkeit, beziehungsweise unser Wasser. Dies haben wir mit den Kennzeichungen des geringen, mittleren oder hohen Wasserbedarfs hervorgehoben.<br><br> Angelehnt an das Berliner <a traget="blank" href="https://www.berlin.de/senuvk/umwelt/stadtgruen/pflege_unterhaltung/de/hgp/index.shtml">Handbuch Gute Pflege</a> empfehlen wir euch, lieber seltener zu wässern, dafür mit einer größeren Menge an Wasser. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200 Liter pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Im Endeffekt schaden aber auch kleinere Mengen gerade im Hochsommer nicht. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht wegläuft oder sich falsch anstaut. Auch zu empfehlen sind sog. Gießsäcke aus denen das Wasser nur sehr langsam ausstritt, kaum oberflächig abläuft und somit kontinuierlich in den Boden sickert.',
       },
       {
         question:
@@ -104,7 +104,7 @@ const content: Content = {
       {
         question: 'Ich habe immer noch eine Frage!',
         answer:
-          'Das FAQ konnte dir nicht weiterhelfen oder du hast eine komplexere Anfrage? Dann schreib uns eine <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Frage:...">Email.</a>',
+          'Das FAQ konnte dir nicht weiterhelfen oder du hast eine komplexere Anfrage? Dann schreib uns eine <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Frage:...">E-Mail.</a>',
       },
       {
         question: 'I don’t speak any German: What’s going on here?',
@@ -167,7 +167,7 @@ const content: Content = {
       'Wir laden gerade 625.000 Bäume aus dem Berliner Baumbestand.',
       'Wenn du diese Seite über das Mobilfunknetz aufrufst, kann es etwas dauern.',
       'Sammle Informationen aller Bäume aus Berlins Stadtkataster.',
-      'Schon gewusst? Ein Stadtbaum benötigt etwa 70 Wasser in der Woche.',
+      'Schon gewusst? Ein Stadtbaum benötigt etwa 70 Liter Wasser in der Woche.',
     ],
   },
   sidebar: {
@@ -214,12 +214,12 @@ const content: Content = {
       {
         title: 'Mittlerer Wasserbedarf',
         description:
-          'Mittelalte Bäume zwischen 15 und 40 Jahren werden in der Regel nicht mehr durch die Grünflächenämter bewässert, haben aber schon ein gewisses Durchhaltevermögen. Aber auch für sie sind die Hitzesommer ungewohnt und sie freuen sich über jeden Eimer: Gerne ein Mal in der Woche mit bis zu 100l gießen. ',
+          'Mittelalte Bäume zwischen 15 und 40 Jahren werden in der Regel nicht mehr durch die Grünflächenämter bewässert, haben aber schon ein gewisses Durchhaltevermögen. Aber auch für sie sind die Hitzesommer ungewohnt und sie freuen sich über jeden Eimer: Gerne ein Mal in der Woche mit bis zu 100 Litern gießen. ',
       },
       {
         title: 'Hoher Wasserbedarf',
         description:
-          'Jungbäume zwischen vier und 15 Jahren werden nicht in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Sie freuen sich über viel Wasser von bis zu 200l pro Gießung (ein Mal in der Woche).',
+          'Jungbäume zwischen vier und 15 Jahren werden nicht in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Sie freuen sich über viel Wasser von bis zu 200 Liter pro Gießung (ein Mal in der Woche).',
       },
     ],
     treetypes: [
@@ -245,7 +245,7 @@ const content: Content = {
         id: 'PLATANE',
         title: 'Platane (Platanus)',
         description:
-          'Ein idealer Alleebaum für breite Straßen ist die Platane (Platanus acerifolia), die neben einer Höhe von 20 bis 30 m auch einen stattlichen Kronendurchmesser von 15 bis 20 m erreichen kann. Am Gesamtbestand haben die Platanen einen Anteil von etwa 6%. Die bekannteste und mit über 120 Jahren älteste Platanenallee in Berlin ist die Puschkinallee in Berlin-Treptow.',
+          'Ein idealer Alleebaum für breite Straßen ist die Platane (Platanus acerifolia), die neben einer Höhe von 20 bis 30 Metern auch einen stattlichen Kronendurchmesser von 15 bis 20 Metern erreichen kann. Am Gesamtbestand haben die Platanen einen Anteil von etwa 6%. Die bekannteste und mit über 120 Jahren älteste Platanenallee in Berlin ist die Puschkinallee in Berlin-Treptow.',
       },
       {
         id: 'KASTANIE',
