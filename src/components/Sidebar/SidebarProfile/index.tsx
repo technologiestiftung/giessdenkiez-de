@@ -14,9 +14,8 @@ import ButtonRound from '../../ButtonRound';
 import SidebarTitle from '../SidebarTitle/';
 import { ParticipateButton } from '../../ParticipateButton';
 import { useAccountActions } from '../../../utils/hooks/useAccountActions';
-import { UserDataType } from '../../../common/interfaces';
+import { UserProfile, UserDataType } from '../../../common/interfaces';
 import { SidebarLoading } from '../SidebarLoading';
-import { useUserProfileActions } from '../../../utils/hooks/useUserProfileActions';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
@@ -44,11 +43,25 @@ const SidebarProfile: FC<{
   userData?: UserDataType | undefined;
 }> = ({ userData: userDataProps, isLoading: isLoadingProps }) => {
   const { userData: userDataState } = useUserData();
-  const { changeUsername } = useUserProfileActions();
   const { deleteAccount } = useAccountActions();
   const { loading: isLoadingState } = useAuth0();
   const isLoading = isLoadingProps || isLoadingState;
-  const userData = userDataProps || userDataState || false;
+  const isLocalTesting = process.env.LOCAL_TESTING;
+  const localUserProfile: UserProfile = {
+    uuid: "0815",
+    email: "a@b.c",
+    prefered_username: "ABC"
+  }
+  const localUserData = {
+    id: "0815",
+    email: "a@b.c",
+    username: "abc",
+    userProfile: localUserProfile,
+    isVerified: true,
+    adoptedTrees: [],
+    waterings: []
+  };
+  const userData = userDataProps || userDataState || (isLocalTesting ? localUserData : false);
 
   const handleDeleteClick = async () => {
     if (!confirmAccountDeletion()) return;
@@ -100,8 +113,8 @@ const SidebarProfile: FC<{
       <UserCredentials 
         userId={userData.id} 
         email={userData.email} 
-        preferedUserName={userData.userProfile?.prefered_username || userData.username} 
-        changeUsername={changeUsername}
+        username={userData.username} 
+        userProfile={userData.userProfile || {}} 
       />
       <br />
       <Login width='-webkit-fill-available' />

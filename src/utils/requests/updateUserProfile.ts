@@ -4,11 +4,13 @@ import { requests } from '../requestUtil';
 export const updateUserProfile = async ({
   token,
   userId,
-  preferedUserName,
+  name,
+  value,
 }: {
   token: string;
   userId: string;
-  preferedUserName: string;
+  name: string;
+  value?: string;
 }): Promise<void> => {
   const urlChangeUserProfile = createAPIUrl(`/post`);
 
@@ -20,8 +22,8 @@ export const updateUserProfile = async ({
         queryType: "user-profile",
         uuid: userId,
         patches: [{
-          "name": "prefered_username",
-          "value": preferedUserName
+          "name": name,
+          "value": value
         }]
       }),
     },

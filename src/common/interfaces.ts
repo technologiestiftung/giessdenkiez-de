@@ -40,12 +40,9 @@ export interface UserProfile {
   prefered_username?: string;
   family_name?: string;
   given_name?: string;
-  gender?: string;
-  street?: string;
-  street_number?: string;
-  city?: string;
+  salutation?: string;
+  street_with_number?: string;
   zipcode?: string;
-  country?: string;
   phone_number?: string;
 }
 export interface SelectedTreeType extends Tree {
