@@ -115,6 +115,7 @@
     "react-dom": "16.14.0",
     "react-easy-edit": "^1.13.1",
     "react-hot-loader": "4.13.0",
+    "react-html-parser": "^2.0.2",
     "react-loader-spinner": "^4.0.0",
     "react-map-gl": "5.2.12",
     "react-query": "3.12.2",

@@ -8,6 +8,8 @@
     {
       "type": "Feature",
       "properties": {
+        "id": "20210415_thorsten",
+        "type": "Privatperson",
         "name": "Thorsten",
         "organisation": "Stiftung Ecken Wecken",
         "address": "Markranstädter Straße 29b",
@@ -22,9 +24,10 @@
     {
       "type": "Feature",
       "properties": {
+        "id": "20210421_ruediger",
         "name": "Rüdiger",
-        "organisation": "KGV Mockau-Mitte, Garten 244",
-        "address": "04357 Leipzig",
+        "type": "Privatperson",
+        "address": "KGV Mockau-Mitte, Garten 244, 04357 Leipzig",
         "created": "21.04.2021",
         "hints": [
             "Vorher anrufen und Entnahmezeit vereinbaren (Schlauch reicht bis zur Straße)."
@@ -35,7 +38,9 @@
     {
       "type": "Feature",
       "properties": {
+        "id": "20210423_peterskirche",
         "name": "Peterskirche Leipzig",
+        "type": "Kirche",
         "organisation": "Peterskirche Leipzig",
         "address": "Gaudigplatz, 04107 Leipzig",
         "created": "23.04.2021",
@@ -49,7 +54,9 @@
     {
       "type": "Feature",
       "properties": {
+        "id": "20210427_kirchemockau",
         "name": "Kirche Mockau",
+        "type": "Kirche",
         "organisation": "Kirche Mockau",
         "address": "Höhe Kieler Str. 13, 04357 Leipzig",
         "created": "27.04.2021",
@@ -63,7 +70,9 @@
     {
       "type": "Feature",
       "properties": {
+        "id": "20210427_gemeindehausmockau",
         "name": "Gemeindehaus Mockau",
+        "type": "Kirche",
         "organisation": "Gemeindehaus Mockau",
         "address": "Kieler Str. 51, 04357 Leipzig",
         "created": "27.04.2021",
@@ -76,7 +85,9 @@
     {
       "type": "Feature",
       "properties": {
+        "id": "20210427_kirchethekla",
         "name": "Kirche Thekla",
+        "type": "Kirche",
         "organisation": "Kirche Thekla",
         "address": "Friedhof Thekla, 04349 Leipzig",
         "created": "27.04.2021",
@@ -89,7 +100,9 @@
     {
       "type": "Feature",
       "properties": {
+        "id": "20210427_pfarrhausthekla",
         "name": "Pfarrhaus Thekla",
+        "type": "Kirche",
         "organisation": "Pfarrhaus Thekla",
         "address": "Cleudner Str. 24, 04349 Leipzig",
         "created": "27.04.2021",
@@ -102,7 +115,9 @@
     {
       "type": "Feature",
       "properties": {
+        "id": "20210427_kircheschoenefeld",
         "name": "Kirche Schönefeld und Pfarrhaus Schönefeld",
+        "type": "Kirche",
         "organisation": "Kirche Schönefeld und Pfarrhaus Schönefeld",
         "address": "Ossietzkystr. 39, 04347 Leipzig",
         "created": "27.04.2021",

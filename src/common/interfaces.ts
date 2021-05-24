@@ -55,6 +55,20 @@ export interface SelectedTreeType extends Tree {
   isAdopted: boolean | undefined;
 }
 
+export interface SelectedWaterSourceType {
+  id: string;
+  latitude: number;
+  longitude: number;
+  type?: string | null;
+  geom?: string | null;
+  name?: string | null;
+  organisation?: string | null;
+  address?: string | null;
+  created?: string | null;
+  hints?: string[] | null;
+  wikipediaPageId?: string | null;
+}
+
 interface FocusPointType {
   id: string;
   latitude: number;

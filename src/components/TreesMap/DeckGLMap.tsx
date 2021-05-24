@@ -12,7 +12,6 @@ import {
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
-import { HoverObject } from '../Tooltip';
 import {
   CommunityDataType,
   StoreProps,
@@ -54,12 +53,14 @@ interface DeckGLPropType {
   pumpsGeoJson: ExtendedFeatureCollection | null;
   waterSourcesGeoJson: ExtendedFeatureCollection | null;
   selectedTreeId: string | undefined;
+  selectedWaterSourceId: string | undefined;
   communityData: CommunityDataType['communityFlagsMap'];
   communityDataWatered: CommunityDataType['wateredTreesIds'];
   communityDataAdopted: CommunityDataType['adoptedTreesIds'];
 
   showControls: boolean | undefined;
   onTreeSelect: (id: string) => void;
+  onWaterSourceSelect: (id: string) => void;
 }
 
 interface ViewportType extends Partial<ViewportProps> {
@@ -70,8 +71,6 @@ interface ViewportType extends Partial<ViewportProps> {
 
 interface DeckGLStateType {
   isHovered: boolean;
-  hoverObjectPointer: [number, number];
-  hoverObjectMessage: string;
   cursor: 'grab' | 'pointer';
   geoLocationAvailable: boolean;
   isTreeMapLoading: boolean;
@@ -84,8 +83,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
     this.state = {
       isHovered: false,
-      hoverObjectPointer: [0, 0],
-      hoverObjectMessage: '',
       cursor: 'grab',
       geoLocationAvailable: false,
       isTreeMapLoading: true,
@@ -109,20 +106,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     this.setCursor = this.setCursor.bind(this);
     this.onViewStateChange = this.onViewStateChange.bind(this);
   }
-
-  _handleWaterPopUp(_x: number, _y: number, object?: any, isClick?: boolean) {
-    if (object === undefined) {
-      this.setState({ isHovered: false });
-      return;
-    }
-    this.setState({
-      hoverObjectMessage: object.properties,
-    });
-    const { hoverObjectPointer: currPointer, isHovered: currIsHovered } = this.state;
-    const isHovered = (!isClick || currPointer[0] === _x && currPointer[1] === _y) && !currIsHovered
-    this.setState({ isHovered: isHovered });
-    this.setState({ hoverObjectPointer: [_x, _y] });
-  };
 
   _renderLayers(): unknown[] {
     const {
@@ -294,18 +277,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         pickable: true,
         lineWidthScale: 3,
         lineWidthMinPixels: 1.5,
-        onHover: info => {
-          if (info.object === undefined) {
-            this.setState({ isHovered: false });
-            return;
-          }
-          this.setState({ isHovered: true });
-          const properties = info?.object?.properties;
-          const hoverObjectMessage =
-            (properties && properties['pump:status']) || '';
-          this.setState({ hoverObjectMessage });
-          this.setState({ hoverObjectPointer: [info.x, info.y] });
-        },
       }),
       new GeoJsonLayer({
         id: 'waterSources',
@@ -324,8 +295,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         pickable: true,
         lineWidthScale: 3,
         lineWidthMinPixels: 1.5,
-        onHover: info => this._handleWaterPopUp(info.x, info.y, info.object, false),
-        ontouchstart: info => this._handleWaterPopUp(info.x, info.y, info.object, true)
+        onClick: info => {
+          this._onClick(info.x, info.y, info.object);
+        },
       }),
     ];
 
@@ -376,7 +348,12 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     const id: string = object.properties?.id;
     if (!id) return;
 
-    this.props.onTreeSelect(id);
+    const name: string = object.properties?.name;
+    if (name) {
+      this.props.onWaterSourceSelect(id);
+    } else {
+      this.props.onTreeSelect(id);
+    }
   }
 
   setCursor(val: unknown): void {
@@ -599,19 +576,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     const { viewport } = this.state;
     return (
       <>
-        {/* This code below could be used to display some info for the pumps */}
-        {isMobile === false &&
-          this.state.isHovered === true &&
-          this.state.hoverObjectPointer.length === 2 && (
-            <HoverObject
-              data={this.state.hoverObjectMessage}
-              x={this.state.hoverObjectPointer[0]}
-              y={this.state.hoverObjectPointer[1]}
-            >
-              <b>Status:</b>
-              {this.state.hoverObjectMessage}
-            </HoverObject>
-          )}
         <DeckGL
           layers={this._renderLayers() as any}
           initialViewState={viewport}
