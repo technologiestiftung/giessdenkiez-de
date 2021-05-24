@@ -126,6 +126,138 @@
         ]
       },
       "geometry": { "type": "Point", "coordinates": [12.4096196, 51.3596718] }
-    }    
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210517_hsp_26",
+        "name": "HSP Nr. 26",
+        "type": "Handschwengelpumpe",
+        "address": "Brühl 18",
+        "created": "17.05.2021",
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09291088"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.3745959, 51.3429841] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210517_hsp_136",
+        "name": "HSP Nr. 136",
+        "type": "Handschwengelpumpe",
+        "address": "Gräfestraße 7",
+        "created": "17.05.2021",
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09294451"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.384432256221771, 51.36962703696971] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210517_hsp_189",
+        "name": "HSP Nr. 189",
+        "type": "Handschwengelpumpe",
+        "address": "Mariannenstraße 10",
+        "created": "17.05.2021",
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09293310"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.399113327264786,51.34722362769231] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210517_hsp_1",
+        "name": "HSP Nr. 1",
+        "type": "Handschwengelpumpe",
+        "address": "Peterssteinweg 10",
+        "created": "17.05.2021",
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09297205"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.373440563678741,51.33275843182236] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210517_hsp_39",
+        "name": "HSP Nr. 39",
+        "type": "Handschwengelpumpe",
+        "address": "Neumarkt 24",
+        "created": "17.05.2021",
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09294780"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.37623006105423,51.33847350880957] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210517_hsp_114",
+        "name": "HSP Nr. 114",
+        "type": "Handschwengelpumpe",
+        "address": "Pfaffendorferstraße / Ernst-Pinkert-Straße",
+        "created": "17.05.2021",
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09292780"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.372326105833054, 51.34951455086622] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210517_hsp_09299340",
+        "name": "HSP in Liebertwolkwitz",
+        "type": "Handschwengelpumpe",
+        "address": "Roßmarkt, 04288 Leipzig",
+        "created": "17.05.2021",
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09299340"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.464438192546368,51.28470658399813] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210517_hsp_210",
+        "name": "HSP Nr. 210",
+        "type": "Handschwengelpumpe",
+        "address": "Universitätsstraße 16",
+        "created": "17.05.2021",
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09262329"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.377532944083214,51.33847225209043] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210517_hsp_43",
+        "name": "HSP Nr. 43",
+        "type": "Handschwengelpumpe",
+        "address": "Burgstraße 19",
+        "created": "17.05.2021",
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09292753"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.373253479599951,51.33829463543871] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210517_hsp_163",
+        "name": "HSP Nr. 163",
+        "type": "Handschwengelpumpe",
+        "address": "Windorfer Straße 55a",
+        "created": "17.05.2021",
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09294871"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.327046394348145,51.313108415913696] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210517_naschmarkt",
+        "name": "Löwenbrunnen",
+        "type": "Handschwengelpumpe",
+        "address": "Naschmarkt",
+        "created": "17.05.2021",
+        "url": "https://de.wikipedia.org/wiki/Brunnen_in_Leipzig#Löwenbrunnen"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.375639975070953, 51.33994552217372] }
+    }   
   ]
 }

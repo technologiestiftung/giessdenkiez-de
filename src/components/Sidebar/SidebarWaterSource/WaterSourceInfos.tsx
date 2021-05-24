@@ -53,6 +53,7 @@ const WaterSourceInfos: FC<{
     created,
     address,
     hints,
+    url,
   } = selectedWaterSourceData;
 
   return (
@@ -90,6 +91,12 @@ const WaterSourceInfos: FC<{
               ))}
             </ul>
           </ExpandablePanel>
+        )}
+        {url && (
+          <InfoContainer>
+            <span>Weitere Informationen</span>
+            <InfoValue><a href={url}>Link</a></InfoValue>
+          </InfoContainer>
         )}
       </FlexColumnDiv>
     </Wrapper>
