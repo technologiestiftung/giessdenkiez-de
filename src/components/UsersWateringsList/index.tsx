@@ -1,9 +1,11 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 import { WateringType } from '../../common/interfaces';
 
 import { formatUnixTimestamp } from '../../utils/formatUnixTimestamp';
 import SmallParagraph from '../SmallParagraph';
+import TreeButton from '../TreeButton';
 
 const iconDrop = '/images/icon-drop.svg';
 
@@ -75,17 +77,27 @@ const MAX_ITEMS = 8;
 
 const UsersWateringsList: FC<{
   waterings: WateringType[];
-}> = ({ waterings }) => {
+  showTreeName: Boolean,
+}> = ({ waterings, showTreeName }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const history = useHistory();
   const surpassedMaxItems = waterings.length > MAX_ITEMS;
   const listItems = isExpanded ? waterings : waterings.slice(0, MAX_ITEMS);
 
   return (
     <WrapperOuter>
-      {listItems.map(({ id, username, timestamp, amount }: WateringType, index: number) => (
-        <Wrapper key={`Lastadopted-key-${id}-${index}`}>
+      {listItems.map(({ id, username, timestamp, amount, treeId }: WateringType, index: number) => (
+        <Wrapper key={`Lastadopted-key-${id}-${index}`}  style={{ height: showTreeName ? "40px": "25px"}}>
           <FlexRow>
-            <Title>{username}</Title>
+            { showTreeName ? <TreeButton
+              key={treeId}
+              label={treeId}
+              onClickHandler={() => {
+                history.push(`/tree/${treeId}`);
+              }}
+            /> : (
+              <Title>{username}</Title>
+            )}
             <StyledTreeType>({formatUnixTimestamp(timestamp)})</StyledTreeType>
           </FlexRow>
           <SmallParagraph>{`${amount}l`}</SmallParagraph>

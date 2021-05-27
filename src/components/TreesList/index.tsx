@@ -6,6 +6,7 @@ import TreeButton from '../TreeButton';
 
 const WrapperOuter = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 `;
 

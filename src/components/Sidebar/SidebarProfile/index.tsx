@@ -14,8 +14,10 @@ import ButtonRound from '../../ButtonRound';
 import SidebarTitle from '../SidebarTitle/';
 import { ParticipateButton } from '../../ParticipateButton';
 import { useAccountActions } from '../../../utils/hooks/useAccountActions';
-import { UserProfile, UserDataType } from '../../../common/interfaces';
+import { UserProfile, UserDataType, Tree, WateringType } from '../../../common/interfaces';
 import { SidebarLoading } from '../SidebarLoading';
+import SmallParagraph from '../../SmallParagraph';
+import UsersWateringsList from '../../UsersWateringsList';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
@@ -52,14 +54,23 @@ const SidebarProfile: FC<{
     email: "a@b.c",
     prefered_username: "ABC"
   }
+  const numbers =  Array.from({length:15},(v,k)=>k+1)
+  const adoptedTrees: Array<Tree> = numbers.map(num => ({ id: "" + num }))
+  const waterings: Array<WateringType> =  numbers.map(num => ({
+    id: "" + num,
+    treeId: "" + (num % 5),
+    username: "example",
+    amount: Number.parseInt((Math.random() * 200).toPrecision(1)),
+    timestamp: "2021-05-25T09:15:00.000"
+  }))
   const localUserData = {
     id: "0815",
     email: "a@b.c",
     username: "abc",
     userProfile: localUserProfile,
     isVerified: true,
-    adoptedTrees: [],
-    waterings: []
+    adoptedTrees,
+    waterings
   };
   const userData = userDataProps || userDataState || (isLocalTesting ? localUserData : false);
 
@@ -109,6 +120,17 @@ const SidebarProfile: FC<{
         ) : (
           <TreesList trees={userData.adoptedTrees} />
         )}
+      </ExpandablePanel>
+      <ExpandablePanel
+        isExpanded={false}
+        title={
+          <>
+            Letzte Bewässerungen
+            <SmallParagraph>Neueste zuerst</SmallParagraph>
+          </>
+        }
+      >
+        <UsersWateringsList waterings={userData.waterings} showTreeName={true} />
       </ExpandablePanel>
       <UserCredentials 
         userId={userData.id} 
