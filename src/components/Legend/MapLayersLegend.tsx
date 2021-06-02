@@ -105,9 +105,8 @@ const MapLayerLegend: FC = () => {
           {(() => {
               var labels: string[] = [];
               if (treesVisible || rainVisible) {
-                labels.push('Niederschlag + Gegossen');
-              }
-              if (waterSourcesVisible) {
+                labels.push('Niederschlag + Gießmenge');
+              } else if (waterSourcesVisible) {
                 labels.push('Wasserquellen');
               }
               return labels.length > 1 ? labels[0] + " / " + labels[1] : labels[0];
@@ -153,8 +152,25 @@ const MapLayerLegend: FC = () => {
             gradient={treesVisible ? rainGradient : undefined}
           />
 
-          <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
+          <StyledItemLabel>Straßen- & Anlagenbäume <br />(4 - 15 Jahre alt)</StyledItemLabel>
         </FlexRowFit>
+        { treesVisible && <span style={{ paddingLeft: "10px", paddingBottom: "5px", paddingTop: "5px" }}>
+          <LegendDot
+            className={'legend-dot'}
+            style={{ float: "left" }}
+            color={'#bcd0bf'}
+          />
+          <StyledItemLabel>Straßen- & Anlagenbäume <br />(&lt; 4 Jahre alt, von Stadt gegossen)</StyledItemLabel>
+        </span> }
+        { treesVisible && <span style={{ paddingLeft: "10px", paddingBottom: "5px", paddingTop: "5px" }}>
+          <LegendDot
+            className={'legend-dot'}
+            style={{ float: "left" }}
+            color={'#7E8E80'}
+          />
+          <StyledItemLabel>Straßen- & Anlagenbäume <br />(&gt; 15 Jahre alt, selbstversorgend)</StyledItemLabel>
+        </span> }
+
         { false && <FlexRowFit
           isActive={pumpsVisible}
           onClick={() => {

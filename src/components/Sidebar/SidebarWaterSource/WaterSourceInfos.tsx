@@ -101,12 +101,12 @@ const WaterSourceInfos: FC<{
           </InfoContainer>
         )}
         {images && Array.isArray(images) && images.length > 0 && (
-          <ExpandablePanel title={"Hinweise"} isExpanded={true}>
-            <ul>
+          <ExpandablePanel title={"Fotos"} isExpanded={true}>
               { images.map( image => (
-                <li>{<img src={`images/${id}/${image}`} alt={image} width={"25%"} />}</li>
+                <span>
+                  {<img src={`/images/pumps/${id}/${image}`} alt={image} width={"100%"} />}
+                </span>
               ))}
-            </ul>
           </ExpandablePanel>
         )}
       </FlexColumnDiv>

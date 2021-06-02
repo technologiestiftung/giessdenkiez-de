@@ -169,9 +169,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             transparent: [0, 0, 0, 0] as [number, number, number, number],
             blue: [53, 117, 177, 200] as [number, number, number, number],
             turquoise: [0, 128, 128, 200] as [number, number, number, number],
+            greygreen: [126, 142, 128, 200] as [number, number, number, number],
+            lightgreygreen: [188, 208, 191, 200] as [number, number, number, number],
           };
 
-          const rainDataExists = !!radolan_sum;
+          const rainOrWaterDataExists = !!radolan_sum || !!wateredAmount;
 
           const numberOrDefault = (val, def = 0) => isNaN(parseInt(val)) ? def : parseInt(val)
           const minFilteredAge = numberOrDefault(ageRange[0]);
@@ -183,15 +185,19 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           const treeIsWithinAgeRange =
             treeAge && treeAge >= minFilteredAge && treeAge <= maxFilteredAge;
 
+          const treeIsWithinRelevantAgeRange =
+            treeAge && treeAge >= 4 && treeAge <= 15;
+
           const colorsShallBeInterpolated =
-            rainDataExists &&
+            rainOrWaterDataExists &&
+            treeIsWithinRelevantAgeRange &&
             ((ageFilterIsApplied && treeIsWithinAgeRange) ||
               !ageFilterIsApplied);
 
           const colorShallBeTransparent =
             (ageFilterIsApplied && !treeAge) ||
             (ageFilterIsApplied && !treeIsWithinAgeRange) ||
-            !rainDataExists;
+            !rainOrWaterDataExists;
 
           if (colorShallBeTransparent) return colors.transparent;
 
@@ -218,6 +224,12 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             const hex = hexToRgb(interpolated);
 
             return hex;
+          }
+
+          if (treeAge && treeAge > 15) {
+            return colors.greygreen
+          } else if (treeAge && treeAge < 4) {
+            return colors.lightgreygreen
           }
 
           return colors.transparent;
