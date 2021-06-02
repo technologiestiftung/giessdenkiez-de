@@ -105,7 +105,7 @@ const MapLayerLegend: FC = () => {
           {(() => {
               var labels: string[] = [];
               if (treesVisible || rainVisible) {
-                labels.push('Niederschlag');
+                labels.push('Niederschlag + Gegossen');
               }
               if (waterSourcesVisible) {
                 labels.push('Wasserquellen');

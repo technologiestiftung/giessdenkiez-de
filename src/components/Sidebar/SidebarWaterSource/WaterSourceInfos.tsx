@@ -47,12 +47,14 @@ const WaterSourceInfos: FC<{
   selectedWaterSourceData: SelectedWaterSourceType;
 }> = ({ selectedWaterSourceData }) => {
   const {
+    id,
     name,
     organisation,
     type,
     created,
     address,
     hints,
+    images,
     url,
   } = selectedWaterSourceData;
 
@@ -97,6 +99,15 @@ const WaterSourceInfos: FC<{
             <span>Weitere Informationen</span>
             <InfoValue><a href={url}>Link</a></InfoValue>
           </InfoContainer>
+        )}
+        {images && Array.isArray(images) && images.length > 0 && (
+          <ExpandablePanel title={"Hinweise"} isExpanded={true}>
+            <ul>
+              { images.map( image => (
+                <li>{<img src={`images/${id}/${image}`} alt={image} width={"25%"} />}</li>
+              ))}
+            </ul>
+          </ExpandablePanel>
         )}
       </FlexColumnDiv>
     </Wrapper>

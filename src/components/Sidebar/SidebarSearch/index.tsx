@@ -41,15 +41,15 @@ const SidebarSearch: FC = () => {
       <ExpandablePanel title='Datenansicht' isExpanded>
         <SmallParagraph>
           Betrachte welche Bäume bereits von anderen Nutzern gegossen wurden.
-          Oder finde heraus, wieviel Niederschlag die Bäume in den letzten 30
-          Tagen erreicht hat.
+          Oder finde heraus, wieviel Wasser die Bäume in den letzten 30
+          Tagen durch Niederschlag und Gießungen in Summe erreicht hat.
         </SmallParagraph>
         <FilterLinksContainer>
           <FilterLink
             isActive={mapViewFilter === 'rain'}
             onClick={() => setMapViewFilter('rain')}
           >
-            Niederschläge
+            Niederschläge + Gießungen
           </FilterLink>
           <FilterLink
             isActive={mapViewFilter === 'adopted'}

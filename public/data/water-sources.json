@@ -207,7 +207,8 @@
         "type": "Handschwengelpumpe",
         "address": "Roßmarkt, 04288 Leipzig",
         "created": "17.05.2021",
-        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09299340"
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09299340",
+        "images": [ "Pumpe_Rossmarkt.jpg" ]
       },
       "geometry": { "type": "Point", "coordinates": [12.464438192546368,51.28470658399813] }
     },

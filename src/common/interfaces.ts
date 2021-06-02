@@ -68,6 +68,7 @@ export interface SelectedWaterSourceType {
   hints?: string[] | null;
   wikipediaPageId?: string | null;
   url?: string | null;
+  images?: string[] | null;
 }
 
 interface FocusPointType {
