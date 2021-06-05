@@ -176,13 +176,13 @@ Das Projekt wird unterstützt durch das <a target="blank" href="https://www.city
         icon: 'info',
         title: 'Mit anderen austauschen',
         description:
-          'Tritt unserem <a target="_blank" href="https://app.element.io/#/room/#leipziggiesst:matrix.org">Matrix-Kanal</a> bei, um Dich mit anderen Nutzer*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.',
+          'Wir werden Dich mit unserem Newsletter, der an die E-Mail-Adresse Deines Benutzerkontos hier gesendet wird, über aktuelle Entwicklungen und Aktionen auf dem Laufenden halten.',
       },
       {
         icon: 'info',
         title: 'Noch mehr Mitmachen',
         description:
-          'Durch kannst aber auch im Projektteam mitarbeiten, Wasserspender werden, Andere fürs Gießen begeistern, Links zu LEIPZIG GIESST viel teilen oder in der Presse über LEIPZIG GIESST berichten. Auf unserer <a target="_blank" href="https://stiftung-ecken-wecken.de/content/mitgie%C3%9Fen-mitmachen">Webseite</a> findest weitere Infos dazu. Und natürlich freuen wir uns immer über Posts/Likes bei <a href="https://www.instagram.com/leipziggiesst" target="_blank">instagram</a> oder <a href="https://www.facebook.com/leipziggiesst" target="_blank">facebook</a>.',
+          'Du kannst aber auch im Projektteam mitarbeiten, Wasserspender werden, Andere fürs Gießen begeistern, Links zu LEIPZIG GIESST viel teilen oder in der Presse über LEIPZIG GIESST berichten. Auf unserer <a target="_blank" href="https://stiftung-ecken-wecken.de/content/mitgie%C3%9Fen-mitmachen">Webseite</a> findest weitere Infos dazu. Und natürlich freuen wir uns immer über Posts/Likes bei <a href="https://www.instagram.com/leipziggiesst" target="_blank">instagram</a> oder <a href="https://www.facebook.com/leipziggiesst" target="_blank">facebook</a>.',
       },
     ],
   },
