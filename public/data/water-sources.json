@@ -44,7 +44,7 @@
         "organisation": "Peterskirche Leipzig",
         "address": "Gaudigplatz, 04107 Leipzig",
         "created": "23.04.2021",
-        "hints": [          
+        "hints": [
             "Rechts neben dem Kirchenportal/-eingang in einer Nische ist eine kleine graue Tür. Hinter dieser Tür befindet sich der Wasseranschluss.",
             "Bitte einen Schlauch mitbringen (vorher mal anschauen) und vor Benutzung bitte kurz im Gemeindebüro unter 0341 2131612 anrufen."
         ]
@@ -60,7 +60,7 @@
         "organisation": "Kirche Mockau",
         "address": "Höhe Kieler Str. 13, 04357 Leipzig",
         "created": "27.04.2021",
-        "hints": [          
+        "hints": [
             "neben Netto",
             "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
         ]
@@ -76,7 +76,7 @@
         "organisation": "Gemeindehaus Mockau",
         "address": "Kieler Str. 51, 04357 Leipzig",
         "created": "27.04.2021",
-        "hints": [          
+        "hints": [
             "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
         ]
       },
@@ -91,7 +91,7 @@
         "organisation": "Kirche Thekla",
         "address": "Friedhof Thekla, 04349 Leipzig",
         "created": "27.04.2021",
-        "hints": [          
+        "hints": [
             "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
         ]
       },
@@ -106,7 +106,7 @@
         "organisation": "Pfarrhaus Thekla",
         "address": "Cleudner Str. 24, 04349 Leipzig",
         "created": "27.04.2021",
-        "hints": [          
+        "hints": [
             "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
         ]
       },
@@ -121,7 +121,7 @@
         "organisation": "Kirche Schönefeld und Pfarrhaus Schönefeld",
         "address": "Ossietzkystr. 39, 04347 Leipzig",
         "created": "27.04.2021",
-        "hints": [          
+        "hints": [
             "Bitte vorm Wasserholen bei Katrin Schwarz unter 0341 60 14 081 melden."
         ]
       },
@@ -259,6 +259,22 @@
         "url": "https://de.wikipedia.org/wiki/Brunnen_in_Leipzig#Löwenbrunnen"
       },
       "geometry": { "type": "Point", "coordinates": [12.375639975070953, 51.33994552217372] }
-    }   
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210604_parthebruecke",
+        "name": "Parthe-Brücke am Abnaundorfer Park",
+        "type": "Schöpfstelle",
+        "address": "Beuthstraße, 04357 Leipzig (Mockau-Süd)",
+        "created": "04.06.2021",
+        "images": [ "20210423_123758_parthebruecke.jpg" ],
+        "hints":[
+          "Parthe-Brücke am Abnaundorfer Park (auf dem Weg von Straße \"Zu den Wiesen\" in den Park)",
+          "Gemäß sächsischen Wassergesetz darf aus Fließgewässern mit nur mit Handschöpfgeräten Wasser entnommen werden."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.413214, 51.369742] }
+    }
   ]
 }
