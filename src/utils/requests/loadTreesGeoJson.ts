@@ -46,17 +46,17 @@ export const loadTreesGeoJson = async (): Promise<ExtendedFeatureCollection> => 
     // http://localhost:8080/tree/id-9135
     const data = [{
       'id': 'id-9135',
-      'lng': 12.465195780349760,
-      'lat': 51.436408951092531,
-      'radolan_sum': 457,
-      'age': 25
+      'lng': 12.346080918353433,
+      'lat': 51.328492865964243,
+      'radolan_sum': 820,
+      'age': 5
     }]
     const geojson = createGeojson((data as unknown) as Tree[]);
-    return geojson;  
+    return geojson;
   } else {
     const dataUrl = process.env.TREE_DATA_URL || 'https://trees-radolan-harvester-leipzig-dev.s3.eu-central-1.amazonaws.com/trees.csv.gz';
     const data = await d3Dsv(',', dataUrl, { cache: 'force-cache' });
     const geojson = createGeojson((data as unknown) as Tree[]);
-    return geojson;  
+    return geojson;
   }
 };

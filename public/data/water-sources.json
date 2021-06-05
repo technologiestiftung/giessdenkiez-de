@@ -271,7 +271,7 @@
         "images": [ "20210423_123758_parthebruecke.jpg" ],
         "hints":[
           "Parthe-Brücke am Abnaundorfer Park (auf dem Weg von Straße \"Zu den Wiesen\" in den Park)",
-          "Gemäß sächsischen Wassergesetz darf aus Fließgewässern mit nur mit Handschöpfgeräten Wasser entnommen werden."
+          "Gemäß sächsischen Wassergesetz darf aus Fließgewässern nur mit Handschöpfgeräten Wasser entnommen werden."
         ]
       },
       "geometry": { "type": "Point", "coordinates": [12.413214, 51.369742] }
