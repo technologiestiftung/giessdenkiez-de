@@ -4012,7 +4012,7 @@ Array [
               }
               suppressHydrationWarning={true}
             >
-              2
+              1
             </div>
             <code
               style={
@@ -4210,181 +4210,33 @@ Array [
       >
         Profil
       </h2>
-      <span
-        className="sc-jQbIHB jqDmOp"
-      >
-        Dein Gießfortschritt
-      </span>
       <div
-        className="sc-GqfZa csAaUE"
+        className="sc-dtwoBo Deuix"
       >
         <div
-          className="sc-fWSCIC fGSapi"
+          className="sc-bTvRPi JzmSn"
         >
-          <div
-            className="sc-lmoMRL gVOsiP"
-          >
-            <img
-              className="sc-iJuUWI fIDorH"
-              src="/images/icon-trees.svg"
-            />
-          </div>
-          <div
-            className="sc-dwfUOf brzRFx"
-          >
-            <span
-              className="sc-TmcTc kWQhYa"
-            >
-              0
-            </span>
-            <p
-              className="sc-gsTCUz iiIrBj"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "mal gegossen",
-                }
-              }
-              onClick={[Function]}
-            />
-          </div>
-        </div>
-        <div
-          className="sc-fWSCIC fGSapi"
-        >
-          <div
-            className="sc-lmoMRL gVOsiP"
-          >
-            <img
-              className="sc-iJuUWI fIDorH"
-              src="/images/icon-water.svg"
-            />
-          </div>
-          <div
-            className="sc-dwfUOf brzRFx"
-          >
-            <span
-              className="sc-TmcTc kWQhYa"
-            >
-              0
-            </span>
-            <p
-              className="sc-gsTCUz iiIrBj"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Liter gegossen.",
-                }
-              }
-              onClick={[Function]}
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        className="sc-jgHCyG iuOiLs"
-      >
-        <div
-          className="sc-gTgzIj lkXiws"
-          onClick={[Function]}
-        >
-          <div
-            className="sc-hTZhsR dOSvjF"
-          >
-            <span>
-              Adoptierte Bäume
-            </span>
-          </div>
-          <span
-            className="sc-iNqMTl bvuvgJ"
-            onClick={[Function]}
-          >
-            –
-          </span>
-        </div>
-        <div
-          className="sc-laRPJI eKTkhN"
-        >
-          <p
-            className="sc-gsTCUz iiIrBj"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Du hast noch keine Bäume adoptiert.",
-              }
-            }
-            onClick={[Function]}
+          <img
+            className="sc-kIeTtH kWOGMl"
+            src="/images/icon-trees.svg"
           />
-        </div>
-      </div>
-      <div
-        className="sc-jgHCyG iuOiLs"
-      >
-        <div
-          className="sc-gTgzIj lkXiws"
-          onClick={[Function]}
-        >
           <div
-            className="sc-hTZhsR dOSvjF"
+            className="sc-hOqqkJ jbYLeT"
           >
-            Dein Account
+            Lade Profil...
           </div>
-          <span
-            className="sc-iNqMTl bvuvgJ"
-            onClick={[Function]}
-          >
-            –
-          </span>
+          
         </div>
-        <div
-          className="sc-laRPJI eKTkhN"
-        >
-          <p
-            className="sc-jHVexB idsJbT"
-          >
-            bob
-          </p>
-          <p
-            className="sc-jHVexB idsJbT"
-          >
-            bob@example.com
-          </p>
-          <p
-            className="sc-gsTCUz iiIrBj"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Registrierte E-Mail Adresse",
-              }
-            }
-            onClick={[Function]}
-          />
-        </div>
-      </div>
-      <br />
-      <div
-        className="sc-bdfBwQ fspcwr"
-        onClick={[Function]}
-        role="button"
-        tabIndex={0}
-        width="-webkit-fill-available"
-      >
-        Konto anlegen / Einloggen
       </div>
       <p
-        className="sc-ezrdKe fxCTcN"
+        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "Möchtest du deinen Account löschen? Damit werden alle von dir generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein Benutzer bei unserem Authentifizierungsdienst Auth0.com wird sofort und unwiderruflich gelöscht.",
+            "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
           }
         }
         onClick={[Function]}
       />
-      <div
-        className="sc-bdfBwQ fspcwr"
-        onClick={[Function]}
-        role="button"
-        tabIndex={0}
-        width="-webkit-fill-available"
-      >
-        Account Löschen
-      </div>
     </div>
   </div>,
 ]
@@ -4891,7 +4743,7 @@ Array [
               }
               suppressHydrationWarning={true}
             >
-              2
+              1
             </div>
             <code
               style={
@@ -5089,198 +4941,33 @@ Array [
       >
         Profil
       </h2>
-      <span
-        className="sc-jQbIHB jqDmOp"
-      >
-        Dein Gießfortschritt
-      </span>
       <div
-        className="sc-GqfZa csAaUE"
+        className="sc-dtwoBo Deuix"
       >
         <div
-          className="sc-fWSCIC fGSapi"
+          className="sc-bTvRPi JzmSn"
         >
-          <div
-            className="sc-lmoMRL gVOsiP"
-          >
-            <img
-              className="sc-iJuUWI fIDorH"
-              src="/images/icon-trees.svg"
-            />
-          </div>
-          <div
-            className="sc-dwfUOf brzRFx"
-          >
-            <span
-              className="sc-TmcTc kWQhYa"
-            >
-              2
-            </span>
-            <p
-              className="sc-gsTCUz iiIrBj"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "mal gegossen",
-                }
-              }
-              onClick={[Function]}
-            />
-          </div>
-        </div>
-        <div
-          className="sc-fWSCIC fGSapi"
-        >
-          <div
-            className="sc-lmoMRL gVOsiP"
-          >
-            <img
-              className="sc-iJuUWI fIDorH"
-              src="/images/icon-water.svg"
-            />
-          </div>
-          <div
-            className="sc-dwfUOf brzRFx"
-          >
-            <span
-              className="sc-TmcTc kWQhYa"
-            >
-              20
-            </span>
-            <p
-              className="sc-gsTCUz iiIrBj"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Liter gegossen.",
-                }
-              }
-              onClick={[Function]}
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        className="sc-jgHCyG iuOiLs"
-      >
-        <div
-          className="sc-gTgzIj lkXiws"
-          onClick={[Function]}
-        >
-          <div
-            className="sc-hTZhsR dOSvjF"
-          >
-            <span>
-              Adoptierte Bäume
-            </span>
-          </div>
-          <span
-            className="sc-iNqMTl bvuvgJ"
-            onClick={[Function]}
-          >
-            –
-          </span>
-        </div>
-        <div
-          className="sc-laRPJI eKTkhN"
-        >
-          <div
-            className="sc-hlTvYk imIYrx"
-          >
-            <div
-              className="sc-aemoO fJhjES"
-              onClick={[Function]}
-              role="button"
-              tabIndex={0}
-            >
-              <span
-                className="sc-jONnTn"
-              >
-                Baum-Hasel
-              </span>
-              <svg
-                aria-hidden={true}
-                className="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M13 16.12c3.47-.41 6.17-3.36 6.17-6.95 0-3.87-3.13-7-7-7s-7 3.13-7 7c0 3.47 2.52 6.34 5.83 6.89V20H5v2h14v-2h-6v-3.88z"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="sc-jgHCyG iuOiLs"
-      >
-        <div
-          className="sc-gTgzIj lkXiws"
-          onClick={[Function]}
-        >
-          <div
-            className="sc-hTZhsR dOSvjF"
-          >
-            Dein Account
-          </div>
-          <span
-            className="sc-iNqMTl bvuvgJ"
-            onClick={[Function]}
-          >
-            –
-          </span>
-        </div>
-        <div
-          className="sc-laRPJI eKTkhN"
-        >
-          <p
-            className="sc-jHVexB idsJbT"
-          >
-            bob
-          </p>
-          <p
-            className="sc-jHVexB idsJbT"
-          >
-            bob@example.com
-          </p>
-          <p
-            className="sc-gsTCUz iiIrBj"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Registrierte E-Mail Adresse",
-              }
-            }
-            onClick={[Function]}
+          <img
+            className="sc-kIeTtH kWOGMl"
+            src="/images/icon-trees.svg"
           />
+          <div
+            className="sc-hOqqkJ jbYLeT"
+          >
+            Lade Profil...
+          </div>
+          
         </div>
-      </div>
-      <br />
-      <div
-        className="sc-bdfBwQ fspcwr"
-        onClick={[Function]}
-        role="button"
-        tabIndex={0}
-        width="-webkit-fill-available"
-      >
-        Konto anlegen / Einloggen
       </div>
       <p
-        className="sc-ezrdKe fxCTcN"
+        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "Möchtest du deinen Account löschen? Damit werden alle von dir generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein Benutzer bei unserem Authentifizierungsdienst Auth0.com wird sofort und unwiderruflich gelöscht.",
+            "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
           }
         }
         onClick={[Function]}
       />
-      <div
-        className="sc-bdfBwQ fspcwr"
-        onClick={[Function]}
-        role="button"
-        tabIndex={0}
-        width="-webkit-fill-available"
-      >
-        Account Löschen
-      </div>
     </div>
   </div>,
 ]
@@ -5787,7 +5474,7 @@ Array [
               }
               suppressHydrationWarning={true}
             >
-              2
+              1
             </div>
             <code
               style={
@@ -5986,36 +5673,32 @@ Array [
         Profil
       </h2>
       <div
-        className="sc-jUEnpm qmXEr"
+        className="sc-dtwoBo Deuix"
       >
-        <p
-          className="sc-ezrdKe fxCTcN"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Du bist momentan nicht eingeloggt. Wenn du das Gießen von Bäumen in deiner Umgebung hier eintragen möchtest, dann registriere dich oder logge dich ein.",
-            }
-          }
-          onClick={[Function]}
-        />
         <div
-          className="sc-bdfBwQ fspcwr"
-          onClick={[Function]}
-          role="button"
-          tabIndex={0}
-          width="-webkit-fill-available"
+          className="sc-bTvRPi JzmSn"
         >
-          Konto anlegen / Einloggen
+          <img
+            className="sc-kIeTtH kWOGMl"
+            src="/images/icon-trees.svg"
+          />
+          <div
+            className="sc-hOqqkJ jbYLeT"
+          >
+            Lade Profil...
+          </div>
+          
         </div>
-        <p
-          className="sc-gsTCUz iiIrBj sc-dlfnbm irudHw"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Wie kann ich mitmachen?",
-            }
-          }
-          onClick={[Function]}
-        />
       </div>
+      <p
+        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
+          }
+        }
+        onClick={[Function]}
+      />
     </div>
   </div>,
 ]
