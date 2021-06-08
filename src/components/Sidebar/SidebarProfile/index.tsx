@@ -44,9 +44,10 @@ const SidebarProfile: FC<{
 }> = ({ userData: userDataProps, isLoading: isLoadingProps }) => {
   const { userData: userDataState } = useUserData();
   const { deleteAccount } = useAccountActions();
-  const { isLoading: isLoadingState } = useAuth0();
-  const isLoading = isLoadingProps || isLoadingState;
+  const { isLoading: isLoadingState, isAuthenticated } = useAuth0();
   const userData = userDataProps || userDataState || false;
+  const isLoadingAuthInfo = isAuthenticated && !userData;
+  const isLoading = isLoadingProps || isLoadingState || isLoadingAuthInfo;
 
   const handleDeleteClick = async () => {
     if (!confirmAccountDeletion()) return;
