@@ -20,7 +20,7 @@ export const Providers: FC = ({ children }) => (
       domain={process.env.AUTH0_DOMAIN || ''}
       clientId={process.env.AUTH0_CLIENT_ID || ''}
       audience={process.env.AUTH0_AUDIENCE || ''}
-      redirectUri={`${window.location.origin}`}
+      redirectUri={`${window.location.origin}/profile`}
     >
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
