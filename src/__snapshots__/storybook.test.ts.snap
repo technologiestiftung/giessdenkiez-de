@@ -473,7 +473,7 @@ Array [
 
 exports[`Storyshots DataTable Default 1`] = `
 <div
-  className="sc-eCssSg kbTLvd"
+  className="sc-eCssSg bDSPAh"
 >
   <header
     className="sc-jSgupP iUjCLu"
@@ -525,7 +525,7 @@ exports[`Storyshots DataTable Default 1`] = `
 
 exports[`Storyshots DataTable With Subtitle 1`] = `
 <div
-  className="sc-eCssSg kbTLvd"
+  className="sc-eCssSg bDSPAh"
 >
   <header
     className="sc-jSgupP iUjCLu"
@@ -582,7 +582,7 @@ exports[`Storyshots DataTable With Subtitle 1`] = `
 
 exports[`Storyshots DataTable With Subtitle And Children 1`] = `
 <div
-  className="sc-eCssSg kbTLvd"
+  className="sc-eCssSg bDSPAh"
 >
   <header
     className="sc-jSgupP iUjCLu"
@@ -646,7 +646,7 @@ exports[`Storyshots DataTable With Subtitle And Children 1`] = `
 
 exports[`Storyshots DataTable Without Subtitle And With Children 1`] = `
 <div
-  className="sc-eCssSg kbTLvd"
+  className="sc-eCssSg bDSPAh"
 >
   <header
     className="sc-jSgupP iUjCLu"
