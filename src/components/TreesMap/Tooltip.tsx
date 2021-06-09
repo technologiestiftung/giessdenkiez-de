@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { DataTable, TableItemsType } from '../DataTable';
 
-const TOOLTIP_WIDTH = 260;
+export const TOOLTIP_WIDTH = 260;
 
 const StyledTooltipWrapper = styled.div`
   width: ${TOOLTIP_WIDTH}px;

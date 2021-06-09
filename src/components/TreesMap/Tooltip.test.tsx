@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Tooltip } from './Tooltip';
+import { Tooltip, TOOLTIP_WIDTH } from './Tooltip';
 
 const testInfos = {
   'key-abc': 'value-abc',
@@ -36,14 +36,14 @@ describe('component Tooltip', () => {
         title='A title'
         subtitle='A subtitle'
         infos={testInfos}
-        x={200}
+        x={500}
         y={300}
       />
     );
     const tooltip = document.querySelector('.tooltip');
     if (!tooltip) throw new Error('Could not find tooltip');
     const computedStyle = getComputedStyle(tooltip);
-    expect(computedStyle.left).toBe('200px');
+    expect(computedStyle.left).toBe(`${500 - TOOLTIP_WIDTH / 2}px`);
     expect(computedStyle.top).toBe('300px');
   });
 });
