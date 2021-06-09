@@ -1,7 +1,7 @@
 import React, { HTMLProps } from 'react';
 import styled from 'styled-components';
 
-interface TableItemsType {
+export interface TableItemsType {
   [key: string]: string;
 }
 export interface DataTableType extends HTMLProps<HTMLDivElement> {

@@ -8,18 +8,17 @@ import {
   NavigationControl,
   ViewportProps,
   FlyToInterpolator,
-  Popup,
 } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
-import { DataTable } from '../DataTable';
 import {
   CommunityDataType,
   StoreProps,
   TreeGeojsonFeatureProperties,
 } from '../../common/interfaces';
 import { pumpToColor } from './mapColorUtil';
+import { Tooltip } from './Tooltip';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 interface StyledProps {
@@ -640,25 +639,17 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             )}
           </StaticMap>
           {!isMobile && hoveredPump && hoveredPump.x && hoveredPump.y && (
-            <div
-              style={{
-                position: 'absolute',
-                zIndex: 1,
-                pointerEvents: 'none',
-                left: hoveredPump.x,
-                top: hoveredPump.y,
+            <Tooltip
+              x={hoveredPump.x}
+              y={hoveredPump.y}
+              title='Öffentliche Straßenpumpe'
+              subtitle={hoveredPump.address}
+              infos={{
+                Status: hoveredPump.status,
+                'Letzter Check': hoveredPump.check_date,
+                Pumpenstil: hoveredPump.style,
               }}
-            >
-              <DataTable
-                title='Öffentliche Straßenpumpe'
-                subtitle={hoveredPump.address}
-                items={{
-                  Status: hoveredPump.status,
-                  'Letzter Check': hoveredPump.check_date,
-                  Pumpenstil: hoveredPump.style,
-                }}
-              />
-            </div>
+            />
           )}
         </DeckGL>
       </>
