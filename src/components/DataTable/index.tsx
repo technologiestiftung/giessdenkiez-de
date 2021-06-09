@@ -13,7 +13,7 @@ export interface DataTableType extends HTMLProps<HTMLDivElement> {
 const StyledWrapper = styled.div`
   width: 260px;
   display: block;
-  padding ${({ theme }) => theme.spacingS};
+  padding ${({ theme }) => theme.spacingM};
   background-color: ${({ theme }) => theme.colorWhite};
 `;
 
