@@ -592,6 +592,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           onClick={this._deckClick}
           onViewStateChange={e => this.onViewStateChange(e.viewState)}
           controller
+          style={{ overflow: 'hidden' }}
         >
           <StaticMap
             reuseMaps
