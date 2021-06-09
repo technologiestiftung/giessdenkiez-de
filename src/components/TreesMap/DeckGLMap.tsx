@@ -639,7 +639,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
               </ControlWrapper>
             )}
           </StaticMap>
-          {!isMobile && hoveredPump && hoveredPump.x && hoveredPump.y && (
+          {hoveredPump && hoveredPump.x && hoveredPump.y && (
             <Tooltip
               x={hoveredPump.x}
               y={hoveredPump.y}
