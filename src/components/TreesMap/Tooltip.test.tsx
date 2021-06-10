@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Tooltip, TOOLTIP_WIDTH } from './Tooltip';
+import { Tooltip } from './Tooltip';
 
 const testInfos = {
   'key-abc': 'value-abc',
@@ -43,7 +43,9 @@ describe('component Tooltip', () => {
     const tooltip = document.querySelector('.tooltip');
     if (!tooltip) throw new Error('Could not find tooltip');
     const computedStyle = getComputedStyle(tooltip);
-    expect(computedStyle.left).toBe(`${500 - TOOLTIP_WIDTH / 2}px`);
+    expect(computedStyle.left).toBe('500px');
     expect(computedStyle.top).toBe('300px');
+    // Note: styled-components automatically removes the space between translate's x and y value, that's why the test checks for it without space
+    expect(computedStyle.transform).toBe('translate(-50%,10px)');
   });
 });

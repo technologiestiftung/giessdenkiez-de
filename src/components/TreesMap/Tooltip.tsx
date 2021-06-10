@@ -10,7 +10,7 @@ const StyledTooltipWrapper = styled.div`
   z-index: 1;
   pointer-events: none;
   box-shadow: ${({ theme }) => theme.boxShadow};
-  transform: translateY(10px);
+  transform: translate(-50%, 10px);
 `;
 
 export const Tooltip: FC<{
@@ -23,7 +23,7 @@ export const Tooltip: FC<{
   return (
     <StyledTooltipWrapper
       style={{
-        left: x - TOOLTIP_WIDTH / 2,
+        left: x,
         top: y,
       }}
       className='tooltip'
