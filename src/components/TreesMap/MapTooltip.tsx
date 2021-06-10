@@ -13,7 +13,7 @@ const StyledTooltipWrapper = styled.div`
   transform: translate(-50%, 10px);
 `;
 
-export const Tooltip: FC<{
+export const MapTooltip: FC<{
   x: number;
   y: number;
   title: string;
@@ -26,7 +26,7 @@ export const Tooltip: FC<{
         left: x,
         top: y,
       }}
-      className='tooltip'
+      className='map-tooltip'
     >
       <DataTable title={title} subtitle={subtitle} items={{ ...infos }} />
     </StyledTooltipWrapper>

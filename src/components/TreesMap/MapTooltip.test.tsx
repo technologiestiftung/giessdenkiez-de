@@ -1,16 +1,16 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Tooltip } from './Tooltip';
+import { MapTooltip } from './MapTooltip';
 
 const testInfos = {
   'key-abc': 'value-abc',
   'key-def': 'value-def',
 };
 
-describe('component Tooltip', () => {
+describe('component MapTooltip', () => {
   test('renders all information provided to it', () => {
     render(
-      <Tooltip
+      <MapTooltip
         title='A title'
         subtitle='A subtitle'
         infos={testInfos}
@@ -32,7 +32,7 @@ describe('component Tooltip', () => {
   });
   test('renders at the provided location on the screen', () => {
     render(
-      <Tooltip
+      <MapTooltip
         title='A title'
         subtitle='A subtitle'
         infos={testInfos}
@@ -40,7 +40,7 @@ describe('component Tooltip', () => {
         y={300}
       />
     );
-    const tooltip = document.querySelector('.tooltip');
+    const tooltip = document.querySelector('.map-tooltip');
     if (!tooltip) throw new Error('Could not find tooltip');
     const computedStyle = getComputedStyle(tooltip);
     expect(computedStyle.left).toBe('500px');

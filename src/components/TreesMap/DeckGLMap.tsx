@@ -18,7 +18,7 @@ import {
   TreeGeojsonFeatureProperties,
 } from '../../common/interfaces';
 import { pumpToColor } from './mapColorUtil';
-import { Tooltip } from './Tooltip';
+import { MapTooltip } from './MapTooltip';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 interface StyledProps {
@@ -640,7 +640,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             )}
           </StaticMap>
           {hoveredPump && hoveredPump.x && hoveredPump.y && (
-            <Tooltip
+            <MapTooltip
               x={hoveredPump.x}
               y={hoveredPump.y}
               title='Öffentliche Straßenpumpe'
