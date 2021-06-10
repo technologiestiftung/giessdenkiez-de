@@ -21,6 +21,8 @@ export const Providers: FC = ({ children }) => (
       clientId={process.env.AUTH0_CLIENT_ID || ''}
       audience={process.env.AUTH0_AUDIENCE || ''}
       redirectUri={`${window.location.origin}/profile`}
+      useRefreshTokens
+      cacheLocation='localstorage'
     >
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
