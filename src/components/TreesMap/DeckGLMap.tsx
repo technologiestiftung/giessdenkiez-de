@@ -9,7 +9,7 @@ import {
   ViewportProps,
   FlyToInterpolator,
 } from 'react-map-gl';
-import DeckGL, { GeoJsonLayer } from 'deck.gl';
+import DeckGL, { GeoJsonLayer, IconLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import {
@@ -39,7 +39,6 @@ let selectedStateId: string | number | undefined = undefined;
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
-
 interface DeckGLPropType {
   treesGeoJson: ExtendedFeatureCollection | null;
   rainGeojson: ExtendedFeatureCollection | null;
@@ -290,27 +289,22 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         lineWidthScale: 3,
         lineWidthMinPixels: 1.5,
       }),
-      new GeoJsonLayer({
+      new IconLayer({
         id: 'waterSources',
-        data: waterSourcesGeoJson as any,
-        opacity: 1,
-        visible: visibleMapLayer.indexOf('water_sources') >= 0 ? true : false,
-        stroked: true,
-        filled: true,
-        extruded: true,
-        wireframe: true,
-        getElevation: 1,
-        getLineColor: [0, 0, 0, 200],
-        getFillColor: [0, 0, 255, 255],
-        getRadius: 9,
-        pointRadiusMinPixels: 4,
+        data: (waterSourcesGeoJson as any).features,
         pickable: true,
-        lineWidthScale: 3,
-        lineWidthMinPixels: 1.5,
+        // iconAtlas and iconMapping are required
+        // getIcon: return a string
+        getIcon: d => this._getWaterSourceIcon(d),
+        sizeScale: 5,
+        getPosition: (d) => d.geometry.coordinates,
+        getSize: (d) => 10,
+        getColor: (d) => [140, 140, 0],
         onClick: info => {
           this._onClick(info.x, info.y, info.object);
         },
       }),
+      
     ];
 
     return layers;
@@ -365,6 +359,38 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       this.props.onWaterSourceSelect(id);
     } else {
       this.props.onTreeSelect(id);
+    }
+  }
+
+  _getWaterSourceIcon(d) {
+    if (d.properties.type == "Handschwengelpumpe") {
+      return {
+        url: "images/pumpe_64.png",
+        width: 132,
+        height: 132,
+        anchorY: 32
+      };
+    } else if (d.properties.type == "Privatperson") {
+      return {
+        url: "images/drinking-water.png",
+        width: 132,
+        height: 132,
+        anchorY: 32
+      };
+    } else if (d.properties.type == "Schöpfstelle") {
+      return { 
+        url: "images/fountain.png",
+        width: 32,
+        height: 32,
+        anchorY: 16
+      };
+    } else {
+      return {
+        url: "images/drinking-water.png",
+        width: 132,
+        height: 132,
+        anchorY: 32
+      };
     }
   }
 
