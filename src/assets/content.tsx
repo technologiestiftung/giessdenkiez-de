@@ -67,7 +67,7 @@ const content: Content = {
     disclaimer:
       'Hinweis: Das Laden von über 60.000 Bäumen ist ressourcenintensiv und funktioniert aktuell nicht auf allen Mobilgeräten einwandfrei. Wir empfehlen die Nutzung via Desktop/Notebook-Computer',
     description: [
-      'Auf dieser Plattform kannst Du Dich über Bäume in Deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und/oder auch dokumentieren, wieviel erfrischende Kaltgetränke Du ihnen gegeben hast.',
+      'Auf dieser Plattform kannst Du Dich über Bäume in Deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst für einzelne Bäume eine Gießpatenschaft übernehmen und/oder auch dokumentieren, wieviel erfrischende Kaltgetränke Du ihnen gegeben hast.',
       'Informiere Dich <a target="blank" href="https://stiftung-ecken-wecken.de/content/fragen-antworten">hier</a> über das richtige Gießen von Bäumen. Wenn Du die Gieß-App von LEIPZIG GIESST regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
     ],
   },
@@ -162,9 +162,9 @@ Das Projekt wird unterstützt durch das <a target="blank" href="https://www.city
       },
       {
         icon: 'subscribe',
-        title: 'Bäume adoptieren',
+        title: 'Gießpatenschaft für Bäume übernehmen',
         description:
-          'Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst Du sie adoptieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.',
+          'Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst Du Dich als Gießpate / Gießpatin für sie eintragen und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.',
       },
       {
         icon: 'zoom',

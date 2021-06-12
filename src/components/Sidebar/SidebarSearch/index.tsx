@@ -55,7 +55,7 @@ const SidebarSearch: FC = () => {
             isActive={mapViewFilter === 'adopted'}
             onClick={() => setMapViewFilter('adopted')}
           >
-            Bereits adoptiert
+            Bereits mit Gießpatenschaft
           </FilterLink>
           <FilterLink
             isActive={mapViewFilter === 'watered'}

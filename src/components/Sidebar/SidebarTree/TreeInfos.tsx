@@ -264,8 +264,8 @@ const TreeInfos: FC<{
         {userData && !userData.isVerified && (
           <>
             <Paragraph>
-              Bäume adoptieren und wässern ist nur möglich mit verifiziertem
-              Account.
+              Bäume wässern und für sie die Gießpatenschaft übernehmen ist nur mit verifiziertem
+              Account möglich.
             </Paragraph>
             <NonVerfiedMailMessage />
           </>
@@ -278,10 +278,10 @@ const TreeInfos: FC<{
               onClick={() => (treeIsAdopted ? unadoptTree() : adoptTree())}
               type='secondary'
             >
-              {treeIsAdopted && !isBeingUnadopted && 'Baum unadoptieren'}
-              {treeIsAdopted && isBeingUnadopted && 'Baum wird unadoptiert'}
-              {!treeIsAdopted && !isBeingAdopted && 'Baum adoptieren'}
-              {!treeIsAdopted && isBeingAdopted && 'Baum wird adoptiert'}
+              {treeIsAdopted && !isBeingUnadopted && 'Gießpatenschaft auflösen'}
+              {treeIsAdopted && isBeingUnadopted && 'Gießpatenschaft wird aufgelöst'}
+              {!treeIsAdopted && !isBeingAdopted && 'Gießpatenschaft übernehmen'}
+              {!treeIsAdopted && isBeingAdopted && 'Gießpatenschaft wird übernommen'}
             </ButtonRound>
             <ButtonWater />
           </>
