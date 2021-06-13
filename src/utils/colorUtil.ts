@@ -6,13 +6,13 @@ export const interpolateColor = (val: number): string => {
   return interpolateRdYlGn(colorScale(val));
 };
 
-export const hexToRgb = (hex: string): [number, number, number, number] => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+export const rgbStrToRgb = (rgbStr: string): [number, number, number, number] => {
+  const result = /^rgb\(?(\d{1,3}),\s(\d{1,3}),\s(\d{1,3})\)$/i.exec(rgbStr);
   return result
     ? [
-        parseInt(result[1], 16),
-        parseInt(result[2], 16),
-        parseInt(result[3], 16),
+        parseInt(result[1]),
+        parseInt(result[2]),
+        parseInt(result[3]),
         200,
       ]
     : [0, 0, 0, 0];

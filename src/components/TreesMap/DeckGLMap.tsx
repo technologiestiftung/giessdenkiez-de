@@ -11,7 +11,7 @@ import {
 } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer, IconLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
-import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
+import { interpolateColor, rgbStrToRgb } from '../../utils/colorUtil';
 import {
   CommunityDataType,
   StoreProps,
@@ -220,9 +220,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             const radolanSum = numberOrDefault(radolan_sum);
             const sum = radolanSum + waterSum; 
             const interpolated = interpolateColor(sum);
-            const hex = hexToRgb(interpolated);
-
-            return hex;
+            return rgbStrToRgb(interpolated);
           }
 
           if (treeAge && treeAge > 15) {
@@ -266,8 +264,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           const interpolated = interpolateColor(
             (f as any).properties.data[0] / 10
           );
-          const hex = hexToRgb(interpolated);
-          return hex;
+          return rgbStrToRgb(interpolated);
         },
         pickable: true,
       }),
