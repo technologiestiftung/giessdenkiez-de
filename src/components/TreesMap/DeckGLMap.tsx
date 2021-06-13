@@ -379,7 +379,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       };
     } else if (d.properties.type == "Schöpfstelle") {
       return { 
-        url: "images/fountain.png",
+        url: "images/river-icon-clipart.png",
         width: 32,
         height: 32,
         anchorY: 16

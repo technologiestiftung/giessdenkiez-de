@@ -275,6 +275,20 @@
         ]
       },
       "geometry": { "type": "Point", "coordinates": [12.413214, 51.369742] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210613_zollschuppen",
+        "name": "Wasserspeicher Zollschuppen",
+        "type": "Privatperson",
+        "address": "Zollschuppen Straße 2d, 04229 Leipzig",
+        "created": "13.06.2021",
+        "hints":[
+          "Der Wasserspeicher - 1000 Liter IBC Container, mit Holz verkleidet und begrüntem Dach - ist dauerhaft von der Straße aus zugänglich."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.3240259, 51.3265815] }
     }
   ]
 }
