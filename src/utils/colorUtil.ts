@@ -1,9 +1,9 @@
 import { scaleLinear } from 'd3-scale';
-import { interpolateViridis } from 'd3-scale-chromatic';
+import { interpolateRdYlGn } from 'd3-scale-chromatic';
 
-const colorScale = scaleLinear().domain([0, 300]).range([1, 0.6]);
+const colorScale = scaleLinear().domain([0, 300]).range([0.2, 1]);
 export const interpolateColor = (val: number): string => {
-  return interpolateViridis(colorScale(val));
+  return interpolateRdYlGn(colorScale(val));
 };
 
 export const hexToRgb = (hex: string): [number, number, number, number] => {
