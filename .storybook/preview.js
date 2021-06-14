@@ -4,7 +4,7 @@ import '../src/mocks/mocks-utils';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/assets/theme';
 import { Provider } from 'unistore/react';
-import { Auth0Provider } from '../src/utils/auth-mock/auth0';
+import { Auth0Provider } from '@auth0/auth0-react';
 import store from '../src/state/Store';
 // import '!style-loader!css-loader!sass-loader!../src/assets/style.scss';
 export const parameters = {
@@ -31,10 +31,9 @@ const withAuth0Provider = (Story, context) => {
   return (
     <Auth0Provider
       domain={process.env.AUTH0_DOMAIN}
-      client_id={process.env.AUTH0_CLIENT_ID}
+      clientId={process.env.AUTH0_CLIENT_ID}
       audience={process.env.AUTH0_AUDIENCE}
-      redirect_uri={window.location.origin}
-      onRedirectCallback={() => null}
+      redirectUri={window.location.origin}
     >
       <Story {...context} />
     </Auth0Provider>

@@ -1,6 +1,6 @@
 import { QueryFunction, useQuery, useQueryClient } from 'react-query';
 import { UserDataType } from '../../common/interfaces';
-import { useAuth0 } from '../auth/auth0';
+import { useAuth0 } from '@auth0/auth0-react';
 import { getUserData } from '../requests/getUserData';
 import { useAuth0Token } from './useAuth0Token';
 
