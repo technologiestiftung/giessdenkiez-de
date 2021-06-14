@@ -1,7 +1,7 @@
 import React, { HTMLProps } from 'react';
 import styled from 'styled-components';
 
-interface TableItemsType {
+export interface TableItemsType {
   [key: string]: string;
 }
 export interface DataTableType extends HTMLProps<HTMLDivElement> {
@@ -11,9 +11,9 @@ export interface DataTableType extends HTMLProps<HTMLDivElement> {
 }
 
 const StyledWrapper = styled.div`
-  width: 260px;
+  width: 100%;
   display: block;
-  padding ${({ theme }) => theme.spacingS};
+  padding ${({ theme }) => theme.spacingM};
   background-color: ${({ theme }) => theme.colorWhite};
 `;
 
