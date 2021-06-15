@@ -82,7 +82,8 @@ const UsersWateringsList: FC<{
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const history = useHistory();
   const surpassedMaxItems = waterings.length > MAX_ITEMS;
-  const listItems = isExpanded ? waterings : waterings.slice(0, MAX_ITEMS);
+  const sortWaterings = (t1: WateringType, t2: WateringType) => t2.timestamp.localeCompare(t1.timestamp); 
+  const listItems = isExpanded ? waterings : waterings.sort(sortWaterings).slice(0, MAX_ITEMS);
 
   return (
     <WrapperOuter>
