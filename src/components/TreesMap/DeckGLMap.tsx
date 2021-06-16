@@ -643,20 +643,20 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
               </ControlWrapper>
             )}
           </StaticMap>
-          {hoveredPump && hoveredPump.x && hoveredPump.y && (
-            <MapTooltip
-              x={hoveredPump.x}
-              y={hoveredPump.y}
-              title='Öffentliche Straßenpumpe'
-              subtitle={hoveredPump.address}
-              infos={{
-                Status: hoveredPump.status,
-                'Letzter Check': hoveredPump.check_date,
-                Pumpenstil: hoveredPump.style,
-              }}
-            />
-          )}
         </DeckGL>
+        {hoveredPump && hoveredPump.x && hoveredPump.y && (
+          <MapTooltip
+            x={hoveredPump.x}
+            y={hoveredPump.y}
+            title='Öffentliche Straßenpumpe'
+            subtitle={hoveredPump.address}
+            infos={{
+              Status: hoveredPump.status,
+              'Letzter Check': hoveredPump.check_date,
+              Pumpenstil: hoveredPump.style,
+            }}
+          />
+        )}
       </>
     );
   }
