@@ -25,7 +25,7 @@ interface StyledProps {
   isNavOpen?: boolean;
 }
 const ControlWrapper = styled.div<StyledProps>`
-  position: absolute;
+  position: fixed;
   bottom: 12px;
   left: 12px;
   z-index: 2;
@@ -33,7 +33,11 @@ const ControlWrapper = styled.div<StyledProps>`
 
   @media screen and (min-width: ${p => p.theme.screens.tablet}) {
     transform: ${props =>
-      props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'none'};
+      props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'translate3d(0, 0, 0)'};
+  }
+
+  & > div {
+    position: static !important;
   }
 `;
 
