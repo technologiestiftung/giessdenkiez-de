@@ -289,6 +289,20 @@
         ]
       },
       "geometry": { "type": "Point", "coordinates": [12.3240259, 51.3265815] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210617_impacthub",
+        "name": "ImpactHub Leipzig",
+        "type": "Privatperson",
+        "address": "Industriestr. 95, Konsumzentrale, Aufgang F, 04229 Leipzig",
+        "created": "17.06.2021",
+        "hints":[
+          "Gern öffnen wir den Hub und den Wasserhahn für die Wasserversorgung von Bäumen durch Gieß-Aktivist:innen"
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.330538630485535, 51.32798540703063] }
     }
   ]
 }
