@@ -167,7 +167,7 @@ const content: Content = {
       'Wir laden gerade 625.000 Bäume aus dem Berliner Baumbestand.',
       'Wenn du diese Seite über das Mobilfunknetz aufrufst, kann es etwas dauern.',
       'Sammle Informationen aller Bäume aus Berlins Stadtkataster.',
-      'Schon gewusst? Ein Stadtbaum benötigt etwa 70 Wasser in der Woche.',
+      'Schon gewusst? Ein Stadtbaum benötigt etwa 70l Wasser in der Woche.',
     ],
   },
   sidebar: {
