@@ -9,8 +9,8 @@
       "type": "Feature",
       "properties": {
         "id": "20210415_thorsten",
-        "type": "Privatperson",
-        "name": "Thorsten",
+        "type": "Organisation",
+        "name": "Stiftung Ecken Wecken",
         "organisation": "Stiftung Ecken Wecken",
         "address": "Markranstädter Straße 29b",
         "created": "15.04.2021",
@@ -281,7 +281,7 @@
       "properties": {
         "id": "20210613_zollschuppen",
         "name": "Wasserspeicher Zollschuppen",
-        "type": "Privatperson",
+        "type": "Wasserspeicher",
         "address": "Zollschuppen Straße 2d, 04229 Leipzig",
         "created": "13.06.2021",
         "hints":[
@@ -294,15 +294,17 @@
       "type": "Feature",
       "properties": {
         "id": "20210617_impacthub",
-        "name": "ImpactHub Leipzig",
-        "type": "Privatperson",
+        "name": "Impact Hub Leipzig GmbH",
+        "organisation": "Impact Hub Leipzig GmbH",
+        "type": "Unternehmen",
         "address": "Industriestr. 95, Konsumzentrale, Aufgang F, 04229 Leipzig",
         "created": "17.06.2021",
         "hints":[
-          "Gern öffnen wir den Hub und den Wasserhahn für die Wasserversorgung von Bäumen durch Gieß-Aktivist:innen"
+          "Gern öffnen wir den Hub und den Wasserhahn für die Wasserversorgung von Bäumen durch Gieß-Aktivist:innen.",
+          "Einfach vorbeikommen oder kurz anrufen: 0341 - 991 981 53."
         ]
       },
-      "geometry": { "type": "Point", "coordinates": [12.330538630485535, 51.32798540703063] }
+      "geometry": { "type": "Point", "coordinates": [12.3295596, 51.3281016] }
     }
   ]
 }
