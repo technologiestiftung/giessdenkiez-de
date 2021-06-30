@@ -40,8 +40,7 @@ function createGeojson(trees: Tree[]): ExtendedFeatureCollection {
 }
 
 export const loadTreesGeoJson = async (): Promise<ExtendedFeatureCollection> => {
-  const dataUrl =
-    'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
+  const dataUrl = process.env.AWS_TREES_URL as string;
 
   const data = await d3Dsv(',', dataUrl, { cache: 'force-cache' });
   const geojson = createGeojson((data as unknown) as Tree[]);
