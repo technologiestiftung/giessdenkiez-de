@@ -257,7 +257,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           /**
            * Apparently DWD 1 is not 1ml but 0.1ml
            * We could change this in the database, but this would mean,
-           * transferring 625.000 "," characters, therefore,
+           * transferring 750.000 "," characters, therefore,
            * changing it client-side makes more sense.
            */
           const interpolated = interpolateColor(
@@ -439,6 +439,61 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         type: 'circle',
         source: 'trees',
         'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
+        // TODO: Below we add the style for the trees on mobile. The color updates should be inserted or replicated here.
+        paint: {
+          'circle-radius': {
+            base: 1.75,
+            stops: [
+              [11, 1],
+              [22, 100],
+            ],
+          },
+          'circle-opacity': 1,
+          'circle-stroke-color': 'rgba(247, 105, 6, 1)',
+          'circle-color': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            'rgba(200,200,200,1)',
+            'rgba(150,0,200,1)',
+            /* [
+              'interpolate',
+              ['linear'],
+              ['get', 'radolan_sum'],
+              0,
+              interpolateColor(0),
+              600,
+              interpolateColor(60),
+              1200,
+              interpolateColor(120),
+              1800,
+              interpolateColor(180),
+              2400,
+              interpolateColor(240),
+              3000,
+              interpolateColor(300),
+            ], */
+          ],
+          'circle-stroke-width': [
+            'case',
+            ['boolean', ['feature-state', 'select'], false],
+            15,
+            0,
+          ],
+        },
+      });
+
+      map.addSource('trees-v1', {
+        type: 'vector',
+        url: 'mapbox://technologiestiftung.trees_s3',
+        minzoom: 11,
+        maxzoom: 20,
+      });
+
+      map.addLayer({
+        id: 'trees-v1',
+        type: 'circle',
+        source: 'trees-v1',
+        'source-layer': 'original',
         // TODO: Below we add the style for the trees on mobile. The color updates should be inserted or replicated here.
         paint: {
           'circle-radius': {
