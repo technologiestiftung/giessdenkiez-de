@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 
 import OverlayTitle from '../OverlayTitle/';
-import OverlayEvent from '../OverlayEvent/';
 import Icon from '../../Icons';
 import OverlayBeta from '../OverlayBeta/';
 import OverlayDescription from '../OverlayDescription/';
