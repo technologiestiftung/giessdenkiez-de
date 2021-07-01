@@ -257,7 +257,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           /**
            * Apparently DWD 1 is not 1ml but 0.1ml
            * We could change this in the database, but this would mean,
-           * transferring 625.000 "," characters, therefore,
+           * transferring 750.000 "," characters, therefore,
            * changing it client-side makes more sense.
            */
           const interpolated = interpolateColor(
