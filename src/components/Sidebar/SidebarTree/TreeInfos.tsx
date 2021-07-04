@@ -108,6 +108,7 @@ const TreeInfos: FC<{
   const {
     id: treeId,
     pflanzjahr,
+    standortnr,
     artbot,
     artdtsch,
     gattung,
@@ -208,6 +209,12 @@ const TreeInfos: FC<{
           <InfoContainer>
             <span>Gattung (wiss.)</span>
             <InfoValue>{gattung}</InfoValue>
+          </InfoContainer>
+        )}
+        {standortnr && (
+          <InfoContainer>
+            <span>Standortnummer</span>
+            <InfoValue>{standortnr}</InfoValue>
           </InfoContainer>
         )}
         {treeAge && (
