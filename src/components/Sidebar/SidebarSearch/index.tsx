@@ -6,6 +6,7 @@ import SmallParagraph from '../../SmallParagraph';
 import { useActions, useStoreState } from '../../../state/unistore-hooks';
 import SidebarSearchAge from './SidebarSearchAge';
 import SidebarSearchLocation from './SidebarSearchLocation';
+import WaterDrops from '../../WaterDrops';
 
 const FilterLinksContainer = styled.div`
   display: flex;
@@ -16,7 +17,7 @@ const FilterLinksContainer = styled.div`
 `;
 
 const FilterLink = styled.span<{ isActive?: boolean }>`
-  display: inline-block;
+  display: inline-flex;
   padding: 6px 10px;
   border-radius: 16px;
   cursor: pointer;
@@ -29,11 +30,21 @@ const FilterLink = styled.span<{ isActive?: boolean }>`
     background: ${p => p.theme.colorGreyLight};
     transition: all 0.125s ease-in-out;
   }
+
+  svg:first-child {
+    margin-left: 6px;
+  }
 `;
 
 const SidebarSearch: FC = () => {
   const mapViewFilter = useStoreState('mapViewFilter');
-  const { setMapViewFilter } = useActions();
+  const mapWaterNeedFilter = useStoreState('mapWaterNeedFilter');
+  const { setMapViewFilter, setMapWaterNeedFilter } = useActions();
+
+  const setWaterNeedFilter = (need: number) => {
+    const waterNeed = mapWaterNeedFilter === need ? null : need;
+    return setMapWaterNeedFilter(waterNeed);
+  }
 
   return (
     <>
@@ -62,6 +73,34 @@ const SidebarSearch: FC = () => {
             onClick={() => setMapViewFilter('watered')}
           >
             In den letzten 30 Tagen gegossen
+          </FilterLink>
+        </FilterLinksContainer>
+      </ExpandablePanel>
+      <ExpandablePanel title='Wasserbedarf' isExpanded>
+        <SmallParagraph>
+          Finde heraus wie sehr Bäume Wasser benötigen.
+        </SmallParagraph>
+        <FilterLinksContainer>
+          <FilterLink
+            isActive={mapWaterNeedFilter === 1}
+            onClick={() => setWaterNeedFilter(1) }
+          >
+            Niedrig
+            <WaterDrops dropsAmount={1} />
+          </FilterLink>
+          <FilterLink
+            isActive={mapWaterNeedFilter === 2}
+            onClick={() => setWaterNeedFilter(2) }
+          >
+            Mittel
+            <WaterDrops dropsAmount={2} />
+          </FilterLink>
+          <FilterLink
+            isActive={mapWaterNeedFilter === 3}
+            onClick={() => setWaterNeedFilter(3) }
+          >
+            Hoch
+            <WaterDrops dropsAmount={3} />
           </FilterLink>
         </FilterLinksContainer>
       </ExpandablePanel>
