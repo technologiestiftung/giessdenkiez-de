@@ -143,7 +143,10 @@ const SidebarProfile: FC<{
         userProfile={userData.userProfile || {}} 
       />
       {   canExportUserData && (
-        <a href={"#"} onClick={exportUserData}></a>
+        <p>
+          <a style={{ color: 'blue', cursor: 'pointer', textDecoration: 'underline blue' }} 
+            target={"_blank"} onClick={exportUserData}>Nutzerdaten-Export</a>
+        </p>
       )}
       <br />
       <Login width='-webkit-fill-available' />
