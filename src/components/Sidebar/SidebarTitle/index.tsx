@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const SidebarTitle = styled.h2`
-  font-size: ${p => p.theme.fontSizeXxl};
+  font-size: ${p => p.theme.fontSizeXl};
   font-weight: bold;
   padding: 20px 0 10px;
   margin: 0;

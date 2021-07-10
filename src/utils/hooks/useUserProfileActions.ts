@@ -32,7 +32,7 @@ export const useUserProfileActions = (): {
     },
     changeUsername: async (username: string) => {
       if (!user?.sub || !token || !userData || !userData.userProfile) return;
-      await updateUserProfile({ token, userId: user?.sub, name: "preferedUserName", value: username })
+      await updateUserProfile({ token, userId: user?.sub, name: "prefered_username", value: username })
       invalidateUserData();
     },
     changeSalutation: async (salutation: string) => {
