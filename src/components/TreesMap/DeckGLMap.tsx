@@ -288,11 +288,12 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       }),
       new IconLayer({
         id: 'waterSources',
+        visible: visibleMapLayer.indexOf('water_sources') >= 0 ? true : false,
         data: (waterSourcesGeoJson as any).features,
         pickable: true,
         // iconAtlas and iconMapping are required
         // getIcon: return a string
-        getIcon: d => this._getWaterSourceIcon(d),
+        getIcon: d => this._getWaterSourceIcon(d, window.location.pathname.split('/').filter(s => s.length > 0).map(_ => '../').join('')),
         sizeScale: 5,
         getPosition: (d) => d.geometry.coordinates,
         getSize: (d) => 10,
@@ -359,31 +360,31 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     }
   }
 
-  _getWaterSourceIcon(d) {
+  _getWaterSourceIcon(d, prefix) {
     if (d.properties.type == "Handschwengelpumpe") {
       return {
-        url: "images/pumpe_64.png",
+        url: prefix + "images/pumpe_64.png",
         width: 132,
         height: 132,
         anchorY: 32
       };
     } else if (d.properties.type == "Privatperson") {
       return {
-        url: "images/drinking-water.png",
+        url: prefix + "images/drinking-water.png",
         width: 132,
         height: 132,
         anchorY: 32
       };
     } else if (d.properties.type == "Schöpfstelle") {
       return { 
-        url: "images/river-icon-clipart.png",
+        url: prefix + "images/river-icon-clipart.png",
         width: 32,
         height: 32,
         anchorY: 16
       };
     } else {
       return {
-        url: "images/drinking-water.png",
+        url: prefix + "images/drinking-water.png",
         width: 132,
         height: 132,
         anchorY: 32
