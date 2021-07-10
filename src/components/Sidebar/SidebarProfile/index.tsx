@@ -14,6 +14,8 @@ import ButtonRound from '../../ButtonRound';
 import SidebarTitle from '../SidebarTitle/';
 import { ParticipateButton } from '../../ParticipateButton';
 import { useAccountActions } from '../../../utils/hooks/useAccountActions';
+import { useCanExportUserData } from '../../../utils/hooks/useCanExportUserData';
+import { useUserProfileActions } from '../../../utils/hooks/useUserProfileActions';
 import { UserProfile, UserDataType, Tree, WateringType } from '../../../common/interfaces';
 import { SidebarLoading } from '../SidebarLoading';
 import SmallParagraph from '../../SmallParagraph';
@@ -46,6 +48,8 @@ const SidebarProfile: FC<{
 }> = ({ userData: userDataProps, isLoading: isLoadingProps }) => {
   const { userData: userDataState } = useUserData();
   const { deleteAccount } = useAccountActions();
+  const { canExportUserData } = useCanExportUserData();
+  const { exportUserData } = useUserProfileActions();
   const { loading: isLoadingState } = useAuth0();
   const isLoading = isLoadingProps || isLoadingState;
   const isLocalTesting = process.env.LOCAL_TESTING;
@@ -138,6 +142,9 @@ const SidebarProfile: FC<{
         username={userData.username} 
         userProfile={userData.userProfile || {}} 
       />
+      {   canExportUserData && (
+        <a href={"#"} onClick={exportUserData}></a>
+      )}
       <br />
       <Login width='-webkit-fill-available' />
       <>

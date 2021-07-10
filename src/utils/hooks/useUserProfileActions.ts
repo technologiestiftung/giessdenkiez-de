@@ -3,10 +3,12 @@ import { useAuth0 } from '../auth/auth0';
 import { useAuth0Token } from './useAuth0Token';
 import { useUserData } from './useUserData';
 import { createUserProfile } from '../requests/createUserProfile';
+import { exportUserData } from '../requests/exportUserData';
 import { updateUserProfile } from '../requests/updateUserProfile';
 
 export const useUserProfileActions = (): {
   createUserProfile: () => Promise<UserProfile | undefined>;
+  exportUserData: () => Promise<UserProfile[] | undefined>;
   changeUsername: (username: string) => Promise<void | undefined>;
   changeSalutation: (salutation: string) => Promise<void | undefined>;
   changeGivenName: (given_name: string) => Promise<void | undefined>;
@@ -29,6 +31,10 @@ export const useUserProfileActions = (): {
       } else {
         return userData.userProfile;
       }
+    },
+    exportUserData: async () => {
+      if (!user?.sub || !token) return;
+      return exportUserData({ token })
     },
     changeUsername: async (username: string) => {
       if (!user?.sub || !token || !userData || !userData.userProfile) return;
