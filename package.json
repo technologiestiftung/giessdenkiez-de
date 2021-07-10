@@ -111,6 +111,7 @@
     "react": "16.14.0",
     "react-app-polyfill": "1.0.6",
     "react-copy-to-clipboard": "^5.0.3",
+    "react-csv": "^2.0.3",
     "react-device-detect": "1.15.0",
     "react-dom": "16.14.0",
     "react-easy-edit": "^1.13.1",

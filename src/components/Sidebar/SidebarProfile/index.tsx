@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { CSVLink } from "react-csv";
 import { useAuth0 } from '../../../utils/auth/auth0';
 import { useUserData } from '../../../utils/hooks/useUserData';
 
@@ -20,6 +21,8 @@ import { UserProfile, UserDataType, Tree, WateringType } from '../../../common/i
 import { SidebarLoading } from '../SidebarLoading';
 import SmallParagraph from '../../SmallParagraph';
 import UsersWateringsList from '../../UsersWateringsList';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
@@ -46,6 +49,8 @@ const SidebarProfile: FC<{
   isLoading?: boolean;
   userData?: UserDataType | undefined;
 }> = ({ userData: userDataProps, isLoading: isLoadingProps }) => {
+  const csvLink = React.createRef();
+  const [csvData, setCsvData] = useState<string | undefined>()
   const { userData: userDataState } = useUserData();
   const { deleteAccount } = useAccountActions();
   const { canExportUserData } = useCanExportUserData();
@@ -82,6 +87,20 @@ const SidebarProfile: FC<{
     if (!confirmAccountDeletion()) return;
     deleteAccount();
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (csvLink.current != null && csvData) {
+        csvLink.current.link.click();
+        setCsvData(undefined)
+      }
+    });
+  }, [csvData])
+
+  const downloadUserDataCsv = async () => {
+    const data = await exportUserData();
+    setCsvData(data);
+  }
 
   if (isLoading) {
     return <SidebarLoading title='Profil' />;
@@ -143,10 +162,16 @@ const SidebarProfile: FC<{
         userProfile={userData.userProfile || {}} 
       />
       {   canExportUserData && (
-        <p>
-          <a style={{ color: 'blue', cursor: 'pointer', textDecoration: 'underline blue' }} 
-            target={"_blank"} onClick={exportUserData}>Nutzerdaten-Export</a>
-        </p>
+        <>
+          <ButtonRound margin='15px' onClick={downloadUserDataCsv}>
+            Download aller Nutzerdaten
+          </ButtonRound>
+          <CSVLink 
+            filename={"benutzer.csv"} 
+            data={csvData || ""}
+            ref={csvLink}
+          />
+        </>
       )}
       <br />
       <Login width='-webkit-fill-available' />

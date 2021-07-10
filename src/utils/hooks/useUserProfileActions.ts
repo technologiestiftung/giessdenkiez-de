@@ -8,7 +8,7 @@ import { updateUserProfile } from '../requests/updateUserProfile';
 
 export const useUserProfileActions = (): {
   createUserProfile: () => Promise<UserProfile | undefined>;
-  exportUserData: () => Promise<UserProfile[] | undefined>;
+  exportUserData: () => Promise<string | undefined>;
   changeUsername: (username: string) => Promise<void | undefined>;
   changeSalutation: (salutation: string) => Promise<void | undefined>;
   changeGivenName: (given_name: string) => Promise<void | undefined>;
