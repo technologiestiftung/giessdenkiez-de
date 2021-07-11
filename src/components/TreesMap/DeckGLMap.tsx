@@ -19,6 +19,7 @@ import {
 } from '../../common/interfaces';
 import { pumpToColor } from './mapColorUtil';
 import { MapTooltip } from './MapTooltip';
+import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 interface StyledProps {
@@ -60,6 +61,7 @@ interface DeckGLPropType {
   visibleMapLayer: StoreProps['visibleMapLayer'];
   ageRange: StoreProps['ageRange'];
   mapViewFilter: StoreProps['mapViewFilter'];
+  mapWaterNeedFilter: StoreProps['mapWaterNeedFilter'];
   isNavOpen: StoreProps['isNavOpen'];
   focusPoint: StoreProps['mapFocusPoint'];
 
@@ -132,12 +134,13 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   _getFillColor(info: {
     properties: TreeGeojsonFeatureProperties;
   }): [number, number, number, number] {
-    const { ageRange, mapViewFilter, communityData } = this.props;
+    const { ageRange, mapViewFilter, mapWaterNeedFilter, communityData } = this.props;
     const [minFilteredAge, maxFilteredAge] = ageRange;
     const { properties } = info;
     const { id, radolan_sum, age: treeAge } = properties;
     const communityDataFlatMap = communityData && id && communityData[id];
     const { isWatered, isAdopted } = communityDataFlatMap || {};
+    const waterNeed = getWaterNeedByAge(treeAge);
 
     const rainDataExists = !!radolan_sum;
 
@@ -153,6 +156,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     const colorShallBeTransparent =
       (ageFilterIsApplied && !treeAge) ||
       (ageFilterIsApplied && !treeIsWithinAgeRange) ||
+      (mapWaterNeedFilter && waterNeed !== mapWaterNeedFilter) ||
       !rainDataExists;
 
     if (colorShallBeTransparent) return colors.transparent;
@@ -238,6 +242,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             this.props.selectedTreeId,
             this.props.ageRange,
             this.props.mapViewFilter,
+            this.props.mapWaterNeedFilter,
           ],
           getLineWidth: [this.props.selectedTreeId],
           getLineColor: [this.props.selectedTreeId],
@@ -540,6 +545,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       'communityData',
       'ageRange',
       'mapViewFilter',
+      'mapWaterNeedFilter',
       'treesVisible',
       'visibleMapLayer',
       'selectedTreeId',

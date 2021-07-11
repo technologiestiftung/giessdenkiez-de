@@ -16,6 +16,7 @@ export const Map: FC<{
   const visibleMapLayer = useStoreState('visibleMapLayer');
   const ageRange = useStoreState('ageRange');
   const mapViewFilter = useStoreState('mapViewFilter');
+  const mapWaterNeedFilter = useStoreState('mapWaterNeedFilter');
   const mapFocusPoint = useStoreState('mapFocusPoint');
 
   const treeId = useCurrentTreeId();
@@ -40,6 +41,7 @@ export const Map: FC<{
       pumpsGeoJson={pumpsGeoJson || null}
       ageRange={ageRange || []}
       mapViewFilter={mapViewFilter}
+      mapWaterNeedFilter={mapWaterNeedFilter}
       communityData={communityData?.communityFlagsMap || null}
       communityDataWatered={communityData?.wateredTreesIds || []}
       communityDataAdopted={communityData?.adoptedTreesIds || []}

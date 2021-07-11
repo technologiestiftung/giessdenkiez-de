@@ -12,6 +12,10 @@ const setMapViewFilter = (
   mapViewFilter: StoreProps['mapViewFilter']
 ): Pick<StoreProps, 'mapViewFilter'> => ({ mapViewFilter });
 
+const setMapWaterNeedFilter = (
+  mapWaterNeedFilter: StoreProps['mapWaterNeedFilter']
+): Pick<StoreProps, 'mapWaterNeedFilter'> => ({ mapWaterNeedFilter });
+
 const setMapFocusPoint = (
   mapFocusPoint: StoreProps['mapFocusPoint']
 ): Pick<StoreProps, 'mapFocusPoint'> => ({ mapFocusPoint });
@@ -42,6 +46,7 @@ const allActions = {
   closeNav,
   setVisibleMapLayer,
   setMapViewFilter,
+  setMapWaterNeedFilter,
 };
 
 export type ActionsType = typeof allActions;
