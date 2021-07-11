@@ -3,28 +3,53 @@
 
 name: Node.js CI
 env:
-  BUILD_TARGET: DEFAULT  
+  BUILD_TARGET: DEFAULT
 on:
   push:
-    branches: [ master, staging, demo ]
+    branches: [master, staging, demo, dev]
+    paths:
+      - 'src/**/*'
+      - '.storybook/**/*'
+      - 'public/**/*'
+      - 'webpack/**/*'
+      - '.github/workflows/**/*'
+      - 'package*.json'
+      - 'jest.config.js'
+      - 'netlify.toml'
+      - 'babel.config.js'
+      - 'create-env.js'
+      - 'tsconfig.json'
   pull_request:
-    branches: [ master, staging, demo ]
+    branches: [master, staging, demo, dev]
+    paths:
+      - 'src/**/*'
+      - '.storybook/**/*'
+      - 'public/**/*'
+      - 'webpack/**/*'
+      - '.github/workflows/**/*'
+      - 'package*.json'
+      - 'jest.config.js'
+      - 'netlify.toml'
+      - 'babel.config.js'
+      - 'create-env.js'
+      - 'tsconfig.json'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x]
+        node-version: [12.x, 14.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run lint
+      - run: npm run type-check
+      - run: npm run test

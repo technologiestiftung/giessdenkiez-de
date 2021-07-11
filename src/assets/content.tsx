@@ -1,9 +1,3 @@
-import {
-  workingColor,
-  lockedColor,
-  brokenColor,
-  defaultColor,
-} from '../components/map/colors';
 interface Item {
   title: string;
   description: string;
@@ -17,9 +11,6 @@ export interface TreeType extends Item {
 type IconType = 'info' | 'zoom' | 'water' | 'subscribe';
 export interface CollaborationItem extends Item {
   icon: IconType;
-}
-interface Watering extends Item {
-  waterdrops: number[];
 }
 interface FAQ extends Item {
   qa: Array<{ question: string; answer: string }>;
@@ -35,9 +26,9 @@ interface Content {
   };
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
   //if event announcemnt is needed just de-comment this section and fill in the announcement text below
-  // eventNote?: {
-  //   title: string;
-  // };
+  eventNote?: {
+    title: string;
+  };
   whatsNew?: {
     title: string;
     description: string[];
@@ -47,7 +38,7 @@ interface Content {
   };
   sidebar: {
     about: Item[];
-    watering: Watering[];
+    waterNeeds: Item[];
     treetypes: TreeType[];
   };
   collaborate: {
@@ -97,7 +88,7 @@ const content: Content = {
       {
         question: 'Warum lädt die Website nicht oder nur sehr langsam?',
         answer:
-          'Wenn die Seite zum ersten Mal geöffnet wird, lädt der Browser über 625.000 Datenpunkte – das kann eine Weile dauern! Unabhängig davon, kann es zu leicht unterschiedlichen  Darstellungen bei der Verwendung unterschiedlicher Browser kommen. Für die beste “Experience” empfehlen wir die Nutzung des Chrome-Browsers am Desktop. Die häufigsten Probleme lassen sich erfahrungsgemäß beseitigen, wenn der Browser nicht veraltet, respektive die neueste Version installiert ist und eine stabile Internetverbindung (LAN oder WLAN) besteht. <br><br> Die Nutzung via Mobilfunknetz kann zu Performance-Problemen (Seite lädt langsam) führen. Sollten wiederholt Probleme auftreten, könnt ihr diese auf <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack</a>, per Mail oder via GitHub Issue unter Angabe des benutzten Geräts, des Betriebssystems, des Browsers und Version des Browsers melden.',
+          'Wenn die Seite zum ersten Mal geöffnet wird, lädt der Browser über 750.000 Datenpunkte – das kann eine Weile dauern! Unabhängig davon, kann es zu leicht unterschiedlichen  Darstellungen bei der Verwendung unterschiedlicher Browser kommen. Für die beste “Experience” empfehlen wir die Nutzung des Chrome-Browsers am Desktop. Die häufigsten Probleme lassen sich erfahrungsgemäß beseitigen, wenn der Browser nicht veraltet, respektive die neueste Version installiert ist und eine stabile Internetverbindung (LAN oder WLAN) besteht. <br><br> Die Nutzung via Mobilfunknetz kann zu Performance-Problemen (Seite lädt langsam) führen. Sollten wiederholt Probleme auftreten, könnt ihr diese auf <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack</a>, per Mail oder via GitHub Issue unter Angabe des benutzten Geräts, des Betriebssystems, des Browsers und Version des Browsers melden.',
       },
       {
         question:
@@ -132,7 +123,7 @@ const content: Content = {
     subline:
       'Die Berliner Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
     disclaimer:
-      'Hinweis: Das Laden von 625.000 Bäumen ist ressourcenintensiv und funktioniert aktuell nicht auf allen Mobilgeräten einwandfrei. Wir empfehlen die Nutzung via Desktop-Computer',
+      'Hinweis: Das Laden von über 750.000 Bäumen ist ressourcenintensiv und funktioniert aktuell nicht auf allen Mobilgeräten einwandfrei. Wir empfehlen die Nutzung via Desktop-Computer',
     description: [
       'Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.',
       'Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
@@ -144,81 +135,18 @@ const content: Content = {
   //     '<b>Gieß den Kiez LIVE: </b><br>Der Sommer neigt sich dem Ende zu und wir werden analog! Melde Dich jetzt für unser <a target="blank" href="https://www.citylab-berlin.org/events/freiwilligentage/">Mitmach-Event</a> am 11. September an und besuche uns im CityLAB Berlin.',
   // },
   whatsNew: {
-    title: 'Was ist neu?',
+    title: 'Hurray, das neue Baumkataster ist live!',
     description: [
-      `Wir haben die Farben angepasst, damit der Wasserbedarf der Berliner Bäume intuitiver zu erfassen ist. Es beginnt bei einem trockenem Gelb und geht bis in ein sattes Grün.<br /><div style="padding-top:0.5rem;padding-bottom:0.5rem; display:flex">
-      <div
-        style=" background-color:#fde725; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#fde725"
-      ></div>
-      <div
-        style=" background-color:#cae11f; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#cae11f"
-      ></div>
-      <div
-        style=" background-color:#95d840; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#95d840"
-      ></div>
-      <div
-        style=" background-color:#63cb5f; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#63cb5f"
-      ></div>
-      <div
-        style=" background-color:#3bbb75; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#3bbb75"
-      ></div>
-      <div
-        style=" background-color:#22a884; width: 13px; height: 13px; border-radius: 100px; margin-right: 5px;"
-        color="#22a884"
-      ></div>
-    </div> Ebenfalls haben wir unsere Pumpen-Daten geupdated. Die kommen jetzt jede Woche frisch von Open Street Maps. `,
-      `Ihr könnt sehen ob Pumpen: "funktionsfähig" <span
-       style=
-       "display: inline-block;
-        background-color: ${workingColor.hex};
-        width: 13px;
-        height: 13px;
-        border-radius: 100px;
-        margin-right: 5px;"
-
-        color="${workingColor.hex}"
-        ></span>,
-        "defekt" <span
-        style=
-        "display: inline-block;
-         background-color: ${brokenColor.hex};
-         width: 13px;
-         height: 13px;
-         border-radius: 100px;
-         margin-right: 5px;"
-        color="${brokenColor.hex}"
-        ></span> oder "verriegelt" <span
-        style=
-        "display: inline-block;
-         background-color: ${lockedColor.hex};
-         width: 13px;
-         height: 13px;
-         border-radius: 100px;
-         margin-right: 5px;"
-         color="${lockedColor.hex}"
-         ></span> sind. Für einige gibt es leider noch den Status "unbekannt" <span
-         style=
-         "display: inline-block;
-         background-color:${defaultColor.hex};
-         width: 13px;
-         height: 13px;
-         border-radius: 100px;
-         margin-right: 5px;"
-         color="${defaultColor.hex}"
-         ></span>. Informationen wie ihr der Open Street Maps Community helfen könnt dies zu beheben, findet ihr in unserem F.A.Q und in unserem <a target="blank" href="https://app.slack.com/client/T012K4SDYBY/C019SJQDPL7">Slack Channel #pumpen-melden </a>.`,
+      `Auf Gieß den Kiez werden nun <strong>120.000 zusätzliche Stadtbäume</strong> angezeigt. Im Juni 2021 wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 120.000 Bäume mehr listet als das Baumkataster auf dem Jahr 2020. Dabei liegt die Anzahl der in 2020 gepflanzten Bäume nicht überdurchschnittlich hoch.`,
+      `Der Zuwachs ist vielmehr auf die vorbildliche Arbeit der bezirklichen Straßen- und Grünflächenämter zurückzuführen, die die Koordinaten weiterer Bäume erfasst haben. Von den rund 430.000 Straßenbäumen Berlins verfügen jetzt rund 404.000 über Koordinaten – das sind fast <strong>94% aller Straßenbäume</strong>.`,
     ],
   },
   loading: {
     snippets: [
-      'Wir laden gerade 625.000 Bäume aus dem Berliner Baumbestand.',
+      'Wir laden gerade 750.000 Bäume aus dem Berliner Baumbestand.',
       'Wenn du diese Seite über das Mobilfunknetz aufrufst, kann es etwas dauern.',
       'Sammle Informationen aller Bäume aus Berlins Stadtkataster.',
-      'Schon gewusst? Ein junger Stadtbaum benötigt etwa 200l Wasser in der Woche.',
+      'Schon gewusst? Ein Stadtbaum benötigt etwa 70l Wasser in der Woche.',
     ],
   },
   sidebar: {
@@ -240,7 +168,7 @@ const content: Content = {
       },
       {
         title: 'Datenquellen',
-        description: `Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (625.000; Stand: 14.06.2019). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind:
+        description: `Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (750.000; Stand: Juli 2021). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind:
           <ul>
             <li>
               <a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS">Geoportal Berlin / Straßenbäume</a>
@@ -256,21 +184,18 @@ const content: Content = {
           </ul>`,
       },
     ],
-    watering: [
+    waterNeeds: [
       {
-        waterdrops: [1],
         title: 'Niedriger Wasserbedarf',
         description:
           'Straßenbäume höheren Alters (>40 Jahre) haben in der Regel gelernt, sich über das Grundwasser selbst zu versorgen, aber auch sie leiden unter der zunehmenden Hitze und freuen sich über zusätzliches Wasser. Jungbäume unter 3 Jahren hingegen haben einen niedrigen Wasserbedarf, da diese im Normalfall durch die bezirklichen Grünflächenämter versorgt werden.',
       },
       {
-        waterdrops: [1, 1],
         title: 'Mittlerer Wasserbedarf',
         description:
           'Mittelalte Bäume zwischen 15 und 40 Jahren werden in der Regel nicht mehr durch die Grünflächenämter bewässert, haben aber schon ein gewisses Durchhaltevermögen. Aber auch für sie sind die Hitzesommer ungewohnt und sie freuen sich über jeden Eimer: Gerne ein Mal in der Woche mit bis zu 100l gießen. ',
       },
       {
-        waterdrops: [1, 1, 1],
         title: 'Hoher Wasserbedarf',
         description:
           'Jungbäume zwischen vier und 15 Jahren werden nicht in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Sie freuen sich über viel Wasser von bis zu 200l pro Gießung (ein Mal in der Woche).',

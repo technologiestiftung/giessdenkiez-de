@@ -1,8 +1,9 @@
+/* eslint-disable jest/require-top-level-describe */
 /* eslint-disable jest/no-hooks */
 
 import { server } from '../mocks/server';
 // import nodeFetch, { Response } from 'node-fetch';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 // global.fetch = nodeFetch;
 // Establish API mocking before all tests.

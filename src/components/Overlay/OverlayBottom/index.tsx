@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import OverlayTiles from '../OverlayTiles/';
@@ -13,7 +13,7 @@ const StyledBottom = styled.div`
   padding: 40px 0;
 `;
 
-const OverlayBottom = () => {
+const OverlayBottom: FC = () => {
   const { collaborate } = content;
 
   return (

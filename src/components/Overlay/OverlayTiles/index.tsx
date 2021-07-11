@@ -15,24 +15,12 @@ const Wrapper = styled.div`
   }
 `;
 
-// const StyledParargraph = styled.p`
-//   font-size: ${p => p.theme.fontSizeL};
-//   line-height: ${p => p.theme.lineHeightBody};
-//   font-weight: regular;
-//   margin: 0;
-// `;
-
 const OverlayTiles: React.FC<{ tiles: CollaborationItem[] }> = ({ tiles }) => {
   return (
     <Wrapper>
-      {tiles.map((col, i) => {
-        return (
-          <OverlayTile
-            key={`Overlay-tile-${i}`}
-            collaborationItem={col}
-          ></OverlayTile>
-        );
-      })}
+      {tiles.map(col => (
+        <OverlayTile key={col.title} collaborationItem={col}></OverlayTile>
+      ))}
     </Wrapper>
   );
 };

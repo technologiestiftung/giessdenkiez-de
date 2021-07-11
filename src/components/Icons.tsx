@@ -37,7 +37,7 @@ const Icon: React.FC<{ iconType: string; height?: number }> = ({
   iconType,
   height,
 }) => {
-  const geticon = (type: string) => {
+  const geticon = (type: string): string => {
     switch (type) {
       case 'water':
         return iconWater;
@@ -50,7 +50,7 @@ const Icon: React.FC<{ iconType: string; height?: number }> = ({
       case 'trees':
         return iconTrees;
       default:
-        break;
+        return '';
     }
   };
 

@@ -11,23 +11,15 @@ const StyledRoundButton = styled(RoundButton)`
 `;
 
 const OverlayClose: React.FC<{
-  toggleOverlay: (state: any, payload?: any) => { overlay: any };
-}> = ({ toggleOverlay }) => {
-  // const { toggleOverlay } = p;
-  // const { toggleOverlay } = useActions(Actions);
-  const handleClick = (_evt: React.ChangeEvent<any>) => {
-    toggleOverlay(false);
-  };
-
-  return (
-    <StyledRoundButton
-      onClick={(event: React.ChangeEvent<any>) => handleClick(event)}
-      aria-label='Leiste schließen'
-      title='Leiste schließen'
-    >
-      <CloseIcon />
-    </StyledRoundButton>
-  );
-};
+  onClick: () => void;
+}> = ({ onClick }) => (
+  <StyledRoundButton
+    onClick={onClick}
+    aria-label='Leiste schließen'
+    title='Leiste schließen'
+  >
+    <CloseIcon />
+  </StyledRoundButton>
+);
 
 export default OverlayClose;

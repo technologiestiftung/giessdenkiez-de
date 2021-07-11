@@ -44,6 +44,8 @@ module.exports = merge(config, {
       'error',
       { fn: 'test', withinDescribe: 'test' },
     ],
+    'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+    'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
   },
-  plugins: ['promise', 'react', 'jest', 'prettier'],
+  plugins: ['promise', 'react', 'jest', 'prettier', 'react-hooks'],
 });

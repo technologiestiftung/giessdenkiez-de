@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -11,7 +11,7 @@ import {
 const StyledContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
+  margin: 20px 0;
   span {
     font-size: ${p => p.theme.fontSizeL};
   }
@@ -25,15 +25,15 @@ const ButtonsContainer = styled.div`
   }
 `;
 
-const SocialSharing = () => {
+const SocialSharing: FC = () => {
   return (
     <StyledContainer>
       <span>Teilen:</span>
       <ButtonsContainer>
-        <FacebookShareButton url="https://www.giessdenkiez.de/">
+        <FacebookShareButton url='https://www.giessdenkiez.de/'>
           <FacebookIcon size={36} round />
         </FacebookShareButton>
-        <TwitterShareButton url="https://www.giessdenkiez.de/">
+        <TwitterShareButton url='https://www.giessdenkiez.de/'>
           <TwitterIcon size={36} round />
         </TwitterShareButton>
       </ButtonsContainer>

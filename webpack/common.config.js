@@ -60,13 +60,14 @@ module.exports = {
       'process.env.BUILD_TARGET': JSON.stringify(process.env.BUILD_TARGET),
     }),
     new Dotenv(),
-    new NormalModuleReplacementPlugin(/(\.*)\/auth\/(\.*)/, function (
-      resource
-    ) {
-      if (process.env.BUILD_TARGET === 'DEMO') {
-        resource.request = resource.request.replace(/auth/, `/auth-mock/`);
+    new NormalModuleReplacementPlugin(
+      /(\.*)\/auth\/(\.*)/,
+      function (resource) {
+        if (process.env.BUILD_TARGET === 'DEMO') {
+          resource.request = resource.request.replace(/auth/, `/auth-mock/`);
+        }
       }
-    }),
+    ),
     new CleanWebpackPlugin(),
     new CopyPlugin({ patterns: [{ context: 'public/', from: '**/*' }] }),
     new HtmlWebpackPlugin({

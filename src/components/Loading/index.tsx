@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-// import { isMobile } from 'react-device-detect';
 
 import LoadingIcon from '../LoadingIcon/';
 import content from '../../assets/content';
+import { ImprintAndPrivacy } from '../ImprintAndPrivacy';
 
 const LoadingDiv = styled.div`
   position: absolute;
@@ -37,12 +37,7 @@ const LoadingDiv = styled.div`
   }
 `;
 
-// const StyledLabel = styled.span`
-//   font-size: ${p => p.theme.fontSizeM};
-//   opacity: 0.66;
-// `;
-
-const Loading = (props: { show?: any }) => {
+const Loading: FC<{ show?: boolean }> = ({ show }) => {
   const { loading } = content;
   // const { disclaimer } = intro;
   const { snippets } = loading;
@@ -60,13 +55,14 @@ const Loading = (props: { show?: any }) => {
     return () => clearInterval(interval);
   }, [current, maxIndex]);
 
-  if (props.show) {
+  if (show) {
     return null;
   } else {
     return (
       <LoadingDiv>
         <div>
           <LoadingIcon text={snippets[current]} />
+          <ImprintAndPrivacy />
         </div>
       </LoadingDiv>
     );

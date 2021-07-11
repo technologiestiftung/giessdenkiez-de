@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-import { NavLink, withRouter, matchPath } from 'react-router-dom';
-import { connect } from 'unistore/react';
-import Actions from '../../state/Actions';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
-import store from '../../state/Store';
-
-import EdgeButton from '../EdgeComponent/';
+import SquareButton from '../SquareButton';
+import { useActions } from '../../state/unistore-hooks';
 
 interface StyledProps {
   active?: boolean;
-  isNavOpen?: boolean;
+  isNavOpened?: boolean;
 }
 const NavWrapper = styled.div<StyledProps>`
   display: flex;
@@ -24,12 +21,12 @@ const NavWrapper = styled.div<StyledProps>`
   top: 12px;
   left: 12px;
   background: white;
-  z-index: 2;
+  z-index: 1;
   transition: transform 500ms;
 
   @media screen and (min-width: ${p => p.theme.screens.tablet}) {
     transform: ${props =>
-      props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'none'};
+      props.isNavOpened ? 'translate3d(350px, 0, 0)' : 'none'};
   }
 `;
 
@@ -39,8 +36,7 @@ const NavItem = styled(NavLink)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 1
-  }}
+  opacity: 1;
   text-decoration: none;
 `;
 
@@ -50,50 +46,37 @@ const navConfig = [
   { path: '/profile', title: 'Profil', icon: <AccountCircle /> },
 ];
 
-const Nav = p => {
-  const { pathname } = p.location;
-
-  const isNavOpen =
-    matchPath(pathname, {
-      path: navConfig.map(m => m.path),
-    }) !== null;
-
-  const handleClick = () => {
-    p.removeSelectedTree();
-  };
-
-  useEffect(() => {
-    store.setState({ isNavOpen: isNavOpen });
-  }, [isNavOpen]);
+const Nav: FC<{
+  isNavOpened: boolean;
+}> = ({ isNavOpened }) => {
+  const { openNav } = useActions();
+  const { pathname } = useLocation();
+  const history = useHistory();
 
   return (
-    <NavWrapper isNavOpen={isNavOpen}>
+    <NavWrapper isNavOpened={isNavOpened}>
       {navConfig.map(item => (
         <NavItem
           exact
           to={{ pathname: item.path, search: '' }}
-          onClick={() => handleClick()}
+          onClick={() => {
+            history.push('/');
+            openNav();
+          }}
           title={item.title}
           key={item.path}
         >
-          <EdgeButton
+          <SquareButton
             title={item.title}
             aria-label={item.title}
             isActive={pathname === item.path}
           >
             {item.icon}
-          </EdgeButton>
+          </SquareButton>
         </NavItem>
       ))}
     </NavWrapper>
   );
 };
 
-export default withRouter(
-  connect(
-    state => ({
-      state: state,
-    }),
-    Actions
-  )(Nav)
-);
+export default Nav;

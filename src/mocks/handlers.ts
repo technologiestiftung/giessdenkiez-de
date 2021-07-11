@@ -1,10 +1,8 @@
 // src/mocks/handlers.js
 
 import { rest } from 'msw';
-import { defaultFakeUser } from '../utils/auth-mock/auth0';
-import { Generic } from '../common/interfaces';
 interface Payload {
-  data?: Generic | Generic[] | boolean | string;
+  data?: Record<string, any> | Record<string, any>[] | boolean | string;
   message?: string;
 }
 
@@ -276,11 +274,11 @@ export const handlers = [
       const json: Payload = {
         data: {
           user_id: userid,
-          email: defaultFakeUser.email,
+          email: 'test@gdk.de',
           email_verified: true,
-          name: defaultFakeUser.nickname,
-          nickname: defaultFakeUser.nickname,
-          username: defaultFakeUser.username,
+          name: 'gdkboss123',
+          nickname: 'the GDK boss',
+          username: 'GDK OG',
         },
       };
       return res(ctx.status(200), ctx.json(json));

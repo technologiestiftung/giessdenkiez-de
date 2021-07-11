@@ -34,4 +34,9 @@ module.exports = merge(common, {
     },
   },
   plugins: [new ErrorOverlayPlugin(), new webpack.ProgressPlugin()],
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
+  },
 });

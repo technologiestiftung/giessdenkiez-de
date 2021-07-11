@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, MouseEvent } from 'react';
 import styled from 'styled-components';
 
 interface StyledButtonProps {
@@ -34,7 +34,8 @@ const StyledButton = styled.div<StyledButtonProps>`
       return p.theme.colorTextDark;
     }
   }};
-  transition: ${p => p.theme.transition};
+  transition: ${p => p.theme.transition}, box-shadow 200ms ease-out;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 
   &:hover {
     background-color: ${p =>
@@ -42,30 +43,46 @@ const StyledButton = styled.div<StyledButtonProps>`
     color: white;
     transition: ${p => p.theme.transition};
   }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px
+      ${p => {
+        if (p.type === 'primary') {
+          return p.theme.colorPrimary;
+        }
+        if (p.type === 'secondary') {
+          return p.theme.colorTextDark;
+        }
+      }};
+  }
 `;
 
-const ButtonRound = (p: {
+const ButtonRound: FC<{
   type?: string;
-  children: any;
-  toggle: any;
+  onClick?: (event?: MouseEvent<HTMLDivElement>) => Promise<void> | void;
   width?: string;
   fontSize?: string;
   margin?: string;
-}) => {
-  const { type, children, toggle, width, fontSize, margin = '0px' } = p;
-  return (
-    <StyledButton
-      fontSize={fontSize}
-      margin={margin}
-      width={width}
-      onClick={toggle}
-      type={type}
-      role={'button'}
-      tabIndex={0}
-    >
-      {children}
-    </StyledButton>
-  );
-};
+}> = ({
+  type,
+  children,
+  onClick = () => undefined,
+  width,
+  fontSize,
+  margin = '0px',
+}) => (
+  <StyledButton
+    fontSize={fontSize}
+    margin={margin}
+    width={width}
+    onClick={onClick}
+    type={type}
+    role={'button'}
+    tabIndex={0}
+  >
+    {children}
+  </StyledButton>
+);
 
 export default ButtonRound;

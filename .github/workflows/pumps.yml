@@ -1,15 +1,12 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Pumps CI
 
 on:
   workflow_dispatch:
   schedule:
-    # every sunday morning at 4:00
-    - cron: "0 4 * * 0"
+    - cron: '0 4 * * 0'
 
 jobs:
-  hello_world_job:
+  pumps:
     runs-on: ubuntu-latest
     name: Aggregate pumps data from open street maps
     steps:
@@ -18,24 +15,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Pumps data generate step
-        uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.1.0
-        id: pumps
+        uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.3.0
         with:
-          outfile-path: "public/data/pumps.geojson"
+          outfile-path: 'public/data/pumps.geojson'
       # Use the output from the `pumps` step
       - name: File output
         run: echo "The file was written to ${{ steps.pumps.outputs.file }}"
         # https://github.com/marketplace/actions/add-commit?version=v4.4.0
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v4.4.0 # You can change this to use a specific version
+        uses: EndBug/add-and-commit@v4.4.0
         with:
           add: public/data
           author_name: tsboter
           author_email: roboter@tsb-berlin.de
-          message: "Update ${{ steps.pumps.outputs.file }} via workflow"
+          message: 'Update ${{ steps.pumps.outputs.file }} via workflow'
         env:
           # This is necessary in order to push a commit to the repo
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
-       # Runs a set of commands using the runners shell
+        # Runs a set of commands using the runners shell
       - name: Run a netlify build hook
-        run: curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK_URL }}    
+        run: curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK_URL }}

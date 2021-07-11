@@ -1,11 +1,10 @@
 // handlers.test.ts
 import { getProperty } from './handlers';
 import cases from 'jest-in-case';
-import { Generic } from '../common/interfaces';
 interface CaseOption {
   name: string;
   key: string;
-  item: Generic | URLSearchParams;
+  item: Record<string, unknown> | URLSearchParams | number[];
   result?: string;
 }
 
@@ -48,7 +47,7 @@ cases('testing getProperty for body and URLSearchParams', tester, [
   },
   {
     name: 'array is not a string',
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     key: 1,
     item: [1, 2, 3],

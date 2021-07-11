@@ -15,7 +15,7 @@ const StyledOverlayTitle = styled.h2<StyledProps>`
       case 'large':
         return p.theme.fontSizeL;
       case 'Ll':
-          return p.theme.fontSizeLl;
+        return p.theme.fontSizeLl;
       case 'medium':
         return p.theme.fontSizeM;
       case 'small':
@@ -42,10 +42,10 @@ const StyledOverlayTitle = styled.h2<StyledProps>`
   }
 `;
 
-const OverlayTitle: React.FC<{ title: string; size?: any }> = ({
-  title,
-  size,
-}) => {
+const OverlayTitle: React.FC<{
+  title: string;
+  size?: 'xxl' | 'xl' | 'large' | 'Ll' | 'medium' | 'small';
+}> = ({ title, size }) => {
   return (
     <StyledOverlayTitle
       size={size}

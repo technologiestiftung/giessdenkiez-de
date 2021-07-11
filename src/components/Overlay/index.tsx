@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import OverlayClose from './OverlayClose';
 import OverlayTop from './OverlayTop';
 import OverlayBottom from './OverlayBottom';
-import { useActions } from '../../state/unistore-hooks';
-import Actions from '../../state/Actions';
 
 const StyledWrapper = styled.div`
-  width: 60%;
+  width: 100%;
   max-width: 1000px;
   height: auto;
   margin: 0 auto;
@@ -21,7 +18,7 @@ const StyledWrapper = styled.div`
   box-shadow: ${p => p.theme.boxShadow};
   z-index: 3;
 
-  @media screen and (max-width: ${_p => '600px'}) {
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     width: 100%;
     height: 100%;
     box-shadow: none;
@@ -47,21 +44,15 @@ const Wrapper = styled.div`
   }
 `;
 
-const Overlay: () => JSX.Element = () => {
-  const { toggleOverlay } = useActions(Actions);
-
-  return (
-    <StyledOverlayWrapper>
-      <StyledWrapper>
-        <Wrapper>
-          <OverlayTop toggleOverlay={toggleOverlay}>
-            <OverlayClose toggleOverlay={toggleOverlay} />
-          </OverlayTop>
-          <OverlayBottom />
-        </Wrapper>
-      </StyledWrapper>
-    </StyledOverlayWrapper>
-  );
-};
+const Overlay: FC = () => (
+  <StyledOverlayWrapper>
+    <StyledWrapper>
+      <Wrapper>
+        <OverlayTop />
+        <OverlayBottom />
+      </Wrapper>
+    </StyledWrapper>
+  </StyledOverlayWrapper>
+);
 
 export default Overlay;

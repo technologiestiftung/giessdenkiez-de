@@ -1,77 +1,36 @@
-# giessdenkiez.de  
-
 [![Netlify Status](https://api.netlify.com/api/v1/badges/08c96eab-42a0-45d4-9767-656b62b441bc/deploy-status)](https://app.netlify.com/sites/internetoftrees/deploys) ![Node.js CI](https://github.com/technologiestiftung/giessdenkiez-de/workflows/Node.js%20CI/badge.svg?branch=master)  ![love badge](https://img.shields.io/badge/build%20with-%E2%99%A5-red) ![citylab badge](https://img.shields.io/badge/@-CityLAB%20Berlin-blue)
 
-Source repo for [giessdenkiez.de](https://www.giessdenkiez.de) project by Technologiestiftung Berlin and CityLAB Berlin.  
-
-## Used Resources
-
-This is a short list of the things that are needed for running this project yourselves.
-
-- Netlify.com for hosting
-- vercel.com for serverless functions to interact with the database
-- AWS RDS Postgres
-- auth0.com + vercel.com for user management
-- AWS Fargate python script in docker for rain data aggreagation from Deutsche Wetterdientst (DWD) + Mapbox API for creating vector tiles for mobile
-
-These are the related repos:  
-
-- [React frontend (this is here)](https://github.com/technologiestiftung/giessdenkiez-de)
-- [vercel.com DB API](https://github.com/technologiestiftung/giessdenkiez-de-postgres-api)
-- [vercel.com Auth0 API (currently only for username and user deletion)](https://github.com/technologiestiftung/tsb-trees-api-user-management)
-- [AWS Fargate Service for DWD rain data and Mapbox API vector tiles](https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester) 
-
-Below is a rough sketch of the architecture:
-
-![software architecture](./docs/images/software-architecture.png)
-
-## Development
-
-To get the map tiles loaded you need to create a `.env` file and add the following:
-
-```env
-# mapbox token
-API_KEY=****************
-# auth0.com 
-AUTH0_DOMAIN=***********
-AUTH0_CLIENT_ID=********
-AUTH0_AUDIENCE=*********
-# url to where your user management api
-# is deployed (here at vercel.com)
-# https://github.com/technologiestiftung/tsb-trees-api-user-management
-USER_DATA_API_URL=******
-# url where your postgres api is deployed
-# currently vercel.com
-# https://github.com/technologiestiftung/giessdenkiez-de-postgres-api 
-API_ENDPOINT_DEV=*******
-API_ENDPOINT_PROD=******
-```
-
-The environment variable `BUILD_TARGET` 
-
-```env
-BUILD_TARGET=DEMO
-# or …=DEFAULT
-```
-
-could also be defined in the `.env` file. It is better though to define them in the `netlify.toml` in the build contexts or in the npm-scripts. You can use this to build the demo mode.
-
-Make sure to set your `NODE_ENV` to either `test`, `development` or `production`
+# [![Logo of _Gieß den Kiez_](./docs/images/logo.svg)](https://www.giessdenkiez.de)
 
 ---
 
-Start the project via  
+![Screenshot of _Gieß den Kiez_](./docs/images/screenshot.png)
 
-```bash
-npm start
-```
+## About [_Gieß den Kiez_](https://www.giessdenkiez.de)
 
-## Deployment
+The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin's ecosystem. Our urban trees are drying out and suffering long-term damage: In recent years, more and more trees have had to be cut down and their lifespan is declining. In the meantime, the population is regularly called upon to help, but largely uncoordinated. [_Gieß den Kiez_](https://www.giessdenkiez.de) is was made to change that and enable coordinated citizen* participation in the irrigation of urban trees. This project was made by the [Technologiestiftung Berlin](https://www.technologiestiftung-berlin.de/de/startseite/) and the [CityLAB Berlin](https://www.citylab-berlin.org/).
 
-To deploy the frontend we use netlify.com
+---
 
-Take a look at the `netlify.toml` for the the used commands to deploy it. Make sure to set all the variables you have in your `.env` file in the environment section of your projects build & deploy settings.
+## Repositories
 
+This project is composed of multiple repositories:
+
+- [React frontend (this is here)](https://github.com/technologiestiftung/giessdenkiez-de)
+- [AWS RDS Provisioning](https://github.com/technologiestiftung/giessdenkiez-de-aws-rds-terraform)
+- [AWS S3 Provisioning](https://github.com/technologiestiftung/giessdenkiez-de-aws-s3-terraform)
+- [Database API](https://github.com/technologiestiftung/giessdenkiez-de-postgres-api)
+- [User Management API](https://github.com/technologiestiftung/tsb-trees-api-user-management)
+- [DWD Harvester](https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester)
+- [OSM Harvester](https://github.com/technologiestiftung/giessdenkiez-de-osm-pumpen-harvester)
+
+---
+
+## Documentation
+
+You can find the projects documentation in this repos [wiki](https://github.com/technologiestiftung/giessdenkiez-de/wiki).
+
+<!-- ---
 
 
 ## Demo Mode
@@ -83,5 +42,4 @@ To start the DEMO mode run.
 
 ```bash
 npm run demo
-```
-<!-- trigger deploy 2020-08-05 12:55:46 :rocket: -->
+``` -->

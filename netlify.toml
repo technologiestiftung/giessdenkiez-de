@@ -17,6 +17,15 @@ publish = "dist/"
 
 BUILD_TARGET = "DEMO"
 
+[context.deploy-preview.environment]
+API_ENDPOINT="https://giessdenkiez-de-postgres-api-git-dev-technologiestiftung1.vercel.app" # DEV
+
+[context.branch-deploy.environment]
+API_ENDPOINT="https://giessdenkiez-de-postgres-api-git-dev-technologiestiftung1.vercel.app" # DEV
+
+[context.staging.environment]
+API_ENDPOINT="https://giessdenkiez-de-postgres-api-git-dev-technologiestiftung1.vercel.app" # DEV
+
 [[redirects]]
 from = "/*"
 status = 200
