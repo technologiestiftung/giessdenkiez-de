@@ -1,4 +1,4 @@
-import { useAuth0 } from '../auth/auth0';
+import { useAuth0 } from '@auth0/auth0-react';
 import { deleteAccount } from '../requests/deleteAccount';
 import { useAuth0Token } from './useAuth0Token';
 
@@ -13,7 +13,7 @@ export const useAccountActions = (): {
   return {
     logout: () => {
       if (!user?.sub) return;
-      logout();
+      logout({ returnTo: window.location.origin });
     },
     login: () => {
       loginWithRedirect({ ui_locales: 'de' });
@@ -21,7 +21,7 @@ export const useAccountActions = (): {
     deleteAccount: async () => {
       if (!user?.sub || !token) return;
       await deleteAccount({ token, userId: user.sub });
-      logout();
+      logout({ returnTo: window.location.origin });
     },
   };
 };

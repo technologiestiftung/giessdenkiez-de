@@ -33,7 +33,7 @@ const StyledSidebarWrapper = styled.div<StyledSidebarWrapperType>`
 `;
 
 const SidebarContent = styled.div`
-  padding: 0px 15px;
+  padding: 0px 15px 15px;
   width: 100%;
   min-height: 100%;
   position: relative;
