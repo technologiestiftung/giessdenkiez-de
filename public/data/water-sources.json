@@ -297,11 +297,10 @@
         "name": "Impact Hub Leipzig GmbH",
         "organisation": "Impact Hub Leipzig GmbH",
         "type": "Unternehmen",
-        "address": "Industriestr. 95, Konsumzentrale, Aufgang F, 04229 Leipzig",
+        "address": "Industriestr. 95, Konsumzentrale, Innenhof, 04229 Leipzig",
         "created": "17.06.2021",
         "hints":[
-          "Gern öffnen wir den Hub und den Wasserhahn für die Wasserversorgung von Bäumen durch Gieß-Aktivist:innen.",
-          "Einfach vorbeikommen oder kurz anrufen: 0341 - 991 981 53."
+          "Gern mit Voranmeldung an leipzig@impacthub.net, dann einfach klingeln von Mo. bis Fr. zwischen 9 und 17 Uhr."
         ]
       },
       "geometry": { "type": "Point", "coordinates": [12.3295596, 51.3281016] }
