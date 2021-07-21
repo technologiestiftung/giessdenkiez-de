@@ -1,6 +1,6 @@
 import { QueryFunction, useQuery, useQueryClient } from 'react-query';
 import { SelectedTreeType } from '../../common/interfaces';
-import { useAuth0 } from '../auth/auth0';
+import { useAuth0 } from '@auth0/auth0-react';
 import { getTreeData } from '../requests/getTreeData';
 import { isTreeAdopted as isTreeAdoptedReq } from '../requests/isTreeAdopted';
 import { useAuth0Token } from './useAuth0Token';

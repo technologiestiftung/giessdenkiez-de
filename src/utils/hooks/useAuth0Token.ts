@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useAuth0 } from '../auth/auth0';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const useAuth0Token = (): string | undefined => {
   const [token, setToken] = useState<string | undefined>(undefined);
-  const { user, getTokenSilently } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
-    if (!user?.sub || !getTokenSilently) return;
+    if (!user?.sub || !getAccessTokenSilently) return;
     const getToken = async () => {
       try {
-        const token = await getTokenSilently();
+        const token = await getAccessTokenSilently();
         setToken(token || undefined);
         return token;
       } catch (err) {
@@ -18,7 +18,7 @@ export const useAuth0Token = (): string | undefined => {
       }
     };
     getToken();
-  }, [getTokenSilently, user]);
+  }, [getAccessTokenSilently, user]);
 
   return token;
 };

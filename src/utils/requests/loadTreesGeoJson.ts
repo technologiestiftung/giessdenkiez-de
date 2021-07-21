@@ -24,7 +24,7 @@ function createGeojson(trees: Tree[]): ExtendedFeatureCollection {
       /**
        * Apparently DWD 1 is not 1ml but 0.1ml
        * We could change this in the database, but this would mean,
-       * transferring 625.000 "," characters, therefore,
+       * transferring 750.000 "," characters, therefore,
        * changing it client-side makes more sense.
        */
       properties: {
@@ -40,8 +40,7 @@ function createGeojson(trees: Tree[]): ExtendedFeatureCollection {
 }
 
 export const loadTreesGeoJson = async (): Promise<ExtendedFeatureCollection> => {
-  const dataUrl =
-    'https://tsb-trees.s3.eu-central-1.amazonaws.com/trees.csv.gz';
+  const dataUrl = process.env.AWS_TREES_URL as string;
 
   const data = await d3Dsv(',', dataUrl, { cache: 'force-cache' });
   const geojson = createGeojson((data as unknown) as Tree[]);
