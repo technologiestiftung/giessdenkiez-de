@@ -304,6 +304,34 @@
         ]
       },
       "geometry": { "type": "Point", "coordinates": [12.3295596, 51.3281016] }
-    }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210727_becher",
+        "name": "Wolfgang Becher",
+        "type": "Privatperson",
+        "address": "Gleisstrasse 9, 04229 Leipzig",
+        "created": "27.07.2021",
+        "hints":[
+          "Zugang vom Hinterhof, hinter der Fahrradgarage. Tonne steht genau am Zaun."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.3429297, 51.3295523] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210727_dietrich_damm",
+        "name": "Sabine Dietrich-Damm",
+        "type": "Privatperson",
+        "address": "Stollestr. 3, 04155 Leipzig",
+        "created": "27.07.2021",
+        "hints":[
+          "Einfach durch das Eingangstor reingehen, dann 4 m nach rechts. Tonne steht am Fallrohr."
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.3551364, 51.3588821] }
+    }    
   ]
 }
