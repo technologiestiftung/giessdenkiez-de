@@ -10,7 +10,13 @@ const fetchUserData: QueryFunction<UserDataType | undefined> = async ({
   queryKey,
 }) => {
   const [, token, userId] = queryKey;
-  if (!token || !userId) return undefined;
+  if (
+    !token ||
+    !userId ||
+    typeof token !== 'string' ||
+    typeof userId !== 'string'
+  )
+    return undefined;
   const userData = await getUserData({ userId, token });
   return userData;
 };
