@@ -332,6 +332,23 @@
         ]
       },
       "geometry": { "type": "Point", "coordinates": [12.3551364, 51.3588821] }
-    }    
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210728_makerspace_leipzig",
+        "name": "Makerspace Leipzig - Die Mitmachwerkstatt",
+        "organisation": "Makerspace Leipzig",
+        "type": "Unternehmen",
+        "address": "Lindenthaler Str. 61-65, 04155 Leipzig",
+        "created": "28.07.2021",
+        "hints":[
+          "Gerne während der Öffnungszeiten Dienstag bis Freitag jeweils  17 - 22 Uhr | Samstags: 10 - 16 Uhr oder wenn ihr Licht und Lärm im Makerspace seht :)",
+          "Fragt am besten jemanden nach dem Wasserzugang, es wissen nicht immer alle Mitglieder alles, also bei verwunderten Blicken nicht wundern",
+          "Weitere Infos zu uns: https://makerspace-leipzig.de"
+        ]
+      },
+      "geometry": { "type": "Point", "coordinates": [12.3651967, 51.3664422] }
+    }
   ]
 }
