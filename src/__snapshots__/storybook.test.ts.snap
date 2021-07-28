@@ -471,18 +471,250 @@ Array [
 ]
 `;
 
+exports[`Storyshots DataTable Default 1`] = `
+<div
+  className="sc-eCssSg bDSPAh"
+>
+  <header
+    className="sc-jSgupP iUjCLu"
+  >
+    <h3
+      className="sc-gKsewC czodJZ"
+    >
+      This is a title
+    </h3>
+  </header>
+  <table
+    className="sc-pFZIQ dHBYJo"
+  >
+    <tbody>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Storyshots DataTable With Subtitle 1`] = `
+<div
+  className="sc-eCssSg bDSPAh"
+>
+  <header
+    className="sc-jSgupP iUjCLu"
+  >
+    <h3
+      className="sc-gKsewC czodJZ"
+    >
+      This is a title
+    </h3>
+    <h4
+      className="sc-iBPRYJ jsXiGR"
+    >
+      Subtitle
+    </h4>
+  </header>
+  <table
+    className="sc-pFZIQ dHBYJo"
+  >
+    <tbody>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Storyshots DataTable With Subtitle And Children 1`] = `
+<div
+  className="sc-eCssSg bDSPAh"
+>
+  <header
+    className="sc-jSgupP iUjCLu"
+  >
+    <h3
+      className="sc-gKsewC czodJZ"
+    >
+      This is a title
+    </h3>
+    <h4
+      className="sc-iBPRYJ jsXiGR"
+    >
+      Subtitle
+    </h4>
+    <div
+      className="sc-fubCfw cRYdgb"
+    >
+      <span>
+        Here be React children.
+      </span>
+    </div>
+  </header>
+  <table
+    className="sc-pFZIQ dHBYJo"
+  >
+    <tbody>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Storyshots DataTable Without Subtitle And With Children 1`] = `
+<div
+  className="sc-eCssSg bDSPAh"
+>
+  <header
+    className="sc-jSgupP iUjCLu"
+  >
+    <h3
+      className="sc-gKsewC czodJZ"
+    >
+      This is a title
+    </h3>
+    <div
+      className="sc-fubCfw cRYdgb"
+    >
+      <span>
+        Here be React children.
+      </span>
+    </div>
+  </header>
+  <table
+    className="sc-pFZIQ dHBYJo"
+  >
+    <tbody>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAGrp hBErSp"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
 exports[`Storyshots Legend Legend Story 1`] = `
 <div
-  className="sc-fodVxV kEJMiO"
+  className="sc-kfzAmx jKLOHQ"
 >
   <div
-    className="sc-pFZIQ juxTNt"
+    className="sc-kstrdz fWySel"
   >
     <div
-      className="sc-eCssSg gOBaBp"
+      className="sc-kEjbxe fMmHxM"
     >
       <p
-        className="sc-gsTCUz iiIrBj sc-fFubgz jxTPMz"
+        className="sc-gsTCUz iiIrBj sc-fKFyDc euaybk"
         dangerouslySetInnerHTML={
           Object {
             "__html": "Niederschlag",
@@ -501,99 +733,99 @@ exports[`Storyshots Legend Legend Story 1`] = `
       />
     </div>
     <span
-      className="sc-bkzZxe fVhioj"
+      className="sc-bBXqnf gQBYMC"
       onClick={[Function]}
     >
       —
     </span>
   </div>
   <div
-    className="sc-jSgupP cnVnvY"
+    className="sc-iqHYGH ioxsaR"
   >
     <div
-      className="sc-iBPRYJ kYgBLy"
+      className="sc-dQppl cbBAhJ"
     >
       <div
-        className="sc-crrsfI kjchVc"
+        className="sc-bkzZxe hdmgPb"
         color="#fde725"
       />
       <label
-        className="sc-jrAGrp cKGRcl"
+        className="sc-hBEYos duqrtj"
       >
         0
       </label>
     </div>
     <div
-      className="sc-iBPRYJ kYgBLy"
+      className="sc-dQppl cbBAhJ"
     >
       <div
-        className="sc-crrsfI kzicCy"
+        className="sc-bkzZxe gQlred"
         color="#cae11f"
       />
       <label
-        className="sc-jrAGrp cKGRcl"
+        className="sc-hBEYos duqrtj"
       >
         60
       </label>
     </div>
     <div
-      className="sc-iBPRYJ kYgBLy"
+      className="sc-dQppl cbBAhJ"
     >
       <div
-        className="sc-crrsfI emtKJb"
+        className="sc-bkzZxe jaxGgE"
         color="#95d840"
       />
       <label
-        className="sc-jrAGrp cKGRcl"
+        className="sc-hBEYos duqrtj"
       >
         120
       </label>
     </div>
     <div
-      className="sc-iBPRYJ kYgBLy"
+      className="sc-dQppl cbBAhJ"
     >
       <div
-        className="sc-crrsfI kbvRts"
+        className="sc-bkzZxe WCzHr"
         color="#63cb5f"
       />
       <label
-        className="sc-jrAGrp cKGRcl"
+        className="sc-hBEYos duqrtj"
       >
         180
       </label>
     </div>
     <div
-      className="sc-iBPRYJ kYgBLy"
+      className="sc-dQppl cbBAhJ"
     >
       <div
-        className="sc-crrsfI iRoifw"
+        className="sc-bkzZxe dQBLDD"
         color="#3bbb75"
       />
       <label
-        className="sc-jrAGrp cKGRcl"
+        className="sc-hBEYos duqrtj"
       >
         240
       </label>
     </div>
     <div
-      className="sc-iBPRYJ kYgBLy"
+      className="sc-dQppl cbBAhJ"
     >
       <div
-        className="sc-crrsfI bjnxMu"
+        className="sc-bkzZxe jmrLJ"
         color="#22a884"
       />
       <label
-        className="sc-jrAGrp cKGRcl"
+        className="sc-hBEYos duqrtj"
       >
         300
       </label>
     </div>
   </div>
   <div
-    className="sc-eCssSg icVmlH"
+    className="sc-kEjbxe goAPHW"
   >
     <p
-      className="sc-gsTCUz iiIrBj sc-fFubgz jxTPMz"
+      className="sc-gsTCUz iiIrBj sc-fKFyDc euaybk"
       dangerouslySetInnerHTML={
         Object {
           "__html": "Datenpunkte",
@@ -611,41 +843,41 @@ exports[`Storyshots Legend Legend Story 1`] = `
       onClick={[Function]}
     />
     <div
-      className="sc-jSgupP sc-fubCfw cnVnvY dctumz"
+      className="sc-iqHYGH sc-bqyKva ioxsaR tIDOS"
       onClick={[Function]}
     >
       <div
-        className="sc-crrsfI feAbgj legend-dot"
+        className="sc-bkzZxe cxrzOk legend-dot"
         color="#2c303b"
       />
       <label
-        className="sc-jrAGrp sc-hBEYos cKGRcl gvQEzI"
+        className="sc-hBEYos sc-dmlrTW duqrtj bJfeJm"
       >
         Straßen- & Anlagenbäume
       </label>
     </div>
     <div
-      className="sc-jSgupP sc-fubCfw cnVnvY fOaPqU"
+      className="sc-iqHYGH sc-bqyKva ioxsaR gqKpNp"
       onClick={[Function]}
     >
       <div
-        className="sc-iqHYGH ciYaFs"
+        className="sc-fFubgz eldMfo"
       />
       <label
-        className="sc-jrAGrp sc-hBEYos cKGRcl gvQEzI"
+        className="sc-hBEYos sc-dmlrTW duqrtj bJfeJm"
       >
         Öffentl. Pumpen
       </label>
     </div>
     <div
-      className="sc-jSgupP sc-fubCfw cnVnvY fOaPqU"
+      className="sc-iqHYGH sc-bqyKva ioxsaR gqKpNp"
       onClick={[Function]}
     >
       <div
-        className="sc-dQppl cSJegs"
+        className="sc-idOhPF eALlHl"
       />
       <label
-        className="sc-jrAGrp sc-hBEYos cKGRcl gvQEzI"
+        className="sc-hBEYos sc-dmlrTW duqrtj bJfeJm"
       >
         Niederschlagsflächen
       </label>
@@ -1104,22 +1336,22 @@ Array [
     </button>
   </footer>,
   <div
-    className="sc-cBNfnY fCTIHy"
+    className="sc-cTkwdZ hJhrUF"
   >
     <div
-      className="sc-gWHgXt kqOxfX"
+      className="sc-eggNIi bNbJeD"
     >
       <div
-        className="sc-citwmv bOiXC"
+        className="sc-jNMdTA fPbMjg"
       >
         <div
-          className="sc-giIncl gXgjfs"
+          className="sc-hiSbYr dCpHJp"
         >
           <div
-            className="sc-iJuUWI heShFu"
+            className="sc-jJEJSO hwdMHk"
           >
             <h2
-              className="sc-idOhPF UOyqT"
+              className="sc-iwyYcG hibBuR"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<b>Gieß den <span>Kiez</span></b>",
@@ -1128,15 +1360,15 @@ Array [
               size="xxl"
             />
             <div
-              className="sc-hHftDr ddCSLS"
+              className="sc-cxFLnm iDYCdQ"
             >
               <img
-                className="sc-dmlrTW iHPMlG"
+                className="sc-lmoMRL eifdJj"
                 src="/images/icon-trees.svg"
               />
             </div>
             <div
-              className="sc-kfzAmx fIlFId"
+              className="sc-iJuUWI kVoKoT"
             >
               <span>
                 BETA
@@ -1144,7 +1376,7 @@ Array [
             </div>
           </div>
           <h2
-            className="sc-idOhPF UOyqT"
+            className="sc-iwyYcG hibBuR"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Die Berliner Stadtbäume leiden unter Trockenheit <br class=\\"large\\" /> und Du kannst ihnen helfen!",
@@ -1154,10 +1386,10 @@ Array [
           />
           
           <div
-            className="sc-iwyYcG epjKMF"
+            className="sc-bYEvPH kgtNVH"
           >
             <p
-              className="sc-fKFyDc hpBGMv sc-bBXqnf kzIRxT"
+              className="sc-giIncl gdOlLk sc-ezrdKe dSgnlJ"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.",
@@ -1166,7 +1398,7 @@ Array [
               onClick={[Function]}
             />
             <p
-              className="sc-fKFyDc hpBGMv sc-bBXqnf kzIRxT"
+              className="sc-giIncl gdOlLk sc-ezrdKe dSgnlJ"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.",
@@ -1177,7 +1409,7 @@ Array [
           </div>
           <button
             aria-label="Leiste schließen"
-            className="sc-cxFLnm sc-lmoMRL kdoGKp ehGQOe"
+            className="sc-kLgntA sc-iktFzd bnqHqg diRXPt"
             onClick={[Function]}
             title="Leiste schließen"
           >
@@ -1193,7 +1425,7 @@ Array [
             </svg>
           </button>
           <div
-            className="sc-ezrdKe libGYC"
+            className="sc-gWHgXt eXowQi"
           >
             <div
               className="sc-bdfBwQ bOVEvz"
@@ -1215,63 +1447,49 @@ Array [
               Konto anlegen / Einloggen
             </div>
           </div>
-          <h2
-            className="sc-idOhPF jSSeht"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "News & Updates",
-              }
-            }
-            size="xl"
-          />
-          <div
-            className="sc-iwyYcG epjKMF"
+          <section
+            aria-label="News und Updates"
+            className="sc-cBNfnY bFSwot"
           >
-            <p
-              className="sc-fKFyDc hpBGMv sc-bBXqnf kzIRxT"
+            <h2
+              className="sc-iwyYcG dZqoqz"
               dangerouslySetInnerHTML={
                 Object {
-                  "__html": "Der Frühling kann kommen! Wir haben unser Backlog aufgeräumt, einige Funktionen verbessert und neue Funktionen hinzugefügt. Die wichtigsten Verbesserungen im Überblick:<br />
-      <div style=\\"padding-top:0.5rem;padding-bottom:0.5rem; display:flex\\">
-        <div>
-          <img style=\\"max-width:14px; margin-right: 5px;\\" alt=\\"Geolocate Icon\\" src=\\"/images/geolocate-icon.png\\"/><b>Geolokalisierung</b><br>
-          Mit einem Klick auf das Icon am unteren linken Bildschirmrand zum eigenen Standort navigieren.
-        </div>
-      </div>
-      <div style=\\"padding-top:0.5rem;padding-bottom:0.5rem; display:flex\\">
-        <div>   
-          <span style=\\"display:inline-block; background-color:#75ADE8; width: 13px; height: 13px; border-radius: 100px; margin-right: 4px;\\"></span>
-          <b>Map-Layout</b><br>
-          Die Hintergrundkarte erstrahlt in neuen Farben und zeigt euch Hausnummern & ÖPNV-Haltestellen.",
+                  "__html": "Hurray, das neue Baumkataster ist live!",
                 }
               }
-              onClick={[Function]}
+              size="xl"
             />
-            <p
-              className="sc-fKFyDc hpBGMv sc-bBXqnf kzIRxT"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "<div style=\\"padding-top:0.5rem;padding-bottom:0.5rem; display:flex\\">
-      <div>Mit dem 
-        <span style=\\"display:inline-block; background-color:#37DE8A; width: 13px; height: 13px; border-radius: 100px; margin: 0 4px 0 4px;\\"></span>
-        <b>Baum-Routing</b>
-        verfügt nun jeder Baum über einen ganz persönlichen Link, der sich prima mit Gieß-Freund:innen oder Grünflächenämtern teilen lässt.
-      </div>
-    </div>
-  Wenn ihr in Sachen <i>technische Releases</i> auf dem Laufenden bleiben wollt, dann schaut doch mal in unserem Open Source
-  <a target=\\"blank\\" href=\\"https://github.com/technologiestiftung/giessdenkiez-de\\">GitHub Repository</a>
-  vorbei und unterstützt uns beim Entwickeln. Die nächsten Features sind schon in Planung.",
+            <div />
+            <div
+              className="sc-bYEvPH kgtNVH"
+            >
+              <p
+                className="sc-giIncl gdOlLk sc-ezrdKe dSgnlJ"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Auf Gieß den Kiez werden nun <strong>120.000 zusätzliche Stadtbäume</strong> angezeigt. Im Juni 2021 wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 120.000 Bäume mehr listet als das Baumkataster auf dem Jahr 2020. Dabei liegt die Anzahl der in 2020 gepflanzten Bäume nicht überdurchschnittlich hoch.",
+                  }
                 }
-              }
-              onClick={[Function]}
-            />
-          </div>
+                onClick={[Function]}
+              />
+              <p
+                className="sc-giIncl gdOlLk sc-ezrdKe dSgnlJ"
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Der Zuwachs ist vielmehr auf die vorbildliche Arbeit der bezirklichen Straßen- und Grünflächenämter zurückzuführen, die die Koordinaten weiterer Bäume erfasst haben. Von den rund 430.000 Straßenbäumen Berlins verfügen jetzt rund 404.000 über Koordinaten – das sind fast <strong>94% aller Straßenbäume</strong>.",
+                  }
+                }
+                onClick={[Function]}
+              />
+            </div>
+          </section>
         </div>
         <div
-          className="sc-hiSbYr fhoQTl"
+          className="sc-iBaPrD hLdkZC"
         >
           <h2
-            className="sc-idOhPF jSSeht"
+            className="sc-iwyYcG dZqoqz"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<b>Wie kann ich mitmachen?</b>",
@@ -1279,24 +1497,24 @@ Array [
             }
           />
           <div
-            className="sc-jJEJSO eLZHJD"
+            className="sc-iUuytg eCUoH"
           >
             <div
-              className="sc-bYEvPH jlxcTN"
+              className="sc-citwmv cjgDpT"
             >
               <div
-                className="sc-hHftDr ddCSLS"
+                className="sc-cxFLnm iDYCdQ"
               >
                 <img
-                  className="sc-dmlrTW iHPMlG"
+                  className="sc-lmoMRL eifdJj"
                   src="/images/icon-water.svg"
                 />
               </div>
               <div
-                className="sc-kLgntA kSrRCm"
+                className="sc-jcVebW fVrLDe"
               >
                 <h2
-                  className="sc-iktFzd jYaEqu"
+                  className="sc-bZSQDF brBbuc"
                 >
                   Bäume bewässern
                 </h2>
@@ -1312,21 +1530,21 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bYEvPH jlxcTN"
+              className="sc-citwmv cjgDpT"
             >
               <div
-                className="sc-hHftDr ddCSLS"
+                className="sc-cxFLnm iDYCdQ"
               >
                 <img
-                  className="sc-dmlrTW iHPMlG"
+                  className="sc-lmoMRL eifdJj"
                   src="/images/icon-subscribe.svg"
                 />
               </div>
               <div
-                className="sc-kLgntA kSrRCm"
+                className="sc-jcVebW fVrLDe"
               >
                 <h2
-                  className="sc-iktFzd jYaEqu"
+                  className="sc-bZSQDF brBbuc"
                 >
                   Bäume adoptieren
                 </h2>
@@ -1342,21 +1560,21 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bYEvPH jlxcTN"
+              className="sc-citwmv cjgDpT"
             >
               <div
-                className="sc-hHftDr ddCSLS"
+                className="sc-cxFLnm iDYCdQ"
               >
                 <img
-                  className="sc-dmlrTW iHPMlG"
+                  className="sc-lmoMRL eifdJj"
                   src="/images/icon-zoom.svg"
                 />
               </div>
               <div
-                className="sc-kLgntA kSrRCm"
+                className="sc-jcVebW fVrLDe"
               >
                 <h2
-                  className="sc-iktFzd jYaEqu"
+                  className="sc-bZSQDF brBbuc"
                 >
                   Den Baumbestand erkunden
                 </h2>
@@ -1372,21 +1590,21 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bYEvPH jlxcTN"
+              className="sc-citwmv cjgDpT"
             >
               <div
-                className="sc-hHftDr ddCSLS"
+                className="sc-cxFLnm iDYCdQ"
               >
                 <img
-                  className="sc-dmlrTW iHPMlG"
+                  className="sc-lmoMRL eifdJj"
                   src="/images/icon-info.svg"
                 />
               </div>
               <div
-                className="sc-kLgntA kSrRCm"
+                className="sc-jcVebW fVrLDe"
               >
                 <h2
-                  className="sc-iktFzd jYaEqu"
+                  className="sc-bZSQDF brBbuc"
                 >
                   Mit anderen austauschen
                 </h2>
@@ -2032,16 +2250,16 @@ Array [
     </button>
   </footer>,
   <div
-    className="sc-xyEjG kQubfv"
+    className="sc-eFubAy gGZCPy"
   >
     <a
-      className="sc-kYrkKh mQMrD"
+      className="sc-jXktwP igeGQR"
       href="/"
       onClick={[Function]}
     >
       <button
         aria-label="Leiste schließen"
-        className="sc-cxFLnm kdoGKp"
+        className="sc-kLgntA bnqHqg"
         onClick={[Function]}
         title="Leiste schließen"
       >
@@ -2058,34 +2276,34 @@ Array [
       </button>
     </a>
     <div
-      className="sc-dWdcrH bpviTh"
+      className="sc-fmlJLJ eGvxtw"
     >
       <h2
-        className="sc-jcVebW kkYLBV"
+        className="sc-dOSReg LQxMu"
       >
         Weitere Infos
       </h2>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Über das Projekt
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             –
           </span>
         </div>
         <div
-          className="sc-bBrOnJ jaYsjs"
+          className="sc-laRPJI eKTkhN"
         >
           <p
             className="sc-gsTCUz iiIrBj"
@@ -2099,26 +2317,26 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Nützliche Links
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             –
           </span>
         </div>
         <div
-          className="sc-bBrOnJ jaYsjs"
+          className="sc-laRPJI eKTkhN"
         >
           <p
             className="sc-gsTCUz iiIrBj"
@@ -2132,26 +2350,26 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Über uns
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             –
           </span>
         </div>
         <div
-          className="sc-bBrOnJ jaYsjs"
+          className="sc-laRPJI eKTkhN"
         >
           <p
             className="sc-gsTCUz iiIrBj"
@@ -2166,32 +2384,32 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Datenquellen
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             –
           </span>
         </div>
         <div
-          className="sc-bBrOnJ jaYsjs"
+          className="sc-laRPJI eKTkhN"
         >
           <p
             className="sc-gsTCUz iiIrBj"
             dangerouslySetInnerHTML={
               Object {
-                "__html": "Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (625.000; Stand: 14.06.2019). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind:
+                "__html": "Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (750.000; Stand: Juli 2021). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind:
           <ul>
             <li>
               <a target=\\"blank\\" href=\\"https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS\\">Geoportal Berlin / Straßenbäume</a>
@@ -2212,7 +2430,7 @@ Array [
         </div>
       </div>
       <h2
-        className="sc-jcVebW kkYLBV"
+        className="sc-dOSReg LQxMu"
       >
         F.A.Q.
       </h2>
@@ -2226,19 +2444,19 @@ Array [
         onClick={[Function]}
       />
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Wie kann ich mitmachen?
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             +
@@ -2246,19 +2464,19 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Was kann ich tun, wenn Bäume nicht richtig eingetragen sind?
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             +
@@ -2266,19 +2484,19 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Warum sollte ich aktiv werden und Bäume gießen?
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             +
@@ -2286,19 +2504,19 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Wie gieße ich richtig?
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             +
@@ -2306,19 +2524,19 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             An wen kann ich mich wenden, wenn Pumpen kaputt oder beschädigt sind?
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             +
@@ -2326,19 +2544,19 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Wie wird mit technischen Problemen umgegangen?
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             +
@@ -2346,19 +2564,19 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Warum lädt die Website nicht oder nur sehr langsam?
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             +
@@ -2366,19 +2584,19 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Was tun, wenn ich einen Baum fälschlicherweise gegossen habe?
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             +
@@ -2386,19 +2604,19 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Ist das Prinzip auf andere Städte übertragbar?
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             +
@@ -2406,19 +2624,19 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Ich habe immer noch eine Frage!
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             +
@@ -2426,19 +2644,19 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             I don’t speak any German: What’s going on here?
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             +
@@ -2446,13 +2664,13 @@ Array [
         </div>
       </div>
       <div
-        className="sc-bZSQDF bHpiME"
+        className="sc-bBrOnJ ghZEuN"
       >
         <span>
           Teilen:
         </span>
         <div
-          className="sc-iUuytg fAytJM"
+          className="sc-cOajty iOcAbN"
         >
           <button
             aria-label="facebook"
@@ -2523,11 +2741,11 @@ Array [
         </div>
       </div>
       <div
-        className="sc-iBaPrD hExSaG"
+        className="sc-AzgDb hgQeNQ"
       >
         <img
           alt="GitHub Mark"
-          className="sc-eggNIi kWTjns"
+          className="sc-khAkjo iJLIPT"
           src="/images/icon-github.svg"
         />
         <p
@@ -3214,16 +3432,16 @@ Array [
     </button>
   </footer>,
   <div
-    className="sc-xyEjG kQubfv"
+    className="sc-eFubAy gGZCPy"
   >
     <a
-      className="sc-kYrkKh mQMrD"
+      className="sc-jXktwP igeGQR"
       href="/"
       onClick={[Function]}
     >
       <button
         aria-label="Leiste schließen"
-        className="sc-cxFLnm kdoGKp"
+        className="sc-kLgntA bnqHqg"
         onClick={[Function]}
         title="Leiste schließen"
       >
@@ -3240,25 +3458,25 @@ Array [
       </button>
     </a>
     <div
-      className="sc-dWdcrH bpviTh"
+      className="sc-fmlJLJ eGvxtw"
     >
       <h2
-        className="sc-jcVebW kkYLBV"
+        className="sc-dOSReg LQxMu"
       >
         Profil
       </h2>
       <div
-        className="sc-aemoO crUBfh"
+        className="sc-dtwoBo Deuix"
       >
         <div
-          className="sc-dwfUOf bieLLR"
+          className="sc-bTvRPi JzmSn"
         >
           <img
-            className="sc-TmcTc jebECr"
+            className="sc-kIeTtH kWOGMl"
             src="/images/icon-trees.svg"
           />
           <div
-            className="sc-jHVexB isPKdK"
+            className="sc-hOqqkJ jbYLeT"
           >
             Lade Profil...
           </div>
@@ -3266,7 +3484,7 @@ Array [
         </div>
       </div>
       <p
-        className="sc-gsTCUz iiIrBj sc-fWSCIC llMcho"
+        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -3780,7 +3998,7 @@ Array [
               }
               suppressHydrationWarning={true}
             >
-              2
+              1
             </div>
             <code
               style={
@@ -3945,16 +4163,16 @@ Array [
     </button>
   </footer>,
   <div
-    className="sc-xyEjG kQubfv"
+    className="sc-eFubAy gGZCPy"
   >
     <a
-      className="sc-kYrkKh mQMrD"
+      className="sc-jXktwP igeGQR"
       href="/"
       onClick={[Function]}
     >
       <button
         aria-label="Leiste schließen"
-        className="sc-cxFLnm kdoGKp"
+        className="sc-kLgntA bnqHqg"
         onClick={[Function]}
         title="Leiste schließen"
       >
@@ -3971,188 +4189,40 @@ Array [
       </button>
     </a>
     <div
-      className="sc-dWdcrH bpviTh"
+      className="sc-fmlJLJ eGvxtw"
     >
       <h2
-        className="sc-jcVebW kkYLBV"
+        className="sc-dOSReg LQxMu"
       >
         Profil
       </h2>
-      <span
-        className="sc-eLgOdN iHVZCE"
-      >
-        Dein Gießfortschritt
-      </span>
       <div
-        className="sc-nFpLZ bldavV"
+        className="sc-dtwoBo Deuix"
       >
         <div
-          className="sc-higXBA jcXPpg"
+          className="sc-bTvRPi JzmSn"
         >
-          <div
-            className="sc-hHftDr ddCSLS"
-          >
-            <img
-              className="sc-dmlrTW iHPMlG"
-              src="/images/icon-trees.svg"
-            />
-          </div>
-          <div
-            className="sc-ehSCib dGZtrO"
-          >
-            <span
-              className="sc-lcujXC gxSE"
-            >
-              0
-            </span>
-            <p
-              className="sc-gsTCUz iiIrBj"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "mal gegossen",
-                }
-              }
-              onClick={[Function]}
-            />
-          </div>
-        </div>
-        <div
-          className="sc-higXBA jcXPpg"
-        >
-          <div
-            className="sc-hHftDr ddCSLS"
-          >
-            <img
-              className="sc-dmlrTW iHPMlG"
-              src="/images/icon-water.svg"
-            />
-          </div>
-          <div
-            className="sc-ehSCib dGZtrO"
-          >
-            <span
-              className="sc-lcujXC gxSE"
-            >
-              0
-            </span>
-            <p
-              className="sc-gsTCUz iiIrBj"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Liter gegossen.",
-                }
-              }
-              onClick={[Function]}
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        className="sc-jNMdTA eyteIo"
-      >
-        <div
-          className="sc-dOSReg iEeulZ"
-          onClick={[Function]}
-        >
-          <div
-            className="sc-cTkwdZ hAnpBT"
-          >
-            <span>
-              Adoptierte Bäume
-            </span>
-          </div>
-          <span
-            className="sc-cOajty kjwNDU"
-            onClick={[Function]}
-          >
-            –
-          </span>
-        </div>
-        <div
-          className="sc-bBrOnJ jaYsjs"
-        >
-          <p
-            className="sc-gsTCUz iiIrBj"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Du hast noch keine Bäume adoptiert.",
-              }
-            }
-            onClick={[Function]}
+          <img
+            className="sc-kIeTtH kWOGMl"
+            src="/images/icon-trees.svg"
           />
-        </div>
-      </div>
-      <div
-        className="sc-jNMdTA eyteIo"
-      >
-        <div
-          className="sc-dOSReg iEeulZ"
-          onClick={[Function]}
-        >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hOqqkJ jbYLeT"
           >
-            Dein Account
+            Lade Profil...
           </div>
-          <span
-            className="sc-cOajty kjwNDU"
-            onClick={[Function]}
-          >
-            –
-          </span>
+          
         </div>
-        <div
-          className="sc-bBrOnJ jaYsjs"
-        >
-          <p
-            className="sc-gGmIRh LHhLW"
-          >
-            bob
-          </p>
-          <p
-            className="sc-gGmIRh LHhLW"
-          >
-            bob@example.com
-          </p>
-          <p
-            className="sc-gsTCUz iiIrBj"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Registrierte E-Mail Adresse",
-              }
-            }
-            onClick={[Function]}
-          />
-        </div>
-      </div>
-      <br />
-      <div
-        className="sc-bdfBwQ fspcwr"
-        onClick={[Function]}
-        role="button"
-        tabIndex={0}
-        width="-webkit-fill-available"
-      >
-        Konto anlegen / Einloggen
       </div>
       <p
-        className="sc-fKFyDc hpBGMv"
+        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "Möchtest du deinen Account löschen? Damit werden alle von dir generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein Benutzer bei unserem Authentifizierungsdienst Auth0.com wird sofort und unwiderruflich gelöscht.",
+            "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
           }
         }
         onClick={[Function]}
       />
-      <div
-        className="sc-bdfBwQ fspcwr"
-        onClick={[Function]}
-        role="button"
-        tabIndex={0}
-        width="-webkit-fill-available"
-      >
-        Account Löschen
-      </div>
     </div>
   </div>,
 ]
@@ -4659,7 +4729,7 @@ Array [
               }
               suppressHydrationWarning={true}
             >
-              2
+              1
             </div>
             <code
               style={
@@ -4824,16 +4894,16 @@ Array [
     </button>
   </footer>,
   <div
-    className="sc-xyEjG kQubfv"
+    className="sc-eFubAy gGZCPy"
   >
     <a
-      className="sc-kYrkKh mQMrD"
+      className="sc-jXktwP igeGQR"
       href="/"
       onClick={[Function]}
     >
       <button
         aria-label="Leiste schließen"
-        className="sc-cxFLnm kdoGKp"
+        className="sc-kLgntA bnqHqg"
         onClick={[Function]}
         title="Leiste schließen"
       >
@@ -4850,205 +4920,40 @@ Array [
       </button>
     </a>
     <div
-      className="sc-dWdcrH bpviTh"
+      className="sc-fmlJLJ eGvxtw"
     >
       <h2
-        className="sc-jcVebW kkYLBV"
+        className="sc-dOSReg LQxMu"
       >
         Profil
       </h2>
-      <span
-        className="sc-eLgOdN iHVZCE"
-      >
-        Dein Gießfortschritt
-      </span>
       <div
-        className="sc-nFpLZ bldavV"
+        className="sc-dtwoBo Deuix"
       >
         <div
-          className="sc-higXBA jcXPpg"
+          className="sc-bTvRPi JzmSn"
         >
-          <div
-            className="sc-hHftDr ddCSLS"
-          >
-            <img
-              className="sc-dmlrTW iHPMlG"
-              src="/images/icon-trees.svg"
-            />
-          </div>
-          <div
-            className="sc-ehSCib dGZtrO"
-          >
-            <span
-              className="sc-lcujXC gxSE"
-            >
-              2
-            </span>
-            <p
-              className="sc-gsTCUz iiIrBj"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "mal gegossen",
-                }
-              }
-              onClick={[Function]}
-            />
-          </div>
-        </div>
-        <div
-          className="sc-higXBA jcXPpg"
-        >
-          <div
-            className="sc-hHftDr ddCSLS"
-          >
-            <img
-              className="sc-dmlrTW iHPMlG"
-              src="/images/icon-water.svg"
-            />
-          </div>
-          <div
-            className="sc-ehSCib dGZtrO"
-          >
-            <span
-              className="sc-lcujXC gxSE"
-            >
-              20
-            </span>
-            <p
-              className="sc-gsTCUz iiIrBj"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Liter gegossen.",
-                }
-              }
-              onClick={[Function]}
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        className="sc-jNMdTA eyteIo"
-      >
-        <div
-          className="sc-dOSReg iEeulZ"
-          onClick={[Function]}
-        >
-          <div
-            className="sc-cTkwdZ hAnpBT"
-          >
-            <span>
-              Adoptierte Bäume
-            </span>
-          </div>
-          <span
-            className="sc-cOajty kjwNDU"
-            onClick={[Function]}
-          >
-            –
-          </span>
-        </div>
-        <div
-          className="sc-bBrOnJ jaYsjs"
-        >
-          <div
-            className="sc-GqfZa cebOe"
-          >
-            <div
-              className="sc-clsHhM izYNEe"
-              onClick={[Function]}
-              role="button"
-              tabIndex={0}
-            >
-              <span
-                className="sc-fbkhIv"
-              >
-                Baum-Hasel
-              </span>
-              <svg
-                aria-hidden={true}
-                className="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M13 16.12c3.47-.41 6.17-3.36 6.17-6.95 0-3.87-3.13-7-7-7s-7 3.13-7 7c0 3.47 2.52 6.34 5.83 6.89V20H5v2h14v-2h-6v-3.88z"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="sc-jNMdTA eyteIo"
-      >
-        <div
-          className="sc-dOSReg iEeulZ"
-          onClick={[Function]}
-        >
-          <div
-            className="sc-cTkwdZ hAnpBT"
-          >
-            Dein Account
-          </div>
-          <span
-            className="sc-cOajty kjwNDU"
-            onClick={[Function]}
-          >
-            –
-          </span>
-        </div>
-        <div
-          className="sc-bBrOnJ jaYsjs"
-        >
-          <p
-            className="sc-gGmIRh LHhLW"
-          >
-            bob
-          </p>
-          <p
-            className="sc-gGmIRh LHhLW"
-          >
-            bob@example.com
-          </p>
-          <p
-            className="sc-gsTCUz iiIrBj"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Registrierte E-Mail Adresse",
-              }
-            }
-            onClick={[Function]}
+          <img
+            className="sc-kIeTtH kWOGMl"
+            src="/images/icon-trees.svg"
           />
+          <div
+            className="sc-hOqqkJ jbYLeT"
+          >
+            Lade Profil...
+          </div>
+          
         </div>
-      </div>
-      <br />
-      <div
-        className="sc-bdfBwQ fspcwr"
-        onClick={[Function]}
-        role="button"
-        tabIndex={0}
-        width="-webkit-fill-available"
-      >
-        Konto anlegen / Einloggen
       </div>
       <p
-        className="sc-fKFyDc hpBGMv"
+        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
         dangerouslySetInnerHTML={
           Object {
-            "__html": "Möchtest du deinen Account löschen? Damit werden alle von dir generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein Benutzer bei unserem Authentifizierungsdienst Auth0.com wird sofort und unwiderruflich gelöscht.",
+            "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
           }
         }
         onClick={[Function]}
       />
-      <div
-        className="sc-bdfBwQ fspcwr"
-        onClick={[Function]}
-        role="button"
-        tabIndex={0}
-        width="-webkit-fill-available"
-      >
-        Account Löschen
-      </div>
     </div>
   </div>,
 ]
@@ -5555,7 +5460,7 @@ Array [
               }
               suppressHydrationWarning={true}
             >
-              2
+              1
             </div>
             <code
               style={
@@ -5720,16 +5625,16 @@ Array [
     </button>
   </footer>,
   <div
-    className="sc-xyEjG kQubfv"
+    className="sc-eFubAy gGZCPy"
   >
     <a
-      className="sc-kYrkKh mQMrD"
+      className="sc-jXktwP igeGQR"
       href="/"
       onClick={[Function]}
     >
       <button
         aria-label="Leiste schließen"
-        className="sc-cxFLnm kdoGKp"
+        className="sc-kLgntA bnqHqg"
         onClick={[Function]}
         title="Leiste schließen"
       >
@@ -5746,44 +5651,40 @@ Array [
       </button>
     </a>
     <div
-      className="sc-dWdcrH bpviTh"
+      className="sc-fmlJLJ eGvxtw"
     >
       <h2
-        className="sc-jcVebW kkYLBV"
+        className="sc-dOSReg LQxMu"
       >
         Profil
       </h2>
       <div
-        className="sc-hlTvYk jxdXPG"
+        className="sc-dtwoBo Deuix"
       >
-        <p
-          className="sc-fKFyDc hpBGMv"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Du bist momentan nicht eingeloggt. Wenn du das Gießen von Bäumen in deiner Umgebung hier eintragen möchtest, dann registriere dich oder logge dich ein.",
-            }
-          }
-          onClick={[Function]}
-        />
         <div
-          className="sc-bdfBwQ fspcwr"
-          onClick={[Function]}
-          role="button"
-          tabIndex={0}
-          width="-webkit-fill-available"
+          className="sc-bTvRPi JzmSn"
         >
-          Konto anlegen / Einloggen
+          <img
+            className="sc-kIeTtH kWOGMl"
+            src="/images/icon-trees.svg"
+          />
+          <div
+            className="sc-hOqqkJ jbYLeT"
+          >
+            Lade Profil...
+          </div>
+          
         </div>
-        <p
-          className="sc-gsTCUz iiIrBj sc-dlfnbm irudHw"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Wie kann ich mitmachen?",
-            }
-          }
-          onClick={[Function]}
-        />
       </div>
+      <p
+        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
+          }
+        }
+        onClick={[Function]}
+      />
     </div>
   </div>,
 ]
@@ -6412,16 +6313,16 @@ Array [
     </button>
   </footer>,
   <div
-    className="sc-xyEjG kQubfv"
+    className="sc-eFubAy gGZCPy"
   >
     <a
-      className="sc-kYrkKh mQMrD"
+      className="sc-jXktwP igeGQR"
       href="/"
       onClick={[Function]}
     >
       <button
         aria-label="Leiste schließen"
-        className="sc-cxFLnm kdoGKp"
+        className="sc-kLgntA bnqHqg"
         onClick={[Function]}
         title="Leiste schließen"
       >
@@ -6438,34 +6339,34 @@ Array [
       </button>
     </a>
     <div
-      className="sc-dWdcrH bpviTh"
+      className="sc-fmlJLJ eGvxtw"
     >
       <h2
-        className="sc-jcVebW kkYLBV"
+        className="sc-dOSReg LQxMu"
       >
         Suche & Filter
       </h2>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Datenansicht
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             –
           </span>
         </div>
         <div
-          className="sc-bBrOnJ jaYsjs"
+          className="sc-laRPJI eKTkhN"
         >
           <p
             className="sc-gsTCUz iiIrBj"
@@ -6477,22 +6378,22 @@ Array [
             onClick={[Function]}
           />
           <div
-            className="sc-jeGSBP hFVUlZ"
+            className="sc-clsHhM jWRCOx"
           >
             <span
-              className="sc-eJMQSu jvXdJb"
+              className="sc-fbkhIv dCNKUi"
               onClick={[Function]}
             >
               Niederschläge
             </span>
             <span
-              className="sc-eJMQSu lggJlf"
+              className="sc-fbkhIv etVTlW"
               onClick={[Function]}
             >
               Bereits adoptiert
             </span>
             <span
-              className="sc-eJMQSu lggJlf"
+              className="sc-fbkhIv etVTlW"
               onClick={[Function]}
             >
               In den letzten 30 Tagen gegossen
@@ -6501,26 +6402,26 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Baumalter
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             –
           </span>
         </div>
         <div
-          className="sc-bBrOnJ jaYsjs"
+          className="sc-laRPJI eKTkhN"
         >
           <p
             className="sc-gsTCUz iiIrBj"
@@ -6533,10 +6434,10 @@ Array [
           />
           <br />
           <div
-            className="sc-AzgDb lpryqF"
+            className="sc-jeGSBP hNjwNG"
           >
             <span
-              className="sc-hTZhsR hDkAwq"
+              className="sc-nFpLZ gxzVEb"
             >
               0
                - 
@@ -6544,7 +6445,7 @@ Array [
                Jahre
             </span>
             <div
-              className="sc-khAkjo jPJGwK"
+              className="sc-eJMQSu dvFMvb"
             >
               <div
                 className="rc-slider rc-slider-with-marks"
@@ -6735,39 +6636,39 @@ Array [
         </div>
       </div>
       <div
-        className="sc-jNMdTA eyteIo"
+        className="sc-jgHCyG iuOiLs"
       >
         <div
-          className="sc-dOSReg iEeulZ"
+          className="sc-gTgzIj lkXiws"
           onClick={[Function]}
         >
           <div
-            className="sc-cTkwdZ hAnpBT"
+            className="sc-hTZhsR dOSvjF"
           >
             Standortsuche
           </div>
           <span
-            className="sc-cOajty kjwNDU"
+            className="sc-iNqMTl bvuvgJ"
             onClick={[Function]}
           >
             –
           </span>
         </div>
         <div
-          className="sc-bBrOnJ jaYsjs"
+          className="sc-laRPJI eKTkhN"
         >
           <div
-            className="sc-jgHCyG eFqvyx"
+            className="sc-higXBA PJHoA"
           >
             <input
-              className="sc-gTgzIj hgZVNg"
+              className="sc-ehSCib eaStxD"
               onChange={[Function]}
               placeholder="Adresse"
               type="text"
               value=""
             />
             <ul
-              className="sc-laRPJI gvxdoh"
+              className="sc-lcujXC cHAkoW"
             />
           </div>
         </div>
@@ -7400,16 +7301,16 @@ Array [
     </button>
   </footer>,
   <div
-    className="sc-xyEjG kQubfv"
+    className="sc-eFubAy gGZCPy"
   >
     <a
-      className="sc-kYrkKh mQMrD"
+      className="sc-jXktwP igeGQR"
       href="/"
       onClick={[Function]}
     >
       <button
         aria-label="Leiste schließen"
-        className="sc-cxFLnm kdoGKp"
+        className="sc-kLgntA bnqHqg"
         onClick={[Function]}
         title="Leiste schließen"
       >
@@ -7426,25 +7327,25 @@ Array [
       </button>
     </a>
     <div
-      className="sc-dWdcrH bpviTh"
+      className="sc-fmlJLJ eGvxtw"
     >
       <h2
-        className="sc-jcVebW kkYLBV"
+        className="sc-dOSReg LQxMu"
       >
         Bauminformation
       </h2>
       <div
-        className="sc-aemoO crUBfh"
+        className="sc-dtwoBo Deuix"
       >
         <div
-          className="sc-dwfUOf bieLLR"
+          className="sc-bTvRPi JzmSn"
         >
           <img
-            className="sc-TmcTc jebECr"
+            className="sc-kIeTtH kWOGMl"
             src="/images/icon-trees.svg"
           />
           <div
-            className="sc-jHVexB isPKdK"
+            className="sc-hOqqkJ jbYLeT"
           >
             Lade Bauminformation...
           </div>
@@ -7452,7 +7353,7 @@ Array [
         </div>
       </div>
       <p
-        className="sc-gsTCUz iiIrBj sc-fWSCIC llMcho"
+        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -8088,16 +7989,16 @@ Array [
     </button>
   </footer>,
   <div
-    className="sc-xyEjG kQubfv"
+    className="sc-eFubAy gGZCPy"
   >
     <a
-      className="sc-kYrkKh mQMrD"
+      className="sc-jXktwP igeGQR"
       href="/"
       onClick={[Function]}
     >
       <button
         aria-label="Leiste schließen"
-        className="sc-cxFLnm kdoGKp"
+        className="sc-kLgntA bnqHqg"
         onClick={[Function]}
         title="Leiste schließen"
       >
@@ -8114,25 +8015,25 @@ Array [
       </button>
     </a>
     <div
-      className="sc-dWdcrH bpviTh"
+      className="sc-fmlJLJ eGvxtw"
     >
       <h2
-        className="sc-jcVebW kkYLBV"
+        className="sc-dOSReg LQxMu"
       >
         Bauminformation
       </h2>
       <div
-        className="sc-aemoO crUBfh"
+        className="sc-dtwoBo Deuix"
       >
         <div
-          className="sc-dwfUOf bieLLR"
+          className="sc-bTvRPi JzmSn"
         >
           <img
-            className="sc-TmcTc jebECr"
+            className="sc-kIeTtH kWOGMl"
             src="/images/icon-trees.svg"
           />
           <div
-            className="sc-jHVexB isPKdK"
+            className="sc-hOqqkJ jbYLeT"
           >
             Lade Bauminformation...
           </div>
@@ -8140,7 +8041,7 @@ Array [
         </div>
       </div>
       <p
-        className="sc-gsTCUz iiIrBj sc-fWSCIC llMcho"
+        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -8162,19 +8063,19 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
   }
 >
   <div
-    className="sc-eGCarw eMtaVZ"
+    className="sc-dtTInj bmJEHF"
     id="barchart"
   >
     <div
-      className="sc-bsipQr gabrJa"
+      className="sc-ikPAkQ coFneo"
       id="barchart-tooltip"
     >
       <span
-        className="sc-gInsOo ljihCS"
+        className="sc-tYoTV fVdDbB"
       >
         <strong>
           <div
-            className="sc-dFJsGO dICqkK"
+            className="sc-XhUPp vTgFU"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -8187,11 +8088,11 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
         />
       </span>
       <span
-        className="sc-gInsOo ljihCS"
+        className="sc-tYoTV fVdDbB"
       >
         <strong>
           <div
-            className="sc-dFJsGO dICqkK"
+            className="sc-XhUPp vTgFU"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -8204,10 +8105,10 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
         />
       </span>
       <span
-        className="sc-gInsOo ljihCS"
+        className="sc-tYoTV fVdDbB"
       >
         <span
-          className="sc-euMpXR bbHNB"
+          className="sc-biBrSq HZGBn"
         >
           ∑
         </span>
@@ -8218,11 +8119,11 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
     </div>
   </div>
   <div
-    className="sc-ctaXAZ iKRVLG"
+    className="sc-dkIXFM hNsFmu"
   >
     <div>
       <div
-        className="sc-dFJsGO dICqkK"
+        className="sc-XhUPp vTgFU"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -8235,7 +8136,7 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
     </div>
     <div>
       <div
-        className="sc-dFJsGO dICqkK"
+        className="sc-XhUPp vTgFU"
         style={
           Object {
             "backgroundColor": "#75ADE8",
@@ -8259,19 +8160,19 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
   }
 >
   <div
-    className="sc-eGCarw eMtaVZ"
+    className="sc-dtTInj bmJEHF"
     id="barchart"
   >
     <div
-      className="sc-bsipQr gabrJa"
+      className="sc-ikPAkQ coFneo"
       id="barchart-tooltip"
     >
       <span
-        className="sc-gInsOo ljihCS"
+        className="sc-tYoTV fVdDbB"
       >
         <strong>
           <div
-            className="sc-dFJsGO dICqkK"
+            className="sc-XhUPp vTgFU"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -8284,11 +8185,11 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
         />
       </span>
       <span
-        className="sc-gInsOo ljihCS"
+        className="sc-tYoTV fVdDbB"
       >
         <strong>
           <div
-            className="sc-dFJsGO dICqkK"
+            className="sc-XhUPp vTgFU"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -8301,10 +8202,10 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
         />
       </span>
       <span
-        className="sc-gInsOo ljihCS"
+        className="sc-tYoTV fVdDbB"
       >
         <span
-          className="sc-euMpXR bbHNB"
+          className="sc-biBrSq HZGBn"
         >
           ∑
         </span>
@@ -8315,11 +8216,11 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
     </div>
   </div>
   <div
-    className="sc-ctaXAZ iKRVLG"
+    className="sc-dkIXFM hNsFmu"
   >
     <div>
       <div
-        className="sc-dFJsGO dICqkK"
+        className="sc-XhUPp vTgFU"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -8332,7 +8233,7 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
     </div>
     <div>
       <div
-        className="sc-dFJsGO dICqkK"
+        className="sc-XhUPp vTgFU"
         style={
           Object {
             "backgroundColor": "#75ADE8",
@@ -8356,19 +8257,19 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
   }
 >
   <div
-    className="sc-eGCarw eMtaVZ"
+    className="sc-dtTInj bmJEHF"
     id="barchart"
   >
     <div
-      className="sc-bsipQr gabrJa"
+      className="sc-ikPAkQ coFneo"
       id="barchart-tooltip"
     >
       <span
-        className="sc-gInsOo ljihCS"
+        className="sc-tYoTV fVdDbB"
       >
         <strong>
           <div
-            className="sc-dFJsGO dICqkK"
+            className="sc-XhUPp vTgFU"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -8381,11 +8282,11 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
         />
       </span>
       <span
-        className="sc-gInsOo ljihCS"
+        className="sc-tYoTV fVdDbB"
       >
         <strong>
           <div
-            className="sc-dFJsGO dICqkK"
+            className="sc-XhUPp vTgFU"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -8398,10 +8299,10 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
         />
       </span>
       <span
-        className="sc-gInsOo ljihCS"
+        className="sc-tYoTV fVdDbB"
       >
         <span
-          className="sc-euMpXR bbHNB"
+          className="sc-biBrSq HZGBn"
         >
           ∑
         </span>
@@ -8412,11 +8313,11 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
     </div>
   </div>
   <div
-    className="sc-ctaXAZ iKRVLG"
+    className="sc-dkIXFM hNsFmu"
   >
     <div>
       <div
-        className="sc-dFJsGO dICqkK"
+        className="sc-XhUPp vTgFU"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -8429,7 +8330,7 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
     </div>
     <div>
       <div
-        className="sc-dFJsGO dICqkK"
+        className="sc-XhUPp vTgFU"
         style={
           Object {
             "backgroundColor": "#75ADE8",
@@ -8440,79 +8341,6 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
          Regen
       </div>
     </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Tooltip With React Children 1`] = `
-<div>
-  <div
-    className="sc-bQdQlF fyYMOo tooltip"
-    height={0}
-    width={0}
-    x={200}
-    y={150}
-  >
-    <span
-      className="sc-jGVbCA WykgY"
-    >
-      <b>
-        Bold and sweaty
-      </b>
-       
-      <div
-        className="sc-bTvRPi jNQdyT"
-      >
-        <svg
-          height="14px"
-          viewBox="0 0 9 14"
-          width="9px"
-        >
-          <g
-            fill="#75ADE8"
-            id="water-drop"
-          >
-            <path
-              d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
-              id="water-drop-path"
-            />
-          </g>
-        </svg>
-        <svg
-          height="14px"
-          viewBox="0 0 9 14"
-          width="9px"
-        >
-          <g
-            fill="#75ADE8"
-            id="water-drop"
-          >
-            <path
-              d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
-              id="water-drop-path"
-            />
-          </g>
-        </svg>
-      </div>
-    </span>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Tooltip With Text String 1`] = `
-<div>
-  <div
-    className="sc-bQdQlF hgvoWR tooltip"
-    height={0}
-    width={0}
-    x={100}
-    y={100}
-  >
-    <span
-      className="sc-jGVbCA WykgY"
-    >
-      This is a tooltip
-    </span>
   </div>
 </div>
 `;

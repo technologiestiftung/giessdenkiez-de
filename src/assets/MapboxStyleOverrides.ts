@@ -33,4 +33,12 @@ export const MapboxStyleOverrides = css`
       background: white !important;
     }
   }
+
+  #view-default-view > div {
+    z-index: unset !important;
+  }
+
+  #deckgl-overlay {
+    z-index: 1;
+  }
 `;
