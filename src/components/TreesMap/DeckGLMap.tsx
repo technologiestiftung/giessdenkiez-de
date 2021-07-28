@@ -257,7 +257,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           /**
            * Apparently DWD 1 is not 1ml but 0.1ml
            * We could change this in the database, but this would mean,
-           * transferring 625.000 "," characters, therefore,
+           * transferring 750.000 "," characters, therefore,
            * changing it client-side makes more sense.
            */
           const interpolated = interpolateColor(
@@ -429,7 +429,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
       map.addSource('trees', {
         type: 'vector',
-        url: 'mapbox://technologiestiftung.trees_s3',
+        url: process.env.MAPBOX_TREES_TILESET_URL,
         minzoom: 11,
         maxzoom: 20,
       });
@@ -438,7 +438,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         id: 'trees',
         type: 'circle',
         source: 'trees',
-        'source-layer': 'original',
+        'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
         // TODO: Below we add the style for the trees on mobile. The color updates should be inserted or replicated here.
         paint: {
           'circle-radius': {
