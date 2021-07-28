@@ -3466,17 +3466,17 @@ Array [
         Profil
       </h2>
       <div
-        className="sc-dtwoBo Deuix"
+        className="sc-dacFzL eWgBi"
       >
         <div
-          className="sc-bTvRPi JzmSn"
+          className="sc-kIeTtH beHmkX"
         >
           <img
-            className="sc-kIeTtH kWOGMl"
+            className="sc-hOqqkJ kvOCrw"
             src="/images/icon-trees.svg"
           />
           <div
-            className="sc-hOqqkJ jbYLeT"
+            className="sc-dtwoBo fyICIg"
           >
             Lade Profil...
           </div>
@@ -3484,7 +3484,7 @@ Array [
         </div>
       </div>
       <p
-        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
+        className="sc-gsTCUz iiIrBj sc-bTvRPi kYdhOk"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -4197,17 +4197,17 @@ Array [
         Profil
       </h2>
       <div
-        className="sc-dtwoBo Deuix"
+        className="sc-dacFzL eWgBi"
       >
         <div
-          className="sc-bTvRPi JzmSn"
+          className="sc-kIeTtH beHmkX"
         >
           <img
-            className="sc-kIeTtH kWOGMl"
+            className="sc-hOqqkJ kvOCrw"
             src="/images/icon-trees.svg"
           />
           <div
-            className="sc-hOqqkJ jbYLeT"
+            className="sc-dtwoBo fyICIg"
           >
             Lade Profil...
           </div>
@@ -4215,7 +4215,7 @@ Array [
         </div>
       </div>
       <p
-        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
+        className="sc-gsTCUz iiIrBj sc-bTvRPi kYdhOk"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -4928,17 +4928,17 @@ Array [
         Profil
       </h2>
       <div
-        className="sc-dtwoBo Deuix"
+        className="sc-dacFzL eWgBi"
       >
         <div
-          className="sc-bTvRPi JzmSn"
+          className="sc-kIeTtH beHmkX"
         >
           <img
-            className="sc-kIeTtH kWOGMl"
+            className="sc-hOqqkJ kvOCrw"
             src="/images/icon-trees.svg"
           />
           <div
-            className="sc-hOqqkJ jbYLeT"
+            className="sc-dtwoBo fyICIg"
           >
             Lade Profil...
           </div>
@@ -4946,7 +4946,7 @@ Array [
         </div>
       </div>
       <p
-        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
+        className="sc-gsTCUz iiIrBj sc-bTvRPi kYdhOk"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -5659,17 +5659,17 @@ Array [
         Profil
       </h2>
       <div
-        className="sc-dtwoBo Deuix"
+        className="sc-dacFzL eWgBi"
       >
         <div
-          className="sc-bTvRPi JzmSn"
+          className="sc-kIeTtH beHmkX"
         >
           <img
-            className="sc-kIeTtH kWOGMl"
+            className="sc-hOqqkJ kvOCrw"
             src="/images/icon-trees.svg"
           />
           <div
-            className="sc-hOqqkJ jbYLeT"
+            className="sc-dtwoBo fyICIg"
           >
             Lade Profil...
           </div>
@@ -5677,7 +5677,7 @@ Array [
         </div>
       </div>
       <p
-        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
+        className="sc-gsTCUz iiIrBj sc-bTvRPi kYdhOk"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -6378,25 +6378,182 @@ Array [
             onClick={[Function]}
           />
           <div
-            className="sc-clsHhM jWRCOx"
+            className="sc-fbkhIv ehvhyo"
           >
             <span
-              className="sc-fbkhIv dCNKUi"
+              className="sc-GqfZa gTZxPv"
               onClick={[Function]}
             >
               Niederschläge
             </span>
             <span
-              className="sc-fbkhIv etVTlW"
+              className="sc-GqfZa da-drqv"
               onClick={[Function]}
             >
               Bereits adoptiert
             </span>
             <span
-              className="sc-fbkhIv etVTlW"
+              className="sc-GqfZa da-drqv"
               onClick={[Function]}
             >
               In den letzten 30 Tagen gegossen
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="sc-jgHCyG iuOiLs"
+      >
+        <div
+          className="sc-gTgzIj lkXiws"
+          onClick={[Function]}
+        >
+          <div
+            className="sc-hTZhsR dOSvjF"
+          >
+            Wasserbedarf
+          </div>
+          <span
+            className="sc-iNqMTl bvuvgJ"
+            onClick={[Function]}
+          >
+            –
+          </span>
+        </div>
+        <div
+          className="sc-laRPJI eKTkhN"
+        >
+          <p
+            className="sc-gsTCUz iiIrBj"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Finde heraus wie sehr Bäume Wasser benötigen.",
+              }
+            }
+            onClick={[Function]}
+          />
+          <div
+            className="sc-fbkhIv ehvhyo"
+          >
+            <span
+              className="sc-GqfZa da-drqv"
+              onClick={[Function]}
+            >
+              Niedrig
+              <div
+                className="sc-clsHhM dAjopB"
+              >
+                <svg
+                  height="14px"
+                  viewBox="0 0 9 14"
+                  width="9px"
+                >
+                  <g
+                    fill="#75ADE8"
+                    id="water-drop"
+                  >
+                    <path
+                      d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                      id="water-drop-path"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </span>
+            <span
+              className="sc-GqfZa da-drqv"
+              onClick={[Function]}
+            >
+              Mittel
+              <div
+                className="sc-clsHhM dAjopB"
+              >
+                <svg
+                  height="14px"
+                  viewBox="0 0 9 14"
+                  width="9px"
+                >
+                  <g
+                    fill="#75ADE8"
+                    id="water-drop"
+                  >
+                    <path
+                      d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                      id="water-drop-path"
+                    />
+                  </g>
+                </svg>
+                <svg
+                  height="14px"
+                  viewBox="0 0 9 14"
+                  width="9px"
+                >
+                  <g
+                    fill="#75ADE8"
+                    id="water-drop"
+                  >
+                    <path
+                      d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                      id="water-drop-path"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </span>
+            <span
+              className="sc-GqfZa da-drqv"
+              onClick={[Function]}
+            >
+              Hoch
+              <div
+                className="sc-clsHhM dAjopB"
+              >
+                <svg
+                  height="14px"
+                  viewBox="0 0 9 14"
+                  width="9px"
+                >
+                  <g
+                    fill="#75ADE8"
+                    id="water-drop"
+                  >
+                    <path
+                      d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                      id="water-drop-path"
+                    />
+                  </g>
+                </svg>
+                <svg
+                  height="14px"
+                  viewBox="0 0 9 14"
+                  width="9px"
+                >
+                  <g
+                    fill="#75ADE8"
+                    id="water-drop"
+                  >
+                    <path
+                      d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                      id="water-drop-path"
+                    />
+                  </g>
+                </svg>
+                <svg
+                  height="14px"
+                  viewBox="0 0 9 14"
+                  width="9px"
+                >
+                  <g
+                    fill="#75ADE8"
+                    id="water-drop"
+                  >
+                    <path
+                      d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                      id="water-drop-path"
+                    />
+                  </g>
+                </svg>
+              </div>
             </span>
           </div>
         </div>
@@ -7335,17 +7492,17 @@ Array [
         Bauminformation
       </h2>
       <div
-        className="sc-dtwoBo Deuix"
+        className="sc-dacFzL eWgBi"
       >
         <div
-          className="sc-bTvRPi JzmSn"
+          className="sc-kIeTtH beHmkX"
         >
           <img
-            className="sc-kIeTtH kWOGMl"
+            className="sc-hOqqkJ kvOCrw"
             src="/images/icon-trees.svg"
           />
           <div
-            className="sc-hOqqkJ jbYLeT"
+            className="sc-dtwoBo fyICIg"
           >
             Lade Bauminformation...
           </div>
@@ -7353,7 +7510,7 @@ Array [
         </div>
       </div>
       <p
-        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
+        className="sc-gsTCUz iiIrBj sc-bTvRPi kYdhOk"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -8023,17 +8180,17 @@ Array [
         Bauminformation
       </h2>
       <div
-        className="sc-dtwoBo Deuix"
+        className="sc-dacFzL eWgBi"
       >
         <div
-          className="sc-bTvRPi JzmSn"
+          className="sc-kIeTtH beHmkX"
         >
           <img
-            className="sc-kIeTtH kWOGMl"
+            className="sc-hOqqkJ kvOCrw"
             src="/images/icon-trees.svg"
           />
           <div
-            className="sc-hOqqkJ jbYLeT"
+            className="sc-dtwoBo fyICIg"
           >
             Lade Bauminformation...
           </div>
@@ -8041,7 +8198,7 @@ Array [
         </div>
       </div>
       <p
-        className="sc-gsTCUz iiIrBj sc-eLgOdN eRkbMs"
+        className="sc-gsTCUz iiIrBj sc-bTvRPi kYdhOk"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
