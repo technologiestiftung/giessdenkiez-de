@@ -5,7 +5,7 @@ export const treeData: Tree = {
   lat: '13.42081',
   lng: '52.50314',
   artdtsch: 'Baum-Hasel',
-  artBot: 'Corylus colurna',
+  artbot: 'Corylus colurna',
   gattungdeutsch: 'HASEL',
   gattung: 'CORYLUS',
   strname: 'Waldemarstraße',

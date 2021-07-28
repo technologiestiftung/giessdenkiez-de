@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useAuth0 } from '../../../utils/auth/auth0';
+import { useAuth0 } from '@auth0/auth0-react';
 import { useUserData } from '../../../utils/hooks/useUserData';
 
 import Paragraph from '../../Paragraph';
@@ -44,9 +44,10 @@ const SidebarProfile: FC<{
 }> = ({ userData: userDataProps, isLoading: isLoadingProps }) => {
   const { userData: userDataState } = useUserData();
   const { deleteAccount } = useAccountActions();
-  const { loading: isLoadingState } = useAuth0();
-  const isLoading = isLoadingProps || isLoadingState;
+  const { isLoading: isLoadingState, isAuthenticated } = useAuth0();
   const userData = userDataProps || userDataState || false;
+  const isLoadingAuthInfo = isAuthenticated && !userData;
+  const isLoading = isLoadingProps || isLoadingState || isLoadingAuthInfo;
 
   const handleDeleteClick = async () => {
     if (!confirmAccountDeletion()) return;

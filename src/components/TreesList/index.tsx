@@ -6,7 +6,8 @@ import TreeButton from '../TreeButton';
 
 const WrapperOuter = styled.div`
   display: flex;
-  gap: 8px;
+  column-gap: 8px;
+  flex-wrap: wrap;
 `;
 
 const TreesList: FC<{

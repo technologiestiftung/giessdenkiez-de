@@ -33,12 +33,6 @@ on:
       - 'babel.config.js'
       - 'create-env.js'
       - 'tsconfig.json'
-    types:
-      - 'opened'
-      - 'synchronize'
-      - 'reopened'
-      - 'ready_for_review'
-      - 'edited'
 
 jobs:
   build:
