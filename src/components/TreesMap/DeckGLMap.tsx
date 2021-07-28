@@ -134,7 +134,12 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   _getFillColor(info: {
     properties: TreeGeojsonFeatureProperties;
   }): [number, number, number, number] {
-    const { ageRange, mapViewFilter, mapWaterNeedFilter, communityData } = this.props;
+    const {
+      ageRange,
+      mapViewFilter,
+      mapWaterNeedFilter,
+      communityData,
+    } = this.props;
     const [minFilteredAge, maxFilteredAge] = ageRange;
     const { properties } = info;
     const { id, radolan_sum, age: treeAge } = properties;

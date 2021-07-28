@@ -44,7 +44,7 @@ const SidebarSearch: FC = () => {
   const setWaterNeedFilter = (need: number) => {
     const waterNeed = mapWaterNeedFilter === need ? null : need;
     return setMapWaterNeedFilter(waterNeed);
-  }
+  };
 
   return (
     <>
@@ -83,21 +83,21 @@ const SidebarSearch: FC = () => {
         <FilterLinksContainer>
           <FilterLink
             isActive={mapWaterNeedFilter === 1}
-            onClick={() => setWaterNeedFilter(1) }
+            onClick={() => setWaterNeedFilter(1)}
           >
             Niedrig
             <WaterDrops dropsAmount={1} />
           </FilterLink>
           <FilterLink
             isActive={mapWaterNeedFilter === 2}
-            onClick={() => setWaterNeedFilter(2) }
+            onClick={() => setWaterNeedFilter(2)}
           >
             Mittel
             <WaterDrops dropsAmount={2} />
           </FilterLink>
           <FilterLink
             isActive={mapWaterNeedFilter === 3}
-            onClick={() => setWaterNeedFilter(3) }
+            onClick={() => setWaterNeedFilter(3)}
           >
             Hoch
             <WaterDrops dropsAmount={3} />

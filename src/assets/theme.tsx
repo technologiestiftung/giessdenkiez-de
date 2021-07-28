@@ -53,7 +53,7 @@ export const theme = {
   transition: 'all .125s ease-in-out',
 };
 
-export const colorByState = (state: any) => {
+export const colorByState = (state: number): string => {
   if (state < 15) {
     return theme.colorPrimary;
   } else {
