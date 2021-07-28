@@ -5,6 +5,7 @@ import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import SquareButton from '../SquareButton';
+import { useActions } from '../../state/unistore-hooks';
 
 interface StyledProps {
   active?: boolean;
@@ -48,6 +49,7 @@ const navConfig = [
 const Nav: FC<{
   isNavOpened: boolean;
 }> = ({ isNavOpened }) => {
+  const { openNav } = useActions();
   const { pathname } = useLocation();
   const history = useHistory();
 
@@ -57,7 +59,10 @@ const Nav: FC<{
         <NavItem
           exact
           to={{ pathname: item.path, search: '' }}
-          onClick={() => history.push('/')}
+          onClick={() => {
+            history.push('/');
+            openNav();
+          }}
           title={item.title}
           key={item.path}
         >

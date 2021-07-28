@@ -9,6 +9,9 @@ import 'whatwg-fetch';
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
 import { server } from '../src/mocks/server';
+import webcrypto from '@trust/webcrypto';
+
+window.crypto = webcrypto;
 
 beforeAll(() => {
   // Enable the mocking in tests.
