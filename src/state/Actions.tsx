@@ -25,6 +25,10 @@ const closeOverlay = (): { overlay: StoreProps['overlay'] } => ({
   overlay: false,
 });
 
+const openNav = (): { isNavOpen: StoreProps['isNavOpen'] } => ({
+  isNavOpen: true,
+});
+
 const closeNav = (): { isNavOpen: StoreProps['isNavOpen'] } => ({
   isNavOpen: false,
 });
@@ -34,6 +38,7 @@ const allActions = {
   setAgeRange,
   openOverlay,
   closeOverlay,
+  openNav,
   closeNav,
   setVisibleMapLayer,
   setMapViewFilter,
