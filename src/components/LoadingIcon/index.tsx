@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 import content from '../../assets/content';
@@ -6,63 +6,66 @@ import content from '../../assets/content';
 const iconTrees = '/images/icon-trees.svg';
 
 const IconContainer = styled.div`
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
-  justify-content: centet;
+  justify-content: center;
   height: 100%;
-  width: 200px;
+  max-width: 200px;
 `;
 
-const StyledIcon = styled.img`
+const StyledLoadingIcon = styled.img`
   width: 45px;
   height: 55px;
+  margin-bottom: 16px;
+  transition: transform 1000ms ease-out;
 
   @keyframes pulse {
     0% {
-      transform: scale(0.95);
+      transform: rotate(0) scale(0.95);
       opacity: 0.1;
     }
     50% {
-      transform: scale(1);
+      transform: rotate(0) scale(1);
       opacity: 1;
     }
     100% {
-      transform: scale(0.95);
+      transform: rotate(0) scale(0.95);
       opacity: 0.1;
     }
   }
 
-  animation: pulse 1.5s infinite ease-in-out;
+  animation: ${({ hasError }: { hasError?: boolean }) =>
+    hasError ? 'none' : 'pulse 1.5s infinite ease-in-out'};
 `;
 
 const StyledLabel = styled.div`
   font-size: ${p => p.theme.fontSizeM};
   opacity: 0.66;
   padding-bottom: 10px;
+  text-align: center;
 `;
 
-const StyledLabelBottom = styled.div`
-  font-size: ${p => p.theme.fontSizeM};
-  opacity: 0.66;
-  padding-bottom: 10px;
-  position: absolute;
-  bottom: 15px;
+export const SidebarLoadingContainer = styled.div`
+  /* 100vh - Sidebar outer margin - Sidebar title size - Sidebar bottom padding - Height of impressum link  */
+  min-height: calc(100vh - 48px - 57px - 24px - 19px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
-const LoadingIcon = (p: { text: any }) => {
-  const { intro, imprintAndPrivacy } = content;
+
+const LoadingIcon: FC<{ text?: string; hasError?: boolean }> = ({
+  text,
+  hasError,
+}) => {
+  const { intro } = content;
   const { disclaimer } = intro;
-  const { text } = p;
   return (
     <IconContainer>
-      <StyledIcon src={iconTrees} />
+      <StyledLoadingIcon src={iconTrees} hasError={hasError} />
       {text && <StyledLabel>{text}</StyledLabel>}
       {isMobile && <StyledLabel>{disclaimer}</StyledLabel>}
-      {
-        <StyledLabelBottom
-          dangerouslySetInnerHTML={{ __html: imprintAndPrivacy.description }}
-        />
-      }
     </IconContainer>
   );
 };

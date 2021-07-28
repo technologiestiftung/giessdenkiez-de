@@ -23,6 +23,39 @@
         <meta itemprop="name" content="Gieß den Kiez | CityLAB Berlin">
         <meta itemprop="description" content="Die Berliner Stadtbäume leiden unter Trockenheit und Du kannst ihnen helfen!">
         <meta itemprop="image" content="<%= domain %>/images/social_media.jpg">
+        <style type="text/css">
+            @font-face {
+                font-family: 'IBM Plex Sans';
+                src: url('/fonts/IBMPlexSans-BoldItalic.woff2') format('woff2'),
+                url('/fonts/IBMPlexSans-BoldItalic.woff') format('woff');
+                font-weight: bold;
+                font-style: italic;
+            }
+
+            @font-face {
+                font-family: 'IBM Plex Sans';
+                src: url('/fonts/IBMPlexSans-TextItalic.woff2') format('woff2'),
+                url('/fonts/IBMPlexSans-TextItalic.woff') format('woff');
+                font-weight: 500;
+                font-style: italic;
+            }
+
+            @font-face {
+                font-family: 'IBM Plex Sans';
+                src: url('/fonts/IBMPlexSans-Bold.woff2') format('woff2'),
+                url('/fonts/IBMPlexSans-Bold.woff') format('woff');
+                font-weight: bold;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: 'IBM Plex Sans';
+                src: url('/fonts/IBMPlexSans-Text.woff2') format('woff2'),
+                url('/fonts/IBMPlexSans-Text.woff') format('woff');
+                font-weight: 500;
+                font-style: normal;
+            }
+        </style>
         <script>
             // taken from https://www.paulirish.com/2009/fighting-the-font-face-fout/
             (function(){
@@ -46,150 +79,6 @@
               })();
 
         </script>
-        <style>
-            .fade {
-
-                -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
-                   -moz-animation: fadein 1.5s; /* Firefox < 16 */
-                    -ms-animation: fadein 1.5s; /* Internet Explorer */
-                     -o-animation: fadein 1.5s; /* Opera < 12.1 */
-                        animation: fadein 1.5s;
-            }
-
-            @keyframes fadein {
-                from { opacity: 0; }
-                to   { opacity: 1; }
-            }
-
-            /* Firefox < 16 */
-            @-moz-keyframes fadein {
-                from { opacity: 0; }
-                to   { opacity: 1; }
-            }
-
-            /* Safari, Chrome and Opera > 12.1 */
-            @-webkit-keyframes fadein {
-                from { opacity: 0; }
-                to   { opacity: 1; }
-            }
-
-            /* Internet Explorer */
-            @-ms-keyframes fadein {
-                from { opacity: 0; }
-                to   { opacity: 1; }
-            }
-
-            /* Opera < 12.1 */
-            @-o-keyframes fadein {
-                from { opacity: 0; }
-                to   { opacity: 1; }
-            }
-        </style>
-        <style>
-            body{
-                 font-family: sans-serif;
-                }
-            @font-face {
-            font-family: 'IBM Plex Sans';
-            src: url('/fonts/IBMPlexSans-BoldItalic.woff2') format('woff2'),
-                url('/fonts/IBMPlexSans-BoldItalic.woff') format('woff');
-            font-weight: bold;
-            font-style: italic;
-            }
-
-            @font-face {
-            font-family: 'IBM Plex Sans';
-            src: url('/fonts/IBMPlexSans-TextItalic.woff2') format('woff2'),
-                url('/fonts/IBMPlexSans-TextItalic.woff') format('woff');
-            font-weight: 500;
-            font-style: italic;
-            }
-
-            @font-face {
-            font-family: 'IBM Plex Sans';
-            src: url('/fonts/IBMPlexSans-Bold.woff2') format('woff2'),
-                url('/fonts/IBMPlexSans-Bold.woff') format('woff');
-            font-weight: bold;
-            font-style: normal;
-            }
-
-            @font-face {
-            font-family: 'IBM Plex Sans';
-            src: url('/fonts/IBMPlexSans-Text.woff2') format('woff2'),
-                url('/fonts/IBMPlexSans-Text.woff') format('woff');
-            font-weight: 500;
-            font-style: normal;
-            }
-
-            .mapboxgl-ctrl-attrib {
-                display: none;
-            }
-
-            path.domain {
-                opacity: 0;
-            }
-
-            g.tick > text, .loadingLabel {
-                font-family: 'IBM Plex Sans';
-            }
-
-            div#tempOverlay {
-
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                z-index: 1000;
-                justify-content: center;
-                background: white;
-                top: 0;
-                left: 0;
-                display: flex;
-                align-items: center;
-            }
-
-            div#loadingwrapper {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
-                align-content: center;
-                width: 180px;
-            }
-
-            @keyframes pulse {
-                0% { transform: scale(.95); opacity: 0.1; }
-                50% { transform: scale(1); opacity: 1; }
-                100% { transform: scale(.95); opacity: 0.1; }
-            }
-
-            #loadingwrapper svg {
-                width: 45px;
-                height: 55px;
-                text-align: center;
-                animation: pulse 1.5s infinite ease-in-out;
-            }
-
-            div.loadingLabel {
-                font-family: 'IBM Plex Sans';
-                font-size: .8rem;
-                opacity: .5;
-                text-align: center;
-            }
-
-            a {
-                color: #2c303b;
-            }
-            a:hover {
-                opacity: 0.33;
-                    }
-        #bottom-links{
-            position: absolute;
-            bottom: 15px;
-        }
-        </style>
-
-
 <!-- Matomo -->
 <!--
     Dont worry. We don't sell your data.
@@ -220,26 +109,6 @@
 
     </head>
     <body >
-        <div id="tempOverlay" >
-            <div id="loadingwrapper">
-                <svg width="55px" height="45px" viewBox="0 0 55 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <g id="icon-trees" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <g id="Group" transform="translate(7.000000, 4.000000)">
-                            <circle id="Oval-Copy-2" fill="#E3FFEF" cx="9" cy="33" r="9"></circle>
-                            <path d="M4.86521989,24 C1.95471738,25.6422988 0,28.6871167 0,32.1718706 C0,35.9973067 2.3556005,39.2925825 5.74531561,40.7842983 M13.3644824,41 C15.2679143,40.2899849 16.8843895,39.0248337 18,37.4106704" id="Shape-Copy" stroke="#6FE5A4" stroke-width="2" stroke-linecap="round"></path>
-                            <path d="M1,39 L18,39 C18.5522847,39 19,39.4477153 19,40 C19,40.5522847 18.5522847,41 18,41 L1,41 C0.44771525,41 6.76353751e-17,40.5522847 0,40 C-6.76353751e-17,39.4477153 0.44771525,39 1,39 Z" id="Rectangle-Copy-14" fill="#000000" transform="translate(9.500000, 40.000000) rotate(-90.000000) translate(-9.500000, -40.000000) "></path>
-                            <path d="M3.65737902,33.3945382 L10.1695738,33.3738207 C10.6700586,33.3722285 11.0770725,33.7766609 11.0786647,34.2771457 C11.0786708,34.2790677 11.0786708,34.2809896 11.0786647,34.2829116 C11.0770593,34.7875269 10.6683864,35.1961999 10.1637711,35.1978052 L3.65157631,35.2185227 C3.15109148,35.2201149 2.74407761,34.8156825 2.7424854,34.3151977 C2.74247929,34.3132757 2.74247929,34.3113537 2.7424854,34.3094318 C2.74409075,33.8048164 3.15276368,33.3961435 3.65737902,33.3945382 Z" id="Rectangle-Copy-15" fill="#000000" transform="translate(6.910575, 34.296172) rotate(-135.000000) translate(-6.910575, -34.296172) "></path>
-                            <path d="M29.2245618,34 C37.1002545,32.3226278 43,25.4358588 43,17.1951356 C43,7.69852444 35.1649831,0 25.5,0 C15.8350169,0 8,7.69852444 8,17.1951356 C8,25.3719746 13.8086274,32.2157704 21.592633,33.9600523" id="Path-Copy" stroke="#6FE5A4" stroke-width="2" fill="#E3FFEF" stroke-linecap="round"></path>
-                            <rect id="Rectangle-Copy-16" fill="#000000" transform="translate(25.000000, 30.000000) rotate(-90.000000) translate(-25.000000, -30.000000) " x="6" y="29" width="38" height="2" rx="1"></rect>
-                            <path d="M16.3559202,22.0490534 L26.0743377,22.0181359 C26.5748226,22.0165437 26.9818364,22.420976 26.9834287,22.9214609 C26.9834348,22.9233828 26.9834348,22.9253048 26.9834287,22.9272268 C26.9818233,23.4318421 26.5731504,23.840515 26.068535,23.8421204 L16.3501175,23.8730379 C15.8496327,23.8746302 15.4426188,23.4701978 15.4410266,22.9697129 C15.4410205,22.967791 15.4410205,22.965869 15.4410266,22.963947 C15.4426319,22.4593317 15.8513049,22.0506588 16.3559202,22.0490534 Z" id="Rectangle-Copy-17" fill="#000000" transform="translate(21.212228, 22.945587) rotate(-135.000000) translate(-21.212228, -22.945587) "></path>
-                            <path d="M24.1950459,16.4923079 L33.2722189,16.5211854 C33.7768342,16.5227908 34.1855072,16.9314637 34.1871125,17.4360791 C34.1887047,17.9365639 33.7842723,18.3435778 33.2837875,18.34517 C33.2818655,18.3451761 33.2799436,18.3451761 33.2780216,18.34517 L24.2008486,18.3162924 C23.6962333,18.3146871 23.2875603,17.9060141 23.285955,17.4013988 C23.2843628,16.900914 23.6887952,16.4939001 24.18928,16.4923079 C24.191202,16.4923018 24.1931239,16.4923018 24.1950459,16.4923079 Z" id="Rectangle-Copy-18" fill="#000000" transform="translate(28.736534, 17.418739) rotate(-45.000000) translate(-28.736534, -17.418739) "></path>
-                        </g>
-                    </g>
-                </svg>
-                <div class="loadingLabel">Sammle Informationen aller Bäume Berlins aus dem Stadtkataster…</div>
-                <div class="loadingLabel" id="bottom-links"><a target="blank" href="https://www.technologiestiftung-berlin.de/de/impressum/">Impressum</a> und <a target="blank" href="https://www.technologiestiftung-berlin.de/de/datenschutz/">Datenschutz</a></div>
-            </div>
-        </div>
         <div id="app"></div>
     </body>
 </html>
