@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 
 import OverlayTitle from '../OverlayTitle/';
-import OverlayEvent from '../OverlayEvent/';
 import Icon from '../../Icons';
 import OverlayBeta from '../OverlayBeta/';
 import OverlayDescription from '../OverlayDescription/';
@@ -46,9 +45,16 @@ const StyledWrapper = styled.div`
   }
 `;
 
+const StyledNewsSection = styled.section`
+  background-color: ${({ theme }) => theme.colorPrimaryHover};
+  border: 1px solid ${({ theme }) => theme.colorPrimary};
+  padding: 30px 0;
+  margin: 40px;
+`;
+
 const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
-  const { intro, eventNote, whatsNew } = content;
+  const { intro, whatsNew } = content;
 
   const { title, subline, description, disclaimer } = intro;
 
@@ -77,12 +83,13 @@ const OverlayTop: FC = () => {
         </ButtonRound>
         <Login width='fit-content' noLogout={true} />
       </StyledWrapper>
-      {(eventNote !== undefined || whatsNew !== undefined) && (
-        <OverlayTitle size='xl' title={'News & Updates'} />
+      {whatsNew && (
+        <StyledNewsSection aria-label='News und Updates'>
+          <OverlayTitle size='xl' title={whatsNew.title} />
+          <div></div>
+          <OverlayDescription content={whatsNew.description} />
+        </StyledNewsSection>
       )}
-
-      {eventNote && <OverlayEvent size='Ll' title={eventNote.title} />}
-      {whatsNew && <OverlayDescription content={whatsNew.description} />}
     </StyledTop>
   );
 };
