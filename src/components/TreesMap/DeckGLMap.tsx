@@ -19,7 +19,14 @@ import {
 } from '../../common/interfaces';
 import { pumpToColor } from './mapColorUtil';
 import { MapTooltip } from './MapTooltip';
-import { getWaterNeedByAge } from '../../utils/getWaterNeedByAge';
+import {
+  getWaterNeedByAge,
+  YOUNG_TREE_MAX_AGE,
+  OLD_TREE_MIN_AGE,
+  LOW_WATER_NEED_NUM,
+  MEDIUM_WATER_NEED_NUM,
+  HIGH_WATER_NEED_NUM,
+} from '../../utils/getWaterNeedByAge';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 interface StyledProps {
@@ -518,29 +525,51 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           0,
         ]);
       }
+      let communityFilter: unknown[] | null = null;
+      let waterNeedFilter: unknown[] | null = null;
       if (this.props.mapViewFilter === 'watered') {
         // TODO: check if there is a performance up for any of the two
         // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
-        const filter = [
+        communityFilter = [
           'match',
           ['get', 'id'],
           this.props.communityDataWatered,
           true,
           false,
         ];
-        map.setFilter('trees', filter);
       } else if (this.props.mapViewFilter === 'adopted') {
-        const filter = [
+        communityFilter = [
           'match',
           ['get', 'id'],
           this.props.communityDataAdopted,
           true,
           false,
         ];
-        map.setFilter('trees', filter);
-      } else {
-        map.setFilter('trees', null);
       }
+      if (this.props.mapWaterNeedFilter !== null) {
+        waterNeedFilter = [
+          'match',
+          [
+            'case',
+            ['<', ['get', 'age'], OLD_TREE_MIN_AGE],
+            [
+              'case',
+              ['<', ['get', 'age'], YOUNG_TREE_MAX_AGE],
+              HIGH_WATER_NEED_NUM,
+              MEDIUM_WATER_NEED_NUM,
+            ],
+            LOW_WATER_NEED_NUM,
+          ],
+          this.props.mapWaterNeedFilter,
+          true,
+          false,
+        ];
+      }
+
+      map.setFilter(
+        'trees',
+        ['all', communityFilter, waterNeedFilter].filter(val => val !== null)
+      );
     }
   }
 
