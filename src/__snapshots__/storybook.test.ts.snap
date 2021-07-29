@@ -2752,7 +2752,7 @@ Array [
           className="sc-gsTCUz iiIrBj"
           onClick={[Function]}
         >
-          Giess den Kiez ist ein 
+          Giess den Kiez ist ein 
           <a
             href="https://github.com/technologiestiftung/giessdenkiez-de"
             target="blank"
@@ -8288,7 +8288,7 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
         }
       />
       <div>
-         Gießungen
+         Gießungen
       </div>
     </div>
     <div>
@@ -8301,7 +8301,7 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
         }
       />
       <div>
-         Regen
+         Regen
       </div>
     </div>
   </div>
@@ -8385,7 +8385,7 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
         }
       />
       <div>
-         Gießungen
+         Gießungen
       </div>
     </div>
     <div>
@@ -8398,7 +8398,7 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
         }
       />
       <div>
-         Regen
+         Regen
       </div>
     </div>
   </div>
@@ -8482,7 +8482,7 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
         }
       />
       <div>
-         Gießungen
+         Gießungen
       </div>
     </div>
     <div>
@@ -8495,7 +8495,7 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
         }
       />
       <div>
-         Regen
+         Regen
       </div>
     </div>
   </div>
