@@ -349,6 +349,91 @@
         ]
       },
       "geometry": { "type": "Point", "coordinates": [12.3651967, 51.3664422] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210801_hsp_66",
+        "name": "HSP Nr. 66",
+        "type": "Handschwengelpumpe",
+        "address": "Ludwig-Erhard-Straße 53, 04103 Leipzig",
+        "created": "01.08.2021",
+        "hints":[
+          "Handschwengelpumpe mit Brunnenschacht und Abdeckplatte vor Nr. 51/53 (Typ Kleiner Löwe)",
+          "Status Juli 2021: betriebsbereit",
+          "Anleitung, wie man eine eingetrocknete Pumpe wieder reaktivieren kann: https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit"
+        ],
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09263878"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.39305, 51.34468] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210801_hsp_64",
+        "name": "HSP Nr. 64",
+        "type": "Handschwengelpumpe",
+        "address": "Marienplatz, 04103 Leipzig",
+        "created": "01.08.2021",
+        "hints":[
+          "Handschwengelpumpe mit Brunnenschacht und Abdeckplatte (Typ Delphin)",
+          "Status Juli 2021: betriebsbereit, wenn mit ca. 4 Liter Wasser gefüttert wurde",
+          "Anleitung, wie man eine eingetrocknete Pumpe wieder reaktivieren kann: https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit"
+        ],
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09290408"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.392808, 51.342892] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210801_hsp_207",
+        "name": "HSP Nr. 207",
+        "type": "Handschwengelpumpe",
+        "address": "Crusiusstraße 2a, 04317 Leipzig",
+        "created": "01.08.2021",
+        "hints":[
+          "Handschwengelpumpe mit Brunnenschacht und Abdeckplatte vor Nr. 2a in Ecklage Dresdner Straße/Stephaniplatz (Typ Delphin)",
+          "Status Juli 2021: betriebsbereit, wenn mit ca. 6 Liter Wasser gefüttert wurde",
+          "Anleitung, wie man eine eingetrocknete Pumpe wieder reaktivieren kann: https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit"
+        ],
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09294869"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.39841, 51.33902] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210801_hsp_212",
+        "name": "HSP Nr. 212",
+        "type": "Handschwengelpumpe",
+        "address": "Riesaer Straße 1, 04328 Leipzig",
+        "created": "01.08.2021",
+        "hints":[
+          "Handschwengelpumpe mit Brunnenschacht und Abdeckplatte",
+          "Status Juli 2021: intakt, wenig Wasserdruck",
+          "Anleitung, wie man eine eingetrocknete Pumpe wieder reaktivieren kann: https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit"
+        ],
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09262177"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.438228800189393, 51.34686615] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "20210801_hsp_243",
+        "name": "HSP Nr. 243",
+        "type": "Handschwengelpumpe",
+        "address": "Ossietzkystraße 46 / Robert-Blum-Straße 1, 04347 Leipzig",
+        "created": "01.08.2021",
+        "hints":[
+          "Handschwengelpumpe mit Brunnenschacht und Abdeckplatte an der Einmündung Robert-Blum-Straße (Typ Delphin)",
+          "Status Juli 2021: betriebsbereit, wenn mit ca. 5 Liter Wasser gefüttert wurde",
+          "Anleitung, wie man eine eingetrocknete Pumpe wieder reaktivieren kann: https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit"
+        ],
+        "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09264372"
+      },
+      "geometry": { "type": "Point", "coordinates": [12.41243, 51.35949] }
     }
   ]
 }
