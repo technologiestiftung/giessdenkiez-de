@@ -345,7 +345,7 @@
         "hints":[
           "Gerne während der Öffnungszeiten Dienstag bis Freitag jeweils  17 - 22 Uhr | Samstags: 10 - 16 Uhr oder wenn ihr Licht und Lärm im Makerspace seht :)",
           "Fragt am besten jemanden nach dem Wasserzugang, es wissen nicht immer alle Mitglieder alles, also bei verwunderten Blicken nicht wundern",
-          "Weitere Infos zu uns: https://makerspace-leipzig.de"
+          "Weitere Infos zu uns: <a href=\"https://makerspace-leipzig.de\">https://makerspace-leipzig.de</a>"
         ]
       },
       "geometry": { "type": "Point", "coordinates": [12.3651967, 51.3664422] }
@@ -361,7 +361,7 @@
         "hints":[
           "Handschwengelpumpe mit Brunnenschacht und Abdeckplatte vor Nr. 51/53 (Typ Kleiner Löwe)",
           "Status Juli 2021: betriebsbereit",
-          "Anleitung, wie man eine eingetrocknete Pumpe wieder reaktivieren kann: https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit"
+          "<a target=\"_blank\" href=\"https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit\">Anleitung</a>, wie man eine eingetrocknete Pumpe wieder reaktivieren kann"
         ],
         "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09263878"
       },
@@ -378,7 +378,7 @@
         "hints":[
           "Handschwengelpumpe mit Brunnenschacht und Abdeckplatte (Typ Delphin)",
           "Status Juli 2021: betriebsbereit, wenn mit ca. 4 Liter Wasser gefüttert wurde",
-          "Anleitung, wie man eine eingetrocknete Pumpe wieder reaktivieren kann: https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit"
+          "<a target=\"_blank\" href=\"https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit\">Anleitung</a>, wie man eine eingetrocknete Pumpe wieder reaktivieren kann"
         ],
         "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09290408"
       },
@@ -395,7 +395,7 @@
         "hints":[
           "Handschwengelpumpe mit Brunnenschacht und Abdeckplatte vor Nr. 2a in Ecklage Dresdner Straße/Stephaniplatz (Typ Delphin)",
           "Status Juli 2021: betriebsbereit, wenn mit ca. 6 Liter Wasser gefüttert wurde",
-          "Anleitung, wie man eine eingetrocknete Pumpe wieder reaktivieren kann: https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit"
+          "<a target=\"_blank\" href=\"https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit\">Anleitung</a>, wie man eine eingetrocknete Pumpe wieder reaktivieren kann"
         ],
         "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09294869"
       },
@@ -412,7 +412,7 @@
         "hints":[
           "Handschwengelpumpe mit Brunnenschacht und Abdeckplatte",
           "Status Juli 2021: intakt, wenig Wasserdruck",
-          "Anleitung, wie man eine eingetrocknete Pumpe wieder reaktivieren kann: https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit"
+          "<a target=\"_blank\" href=\"https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit\">Anleitung</a>, wie man eine eingetrocknete Pumpe wieder reaktivieren kann"
         ],
         "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09262177"
       },
@@ -429,7 +429,7 @@
         "hints":[
           "Handschwengelpumpe mit Brunnenschacht und Abdeckplatte an der Einmündung Robert-Blum-Straße (Typ Delphin)",
           "Status Juli 2021: betriebsbereit, wenn mit ca. 5 Liter Wasser gefüttert wurde",
-          "Anleitung, wie man eine eingetrocknete Pumpe wieder reaktivieren kann: https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit"
+          "<a target=\"_blank\" href=\"https://docs.google.com/document/d/16esg9h41BuYVe4_uuC0iRYi1bnyW2irrVPsVDdUvaGI/edit\">Anleitung</a>, wie man eine eingetrocknete Pumpe wieder reaktivieren kann"
         ],
         "url": "https://denkmalliste.denkmalpflege.sachsen.de/CardoMap/Denkmalliste_Report.aspx?HIDA_Nr=09264372"
       },

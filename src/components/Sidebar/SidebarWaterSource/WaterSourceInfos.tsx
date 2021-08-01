@@ -89,7 +89,7 @@ const WaterSourceInfos: FC<{
           <ExpandablePanel title={"Hinweise"} isExpanded={true}>
             <ul>
               { hints.map( (hint, index) => (
-                <li key={`hint-${index}`}>{hint}</li>
+                <li key={`hint-${index}`}><div dangerouslySetInnerHTML={{ __html: `${hint}` }}></div></li>
               ))}
             </ul>
           </ExpandablePanel>
