@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots ButtonWater Button Water Story 1`] = `
+Array [
+  <div
+    className="sc-bdnxRM dNbdOK"
+    onClick={[Function]}
+    role="button"
+    tabIndex={0}
+    type="primary"
+    width="-webkit-fill-available"
+  >
+    Ich habe gegossen!
+  </div>,
+  <p
+    className="sc-gtsrHT hDlbRR sc-dlnjwi cVsRYp"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Wie kann ich mitmachen?",
+      }
+    }
+    onClick={[Function]}
+  />,
+]
+`;
