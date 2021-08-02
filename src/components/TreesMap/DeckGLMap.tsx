@@ -19,6 +19,14 @@ import {
 } from '../../common/interfaces';
 import { pumpToColor } from './mapColorUtil';
 import { MapTooltip } from './MapTooltip';
+import {
+  getWaterNeedByAge,
+  YOUNG_TREE_MAX_AGE,
+  OLD_TREE_MIN_AGE,
+  LOW_WATER_NEED_NUM,
+  MEDIUM_WATER_NEED_NUM,
+  HIGH_WATER_NEED_NUM,
+} from '../../utils/getWaterNeedByAge';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 interface StyledProps {
@@ -60,6 +68,7 @@ interface DeckGLPropType {
   visibleMapLayer: StoreProps['visibleMapLayer'];
   ageRange: StoreProps['ageRange'];
   mapViewFilter: StoreProps['mapViewFilter'];
+  mapWaterNeedFilter: StoreProps['mapWaterNeedFilter'];
   isNavOpen: StoreProps['isNavOpen'];
   focusPoint: StoreProps['mapFocusPoint'];
 
@@ -132,12 +141,18 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   _getFillColor(info: {
     properties: TreeGeojsonFeatureProperties;
   }): [number, number, number, number] {
-    const { ageRange, mapViewFilter, communityData } = this.props;
+    const {
+      ageRange,
+      mapViewFilter,
+      mapWaterNeedFilter,
+      communityData,
+    } = this.props;
     const [minFilteredAge, maxFilteredAge] = ageRange;
     const { properties } = info;
     const { id, radolan_sum, age: treeAge } = properties;
     const communityDataFlatMap = communityData && id && communityData[id];
     const { isWatered, isAdopted } = communityDataFlatMap || {};
+    const waterNeed = getWaterNeedByAge(treeAge);
 
     const rainDataExists = !!radolan_sum;
 
@@ -153,6 +168,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     const colorShallBeTransparent =
       (ageFilterIsApplied && !treeAge) ||
       (ageFilterIsApplied && !treeIsWithinAgeRange) ||
+      (mapWaterNeedFilter && waterNeed !== mapWaterNeedFilter) ||
       !rainDataExists;
 
     if (colorShallBeTransparent) return colors.transparent;
@@ -238,6 +254,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             this.props.selectedTreeId,
             this.props.ageRange,
             this.props.mapViewFilter,
+            this.props.mapWaterNeedFilter,
           ],
           getLineWidth: [this.props.selectedTreeId],
           getLineColor: [this.props.selectedTreeId],
@@ -508,29 +525,51 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           0,
         ]);
       }
+      let communityFilter: unknown[] | null = null;
+      let waterNeedFilter: unknown[] | null = null;
       if (this.props.mapViewFilter === 'watered') {
         // TODO: check if there is a performance up for any of the two
         // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
-        const filter = [
+        communityFilter = [
           'match',
           ['get', 'id'],
           this.props.communityDataWatered,
           true,
           false,
         ];
-        map.setFilter('trees', filter);
       } else if (this.props.mapViewFilter === 'adopted') {
-        const filter = [
+        communityFilter = [
           'match',
           ['get', 'id'],
           this.props.communityDataAdopted,
           true,
           false,
         ];
-        map.setFilter('trees', filter);
-      } else {
-        map.setFilter('trees', null);
       }
+      if (this.props.mapWaterNeedFilter !== null) {
+        waterNeedFilter = [
+          'match',
+          [
+            'case',
+            ['<', ['get', 'age'], OLD_TREE_MIN_AGE],
+            [
+              'case',
+              ['<', ['get', 'age'], YOUNG_TREE_MAX_AGE],
+              HIGH_WATER_NEED_NUM,
+              MEDIUM_WATER_NEED_NUM,
+            ],
+            LOW_WATER_NEED_NUM,
+          ],
+          this.props.mapWaterNeedFilter,
+          true,
+          false,
+        ];
+      }
+
+      map.setFilter(
+        'trees',
+        ['all', communityFilter, waterNeedFilter].filter(val => val !== null)
+      );
     }
   }
 
@@ -540,6 +579,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       'communityData',
       'ageRange',
       'mapViewFilter',
+      'mapWaterNeedFilter',
       'treesVisible',
       'visibleMapLayer',
       'selectedTreeId',

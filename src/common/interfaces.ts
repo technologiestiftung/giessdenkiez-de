@@ -51,6 +51,7 @@ interface FocusPointType {
 
 export interface StoreProps {
   mapViewFilter: 'rain' | 'adopted' | 'watered';
+  mapWaterNeedFilter: number | null;
   visibleMapLayer: 'rain' | 'trees' | 'pumps';
   isNavOpen: boolean;
   ageRange: number[];

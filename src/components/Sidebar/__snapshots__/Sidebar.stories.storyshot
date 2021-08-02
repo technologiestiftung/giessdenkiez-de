@@ -1,736 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots ButtonWater Button Water Story 1`] = `
-Array [
-  <div
-    className="sc-bdnxRM dNbdOK"
-    onClick={[Function]}
-    role="button"
-    tabIndex={0}
-    type="primary"
-    width="-webkit-fill-available"
-  >
-    Ich habe gegossen!
-  </div>,
-  <p
-    className="sc-gtsrHT hDlbRR sc-dlnjwi cVsRYp"
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "Wie kann ich mitmachen?",
-      }
-    }
-    onClick={[Function]}
-  />,
-]
-`;
-
-exports[`Storyshots DataTable Default 1`] = `
-<div
-  className="sc-eCApnc emgArJ"
->
-  <header
-    className="sc-jSFjdj ddNIsG"
-  >
-    <h3
-      className="sc-gKAaRy gzYXhA"
-    >
-      This is a title
-    </h3>
-  </header>
-  <table
-    className="sc-pNWdM bopamU"
-  >
-    <tbody>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Status
-        </th>
-        <td>
-          Unknown
-        </td>
-      </tr>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Last update
-        </th>
-        <td>
-          Yesterday
-        </td>
-      </tr>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Type
-        </th>
-        <td>
-          Random type
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-`;
-
-exports[`Storyshots DataTable With Subtitle 1`] = `
-<div
-  className="sc-eCApnc emgArJ"
->
-  <header
-    className="sc-jSFjdj ddNIsG"
-  >
-    <h3
-      className="sc-gKAaRy gzYXhA"
-    >
-      This is a title
-    </h3>
-    <h4
-      className="sc-iCoGMd bqiyxU"
-    >
-      Subtitle
-    </h4>
-  </header>
-  <table
-    className="sc-pNWdM bopamU"
-  >
-    <tbody>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Status
-        </th>
-        <td>
-          Unknown
-        </td>
-      </tr>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Last update
-        </th>
-        <td>
-          Yesterday
-        </td>
-      </tr>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Type
-        </th>
-        <td>
-          Random type
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-`;
-
-exports[`Storyshots DataTable With Subtitle And Children 1`] = `
-<div
-  className="sc-eCApnc emgArJ"
->
-  <header
-    className="sc-jSFjdj ddNIsG"
-  >
-    <h3
-      className="sc-gKAaRy gzYXhA"
-    >
-      This is a title
-    </h3>
-    <h4
-      className="sc-iCoGMd bqiyxU"
-    >
-      Subtitle
-    </h4>
-    <div
-      className="sc-fujyAs ekEdtm"
-    >
-      <span>
-        Here be React children.
-      </span>
-    </div>
-  </header>
-  <table
-    className="sc-pNWdM bopamU"
-  >
-    <tbody>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Status
-        </th>
-        <td>
-          Unknown
-        </td>
-      </tr>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Last update
-        </th>
-        <td>
-          Yesterday
-        </td>
-      </tr>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Type
-        </th>
-        <td>
-          Random type
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-`;
-
-exports[`Storyshots DataTable Without Subtitle And With Children 1`] = `
-<div
-  className="sc-eCApnc emgArJ"
->
-  <header
-    className="sc-jSFjdj ddNIsG"
-  >
-    <h3
-      className="sc-gKAaRy gzYXhA"
-    >
-      This is a title
-    </h3>
-    <div
-      className="sc-fujyAs ekEdtm"
-    >
-      <span>
-        Here be React children.
-      </span>
-    </div>
-  </header>
-  <table
-    className="sc-pNWdM bopamU"
-  >
-    <tbody>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Status
-        </th>
-        <td>
-          Unknown
-        </td>
-      </tr>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Last update
-        </th>
-        <td>
-          Yesterday
-        </td>
-      </tr>
-      <tr
-        className="sc-jrsJWt etzQyX"
-      >
-        <th>
-          Type
-        </th>
-        <td>
-          Random type
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-`;
-
-exports[`Storyshots Legend Legend Story 1`] = `
-<div
-  className="sc-kfYoZR kBREBY"
->
-  <div
-    className="sc-ksluID iImayx"
-  >
-    <div
-      className="sc-kEqXSa haVITO"
-    >
-      <p
-        className="sc-gtsrHT hDlbRR sc-fKgJPI fjsvSY"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "Niederschlag",
-          }
-        }
-        onClick={[Function]}
-      />
-      <p
-        className="sc-gtsrHT hDlbRR"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "der letzten 30 Tage (Liter)",
-          }
-        }
-        onClick={[Function]}
-      />
-    </div>
-    <span
-      className="sc-bCwfaz YZJNc"
-      onClick={[Function]}
-    >
-      —
-    </span>
-  </div>
-  <div
-    className="sc-iqAclL fYqxfJ"
-  >
-    <div
-      className="sc-dIsUp hJLGdr"
-    >
-      <div
-        className="sc-bkbkJK jMNOVu"
-        color="#fde725"
-      />
-      <label
-        className="sc-hBMUJo ifLhjK"
-      >
-        0
-      </label>
-    </div>
-    <div
-      className="sc-dIsUp hJLGdr"
-    >
-      <div
-        className="sc-bkbkJK cJSoVk"
-        color="#cae11f"
-      />
-      <label
-        className="sc-hBMUJo ifLhjK"
-      >
-        60
-      </label>
-    </div>
-    <div
-      className="sc-dIsUp hJLGdr"
-    >
-      <div
-        className="sc-bkbkJK iflhbF"
-        color="#95d840"
-      />
-      <label
-        className="sc-hBMUJo ifLhjK"
-      >
-        120
-      </label>
-    </div>
-    <div
-      className="sc-dIsUp hJLGdr"
-    >
-      <div
-        className="sc-bkbkJK leoEAy"
-        color="#63cb5f"
-      />
-      <label
-        className="sc-hBMUJo ifLhjK"
-      >
-        180
-      </label>
-    </div>
-    <div
-      className="sc-dIsUp hJLGdr"
-    >
-      <div
-        className="sc-bkbkJK duFRDW"
-        color="#3bbb75"
-      />
-      <label
-        className="sc-hBMUJo ifLhjK"
-      >
-        240
-      </label>
-    </div>
-    <div
-      className="sc-dIsUp hJLGdr"
-    >
-      <div
-        className="sc-bkbkJK jEeVWY"
-        color="#22a884"
-      />
-      <label
-        className="sc-hBMUJo ifLhjK"
-      >
-        300
-      </label>
-    </div>
-  </div>
-  <div
-    className="sc-kEqXSa jdJhoY"
-  >
-    <p
-      className="sc-gtsrHT hDlbRR sc-fKgJPI fjsvSY"
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "Datenpunkte",
-        }
-      }
-      onClick={[Function]}
-    />
-    <p
-      className="sc-gtsrHT hDlbRR"
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "durch Klick ein- & ausblenden.",
-        }
-      }
-      onClick={[Function]}
-    />
-    <div
-      className="sc-iqAclL sc-bqGGPW fYqxfJ hmpdMw"
-      onClick={[Function]}
-    >
-      <div
-        className="sc-bkbkJK jdLIaV legend-dot"
-        color="#2c303b"
-      />
-      <label
-        className="sc-hBMUJo sc-dlMDgC ifLhjK ccapiP"
-      >
-        Straßen- & Anlagenbäume
-      </label>
-    </div>
-    <div
-      className="sc-iqAclL sc-bqGGPW fYqxfJ fIxqDL"
-      onClick={[Function]}
-    >
-      <div
-        className="sc-fFSPTT ewqdmB"
-      />
-      <label
-        className="sc-hBMUJo sc-dlMDgC ifLhjK ccapiP"
-      >
-        Öffentl. Pumpen
-      </label>
-    </div>
-    <div
-      className="sc-iqAclL sc-bqGGPW fYqxfJ fIxqDL"
-      onClick={[Function]}
-    >
-      <div
-        className="sc-iemWCZ dZymJG"
-      />
-      <label
-        className="sc-hBMUJo sc-dlMDgC ifLhjK ccapiP"
-      >
-        Niederschlagsflächen
-      </label>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Overlay Legend Story 1`] = `
-<div
-  className="sc-cTJkRt la-DbWs"
->
-  <div
-    className="sc-efHYUO fKxhLQ"
-  >
-    <div
-      className="sc-jNnpgg fXfDEW"
-    >
-      <div
-        className="sc-hiKfDv cuDyzk"
-      >
-        <div
-          className="sc-jJMGnK ftCBbE"
-        >
-          <h2
-            className="sc-iwajpm eIqMMb"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "<b>Gieß den <span>Kiez</span></b>",
-              }
-            }
-            size="xxl"
-          />
-          <div
-            className="sc-cxNHIi moUsb"
-          >
-            <img
-              className="sc-lmgQwP eewVIG"
-              src="/images/icon-trees.svg"
-            />
-          </div>
-          <div
-            className="sc-iJCRrE hvFnFH"
-          >
-            <span>
-              BETA
-            </span>
-          </div>
-        </div>
-        <h2
-          className="sc-iwajpm eIqMMb"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Die Berliner Stadtbäume leiden unter Trockenheit <br class=\\"large\\" /> und Du kannst ihnen helfen!",
-            }
-          }
-          size="xxl"
-        />
-        
-        <div
-          className="sc-bYwzuL kqvKUk"
-        >
-          <p
-            className="sc-giAqHp jqpqPQ sc-ezzafa fOlOWR"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.",
-              }
-            }
-            onClick={[Function]}
-          />
-          <p
-            className="sc-giAqHp jqpqPQ sc-ezzafa fOlOWR"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.",
-              }
-            }
-            onClick={[Function]}
-          />
-        </div>
-        <button
-          aria-label="Leiste schließen"
-          className="sc-kLojOw sc-iklJeh ldlODZ ciyolu"
-          onClick={[Function]}
-          title="Leiste schließen"
-        >
-          <svg
-            aria-hidden={true}
-            className="MuiSvgIcon-root"
-            focusable="false"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-            />
-          </svg>
-        </button>
-        <div
-          className="sc-gXfVKN gTBmOP"
-        >
-          <div
-            className="sc-bdnxRM bTikzI"
-            onClick={[Function]}
-            role="button"
-            tabIndex={0}
-            type="primary"
-            width="fit-content"
-          >
-            Los geht's
-          </div>
-          <div
-            className="sc-bdnxRM jtmweW"
-            onClick={[Function]}
-            role="button"
-            tabIndex={0}
-            width="fit-content"
-          >
-            Konto anlegen / Einloggen
-          </div>
-        </div>
-        <section
-          aria-label="News und Updates"
-          className="sc-cBoqAE dIpRMg"
-        >
-          <h2
-            className="sc-iwajpm efgBqB"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Hurray, das neue Baumkataster ist live!",
-              }
-            }
-            size="xl"
-          />
-          <div />
-          <div
-            className="sc-bYwzuL kqvKUk"
-          >
-            <p
-              className="sc-giAqHp jqpqPQ sc-ezzafa fOlOWR"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Auf Gieß den Kiez werden nun <strong>120.000 zusätzliche Stadtbäume</strong> angezeigt. Im Juni 2021 wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 120.000 Bäume mehr listet als das Baumkataster auf dem Jahr 2020. Dabei liegt die Anzahl der in 2020 gepflanzten Bäume nicht überdurchschnittlich hoch.",
-                }
-              }
-              onClick={[Function]}
-            />
-            <p
-              className="sc-giAqHp jqpqPQ sc-ezzafa fOlOWR"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Der Zuwachs ist vielmehr auf die vorbildliche Arbeit der bezirklichen Straßen- und Grünflächenämter zurückzuführen, die die Koordinaten weiterer Bäume erfasst haben. Von den rund 430.000 Straßenbäumen Berlins verfügen jetzt rund 404.000 über Koordinaten – das sind fast <strong>94% aller Straßenbäume</strong>.",
-                }
-              }
-              onClick={[Function]}
-            />
-          </div>
-        </section>
-      </div>
-      <div
-        className="sc-iBzEeX ePwFiT"
-      >
-        <h2
-          className="sc-iwajpm efgBqB"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<b>Wie kann ich mitmachen?</b>",
-            }
-          }
-        />
-        <div
-          className="sc-iTVJFM hiRIVK"
-        >
-          <div
-            className="sc-ciSkZP iUXoYB"
-          >
-            <div
-              className="sc-cxNHIi moUsb"
-            >
-              <img
-                className="sc-lmgQwP eewVIG"
-                src="/images/icon-water.svg"
-              />
-            </div>
-            <div
-              className="sc-jcwpoC cmQqsT"
-            >
-              <h2
-                className="sc-carFqZ haTLcV"
-              >
-                Bäume bewässern
-              </h2>
-              <p
-                className="sc-gtsrHT hDlbRR"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Informiere Dich auf unserer Plattform, ob die Bäume in deiner Straße Wasser benötigen. Wenn ja, schnapp Dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst Du die Bewässerung hier ein.",
-                  }
-                }
-                onClick={[Function]}
-              />
-            </div>
-          </div>
-          <div
-            className="sc-ciSkZP iUXoYB"
-          >
-            <div
-              className="sc-cxNHIi moUsb"
-            >
-              <img
-                className="sc-lmgQwP eewVIG"
-                src="/images/icon-subscribe.svg"
-              />
-            </div>
-            <div
-              className="sc-jcwpoC cmQqsT"
-            >
-              <h2
-                className="sc-carFqZ haTLcV"
-              >
-                Bäume adoptieren
-              </h2>
-              <p
-                className="sc-gtsrHT hDlbRR"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst Du sie adoptieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.",
-                  }
-                }
-                onClick={[Function]}
-              />
-            </div>
-          </div>
-          <div
-            className="sc-ciSkZP iUXoYB"
-          >
-            <div
-              className="sc-cxNHIi moUsb"
-            >
-              <img
-                className="sc-lmgQwP eewVIG"
-                src="/images/icon-zoom.svg"
-              />
-            </div>
-            <div
-              className="sc-jcwpoC cmQqsT"
-            >
-              <h2
-                className="sc-carFqZ haTLcV"
-              >
-                Den Baumbestand erkunden
-              </h2>
-              <p
-                className="sc-gtsrHT hDlbRR"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Unsere Karte ermöglicht es, mehr über einzelne Bäume und auch den gesamten Baumbestand zu erfahren. Nutze die Filter- und Suchfunktion, um mehr über die Bäume Berlins zu lernen.",
-                  }
-                }
-                onClick={[Function]}
-              />
-            </div>
-          </div>
-          <div
-            className="sc-ciSkZP iUXoYB"
-          >
-            <div
-              className="sc-cxNHIi moUsb"
-            >
-              <img
-                className="sc-lmgQwP eewVIG"
-                src="/images/icon-info.svg"
-              />
-            </div>
-            <div
-              className="sc-jcwpoC cmQqsT"
-            >
-              <h2
-                className="sc-carFqZ haTLcV"
-              >
-                Mit anderen austauschen
-              </h2>
-              <p
-                className="sc-gtsrHT hDlbRR"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Tritt unserem <a target=\\"_blank\\" href=\\"https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ\\">Slack-Kanal</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.",
-                  }
-                }
-                onClick={[Function]}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Storyshots Sidebar About 1`] = `
 <div
   className="sc-eEVmNe kWyfYy"
@@ -1284,17 +553,17 @@ exports[`Storyshots Sidebar Profile Loading 1`] = `
       Profil
     </h2>
     <div
-      className="sc-dsXzNU cRkYum"
+      className="sc-daBunf eBLaTe"
     >
       <div
-        className="sc-bTDOke dFgjsn"
+        className="sc-kHWWYL bkRMVu"
       >
         <img
-          className="sc-kHWWYL fCHtaQ"
+          className="sc-hOPeYd ktAkcB"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-hOPeYd edJiOe"
+          className="sc-dsXzNU gUwoYD"
         >
           Lade Profil...
         </div>
@@ -1302,7 +571,7 @@ exports[`Storyshots Sidebar Profile Loading 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-eKYRIR qupYx"
+      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -1350,17 +619,17 @@ exports[`Storyshots Sidebar Profile Logged In No Data 1`] = `
       Profil
     </h2>
     <div
-      className="sc-dsXzNU cRkYum"
+      className="sc-daBunf eBLaTe"
     >
       <div
-        className="sc-bTDOke dFgjsn"
+        className="sc-kHWWYL bkRMVu"
       >
         <img
-          className="sc-kHWWYL fCHtaQ"
+          className="sc-hOPeYd ktAkcB"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-hOPeYd edJiOe"
+          className="sc-dsXzNU gUwoYD"
         >
           Lade Profil...
         </div>
@@ -1368,7 +637,7 @@ exports[`Storyshots Sidebar Profile Logged In No Data 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-eKYRIR qupYx"
+      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -1416,17 +685,17 @@ exports[`Storyshots Sidebar Profile Logged In With Data 1`] = `
       Profil
     </h2>
     <div
-      className="sc-dsXzNU cRkYum"
+      className="sc-daBunf eBLaTe"
     >
       <div
-        className="sc-bTDOke dFgjsn"
+        className="sc-kHWWYL bkRMVu"
       >
         <img
-          className="sc-kHWWYL fCHtaQ"
+          className="sc-hOPeYd ktAkcB"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-hOPeYd edJiOe"
+          className="sc-dsXzNU gUwoYD"
         >
           Lade Profil...
         </div>
@@ -1434,7 +703,7 @@ exports[`Storyshots Sidebar Profile Logged In With Data 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-eKYRIR qupYx"
+      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -1482,17 +751,17 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
       Profil
     </h2>
     <div
-      className="sc-dsXzNU cRkYum"
+      className="sc-daBunf eBLaTe"
     >
       <div
-        className="sc-bTDOke dFgjsn"
+        className="sc-kHWWYL bkRMVu"
       >
         <img
-          className="sc-kHWWYL fCHtaQ"
+          className="sc-hOPeYd ktAkcB"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-hOPeYd edJiOe"
+          className="sc-dsXzNU gUwoYD"
         >
           Lade Profil...
         </div>
@@ -1500,7 +769,7 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-eKYRIR qupYx"
+      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -1579,25 +848,182 @@ exports[`Storyshots Sidebar Search 1`] = `
           onClick={[Function]}
         />
         <div
-          className="sc-ckTSus dWUQJZ"
+          className="sc-fbIWvP fmChEY"
         >
           <span
-            className="sc-fbIWvP gCtQvG"
+            className="sc-FRrlG inBYHl"
             onClick={[Function]}
           >
             Niederschläge
           </span>
           <span
-            className="sc-fbIWvP iyOomi"
+            className="sc-FRrlG foBPat"
             onClick={[Function]}
           >
             Bereits adoptiert
           </span>
           <span
-            className="sc-fbIWvP iyOomi"
+            className="sc-FRrlG foBPat"
             onClick={[Function]}
           >
             In den letzten 30 Tagen gegossen
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="sc-jgPyTC bVNoIv"
+    >
+      <div
+        className="sc-gSYDnn dHtCvk"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-hTRkXV edkZqx"
+        >
+          Wasserbedarf
+        </div>
+        <span
+          className="sc-iNiQyp cLMVio"
+          onClick={[Function]}
+        >
+          –
+        </span>
+      </div>
+      <div
+        className="sc-laZMeE jPCqpz"
+      >
+        <p
+          className="sc-gtsrHT hDlbRR"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Finde heraus wie sehr Bäume Wasser benötigen.",
+            }
+          }
+          onClick={[Function]}
+        />
+        <div
+          className="sc-fbIWvP fmChEY"
+        >
+          <span
+            className="sc-FRrlG foBPat"
+            onClick={[Function]}
+          >
+            Niedrig
+            <div
+              className="sc-ckTSus iLINEx"
+            >
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+            </div>
+          </span>
+          <span
+            className="sc-FRrlG foBPat"
+            onClick={[Function]}
+          >
+            Mittel
+            <div
+              className="sc-ckTSus iLINEx"
+            >
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+            </div>
+          </span>
+          <span
+            className="sc-FRrlG foBPat"
+            onClick={[Function]}
+          >
+            Hoch
+            <div
+              className="sc-ckTSus iLINEx"
+            >
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+              <svg
+                height="14px"
+                viewBox="0 0 9 14"
+                width="9px"
+              >
+                <g
+                  fill="#75ADE8"
+                  id="water-drop"
+                >
+                  <path
+                    d="M4.5,14 C6.98528137,14 9,11.8235471 9,9.13875632 C9,6.45396557 4.5,0 4.5,0 C4.5,0 0,6.45396557 0,9.13875632 C0,11.8235471 2.01471863,14 4.5,14 Z"
+                    id="water-drop-path"
+                  />
+                </g>
+              </svg>
+            </div>
           </span>
         </div>
       </div>
@@ -1914,17 +1340,17 @@ exports[`Storyshots Sidebar Tree 1`] = `
       Bauminformation
     </h2>
     <div
-      className="sc-dsXzNU cRkYum"
+      className="sc-daBunf eBLaTe"
     >
       <div
-        className="sc-bTDOke dFgjsn"
+        className="sc-kHWWYL bkRMVu"
       >
         <img
-          className="sc-kHWWYL fCHtaQ"
+          className="sc-hOPeYd ktAkcB"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-hOPeYd edJiOe"
+          className="sc-dsXzNU gUwoYD"
         >
           Lade Bauminformation...
         </div>
@@ -1932,7 +1358,7 @@ exports[`Storyshots Sidebar Tree 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-eKYRIR qupYx"
+      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -1980,17 +1406,17 @@ exports[`Storyshots Sidebar Tree Loading 1`] = `
       Bauminformation
     </h2>
     <div
-      className="sc-dsXzNU cRkYum"
+      className="sc-daBunf eBLaTe"
     >
       <div
-        className="sc-bTDOke dFgjsn"
+        className="sc-kHWWYL bkRMVu"
       >
         <img
-          className="sc-kHWWYL fCHtaQ"
+          className="sc-hOPeYd ktAkcB"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-hOPeYd edJiOe"
+          className="sc-dsXzNU gUwoYD"
         >
           Lade Bauminformation...
         </div>
@@ -1998,7 +1424,7 @@ exports[`Storyshots Sidebar Tree Loading 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-eKYRIR qupYx"
+      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -2006,297 +1432,6 @@ exports[`Storyshots Sidebar Tree Loading 1`] = `
       }
       onClick={[Function]}
     />
-  </div>
-</div>
-`;
-
-exports[`Storyshots StackedBarChart Bar Chart 1`] = `
-<div
-  style={
-    Object {
-      "width": "310px",
-    }
-  }
->
-  <div
-    className="sc-dtLLSn lkOYgF"
-    id="barchart"
-  >
-    <div
-      className="sc-ikXwFM ToOWH"
-      id="barchart-tooltip"
-    >
-      <span
-        className="sc-uxdHp DPiRs"
-      >
-        <strong>
-          <div
-            className="sc-WZYut bRIhOA"
-            style={
-              Object {
-                "backgroundColor": "#8B77F7",
-              }
-            }
-          />
-        </strong>
-        <span
-          id="barchart-tooltip-val-watered"
-        />
-      </span>
-      <span
-        className="sc-uxdHp DPiRs"
-      >
-        <strong>
-          <div
-            className="sc-WZYut bRIhOA"
-            style={
-              Object {
-                "backgroundColor": "#75ADE8",
-              }
-            }
-          />
-        </strong>
-        <span
-          id="barchart-tooltip-val-rain"
-        />
-      </span>
-      <span
-        className="sc-uxdHp DPiRs"
-      >
-        <span
-          className="sc-biJonm jUheKn"
-        >
-          ∑
-        </span>
-        <span
-          id="barchart-tooltip-val-total"
-        />
-      </span>
-    </div>
-  </div>
-  <div
-    className="sc-dkQUaI jfOvTU"
-  >
-    <div>
-      <div
-        className="sc-WZYut bRIhOA"
-        style={
-          Object {
-            "backgroundColor": "#8B77F7",
-          }
-        }
-      />
-      <div>
-         Gießungen
-      </div>
-    </div>
-    <div>
-      <div
-        className="sc-WZYut bRIhOA"
-        style={
-          Object {
-            "backgroundColor": "#75ADE8",
-          }
-        }
-      />
-      <div>
-         Regen
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
-<div
-  style={
-    Object {
-      "width": "310px",
-    }
-  }
->
-  <div
-    className="sc-dtLLSn lkOYgF"
-    id="barchart"
-  >
-    <div
-      className="sc-ikXwFM ToOWH"
-      id="barchart-tooltip"
-    >
-      <span
-        className="sc-uxdHp DPiRs"
-      >
-        <strong>
-          <div
-            className="sc-WZYut bRIhOA"
-            style={
-              Object {
-                "backgroundColor": "#8B77F7",
-              }
-            }
-          />
-        </strong>
-        <span
-          id="barchart-tooltip-val-watered"
-        />
-      </span>
-      <span
-        className="sc-uxdHp DPiRs"
-      >
-        <strong>
-          <div
-            className="sc-WZYut bRIhOA"
-            style={
-              Object {
-                "backgroundColor": "#75ADE8",
-              }
-            }
-          />
-        </strong>
-        <span
-          id="barchart-tooltip-val-rain"
-        />
-      </span>
-      <span
-        className="sc-uxdHp DPiRs"
-      >
-        <span
-          className="sc-biJonm jUheKn"
-        >
-          ∑
-        </span>
-        <span
-          id="barchart-tooltip-val-total"
-        />
-      </span>
-    </div>
-  </div>
-  <div
-    className="sc-dkQUaI jfOvTU"
-  >
-    <div>
-      <div
-        className="sc-WZYut bRIhOA"
-        style={
-          Object {
-            "backgroundColor": "#8B77F7",
-          }
-        }
-      />
-      <div>
-         Gießungen
-      </div>
-    </div>
-    <div>
-      <div
-        className="sc-WZYut bRIhOA"
-        style={
-          Object {
-            "backgroundColor": "#75ADE8",
-          }
-        }
-      />
-      <div>
-         Regen
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
-<div
-  style={
-    Object {
-      "width": "310px",
-    }
-  }
->
-  <div
-    className="sc-dtLLSn lkOYgF"
-    id="barchart"
-  >
-    <div
-      className="sc-ikXwFM ToOWH"
-      id="barchart-tooltip"
-    >
-      <span
-        className="sc-uxdHp DPiRs"
-      >
-        <strong>
-          <div
-            className="sc-WZYut bRIhOA"
-            style={
-              Object {
-                "backgroundColor": "#8B77F7",
-              }
-            }
-          />
-        </strong>
-        <span
-          id="barchart-tooltip-val-watered"
-        />
-      </span>
-      <span
-        className="sc-uxdHp DPiRs"
-      >
-        <strong>
-          <div
-            className="sc-WZYut bRIhOA"
-            style={
-              Object {
-                "backgroundColor": "#75ADE8",
-              }
-            }
-          />
-        </strong>
-        <span
-          id="barchart-tooltip-val-rain"
-        />
-      </span>
-      <span
-        className="sc-uxdHp DPiRs"
-      >
-        <span
-          className="sc-biJonm jUheKn"
-        >
-          ∑
-        </span>
-        <span
-          id="barchart-tooltip-val-total"
-        />
-      </span>
-    </div>
-  </div>
-  <div
-    className="sc-dkQUaI jfOvTU"
-  >
-    <div>
-      <div
-        className="sc-WZYut bRIhOA"
-        style={
-          Object {
-            "backgroundColor": "#8B77F7",
-          }
-        }
-      />
-      <div>
-         Gießungen
-      </div>
-    </div>
-    <div>
-      <div
-        className="sc-WZYut bRIhOA"
-        style={
-          Object {
-            "backgroundColor": "#75ADE8",
-          }
-        }
-      />
-      <div>
-         Regen
-      </div>
-    </div>
   </div>
 </div>
 `;
