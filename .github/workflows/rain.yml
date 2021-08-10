@@ -28,3 +28,4 @@ jobs:
           MAPBOXUSERNAME: ${{ secrets.MAPBOXUSERNAME }}
           MAPBOXTOKEN: ${{ secrets.MAPBOXTOKEN }}
           MAPBOXTILESET: ${{ secrets.MAPBOXTILESET }}
+          MAPBOXLAYERNAME: ${{ secrets.MAPBOXLAYERNAME }}
