@@ -1,9 +1,11 @@
 name: DWD Radolan Harvester
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '30 5 * * *'
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [radolan_cron]
+  # schedule:
+  #   - cron: '30 5 * * *'
 
 jobs:
   rain:
