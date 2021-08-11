@@ -8,25 +8,32 @@ import {
   NavigationControl,
   ViewportProps,
   FlyToInterpolator,
-  Popup,
 } from 'react-map-gl';
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
-import { DataTable } from '../DataTable';
 import {
   CommunityDataType,
   StoreProps,
   TreeGeojsonFeatureProperties,
 } from '../../common/interfaces';
 import { pumpToColor } from './mapColorUtil';
+import { MapTooltip } from './MapTooltip';
+import {
+  getWaterNeedByAge,
+  YOUNG_TREE_MAX_AGE,
+  OLD_TREE_MIN_AGE,
+  LOW_WATER_NEED_NUM,
+  MEDIUM_WATER_NEED_NUM,
+  HIGH_WATER_NEED_NUM,
+} from '../../utils/getWaterNeedByAge';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 interface StyledProps {
   isNavOpen?: boolean;
 }
 const ControlWrapper = styled.div<StyledProps>`
-  position: absolute;
+  position: fixed;
   bottom: 12px;
   left: 12px;
   z-index: 2;
@@ -34,7 +41,11 @@ const ControlWrapper = styled.div<StyledProps>`
 
   @media screen and (min-width: ${p => p.theme.screens.tablet}) {
     transform: ${props =>
-      props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'none'};
+      props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'translate3d(0, 0, 0)'};
+  }
+
+  & > div {
+    position: static !important;
   }
 `;
 
@@ -57,6 +68,7 @@ interface DeckGLPropType {
   visibleMapLayer: StoreProps['visibleMapLayer'];
   ageRange: StoreProps['ageRange'];
   mapViewFilter: StoreProps['mapViewFilter'];
+  mapWaterNeedFilter: StoreProps['mapWaterNeedFilter'];
   isNavOpen: StoreProps['isNavOpen'];
   focusPoint: StoreProps['mapFocusPoint'];
 
@@ -81,12 +93,15 @@ interface PumpPropertiesType {
   status: string;
   check_date: string;
   style: string;
-  latitude: number | undefined;
-  longitude: number | undefined;
+}
+
+interface PumpTooltipType extends PumpPropertiesType {
+  x: number;
+  y: number;
 }
 
 interface DeckGLStateType {
-  hoveredPump: PumpPropertiesType | null;
+  hoveredPump: PumpTooltipType | null;
   cursor: 'grab' | 'pointer';
   geoLocationAvailable: boolean;
   isTreeMapLoading: boolean;
@@ -126,12 +141,18 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   _getFillColor(info: {
     properties: TreeGeojsonFeatureProperties;
   }): [number, number, number, number] {
-    const { ageRange, mapViewFilter, communityData } = this.props;
+    const {
+      ageRange,
+      mapViewFilter,
+      mapWaterNeedFilter,
+      communityData,
+    } = this.props;
     const [minFilteredAge, maxFilteredAge] = ageRange;
     const { properties } = info;
     const { id, radolan_sum, age: treeAge } = properties;
     const communityDataFlatMap = communityData && id && communityData[id];
     const { isWatered, isAdopted } = communityDataFlatMap || {};
+    const waterNeed = getWaterNeedByAge(treeAge);
 
     const rainDataExists = !!radolan_sum;
 
@@ -147,6 +168,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     const colorShallBeTransparent =
       (ageFilterIsApplied && !treeAge) ||
       (ageFilterIsApplied && !treeIsWithinAgeRange) ||
+      (mapWaterNeedFilter && waterNeed !== mapWaterNeedFilter) ||
       !rainDataExists;
 
     if (colorShallBeTransparent) return colors.transparent;
@@ -232,6 +254,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             this.props.selectedTreeId,
             this.props.ageRange,
             this.props.mapViewFilter,
+            this.props.mapWaterNeedFilter,
           ],
           getLineWidth: [this.props.selectedTreeId],
           getLineColor: [this.props.selectedTreeId],
@@ -251,7 +274,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           /**
            * Apparently DWD 1 is not 1ml but 0.1ml
            * We could change this in the database, but this would mean,
-           * transferring 625.000 "," characters, therefore,
+           * transferring 750.000 "," characters, therefore,
            * changing it client-side makes more sense.
            */
           const interpolated = interpolateColor(
@@ -280,8 +303,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         lineWidthScale: 3,
         lineWidthMinPixels: 1.5,
         onHover: (info: {
+          x: number;
+          y: number;
           object?: {
-            geometry: { coordinates: number[] };
             properties?:
               | {
                   'pump:status'?: string;
@@ -299,8 +323,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                 check_date: info.object.properties['check_date'] || '',
                 status: info.object.properties['pump:status'] || '',
                 style: info.object.properties['pump:style'] || '',
-                latitude: info.object.geometry.coordinates[1] || undefined,
-                longitude: info.object.geometry.coordinates[0] || undefined,
+                x: info.x,
+                y: info.y,
               },
             });
           } else {
@@ -422,7 +446,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
       map.addSource('trees', {
         type: 'vector',
-        url: 'mapbox://technologiestiftung.trees_s3',
+        url: process.env.MAPBOX_TREES_TILESET_URL,
         minzoom: 11,
         maxzoom: 20,
       });
@@ -431,7 +455,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         id: 'trees',
         type: 'circle',
         source: 'trees',
-        'source-layer': 'original',
+        'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
         // TODO: Below we add the style for the trees on mobile. The color updates should be inserted or replicated here.
         paint: {
           'circle-radius': {
@@ -501,29 +525,51 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           0,
         ]);
       }
+      let communityFilter: unknown[] | null = null;
+      let waterNeedFilter: unknown[] | null = null;
       if (this.props.mapViewFilter === 'watered') {
         // TODO: check if there is a performance up for any of the two
         // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
-        const filter = [
+        communityFilter = [
           'match',
           ['get', 'id'],
           this.props.communityDataWatered,
           true,
           false,
         ];
-        map.setFilter('trees', filter);
       } else if (this.props.mapViewFilter === 'adopted') {
-        const filter = [
+        communityFilter = [
           'match',
           ['get', 'id'],
           this.props.communityDataAdopted,
           true,
           false,
         ];
-        map.setFilter('trees', filter);
-      } else {
-        map.setFilter('trees', null);
       }
+      if (this.props.mapWaterNeedFilter !== null) {
+        waterNeedFilter = [
+          'match',
+          [
+            'case',
+            ['<', ['get', 'age'], OLD_TREE_MIN_AGE],
+            [
+              'case',
+              ['<', ['get', 'age'], YOUNG_TREE_MAX_AGE],
+              HIGH_WATER_NEED_NUM,
+              MEDIUM_WATER_NEED_NUM,
+            ],
+            LOW_WATER_NEED_NUM,
+          ],
+          this.props.mapWaterNeedFilter,
+          true,
+          false,
+        ];
+      }
+
+      map.setFilter(
+        'trees',
+        ['all', communityFilter, waterNeedFilter].filter(val => val !== null)
+      );
     }
   }
 
@@ -533,6 +579,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       'communityData',
       'ageRange',
       'mapViewFilter',
+      'mapWaterNeedFilter',
       'treesVisible',
       'visibleMapLayer',
       'selectedTreeId',
@@ -589,6 +636,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           onClick={this._deckClick}
           onViewStateChange={e => this.onViewStateChange(e.viewState)}
           controller
+          style={{ overflow: 'hidden' }}
         >
           <StaticMap
             reuseMaps
@@ -600,66 +648,55 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             height='100%'
           >
             {!showControls && (
-              <>
-                <ControlWrapper isNavOpen={isNavOpen}>
-                  <GeolocateControl
-                    positionOptions={{ enableHighAccuracy: true }}
-                    trackUserLocation={isMobile ? true : false}
-                    showUserLocation={true}
-                    onGeolocate={posOptions => {
-                      const {
-                        coords: { latitude, longitude },
-                      } = (posOptions as unknown) as {
-                        coords: {
-                          latitude: number;
-                          longitude: number;
-                        };
+              <ControlWrapper isNavOpen={isNavOpen}>
+                <GeolocateControl
+                  positionOptions={{ enableHighAccuracy: true }}
+                  trackUserLocation={isMobile ? true : false}
+                  showUserLocation={true}
+                  onGeolocate={posOptions => {
+                    const {
+                      coords: { latitude, longitude },
+                    } = (posOptions as unknown) as {
+                      coords: {
+                        latitude: number;
+                        longitude: number;
                       };
-                      this.setViewport({
-                        longitude,
-                        latitude,
-                        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-                        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-                      });
-                    }}
-                  />
-                  <NavigationControl
-                    onViewStateChange={e =>
-                      this.setViewport({
-                        latitude: e.viewState.latitude,
-                        longitude: e.viewState.longitude,
-                        zoom: e.viewState.zoom,
-                        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-                      })
-                    }
-                  />
-                </ControlWrapper>
-                {!isMobile &&
-                  hoveredPump &&
-                  hoveredPump.latitude &&
-                  hoveredPump.longitude && (
-                    <Popup
-                      latitude={hoveredPump.latitude}
-                      longitude={hoveredPump.longitude}
-                      closeButton={false}
-                      closeOnClick={false}
-                      sortByDepth={true}
-                    >
-                      <DataTable
-                        title='Öffentliche Straßenpumpe'
-                        subtitle={hoveredPump.address}
-                        items={{
-                          Status: hoveredPump.status,
-                          'Letzter Check': hoveredPump.check_date,
-                          Pumpenstil: hoveredPump.style,
-                        }}
-                      />
-                    </Popup>
-                  )}
-              </>
+                    };
+                    this.setViewport({
+                      longitude,
+                      latitude,
+                      zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+                      transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+                    });
+                  }}
+                />
+                <NavigationControl
+                  onViewStateChange={e =>
+                    this.setViewport({
+                      latitude: e.viewState.latitude,
+                      longitude: e.viewState.longitude,
+                      zoom: e.viewState.zoom,
+                      transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+                    })
+                  }
+                />
+              </ControlWrapper>
             )}
           </StaticMap>
         </DeckGL>
+        {hoveredPump && hoveredPump.x && hoveredPump.y && (
+          <MapTooltip
+            x={hoveredPump.x}
+            y={hoveredPump.y}
+            title='Öffentliche Straßenpumpe'
+            subtitle={hoveredPump.address}
+            infos={{
+              Status: hoveredPump.status,
+              'Letzter Check': hoveredPump.check_date,
+              Pumpenstil: hoveredPump.style,
+            }}
+          />
+        )}
       </>
     );
   }

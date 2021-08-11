@@ -1,6 +1,6 @@
 import { QueryFunction, useQuery, useQueryClient } from 'react-query';
 import { UserDataType } from '../../common/interfaces';
-import { useAuth0 } from '../auth/auth0';
+import { useAuth0 } from '@auth0/auth0-react';
 import { getUserData } from '../requests/getUserData';
 import { useAuth0Token } from './useAuth0Token';
 
@@ -10,7 +10,13 @@ const fetchUserData: QueryFunction<UserDataType | undefined> = async ({
   queryKey,
 }) => {
   const [, token, userId] = queryKey;
-  if (!token || !userId) return undefined;
+  if (
+    !token ||
+    !userId ||
+    typeof token !== 'string' ||
+    typeof userId !== 'string'
+  )
+    return undefined;
   const userData = await getUserData({ userId, token });
   return userData;
 };

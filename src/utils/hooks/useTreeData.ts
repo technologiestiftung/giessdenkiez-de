@@ -1,6 +1,6 @@
 import { QueryFunction, useQuery, useQueryClient } from 'react-query';
 import { SelectedTreeType } from '../../common/interfaces';
-import { useAuth0 } from '../auth/auth0';
+import { useAuth0 } from '@auth0/auth0-react';
 import { getTreeData } from '../requests/getTreeData';
 import { isTreeAdopted as isTreeAdoptedReq } from '../requests/isTreeAdopted';
 import { useAuth0Token } from './useAuth0Token';
@@ -9,7 +9,7 @@ const loadTree: QueryFunction<SelectedTreeType | undefined> = async ({
   queryKey,
 }) => {
   const [, treeId] = queryKey;
-  if (!treeId) return undefined;
+  if (!treeId || typeof treeId !== 'string') return undefined;
   const data = await getTreeData(treeId);
   if (!data.selectedTreeData) {
     throw new Error('Baumdaten nicht gefunden. Probier einen anderen ...');
@@ -22,7 +22,15 @@ const isTreeAdopted: QueryFunction<boolean | undefined> = async ({
 }) => {
   const [, treeId, token, userName] = queryKey;
 
-  if (!treeId || !token || !userName) return undefined;
+  if (
+    !treeId ||
+    !token ||
+    !userName ||
+    typeof treeId !== 'string' ||
+    typeof token !== 'string' ||
+    typeof userName !== 'string'
+  )
+    return undefined;
 
   const isAdopted = await isTreeAdoptedReq({
     id: treeId,

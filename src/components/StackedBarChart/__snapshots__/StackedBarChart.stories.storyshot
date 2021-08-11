@@ -1,0 +1,292 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots StackedBarChart Bar Chart 1`] = `
+<div
+  style={
+    Object {
+      "width": "310px",
+    }
+  }
+>
+  <div
+    className="sc-dtLLSn lkOYgF"
+    id="barchart"
+  >
+    <div
+      className="sc-ikXwFM ToOWH"
+      id="barchart-tooltip"
+    >
+      <span
+        className="sc-uxdHp DPiRs"
+      >
+        <strong>
+          <div
+            className="sc-WZYut bRIhOA"
+            style={
+              Object {
+                "backgroundColor": "#8B77F7",
+              }
+            }
+          />
+        </strong>
+        <span
+          id="barchart-tooltip-val-watered"
+        />
+      </span>
+      <span
+        className="sc-uxdHp DPiRs"
+      >
+        <strong>
+          <div
+            className="sc-WZYut bRIhOA"
+            style={
+              Object {
+                "backgroundColor": "#75ADE8",
+              }
+            }
+          />
+        </strong>
+        <span
+          id="barchart-tooltip-val-rain"
+        />
+      </span>
+      <span
+        className="sc-uxdHp DPiRs"
+      >
+        <span
+          className="sc-biJonm jUheKn"
+        >
+          ∑
+        </span>
+        <span
+          id="barchart-tooltip-val-total"
+        />
+      </span>
+    </div>
+  </div>
+  <div
+    className="sc-dkQUaI jfOvTU"
+  >
+    <div>
+      <div
+        className="sc-WZYut bRIhOA"
+        style={
+          Object {
+            "backgroundColor": "#8B77F7",
+          }
+        }
+      />
+      <div>
+         Gießungen
+      </div>
+    </div>
+    <div>
+      <div
+        className="sc-WZYut bRIhOA"
+        style={
+          Object {
+            "backgroundColor": "#75ADE8",
+          }
+        }
+      />
+      <div>
+         Regen
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
+<div
+  style={
+    Object {
+      "width": "310px",
+    }
+  }
+>
+  <div
+    className="sc-dtLLSn lkOYgF"
+    id="barchart"
+  >
+    <div
+      className="sc-ikXwFM ToOWH"
+      id="barchart-tooltip"
+    >
+      <span
+        className="sc-uxdHp DPiRs"
+      >
+        <strong>
+          <div
+            className="sc-WZYut bRIhOA"
+            style={
+              Object {
+                "backgroundColor": "#8B77F7",
+              }
+            }
+          />
+        </strong>
+        <span
+          id="barchart-tooltip-val-watered"
+        />
+      </span>
+      <span
+        className="sc-uxdHp DPiRs"
+      >
+        <strong>
+          <div
+            className="sc-WZYut bRIhOA"
+            style={
+              Object {
+                "backgroundColor": "#75ADE8",
+              }
+            }
+          />
+        </strong>
+        <span
+          id="barchart-tooltip-val-rain"
+        />
+      </span>
+      <span
+        className="sc-uxdHp DPiRs"
+      >
+        <span
+          className="sc-biJonm jUheKn"
+        >
+          ∑
+        </span>
+        <span
+          id="barchart-tooltip-val-total"
+        />
+      </span>
+    </div>
+  </div>
+  <div
+    className="sc-dkQUaI jfOvTU"
+  >
+    <div>
+      <div
+        className="sc-WZYut bRIhOA"
+        style={
+          Object {
+            "backgroundColor": "#8B77F7",
+          }
+        }
+      />
+      <div>
+         Gießungen
+      </div>
+    </div>
+    <div>
+      <div
+        className="sc-WZYut bRIhOA"
+        style={
+          Object {
+            "backgroundColor": "#75ADE8",
+          }
+        }
+      />
+      <div>
+         Regen
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
+<div
+  style={
+    Object {
+      "width": "310px",
+    }
+  }
+>
+  <div
+    className="sc-dtLLSn lkOYgF"
+    id="barchart"
+  >
+    <div
+      className="sc-ikXwFM ToOWH"
+      id="barchart-tooltip"
+    >
+      <span
+        className="sc-uxdHp DPiRs"
+      >
+        <strong>
+          <div
+            className="sc-WZYut bRIhOA"
+            style={
+              Object {
+                "backgroundColor": "#8B77F7",
+              }
+            }
+          />
+        </strong>
+        <span
+          id="barchart-tooltip-val-watered"
+        />
+      </span>
+      <span
+        className="sc-uxdHp DPiRs"
+      >
+        <strong>
+          <div
+            className="sc-WZYut bRIhOA"
+            style={
+              Object {
+                "backgroundColor": "#75ADE8",
+              }
+            }
+          />
+        </strong>
+        <span
+          id="barchart-tooltip-val-rain"
+        />
+      </span>
+      <span
+        className="sc-uxdHp DPiRs"
+      >
+        <span
+          className="sc-biJonm jUheKn"
+        >
+          ∑
+        </span>
+        <span
+          id="barchart-tooltip-val-total"
+        />
+      </span>
+    </div>
+  </div>
+  <div
+    className="sc-dkQUaI jfOvTU"
+  >
+    <div>
+      <div
+        className="sc-WZYut bRIhOA"
+        style={
+          Object {
+            "backgroundColor": "#8B77F7",
+          }
+        }
+      />
+      <div>
+         Gießungen
+      </div>
+    </div>
+    <div>
+      <div
+        className="sc-WZYut bRIhOA"
+        style={
+          Object {
+            "backgroundColor": "#75ADE8",
+          }
+        }
+      />
+      <div>
+         Regen
+      </div>
+    </div>
+  </div>
+</div>
+`;

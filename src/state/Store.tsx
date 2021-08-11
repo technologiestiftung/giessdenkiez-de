@@ -3,7 +3,8 @@ import { StoreProps } from '../common/interfaces';
 
 const initialState: StoreProps = {
   mapViewFilter: 'rain',
-  isNavOpen: false,
+  mapWaterNeedFilter: null,
+  isNavOpen: true,
   visibleMapLayer: 'trees',
   ageRange: [0, 320],
   overlay: true,

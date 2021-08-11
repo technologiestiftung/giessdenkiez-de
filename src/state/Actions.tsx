@@ -12,6 +12,10 @@ const setMapViewFilter = (
   mapViewFilter: StoreProps['mapViewFilter']
 ): Pick<StoreProps, 'mapViewFilter'> => ({ mapViewFilter });
 
+const setMapWaterNeedFilter = (
+  mapWaterNeedFilter: StoreProps['mapWaterNeedFilter']
+): Pick<StoreProps, 'mapWaterNeedFilter'> => ({ mapWaterNeedFilter });
+
 const setMapFocusPoint = (
   mapFocusPoint: StoreProps['mapFocusPoint']
 ): Pick<StoreProps, 'mapFocusPoint'> => ({ mapFocusPoint });
@@ -25,6 +29,10 @@ const closeOverlay = (): { overlay: StoreProps['overlay'] } => ({
   overlay: false,
 });
 
+const openNav = (): { isNavOpen: StoreProps['isNavOpen'] } => ({
+  isNavOpen: true,
+});
+
 const closeNav = (): { isNavOpen: StoreProps['isNavOpen'] } => ({
   isNavOpen: false,
 });
@@ -34,9 +42,11 @@ const allActions = {
   setAgeRange,
   openOverlay,
   closeOverlay,
+  openNav,
   closeNav,
   setVisibleMapLayer,
   setMapViewFilter,
+  setMapWaterNeedFilter,
 };
 
 export type ActionsType = typeof allActions;
