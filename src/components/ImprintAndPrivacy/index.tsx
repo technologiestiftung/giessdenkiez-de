@@ -5,7 +5,6 @@ import content from '../../assets/content';
 import styled from 'styled-components';
 
 const ImprintAndPrivacySpan = styled(SmallParagraph)`
-  text-align: center;
   display: block;
 `;
 

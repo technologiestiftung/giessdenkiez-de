@@ -116,7 +116,7 @@ const content: Content = {
   imprintAndPrivacy: {
     title: 'Impressum und Datenschutz',
     description:
-      '<a target="blank" href="https://www.technologiestiftung-berlin.de/de/impressum/">Impressum</a> und <a target="blank" href="https://www.technologiestiftung-berlin.de/de/datenschutz/">Datenschutz</a>',
+      'Pumpen-Daten © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a>-Mitwirkende – <a target="blank" href="https://www.technologiestiftung-berlin.de/de/impressum/">Impressum</a> und <a target="blank" href="https://www.technologiestiftung-berlin.de/de/datenschutz/">Datenschutz</a>',
   },
   intro: {
     title: '<b>Gieß den <span>Kiez</span></b>',

@@ -27,10 +27,23 @@ const AppContainer = styled.div`
 const ImprintAndPrivacyContainer = styled.div`
   position: fixed;
   bottom: 7px;
-  right: 16px;
+  right: 7px;
   width: auto;
-  height: 24px;
+  height: auto;
+  max-width: 80vw;
   z-index: 2;
+  text-align: right;
+
+  @media screen and (max-width: 767px) {
+    & {
+      bottom: 4px;
+    }
+
+    & > p {
+      font-size: 11px;
+      line-height: 13px;
+    }
+  }
 `;
 
 const App: FC = () => {
