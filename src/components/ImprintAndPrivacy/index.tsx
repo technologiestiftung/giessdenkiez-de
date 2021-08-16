@@ -13,3 +13,12 @@ export const ImprintAndPrivacy: FC = () => (
     {content.imprintAndPrivacy.description}
   </ImprintAndPrivacySpan>
 );
+
+export const MapAttributionImprintAndPrivacy: FC = () => (
+  <ImprintAndPrivacySpan>
+    {[
+      content.imprintAndPrivacy.attribution,
+      content.imprintAndPrivacy.description,
+    ].join(' – ')}
+  </ImprintAndPrivacySpan>
+);
