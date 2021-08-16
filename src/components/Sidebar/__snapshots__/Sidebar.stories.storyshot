@@ -571,10 +571,10 @@ exports[`Storyshots Sidebar Profile Loading 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
+      className="sc-gtsrHT hDlbRR sc-bTDOke duGiTB"
       dangerouslySetInnerHTML={
         Object {
-          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
+          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
         }
       }
       onClick={[Function]}
@@ -637,10 +637,10 @@ exports[`Storyshots Sidebar Profile Logged In No Data 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
+      className="sc-gtsrHT hDlbRR sc-bTDOke duGiTB"
       dangerouslySetInnerHTML={
         Object {
-          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
+          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
         }
       }
       onClick={[Function]}
@@ -703,10 +703,10 @@ exports[`Storyshots Sidebar Profile Logged In With Data 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
+      className="sc-gtsrHT hDlbRR sc-bTDOke duGiTB"
       dangerouslySetInnerHTML={
         Object {
-          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
+          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
         }
       }
       onClick={[Function]}
@@ -769,10 +769,10 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
+      className="sc-gtsrHT hDlbRR sc-bTDOke duGiTB"
       dangerouslySetInnerHTML={
         Object {
-          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
+          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
         }
       }
       onClick={[Function]}
@@ -1358,10 +1358,10 @@ exports[`Storyshots Sidebar Tree 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
+      className="sc-gtsrHT hDlbRR sc-bTDOke duGiTB"
       dangerouslySetInnerHTML={
         Object {
-          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
+          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
         }
       }
       onClick={[Function]}
@@ -1424,10 +1424,10 @@ exports[`Storyshots Sidebar Tree Loading 1`] = `
       </div>
     </div>
     <p
-      className="sc-gtsrHT hDlbRR sc-bTDOke cXWAhw"
+      className="sc-gtsrHT hDlbRR sc-bTDOke duGiTB"
       dangerouslySetInnerHTML={
         Object {
-          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> und <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
+          "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
         }
       }
       onClick={[Function]}
