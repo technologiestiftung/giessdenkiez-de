@@ -171,16 +171,19 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       (mapWaterNeedFilter && waterNeed !== mapWaterNeedFilter) ||
       !rainDataExists;
 
+	if (id === "_2100157b5d") {
+		debugger
+	}
     if (colorShallBeTransparent) return colors.transparent;
 
     if (mapViewFilter === 'watered') {
-      return communityDataFlatMap && isWatered && treeIsWithinAgeRange
+		return communityDataFlatMap && isWatered && (ageFilterIsApplied ? treeIsWithinAgeRange : true)
         ? colors.blue
         : colors.transparent;
     }
 
     if (mapViewFilter === 'adopted') {
-      return communityDataFlatMap && isAdopted && treeIsWithinAgeRange
+		return communityDataFlatMap && isAdopted && (ageFilterIsApplied ? treeIsWithinAgeRange : true)
         ? colors.turquoise
         : colors.transparent;
     }
@@ -537,6 +540,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           true,
           false,
         ];
+		  debugger
       } else if (this.props.mapViewFilter === 'adopted') {
         communityFilter = [
           'match',
