@@ -104,7 +104,7 @@
     "@material-ui/styles": "4.11.4",
     "core-js": "3.16.3",
     "d3": "6.7.0",
-    "deck.gl": "8.5.4",
+    "deck.gl": "8.5.5",
     "history": "4.10.1",
     "rc-slider": "9.7.2",
     "react": "17.0.2",
