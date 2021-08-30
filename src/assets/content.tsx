@@ -17,7 +17,11 @@ interface FAQ extends Item {
 }
 interface Content {
   faq: FAQ;
-  imprintAndPrivacy: Item;
+  imprintAndPrivacy: {
+    title: string;
+    description: string;
+    attribution: string;
+  };
   intro: {
     title: string;
     subline: string;
@@ -116,7 +120,9 @@ const content: Content = {
   imprintAndPrivacy: {
     title: 'Impressum und Datenschutz',
     description:
-      '<a target="blank" href="https://www.technologiestiftung-berlin.de/de/impressum/">Impressum</a> und <a target="blank" href="https://www.technologiestiftung-berlin.de/de/datenschutz/">Datenschutz</a>',
+      '<a target="blank" href="https://www.technologiestiftung-berlin.de/de/impressum/">Impressum</a> – <a target="blank" href="https://www.technologiestiftung-berlin.de/de/datenschutz/">Datenschutz</a>',
+    attribution:
+      '© <a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noreferrer">Mapbox</a> – © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> – <a href="https://www.mapbox.com/map-feedback" target="_blank" rel="noreferrer"><strong>Diese Karte verbessern</strong></a>',
   },
   intro: {
     title: '<b>Gieß den <span>Kiez</span></b>',
