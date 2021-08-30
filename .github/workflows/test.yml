@@ -5,22 +5,7 @@ name: Node.js CI
 env:
   BUILD_TARGET: DEFAULT
 on:
-  push:
-    branches: [master, staging, demo, dev]
-    paths:
-      - 'src/**/*'
-      - '.storybook/**/*'
-      - 'public/**/*'
-      - 'webpack/**/*'
-      - '.github/workflows/**/*'
-      - 'package*.json'
-      - 'jest.config.js'
-      - 'netlify.toml'
-      - 'babel.config.js'
-      - 'create-env.js'
-      - 'tsconfig.json'
   pull_request:
-    branches: [master, staging, demo, dev]
     paths:
       - 'src/**/*'
       - '.storybook/**/*'
@@ -40,7 +25,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [14.17.5]
 
     steps:
       - uses: actions/checkout@v2
