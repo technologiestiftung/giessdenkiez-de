@@ -109,7 +109,7 @@
     "rc-slider": "9.7.2",
     "react": "17.0.2",
     "react-app-polyfill": "2.0.0",
-    "react-device-detect": "1.17.0",
+    "react-device-detect": "2.1.2",
     "react-dom": "17.0.2",
     "react-hot-loader": "4.13.0",
     "react-map-gl": "6.1.16",
