@@ -1,9 +1,11 @@
 name: Pumps CI
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 4 * * 0'
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [pumps_cron]
+  # schedule:
+  #   - cron: '0 4 * * 0'
 
 jobs:
   pumps:
@@ -15,6 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Pumps data generate step
+        id: pumps
         uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.3.0
         with:
           outfile-path: 'public/data/pumps.geojson'
@@ -23,7 +26,7 @@ jobs:
         run: echo "The file was written to ${{ steps.pumps.outputs.file }}"
         # https://github.com/marketplace/actions/add-commit?version=v4.4.0
       - name: Add & Commit
-        uses: EndBug/add-and-commit@v7.2.1
+        uses: EndBug/add-and-commit@v7.5.0
         with:
           add: public/data
           author_name: tsboter

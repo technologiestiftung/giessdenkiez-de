@@ -1,2 +1,7 @@
-import initStoryshots from '@storybook/addon-storyshots';
-initStoryshots();
+import initStoryshots, {
+  multiSnapshotWithOptions,
+} from '@storybook/addon-storyshots';
+
+initStoryshots({
+  test: multiSnapshotWithOptions(),
+});
