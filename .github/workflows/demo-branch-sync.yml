@@ -17,7 +17,7 @@ jobs:
           node-version: 14.17.5
       - name: Opening pull request
         id: pull
-        uses: tretuna/sync-branches@1.2.0
+        uses: tretuna/sync-branches@1.4.0
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           FROM_BRANCH: "master"
