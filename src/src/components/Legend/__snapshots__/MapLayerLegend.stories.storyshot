@@ -1,0 +1,184 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Legend Legend Story 1`] = `
+<div
+  className="sc-kfzBvY fNwyLI"
+>
+  <div
+    className="sc-kstqJO fBIqDE"
+  >
+    <div
+      className="sc-kEjbQP gjmWVZ"
+    >
+      <p
+        className="sc-gsTEea ijkcTv sc-fKFxtB buAeiV"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Niederschlag",
+          }
+        }
+        onClick={[Function]}
+      />
+      <p
+        className="sc-gsTEea ijkcTv"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "der letzten 30 Tage (Liter)",
+          }
+        }
+        onClick={[Function]}
+      />
+    </div>
+    <span
+      className="sc-bBXrwG ddhFVs"
+      onClick={[Function]}
+    >
+      —
+    </span>
+  </div>
+  <div
+    className="sc-iqHYmW IPBt"
+  >
+    <div
+      className="sc-dQoVA bRGHfg"
+    >
+      <div
+        className="sc-bkzYnD iBPamq"
+        color="#fde725"
+      />
+      <label
+        className="sc-hBEYId caJUUT"
+      >
+        0
+      </label>
+    </div>
+    <div
+      className="sc-dQoVA bRGHfg"
+    >
+      <div
+        className="sc-bkzYnD gijwso"
+        color="#cae11f"
+      />
+      <label
+        className="sc-hBEYId caJUUT"
+      >
+        60
+      </label>
+    </div>
+    <div
+      className="sc-dQoVA bRGHfg"
+    >
+      <div
+        className="sc-bkzYnD cWYaPp"
+        color="#95d840"
+      />
+      <label
+        className="sc-hBEYId caJUUT"
+      >
+        120
+      </label>
+    </div>
+    <div
+      className="sc-dQoVA bRGHfg"
+    >
+      <div
+        className="sc-bkzYnD bpiRNe"
+        color="#63cb5f"
+      />
+      <label
+        className="sc-hBEYId caJUUT"
+      >
+        180
+      </label>
+    </div>
+    <div
+      className="sc-dQoVA bRGHfg"
+    >
+      <div
+        className="sc-bkzYnD bqiLDW"
+        color="#3bbb75"
+      />
+      <label
+        className="sc-hBEYId caJUUT"
+      >
+        240
+      </label>
+    </div>
+    <div
+      className="sc-dQoVA bRGHfg"
+    >
+      <div
+        className="sc-bkzYnD bISKwk"
+        color="#22a884"
+      />
+      <label
+        className="sc-hBEYId caJUUT"
+      >
+        300
+      </label>
+    </div>
+  </div>
+  <div
+    className="sc-kEjbQP eYHpUH"
+  >
+    <p
+      className="sc-gsTEea ijkcTv sc-fKFxtB buAeiV"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "Datenpunkte",
+        }
+      }
+      onClick={[Function]}
+    />
+    <p
+      className="sc-gsTEea ijkcTv"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "durch Klick ein- & ausblenden.",
+        }
+      }
+      onClick={[Function]}
+    />
+    <div
+      className="sc-iqHYmW sc-bqyKOL IPBt bQUluP"
+      onClick={[Function]}
+    >
+      <div
+        className="sc-bkzYnD gihWAN legend-dot"
+        color="#2c303b"
+      />
+      <label
+        className="sc-hBEYId sc-dmlqKv caJUUT kKDFpy"
+      >
+        Straßen- & Anlagenbäume
+      </label>
+    </div>
+    <div
+      className="sc-iqHYmW sc-bqyKOL IPBt gAIjyU"
+      onClick={[Function]}
+    >
+      <div
+        className="sc-fFucqa hcwUMN"
+      />
+      <label
+        className="sc-hBEYId sc-dmlqKv caJUUT kKDFpy"
+      >
+        Öffentl. Pumpen
+      </label>
+    </div>
+    <div
+      className="sc-iqHYmW sc-bqyKOL IPBt gAIjyU"
+      onClick={[Function]}
+    >
+      <div
+        className="sc-idOiZg kCbxfq"
+      />
+      <label
+        className="sc-hBEYId sc-dmlqKv caJUUT kKDFpy"
+      >
+        Niederschlagsflächen
+      </label>
+    </div>
+  </div>
+</div>
+`;

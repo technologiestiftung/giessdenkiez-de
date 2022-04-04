@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots DataTable Default 1`] = `
+<div
+  className="sc-eCstlR bjggTp"
+>
+  <header
+    className="sc-jSgvzq kFGVzn"
+  >
+    <h3
+      className="sc-gKseQn bAuaCL"
+    >
+      This is a title
+    </h3>
+  </header>
+  <table
+    className="sc-pGacB ipWeru"
+  >
+    <tbody>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Storyshots DataTable With Subtitle 1`] = `
+<div
+  className="sc-eCstlR bjggTp"
+>
+  <header
+    className="sc-jSgvzq kFGVzn"
+  >
+    <h3
+      className="sc-gKseQn bAuaCL"
+    >
+      This is a title
+    </h3>
+    <h4
+      className="sc-iBPTik jmGNlX"
+    >
+      Subtitle
+    </h4>
+  </header>
+  <table
+    className="sc-pGacB ipWeru"
+  >
+    <tbody>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Storyshots DataTable With Subtitle And Children 1`] = `
+<div
+  className="sc-eCstlR bjggTp"
+>
+  <header
+    className="sc-jSgvzq kFGVzn"
+  >
+    <h3
+      className="sc-gKseQn bAuaCL"
+    >
+      This is a title
+    </h3>
+    <h4
+      className="sc-iBPTik jmGNlX"
+    >
+      Subtitle
+    </h4>
+    <div
+      className="sc-fubCzh cPgLNp"
+    >
+      <span>
+        Here be React children.
+      </span>
+    </div>
+  </header>
+  <table
+    className="sc-pGacB ipWeru"
+  >
+    <tbody>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`Storyshots DataTable Without Subtitle And With Children 1`] = `
+<div
+  className="sc-eCstlR bjggTp"
+>
+  <header
+    className="sc-jSgvzq kFGVzn"
+  >
+    <h3
+      className="sc-gKseQn bAuaCL"
+    >
+      This is a title
+    </h3>
+    <div
+      className="sc-fubCzh cPgLNp"
+    >
+      <span>
+        Here be React children.
+      </span>
+    </div>
+  </header>
+  <table
+    className="sc-pGacB ipWeru"
+  >
+    <tbody>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Status
+        </th>
+        <td>
+          Unknown
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Last update
+        </th>
+        <td>
+          Yesterday
+        </td>
+      </tr>
+      <tr
+        className="sc-jrAFXE hNKXGa"
+      >
+        <th>
+          Type
+        </th>
+        <td>
+          Random type
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
