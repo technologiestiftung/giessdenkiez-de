@@ -36,7 +36,7 @@
     "@storybook/addon-links": "6.1.18",
     "@storybook/addon-storyshots": "6.2.0",
     "@storybook/preset-scss": "1.0.3",
-    "@storybook/react": "6.2.0",
+    "@storybook/react": "6.4.0",
     "@testing-library/dom": "7.29.4",
     "@testing-library/jest-dom": "5.11.9",
     "@testing-library/react": "11.2.5",
@@ -92,7 +92,7 @@
     "webpack": "4.44.1",
     "webpack-bundle-analyzer": "4.4.0",
     "webpack-cli": "3.3.12",
-    "webpack-dev-server": "3.11.2",
+    "webpack-dev-server": "3.11.3",
     "webpack-merge": "4.2.2"
   },
   "dependencies": {
@@ -109,7 +109,7 @@
     "rc-slider": "9.7.2",
     "react": "17.0.2",
     "react-app-polyfill": "2.0.0",
-    "react-device-detect": "1.17.0",
+    "react-device-detect": "2.1.2",
     "react-dom": "17.0.2",
     "react-hot-loader": "4.13.0",
     "react-map-gl": "6.1.16",
