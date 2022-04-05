@@ -131,7 +131,7 @@ const SidebarProfile: FC<{
       </>
     );
   }
-  
+
   return (
     <>
       <SidebarTitle>Profil</SidebarTitle>
@@ -161,7 +161,7 @@ const SidebarProfile: FC<{
         username={userData.username} 
         userProfile={userData.userProfile || {}} 
       />
-      {   canExportUserData && (
+      { canExportUserData && (
         <>
           <ButtonRound margin='15px' onClick={downloadUserDataCsv}>
             Download aller Nutzerdaten

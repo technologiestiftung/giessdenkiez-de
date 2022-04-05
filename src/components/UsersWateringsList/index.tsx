@@ -1,7 +1,9 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
+import Delete from '@material-ui/icons/Delete'
 import { useHistory } from 'react-router';
 import { WateringType } from '../../common/interfaces';
+import { useCanUpdateWatering } from '../../utils/hooks/useCanUpdateWatering';
 
 import { formatUnixTimestamp } from '../../utils/formatUnixTimestamp';
 import SmallParagraph from '../SmallParagraph';
@@ -81,9 +83,14 @@ const UsersWateringsList: FC<{
 }> = ({ waterings, showTreeName }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const history = useHistory();
+  const { canUpdateWatering } = useCanUpdateWatering();
   const surpassedMaxItems = waterings.length > MAX_ITEMS;
   const sortWaterings = (t1: WateringType, t2: WateringType) => t2.timestamp.localeCompare(t1.timestamp); 
   const listItems = isExpanded ? waterings : waterings.sort(sortWaterings).slice(0, MAX_ITEMS);
+
+  const deleteWatering = async () => {
+    await deleteWatering();
+  }
 
   return (
     <WrapperOuter>
@@ -103,6 +110,11 @@ const UsersWateringsList: FC<{
           </FlexRow>
           <SmallParagraph>{`${amount}l`}</SmallParagraph>
           <StyledIcon src={iconDrop} alt='Water drop icon' />
+          { canUpdateWatering && (
+          <div onClick={() => alert("Delete")} style={{ paddingLeft: '10px', cursor: 'pointer' }}>
+            <Delete style={{ fontSize: 14 }} />
+          </div>
+          )}
         </Wrapper>
       ))}
       {surpassedMaxItems && (

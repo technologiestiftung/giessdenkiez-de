@@ -32,11 +32,11 @@ const EditField = ({ name, index, prefix, value, save, hint }) => {
         )}
         {!loading && (
           <EasyEdit
-            type={Types.TEXT}        
+            type={Types.TEXT}
             onSave={async val => {
               setLoading(true);
               await save(val);
-              setDisplayValue(val);            
+              setDisplayValue(val);
               setLoading(false);
             }}
             saveButtonLabel={<Done style={{ fontSize: 14 }} />}
@@ -51,7 +51,7 @@ const EditField = ({ name, index, prefix, value, save, hint }) => {
             value={displayValue}
           />
         )}
-        
+
       </CredentialValue>
     </div>
   )
@@ -146,7 +146,7 @@ const CardCredentials: FC<{
         Siehe auch <a href="https://stiftung-ecken-wecken.de/datenschutz">Details zum Datenschutz</a>
       </Paragraph>
 
-      
+
     </ExpandablePanel>
   );
 }
