@@ -11,6 +11,7 @@ import {
   Selection,
   ContainerElement,
   SeriesPoint,
+  timeFormat,
 } from 'd3';
 import { DailyWaterAmountsType } from '../../common/interfaces';
 
@@ -28,7 +29,8 @@ type getMouseHandlersReturnType = {
 
 type getMouseHandlersSignature = (
   svg: SVGGElement | null,
-  tooltip: Selection<HTMLDivElement, unknown, HTMLElement, void>
+  tooltip: Selection<HTMLDivElement, unknown, HTMLElement, void>,
+  formatDate: (d: Date) => string
 ) => getMouseHandlersReturnType;
 
 const BAR_WIDTH = 6;
@@ -39,6 +41,8 @@ const MARGIN = {
   bottom: 40,
   left: 22,
 };
+
+const formatDay = timeFormat('%d');
 
 const MONTH_ABBR = [
   'Jan.',
@@ -56,7 +60,11 @@ const MONTH_ABBR = [
 ];
 
 const formatTooltipValue: (val: number) => string = val => `${val.toFixed(1)}l`;
-const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
+const getMouseHandlers: getMouseHandlersSignature = (
+  svg,
+  tooltip,
+  formatDate
+) => ({
   onMouseOver(_evt, d) {
     if (!d.data || !svg) return;
     tooltip.classed('hovered', true);
@@ -69,6 +77,7 @@ const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
     const { rainValue, wateringValue } = d.data;
 
     const sum = rainValue + wateringValue;
+    tooltip.select('#barchart-tooltip-date').text(formatDate(d.data.timestamp));
     tooltip
       .select('#barchart-tooltip-val-watered')
       .text(formatTooltipValue(wateringValue));
@@ -87,10 +96,14 @@ const getMouseHandlers: getMouseHandlersSignature = (svg, tooltip) => ({
 
 export function drawD3Chart(
   waterAmountInLast30Days: DailyWaterAmountsType[],
-  today: Date
+  today: Date,
+  thirtyDaysAgo: Date
 ): void {
   if (waterAmountInLast30Days === null) return;
-  const TODAY = new Date(today.toISOString().split('T')[0]);
+  const formatDate = (date: Date) => {
+    if (date.getTime() === today.getTime()) return 'Heute';
+    return `${formatDay(date)}. ${MONTH_ABBR[date.getMonth()]}`;
+  };
 
   const generateStack = stack<
     DailyWaterAmountsType,
@@ -112,11 +125,9 @@ export function drawD3Chart(
   const chartHeight = height - MARGIN.top - MARGIN.bottom;
 
   const xScale = scaleTime()
-    .domain([
-      waterAmountInLast30Days[waterAmountInLast30Days.length - 1].id,
-      waterAmountInLast30Days[0].id + 60 * 60 * 24 * 1000,
-    ])
-    .range([MARGIN.left, width - MARGIN.right]);
+    .domain([thirtyDaysAgo, today])
+    .range([MARGIN.left, width - MARGIN.right - BAR_WIDTH])
+    .nice();
 
   const maxWaterValue = Math.max(
     ...waterAmountInLast30Days.map(
@@ -142,24 +153,11 @@ export function drawD3Chart(
   const yTicks = 4;
   // style y and x axis
   const yAxis = axisLeft(yScale).ticks(yTicks).tickSizeInner(3);
-
-  const getXTicks = () => {
-    const date = new Date(TODAY);
-    return new Array(7)
-      .fill(0)
-      .map(_ => {
-        const timestamp = new Date(date);
-        date.setDate(date.getDate() - 5);
-        return timestamp;
-      })
-      .reverse();
-  };
-
   const xAxis = axisBottom<Date>(xScale)
-    .tickValues(getXTicks())
+    .ticks(8)
     .tickFormat(date => {
-      if (date.getTime() === TODAY.getTime()) return 'Heute';
-      else return `${date.getDate()}. ${MONTH_ABBR[date.getMonth()]}`;
+      if (date.getTime() === today.getTime()) return 'Heute';
+      else return formatDate(date);
     })
     .tickSizeOuter(0);
 
@@ -229,7 +227,8 @@ export function drawD3Chart(
 
   const mouseHandlers = getMouseHandlers(
     svg.node(),
-    wrapper.select('#barchart-tooltip')
+    wrapper.select('#barchart-tooltip'),
+    formatDate
   );
 
   // Create colour groups in which to render the bars and position on x axis

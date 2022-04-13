@@ -1,38 +1,55 @@
+import { scaleTime } from 'd3';
 import {
   DailyWaterAmountsType,
   SelectedTreeType,
   WateringType,
 } from '../../common/interfaces';
 
+interface ParsedWateringType extends WateringType {
+  date: Date;
+}
+
 export const parseWaterings = (
-  waterings: WateringType[] | undefined
+  waterings: WateringType[] | undefined,
+  [today, thirtyDaysAgo]: [Date, Date]
 ): { [key: number]: number } => {
   const parsedWaterings = {};
 
   if (!waterings) return parsedWaterings;
 
-  waterings.forEach(watering => {
-    const { timestamp, amount } = watering;
-    parsedWaterings[+new Date(timestamp.split('T')[0])] =
-      parsedWaterings[+new Date(timestamp.split('T')[0])] + amount || amount;
-  });
-
-  return parsedWaterings;
+  return waterings.reduce((acc, d) => {
+    const newD = { ...d } as ParsedWateringType;
+    newD.date = new Date(newD.timestamp);
+    newD.date.setHours(0, 0, 0, 0);
+    if (
+      newD.date.getTime() < thirtyDaysAgo.getTime() ||
+      newD.date.getTime() > today.getTime()
+    )
+      return acc;
+    const id = newD.date.getTime();
+    acc[id] = (acc[id] || 0) + newD.amount;
+    return acc;
+  }, {});
 };
 
 export const mapStackedBarchartData = (
   selectedTree: SelectedTreeType,
-  today: Date = new Date()
+  today: Date = new Date(),
+  thirtyDaysAgo: Date = new Date()
 ): DailyWaterAmountsType[] => {
-  const date = new Date(today.toISOString().split('T')[0]);
-  const waterings = parseWaterings(selectedTree.waterings);
+  const xScale = scaleTime().domain([today, thirtyDaysAgo]).nice();
+  const waterings = parseWaterings(
+    selectedTree.waterings,
+    xScale.domain() as [Date, Date]
+  );
 
   //reverse because last element is most recent rain
   const rainings = [...selectedTree.radolan_days].reverse();
 
-  return new Array(30).fill(null).map((_, i) => {
-    const timestamp = new Date(date);
-    const id = +timestamp;
+  return xScale.ticks(30).map((d, i) => {
+    const date = new Date(d);
+    date.setHours(0, 0, 0, 0);
+    const id = date.getTime();
     const wateringValue = waterings[id] || 0;
     const rainValue = rainings
       /**
@@ -43,7 +60,6 @@ export const mapStackedBarchartData = (
       .slice(24 * (i - 1), 24 * i)
       .reduce((a, b) => a + b, 0);
 
-    date.setDate(date.getDate() - 1);
-    return { id, timestamp, rainValue, wateringValue };
+    return { id, timestamp: d, rainValue, wateringValue };
   });
 };
