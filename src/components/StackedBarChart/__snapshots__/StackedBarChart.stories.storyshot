@@ -13,11 +13,16 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
     id="barchart"
   >
     <div
-      className="sc-ikjQzJ fMyiOl"
+      className="sc-ikjQzJ dOcZTv"
       id="barchart-tooltip"
     >
+      <b>
+        <span
+          id="barchart-tooltip-date"
+        />
+      </b>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
@@ -34,7 +39,7 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
         />
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
@@ -51,7 +56,7 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
         />
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <span
           className="sc-bhVIhj ldFdIk"
@@ -110,11 +115,16 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
     id="barchart"
   >
     <div
-      className="sc-ikjQzJ fMyiOl"
+      className="sc-ikjQzJ dOcZTv"
       id="barchart-tooltip"
     >
+      <b>
+        <span
+          id="barchart-tooltip-date"
+        />
+      </b>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
@@ -131,7 +141,7 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
         />
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
@@ -148,7 +158,7 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
         />
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <span
           className="sc-bhVIhj ldFdIk"
@@ -207,11 +217,16 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
     id="barchart"
   >
     <div
-      className="sc-ikjQzJ fMyiOl"
+      className="sc-ikjQzJ dOcZTv"
       id="barchart-tooltip"
     >
+      <b>
+        <span
+          id="barchart-tooltip-date"
+        />
+      </b>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
@@ -228,7 +243,7 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
         />
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
@@ -245,7 +260,7 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
         />
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <span
           className="sc-bhVIhj ldFdIk"

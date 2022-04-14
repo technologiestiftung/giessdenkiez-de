@@ -126,8 +126,7 @@ export function drawD3Chart(
 
   const xScale = scaleTime()
     .domain([thirtyDaysAgo, today])
-    .range([MARGIN.left, width - MARGIN.right - BAR_WIDTH])
-    .nice();
+    .range([MARGIN.left, width - MARGIN.right - BAR_WIDTH]);
 
   const maxWaterValue = Math.max(
     ...waterAmountInLast30Days.map(

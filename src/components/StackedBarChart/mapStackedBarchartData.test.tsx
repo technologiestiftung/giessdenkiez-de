@@ -49,9 +49,12 @@ describe('mapStackedBarchartData', () => {
       today,
       thirtyDaysAgo
     );
-    const date = new Date(new Date().toISOString().split('T')[0]);
-    expect(mappedStackedBarchartData[0].id).toBe(+date);
-    date.setDate(date.getDate() - 30);
-    expect(mappedStackedBarchartData[29].id).toBe(+date);
+    console.log(mappedStackedBarchartData);
+    expect(new Date(mappedStackedBarchartData[0].id).toISOString()).toBe(
+      thirtyDaysAgo.toISOString()
+    );
+    expect(new Date(mappedStackedBarchartData[30].id).toISOString()).toBe(
+      today.toISOString()
+    );
   });
 });
