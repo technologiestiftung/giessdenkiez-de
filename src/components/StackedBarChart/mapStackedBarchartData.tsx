@@ -20,7 +20,7 @@ type XScaleType = ScaleTime<number, number>;
 type YScaleType = ScaleLinear<number, number>;
 
 interface WateringsMapType {
-  [key: ParsedWateringType['id']]: ParsedWateringType;
+  [key: string]: ParsedWateringType;
 }
 
 export type DayWaterAmountsType = ParsedWateringType & {
