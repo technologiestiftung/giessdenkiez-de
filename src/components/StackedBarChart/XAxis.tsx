@@ -13,6 +13,7 @@ export const XAxis: FC<XAxisPropsType> = ({ xAxisLabels, config }) => (
       return (
         <g
           key={id}
+          data-testid='x-axis-group'
           transform={`translate(${Math.round(x + barWidth / 2) - 0.5},${
             chartHeight - margins.bottom
           })`}

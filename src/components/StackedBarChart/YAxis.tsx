@@ -11,7 +11,11 @@ export const YAxis: FC<YAxisPropsType> = ({ yAxisLabels, config }) => (
     {yAxisLabels.map(({ id, y, label }) => {
       const { margins, tickSize, chartWidth } = config;
       return (
-        <g key={id} transform={`translate(0,${Math.round(y)}.5)`}>
+        <g
+          key={id}
+          transform={`translate(0,${Math.round(y)}.5)`}
+          data-testid='y-axis-group'
+        >
           <text
             textAnchor='end'
             x={margins.left - tickSize + 2}

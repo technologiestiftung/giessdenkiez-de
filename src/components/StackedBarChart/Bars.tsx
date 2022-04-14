@@ -43,7 +43,7 @@ export const Bars: FC<BarsPropsType> = ({
         innerHeight - wateringHeight - rainingHeight
       );
       return (
-        <g key={id} transform={`translate(${x},${y})`}>
+        <g key={id} transform={`translate(${x},${y})`} data-testid='bar-group'>
           <rect
             y={rainingY}
             fill='#75ADE8'
