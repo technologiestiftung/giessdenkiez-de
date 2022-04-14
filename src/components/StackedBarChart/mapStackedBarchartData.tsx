@@ -8,6 +8,7 @@ import {
   timeFormat,
 } from 'd3';
 import { SelectedTreeType, WateringType } from '../../common/interfaces';
+import { ChartConfigType } from './getChartConfig';
 
 interface ParsedWateringType {
   id: string;
@@ -45,7 +46,7 @@ type GetXAxisLabelsSignature = (args: {
 type GetYAxisLabelsSignature = (args: {
   yScale: YScaleType;
   chartHeight: number;
-  margins: MarginsType;
+  margins: ChartConfigType['margins'];
 }) => {
   id: string;
   y: number;
@@ -56,25 +57,6 @@ type Get30DaysExtentSignature = (args: {
   data: DayWaterAmountsType[];
   minYValue: ChartConfigType['minYValue'];
 }) => [number, number];
-
-interface MarginsType {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-}
-
-export interface ChartConfigType {
-  margins: MarginsType;
-  chartHeight: number;
-  chartWidth: number;
-  minYValue: number;
-  innerWidth: number;
-  innerHeight: number;
-  barWidth: number;
-  barPadding: number;
-  tickSize: number;
-}
 
 type MapStackedBarchartDataSignature = (args: {
   selectedTree: SelectedTreeType;

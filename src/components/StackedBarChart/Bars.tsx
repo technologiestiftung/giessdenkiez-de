@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { ChartConfigType } from './getChartConfig';
 import {
-  ChartConfigType,
   DayWaterAmountsType,
   mapStackedBarchartData,
 } from './mapStackedBarchartData';

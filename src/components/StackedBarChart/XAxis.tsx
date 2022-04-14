@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
-import {
-  ChartConfigType,
-  mapStackedBarchartData,
-} from './mapStackedBarchartData';
+import { ChartConfigType } from './getChartConfig';
+import { mapStackedBarchartData } from './mapStackedBarchartData';
 
 type XAxisPropsType = ReturnType<typeof mapStackedBarchartData> & {
   config: ChartConfigType;

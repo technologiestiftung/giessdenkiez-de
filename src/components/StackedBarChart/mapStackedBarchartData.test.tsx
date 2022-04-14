@@ -1,8 +1,8 @@
+import { getChartConfig } from './getChartConfig';
 import { mapStackedBarchartData } from './mapStackedBarchartData';
 
 const today = new Date('2020-06-01T00:00:00.000Z');
-const thirtyDaysAgo = new Date(today);
-thirtyDaysAgo.setDate(today.getDate() - 30);
+const thirtyDaysAgo = new Date(today.getTime() - 29 * 24 * 60 * 60 * 1000);
 const arrayOf30 = [...Array(30)].map((_, idx) => idx + 1);
 const waterings = arrayOf30.map(val => ({
   id: 'abc',
@@ -25,35 +25,36 @@ const testSelectedTree = {
   waterings,
 };
 
+const config = getChartConfig();
+
 describe('mapStackedBarchartData', () => {
   test('should combine waterings and selectedTree data', () => {
-    const mappedStackedBarchartData = mapStackedBarchartData(
-      testSelectedTree,
+    const { thirtyDaysData } = mapStackedBarchartData({
+      selectedTree: testSelectedTree,
       today,
-      thirtyDaysAgo
-    );
-    expect(mappedStackedBarchartData[0].rainValue).toBe(0);
-    expect(mappedStackedBarchartData[1].rainValue).toBe(0.6000000000000001);
+      config,
+    });
+    expect(thirtyDaysData[0].rainingAmount).toBe(0);
+    expect(thirtyDaysData[1].rainingAmount).toBe(0.6000000000000001);
   });
   test('should have length 30', () => {
-    const mappedStackedBarchartData = mapStackedBarchartData(
-      testSelectedTree,
+    const { thirtyDaysData } = mapStackedBarchartData({
+      selectedTree: testSelectedTree,
       today,
-      thirtyDaysAgo
-    );
-    expect(mappedStackedBarchartData).toHaveLength(30);
+      config,
+    });
+    expect(thirtyDaysData).toHaveLength(30);
   });
   test('should have last 30 days', () => {
-    const mappedStackedBarchartData = mapStackedBarchartData(
-      testSelectedTree,
+    const { thirtyDaysData } = mapStackedBarchartData({
+      selectedTree: testSelectedTree,
       today,
-      thirtyDaysAgo
-    );
-    console.log(mappedStackedBarchartData);
-    expect(new Date(mappedStackedBarchartData[0].id).toISOString()).toBe(
+      config,
+    });
+    expect(new Date(thirtyDaysData[29].id).toISOString()).toBe(
       thirtyDaysAgo.toISOString()
     );
-    expect(new Date(mappedStackedBarchartData[30].id).toISOString()).toBe(
+    expect(new Date(thirtyDaysData[0].id).toISOString()).toBe(
       today.toISOString()
     );
   });

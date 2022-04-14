@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
-import {
-  ChartConfigType,
-  mapStackedBarchartData,
-} from './mapStackedBarchartData';
+import { ChartConfigType } from './getChartConfig';
+import { mapStackedBarchartData } from './mapStackedBarchartData';
 
 type YAxisPropsType = ReturnType<typeof mapStackedBarchartData> & {
   config: ChartConfigType;
