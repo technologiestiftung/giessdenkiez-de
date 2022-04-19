@@ -1,0 +1,44 @@
+import React, { ChangeEvent, FC } from 'react';
+import styled from 'styled-components';
+
+const NumberInputContainer = styled.div`
+  display: block;
+  width: 100%;
+`;
+
+const StyledLabel = styled.label`
+  display: block;
+  font-size: ${p => p.theme.fontSizeL};
+  color: ${p => p.theme.colorPrimary};
+`;
+
+const StyledInput = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  border-radius: 4px;
+  border 1px solid ${p => p.theme.colorPrimary};
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+export interface NumberInputType {
+  id: string;
+  label: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export const NumberInput: FC<NumberInputType> = ({
+  id,
+  label,
+  onChange = () => undefined,
+}) => {
+  return (
+    <NumberInputContainer>
+      <StyledLabel htmlFor={id}>{label}</StyledLabel>
+      <StyledInput type='number' id={id} onChange={onChange} step={1} />
+    </NumberInputContainer>
+  );
+};
