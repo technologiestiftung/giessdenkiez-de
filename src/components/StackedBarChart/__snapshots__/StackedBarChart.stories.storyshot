@@ -9,19 +9,18 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
   }
 >
   <div
-    className="sc-duzrYq jsQDEg"
-    id="barchart"
+    className="sc-hAsxaJ hoNeeF"
   >
     <div
-      className="sc-ikjQzJ fMyiOl"
-      id="barchart-tooltip"
+      className="sc-ikjQzJ kaKwWk"
     >
+      <b />
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
-            className="sc-WCkqM dvPrvL"
+            className="sc-dkdnUF cfybIu"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -29,16 +28,16 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-watered"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
-            className="sc-WCkqM dvPrvL"
+            className="sc-dkdnUF cfybIu"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -46,30 +45,30 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-rain"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <span
           className="sc-bhVIhj ldFdIk"
         >
           ∑
         </span>
-        <span
-          id="barchart-tooltip-val-total"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
     </div>
   </div>
   <div
-    className="sc-dkdnUF eSvUis"
+    className="sc-WCkqM hQDkV"
   >
     <div>
       <div
-        className="sc-WCkqM dvPrvL"
+        className="sc-dkdnUF cfybIu"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -82,7 +81,7 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
     </div>
     <div>
       <div
-        className="sc-WCkqM dvPrvL"
+        className="sc-dkdnUF cfybIu"
         style={
           Object {
             "backgroundColor": "#75ADE8",
@@ -106,19 +105,18 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
   }
 >
   <div
-    className="sc-duzrYq jsQDEg"
-    id="barchart"
+    className="sc-hAsxaJ hoNeeF"
   >
     <div
-      className="sc-ikjQzJ fMyiOl"
-      id="barchart-tooltip"
+      className="sc-ikjQzJ kaKwWk"
     >
+      <b />
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
-            className="sc-WCkqM dvPrvL"
+            className="sc-dkdnUF cfybIu"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -126,16 +124,16 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-watered"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
-            className="sc-WCkqM dvPrvL"
+            className="sc-dkdnUF cfybIu"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -143,30 +141,30 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-rain"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <span
           className="sc-bhVIhj ldFdIk"
         >
           ∑
         </span>
-        <span
-          id="barchart-tooltip-val-total"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
     </div>
   </div>
   <div
-    className="sc-dkdnUF eSvUis"
+    className="sc-WCkqM hQDkV"
   >
     <div>
       <div
-        className="sc-WCkqM dvPrvL"
+        className="sc-dkdnUF cfybIu"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -179,7 +177,7 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
     </div>
     <div>
       <div
-        className="sc-WCkqM dvPrvL"
+        className="sc-dkdnUF cfybIu"
         style={
           Object {
             "backgroundColor": "#75ADE8",
@@ -203,19 +201,18 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
   }
 >
   <div
-    className="sc-duzrYq jsQDEg"
-    id="barchart"
+    className="sc-hAsxaJ hoNeeF"
   >
     <div
-      className="sc-ikjQzJ fMyiOl"
-      id="barchart-tooltip"
+      className="sc-ikjQzJ kaKwWk"
     >
+      <b />
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
-            className="sc-WCkqM dvPrvL"
+            className="sc-dkdnUF cfybIu"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -223,16 +220,16 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-watered"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <strong>
           <div
-            className="sc-WCkqM dvPrvL"
+            className="sc-dkdnUF cfybIu"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -240,30 +237,30 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-rain"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
-        className="sc-tsFYE lcZaah"
+        className="sc-tsFYE bUcDFB"
       >
         <span
           className="sc-bhVIhj ldFdIk"
         >
           ∑
         </span>
-        <span
-          id="barchart-tooltip-val-total"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
     </div>
   </div>
   <div
-    className="sc-dkdnUF eSvUis"
+    className="sc-WCkqM hQDkV"
   >
     <div>
       <div
-        className="sc-WCkqM dvPrvL"
+        className="sc-dkdnUF cfybIu"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -276,7 +273,7 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
     </div>
     <div>
       <div
-        className="sc-WCkqM dvPrvL"
+        className="sc-dkdnUF cfybIu"
         style={
           Object {
             "backgroundColor": "#75ADE8",
