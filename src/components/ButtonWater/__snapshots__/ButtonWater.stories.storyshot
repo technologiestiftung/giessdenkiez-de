@@ -3,7 +3,7 @@
 exports[`Storyshots ButtonWater Button Water Story 1`] = `
 Array [
   <div
-    className="sc-bczRLJ kKZGbD"
+    className="sc-bdfBQB iPMsyR"
     onClick={[Function]}
     role="button"
     tabIndex={0}
@@ -13,7 +13,7 @@ Array [
     Ich habe gegossen!
   </div>,
   <p
-    className="sc-gsnTZi gcvLkj sc-dkzDqf iNyqgE"
+    className="sc-eCstlR kmsJpl sc-jSgvzq dWIpTJ"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Wie kann ich mitmachen?",
