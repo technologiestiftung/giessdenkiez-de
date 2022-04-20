@@ -141,10 +141,10 @@ const content: Content = {
   //     '<b>Gieß den Kiez LIVE: </b><br>Der Sommer neigt sich dem Ende zu und wir werden analog! Melde Dich jetzt für unser <a target="blank" href="https://www.citylab-berlin.org/events/freiwilligentage/">Mitmach-Event</a> am 11. September an und besuche uns im CityLAB Berlin.',
   // },
   whatsNew: {
-    title: 'Hurray, das neue Baumkataster ist live!',
+    title: 'Hurray, das Baumkataster 2022 ist live!',
     description: [
-      `Auf Gieß den Kiez werden nun <strong>120.000 zusätzliche Stadtbäume</strong> angezeigt. Im Juni 2021 wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 120.000 Bäume mehr listet als das Baumkataster auf dem Jahr 2020. Dabei liegt die Anzahl der in 2020 gepflanzten Bäume nicht überdurchschnittlich hoch.`,
-      `Der Zuwachs ist vielmehr auf die vorbildliche Arbeit der bezirklichen Straßen- und Grünflächenämter zurückzuführen, die die Koordinaten weiterer Bäume erfasst haben. Von den rund 430.000 Straßenbäumen Berlins verfügen jetzt rund 404.000 über Koordinaten – das sind fast <strong>94% aller Straßenbäume</strong>.`,
+      `Auf Gieß den Kiez werden nun über <strong>800.000 Stadtbäume</strong> angezeigt. Vor kurzem wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 50.000 Bäume mehr listet als das Baumkataster auf dem Jahr 2021.`,
+      `Wir heißen die neu erfassten Stadtbäume auf Gieß den Kiez willkommen und wünschen Euch ein fröhliches Gießen!`,
     ],
   },
   loading: {
