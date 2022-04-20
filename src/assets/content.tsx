@@ -143,8 +143,8 @@ const content: Content = {
   whatsNew: {
     title: 'Hurray, das Baumkataster 2022 ist live!',
     description: [
-      `Auf Gieß den Kiez werden nun über <strong>800.000 Stadtbäume</strong> angezeigt. Vor kurzem wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 50.000 Bäume mehr listet als das Baumkataster auf dem Jahr 2021.`,
-      `Wir heißen die neu erfassten Stadtbäume auf Gieß den Kiez willkommen und wünschen Euch ein fröhliches Gießen!`,
+      `Auf Gieß den Kiez werden nun über <strong>800.000 Stadtbäume</strong> angezeigt. Im Februar wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 50.000 Bäume mehr listet als das Baumkataster auf dem Jahr 2021. Wir wünschen Euch ein fröhliches Gießen!`,
+      `Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.`,
     ],
   },
   loading: {
