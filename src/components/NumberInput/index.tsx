@@ -8,16 +8,19 @@ const NumberInputContainer = styled.div`
 
 const StyledLabel = styled.label`
   display: block;
-  font-size: ${p => p.theme.fontSizeL};
-  color: ${p => p.theme.colorPrimary};
+  font-size: ${p => p.theme.fontSizeLl};
 `;
 
 const StyledInput = styled.input`
-  width: 100%;
   padding: 10px;
-  margin-top: 4px;
+  margin-top: 8px;
   border-radius: 4px;
-  border 1px solid ${p => p.theme.colorPrimary};
+  border: 1px solid ${p => p.theme.colorTextMedium};
+  color: ${p => p.theme.colorPrimary};
+  &::selection {
+    background: ${p => p.theme.colorPrimary};
+    color: white;
+  }
   &:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
@@ -27,18 +30,35 @@ const StyledInput = styled.input`
 export interface NumberInputType {
   id: string;
   label: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  placeholder?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const NumberInput: FC<NumberInputType> = ({
   id,
   label,
+  min = 0,
+  max,
+  step = 1,
+  placeholder = '0',
   onChange = () => undefined,
 }) => {
   return (
     <NumberInputContainer>
       <StyledLabel htmlFor={id}>{label}</StyledLabel>
-      <StyledInput type='number' id={id} onChange={onChange} step={1} />
+      <StyledInput
+        type='number'
+        id={id}
+        onChange={onChange}
+        min={min}
+        max={max}
+        step={step}
+        defaultValue={min}
+        placeholder={placeholder}
+      />
     </NumberInputContainer>
   );
 };
