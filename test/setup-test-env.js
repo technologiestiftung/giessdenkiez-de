@@ -10,6 +10,11 @@ import 'whatwg-fetch';
 import '@testing-library/jest-dom/extend-expect';
 import { server } from '../src/mocks/server';
 import webcrypto from '@trust/webcrypto';
+import ReactDOM from 'react-dom';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+jest.spyOn(ReactDOM, 'createPortal').mockImplementation(element => element);
 
 window.crypto = webcrypto;
 
