@@ -20,7 +20,7 @@ const DialogContent = styled.div`
   background-color: white;
   padding: 24px;
   z-index: 10;
-  @media screen and (min-width: ${p => p.theme.screens.tablet}) {
+  @media screen and (min-width: 767px) {
     max-width: 600px;
   }
 `;
