@@ -2,18 +2,21 @@
 
 exports[`Storyshots NumberInput Default 1`] = `
 <div
-  className="sc-gsTEea jflZA-D"
+  className="sc-hKMtZM eTyTYf"
 >
   <label
-    className="sc-dlfnuX fFgEhf"
+    className="sc-eCYdqJ fdSRSr"
     htmlFor="my-id"
   >
     My label
   </label>
   <input
-    className="sc-hKgJUU chZxAG"
+    className="sc-jSMfEi bimgQC"
+    defaultValue={0}
     id="my-id"
+    min={0}
     onChange={[Function]}
+    placeholder="0"
     step={1}
     type="number"
   />
