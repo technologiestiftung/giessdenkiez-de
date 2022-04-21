@@ -1,11 +1,15 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { WateringType } from '../../common/interfaces';
 
 import { formatUnixTimestamp } from '../../utils/formatUnixTimestamp';
+import useClickOutside from '../../utils/hooks/useClickOutside';
+import { useUserData } from '../../utils/hooks/useUserData';
+import { useWateringActions } from '../../utils/hooks/useWateringActions';
 import SmallParagraph from '../SmallParagraph';
 
 const iconDrop = '/images/icon-drop.svg';
+const iconTrashcan = '/images/icon-trashcan.svg';
 
 const StyledTreeType = styled(SmallParagraph)`
   padding: 0;
@@ -16,13 +20,77 @@ const StyledIcon = styled.img`
   margin-left: 5px;
 `;
 
+const DeleteButton = styled.button`
+  background: none;
+  border: none;
+  border-left: 1px solid ${p => p.theme.colorTextMedium};
+  margin-left: 16px;
+  cursor: pointer;
+  transition: opacity 200ms ease-out;
+  opacity: 1;
+  padding: 4px 8px;
+
+  &:hover {
+    opacity: 0.5;
+  }
+
+  &:focus {
+    outline: none;
+    border-radius: 3px;
+    border-left-color: transparent;
+    box-shadow: 0 0 0 2px ${p => p.theme.colorAlarm};
+  }
+`;
+
 const Wrapper = styled.div`
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 32px;
+  background: ${p => p.theme.colorAlarm};
+`;
+
+const SlideContainer = styled.div<{
+  isSlidLeft: boolean;
+}>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: ${p => (p.isSlidLeft ? '0 8px' : '0')};
+  background: ${p => p.theme.colorWhite};
+  transition: transform 100ms cubic-bezier(0.4, 0, 0.2, 1),
+    padding 100ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(${p => (p.isSlidLeft ? '-50%' : '0')});
   display: flex;
   flex-direction: row;
-  width: 100%;
-  height: 25px;
   align-items: center;
   justify-content: space-between;
+`;
+
+const DeleteConfirmButton = styled.button`
+  position: absolute;
+  width: 50%;
+  height: 32px;
+  left: 50%;
+  top: 0;
+  background: ${p => p.theme.colorAlarm};
+  color: ${p => p.theme.colorWhite};
+  padding: 4px 8px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 200ms ease-out;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: none;s
+    box-shadow: 0 0 0 2px ${p => p.theme.colorAlarm};
+  }
 `;
 
 const WrapperOuter = styled.div`
@@ -73,24 +141,89 @@ const ToggleExpansionLink = styled.button`
 
 const MAX_ITEMS = 8;
 
+interface WateringRowPropTypes extends WateringType {
+  treeId: string;
+}
+
+const WateringRow: FC<WateringRowPropTypes> = ({
+  id,
+  username,
+  timestamp,
+  amount,
+  treeId,
+}) => {
+  const { userData } = useUserData();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [hasClickedDelete, setHasClickedDelete] = useState(false);
+  const elRef = useClickOutside<HTMLDivElement>(() => setIsDeleting(false));
+  const { unwaterTree } = useWateringActions(treeId);
+
+  const escListener = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setIsDeleting(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isDeleting) {
+      document.removeEventListener('keyup', escListener);
+    }
+    document.addEventListener('keyup', escListener);
+    return () => document.removeEventListener('keyup', escListener);
+  }, [isDeleting, escListener]);
+
+  if (hasClickedDelete) return null;
+  return (
+    <Wrapper key={`Lastadopted-key-${id}`} ref={elRef}>
+      {isDeleting && (
+        <DeleteConfirmButton
+          title='Gießung unwiderruflich löschen'
+          aria-label='Gießung unwiderruflich löschen'
+          onClick={() => {
+            setHasClickedDelete(true);
+            try {
+              unwaterTree(id);
+            } catch (error) {
+              setHasClickedDelete(false);
+            }
+          }}
+        >
+          Löschen
+        </DeleteConfirmButton>
+      )}
+      <SlideContainer isSlidLeft={isDeleting}>
+        <FlexRow>
+          <Title>{username}</Title>
+          <StyledTreeType>({formatUnixTimestamp(timestamp)})</StyledTreeType>
+          {userData?.username === username && (
+            <DeleteButton
+              title='Gießung rückgängig machen'
+              onClick={() => setIsDeleting(prev => !prev)}
+              aria-label='Gießung rückgängig machen'
+            >
+              <img src={iconTrashcan} />
+            </DeleteButton>
+          )}
+        </FlexRow>
+        <SmallParagraph>{`${amount}l`}</SmallParagraph>
+        <StyledIcon src={iconDrop} alt='Water drop icon' />
+      </SlideContainer>
+    </Wrapper>
+  );
+};
+
 const UsersWateringsList: FC<{
   waterings: WateringType[];
-}> = ({ waterings }) => {
+  treeId: string;
+}> = ({ waterings, treeId }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const surpassedMaxItems = waterings.length > MAX_ITEMS;
   const listItems = isExpanded ? waterings : waterings.slice(0, MAX_ITEMS);
 
   return (
     <WrapperOuter>
-      {listItems.map(({ id, username, timestamp, amount }: WateringType) => (
-        <Wrapper key={`Lastadopted-key-${id}`}>
-          <FlexRow>
-            <Title>{username}</Title>
-            <StyledTreeType>({formatUnixTimestamp(timestamp)})</StyledTreeType>
-          </FlexRow>
-          <SmallParagraph>{`${amount}l`}</SmallParagraph>
-          <StyledIcon src={iconDrop} alt='Water drop icon' />
-        </Wrapper>
+      {listItems.map(d => (
+        <WateringRow key={d.id} {...d} treeId={treeId} />
       ))}
       {surpassedMaxItems && (
         <ToggleExpansionLink onClick={() => setIsExpanded(!isExpanded)}>

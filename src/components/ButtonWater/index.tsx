@@ -17,7 +17,9 @@ const BtnWaterContainer = styled.div`
 
 const ButtonWater: FC = () => {
   const treeId = useCurrentTreeId();
-  const { isBeingWatered, waterTree } = useWateringActions(treeId);
+  const { isBeingWatered, isBeingUnwatered, waterTree } = useWateringActions(
+    treeId
+  );
   const [waterButtonIsOpened, setWaterButtonIsOpened] = useState<boolean>(
     false
   );
@@ -29,6 +31,7 @@ const ButtonWater: FC = () => {
         width='-webkit-fill-available'
         onClick={() => setWaterButtonIsOpened(!waterButtonIsOpened)}
         type='primary'
+        disabled={isBeingUnwatered || isBeingWatered}
       >
         {waterButtonIsOpened &&
           isBeingWatered &&
@@ -36,7 +39,7 @@ const ButtonWater: FC = () => {
         {waterButtonIsOpened && !isBeingWatered && 'Wieviel Wasser?'}
         {!waterButtonIsOpened && 'Ich habe gegossen!'}
       </ButtonRound>
-      {waterButtonIsOpened && (
+      {waterButtonIsOpened && !isBeingUnwatered && !isBeingWatered && (
         <BtnWaterContainer>
           {buttonLabels.map(btn => {
             return (
