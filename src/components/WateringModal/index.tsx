@@ -51,9 +51,11 @@ export const WateringModal: FC<{
       setError('Eine so große Bewässerung kann nicht eingetragen werden.');
       return;
     }
-    console.log('Watered at:', wateringDate); // TODO: remove this
 
-    void waterTree(wateringValue).finally(() => {
+    // NOTE: We force the watering date to be in the afternoon instead of at 00:00:00 to avoid involutary date changes:
+    const wateringDateAfternoon = new Date(wateringDate.setHours(15));
+
+    void waterTree(wateringValue, wateringDateAfternoon).finally(() => {
       setWateringValue(0);
       setError(undefined);
       setIsOpen(false);
