@@ -16,10 +16,13 @@ const StyledTitle = styled(Dialog.Title)`
 
 const DialogContent = styled.div`
   display: block;
-  max-width: 440px;
+  width: 440px;
   background-color: white;
   padding: 24px;
   z-index: 10;
+  @media screen and (min-width: ${p => p.theme.screens.tablet}) {
+    max-width: 600px;
+  }
 `;
 
 const DialogWrapper = styled.div`
