@@ -10,7 +10,6 @@ import { format, isValid, parse } from 'date-fns';
 import FocusTrap from 'focus-trap-react';
 import { DayPicker } from 'react-day-picker';
 import { usePopper } from 'react-popper';
-import 'react-day-picker/dist/style.css';
 import styled from 'styled-components';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 
