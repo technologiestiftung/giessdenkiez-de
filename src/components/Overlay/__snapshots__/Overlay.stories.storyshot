@@ -2,22 +2,22 @@
 
 exports[`Storyshots Overlay Legend Story 1`] = `
 <div
-  className="sc-kgUAyh ioxzWU"
+  className="sc-eKszNL czLsbE"
 >
   <div
-    className="sc-BeQoi btwUrp"
+    className="sc-jfmDQi fTwLFs"
   >
     <div
-      className="sc-hTtwUo itsGGc"
+      className="sc-olbas HEyKe"
     >
       <div
-        className="sc-iTONeN kkEESI"
+        className="sc-cOFTSb hZMdqA"
       >
         <div
-          className="sc-bZnhIo goxnvC"
+          className="sc-bBXxYQ jSXXIO"
         >
           <h2
-            className="sc-bZkfAO cuzbOF"
+            className="sc-ciZhAO bAfCEQ"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<b>Gieß den <span>Kiez</span></b>",
@@ -26,15 +26,15 @@ exports[`Storyshots Overlay Legend Story 1`] = `
             size="xxl"
           />
           <div
-            className="sc-kLLXSd jETYcn"
+            className="sc-jdAMXn hldJPb"
           >
             <img
-              className="sc-ikZpkk hfRXPH"
+              className="sc-bZnhIo iGoOVj"
               src="/images/icon-trees.svg"
             />
           </div>
           <div
-            className="sc-jIZahH dxNMCv"
+            className="sc-iTONeN fPHHfw"
           >
             <span>
               BETA
@@ -42,7 +42,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
           </div>
         </div>
         <h2
-          className="sc-bZkfAO cuzbOF"
+          className="sc-ciZhAO bAfCEQ"
           dangerouslySetInnerHTML={
             Object {
               "__html": "Die Berliner Stadtbäume leiden unter Trockenheit <br class=\\"large\\" /> und Du kannst ihnen helfen!",
@@ -52,10 +52,10 @@ exports[`Storyshots Overlay Legend Story 1`] = `
         />
         
         <div
-          className="sc-cCsOjp fPbEPA"
+          className="sc-cTQhss hqeHqw"
         >
           <p
-            className="sc-himrzO laWREo sc-gXmSlM fAgjKT"
+            className="sc-iAvgwm bXuVxI sc-efBctP cyKzjN"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.",
@@ -64,7 +64,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
             onClick={[Function]}
           />
           <p
-            className="sc-himrzO laWREo sc-gXmSlM fAgjKT"
+            className="sc-iAvgwm bXuVxI sc-efBctP cyKzjN"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.",
@@ -75,7 +75,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
         </div>
         <button
           aria-label="Leiste schließen"
-          className="sc-ciZhAO sc-jdAMXn gYgUjQ eWPvwG"
+          className="sc-jOrMOR sc-dPyBCJ ZWxgh eoBFCA"
           onClick={[Function]}
           title="Leiste schließen"
         >
@@ -91,7 +91,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
           </svg>
         </button>
         <div
-          className="sc-iAvgwm cTdkfH"
+          className="sc-BeQoi kWEtLc"
         >
           <div
             className="sc-bczRLJ ePyREO"
@@ -117,10 +117,10 @@ exports[`Storyshots Overlay Legend Story 1`] = `
         </div>
         <section
           aria-label="News und Updates"
-          className="sc-efBctP bIMroo"
+          className="sc-kgUAyh kTXegH"
         >
           <h2
-            className="sc-bZkfAO kqnpaT"
+            className="sc-ciZhAO kMSJmq"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "Hurray, das Baumkataster 2022 ist live!",
@@ -130,10 +130,10 @@ exports[`Storyshots Overlay Legend Story 1`] = `
           />
           <div />
           <div
-            className="sc-cCsOjp fPbEPA"
+            className="sc-cTQhss hqeHqw"
           >
             <p
-              className="sc-himrzO laWREo sc-gXmSlM fAgjKT"
+              className="sc-iAvgwm bXuVxI sc-efBctP cyKzjN"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "Auf Gieß den Kiez werden nun über <strong>800.000 Stadtbäume</strong> angezeigt. Im Februar wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 50.000 Bäume mehr listet als das Baumkataster auf dem Jahr 2021. Wir wünschen Euch ein fröhliches Gießen!",
@@ -142,7 +142,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
               onClick={[Function]}
             />
             <p
-              className="sc-himrzO laWREo sc-gXmSlM fAgjKT"
+              className="sc-iAvgwm bXuVxI sc-efBctP cyKzjN"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.",
@@ -154,10 +154,10 @@ exports[`Storyshots Overlay Legend Story 1`] = `
         </section>
       </div>
       <div
-        className="sc-cOFTSb bGpzqo"
+        className="sc-iNWwEs kjCyqa"
       >
         <h2
-          className="sc-bZkfAO kqnpaT"
+          className="sc-ciZhAO kMSJmq"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<b>Wie kann ich mitmachen?</b>",
@@ -165,24 +165,24 @@ exports[`Storyshots Overlay Legend Story 1`] = `
           }
         />
         <div
-          className="sc-bBXxYQ edeYRB"
+          className="sc-lbxAil llyWJX"
         >
           <div
-            className="sc-cTQhss dVuhXm"
+            className="sc-hTtwUo gNVhdp"
           >
             <div
-              className="sc-kLLXSd jETYcn"
+              className="sc-jdAMXn hldJPb"
             >
               <img
-                className="sc-ikZpkk hfRXPH"
+                className="sc-bZnhIo iGoOVj"
                 src="/images/icon-water.svg"
               />
             </div>
             <div
-              className="sc-jOrMOR hdlAmL"
+              className="sc-jgbSNz isQXII"
             >
               <h2
-                className="sc-dPyBCJ igxWgH"
+                className="sc-gSAPjG fjlopR"
               >
                 Bäume bewässern
               </h2>
@@ -198,21 +198,21 @@ exports[`Storyshots Overlay Legend Story 1`] = `
             </div>
           </div>
           <div
-            className="sc-cTQhss dVuhXm"
+            className="sc-hTtwUo gNVhdp"
           >
             <div
-              className="sc-kLLXSd jETYcn"
+              className="sc-jdAMXn hldJPb"
             >
               <img
-                className="sc-ikZpkk hfRXPH"
+                className="sc-bZnhIo iGoOVj"
                 src="/images/icon-subscribe.svg"
               />
             </div>
             <div
-              className="sc-jOrMOR hdlAmL"
+              className="sc-jgbSNz isQXII"
             >
               <h2
-                className="sc-dPyBCJ igxWgH"
+                className="sc-gSAPjG fjlopR"
               >
                 Bäume adoptieren
               </h2>
@@ -228,21 +228,21 @@ exports[`Storyshots Overlay Legend Story 1`] = `
             </div>
           </div>
           <div
-            className="sc-cTQhss dVuhXm"
+            className="sc-hTtwUo gNVhdp"
           >
             <div
-              className="sc-kLLXSd jETYcn"
+              className="sc-jdAMXn hldJPb"
             >
               <img
-                className="sc-ikZpkk hfRXPH"
+                className="sc-bZnhIo iGoOVj"
                 src="/images/icon-zoom.svg"
               />
             </div>
             <div
-              className="sc-jOrMOR hdlAmL"
+              className="sc-jgbSNz isQXII"
             >
               <h2
-                className="sc-dPyBCJ igxWgH"
+                className="sc-gSAPjG fjlopR"
               >
                 Den Baumbestand erkunden
               </h2>
@@ -258,21 +258,21 @@ exports[`Storyshots Overlay Legend Story 1`] = `
             </div>
           </div>
           <div
-            className="sc-cTQhss dVuhXm"
+            className="sc-hTtwUo gNVhdp"
           >
             <div
-              className="sc-kLLXSd jETYcn"
+              className="sc-jdAMXn hldJPb"
             >
               <img
-                className="sc-ikZpkk hfRXPH"
+                className="sc-bZnhIo iGoOVj"
                 src="/images/icon-info.svg"
               />
             </div>
             <div
-              className="sc-jOrMOR hdlAmL"
+              className="sc-jgbSNz isQXII"
             >
               <h2
-                className="sc-dPyBCJ igxWgH"
+                className="sc-gSAPjG fjlopR"
               >
                 Mit anderen austauschen
               </h2>

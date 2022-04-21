@@ -2,23 +2,23 @@
 
 exports[`Storyshots DataTable Default 1`] = `
 <div
-  className="sc-jqUVSM bNIjpY"
+  className="sc-hAZoDl cYjtgu"
 >
   <header
-    className="sc-kDDrLX fNzJMt"
+    className="sc-fnykZs fSnpPb"
   >
     <h3
-      className="sc-iqcoie itJXXO"
+      className="sc-fEOsli dkiKWU"
     >
       This is a title
     </h3>
   </header>
   <table
-    className="sc-breuTD hxqCwt"
+    className="sc-dIouRR kEpdpq"
   >
     <tbody>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Status
@@ -28,7 +28,7 @@ exports[`Storyshots DataTable Default 1`] = `
         </td>
       </tr>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Last update
@@ -38,7 +38,7 @@ exports[`Storyshots DataTable Default 1`] = `
         </td>
       </tr>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Type
@@ -54,28 +54,28 @@ exports[`Storyshots DataTable Default 1`] = `
 
 exports[`Storyshots DataTable With Subtitle 1`] = `
 <div
-  className="sc-jqUVSM bNIjpY"
+  className="sc-hAZoDl cYjtgu"
 >
   <header
-    className="sc-kDDrLX fNzJMt"
+    className="sc-fnykZs fSnpPb"
   >
     <h3
-      className="sc-iqcoie itJXXO"
+      className="sc-fEOsli dkiKWU"
     >
       This is a title
     </h3>
     <h4
-      className="sc-crXcEl dWHvEp"
+      className="sc-bjUoiL kKVZit"
     >
       Subtitle
     </h4>
   </header>
   <table
-    className="sc-breuTD hxqCwt"
+    className="sc-dIouRR kEpdpq"
   >
     <tbody>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Status
@@ -85,7 +85,7 @@ exports[`Storyshots DataTable With Subtitle 1`] = `
         </td>
       </tr>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Last update
@@ -95,7 +95,7 @@ exports[`Storyshots DataTable With Subtitle 1`] = `
         </td>
       </tr>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Type
@@ -111,23 +111,23 @@ exports[`Storyshots DataTable With Subtitle 1`] = `
 
 exports[`Storyshots DataTable With Subtitle And Children 1`] = `
 <div
-  className="sc-jqUVSM bNIjpY"
+  className="sc-hAZoDl cYjtgu"
 >
   <header
-    className="sc-kDDrLX fNzJMt"
+    className="sc-fnykZs fSnpPb"
   >
     <h3
-      className="sc-iqcoie itJXXO"
+      className="sc-fEOsli dkiKWU"
     >
       This is a title
     </h3>
     <h4
-      className="sc-crXcEl dWHvEp"
+      className="sc-bjUoiL kKVZit"
     >
       Subtitle
     </h4>
     <div
-      className="sc-evZas cpFPUm"
+      className="sc-idiyUo mUiju"
     >
       <span>
         Here be React children.
@@ -135,11 +135,11 @@ exports[`Storyshots DataTable With Subtitle And Children 1`] = `
     </div>
   </header>
   <table
-    className="sc-breuTD hxqCwt"
+    className="sc-dIouRR kEpdpq"
   >
     <tbody>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Status
@@ -149,7 +149,7 @@ exports[`Storyshots DataTable With Subtitle And Children 1`] = `
         </td>
       </tr>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Last update
@@ -159,7 +159,7 @@ exports[`Storyshots DataTable With Subtitle And Children 1`] = `
         </td>
       </tr>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Type
@@ -175,18 +175,18 @@ exports[`Storyshots DataTable With Subtitle And Children 1`] = `
 
 exports[`Storyshots DataTable Without Subtitle And With Children 1`] = `
 <div
-  className="sc-jqUVSM bNIjpY"
+  className="sc-hAZoDl cYjtgu"
 >
   <header
-    className="sc-kDDrLX fNzJMt"
+    className="sc-fnykZs fSnpPb"
   >
     <h3
-      className="sc-iqcoie itJXXO"
+      className="sc-fEOsli dkiKWU"
     >
       This is a title
     </h3>
     <div
-      className="sc-evZas cpFPUm"
+      className="sc-idiyUo mUiju"
     >
       <span>
         Here be React children.
@@ -194,11 +194,11 @@ exports[`Storyshots DataTable Without Subtitle And With Children 1`] = `
     </div>
   </header>
   <table
-    className="sc-breuTD hxqCwt"
+    className="sc-dIouRR kEpdpq"
   >
     <tbody>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Status
@@ -208,7 +208,7 @@ exports[`Storyshots DataTable Without Subtitle And With Children 1`] = `
         </td>
       </tr>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Last update
@@ -218,7 +218,7 @@ exports[`Storyshots DataTable Without Subtitle And With Children 1`] = `
         </td>
       </tr>
       <tr
-        className="sc-ksZaOG edSjin"
+        className="sc-hHLeRK eLJHRA"
       >
         <th>
           Type

@@ -2,16 +2,16 @@
 
 exports[`Storyshots Sidebar About 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-kTvvXX hnIERE"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-eVQfli ieRdjz"
     href="/"
     onClick={[Function]}
   >
     <button
       aria-label="Leiste schließen"
-      className="sc-ciZhAO gYgUjQ"
+      className="sc-jOrMOR ZWxgh"
       onClick={[Function]}
       title="Leiste schließen"
     >
@@ -28,34 +28,34 @@ exports[`Storyshots Sidebar About 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-dvwKko eytVDY"
   >
     <h2
-      className="sc-jgbSNz hoFYJD"
+      className="sc-hiMGwR kjXvKF"
     >
       Weitere Infos
     </h2>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Über das Projekt
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           –
         </span>
       </div>
       <div
-        className="sc-ehmTmK fjiyRS"
+        className="sc-dwLEzm fGsgTt"
       >
         <p
           className="sc-gsnTZi gcvLkj"
@@ -69,26 +69,26 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Nützliche Links
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           –
         </span>
       </div>
       <div
-        className="sc-ehmTmK fjiyRS"
+        className="sc-dwLEzm fGsgTt"
       >
         <p
           className="sc-gsnTZi gcvLkj"
@@ -102,26 +102,26 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Über uns
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           –
         </span>
       </div>
       <div
-        className="sc-ehmTmK fjiyRS"
+        className="sc-dwLEzm fGsgTt"
       >
         <p
           className="sc-gsnTZi gcvLkj"
@@ -136,26 +136,26 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Datenquellen
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           –
         </span>
       </div>
       <div
-        className="sc-ehmTmK fjiyRS"
+        className="sc-dwLEzm fGsgTt"
       >
         <p
           className="sc-gsnTZi gcvLkj"
@@ -182,7 +182,7 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <h2
-      className="sc-jgbSNz hoFYJD"
+      className="sc-hiMGwR kjXvKF"
     >
       F.A.Q.
     </h2>
@@ -196,19 +196,19 @@ exports[`Storyshots Sidebar About 1`] = `
       onClick={[Function]}
     />
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Wie kann ich mitmachen?
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -216,19 +216,19 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Was kann ich tun, wenn Bäume nicht richtig eingetragen sind?
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -236,19 +236,19 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Warum sollte ich aktiv werden und Bäume gießen?
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -256,19 +256,19 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Wie gieße ich richtig?
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -276,19 +276,19 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           An wen kann ich mich wenden, wenn Pumpen kaputt oder beschädigt sind?
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -296,19 +296,19 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Wie wird mit technischen Problemen umgegangen?
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -316,19 +316,19 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Warum lädt die Website nicht oder nur sehr langsam?
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -336,19 +336,19 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Was tun, wenn ich einen Baum fälschlicherweise gegossen habe?
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -356,19 +356,19 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Ist das Prinzip auf andere Städte übertragbar?
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -376,19 +376,19 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Ich habe immer noch eine Frage!
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -396,19 +396,19 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           I don’t speak any German: What’s going on here?
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -416,13 +416,13 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-gSAPjG hBVkHV"
+      className="sc-ehmTmK hzlbvL"
     >
       <span>
         Teilen:
       </span>
       <div
-        className="sc-lbxAil cUAeuw"
+        className="sc-lbOyJj bbzgJq"
       >
         <button
           aria-label="facebook"
@@ -493,11 +493,11 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-iNWwEs hYWWsq"
+      className="sc-gFGZVQ fCTOiY"
     >
       <img
         alt="GitHub Mark"
-        className="sc-jfmDQi kJfoxP"
+        className="sc-ckMVTt dGJYml"
         src="/images/icon-github.svg"
       />
       <p
@@ -519,16 +519,16 @@ exports[`Storyshots Sidebar About 1`] = `
 
 exports[`Storyshots Sidebar Profile Loading 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-kTvvXX hnIERE"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-eVQfli ieRdjz"
     href="/"
     onClick={[Function]}
   >
     <button
       aria-label="Leiste schließen"
-      className="sc-ciZhAO gYgUjQ"
+      className="sc-jOrMOR ZWxgh"
       onClick={[Function]}
       title="Leiste schließen"
     >
@@ -545,25 +545,25 @@ exports[`Storyshots Sidebar Profile Loading 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-dvwKko eytVDY"
   >
     <h2
-      className="sc-jgbSNz hoFYJD"
+      className="sc-hiMGwR kjXvKF"
     >
       Profil
     </h2>
     <div
-      className="sc-grREDI QrgPK"
+      className="sc-evrZIY DmJNa"
     >
       <div
-        className="sc-fvNpTx eLHhMj"
+        className="sc-dFdIVH iDTXMA"
       >
         <img
-          className="sc-fctJkW pOtdc"
+          className="sc-brCFrO bFmgjn"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-HzFiz ggORaz"
+          className="sc-gITdmR fSrrZJ"
         >
           Lade Profil...
         </div>
@@ -571,7 +571,7 @@ exports[`Storyshots Sidebar Profile Loading 1`] = `
       </div>
     </div>
     <p
-      className="sc-gsnTZi gcvLkj sc-jQHtVU jzaaQf"
+      className="sc-gsnTZi gcvLkj sc-csvncw gtIvHr"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -585,16 +585,16 @@ exports[`Storyshots Sidebar Profile Loading 1`] = `
 
 exports[`Storyshots Sidebar Profile Logged In No Data 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-kTvvXX hnIERE"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-eVQfli ieRdjz"
     href="/"
     onClick={[Function]}
   >
     <button
       aria-label="Leiste schließen"
-      className="sc-ciZhAO gYgUjQ"
+      className="sc-jOrMOR ZWxgh"
       onClick={[Function]}
       title="Leiste schließen"
     >
@@ -611,25 +611,25 @@ exports[`Storyshots Sidebar Profile Logged In No Data 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-dvwKko eytVDY"
   >
     <h2
-      className="sc-jgbSNz hoFYJD"
+      className="sc-hiMGwR kjXvKF"
     >
       Profil
     </h2>
     <div
-      className="sc-grREDI QrgPK"
+      className="sc-evrZIY DmJNa"
     >
       <div
-        className="sc-fvNpTx eLHhMj"
+        className="sc-dFdIVH iDTXMA"
       >
         <img
-          className="sc-fctJkW pOtdc"
+          className="sc-brCFrO bFmgjn"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-HzFiz ggORaz"
+          className="sc-gITdmR fSrrZJ"
         >
           Lade Profil...
         </div>
@@ -637,7 +637,7 @@ exports[`Storyshots Sidebar Profile Logged In No Data 1`] = `
       </div>
     </div>
     <p
-      className="sc-gsnTZi gcvLkj sc-jQHtVU jzaaQf"
+      className="sc-gsnTZi gcvLkj sc-csvncw gtIvHr"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -651,16 +651,16 @@ exports[`Storyshots Sidebar Profile Logged In No Data 1`] = `
 
 exports[`Storyshots Sidebar Profile Logged In With Data 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-kTvvXX hnIERE"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-eVQfli ieRdjz"
     href="/"
     onClick={[Function]}
   >
     <button
       aria-label="Leiste schließen"
-      className="sc-ciZhAO gYgUjQ"
+      className="sc-jOrMOR ZWxgh"
       onClick={[Function]}
       title="Leiste schließen"
     >
@@ -677,25 +677,25 @@ exports[`Storyshots Sidebar Profile Logged In With Data 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-dvwKko eytVDY"
   >
     <h2
-      className="sc-jgbSNz hoFYJD"
+      className="sc-hiMGwR kjXvKF"
     >
       Profil
     </h2>
     <div
-      className="sc-grREDI QrgPK"
+      className="sc-evrZIY DmJNa"
     >
       <div
-        className="sc-fvNpTx eLHhMj"
+        className="sc-dFdIVH iDTXMA"
       >
         <img
-          className="sc-fctJkW pOtdc"
+          className="sc-brCFrO bFmgjn"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-HzFiz ggORaz"
+          className="sc-gITdmR fSrrZJ"
         >
           Lade Profil...
         </div>
@@ -703,7 +703,7 @@ exports[`Storyshots Sidebar Profile Logged In With Data 1`] = `
       </div>
     </div>
     <p
-      className="sc-gsnTZi gcvLkj sc-jQHtVU jzaaQf"
+      className="sc-gsnTZi gcvLkj sc-csvncw gtIvHr"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -717,16 +717,16 @@ exports[`Storyshots Sidebar Profile Logged In With Data 1`] = `
 
 exports[`Storyshots Sidebar Profile Logged Out 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-kTvvXX hnIERE"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-eVQfli ieRdjz"
     href="/"
     onClick={[Function]}
   >
     <button
       aria-label="Leiste schließen"
-      className="sc-ciZhAO gYgUjQ"
+      className="sc-jOrMOR ZWxgh"
       onClick={[Function]}
       title="Leiste schließen"
     >
@@ -743,25 +743,25 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-dvwKko eytVDY"
   >
     <h2
-      className="sc-jgbSNz hoFYJD"
+      className="sc-hiMGwR kjXvKF"
     >
       Profil
     </h2>
     <div
-      className="sc-grREDI QrgPK"
+      className="sc-evrZIY DmJNa"
     >
       <div
-        className="sc-fvNpTx eLHhMj"
+        className="sc-dFdIVH iDTXMA"
       >
         <img
-          className="sc-fctJkW pOtdc"
+          className="sc-brCFrO bFmgjn"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-HzFiz ggORaz"
+          className="sc-gITdmR fSrrZJ"
         >
           Lade Profil...
         </div>
@@ -769,7 +769,7 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
       </div>
     </div>
     <p
-      className="sc-gsnTZi gcvLkj sc-jQHtVU jzaaQf"
+      className="sc-gsnTZi gcvLkj sc-csvncw gtIvHr"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -783,16 +783,16 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
 
 exports[`Storyshots Sidebar Search 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-kTvvXX hnIERE"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-eVQfli ieRdjz"
     href="/"
     onClick={[Function]}
   >
     <button
       aria-label="Leiste schließen"
-      className="sc-ciZhAO gYgUjQ"
+      className="sc-jOrMOR ZWxgh"
       onClick={[Function]}
       title="Leiste schließen"
     >
@@ -809,34 +809,34 @@ exports[`Storyshots Sidebar Search 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-dvwKko eytVDY"
   >
     <h2
-      className="sc-jgbSNz hoFYJD"
+      className="sc-hiMGwR kjXvKF"
     >
       Suche & Filter
     </h2>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Datenansicht
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           –
         </span>
       </div>
       <div
-        className="sc-ehmTmK fjiyRS"
+        className="sc-dwLEzm fGsgTt"
       >
         <p
           className="sc-gsnTZi gcvLkj"
@@ -848,22 +848,22 @@ exports[`Storyshots Sidebar Search 1`] = `
           onClick={[Function]}
         />
         <div
-          className="sc-ZyCDH dFaMNd"
+          className="sc-dsQDmV hYIMwI"
         >
           <span
-            className="sc-jOhDuK bTYJyW"
+            className="sc-cZwWEu fIOsdI"
             onClick={[Function]}
           >
             Niederschläge
           </span>
           <span
-            className="sc-jOhDuK ggZGXO"
+            className="sc-cZwWEu jUfMgQ"
             onClick={[Function]}
           >
             Bereits adoptiert
           </span>
           <span
-            className="sc-jOhDuK ggZGXO"
+            className="sc-cZwWEu jUfMgQ"
             onClick={[Function]}
           >
             In den letzten 30 Tagen gegossen
@@ -872,26 +872,26 @@ exports[`Storyshots Sidebar Search 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Wasserbedarf
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           –
         </span>
       </div>
       <div
-        className="sc-ehmTmK fjiyRS"
+        className="sc-dwLEzm fGsgTt"
       >
         <p
           className="sc-gsnTZi gcvLkj"
@@ -903,15 +903,15 @@ exports[`Storyshots Sidebar Search 1`] = `
           onClick={[Function]}
         />
         <div
-          className="sc-ZyCDH dFaMNd"
+          className="sc-dsQDmV hYIMwI"
         >
           <span
-            className="sc-jOhDuK ggZGXO"
+            className="sc-cZwWEu jUfMgQ"
             onClick={[Function]}
           >
             Niedrig
             <div
-              className="sc-jIAOiI bBqbxc"
+              className="sc-hNKHps kfcmpP"
             >
               <svg
                 height="14px"
@@ -931,12 +931,12 @@ exports[`Storyshots Sidebar Search 1`] = `
             </div>
           </span>
           <span
-            className="sc-jOhDuK ggZGXO"
+            className="sc-cZwWEu jUfMgQ"
             onClick={[Function]}
           >
             Mittel
             <div
-              className="sc-jIAOiI bBqbxc"
+              className="sc-hNKHps kfcmpP"
             >
               <svg
                 height="14px"
@@ -971,12 +971,12 @@ exports[`Storyshots Sidebar Search 1`] = `
             </div>
           </span>
           <span
-            className="sc-jOhDuK ggZGXO"
+            className="sc-cZwWEu jUfMgQ"
             onClick={[Function]}
           >
             Hoch
             <div
-              className="sc-jIAOiI bBqbxc"
+              className="sc-hNKHps kfcmpP"
             >
               <svg
                 height="14px"
@@ -1029,26 +1029,26 @@ exports[`Storyshots Sidebar Search 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Baumalter
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           –
         </span>
       </div>
       <div
-        className="sc-ehmTmK fjiyRS"
+        className="sc-dwLEzm fGsgTt"
       >
         <p
           className="sc-gsnTZi gcvLkj"
@@ -1061,10 +1061,10 @@ exports[`Storyshots Sidebar Search 1`] = `
         />
         <br />
         <div
-          className="sc-gFGZVQ jzaVZp"
+          className="sc-jIAOiI jhCZYv"
         >
           <span
-            className="sc-fbPSWO kaVelb"
+            className="sc-jOhDuK iZtbDH"
           >
             0
              - 
@@ -1072,7 +1072,7 @@ exports[`Storyshots Sidebar Search 1`] = `
              Jahre
           </span>
           <div
-            className="sc-ckMVTt QJhzI"
+            className="sc-ZyCDH eAUfdn"
           >
             <div
               className="rc-slider rc-slider-with-marks"
@@ -1263,39 +1263,39 @@ exports[`Storyshots Sidebar Search 1`] = `
       </div>
     </div>
     <div
-      className="sc-olbas dstSQq"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-hiMGwR fByYFa"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-eKszNL NwbBa"
+          className="sc-fbPSWO ciDVfI"
         >
           Standortsuche
         </div>
         <span
-          className="sc-lbOyJj cIfDmv"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           –
         </span>
       </div>
       <div
-        className="sc-ehmTmK fjiyRS"
+        className="sc-dwLEzm fGsgTt"
       >
         <div
-          className="sc-GVOUr bgrGJN"
+          className="sc-hlnMnd fBVZwV"
         >
           <input
-            className="sc-fXynhf cFHpIv"
+            className="sc-eKBdFk kQqXXR"
             onChange={[Function]}
             placeholder="Adresse"
             type="text"
             value=""
           />
           <ul
-            className="sc-dwLEzm xzMhF"
+            className="sc-bUbCnL jkWmHE"
           />
         </div>
       </div>
@@ -1306,16 +1306,16 @@ exports[`Storyshots Sidebar Search 1`] = `
 
 exports[`Storyshots Sidebar Tree 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-kTvvXX hnIERE"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-eVQfli ieRdjz"
     href="/"
     onClick={[Function]}
   >
     <button
       aria-label="Leiste schließen"
-      className="sc-ciZhAO gYgUjQ"
+      className="sc-jOrMOR ZWxgh"
       onClick={[Function]}
       title="Leiste schließen"
     >
@@ -1332,25 +1332,25 @@ exports[`Storyshots Sidebar Tree 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-dvwKko eytVDY"
   >
     <h2
-      className="sc-jgbSNz hoFYJD"
+      className="sc-hiMGwR kjXvKF"
     >
       Bauminformation
     </h2>
     <div
-      className="sc-grREDI QrgPK"
+      className="sc-evrZIY DmJNa"
     >
       <div
-        className="sc-fvNpTx eLHhMj"
+        className="sc-dFdIVH iDTXMA"
       >
         <img
-          className="sc-fctJkW pOtdc"
+          className="sc-brCFrO bFmgjn"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-HzFiz ggORaz"
+          className="sc-gITdmR fSrrZJ"
         >
           Lade Bauminformation...
         </div>
@@ -1358,7 +1358,7 @@ exports[`Storyshots Sidebar Tree 1`] = `
       </div>
     </div>
     <p
-      className="sc-gsnTZi gcvLkj sc-jQHtVU jzaaQf"
+      className="sc-gsnTZi gcvLkj sc-csvncw gtIvHr"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
@@ -1372,16 +1372,16 @@ exports[`Storyshots Sidebar Tree 1`] = `
 
 exports[`Storyshots Sidebar Tree Loading 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-kTvvXX hnIERE"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-eVQfli ieRdjz"
     href="/"
     onClick={[Function]}
   >
     <button
       aria-label="Leiste schließen"
-      className="sc-ciZhAO gYgUjQ"
+      className="sc-jOrMOR ZWxgh"
       onClick={[Function]}
       title="Leiste schließen"
     >
@@ -1398,25 +1398,25 @@ exports[`Storyshots Sidebar Tree Loading 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-dvwKko eytVDY"
   >
     <h2
-      className="sc-jgbSNz hoFYJD"
+      className="sc-hiMGwR kjXvKF"
     >
       Bauminformation
     </h2>
     <div
-      className="sc-grREDI QrgPK"
+      className="sc-evrZIY DmJNa"
     >
       <div
-        className="sc-fvNpTx eLHhMj"
+        className="sc-dFdIVH iDTXMA"
       >
         <img
-          className="sc-fctJkW pOtdc"
+          className="sc-brCFrO bFmgjn"
           src="/images/icon-trees.svg"
         />
         <div
-          className="sc-HzFiz ggORaz"
+          className="sc-gITdmR fSrrZJ"
         >
           Lade Bauminformation...
         </div>
@@ -1424,7 +1424,7 @@ exports[`Storyshots Sidebar Tree Loading 1`] = `
       </div>
     </div>
     <p
-      className="sc-gsnTZi gcvLkj sc-jQHtVU jzaaQf"
+      className="sc-gsnTZi gcvLkj sc-csvncw gtIvHr"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/impressum/\\">Impressum</a> – <a target=\\"blank\\" href=\\"https://www.technologiestiftung-berlin.de/de/datenschutz/\\">Datenschutz</a>",
