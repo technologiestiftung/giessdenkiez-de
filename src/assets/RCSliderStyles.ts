@@ -32,7 +32,6 @@ export const RCSliderStyles = css`
   }
   .rc-slider-handle {
     position: absolute;
-    margin-left: -7px;
     margin-top: -5px;
     width: 14px;
     height: 14px;

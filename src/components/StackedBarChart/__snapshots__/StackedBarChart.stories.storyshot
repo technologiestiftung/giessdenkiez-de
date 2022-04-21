@@ -16,6 +16,7 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
       className="sc-bPyhqo kLdyHl"
       id="barchart-tooltip"
     >
+      <b />
       <span
         className="sc-fWIMVQ cTTapC"
       >
@@ -29,9 +30,9 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-watered"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
         className="sc-fWIMVQ cTTapC"
@@ -46,9 +47,9 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-rain"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
         className="sc-fWIMVQ cTTapC"
@@ -58,9 +59,9 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
         >
           ∑
         </span>
-        <span
-          id="barchart-tooltip-val-total"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
     </div>
   </div>
@@ -113,6 +114,7 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
       className="sc-bPyhqo kLdyHl"
       id="barchart-tooltip"
     >
+      <b />
       <span
         className="sc-fWIMVQ cTTapC"
       >
@@ -126,9 +128,9 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-watered"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
         className="sc-fWIMVQ cTTapC"
@@ -143,9 +145,9 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-rain"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
         className="sc-fWIMVQ cTTapC"
@@ -155,9 +157,9 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
         >
           ∑
         </span>
-        <span
-          id="barchart-tooltip-val-total"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
     </div>
   </div>
@@ -210,6 +212,7 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
       className="sc-bPyhqo kLdyHl"
       id="barchart-tooltip"
     >
+      <b />
       <span
         className="sc-fWIMVQ cTTapC"
       >
@@ -223,9 +226,9 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-watered"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
         className="sc-fWIMVQ cTTapC"
@@ -240,9 +243,9 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
             }
           />
         </strong>
-        <span
-          id="barchart-tooltip-val-rain"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
       <span
         className="sc-fWIMVQ cTTapC"
@@ -252,9 +255,9 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
         >
           ∑
         </span>
-        <span
-          id="barchart-tooltip-val-total"
-        />
+        <span>
+          0.0l
+        </span>
       </span>
     </div>
   </div>
