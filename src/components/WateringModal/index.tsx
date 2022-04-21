@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useWateringActions } from '../../utils/hooks/useWateringActions';
 import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { Modal } from '../Modal';
+import { DatePickerDialog } from '../DatePickerDialog';
 
 const TwoColumnGrid = styled.div`
   width: 100%;
@@ -37,6 +38,7 @@ export const WateringModal: FC<{
   const { waterTree, isBeingWatered } = useWateringActions(treeId);
 
   const [wateringValue, setWateringValue] = useState(0);
+  const [wateringDate, setWateringDate] = useState(new Date());
   const [error, setError] = useState<string | undefined>(undefined);
 
   const handleWatering = () => {
@@ -49,6 +51,8 @@ export const WateringModal: FC<{
       setError('Eine so große Bewässerung kann nicht eingetragen werden.');
       return;
     }
+    console.log('Watered at:', wateringDate); // TODO: remove this
+
     void waterTree(wateringValue).finally(() => {
       setWateringValue(0);
       setError(undefined);
@@ -59,33 +63,20 @@ export const WateringModal: FC<{
   return (
     <Modal title='Gießung eintragen' isOpen={isOpen} setIsOpen={setIsOpen}>
       <TwoColumnGrid>
-        <div>
-          <NumberInput
-            id='watering-value'
-            label='Wie viele Liter?'
-            max={999}
-            onChange={event => {
-              setWateringValue(Number(event.target.value));
-              console.log(wateringValue);
-            }}
-          />
-        </div>
-
+        <NumberInput
+          id='watering-value'
+          label='Wie viele Liter?'
+          onChange={event => {
+            setWateringValue(Number(event.target.value));
+          }}
+        />
         <div>
           <div style={{ width: '100%' }}>
-            {/* TODO: replace this with proper component */}
-            <label htmlFor='watering-date'>Wann?</label>
-            <br></br>
-            <input
-              type='date'
-              name='watering-date'
-              value='2022-04-20'
+            <DatePickerDialog
               id='watering-date'
-              style={{
-                marginTop: '8px',
-                padding: '10px',
-                color: '#37DE8A',
-              }}
+              label='Wann?'
+              defaultDate={new Date()}
+              onDateChange={date => setWateringDate(date)}
             />
           </div>
         </div>
