@@ -185,7 +185,10 @@ const TreeInfos: FC<{
               </>
             }
           >
-            <UsersWateringsList waterings={waterings} />
+            <UsersWateringsList
+              waterings={waterings}
+              treeId={selectedTreeData.id}
+            />
           </ExpandablePanel>
         )}
 

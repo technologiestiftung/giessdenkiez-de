@@ -2,10 +2,10 @@
 
 exports[`Storyshots Sidebar About 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-hsOonA iqZJKX"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-dUWWNf lbnnX"
     href="/"
     onClick={[Function]}
   >
@@ -28,7 +28,7 @@ exports[`Storyshots Sidebar About 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-caXVBt kPkidA"
   >
     <h2
       className="sc-iNWwEs cqjrHC"
@@ -519,10 +519,10 @@ exports[`Storyshots Sidebar About 1`] = `
 
 exports[`Storyshots Sidebar Profile Loading 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-hsOonA iqZJKX"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-dUWWNf lbnnX"
     href="/"
     onClick={[Function]}
   >
@@ -545,7 +545,7 @@ exports[`Storyshots Sidebar Profile Loading 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-caXVBt kPkidA"
   >
     <h2
       className="sc-iNWwEs cqjrHC"
@@ -585,10 +585,10 @@ exports[`Storyshots Sidebar Profile Loading 1`] = `
 
 exports[`Storyshots Sidebar Profile Logged In No Data 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-hsOonA iqZJKX"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-dUWWNf lbnnX"
     href="/"
     onClick={[Function]}
   >
@@ -611,7 +611,7 @@ exports[`Storyshots Sidebar Profile Logged In No Data 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-caXVBt kPkidA"
   >
     <h2
       className="sc-iNWwEs cqjrHC"
@@ -651,10 +651,10 @@ exports[`Storyshots Sidebar Profile Logged In No Data 1`] = `
 
 exports[`Storyshots Sidebar Profile Logged In With Data 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-hsOonA iqZJKX"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-dUWWNf lbnnX"
     href="/"
     onClick={[Function]}
   >
@@ -677,7 +677,7 @@ exports[`Storyshots Sidebar Profile Logged In With Data 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-caXVBt kPkidA"
   >
     <h2
       className="sc-iNWwEs cqjrHC"
@@ -717,10 +717,10 @@ exports[`Storyshots Sidebar Profile Logged In With Data 1`] = `
 
 exports[`Storyshots Sidebar Profile Logged Out 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-hsOonA iqZJKX"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-dUWWNf lbnnX"
     href="/"
     onClick={[Function]}
   >
@@ -743,7 +743,7 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-caXVBt kPkidA"
   >
     <h2
       className="sc-iNWwEs cqjrHC"
@@ -783,10 +783,10 @@ exports[`Storyshots Sidebar Profile Logged Out 1`] = `
 
 exports[`Storyshots Sidebar Search 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-hsOonA iqZJKX"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-dUWWNf lbnnX"
     href="/"
     onClick={[Function]}
   >
@@ -809,7 +809,7 @@ exports[`Storyshots Sidebar Search 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-caXVBt kPkidA"
   >
     <h2
       className="sc-iNWwEs cqjrHC"
@@ -1306,10 +1306,10 @@ exports[`Storyshots Sidebar Search 1`] = `
 
 exports[`Storyshots Sidebar Tree 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-hsOonA iqZJKX"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-dUWWNf lbnnX"
     href="/"
     onClick={[Function]}
   >
@@ -1332,7 +1332,7 @@ exports[`Storyshots Sidebar Tree 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-caXVBt kPkidA"
   >
     <h2
       className="sc-iNWwEs cqjrHC"
@@ -1372,10 +1372,10 @@ exports[`Storyshots Sidebar Tree 1`] = `
 
 exports[`Storyshots Sidebar Tree Loading 1`] = `
 <div
-  className="sc-gzzPqb bKGUgj"
+  className="sc-hsOonA iqZJKX"
 >
   <a
-    className="sc-fHsOPI gNMBWh"
+    className="sc-dUWWNf lbnnX"
     href="/"
     onClick={[Function]}
   >
@@ -1398,7 +1398,7 @@ exports[`Storyshots Sidebar Tree Loading 1`] = `
     </button>
   </a>
   <div
-    className="sc-gkJlnC Vrzul"
+    className="sc-caXVBt kPkidA"
   >
     <h2
       className="sc-iNWwEs cqjrHC"

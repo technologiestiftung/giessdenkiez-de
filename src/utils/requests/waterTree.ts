@@ -26,6 +26,8 @@ export const waterTree = async ({
       method: 'POST',
       body: JSON.stringify({
         tree_id: id,
+        timestamp: new Date().toISOString(),
+        time: new Date().toISOString(),
         amount,
         uuid: userId,
         username,

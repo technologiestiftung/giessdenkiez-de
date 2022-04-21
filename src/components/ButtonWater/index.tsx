@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
+import { useWateringActions } from '../../utils/hooks/useWateringActions';
 
 import ButtonRound from '../ButtonRound';
 import { ParticipateButton } from '../ParticipateButton';
@@ -8,6 +9,7 @@ import { WateringModal } from '../WateringModal';
 const ButtonWater: FC = () => {
   const treeId = useCurrentTreeId();
   const [wateringIsInitiated, setWateringIsInitiated] = useState(false);
+  const { isBeingWatered, isBeingUnwatered } = useWateringActions(treeId);
 
   if (!treeId) return null;
   return (
@@ -22,6 +24,7 @@ const ButtonWater: FC = () => {
           setWateringIsInitiated(true);
         }}
         type='primary'
+        disabled={isBeingUnwatered || isBeingWatered}
       >
         Ich habe gegossen!
       </ButtonRound>
