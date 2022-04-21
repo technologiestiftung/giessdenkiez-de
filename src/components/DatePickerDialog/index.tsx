@@ -62,7 +62,7 @@ const StyledCalendarButton = styled.button`
 
 const DATE_FORMAT = 'dd-MM-y';
 
-const formatDate = (date: Date) => {
+export const formatDate = (date: Date): string => {
   return format(date, DATE_FORMAT);
 };
 
