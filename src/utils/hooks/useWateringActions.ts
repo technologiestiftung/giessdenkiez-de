@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { waterTree } from '../requests/waterTree';
+import { unwaterTree } from '../requests/unwaterTree';
 import { useAuth0Token } from './useAuth0Token';
 import { useCommunityData } from './useCommunityData';
 import { useTreeData } from './useTreeData';
@@ -9,17 +10,21 @@ export const useWateringActions = (
   treeId: string | null | undefined
 ): {
   waterTree: (amount: number) => Promise<void>;
+  unwaterTree: (wateringId: number) => Promise<void>;
   isBeingWatered: boolean;
+  isBeingUnwatered: boolean;
 } => {
   const token = useAuth0Token();
   const { userData, invalidate: invalidateUserData } = useUserData();
   const { invalidate: invalidateCommunityData } = useCommunityData();
   const { invalidate: invalidateTreeData } = useTreeData(treeId);
   const [isBeingWatered, setIsBeingWatered] = useState<boolean>(false);
+  const [isBeingUnwatered, setIsBeingUnwatered] = useState<boolean>(false);
 
   return {
     isBeingWatered,
-    waterTree: async (amount: number): Promise<void> => {
+    isBeingUnwatered,
+    waterTree: async amount => {
       if (!userData || !token || !treeId) return;
 
       setIsBeingWatered(true);
@@ -31,6 +36,22 @@ export const useWateringActions = (
         username: userData.username,
       });
       setIsBeingWatered(false);
+
+      invalidateUserData();
+      invalidateTreeData();
+      invalidateCommunityData();
+    },
+    unwaterTree: async wateringId => {
+      if (!userData || !token || !treeId || !wateringId) return;
+
+      setIsBeingUnwatered(true);
+      await unwaterTree({
+        id: treeId,
+        token,
+        wateringId,
+        userId: userData.id,
+      });
+      setIsBeingUnwatered(false);
 
       invalidateUserData();
       invalidateTreeData();

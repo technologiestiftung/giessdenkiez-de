@@ -94,7 +94,8 @@ exports[`Storyshots Overlay Legend Story 1`] = `
           className="sc-gXmSlM kNzLvs"
         >
           <div
-            className="sc-bczRLJ hbkUOt"
+            className="sc-bczRLJ ePyREO"
+            disabled={false}
             onClick={[Function]}
             role="button"
             tabIndex={0}
@@ -104,7 +105,8 @@ exports[`Storyshots Overlay Legend Story 1`] = `
             Los geht's
           </div>
           <div
-            className="sc-bczRLJ kcZCrr"
+            className="sc-bczRLJ jvUiMo"
+            disabled={false}
             onClick={[Function]}
             role="button"
             tabIndex={0}

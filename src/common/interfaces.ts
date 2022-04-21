@@ -19,7 +19,7 @@ export interface RawWateringType {
 
 export interface WateringType {
   amount: number;
-  id: string;
+  id: number;
   username: string;
   timestamp: string;
   treeId: string;

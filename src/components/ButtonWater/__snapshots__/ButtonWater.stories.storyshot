@@ -3,7 +3,8 @@
 exports[`Storyshots ButtonWater Button Water Story 1`] = `
 Array [
   <div
-    className="sc-bczRLJ kKZGbD"
+    className="sc-bczRLJ lbCowA"
+    disabled={false}
     onClick={[Function]}
     role="button"
     tabIndex={0}
