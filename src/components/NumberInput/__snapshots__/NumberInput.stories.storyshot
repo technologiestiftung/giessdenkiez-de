@@ -2,7 +2,7 @@
 
 exports[`Storyshots NumberInput Default 1`] = `
 <div
-  className="sc-hKMtZM eTyTYf"
+  className="sc-hKMtZM dMEqTl"
 >
   <label
     className="sc-eCYdqJ fdSRSr"
@@ -11,12 +11,13 @@ exports[`Storyshots NumberInput Default 1`] = `
     My label
   </label>
   <input
-    className="sc-jSMfEi bimgQC"
+    className="sc-jSMfEi jtgLEZ"
     defaultValue={0}
     id="my-id"
     min={0}
     onChange={[Function]}
     placeholder="0"
+    size={1}
     step={1}
     type="number"
   />
