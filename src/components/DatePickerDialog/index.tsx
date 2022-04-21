@@ -112,6 +112,7 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
       setSelected(date);
     } else {
       setSelected(undefined);
+      setInputValue(formatDate(new Date())); // if an invalid date string is provided, we default back to the current day
     }
   };
 
@@ -119,7 +120,8 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
     setIsPopperOpen(true);
   };
 
-  const handleDaySelect = (date: Date) => {
+  const handleDaySelect = (date: Date | undefined) => {
+    if (!date) return;
     setSelected(date);
     if (date) {
       setInputValue(formatDate(date));
