@@ -9,20 +9,18 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
   }
 >
   <div
-    className="sc-yeoIj botgox"
-    id="barchart"
+    className="sc-eEOqmf YHqHt"
   >
     <div
-      className="sc-bPyhqo kLdyHl"
-      id="barchart-tooltip"
+      className="sc-bPyhqo kJAhVc"
     >
       <b />
       <span
-        className="sc-fWIMVQ cTTapC"
+        className="sc-fWIMVQ gZshQa"
       >
         <strong>
           <div
-            className="sc-jGprRt cuTkJx"
+            className="sc-dWINGa dfTzXK"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -35,11 +33,11 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
         </span>
       </span>
       <span
-        className="sc-fWIMVQ cTTapC"
+        className="sc-fWIMVQ gZshQa"
       >
         <strong>
           <div
-            className="sc-jGprRt cuTkJx"
+            className="sc-dWINGa dfTzXK"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -52,7 +50,7 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
         </span>
       </span>
       <span
-        className="sc-fWIMVQ cTTapC"
+        className="sc-fWIMVQ gZshQa"
       >
         <span
           className="sc-ESujJ lfzsTY"
@@ -66,11 +64,11 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
     </div>
   </div>
   <div
-    className="sc-dWINGa jGkBRk"
+    className="sc-jGprRt kWVBmn"
   >
     <div>
       <div
-        className="sc-jGprRt cuTkJx"
+        className="sc-dWINGa dfTzXK"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -83,7 +81,7 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
     </div>
     <div>
       <div
-        className="sc-jGprRt cuTkJx"
+        className="sc-dWINGa dfTzXK"
         style={
           Object {
             "backgroundColor": "#75ADE8",
@@ -107,20 +105,18 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
   }
 >
   <div
-    className="sc-yeoIj botgox"
-    id="barchart"
+    className="sc-eEOqmf YHqHt"
   >
     <div
-      className="sc-bPyhqo kLdyHl"
-      id="barchart-tooltip"
+      className="sc-bPyhqo kJAhVc"
     >
       <b />
       <span
-        className="sc-fWIMVQ cTTapC"
+        className="sc-fWIMVQ gZshQa"
       >
         <strong>
           <div
-            className="sc-jGprRt cuTkJx"
+            className="sc-dWINGa dfTzXK"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -133,11 +129,11 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
         </span>
       </span>
       <span
-        className="sc-fWIMVQ cTTapC"
+        className="sc-fWIMVQ gZshQa"
       >
         <strong>
           <div
-            className="sc-jGprRt cuTkJx"
+            className="sc-dWINGa dfTzXK"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -150,7 +146,7 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
         </span>
       </span>
       <span
-        className="sc-fWIMVQ cTTapC"
+        className="sc-fWIMVQ gZshQa"
       >
         <span
           className="sc-ESujJ lfzsTY"
@@ -164,11 +160,11 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
     </div>
   </div>
   <div
-    className="sc-dWINGa jGkBRk"
+    className="sc-jGprRt kWVBmn"
   >
     <div>
       <div
-        className="sc-jGprRt cuTkJx"
+        className="sc-dWINGa dfTzXK"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -181,7 +177,7 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
     </div>
     <div>
       <div
-        className="sc-jGprRt cuTkJx"
+        className="sc-dWINGa dfTzXK"
         style={
           Object {
             "backgroundColor": "#75ADE8",
@@ -205,20 +201,18 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
   }
 >
   <div
-    className="sc-yeoIj botgox"
-    id="barchart"
+    className="sc-eEOqmf YHqHt"
   >
     <div
-      className="sc-bPyhqo kLdyHl"
-      id="barchart-tooltip"
+      className="sc-bPyhqo kJAhVc"
     >
       <b />
       <span
-        className="sc-fWIMVQ cTTapC"
+        className="sc-fWIMVQ gZshQa"
       >
         <strong>
           <div
-            className="sc-jGprRt cuTkJx"
+            className="sc-dWINGa dfTzXK"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -231,11 +225,11 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
         </span>
       </span>
       <span
-        className="sc-fWIMVQ cTTapC"
+        className="sc-fWIMVQ gZshQa"
       >
         <strong>
           <div
-            className="sc-jGprRt cuTkJx"
+            className="sc-dWINGa dfTzXK"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -248,7 +242,7 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
         </span>
       </span>
       <span
-        className="sc-fWIMVQ cTTapC"
+        className="sc-fWIMVQ gZshQa"
       >
         <span
           className="sc-ESujJ lfzsTY"
@@ -262,11 +256,11 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
     </div>
   </div>
   <div
-    className="sc-dWINGa jGkBRk"
+    className="sc-jGprRt kWVBmn"
   >
     <div>
       <div
-        className="sc-jGprRt cuTkJx"
+        className="sc-dWINGa dfTzXK"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -279,7 +273,7 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
     </div>
     <div>
       <div
-        className="sc-jGprRt cuTkJx"
+        className="sc-dWINGa dfTzXK"
         style={
           Object {
             "backgroundColor": "#75ADE8",
