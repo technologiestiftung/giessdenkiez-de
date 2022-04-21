@@ -2,7 +2,6 @@ import styledNormalize from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components';
 import { RCSliderStyles } from './RCSliderStyles';
 import { MapboxStyleOverrides } from './MapboxStyleOverrides';
-import 'react-day-picker/dist/style.css';
 
 export default createGlobalStyle`
   ${styledNormalize}
