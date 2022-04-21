@@ -4,8 +4,8 @@ import StackedBarChart from '.';
 
 const today = new Date('2020-06-01T00:00:00.000Z');
 const arrayOf30 = [...Array(30)].map((_, idx) => idx + 1);
-const waterings = arrayOf30.map(val => ({
-  id: 'abc',
+const waterings = arrayOf30.map((val, idx) => ({
+  id: idx,
   treeId: 'abc',
   uuid: 'def',
   amount: val,
