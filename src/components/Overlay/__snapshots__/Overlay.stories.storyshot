@@ -123,7 +123,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
             className="sc-ivTmOn hxIYEP"
             dangerouslySetInnerHTML={
               Object {
-                "__html": "Hurray, das neue Baumkataster ist live!",
+                "__html": "Hurray, das Baumkataster 2022 ist live!",
               }
             }
             size="xl"
@@ -136,7 +136,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
               className="sc-gicCDI fEBvhc sc-ezWOiH boGtFV"
               dangerouslySetInnerHTML={
                 Object {
-                  "__html": "Auf Gieß den Kiez werden nun <strong>120.000 zusätzliche Stadtbäume</strong> angezeigt. Im Juni 2021 wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 120.000 Bäume mehr listet als das Baumkataster auf dem Jahr 2020. Dabei liegt die Anzahl der in 2020 gepflanzten Bäume nicht überdurchschnittlich hoch.",
+                  "__html": "Auf Gieß den Kiez werden nun über <strong>800.000 Stadtbäume</strong> angezeigt. Im Februar wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 50.000 Bäume mehr listet als das Baumkataster auf dem Jahr 2021. Wir wünschen Euch ein fröhliches Gießen!",
                 }
               }
               onClick={[Function]}
@@ -145,7 +145,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
               className="sc-gicCDI fEBvhc sc-ezWOiH boGtFV"
               dangerouslySetInnerHTML={
                 Object {
-                  "__html": "Der Zuwachs ist vielmehr auf die vorbildliche Arbeit der bezirklichen Straßen- und Grünflächenämter zurückzuführen, die die Koordinaten weiterer Bäume erfasst haben. Von den rund 430.000 Straßenbäumen Berlins verfügen jetzt rund 404.000 über Koordinaten – das sind fast <strong>94% aller Straßenbäume</strong>.",
+                  "__html": "Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.",
                 }
               }
               onClick={[Function]}
