@@ -61,20 +61,24 @@ const StyledCalendarButton = styled.button`
   }
 `;
 
+const DATE_FORMAT = 'dd-MM-y';
+
 const formatDate = (date: Date) => {
-  return format(date, 'dd-MM-y');
+  return format(date, DATE_FORMAT);
 };
 
 export interface DatePickerDialogType {
   id: string;
   label: string;
   defaultDate?: Date;
+  onDateChange: (val: Date) => void;
 }
 
 export const DatePickerDialog: FC<DatePickerDialogType> = ({
   id,
   label,
   defaultDate,
+  onDateChange = () => undefined,
 }) => {
   const [selected, setSelected] = useState<Date | undefined>(defaultDate);
   const [inputValue, setInputValue] = useState<string>('');
@@ -89,7 +93,8 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
   useEffect(() => {
     if (!selected) return;
     setInputValue(formatDate(selected));
-  }, [selected]);
+    onDateChange(selected);
+  }, [selected, onDateChange]);
 
   const popper = usePopper(popperRef.current, popperElement, {
     placement: 'bottom-start',
@@ -102,7 +107,7 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = e => {
     setInputValue(e.currentTarget.value);
-    const date = parse(e.currentTarget.value, 'dd-MM-y', new Date());
+    const date = parse(e.currentTarget.value, DATE_FORMAT, new Date());
     if (isValid(date)) {
       setSelected(date);
     } else {
@@ -134,7 +139,6 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
             type='text'
             size={1}
             value={inputValue}
-            defaultValue={defaultDate && formatDate(defaultDate)}
             onChange={handleInputChange}
           />
           <StyledCalendarButton
