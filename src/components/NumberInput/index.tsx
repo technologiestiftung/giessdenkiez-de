@@ -2,7 +2,8 @@ import React, { ChangeEvent, FC } from 'react';
 import styled from 'styled-components';
 
 const NumberInputContainer = styled.div`
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr;
   width: 100%;
 `;
 
@@ -16,7 +17,7 @@ const StyledInput = styled.input`
   margin-top: 8px;
   border-radius: 4px;
   border: 1px solid ${p => p.theme.colorTextMedium};
-  color: ${p => p.theme.colorPrimary};
+  color: ${p => p.theme.colorTextDark};
   &::selection {
     background: ${p => p.theme.colorPrimary};
     color: white;
@@ -56,6 +57,7 @@ export const NumberInput: FC<NumberInputType> = ({
         min={min}
         max={max}
         step={step}
+        size={1}
         defaultValue={min}
         placeholder={placeholder}
       />
