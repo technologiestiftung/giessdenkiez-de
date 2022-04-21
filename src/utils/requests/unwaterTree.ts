@@ -14,11 +14,11 @@ export const unwaterTree: UnwaterTreeSignature = async ({
   userId,
   wateringId,
 }) => {
-  const urlUnadopt = createAPIUrl(
+  const urlUnwater = createAPIUrl(
     `/delete?tree_id=${id}&watering_id=${wateringId}&uuid=${userId}&queryType=unwater`
   );
 
-  await requests(urlUnadopt, {
+  await requests(urlUnwater, {
     token,
     override: {
       method: 'DELETE',
