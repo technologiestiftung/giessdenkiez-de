@@ -43,8 +43,8 @@ export const WateringModal: FC<{
 
   const handleWatering = async () => {
     if (isBeingWatered) return;
-    if (wateringValue === 0) {
-      setError('Bitte gib an, wie viele Liter Du gegossen hast.');
+    if (wateringValue <= 0) {
+      setError('Bitte gieße mindestens 1 Liter.');
       return;
     }
     if (wateringValue >= 1000) {
