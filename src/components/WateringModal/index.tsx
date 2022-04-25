@@ -51,6 +51,10 @@ export const WateringModal: FC<{
       setError('Bitte gieße mindestens 1 Liter.');
       return;
     }
+    if (!Number.isInteger(wateringValue)) {
+      setError('Bitte gib eine volle Literzahl an.');
+      return;
+    }
     if (wateringValue >= 1000) {
       setError('Eine so große Bewässerung kann nicht eingetragen werden.');
       return;
