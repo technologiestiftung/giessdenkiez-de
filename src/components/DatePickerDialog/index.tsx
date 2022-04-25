@@ -10,7 +10,7 @@ import { format, isValid, parse } from 'date-fns';
 import FocusTrap from 'focus-trap-react';
 import { DayPicker } from 'react-day-picker';
 import { usePopper } from 'react-popper';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 const iconCalendar = '/images/calendar.svg';
 
 import de from 'date-fns/locale/de';
@@ -88,6 +88,7 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
     null
   );
+  const theme = useTheme();
 
   useEffect(() => {
     if (!selected) return;
@@ -183,19 +184,28 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
                 root: {
                   backgroundColor: 'white',
                   transform: 'none',
-                  border: '1px solid #D9D9D9',
+                  // TODO: Type the theme object from useTheme:
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  border: `1px solid ${theme.colorTextMedium}`,
                   borderRadius: '4px',
                   margin: 0,
                   marginTop: '4px',
                   padding: '10px',
                 },
                 caption: {
-                  color: '#37DE8A',
+                  // TODO: Type the theme object from useTheme:
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  color: theme.colorPrimary,
                 },
               }}
               modifiersStyles={{
                 selected: {
-                  backgroundColor: '#37DE8A',
+                  // TODO: Type the theme object from useTheme:
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  backgroundColor: theme.colorPrimary,
                   borderColor: 'transparent',
                 },
               }}
