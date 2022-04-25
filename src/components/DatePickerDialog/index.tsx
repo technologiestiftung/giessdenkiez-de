@@ -50,7 +50,7 @@ const StyledCalendarButton = styled.button`
   border: 1px solid ${p => p.theme.colorTextMedium};
   background: white;
   cursor: pointer;
-  line-height: 1.15;
+  line-height: 1;
   &:hover {
     background: ${p => p.theme.colorLightGrey};
   }
@@ -150,7 +150,7 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
             onClick={handleButtonClick}
           >
             <span aria-hidden={true}>
-              <img src={iconCalendar} width={24} height={24} />
+              <img src={iconCalendar} width={20} height={20} />
             </span>
           </StyledCalendarButton>
         </div>
