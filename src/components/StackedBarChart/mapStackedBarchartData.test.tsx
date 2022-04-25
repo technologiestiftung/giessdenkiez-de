@@ -62,17 +62,17 @@ describe('mapStackedBarchartData -> xAxisLabels', () => {
         Object {
           "id": "2020-05-27",
           "label": "27. May.",
-          "x": 248,
+          "x": 249,
         },
         Object {
           "id": "2020-05-17",
           "label": "17. May.",
-          "x": 153,
+          "x": 155,
         },
         Object {
           "id": "2020-05-07",
           "label": "07. May.",
-          "x": 58,
+          "x": 62,
         },
       ]
     `);
