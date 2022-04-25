@@ -25,9 +25,13 @@ const ButtonsContainer = styled.div`
 `;
 
 const StyledError = styled.p`
-  grid-column: 1 / 3;
+  grid-column: 1 / 2;
   color: ${p => p.theme.colorAlarm};
   margin: 0;
+
+  @media (min-width: ${p => p.theme.screenWidthS}) {
+    grid-column: 1 / 3;
+  }
 `;
 
 export const WateringModal: FC<{
@@ -45,6 +49,10 @@ export const WateringModal: FC<{
     if (isBeingWatered) return;
     if (wateringValue <= 0) {
       setError('Bitte gieße mindestens 1 Liter.');
+      return;
+    }
+    if (!Number.isInteger(wateringValue)) {
+      setError('Bitte gib eine volle Literzahl an.');
       return;
     }
     if (wateringValue >= 1000) {
