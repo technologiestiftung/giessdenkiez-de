@@ -31,6 +31,10 @@ const DialogWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+
+  @media screen and (max-height: 700px) {
+    align-items: flex-start;
+  }
 `;
 
 export interface ModalType extends HTMLProps<HTMLDivElement> {
