@@ -408,7 +408,7 @@ exports[`Storyshots Sidebar About 1`] = `
           Warum werden nicht alle Bäume Berlins angezeigt?
         </div>
         <span
-          className="sc-iNWwEs fXwNLO"
+          className="sc-TRNrF VcGwz"
           onClick={[Function]}
         >
           +
@@ -416,14 +416,14 @@ exports[`Storyshots Sidebar About 1`] = `
       </div>
     </div>
     <div
-      className="sc-jgbSNz ciqIet"
+      className="sc-GVOUr bDhXms"
     >
       <div
-        className="sc-gSAPjG dbLgng"
+        className="sc-fXynhf eMXIET"
         onClick={[Function]}
       >
         <div
-          className="sc-hTtwUo bGFLzO"
+          className="sc-fbPSWO ciDVfI"
         >
           I don’t speak any German: What’s going on here?
         </div>
