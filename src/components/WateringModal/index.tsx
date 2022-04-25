@@ -41,7 +41,7 @@ export const WateringModal: FC<{
   const [wateringDate, setWateringDate] = useState(new Date());
   const [error, setError] = useState<string | undefined>(undefined);
 
-  const handleWatering = () => {
+  const handleWatering = async () => {
     if (isBeingWatered) return;
     if (wateringValue === 0) {
       setError('Bitte gib an, wie viele Liter Du gegossen hast.');
@@ -52,14 +52,17 @@ export const WateringModal: FC<{
       return;
     }
 
-    // NOTE: We force the watering date to be in the afternoon instead of at 00:00:00 to avoid involutary date changes:
+    // NOTE: We force the watering date to be in the afternoon instead of at 00:00:00 to avoid involuntary date changes:
     const wateringDateAfternoon = new Date(wateringDate.setHours(15));
 
-    void waterTree(wateringValue, wateringDateAfternoon).finally(() => {
+    try {
+      await waterTree(wateringValue, wateringDateAfternoon);
       setWateringValue(0);
       setError(undefined);
       setIsOpen(false);
-    });
+    } catch (error: unknown) {
+      setError((error as Error).message);
+    }
   };
 
   return (
