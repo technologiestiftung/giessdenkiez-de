@@ -85,7 +85,7 @@ ProfileLoggedInNoData.args = {
 
 const watering = {
   amount: 10,
-  id: 'wfewf',
+  id: 1,
   username: 'bob',
   timestamp: new Date().toISOString(),
   treeId: '2c303b',

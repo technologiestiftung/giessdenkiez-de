@@ -8,7 +8,6 @@ interface Payload {
 
 interface WateredTree {
   tree_id: string;
-  time: string;
   uuid: string;
   amount: string;
   timestamp: string;
@@ -108,8 +107,7 @@ export const handlers = [
       case 'water': {
         treesWatered.push({
           tree_id: getProperty(body, 'tree_id'),
-          time: new Date().toLocaleString(),
-          timestamp: new Date().toLocaleString(),
+          timestamp: new Date().toISOString(),
           uuid: getProperty(body, 'uuid'),
           username: getProperty(body, 'username'),
           amount: body.amount ? body.amount : 0,
