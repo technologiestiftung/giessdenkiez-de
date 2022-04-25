@@ -9,7 +9,7 @@ import { useUserData } from './useUserData';
 export const useWateringActions = (
   treeId: string | null | undefined
 ): {
-  waterTree: (amount: number) => Promise<void>;
+  waterTree: (amount: number, timestamp: Date) => Promise<void>;
   unwaterTree: (wateringId: number) => Promise<void>;
   isBeingWatered: boolean;
   isBeingUnwatered: boolean;
@@ -24,14 +24,14 @@ export const useWateringActions = (
   return {
     isBeingWatered,
     isBeingUnwatered,
-    waterTree: async amount => {
-      if (!userData || !token || !treeId) return;
-
+    waterTree: async (amount: number, timestamp: Date): Promise<void> => {
+      if (!userData || !token || !treeId || !timestamp) return;
       setIsBeingWatered(true);
       await waterTree({
         id: treeId,
         token,
         amount,
+        timestamp,
         userId: userData.id,
         username: userData.username,
       });
