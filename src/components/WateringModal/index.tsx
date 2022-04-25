@@ -25,9 +25,13 @@ const ButtonsContainer = styled.div`
 `;
 
 const StyledError = styled.p`
-  grid-column: 1 / 3;
+  grid-column: 1 / 2;
   color: ${p => p.theme.colorAlarm};
   margin: 0;
+
+  @media (min-width: ${p => p.theme.screenWidthS}) {
+    grid-column: 1 / 3;
+  }
 `;
 
 export const WateringModal: FC<{
