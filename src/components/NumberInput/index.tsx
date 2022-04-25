@@ -60,6 +60,8 @@ export const NumberInput: FC<NumberInputType> = ({
         size={1}
         defaultValue={min}
         placeholder={placeholder}
+        pattern='[0-9]*'
+        inputMode='numeric'
       />
     </NumberInputContainer>
   );
