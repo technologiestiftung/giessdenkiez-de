@@ -9,18 +9,18 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
   }
 >
   <div
-    className="sc-dWINGa fxXhrn"
+    className="sc-hjriPb jlsfKQ"
   >
     <div
-      className="sc-eGAhfa cvQCxd"
+      className="sc-jmNpzm KvuWn"
     >
       <b />
       <span
-        className="sc-hAsxaJ hiidxN"
+        className="sc-dUWWNf dZkLqJ"
       >
         <strong>
           <div
-            className="sc-tsFYE dMXkPZ"
+            className="sc-fmRtwQ evygYP"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -33,11 +33,11 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
         </span>
       </span>
       <span
-        className="sc-hAsxaJ hiidxN"
+        className="sc-dUWWNf dZkLqJ"
       >
         <strong>
           <div
-            className="sc-tsFYE dMXkPZ"
+            className="sc-fmRtwQ evygYP"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -50,10 +50,10 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
         </span>
       </span>
       <span
-        className="sc-hAsxaJ hiidxN"
+        className="sc-dUWWNf dZkLqJ"
       >
         <span
-          className="sc-kYWVYA hPJmxs"
+          className="sc-hsOonA gdmpcj"
         >
           ∑
         </span>
@@ -64,11 +64,11 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
     </div>
   </div>
   <div
-    className="sc-bhVIhj hUsvjp"
+    className="sc-lkwKjF knUBAB"
   >
     <div>
       <div
-        className="sc-tsFYE dMXkPZ"
+        className="sc-fmRtwQ evygYP"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -81,7 +81,7 @@ exports[`Storyshots StackedBarChart Bar Chart 1`] = `
     </div>
     <div>
       <div
-        className="sc-tsFYE dMXkPZ"
+        className="sc-fmRtwQ evygYP"
         style={
           Object {
             "backgroundColor": "#75ADE8",
@@ -105,18 +105,18 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
   }
 >
   <div
-    className="sc-dWINGa fxXhrn"
+    className="sc-hjriPb jlsfKQ"
   >
     <div
-      className="sc-eGAhfa cvQCxd"
+      className="sc-jmNpzm KvuWn"
     >
       <b />
       <span
-        className="sc-hAsxaJ hiidxN"
+        className="sc-dUWWNf dZkLqJ"
       >
         <strong>
           <div
-            className="sc-tsFYE dMXkPZ"
+            className="sc-fmRtwQ evygYP"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -129,11 +129,11 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
         </span>
       </span>
       <span
-        className="sc-hAsxaJ hiidxN"
+        className="sc-dUWWNf dZkLqJ"
       >
         <strong>
           <div
-            className="sc-tsFYE dMXkPZ"
+            className="sc-fmRtwQ evygYP"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -146,10 +146,10 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
         </span>
       </span>
       <span
-        className="sc-hAsxaJ hiidxN"
+        className="sc-dUWWNf dZkLqJ"
       >
         <span
-          className="sc-kYWVYA hPJmxs"
+          className="sc-hsOonA gdmpcj"
         >
           ∑
         </span>
@@ -160,11 +160,11 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
     </div>
   </div>
   <div
-    className="sc-bhVIhj hUsvjp"
+    className="sc-lkwKjF knUBAB"
   >
     <div>
       <div
-        className="sc-tsFYE dMXkPZ"
+        className="sc-fmRtwQ evygYP"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -177,7 +177,7 @@ exports[`Storyshots StackedBarChart Bar Chart February 1`] = `
     </div>
     <div>
       <div
-        className="sc-tsFYE dMXkPZ"
+        className="sc-fmRtwQ evygYP"
         style={
           Object {
             "backgroundColor": "#75ADE8",
@@ -201,18 +201,18 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
   }
 >
   <div
-    className="sc-dWINGa fxXhrn"
+    className="sc-hjriPb jlsfKQ"
   >
     <div
-      className="sc-eGAhfa cvQCxd"
+      className="sc-jmNpzm KvuWn"
     >
       <b />
       <span
-        className="sc-hAsxaJ hiidxN"
+        className="sc-dUWWNf dZkLqJ"
       >
         <strong>
           <div
-            className="sc-tsFYE dMXkPZ"
+            className="sc-fmRtwQ evygYP"
             style={
               Object {
                 "backgroundColor": "#8B77F7",
@@ -225,11 +225,11 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
         </span>
       </span>
       <span
-        className="sc-hAsxaJ hiidxN"
+        className="sc-dUWWNf dZkLqJ"
       >
         <strong>
           <div
-            className="sc-tsFYE dMXkPZ"
+            className="sc-fmRtwQ evygYP"
             style={
               Object {
                 "backgroundColor": "#75ADE8",
@@ -242,10 +242,10 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
         </span>
       </span>
       <span
-        className="sc-hAsxaJ hiidxN"
+        className="sc-dUWWNf dZkLqJ"
       >
         <span
-          className="sc-kYWVYA hPJmxs"
+          className="sc-hsOonA gdmpcj"
         >
           ∑
         </span>
@@ -256,11 +256,11 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
     </div>
   </div>
   <div
-    className="sc-bhVIhj hUsvjp"
+    className="sc-lkwKjF knUBAB"
   >
     <div>
       <div
-        className="sc-tsFYE dMXkPZ"
+        className="sc-fmRtwQ evygYP"
         style={
           Object {
             "backgroundColor": "#8B77F7",
@@ -273,7 +273,7 @@ exports[`Storyshots StackedBarChart Bar Chart New Year 1`] = `
     </div>
     <div>
       <div
-        className="sc-tsFYE dMXkPZ"
+        className="sc-fmRtwQ evygYP"
         style={
           Object {
             "backgroundColor": "#75ADE8",
