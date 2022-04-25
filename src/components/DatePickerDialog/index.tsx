@@ -11,7 +11,7 @@ import FocusTrap from 'focus-trap-react';
 import { DayPicker } from 'react-day-picker';
 import { usePopper } from 'react-popper';
 import styled from 'styled-components';
-import CalendarToday from '@material-ui/icons/CalendarToday';
+const iconCalendar = '/images/calendar.svg';
 
 import de from 'date-fns/locale/de';
 
@@ -149,7 +149,7 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
             onClick={handleButtonClick}
           >
             <span aria-hidden={true}>
-              <CalendarToday fontSize='inherit' htmlColor='#37DE8A' />
+              <img src={iconCalendar} width={24} height={24} />
             </span>
           </StyledCalendarButton>
         </div>
