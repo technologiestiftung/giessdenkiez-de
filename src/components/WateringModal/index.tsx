@@ -6,6 +6,7 @@ import { useWateringActions } from '../../utils/hooks/useWateringActions';
 import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { Modal } from '../Modal';
 import { DatePickerDialog } from '../DatePickerDialog';
+import { subMonths, endOfDay } from 'date-fns';
 
 const TwoColumnGrid = styled.div`
   width: 100%;
@@ -34,6 +35,9 @@ const StyledError = styled.p`
   }
 `;
 
+const SIX_MONTHS_AGO = subMonths(new Date(), 6);
+const END_OF_TODAY = endOfDay(new Date());
+
 export const WateringModal: FC<{
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
@@ -47,6 +51,16 @@ export const WateringModal: FC<{
 
   const handleWatering = async () => {
     if (isBeingWatered) return;
+    if (wateringDate < SIX_MONTHS_AGO) {
+      setError(
+        'Das Gießdatum kann maximal 6 Monate in der Vergangenheit liegen.'
+      );
+      return;
+    }
+    if (wateringDate > END_OF_TODAY) {
+      setError('Das Gießdatum kann nicht in der Zukunft liegen.');
+      return;
+    }
     if (wateringValue <= 0) {
       setError('Bitte gieße mindestens 1 Liter.');
       return;
