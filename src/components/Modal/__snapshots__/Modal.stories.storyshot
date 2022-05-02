@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Modal Default 1`] = `
+<div
+  style={
+    Object {
+      "height": "100vh",
+      "position": "relative",
+      "width": "100vw",
+    }
+  }
+>
+  <div
+    aria-labelledby="headlessui-dialog-title-4"
+    aria-modal={true}
+    id="headlessui-dialog-2"
+    onClick={[Function]}
+    role="dialog"
+    style={
+      Object {
+        "height": "100vh",
+        "left": 0,
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999999,
+      }
+    }
+  >
+    <div
+      className="sc-papXJ hwtKNF"
+    >
+      <div
+        aria-hidden={true}
+        className="sc-gKXOVf dnSDwR"
+        id="headlessui-dialog-overlay-3"
+        onClick={[Function]}
+      />
+      <div
+        className="sc-ftvSup kPHZFe"
+      >
+        <h2
+          className="sc-iBkjds fpSVXH"
+          id="headlessui-dialog-title-4"
+        >
+          This is a modal title
+        </h2>
+        <div>
+          <p>
+            I am modal content
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

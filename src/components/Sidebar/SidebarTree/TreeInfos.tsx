@@ -118,6 +118,13 @@ const TreeInfos: FC<{
       ? new Date().getFullYear() - parseInt(pflanzjahr, 10)
       : undefined;
 
+  const currentDate = new Date();
+  const todayAt3pm = new Date(new Date().setHours(15));
+  /*
+    We force the bar chart date to be 15:00 today, so that the new timestamped waterings (which are all at 15:00) will be displayed immediately. After 15:00 we can use the current time again.
+  */
+  const barChartDate = currentDate < todayAt3pm ? todayAt3pm : currentDate;
+
   return (
     <Wrapper>
       <FlexColumnDiv>
@@ -173,7 +180,11 @@ const TreeInfos: FC<{
           }
           isExpanded
         >
-          <StackedBarChart selectedTreeData={selectedTreeData} />
+          <StackedBarChart
+            selectedTreeData={selectedTreeData}
+            // We set the date here to 15:00 because all waterings from now on will have a timestamp of 15:00.
+            date={barChartDate}
+          />
         </ExpandablePanel>
         {Array.isArray(waterings) && waterings.length > 0 && (
           <ExpandablePanel
@@ -185,7 +196,10 @@ const TreeInfos: FC<{
               </>
             }
           >
-            <UsersWateringsList waterings={waterings} />
+            <UsersWateringsList
+              waterings={waterings}
+              treeId={selectedTreeData.id}
+            />
           </ExpandablePanel>
         )}
 
