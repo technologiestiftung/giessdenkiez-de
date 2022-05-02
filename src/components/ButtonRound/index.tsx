@@ -6,16 +6,22 @@ interface StyledButtonProps {
   type?: string;
   margin?: string;
   fontSize?: string;
+  disabled?: boolean;
 }
 const StyledButton = styled.div<StyledButtonProps>`
   width: ${p => (p.width !== undefined ? p.width : '-webkit-fill-available')};
   border-radius: 100px;
-  background-color: ${p => (p.type === 'primary' ? '#F7FFFA' : '#FFFFFF')};
+  background-color: ${p =>
+    p.disabled
+      ? p.theme.colorLightGrey
+      : p.type === 'primary'
+      ? '#F7FFFA'
+      : '#FFFFFF'};
   padding: 12px 15px 12px 15px;
   height: fit-content;
   margin-bottom: ${p => p.margin};
   text-align: center;
-  cursor: pointer;
+  cursor: ${p => (p.disabled ? 'default' : 'pointer')};
   font-size: ${p => (p.fontSize ? p.fontSize : p.theme.fontSizeLl)};
   border: 1px solid
     ${p => {
@@ -27,6 +33,9 @@ const StyledButton = styled.div<StyledButtonProps>`
       }
     }};
   color: ${p => {
+    if (p.disabled) {
+      return p.theme.colorTextLight;
+    }
     if (p.type === 'primary') {
       return p.theme.colorPrimary;
     }
@@ -64,6 +73,7 @@ const ButtonRound: FC<{
   width?: string;
   fontSize?: string;
   margin?: string;
+  disabled?: boolean;
 }> = ({
   type,
   children,
@@ -71,6 +81,7 @@ const ButtonRound: FC<{
   width,
   fontSize,
   margin = '0px',
+  disabled = false,
 }) => (
   <StyledButton
     fontSize={fontSize}
@@ -78,6 +89,7 @@ const ButtonRound: FC<{
     width={width}
     onClick={onClick}
     type={type}
+    disabled={disabled}
     role={'button'}
     tabIndex={0}
   >

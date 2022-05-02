@@ -60,45 +60,44 @@ const content: Content = {
       {
         question: 'Wie kann ich mitmachen?',
         answer:
-          'Du bist einfach nur neugierig welcher Baum vor deiner Tür steht? Kein Problem: navigiere und zoome zum gewünschten Standort und klicke auf den farbigen Punkt. Nun werden dir im Menüband links zahlreiche Informationen zum ausgewählten Baum angezeigt. <br> <br> Du möchtest aktiv werden oder bist breits aktiv am Gießen? Dann kannst du hier einen oder mehrere Bäume adoptieren. Lege dazu zunächst ein Profil mit einer gültigen Email-Adresse an und logge dich im Anschluss ein. Nun kannst du deine Gieß-Aktionen entsprechend dokumentieren und sehen ob und wie oft Bäume in deinem Kiez bereits von anderen Nutzer*innen gegossen wurden.',
+          'Informieren: <br><br>Neugierig, welcher Baum vor deiner Tür steht? Unsere interaktive Karte visualisiert über 800.000 Straßen- und Anlagenbäume Berlins. Wenn du mehr über einen Baum erfahren willst, navigiere und zoome dich zum gewünschten Standort und klicke auf den farbigen Punkt. Nun werden dir im Menüband links zahlreiche Informationen zum ausgewählten Baum angezeigt. <br><br>Bäume bewässern und adoptieren: <br><br>Du möchtest aktiv werden oder bist bereits aktiv am Gießen? Auf Gieß den Kiez kannst du eintragen, ob und mit wie viel Wasser du einen Baum gegossen hast. Bäume können auch adoptiert werden. Die adoptierten Bäume erscheinen im eigenen Nutzerprofil und können schneller wiedergefunden werden. So können andere Nachbarn in der Umgebung sehen, welche Bäume ihre Aufmerksamkeit benötigen. Um Bäume zu bewässern und zu adoptieren, lege dazu zunächst ein Profil mit einer gültigen Email-Adresse an und logge dich im Anschluss ein. Nun kannst du deine Gieß-Aktionen entsprechend dokumentieren und sehen, ob und wie oft Bäume in deinem Kiez bereits von anderen Nutzer:innen gegossen wurden. <br><br>Vernetzen: <br><br>Über unseren öffentlichen <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack Channel</a> kannst du dich mit anderen Gießer:innen austauschen und defekte Pumpen in deinem Kiez melden.',
       },
       {
         question:
           'Was kann ich tun, wenn Bäume nicht richtig eingetragen sind?',
         answer:
-          'Wir beziehen den Baum-Datensatz mit allen Attributen wie bspw. Adresse, Baumart und Pflanzjahr je Baum aus dem Geoportal der Stadt Berlin, dem FIS-Broker. Die im Geoportal bereitgestellten Daten basieren wiederum auf den bezirklich aggregierten Daten der Straßen- und Grünflächenämter. Es kann daher immer wieder vorkommen, dass Daten von Bäumen veraltet sind oder Eigenschaften der tagesaktuellen Realität abweichen. <br><br> Wir arbeiten bereits an einer Idee, damit Bürger*innen Informationen zu Bäumen in Zukunft selbst melden können. Aktuell jedoch gibt es keinen solchen Meldedialog. Etwaige Abweichungen können direkt bei der zuständigen bezirklichen Behörde gemeldet werden.',
+          'Wir beziehen den Baum-Datensatz mit allen Attributen wie bspw. Adresse, Baumart und Pflanzjahr je Baum aus dem Geoportal der Stadt Berlin, dem FIS-Broker. Das im Geoportal bereitgestellte Baumkataster basiert wiederum auf den bezirklich aggregierten Daten der Straßen- und Grünflächenämter. Es kann daher immer wieder vorkommen, dass Daten von Bäumen veraltet sind oder Eigenschaften der tagesaktuellen Realität abweichen. Leider können wir selbst keine Änderungen im Baumkataster vornehmen. Etwaige Abweichungen können nur direkt bei der zuständigen bezirklichen Behörde gemeldet werden. Einmal im Jahr veröffentlichen die Grünflächenämter aber ein aktualisiertes Baumkataster, das wir nach Veröffentlichung mit Gieß den Kiez verknüpfen.',
       },
       {
         question: 'Warum sollte ich aktiv werden und Bäume gießen?',
         answer:
-          'Die langanhaltenden Dürre- und Hitzeperioden der letzten zwei Jahre haben dem Stadtgrün Berlins immens zugesetzt. Wenngleich nicht nur auf Trockenschäden zurückzuführen, mussten allein in diesem Zeitraum über 7.000 Bäume gefällt werden. <br><br> Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit dem Gießen nicht hinterher. Da die Grünflächenämter bezirklich organisiert sind, arbeitet jeder Bezirk etwas anders, sodass eine ganzheitliche und bedarfsgerechte Koordination durchaus mit Hürden verbunden ist. Durch die Plattform möchten wir auch Bürger*innen die Möglichkeit geben, Bäumen gezielt auf Grundlage deren aktuellen Wasserversorgung zu helfen. Ziel ist es, möglichst viele Bäume durch nachbarschaftliches Engagement zu retten.',
+          'Die langanhaltenden Dürre- und Hitzeperioden der letzten zwei Jahre haben dem Stadtgrün Berlins immens zugesetzt. Wenngleich nicht nur auf Trockenschäden zurückzuführen, mussten allein im Zeitraum zwischen 2018 und 2019 über 7.000 Bäume gefällt werden. <br><br>Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit dem Gießen während Berliner Hitze-Sommern nicht hinterher. Da die Grünflächenämter bezirklich organisiert sind, arbeitet jeder Bezirk etwas anders, sodass eine ganzheitliche und bedarfsgerechte Koordination durchaus mit Hürden verbunden ist. Durch die Plattform möchten wir auch Bürger:innen die Möglichkeit geben, Bäumen gezielt auf Grundlage ihrer aktuellen Wasserversorgung zu helfen und sich zu informieren. Ziel ist es, möglichst viele Bäume durch nachbarschaftliches Engagement zu retten.',
       },
       {
         question: 'Wie gieße ich richtig?',
         answer:
-          'Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Jungbäume <br> (0-15 Jahre), benötigen mehr Wasser als mittelalte Bäume (15-40 Jahre). Altbäume (ab 40 Jahre) sind meist komplette Selbstversorger. <br>Da frisch gepflanzte Bäume bis zum Alter von drei Jahren in der Regel von den bezirklichen Grünflächenämtern mit Wasser versorgt werden, benötigen besonders die Bäume zwischen vier und 15 Jahren unsere Aufmerksamkeit, beziehungsweise unser Wasser. Dies haben wir mit den Kennzeichungen des geringen, mittleren oder hohen Wasserbedarfs hervorgehoben.<br><br> Angelehnt an das Berliner <a traget="blank" href="https://www.berlin.de/senuvk/umwelt/stadtgruen/pflege_unterhaltung/de/hgp/index.shtml">Handbuch Gute Pflege</a> empfehlen wir euch, lieber seltener zu wässern, dafür mit einer größeren Menge an Wasser. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Im Endeffekt schaden aber auch kleinere Mengen gerade im Hochsommer nicht. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht wegläuft oder sich falsch anstaut. Auch zu empfehlen sind sog. Gießsäcke aus denen das Wasser nur sehr langsam ausstritt, kaum oberflächig abläuft und somit kontinuierlich in den Boden sickert.',
+          'Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Jungbäume (0-15 Jahre), benötigen mehr Wasser als mittelalte Bäume (15-40 Jahre). Altbäume (ab 40 Jahre) sind meist komplette Selbstversorger. <br><br>Da frisch gepflanzte Bäume bis zum Alter von drei Jahren in der Regel von den bezirklichen Grünflächenämtern mit Wasser versorgt werden, benötigen besonders die Bäume zwischen vier und 15 Jahren unsere Aufmerksamkeit, beziehungsweise unser Wasser. Dies haben wir mit den Kennzeichnungen des geringen, mittleren oder hohen Wasserbedarfs hervorgehoben. <br><br>Angelehnt an das Berliner <a traget="blank" href="https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/handbuch-gute-pflege/">Handbuch Gute Pflege</a> empfehlen wir euch, lieber selten, dafür mit größeren Menge an Wasser zu gießen. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Im Endeffekt schaden aber auch kleinere Mengen gerade im Hochsommer nicht. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht oberirdisch abläuft oder sich falsch anstaut. Auch zu empfehlen sind sogenannte Gießsäcke aus denen das Wasser nur sehr langsam austritt, kaum oberflächlich abläuft und somit kontinuierlich in den Boden sickert.',
       },
       {
         question:
           'An wen kann ich mich wenden, wenn Pumpen kaputt oder beschädigt sind?',
-        answer: `Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Die Standorte der Pumpen in der Karte werden regelmäßig aus der Open Street Map geladen. Wenn Ihr helfen wollt die Daten zu verbessern, indem ihr zum Beispiel eine defekte Pumpe meldet, könnt ihr das in unserem <a target="blank" href="https://app.slack.com/client/T012K4SDYBY/C019SJQDPL7">Slack Channel #pumpen-melden </a>
-        tun. Die OSM-Community hat dann die Möglichkeit eure Informationen in die Datenbank einzutragen.`,
+        answer: `Für die Infrastruktur der Straßen, zu denen auch die öffentlichen Schwengelpumpen zählen, sind die jeweiligen Straßen- und Grünflächenämter der Bezirke verantwortlich. Sollten Pumpen kaputt oder beschädigt sein, kann dort Reparaturbedarf gemeldet werden. Die Standorte der Pumpen in der Karte laden wir wöchentlich aus der Datenbank von Open Street Map. Wenn Ihr helfen wollt, die Daten zu verbessern, indem ihr zum Beispiel eine defekte Pumpe meldet, könnt ihr das in unserem <a target="blank" href="https://app.slack.com/client/T012K4SDYBY/C019SJQDPL7">Slack Channel #pumpen-melden </a> tun. Die OSM-Community hat dann die Möglichkeit eure Informationen in die Datenbank einzutragen.`,
       },
       {
         question: 'Wie wird mit technischen Problemen umgegangen?',
         answer:
-          'Bei der Beteiligungsplattform “Giess den Kiez” handelt es sich um einen Prototypen, respektive um eine Beta-Version einer Web-App. Wir sind uns einigen technischen Hürden bewusst und wollen die Plattform in Zukunft performanter und stabiler gestalten, bitten euch aber diesbezüglich um etwas Geduld und Verständnis. <br><br> Euer technisches Feedback und eure Fragen nehmen wir gerne in unserem <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack Channel</a> oder per Mail entgegen. Wer sich in der “Tech-Welt” zu Hause fühlt, ist herzlich zur Mitarbeit in unserem <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">Open Source GitHub Repository</a> eingeladen und kann seine Issues oder Code Fixes direkt in das Repository kommentieren.',
+          'Bei der Beteiligungsplattform “Gieß den Kiez” handelt es sich um einen Prototypen und demnach um eine Beta-Version einer Web-App. Wir sind uns einigen technischen Hürden bewusst, sind aber auf eure Mithilfe angewiesen. Euer technisches Feedback und eure Fragen nehmen wir gerne in unserem <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack Channel</a> oder per Mail entgegen. Wer sich in der “Tech-Welt” zu Hause fühlt, ist herzlich zur Mitarbeit in unserem <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">Open Source GitHub Repository</a> eingeladen und kann seine Issues oder Code Fixes direkt in das Repository kommentieren.',
       },
       {
         question: 'Warum lädt die Website nicht oder nur sehr langsam?',
         answer:
-          'Wenn die Seite zum ersten Mal geöffnet wird, lädt der Browser über 750.000 Datenpunkte – das kann eine Weile dauern! Unabhängig davon, kann es zu leicht unterschiedlichen  Darstellungen bei der Verwendung unterschiedlicher Browser kommen. Für die beste “Experience” empfehlen wir die Nutzung des Chrome-Browsers am Desktop. Die häufigsten Probleme lassen sich erfahrungsgemäß beseitigen, wenn der Browser nicht veraltet, respektive die neueste Version installiert ist und eine stabile Internetverbindung (LAN oder WLAN) besteht. <br><br> Die Nutzung via Mobilfunknetz kann zu Performance-Problemen (Seite lädt langsam) führen. Sollten wiederholt Probleme auftreten, könnt ihr diese auf <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack</a>, per Mail oder via GitHub Issue unter Angabe des benutzten Geräts, des Betriebssystems, des Browsers und Version des Browsers melden.',
+          'Wenn die Seite zum ersten Mal geöffnet wird, lädt der Browser über 800.000 Datenpunkte – das kann eine Weile dauern! Unabhängig davon, kann es zu leicht unterschiedlichen  Darstellungen bei der Verwendung unterschiedlicher Browser kommen. Für die beste “Experience” empfehlen wir die Nutzung von Chrome oder Firefox Desktop. Die häufigsten Probleme lassen sich erfahrungsgemäß beseitigen, wenn der Browser nicht veraltet, respektive die neueste Version installiert ist und eine stabile Internetverbindung (LAN oder WLAN) besteht. <br><br>Die Nutzung über das Smartphone (Mobilfunknetz) kann zu Performance-Problemen (Seite lädt langsam) führen. Sollten wiederholt Probleme auftreten, könnt ihr diese in unserem <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack Channel</a>, per Mail oder via GitHub Issue unter Angabe des benutzten Geräts, des Betriebssystems, des Browsers und Version des Browsers melden.',
       },
       {
         question:
           'Was tun, wenn ich einen Baum fälschlicherweise gegossen habe?',
         answer:
-          'Eine Funktion, um Gieß-Aktivitäten rückgängig zu machen, weil bspw. stattdessen der Nachbarbaum gegossen wurde, existiert leider nicht.',
+          'Um eine Gießung rückgängig zu machen, weil bspw. stattdessen der Nachbarbaum oder zu einem anderen Tag gegossen wurde, klicke zunächst auf den Baum. Scrolle in der Seitenleiste des Baumes runter bis zur Ansicht der vergangenen Gießungen, klicke auf das Papierkorb-Symbol neben dem Eintrag, den du löschen möchtest und klicke auf "Löschen", um zu bestätigen. Es können nur Gießungen gelöscht werden, die du selbst vorgenommen hast. Trage nach der Löschung die Gießung mit den richtigen Angaben (Anzahl an Litern und Zeitpunkt) ein.',
       },
       {
         question: 'Ist das Prinzip auf andere Städte übertragbar?',
@@ -109,6 +108,11 @@ const content: Content = {
         question: 'Ich habe immer noch eine Frage!',
         answer:
           'Das FAQ konnte dir nicht weiterhelfen oder du hast eine komplexere Anfrage? Dann schreib uns eine <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Frage:...">Email.</a>',
+      },
+      {
+        question: 'Warum werden nicht alle Bäume Berlins angezeigt?',
+        answer:
+          'Gieß den Kiez baut auf dem Baumkataster auf. Das Baumkataster ist ein Verzeichnis der Stadt, in dem (Stadt-/Straßen- oder Park-)Bäume verwaltet werden und das durch die Straßen- und Grünflächenämter bereitgestellt wird. Das Straßen- und Grünflächenamt ist aber nicht für alle Bäume Berlins zuständig. Die Bäume im Plänterwald beispielsweise unterliegen dem Forstamt. Diese Bäume tauchen daher bei Gieß den Kiez nicht auf.',
       },
       {
         question: 'I don’t speak any German: What’s going on here?',
@@ -129,10 +133,10 @@ const content: Content = {
     subline:
       'Die Berliner Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
     disclaimer:
-      'Hinweis: Das Laden von über 750.000 Bäumen ist ressourcenintensiv und funktioniert aktuell nicht auf allen Mobilgeräten einwandfrei. Wir empfehlen die Nutzung via Desktop-Computer',
+      'Hinweis: Das Laden von über 800.000 Bäumen ist ressourcenintensiv und funktioniert aktuell nicht auf allen Mobilgeräten einwandfrei. Wir empfehlen die Nutzung via Desktop-Computer',
     description: [
-      'Auf dieser Plattform kannst Du Dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.',
-      'Informiere Dich ich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
+      'Auf dieser Plattform kannst Du Dich über Bäume in Deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast.',
+      'Informiere Dich über das richtige Gießen von Stadtbäumen. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen. Die Karte kannst Du aber auch ohne Konto erkunden.',
     ],
   },
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
@@ -141,17 +145,17 @@ const content: Content = {
   //     '<b>Gieß den Kiez LIVE: </b><br>Der Sommer neigt sich dem Ende zu und wir werden analog! Melde Dich jetzt für unser <a target="blank" href="https://www.citylab-berlin.org/events/freiwilligentage/">Mitmach-Event</a> am 11. September an und besuche uns im CityLAB Berlin.',
   // },
   whatsNew: {
-    title: 'Hurray, das neue Baumkataster ist live!',
+    title: 'Hurray, das Baumkataster 2022 ist live!',
     description: [
-      `Auf Gieß den Kiez werden nun <strong>120.000 zusätzliche Stadtbäume</strong> angezeigt. Im Juni 2021 wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 120.000 Bäume mehr listet als das Baumkataster auf dem Jahr 2020. Dabei liegt die Anzahl der in 2020 gepflanzten Bäume nicht überdurchschnittlich hoch.`,
-      `Der Zuwachs ist vielmehr auf die vorbildliche Arbeit der bezirklichen Straßen- und Grünflächenämter zurückzuführen, die die Koordinaten weiterer Bäume erfasst haben. Von den rund 430.000 Straßenbäumen Berlins verfügen jetzt rund 404.000 über Koordinaten – das sind fast <strong>94% aller Straßenbäume</strong>.`,
+      `Auf Gieß den Kiez werden nun über <strong>800.000 Stadtbäume</strong> angezeigt. Im Februar wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 50.000 Bäume mehr listet als das Baumkataster aus dem Jahr 2021. Wir wünschen Euch ein fröhliches Gießen!`,
+      `Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.`,
     ],
   },
   loading: {
     snippets: [
-      'Wir laden gerade 750.000 Bäume aus dem Berliner Baumbestand.',
+      'Wir laden gerade 801.195 Bäume aus dem Berliner Baumbestand.',
       'Wenn du diese Seite über das Mobilfunknetz aufrufst, kann es etwas dauern.',
-      'Sammle Informationen aller Bäume aus Berlins Stadtkataster.',
+      'Sammle Informationen aller Bäume aus Berlins Baumkataster.',
       'Schon gewusst? Ein Stadtbaum benötigt etwa 70l Wasser in der Woche.',
     ],
   },
@@ -174,7 +178,7 @@ const content: Content = {
       },
       {
         title: 'Datenquellen',
-        description: `Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (750.000; Stand: Juli 2021). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind:
+        description: `Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (800.000; Stand: April 2022). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind:
           <ul>
             <li>
               <a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS">Geoportal Berlin / Straßenbäume</a>

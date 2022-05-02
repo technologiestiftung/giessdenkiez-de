@@ -1,7 +1,7 @@
 import { RawWateringType, WateringType } from '../../common/interfaces';
 
 const parseRawWatering = (rawWatering: RawWateringType): WateringType => ({
-  id: `watering-${rawWatering.id}`,
+  id: rawWatering.id,
   amount: parseFloat(rawWatering.amount),
   timestamp: rawWatering.timestamp,
   treeId: rawWatering.tree_id,
