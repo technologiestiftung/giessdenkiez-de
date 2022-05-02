@@ -6,6 +6,15 @@ import { MapboxStyleOverrides } from './MapboxStyleOverrides';
 export default createGlobalStyle`
   ${styledNormalize}
 
+  /* React DayPicker customizations */
+  :root {
+    --rdp-cell-size: 40px;
+    --rdp-accent-color: #37DE8A;
+    --rdp-background-color: #F9F9F9;
+    --rdp-outline: 2px solid var(--rdp-accent-color);
+    --rdp-outline-selected: 2px solid rgba(0, 0, 0, 0.75);
+  }
+
   body {
     color: rgb(44, 48, 59);
     font-family: 'IBM Plex Sans', sans-serif;

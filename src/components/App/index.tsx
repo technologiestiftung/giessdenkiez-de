@@ -18,6 +18,8 @@ import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
 import { useTreesGeoJson } from '../../utils/hooks/useTreesGeoJson';
 
+import 'react-day-picker/dist/style.css';
+
 const AppContainer = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
   height: 100vh;

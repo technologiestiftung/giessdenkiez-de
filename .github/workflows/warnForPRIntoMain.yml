@@ -1,0 +1,15 @@
+name: 'Prevent merge from non-staging to master'
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  warn_main_merge:
+    runs-on: 'ubuntu-latest'
+    name: 'Validate PR Source and Target Branches'
+    steps:
+      - name: 'Checking source and target branch in PR'
+        uses: 'technologiestiftung/warn-for-main-merge-action@v1.13'
+        with:
+          stagingName: 'staging'
+          mainName: 'master'

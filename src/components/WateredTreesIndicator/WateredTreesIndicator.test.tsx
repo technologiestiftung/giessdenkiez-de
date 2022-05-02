@@ -9,7 +9,7 @@ const createTestWaterings = (amount = 1): WateringType[] =>
   [...new Array(amount)].map(
     (_, idx: number): WateringType => ({
       amount: idx * 10,
-      id: `wgqwegqwg-${idx}`,
+      id: idx,
       username: `Bob-${idx}`,
       timestamp: new Date().toISOString(),
       treeId: `dqfjqwfw-${idx}`,

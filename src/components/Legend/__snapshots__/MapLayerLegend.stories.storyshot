@@ -2,16 +2,16 @@
 
 exports[`Storyshots Legend Legend Story 1`] = `
 <div
-  className="sc-kgflAQ hXXpgM"
+  className="sc-himrzO cjEGxN"
 >
   <div
-    className="sc-ksZaOG diqxHr"
+    className="sc-cxabCf fYwneJ"
   >
     <div
-      className="sc-kDDrLX fLISTn"
+      className="sc-dmRaPn hnXcNm"
     >
       <p
-        className="sc-gsnTZi gcvLkj sc-fLlhyt crzsrz"
+        className="sc-gsnTZi gcvLkj sc-gXmSlM haGIds"
         dangerouslySetInnerHTML={
           Object {
             "__html": "Niederschlag",
@@ -30,99 +30,99 @@ exports[`Storyshots Legend Legend Story 1`] = `
       />
     </div>
     <span
-      className="sc-bBrHrO bTmpZl"
+      className="sc-cCsOjp hqOfRk"
       onClick={[Function]}
     >
       —
     </span>
   </div>
   <div
-    className="sc-iqcoie dSAAmG"
+    className="sc-kgflAQ gRotjA"
   >
     <div
-      className="sc-evZas ghtXFS"
+      className="sc-bBrHrO jRhLlO"
     >
       <div
-        className="sc-bjUoiL gquKZx"
+        className="sc-ezWOiH dLLiSs"
         color="#fde725"
       />
       <label
-        className="sc-hAZoDl ibfnIw"
+        className="sc-llJcti fkinSo"
       >
         0
       </label>
     </div>
     <div
-      className="sc-evZas ghtXFS"
+      className="sc-bBrHrO jRhLlO"
     >
       <div
-        className="sc-bjUoiL cYRuif"
+        className="sc-ezWOiH fTsoAS"
         color="#cae11f"
       />
       <label
-        className="sc-hAZoDl ibfnIw"
+        className="sc-llJcti fkinSo"
       >
         60
       </label>
     </div>
     <div
-      className="sc-evZas ghtXFS"
+      className="sc-bBrHrO jRhLlO"
     >
       <div
-        className="sc-bjUoiL fkWxfC"
+        className="sc-ezWOiH iCQLwz"
         color="#95d840"
       />
       <label
-        className="sc-hAZoDl ibfnIw"
+        className="sc-llJcti fkinSo"
       >
         120
       </label>
     </div>
     <div
-      className="sc-evZas ghtXFS"
+      className="sc-bBrHrO jRhLlO"
     >
       <div
-        className="sc-bjUoiL lcvAmd"
+        className="sc-ezWOiH jWkcNw"
         color="#63cb5f"
       />
       <label
-        className="sc-hAZoDl ibfnIw"
+        className="sc-llJcti fkinSo"
       >
         180
       </label>
     </div>
     <div
-      className="sc-evZas ghtXFS"
+      className="sc-bBrHrO jRhLlO"
     >
       <div
-        className="sc-bjUoiL lnwgCh"
+        className="sc-ezWOiH dCDDKg"
         color="#3bbb75"
       />
       <label
-        className="sc-hAZoDl ibfnIw"
+        className="sc-llJcti fkinSo"
       >
         240
       </label>
     </div>
     <div
-      className="sc-evZas ghtXFS"
+      className="sc-bBrHrO jRhLlO"
     >
       <div
-        className="sc-bjUoiL katUar"
+        className="sc-ezWOiH fnQWdK"
         color="#22a884"
       />
       <label
-        className="sc-hAZoDl ibfnIw"
+        className="sc-llJcti fkinSo"
       >
         300
       </label>
     </div>
   </div>
   <div
-    className="sc-kDDrLX gvIxIp"
+    className="sc-dmRaPn irsVvA"
   >
     <p
-      className="sc-gsnTZi gcvLkj sc-fLlhyt crzsrz"
+      className="sc-gsnTZi gcvLkj sc-gXmSlM haGIds"
       dangerouslySetInnerHTML={
         Object {
           "__html": "Datenpunkte",
@@ -140,41 +140,41 @@ exports[`Storyshots Legend Legend Story 1`] = `
       onClick={[Function]}
     />
     <div
-      className="sc-iqcoie sc-breuTD dSAAmG frtuuV"
+      className="sc-kgflAQ sc-ivTmOn gRotjA vegyO"
       onClick={[Function]}
     >
       <div
-        className="sc-bjUoiL ieggUe legend-dot"
+        className="sc-ezWOiH dQkHAv legend-dot"
         color="#2c303b"
       />
       <label
-        className="sc-hAZoDl sc-dmRaPn ibfnIw cRjpkf"
+        className="sc-llJcti sc-jIZahH fkinSo kqmeyH"
       >
         Straßen- & Anlagenbäume
       </label>
     </div>
     <div
-      className="sc-iqcoie sc-breuTD dSAAmG jagXYq"
+      className="sc-kgflAQ sc-ivTmOn gRotjA iDvuJd"
       onClick={[Function]}
     >
       <div
-        className="sc-fEOsli bdnZyx"
+        className="sc-gicCDI evEhTk"
       />
       <label
-        className="sc-hAZoDl sc-dmRaPn ibfnIw cRjpkf"
+        className="sc-llJcti sc-jIZahH fkinSo kqmeyH"
       >
         Öffentl. Pumpen
       </label>
     </div>
     <div
-      className="sc-iqcoie sc-breuTD dSAAmG jagXYq"
+      className="sc-kgflAQ sc-ivTmOn gRotjA iDvuJd"
       onClick={[Function]}
     >
       <div
-        className="sc-idiyUo eqznKr"
+        className="sc-bZkfAO iFKzIv"
       />
       <label
-        className="sc-hAZoDl sc-dmRaPn ibfnIw cRjpkf"
+        className="sc-llJcti sc-jIZahH fkinSo kqmeyH"
       >
         Niederschlagsflächen
       </label>
