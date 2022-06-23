@@ -8,7 +8,6 @@ const StyledTooltipWrapper = styled.div`
   width: ${TOOLTIP_WIDTH}px;
   position: absolute;
   z-index: 3;
-  pointer-events: none;
   box-shadow: ${({ theme }) => theme.boxShadow};
   transform: translate(-50%, 10px);
 `;
@@ -28,7 +27,7 @@ export const MapTooltip: FC<{
       }}
       className='map-tooltip'
     >
-      <DataTable title={title} subtitle={subtitle} items={{ ...infos }} />
+      <DataTable title={title} subtitle={subtitle} items={infos} />
     </StyledTooltipWrapper>
   );
 };
