@@ -350,13 +350,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         onHover: (info: PumpEventInfo) => {
           this.setState({
             hoveredPump: pumpEventInfoToState(info),
-            clickedPump: null,
           });
         },
         onClick: (info: PumpEventInfo) => {
           this.setState({
             clickedPump: pumpEventInfoToState(info),
-            hoveredPump: null,
           });
         },
       }),
