@@ -29,6 +29,9 @@ import {
 } from '../../utils/getWaterNeedByAge';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+
+const OSM_PUMP_EDITOR_URL = `https://mapcomplete.osm.be/theme?z=14&lat=52.51486&lon=13.44662&userlayout=https%3A%2F%2Ftordans.github.io%2FMapComplete-ThemeHelper%2FOSM-Berlin-Themes%2Fman_made-walter_well-status-checker%2Ftheme.json&language=de#node`;
+
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -728,7 +731,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                 ? {
                     '': (
                       <StyledTextLink
-                        href={`https://mapcomplete.osm.be/theme?z=14&lat=52.51486&lon=13.44662&userlayout=https%3A%2F%2Ftordans.github.io%2FMapComplete-ThemeHelper%2FOSM-Berlin-Themes%2Fman_made-walter_well-status-checker%2Ftheme.json&language=de#node/${pumpInfo.id}`}
+                        href={`${OSM_PUMP_EDITOR_URL}/${pumpInfo.id}`}
                         target='_blank'
                         rel='noreferrer nofollow'
                       >
