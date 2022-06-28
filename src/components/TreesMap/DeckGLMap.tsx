@@ -721,6 +721,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             y={pumpInfo.y}
             title='Öffentliche Straßenpumpe'
             subtitle={pumpInfo.address}
+            onClickOutside={() => {
+              this.setState({ clickedPump: null });
+            }}
             infos={{
               Status: pumpInfo.status,
               'Letzter Check': pumpInfo.check_date,
