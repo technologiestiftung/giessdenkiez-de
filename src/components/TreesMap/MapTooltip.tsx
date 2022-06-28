@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import useClickOutside from '../../utils/hooks/useClickOutside';
 import { DataTable, TableItemsType } from '../DataTable';
 
 export const TOOLTIP_WIDTH = 260;
@@ -18,9 +19,12 @@ export const MapTooltip: FC<{
   title: string;
   subtitle: string;
   infos: TableItemsType;
-}> = ({ x, y, title, subtitle, infos }) => {
+  onClickOutside?: () => void;
+}> = ({ x, y, title, subtitle, infos, onClickOutside = () => undefined }) => {
+  const ref = useClickOutside<HTMLDivElement>(onClickOutside);
   return (
     <StyledTooltipWrapper
+      ref={ref}
       style={{
         left: x,
         top: y,

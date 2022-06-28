@@ -30,8 +30,6 @@ import {
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-const OSM_PUMP_EDITOR_URL = `https://mapcomplete.osm.be/theme?z=14&lat=52.51486&lon=13.44662&userlayout=https%3A%2F%2Ftordans.github.io%2FMapComplete-ThemeHelper%2FOSM-Berlin-Themes%2Fman_made-walter_well-status-checker%2Ftheme.json&language=de#node`;
-
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -146,6 +144,18 @@ const pumpEventInfoToState = (info: PumpEventInfo) => {
     };
   }
   return null;
+};
+
+const getOSMEditorURL = (nodeId: number) => {
+  const mapcompleteUrl = 'https://mapcomplete.osm.be/theme';
+  const params = new URLSearchParams();
+  params.set(
+    'userlayout',
+    'https://tordans.github.io/MapComplete-ThemeHelper/OSM-Berlin-Themes/man_made-walter_well-status-checker/theme.json'
+  );
+  params.set('language', 'de');
+  const selectedPump = `#node/${nodeId}`;
+  return `${mapcompleteUrl}?${params.toString()}${selectedPump}`;
 };
 
 class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
@@ -721,6 +731,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             y={pumpInfo.y}
             title='Öffentliche Straßenpumpe'
             subtitle={pumpInfo.address}
+            onClickOutside={() => {
+              this.setState({ clickedPump: null });
+            }}
             infos={{
               Status: pumpInfo.status,
               'Letzter Check': pumpInfo.check_date,
@@ -729,11 +742,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                 ? {
                     '': (
                       <StyledTextLink
-                        href={`${OSM_PUMP_EDITOR_URL}/${pumpInfo.id}`}
+                        href={getOSMEditorURL(pumpInfo.id)}
                         target='_blank'
                         rel='noreferrer nofollow'
                       >
-                        OpenStreetMap PumpenInfos bearbeiten
+                        Status in OpenStreetMap aktualisieren
                       </StyledTextLink>
                     ),
                   }
