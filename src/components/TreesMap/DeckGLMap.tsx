@@ -100,18 +100,11 @@ interface PumpPropertiesType {
 interface PumpTooltipType extends PumpPropertiesType {
   x: number;
   y: number;
-  latitude: number;
-  longitude: number;
-  zoom: number;
 }
 
 interface PumpEventInfo {
   x: number;
   y: number;
-  coordinate: [number, number];
-  viewport: {
-    zoom: number;
-  };
   object?: {
     properties?:
       | {
@@ -148,9 +141,6 @@ const pumpEventInfoToState = (info: PumpEventInfo) => {
       style: info.object.properties['pump:style'] || '',
       x: info.x,
       y: info.y,
-      latitude: info.coordinate[0],
-      longitude: info.coordinate[1],
-      zoom: info.viewport.zoom,
     };
   }
   return null;
