@@ -2,13 +2,13 @@
 
 exports[`Storyshots Overlay Legend Story 1`] = `
 <div
-  className="sc-eKszNL czLsbE"
+  className="sc-jfmDQi jPPIVE"
 >
   <div
-    className="sc-jfmDQi fTwLFs"
+    className="sc-iNWwEs favCZg"
   >
     <div
-      className="sc-olbas HEyKe"
+      className="sc-eKszNL huXegk"
     >
       <div
         className="sc-cOFTSb hZMdqA"
@@ -115,46 +115,9 @@ exports[`Storyshots Overlay Legend Story 1`] = `
             Konto anlegen / Einloggen
           </div>
         </div>
-        <section
-          aria-label="News und Updates"
-          className="sc-kgUAyh kTXegH"
-        >
-          <h2
-            className="sc-ciZhAO kMSJmq"
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "Hurray, das Baumkataster 2022 ist live!",
-              }
-            }
-            size="xl"
-          />
-          <div />
-          <div
-            className="sc-cTQhss hqeHqw"
-          >
-            <p
-              className="sc-iAvgwm bXuVxI sc-efBctP cyKzjN"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Auf Gieß den Kiez werden nun über <strong>800.000 Stadtbäume</strong> angezeigt. Im Februar wurde das neue Baumkataster durch das GRIS der SenUVK veröffentlicht, das rund 50.000 Bäume mehr listet als das Baumkataster aus dem Jahr 2021. Wir wünschen Euch ein fröhliches Gießen!",
-                }
-              }
-              onClick={[Function]}
-            />
-            <p
-              className="sc-iAvgwm bXuVxI sc-efBctP cyKzjN"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.",
-                }
-              }
-              onClick={[Function]}
-            />
-          </div>
-        </section>
       </div>
       <div
-        className="sc-iNWwEs kjCyqa"
+        className="sc-lbxAil fEfkKZ"
       >
         <h2
           className="sc-ciZhAO kMSJmq"
@@ -165,10 +128,10 @@ exports[`Storyshots Overlay Legend Story 1`] = `
           }
         />
         <div
-          className="sc-lbxAil llyWJX"
+          className="sc-gSAPjG bGGsJB"
         >
           <div
-            className="sc-hTtwUo gNVhdp"
+            className="sc-kgUAyh hgvLoV"
           >
             <div
               className="sc-jdAMXn hldJPb"
@@ -179,10 +142,10 @@ exports[`Storyshots Overlay Legend Story 1`] = `
               />
             </div>
             <div
-              className="sc-jgbSNz isQXII"
+              className="sc-hTtwUo bfppMp"
             >
               <h2
-                className="sc-gSAPjG fjlopR"
+                className="sc-jgbSNz eKIvah"
               >
                 Bäume bewässern
               </h2>
@@ -198,7 +161,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
             </div>
           </div>
           <div
-            className="sc-hTtwUo gNVhdp"
+            className="sc-kgUAyh hgvLoV"
           >
             <div
               className="sc-jdAMXn hldJPb"
@@ -209,10 +172,10 @@ exports[`Storyshots Overlay Legend Story 1`] = `
               />
             </div>
             <div
-              className="sc-jgbSNz isQXII"
+              className="sc-hTtwUo bfppMp"
             >
               <h2
-                className="sc-gSAPjG fjlopR"
+                className="sc-jgbSNz eKIvah"
               >
                 Bäume adoptieren
               </h2>
@@ -228,7 +191,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
             </div>
           </div>
           <div
-            className="sc-hTtwUo gNVhdp"
+            className="sc-kgUAyh hgvLoV"
           >
             <div
               className="sc-jdAMXn hldJPb"
@@ -239,10 +202,10 @@ exports[`Storyshots Overlay Legend Story 1`] = `
               />
             </div>
             <div
-              className="sc-jgbSNz isQXII"
+              className="sc-hTtwUo bfppMp"
             >
               <h2
-                className="sc-gSAPjG fjlopR"
+                className="sc-jgbSNz eKIvah"
               >
                 Den Baumbestand erkunden
               </h2>
@@ -258,7 +221,7 @@ exports[`Storyshots Overlay Legend Story 1`] = `
             </div>
           </div>
           <div
-            className="sc-hTtwUo gNVhdp"
+            className="sc-kgUAyh hgvLoV"
           >
             <div
               className="sc-jdAMXn hldJPb"
@@ -269,10 +232,10 @@ exports[`Storyshots Overlay Legend Story 1`] = `
               />
             </div>
             <div
-              className="sc-jgbSNz isQXII"
+              className="sc-hTtwUo bfppMp"
             >
               <h2
-                className="sc-gSAPjG fjlopR"
+                className="sc-jgbSNz eKIvah"
               >
                 Mit anderen austauschen
               </h2>
