@@ -45,16 +45,16 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const StyledNewsSection = styled.section`
+/* const StyledNewsSection = styled.section`
   background-color: ${({ theme }) => theme.colorPrimaryHover};
   border: 1px solid ${({ theme }) => theme.colorPrimary};
   padding: 30px 0;
   margin: 40px;
-`;
+`; */
 
 const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
-  const { intro, whatsNew } = content;
+  const { intro } = content;
 
   const { title, subline, description, disclaimer } = intro;
 
@@ -83,13 +83,13 @@ const OverlayTop: FC = () => {
         </ButtonRound>
         <Login width='fit-content' noLogout={true} />
       </StyledWrapper>
-      {whatsNew && (
+      {/* {whatsNew && (
         <StyledNewsSection aria-label='News und Updates'>
           <OverlayTitle size='xl' title={whatsNew.title} />
           <div></div>
           <OverlayDescription content={whatsNew.description} />
         </StyledNewsSection>
-      )}
+      )} */}
     </StyledTop>
   );
 };
