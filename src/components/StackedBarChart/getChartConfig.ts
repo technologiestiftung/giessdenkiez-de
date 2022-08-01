@@ -22,7 +22,7 @@ export const getChartConfig = (): ChartConfigType => {
     top: 25,
     right: 5,
     bottom: 20,
-    left: 20,
+    left: 24,
   };
   const innerHeight = chartHeight - margins.top - margins.bottom;
   const innerWidth = chartWidth - margins.left - margins.right;
