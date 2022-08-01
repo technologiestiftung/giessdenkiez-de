@@ -5,7 +5,7 @@ import { SelectedTreeType } from '../../common/interfaces';
 
 const waterings = [
   {
-    id: 'abc',
+    id: 1,
     treeId: 'abc',
     uuid: 'def',
     amount: 20,

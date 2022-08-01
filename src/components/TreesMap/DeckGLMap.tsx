@@ -29,6 +29,7 @@ import {
 } from '../../utils/getWaterNeedByAge';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -89,6 +90,7 @@ interface ViewportType extends Partial<ViewportProps> {
 }
 
 interface PumpPropertiesType {
+  id?: number;
   address: string;
   status: string;
   check_date: string;
@@ -100,13 +102,61 @@ interface PumpTooltipType extends PumpPropertiesType {
   y: number;
 }
 
+interface PumpEventInfo {
+  x: number;
+  y: number;
+  object?: {
+    properties?:
+      | {
+          id: number;
+          'pump:status'?: string;
+          'addr:full'?: string;
+          'pump:style'?: string;
+          check_date?: string;
+        }
+      | undefined;
+  };
+}
+
 interface DeckGLStateType {
   hoveredPump: PumpTooltipType | null;
+  clickedPump: PumpTooltipType | null;
   cursor: 'grab' | 'pointer';
   geoLocationAvailable: boolean;
   isTreeMapLoading: boolean;
   viewport: ViewportType;
 }
+
+const StyledTextLink = styled.a`
+  color: black;
+`;
+
+const pumpEventInfoToState = (info: PumpEventInfo) => {
+  if (info && info.object && info.object.properties) {
+    return {
+      id: info.object.properties.id,
+      address: info.object.properties['addr:full'] || '',
+      check_date: info.object.properties['check_date'] || '',
+      status: info.object.properties['pump:status'] || '',
+      style: info.object.properties['pump:style'] || '',
+      x: info.x,
+      y: info.y,
+    };
+  }
+  return null;
+};
+
+const getOSMEditorURL = (nodeId: number) => {
+  const mapcompleteUrl = 'https://mapcomplete.osm.be/theme';
+  const params = new URLSearchParams();
+  params.set(
+    'userlayout',
+    'https://tordans.github.io/MapComplete-ThemeHelper/OSM-Berlin-Themes/man_made-walter_well-status-checker/theme.json'
+  );
+  params.set('language', 'de');
+  const selectedPump = `#node/${nodeId}`;
+  return `${mapcompleteUrl}?${params.toString()}${selectedPump}`;
+};
 
 class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   constructor(props: DeckGLPropType) {
@@ -114,6 +164,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
     this.state = {
       hoveredPump: null,
+      clickedPump: null,
       cursor: 'grab',
       geoLocationAvailable: false,
       isTreeMapLoading: true,
@@ -278,7 +329,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
           /**
            * Apparently DWD 1 is not 1ml but 0.1ml
            * We could change this in the database, but this would mean,
-           * transferring 750.000 "," characters, therefore,
+           * transferring 800.000 "," characters, therefore,
            * changing it client-side makes more sense.
            */
           const interpolated = interpolateColor(
@@ -306,34 +357,15 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         pickable: true,
         lineWidthScale: 3,
         lineWidthMinPixels: 1.5,
-        onHover: (info: {
-          x: number;
-          y: number;
-          object?: {
-            properties?:
-              | {
-                  'pump:status'?: string;
-                  'addr:full'?: string;
-                  'pump:style'?: string;
-                  check_date?: string;
-                }
-              | undefined;
-          };
-        }) => {
-          if (info && info.object && info.object.properties) {
-            this.setState({
-              hoveredPump: {
-                address: info.object.properties['addr:full'] || '',
-                check_date: info.object.properties['check_date'] || '',
-                status: info.object.properties['pump:status'] || '',
-                style: info.object.properties['pump:style'] || '',
-                x: info.x,
-                y: info.y,
-              },
-            });
-          } else {
-            this.setState({ hoveredPump: null });
-          }
+        onHover: (info: PumpEventInfo) => {
+          this.setState({
+            hoveredPump: pumpEventInfoToState(info),
+          });
+        },
+        onClick: (info: PumpEventInfo) => {
+          this.setState({
+            clickedPump: pumpEventInfoToState(info),
+          });
         },
       }),
     ];
@@ -615,6 +647,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   onViewStateChange(viewport: ViewportProps): void {
+    this.setState({ clickedPump: null, hoveredPump: null });
     this.setViewport({
       latitude: viewport.latitude,
       longitude: viewport.longitude,
@@ -628,7 +661,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
   render(): ReactNode {
     const { isNavOpen, showControls } = this.props;
-    const { viewport, hoveredPump } = this.state;
+    const { viewport, clickedPump, hoveredPump } = this.state;
+    const pumpInfo = clickedPump || hoveredPump;
+
     return (
       <>
         <DeckGL
@@ -666,6 +701,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                         longitude: number;
                       };
                     };
+                    this.setState({ clickedPump: null, hoveredPump: null });
                     this.setViewport({
                       longitude,
                       latitude,
@@ -675,29 +711,46 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                   }}
                 />
                 <NavigationControl
-                  onViewStateChange={e =>
+                  onViewStateChange={e => {
                     this.setViewport({
                       latitude: e.viewState.latitude,
                       longitude: e.viewState.longitude,
                       zoom: e.viewState.zoom,
                       transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-                    })
-                  }
+                    });
+                    this.setState({ clickedPump: null, hoveredPump: null });
+                  }}
                 />
               </ControlWrapper>
             )}
           </StaticMap>
         </DeckGL>
-        {hoveredPump && hoveredPump.x && hoveredPump.y && (
+        {pumpInfo && pumpInfo.x && pumpInfo.y && (
           <MapTooltip
-            x={hoveredPump.x}
-            y={hoveredPump.y}
+            x={pumpInfo.x}
+            y={pumpInfo.y}
             title='Öffentliche Straßenpumpe'
-            subtitle={hoveredPump.address}
+            subtitle={pumpInfo.address}
+            onClickOutside={() => {
+              this.setState({ clickedPump: null });
+            }}
             infos={{
-              Status: hoveredPump.status,
-              'Letzter Check': hoveredPump.check_date,
-              Pumpenstil: hoveredPump.style,
+              Status: pumpInfo.status,
+              'Letzter Check': pumpInfo.check_date,
+              Pumpenstil: pumpInfo.style,
+              ...(pumpInfo.id
+                ? {
+                    '': (
+                      <StyledTextLink
+                        href={getOSMEditorURL(pumpInfo.id)}
+                        target='_blank'
+                        rel='noreferrer nofollow'
+                      >
+                        Status in OpenStreetMap aktualisieren
+                      </StyledTextLink>
+                    ),
+                  }
+                : {}),
             }}
           />
         )}
