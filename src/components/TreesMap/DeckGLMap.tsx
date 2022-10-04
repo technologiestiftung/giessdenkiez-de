@@ -264,58 +264,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     if (!treesGeoJson || !rainGeojson || !pumpsGeoJson) return [];
     const layers = [
       new GeoJsonLayer({
-        id: 'geojson',
-        data: isMobile ? [] : (treesGeoJson as any),
-        opacity: 1,
-        getLineWidth: (info: {
-          properties: Pick<TreeGeojsonFeatureProperties, 'id'>;
-        }): 0 | 2 => {
-          const { selectedTreeId } = this.props;
-          if (selectedTreeId && info.properties.id == selectedTreeId) return 2;
-          return 0;
-        },
-        getLineColor: (info: {
-          properties: Pick<TreeGeojsonFeatureProperties, 'id'>;
-        }) => {
-          const { selectedTreeId } = this.props;
-          if (selectedTreeId && info.properties.id === selectedTreeId)
-            return colors.red;
-          return this._getFillColor(info);
-        },
-        visible: visibleMapLayer === 'trees',
-        filled: true,
-        parameters: () => ({
-          depthTest: false,
-        }),
-        pickable: true,
-        getRadius: 3,
-        pointRadiusMinPixels: 0.5,
-        autoHighlight: true,
-        highlightColor: [200, 200, 200, 255],
-        transitions: {
-          getFillColor: {
-            type: 'interpolation',
-            duration: 500,
-            easing: (t: number) => t,
-          },
-        },
-        getFillColor: this._getFillColor.bind(this),
-        onClick: info => {
-          this._onClick(info.x, info.y, info.object);
-        },
-        updateTriggers: {
-          getFillColor: [
-            this.props.communityData?.wateredTrees,
-            this.props.selectedTreeId,
-            this.props.ageRange,
-            this.props.mapViewFilter,
-            this.props.mapWaterNeedFilter,
-          ],
-          getLineWidth: [this.props.selectedTreeId],
-          getLineColor: [this.props.selectedTreeId],
-        },
-      }),
-      new GeoJsonLayer({
         id: 'rain',
         data: rainGeojson as any,
         opacity: 0.95,
