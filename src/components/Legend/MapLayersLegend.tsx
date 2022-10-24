@@ -36,9 +36,13 @@ const LegendDiv = styled.div<IsActiveProps>`
   box-shadow: ${p => p.theme.boxShadow};
   height: min-content;
   ${props => (props.isActive ? 'min-height: 180px;' : '')}
-  padding: 12px;
-  width: ${p => (p.isActive ? '210px' : '90px')};
+  padding: 8px 12px;
+  width: ${p => (p.isActive ? '210px' : '110px')};
   background: white;
+
+  &:hover {
+    cursor: ${props => (props.onClick ? 'pointer' : 'default')};
+  }
 `;
 
 const StyledCardDescription = styled(SmallParagraph)`
@@ -47,11 +51,14 @@ const StyledCardDescription = styled(SmallParagraph)`
   opacity: 1;
 `;
 
-const LegendToggle = styled.span`
+const LegendToggle = styled.span<IsActiveProps>`
   cursor: pointer;
   height: fit-content;
+  padding: 8px ${props => props.theme.spacingS};
+  transition: background-color 200ms ease-out;
   &:hover {
-    opacity: 0.66;
+    background-color: ${props =>
+      props.isActive ? props.theme.colorGreyLight : ''};
   }
 `;
 
@@ -79,14 +86,12 @@ const MapLayerLegend: FC = () => {
 
   if (legendExpanded === false) {
     return (
-      <LegendDiv>
+      <LegendDiv onClick={() => setLegendExpanded(true)}>
         <FlexSpace>
           <FlexColumn>
-            <StyledCardDescription onClick={() => setLegendExpanded(true)}>
-              Legende
-            </StyledCardDescription>
+            <StyledCardDescription>Legende</StyledCardDescription>
           </FlexColumn>
-          <LegendToggle onClick={() => setLegendExpanded(true)}>+</LegendToggle>
+          <LegendToggle>+</LegendToggle>
         </FlexSpace>
       </LegendDiv>
     );
@@ -105,7 +110,9 @@ const MapLayerLegend: FC = () => {
             <SmallParagraph>der letzten 30 Tage (Liter)</SmallParagraph>
           )}
         </FlexColumnLast>
-        <LegendToggle onClick={() => setLegendExpanded(false)}>—</LegendToggle>
+        <LegendToggle isActive onClick={() => setLegendExpanded(false)}>
+          —
+        </LegendToggle>
       </FlexSpace>
       {visibleMapLayer !== 'pumps' && (
         <FlexRow>
