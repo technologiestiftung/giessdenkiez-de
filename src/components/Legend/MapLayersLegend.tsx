@@ -1,9 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { interpolateColor } from '../../utils/colorUtil';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
-import { workingColor } from '../TreesMap/mapColorUtil';
-import { createCSSGradient } from './createCSSGradient';
 import { PumpsColorLegend } from './PumpsColorLegend';
 import { RainColorLegend } from './RainColorLegend';
 import { TreesColorLegend } from './TreesColorLegend';
@@ -14,8 +11,7 @@ import {
   FlexRowFit,
   FlexSpace,
 } from './LegendFlexBoxes';
-import { LegendDot, LegendRect, StrokedLegendDot } from './LegendRectsDots';
-import { ItemLabel, legendLabels } from './LegendLabels';
+import { ItemLabel } from './LegendLabels';
 import SmallParagraph from '../SmallParagraph';
 import { isMobile } from 'react-device-detect';
 
@@ -39,7 +35,7 @@ const LegendDiv = styled.div<IsActiveProps>`
   font-size: 12px;
   box-shadow: ${p => p.theme.boxShadow};
   height: min-content;
-  ${props => (props.isActive ? 'min-height: 230px;' : '')}
+  ${props => (props.isActive ? 'min-height: 180px;' : '')}
   padding: 12px;
   width: ${p => (p.isActive ? '210px' : '90px')};
   background: white;
@@ -58,8 +54,21 @@ const LegendToggle = styled.span`
     opacity: 0.66;
   }
 `;
-const rainColors = legendLabels.map(item => interpolateColor(item.value));
-const rainGradient = createCSSGradient(rainColors);
+
+const LegendRadio = styled.span<{
+  checked?: boolean;
+}>`
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid ${({ checked }) => (checked ? 'black' : 'gray')};
+  box-shadow: inset 0 0 0 3px white;
+  background: ${({ checked }) => (checked ? 'black' : 'white')};
+`;
+
+const RadiosParent = styled.div`
+  margin-top: 4px;
+`;
 
 const MapLayerLegend: FC = () => {
   const { setVisibleMapLayer } = useActions();
@@ -108,47 +117,35 @@ const MapLayerLegend: FC = () => {
 
       <FlexColumnLast isLast={true}>
         <StyledCardDescription>Datenpunkte</StyledCardDescription>
-        <SmallParagraph>durch Klick ein- & ausblenden.</SmallParagraph>
-        <FlexRowFit
-          isActive={visibleMapLayer === 'trees'}
-          onClick={() => {
-            setVisibleMapLayer('trees');
-          }}
-        >
-          <LegendDot
-            className={'legend-dot'}
-            color={'#2c303b'}
-            gradient={visibleMapLayer === 'trees' ? rainGradient : undefined}
-          />
-
-          <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
-        </FlexRowFit>
-        <FlexRowFit
-          isActive={visibleMapLayer === 'pumps'}
-          onClick={() => {
-            setVisibleMapLayer('pumps');
-          }}
-        >
-          <StrokedLegendDot
-            gradient={
-              visibleMapLayer === 'pumps' ? workingColor.hex : undefined
-            }
-          />
-
-          <StyledItemLabel>Öffentl. Pumpen</StyledItemLabel>
-        </FlexRowFit>
-        <FlexRowFit
-          isActive={visibleMapLayer === 'rain'}
-          onClick={() => {
-            setVisibleMapLayer('rain');
-          }}
-        >
-          <LegendRect
-            gradient={visibleMapLayer === 'rain' ? rainGradient : undefined}
-          />
-
-          <StyledItemLabel>Niederschlagsflächen</StyledItemLabel>
-        </FlexRowFit>
+        <RadiosParent>
+          <FlexRowFit
+            isActive={visibleMapLayer === 'trees'}
+            onClick={() => {
+              setVisibleMapLayer('trees');
+            }}
+          >
+            <LegendRadio checked={visibleMapLayer === 'trees'} />
+            <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
+          </FlexRowFit>
+          <FlexRowFit
+            isActive={visibleMapLayer === 'pumps'}
+            onClick={() => {
+              setVisibleMapLayer('pumps');
+            }}
+          >
+            <LegendRadio checked={visibleMapLayer === 'pumps'} />
+            <StyledItemLabel>Öffentl. Pumpen</StyledItemLabel>
+          </FlexRowFit>
+          <FlexRowFit
+            isActive={visibleMapLayer === 'rain'}
+            onClick={() => {
+              setVisibleMapLayer('rain');
+            }}
+          >
+            <LegendRadio checked={visibleMapLayer === 'rain'} />
+            <StyledItemLabel>Niederschlagsflächen</StyledItemLabel>
+          </FlexRowFit>
+        </RadiosParent>
       </FlexColumnLast>
     </LegendDiv>
   );

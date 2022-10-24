@@ -39,21 +39,34 @@ export const FlexColumnCentered = styled.div<IsActiveProps>`
 `;
 
 export const FlexRowFit = styled(FlexRow)<IsActiveProps>`
+  display: flex;
+  align-items: center;
+  gap: 6px;
   border-bottom: none;
   width: fit-content;
   margin-right: 10px;
   margin-bottom: 0;
   padding: 6px 9px;
   margin-bottom: 2px;
-  cursor: pointer;
   border-radius: 100px;
-  background: ${p => (p.isActive ? p.theme.colorTextMedium : 'white')};
+  background: ${p => (p.isActive ? p.theme.colorGreyLight : 'white')};
+  color: ${p => (p.isActive ? 'black' : 'inherit')};
   transition: all 0.125s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     background: ${p =>
-      p.isActive ? p.theme.colorGreyLight : p.theme.colorTextMedium};
+      p.isActive ? p.theme.colorTextMedium : p.theme.colorGreyLight};
     transition: all 0.125s ease-in-out;
+
+    label {
+      color: black;
+    }
+  }
+
+  &,
+  & label {
+    cursor: pointer;
   }
 `;
 
