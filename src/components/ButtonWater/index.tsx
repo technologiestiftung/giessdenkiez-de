@@ -3,7 +3,6 @@ import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { useWateringActions } from '../../utils/hooks/useWateringActions';
 
 import ButtonRound from '../ButtonRound';
-import { ParticipateButton } from '../ParticipateButton';
 import { WateringModal } from '../WateringModal';
 
 const ButtonWater: FC = () => {
@@ -28,7 +27,6 @@ const ButtonWater: FC = () => {
       >
         Ich habe gegossen!
       </ButtonRound>
-      <ParticipateButton />
     </>
   );
 };
