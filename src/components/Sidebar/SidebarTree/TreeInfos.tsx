@@ -152,8 +152,8 @@ const TreeInfos: FC<{
             {treeIsAdoptedByOtherUsers && (
               <AdoptedIndication>
                 {treeIsAdoptedByLoggedInUser
-                  ? `Ebenfalls von andere adoptiert`
-                  : `Bereits von andere adoptiert`}
+                  ? `Ebenfalls von anderen adoptiert`
+                  : `Bereits von anderen adoptiert`}
               </AdoptedIndication>
             )}
           </AdoptionsParent>
