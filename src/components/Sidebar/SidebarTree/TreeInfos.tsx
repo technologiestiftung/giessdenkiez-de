@@ -259,10 +259,10 @@ const TreeInfos: FC<{
             >
               {treeIsAdoptedByLoggedInUser &&
                 !isBeingUnadopted &&
-                'Baum unadoptieren'}
+                'Adoption aufheben'}
               {treeIsAdoptedByLoggedInUser &&
                 isBeingUnadopted &&
-                'Baum wird unadoptiert'}
+                'Adoption wird aufgehoben'}
               {!treeIsAdoptedByLoggedInUser &&
                 !isBeingAdopted &&
                 'Baum adoptieren'}
