@@ -223,8 +223,9 @@ const TreeInfos: FC<{
 
         {userData && userData.isVerified && (
           <>
+            <ButtonWater />
             <ButtonRound
-              margin='15px'
+              margin='15px 0'
               onClick={() => (treeIsAdopted ? unadoptTree() : adoptTree())}
               type='secondary'
             >
@@ -233,7 +234,7 @@ const TreeInfos: FC<{
               {!treeIsAdopted && !isBeingAdopted && 'Baum adoptieren'}
               {!treeIsAdopted && isBeingAdopted && 'Baum wird adoptiert'}
             </ButtonRound>
-            <ButtonWater />
+            <ParticipateButton />
           </>
         )}
       </FlexColumnDiv>

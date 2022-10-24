@@ -19,7 +19,7 @@ const StyledButton = styled.div<StyledButtonProps>`
       : '#FFFFFF'};
   padding: 12px 15px 12px 15px;
   height: fit-content;
-  margin-bottom: ${p => p.margin};
+  margin: ${p => p.margin};
   text-align: center;
   cursor: ${p => (p.disabled ? 'default' : 'pointer')};
   font-size: ${p => (p.fontSize ? p.fontSize : p.theme.fontSizeLl)};
