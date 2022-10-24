@@ -20,6 +20,7 @@ import { NonVerfiedMailMessage } from '../../NonVerfiedMailMessage';
 import ButtonRound from '../../ButtonRound';
 import SmallParagraph from '../../SmallParagraph';
 import { useAdoptingActions } from '../../../utils/hooks/useAdoptingActions';
+import { useCommunityData } from '../../../utils/hooks/useCommunityData';
 
 const { treetypes } = content.sidebar;
 
@@ -75,17 +76,25 @@ const AgeInfoValue = styled.span`
   font-weight: normal;
 `;
 
-const AdoptedIndication = styled.span`
+const AdoptedIndication = styled.span<{
+  selfAdopted?: boolean;
+}>`
   display: inline-block;
-  margin-left: 8px;
   border-radius: 2px;
   font-size: ${p => p.theme.fontSizeM};
   line-height: ${p => p.theme.fontSizeM};
-  color: ${p => p.theme.colorPrimary};
+  color: ${p =>
+    p.selfAdopted ? p.theme.colorPrimary : p.theme.colorSecondary};
   border: 1px solid;
   padding: 4px 5px;
   font-weight: normal;
   transform: translateY(-4px);
+`;
+
+const AdoptionsParent = styled.div`
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
 `;
 
 const ActionsWrapper = styled.div`
@@ -111,10 +120,14 @@ const TreeInfos: FC<{
     isBeingAdopted,
     isBeingUnadopted,
   } = useAdoptingActions(treeId);
+  const { data: communityData } = useCommunityData();
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
-  const treeIsAdopted =
+  const treeIsAdoptedByOtherUsers =
+    communityData && communityData.adoptedTreesIds.find(id => id === treeId);
+
+  const treeIsAdoptedByLoggedInUser =
     userData && userData.adoptedTrees.find(({ id }) => id === treeId);
 
   const treeAge =
@@ -133,12 +146,21 @@ const TreeInfos: FC<{
     <Wrapper>
       <FlexColumnDiv>
         {(artdtsch || gattungdeutsch || treeType?.title) && (
-          <TreeTitle>
-            {artdtsch || gattungdeutsch || treeType?.title}
-            {treeIsAdopted && (
-              <AdoptedIndication>Adoptiert ✔</AdoptedIndication>
+          <TreeTitle>{artdtsch || gattungdeutsch || treeType?.title}</TreeTitle>
+        )}
+        {(treeIsAdoptedByLoggedInUser || treeIsAdoptedByOtherUsers) && (
+          <AdoptionsParent>
+            {treeIsAdoptedByLoggedInUser && (
+              <AdoptedIndication selfAdopted>Adoptiert ✔</AdoptedIndication>
             )}
-          </TreeTitle>
+            {treeIsAdoptedByOtherUsers && (
+              <AdoptedIndication>
+                {treeIsAdoptedByLoggedInUser
+                  ? `Ebenfalls von anderen adoptiert`
+                  : `Bereits von anderen adoptiert`}
+              </AdoptedIndication>
+            )}
+          </AdoptionsParent>
         )}
         {!treeType &&
           gattungdeutsch &&
@@ -230,13 +252,23 @@ const TreeInfos: FC<{
             <ButtonWater />
             <ButtonRound
               margin='15px 0'
-              onClick={() => (treeIsAdopted ? unadoptTree() : adoptTree())}
+              onClick={() =>
+                treeIsAdoptedByLoggedInUser ? unadoptTree() : adoptTree()
+              }
               type='secondary'
             >
-              {treeIsAdopted && !isBeingUnadopted && 'Baum unadoptieren'}
-              {treeIsAdopted && isBeingUnadopted && 'Baum wird unadoptiert'}
-              {!treeIsAdopted && !isBeingAdopted && 'Baum adoptieren'}
-              {!treeIsAdopted && isBeingAdopted && 'Baum wird adoptiert'}
+              {treeIsAdoptedByLoggedInUser &&
+                !isBeingUnadopted &&
+                'Baum unadoptieren'}
+              {treeIsAdoptedByLoggedInUser &&
+                isBeingUnadopted &&
+                'Baum wird unadoptiert'}
+              {!treeIsAdoptedByLoggedInUser &&
+                !isBeingAdopted &&
+                'Baum adoptieren'}
+              {!treeIsAdoptedByLoggedInUser &&
+                isBeingAdopted &&
+                'Baum wird adoptiert'}
             </ButtonRound>
             <ParticipateButton />
           </ActionsWrapper>

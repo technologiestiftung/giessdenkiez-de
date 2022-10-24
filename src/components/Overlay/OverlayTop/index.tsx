@@ -12,6 +12,7 @@ import Login from '../../../components/Login/';
 import content from '../../../assets/content';
 import { useActions } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
+import { SlackButton } from '../../SlackButton';
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,12 +34,18 @@ const StyledWrapper = styled.div`
   display: flex;
   margin: 20px 40px 20px 40px;
   cursor: pointer;
-  div {
-    margin-right: 10px;
-    @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-      margin-bottom: 10px;
-    }
+  justify-content: space-between;
+  align-items: start;
+  gap: 16px;
+
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    flex-direction: column;
   }
+`;
+
+const StyledButtonWrapper = styled.div`
+  display: flex;
+  gap: 16px;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     flex-direction: column;
@@ -72,16 +79,19 @@ const OverlayTop: FC = () => {
       <OverlayDescription content={description} />
       <OverlayClose onClick={closeOverlay} />
       <StyledWrapper>
-        <ButtonRound
-          width='fit-content'
-          onClick={() => {
-            closeOverlay();
-          }}
-          type='primary'
-        >
-          Los geht&apos;s
-        </ButtonRound>
-        <Login width='fit-content' noLogout={true} />
+        <StyledButtonWrapper>
+          <ButtonRound
+            width='fit-content'
+            onClick={() => {
+              closeOverlay();
+            }}
+            type='primary'
+          >
+            Los geht&apos;s
+          </ButtonRound>
+          <Login width='fit-content' noLogout={true} />
+        </StyledButtonWrapper>
+        <SlackButton />
       </StyledWrapper>
       {/* {whatsNew && (
         <StyledNewsSection aria-label='News und Updates'>
