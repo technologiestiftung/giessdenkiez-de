@@ -88,6 +88,10 @@ const AdoptedIndication = styled.span`
   transform: translateY(-4px);
 `;
 
+const ActionsWrapper = styled.div`
+  padding-top: ${p => p.theme.spacingM};
+`;
+
 const TreeInfos: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
@@ -222,9 +226,10 @@ const TreeInfos: FC<{
         )}
 
         {userData && userData.isVerified && (
-          <>
+          <ActionsWrapper>
+            <ButtonWater />
             <ButtonRound
-              margin='15px'
+              margin='15px 0'
               onClick={() => (treeIsAdopted ? unadoptTree() : adoptTree())}
               type='secondary'
             >
@@ -233,8 +238,8 @@ const TreeInfos: FC<{
               {!treeIsAdopted && !isBeingAdopted && 'Baum adoptieren'}
               {!treeIsAdopted && isBeingAdopted && 'Baum wird adoptiert'}
             </ButtonRound>
-            <ButtonWater />
-          </>
+            <ParticipateButton />
+          </ActionsWrapper>
         )}
       </FlexColumnDiv>
     </Wrapper>
