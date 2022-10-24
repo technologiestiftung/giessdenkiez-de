@@ -43,6 +43,10 @@ const LegendDiv = styled.div<IsActiveProps>`
   padding: 12px;
   width: ${p => (p.isActive ? '210px' : '90px')};
   background: white;
+
+  &:hover {
+    cursor: ${props => (props.onClick ? 'pointer' : 'default')};
+  }
 `;
 
 const StyledCardDescription = styled(SmallParagraph)`
@@ -70,14 +74,12 @@ const MapLayerLegend: FC = () => {
 
   if (legendExpanded === false) {
     return (
-      <LegendDiv>
+      <LegendDiv onClick={() => setLegendExpanded(true)}>
         <FlexSpace>
           <FlexColumn>
-            <StyledCardDescription onClick={() => setLegendExpanded(true)}>
-              Legende
-            </StyledCardDescription>
+            <StyledCardDescription>Legende</StyledCardDescription>
           </FlexColumn>
-          <LegendToggle onClick={() => setLegendExpanded(true)}>+</LegendToggle>
+          <LegendToggle>+</LegendToggle>
         </FlexSpace>
       </LegendDiv>
     );
