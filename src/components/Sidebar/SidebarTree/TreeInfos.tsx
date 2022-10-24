@@ -252,7 +252,9 @@ const TreeInfos: FC<{
             <ButtonWater />
             <ButtonRound
               margin='15px 0'
-              onClick={() => (treeIsAdoptedByLoggedInUser ? unadoptTree() : adoptTree())}
+              onClick={() =>
+                treeIsAdoptedByLoggedInUser ? unadoptTree() : adoptTree()
+              }
               type='secondary'
             >
               {treeIsAdoptedByLoggedInUser &&
