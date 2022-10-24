@@ -97,6 +97,10 @@ const AdoptionsParent = styled.div`
   margin-top: 8px;
 `;
 
+const ActionsWrapper = styled.div`
+  padding-top: ${p => p.theme.spacingM};
+`;
+
 const TreeInfos: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
@@ -244,12 +248,11 @@ const TreeInfos: FC<{
         )}
 
         {userData && userData.isVerified && (
-          <>
+          <ActionsWrapper>
+            <ButtonWater />
             <ButtonRound
-              margin='15px'
-              onClick={() =>
-                treeIsAdoptedByLoggedInUser ? unadoptTree() : adoptTree()
-              }
+              margin='15px 0'
+              onClick={() => (treeIsAdoptedByLoggedInUser ? unadoptTree() : adoptTree())}
               type='secondary'
             >
               {treeIsAdoptedByLoggedInUser &&
@@ -265,8 +268,8 @@ const TreeInfos: FC<{
                 isBeingAdopted &&
                 'Baum wird adoptiert'}
             </ButtonRound>
-            <ButtonWater />
-          </>
+            <ParticipateButton />
+          </ActionsWrapper>
         )}
       </FlexColumnDiv>
     </Wrapper>
