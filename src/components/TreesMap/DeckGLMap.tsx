@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Map as MapboxMap, MapboxGeoJSONFeature } from 'mapbox-gl';
+import { Map as MapboxMap } from 'mapbox-gl';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 import {
@@ -181,7 +181,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       },
     };
 
-    this._onClick = this._onClick.bind(this);
     this._updateStyles = this._updateStyles.bind(this);
     this._deckClick = this._deckClick.bind(this);
     this.setCursor = this.setCursor.bind(this);
@@ -331,9 +330,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
     if (features.length === 0) return;
 
-    this._onClick(event.x, event.y, features[0]);
+    const id: string = features[0].properties?.id;
 
-    if (!features[0].properties) return;
+    if (!id) return;
+
+    this.props.onTreeSelect(id);
 
     map.setFeatureState(
       { sourceLayer: 'original', source: 'trees', id: features[0].id },
@@ -351,19 +352,12 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     });
   }
 
-  _onClick(
-    _x: number,
-    _y: number,
-    object: Partial<MapboxGeoJSONFeature>
-  ): void {
-    const id: string = object.properties?.id;
-    if (!id) return;
-
-    this.props.onTreeSelect(id);
-  }
-
-  setCursor(val: unknown): void {
-    if (val) {
+  setCursor(layer: unknown): void {
+    if (layer) {
+      // Note: This will only work for layers rendered by DeckGL.
+      // Since we are adding the trees vector tile layer the "vanilla" way
+      // (in _onload), we don't have an existing layer in setCursor,
+      // so hovering the trees will always remain "grab":
       this.setState({ cursor: 'pointer' });
     } else {
       this.setState({ cursor: 'grab' });
@@ -435,6 +429,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       type: 'circle',
       source: 'trees',
       'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
+      interactive: true,
       layout: {
         visibility: visibleMapLayer === 'trees' ? 'visible' : 'none',
       },
