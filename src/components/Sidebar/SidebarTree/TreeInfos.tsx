@@ -93,8 +93,10 @@ const AdoptedIndication = styled.span<{
 
 const AdoptionsParent = styled.div`
   display: flex;
-  gap: 8px;
+  column-gap: 8px;
+  row-gap: 4px;
   margin-top: 8px;
+  flex-wrap: wrap;
 `;
 
 const ActionsWrapper = styled.div`
@@ -148,26 +150,29 @@ const TreeInfos: FC<{
         {(artdtsch || gattungdeutsch || treeType?.title) && (
           <TreeTitle>{artdtsch || gattungdeutsch || treeType?.title}</TreeTitle>
         )}
-        {(treeIsAdoptedByLoggedInUser || treeIsAdoptedByOtherUsers) && (
-          <AdoptionsParent>
-            {treeIsAdoptedByLoggedInUser && (
-              <AdoptedIndication selfAdopted>Adoptiert ✔</AdoptedIndication>
-            )}
-            {treeIsAdoptedByOtherUsers && (
-              <AdoptedIndication>
-                {treeIsAdoptedByLoggedInUser
-                  ? `Ebenfalls von anderen adoptiert`
-                  : `Bereits von anderen adoptiert`}
-              </AdoptedIndication>
-            )}
-          </AdoptionsParent>
-        )}
         {!treeType &&
           gattungdeutsch &&
           gattungdeutsch !== 'undefined' &&
           gattungdeutsch.toLowerCase() !== artdtsch?.toLowerCase() && (
             <SublineSpan>{gattungdeutsch.toLowerCase()}</SublineSpan>
           )}
+        {(treeIsAdoptedByLoggedInUser || treeIsAdoptedByOtherUsers) && (
+          <AdoptionsParent>
+            {treeIsAdoptedByLoggedInUser && (
+              <AdoptedIndication selfAdopted>
+                Von mir adoptiert ✔
+              </AdoptedIndication>
+            )}
+            {treeIsAdoptedByOtherUsers && (
+              <AdoptedIndication>
+                {treeIsAdoptedByLoggedInUser
+                  ? `Ebenfalls von anderen adoptiert`
+                  : `Von anderen Nutzer:innen adoptiert`}{' '}
+                ✔
+              </AdoptedIndication>
+            )}
+          </AdoptionsParent>
+        )}
         {caretaker && caretaker.length > 0 && (
           <CaretakerDiv>
             <Icon iconType='water' height={32}></Icon>
@@ -259,10 +264,10 @@ const TreeInfos: FC<{
             >
               {treeIsAdoptedByLoggedInUser &&
                 !isBeingUnadopted &&
-                'Baum unadoptieren'}
+                'Adoption aufheben'}
               {treeIsAdoptedByLoggedInUser &&
                 isBeingUnadopted &&
-                'Baum wird unadoptiert'}
+                'Adoption wird aufgehoben'}
               {!treeIsAdoptedByLoggedInUser &&
                 !isBeingAdopted &&
                 'Baum adoptieren'}
