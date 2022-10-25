@@ -269,11 +269,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       {
         sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
         source: 'trees',
-        id: features[0].id,
+        id: id,
       },
       { select: true }
     );
-    selectedStateId = features[0].id;
+    selectedStateId = id;
   }
 
   setViewport(viewport: Partial<ViewportType>): void {
@@ -355,6 +355,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       url: process.env.MAPBOX_TREES_TILESET_URL,
       minzoom: 11,
       maxzoom: 20,
+      promoteId: 'id',
     });
 
     map.addLayer({
