@@ -316,7 +316,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   _deckClick(event: { x: number; y: number }): void {
-    if (!isMobile || !map) return;
+    if (!map) return;
 
     if (selectedStateId) {
       map.setFeatureState(
