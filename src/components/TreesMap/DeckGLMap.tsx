@@ -379,6 +379,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   _onload(evt: { target: MapboxMap }): void {
     map = evt.target;
 
+    const { visibleMapLayer } = this.props;
+
     if (!map || typeof map === 'undefined') return;
 
     const firstLabelLayerId = map
@@ -387,101 +389,102 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
     if (!firstLabelLayerId) return;
 
-    if (!isMobile) {
-      map.addLayer(
-        {
-          id: '3d-buildings',
-          source: 'composite',
-          'source-layer': 'building',
-          filter: ['==', 'extrude', 'true'],
-          type: 'fill-extrusion',
-          minzoom: 0,
-          paint: {
-            'fill-extrusion-color': '#FFF',
-            'fill-extrusion-height': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              15,
-              0,
-              15.05,
-              ['get', 'height'],
-            ],
-            'fill-extrusion-base': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              15,
-              0,
-              15.05,
-              ['get', 'min_height'],
-            ],
-            'fill-extrusion-opacity': 0.3,
-          },
-        },
-        firstLabelLayerId
-      );
-    } else {
-      // disable map rotation using right click + drag
-      map.dragRotate.disable();
-
-      // disable map rotation using touch rotation gesture
-      map.touchZoomRotate.disableRotation();
-
-      map.addSource('trees', {
-        type: 'vector',
-        url: process.env.MAPBOX_TREES_TILESET_URL,
-        minzoom: 11,
-        maxzoom: 20,
-      });
-
-      map.addLayer({
-        id: 'trees',
-        type: 'circle',
-        source: 'trees',
-        'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
-        // TODO: Below we add the style for the trees on mobile. The color updates should be inserted or replicated here.
+    map.addLayer(
+      {
+        id: '3d-buildings',
+        source: 'composite',
+        'source-layer': 'building',
+        filter: ['==', 'extrude', 'true'],
+        type: 'fill-extrusion',
+        minzoom: 0,
         paint: {
-          'circle-radius': {
-            base: 1.75,
-            stops: [
-              [11, 1],
-              [22, 100],
-            ],
-          },
-          'circle-opacity': 1,
-          'circle-stroke-color': 'rgba(247, 105, 6, 1)',
-          'circle-color': [
-            'case',
-            ['boolean', ['feature-state', 'hover'], false],
-            'rgba(200,200,200,1)',
-            [
-              'interpolate',
-              ['linear'],
-              ['get', 'radolan_sum'],
-              0,
-              interpolateColor(0),
-              600,
-              interpolateColor(60),
-              1200,
-              interpolateColor(120),
-              1800,
-              interpolateColor(180),
-              2400,
-              interpolateColor(240),
-              3000,
-              interpolateColor(300),
-            ],
-          ],
-          'circle-stroke-width': [
-            'case',
-            ['boolean', ['feature-state', 'select'], false],
+          'fill-extrusion-color': '#FFF',
+          'fill-extrusion-height': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
             15,
             0,
+            15.05,
+            ['get', 'height'],
+          ],
+          'fill-extrusion-base': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            15,
+            0,
+            15.05,
+            ['get', 'min_height'],
+          ],
+          'fill-extrusion-opacity': 0.3,
+        },
+      },
+      firstLabelLayerId
+    );
+
+    // disable map rotation using right click + drag
+    map.dragRotate.disable();
+
+    // disable map rotation using touch rotation gesture
+    map.touchZoomRotate.disableRotation();
+
+    map.addSource('trees', {
+      type: 'vector',
+      url: process.env.MAPBOX_TREES_TILESET_URL,
+      minzoom: 11,
+      maxzoom: 20,
+    });
+
+    map.addLayer({
+      id: 'trees',
+      type: 'circle',
+      source: 'trees',
+      'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
+      layout: {
+        visibility: visibleMapLayer === 'trees' ? 'visible' : 'none',
+      },
+      // TODO: Below we add the style for the trees on mobile. The color updates should be inserted or replicated here.
+      paint: {
+        'circle-radius': {
+          base: 1.75,
+          stops: [
+            [11, 1],
+            [22, 100],
           ],
         },
-      });
-    }
+        'circle-opacity': 1,
+        'circle-stroke-color': 'rgba(247, 105, 6, 1)',
+        'circle-color': [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          'rgba(200,200,200,1)',
+          [
+            'interpolate',
+            ['linear'],
+            ['get', 'radolan_sum'],
+            0,
+            interpolateColor(0),
+            600,
+            interpolateColor(60),
+            1200,
+            interpolateColor(120),
+            1800,
+            interpolateColor(180),
+            2400,
+            interpolateColor(240),
+            3000,
+            interpolateColor(300),
+          ],
+        ],
+        'circle-stroke-width': [
+          'case',
+          ['boolean', ['feature-state', 'select'], false],
+          15,
+          0,
+        ],
+      },
+    });
 
     this.setState({ isTreeMapLoading: false });
 
