@@ -319,7 +319,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
     if (selectedStateId) {
       map.setFeatureState(
-        { sourceLayer: 'original', source: 'trees', id: selectedStateId },
+        {
+          sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
+          source: 'trees',
+          id: selectedStateId,
+        },
         { select: false }
       );
       selectedStateId = undefined;
@@ -337,7 +341,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     this.props.onTreeSelect(id);
 
     map.setFeatureState(
-      { sourceLayer: 'original', source: 'trees', id: features[0].id },
+      {
+        sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
+        source: 'trees',
+        id: features[0].id,
+      },
       { select: true }
     );
     selectedStateId = features[0].id;
