@@ -597,10 +597,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       latitude: viewport.latitude,
       longitude: viewport.longitude,
       zoom: viewport.zoom,
-      transitionDuration:
-        isMobile && viewport.zoom !== this.state.viewport.zoom
-          ? VIEWSTATE_TRANSITION_DURATION
-          : 0,
+      transitionDuration: 0,
     });
   }
 
