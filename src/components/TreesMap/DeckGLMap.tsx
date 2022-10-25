@@ -12,15 +12,10 @@ import {
 import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
-import {
-  CommunityDataType,
-  StoreProps,
-  TreeGeojsonFeatureProperties,
-} from '../../common/interfaces';
+import { CommunityDataType, StoreProps } from '../../common/interfaces';
 import { pumpToColor } from './mapColorUtil';
 import { MapTooltip } from './MapTooltip';
 import {
-  getWaterNeedByAge,
   YOUNG_TREE_MAX_AGE,
   OLD_TREE_MIN_AGE,
   LOW_WATER_NEED_NUM,
@@ -55,12 +50,6 @@ let selectedStateId: string | number | undefined = undefined;
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
-const colors = {
-  transparent: [200, 200, 200, 0] as [number, number, number, number],
-  blue: [53, 117, 177, 200] as [number, number, number, number],
-  turquoise: [0, 128, 128, 200] as [number, number, number, number],
-  red: [247, 105, 6, 255] as [number, number, number, number],
-};
 
 interface DeckGLPropType {
   rainGeojson: ExtendedFeatureCollection | null;
