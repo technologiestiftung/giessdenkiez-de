@@ -421,66 +421,78 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   _updateStyles(prevProps: DeckGLPropType): void {
-    if (map) {
-      if (this.props.visibleMapLayer !== 'trees') {
-        map.setLayoutProperty('trees', 'visibility', 'none');
-      } else {
-        map.setLayoutProperty('trees', 'visibility', 'visible');
-      }
-      if (prevProps.ageRange !== this.props.ageRange) {
-        map.setPaintProperty('trees', 'circle-opacity', [
+    if (!map) return;
+
+    if (!this.props.selectedTreeId && !!prevProps.selectedTreeId) {
+      map.setFeatureState(
+        {
+          sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
+          source: 'trees',
+          id: selectedStateId,
+        },
+        { select: false }
+      );
+      selectedStateId = undefined;
+    }
+
+    if (this.props.visibleMapLayer !== 'trees') {
+      map.setLayoutProperty('trees', 'visibility', 'none');
+    } else {
+      map.setLayoutProperty('trees', 'visibility', 'visible');
+    }
+    if (prevProps.ageRange !== this.props.ageRange) {
+      map.setPaintProperty('trees', 'circle-opacity', [
+        'case',
+        ['>=', ['get', 'age'], this.props.ageRange[0]],
+        ['case', ['<=', ['get', 'age'], this.props.ageRange[1]], 1, 0],
+        0,
+      ]);
+    }
+    let communityFilter: unknown[] | null = null;
+    let waterNeedFilter: unknown[] | null = null;
+    if (this.props.mapViewFilter === 'watered') {
+      // TODO: check if there is a performance up for any of the two
+      // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
+      communityFilter = [
+        'match',
+        ['get', 'id'],
+        this.props.communityDataWatered,
+        true,
+        false,
+      ];
+    } else if (this.props.mapViewFilter === 'adopted') {
+      communityFilter = [
+        'match',
+        ['get', 'id'],
+        this.props.communityDataAdopted,
+        true,
+        false,
+      ];
+    }
+    if (this.props.mapWaterNeedFilter !== null) {
+      waterNeedFilter = [
+        'match',
+        [
           'case',
-          ['>=', ['get', 'age'], this.props.ageRange[0]],
-          ['case', ['<=', ['get', 'age'], this.props.ageRange[1]], 1, 0],
-          0,
-        ]);
-      }
-      let communityFilter: unknown[] | null = null;
-      let waterNeedFilter: unknown[] | null = null;
-      if (this.props.mapViewFilter === 'watered') {
-        // TODO: check if there is a performance up for any of the two
-        // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
-        communityFilter = [
-          'match',
-          ['get', 'id'],
-          this.props.communityDataWatered,
-          true,
-          false,
-        ];
-      } else if (this.props.mapViewFilter === 'adopted') {
-        communityFilter = [
-          'match',
-          ['get', 'id'],
-          this.props.communityDataAdopted,
-          true,
-          false,
-        ];
-      }
-      if (this.props.mapWaterNeedFilter !== null) {
-        waterNeedFilter = [
-          'match',
+          ['<', ['get', 'age'], OLD_TREE_MIN_AGE],
           [
             'case',
-            ['<', ['get', 'age'], OLD_TREE_MIN_AGE],
-            [
-              'case',
-              ['<', ['get', 'age'], YOUNG_TREE_MAX_AGE],
-              HIGH_WATER_NEED_NUM,
-              MEDIUM_WATER_NEED_NUM,
-            ],
-            LOW_WATER_NEED_NUM,
+            ['<', ['get', 'age'], YOUNG_TREE_MAX_AGE],
+            HIGH_WATER_NEED_NUM,
+            MEDIUM_WATER_NEED_NUM,
           ],
-          this.props.mapWaterNeedFilter,
-          true,
-          false,
-        ];
-      }
-
-      map.setFilter(
-        'trees',
-        ['all', communityFilter, waterNeedFilter].filter(val => val !== null)
-      );
+          LOW_WATER_NEED_NUM,
+        ],
+        this.props.mapWaterNeedFilter,
+        true,
+        false,
+      ];
     }
+
+    map.setFilter(
+      'trees',
+      ['all', communityFilter, waterNeedFilter].filter(val => val !== null)
+    );
   }
 
   componentDidUpdate(prevProps: DeckGLPropType): boolean {
