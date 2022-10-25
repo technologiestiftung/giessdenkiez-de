@@ -63,7 +63,6 @@ const colors = {
 };
 
 interface DeckGLPropType {
-  treesGeoJson: ExtendedFeatureCollection | null;
   rainGeojson: ExtendedFeatureCollection | null;
 
   visibleMapLayer: StoreProps['visibleMapLayer'];
@@ -254,14 +253,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   _renderLayers(): unknown[] {
-    const {
-      treesGeoJson,
-      rainGeojson,
-      visibleMapLayer,
-      pumpsGeoJson,
-    } = this.props;
+    const { rainGeojson, visibleMapLayer, pumpsGeoJson } = this.props;
 
-    if (!treesGeoJson || !rainGeojson || !pumpsGeoJson) return [];
+    if (!rainGeojson || !pumpsGeoJson) return [];
     const layers = [
       new GeoJsonLayer({
         id: 'rain',
