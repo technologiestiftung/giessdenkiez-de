@@ -454,6 +454,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       // TODO: check if there is a performance up for any of the two
       // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
       communityFilter = [
+        // TODO: check if communityDataWatered.length is greater than 0, than check if ID exists in array, else false.
+        // Also do this for adopted filter?
         'match',
         ['get', 'id'],
         this.props.communityDataWatered,
@@ -499,6 +501,8 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     if (!map) return false;
     const mapProps = [
       'communityData',
+      'communityDataWatered',
+      'communityDataAdopted',
       'ageRange',
       'mapViewFilter',
       'mapWaterNeedFilter',
