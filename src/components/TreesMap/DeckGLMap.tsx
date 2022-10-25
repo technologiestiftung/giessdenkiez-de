@@ -498,7 +498,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   }
 
   _updateStyles(prevProps: DeckGLPropType): void {
-    if (map && isMobile) {
+    if (map) {
       if (this.props.visibleMapLayer !== 'trees') {
         map.setLayoutProperty('trees', 'visibility', 'none');
       } else {
