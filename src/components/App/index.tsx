@@ -16,7 +16,6 @@ import { useStoreState } from '../../state/unistore-hooks';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
-import { useTreesGeoJson } from '../../utils/hooks/useTreesGeoJson';
 
 import 'react-day-picker/dist/style.css';
 
@@ -70,14 +69,11 @@ const App: FC = () => {
   const { data: communityData } = useCommunityData();
   const { data: rainGeoJson } = useRainGeoJson();
   const { data: pumpsGeoJson } = usePumpsGeoJson();
-  const { data: treesGeoJson } = useTreesGeoJson();
   const { pathname } = useLocation();
 
   const isHome = pathname === '/';
   const showOverlay = isHome && overlay;
-  const showMap = Boolean(
-    treesGeoJson && communityData && rainGeoJson && pumpsGeoJson
-  );
+  const showMap = Boolean(communityData && rainGeoJson && pumpsGeoJson);
   const showLoading = !showMap;
   const showMapUI = showMap && !showOverlay;
   const isSidebarOpened = !isHome && isNavOpen;

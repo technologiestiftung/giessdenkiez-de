@@ -7,7 +7,6 @@ import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
-import { useTreesGeoJson } from '../../utils/hooks/useTreesGeoJson';
 
 export const Map: FC<{
   showOverlay: boolean | undefined;
@@ -23,7 +22,6 @@ export const Map: FC<{
   const { data: communityData } = useCommunityData();
   const { data: rainGeoJson } = useRainGeoJson();
   const { data: pumpsGeoJson } = usePumpsGeoJson();
-  const { data: treesGeoJson } = useTreesGeoJson();
   const { treeData: selectedTreeData } = useTreeData(treeId);
   const history = useHistory();
 
@@ -33,7 +31,6 @@ export const Map: FC<{
         const nextLocation = `/tree/${id}`;
         history.push(nextLocation);
       }}
-      treesGeoJson={treesGeoJson || null}
       rainGeojson={rainGeoJson || null}
       visibleMapLayer={visibleMapLayer}
       isNavOpen={!!isNavOpened}
