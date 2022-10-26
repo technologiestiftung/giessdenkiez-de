@@ -86,33 +86,11 @@ export const pumpToColor: (pumpInfo?: {
   return defaultColor.rgba;
 };
 
-const WATERED_CIRCLE_COLOR = 'rgba(53,117,177,1)';
-const ADOPTED_CIRCLE_COLOR = 'rgba(0,128,128,1)';
-
-export const getTreeCircleColor = ({
-  wateredFilterOn = false,
-  adoptedFilterOn = false,
-}: {
-  wateredFilterOn?: boolean;
-  adoptedFilterOn?: boolean;
-}): CirclePaint['circle-color'] => {
-  const defaultColorArr = [
+export const getTreeCircleColor = (): CirclePaint['circle-color'] => {
+  return [
     'case',
     ['boolean', ['feature-state', 'hover'], false],
     'rgba(200,200,200,1)',
-  ];
-  if (wateredFilterOn)
-    return [
-      ...defaultColorArr,
-      WATERED_CIRCLE_COLOR,
-    ] as CirclePaint['circle-color'];
-  if (adoptedFilterOn)
-    return [
-      ...defaultColorArr,
-      ADOPTED_CIRCLE_COLOR,
-    ] as CirclePaint['circle-color'];
-  return [
-    ...defaultColorArr,
     [
       'interpolate',
       ['linear'],
