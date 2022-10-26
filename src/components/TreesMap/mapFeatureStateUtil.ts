@@ -49,3 +49,24 @@ export const updateSelectedTreeIdFeatureState = ({
     { select: !!currentSelectedTreeId }
   );
 };
+
+export const updateHoverFeatureState = ({
+  map,
+  prevHoveredTreeId,
+  currentHoveredTreeId,
+}: {
+  map: MapboxMap;
+  prevHoveredTreeId: string | null;
+  currentHoveredTreeId: string | null;
+}): void => {
+  const hoveredId = currentHoveredTreeId || prevHoveredTreeId;
+  if (!hoveredId) return;
+  map.setFeatureState(
+    {
+      sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
+      source: 'trees',
+      id: hoveredId,
+    },
+    { hover: !!currentHoveredTreeId }
+  );
+};

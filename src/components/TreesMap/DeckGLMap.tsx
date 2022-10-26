@@ -25,11 +25,15 @@ import {
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
-import { updateSelectedTreeIdFeatureState } from './mapFeatureStateUtil';
+import {
+  updateHoverFeatureState,
+  updateSelectedTreeIdFeatureState,
+} from './mapFeatureStateUtil';
 import {
   getTreeCircleRadius,
   updateTreeCirclePaintProps,
 } from './mapPaintPropsUtils';
+import { setBodyMapLayerClass } from './mapCSSClassUtil';
 
 interface StyledProps {
   isNavOpen?: boolean;
@@ -112,6 +116,7 @@ interface PumpEventInfo {
 }
 
 interface DeckGLStateType {
+  hoveredTreeId: string | null;
   hoveredPump: PumpTooltipType | null;
   clickedPump: PumpTooltipType | null;
   cursor: 'grab' | 'pointer';
@@ -156,6 +161,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     super(props);
 
     this.state = {
+      hoveredTreeId: null,
       hoveredPump: null,
       clickedPump: null,
       cursor: 'grab',
@@ -364,11 +370,23 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       },
     });
 
+    map.on('mouseenter', 'trees', e => {
+      if (!map || !e.features?.length) return;
+      this.setState({ hoveredTreeId: e.features[0].id as string });
+    });
+
+    map.on('mouseleave', 'trees', e => {
+      this.setState({ hoveredTreeId: null });
+      if (!map || !e.features?.length) return;
+    });
+
     updateSelectedTreeIdFeatureState({
       map,
       prevSelectedTreeId: undefined,
       currentSelectedTreeId: this.props.selectedTreeId,
     });
+
+    setBodyMapLayerClass(this.props.visibleMapLayer);
 
     this.setState({ isTreeMapLoading: false });
 
@@ -381,7 +399,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     });
   }
 
-  _updateStyles(prevProps: DeckGLPropType): void {
+  _updateStyles(prevProps: DeckGLPropType, prevState: DeckGLStateType): void {
     if (!map) return;
 
     updateSelectedTreeIdFeatureState({
@@ -390,6 +408,17 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       currentSelectedTreeId: this.props.selectedTreeId,
     });
 
+    if (prevState.hoveredTreeId !== this.state.hoveredTreeId) {
+      updateHoverFeatureState({
+        map,
+        prevHoveredTreeId: prevState.hoveredTreeId,
+        currentHoveredTreeId: this.state.hoveredTreeId,
+      });
+    }
+
+    if (prevProps.visibleMapLayer !== this.props.visibleMapLayer) {
+      setBodyMapLayerClass(this.props.visibleMapLayer);
+    }
     if (this.props.visibleMapLayer !== 'trees') {
       map.setLayoutProperty('trees', 'visibility', 'none');
       return;
@@ -450,9 +479,13 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     );
   }
 
-  componentDidUpdate(prevProps: DeckGLPropType): boolean {
+  componentDidUpdate(
+    prevProps: DeckGLPropType,
+    prevState: DeckGLStateType
+  ): boolean {
     if (!map) return false;
-    const mapProps = [
+    const stateKeys = ['hoveredTreeId'];
+    const propsKeys = [
       'communityData',
       'communityDataWatered',
       'communityDataAdopted',
@@ -465,14 +498,19 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       'focusPoint',
     ];
     let changed = false;
-    mapProps.forEach(prop => {
-      if (prevProps[prop] !== this.props[prop]) {
+    propsKeys.forEach(propKey => {
+      if (prevProps[propKey] !== this.props[propKey]) {
+        changed = true;
+      }
+    });
+    stateKeys.forEach(stateKey => {
+      if (prevState[stateKey] !== this.state[stateKey]) {
         changed = true;
       }
     });
 
     if (!changed) return false;
-    this._updateStyles(prevProps);
+    this._updateStyles(prevProps, prevState);
 
     if (
       this.props.focusPoint &&
