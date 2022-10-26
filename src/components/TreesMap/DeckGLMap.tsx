@@ -13,7 +13,7 @@ import DeckGL, { GeoJsonLayer } from 'deck.gl';
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
-import { pumpToColor } from './mapColorUtil';
+import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
 import { MapTooltip } from './MapTooltip';
 import {
   YOUNG_TREE_MAX_AGE,
@@ -283,8 +283,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   _onload(evt: { target: MapboxMap }): void {
     map = evt.target;
 
-    const { visibleMapLayer } = this.props;
-
     if (!map || typeof map === 'undefined') return;
 
     const firstLabelLayerId = map
@@ -347,9 +345,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       source: 'trees',
       'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
       interactive: true,
-      layout: {
-        visibility: visibleMapLayer === 'trees' ? 'visible' : 'none',
-      },
       // TODO: Below we add the style for the trees on mobile. The color updates should be inserted or replicated here.
       paint: {
         'circle-radius': {
@@ -361,28 +356,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         },
         'circle-opacity': 1,
         'circle-stroke-color': 'rgba(247, 105, 6, 1)',
-        'circle-color': [
-          'case',
-          ['boolean', ['feature-state', 'hover'], false],
-          'rgba(200,200,200,1)',
-          [
-            'interpolate',
-            ['linear'],
-            ['get', 'radolan_sum'],
-            0,
-            interpolateColor(0),
-            600,
-            interpolateColor(60),
-            1200,
-            interpolateColor(120),
-            1800,
-            interpolateColor(180),
-            2400,
-            interpolateColor(240),
-            3000,
-            interpolateColor(300),
-          ],
-        ],
+        'circle-color': getTreeCircleColor({}),
         'circle-stroke-width': [
           'case',
           ['boolean', ['feature-state', 'select'], false],
@@ -412,11 +386,30 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   _updateStyles(prevProps: DeckGLPropType): void {
     if (!map) return;
 
+    updateSelectedTreeIdFeatureState({
+      map,
+      prevSelectedTreeId: prevProps.selectedTreeId,
+      currentSelectedTreeId: this.props.selectedTreeId,
+    });
+
     if (this.props.visibleMapLayer !== 'trees') {
       map.setLayoutProperty('trees', 'visibility', 'none');
+      return;
     } else {
       map.setLayoutProperty('trees', 'visibility', 'visible');
     }
+
+    if (prevProps.mapViewFilter !== this.props.mapViewFilter) {
+      map.setPaintProperty(
+        'trees',
+        'circle-color',
+        getTreeCircleColor({
+          wateredFilterOn: this.props.mapViewFilter === 'watered',
+          adoptedFilterOn: this.props.mapViewFilter === 'adopted',
+        })
+      );
+    }
+
     if (prevProps.ageRange !== this.props.ageRange) {
       map.setPaintProperty('trees', 'circle-opacity', [
         'case',
@@ -481,12 +474,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       if (prevProps[prop] !== this.props[prop]) {
         changed = true;
       }
-    });
-
-    updateSelectedTreeIdFeatureState({
-      map,
-      prevSelectedTreeId: prevProps.selectedTreeId,
-      currentSelectedTreeId: this.props.selectedTreeId,
     });
 
     if (!changed) return false;

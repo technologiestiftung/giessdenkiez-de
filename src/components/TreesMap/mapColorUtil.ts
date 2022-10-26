@@ -1,3 +1,6 @@
+import { interpolateColor } from '../../utils/colorUtil';
+import { CirclePaint } from 'mapbox-gl';
+
 type RGBAColor = [red: number, green: number, blue: number, alpha: number];
 type CMYKColor = [cyan: number, magenta: number, yellow: number, black: number];
 type HslColor = [hue: number, saturation: number, lightness: number];
@@ -81,4 +84,51 @@ export const pumpToColor: (pumpInfo?: {
     }
   }
   return defaultColor.rgba;
+};
+
+const WATERED_CIRCLE_COLOR = 'rgba(53,117,177,1)';
+const ADOPTED_CIRCLE_COLOR = 'rgba(0,128,128,1)';
+
+export const getTreeCircleColor = ({
+  wateredFilterOn = false,
+  adoptedFilterOn = false,
+}: {
+  wateredFilterOn?: boolean;
+  adoptedFilterOn?: boolean;
+}): CirclePaint['circle-color'] => {
+  const defaultColorArr = [
+    'case',
+    ['boolean', ['feature-state', 'hover'], false],
+    'rgba(200,200,200,1)',
+  ];
+  if (wateredFilterOn)
+    return [
+      ...defaultColorArr,
+      WATERED_CIRCLE_COLOR,
+    ] as CirclePaint['circle-color'];
+  if (adoptedFilterOn)
+    return [
+      ...defaultColorArr,
+      ADOPTED_CIRCLE_COLOR,
+    ] as CirclePaint['circle-color'];
+  return [
+    ...defaultColorArr,
+    [
+      'interpolate',
+      ['linear'],
+      ['get', 'radolan_sum'],
+      0,
+      interpolateColor(0),
+      600,
+      interpolateColor(60),
+      1200,
+      interpolateColor(120),
+      1800,
+      interpolateColor(180),
+      2400,
+      interpolateColor(240),
+      3000,
+      interpolateColor(300),
+    ],
+  ] as CirclePaint['circle-color'];
 };
