@@ -218,7 +218,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         getElevation: 1,
         getLineColor: [0, 0, 0, 200],
         getFillColor: pumpToColor,
-        getRadius: 9,
+        getPointRadius: 9,
         pointRadiusMinPixels: 4,
         pickable: true,
         lineWidthScale: 3,
@@ -555,7 +555,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       <>
         <DeckGL
           layers={this._renderLayers() as any}
-          initialViewState={viewport}
           viewState={viewport as any}
           getCursor={() => this.state.cursor}
           onHover={({ layer }) => this.setCursor(layer)}
