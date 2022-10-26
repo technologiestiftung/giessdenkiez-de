@@ -26,6 +26,10 @@ import {
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
 import { updateSelectedTreeIdFeatureState } from './mapFeatureStateUtil';
+import {
+  getTreeCircleRadius,
+  updateTreeCirclePaintProps,
+} from './mapPaintPropsUtils';
 
 interface StyledProps {
   isNavOpen?: boolean;
@@ -347,13 +351,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       interactive: true,
       // TODO: Below we add the style for the trees on mobile. The color updates should be inserted or replicated here.
       paint: {
-        'circle-radius': {
-          base: 1.75,
-          stops: [
-            [11, 1],
-            [22, 100],
-          ],
-        },
+        'circle-radius': getTreeCircleRadius({}),
         'circle-opacity': 1,
         'circle-stroke-color': 'rgba(247, 105, 6, 1)',
         'circle-color': getTreeCircleColor({}),
@@ -400,14 +398,11 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     }
 
     if (prevProps.mapViewFilter !== this.props.mapViewFilter) {
-      map.setPaintProperty(
-        'trees',
-        'circle-color',
-        getTreeCircleColor({
-          wateredFilterOn: this.props.mapViewFilter === 'watered',
-          adoptedFilterOn: this.props.mapViewFilter === 'adopted',
-        })
-      );
+      updateTreeCirclePaintProps({
+        map,
+        wateredFilterOn: this.props.mapViewFilter === 'watered',
+        adoptedFilterOn: this.props.mapViewFilter === 'adopted',
+      });
     }
 
     if (prevProps.ageRange !== this.props.ageRange) {
