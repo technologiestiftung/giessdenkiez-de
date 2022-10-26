@@ -6,7 +6,7 @@ const SlackButtonLink = styled.a`
   border-radius: 999px;
   background: white;
   color: var(--slackColor);
-  display: flex;
+  display: inline-flex;
   height: 40px;
   gap: 12px;
   padding: 1px 20px;
