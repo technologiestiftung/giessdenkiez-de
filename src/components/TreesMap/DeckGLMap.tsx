@@ -25,6 +25,7 @@ import {
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
+import { updateSelectedTreeIdFeatureState } from './mapFeatureStateUtil';
 
 interface StyledProps {
   isNavOpen?: boolean;
@@ -47,7 +48,6 @@ const ControlWrapper = styled.div<StyledProps>`
 `;
 
 let map: MapboxMap | null = null;
-let selectedStateId: string | number | undefined = undefined;
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
@@ -246,17 +246,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
   _deckClick(event: { x: number; y: number }): void {
     if (!map) return;
 
-    if (selectedStateId) {
-      map.setFeatureState(
-        {
-          sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
-          source: 'trees',
-          id: selectedStateId,
-        },
-        { select: false }
-      );
-      selectedStateId = undefined;
-    }
     const features = map.queryRenderedFeatures([event.x, event.y], {
       layers: ['trees'],
     });
@@ -268,16 +257,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
     if (!id) return;
 
     this.props.onTreeSelect(id);
-
-    map.setFeatureState(
-      {
-        sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
-        source: 'trees',
-        id: id,
-      },
-      { select: true }
-    );
-    selectedStateId = id;
   }
 
   setViewport(viewport: Partial<ViewportType>): void {
@@ -413,6 +392,12 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       },
     });
 
+    updateSelectedTreeIdFeatureState({
+      map,
+      prevSelectedTreeId: undefined,
+      currentSelectedTreeId: this.props.selectedTreeId,
+    });
+
     this.setState({ isTreeMapLoading: false });
 
     if (!this.props.focusPoint) return;
@@ -426,18 +411,6 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
 
   _updateStyles(prevProps: DeckGLPropType): void {
     if (!map) return;
-
-    if (!this.props.selectedTreeId && !!prevProps.selectedTreeId) {
-      map.setFeatureState(
-        {
-          sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
-          source: 'trees',
-          id: selectedStateId,
-        },
-        { select: false }
-      );
-      selectedStateId = undefined;
-    }
 
     if (this.props.visibleMapLayer !== 'trees') {
       map.setLayoutProperty('trees', 'visibility', 'none');
@@ -508,6 +481,12 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       if (prevProps[prop] !== this.props[prop]) {
         changed = true;
       }
+    });
+
+    updateSelectedTreeIdFeatureState({
+      map,
+      prevSelectedTreeId: prevProps.selectedTreeId,
+      currentSelectedTreeId: this.props.selectedTreeId,
     });
 
     if (!changed) return false;
