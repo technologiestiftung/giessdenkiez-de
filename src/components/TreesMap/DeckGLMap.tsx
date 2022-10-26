@@ -24,6 +24,7 @@ import {
 } from '../../utils/getWaterNeedByAge';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
 
 interface StyledProps {
   isNavOpen?: boolean;
@@ -218,6 +219,9 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         getElevation: 1,
         getLineColor: [0, 0, 0, 200],
         getFillColor: pumpToColor,
+        // We ignore this because getPointRadius is missing typing in the version that we use:
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         getPointRadius: 9,
         pointRadiusMinPixels: 4,
         pickable: true,
@@ -448,28 +452,16 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         0,
       ]);
     }
-    let communityFilter: unknown[] | null = null;
-    let waterNeedFilter: unknown[] | null = null;
+    let communityFilter: boolean | unknown[] | null = null;
+    let waterNeedFilter: boolean | unknown[] | null = null;
     if (this.props.mapViewFilter === 'watered') {
-      // TODO: check if there is a performance up for any of the two
-      // ['in', ['get', 'id'], ['literal', [1, 2, 3]]]
-      communityFilter = [
-        // TODO: check if communityDataWatered.length is greater than 0, than check if ID exists in array, else false.
-        // Also do this for adopted filter?
-        'match',
-        ['get', 'id'],
-        this.props.communityDataWatered,
-        true,
-        false,
-      ];
+      communityFilter = getFilterMatchingIdsList(
+        this.props.communityDataWatered
+      );
     } else if (this.props.mapViewFilter === 'adopted') {
-      communityFilter = [
-        'match',
-        ['get', 'id'],
-        this.props.communityDataAdopted,
-        true,
-        false,
-      ];
+      communityFilter = getFilterMatchingIdsList(
+        this.props.communityDataAdopted
+      );
     }
     if (this.props.mapWaterNeedFilter !== null) {
       waterNeedFilter = [
