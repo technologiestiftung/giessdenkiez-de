@@ -360,7 +360,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
         'circle-radius': getTreeCircleRadius({}),
         'circle-opacity': 1,
         'circle-stroke-color': 'rgba(247, 105, 6, 1)',
-        'circle-color': getTreeCircleColor({}),
+        'circle-color': getTreeCircleColor(),
         'circle-stroke-width': [
           'case',
           ['boolean', ['feature-state', 'select'], false],

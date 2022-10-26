@@ -50,12 +50,5 @@ export const updateTreeCirclePaintProps = ({
       adoptedFilterOn,
     })
   );
-  map.setPaintProperty(
-    'trees',
-    'circle-color',
-    getTreeCircleColor({
-      wateredFilterOn,
-      adoptedFilterOn,
-    })
-  );
+  map.setPaintProperty('trees', 'circle-color', getTreeCircleColor());
 };
