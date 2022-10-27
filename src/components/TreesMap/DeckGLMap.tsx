@@ -355,11 +355,15 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       source: 'trees',
       'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
       interactive: true,
-      // TODO: Below we add the style for the trees on mobile. The color updates should be inserted or replicated here.
       paint: {
         'circle-radius': getTreeCircleRadius({}),
-        'circle-opacity': 1,
-        'circle-stroke-color': 'rgba(247, 105, 6, 1)',
+        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 10, 1, 20, 0.5],
+        'circle-stroke-color': [
+          'case',
+          ['boolean', ['feature-state', 'select'], false],
+          'rgba(247, 105, 6, 1)',
+          getTreeCircleColor(),
+        ],
         'circle-color': getTreeCircleColor(),
         'circle-stroke-width': [
           'case',
