@@ -169,7 +169,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
       const layers = [
         new GeoJsonLayer({
           id: 'rain',
-          data: rainGeojson,
+          data: rainGeojson as any,
           opacity: 0.95,
           visible: visibleMapLayer === 'rain' ? true : false,
           stroked: false,
@@ -192,7 +192,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
         }),
         new GeoJsonLayer({
           id: 'pumps',
-          data: pumpsGeoJson,
+          data: pumpsGeoJson as any,
           opacity: 1,
           visible: visibleMapLayer === 'pumps' ? true : false,
           stroked: true,
@@ -485,7 +485,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
       <>
         <DeckGL
           layers={renderLayers()}
-          viewState={viewport}
+          viewState={viewport as any}
           onClick={onMapClick}
           onViewStateChange={(e: { viewState: ViewportProps }) =>
             onViewStateChange(e.viewState)
