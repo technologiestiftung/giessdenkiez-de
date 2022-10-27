@@ -145,7 +145,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
     ref
   ) => {
     const map = useRef<MapboxMap | null>(null);
-    const lastSelectedTree = useRef<string | undefined>(undefined);
+    const lastSelectedTree = useRef<string | undefined>(selectedTreeId);
     const lastHoveredTreeId = useRef<string | null>(null);
     const [hoveredTreeId, setHoveredTreeId] = useState<string | null>(null);
     const [hoveredPump, setHoveredPump] = useState<PumpTooltipType | null>(
@@ -345,8 +345,9 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           },
         });
 
-        map.current.on('mouseenter', 'trees', e => {
-          if (!map.current || !e.features?.length) return;
+        map.current.on('mousemove', 'trees', e => {
+          if (!map.current || !e.features) return;
+          if (e.features?.length === 0) setHoveredTreeId(null);
           setHoveredTreeId(e.features[0].id as string);
         });
 

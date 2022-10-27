@@ -6,7 +6,7 @@ import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
-import { TreesMap } from './DeckGLMap';
+import { TreesMap } from './TreesMap';
 
 export const Map: FC<{
   showOverlay: boolean | undefined;
