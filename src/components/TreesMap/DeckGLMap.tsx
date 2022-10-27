@@ -1,20 +1,40 @@
-import React, { ReactNode } from 'react';
+import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Map as MapboxMap } from 'mapbox-gl';
+import {
+  FlyToInterpolator,
+  GeolocateControl,
+  MapRef,
+  NavigationControl,
+  StaticMap,
+  ViewportProps,
+} from 'react-map-gl';
+import { CommunityDataType, StoreProps } from '../../common/interfaces';
+import { GeoJsonLayer } from 'deck.gl';
+import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
+import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
+import { hexToRgb } from '@material-ui/core';
+import { interpolateColor } from '../../utils/colorUtil';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-import {
-  StaticMap,
-  GeolocateControl,
-  NavigationControl,
-  ViewportProps,
-  FlyToInterpolator,
-} from 'react-map-gl';
-import DeckGL, { GeoJsonLayer } from 'deck.gl';
-import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
-import { interpolateColor, hexToRgb } from '../../utils/colorUtil';
-import { CommunityDataType, StoreProps } from '../../common/interfaces';
-import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
 import { MapTooltip } from './MapTooltip';
+import { getOSMEditorURL } from './osmUtil';
+import {
+  getTreeCircleRadius,
+  updateTreeCirclePaintProps,
+} from './mapPaintPropsUtils';
+import {
+  updateHoverFeatureState,
+  updateSelectedTreeIdFeatureState,
+} from './mapFeatureStateUtil';
+import { setBodyMapLayerClass } from './mapCSSClassUtil';
+import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
 import {
   YOUNG_TREE_MAX_AGE,
   OLD_TREE_MIN_AGE,
@@ -22,22 +42,15 @@ import {
   MEDIUM_WATER_NEED_NUM,
   HIGH_WATER_NEED_NUM,
 } from '../../utils/getWaterNeedByAge';
+import DeckGL from 'deck.gl';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
-import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
-import {
-  updateHoverFeatureState,
-  updateSelectedTreeIdFeatureState,
-} from './mapFeatureStateUtil';
-import {
-  getTreeCircleRadius,
-  updateTreeCirclePaintProps,
-} from './mapPaintPropsUtils';
-import { setBodyMapLayerClass } from './mapCSSClassUtil';
+const VIEWSTATE_TRANSITION_DURATION = 1000;
+const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
 
 interface StyledProps {
   isNavOpen?: boolean;
 }
+
 const ControlWrapper = styled.div<StyledProps>`
   position: fixed;
   bottom: 12px;
@@ -55,12 +68,11 @@ const ControlWrapper = styled.div<StyledProps>`
   }
 `;
 
-let map: MapboxMap | null = null;
+const StyledTextLink = styled.a`
+  color: black;
+`;
 
-const VIEWSTATE_TRANSITION_DURATION = 1000;
-const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
-
-interface DeckGLPropType {
+interface TreesMapPropsType {
   rainGeojson: ExtendedFeatureCollection | null;
 
   visibleMapLayer: StoreProps['visibleMapLayer'];
@@ -99,471 +111,392 @@ interface PumpTooltipType extends PumpPropertiesType {
   y: number;
 }
 
-interface PumpEventInfo {
-  x: number;
-  y: number;
-  object?: {
-    properties?:
-      | {
-          id: number;
-          'pump:status'?: string;
-          'addr:full'?: string;
-          'pump:style'?: string;
-          check_date?: string;
-        }
-      | undefined;
-  };
-}
-
-interface DeckGLStateType {
-  hoveredTreeId: string | null;
-  hoveredPump: PumpTooltipType | null;
-  clickedPump: PumpTooltipType | null;
-  cursor: 'grab' | 'pointer';
-  geoLocationAvailable: boolean;
-  isTreeMapLoading: boolean;
-  viewport: ViewportType;
-}
-
-const StyledTextLink = styled.a`
-  color: black;
-`;
-
-const pumpEventInfoToState = (info: PumpEventInfo) => {
-  if (info && info.object && info.object.properties) {
-    return {
-      id: info.object.properties.id,
-      address: info.object.properties['addr:full'] || '',
-      check_date: info.object.properties['check_date'] || '',
-      status: info.object.properties['pump:status'] || '',
-      style: info.object.properties['pump:style'] || '',
-      x: info.x,
-      y: info.y,
-    };
-  }
-  return null;
+const defaultViewport = {
+  latitude: 52.500869,
+  longitude: 13.419047,
+  zoom: isMobile ? 13 : 11,
+  maxZoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+  minZoom: isMobile ? 11 : 9,
+  pitch: isMobile ? 0 : 45,
+  bearing: 0,
+  transitionDuration: 2000,
+  transitionEasing: d3EaseCubic,
+  transitionInterpolator: new FlyToInterpolator(),
 };
 
-const getOSMEditorURL = (nodeId: number) => {
-  const mapcompleteUrl = 'https://mapcomplete.osm.be/theme';
-  const params = new URLSearchParams();
-  params.set(
-    'userlayout',
-    'https://tordans.github.io/MapComplete-ThemeHelper/OSM-Berlin-Themes/man_made-walter_well-status-checker/theme.json'
-  );
-  params.set('language', 'de');
-  const selectedPump = `#node/${nodeId}`;
-  return `${mapcompleteUrl}?${params.toString()}${selectedPump}`;
-};
+let hasUnmounted = false;
+export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
+  (
+    {
+      rainGeojson,
+      visibleMapLayer,
+      ageRange,
+      mapViewFilter,
+      mapWaterNeedFilter,
+      isNavOpen,
+      focusPoint,
+      pumpsGeoJson,
+      selectedTreeId,
+      communityDataWatered,
+      communityDataAdopted,
+      showControls,
+      onTreeSelect,
+    },
+    ref
+  ) => {
+    const map = useRef<MapboxMap | null>(null);
+    const lastSelectedTree = useRef<string | undefined>(undefined);
+    const lastHoveredTreeId = useRef<string | null>(null);
+    const [hoveredTreeId, setHoveredTreeId] = useState<string | null>(null);
+    const [hoveredPump, setHoveredPump] = useState<PumpTooltipType | null>(
+      null
+    );
+    const [clickedPump, setClickedPump] = useState<PumpTooltipType | null>(
+      null
+    );
+    const [viewport, setViewport] = useState<ViewportType>(defaultViewport);
+    const pumpInfo = clickedPump || hoveredPump;
 
-class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
-  constructor(props: DeckGLPropType) {
-    super(props);
-
-    this.state = {
-      hoveredTreeId: null,
-      hoveredPump: null,
-      clickedPump: null,
-      cursor: 'grab',
-      geoLocationAvailable: false,
-      isTreeMapLoading: true,
-      viewport: {
-        latitude: 52.500869,
-        longitude: 13.419047,
-        zoom: isMobile ? 13 : 11,
-        maxZoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-        minZoom: isMobile ? 11 : 9,
-        pitch: isMobile ? 0 : 45,
-        bearing: 0,
-        transitionDuration: 2000,
-        transitionEasing: d3EaseCubic,
-        transitionInterpolator: new FlyToInterpolator(),
+    useEffect(
+      () => () => {
+        hasUnmounted = true;
       },
-    };
-
-    this._updateStyles = this._updateStyles.bind(this);
-    this._deckClick = this._deckClick.bind(this);
-    this.setCursor = this.setCursor.bind(this);
-    this.onViewStateChange = this.onViewStateChange.bind(this);
-  }
-
-  _renderLayers(): unknown[] {
-    const { rainGeojson, visibleMapLayer, pumpsGeoJson } = this.props;
-
-    if (!rainGeojson || !pumpsGeoJson) return [];
-    const layers = [
-      new GeoJsonLayer({
-        id: 'rain',
-        data: rainGeojson as any,
-        opacity: 0.95,
-        visible: visibleMapLayer === 'rain' ? true : false,
-        stroked: false,
-        filled: true,
-        extruded: true,
-        wireframe: true,
-        getElevation: 1,
-        getFillColor: f => {
-          /**
-           * Apparently DWD 1 is not 1ml but 0.1ml
-           * We could change this in the database, but this would mean,
-           * transferring 800.000 "," characters, therefore,
-           * changing it client-side makes more sense.
-           */
-          const interpolated = interpolateColor(
-            (f as any).properties.data[0] / 10
-          );
-          const hex = hexToRgb(interpolated);
-          return hex;
-        },
-        pickable: true,
-      }),
-      new GeoJsonLayer({
-        id: 'pumps',
-        data: pumpsGeoJson as any,
-        opacity: 1,
-        visible: visibleMapLayer === 'pumps' ? true : false,
-        stroked: true,
-        filled: true,
-        extruded: true,
-        wireframe: true,
-        getElevation: 1,
-        getLineColor: [0, 0, 0, 200],
-        getFillColor: pumpToColor,
-        // We ignore this because getPointRadius is missing typing in the version that we use:
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        getPointRadius: 9,
-        pointRadiusMinPixels: 4,
-        pickable: true,
-        lineWidthScale: 3,
-        lineWidthMinPixels: 1.5,
-        onHover: (info: PumpEventInfo) => {
-          this.setState({
-            hoveredPump: pumpEventInfoToState(info),
-          });
-        },
-        onClick: (info: PumpEventInfo) => {
-          this.setState({
-            clickedPump: pumpEventInfoToState(info),
-          });
-        },
-      }),
-    ];
-
-    return layers;
-  }
-
-  _deckClick(event: { x: number; y: number }): void {
-    if (!map) return;
-
-    const features = map.queryRenderedFeatures([event.x, event.y], {
-      layers: ['trees'],
-    });
-
-    if (features.length === 0) return;
-
-    const id: string = features[0].properties?.id;
-
-    if (!id) return;
-
-    this.props.onTreeSelect(id);
-  }
-
-  setViewport(viewport: Partial<ViewportType>): void {
-    this.setState({
-      viewport: {
-        ...this.state.viewport,
-        ...viewport,
-      },
-    });
-  }
-
-  setCursor(layer: unknown): void {
-    if (layer) {
-      // Note: This will only work for layers rendered by DeckGL.
-      // Since we are adding the trees vector tile layer the "vanilla" way
-      // (in _onload), we don't have an existing layer in setCursor,
-      // so hovering the trees will always remain "grab":
-      this.setState({ cursor: 'pointer' });
-    } else {
-      this.setState({ cursor: 'grab' });
-    }
-  }
-
-  _onload(evt: { target: MapboxMap }): void {
-    map = evt.target;
-
-    if (!map || typeof map === 'undefined') return;
-
-    const firstLabelLayerId = map
-      .getStyle()
-      .layers?.find(layer => layer.type === 'symbol')?.id;
-
-    if (!firstLabelLayerId) return;
-
-    map.addLayer(
-      {
-        id: '3d-buildings',
-        source: 'composite',
-        'source-layer': 'building',
-        filter: ['==', 'extrude', 'true'],
-        type: 'fill-extrusion',
-        minzoom: 0,
-        paint: {
-          'fill-extrusion-color': '#FFF',
-          'fill-extrusion-height': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            15,
-            0,
-            15.05,
-            ['get', 'height'],
-          ],
-          'fill-extrusion-base': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            15,
-            0,
-            15.05,
-            ['get', 'min_height'],
-          ],
-          'fill-extrusion-opacity': 0.3,
-        },
-      },
-      firstLabelLayerId
+      []
     );
 
-    // disable map rotation using right click + drag
-    map.dragRotate.disable();
+    const renderLayers = useCallback(() => {
+      if (!map?.current || !rainGeojson || !pumpsGeoJson || hasUnmounted)
+        return [];
+      const layers = [
+        new GeoJsonLayer({
+          id: 'rain',
+          data: rainGeojson,
+          opacity: 0.95,
+          visible: visibleMapLayer === 'rain' ? true : false,
+          stroked: false,
+          filled: true,
+          extruded: true,
+          wireframe: true,
+          getElevation: 1,
+          getFillColor: f => {
+            /**
+             * Apparently DWD 1 is not 1ml but 0.1ml
+             * We could change this in the database, but this would mean,
+             * transferring 800.000 "," characters, therefore,
+             * changing it client-side makes more sense.
+             */
+            const interpolated = interpolateColor(f.properties.data[0] / 10);
+            const hex = hexToRgb(interpolated);
+            return hex;
+          },
+          pickable: true,
+        }),
+        new GeoJsonLayer({
+          id: 'pumps',
+          data: pumpsGeoJson,
+          opacity: 1,
+          visible: visibleMapLayer === 'pumps' ? true : false,
+          stroked: true,
+          filled: true,
+          extruded: true,
+          wireframe: true,
+          getElevation: 1,
+          getLineColor: [0, 0, 0, 200],
+          getFillColor: pumpToColor,
+          // We ignore this because getPointRadius is missing typing in the version that we use:
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          getPointRadius: 9,
+          pointRadiusMinPixels: 4,
+          pickable: true,
+          lineWidthScale: 3,
+          lineWidthMinPixels: 1.5,
+          onHover: (pumpInfo: PumpEventInfoType) =>
+            setHoveredPump(pumpEventInfoToState(pumpInfo)),
+          onClick: (pumpInfo: PumpEventInfoType) =>
+            setClickedPump(pumpEventInfoToState(pumpInfo)),
+        }),
+      ];
 
-    // disable map rotation using touch rotation gesture
-    map.touchZoomRotate.disableRotation();
+      return layers;
+    }, [pumpsGeoJson, rainGeojson, visibleMapLayer]);
 
-    map.addSource('trees', {
-      type: 'vector',
-      url: process.env.MAPBOX_TREES_TILESET_URL,
-      minzoom: 11,
-      maxzoom: 20,
-      promoteId: 'id',
-    });
+    const onViewStateChange = useCallback((newViewport: ViewportProps) => {
+      if (hasUnmounted) return;
+      setClickedPump(null);
+      setHoveredPump(null);
+      setViewport({
+        ...defaultViewport,
+        ...newViewport,
+        transitionDuration: newViewport.transitionDuration || 0,
+      });
+    }, []);
 
-    map.addLayer({
-      id: 'trees',
-      type: 'circle',
-      source: 'trees',
-      'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
-      interactive: true,
-      paint: {
-        'circle-radius': getTreeCircleRadius({}),
-        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 10, 1, 20, 0.5],
-        'circle-stroke-color': [
-          'case',
-          ['boolean', ['feature-state', 'select'], false],
-          'rgba(247, 105, 6, 1)',
-          getTreeCircleColor(),
-        ],
-        'circle-color': getTreeCircleColor(),
-        'circle-stroke-width': [
-          'case',
-          ['boolean', ['feature-state', 'select'], false],
-          15,
-          0,
-        ],
+    const onMapClick = useCallback(
+      (event: { x: number; y: number }) => {
+        if (!map.current || hasUnmounted) return;
+
+        const features = map.current.queryRenderedFeatures([event.x, event.y], {
+          layers: ['trees'],
+        });
+
+        if (features.length === 0) return;
+
+        const id: string = features[0].properties?.id;
+
+        if (!id) return;
+
+        onTreeSelect(id);
       },
-    });
+      [onTreeSelect]
+    );
 
-    map.on('mouseenter', 'trees', e => {
-      if (!map || !e.features?.length) return;
-      this.setState({ hoveredTreeId: e.features[0].id as string });
-    });
+    const onLoad = useCallback(
+      (evt: { target: MapboxMap }) => {
+        map.current = evt.target;
 
-    map.on('mouseleave', 'trees', e => {
-      this.setState({ hoveredTreeId: null });
-      if (!map || !e.features?.length) return;
-    });
+        if (!map.current || typeof map.current === 'undefined' || hasUnmounted)
+          return;
 
-    updateSelectedTreeIdFeatureState({
-      map,
-      prevSelectedTreeId: undefined,
-      currentSelectedTreeId: this.props.selectedTreeId,
-    });
+        const firstLabelLayerId = map.current
+          .getStyle()
+          .layers?.find(layer => layer.type === 'symbol')?.id;
 
-    setBodyMapLayerClass(this.props.visibleMapLayer);
+        if (!firstLabelLayerId) return;
 
-    this.setState({ isTreeMapLoading: false });
+        map.current.addLayer(
+          {
+            id: '3d-buildings',
+            source: 'composite',
+            'source-layer': 'building',
+            filter: ['==', 'extrude', 'true'],
+            type: 'fill-extrusion',
+            minzoom: 0,
+            paint: {
+              'fill-extrusion-color': '#FFF',
+              'fill-extrusion-height': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                15,
+                0,
+                15.05,
+                ['get', 'height'],
+              ],
+              'fill-extrusion-base': [
+                'interpolate',
+                ['linear'],
+                ['zoom'],
+                15,
+                0,
+                15.05,
+                ['get', 'min_height'],
+              ],
+              'fill-extrusion-opacity': 0.3,
+            },
+          },
+          firstLabelLayerId
+        );
 
-    if (!this.props.focusPoint) return;
-    this.setViewport({
-      latitude: this.props.focusPoint.latitude,
-      longitude: this.props.focusPoint.longitude,
-      zoom: this.props.focusPoint.zoom || VIEWSTATE_ZOOMEDIN_ZOOM,
-      transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-    });
-  }
+        // disable map rotation using right click + drag
+        map.current.dragRotate.disable();
 
-  _updateStyles(prevProps: DeckGLPropType, prevState: DeckGLStateType): void {
-    if (!map) return;
+        // disable map rotation using touch rotation gesture
+        map.current.touchZoomRotate.disableRotation();
 
-    updateSelectedTreeIdFeatureState({
-      map,
-      prevSelectedTreeId: prevProps.selectedTreeId,
-      currentSelectedTreeId: this.props.selectedTreeId,
-    });
+        map.current.addSource('trees', {
+          type: 'vector',
+          url: process.env.MAPBOX_TREES_TILESET_URL,
+          minzoom: 11,
+          maxzoom: 20,
+          promoteId: 'id',
+        });
 
-    if (prevState.hoveredTreeId !== this.state.hoveredTreeId) {
+        map.current.addLayer({
+          id: 'trees',
+          type: 'circle',
+          source: 'trees',
+          'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
+          interactive: true,
+          paint: {
+            'circle-radius': getTreeCircleRadius({}),
+            'circle-opacity': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              10,
+              1,
+              20,
+              0.5,
+            ],
+            'circle-stroke-color': [
+              'case',
+              ['boolean', ['feature-state', 'select'], false],
+              'rgba(247, 105, 6, 1)',
+              getTreeCircleColor(),
+            ],
+            'circle-color': getTreeCircleColor(),
+            'circle-stroke-width': [
+              'case',
+              ['boolean', ['feature-state', 'select'], false],
+              15,
+              0,
+            ],
+          },
+        });
+
+        map.current.on('mouseenter', 'trees', e => {
+          if (!map.current || !e.features?.length) return;
+          setHoveredTreeId(e.features[0].id as string);
+        });
+
+        map.current.on('mouseleave', 'trees', e => {
+          setHoveredTreeId(null);
+          if (!map.current || !e.features?.length) return;
+        });
+
+        updateSelectedTreeIdFeatureState({
+          map: map.current,
+          prevSelectedTreeId: undefined,
+          currentSelectedTreeId: selectedTreeId,
+        });
+
+        setBodyMapLayerClass(visibleMapLayer);
+
+        if (!focusPoint) return;
+        onViewStateChange({
+          latitude: focusPoint.latitude,
+          longitude: focusPoint.longitude,
+          zoom: focusPoint.zoom || VIEWSTATE_ZOOMEDIN_ZOOM,
+          transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+        });
+      },
+      [focusPoint, onViewStateChange, selectedTreeId, visibleMapLayer]
+    );
+
+    useEffect(() => {
+      if (!map?.current || hasUnmounted) return;
+      updateSelectedTreeIdFeatureState({
+        map: map.current,
+        prevSelectedTreeId: lastSelectedTree.current,
+        currentSelectedTreeId: selectedTreeId,
+      });
+      lastSelectedTree.current = selectedTreeId;
+    }, [selectedTreeId]);
+
+    useEffect(() => {
+      if (!map?.current || hasUnmounted) return;
       updateHoverFeatureState({
-        map,
-        prevHoveredTreeId: prevState.hoveredTreeId,
-        currentHoveredTreeId: this.state.hoveredTreeId,
+        map: map.current,
+        prevHoveredTreeId: lastHoveredTreeId.current,
+        currentHoveredTreeId: hoveredTreeId,
       });
-    }
+      lastHoveredTreeId.current = hoveredTreeId;
+    }, [hoveredTreeId]);
 
-    if (prevProps.visibleMapLayer !== this.props.visibleMapLayer) {
-      setBodyMapLayerClass(this.props.visibleMapLayer);
-    }
-    if (this.props.visibleMapLayer !== 'trees') {
-      map.setLayoutProperty('trees', 'visibility', 'none');
-      return;
-    } else {
-      map.setLayoutProperty('trees', 'visibility', 'visible');
-    }
+    useEffect(() => {
+      setBodyMapLayerClass(visibleMapLayer);
 
-    if (prevProps.mapViewFilter !== this.props.mapViewFilter) {
+      if (!map?.current || hasUnmounted) return;
+      if (visibleMapLayer !== 'trees') {
+        map.current.setLayoutProperty('trees', 'visibility', 'none');
+        return;
+      } else {
+        map.current.setLayoutProperty('trees', 'visibility', 'visible');
+      }
+    }, [visibleMapLayer]);
+
+    useEffect(() => {
+      if (!map?.current || hasUnmounted) return;
       updateTreeCirclePaintProps({
-        map,
-        wateredFilterOn: this.props.mapViewFilter === 'watered',
-        adoptedFilterOn: this.props.mapViewFilter === 'adopted',
+        map: map.current,
+        wateredFilterOn: mapViewFilter === 'watered',
+        adoptedFilterOn: mapViewFilter === 'adopted',
       });
-    }
 
-    if (prevProps.ageRange !== this.props.ageRange) {
-      map.setPaintProperty('trees', 'circle-opacity', [
-        'case',
-        ['>=', ['get', 'age'], this.props.ageRange[0]],
-        ['case', ['<=', ['get', 'age'], this.props.ageRange[1]], 1, 0],
-        0,
-      ]);
-    }
-    let communityFilter: boolean | unknown[] | null = null;
-    let waterNeedFilter: boolean | unknown[] | null = null;
-    if (this.props.mapViewFilter === 'watered') {
-      communityFilter = getFilterMatchingIdsList(
-        this.props.communityDataWatered
-      );
-    } else if (this.props.mapViewFilter === 'adopted') {
-      communityFilter = getFilterMatchingIdsList(
-        this.props.communityDataAdopted
-      );
-    }
-    if (this.props.mapWaterNeedFilter !== null) {
-      waterNeedFilter = [
-        'match',
-        [
-          'case',
-          ['<', ['get', 'age'], OLD_TREE_MIN_AGE],
+      let communityFilter: boolean | unknown[] | null = null;
+      let waterNeedFilter: boolean | unknown[] | null = null;
+      if (mapViewFilter === 'watered') {
+        communityFilter = getFilterMatchingIdsList(communityDataWatered);
+      } else if (mapViewFilter === 'adopted') {
+        communityFilter = getFilterMatchingIdsList(communityDataAdopted);
+      }
+      if (mapWaterNeedFilter !== null) {
+        waterNeedFilter = [
+          'match',
           [
             'case',
-            ['<', ['get', 'age'], YOUNG_TREE_MAX_AGE],
-            HIGH_WATER_NEED_NUM,
-            MEDIUM_WATER_NEED_NUM,
+            ['<', ['get', 'age'], OLD_TREE_MIN_AGE],
+            [
+              'case',
+              ['<', ['get', 'age'], YOUNG_TREE_MAX_AGE],
+              HIGH_WATER_NEED_NUM,
+              MEDIUM_WATER_NEED_NUM,
+            ],
+            LOW_WATER_NEED_NUM,
           ],
-          LOW_WATER_NEED_NUM,
-        ],
-        this.props.mapWaterNeedFilter,
-        true,
-        false,
-      ];
-    }
-
-    map.setFilter(
-      'trees',
-      ['all', communityFilter, waterNeedFilter].filter(val => val !== null)
-    );
-  }
-
-  componentDidUpdate(
-    prevProps: DeckGLPropType,
-    prevState: DeckGLStateType
-  ): boolean {
-    if (!map) return false;
-    const stateKeys = ['hoveredTreeId'];
-    const propsKeys = [
-      'communityData',
-      'communityDataWatered',
-      'communityDataAdopted',
-      'ageRange',
-      'mapViewFilter',
-      'mapWaterNeedFilter',
-      'treesVisible',
-      'visibleMapLayer',
-      'selectedTreeId',
-      'focusPoint',
-    ];
-    let changed = false;
-    propsKeys.forEach(propKey => {
-      if (prevProps[propKey] !== this.props[propKey]) {
-        changed = true;
+          mapWaterNeedFilter,
+          true,
+          false,
+        ];
       }
-    });
-    stateKeys.forEach(stateKey => {
-      if (prevState[stateKey] !== this.state[stateKey]) {
-        changed = true;
-      }
-    });
 
-    if (!changed) return false;
-    this._updateStyles(prevProps, prevState);
+      map.current.setFilter(
+        'trees',
+        ['all', communityFilter, waterNeedFilter].filter(val => val !== null)
+      );
+    }, [
+      communityDataAdopted,
+      communityDataWatered,
+      mapViewFilter,
+      mapWaterNeedFilter,
+    ]);
 
-    if (
-      this.props.focusPoint &&
-      prevProps.focusPoint?.id !== this.props.focusPoint?.id
-    ) {
-      this.setViewport({
-        latitude: this.props.focusPoint.latitude,
-        longitude: this.props.focusPoint.longitude,
-        zoom: this.props.focusPoint.zoom || VIEWSTATE_ZOOMEDIN_ZOOM,
+    useEffect(() => {
+      if (!map?.current || hasUnmounted) return;
+      map.current.setPaintProperty('trees', 'circle-opacity', [
+        'case',
+        ['>=', ['get', 'age'], ageRange[0]],
+        ['case', ['<=', ['get', 'age'], ageRange[1]], 1, 0],
+        0,
+      ]);
+    }, [ageRange]);
+
+    useEffect(() => {
+      if (!map?.current || hasUnmounted) return;
+      map.current.getContainer().style.cursor =
+        hoveredTreeId || hoveredPump ? 'pointer' : 'grab';
+    }, [hoveredTreeId, hoveredPump]);
+
+    useEffect(() => {
+      if (!focusPoint?.id || hasUnmounted) return;
+      onViewStateChange({
+        latitude: focusPoint.latitude,
+        longitude: focusPoint.longitude,
+        zoom: focusPoint.zoom || VIEWSTATE_ZOOMEDIN_ZOOM,
         transitionDuration: VIEWSTATE_TRANSITION_DURATION,
       });
-    }
-
-    return true;
-  }
-
-  onViewStateChange(viewport: ViewportProps): void {
-    this.setState({ clickedPump: null, hoveredPump: null });
-    this.setViewport({
-      latitude: viewport.latitude,
-      longitude: viewport.longitude,
-      zoom: viewport.zoom,
-      transitionDuration: 0,
-    });
-  }
-
-  render(): ReactNode {
-    const { isNavOpen, showControls } = this.props;
-    const { viewport, clickedPump, hoveredPump } = this.state;
-    const pumpInfo = clickedPump || hoveredPump;
+    }, [focusPoint, onViewStateChange]);
 
     return (
       <>
         <DeckGL
-          layers={this._renderLayers() as any}
-          viewState={viewport as any}
-          getCursor={() => this.state.cursor}
-          onHover={({ layer }) => this.setCursor(layer)}
-          onClick={this._deckClick}
-          onViewStateChange={e => this.onViewStateChange(e.viewState)}
+          layers={renderLayers()}
+          viewState={viewport}
+          onClick={onMapClick}
+          onViewStateChange={(e: { viewState: ViewportProps }) =>
+            onViewStateChange(e.viewState)
+          }
           controller
           style={{ overflow: 'hidden' }}
         >
           <StaticMap
             reuseMaps
+            ref={ref}
             mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
             preventStyleDiffing={true}
             mapboxApiAccessToken={process.env.MAPBOX_API_KEY}
-            onLoad={this._onload.bind(this)}
+            onLoad={onLoad}
             width='100%'
             height='100%'
           >
@@ -573,17 +506,14 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                   positionOptions={{ enableHighAccuracy: true }}
                   trackUserLocation={isMobile ? true : false}
                   showUserLocation={true}
-                  onGeolocate={posOptions => {
-                    const {
-                      coords: { latitude, longitude },
-                    } = (posOptions as unknown) as {
-                      coords: {
-                        latitude: number;
-                        longitude: number;
-                      };
+                  onGeolocate={(posOptions: {
+                    coords: {
+                      latitude: number;
+                      longitude: number;
                     };
-                    this.setState({ clickedPump: null, hoveredPump: null });
-                    this.setViewport({
+                  }) => {
+                    const { latitude, longitude } = posOptions.coords;
+                    onViewStateChange({
                       longitude,
                       latitude,
                       zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
@@ -593,13 +523,12 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
                 />
                 <NavigationControl
                   onViewStateChange={e => {
-                    this.setViewport({
+                    onViewStateChange({
                       latitude: e.viewState.latitude,
                       longitude: e.viewState.longitude,
                       zoom: e.viewState.zoom,
                       transitionDuration: VIEWSTATE_TRANSITION_DURATION,
                     });
-                    this.setState({ clickedPump: null, hoveredPump: null });
                   }}
                 />
               </ControlWrapper>
@@ -613,7 +542,7 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
             title='Öffentliche Straßenpumpe'
             subtitle={pumpInfo.address}
             onClickOutside={() => {
-              this.setState({ clickedPump: null });
+              setClickedPump(null);
             }}
             infos={{
               Status: pumpInfo.status,
@@ -638,6 +567,4 @@ class DeckGLMap extends React.Component<DeckGLPropType, DeckGLStateType> {
       </>
     );
   }
-}
-
-export default DeckGLMap;
+);
