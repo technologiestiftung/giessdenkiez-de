@@ -16,7 +16,7 @@ import {
   ViewportProps,
 } from 'react-map-gl';
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
-import { GeoJsonLayer } from 'deck.gl';
+import { GeoJsonLayer, RGBAColor } from 'deck.gl';
 import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
 import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
 import { hexToRgb, interpolateColor } from '../../utils/colorUtil';
@@ -177,15 +177,16 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           extruded: true,
           wireframe: true,
           getElevation: 1,
-          getFillColor: (f: any) => {
+          getFillColor: (f: unknown): RGBAColor => {
             /**
              * Apparently DWD 1 is not 1ml but 0.1ml
              * We could change this in the database, but this would mean,
              * transferring 800.000 "," characters, therefore,
              * changing it client-side makes more sense.
              */
-            if (!f?.properties?.data?.length) return;
-            const interpolated = interpolateColor(f.properties.data[0] / 10);
+            const features = (f as any)?.properties?.data || [];
+            if (features.length === 0) return [0, 0, 0, 0];
+            const interpolated = interpolateColor(features[0] / 10);
             const hex = hexToRgb(interpolated);
             return hex;
           },
