@@ -19,8 +19,7 @@ import { CommunityDataType, StoreProps } from '../../common/interfaces';
 import { GeoJsonLayer } from 'deck.gl';
 import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
 import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
-import { hexToRgb } from '@material-ui/core';
-import { interpolateColor } from '../../utils/colorUtil';
+import { hexToRgb, interpolateColor } from '../../utils/colorUtil';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 import { MapTooltip } from './MapTooltip';
@@ -178,7 +177,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           extruded: true,
           wireframe: true,
           getElevation: 1,
-          getFillColor: f => {
+          getFillColor: (f: GeoJsonLayer) => {
             /**
              * Apparently DWD 1 is not 1ml but 0.1ml
              * We could change this in the database, but this would mean,

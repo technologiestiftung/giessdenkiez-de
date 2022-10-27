@@ -7,6 +7,7 @@ import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
 import { TreesMap } from './TreesMap';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 export const Map: FC<{
   showOverlay: boolean | undefined;
