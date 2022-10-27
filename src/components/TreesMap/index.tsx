@@ -27,7 +27,11 @@ export const Map: FC<{
 
   return (
     <TreesMap
-      onTreeSelect={(id: string) => {
+      onTreeSelect={id => {
+        if (!id) {
+          history.push('');
+          return;
+        }
         const nextLocation = `/tree/${id}`;
         history.push(nextLocation);
       }}

@@ -89,7 +89,7 @@ interface TreesMapPropsType {
   communityDataAdopted: CommunityDataType['adoptedTreesIds'];
 
   showControls: boolean | undefined;
-  onTreeSelect: (id: string) => void;
+  onTreeSelect: (id?: string | null) => void;
 }
 
 interface ViewportType extends Partial<ViewportProps> {
@@ -240,7 +240,10 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           layers: ['trees'],
         });
 
-        if (features.length === 0) return;
+        if (features.length === 0) {
+          onTreeSelect(null);
+          return;
+        }
 
         const id: string = features[0].properties?.id;
 
