@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useStoreState } from '../../state/unistore-hooks';
+import { useActions, useStoreState } from '../../state/unistore-hooks';
 import { useTreeData } from '../../utils/hooks/useTreeData';
 import { useHistory } from 'react-router';
 import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
@@ -20,6 +20,7 @@ export const Map: FC<{
   const mapFocusPoint = useStoreState('mapFocusPoint');
 
   const treeId = useCurrentTreeId();
+  const { openNav } = useActions();
   const { data: communityData } = useCommunityData();
   const { data: rainGeoJson } = useRainGeoJson();
   const { data: pumpsGeoJson } = usePumpsGeoJson();
@@ -30,7 +31,8 @@ export const Map: FC<{
     <TreesMap
       onTreeSelect={id => {
         if (!id) {
-          history.push('');
+          history.push('/');
+          openNav();
           return;
         }
         const nextLocation = `/tree/${id}`;
