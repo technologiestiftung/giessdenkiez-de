@@ -325,6 +325,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
           interactive: true,
           paint: {
+            'circle-pitch-alignment': 'map',
             'circle-radius': getTreeCircleRadius({}),
             'circle-opacity': [
               'interpolate',
