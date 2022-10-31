@@ -234,10 +234,11 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
     }, []);
 
     const onMapClick = useCallback(
-      (info: { x: number; y: number }, evt: { target: HTMLElement }) => {
+      (info: { x: number; y: number }, evt: MouseEvent) => {
         if (!map.current || hasUnmounted) return;
 
-        if (evt.target.tagName !== 'CANVAS') return;
+        const eventTarget = (evt?.target as unknown) as { tagName: string };
+        if (eventTarget.tagName !== 'CANVAS') return;
         const features = map.current.queryRenderedFeatures([info.x, info.y], {
           layers: ['trees'],
         });
