@@ -11,25 +11,7 @@ export const updateSelectedTreeIdFeatureState = ({
   prevSelectedTreeId: SelectedTreeIdType;
   currentSelectedTreeId: SelectedTreeIdType;
 }): void => {
-  const wasUnselectedAndNowSelected =
-    !prevSelectedTreeId && currentSelectedTreeId;
-  const wasSelectedAndNowUnselected =
-    prevSelectedTreeId && !currentSelectedTreeId;
-  const selectedTreeHasChanged =
-    prevSelectedTreeId &&
-    currentSelectedTreeId &&
-    prevSelectedTreeId !== currentSelectedTreeId;
-
-  const selectedTreeStateHasChanged =
-    wasUnselectedAndNowSelected ||
-    wasSelectedAndNowUnselected ||
-    selectedTreeHasChanged;
-
-  const changedTreeId = currentSelectedTreeId || prevSelectedTreeId;
-
-  if (!selectedTreeStateHasChanged) return;
-
-  if (selectedTreeHasChanged) {
+  if (prevSelectedTreeId) {
     map.setFeatureState(
       {
         sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
@@ -39,15 +21,16 @@ export const updateSelectedTreeIdFeatureState = ({
       { select: false }
     );
   }
-
-  map.setFeatureState(
-    {
-      sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
-      source: 'trees',
-      id: changedTreeId,
-    },
-    { select: !!currentSelectedTreeId }
-  );
+  if (currentSelectedTreeId) {
+    map.setFeatureState(
+      {
+        sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
+        source: 'trees',
+        id: currentSelectedTreeId,
+      },
+      { select: true }
+    );
+  }
 };
 
 export const updateHoverFeatureState = ({
@@ -59,14 +42,24 @@ export const updateHoverFeatureState = ({
   prevHoveredTreeId: string | null;
   currentHoveredTreeId: string | null;
 }): void => {
-  const hoveredId = currentHoveredTreeId || prevHoveredTreeId;
-  if (!hoveredId) return;
-  map.setFeatureState(
-    {
-      sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
-      source: 'trees',
-      id: hoveredId,
-    },
-    { hover: !!currentHoveredTreeId }
-  );
+  if (prevHoveredTreeId) {
+    map.setFeatureState(
+      {
+        sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
+        source: 'trees',
+        id: prevHoveredTreeId,
+      },
+      { hover: false }
+    );
+  }
+  if (currentHoveredTreeId) {
+    map.setFeatureState(
+      {
+        sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
+        source: 'trees',
+        id: currentHoveredTreeId,
+      },
+      { hover: true }
+    );
+  }
 };

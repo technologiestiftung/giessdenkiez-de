@@ -35,7 +35,7 @@ export function useActions(): ActionsType {
           },
         };
       }, Actions),
-    [Actions, store]
+    [store]
   );
   return useMemo(() => boundActions, [boundActions]);
 }
