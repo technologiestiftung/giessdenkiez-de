@@ -23,16 +23,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'skip ci')"
-    strategy:
-      matrix:
-        node-version: [14.17.5]
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Set nvmrc for GitHub environment
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
+      - name: Use Node.js "${{ env.NODE_VERSION }}"
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "${{ env.NODE_VERSION }}"
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run lint
