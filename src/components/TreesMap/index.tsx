@@ -20,7 +20,7 @@ export const Map: FC<{
   const mapFocusPoint = useStoreState('mapFocusPoint');
 
   const treeId = useCurrentTreeId();
-  const { openNav } = useActions();
+  const { openNav, closeNav } = useActions();
   const { data: communityData } = useCommunityData();
   const { data: rainGeoJson } = useRainGeoJson();
   const { data: pumpsGeoJson } = usePumpsGeoJson();
@@ -32,11 +32,12 @@ export const Map: FC<{
       onTreeSelect={id => {
         if (!id) {
           history.push('/');
-          openNav();
+          closeNav();
           return;
         }
         const nextLocation = `/tree/${id}`;
         history.push(nextLocation);
+        openNav();
       }}
       rainGeojson={rainGeoJson || null}
       visibleMapLayer={visibleMapLayer}

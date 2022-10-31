@@ -51,7 +51,6 @@ const Nav: FC<{
 }> = ({ isNavOpened }) => {
   const { openNav } = useActions();
   const { pathname } = useLocation();
-  const history = useHistory();
 
   return (
     <NavWrapper isNavOpened={isNavOpened}>
@@ -59,10 +58,7 @@ const Nav: FC<{
         <NavItem
           exact
           to={{ pathname: item.path, search: '' }}
-          onClick={() => {
-            history.push('/');
-            openNav();
-          }}
+          onClick={() => openNav()}
           title={item.title}
           key={item.path}
         >
