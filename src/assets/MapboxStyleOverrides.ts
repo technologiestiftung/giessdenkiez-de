@@ -41,4 +41,16 @@ export const MapboxStyleOverrides = css`
   #deckgl-overlay {
     z-index: 1;
   }
+
+  .mapLayer-trees #deckgl-overlay {
+    pointer-events: none;
+  }
+
+  .overlays {
+    pointer-events: none;
+  }
+
+  .overlays > div {
+    pointer-events: auto;
+  }
 `;
