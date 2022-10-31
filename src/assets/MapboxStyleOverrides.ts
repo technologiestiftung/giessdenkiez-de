@@ -51,6 +51,6 @@ export const MapboxStyleOverrides = css`
   }
 
   .overlays > div {
-    pointer-events: auto;
+    pointer-events: all;
   }
 `;
