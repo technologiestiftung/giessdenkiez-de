@@ -233,30 +233,13 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
       });
     }, []);
 
-    const onMapTreeClick = useCallback(
-      (event: { x: number; y: number }) => {
-        if (!map.current || hasUnmounted) return;
-
-        const features = map.current.queryRenderedFeatures([event.x, event.y], {
-          layers: ['trees'],
-        });
-
-        if (features.length === 0) return;
-
-        const id: string = features[0].properties?.id;
-
-        if (!id) return;
-
-        onTreeSelect(id);
-      },
-      [onTreeSelect]
-    );
-
     const onMapClick = useCallback(
-      (event: { x: number; y: number }) => {
+      (info: { x: number; y: number }, evt: MouseEvent) => {
         if (!map.current || hasUnmounted) return;
 
-        const features = map.current.queryRenderedFeatures([event.x, event.y], {
+        const eventTarget = (evt?.target as unknown) as { tagName: string };
+        if (eventTarget.tagName !== 'CANVAS') return;
+        const features = map.current.queryRenderedFeatures([info.x, info.y], {
           layers: ['trees'],
         });
 
@@ -264,6 +247,12 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           onTreeSelect(null);
           return;
         }
+
+        const id: string = features[0].properties?.id;
+
+        if (!id) return;
+
+        onTreeSelect(id);
       },
       [onTreeSelect]
     );
@@ -373,16 +362,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           if (!map.current || !e.features?.length) return;
         });
 
-        map.current.on('click', 'trees', e => {
-          if (!map.current) return;
-          onMapTreeClick(e.point);
-        });
-
-        map.current.on('click', e => {
-          if (!map.current) return;
-          onMapClick(e.point);
-        });
-
         updateSelectedTreeIdFeatureState({
           map: map.current,
           prevSelectedTreeId: undefined,
@@ -399,14 +378,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           transitionDuration: VIEWSTATE_TRANSITION_DURATION,
         });
       },
-      [
-        focusPoint,
-        onMapClick,
-        onMapTreeClick,
-        onViewStateChange,
-        selectedTreeId,
-        visibleMapLayer,
-      ]
+      [focusPoint, onViewStateChange, selectedTreeId, visibleMapLayer]
     );
 
     useEffect(() => {
@@ -527,6 +499,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           onViewStateChange={(e: { viewState: ViewportProps }) =>
             onViewStateChange(e.viewState)
           }
+          onClick={onMapClick}
           controller
           style={{ overflow: 'hidden' }}
         >
