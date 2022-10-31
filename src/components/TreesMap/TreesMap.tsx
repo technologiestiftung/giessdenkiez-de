@@ -511,7 +511,13 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
         zoom: focusPoint.zoom || VIEWSTATE_ZOOMEDIN_ZOOM,
         transitionDuration: VIEWSTATE_TRANSITION_DURATION,
       });
-    }, [focusPoint, onViewStateChange]);
+    }, [
+      focusPoint?.latitude,
+      focusPoint?.longitude,
+      focusPoint?.zoom,
+      focusPoint?.id,
+      onViewStateChange,
+    ]);
 
     return (
       <>
