@@ -42,6 +42,7 @@ import {
   HIGH_WATER_NEED_NUM,
 } from '../../utils/getWaterNeedByAge';
 import DeckGL from 'deck.gl';
+import { useActions } from '../../state/unistore-hooks';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
@@ -154,6 +155,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
       null
     );
     const [viewport, setViewport] = useState<ViewportType>(defaultViewport);
+    const { setMapHasLoaded } = useActions();
     const pumpInfo = clickedPump || hoveredPump;
 
     useEffect(
@@ -263,6 +265,8 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
 
         if (!map.current || typeof map.current === 'undefined' || hasUnmounted)
           return;
+
+        setMapHasLoaded();
 
         const firstLabelLayerId = map.current
           .getStyle()
