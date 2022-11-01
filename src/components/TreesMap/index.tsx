@@ -49,7 +49,7 @@ export const Map: FC<{
       mapWaterNeedFilter={mapWaterNeedFilter}
       communityData={communityData?.communityFlagsMap || null}
       communityDataWatered={communityData?.wateredTreesIds || []}
-      communityDataAdopted={communityData?.adoptedTreesIds || []}
+      communityDataAdopted={communityData?.adoptedTreesIds || {}}
       selectedTreeId={treeId || undefined}
       focusPoint={selectedTreeData || mapFocusPoint}
     />

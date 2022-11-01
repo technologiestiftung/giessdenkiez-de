@@ -9,6 +9,7 @@ const initialState: StoreProps = {
   ageRange: [0, 320],
   overlay: true,
   mapFocusPoint: null,
+  mapHasLoaded: undefined,
 };
 
 const store = createStore<StoreProps>(initialState);

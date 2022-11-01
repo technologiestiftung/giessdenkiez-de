@@ -21,6 +21,6 @@ export async function requests<
     const json = await response.json();
     return json;
   } catch (err) {
-    throw new Error(err);
+    throw new Error(err as string);
   }
 }

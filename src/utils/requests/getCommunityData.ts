@@ -2,32 +2,39 @@ import { CommunityDataType } from '../../common/interfaces';
 import { createAPIUrl } from '../createAPIUrl';
 import { requests } from '../requestUtil';
 
+interface RawRequestResponse<DataType> {
+  data: DataType;
+}
+
+type WateredAndAdoptedResponseType = RawRequestResponse<
+  {
+    tree_id: string;
+    adopted: string;
+    watered: string;
+  }[]
+>;
+
 export const getCommunityData = async (): Promise<CommunityDataType> => {
-  const fetchCommunityDataUrl = createAPIUrl(
+  const fetchWateredAndAdoptedUrl = createAPIUrl(
     `/get?queryType=wateredandadopted`
   );
 
-  const json = await requests<{
-    data: {
-      tree_id: string;
-      adopted: string;
-      watered: string;
-    }[];
-  }>(fetchCommunityDataUrl);
+  const wateredAndAdopted = await requests<WateredAndAdoptedResponseType>(
+    fetchWateredAndAdoptedUrl
+  );
 
   const defaultCommunityData: CommunityDataType = {
     communityFlagsMap: {},
     wateredTreesIds: [],
-    adoptedTreesIds: [],
+    adoptedTreesIds: {},
   };
 
-  if (!json.data) return defaultCommunityData;
+  if (!wateredAndAdopted.data) return defaultCommunityData;
 
-  const newState = json.data.reduce(
+  const newState = wateredAndAdopted.data.reduce(
     (acc: CommunityDataType, { tree_id: id, adopted, watered }) => {
-      const item = acc[id];
-      const isAdopted = item?.isAdopted || adopted !== '0';
-      const isWatered = item?.isWatered || watered !== '0';
+      const isAdopted = adopted !== '0';
+      const isWatered = watered !== '0';
       return {
         communityFlagsMap: {
           ...acc.communityFlagsMap,
@@ -37,7 +44,7 @@ export const getCommunityData = async (): Promise<CommunityDataType> => {
           ? [...acc.wateredTreesIds, id]
           : acc.wateredTreesIds,
         adoptedTreesIds: isAdopted
-          ? [...acc.adoptedTreesIds, id]
+          ? { ...acc.adoptedTreesIds, [id]: parseInt(adopted, 10) || 0 }
           : acc.adoptedTreesIds,
       };
     },

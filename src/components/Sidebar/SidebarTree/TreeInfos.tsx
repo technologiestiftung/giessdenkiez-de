@@ -126,11 +126,15 @@ const TreeInfos: FC<{
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
-  const treeIsAdoptedByOtherUsers =
-    communityData && communityData.adoptedTreesIds.find(id => id === treeId);
-
-  const treeIsAdoptedByLoggedInUser =
+  const adoptedByLoggedInUser =
     userData && userData.adoptedTrees.find(({ id }) => id === treeId);
+
+  const adoptionsMap = communityData?.adoptedTreesIds || {};
+  const numAdoptionsByOtherUsers = adoptionsMap[treeId] || 0;
+  const adoptedByOtherUsers =
+    (adoptedByLoggedInUser
+      ? numAdoptionsByOtherUsers - 1
+      : numAdoptionsByOtherUsers) > 0;
 
   const treeAge =
     pflanzjahr && pflanzjahr !== 'undefined' && pflanzjahr !== 'NaN'
@@ -156,16 +160,16 @@ const TreeInfos: FC<{
           gattungdeutsch.toLowerCase() !== artdtsch?.toLowerCase() && (
             <SublineSpan>{gattungdeutsch.toLowerCase()}</SublineSpan>
           )}
-        {(treeIsAdoptedByLoggedInUser || treeIsAdoptedByOtherUsers) && (
+        {(adoptedByLoggedInUser || adoptedByOtherUsers) && (
           <AdoptionsParent>
-            {treeIsAdoptedByLoggedInUser && (
+            {adoptedByLoggedInUser && (
               <AdoptedIndication selfAdopted>
                 Von mir adoptiert ✔
               </AdoptedIndication>
             )}
-            {treeIsAdoptedByOtherUsers && (
+            {adoptedByOtherUsers && (
               <AdoptedIndication>
-                {treeIsAdoptedByLoggedInUser
+                {adoptedByLoggedInUser
                   ? `Ebenfalls von anderen adoptiert`
                   : `Von anderen Nutzer:innen adoptiert`}{' '}
                 ✔
@@ -258,20 +262,18 @@ const TreeInfos: FC<{
             <ButtonRound
               margin='15px 0'
               onClick={() =>
-                treeIsAdoptedByLoggedInUser ? unadoptTree() : adoptTree()
+                adoptedByLoggedInUser ? unadoptTree() : adoptTree()
               }
               type='secondary'
             >
-              {treeIsAdoptedByLoggedInUser &&
+              {adoptedByLoggedInUser &&
                 !isBeingUnadopted &&
                 'Adoption aufheben'}
-              {treeIsAdoptedByLoggedInUser &&
+              {adoptedByLoggedInUser &&
                 isBeingUnadopted &&
                 'Adoption wird aufgehoben'}
-              {!treeIsAdoptedByLoggedInUser &&
-                !isBeingAdopted &&
-                'Baum adoptieren'}
-              {!treeIsAdoptedByLoggedInUser &&
+              {!adoptedByLoggedInUser && !isBeingAdopted && 'Baum adoptieren'}
+              {!adoptedByLoggedInUser &&
                 isBeingAdopted &&
                 'Baum wird adoptiert'}
             </ButtonRound>

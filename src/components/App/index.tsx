@@ -8,16 +8,13 @@ import Sidebar from '../Sidebar';
 import Nav from '../Nav';
 import MapLayerLegend from '../Legend/MapLayersLegend';
 import Cookie from '../Cookie';
-import Loading from '../Loading';
 import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { MapAttributionImprintAndPrivacy } from '../ImprintAndPrivacy';
 import { useStoreState } from '../../state/unistore-hooks';
-import { useCommunityData } from '../../utils/hooks/useCommunityData';
-import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
-import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
 
 import 'react-day-picker/dist/style.css';
+import Loading from '../Loading';
 
 const AppContainer = styled.div`
   font-family: ${({ theme: { fontFamily } }): string => fontFamily};
@@ -65,25 +62,19 @@ const MapboxLogo = styled.a`
 const App: FC = () => {
   const overlay = useStoreState('overlay');
   const isNavOpen = useStoreState('isNavOpen');
+  const mapHasLoaded = useStoreState('mapHasLoaded');
 
-  const { data: communityData } = useCommunityData();
-  const { data: rainGeoJson } = useRainGeoJson();
-  const { data: pumpsGeoJson } = usePumpsGeoJson();
   const { pathname } = useLocation();
 
   const isHome = pathname === '/';
   const showOverlay = isHome && overlay;
-  const showMap = Boolean(communityData && rainGeoJson && pumpsGeoJson);
-  const showLoading = !showMap;
-  const showMapUI = showMap && !showOverlay;
+  const showMapUI = !showOverlay;
   const isSidebarOpened = !isHome && isNavOpen;
 
   return (
     <AppContainer>
-      {showLoading && <Loading />}
-      {showMap && (
-        <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} />
-      )}
+      {!mapHasLoaded && <Loading />}
+      <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} />
       {showMapUI && <Sidebar />}
       {showOverlay && <Overlay />}
       {showMapUI && <Nav isNavOpened={!isHome} />}

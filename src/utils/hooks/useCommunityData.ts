@@ -1,10 +1,6 @@
-import { QueryFunction, useQuery, useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { CommunityDataType } from '../../common/interfaces';
 import { getCommunityData } from '../requests/getCommunityData';
-
-const loadData: QueryFunction = async (): Promise<CommunityDataType> => {
-  return await getCommunityData();
-};
 
 export const useCommunityData = (): {
   data: CommunityDataType | null;
@@ -15,7 +11,7 @@ export const useCommunityData = (): {
   const dataParams = 'community-data';
   const { data, error } = useQuery<unknown, Error, CommunityDataType>(
     dataParams,
-    loadData,
+    async () => await getCommunityData(),
     { staleTime: Infinity }
   );
 

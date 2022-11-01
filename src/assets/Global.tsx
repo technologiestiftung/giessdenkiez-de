@@ -21,7 +21,7 @@ export default createGlobalStyle`
   }
 
   .fade {
-    animation: fadein 1.5s;
+    animation: fadein .5s;
   }
 
   @keyframes fadein {
