@@ -37,6 +37,10 @@ const closeNav = (): { isNavOpen: StoreProps['isNavOpen'] } => ({
   isNavOpen: false,
 });
 
+const setMapHasLoaded = (): { mapHasLoaded: StoreProps['mapHasLoaded'] } => ({
+  mapHasLoaded: true,
+});
+
 const allActions = {
   setMapFocusPoint,
   setAgeRange,
@@ -47,6 +51,7 @@ const allActions = {
   setVisibleMapLayer,
   setMapViewFilter,
   setMapWaterNeedFilter,
+  setMapHasLoaded,
 };
 
 export type ActionsType = typeof allActions;
