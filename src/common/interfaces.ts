@@ -57,6 +57,7 @@ export interface StoreProps {
   ageRange: number[];
   overlay: boolean;
   mapFocusPoint: FocusPointType | null;
+  mapHasLoaded: boolean | undefined;
 }
 
 export interface Tree {
