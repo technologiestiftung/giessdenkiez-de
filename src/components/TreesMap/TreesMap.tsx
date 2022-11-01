@@ -431,7 +431,9 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
       if (mapViewFilter === 'watered') {
         communityFilter = getFilterMatchingIdsList(communityDataWatered);
       } else if (mapViewFilter === 'adopted') {
-        communityFilter = getFilterMatchingIdsList(communityDataAdopted);
+        communityFilter = getFilterMatchingIdsList(
+          Object.keys(communityDataAdopted)
+        );
       }
       if (mapWaterNeedFilter !== null) {
         waterNeedFilter = [
