@@ -14,48 +14,27 @@ type WateredAndAdoptedResponseType = RawRequestResponse<
   }[]
 >;
 
-type AdoptedResponseType =
-  | undefined
-  | RawRequestResponse<
-      {
-        tree_id: string;
-        id: number;
-        uuid: string;
-      }[]
-    >;
-
-export const getCommunityData = async (
-  token: string | undefined,
-  uuid: string | undefined
-): Promise<CommunityDataType> => {
+export const getCommunityData = async (): Promise<CommunityDataType> => {
   const fetchWateredAndAdoptedUrl = createAPIUrl(
     `/get?queryType=wateredandadopted`
   );
-  const fetchAdoptedUrl = createAPIUrl(`/get?queryType=adopt&uuid=${uuid}`);
 
-  const wateredAndAdoptedReq = requests<WateredAndAdoptedResponseType>(
+  const wateredAndAdopted = await requests<WateredAndAdoptedResponseType>(
     fetchWateredAndAdoptedUrl
   );
 
-  const [wateredAndAdopted, adopted] = (await Promise.all(
-    [
-      wateredAndAdoptedReq,
-      token ? requests<AdoptedResponseType>(fetchAdoptedUrl, { token }) : false,
-    ].filter(Boolean)
-  )) as [WateredAndAdoptedResponseType, AdoptedResponseType];
   const defaultCommunityData: CommunityDataType = {
     communityFlagsMap: {},
     wateredTreesIds: [],
-    adoptedTreesIds: [],
+    adoptedTreesIds: {},
   };
 
   if (!wateredAndAdopted.data) return defaultCommunityData;
 
   const newState = wateredAndAdopted.data.reduce(
     (acc: CommunityDataType, { tree_id: id, adopted, watered }) => {
-      const item = acc[id];
-      const isAdopted = item?.isAdopted || adopted !== '0';
-      const isWatered = item?.isWatered || watered !== '0';
+      const isAdopted = adopted !== '0';
+      const isWatered = watered !== '0';
       return {
         communityFlagsMap: {
           ...acc.communityFlagsMap,
@@ -65,7 +44,7 @@ export const getCommunityData = async (
           ? [...acc.wateredTreesIds, id]
           : acc.wateredTreesIds,
         adoptedTreesIds: isAdopted
-          ? [...acc.adoptedTreesIds, id]
+          ? { ...acc.adoptedTreesIds, [id]: parseInt(adopted, 10) || 0 }
           : acc.adoptedTreesIds,
       };
     },

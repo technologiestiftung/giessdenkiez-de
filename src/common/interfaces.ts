@@ -101,6 +101,6 @@ interface CommunityFlagsMapType {
 }
 export interface CommunityDataType {
   communityFlagsMap: Record<TreeId, CommunityFlagsMapType> | null;
-  adoptedTreesIds: TreeId[];
+  adoptedTreesIds: Record<TreeId, number>;
   wateredTreesIds: TreeId[];
 }
