@@ -35,17 +35,19 @@ export const getCommunityData = async (): Promise<CommunityDataType> => {
     (acc: CommunityDataType, { tree_id: id, adopted, watered }) => {
       const isAdopted = adopted !== '0';
       const isWatered = watered !== '0';
+
+      const newCommunityFlagsMap = acc.communityFlagsMap || {};
+      newCommunityFlagsMap[id] = { isAdopted, isWatered };
+
+      const newWateredTreesIds = acc.wateredTreesIds;
+      if (isWatered) newWateredTreesIds.push(id);
+
+      const newAdoptedTreesIds = acc.adoptedTreesIds;
+      if (isAdopted) newAdoptedTreesIds[id] = parseInt(adopted, 10) || 0;
       return {
-        communityFlagsMap: {
-          ...acc.communityFlagsMap,
-          [id]: { isAdopted, isWatered },
-        },
-        wateredTreesIds: isWatered
-          ? [...acc.wateredTreesIds, id]
-          : acc.wateredTreesIds,
-        adoptedTreesIds: isAdopted
-          ? { ...acc.adoptedTreesIds, [id]: parseInt(adopted, 10) || 0 }
-          : acc.adoptedTreesIds,
+        communityFlagsMap: newCommunityFlagsMap,
+        wateredTreesIds: newWateredTreesIds,
+        adoptedTreesIds: newAdoptedTreesIds,
       };
     },
     defaultCommunityData
