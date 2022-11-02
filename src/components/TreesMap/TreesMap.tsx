@@ -446,7 +446,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
     }, [visibleMapLayer]);
 
     useEffect(() => {
-      if (!map?.current || hasUnmounted) return;
+      if (
+        !map?.current ||
+        hasUnmounted ||
+        !communityDataWatered.length ||
+        Object.keys(communityDataAdopted).length === 0
+      )
+        return;
+
       updateTreeCirclePaintProps({
         map: map.current,
         wateredFilterOn: mapViewFilter === 'watered',
