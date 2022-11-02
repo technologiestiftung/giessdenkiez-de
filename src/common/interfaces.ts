@@ -57,6 +57,7 @@ export interface StoreProps {
   ageRange: number[];
   overlay: boolean;
   mapFocusPoint: FocusPointType | null;
+  mapHasLoaded: boolean | undefined;
 }
 
 export interface Tree {
@@ -101,6 +102,6 @@ interface CommunityFlagsMapType {
 }
 export interface CommunityDataType {
   communityFlagsMap: Record<TreeId, CommunityFlagsMapType> | null;
-  adoptedTreesIds: TreeId[];
+  adoptedTreesIds: Record<TreeId, number>;
   wateredTreesIds: TreeId[];
 }
