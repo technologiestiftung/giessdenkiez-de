@@ -10,5 +10,6 @@ AUTH0_CLIENT_ID=${process.env.AUTH0_CLIENT_ID}\n
 AUTH0_AUDIENCE=${process.env.AUTH0_AUDIENCE}\n
 USER_DATA_API_URL=${process.env.USER_DATA_API_URL}\n
 API_ENDPOINT=${process.env.API_ENDPOINT}\n
+MAP_BOUNDING_BOX=${process.env.MAP_BOUNDING_BOX}\n
 `;
 fs.writeFileSync('./.env', envVars);
