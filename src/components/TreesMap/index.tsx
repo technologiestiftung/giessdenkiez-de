@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
 import { useTreeData } from '../../utils/hooks/useTreeData';
-import { useHistory } from 'react-router';
 import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
 import { TreesMap } from './TreesMap';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { useRouter } from 'next/router';
 
 export const Map: FC<{
   showOverlay: boolean | undefined;
@@ -25,18 +25,18 @@ export const Map: FC<{
   const { data: rainGeoJson } = useRainGeoJson();
   const { data: pumpsGeoJson } = usePumpsGeoJson();
   const { treeData: selectedTreeData } = useTreeData(treeId);
-  const history = useHistory();
+  const { push } = useRouter();
 
   return (
     <TreesMap
       onTreeSelect={id => {
         if (!id) {
-          history.push('/');
+          void push('/');
           closeNav();
           return;
         }
         const nextLocation = `/tree/${id}`;
-        history.push(nextLocation);
+        void push(nextLocation);
         openNav();
       }}
       rainGeojson={rainGeoJson || null}

@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router';
+import { useRouter } from 'next/router';
 
 const parseTreeIdParam = (path: string): string | null => {
   const [location, treeId] = path
@@ -9,6 +9,6 @@ const parseTreeIdParam = (path: string): string | null => {
 };
 
 export const useCurrentTreeId = (): string | null => {
-  const { pathname } = useLocation();
+  const { pathname } = useRouter();
   return parseTreeIdParam(pathname);
 };

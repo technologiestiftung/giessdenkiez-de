@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useUserData } from '../../../utils/hooks/useUserData';
@@ -14,7 +14,7 @@ import ButtonRound from '../../ButtonRound';
 import SidebarTitle from '../SidebarTitle/';
 import { ParticipateButton } from '../../ParticipateButton';
 import { useAccountActions } from '../../../utils/hooks/useAccountActions';
-import { UserDataType } from '../../../common/interfaces';
+import { StyledComponentType, UserDataType } from '../../../common/interfaces';
 import { SidebarLoading } from '../SidebarLoading';
 
 const LastButtonRound = styled(ButtonRound)`
@@ -26,7 +26,7 @@ const FlexCol = styled.div`
   flex-direction: column;
 `;
 
-const WateringsTitle = styled.span`
+const WateringsTitle = styled.span<StyledComponentType>`
   font-size: ${p => p.theme.fontSizeXl};
   font-weight: bold;
 `;
@@ -49,9 +49,9 @@ const SidebarProfile: FC<{
   const isLoadingAuthInfo = isAuthenticated && !userData;
   const isLoading = isLoadingProps || isLoadingState || isLoadingAuthInfo;
 
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = (): void => {
     if (!confirmAccountDeletion()) return;
-    deleteAccount();
+    void deleteAccount();
   };
 
   if (isLoading) {

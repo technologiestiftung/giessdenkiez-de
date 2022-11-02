@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import SmallParagraph from '../SmallParagraph';
 import content from '../../assets/content';

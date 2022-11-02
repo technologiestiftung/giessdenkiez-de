@@ -4,6 +4,7 @@ import { rest } from 'msw';
 interface Payload {
   data?: Record<string, any> | Record<string, any>[] | boolean | string;
   message?: string;
+  url?: string;
 }
 
 interface WateredTree {
@@ -18,10 +19,12 @@ if (process.env.NODE_ENV === 'test') {
   location = '';
 } else {
   if (process.env.NODE_ENV === 'development') {
-    location = process.env.API_ENDPOINT_DEV ? process.env.API_ENDPOINT_DEV : '';
+    location = process.env.NEXT_PUBLIC_API_ENDPOINT_DEV
+      ? process.env.NEXT_PUBLIC_API_ENDPOINT_DEV
+      : '';
   } else if (process.env.NODE_ENV === 'production') {
-    location = process.env.API_ENDPOINT_PROD
-      ? process.env.API_ENDPOINT_PROD
+    location = process.env.NEXT_PUBLIC_API_ENDPOINT_PROD
+      ? process.env.NEXT_PUBLIC_API_ENDPOINT_PROD
       : '';
   } else {
     console.log('NODE_ENV is not defiend');
@@ -44,14 +47,14 @@ const treesWatered: WateredTree[] = [];
  *
  */
 export function getProperty(
-  item: Record<string, any> | URLSearchParams,
+  item: Record<string, unknown> | URLSearchParams,
   key: string
 ): string {
   if (item instanceof URLSearchParams) {
     const res = item.get(key);
     return res ? res : '';
   }
-  return typeof item[key] === 'string' ? item[key] : '';
+  return typeof item[key] === 'string' ? (item[key] as string) : '';
 }
 
 export const handlers = [
@@ -64,9 +67,9 @@ export const handlers = [
   rest.delete(`${location}/delete`, (req, res, ctx) => {
     // console.log('intercepting DELETE requests');
     const json: Payload = {};
-    let body: Record<string, any> = {};
+    let body: Record<string, unknown> = {};
     if (typeof req.body === 'string') {
-      body = JSON.parse(req.body);
+      body = JSON.parse(req.body) as Record<string, unknown>;
     } else {
       body = req.body ? req.body : {};
     }
@@ -95,9 +98,9 @@ export const handlers = [
   }),
   rest.post(`${location}/post`, (req, res, ctx) => {
     let json: Payload = {};
-    let body: Record<string, any> = {};
+    let body: Record<string, unknown> = {};
     if (typeof req.body === 'string') {
-      body = JSON.parse(req.body);
+      body = JSON.parse(req.body) as Record<string, unknown>;
     } else {
       body = req.body ? req.body : {};
     }
@@ -110,7 +113,7 @@ export const handlers = [
           timestamp: new Date().toISOString(),
           uuid: getProperty(body, 'uuid'),
           username: getProperty(body, 'username'),
-          amount: body.amount ? body.amount : 0,
+          amount: `${body.amount ? (body.amount as number) : 0}`,
         });
         let found = false;
         for (let i = 0; i < wateredAndAdopted.length; i++) {
@@ -124,7 +127,7 @@ export const handlers = [
         }
         if (found === false) {
           wateredAndAdopted.push({
-            tree_id: body.tree_id,
+            tree_id: body.tree_id as string,
             adopted: '0',
             watered: '1',
           });
@@ -134,7 +137,9 @@ export const handlers = [
       }
       case 'adopt': {
         // console.log(`calling POST ${queryType}`);
-        adoptedTreeIds = [...new Set([body.tree_id, ...adoptedTreeIds])];
+        adoptedTreeIds = Array.from(
+          new Set<string>([body.tree_id as string, ...adoptedTreeIds])
+        );
 
         let found = false;
         for (let i = 0; i < wateredAndAdopted.length; i++) {
@@ -148,7 +153,7 @@ export const handlers = [
         }
         if (found === false) {
           wateredAndAdopted.push({
-            tree_id: body.tree_id,
+            tree_id: body.tree_id as string,
             adopted: '1',
             watered: '0',
           });
@@ -162,7 +167,10 @@ export const handlers = [
         break;
       }
       default: {
-        json = { data: [], message: `default case for post ${body}` };
+        json = {
+          data: [],
+          message: `default case for post ${JSON.stringify(body, null, 2)}`,
+        };
       }
     }
     return res(ctx.status(201), ctx.json(json));
@@ -189,12 +197,12 @@ export const handlers = [
         break;
       }
       case 'treesbyids': {
-        const originalResponse = await ctx.fetch(req);
+        const originalResponse = (await ctx.fetch(req)) as { data: any };
         json = { ...originalResponse };
         break;
       }
       case 'byid': {
-        const originalResponse = await ctx.fetch(req);
+        const originalResponse = (await ctx.fetch(req)) as { data: any };
         json = { ...originalResponse };
         if (process.env.NODE_ENV === 'test') {
           json = { data: [{ id: '_abc' }] };
@@ -246,11 +254,11 @@ export const handlers = [
       default: {
         // console.log('UNHANDELED request to');
         // console.log(req.url.href);
-        const originalResponse = await ctx.fetch(req);
+        const originalResponse = (await ctx.fetch(req)) as { data: any };
         json = {
           data: [],
-          url: req.url,
-          message: `case ${queryType} with url "${req.url}" in default case. Not yet defined and passed through`,
+          url: req.url.toString(),
+          message: `case ${queryType} with url "${req.url.toString()}" in default case. Not yet defined and passed through`,
           ...originalResponse,
         };
         // console.log('response is patched and gets passed through', json);

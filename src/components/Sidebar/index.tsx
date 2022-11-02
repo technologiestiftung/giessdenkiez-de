@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import SidebarAbout from './SidebarAbout/';
@@ -7,7 +7,7 @@ import SidebarProfile from './SidebarProfile/';
 import SidebarTree from './SidebarTree';
 import SidebarWrapper from './SidbarWrapper';
 
-const Sidebar: React.FC = () => (
+const Sidebar: FC = () => (
   <Route
     path={['/about', '/search', '/profile', '/tree/:treeId']}
     render={({ match }) => {

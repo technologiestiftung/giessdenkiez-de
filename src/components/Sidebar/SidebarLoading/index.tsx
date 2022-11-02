@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { ImprintAndPrivacy } from '../../ImprintAndPrivacy';
 import LoadingIcon, { SidebarLoadingContainer } from '../../LoadingIcon';
 import SidebarTitle from '../SidebarTitle';

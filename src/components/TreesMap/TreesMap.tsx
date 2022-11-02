@@ -1,11 +1,5 @@
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { Map as MapboxMap } from 'mapbox-gl';
 import {
   FlyToInterpolator,
@@ -111,7 +105,9 @@ interface PumpTooltipType extends PumpPropertiesType {
   y: number;
 }
 
-const [minLng, minLat, maxLng, maxLat] = (process.env.MAP_BOUNDING_BOX || '')
+const [minLng, minLat, maxLng, maxLat] = (
+  process.env.NEXT_PUBLIC_MAP_BOUNDING_BOX || ''
+)
   .split(',')
   .map(coord => parseFloat(coord));
 
@@ -185,9 +181,10 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
       if (!map?.current || !rainGeojson || !pumpsGeoJson || hasUnmounted)
         return [];
       const layers = [
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         new GeoJsonLayer({
           id: 'rain',
-          data: rainGeojson as any,
+          data: rainGeojson as unknown,
           opacity: 0.95,
           visible: visibleMapLayer === 'rain' ? true : false,
           stroked: false,
@@ -195,14 +192,16 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           extruded: true,
           wireframe: true,
           getElevation: 1,
-          getFillColor: (f: unknown): RGBAColor => {
+          getFillColor: (f?: {
+            properties?: { data?: number[] };
+          }): RGBAColor => {
             /**
              * Apparently DWD 1 is not 1ml but 0.1ml
              * We could change this in the database, but this would mean,
              * transferring 800.000 "," characters, therefore,
              * changing it client-side makes more sense.
              */
-            const features = (f as any)?.properties?.data || [];
+            const features = f?.properties?.data || [];
             if (features.length === 0) return [0, 0, 0, 0];
             const interpolated = interpolateColor(features[0] / 10);
             const hex = hexToRgb(interpolated);
@@ -210,9 +209,10 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           },
           pickable: true,
         }),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         new GeoJsonLayer({
           id: 'pumps',
-          data: pumpsGeoJson as any,
+          data: pumpsGeoJson as unknown,
           opacity: 1,
           visible: visibleMapLayer === 'pumps' ? true : false,
           stroked: true,
@@ -237,7 +237,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
         }),
       ];
 
-      return layers;
+      return layers as unknown[];
     }, [pumpsGeoJson, rainGeojson, visibleMapLayer]);
 
     const onViewStateChange = useCallback((newViewport: ViewportProps) => {
@@ -271,7 +271,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           return;
         }
 
-        const id: string = features[0].properties?.id;
+        const id: string = features[0].properties?.id as string;
 
         if (!id) return;
 
@@ -336,7 +336,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
 
         map.current.addSource('trees', {
           type: 'vector',
-          url: process.env.MAPBOX_TREES_TILESET_URL,
+          url: process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_URL,
           minzoom: 0,
           maxzoom: 20,
           promoteId: 'id',
@@ -536,7 +536,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
       <>
         <DeckGL
           layers={renderLayers()}
-          viewState={viewport as any}
+          viewState={viewport as unknown}
           onViewStateChange={(e: { viewState: ViewportProps }) =>
             onViewStateChange(e.viewState)
           }
@@ -549,7 +549,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
             ref={ref}
             mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
             preventStyleDiffing={true}
-            mapboxApiAccessToken={process.env.MAPBOX_API_KEY}
+            mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
             onLoad={onLoad}
             width='100%'
             height='100%'
@@ -577,10 +577,12 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
                 />
                 <NavigationControl
                   onViewStateChange={e => {
+                    const newViewState = (e as { viewState: ViewportType })
+                      .viewState;
                     onViewStateChange({
-                      latitude: e.viewState.latitude,
-                      longitude: e.viewState.longitude,
-                      zoom: e.viewState.zoom,
+                      latitude: newViewState.latitude,
+                      longitude: newViewState.longitude,
+                      zoom: newViewState.zoom,
                       transitionDuration: VIEWSTATE_TRANSITION_DURATION,
                     });
                   }}

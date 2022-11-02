@@ -3,33 +3,31 @@
   "version": "2.0.0-alpha",
   "description": "Source repo for [giessdenkiez.de](https://www.giessdenkiez.de)",
   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "test": "inpyjamas-scripts test",
     "lint": "eslint ./src/",
     "lint-fix": "npm run lint -- --fix",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
-    "dev": "npm start",
-    "start": "cross-env BUILD_TARGET=DEFAULT NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
-    "start:demo": "cross-env BUILD_TARGET=DEMO NODE_ENV=development webpack-dev-server --config webpack/dev.config.js",
-    "build": "cross-env BUILD_TARGET=DEFAULT NODE_ENV=production webpack --config webpack/prod.config.js && echo '/* /index.html 200' | cat >dist/_redirects",
     "prettier:list": "prettier --list-different './src/**/*'",
     "prettier:write": "prettier --write './src/**/*'",
     "storybook": "cross-env BUILD_TARGET=DEFAULT  NODE_ENV=development start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook -s ./public"
   },
   "keywords": [],
-  "author": "Fabian Dinklage",
+  "author": "Technologiestiftung Berlin",
   "contributors": [
-    "Fabian Morón Zirfas"
+    "Fabian Dinklage",
+    "Fabian Morón Zirfas",
+    "Dennis Ostendrorf",
+    "Julia Zimmermann",
+    "Lucas Vogel",
+    "Ingo Hinterding"
   ],
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "7.12.16",
-    "@babel/plugin-transform-runtime": "7.12.15",
-    "@babel/preset-env": "7.12.16",
-    "@babel/preset-react": "7.12.13",
-    "@babel/preset-typescript": "7.12.16",
     "@danmarshall/deckgl-typings": "4.5.1",
-    "@hot-loader/react-dom": "17.0.1",
     "@inpyjamas/scripts": "0.1.6-alpha",
     "@storybook/addon-actions": "6.1.18",
     "@storybook/addon-essentials": "6.5.0",
@@ -48,51 +46,28 @@
     "@types/react-dom": "17.0.1",
     "@types/react-map-gl": "5.2.9",
     "@types/react-router-dom": "5.1.7",
-    "@types/styled-components": "5.1.7",
+    "@types/styled-components": "5.1.26",
     "@typescript-eslint/eslint-plugin": "4.15.1",
     "@typescript-eslint/parser": "4.15.1",
-    "babel-eslint": "10.1.0",
-    "babel-loader": "8.2.2",
-    "clean-webpack-plugin": "3.0.0",
-    "copy-webpack-plugin": "6.0.3",
+    "babel-plugin-styled-components": "2.0.7",
     "cross-env": "7.0.3",
     "cross-spawn": "7.0.3",
-    "css-loader": "3.6.0",
-    "dotenv": "8.2.0",
-    "dotenv-webpack": "6.0.0",
-    "error-overlay-webpack-plugin": "0.4.2",
-    "eslint": "7.20.0",
-    "eslint-config-prettier": "7.2.0",
-    "eslint-config-react-app": "6.0.0",
-    "eslint-plugin-flowtype": "5.2.0",
-    "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-jest": "24.1.3",
-    "eslint-plugin-jsx-a11y": "6.4.1",
-    "eslint-plugin-prettier": "3.3.1",
-    "eslint-plugin-promise": "4.3.1",
-    "eslint-plugin-react": "7.22.0",
-    "eslint-plugin-react-hooks": "4.2.0",
-    "file-loader": "6.2.0",
-    "html-loader": "1.1.0",
-    "html-webpack-plugin": "4.3.0",
+    "dotenv": "16.0.3",
+    "eslint": "8.26.0",
+    "eslint-config-next": "12.3.1",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-import-resolver-typescript": "2.7.1",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jsx-a11y": "6.6.1",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-react": "7.31.10",
     "jest": "26.6.3",
     "jest-in-case": "1.0.2",
-    "mini-css-extract-plugin": "1.3.7",
     "msw": "0.26.2",
     "prettier": "2.2.1",
     "react-is": "16.13.1",
     "react-test-renderer": "16.13.1",
-    "rimraf": "3.0.2",
-    "sass-loader": "9.0.3",
-    "source-map-loader": "1.0.1",
-    "style-loader": "1.2.1",
-    "typescript": "4.1.5",
-    "url-loader": "4.1.1",
-    "webpack": "4.44.1",
-    "webpack-bundle-analyzer": "4.4.0",
-    "webpack-cli": "3.3.12",
-    "webpack-dev-server": "3.11.3",
-    "webpack-merge": "4.2.2"
+    "typescript": "4.8.4"
   },
   "dependencies": {
     "@auth0/auth0-react": "1.9.0",
@@ -109,13 +84,13 @@
     "deck.gl": "8.7.3",
     "focus-trap-react": "8.9.2",
     "history": "4.10.1",
+    "next": "13.0.1",
     "rc-slider": "9.7.5",
-    "react": "17.0.2",
+    "react": "18.2.0",
     "react-app-polyfill": "3.0.0",
     "react-day-picker": "8.0.4",
     "react-device-detect": "2.1.2",
-    "react-dom": "17.0.2",
-    "react-hot-loader": "4.13.0",
+    "react-dom": "18.2.0",
     "react-map-gl": "6.1.19",
     "react-popper": "2.2.5",
     "react-query": "3.34.19",
@@ -123,13 +98,9 @@
     "react-share": "4.4.0",
     "reselect": "4.1.5",
     "sass": "1.49.11",
-    "styled-components": "5.3.5",
+    "styled-components": "5.3.6",
     "styled-normalize": "8.0.7",
     "unistore": "3.5.2"
-  },
-  "main": "dist/index.html",
-  "directories": {
-    "doc": "docs"
   },
   "repository": {
     "type": "git",
@@ -138,22 +109,5 @@
   "bugs": {
     "url": "https://github.com/technologiestiftung/giessdenkiez-de/issues"
   },
-  "homepage": "https://github.com/technologiestiftung/giessdenkiez-de#readme",
-  "browserslist": [
-    "defaults"
-  ],
-  "packdoc": {
-    "usageIgnoreDirs": [
-      "build",
-      "dist"
-    ],
-    "usageIgnore": [
-      "@babel/*",
-      "*eslint*"
-    ],
-    "manager": "npm",
-    "lint": {
-      "require-homepage": "off"
-    }
-  }
+  "homepage": "https://github.com/technologiestiftung/giessdenkiez-de#readme"
 }

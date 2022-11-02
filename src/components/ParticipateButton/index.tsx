@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import React, { FC } from 'react';
-import { useHistory } from 'react-router-dom';
+import { FC } from 'react';
 import { useActions } from '../../state/unistore-hooks';
 import SmallParagraph from '../SmallParagraph';
+import { useRouter } from 'next/router';
 
 const Container = styled(SmallParagraph)`
   padding-top: 10px;
@@ -19,13 +19,13 @@ const Container = styled(SmallParagraph)`
 
 export const ParticipateButton: FC = () => {
   const { openOverlay } = useActions();
-  const history = useHistory();
+  const { push } = useRouter();
 
   return (
     <Container
       onClick={() => {
         openOverlay();
-        history.push('/');
+        void push('/');
       }}
     >
       Wie kann ich mitmachen?

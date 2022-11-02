@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { WateringType } from '../../common/interfaces';
 

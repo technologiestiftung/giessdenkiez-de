@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import styled from 'styled-components';
 import Slider from 'rc-slider';
 import { useStoreState, useActions } from '../../../state/unistore-hooks';
@@ -29,7 +29,7 @@ const TileHeadline = styled.span`
   transform: translateX(-4px);
 `;
 
-const SidebarAgeRange: React.FC = () => {
+const SidebarAgeRange: FC = () => {
   const ageRange = useStoreState('ageRange');
 
   const createSliderWithTooltip = Slider.createSliderWithTooltip;

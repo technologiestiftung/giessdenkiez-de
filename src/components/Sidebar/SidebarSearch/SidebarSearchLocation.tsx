@@ -1,15 +1,9 @@
-import React, { FC, useState, ChangeEvent, useEffect } from 'react';
+import { FC, useState, ChangeEvent, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQuery, QueryFunction } from 'react-query';
 import { useActions } from '../../../state/unistore-hooks';
-
-interface FeatureType {
-  id: string;
-  place_name_de: string;
-  geometry: {
-    coordinates: [number, number];
-  };
-}
+import { FeatureType } from '../../../common/interfaces';
+import { ThemeType } from '../../../assets/theme';
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,7 +16,7 @@ const Wrapper = styled.div`
 `;
 
 const SearchInput = styled.input.attrs({
-  placeholderTextColor: p => p.theme.colorTextLight,
+  placeholderTextColor: (p: { theme: ThemeType }) => p.theme.colorTextLight,
 })`
   outline: none;
   border-radius: 4px;
@@ -70,19 +64,19 @@ const ResultElement = styled.li`
   }
 `;
 
-const MAPBOX_TOKEN = process.env.MAPBOX_API_KEY;
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
 
 const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
   const [, value] = queryKey;
 
   if (typeof value !== 'string' || value.length < 3) return [];
 
-  const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?autocomplete=true&language=de&country=de&bbox=${process.env.MAP_BOUNDING_BOX}&access_token=${MAPBOX_TOKEN}`;
+  const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?autocomplete=true&language=de&country=de&bbox=${process.env.NEXT_PUBLIC_MAP_BOUNDING_BOX}&access_token=${MAPBOX_TOKEN}`;
   const res = await fetch(geocodingUrl);
 
   if (!res.ok) return [];
 
-  const json = await res.json();
+  const json = (await res.json()) as { features: FeatureType[] };
   return json.features;
 };
 

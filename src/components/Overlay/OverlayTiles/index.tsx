@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import OverlayTile from './OverlayTile';
@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const OverlayTiles: React.FC<{ tiles: CollaborationItem[] }> = ({ tiles }) => {
+const OverlayTiles: FC<{ tiles: CollaborationItem[] }> = ({ tiles }) => {
   return (
     <Wrapper>
       {tiles.map(col => (

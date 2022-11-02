@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import Sidebar from './index';
 import { Story } from '@storybook/react/types-6-0';
 import history from '../../history';

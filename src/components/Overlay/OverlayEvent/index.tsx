@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 interface StyledProps {
@@ -46,7 +46,7 @@ const StyledOverlayEvent = styled.h2<StyledProps>`
   }
 `;
 
-const OverlayEvent: React.FC<{ title: string; size?: string }> = ({
+const OverlayEvent: FC<{ title: string; size?: string }> = ({
   title,
   size,
 }) => {

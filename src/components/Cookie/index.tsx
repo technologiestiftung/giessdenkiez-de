@@ -1,12 +1,11 @@
-import React, { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import ButtonRound from '../ButtonRound';
 import { areCookiesAccepted } from '../../utils/areCookiesAccepted';
+import { StyledComponentType } from '../../common/interfaces';
 
-const cookieAreAccepted = areCookiesAccepted('disclaimerAccepted');
-
-const CookieWrapper = styled.div`
+const CookieWrapper = styled.div<StyledComponentType>`
   z-index: 1;
   font-size: 12px;
   box-shadow: ${p => p.theme.boxShadow};
@@ -15,7 +14,7 @@ const CookieWrapper = styled.div`
   background: white;
 `;
 
-const Inner = styled.div`
+const Inner = styled.div<StyledComponentType>`
   display: grid;
   align-items: center;
   padding: 10px;
@@ -35,7 +34,7 @@ const Inner = styled.div`
   }
 `;
 
-const MoreInfoLink = styled.a`
+const MoreInfoLink = styled.a<StyledComponentType>`
   color: ${p => p.theme.colorTextLight};
   text-decoration: underline;
   white-space: nowrap;
@@ -45,7 +44,7 @@ const MoreInfoLink = styled.a`
   }
 `;
 
-const Text = styled.p`
+const Text = styled.p<StyledComponentType>`
   line-height: 150%;
   opacity: 0.66;
   margin: 0;
@@ -71,7 +70,7 @@ const Text = styled.p`
   }
 `;
 
-const CookieContainer = styled.div`
+const CookieContainer = styled.div<StyledComponentType>`
   position: absolute;
   bottom: 12px;
   display: block;
@@ -88,14 +87,18 @@ const CookieContainer = styled.div`
 `;
 
 const Cookie: FC = () => {
-  const [cookiesAccepted, setCookieAccepted] = useState<boolean>(
-    cookieAreAccepted
-  );
+  const [cookiesAccepted, setCookieAccepted] = useState<boolean>(false);
 
   const setCookie = () => {
     document.cookie = 'disclaimerAccepted=true;path=/;';
+
     setCookieAccepted(true);
   };
+
+  useEffect(() => {
+    const cookieAreAccepted = areCookiesAccepted('disclaimerAccepted');
+    setCookieAccepted(cookieAreAccepted);
+  }, []);
 
   return (
     <CookieContainer>

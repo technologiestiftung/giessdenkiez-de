@@ -1,46 +1,30 @@
 {
-  "include": ["src/**/*"],
-  "exclude": [
-    "node_modules",
-    "*.setup.js",
-    ".eslintrc.js",
-    ".importjs.js",
-    "*.config.js",
-    ".prettierrc.js",
-  ],
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    // "module": "es6",
-    "outDir": "./dist/",
-    "rootDir": "./src",
-    "typeRoots": ["node_modules/@types"],
-    "strictNullChecks": true,
-    "moduleResolution": "node",
-    "allowJs": false,
-    "noEmit": true,
-    "sourceMap": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "jsx": "react",
+    "target": "es5",
     "lib": [
-      "es2015",
+      "dom",
       "dom.iterable",
-      "es2016.array.include",
-      "es2017.object",
-      "dom"
+      "esnext"
     ],
-    "alwaysStrict": true,
-    "allowUnreachableCode": false,
-    "noImplicitAny": false,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
-  }
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

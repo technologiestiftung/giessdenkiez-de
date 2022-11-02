@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useAccountActions } from '../../utils/hooks/useAccountActions';
 
 import { useUserData } from '../../utils/hooks/useUserData';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import Icon from '../../Icons';
@@ -29,7 +29,7 @@ const StyledTileTitle = styled.h2`
   margin-top: 0px;
 `;
 
-const OverlayTile: React.FC<{ collaborationItem: CollaborationItem }> = ({
+const OverlayTile: FC<{ collaborationItem: CollaborationItem }> = ({
   collaborationItem,
 }) => {
   return (

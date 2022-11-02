@@ -1,10 +1,10 @@
-import React, { ErrorInfo } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 /**
  * For more info on the error boundary see
  * https://reactjs.org/docs/error-boundaries.html
  *
  */
-export default class ErrorBoundary extends React.Component<
+export default class ErrorBoundary extends Component<
   Record<string, unknown>,
   { hasError: boolean; error: Error | null }
 > {
@@ -25,7 +25,7 @@ export default class ErrorBoundary extends React.Component<
     console.error(error, errorInfo);
   }
 
-  render(): React.ReactNode {
+  render(): ReactNode {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (

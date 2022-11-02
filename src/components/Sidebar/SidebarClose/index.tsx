@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import CloseIcon from '@material-ui/icons/Close';
 
 import RoundButton from '../../../components/RoundButton';
 import { useActions } from '../../../state/unistore-hooks';
+import Link from 'next/link';
 
 const StyledLink = styled(Link)`
   position: absolute;
@@ -17,7 +17,7 @@ const SidebarClose: FC = () => {
   const { closeNav } = useActions();
 
   return (
-    <StyledLink to={{ pathname: '/', search: '' }}>
+    <StyledLink href={{ pathname: '/', search: '' }}>
       <RoundButton
         aria-label='Leiste schließen'
         title='Leiste schließen'

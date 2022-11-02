@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import {
   workingColor,
@@ -13,7 +13,7 @@ import { PumpsDot } from './LegendRectsDots';
 const FlexRowDots = styled(FlexColumn)`
   flex-direction: row;
 `;
-export const PumpsColorLegend: React.FC = () => {
+export const PumpsColorLegend: FC = () => {
   return (
     <FlexRow>
       <FlexRowDots>

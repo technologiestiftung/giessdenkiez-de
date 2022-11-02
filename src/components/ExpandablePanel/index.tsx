@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, ReactNode } from 'react';
+import { FC, useState, useEffect, ReactNode } from 'react';
 import styled from 'styled-components';
 import SmallParagraph from '../SmallParagraph';
 
