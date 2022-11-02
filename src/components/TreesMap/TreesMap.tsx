@@ -111,12 +111,28 @@ interface PumpTooltipType extends PumpPropertiesType {
   y: number;
 }
 
+const [minLng, minLat, maxLng, maxLat] = (process.env.MAP_BOUNDING_BOX || '')
+  .split(',')
+  .map(coord => parseFloat(coord));
+
+if (
+  typeof maxLat !== 'number' ||
+  typeof minLng !== 'number' ||
+  typeof minLat !== 'number' ||
+  typeof maxLng !== 'number'
+) {
+  throw new Error(`
+    The environment variable MAP_BOUNDING_BOX was either missing or malformed.
+    Please refer to the env.sample file for more info.
+  `);
+}
+
 const defaultViewport = {
   latitude: 52.500869,
   longitude: 13.419047,
   zoom: isMobile ? 13 : 11,
   maxZoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-  minZoom: isMobile ? 11 : 9,
+  minZoom: 11,
   pitch: isMobile ? 0 : 45,
   bearing: 0,
   transitionDuration: 2000,
@@ -226,12 +242,17 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
 
     const onViewStateChange = useCallback((newViewport: ViewportProps) => {
       if (hasUnmounted) return;
-      setClickedPump(null);
-      setHoveredPump(null);
-      setViewport({
+      const newViewState = {
         ...defaultViewport,
         ...newViewport,
         transitionDuration: newViewport.transitionDuration || 0,
+      };
+      setClickedPump(null);
+      setHoveredPump(null);
+      setViewport({
+        ...newViewState,
+        latitude: Math.min(maxLat, Math.max(newViewState.latitude, minLat)),
+        longitude: Math.min(maxLng, Math.max(newViewState.longitude, minLng)),
       });
     }, []);
 
@@ -281,7 +302,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
             'source-layer': 'building',
             filter: ['==', 'extrude', 'true'],
             type: 'fill-extrusion',
-            minzoom: 0,
             paint: {
               'fill-extrusion-color': '#FFF',
               'fill-extrusion-height': [
@@ -317,7 +337,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
         map.current.addSource('trees', {
           type: 'vector',
           url: process.env.MAPBOX_TREES_TILESET_URL,
-          minzoom: 11,
+          minzoom: 0,
           maxzoom: 20,
           promoteId: 'id',
         });
@@ -328,6 +348,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           source: 'trees',
           'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
           interactive: true,
+          minzoom: 0,
           paint: {
             'circle-pitch-alignment': 'map',
             'circle-radius': getTreeCircleRadius({}),
@@ -335,7 +356,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
               'interpolate',
               ['linear'],
               ['zoom'],
-              10,
+              0,
               1,
               20,
               0.5,
@@ -383,7 +404,13 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           transitionDuration: VIEWSTATE_TRANSITION_DURATION,
         });
       },
-      [focusPoint, onViewStateChange, selectedTreeId, visibleMapLayer]
+      [
+        focusPoint,
+        onViewStateChange,
+        selectedTreeId,
+        setMapHasLoaded,
+        visibleMapLayer,
+      ]
     );
 
     useEffect(() => {
