@@ -17,6 +17,7 @@ on:
       - 'tsconfig.json'
       - '.eslintrc.json'
       - 'next.config.js'
+      - 'create-env.js'
 
 jobs:
   build:

@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import Head from 'next/Head';
+import Head from 'next/head';
 import App from './App';
 import SidebarWrapper from './Sidebar/SidbarWrapper';
 import { useRouter } from 'next/router';
