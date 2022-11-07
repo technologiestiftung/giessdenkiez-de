@@ -1,7 +1,7 @@
-import styledNormalize from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components';
-import { RCSliderStyles } from './RCSliderStyles';
+import styledNormalize from 'styled-normalize';
 import { MapboxStyleOverrides } from './MapboxStyleOverrides';
+import { RCSliderStyles } from './RCSliderStyles';
 
 export default createGlobalStyle`
   ${styledNormalize}

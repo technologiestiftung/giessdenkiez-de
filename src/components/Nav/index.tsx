@@ -57,8 +57,7 @@ const Nav: FC<{
     <NavWrapper isNavOpened={isNavOpened}>
       {navConfig.map(item => (
         <NavItem
-          exact
-          to={{ pathname: item.path, search: '' }}
+          href={{ pathname: item.path, search: '' }}
           onClick={() => openNav()}
           title={item.title}
           key={item.path}

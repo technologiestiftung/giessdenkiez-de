@@ -2,7 +2,6 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 import { Map } from '../TreesMap';
-import Sidebar from '../Sidebar';
 import Nav from '../Nav';
 import MapLayerLegend from '../Legend/MapLayersLegend';
 import Cookie from '../Cookie';
@@ -58,7 +57,9 @@ const MapboxLogo = styled.a`
   }
 `;
 
-const App: FC = () => {
+const App: FC<{
+	treeId?: string | null;
+}> = ({ children, treeId }) => {
   const overlay = useStoreState('overlay');
   const isNavOpen = useStoreState('isNavOpen');
   const mapHasLoaded = useStoreState('mapHasLoaded');
@@ -73,8 +74,8 @@ const App: FC = () => {
   return (
     <AppContainer>
       {!mapHasLoaded && <Loading />}
-      <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} />
-      {showMapUI && <Sidebar />}
+      <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} treeId={treeId} />
+      {showMapUI && children}
       {showOverlay && <Overlay />}
       {showMapUI && <Nav isNavOpened={!isHome} />}
       <Credits />

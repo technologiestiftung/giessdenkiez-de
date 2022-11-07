@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
 import { useTreeData } from '../../utils/hooks/useTreeData';
-import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
@@ -12,14 +11,14 @@ import { useRouter } from 'next/router';
 export const Map: FC<{
   showOverlay: boolean | undefined;
   isNavOpened: boolean | undefined;
-}> = ({ showOverlay, isNavOpened }) => {
+  treeId?: string | null;
+}> = ({ treeId, showOverlay, isNavOpened }) => {
   const visibleMapLayer = useStoreState('visibleMapLayer');
   const ageRange = useStoreState('ageRange');
   const mapViewFilter = useStoreState('mapViewFilter');
   const mapWaterNeedFilter = useStoreState('mapWaterNeedFilter');
   const mapFocusPoint = useStoreState('mapFocusPoint');
 
-  const treeId = useCurrentTreeId();
   const { openNav, closeNav } = useActions();
   const { data: communityData } = useCommunityData();
   const { data: rainGeoJson } = useRainGeoJson();

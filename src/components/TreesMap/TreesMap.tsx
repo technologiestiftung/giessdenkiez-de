@@ -10,7 +10,7 @@ import {
   ViewportProps,
 } from 'react-map-gl';
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
-import { GeoJsonLayer, RGBAColor } from 'deck.gl';
+import DeckGL, { GeoJsonLayer, RGBAColor } from 'deck.gl';
 import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
 import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
 import { hexToRgb, interpolateColor } from '../../utils/colorUtil';
@@ -35,7 +35,6 @@ import {
   MEDIUM_WATER_NEED_NUM,
   HIGH_WATER_NEED_NUM,
 } from '../../utils/getWaterNeedByAge';
-import DeckGL from 'deck.gl';
 import { useActions } from '../../state/unistore-hooks';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
@@ -346,7 +345,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           id: 'trees',
           type: 'circle',
           source: 'trees',
-          'source-layer': process.env.MAPBOX_TREES_TILESET_LAYER,
+          'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
           interactive: true,
           minzoom: 0,
           paint: {
@@ -413,7 +412,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
       ]
     );
 
-    useEffect(() => {
+   useEffect(() => {
       if (!map?.current || hasUnmounted) return;
       updateSelectedTreeIdFeatureState({
         map: map.current,
