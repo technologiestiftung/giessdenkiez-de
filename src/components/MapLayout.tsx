@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
 import App from './App';
 import SidebarWrapper from './Sidebar/SidbarWrapper';
