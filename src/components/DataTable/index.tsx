@@ -1,4 +1,4 @@
-import { FC, HTMLProps, ReactNode } from 'react';
+import React, { FC, HTMLProps, ReactNode } from 'react';
 import styled from 'styled-components';
 
 export interface TableItemsType {

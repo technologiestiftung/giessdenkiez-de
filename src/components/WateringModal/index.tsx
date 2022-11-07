@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import ButtonRound from '../ButtonRound';
 import { NumberInput } from '../NumberInput';
 import styled from 'styled-components';

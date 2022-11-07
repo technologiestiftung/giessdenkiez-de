@@ -1,3 +1,4 @@
+import React from 'react';
 import { GetServerSideProps } from 'next';
 import { MapLayout } from '../../src/components/MapLayout';
 import SidebarTree from '../../src/components/Sidebar/SidebarTree';
@@ -11,7 +12,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   };
 };
 
-const TreePage: Page<{ treeId?: string | null; }> = ({ treeId }) => <SidebarTree treeId={treeId} />;
+const TreePage: Page<{ treeId?: string | null }> = ({ treeId }) => (
+  <SidebarTree treeId={treeId} />
+);
 
 TreePage.layout = MapLayout;
 

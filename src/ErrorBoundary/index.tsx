@@ -1,4 +1,4 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 /**
  * For more info on the error boundary see
  * https://reactjs.org/docs/error-boundaries.html

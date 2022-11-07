@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import { interpolateColor } from '../../utils/colorUtil';
 import { legendLabels, ItemLabel } from './LegendLabels';
 import { FlexColumnCentered } from './LegendFlexBoxes';

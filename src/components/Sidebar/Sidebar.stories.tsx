@@ -1,7 +1,5 @@
-import { ReactNode } from 'react';
-import Sidebar from './index';
+import React, { ReactNode } from 'react';
 import { Story } from '@storybook/react/types-6-0';
-import history from '../../history';
 import { TestProviders } from '../../Providers/TestProviders';
 import SidebarWrapper from './SidbarWrapper';
 import SidebarAbout from './SidebarAbout';
@@ -9,21 +7,21 @@ import SidebarTree from './SidebarTree';
 import SidebarSearch from './SidebarSearch';
 import SidebarProfile from './SidebarProfile';
 import { treeData } from '../../assets/stories-data';
+import { useRouter } from 'next/router';
+
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Sidebar',
-  component: Sidebar,
 };
-// profile
-// adopted
-// search
-// about
+
 const Template: Story<{
   children: ReactNode;
   isLoading?: boolean;
   title?: string;
   match: string;
 }> = args => {
-  history.push(args.match);
+  const { push } = useRouter();
+  void push(args.match);
   return (
     <TestProviders>
       <SidebarWrapper isVisible>{args.children}</SidebarWrapper>

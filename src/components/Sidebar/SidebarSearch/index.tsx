@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import SidebarTitle from '../SidebarTitle/';
 import ExpandablePanel from '../../ExpandablePanel';

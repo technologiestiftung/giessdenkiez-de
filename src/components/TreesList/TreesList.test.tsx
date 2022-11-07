@@ -12,9 +12,7 @@ describe('component TreesList', () => {
     expect(treeTitle).toBeInTheDocument();
   });
   test('should skil trees without ids', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, ...treeA } = treeData;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     render(<TreesList trees={[treeA]} />);
     const treeTitle = screen.queryByText(treeData.artdtsch || '');

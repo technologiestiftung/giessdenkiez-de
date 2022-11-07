@@ -3,12 +3,11 @@ import React from 'react';
 import { Story } from '@storybook/react/types-6-0';
 import ButtonWater from './';
 import { TestProviders } from '../../Providers/TestProviders';
-import history from '../../history';
-export default {
+import { useRouter } from 'next/router';
+
+const config = {
   title: 'ButtonWater',
   component: ButtonWater,
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   argTypes: {
     onAdoptTreeClick: { action: 'clicked adopt tree' },
     onWaterTreeClick: { action: 'clicked water tree' },
@@ -16,7 +15,8 @@ export default {
 };
 
 const Template: Story = args => {
-  history.push('/tree/_er9lvc14r');
+  const { push } = useRouter();
+  void push('/tree/_er9lvc14r');
 
   return (
     <TestProviders>
@@ -31,3 +31,5 @@ ButtonWaterStory.args = {
   isEmailVerified: true,
   waterGroup: 'visible',
 };
+
+export default config;

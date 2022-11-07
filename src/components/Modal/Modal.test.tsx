@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import { Modal } from '.';
 
 describe('component Modal', () => {
-  // eslint-disable-next-line jest/no-hooks
   afterEach(() => {
     const modals = document.querySelectorAll('#headlessui-portal-root');
     modals.forEach(modal => modal.parentNode?.removeChild(modal));

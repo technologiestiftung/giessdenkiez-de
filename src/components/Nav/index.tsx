@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
@@ -31,7 +31,7 @@ const NavWrapper = styled.div<StyledProps>`
   }
 `;
 
-const NavItem = styled(Link)`
+const NavItem = styled.a`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -56,20 +56,22 @@ const Nav: FC<{
   return (
     <NavWrapper isNavOpened={isNavOpened}>
       {navConfig.map(item => (
-        <NavItem
+        <Link
           href={{ pathname: item.path, search: '' }}
           onClick={() => openNav()}
           title={item.title}
           key={item.path}
         >
-          <SquareButton
-            title={item.title}
-            aria-label={item.title}
-            isActive={pathname === item.path}
-          >
-            {item.icon}
-          </SquareButton>
-        </NavItem>
+          <NavItem>
+            <SquareButton
+              title={item.title}
+              aria-label={item.title}
+              isActive={pathname === item.path}
+            >
+              {item.icon}
+            </SquareButton>
+          </NavItem>
+        </Link>
       ))}
     </NavWrapper>
   );

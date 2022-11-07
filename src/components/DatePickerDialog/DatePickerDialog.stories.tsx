@@ -6,7 +6,7 @@ import theme from '../../assets/theme';
 import GlobalStyles from '../../assets/Global';
 import 'react-day-picker/dist/style.css';
 
-export default {
+const config = {
   title: 'DatePickerDialog',
   component: DatePickerDialog,
 };
@@ -24,3 +24,5 @@ Default.args = {
   label: 'Wann?',
   defaultDate: new Date('2022-04-01'),
 };
+
+export default config;

@@ -1,4 +1,4 @@
-import { FC, MouseEvent } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import styled from 'styled-components';
 
 interface StyledButtonProps {

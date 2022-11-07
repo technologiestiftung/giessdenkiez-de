@@ -1,4 +1,4 @@
-import { FC, useState, ChangeEvent, useEffect } from 'react';
+import React, { FC, useState, ChangeEvent, useEffect } from 'react';
 import styled from 'styled-components';
 import { useQuery, QueryFunction } from 'react-query';
 import { useActions } from '../../../state/unistore-hooks';
@@ -91,8 +91,7 @@ const SidebarSearchLocation: FC = () => {
     () => () => {
       setMapFocusPoint(null);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [setMapFocusPoint]
   );
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {

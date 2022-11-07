@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useMemo } from 'react';
+import React, { FC, useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { SelectedTreeType } from '../../common/interfaces';
 import { Bars } from './Bars';

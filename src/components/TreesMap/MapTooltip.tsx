@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import useClickOutside from '../../utils/hooks/useClickOutside';
 import { DataTable, TableItemsType } from '../DataTable';

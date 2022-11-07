@@ -137,7 +137,7 @@ const defaultViewport = {
 
 let hasUnmounted = false;
 export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
-  (
+  function TreesMap(
     {
       rainGeojson,
       visibleMapLayer,
@@ -154,7 +154,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
       onTreeSelect,
     },
     ref
-  ) => {
+  ) {
     const map = useRef<MapboxMap | null>(null);
     const lastSelectedTree = useRef<string | undefined>(selectedTreeId);
     const lastHoveredTreeId = useRef<string | null>(null);
@@ -180,7 +180,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
       if (!map?.current || !rainGeojson || !pumpsGeoJson || hasUnmounted)
         return [];
       const layers = [
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         new GeoJsonLayer({
           id: 'rain',
           data: rainGeojson as unknown,
@@ -208,7 +207,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           },
           pickable: true,
         }),
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         new GeoJsonLayer({
           id: 'pumps',
           data: pumpsGeoJson as unknown,
@@ -222,7 +220,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(
           getLineColor: [0, 0, 0, 200],
           getFillColor: pumpToColor,
           // We ignore this because getPointRadius is missing typing in the version that we use:
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           getPointRadius: 9,
           pointRadiusMinPixels: 4,

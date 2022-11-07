@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import SidebarTitle from '../SidebarTitle';
 import TreeInfos from './TreeInfos';
 import LoadingIcon, { SidebarLoadingContainer } from '../../LoadingIcon';

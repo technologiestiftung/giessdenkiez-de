@@ -1,15 +1,13 @@
+import React, { FC, ReactNode } from 'react';
 import Head from 'next/Head';
 import App from './App';
 import SidebarWrapper from './Sidebar/SidbarWrapper';
 import { useRouter } from 'next/router';
 
-export function MapLayout({
-  children,
+export const MapLayout: FC<{ treeId?: string | null }> = ({
   treeId,
-}: {
-  children: JSX.Element;
-  treeId?: string | null;
-}): JSX.Element {
+  children,
+}) => {
   const { pathname } = useRouter();
   return (
     <>
@@ -59,4 +57,4 @@ export function MapLayout({
       </App>
     </>
   );
-}
+};

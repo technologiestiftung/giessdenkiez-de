@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import { interpolateColor } from '../../utils/colorUtil';
 import { ItemLabel, legendLabels } from './LegendLabels';
 import { LegendRect } from './LegendRectsDots';

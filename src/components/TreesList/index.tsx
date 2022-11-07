@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Tree } from '../../common/interfaces';
 import TreeButton from '../TreeButton';

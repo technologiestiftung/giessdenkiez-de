@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { useActions } from '../../state/unistore-hooks';
 import SmallParagraph from '../SmallParagraph';
 import { useRouter } from 'next/router';

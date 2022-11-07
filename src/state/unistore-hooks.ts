@@ -32,7 +32,6 @@ export function useActions(): ActionsType {
           ...acc,
           [key]: (...args: Parameters<typeof action>) => {
             const state = store.getState();
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             const newState = action(...args, state);
             store.setState(newState as StoreProps);

@@ -216,7 +216,6 @@ export const handlers = [
       case 'istreeadopted': {
         const id = getProperty(req.url.searchParams, 'id');
         json = {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           data: adoptedTreeIds.includes(id) ? true : false,
           message: `${queryType}`,
         };
@@ -254,7 +253,7 @@ export const handlers = [
       default: {
         // console.log('UNHANDELED request to');
         // console.log(req.url.href);
-        const originalResponse = (await ctx.fetch(req)) as { data: any };
+        const originalResponse = (await ctx.fetch(req)) as { data?: any };
         json = {
           data: [],
           url: req.url.toString(),

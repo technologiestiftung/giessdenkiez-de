@@ -1,4 +1,5 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { WateringType } from '../../common/interfaces';
 
@@ -201,7 +202,7 @@ const WateringRow: FC<WateringRowPropTypes> = ({
               onClick={() => setIsDeleting(prev => !prev)}
               aria-label='Gießung rückgängig machen'
             >
-              <img src={iconTrashcan} />
+              <Image src={iconTrashcan} alt='Trashcan icon' />
             </DeleteButton>
           )}
         </FlexRow>

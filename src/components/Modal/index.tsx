@@ -1,4 +1,4 @@
-import { FC, HTMLProps } from 'react';
+import React, { FC, HTMLProps } from 'react';
 import { Dialog } from '@headlessui/react';
 import styled from 'styled-components';
 

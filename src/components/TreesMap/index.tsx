@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
 import { useTreeData } from '../../utils/hooks/useTreeData';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';

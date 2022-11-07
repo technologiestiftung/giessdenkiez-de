@@ -1,10 +1,11 @@
+import React from 'react';
 import type { AppProps } from 'next/app';
 import { Page } from '../src/nextPage';
 import { Providers } from '../src/Providers';
 
 type PagePropsType = {
-	treeId?: string | null;
-}
+  treeId?: string | null;
+};
 
 interface AppPropsType extends AppProps {
   Component: Page;
@@ -23,4 +24,3 @@ export default function MyApp({
     </Providers>
   );
 }
-

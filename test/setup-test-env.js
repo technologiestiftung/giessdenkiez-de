@@ -1,5 +1,3 @@
-/* eslint-disable jest/no-hooks */
-/* eslint-disable jest/require-top-level-describe */
 import '@testing-library/jest-dom/extend-expect';
 import 'whatwg-fetch';
 
@@ -12,7 +10,6 @@ import { server } from '../src/mocks/server';
 import webcrypto from '@trust/webcrypto';
 import ReactDOM from 'react-dom';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 jest.spyOn(ReactDOM, 'createPortal').mockImplementation(element => element);
 
