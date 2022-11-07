@@ -8,16 +8,15 @@ on:
   pull_request:
     paths:
       - 'src/**/*'
+      - 'pages/**/*'
       - '.storybook/**/*'
       - 'public/**/*'
-      - 'webpack/**/*'
       - '.github/workflows/**/*'
       - 'package*.json'
       - 'jest.config.js'
-      - 'netlify.toml'
-      - 'babel.config.js'
-      - 'create-env.js'
       - 'tsconfig.json'
+      - '.eslintrc.json'
+      - 'next.config.js'
 
 jobs:
   build:
