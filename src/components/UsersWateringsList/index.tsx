@@ -202,7 +202,12 @@ const WateringRow: FC<WateringRowPropTypes> = ({
               onClick={() => setIsDeleting(prev => !prev)}
               aria-label='Gießung rückgängig machen'
             >
-              <Image src={iconTrashcan} alt='Trashcan icon' />
+              <Image
+                src={iconTrashcan}
+                alt='Trashcan icon'
+                width={13}
+                height={15}
+              />
             </DeleteButton>
           )}
         </FlexRow>

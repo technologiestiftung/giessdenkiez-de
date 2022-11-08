@@ -18,7 +18,7 @@ describe('api interaction tests', () => {
     }
     const json = await res.json();
     expect(json).toMatchInlineSnapshot(`
-      Object {
+      {
         "foo": "bar",
       }
     `);
