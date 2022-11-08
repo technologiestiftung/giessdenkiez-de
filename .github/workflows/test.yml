@@ -48,4 +48,4 @@ jobs:
       - run: npm run build --if-present
       - run: npm run lint
       - run: npm run type-check
-      - run: npm run test
+      - run: npm run test:ci
