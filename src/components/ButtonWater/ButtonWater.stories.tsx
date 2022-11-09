@@ -3,7 +3,6 @@ import React from 'react';
 import { Story } from '@storybook/react/types-6-0';
 import ButtonWater from './';
 import { TestProviders } from '../../Providers/TestProviders';
-import { useRouter } from 'next/router';
 
 const config = {
   title: 'ButtonWater',
@@ -15,9 +14,6 @@ const config = {
 };
 
 const Template: Story = args => {
-  const { push } = useRouter();
-  void push('/tree/_er9lvc14r');
-
   return (
     <TestProviders>
       <ButtonWater {...args}></ButtonWater>
@@ -26,6 +22,15 @@ const Template: Story = args => {
 };
 
 export const ButtonWaterStory = Template.bind({});
+ButtonWaterStory.parameters = {
+  nextRouter: {
+    path: `/tree/[id]`,
+    asPath: `/tree/_er9lvc14r`,
+    query: {
+      id: `_er9lvc14r`
+    }
+  }
+}
 ButtonWaterStory.args = {
   isAuthenticated: true,
   isEmailVerified: true,
