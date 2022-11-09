@@ -35,7 +35,7 @@ import {
   MEDIUM_WATER_NEED_NUM,
   HIGH_WATER_NEED_NUM,
 } from '../../utils/getWaterNeedByAge';
-import { useActions } from '../../state/unistore-hooks';
+import { useActions, useStoreState } from '../../state/unistore-hooks';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
@@ -163,6 +163,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   const [viewport, setViewport] = useState<ViewportType>(defaultViewport);
   const { setMapHasLoaded } = useActions();
   const pumpInfo = clickedPump || hoveredPump;
+  const mapHasLoaded = useStoreState('mapHasLoaded');
 
   useEffect(
     () => () => {
@@ -403,14 +404,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   );
 
   useEffect(() => {
-    if (!map?.current || hasUnmounted) return;
+    if (!map?.current || hasUnmounted || !mapHasLoaded) return;
     updateSelectedTreeIdFeatureState({
       map: map.current,
       prevSelectedTreeId: lastSelectedTree.current,
       currentSelectedTreeId: selectedTreeId,
     });
     lastSelectedTree.current = selectedTreeId;
-  }, [selectedTreeId]);
+  }, [selectedTreeId, mapHasLoaded]);
 
   useEffect(() => {
     if (!map?.current || hasUnmounted) return;

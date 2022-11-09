@@ -3,6 +3,7 @@ import { useActions, useStoreState } from '../../state/unistore-hooks';
 import { useTreeData } from '../../utils/hooks/useTreeData';
 import { useCommunityData } from '../../utils/hooks/useCommunityData';
 import { useRainGeoJson } from '../../utils/hooks/useRainGeoJson';
+import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { usePumpsGeoJson } from '../../utils/hooks/usePumpsGeoJson';
 import { TreesMap } from './TreesMap';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -11,8 +12,7 @@ import { useRouter } from 'next/router';
 export const Map: FC<{
   showOverlay: boolean | undefined;
   isNavOpened: boolean | undefined;
-  treeId?: string | null;
-}> = ({ treeId, showOverlay, isNavOpened }) => {
+}> = ({ showOverlay, isNavOpened }) => {
   const visibleMapLayer = useStoreState('visibleMapLayer');
   const ageRange = useStoreState('ageRange');
   const mapViewFilter = useStoreState('mapViewFilter');
@@ -23,6 +23,7 @@ export const Map: FC<{
   const { data: communityData } = useCommunityData();
   const { data: rainGeoJson } = useRainGeoJson();
   const { data: pumpsGeoJson } = usePumpsGeoJson();
+  const treeId = useCurrentTreeId();
   const { treeData: selectedTreeData } = useTreeData(treeId);
   const { push } = useRouter();
 
