@@ -58,9 +58,7 @@ const MapboxLogo = styled.a`
   }
 `;
 
-const App: FC<{
-  treeId?: string | null;
-}> = ({ children, treeId }) => {
+const App: FC = ({ children }) => {
   const overlay = useStoreState('overlay');
   const isNavOpen = useStoreState('isNavOpen');
   const mapHasLoaded = useStoreState('mapHasLoaded');
@@ -78,7 +76,6 @@ const App: FC<{
       <Map
         isNavOpened={isSidebarOpened}
         showOverlay={showOverlay}
-        treeId={treeId}
       />
       {showMapUI && children}
       {showOverlay && <Overlay />}

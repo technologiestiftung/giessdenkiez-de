@@ -414,14 +414,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   }, [selectedTreeId, mapHasLoaded]);
 
   useEffect(() => {
-    if (!map?.current || hasUnmounted) return;
+    if (!map?.current || hasUnmounted || !mapHasLoaded) return;
     updateHoverFeatureState({
       map: map.current,
       prevHoveredTreeId: lastHoveredTreeId.current,
       currentHoveredTreeId: hoveredTreeId,
     });
     lastHoveredTreeId.current = hoveredTreeId;
-  }, [hoveredTreeId]);
+  }, [hoveredTreeId, mapHasLoaded]);
 
   useEffect(() => {
     setBodyMapLayerClass(visibleMapLayer);
