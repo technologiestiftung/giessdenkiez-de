@@ -61,7 +61,7 @@ const StyledNewsSection = styled.section`
   position: relative;
 
   @media screen and (max-width: 817px) {
-    padding-bottom: 250px;
+    padding-bottom: 270px;
   }
 `;
 
