@@ -14,6 +14,7 @@ import { useActions } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
 import { SlackButton } from '../../SlackButton';
 
+const { whatsNew } = content;
 const Wrapper = styled.div`
   display: flex;
   img {
@@ -52,12 +53,12 @@ const StyledButtonWrapper = styled.div`
   }
 `;
 
-/* const StyledNewsSection = styled.section`
+const StyledNewsSection = styled.section`
   background-color: ${({ theme }) => theme.colorPrimaryHover};
   border: 1px solid ${({ theme }) => theme.colorPrimary};
   padding: 30px 0;
   margin: 40px;
-`; */
+`;
 
 const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
@@ -93,13 +94,13 @@ const OverlayTop: FC = () => {
         </StyledButtonWrapper>
         <SlackButton />
       </StyledWrapper>
-      {/* {whatsNew && (
+      {whatsNew && (
         <StyledNewsSection aria-label='News und Updates'>
           <OverlayTitle size='xl' title={whatsNew.title} />
-          <div></div>
+          <div />
           <OverlayDescription content={whatsNew.description} />
         </StyledNewsSection>
-      )} */}
+      )}
     </StyledTop>
   );
 };
