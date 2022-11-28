@@ -58,6 +58,18 @@ const StyledNewsSection = styled.section`
   border: 1px solid ${({ theme }) => theme.colorPrimary};
   padding: 30px 0;
   margin: 40px;
+  position: relative;
+
+  @media screen and (max-width: 817px) {
+    padding-bottom: 250px;
+  }
+`;
+
+const StyledIllustration = styled.img`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  max-width: 100%;
 `;
 
 const OverlayTop: FC = () => {
@@ -99,6 +111,10 @@ const OverlayTop: FC = () => {
           <OverlayTitle size='xl' title={whatsNew.title} />
           <div />
           <OverlayDescription content={whatsNew.description} />
+          <StyledIllustration
+            src='/images/maintenance-illustration.svg'
+            alt='Illustration von ein Baum in einer Baustelle'
+          />
         </StyledNewsSection>
       )}
     </StyledTop>
