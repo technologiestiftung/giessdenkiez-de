@@ -140,10 +140,10 @@ const content: Content = {
     ],
   },
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
-  // eventNote: {
-  //   title:
-  //     '<b>Gieß den Kiez LIVE: </b><br>Der Sommer neigt sich dem Ende zu und wir werden analog! Melde Dich jetzt für unser <a target="blank" href="https://www.citylab-berlin.org/events/freiwilligentage/">Mitmach-Event</a> am 11. September an und besuche uns im CityLAB Berlin.',
-  // },
+  eventNote: {
+    title:
+      '<b>Gieß den Kiez Maintenance: </b><br> Nach dem Herbstputz ist uns aufgefallen, daß auch unser Datenbank etwas aufgeräumt werden muss. Daher werden wir am 29.11.2022 von 11:00 bis 16:00 Uhr die Plattform für Wartungsarbeiten abschalten. Wir bitten um euer Verständnis.',
+  },
   whatsNew: {
     title: 'Hurray, das Baumkataster 2022 ist live!',
     description: [
