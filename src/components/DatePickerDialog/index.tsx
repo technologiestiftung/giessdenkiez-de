@@ -14,6 +14,7 @@ import styled, { useTheme } from 'styled-components';
 const iconCalendar = '/images/calendar.svg';
 
 import de from 'date-fns/locale/de';
+import Image from 'next/image';
 
 const StyledInputContainer = styled.div`
   display: grid;
@@ -150,7 +151,12 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
             onClick={handleButtonClick}
           >
             <span aria-hidden={true}>
-              <img src={iconCalendar} width={20} height={20} />
+              <Image
+                src={iconCalendar}
+                width={20}
+                height={20}
+                alt='Calendar Icon'
+              />
             </span>
           </StyledCalendarButton>
         </div>
@@ -185,7 +191,6 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
                   backgroundColor: 'white',
                   transform: 'none',
                   // TODO: Type the theme object from useTheme:
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
                   border: `1px solid ${theme.colorTextMedium}`,
                   borderRadius: '4px',
@@ -195,7 +200,6 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
                 },
                 caption: {
                   // TODO: Type the theme object from useTheme:
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
                   color: theme.colorPrimary,
                 },
@@ -203,7 +207,6 @@ export const DatePickerDialog: FC<DatePickerDialogType> = ({
               modifiersStyles={{
                 selected: {
                   // TODO: Type the theme object from useTheme:
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   // @ts-ignore
                   backgroundColor: theme.colorPrimary,
                   borderColor: 'transparent',

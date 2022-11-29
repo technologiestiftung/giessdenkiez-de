@@ -1,7 +1,7 @@
+import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Tree } from '../../common/interfaces';
-import { useHistory } from 'react-router';
 import TreeButton from '../TreeButton';
 
 const WrapperOuter = styled.div`
@@ -13,7 +13,7 @@ const WrapperOuter = styled.div`
 const TreesList: FC<{
   trees: Tree[];
 }> = ({ trees }) => {
-  const history = useHistory();
+  const { push } = useRouter();
   return (
     <WrapperOuter>
       {trees.map(tree =>
@@ -22,7 +22,7 @@ const TreesList: FC<{
             key={tree.id}
             label={tree.artdtsch ? tree.artdtsch : tree.id}
             onClickHandler={() => {
-              history.push(`/tree/${tree.id}`);
+              void push(`/tree/${tree.id}`);
             }}
           />
         ) : null

@@ -15,7 +15,10 @@ export function useStoreState<Key extends keyof StoreProps>(
   const [stateItem, setState] = useState<StoreProps[Key]>(
     store.getState()[selector]
   );
-  useEffect(() => store.subscribe(state => setState(state[selector])), [store]);
+  useEffect(() => store.subscribe(state => setState(state[selector])), [
+    selector,
+    store,
+  ]);
   return stateItem;
 }
 
@@ -24,13 +27,14 @@ export function useActions(): ActionsType {
   const boundActions = useMemo<ActionsType>(
     () =>
       Object.keys(Actions).reduce((acc, key) => {
-        const action = Actions[key];
+        const action = Actions[key as keyof typeof Actions];
         return {
           ...acc,
           [key]: (...args: Parameters<typeof action>) => {
             const state = store.getState();
+            // @ts-ignore
             const newState = action(...args, state);
-            store.setState(newState);
+            store.setState(newState as StoreProps);
             return { ...state, ...newState };
           },
         };

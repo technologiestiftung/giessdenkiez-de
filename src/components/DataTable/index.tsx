@@ -1,4 +1,4 @@
-import React, { HTMLProps, ReactNode } from 'react';
+import React, { FC, HTMLProps, ReactNode } from 'react';
 import styled from 'styled-components';
 
 export interface TableItemsType {
@@ -62,7 +62,7 @@ const StyledTableRow = styled.tr`
   }
 `;
 
-export const DataTable: React.FC<DataTableType> = ({
+export const DataTable: FC<DataTableType> = ({
   title,
   subtitle,
   items,

@@ -9,7 +9,7 @@ export const getUserInfo = async ({
   token: string;
 }): Promise<User> => {
   const apiUrl = `${
-    process.env.USER_DATA_API_URL
+    process.env.NEXT_PUBLIC_USER_DATA_API_URL
   }/api/user?userid=${encodeURIComponent(userId)}`;
 
   const res = await requests<{ data: User }>(apiUrl, { token });

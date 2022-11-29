@@ -20,7 +20,6 @@ describe('utility function requests', () => {
     });
   });
   test('should return the response as json', async () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
@@ -32,7 +31,6 @@ describe('utility function requests', () => {
     expect(res?.that?.is).toBe('myresponse');
   });
   test('should throw if the response is not ok', async () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
@@ -45,14 +43,12 @@ describe('utility function requests', () => {
     );
   });
   test('should throw if the parameters are invalid', async () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest
       .spyOn(global, 'fetch')
       .mockImplementation(() =>
         Promise.reject('Gepetto has no wood left to build pinocchio')
       );
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     await expect(requests()).rejects.toThrow(
       'Gepetto has no wood left to build pinocchio'

@@ -3,8 +3,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import UsersWateringsList from '.';
 import { WateringType } from '../../common/interfaces';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import * as useUserDataHook from '../../utils/hooks/useUserData';
-import * as useWateringActionsHook from '../../utils/hooks/useWateringActions';
 
 const queryClient = new QueryClient();
 
@@ -14,34 +12,38 @@ const Component = ({ waterings }) => (
   </QueryClientProvider>
 );
 
-jest.spyOn(useUserDataHook, 'useUserData').mockImplementation(
-  jest.fn().mockReturnValue({
-    userData: {
-      id: 'auth|123',
-      email: 'test@example.com',
-      username: 'Bob-0',
-      isVerified: true,
-      waterings: [
-        { amount: 10, id: 123, timestamp: '2020-01-01T00:00:00.000Z' },
-      ],
-      adoptedTrees: ['_abc'],
-    },
-    error: null,
-    invalidate: () => undefined,
-  })
-);
+jest.mock('../../utils/hooks/useUserData', () => {
+  return {
+    useUserData: () => ({
+      userData: {
+        id: 'auth|123',
+        email: 'test@example.com',
+        username: 'Bob-0',
+        isVerified: true,
+        waterings: [
+          { amount: 10, id: 123, timestamp: '2020-01-01T00:00:00.000Z' },
+        ],
+        adoptedTrees: ['_abc'],
+      },
+      error: null,
+      invalidate: () => undefined,
+    })
+  };
+});
 
 const waterTreeMock = jest.fn();
 const unwaterTreeMock = jest.fn();
 
-jest.spyOn(useWateringActionsHook, 'useWateringActions').mockImplementation(
-  jest.fn().mockReturnValue({
-    waterTree: waterTreeMock,
-    unwaterTree: unwaterTreeMock,
-    isBeingWatered: true,
-    isBeingUnwatered: true,
-  })
-);
+jest.mock('../../utils/hooks/useWateringActions', () => {
+  return {
+    useWateringActions: () => ({
+      waterTree: waterTreeMock,
+      unwaterTree: unwaterTreeMock,
+      isBeingWatered: true,
+      isBeingUnwatered: true,
+    }),
+  };
+});
 
 const createTestWaterings = (amount = 1): WateringType[] =>
   [...new Array(amount)].map(

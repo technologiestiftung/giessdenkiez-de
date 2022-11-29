@@ -2,7 +2,7 @@ import React from 'react';
 import { DataTable, DataTableType } from '.';
 import { Story } from '@storybook/react/types-6-0';
 
-export default {
+const config = {
   title: 'DataTable',
   component: DataTable,
 };
@@ -54,3 +54,5 @@ WithSubtitleAndChildren.args = {
   },
   children: <span>Here be React children.</span>,
 };
+
+export default config;

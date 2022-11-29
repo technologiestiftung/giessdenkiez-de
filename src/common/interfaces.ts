@@ -1,3 +1,4 @@
+import { ThemeType } from '../assets/theme';
 import { RadolanDays } from './types';
 
 export interface DailyWaterAmountsType {
@@ -104,4 +105,16 @@ export interface CommunityDataType {
   communityFlagsMap: Record<TreeId, CommunityFlagsMapType> | null;
   adoptedTreesIds: Record<TreeId, number>;
   wateredTreesIds: TreeId[];
+}
+
+export interface StyledComponentType {
+  theme: ThemeType;
+}
+
+export interface FeatureType {
+  id: string;
+  place_name_de: string;
+  geometry: {
+    coordinates: [number, number];
+  };
 }

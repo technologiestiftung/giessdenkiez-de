@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { NavLink, useLocation } from 'react-router-dom';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import SquareButton from '../SquareButton';
 import { useActions } from '../../state/unistore-hooks';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 interface StyledProps {
   active?: boolean;
@@ -30,7 +31,7 @@ const NavWrapper = styled.div<StyledProps>`
   }
 `;
 
-const NavItem = styled(NavLink)`
+const NavItem = styled.a`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -50,26 +51,27 @@ const Nav: FC<{
   isNavOpened: boolean;
 }> = ({ isNavOpened }) => {
   const { openNav } = useActions();
-  const { pathname } = useLocation();
+  const { pathname } = useRouter();
 
   return (
     <NavWrapper isNavOpened={isNavOpened}>
       {navConfig.map(item => (
-        <NavItem
-          exact
-          to={{ pathname: item.path, search: '' }}
+        <Link
+          href={{ pathname: item.path, search: '' }}
           onClick={() => openNav()}
           title={item.title}
           key={item.path}
         >
-          <SquareButton
-            title={item.title}
-            aria-label={item.title}
-            isActive={pathname === item.path}
-          >
-            {item.icon}
-          </SquareButton>
-        </NavItem>
+          <NavItem>
+            <SquareButton
+              title={item.title}
+              aria-label={item.title}
+              isActive={pathname === item.path}
+            >
+              {item.icon}
+            </SquareButton>
+          </NavItem>
+        </Link>
       ))}
     </NavWrapper>
   );

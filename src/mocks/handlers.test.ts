@@ -23,6 +23,7 @@ const tester: (opts: CaseOption) => Promise<void> = async ({
   item,
   result,
 }) => {
+  // @ts-ignore
   expect(getProperty(item, key)).toBe(result);
 };
 cases('testing getProperty for body and URLSearchParams', tester, [
@@ -47,7 +48,6 @@ cases('testing getProperty for body and URLSearchParams', tester, [
   },
   {
     name: 'array is not a string',
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
     key: 1,
     item: [1, 2, 3],
