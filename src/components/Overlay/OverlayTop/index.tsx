@@ -14,7 +14,6 @@ import { useActions } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
 import { SlackButton } from '../../SlackButton';
 
-const { whatsNew } = content;
 const Wrapper = styled.div`
   display: flex;
   img {
@@ -53,25 +52,6 @@ const StyledButtonWrapper = styled.div`
   }
 `;
 
-const StyledNewsSection = styled.section`
-  background-color: ${({ theme }) => theme.colorPrimaryHover};
-  border: 1px solid ${({ theme }) => theme.colorPrimary};
-  padding: 30px 0;
-  margin: 40px;
-  position: relative;
-
-  @media screen and (max-width: 817px) {
-    padding-bottom: 270px;
-  }
-`;
-
-const StyledIllustration = styled.img`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  max-width: 100%;
-`;
-
 const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
   const { intro } = content;
@@ -106,17 +86,6 @@ const OverlayTop: FC = () => {
         </StyledButtonWrapper>
         <SlackButton />
       </StyledWrapper>
-      {whatsNew && (
-        <StyledNewsSection aria-label='News und Updates'>
-          <OverlayTitle size='xl' title={whatsNew.title} />
-          <div />
-          <OverlayDescription content={whatsNew.description} />
-          <StyledIllustration
-            src='/images/maintenance-illustration.svg'
-            alt='Illustration von ein Baum in einer Baustelle'
-          />
-        </StyledNewsSection>
-      )}
     </StyledTop>
   );
 };
