@@ -1,20 +1,35 @@
-/* eslint-disable jest/no-hooks */
-/* eslint-disable jest/require-top-level-describe */
-import '@testing-library/jest-dom/extend-expect';
 import 'whatwg-fetch';
-
-// jest-dom adds custom jest matchers for asserting on DOM nodes.
-// allows you to do things like:
-// expect(element).toHaveTextContent(/react/i)
-// learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
 import { server } from '../src/mocks/server';
 import webcrypto from '@trust/webcrypto';
 import ReactDOM from 'react-dom';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 jest.spyOn(ReactDOM, 'createPortal').mockImplementation(element => element);
+
+jest.mock('next/router', () => {
+  return {
+    useRouter: jest.fn().mockReturnValue({
+      basePath: '/',
+      pathname: '/',
+      route: '/',
+      query: {},
+      asPath: '/',
+      push: jest.fn(() => Promise.resolve(true)),
+      replace: jest.fn(() => Promise.resolve(true)),
+      reload: jest.fn(() => Promise.resolve(true)),
+      prefetch: jest.fn(() => Promise.resolve()),
+      back: jest.fn(() => Promise.resolve(true)),
+      beforePopState: jest.fn(() => Promise.resolve(true)),
+      isFallback: false,
+      events: {
+        on: jest.fn(),
+        off: jest.fn(),
+        emit: jest.fn(),
+      },
+    }),
+  };
+});
 
 window.crypto = webcrypto;
 

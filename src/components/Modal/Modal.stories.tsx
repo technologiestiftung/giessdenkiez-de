@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, ModalType } from '.';
 import { Story } from '@storybook/react/types-6-0';
 
-export default {
+const config = {
   title: 'Modal',
   component: Modal,
 };
@@ -19,3 +19,5 @@ Default.args = {
   isOpen: true,
   children: <p>I am modal content</p>,
 };
+
+export default config;

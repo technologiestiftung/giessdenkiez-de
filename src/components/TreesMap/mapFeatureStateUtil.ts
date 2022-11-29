@@ -14,7 +14,7 @@ export const updateSelectedTreeIdFeatureState = ({
   if (prevSelectedTreeId) {
     map.setFeatureState(
       {
-        sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
+        sourceLayer: process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
         source: 'trees',
         id: prevSelectedTreeId,
       },
@@ -24,7 +24,7 @@ export const updateSelectedTreeIdFeatureState = ({
   if (currentSelectedTreeId) {
     map.setFeatureState(
       {
-        sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
+        sourceLayer: process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
         source: 'trees',
         id: currentSelectedTreeId,
       },
@@ -45,7 +45,7 @@ export const updateHoverFeatureState = ({
   if (prevHoveredTreeId) {
     map.setFeatureState(
       {
-        sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
+        sourceLayer: process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
         source: 'trees',
         id: prevHoveredTreeId,
       },
@@ -55,7 +55,7 @@ export const updateHoverFeatureState = ({
   if (currentHoveredTreeId) {
     map.setFeatureState(
       {
-        sourceLayer: process.env.MAPBOX_TREES_TILESET_LAYER,
+        sourceLayer: process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
         source: 'trees',
         id: currentHoveredTreeId,
       },

@@ -9,7 +9,7 @@ export const deleteAccount = async ({
 }): Promise<boolean> => {
   try {
     const res = await requests<{ ok: boolean; text: () => Promise<string> }>(
-      `${process.env.USER_DATA_API_URL}/api/user?userid=${userId}`,
+      `${process.env.NEXT_PUBLIC_USER_DATA_API_URL}/api/user?userid=${userId}`,
       {
         token,
         override: {

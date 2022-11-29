@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 interface StyledProps {
@@ -42,7 +42,7 @@ const StyledOverlayTitle = styled.h2<StyledProps>`
   }
 `;
 
-const OverlayTitle: React.FC<{
+const OverlayTitle: FC<{
   title: string;
   size?: 'xxl' | 'xl' | 'large' | 'Ll' | 'medium' | 'small';
 }> = ({ title, size }) => {

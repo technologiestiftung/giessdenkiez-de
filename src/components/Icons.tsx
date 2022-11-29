@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const iconWater = '/images/icon-water.svg';
@@ -33,7 +33,7 @@ const StyledIcon = styled.img<StyledIconProps>`
   height: ${p => (p.height ? p.height : `${height}`)}px;
 `;
 
-const Icon: React.FC<{ iconType: string; height?: number }> = ({
+const Icon: FC<{ iconType: string; height?: number }> = ({
   iconType,
   height,
 }) => {

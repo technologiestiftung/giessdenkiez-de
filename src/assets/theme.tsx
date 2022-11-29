@@ -1,4 +1,6 @@
-export const theme = {
+import { DefaultTheme } from 'styled-components';
+
+export const theme: DefaultTheme = {
   colorPrimary: '#37DE8A',
   colorAlarm: '#FF8585',
   colorPrimaryHover: '#B5F2D0',
@@ -53,15 +55,12 @@ export const theme = {
   transition: 'all .125s ease-in-out',
 };
 
+export type ThemeType = typeof theme;
+
 export const colorByState = (state: number): string => {
   if (state < 15) {
     return theme.colorPrimary;
   } else {
     return theme.colorAlarm;
   }
-};
-
-export default {
-  theme,
-  colorByState,
 };
