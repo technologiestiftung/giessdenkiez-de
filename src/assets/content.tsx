@@ -147,7 +147,7 @@ const content: Content = {
   whatsNew: {
     title: 'Gieß den Kiez Wartung:',
     description: [
-      'Nach dem Herbstputz ist vor dem Frühjahrsputz. Daher werden wir am Montag den 9. Januar 2023 ab 10:00 Uhr an unseren DNS Einträgen und dem Nameserver herumdoktern. Die Plattform wird dann kurzzeitig nicht erreichbar sein.',
+      'Nach dem Herbstputz ist vor dem Frühjahrsputz. Daher werden wir am Montag den 9. Januar 2023 ab 10:00 Uhr an unseren DNS-Einträgen und dem Nameserver arbeiten. Die Plattform wird dann kurzzeitig nicht erreichbar sein.',
       'Leider lässt sich bei solchen Arbeiten nicht genau sagen, wie lange die Plattform offline ist. Wir werden euch auf unserem Slack-Channel informieren, sobald die Plattform wieder erreichbar ist. Wir bitten um euer Verständnis.',
       // `Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.`,
     ],
