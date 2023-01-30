@@ -17,8 +17,12 @@ env:
   NEXT_TELEMETRY_DISABLED: ${{ secrets.NEXT_TELEMETRY_DISABLED }}
 
 on:
+  push:
+    branches: [master, staging]
   pull_request:
+    branches: [master, staging]
     paths:
+      - '.nvmrc'
       - 'src/**/*'
       - 'pages/**/*'
       - '.storybook/**/*'
