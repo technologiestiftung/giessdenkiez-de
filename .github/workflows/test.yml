@@ -33,8 +33,8 @@ on:
       - 'tsconfig.json'
       - '.eslintrc.json'
       - 'next.config.js'
-      - 'create-env.js'
-
+      - '*.js'
+      - '*.cjs'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -42,14 +42,33 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set nvmrc for GitHub environment
-        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
-      - name: Use Node.js "${{ env.NODE_VERSION }}"
+      - name: Use Node.js from .nvmrc
         uses: actions/setup-node@v3
         with:
-          node-version: "${{ env.NODE_VERSION }}"
+          node-version-file: '.nvmrc'
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run lint
       - run: npm run type-check
       - run: npm run test:ci
+  release:
+    name: semantic-release
+    needs: [build]
+    runs-on: ubuntu-latest
+    outputs:
+      new-release-published: ${{ steps.semantic-release.outputs.new_release_published }}
+      new-release-version: ${{ steps.semantic-release.outputs.new_release_version }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - run: npm ci
+      - id: semantic-release
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          semantic_version: 18
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
