@@ -15,7 +15,7 @@ export const unwaterTree: UnwaterTreeSignature = async ({
   wateringId,
 }) => {
   const urlUnwater = createAPIUrl(
-    `/delete?tree_id=${id}&watering_id=${wateringId}&uuid=${userId}&queryType=unwater`
+    `/delete/unwater?tree_id=${id}&watering_id=${wateringId}&uuid=${userId}`
   );
 
   await requests(urlUnwater, {
@@ -26,7 +26,6 @@ export const unwaterTree: UnwaterTreeSignature = async ({
         tree_id: id,
         watering_id: wateringId,
         uuid: userId,
-        queryType: 'unwater',
       }),
     },
   });

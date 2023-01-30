@@ -11,7 +11,7 @@ export const unadoptTree = async ({
   userId: string;
 }): Promise<void> => {
   const urlUnadopt = createAPIUrl(
-    `/delete?tree_id=${id}&uuid=${userId}&queryType=unadopt`
+    `/delete/unadopt?tree_id=${id}&uuid=${userId}`
   );
 
   await requests(urlUnadopt, {
@@ -21,7 +21,6 @@ export const unadoptTree = async ({
       body: JSON.stringify({
         tree_id: id,
         uuid: userId,
-        queryType: 'unadopt',
       }),
     },
   });

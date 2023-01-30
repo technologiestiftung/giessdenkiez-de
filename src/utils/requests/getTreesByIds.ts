@@ -9,7 +9,7 @@ export const getTreesByIds = async (ids: string[]): Promise<Tree[]> => {
     ''
   );
 
-  const url = createAPIUrl(`/get/?queryType=treesbyids&tree_ids=${queryStr}`);
+  const url = createAPIUrl(`/get/treesbyids?tree_ids=${queryStr}`);
   const res = await requests<{ data: Tree[] }>(url);
   return res.data;
 };
