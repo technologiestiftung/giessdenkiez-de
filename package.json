@@ -1,6 +1,6 @@
 {
 	"name": "@tsb/giessdenkiez-de",
-	"version": "2.0.0-alpha",
+	"version": "2.0.0",
 	"description": "Source repo for [giessdenkiez.de](https://www.giessdenkiez.de)",
 	"scripts": {
 		"dev": "next dev",
