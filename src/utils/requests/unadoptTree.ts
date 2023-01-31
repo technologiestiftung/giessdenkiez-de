@@ -10,9 +10,7 @@ export const unadoptTree = async ({
   token: string;
   userId: string;
 }): Promise<void> => {
-  const urlUnadopt = createAPIUrl(
-    `/delete/unadopt?tree_id=${id}&uuid=${userId}`
-  );
+  const urlUnadopt = createAPIUrl(`/delete/unadopt`);
 
   await requests(urlUnadopt, {
     token,
