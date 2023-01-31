@@ -18,6 +18,7 @@ export async function requests<
       const msg = await response.text();
       throw new Error(msg);
     }
+    if (response.status === 204) return {} as ReturnType;
     const json = await response.json();
     return json;
   } catch (err) {
