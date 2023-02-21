@@ -50,6 +50,5 @@ export const getCommunityData = async (): Promise<CommunityDataType> => {
     },
     defaultCommunityData
   );
-  console.log(Object.keys(newState.adoptedTreesIds).length);
   return newState;
 };
