@@ -9,8 +9,8 @@ interface RawRequestResponse<DataType> {
 type WateredAndAdoptedResponseType = RawRequestResponse<
   {
     tree_id: string;
-    adopted: string;
-    watered: string;
+    adopted: number;
+    watered: number;
   }[]
 >;
 
@@ -31,8 +31,8 @@ export const getCommunityData = async (): Promise<CommunityDataType> => {
 
   const newState = wateredAndAdopted.data.reduce(
     (acc: CommunityDataType, { tree_id: id, adopted, watered }) => {
-      const isAdopted = adopted !== '0';
-      const isWatered = watered !== '0';
+      const isAdopted = adopted !== 0;
+      const isWatered = watered !== 0;
 
       const newCommunityFlagsMap = acc.communityFlagsMap || {};
       newCommunityFlagsMap[id] = { isAdopted, isWatered };
@@ -41,7 +41,7 @@ export const getCommunityData = async (): Promise<CommunityDataType> => {
       if (isWatered) newWateredTreesIds.push(id);
 
       const newAdoptedTreesIds = acc.adoptedTreesIds;
-      if (isAdopted) newAdoptedTreesIds[id] = parseInt(adopted, 10) || 0;
+      if (isAdopted) newAdoptedTreesIds[id] = adopted;
       return {
         communityFlagsMap: newCommunityFlagsMap,
         wateredTreesIds: newWateredTreesIds,
@@ -50,6 +50,6 @@ export const getCommunityData = async (): Promise<CommunityDataType> => {
     },
     defaultCommunityData
   );
-
+  console.log(Object.keys(newState.adoptedTreesIds).length);
   return newState;
 };
