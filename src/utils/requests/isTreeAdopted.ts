@@ -14,9 +14,7 @@ export async function isTreeAdopted(
 ): Promise<boolean> {
   const { isAuthenticated, uuid, id, token, signal } = opts;
   if (!isAuthenticated) return false;
-  const url = createAPIUrl(
-    `/get?queryType=istreeadopted&uuid=${uuid}&id=${id}`
-  );
+  const url = createAPIUrl(`/get/istreeadopted?uuid=${uuid}&id=${id}`);
 
   const json = await requests<
     { data: IsTreeAdoptedProps },

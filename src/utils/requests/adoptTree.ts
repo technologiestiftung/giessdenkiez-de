@@ -12,18 +12,18 @@ export const adoptTree = async ({
   token: string;
   userId: string;
 }): Promise<Tree> => {
-  const url = createAPIUrl(`/post`);
+  const url = createAPIUrl(`/post/adopt`);
 
   await requests(url, {
     token,
     override: {
       method: 'POST',
-      body: JSON.stringify({ tree_id: id, uuid: userId, queryType: 'adopt' }),
+      body: JSON.stringify({ tree_id: id, uuid: userId }),
     },
   });
 
   const res = await requests<{ data: Tree[] }>(
-    createAPIUrl(`/get?&queryType=byid&id=${id}`)
+    createAPIUrl(`/get/byid?id=${id}`)
   );
   const tree = res.data[0];
 
