@@ -361,6 +361,16 @@ const UpdateUserDataForm = () => {
           if (data) {
             console.log('User updated');
           }
+          const { data: data2, error: error2 } = await supabase
+            .from('trees_watered')
+            .update({ username: formData.name })
+            .eq('uuid', session?.user?.id);
+          if (error2) {
+            throw error2;
+          }
+          if (data2) {
+            console.log('User name on trees_watered updated');
+          }
         }
       }
     };
