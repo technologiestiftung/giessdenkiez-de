@@ -33,6 +33,14 @@ export interface UserDataType {
   waterings: WateringType[];
   adoptedTrees: Tree[];
 }
+
+export interface OptionalUserDataType
+  extends Omit<UserDataType, 'id' | 'email' | 'username' | 'isVerified'> {
+  id?: string;
+  email?: string;
+  username?: string;
+  isVerified?: boolean;
+}
 export interface SelectedTreeType extends Tree {
   radolan_days: RadolanDays;
   radolan_sum: number;
