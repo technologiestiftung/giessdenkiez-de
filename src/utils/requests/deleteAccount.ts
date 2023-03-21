@@ -2,20 +2,22 @@ import { requests } from '../requestUtil';
 
 export const deleteAccount = async ({
   token,
-  userId,
 }: {
   token: string;
-  userId: string;
 }): Promise<boolean> => {
   try {
     const res = await requests<{ ok: boolean; text: () => Promise<string> }>(
-      `${process.env.NEXT_PUBLIC_USER_DATA_API_URL}/api/user?userid=${userId}`,
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/rpc/remove_account`,
       {
         token,
         override: {
           mode: 'cors',
-          method: 'DELETE',
-          headers: { Authorization: `Bearer ${token}` },
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+          },
         },
       }
     );
