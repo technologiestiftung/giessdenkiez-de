@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-
+// TODO: Replace the token here?
+/**
+ * @deprecated
+ */
 export const useAuth0Token = (): string | undefined => {
   const [token, setToken] = useState<string | undefined>(undefined);
   const { user, getAccessTokenSilently } = useAuth0();

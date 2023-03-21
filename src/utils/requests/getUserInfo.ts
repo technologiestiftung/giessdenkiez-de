@@ -1,6 +1,10 @@
 import { requests } from '../requestUtil';
 import { User } from 'auth0';
 
+/**
+ *
+ * @deprecated Replaced by useSupabaseUser() hook
+ */
 export const getUserInfo = async ({
   userId,
   token,
