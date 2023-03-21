@@ -14,9 +14,26 @@ const linkStyle = {
   textDecoration: 'underline',
 };
 
+const ErrorNotifiction = ({ message }: { message: string }) => {
+  return (
+    <div className='error'>
+      <p>{message}</p>
+      <style jsx>{`
+        .error {
+          background: #f44336;
+          color: white;
+          padding: 12px;
+          border-radius: 4px;
+
+          `}</style>
+    </div>
+  );
+};
+
 const Auth = () => {
   const supabase = useSupabaseClient();
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [view, setView] = useState<AuthView>('signin');
   const [formData, setFormData] = useState<FormData>({
     email: '',
@@ -24,6 +41,7 @@ const Auth = () => {
   });
 
   const clearFields = () => {
+    setErrorMessage(null);
     setFormData({
       email: '',
       password: '',
@@ -34,15 +52,17 @@ const Auth = () => {
     event.preventDefault();
 
     signIn(formData.email, formData.password).catch(error => {
-      console.log(error);
+      console.error(error);
+      setErrorMessage(error.message);
     });
     clearFields();
   };
   const handleSignUpSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData);
+
     signUp(formData.email, formData.password).catch(error => {
-      console.log(error);
+      console.error(error);
+      setErrorMessage(error.message);
     });
     clearFields();
   };
@@ -50,13 +70,15 @@ const Auth = () => {
   const handleRecoverySubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     recovery(formData.email).catch(error => {
-      console.log(error);
+      console.error(error);
+      setErrorMessage(error.message);
     });
     clearFields();
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    setErrorMessage(null);
     setFormData({
       ...formData,
       [name]: value,
@@ -73,17 +95,16 @@ const Auth = () => {
     });
     if (error) {
       if (error.message.includes('User already registered')) {
-        console.log('User already registered');
+        setErrorMessage('User already registered');
+        console.error('User already registered');
         setView('signin');
         return;
       }
       throw error;
     }
-    console.log(data);
     if (data.user) {
-      console.log('User created', data.user);
-      console.log('Check your email for the link!');
-      console.log('Autoconfirm is not active');
+      setErrorMessage('Check your email for the link!');
+      // console.log('Autoconfirm is not active');
       setView('confirm');
     }
     if (data.session) {
@@ -98,21 +119,18 @@ const Auth = () => {
       password,
     });
     if (error) {
+      setErrorMessage(error.message);
+      console.error(error);
       throw error;
     }
     if (!data.user) {
+      setErrorMessage('500 - Internal Server Error');
       throw new Error('No user');
     }
 
     if (!data.session) {
+      setErrorMessage('500 - Internal Server Error');
       throw new Error('No session');
-    }
-
-    if (data.user) {
-      console.log('User', data.user);
-    }
-    if (data.session) {
-      console.log('Session', data.session);
     }
   };
 
@@ -121,10 +139,11 @@ const Auth = () => {
       redirectTo: 'http://localhost:3000/auth',
     });
     if (error) {
+      setErrorMessage(error.message);
       throw error;
     }
     if (data) {
-      console.log('Check your email for the link!');
+      setErrorMessage('Check your email for the link!');
     }
   };
 
@@ -222,6 +241,7 @@ const Auth = () => {
   return (
     <>
       {form}
+      <div>{errorMessage && <ErrorNotifiction message={errorMessage} />}</div>
       <div>
         <p>{linkText}</p>
         {view !== 'recovery' && (
