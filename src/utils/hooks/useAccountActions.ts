@@ -4,9 +4,6 @@ import { deleteAccount } from '../requests/deleteAccount';
 import { useSupabaseToken } from './useSupabaseToken';
 import { useSupabaseUser } from './useSupabaseUser';
 
-/**
- * @deprecated
- */
 export const useAccountActions = (): {
   logout: () => void;
   login: () => void;
