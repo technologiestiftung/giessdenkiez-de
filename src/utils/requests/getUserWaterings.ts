@@ -10,7 +10,7 @@ export const getUserWaterings = async ({
   userId: string;
   token: string;
 }): Promise<WateringType[]> => {
-  const urlWateredByUser = createAPIUrl(`/get/wateredbyuser?uuid=${userId}`);
+  const urlWateredByUser = createAPIUrl(`/v3/get/wateredbyuser?uuid=${userId}`);
   const res = await requests<{ data: RawWateringType[] }>(urlWateredByUser, {
     token,
   });
