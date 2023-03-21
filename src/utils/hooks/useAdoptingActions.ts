@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 import { adoptTree } from '../requests/adoptTree';
 import { unadoptTree } from '../requests/unadoptTree';
-import { useAuth0Token } from './useAuth0Token';
 import { useCommunityData } from './useCommunityData';
 import { useTreeData } from './useTreeData';
 import { useUserData } from './useUserData';
+import { useSupabaseToken } from './useSupabaseToken';
+import { useSupabaseUser } from './useSupabaseUser';
 
 export const useAdoptingActions = (
   treeId: string | null | undefined
@@ -15,8 +15,8 @@ export const useAdoptingActions = (
   isBeingAdopted: boolean;
   isBeingUnadopted: boolean;
 } => {
-  const { user } = useAuth0();
-  const token = useAuth0Token();
+  const user = useSupabaseUser();
+  const token = useSupabaseToken();
   const { invalidate: invalidateUserData } = useUserData();
   const { invalidate: invalidateCommunityData } = useCommunityData();
   const { invalidate: invalidateTreeData } = useTreeData(treeId);
@@ -27,10 +27,10 @@ export const useAdoptingActions = (
     isBeingAdopted,
     isBeingUnadopted,
     adoptTree: async (): Promise<void> => {
-      if (!treeId || !user?.sub || !token) return;
+      if (!treeId || !user?.id || !token) return;
 
       setIsBeingAdopted(true);
-      await adoptTree({ id: treeId, token, userId: user.sub });
+      await adoptTree({ id: treeId, token, userId: user.id });
       setIsBeingAdopted(false);
 
       invalidateUserData();
@@ -38,10 +38,10 @@ export const useAdoptingActions = (
       invalidateCommunityData();
     },
     unadoptTree: async (): Promise<void> => {
-      if (!treeId || !user?.sub || !token) return;
+      if (!treeId || !user?.id || !token) return;
 
       setIsBeingUnadopted(true);
-      await unadoptTree({ id: treeId, token, userId: user.sub });
+      await unadoptTree({ id: treeId, token, userId: user.id });
       setIsBeingUnadopted(false);
 
       invalidateUserData();
