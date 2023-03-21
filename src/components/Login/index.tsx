@@ -1,4 +1,6 @@
+// TODO: Make this component work right
 import React, { FC } from 'react';
+import Link from 'next/link';
 import { useAccountActions } from '../../utils/hooks/useAccountActions';
 
 import { useUserData } from '../../utils/hooks/useUserData';
@@ -10,14 +12,14 @@ const Login: FC<{
   noLogout?: boolean;
 }> = ({ width, noLogout }) => {
   const { userData } = useUserData();
-  const { login, logout } = useAccountActions();
+  const { logout } = useAccountActions();
 
   return (
     <>
       {!userData && (
-        <ButtonRound width={width} onClick={login}>
-          Konto anlegen / Einloggen
-        </ButtonRound>
+        <Link href='/auth'>
+          <ButtonRound width={width}>Konto anlegen / Einloggen</ButtonRound>
+        </Link>
       )}
       {userData && !noLogout && (
         <ButtonRound width={width} onClick={logout}>
