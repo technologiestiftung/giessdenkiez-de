@@ -18,9 +18,7 @@ export const useSupabaseUser = () => {
           data: { user },
         } = await supabase.auth.getUser();
 
-        // const user = session.user;
         setUser(user ?? undefined);
-        console.log(user, 'user');
         return user;
       } catch (err) {
         console.error(err);
