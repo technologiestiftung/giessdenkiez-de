@@ -44,19 +44,16 @@ const SidebarProfile: FC<{
 }> = ({ userData: userDataProps, isLoading: isLoadingProps }) => {
   const { userData: userDataState } = useUserData();
   const { deleteAccount } = useAccountActions();
-  const { isLoading: isLoadingState, isAuthenticated } = useAuth0();
   const userData = userDataProps || userDataState || false;
-  const isLoadingAuthInfo = isAuthenticated && !userData;
-  const isLoading = isLoadingProps || isLoadingState || isLoadingAuthInfo;
 
   const handleDeleteClick = (): void => {
     if (!confirmAccountDeletion()) return;
     void deleteAccount();
   };
 
-  if (isLoading) {
-    return <SidebarLoading title='Profil' />;
-  }
+  // if (userData === false) {
+  //   return <SidebarLoading title='Profil' />;
+  // }
 
   if (!userData) {
     return (
@@ -103,7 +100,7 @@ const SidebarProfile: FC<{
         <Paragraph>
           Möchtest du deinen Account löschen? Damit werden alle von dir
           generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein
-          Benutzer bei unserem Authentifizierungsdienst Auth0.com wird sofort
+          Benutzer bei unserem Authentifizierungsdienst Supabase.com wird sofort
           und unwiderruflich gelöscht.
         </Paragraph>
         <LastButtonRound
