@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import ExpandablePanel from '../ExpandablePanel';
@@ -17,6 +18,9 @@ const CardCredentials: FC<{
     <CredentialValue>{username}</CredentialValue>
     <CredentialValue>{email}</CredentialValue>
     <SmallParagraph>Registrierte E-Mail Adresse</SmallParagraph>
+    <SmallParagraph>
+      Account <Link href='/auth'>bearbeiten?</Link>
+    </SmallParagraph>
   </ExpandablePanel>
 );
 
