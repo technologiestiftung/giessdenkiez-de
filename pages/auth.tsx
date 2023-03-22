@@ -11,6 +11,10 @@ import {
   StyledFlexContainer,
   StyledFormRow,
 } from '../src/components/Sidebar/SidebarAuth/Form';
+import {
+  UserNotification,
+  UserNotificationObjectType,
+} from '../src/components/Sidebar/SidebarAuth/Notification';
 export type AuthView = 'signin' | 'signup' | 'recovery' | 'confirm';
 
 const AuthPage: Page = () => {
@@ -19,6 +23,17 @@ const AuthPage: Page = () => {
   const [showPasswordResetScreen, setShowPasswordResetScreen] = useState(false);
   const [view, setView] = useState<AuthView>('signin');
 
+  const [
+    currentNotification,
+    setCurrentNotification,
+  ] = useState<UserNotificationObjectType | null>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentNotification(null);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [currentNotification]);
   useEffect(() => {
     const {
       data: { subscription: authListener },
@@ -57,14 +72,15 @@ const AuthPage: Page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    console.log('Session', session);
-  }, [session]);
+  // useEffect(() => {
+  //   console.log('Session', session);
+  // }, [session]);
   if (showPasswordResetScreen) {
     return (
       <>
         {' '}
         <PasswordResetForm
+          setNotification={setCurrentNotification}
           returnClickHandler={() => {
             setShowPasswordResetScreen(false);
             setView('signin');
@@ -77,12 +93,21 @@ const AuthPage: Page = () => {
     );
   }
   return (
-    <>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       {!session ? (
-        <SidebarAuth view={view} setView={setView} />
+        <SidebarAuth
+          view={view}
+          setView={setView}
+          setNotification={setCurrentNotification}
+        />
       ) : (
         <>
-          <UpdateUserDataForm />
+          <UpdateUserDataForm setNotification={setCurrentNotification} />
           <StyledFlexContainer>
             <StyledFormRow>
               <ButtonRound
@@ -96,19 +121,35 @@ const AuthPage: Page = () => {
               </ButtonRound>
             </StyledFormRow>
             <StyledFormRow>
+              {process.env.NODE_ENV !== 'production' && (
+                <details>
+                  <summary>Dev Info: Session</summary>
+                  <pre
+                    style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
+                  >
+                    <code>{JSON.stringify(session, null, 2)}</code>
+                  </pre>
+                </details>
+              )}
+            </StyledFormRow>
+
+            <StyledFormRow>
               <SignOut setView={setView} />
             </StyledFormRow>
           </StyledFlexContainer>
-
-          <details>
-            <summary>Dev Info: Session</summary>
-            <pre style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
-              <code>{JSON.stringify(session, null, 2)}</code>
-            </pre>
-          </details>
         </>
       )}
-    </>
+      <StyledFlexContainer>
+        <StyledFormRow>
+          {currentNotification && (
+            <UserNotification
+              type={currentNotification.type}
+              message={currentNotification.message}
+            />
+          )}
+        </StyledFormRow>
+      </StyledFlexContainer>
+    </div>
   );
 };
 AuthPage.layout = MapLayout;

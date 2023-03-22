@@ -3,13 +3,18 @@ import React, { useState } from 'react';
 import SmallParagraph from '../../SmallParagraph';
 import SidebarTitle from '../SidebarTitle';
 import { CredentialsForm, CredentialsSubline } from './Form';
+import { UserNotificationObjectType } from './Notification';
 
 export const PasswordResetForm = ({
   additionalSubmitHandler,
   returnClickHandler,
+  setNotification,
 }: {
   additionalSubmitHandler: () => void;
   returnClickHandler: () => void;
+  setNotification: React.Dispatch<
+    React.SetStateAction<UserNotificationObjectType | null>
+  >;
 }) => {
   const supabase = useSupabaseClient();
   const session = useSession();
@@ -32,10 +37,17 @@ export const PasswordResetForm = ({
         password: formData.password,
       });
       if (error) {
-        throw error;
+        setNotification({
+          message: error.message,
+          type: 'error',
+        });
+        console.log('Error updating user:', error.message);
       }
       if (data) {
-        console.log('Password updated');
+        setNotification({
+          message: 'Passwort erfolgreich geändert',
+          type: 'success',
+        });
       }
     };
     updatePassword().catch(console.error);

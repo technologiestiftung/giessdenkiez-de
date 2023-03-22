@@ -1,30 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledSuccessDiv = styled.div`
-  background: ${p => p.theme.colorPrimary};
+export type UserNotificationObjectType = {
+  message: string;
+  type: UserNotificationType;
+};
+export type UserNotificationType = 'success' | 'error';
+
+interface StyledMessageProps {
+  type: UserNotificationType;
+}
+const StyledDiv = styled.div<StyledMessageProps>`
+  background: ${p =>
+    p.type === 'success' ? p.theme.colorPrimary : p.theme.colorAlarm};
   color: ${p => p.theme.colorTextDark};
   padding: 10px;
   border-radius: 5px;
 `;
-const StyledErrorDiv = styled.div`
-  background: ${p => p.theme.colorAlarm}};
-  color: ${p => p.theme.colorTextDark};
-  padding: 10px;
-  border-radius: 5px;
-`;
+
 export const UserNotification = ({
   message,
-  type = 'error',
+  type,
 }: {
   message: string;
-  type?: 'success' | 'error';
-}) => {
-  if (type === 'success') return <StyledSuccessDiv>{message}</StyledSuccessDiv>;
-
-  return (
-    <StyledErrorDiv>
-      <p>{message}</p>
-    </StyledErrorDiv>
-  );
-};
+  type: UserNotificationType;
+}) => <StyledDiv type={type}>{message}</StyledDiv>;

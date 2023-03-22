@@ -2,15 +2,12 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import React, { useState } from 'react';
 import { AuthView } from '../../../../pages/auth';
 import SidebarTitle from '../SidebarTitle';
-import { UserNotification } from './Notification';
+import { UserNotificationObjectType } from './Notification';
 import { CredentialsForm, CredentialsSubline } from './Form';
 export interface CredentialsData {
   email: string;
   password: string;
 }
-const linkStyle = {
-  textDecoration: 'underline',
-};
 
 enum titles {
   signin = 'Anmelden',
@@ -23,21 +20,22 @@ enum titles {
 export const SidebarAuth = ({
   view,
   setView,
+  setNotification,
 }: {
+  setNotification: React.Dispatch<
+    React.SetStateAction<UserNotificationObjectType | null>
+  >;
   view: AuthView;
   setView: React.Dispatch<React.SetStateAction<AuthView>>;
 }) => {
   const supabase = useSupabaseClient();
 
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  // const [view, setView] = useState<AuthView>('signin');
   const [formData, setFormData] = useState<CredentialsData>({
     email: '',
     password: '',
   });
 
   const clearFields = () => {
-    setErrorMessage(null);
     setFormData({
       email: '',
       password: '',
@@ -49,8 +47,11 @@ export const SidebarAuth = ({
     console.log('signin');
 
     signIn(formData.email, formData.password).catch(error => {
-      console.error(error);
-      setErrorMessage(error.message);
+      console.error(error, 'here we are');
+      setNotification({
+        message: error.message,
+        type: 'error',
+      });
     });
     clearFields();
   };
@@ -59,7 +60,10 @@ export const SidebarAuth = ({
     console.log('signup');
     signUp(formData.email, formData.password).catch(error => {
       console.error(error);
-      setErrorMessage(error.message);
+      setNotification({
+        message: error.message,
+        type: 'error',
+      });
     });
     clearFields();
   };
@@ -69,14 +73,18 @@ export const SidebarAuth = ({
     console.log('recovery');
     recovery(formData.email).catch(error => {
       console.error(error);
-      setErrorMessage(error.message);
+      setNotification({
+        message: error.message,
+        type: 'error',
+      });
     });
     clearFields();
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setErrorMessage(null);
+    setNotification(null);
+
     setFormData({
       ...formData,
       [name]: value,
@@ -93,7 +101,10 @@ export const SidebarAuth = ({
     });
     if (error) {
       if (error.message.includes('User already registered')) {
-        setErrorMessage('User already registered');
+        setNotification({
+          message: 'Benutzer bereits registriert',
+          type: 'error',
+        });
         console.error('User already registered');
         setView('signin');
         return;
@@ -101,7 +112,11 @@ export const SidebarAuth = ({
       throw error;
     }
     if (data.user) {
-      setErrorMessage('Check your email for the link!');
+      setNotification({
+        message:
+          'Überprüfe deine E-Mails nach einem Link um deinen Account zu bestätigen',
+        type: 'success',
+      });
       // console.log('Autoconfirm is not active');
       setView('confirm');
     }
@@ -112,36 +127,60 @@ export const SidebarAuth = ({
   };
 
   const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      setErrorMessage(error.message);
-      console.error(error);
-      throw error;
-    }
-    if (!data.user) {
-      setErrorMessage('500 - Internal Server Error');
-      throw new Error('No user');
-    }
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) {
+        setNotification({
+          message: error.message,
+          type: 'error',
+        });
+        console.error(error);
+        return;
+      }
+      if (!data.user) {
+        setNotification({
+          message: '500 - Interner Server Error',
+          type: 'error',
+        });
 
-    if (!data.session) {
-      setErrorMessage('500 - Internal Server Error');
-      throw new Error('No session');
+        console.error('No user');
+        return;
+      }
+
+      if (!data.session) {
+        setNotification({
+          message: '500 - Interner Server Error',
+          type: 'error',
+        });
+        console.error('No session');
+        return;
+      }
+    } catch (error) {
+      console.error(error, 'in catch');
     }
   };
 
   const recovery = async (email: string) => {
     let { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: 'http://localhost:3000/auth',
+      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth`,
     });
     if (error) {
-      setErrorMessage(error.message);
+      setNotification({
+        message: error.message,
+        type: 'error',
+      });
+
       throw error;
     }
     if (data) {
-      setErrorMessage('Check your email for the link!');
+      setNotification({
+        message:
+          'Überprüfe deine E-Mails nach einem Link um dein Passwort zu ändern',
+        type: 'success',
+      });
     }
   };
 
@@ -212,7 +251,6 @@ export const SidebarAuth = ({
     <>
       <SidebarTitle>{titles[view]}</SidebarTitle>
       {form}
-      <div>{errorMessage && <UserNotification message={errorMessage} />}</div>
       <div>
         <p>{linkText}</p>
         {view !== 'recovery' && (

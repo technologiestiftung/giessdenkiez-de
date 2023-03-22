@@ -9,11 +9,17 @@ import {
   StyledFormRow,
   StyledFormTextInput,
 } from './Form';
-import { UserNotification } from './Notification';
+import { UserNotificationObjectType } from './Notification';
 
-export const UpdateUserDataForm = () => {
-  const [message, setMessage] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+export const UpdateUserDataForm = ({
+  setNotification,
+}: {
+  setNotification: React.Dispatch<
+    React.SetStateAction<UserNotificationObjectType | null>
+  >;
+}) => {
+  // const [message, setMessage] = useState<string | null>(null);
+  // const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const supabase = useSupabaseClient<Database>();
   const session = useSession();
   const [formData, setFormData] = useState({
@@ -30,7 +36,11 @@ export const UpdateUserDataForm = () => {
           .eq('id', session?.user?.id)
           .single();
         if (error) {
-          setErrorMessage(error.message);
+          setNotification({
+            message: error.message,
+            type: 'error',
+          });
+
           throw error;
         }
         if (data) {
@@ -63,7 +73,10 @@ export const UpdateUserDataForm = () => {
 
     const updateUser = async () => {
       if (formData.name.length < 3) {
-        setErrorMessage('Der Benutzername muss mindestens 3 Zeichen lang sein');
+        setNotification({
+          message: 'Der Benutzername muss mindestens 3 Zeichen lang sein',
+          type: 'error',
+        });
         return;
       }
       if (formData.email !== session?.user?.email) {
@@ -71,11 +84,18 @@ export const UpdateUserDataForm = () => {
           email: formData.email,
         });
         if (error) {
-          setErrorMessage(error.message);
+          setNotification({
+            message: error.message,
+            type: 'error',
+          });
           throw error;
         }
         if (data) {
-          setMessage('E-Mail geändert');
+          setNotification({
+            message:
+              'E-Mail wurde geändert. Bitte bestätigen Sie die Änderung über den Link in der E-Mail, die wir Ihnen geschickt haben. Sie werden automatisch ausgeloggt.',
+            type: 'success',
+          });
         }
       }
       const { data, error } = await supabase
@@ -84,7 +104,10 @@ export const UpdateUserDataForm = () => {
         .eq('id', session?.user?.id)
         .single();
       if (error) {
-        setErrorMessage(error.message);
+        setNotification({
+          message: error.message,
+          type: 'error',
+        });
         throw error;
       }
       if (data) {
@@ -95,11 +118,17 @@ export const UpdateUserDataForm = () => {
             .eq('id', session?.user?.id)
             .select();
           if (error) {
-            setErrorMessage(error.message);
+            setNotification({
+              message: error.message,
+              type: 'error',
+            });
             throw error;
           }
           if (data) {
-            setMessage('Benutzername geändert');
+            setNotification({
+              message: 'Benutzername geändert',
+              type: 'success',
+            });
           }
         }
       }
@@ -139,10 +168,6 @@ export const UpdateUserDataForm = () => {
               </ButtonSubmitRound>
             </StyledFormRow>
           </StyledForm>
-          {message && <UserNotification message={message} type='success' />}
-          {errorMessage && (
-            <UserNotification message={errorMessage} type='error' />
-          )}
         </>
       ) : null}
     </>
