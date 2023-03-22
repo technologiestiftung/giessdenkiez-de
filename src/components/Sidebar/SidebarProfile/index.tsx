@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useAuth0 } from '@auth0/auth0-react';
 import { useUserData } from '../../../utils/hooks/useUserData';
 
 import Paragraph from '../../Paragraph';
@@ -15,7 +14,6 @@ import SidebarTitle from '../SidebarTitle/';
 import { ParticipateButton } from '../../ParticipateButton';
 import { useAccountActions } from '../../../utils/hooks/useAccountActions';
 import { StyledComponentType, UserDataType } from '../../../common/interfaces';
-import { SidebarLoading } from '../SidebarLoading';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
@@ -50,11 +48,6 @@ const SidebarProfile: FC<{
     if (!confirmAccountDeletion()) return;
     void deleteAccount();
   };
-
-  // if (userData === false) {
-  //   return <SidebarLoading title='Profil' />;
-  // }
-
   if (!userData) {
     return (
       <>
