@@ -72,9 +72,6 @@ const AuthPage: Page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
-  //   console.log('Session', session);
-  // }, [session]);
   if (showPasswordResetScreen) {
     return (
       <>
