@@ -16,7 +16,6 @@ const queryClient = new QueryClient();
 export const Providers: FC = ({ children }) => {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   const [session, setSession] = useState<Session | null>(null);
-
   useEffect(() => {
     const getSession = async () => {
       const { data, error } = await supabaseClient.auth.getSession();
@@ -29,7 +28,7 @@ export const Providers: FC = ({ children }) => {
       }
     };
     getSession().catch(error => console.log(error));
-  });
+  }, [supabaseClient.auth]);
   return (
     <ErrorBoundary>
       <SessionContextProvider
