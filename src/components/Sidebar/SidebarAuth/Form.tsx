@@ -2,7 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { CredentialsData } from './index';
 import ButtonSubmitRound from '../../ButtonRound/ButtonSubmitRound';
+import { StyledComponentType } from '../../../common/interfaces';
+import SmallParagraph from '../../SmallParagraph';
 
+export const SidebarSubTitle = styled.span<StyledComponentType>`
+  font-size: ${p => p.theme.fontSizeXl};
+  font-weight: bold;
+  padding: 8px 0;
+`;
 export const StyledH1 = styled.h1`
   font-size: 1.5rem;
   font-weight: 500;
@@ -60,11 +67,11 @@ export const CredentialsSubline = ({
   onClick: () => void;
 }) => {
   return (
-    <p>
+    <SmallParagraph>
       <span>{text}</span>
       <br />
       <StyledA onClick={onClick}>{aText}</StyledA>
-    </p>
+    </SmallParagraph>
   );
 };
 
@@ -93,7 +100,10 @@ export const CredentialsForm = ({
       >
         {!isReset && (
           <StyledFormRow>
-            <StyledFormLabel htmlFor='email'>Email</StyledFormLabel>
+            <StyledFormLabel htmlFor='email'>
+              {' '}
+              <SmallParagraph>E-Mail</SmallParagraph>
+            </StyledFormLabel>
             <StyledFormTextInput
               type='email'
               name='email'
@@ -104,7 +114,10 @@ export const CredentialsForm = ({
         )}
         {!isRecovery && (
           <StyledFormRow>
-            <StyledFormLabel htmlFor='password'>Password</StyledFormLabel>
+            <StyledFormLabel htmlFor='password'>
+              {' '}
+              <SmallParagraph>Passwort</SmallParagraph>
+            </StyledFormLabel>
             <StyledFormTextInput
               type='password'
               name='password'
