@@ -28,6 +28,7 @@ export const Providers: FC = ({ children }) => {
         setSession(data.session);
       }
     };
+    getSession().catch(error => console.log(error));
   });
   return (
     <ErrorBoundary>

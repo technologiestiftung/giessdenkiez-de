@@ -11,7 +11,6 @@ export const useAccountActions = (): {
 } => {
   const user = useSupabaseUser();
   const supabase = useSupabaseClient();
-  // const { user, logout, loginWithRedirect } = useAuth0();
   const token = useSupabaseToken();
 
   return {
