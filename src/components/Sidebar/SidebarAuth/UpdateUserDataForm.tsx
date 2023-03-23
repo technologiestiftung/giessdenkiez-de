@@ -1,15 +1,24 @@
 import { useSupabaseClient, useSession } from '@supabase/auth-helpers-react';
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { Database } from '../../../common/database';
 import ButtonSubmitRound from '../../ButtonRound/ButtonSubmitRound';
+import ExpandablePanel from '../../ExpandablePanel';
+import SmallParagraph from '../../SmallParagraph';
 import SidebarTitle from '../SidebarTitle';
 import {
+  SidebarSubTitle,
   StyledForm,
   StyledFormLabel,
   StyledFormRow,
   StyledFormTextInput,
 } from './Form';
 import { UserNotificationObjectType } from './Notification';
+
+const StyledTitleWrapper = styled.div`
+  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
+  padding: 8px 0;
+`;
 
 export const UpdateUserDataForm = ({
   setNotification,
@@ -139,35 +148,43 @@ export const UpdateUserDataForm = ({
     <>
       {session ? (
         <>
-          <SidebarTitle>Account bearbeiten</SidebarTitle>
-
-          <StyledForm onSubmit={handleSubmit}>
-            <StyledFormRow>
-              <StyledFormLabel htmlFor='name'>Name</StyledFormLabel>
-              <StyledFormTextInput
-                type='text'
-                name='name'
-                minLength={3}
-                maxLength={20}
-                onChange={handleInputChange}
-                value={formData.name}
-              />
-            </StyledFormRow>
-            <StyledFormRow>
-              <StyledFormLabel htmlFor='email'>E-Mail</StyledFormLabel>
-              <StyledFormTextInput
-                type='email'
-                name='email'
-                onChange={handleInputChange}
-                value={formData.email}
-              />
-            </StyledFormRow>
-            <StyledFormRow>
-              <ButtonSubmitRound type='submit'>
-                Update Account
-              </ButtonSubmitRound>
-            </StyledFormRow>
-          </StyledForm>
+          <StyledTitleWrapper>
+            <SidebarTitle>Account</SidebarTitle>
+            <SidebarSubTitle>Bearbeiten</SidebarSubTitle>
+          </StyledTitleWrapper>
+          <ExpandablePanel isExpanded title='Benutzername/E-Mail'>
+            <StyledForm onSubmit={handleSubmit}>
+              <StyledFormRow>
+                <StyledFormLabel htmlFor='name'>
+                  <SmallParagraph>Benutzername</SmallParagraph>
+                </StyledFormLabel>
+                <StyledFormTextInput
+                  type='text'
+                  name='name'
+                  minLength={3}
+                  maxLength={20}
+                  onChange={handleInputChange}
+                  value={formData.name}
+                />
+              </StyledFormRow>
+              <StyledFormRow>
+                <StyledFormLabel htmlFor='email'>
+                  <SmallParagraph>E-Mail</SmallParagraph>
+                </StyledFormLabel>
+                <StyledFormTextInput
+                  type='email'
+                  name='email'
+                  onChange={handleInputChange}
+                  value={formData.email}
+                />
+              </StyledFormRow>
+              <StyledFormRow>
+                <ButtonSubmitRound type='submit'>
+                  Änderungen speichern
+                </ButtonSubmitRound>
+              </StyledFormRow>
+            </StyledForm>
+          </ExpandablePanel>
         </>
       ) : null}
     </>

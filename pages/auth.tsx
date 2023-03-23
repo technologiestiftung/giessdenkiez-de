@@ -15,6 +15,7 @@ import {
   UserNotification,
   UserNotificationObjectType,
 } from '../src/components/Sidebar/SidebarAuth/Notification';
+import ExpandablePanel from '../src/components/ExpandablePanel';
 export type AuthView = 'signin' | 'signup' | 'recovery' | 'confirm';
 
 const AuthPage: Page = () => {
@@ -105,35 +106,43 @@ const AuthPage: Page = () => {
       ) : (
         <>
           <UpdateUserDataForm setNotification={setCurrentNotification} />
-          <StyledFlexContainer>
-            <StyledFormRow>
-              <ButtonRound
-                onClick={e => {
-                  e?.preventDefault();
 
-                  setShowPasswordResetScreen(true);
-                }}
-              >
-                Passwort ändern?
-              </ButtonRound>
-            </StyledFormRow>
-            <StyledFormRow>
-              {process.env.NODE_ENV !== 'production' && (
-                <details>
-                  <summary>Dev Info: Session</summary>
-                  <pre
-                    style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
-                  >
-                    <code>{JSON.stringify(session, null, 2)}</code>
-                  </pre>
-                </details>
-              )}
-            </StyledFormRow>
+          <ExpandablePanel isExpanded={false} title={'Passwort'}>
+            <StyledFlexContainer>
+              <StyledFormRow>
+                <ButtonRound
+                  onClick={e => {
+                    e?.preventDefault();
 
+                    setShowPasswordResetScreen(true);
+                  }}
+                >
+                  Passwort ändern?
+                </ButtonRound>
+              </StyledFormRow>
+              <StyledFormRow>
+                {process.env.NODE_ENV !== 'production' && (
+                  <details>
+                    <summary>Dev Info: Session</summary>
+                    <pre
+                      style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
+                    >
+                      <code>{JSON.stringify(session, null, 2)}</code>
+                    </pre>
+                  </details>
+                )}
+              </StyledFormRow>
+
+              {/* <StyledFormRow>
+                <SignOut setView={setView} />
+              </StyledFormRow> */}
+            </StyledFlexContainer>
+          </ExpandablePanel>
+          {/* <StyledFlexContainer>
             <StyledFormRow>
               <SignOut setView={setView} />
             </StyledFormRow>
-          </StyledFlexContainer>
+          </StyledFlexContainer> */}
         </>
       )}
       <StyledFlexContainer>
