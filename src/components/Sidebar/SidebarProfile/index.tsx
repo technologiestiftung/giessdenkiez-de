@@ -14,7 +14,8 @@ import SidebarTitle from '../SidebarTitle/';
 import { ParticipateButton } from '../../ParticipateButton';
 import { useAccountActions } from '../../../utils/hooks/useAccountActions';
 import { StyledComponentType, UserDataType } from '../../../common/interfaces';
-
+import { useSessionContext } from '@supabase/auth-helpers-react';
+import { SidebarLoading } from '../SidebarLoading';
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
 `;
@@ -39,15 +40,23 @@ Alle deine Benutzerdaten werden damit sofort gelöscht!`
 const SidebarProfile: FC<{
   isLoading?: boolean;
   userData?: UserDataType | undefined;
-}> = ({ userData: userDataProps, isLoading: isLoadingProps }) => {
+}> = ({ isLoading: isLoadingProps }) => {
   const { userData: userDataState } = useUserData();
   const { deleteAccount } = useAccountActions();
-  const userData = userDataProps || userDataState || false;
+  const userData = userDataState ?? false;
+  const { isLoading: isLoadingSupase, session } = useSessionContext();
+  const isAuthenticated = session?.user?.id ? true : false;
+  const isLoadingAuthInfo = isAuthenticated && !userData;
+  const isLoading = isLoadingProps || isLoadingSupase || isLoadingAuthInfo;
 
   const handleDeleteClick = (): void => {
     if (!confirmAccountDeletion()) return;
     void deleteAccount();
   };
+  // TODO: get loading state right
+  if (isLoading) {
+    return <SidebarLoading title='Profil' />;
+  }
   if (!userData) {
     return (
       <>
