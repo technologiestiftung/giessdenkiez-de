@@ -4,6 +4,7 @@ import { AuthView } from '../../../../pages/auth';
 import SidebarTitle from '../SidebarTitle';
 import { UserNotificationObjectType } from './Notification';
 import { CredentialsForm, CredentialsSubline } from './Form';
+import Router from 'next/router';
 export interface CredentialsData {
   email: string;
   password: string;
@@ -157,6 +158,9 @@ export const SidebarAuth = ({
         });
         console.error('No session');
         return;
+      }
+      if (data.session) {
+        Router.push('/profile');
       }
     } catch (error) {
       console.error(error, 'in catch');
