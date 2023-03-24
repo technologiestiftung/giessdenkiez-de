@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CredentialsData } from './index';
+import { CredentialsData, ResetCredentialsData } from './index';
 import ButtonSubmitRound from '../../ButtonRound/ButtonSubmitRound';
 import { StyledComponentType } from '../../../common/interfaces';
 import SmallParagraph from '../../SmallParagraph';
@@ -72,6 +72,74 @@ export const CredentialsSubline = ({
       <br />
       <StyledA onClick={onClick}>{aText}</StyledA>
     </SmallParagraph>
+  );
+};
+
+export const ResetCredentialsForm = ({
+  formData,
+  handleInputChange,
+  handleSubmit,
+}: {
+  formData: ResetCredentialsData;
+  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}) => {
+  return (
+    <>
+      {' '}
+      <StyledForm
+        onSubmit={e => {
+          console.log('submitting');
+          handleSubmit(e);
+        }}
+      >
+        <StyledFormRow>
+          <StyledFormLabel htmlFor='oldPassword'>
+            {' '}
+            <SmallParagraph>Altes Passwort</SmallParagraph>
+          </StyledFormLabel>
+          <StyledFormTextInput
+            type='password'
+            name='oldPassword'
+            minLength={8}
+            maxLength={128}
+            onChange={handleInputChange}
+            value={formData.oldPassword}
+          ></StyledFormTextInput>
+        </StyledFormRow>
+        <StyledFormRow>
+          <StyledFormLabel htmlFor='password'>
+            {' '}
+            <SmallParagraph>Neues Passwort</SmallParagraph>
+          </StyledFormLabel>
+          <StyledFormTextInput
+            type='password'
+            name='password'
+            minLength={8}
+            maxLength={128}
+            onChange={handleInputChange}
+            value={formData.password}
+          ></StyledFormTextInput>
+        </StyledFormRow>
+        <StyledFormRow>
+          <StyledFormLabel htmlFor='repeatPassword'>
+            {' '}
+            <SmallParagraph>Neues Passwort wiederholen</SmallParagraph>
+          </StyledFormLabel>
+          <StyledFormTextInput
+            type='password'
+            name='repeatPassword'
+            minLength={8}
+            maxLength={128}
+            onChange={handleInputChange}
+            value={formData.repeatPassword}
+          ></StyledFormTextInput>
+        </StyledFormRow>
+        <StyledFormRow>
+          <ButtonSubmitRound type='submit'>Speichern</ButtonSubmitRound>
+        </StyledFormRow>
+      </StyledForm>
+    </>
   );
 };
 
