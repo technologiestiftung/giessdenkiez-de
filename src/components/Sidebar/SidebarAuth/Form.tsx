@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { CredentialsData, ResetCredentialsData } from './index';
 import ButtonSubmitRound from '../../ButtonRound/ButtonSubmitRound';
 import { StyledComponentType } from '../../../common/interfaces';
-import SmallParagraph from '../../SmallParagraph';
 
 export const SidebarSubTitle = styled.span<StyledComponentType>`
   font-size: ${p => p.theme.fontSizeXl};
@@ -26,7 +25,24 @@ export const StyledFlexContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-export const StyledFormLabel = styled.label``;
+export const StyledFormLabel = styled.label`
+  line-height: 150%;
+  font-size: ${p => p.theme.fontSizeL};
+  opacity: 0.66;
+  letter-spacing: 0.125px;
+  padding: 0;
+  margin: 0;
+  font-weight: normal;
+
+  a {
+    color: ${p => p.theme.colorTextDark};
+    transition: opacity 200ms ease-out;
+    opacity: 1;
+  }
+  a:hover {
+    opacity: 0.33;
+  }
+`;
 
 export const StyledFormRow = styled.div`
   display: flex;
@@ -67,11 +83,11 @@ export const CredentialsSubline = ({
   onClick: () => void;
 }) => {
   return (
-    <SmallParagraph>
+    <>
       <span>{text}</span>
       <br />
       <StyledA onClick={onClick}>{aText}</StyledA>
-    </SmallParagraph>
+    </>
   );
 };
 
@@ -96,9 +112,10 @@ export const ResetCredentialsForm = ({
         <StyledFormRow>
           <StyledFormLabel htmlFor='oldPassword'>
             {' '}
-            <SmallParagraph>Altes Passwort</SmallParagraph>
+            <>Altes Passwort</>
           </StyledFormLabel>
           <StyledFormTextInput
+            id='oldPassword'
             type='password'
             name='oldPassword'
             minLength={8}
@@ -110,9 +127,10 @@ export const ResetCredentialsForm = ({
         <StyledFormRow>
           <StyledFormLabel htmlFor='password'>
             {' '}
-            <SmallParagraph>Neues Passwort</SmallParagraph>
+            <>Neues Passwort</>
           </StyledFormLabel>
           <StyledFormTextInput
+            id='password'
             type='password'
             name='password'
             minLength={8}
@@ -124,9 +142,10 @@ export const ResetCredentialsForm = ({
         <StyledFormRow>
           <StyledFormLabel htmlFor='repeatPassword'>
             {' '}
-            <SmallParagraph>Neues Passwort wiederholen</SmallParagraph>
+            <>Neues Passwort wiederholen</>
           </StyledFormLabel>
           <StyledFormTextInput
+            id='repeatPassword'
             type='password'
             name='repeatPassword'
             minLength={8}
@@ -169,10 +188,10 @@ export const CredentialsForm = ({
         {!isReset && (
           <StyledFormRow>
             <StyledFormLabel htmlFor='email'>
-              {' '}
-              <SmallParagraph>E-Mail</SmallParagraph>
+              <>E-Mail</>
             </StyledFormLabel>
             <StyledFormTextInput
+              id='email'
               type='email'
               name='email'
               onChange={handleInputChange}
@@ -183,10 +202,10 @@ export const CredentialsForm = ({
         {!isRecovery && (
           <StyledFormRow>
             <StyledFormLabel htmlFor='password'>
-              {' '}
-              <SmallParagraph>Passwort</SmallParagraph>
+              <>Passwort</>
             </StyledFormLabel>
             <StyledFormTextInput
+              id='password'
               type='password'
               name='password'
               minLength={8}
