@@ -5,7 +5,6 @@ import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { SidebarAuth } from '../src/components/Sidebar/SidebarAuth';
 import { PasswordResetForm } from '../src/components/Sidebar/SidebarAuth/PasswordResetForm';
 import { UpdateUserDataForm } from '../src/components/Sidebar/SidebarAuth/UpdateUserDataForm';
-import { SignOut } from '../src/components/Sidebar/SidebarAuth/SignOut';
 import ButtonRound from '../src/components/ButtonRound';
 import {
   StyledFlexContainer,
@@ -76,7 +75,6 @@ const AuthPage: Page = () => {
   if (showPasswordResetScreen) {
     return (
       <>
-        {' '}
         <PasswordResetForm
           setNotification={setCurrentNotification}
           returnClickHandler={() => {
@@ -87,6 +85,16 @@ const AuthPage: Page = () => {
             setShowPasswordResetScreen(false);
           }}
         />
+        <StyledFlexContainer>
+          <StyledFormRow>
+            {currentNotification && (
+              <UserNotification
+                type={currentNotification.type}
+                message={currentNotification.message}
+              />
+            )}
+          </StyledFormRow>
+        </StyledFlexContainer>
       </>
     );
   }
@@ -132,17 +140,8 @@ const AuthPage: Page = () => {
                   </details>
                 )}
               </StyledFormRow>
-
-              {/* <StyledFormRow>
-                <SignOut setView={setView} />
-              </StyledFormRow> */}
             </StyledFlexContainer>
           </ExpandablePanel>
-          {/* <StyledFlexContainer>
-            <StyledFormRow>
-              <SignOut setView={setView} />
-            </StyledFormRow>
-          </StyledFlexContainer> */}
         </>
       )}
       <StyledFlexContainer>
