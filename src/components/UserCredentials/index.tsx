@@ -1,7 +1,9 @@
-import Link from 'next/link';
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { AccountEditModal } from '../AccountEditModal';
 import ExpandablePanel from '../ExpandablePanel';
+import { StyledA } from '../Forms';
+import {} from '../Sidebar/SidebarAuth/Notification';
 import SmallParagraph from '../SmallParagraph';
 
 const CredentialValue = styled.p`
@@ -13,15 +15,32 @@ const CredentialValue = styled.p`
 const CardCredentials: FC<{
   username: string;
   email: string;
-}> = ({ username, email }) => (
-  <ExpandablePanel isExpanded title='Dein Account'>
-    <CredentialValue>{username}</CredentialValue>
-    <CredentialValue>{email}</CredentialValue>
-    <SmallParagraph>Registrierte E-Mail Adresse</SmallParagraph>
-    <SmallParagraph>
-      Account <Link href='/auth'>bearbeiten?</Link>
-    </SmallParagraph>
-  </ExpandablePanel>
-);
+}> = ({ username, email }) => {
+  const [isBeingEdited, setIsBeingEdited] = React.useState(false);
+  return (
+    <>
+      <AccountEditModal
+        isOpen={isBeingEdited}
+        setIsOpen={setIsBeingEdited}
+      ></AccountEditModal>
+      <ExpandablePanel isExpanded title='Dein Account'>
+        <CredentialValue>{username}</CredentialValue>
+        <CredentialValue>{email}</CredentialValue>
+        <SmallParagraph>Registrierte E-Mail Adresse</SmallParagraph>
+        <SmallParagraph>
+          Account{' '}
+          <StyledA
+            onClick={e => {
+              e.preventDefault();
+              setIsBeingEdited(true);
+            }}
+          >
+            bearbeiten?
+          </StyledA>
+        </SmallParagraph>
+      </ExpandablePanel>
+    </>
+  );
+};
 
 export default CardCredentials;
