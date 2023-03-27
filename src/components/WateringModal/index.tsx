@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, HTMLProps, useState } from 'react';
 import ButtonRound from '../ButtonRound';
-import { NumberInput } from '../NumberInput';
+import { NumberInput } from '../Forms/Inputs/NumberInput';
 import styled from 'styled-components';
 import { useWateringActions } from '../../utils/hooks/useWateringActions';
 import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { Modal } from '../Modal';
-import { DatePickerDialog } from '../DatePickerDialog';
+import { DatePickerDialog } from '../Forms/DatePickerDialog';
 import { subMonths, endOfDay } from 'date-fns';
 
 const TwoColumnGrid = styled.div`
@@ -38,10 +38,15 @@ const StyledError = styled.p`
 const SIX_MONTHS_AGO = subMonths(new Date(), 6);
 const END_OF_TODAY = endOfDay(new Date());
 
-export const WateringModal: FC<{
+export interface WateringModalProps extends HTMLProps<HTMLElement> {
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
-}> = ({ isOpen = false, setIsOpen = () => undefined, children }) => {
+}
+export const WateringModal: FC<WateringModalProps> = ({
+  isOpen = false,
+  setIsOpen = () => undefined,
+  children,
+}) => {
   const treeId = useCurrentTreeId();
   const { waterTree, isBeingWatered } = useWateringActions(treeId);
 
