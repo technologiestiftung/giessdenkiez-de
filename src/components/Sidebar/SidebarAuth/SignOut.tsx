@@ -16,7 +16,6 @@ export const SignOut = ({
           e?.preventDefault();
           supabase.auth.signOut().then(({ error }) => {
             if (error) throw error;
-            console.log('Signed out');
             Router.push('/');
             setView('signin');
           });

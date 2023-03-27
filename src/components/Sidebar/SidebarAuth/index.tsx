@@ -49,20 +49,17 @@ export const SidebarAuth = ({
 
   const handleSignInSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('signin');
 
     signIn(formData.email, formData.password).catch(error => {
-      console.error(error, 'here we are');
       setNotification({
         message: error.message,
         type: 'error',
       });
     });
-    clearFields();
+    // clearFields();
   };
   const handleSignUpSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('signup');
     signUp(formData.email, formData.password).catch(error => {
       console.error(error);
       setNotification({
@@ -70,12 +67,11 @@ export const SidebarAuth = ({
         type: 'error',
       });
     });
-    clearFields();
+    // clearFields();
   };
 
   const handleRecoverySubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('recovery');
     recovery(formData.email).catch(error => {
       console.error(error);
       setNotification({
@@ -122,12 +118,7 @@ export const SidebarAuth = ({
           'Überprüfe deine E-Mails nach einem Link um deinen Account zu bestätigen',
         type: 'success',
       });
-      // console.log('Autoconfirm is not active');
       setView('confirm');
-    }
-    if (data.session) {
-      console.log('Session', data.session);
-      console.log('Autoconfirm is active');
     }
   };
 
