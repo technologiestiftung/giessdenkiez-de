@@ -133,6 +133,44 @@ export const ResetCredentialsForm = ({
   );
 };
 
+export const RecoverCredentialsForm = ({
+  formData,
+  handleInputChange,
+  handleSubmit,
+}: {
+  formData: CredentialsData;
+  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}) => {
+  return (
+    <>
+      {' '}
+      <StyledForm
+        onSubmit={e => {
+          handleSubmit(e);
+        }}
+      >
+        <StyledFormRow>
+          <StyledLabel htmlFor='password'>
+            <>Neues Passwort</>
+          </StyledLabel>
+          <StyledFormTextInput
+            id='password'
+            type='password'
+            name='password'
+            minLength={8}
+            maxLength={128}
+            onChange={handleInputChange}
+            value={formData.password}
+          ></StyledFormTextInput>
+        </StyledFormRow>
+        <StyledFormRow>
+          <ButtonSubmitRound type='submit'>Speichern</ButtonSubmitRound>
+        </StyledFormRow>
+      </StyledForm>
+    </>
+  );
+};
 export const CredentialsForm = ({
   formData,
   handleInputChange,

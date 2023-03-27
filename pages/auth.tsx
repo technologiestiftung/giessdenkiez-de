@@ -4,20 +4,25 @@ import { Page } from '../src/nextPage';
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { SidebarAuth } from '../src/components/Sidebar/SidebarAuth';
 import { PasswordResetForm } from '../src/components/Sidebar/SidebarAuth/PasswordResetForm';
-import { UpdateUserDataForm } from '../src/components/Sidebar/SidebarAuth/UpdateUserDataForm';
 import ButtonRound from '../src/components/ButtonRound';
 import { StyledFlexContainer, StyledFormRow } from '../src/components/Forms';
 import {
   UserNotification,
   UserNotificationObjectType,
 } from '../src/components/Sidebar/SidebarAuth/Notification';
-import ExpandablePanel from '../src/components/ExpandablePanel';
+import { PasswordRecoveryForm } from '../src/components/Sidebar/SidebarAuth/PasswordRecoveryForm';
+import { SignOut } from '../src/components/Sidebar/SidebarAuth/SignOut';
+import SidebarTitle from '../src/components/Sidebar/SidebarTitle';
+import Router from 'next/router';
 export type AuthView = 'signin' | 'signup' | 'recovery' | 'confirm';
 
 const AuthPage: Page = () => {
   const supabase = useSupabaseClient();
   const session = useSession();
-  const [showPasswordResetScreen, setShowPasswordResetScreen] = useState(false);
+  const [showPasswordRecoveryScreen, setShowPasswordRecoveryScreen] = useState(
+    false
+  );
+  const [showPasswordChangeForm, setShowPasswordChangeForm] = useState(false);
   const [view, setView] = useState<AuthView>('signin');
 
   const [
@@ -49,7 +54,7 @@ const AuthPage: Page = () => {
           // console.log('PASSWORD_RECOVERY', session);
 
           // show screen to update user's password
-          setShowPasswordResetScreen(true);
+          setShowPasswordRecoveryScreen(true);
           break;
         case 'TOKEN_REFRESHED':
           // console.log('TOKEN_REFRESHED', session);
@@ -69,17 +74,45 @@ const AuthPage: Page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (showPasswordResetScreen) {
+  if (showPasswordRecoveryScreen) {
+    return (
+      <>
+        <PasswordRecoveryForm
+          setNotification={setCurrentNotification}
+          returnClickHandler={() => {
+            setShowPasswordRecoveryScreen(false);
+            setView('signin');
+          }}
+          additionalSubmitHandler={() => {
+            setShowPasswordRecoveryScreen(false);
+            Router.push('/profile');
+          }}
+        />
+        <StyledFlexContainer>
+          <StyledFormRow>
+            {currentNotification && (
+              <UserNotification
+                type={currentNotification.type}
+                message={currentNotification.message}
+              />
+            )}
+          </StyledFormRow>
+        </StyledFlexContainer>
+      </>
+    );
+  }
+
+  if (showPasswordChangeForm) {
     return (
       <>
         <PasswordResetForm
           setNotification={setCurrentNotification}
           returnClickHandler={() => {
-            setShowPasswordResetScreen(false);
+            setShowPasswordChangeForm(false);
             setView('signin');
           }}
           additionalSubmitHandler={() => {
-            setShowPasswordResetScreen(false);
+            setShowPasswordChangeForm(false);
           }}
         />
         <StyledFlexContainer>
@@ -110,16 +143,21 @@ const AuthPage: Page = () => {
         />
       ) : (
         <>
-          <UpdateUserDataForm setNotification={setCurrentNotification} />
+          {/* <UpdateUserDataForm setNotification={setCurrentNotification} /> */}
+          <SidebarTitle>{'Auth'}</SidebarTitle>
 
-          <ExpandablePanel isExpanded={false} title={'Passwort'}>
-            <StyledFlexContainer>
+          <StyledFlexContainer>
+            <StyledFormRow>
+              <SignOut setView={setView} />
+            </StyledFormRow>
+          </StyledFlexContainer>
+          {/* <ExpandablePanel isExpanded={false} title={'Passwort'}>
               <StyledFormRow>
                 <ButtonRound
                   onClick={e => {
                     e?.preventDefault();
 
-                    setShowPasswordResetScreen(true);
+                    setShowPasswordRecoveryScreen(true);
                   }}
                 >
                   Passwort ändern?
@@ -138,7 +176,7 @@ const AuthPage: Page = () => {
                 )}
               </StyledFormRow>
             </StyledFlexContainer>
-          </ExpandablePanel>
+          </ExpandablePanel> */}
         </>
       )}
       <StyledFlexContainer>
