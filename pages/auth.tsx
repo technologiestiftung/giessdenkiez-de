@@ -37,28 +37,28 @@ const AuthPage: Page = () => {
     } = supabase.auth.onAuthStateChange((event, session) => {
       switch (event) {
         case 'SIGNED_IN':
-          console.log('SIGNED_IN', session);
+          // console.log('SIGNED_IN', session);
           break;
         case 'SIGNED_OUT':
-          console.log('SIGNED_OUT');
+          // console.log('SIGNED_OUT');
           break;
         case 'USER_UPDATED':
-          console.log('USER_UPDATED', session?.user);
+          // console.log('USER_UPDATED', session?.user);
           break;
         case 'PASSWORD_RECOVERY':
-          console.log('PASSWORD_RECOVERY', session);
+          // console.log('PASSWORD_RECOVERY', session);
 
           // show screen to update user's password
           setShowPasswordResetScreen(true);
           break;
         case 'TOKEN_REFRESHED':
-          console.log('TOKEN_REFRESHED', session);
+          // console.log('TOKEN_REFRESHED', session);
           break;
         case 'USER_DELETED':
-          console.log('USER_DELETED');
+          // console.log('USER_DELETED');
           break;
         default:
-          console.log('UNKNOWN_EVENT', event);
+          // console.log('UNKNOWN_EVENT', event);
           throw new Error('Unknown event type');
       }
     });
