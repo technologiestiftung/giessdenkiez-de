@@ -3,7 +3,7 @@ import { OptionalUserDataType, UserDataType } from '../../common/interfaces';
 import { getUserData } from '../requests/getUserData';
 import { useSupabaseUser } from './useSupabaseUser';
 import { useSupabaseToken } from './useSupabaseToken';
-import { useSupabaseProfile } from './useSupabaseProfile';
+import { useUserProfile } from './useUserProfile';
 type UserDataError = Error | null;
 
 const fetchUserData: QueryFunction<OptionalUserDataType | undefined> = async ({
@@ -27,7 +27,7 @@ export const useUserData = (): {
   invalidate: () => void;
 } => {
   const user = useSupabaseUser();
-  const profile = useSupabaseProfile();
+  const { userProfile } = useUserProfile();
 
   const token = useSupabaseToken();
   const queryClient = useQueryClient();
@@ -39,12 +39,12 @@ export const useUserData = (): {
   >(queryParams, fetchUserData, { staleTime: Infinity });
 
   let userData: UserDataType | undefined;
-  if (user && partialUserData && profile) {
+  if (user && partialUserData && userProfile) {
     userData = {
       id: user.id,
       email: user.email!,
       isVerified: user.email_confirmed_at !== undefined ? true : false,
-      username: profile.username!,
+      username: userProfile.username ?? '',
       ...partialUserData,
     };
   }

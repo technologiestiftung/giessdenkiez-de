@@ -16,6 +16,7 @@ import { useAccountActions } from '../../../utils/hooks/useAccountActions';
 import { StyledComponentType, UserDataType } from '../../../common/interfaces';
 import { useSessionContext } from '@supabase/auth-helpers-react';
 import { SidebarLoading } from '../SidebarLoading';
+import { useUserProfile } from '../../../utils/hooks/useUserProfile';
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
 `;
@@ -42,18 +43,24 @@ const SidebarProfile: FC<{
   userData?: UserDataType | undefined;
 }> = ({ isLoading: isLoadingProps }) => {
   const { userData: userDataState } = useUserData();
+  const { userProfile } = useUserProfile();
   const { deleteAccount } = useAccountActions();
   const userData = userDataState ?? false;
   const { isLoading: isLoadingSupase, session } = useSessionContext();
   const isAuthenticated = session?.user?.id ? true : false;
+  const isLoadingUserProfile = userProfile ? false : true;
   const isLoadingAuthInfo = isAuthenticated && !userData;
-  const isLoading = isLoadingProps || isLoadingSupase || isLoadingAuthInfo;
+  const isLoading =
+    isLoadingProps ||
+    isLoadingSupase ||
+    isLoadingAuthInfo ||
+    isLoadingUserProfile;
 
   const handleDeleteClick = (): void => {
     if (!confirmAccountDeletion()) return;
     void deleteAccount();
   };
-  // TODO: get loading state right
+
   if (isLoading) {
     return <SidebarLoading title='Profil' />;
   }
@@ -95,7 +102,10 @@ const SidebarProfile: FC<{
           <TreesList trees={userData.adoptedTrees} />
         )}
       </ExpandablePanel>
-      <UserCredentials email={userData.email} username={userData.username} />
+      <UserCredentials
+        email={userData.email}
+        username={userProfile?.username ?? ''}
+      />
       <br />
       <Login width='-webkit-fill-available' />
       <>
