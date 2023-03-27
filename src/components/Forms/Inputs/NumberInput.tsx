@@ -1,15 +1,11 @@
 import React, { ChangeEvent, FC } from 'react';
 import styled from 'styled-components';
+import { StyledLabel } from '../Labels';
 
 const NumberInputContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
-`;
-
-const StyledLabel = styled.label`
-  display: block;
-  font-size: ${p => p.theme.fontSizeLl};
 `;
 
 const StyledInput = styled.input`

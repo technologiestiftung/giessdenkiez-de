@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import { ResetCredentialsData } from '.';
 import SmallParagraph from '../../SmallParagraph';
 import SidebarTitle from '../SidebarTitle';
-import { CredentialsSubline, ResetCredentialsForm } from './Form';
+import {
+  CredentialsSubline,
+  ResetCredentialsForm,
+  SidebarSubTitle,
+} from '../../Forms';
 import {
   createUserNotifiction,
   UserNotificationObjectType,
@@ -97,8 +101,8 @@ export const PasswordResetForm = ({
   };
   return (
     <>
-      <SidebarTitle>Passwort ändern?</SidebarTitle>
-      <SmallParagraph>für {session?.user?.email}</SmallParagraph>
+      <SidebarTitle>Passwort ändern</SidebarTitle>
+      <SidebarSubTitle>für: {session?.user?.email}</SidebarSubTitle>
       <ResetCredentialsForm
         formData={formData}
         handleInputChange={handleInputChange}

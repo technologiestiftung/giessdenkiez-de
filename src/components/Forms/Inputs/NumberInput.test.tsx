@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { NumberInput } from '.';
+import { NumberInput } from './NumberInput';
 
 describe('component NumberInput', () => {
   test('should render without crashing', () => {

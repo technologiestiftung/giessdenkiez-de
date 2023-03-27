@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CredentialsData, ResetCredentialsData } from './index';
-import ButtonSubmitRound from '../../ButtonRound/ButtonSubmitRound';
-import { StyledComponentType } from '../../../common/interfaces';
+import {
+  CredentialsData,
+  ResetCredentialsData,
+} from '../Sidebar/SidebarAuth/index';
+import ButtonSubmitRound from './Buttons/ButtonSubmitRound';
+import { StyledComponentType } from '../../common/interfaces';
+import { StyledFormTextInput } from './Inputs';
+import { StyledFormLabel, StyledLabel } from './Labels';
+import SmallParagraph from '../SmallParagraph';
 
 export const SidebarSubTitle = styled.span<StyledComponentType>`
   font-size: ${p => p.theme.fontSizeXl};
@@ -25,24 +31,6 @@ export const StyledFlexContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-export const StyledFormLabel = styled.label`
-  line-height: 150%;
-  font-size: ${p => p.theme.fontSizeL};
-  opacity: 0.66;
-  letter-spacing: 0.125px;
-  padding: 0;
-  margin: 0;
-  font-weight: normal;
-
-  a {
-    color: ${p => p.theme.colorTextDark};
-    transition: opacity 200ms ease-out;
-    opacity: 1;
-  }
-  a:hover {
-    opacity: 0.33;
-  }
-`;
 
 export const StyledFormRow = styled.div`
   display: flex;
@@ -52,24 +40,7 @@ export const StyledFormRow = styled.div`
   padding: 10px;
 `;
 
-export const StyledFormTextInput = styled.input`
-  flex: 1;
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 4px;
-  border: 1px solid ${p => p.theme.colorTextMedium};
-  color: ${p => p.theme.colorTextDark};
-  &::selection {
-    background: ${p => p.theme.colorPrimary};
-    color: white;
-  }
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-  }
-`;
-
-const StyledA = styled.a`
+export const StyledA = styled.a`
   text-decoration: underline;
 `;
 
@@ -83,11 +54,11 @@ export const CredentialsSubline = ({
   onClick: () => void;
 }) => {
   return (
-    <>
+    <SmallParagraph>
       <span>{text}</span>
       <br />
       <StyledA onClick={onClick}>{aText}</StyledA>
-    </>
+    </SmallParagraph>
   );
 };
 
@@ -110,10 +81,10 @@ export const ResetCredentialsForm = ({
         }}
       >
         <StyledFormRow>
-          <StyledFormLabel htmlFor='oldPassword'>
+          <StyledLabel htmlFor='oldPassword'>
             {' '}
             <>Altes Passwort</>
-          </StyledFormLabel>
+          </StyledLabel>
           <StyledFormTextInput
             id='oldPassword'
             type='password'
@@ -125,10 +96,10 @@ export const ResetCredentialsForm = ({
           ></StyledFormTextInput>
         </StyledFormRow>
         <StyledFormRow>
-          <StyledFormLabel htmlFor='password'>
+          <StyledLabel htmlFor='password'>
             {' '}
             <>Neues Passwort</>
-          </StyledFormLabel>
+          </StyledLabel>
           <StyledFormTextInput
             id='password'
             type='password'
@@ -140,10 +111,10 @@ export const ResetCredentialsForm = ({
           ></StyledFormTextInput>
         </StyledFormRow>
         <StyledFormRow>
-          <StyledFormLabel htmlFor='repeatPassword'>
+          <StyledLabel htmlFor='repeatPassword'>
             {' '}
             <>Neues Passwort wiederholen</>
-          </StyledFormLabel>
+          </StyledLabel>
           <StyledFormTextInput
             id='repeatPassword'
             type='password'
@@ -187,9 +158,9 @@ export const CredentialsForm = ({
       >
         {!isReset && (
           <StyledFormRow>
-            <StyledFormLabel htmlFor='email'>
+            <StyledLabel htmlFor='email'>
               <>E-Mail</>
-            </StyledFormLabel>
+            </StyledLabel>
             <StyledFormTextInput
               id='email'
               type='email'
@@ -201,9 +172,9 @@ export const CredentialsForm = ({
         )}
         {!isRecovery && (
           <StyledFormRow>
-            <StyledFormLabel htmlFor='password'>
+            <StyledLabel htmlFor='password'>
               <>Passwort</>
-            </StyledFormLabel>
+            </StyledLabel>
             <StyledFormTextInput
               id='password'
               type='password'

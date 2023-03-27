@@ -2,18 +2,14 @@ import { useSupabaseClient, useSession } from '@supabase/auth-helpers-react';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Database } from '../../../common/database';
-import ButtonSubmitRound from '../../ButtonRound/ButtonSubmitRound';
+import ButtonSubmitRound from '../../Forms/Buttons/ButtonSubmitRound';
 import ExpandablePanel from '../../ExpandablePanel';
 import SmallParagraph from '../../SmallParagraph';
 import SidebarTitle from '../SidebarTitle';
-import {
-  SidebarSubTitle,
-  StyledForm,
-  StyledFormLabel,
-  StyledFormRow,
-  StyledFormTextInput,
-} from './Form';
+import { SidebarSubTitle, StyledForm, StyledFormRow } from '../../Forms';
 import { UserNotificationObjectType } from './Notification';
+import { StyledLabel } from '../../Forms/Labels';
+import { StyledFormTextInput } from '../../Forms/Inputs';
 
 const StyledTitleWrapper = styled.div`
   border-bottom: 1px solid ${p => p.theme.colorGreyLight};
@@ -155,9 +151,9 @@ export const UpdateUserDataForm = ({
           <ExpandablePanel isExpanded title='Benutzername/E-Mail'>
             <StyledForm onSubmit={handleSubmit}>
               <StyledFormRow>
-                <StyledFormLabel htmlFor='name'>
+                <StyledLabel htmlFor='name'>
                   <SmallParagraph>Benutzername</SmallParagraph>
-                </StyledFormLabel>
+                </StyledLabel>
                 <StyledFormTextInput
                   type='text'
                   name='name'
@@ -168,9 +164,9 @@ export const UpdateUserDataForm = ({
                 />
               </StyledFormRow>
               <StyledFormRow>
-                <StyledFormLabel htmlFor='email'>
+                <StyledLabel htmlFor='email'>
                   <SmallParagraph>E-Mail</SmallParagraph>
-                </StyledFormLabel>
+                </StyledLabel>
                 <StyledFormTextInput
                   type='email'
                   name='email'
