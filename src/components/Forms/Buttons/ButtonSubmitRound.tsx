@@ -76,6 +76,7 @@ const ButtonSubmitRound: FC<{
   disabled?: boolean;
 }> = ({
   type = 'submit',
+  colorType = 'primary',
   children,
   width,
   fontSize,
@@ -86,7 +87,7 @@ const ButtonSubmitRound: FC<{
     fontSize={fontSize}
     margin={margin}
     width={width}
-    colorType={type}
+    colorType={colorType}
     type={type}
     disabled={disabled}
     role={'button'}
