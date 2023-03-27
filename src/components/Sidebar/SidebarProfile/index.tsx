@@ -48,13 +48,8 @@ const SidebarProfile: FC<{
   const userData = userDataState ?? false;
   const { isLoading: isLoadingSupase, session } = useSessionContext();
   const isAuthenticated = session?.user?.id ? true : false;
-  const isLoadingUserProfile = userProfile ? false : true;
   const isLoadingAuthInfo = isAuthenticated && !userData;
-  const isLoading =
-    isLoadingProps ||
-    isLoadingSupase ||
-    isLoadingAuthInfo ||
-    isLoadingUserProfile;
+  const isLoading = isLoadingProps || isLoadingSupase || isLoadingAuthInfo;
 
   const handleDeleteClick = (): void => {
     if (!confirmAccountDeletion()) return;
