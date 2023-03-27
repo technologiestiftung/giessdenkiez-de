@@ -6,10 +6,7 @@ import { SidebarAuth } from '../src/components/Sidebar/SidebarAuth';
 import { PasswordResetForm } from '../src/components/Sidebar/SidebarAuth/PasswordResetForm';
 import { UpdateUserDataForm } from '../src/components/Sidebar/SidebarAuth/UpdateUserDataForm';
 import ButtonRound from '../src/components/ButtonRound';
-import {
-  StyledFlexContainer,
-  StyledFormRow,
-} from '../src/components/Sidebar/SidebarAuth/Form';
+import { StyledFlexContainer, StyledFormRow } from '../src/components/Forms';
 import {
   UserNotification,
   UserNotificationObjectType,

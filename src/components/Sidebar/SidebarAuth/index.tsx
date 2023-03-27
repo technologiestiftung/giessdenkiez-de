@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { AuthView } from '../../../../pages/auth';
 import SidebarTitle from '../SidebarTitle';
 import { UserNotificationObjectType } from './Notification';
-import { CredentialsForm, CredentialsSubline } from './Form';
+import { CredentialsForm, CredentialsSubline } from '../../Forms';
 import Router from 'next/router';
 export interface CredentialsData {
   email: string;

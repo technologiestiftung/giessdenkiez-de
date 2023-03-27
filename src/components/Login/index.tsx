@@ -5,7 +5,7 @@ import { useAccountActions } from '../../utils/hooks/useAccountActions';
 
 import { useUserData } from '../../utils/hooks/useUserData';
 
-import ButtonRound from '../ButtonRound/';
+import ButtonRound from '../ButtonRound';
 
 const Login: FC<{
   width?: string;
