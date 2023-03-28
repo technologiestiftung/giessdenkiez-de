@@ -1,13 +1,18 @@
 import { useSupabaseClient, useSession } from '@supabase/auth-helpers-react';
 import React, { useState } from 'react';
-import { CredentialsData } from '.';
-import SidebarTitle from '../SidebarTitle';
+import SidebarTitle from '../../Sidebar/SidebarTitle';
 import {
   CredentialsSubline,
-  RecoverCredentialsForm,
   SidebarSubTitle,
-} from '../../Forms';
-import { UserNotificationObjectType } from './Notification';
+  StyledForm,
+  StyledFormRow,
+} from '../index';
+import { UserNotificationObjectType } from '../../Notification';
+import ButtonSubmitRound from '../Buttons/ButtonSubmitRound';
+import { StyledFormTextInput } from '../Inputs';
+import { StyledLabel } from '../Labels';
+import { CredentialsData } from '../../../common/interfaces';
+import { CredentialValue } from '../../UserCredentials';
 
 export const PasswordRecoveryForm = ({
   additionalSubmitHandler,
@@ -58,13 +63,34 @@ export const PasswordRecoveryForm = ({
   };
   return (
     <>
-      <SidebarTitle>Passwort ändern</SidebarTitle>
-      <SidebarSubTitle>für: {session?.user?.email}</SidebarSubTitle>
-      <RecoverCredentialsForm
-        formData={formData}
-        handleInputChange={handleInputChange}
-        handleSubmit={handleSubmit}
-      />
+      <SidebarTitle>Passwort ändern für</SidebarTitle>
+      <CredentialValue> {session?.user?.email}</CredentialValue>
+      <SidebarSubTitle></SidebarSubTitle>
+      <>
+        <StyledForm
+          onSubmit={e => {
+            handleSubmit(e);
+          }}
+        >
+          <StyledFormRow>
+            <StyledLabel htmlFor='password'>
+              <>Neues Passwort</>
+            </StyledLabel>
+            <StyledFormTextInput
+              id='password'
+              type='password'
+              name='password'
+              minLength={8}
+              maxLength={128}
+              onChange={handleInputChange}
+              value={formData.password}
+            ></StyledFormTextInput>
+          </StyledFormRow>
+          <StyledFormRow>
+            <ButtonSubmitRound type='submit'>Speichern</ButtonSubmitRound>
+          </StyledFormRow>
+        </StyledForm>
+      </>
       <CredentialsSubline
         text={'Zurück zur Anmeldung?'}
         aText={'Hier klicken'}
