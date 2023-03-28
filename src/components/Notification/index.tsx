@@ -30,7 +30,7 @@ function uuidv4(): string {
   );
 }
 
-export function createUserNotifiction({
+export function createUserNotification({
   message,
   type,
   dispatchedFrom,
