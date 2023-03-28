@@ -24,14 +24,15 @@ export const SidebarAuth = ({
   view,
   setView,
   setNotification,
+  isLoading,
 }: {
+  isLoading: boolean;
   setNotification: React.Dispatch<
     React.SetStateAction<UserNotificationObjectType | null>
   >;
   view: AuthView;
   setView: React.Dispatch<React.SetStateAction<AuthView>>;
 }) => {
-  const { isLoading } = useSessionContext();
   const supabase = useSupabaseClient();
 
   const [formData, setFormData] = useState<CredentialsData>({

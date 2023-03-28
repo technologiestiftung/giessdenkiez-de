@@ -9,6 +9,7 @@ describe('component SidebarAuth', () => {
         view='signin'
         setNotification={() => undefined}
         setView={() => undefined}
+        isLoading={false}
       />
     );
     expect(screen.getByText(/Anmelden/i)).toBeInTheDocument();
@@ -24,6 +25,7 @@ describe('component SidebarAuth', () => {
         view='signup'
         setNotification={() => undefined}
         setView={() => undefined}
+        isLoading={false}
       />
     );
     const h2 = screen.getAllByText(/Registrieren/i)[0];
@@ -41,6 +43,7 @@ describe('component SidebarAuth', () => {
         view='recovery'
         setNotification={() => undefined}
         setView={() => undefined}
+        isLoading={false}
       />
     );
     const h2 = screen.getByText(/Passwort vergessen/i);
