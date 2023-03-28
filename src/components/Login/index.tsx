@@ -1,11 +1,10 @@
-// TODO: Make this component work right
 import React, { FC } from 'react';
-import Link from 'next/link';
 import { useAccountActions } from '../../utils/hooks/useAccountActions';
 
 import { useUserData } from '../../utils/hooks/useUserData';
 
 import ButtonRound from '../ButtonRound';
+import Router from 'next/router';
 
 const Login: FC<{
   width?: string;
@@ -17,9 +16,14 @@ const Login: FC<{
   return (
     <>
       {!userData && (
-        <Link href='/auth'>
-          <ButtonRound width={width}>Konto anlegen / Einloggen</ButtonRound>
-        </Link>
+        <ButtonRound
+          width={width}
+          onClick={() => {
+            Router.push('/auth');
+          }}
+        >
+          Konto anlegen / Einloggen
+        </ButtonRound>
       )}
       {userData && !noLogout && (
         <ButtonRound width={width} onClick={logout}>
