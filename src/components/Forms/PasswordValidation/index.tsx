@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import {
+  PasswordPattern,
+  specialCharacters,
+  validatePassword,
+} from '../../../utils/validatePassword';
 import SmallParagraph from '../../SmallParagraph';
 
 interface StyledSpanProps {
@@ -12,8 +17,9 @@ const StyledSpan = styled.span<StyledSpanProps>`
 const ValidorNot = ({ success }: { success: boolean }) => {
   return <StyledSpan success={success}>{success ? '✓' : '☓'}</StyledSpan>;
 };
+
 export const PasswordValidation = ({ password }: { password: string }) => {
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<PasswordPattern>({
     length: false,
     lowerCase: false,
     upperCase: false,
@@ -22,25 +28,17 @@ export const PasswordValidation = ({ password }: { password: string }) => {
   });
 
   useEffect(() => {
-    validatePassword(password);
+    const { patterns } = validatePassword(password);
+    setErrors(patterns);
   }, [password]);
 
-  const validatePassword = (password: string) => {
-    setErrors({
-      length: password.length >= 8,
-      lowerCase: /[a-z]/.test(password),
-      upperCase: /[A-Z]/.test(password),
-      specialChar: /[@#$%^&*()!_\-=:;]+/.test(password),
-      digit: /[0-9]/.test(password),
-    });
-  };
   return (
     <>
       <SmallParagraph>
         Dein Passwort sollte: Mindestens 8 Zeichen lang sein{' '}
         <ValidorNot success={errors.length} />, Klein- und Großbuchstaben
         <ValidorNot success={errors.lowerCase && errors.upperCase} />,
-        mindestens eines dieser Sonderzeichen <code>@#$%^&*()!_\-=:;</code>{' '}
+        mindestens eines dieser Sonderzeichen <code>{specialCharacters}</code>{' '}
         <ValidorNot success={errors.specialChar} /> und Zahlen{' '}
         <ValidorNot success={errors.digit} /> enthalten.
       </SmallParagraph>

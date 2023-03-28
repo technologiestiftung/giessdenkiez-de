@@ -16,6 +16,7 @@ import {
   StyledInputContainer,
 } from '../AccountEditForm';
 import { PasswordValidation } from '../PasswordValidation';
+import { validatePassword } from '../../../utils/validatePassword';
 
 export const PasswordEditForm = ({
   setIsOpen,
@@ -47,9 +48,9 @@ export const PasswordEditForm = ({
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&*()!_\-=":;])[A-Za-z\d@#$%^&*()!_\-=:;]{8,}$/;
-    const isValid = pattern.test(formData.password);
-    if (!isValid) {
+
+    const { passwordIsValid } = validatePassword(formData.password);
+    if (!passwordIsValid) {
       setNotification({
         message: 'Passwort ist nicht sicher genug',
         type: 'error',

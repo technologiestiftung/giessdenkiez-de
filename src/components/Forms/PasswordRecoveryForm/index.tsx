@@ -13,6 +13,8 @@ import { StyledFormTextInput } from '../Inputs';
 import { StyledLabel } from '../Labels';
 import { CredentialsData } from '../../../common/interfaces';
 import { CredentialValue } from '../../UserCredentials';
+import { PasswordValidation } from '../PasswordValidation';
+import { validatePassword } from '../../../utils/validatePassword';
 
 export const PasswordRecoveryForm = ({
   additionalSubmitHandler,
@@ -40,13 +42,20 @@ export const PasswordRecoveryForm = ({
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const { passwordIsValid } = validatePassword(formData.password);
+    if (!passwordIsValid) {
+      setNotification({
+        message: 'Passwort ist nicht sicher genug',
+        type: 'error',
+      });
+    }
     const updatePassword = async () => {
       const { data, error } = await supabase.auth.updateUser({
         password: formData.password,
       });
       if (error) {
         setNotification({
-          message: error.message,
+          message: 'Passwort konnte nicht geändert werden',
           type: 'error',
         });
         console.error('Error updating user:', error.message);
@@ -85,7 +94,9 @@ export const PasswordRecoveryForm = ({
               onChange={handleInputChange}
               value={formData.password}
             ></StyledFormTextInput>
+            <PasswordValidation password={formData.password} />
           </StyledFormRow>
+
           <StyledFormRow>
             <ButtonSubmitRound type='submit'>Speichern</ButtonSubmitRound>
           </StyledFormRow>
