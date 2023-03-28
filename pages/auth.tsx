@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { MapLayout } from '../src/components/MapLayout';
 import { Page } from '../src/nextPage';
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
+import {
+  useSession,
+  useSessionContext,
+  useSupabaseClient,
+} from '@supabase/auth-helpers-react';
 import { SidebarAuth } from '../src/components/Sidebar/SidebarAuth';
 import { StyledFlexContainer, StyledFormRow } from '../src/components/Forms';
 import {
@@ -20,6 +24,7 @@ export type AuthView = 'signin' | 'signup' | 'recovery' | 'confirm';
 const AuthPage: Page = () => {
   const supabase = useSupabaseClient();
   const session = useSession();
+  const { isLoading } = useSessionContext();
   const [showPasswordRecoveryScreen, setShowPasswordRecoveryScreen] = useState(
     false
   );
@@ -91,6 +96,7 @@ const AuthPage: Page = () => {
     >
       {!session ? (
         <SidebarAuth
+          isLoading={isLoading}
           view={view}
           setView={setView}
           setNotification={setCurrentNotification}
