@@ -1,18 +1,16 @@
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import {
+  useSessionContext,
+  useSupabaseClient,
+} from '@supabase/auth-helpers-react';
 import React, { useState } from 'react';
 import { AuthView } from '../../../../pages/auth';
 import SidebarTitle from '../SidebarTitle';
-import { UserNotificationObjectType } from './Notification';
-import { CredentialsForm, CredentialsSubline } from '../../Forms';
+import { UserNotificationObjectType } from '../../Notification';
+import { CredentialsSubline } from '../../Forms';
 import Router from 'next/router';
-export interface CredentialsData {
-  email: string;
-  password: string;
-}
-export interface ResetCredentialsData extends CredentialsData {
-  repeatPassword: string;
-  oldPassword: string;
-}
+import { CredentialsData } from '../../../common/interfaces';
+import { CredentialsForm } from '../../Forms/CredentialsForm';
+import { SidebarLoading } from '../SidebarLoading';
 
 enum titles {
   signin = 'Anmelden',
@@ -33,6 +31,7 @@ export const SidebarAuth = ({
   view: AuthView;
   setView: React.Dispatch<React.SetStateAction<AuthView>>;
 }) => {
+  const { isLoading } = useSessionContext();
   const supabase = useSupabaseClient();
 
   const [formData, setFormData] = useState<CredentialsData>({
@@ -130,7 +129,7 @@ export const SidebarAuth = ({
       });
       if (error) {
         setNotification({
-          message: error.message,
+          message: 'Benutzername oder Passwort ist falsch',
           type: 'error',
         });
         console.error(error);
@@ -138,17 +137,16 @@ export const SidebarAuth = ({
       }
       if (!data.user) {
         setNotification({
-          message: '500 - Interner Server Error',
+          message: 'Ups... da ist etwas schief gelaufen',
           type: 'error',
         });
-
         console.error('No user');
         return;
       }
 
       if (!data.session) {
         setNotification({
-          message: '500 - Interner Server Error',
+          message: 'Ups... da ist etwas schief gelaufen',
           type: 'error',
         });
         console.error('No session');
@@ -244,6 +242,10 @@ export const SidebarAuth = ({
     default:
       form = null;
       linkText = null;
+  }
+
+  if (isLoading) {
+    return <SidebarLoading title='Profil' />;
   }
 
   return (

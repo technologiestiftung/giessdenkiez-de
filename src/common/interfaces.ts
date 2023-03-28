@@ -126,3 +126,12 @@ export interface FeatureType {
     coordinates: [number, number];
   };
 }
+
+export interface CredentialsData {
+  email: string;
+  password: string;
+}
+export interface ResetCredentialsData extends CredentialsData {
+  repeatPassword: string;
+  oldPassword: string;
+}
