@@ -1,7 +1,7 @@
 import { useSupabaseClient, useSession } from '@supabase/auth-helpers-react';
 import React, { useEffect, useState } from 'react';
 import {
-  createUserNotifiction,
+  createUserNotification,
   UserNotification,
   UserNotificationObjectType,
 } from '../../Notification';
@@ -18,13 +18,16 @@ import {
 import { PasswordValidation } from '../PasswordValidation';
 import { validatePassword } from '../../../utils/validatePassword';
 
+interface PasswordEditFormProps extends React.HTMLProps<HTMLElement> {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 export const PasswordEditForm = ({
   setIsOpen,
   isOpen,
-}: {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+  children,
+}: PasswordEditFormProps) => {
   const supabase = useSupabaseClient();
   const session = useSession();
   const [formData, setFormData] = useState<ResetCredentialsData>({
@@ -49,16 +52,15 @@ export const PasswordEditForm = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const { passwordIsValid } = validatePassword(formData.password);
-    if (!passwordIsValid) {
-      setNotification({
-        message: 'Passwort ist nicht sicher genug',
-        type: 'error',
-      });
-      return;
-    }
-
     const updatePassword = async () => {
+      const { passwordIsValid } = validatePassword(formData.password);
+      if (!passwordIsValid) {
+        setNotification({
+          message: 'Dein neues Passwort ist nicht sicher genug',
+          type: 'error',
+        });
+        return;
+      }
       const {
         data: verifyUserData,
         error: verifyUserError,
@@ -67,13 +69,13 @@ export const PasswordEditForm = ({
         password: formData.oldPassword,
       });
       if (verifyUserError) {
-        setNotification(
-          createUserNotifiction({
+        setNotification(prev =>
+          createUserNotification({
             dispatchedFrom: 'PasswordResetForm.handleSubmit',
             message: verifyUserError.message.includes(
               'Invalid login credentials'
             )
-              ? 'Falsches Passwort'
+              ? 'Dein altes Passwort stimmt nicht'
               : verifyUserError.message,
             type: 'error',
           })
@@ -82,59 +84,65 @@ export const PasswordEditForm = ({
         return;
       }
       if (!verifyUserData) {
-        setNotification({
-          message: 'Fehler beim Verifizieren des Benutzers',
-          type: 'error',
-        });
+        setNotification(_ =>
+          createUserNotification({
+            message: 'Fehler beim Verifizieren des Benutzers',
+            type: 'error',
+          })
+        );
         console.error('Error verifying user');
         return;
       }
       if (formData.password !== formData.repeatPassword) {
-        setNotification({
-          message: 'Passwörter stimmen nicht überein',
-          type: 'error',
-        });
+        setNotification(_ =>
+          createUserNotification({
+            message: 'Passwörter stimmen nicht überein',
+            type: 'error',
+          })
+        );
+        console.error('Passwords do not match');
+        setIsOpen(true);
         return;
       }
       const { data, error } = await supabase.auth.updateUser({
         password: formData.password,
       });
       if (error) {
-        setNotification({
-          message: error.message,
-          type: 'error',
-        });
-        console.log('Error updating user:', error.message);
+        setNotification(_ =>
+          createUserNotification({
+            message: error.message,
+            type: 'error',
+          })
+        );
+        console.error('Error updating user:', error.message);
+        return;
       }
       if (data) {
-        setNotification({
-          message: 'Passwort erfolgreich geändert',
-          type: 'success',
-        });
+        setNotification(_ =>
+          createUserNotification({
+            message: 'Passwort erfolgreich geändert',
+            type: 'success',
+          })
+        );
       }
+      setIsOpen(false);
     };
     updatePassword().catch(console.error);
   };
 
   useEffect(() => {
+    if (!notification) return;
     const timeout = setTimeout(() => {
-      setNotification(null);
+      setNotification(_ => null);
     }, 5000);
 
-    return () => {
-      clearTimeout(timeout);
-    };
+    return () => clearTimeout(timeout);
   }, [notification]);
 
   return (
     <>
       <>
-        <form
-          onSubmit={e => {
-            console.log('submitting');
-            handleSubmit(e);
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <StyledGrid>
             <StyledInputContainer>
               <StyledLabel htmlFor='oldPassword'>
@@ -145,6 +153,7 @@ export const PasswordEditForm = ({
                 id='oldPassword'
                 type='password'
                 name='oldPassword'
+                required
                 minLength={8}
                 maxLength={128}
                 onChange={handleInputChange}
@@ -162,6 +171,7 @@ export const PasswordEditForm = ({
                 name='password'
                 minLength={8}
                 maxLength={128}
+                required
                 onChange={handleInputChange}
                 value={formData.password}
               ></StyledFormTextInput>
@@ -178,11 +188,13 @@ export const PasswordEditForm = ({
                 name='repeatPassword'
                 minLength={8}
                 maxLength={128}
+                required
                 onChange={handleInputChange}
                 value={formData.repeatPassword}
               ></StyledFormTextInput>
-              {notification && <UserNotification {...notification} />}
             </StyledInputContainer>
+            {notification && <UserNotification {...notification} />}
+            {children}
           </StyledGrid>
           <StyledButtonsContainer>
             <ButtonRound

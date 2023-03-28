@@ -6,6 +6,7 @@ import { useUserData } from '../../../utils/hooks/useUserData';
 import { useUserProfile } from '../../../utils/hooks/useUserProfile';
 import ButtonRound from '../../ButtonRound';
 import {
+  createUserNotification,
   UserNotification,
   UserNotificationObjectType,
 } from '../../Notification';
@@ -59,6 +60,28 @@ export const AccountEditForm = ({
     notification,
     setNotification,
   ] = useState<UserNotificationObjectType | null>(null);
+  useEffect(() => {
+    if (session && profile) {
+      setFormData({
+        name: profile.username ?? '',
+        email: session.user?.email ?? '',
+      });
+    }
+    if (!profile) {
+      refetch();
+    }
+  }, [session, profile, refetch, isOpen, notification]);
+
+  useEffect(() => {
+    if (!notification) {
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setNotification(prev => null);
+    }, 5000);
+    return () => clearTimeout(timeout);
+  }, [notification]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -73,96 +96,108 @@ export const AccountEditForm = ({
     setIsBeeingSaved(true);
 
     const updateUser = async () => {
-      if (formData.name.length < 3) {
-        setNotification({
-          message: 'Der Benutzername muss mindestens 3 Zeichen lang sein',
-          type: 'error',
-        });
-        return;
-      }
       if (formData.email !== session?.user?.email) {
         const { data, error } = await supabase.auth.updateUser({
           email: formData.email,
         });
         if (error) {
-          setNotification({
-            message: error.message,
-            type: 'error',
-          });
-          throw error;
+          setNotification(prev =>
+            createUserNotification({
+              message: error.message,
+              type: 'error',
+            })
+          );
+          console.error(error);
         }
         if (data) {
-          setNotification({
+          setNotification(prev =>
+            createUserNotification({
+              message:
+                'E-Mail wurde geändert. Bitte bestätige die Änderung über den Link in der E-Mail, die wir dir geschickt haben.',
+              type: 'success',
+            })
+          );
+        }
+      }
+
+      //check if the user name is already in use
+      const { data: usernameData, error: usernameError } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('username', formData.name);
+
+      if (usernameError) {
+        setNotification(prev =>
+          createUserNotification({
             message:
-              'E-Mail wurde geändert. Bitte bestätigen Sie die Änderung über den Link in der E-Mail, die wir Ihnen geschickt haben. Sie werden automatisch ausgeloggt.',
-            type: 'success',
+              'Interner Fehler username. Bitte versuch es später erneut.',
+            type: 'error',
+          })
+        );
+        console.error(usernameError);
+        return;
+      }
+      if (usernameData && usernameData.length > 0) {
+        if (usernameData[0].username === formData.name) {
+          const notif = createUserNotification({
+            message: 'Dieser Benutzername ist bereits vergeben.',
+            type: 'error',
           });
+          console.error('user name already in use', usernameData, notification);
+          setNotification(prev => notif);
+          return;
         }
       }
       const { data, error } = await supabase
         .from('profiles')
         .select('id,username')
-        .eq('id', session?.user?.id)
-        .single();
+        .eq('id', session?.user?.id);
+
       if (error) {
-        setNotification({
-          message: error.message,
-          type: 'error',
-        });
-        throw error;
+        setNotification(prev =>
+          createUserNotification({
+            message: 'Interner Fehler. Bitte versuch es später erneut.',
+            type: 'error',
+          })
+        );
+        console.error(error);
+        return;
       }
-      if (data) {
-        if (data.username !== formData.name) {
+      if (data && data.length > 0) {
+        if (data[0].username !== formData.name) {
           const { data, error } = await supabase
             .from('profiles')
             .update({ username: formData.name })
             .eq('id', session?.user?.id)
             .select();
           if (error) {
-            setNotification({
-              message: error.message,
-              type: 'error',
-            });
-            throw error;
+            setNotification(prev =>
+              createUserNotification({
+                message:
+                  'Interner Fehler beim speichern des neuen Namens. Bitte versuch es später erneut.',
+                type: 'error',
+              })
+            );
+            console.error(error);
+            return;
           }
           if (data) {
             invalidate();
             refetch();
-            setNotification({
-              message: 'Benutzername geändert',
-              type: 'success',
-            });
+            setNotification(prev =>
+              createUserNotification({
+                message: 'Benutzername geändert',
+                type: 'success',
+              })
+            );
           }
         }
       }
+      setIsOpen(false);
     };
     updateUser().catch(console.error);
-
     setIsBeeingSaved(false);
-    setIsOpen(false);
   };
-  useEffect(() => {
-    if (session && profile) {
-      setFormData({
-        name: profile.username ?? '',
-        email: session.user?.email ?? '',
-      });
-    }
-    if (!profile) {
-      refetch();
-    }
-    if (notification)
-      setTimeout(() => {
-        setNotification(null);
-      }, 5000);
-  }, [session, profile, refetch, isOpen, notification]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setNotification(null);
-    }, 5000);
-    return clearTimeout(timeout);
-  }, [notification]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -202,6 +237,7 @@ export const AccountEditForm = ({
           width='fit-content'
           onClick={() => {
             setIsOpen(false);
+            setNotification(prev => null);
           }}
         >
           Abbrechen

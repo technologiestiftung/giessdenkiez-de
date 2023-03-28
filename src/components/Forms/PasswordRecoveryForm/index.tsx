@@ -59,6 +59,7 @@ export const PasswordRecoveryForm = ({
           type: 'error',
         });
         console.error('Error updating user:', error.message);
+        return;
       }
       if (data) {
         setNotification({
@@ -76,11 +77,7 @@ export const PasswordRecoveryForm = ({
       <CredentialValue> {session?.user?.email}</CredentialValue>
       <SidebarSubTitle></SidebarSubTitle>
       <>
-        <StyledForm
-          onSubmit={e => {
-            handleSubmit(e);
-          }}
-        >
+        <StyledForm onSubmit={handleSubmit}>
           <StyledFormRow>
             <StyledLabel htmlFor='password'>
               <>Neues Passwort</>
