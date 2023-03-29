@@ -42,14 +42,17 @@ export const PasswordRecoveryForm = ({
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { passwordIsValid } = validatePassword(formData.password);
-    if (!passwordIsValid) {
-      setNotification({
-        message: 'Passwort ist nicht sicher genug',
-        type: 'error',
-      });
-    }
     const updatePassword = async () => {
+      const { passwordIsValid } = validatePassword(formData.password);
+
+      if (!passwordIsValid) {
+        setNotification({
+          message: 'Passwort ist nicht sicher genug',
+          type: 'error',
+        });
+        return;
+      }
+
       const { data, error } = await supabase.auth.updateUser({
         password: formData.password,
       });
