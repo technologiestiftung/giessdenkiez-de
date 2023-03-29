@@ -22,12 +22,9 @@ export const useAccountActions = (): {
         return;
       }
       Router.push('/');
-
-      // logout({ returnTo: window.location.origin });
     },
     login: () => {
       Router.push('/auth');
-      // loginWithRedirect({ ui_locales: 'de' });
     },
     deleteAccount: async () => {
       if (!user?.id || !token) return;
