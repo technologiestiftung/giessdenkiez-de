@@ -14,6 +14,12 @@ import ButtonSubmitRound from '../Buttons/ButtonSubmitRound';
 import { StyledFormTextInput } from '../Inputs';
 import { StyledLabel } from '../Labels';
 
+// We contstrain the username to 20 characters
+// in the database we have 50. In case the username already exsists
+// we need to add a number to the end of the username
+// this happens only on signup. Here we check the database and warn the user
+const maxUsernameLength = 20;
+const minUsernameLength = 3;
 export const StyledFormTextInputExtended = styled(StyledFormTextInput)`
   padding: 10px;
 `;
@@ -78,7 +84,7 @@ export const AccountEditForm = ({
     }
 
     const timeout = setTimeout(() => {
-      setNotification(prev => null);
+      setNotification(_ => null);
     }, 5000);
     return () => clearTimeout(timeout);
   }, [notification]);
@@ -208,8 +214,8 @@ export const AccountEditForm = ({
             type='text'
             name='name'
             id='name'
-            minLength={3}
-            maxLength={20}
+            minLength={minUsernameLength}
+            maxLength={maxUsernameLength}
             onChange={handleInputChange}
             value={formData.name}
             required

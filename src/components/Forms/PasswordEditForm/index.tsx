@@ -17,6 +17,7 @@ import {
 } from '../AccountEditForm';
 import { PasswordValidation } from '../PasswordValidation';
 import { validatePassword } from '../../../utils/validatePassword';
+import { Database } from '../../../common/database';
 
 interface PasswordEditFormProps extends React.HTMLProps<HTMLElement> {
   isOpen: boolean;
@@ -25,11 +26,12 @@ interface PasswordEditFormProps extends React.HTMLProps<HTMLElement> {
 
 export const PasswordEditForm = ({
   setIsOpen,
-  isOpen,
   children,
 }: PasswordEditFormProps) => {
-  const supabase = useSupabaseClient();
+  const supabase = useSupabaseClient<Database>();
   const session = useSession();
+  const [isBeeingSaved, setIsBeeingSaved] = useState(false);
+
   const [formData, setFormData] = useState<ResetCredentialsData>({
     password: '',
     email: '',
@@ -40,6 +42,16 @@ export const PasswordEditForm = ({
     notification,
     setNotification,
   ] = useState<UserNotificationObjectType | null>(null);
+  useEffect(() => {
+    if (!notification) {
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setNotification(_ => null);
+    }, 5000);
+    return () => clearTimeout(timeout);
+  }, [notification]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -47,11 +59,10 @@ export const PasswordEditForm = ({
       ...formData,
       [name]: value,
     });
-    setNotification(null);
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setIsBeeingSaved(true);
     const updatePassword = async () => {
       const { passwordIsValid } = validatePassword(formData.password);
       if (!passwordIsValid) {
@@ -83,6 +94,7 @@ export const PasswordEditForm = ({
         console.error('Error verifying user:', verifyUserError.message);
         return;
       }
+
       if (!verifyUserData) {
         setNotification(_ =>
           createUserNotification({
@@ -93,24 +105,35 @@ export const PasswordEditForm = ({
         console.error('Error verifying user');
         return;
       }
+
       if (formData.password !== formData.repeatPassword) {
         setNotification(_ =>
           createUserNotification({
+            dispatchedFrom:
+              'PasswordResetForm.handleSubmit if (formData.password !== formData.repeatPassword)',
             message: 'Passwörter stimmen nicht überein',
             type: 'error',
           })
         );
+        // FIXME: This is not working. Why?
+        // WHY IS THIS NULL!!!!!
+        console.log('formData', formData);
+        console.log(
+          'notification in if (formData.password !== formData.repeatPassword)',
+          notification
+        );
         console.error('Passwords do not match');
-        setIsOpen(true);
         return;
       }
+
       const { data, error } = await supabase.auth.updateUser({
         password: formData.password,
       });
       if (error) {
         setNotification(_ =>
           createUserNotification({
-            message: error.message,
+            message:
+              'Fehler beim Ändern des Passworts. Versuch es später noch einmal.',
             type: 'error',
           })
         );
@@ -130,93 +153,74 @@ export const PasswordEditForm = ({
     updatePassword().catch(console.error);
   };
 
-  useEffect(() => {
-    if (!notification) return;
-    const timeout = setTimeout(() => {
-      setNotification(_ => null);
-    }, 5000);
-
-    return () => clearTimeout(timeout);
-  }, [notification]);
-
   return (
-    <>
-      <>
-        <form onSubmit={handleSubmit}>
-          <StyledGrid>
-            <StyledInputContainer>
-              <StyledLabel htmlFor='oldPassword'>
-                {' '}
-                <>Altes Passwort</>
-              </StyledLabel>
-              <StyledFormTextInput
-                id='oldPassword'
-                type='password'
-                name='oldPassword'
-                required
-                minLength={8}
-                maxLength={128}
-                onChange={handleInputChange}
-                value={formData.oldPassword}
-              ></StyledFormTextInput>
-            </StyledInputContainer>
-            <StyledInputContainer>
-              <StyledLabel htmlFor='password'>
-                {' '}
-                <>Neues Passwort</>
-              </StyledLabel>
-              <StyledFormTextInput
-                id='password'
-                type='password'
-                name='password'
-                minLength={8}
-                maxLength={128}
-                required
-                onChange={handleInputChange}
-                value={formData.password}
-              ></StyledFormTextInput>
-              <PasswordValidation password={formData.password} />
-            </StyledInputContainer>
-            <StyledInputContainer>
-              <StyledLabel htmlFor='repeatPassword'>
-                {' '}
-                <>Neues Passwort wiederholen</>
-              </StyledLabel>
-              <StyledFormTextInput
-                id='repeatPassword'
-                type='password'
-                name='repeatPassword'
-                minLength={8}
-                maxLength={128}
-                required
-                onChange={handleInputChange}
-                value={formData.repeatPassword}
-              ></StyledFormTextInput>
-            </StyledInputContainer>
-            {notification && <UserNotification {...notification} />}
-            {children}
-          </StyledGrid>
-          <StyledButtonsContainer>
-            <ButtonRound
-              key={`cancel-password-edit`}
-              width='fit-content'
-              onClick={() => {
-                setIsOpen(false);
-              }}
-            >
-              Abbrechen
-            </ButtonRound>
-            <ButtonSubmitRound
-              key={`save-password-edit`}
-              width='fit-content'
-              type='submit'
-              colorType='primary'
-            >
-              Speichern
-            </ButtonSubmitRound>
-          </StyledButtonsContainer>
-        </form>
-      </>
-    </>
+    <form onSubmit={handleSubmit}>
+      <StyledGrid>
+        <StyledInputContainer>
+          <StyledLabel htmlFor='oldPassword'>Altes Passwort</StyledLabel>
+          <StyledFormTextInput
+            id='oldPassword'
+            type='password'
+            name='oldPassword'
+            required
+            minLength={8}
+            maxLength={128}
+            onChange={handleInputChange}
+            value={formData.oldPassword}
+          ></StyledFormTextInput>
+        </StyledInputContainer>
+        <StyledInputContainer>
+          <StyledLabel htmlFor='password'>Neues Passwort</StyledLabel>
+          <StyledFormTextInput
+            id='password'
+            type='password'
+            name='password'
+            minLength={8}
+            maxLength={128}
+            required
+            onChange={handleInputChange}
+            value={formData.password}
+          ></StyledFormTextInput>
+          <PasswordValidation password={formData.password} />
+        </StyledInputContainer>
+        <StyledInputContainer>
+          <StyledLabel htmlFor='repeatPassword'>
+            Neues Passwort wiederholen
+          </StyledLabel>
+          <StyledFormTextInput
+            id='repeatPassword'
+            type='password'
+            name='repeatPassword'
+            minLength={8}
+            maxLength={128}
+            required
+            onChange={handleInputChange}
+            value={formData.repeatPassword}
+          ></StyledFormTextInput>
+        </StyledInputContainer>
+        {notification && <UserNotification {...notification} />}
+        {children}
+      </StyledGrid>
+      <StyledButtonsContainer>
+        <ButtonRound
+          key={`cancel-password-edit`}
+          width='fit-content'
+          onClick={() => {
+            setIsOpen(false);
+            setNotification(prev => null);
+          }}
+        >
+          Abbrechen
+        </ButtonRound>
+        <ButtonSubmitRound
+          key={`save-password-edit`}
+          width='fit-content'
+          type='submit'
+          colorType='primary'
+        >
+          {isBeeingSaved ? 'Wird eingetragen ...' : 'Speichern'}
+        </ButtonSubmitRound>
+      </StyledButtonsContainer>
+    </form>
   );
 };

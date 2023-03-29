@@ -25,8 +25,8 @@ export const AccountEditModal: FC<AccountEditModalProps> = ({
     >
       {view === 'account' ? (
         <AccountEditForm
-          setIsOpen={setIsOpen}
           isOpen={isOpen}
+          setIsOpen={setIsOpen}
         ></AccountEditForm>
       ) : (
         <PasswordEditForm
