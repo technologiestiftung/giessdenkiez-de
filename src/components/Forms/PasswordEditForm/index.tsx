@@ -72,6 +72,25 @@ export const PasswordEditForm = ({
         });
         return;
       }
+      if (formData.password !== formData.repeatPassword) {
+        setNotification(_ =>
+          createUserNotification({
+            dispatchedFrom:
+              'PasswordResetForm.handleSubmit if (formData.password !== formData.repeatPassword)',
+            message: 'Passwörter stimmen nicht überein',
+            type: 'error',
+          })
+        );
+        // FIXME: This is not working. Why?
+        // WHY IS THIS NULL!!!!!
+        console.log('formData', formData);
+        console.log(
+          'notification in if (formData.password !== formData.repeatPassword)',
+          notification
+        );
+        console.error('Passwords do not match');
+        return;
+      }
       const {
         data: verifyUserData,
         error: verifyUserError,
@@ -103,26 +122,6 @@ export const PasswordEditForm = ({
           })
         );
         console.error('Error verifying user');
-        return;
-      }
-
-      if (formData.password !== formData.repeatPassword) {
-        setNotification(_ =>
-          createUserNotification({
-            dispatchedFrom:
-              'PasswordResetForm.handleSubmit if (formData.password !== formData.repeatPassword)',
-            message: 'Passwörter stimmen nicht überein',
-            type: 'error',
-          })
-        );
-        // FIXME: This is not working. Why?
-        // WHY IS THIS NULL!!!!!
-        console.log('formData', formData);
-        console.log(
-          'notification in if (formData.password !== formData.repeatPassword)',
-          notification
-        );
-        console.error('Passwords do not match');
         return;
       }
 
