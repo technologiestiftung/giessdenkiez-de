@@ -18,6 +18,7 @@ import {
 import { PasswordValidation } from '../PasswordValidation';
 import { validatePassword } from '../../../utils/validatePassword';
 import { Database } from '../../../common/database';
+import { nonPersistentSupabaseClient as supabaseValidationClient } from '../../../utils/nonPersistentSupabaseClient';
 
 interface PasswordEditFormProps extends React.HTMLProps<HTMLElement> {
   isOpen: boolean;
@@ -72,29 +73,11 @@ export const PasswordEditForm = ({
         });
         return;
       }
-      if (formData.password !== formData.repeatPassword) {
-        setNotification(_ =>
-          createUserNotification({
-            dispatchedFrom:
-              'PasswordResetForm.handleSubmit if (formData.password !== formData.repeatPassword)',
-            message: 'Passwörter stimmen nicht überein',
-            type: 'error',
-          })
-        );
-        // FIXME: This is not working. Why?
-        // WHY IS THIS NULL!!!!!
-        console.log('formData', formData);
-        console.log(
-          'notification in if (formData.password !== formData.repeatPassword)',
-          notification
-        );
-        console.error('Passwords do not match');
-        return;
-      }
+
       const {
         data: verifyUserData,
         error: verifyUserError,
-      } = await supabase.auth.signInWithPassword({
+      } = await supabaseValidationClient.auth.signInWithPassword({
         email: session?.user?.email ?? '',
         password: formData.oldPassword,
       });
@@ -122,6 +105,18 @@ export const PasswordEditForm = ({
           })
         );
         console.error('Error verifying user');
+        return;
+      }
+
+      if (formData.password !== formData.repeatPassword) {
+        setNotification(_ =>
+          createUserNotification({
+            dispatchedFrom:
+              'PasswordResetForm.handleSubmit if (formData.password !== formData.repeatPassword)',
+            message: 'Passwörter stimmen nicht überein',
+            type: 'error',
+          })
+        );
         return;
       }
 
