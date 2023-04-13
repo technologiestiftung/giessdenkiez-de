@@ -28,6 +28,9 @@ export const Providers: FC = ({ children }) => {
       }
     };
     getSession().catch(error => console.log(error));
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      console.log(event, session);
+    });
   }, [supabaseClient.auth]);
   return (
     <ErrorBoundary>
