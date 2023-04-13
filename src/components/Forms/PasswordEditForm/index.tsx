@@ -144,7 +144,13 @@ export const PasswordEditForm = ({
       }
       setIsOpen(false);
     };
-    updatePassword().catch(console.error);
+    try {
+      updatePassword();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsBeeingSaved(false);
+    }
   };
 
   return (
