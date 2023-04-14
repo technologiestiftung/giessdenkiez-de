@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { AccountEditModal, ModalViewTypes } from '../AccountEditModal';
 import ExpandablePanel from '../ExpandablePanel';
 import { StyledA } from '../Forms';
-import {} from '../Notification';
 import SmallParagraph from '../SmallParagraph';
+import { PasswordEditModal } from '../PasswordEditModal';
 
 export const CredentialValue = styled.p`
   display: block;
@@ -18,6 +18,7 @@ const CardCredentials: FC<{
 }> = ({ username, email }) => {
   const [isBeingEdited, setIsBeingEdited] = useState(false);
   const [modalView, setModalView] = useState<ModalViewTypes>('account');
+  const [isEditingPassword, setIsEditingPassword] = useState(false);
   return (
     <>
       <AccountEditModal
@@ -25,6 +26,9 @@ const CardCredentials: FC<{
         setIsOpen={setIsBeingEdited}
         view={modalView}
       ></AccountEditModal>
+      {isEditingPassword && (
+        <PasswordEditModal onClose={() => setIsEditingPassword(false)} />
+      )}
       <ExpandablePanel isExpanded title='Dein Account'>
         <SmallParagraph>Benutzername</SmallParagraph>
         <CredentialValue>{username}</CredentialValue>
@@ -47,8 +51,7 @@ const CardCredentials: FC<{
           <StyledA
             onClick={e => {
               e.preventDefault();
-              setModalView('password');
-              setIsBeingEdited(true);
+              setIsEditingPassword(true);
             }}
           >
             ändern?
