@@ -1,7 +1,6 @@
-import { useSupabaseClient, useSession } from '@supabase/auth-helpers-react';
-import React, { useEffect, useState } from 'react';
+import { useSession } from '@supabase/auth-helpers-react';
+import React, { FC, useState } from 'react';
 import {
-  createUserNotification,
   UserNotification,
   UserNotificationObjectType,
 } from '../../Notification';
@@ -16,19 +15,17 @@ import {
   StyledInputContainer,
 } from '../AccountEditForm';
 import { PasswordValidation } from '../PasswordValidation';
-import { validatePassword } from '../../../utils/validatePassword';
-import { Database } from '../../../common/database';
+import { updatePassword } from '../../../utils/requests/updatePassword';
 
-interface PasswordEditFormProps extends React.HTMLProps<HTMLElement> {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+interface PasswordEditFormProps {
+  onSuccess: () => void;
+  onCancel: () => void;
 }
 
-export const PasswordEditForm = ({
-  setIsOpen,
-  children,
-}: PasswordEditFormProps) => {
-  const supabase = useSupabaseClient<Database>();
+export const PasswordEditForm: FC<PasswordEditFormProps> = ({
+  onSuccess,
+  onCancel,
+}) => {
   const session = useSession();
   const [isBeeingSaved, setIsBeeingSaved] = useState(false);
 
@@ -42,16 +39,6 @@ export const PasswordEditForm = ({
     notification,
     setNotification,
   ] = useState<UserNotificationObjectType | null>(null);
-  useEffect(() => {
-    if (!notification) {
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      setNotification(_ => null);
-    }, 5000);
-    return () => clearTimeout(timeout);
-  }, [notification]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -60,97 +47,28 @@ export const PasswordEditForm = ({
       [name]: value,
     });
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsBeeingSaved(true);
-    const updatePassword = async () => {
-      const { passwordIsValid } = validatePassword(formData.password);
-      if (!passwordIsValid) {
-        setNotification({
-          message: 'Dein neues Passwort ist nicht sicher genug',
-          type: 'error',
-        });
-        return;
-      }
-      const {
-        data: verifyUserData,
-        error: verifyUserError,
-      } = await supabase.auth.signInWithPassword({
-        email: session?.user?.email ?? '',
-        password: formData.oldPassword,
+
+    try {
+      const successMessage = await updatePassword({
+        currentSession: session,
+        oldPassword: formData.oldPassword,
+        newPassword: formData.password,
+        newPasswordConfirmation: formData.repeatPassword,
       });
-      if (verifyUserError) {
-        setNotification(prev =>
-          createUserNotification({
-            dispatchedFrom: 'PasswordResetForm.handleSubmit',
-            message: verifyUserError.message.includes(
-              'Invalid login credentials'
-            )
-              ? 'Dein altes Passwort stimmt nicht'
-              : verifyUserError.message,
-            type: 'error',
-          })
-        );
-        console.error('Error verifying user:', verifyUserError.message);
-        return;
-      }
 
-      if (!verifyUserData) {
-        setNotification(_ =>
-          createUserNotification({
-            message: 'Fehler beim Verifizieren des Benutzers',
-            type: 'error',
-          })
-        );
-        console.error('Error verifying user');
-        return;
-      }
-
-      if (formData.password !== formData.repeatPassword) {
-        setNotification(_ =>
-          createUserNotification({
-            dispatchedFrom:
-              'PasswordResetForm.handleSubmit if (formData.password !== formData.repeatPassword)',
-            message: 'Passwörter stimmen nicht überein',
-            type: 'error',
-          })
-        );
-        // FIXME: This is not working. Why?
-        // WHY IS THIS NULL!!!!!
-        console.log('formData', formData);
-        console.log(
-          'notification in if (formData.password !== formData.repeatPassword)',
-          notification
-        );
-        console.error('Passwords do not match');
-        return;
-      }
-
-      const { data, error } = await supabase.auth.updateUser({
-        password: formData.password,
+      successMessage && onSuccess();
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      setNotification({
+        message: errorMessage,
+        type: 'error',
       });
-      if (error) {
-        setNotification(_ =>
-          createUserNotification({
-            message:
-              'Fehler beim Ändern des Passworts. Versuch es später noch einmal.',
-            type: 'error',
-          })
-        );
-        console.error('Error updating user:', error.message);
-        return;
-      }
-      if (data) {
-        setNotification(_ =>
-          createUserNotification({
-            message: 'Passwort erfolgreich geändert',
-            type: 'success',
-          })
-        );
-      }
-      setIsOpen(false);
-    };
-    updatePassword().catch(console.error);
+      setIsBeeingSaved(false);
+    }
   };
 
   return (
@@ -199,18 +117,14 @@ export const PasswordEditForm = ({
           ></StyledFormTextInput>
         </StyledInputContainer>
         {notification && <UserNotification {...notification} />}
-        {children}
       </StyledGrid>
       <StyledButtonsContainer>
         <ButtonRound
           key={`cancel-password-edit`}
           width='fit-content'
-          onClick={() => {
-            setIsOpen(false);
-            setNotification(prev => null);
-          }}
+          onClick={onCancel}
         >
-          Abbrechen
+          Schließen
         </ButtonRound>
         <ButtonSubmitRound
           key={`save-password-edit`}
