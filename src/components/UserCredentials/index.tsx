@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
-import { AccountEditModal, ModalViewTypes } from '../AccountEditModal';
+import { AccountEditModal } from '../AccountEditModal';
 import ExpandablePanel from '../ExpandablePanel';
 import { StyledA } from '../Forms';
 import SmallParagraph from '../SmallParagraph';
@@ -16,15 +16,13 @@ const CardCredentials: FC<{
   username: string;
   email: string;
 }> = ({ username, email }) => {
-  const [isBeingEdited, setIsBeingEdited] = useState(false);
-  const [modalView, setModalView] = useState<ModalViewTypes>('account');
+  const [isEditingAccount, setIsEditingAccount] = useState(false);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
   return (
     <>
       <AccountEditModal
-        isOpen={isBeingEdited}
-        setIsOpen={setIsBeingEdited}
-        view={modalView}
+        isOpen={isEditingAccount}
+        setIsOpen={setIsEditingAccount}
       ></AccountEditModal>
       {isEditingPassword && (
         <PasswordEditModal onClose={() => setIsEditingPassword(false)} />
@@ -39,8 +37,7 @@ const CardCredentials: FC<{
           <StyledA
             onClick={e => {
               e.preventDefault();
-              setModalView('account');
-              setIsBeingEdited(true);
+              setIsEditingAccount(true);
             }}
           >
             bearbeiten?
