@@ -44,6 +44,10 @@ export const updatePassword = async ({
     throw new Error('Fehler beim Verifizieren des Benutzers');
   }
 
+  if (newPassword === oldPassword) {
+    throw new Error('Neues Passwort kann nicht das gleiche wie das alte sein');
+  }
+
   if (newPassword !== newPasswordConfirmation) {
     throw new Error('Passwörter stimmen nicht überein');
   }
