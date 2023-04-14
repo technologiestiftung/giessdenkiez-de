@@ -1,5 +1,5 @@
 import { useSession } from '@supabase/auth-helpers-react';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
   UserNotification,
   UserNotificationObjectType,
