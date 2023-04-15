@@ -67,7 +67,7 @@ jobs:
           node-version-file: '.nvmrc'
       - run: npm ci
       - id: semantic-release
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v3
         with:
           semantic_version: 18
         env:
