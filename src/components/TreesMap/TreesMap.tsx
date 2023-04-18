@@ -122,10 +122,15 @@ if (
   `);
 }
 
+const initialLatitude = +process.env.NEXT_PUBLIC_MAP_INITIAL_LATITUDE || 52.500869;
+const initialLongitude = +process.env.NEXT_PUBLIC_MAP_INITIAL_LONGITUDE || 13.419047;
+const initialZoom = +process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM || 11;
+const initialZoomMobile = +process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM_MOBILE || 13;
+
 const defaultViewport = {
-  latitude: 52.500869,
-  longitude: 13.419047,
-  zoom: isMobile ? 13 : 11,
+  latitude: initialLatitude,
+  longitude: initialLongitude,
+  zoom: isMobile ? initialZoomMobile : initialZoom,
   maxZoom: VIEWSTATE_ZOOMEDIN_ZOOM,
   minZoom: 11,
   pitch: isMobile ? 0 : 45,
