@@ -14,6 +14,10 @@ interface UpdateAccountReturnType {
   errorMessages: string[];
 }
 
+/**
+ * Updates the email (`users` table) and the username (`profiles` table)
+ * if the new values differ from the existing ones.
+ */
 export const updateAccount = async ({
   currentSession,
   newUsername,
