@@ -23,10 +23,11 @@ export const AccountEditModal: FC<AccountEditModalProps> = ({ onClose }) => {
           {successMessages.map(msg => {
             return <UserNotification key={msg} message={msg} type='success' />;
           })}
-
-          <ButtonRound width='fit-content' onClick={onClose}>
-            Schließen
-          </ButtonRound>
+          <div style={{ paddingTop: '40px' }}>
+            <ButtonRound width='fit-content' onClick={onClose}>
+              Schließen
+            </ButtonRound>
+          </div>
         </div>
       ) : (
         <AccountEditForm
