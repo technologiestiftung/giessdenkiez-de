@@ -1,18 +1,13 @@
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
-import React, { HTMLProps, useEffect, useState } from 'react';
+import { useSession } from '@supabase/auth-helpers-react';
+import React, { FC, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Database } from '../../../common/database';
-import { useUserData } from '../../../utils/hooks/useUserData';
 import { useUserProfile } from '../../../utils/hooks/useUserProfile';
 import ButtonRound from '../../ButtonRound';
-import {
-  createUserNotification,
-  UserNotification,
-  UserNotificationObjectType,
-} from '../../Notification';
+import { UserNotification } from '../../Notification';
 import ButtonSubmitRound from '../Buttons/ButtonSubmitRound';
 import { StyledFormTextInput } from '../Inputs';
 import { StyledLabel } from '../Labels';
+import { updateAccount } from '../../../utils/requests/updateAccount';
 
 // We contstrain the username to 20 characters
 // in the database we have 50. In case the username already exsists
@@ -20,6 +15,7 @@ import { StyledLabel } from '../Labels';
 // this happens only on signup. Here we check the database and warn the user
 const maxUsernameLength = 20;
 const minUsernameLength = 3;
+
 export const StyledFormTextInputExtended = styled(StyledFormTextInput)`
   padding: 10px;
 `;
@@ -42,30 +38,26 @@ export const StyledInputContainer = styled.div`
   width: 100%;
 `;
 
-interface AccountEditFormProps extends HTMLProps<HTMLElement> {
-  setIsOpen: (isOpen: boolean) => void;
-  isOpen: boolean;
+interface AccountEditFormProps {
+  onSuccess: (messages: string[]) => void;
+  onCancel: () => void;
 }
-export const AccountEditForm = ({
-  children,
-  setIsOpen,
-  isOpen,
+export const AccountEditForm: FC<AccountEditFormProps> = ({
+  onSuccess,
+  onCancel,
 }: AccountEditFormProps) => {
-  const supabase = useSupabaseClient<Database>();
   const session = useSession();
   const { userProfile: profile, refetch } = useUserProfile();
-  const { invalidate } = useUserData();
   const [isBeeingSaved, setIsBeeingSaved] = useState(false);
+  const [errorNotifications, setErrorNotifications] = useState<string[] | null>(
+    null
+  );
 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
   });
 
-  const [
-    notification,
-    setNotification,
-  ] = useState<UserNotificationObjectType | null>(null);
   useEffect(() => {
     if (session && profile) {
       setFormData({
@@ -76,18 +68,7 @@ export const AccountEditForm = ({
     if (!profile) {
       refetch();
     }
-  }, [session, profile, refetch, isOpen, notification]);
-
-  useEffect(() => {
-    if (!notification) {
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      setNotification(_ => null);
-    }, 5000);
-    return () => clearTimeout(timeout);
-  }, [notification]);
+  }, [session, profile, refetch]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -97,112 +78,27 @@ export const AccountEditForm = ({
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsBeeingSaved(true);
 
-    const updateUser = async () => {
-      if (formData.email !== session?.user?.email) {
-        const { data, error } = await supabase.auth.updateUser({
-          email: formData.email,
-        });
-        if (error) {
-          setNotification(prev =>
-            createUserNotification({
-              message: error.message,
-              type: 'error',
-            })
-          );
-          console.error(error);
-        }
-        if (data) {
-          setNotification(prev =>
-            createUserNotification({
-              message:
-                'E-Mail wurde geändert. Bitte bestätige die Änderung über den Link in der E-Mail, die wir dir geschickt haben.',
-              type: 'success',
-            })
-          );
-        }
-      }
+    const { successMessages, errorMessages } = await updateAccount({
+      currentSession: session,
+      newEmail: formData.email,
+      newUsername: formData.name,
+    });
 
-      //check if the user name is already in use
-      const { data: usernameData, error: usernameError } = await supabase
-        .from('profiles')
-        .select('username')
-        .eq('username', formData.name);
-
-      if (usernameError) {
-        setNotification(prev =>
-          createUserNotification({
-            message:
-              'Interner Fehler username. Bitte versuch es später erneut.',
-            type: 'error',
-          })
-        );
-        console.error(usernameError);
-        return;
-      }
-      if (usernameData && usernameData.length > 0) {
-        if (usernameData[0].username === formData.name) {
-          const notif = createUserNotification({
-            message: 'Dieser Benutzername ist bereits vergeben.',
-            type: 'error',
-          });
-          console.error('user name already in use', usernameData, notification);
-          setNotification(prev => notif);
-          return;
-        }
-      }
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('id,username')
-        .eq('id', session?.user?.id);
-
-      if (error) {
-        setNotification(prev =>
-          createUserNotification({
-            message: 'Interner Fehler. Bitte versuch es später erneut.',
-            type: 'error',
-          })
-        );
-        console.error(error);
-        return;
-      }
-      if (data && data.length > 0) {
-        if (data[0].username !== formData.name) {
-          const { data, error } = await supabase
-            .from('profiles')
-            .update({ username: formData.name })
-            .eq('id', session?.user?.id)
-            .select();
-          if (error) {
-            setNotification(prev =>
-              createUserNotification({
-                message:
-                  'Interner Fehler beim speichern des neuen Namens. Bitte versuch es später erneut.',
-                type: 'error',
-              })
-            );
-            console.error(error);
-            return;
-          }
-          if (data) {
-            invalidate();
-            refetch();
-            setNotification(prev =>
-              createUserNotification({
-                message: 'Benutzername geändert',
-                type: 'success',
-              })
-            );
-          }
-        }
-      }
-      setIsOpen(false);
-    };
-    updateUser().catch(console.error);
     setIsBeeingSaved(false);
+
+    if (errorMessages.length >= 1) {
+      setErrorNotifications(errorMessages);
+    }
+
+    if (errorMessages.length === 0 && successMessages.length >= 1) {
+      // Refetching necessary to update other parts of the UI with user details:
+      refetch();
+      onSuccess(successMessages);
+    }
   };
 
   return (
@@ -234,19 +130,18 @@ export const AccountEditForm = ({
             required
           />
         </StyledInputContainer>
-        {notification && <UserNotification {...notification} />}
-        {children}
+        {errorNotifications &&
+          errorNotifications.map(not => {
+            return <UserNotification key={not} message={not} type='error' />;
+          })}
       </StyledGrid>
       <StyledButtonsContainer>
         <ButtonRound
           key={`cancel-account-edit`}
           width='fit-content'
-          onClick={() => {
-            setIsOpen(false);
-            setNotification(prev => null);
-          }}
+          onClick={onCancel}
         >
-          Abbrechen
+          Schließen
         </ButtonRound>
         <ButtonSubmitRound
           key={`save-account-edit`}
