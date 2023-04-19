@@ -20,9 +20,13 @@ export const AccountEditModal: FC<AccountEditModalProps> = ({ onClose }) => {
             placeContent: 'space-between',
           }}
         >
-          {successMessages.map(msg => {
-            return <UserNotification key={msg} message={msg} type='success' />;
-          })}
+          <div style={{ display: 'grid', gap: '16px' }}>
+            {successMessages.map(msg => {
+              return (
+                <UserNotification key={msg} message={msg} type='success' />
+              );
+            })}
+          </div>
           <div style={{ paddingTop: '40px' }}>
             <ButtonRound width='fit-content' onClick={onClose}>
               Schließen
