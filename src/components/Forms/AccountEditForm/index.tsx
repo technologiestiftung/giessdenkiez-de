@@ -52,6 +52,9 @@ export const AccountEditForm: FC<AccountEditFormProps> = ({
   const [errorNotifications, setErrorNotifications] = useState<string[] | null>(
     null
   );
+  const [successNotifications, setSuccessNotifications] = useState<
+    string[] | null
+  >(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -92,6 +95,7 @@ export const AccountEditForm: FC<AccountEditFormProps> = ({
 
     if (errorMessages.length >= 1) {
       setErrorNotifications(errorMessages);
+      setSuccessNotifications(successMessages);
     }
 
     if (errorMessages.length === 0 && successMessages.length >= 1) {
@@ -130,9 +134,25 @@ export const AccountEditForm: FC<AccountEditFormProps> = ({
             required
           />
         </StyledInputContainer>
+        {successNotifications &&
+          successNotifications.map(successNotification => {
+            return (
+              <UserNotification
+                key={successNotification}
+                message={successNotification}
+                type='success'
+              />
+            );
+          })}
         {errorNotifications &&
-          errorNotifications.map(not => {
-            return <UserNotification key={not} message={not} type='error' />;
+          errorNotifications.map(errorNotification => {
+            return (
+              <UserNotification
+                key={errorNotification}
+                message={errorNotification}
+                type='error'
+              />
+            );
           })}
       </StyledGrid>
       <StyledButtonsContainer>
