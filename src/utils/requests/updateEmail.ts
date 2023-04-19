@@ -12,5 +12,5 @@ export const updateEmail = async (newEmail: string): Promise<string> => {
   });
   if (error) throw new Error('E-Mail konnte nicht gespeichert werden');
 
-  return 'E-Mail wurde geändert. Bitte bestätige die Änderung über den Link in der E-Mail, die wir dir geschickt haben.';
+  return 'E-Mail geändert. Bitte klicke die Links in den Mails an deine alte UND neue E-Mail-Adresse, um die Änderung zu bestätigen.';
 };
