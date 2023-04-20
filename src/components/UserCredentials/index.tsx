@@ -18,12 +18,14 @@ const CardCredentials: FC<{
 }> = ({ username, email }) => {
   const [isEditingAccount, setIsEditingAccount] = useState(false);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
+
   return (
     <>
-      <AccountEditModal
-        isOpen={isEditingAccount}
-        setIsOpen={setIsEditingAccount}
-      ></AccountEditModal>
+      {isEditingAccount && (
+        <AccountEditModal
+          onClose={() => setIsEditingAccount(false)}
+        ></AccountEditModal>
+      )}
       {isEditingPassword && (
         <PasswordEditModal onClose={() => setIsEditingPassword(false)} />
       )}

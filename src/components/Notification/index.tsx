@@ -29,7 +29,7 @@ const StyledDiv = styled.div<StyledMessageProps>`
   color: ${p => p.theme.colorTextDark};
   padding: 10px;
   border-radius: 5px;
-  margin: 10px 0;
+  margin: 0;
 `;
 
 export const UserNotification = ({
