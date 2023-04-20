@@ -23,8 +23,11 @@
 		"Fabian Morón Zirfas",
 		"Dennis Ostendrorf",
 		"Julia Zimmermann",
+    "Lisa Stubert",
 		"Lucas Vogel",
-		"Ingo Hinterding"
+		"Ingo Hinterding",
+    "Jens Winter",
+    "Rapahael Arce"
 	],
 	"license": "MIT",
 	"devDependencies": {
