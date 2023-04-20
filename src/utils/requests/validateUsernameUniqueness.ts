@@ -15,7 +15,7 @@ export const isUsernameUnique = async (
     .eq('username', username);
 
   if (error || !data) {
-    console.error(error);
+    console.error(error || 'Failed to validate username uniqueness');
     return;
   }
 
