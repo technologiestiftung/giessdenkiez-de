@@ -13,15 +13,13 @@ import {
   UserNotificationObjectType,
 } from '../src/components/Notification';
 
-import { SignOut } from '../src/components/Sidebar/SidebarAuth/SignOut';
-import SidebarTitle from '../src/components/Sidebar/SidebarTitle';
-import Router from 'next/router';
-import SmallParagraph from '../src/components/SmallParagraph';
-import Link from 'next/link';
 import { PasswordRecoveryForm } from '../src/components/Forms/PasswordRecoveryForm';
+import { useRouter } from 'next/router';
+
 export type AuthView = 'signin' | 'signup' | 'recovery' | 'confirm';
 
 const AuthPage: Page = () => {
+  const { replace: routerReplace, push: routerPush } = useRouter();
   const supabase = useSupabaseClient();
   const session = useSession();
   const { isLoading } = useSessionContext();
@@ -29,6 +27,10 @@ const AuthPage: Page = () => {
     false
   );
   const [view, setView] = useState<AuthView>('signin');
+
+  useEffect(() => {
+    if (session) routerReplace('/profile');
+  }, [session, routerReplace]);
 
   const [
     currentNotification,
@@ -41,6 +43,7 @@ const AuthPage: Page = () => {
     }, 5000);
     return () => clearTimeout(timer);
   }, [currentNotification]);
+
   useEffect(() => {
     const {
       data: { subscription: authListener },
@@ -70,7 +73,7 @@ const AuthPage: Page = () => {
           }}
           additionalSubmitHandler={() => {
             setShowPasswordRecoveryScreen(false);
-            Router.push('/profile');
+            routerPush('/profile');
           }}
         />
         <StyledFlexContainer>
@@ -94,27 +97,12 @@ const AuthPage: Page = () => {
         flexDirection: 'column',
       }}
     >
-      {!session ? (
-        <SidebarAuth
-          isLoading={isLoading}
-          view={view}
-          setView={setView}
-          setNotification={setCurrentNotification}
-        />
-      ) : (
-        <>
-          <SidebarTitle>{'Auth'}</SidebarTitle>
-          <SmallParagraph>
-            Ups. Du solltest hier gar nicht sein. Wie wäre es mit deinem{' '}
-            <Link href={'/profile'}>Profil?</Link>
-          </SmallParagraph>
-          <StyledFlexContainer>
-            <StyledFormRow>
-              <SignOut setView={setView} />
-            </StyledFormRow>
-          </StyledFlexContainer>
-        </>
-      )}
+      <SidebarAuth
+        isLoading={isLoading}
+        view={view}
+        setView={setView}
+        setNotification={setCurrentNotification}
+      />
       <StyledFlexContainer>
         <StyledFormRow>
           {currentNotification && (
