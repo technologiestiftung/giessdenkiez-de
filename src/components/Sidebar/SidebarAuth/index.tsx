@@ -163,7 +163,7 @@ export const SidebarAuth = ({
 
   const recovery = async (email: string) => {
     let { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth`,
+      redirectTo: process.env.NEXT_PUBLIC_RECOVERY_AUTH_REDIRECT_URL,
     });
     if (error) {
       setNotification({
@@ -190,6 +190,7 @@ export const SidebarAuth = ({
           handleInputChange={handleInputChange}
           handleSubmit={handleSignInSubmit}
           buttonText='Einloggen'
+          isSignIn={true}
         />
       );
       linkText = (
@@ -208,6 +209,7 @@ export const SidebarAuth = ({
           handleInputChange={handleInputChange}
           handleSubmit={handleSignUpSubmit}
           buttonText='Registrieren'
+          isSignIn={false}
         />
       );
       linkText = (
@@ -254,7 +256,7 @@ export const SidebarAuth = ({
       <SidebarTitle>{titles[view]}</SidebarTitle>
       {form}
       <div>
-        <p>{linkText}</p>
+        {linkText}
         {view !== 'recovery' && (
           <CredentialsSubline
             text={' Oh nein. Du hast dein '}
