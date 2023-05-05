@@ -20,6 +20,9 @@ env:
   NEXT_PUBLIC_MAP_INITIAL_ZOOM: 11
   NEXT_PUBLIC_MAP_INITIAL_ZOOM_MOBILE: 13
   
+  NEXT_PUBLIC_RAIN_DATA_URL: https://tsb-trees.s3.eu-central-1.amazonaws.com/weather_light.geojson.gz
+  NEXT_PUBLIC_BASE_URL: http://localhost:3000
+  NEXT_TELEMETRY_DISABLED: '1'
   NODE_ENV: test
 
 on:
