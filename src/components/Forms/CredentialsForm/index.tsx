@@ -4,6 +4,7 @@ import { CredentialsData } from '../../../common/interfaces';
 import ButtonSubmitRound from '../Buttons/ButtonSubmitRound';
 import { StyledFormTextInput } from '../Inputs';
 import { StyledLabel } from '../Labels';
+import { PasswordValidation } from '../PasswordValidation';
 
 export const CredentialsForm = ({
   formData,
@@ -11,14 +12,14 @@ export const CredentialsForm = ({
   handleSubmit,
   buttonText,
   isRecovery,
-  isReset,
+  isSignIn,
 }: {
   formData: CredentialsData;
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   buttonText: string;
   isRecovery?: boolean;
-  isReset?: boolean;
+  isSignIn?: boolean;
 }) => {
   return (
     <>
@@ -27,21 +28,19 @@ export const CredentialsForm = ({
           handleSubmit(e);
         }}
       >
-        {!isReset && (
-          <StyledFormRow>
-            <StyledLabel htmlFor='email'>
-              <>E-Mail</>
-            </StyledLabel>
-            <StyledFormTextInput
-              id='email'
-              type='email'
-              name='email'
-              required
-              onChange={handleInputChange}
-              value={formData.email}
-            ></StyledFormTextInput>
-          </StyledFormRow>
-        )}
+        <StyledFormRow>
+          <StyledLabel htmlFor='email'>
+            <>E-Mail</>
+          </StyledLabel>
+          <StyledFormTextInput
+            id='email'
+            type='email'
+            name='email'
+            required
+            onChange={handleInputChange}
+            value={formData.email}
+          ></StyledFormTextInput>
+        </StyledFormRow>
         {!isRecovery && (
           <StyledFormRow>
             <StyledLabel htmlFor='password'>
@@ -57,6 +56,7 @@ export const CredentialsForm = ({
               onChange={handleInputChange}
               value={formData.password}
             ></StyledFormTextInput>
+            {!isSignIn && (<PasswordValidation password={formData.password} />) }
           </StyledFormRow>
         )}
         <StyledFormRow>

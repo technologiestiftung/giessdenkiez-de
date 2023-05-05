@@ -36,7 +36,7 @@ export const PasswordValidation = ({ password }: { password: string }) => {
     <>
       <SmallParagraph>
         Dein Passwort sollte: Mindestens 8 Zeichen lang sein{' '}
-        <ValidorNot success={errors.length} />, Klein- und Großbuchstaben
+        <ValidorNot success={errors.length} />, Klein- und Großbuchstaben{' '}
         <ValidorNot success={errors.lowerCase && errors.upperCase} />,
         mindestens eines dieser Sonderzeichen <code>{specialCharacters}</code>{' '}
         <ValidorNot success={errors.specialChar} /> und Zahlen{' '}
