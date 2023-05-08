@@ -35,7 +35,15 @@ const StyledDiv = styled.div<StyledMessageProps>`
 export const UserNotification = ({
   message,
   type,
+  style,
 }: {
   message: string;
   type: UserNotificationType;
-}) => <StyledDiv type={type}>{message}</StyledDiv>;
+  style?: React.CSSProperties;
+}) => (
+  <StyledDiv type={type} style={style}>
+    {message}
+  </StyledDiv>
+);
+
+UserNotification.displayName = 'UserNotification';
