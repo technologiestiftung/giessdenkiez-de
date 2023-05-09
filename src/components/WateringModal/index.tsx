@@ -7,6 +7,7 @@ import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { Modal } from '../Modal';
 import { DatePickerDialog } from '../Forms/DatePickerDialog';
 import { subMonths, endOfDay } from 'date-fns';
+import { UserNotification } from '../Notification';
 
 const TwoColumnGrid = styled.div`
   width: 100%;
@@ -18,21 +19,14 @@ const TwoColumnGrid = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
 `;
-
 const ButtonsContainer = styled.div`
   margin-top: 48px;
   display: flex;
   justify-content: space-between;
 `;
-
-const StyledError = styled.p`
-  grid-column: 1 / 2;
-  color: ${p => p.theme.colorAlarm};
-  margin: 0;
-
-  @media (min-width: ${p => p.theme.screenWidthS}) {
-    grid-column: 1 / 3;
-  }
+const NotificationContainer = styled(ButtonsContainer)`
+  justify-content: center;
+  width: 100%;
 `;
 
 const SIX_MONTHS_AGO = subMonths(new Date(), 6);
@@ -112,9 +106,19 @@ export const WateringModal: FC<WateringModalProps> = ({
             />
           </div>
         </div>
-        {error && <StyledError>{error}</StyledError>}
         {children}
       </TwoColumnGrid>
+      <NotificationContainer>
+        {error && (
+          <UserNotification
+            message={error}
+            style={{
+              width: '100%',
+            }}
+            type='error'
+          />
+        )}
+      </NotificationContainer>
       <ButtonsContainer>
         <ButtonRound
           key={`cancel-watering`}
