@@ -24,19 +24,9 @@ const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const NotifictionContainer = styled(ButtonsContainer)`
+const NotificationContainer = styled(ButtonsContainer)`
   justify-content: center;
   width: 100%;
-`;
-
-const StyledError = styled.p`
-  grid-column: 1 / 2;
-  color: ${p => p.theme.colorAlarm};
-  margin: 0;
-
-  @media (min-width: ${p => p.theme.screenWidthS}) {
-    grid-column: 1 / 3;
-  }
 `;
 
 const SIX_MONTHS_AGO = subMonths(new Date(), 6);
@@ -118,7 +108,7 @@ export const WateringModal: FC<WateringModalProps> = ({
         </div>
         {children}
       </TwoColumnGrid>
-      <NotifictionContainer>
+      <NotificationContainer>
         {error && (
           <UserNotification
             message={error}
@@ -128,7 +118,7 @@ export const WateringModal: FC<WateringModalProps> = ({
             type='error'
           />
         )}
-      </NotifictionContainer>
+      </NotificationContainer>
       <ButtonsContainer>
         <ButtonRound
           key={`cancel-watering`}
