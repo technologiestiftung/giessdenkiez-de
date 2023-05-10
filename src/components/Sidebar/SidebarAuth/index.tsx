@@ -1,7 +1,4 @@
-import {
-  useSessionContext,
-  useSupabaseClient,
-} from '@supabase/auth-helpers-react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import React, { useState } from 'react';
 import { AuthView } from '../../../../pages/auth';
 import SidebarTitle from '../SidebarTitle';
@@ -11,6 +8,9 @@ import Router from 'next/router';
 import { CredentialsData } from '../../../common/interfaces';
 import { CredentialsForm } from '../../Forms/CredentialsForm';
 import { SidebarLoading } from '../SidebarLoading';
+import styled from 'styled-components';
+import Paragraph from '../../Paragraph';
+import { Quotes, quotesTag } from '../../Quotes';
 
 enum titles {
   signin = 'Anmelden',
@@ -19,6 +19,11 @@ enum titles {
   confirm = 'Account Bestätigen',
   change = 'Passwort ändern',
 }
+
+export const StyledSpacer = styled.div`
+  padding: 10px;
+  height: 1px;
+`;
 
 export const SidebarAuth = ({
   view,
@@ -56,7 +61,6 @@ export const SidebarAuth = ({
         type: 'error',
       });
     });
-    // clearFields();
   };
   const handleSignUpSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -67,7 +71,6 @@ export const SidebarAuth = ({
         type: 'error',
       });
     });
-    // clearFields();
   };
 
   const handleRecoverySubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -106,18 +109,19 @@ export const SidebarAuth = ({
           message: 'Benutzer bereits registriert',
           type: 'error',
         });
-        console.error('User already registered');
         setView('signin');
         return;
       }
       throw error;
     }
-    if (data.user) {
+    if (!data.user) {
       setNotification({
-        message:
-          'Überprüfe deine E-Mails nach einem Link um deinen Account zu bestätigen',
-        type: 'success',
+        message: `Eine E-Mail an "${email}" konnte nicht verschickt werden. Versuch es erneut`,
+        type: 'error',
       });
+      setView('signup');
+    }
+    if (data.user) {
       setView('confirm');
     }
   };
@@ -175,8 +179,7 @@ export const SidebarAuth = ({
     }
     if (data) {
       setNotification({
-        message:
-          'Überprüfe deine E-Mails nach einem Link um dein Passwort zu ändern',
+        message: `Überprüfe deine E-Mail ${quotesTag`${email}`} nach einem Link um dein Passwort zu ändern`,
         type: 'success',
       });
     }
@@ -241,10 +244,26 @@ export const SidebarAuth = ({
       );
       break;
     }
+    case 'confirm': {
+      form = (
+        <Paragraph>
+          Überprüfe dein E-Mail Postfach für <Quotes>{formData.email}</Quotes>{' '}
+          nach einer E-Mail von{' '}
+          <Quotes>{process.env.NEXT_PUBLIC_FROM_EMAIL}</Quotes> mit einem Link
+          um deinen Account zu bestätigen.
+        </Paragraph>
+      );
 
-    default:
-      form = null;
-      linkText = null;
+      linkText = (
+        <CredentialsSubline
+          text={
+            'Dir ist langweilig bis dahin? Dann lies etwas über Gieß den Kiez!'
+          }
+          aText={'Hier klicken'}
+          onClick={() => Router.push('/about')}
+        />
+      );
+    }
   }
 
   if (isLoading) {
@@ -257,12 +276,15 @@ export const SidebarAuth = ({
       {form}
       <div>
         {linkText}
-        {view !== 'recovery' && (
-          <CredentialsSubline
-            text={' Oh nein. Du hast dein '}
-            aText={'Passwort vergessen?'}
-            onClick={() => setView('recovery')}
-          />
+        {view !== 'recovery' && view !== 'confirm' && (
+          <>
+            <StyledSpacer />
+            <CredentialsSubline
+              text={' Oh nein. Du hast dein '}
+              aText={'Passwort vergessen?'}
+              onClick={() => setView('recovery')}
+            />
+          </>
         )}
       </div>
     </>

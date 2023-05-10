@@ -6,7 +6,10 @@ import {
   useSessionContext,
   useSupabaseClient,
 } from '@supabase/auth-helpers-react';
-import { SidebarAuth } from '../src/components/Sidebar/SidebarAuth';
+import {
+  SidebarAuth,
+  StyledSpacer,
+} from '../src/components/Sidebar/SidebarAuth';
 import { StyledFlexContainer, StyledFormRow } from '../src/components/Forms';
 import {
   UserNotification,
@@ -79,10 +82,13 @@ const AuthPage: Page = () => {
         <StyledFlexContainer>
           <StyledFormRow>
             {currentNotification && (
-              <UserNotification
-                type={currentNotification.type}
-                message={currentNotification.message}
-              />
+              <>
+                <StyledSpacer />{' '}
+                <UserNotification
+                  type={currentNotification.type}
+                  message={currentNotification.message}
+                />
+              </>
             )}
           </StyledFormRow>
         </StyledFlexContainer>
