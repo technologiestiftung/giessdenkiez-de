@@ -177,10 +177,10 @@ export const SidebarAuth = ({
 
       throw error;
     }
-    if (!data) {
+    if (data) {
       setNotification({
-        message: `Es gab einen Fehler beim erstellen deines Accounts mit der  E-Mail ${quotesTag`${formData.email}`}. Bitte versuche es erneut.`,
-        type: 'error',
+        message: `Überprüfe deine E-Mail ${quotesTag`${email}`} nach einem Link um dein Passwort zu ändern`,
+        type: 'success',
       });
     }
   };
