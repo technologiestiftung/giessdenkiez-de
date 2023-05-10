@@ -114,11 +114,14 @@ export const SidebarAuth = ({
       }
       throw error;
     }
-    if (data.user) {
+    if (!data.user) {
       setNotification({
-        message: `Eine E-Mail an "${email}" wurde verschickt`,
-        type: 'success',
+        message: `Eine E-Mail an "${email}" konnte nicht verschickt werden. Versuch es erneut`,
+        type: 'error',
       });
+      setView('signup');
+    }
+    if (data.user) {
       setView('confirm');
     }
   };
