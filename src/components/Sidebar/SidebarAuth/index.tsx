@@ -10,7 +10,7 @@ import { CredentialsForm } from '../../Forms/CredentialsForm';
 import { SidebarLoading } from '../SidebarLoading';
 import styled from 'styled-components';
 import Paragraph from '../../Paragraph';
-import { Quotes } from '../../Quotes';
+import { Quotes, quotesTag } from '../../Quotes';
 
 enum titles {
   signin = 'Anmelden',
@@ -61,7 +61,6 @@ export const SidebarAuth = ({
         type: 'error',
       });
     });
-    // clearFields();
   };
   const handleSignUpSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -72,7 +71,6 @@ export const SidebarAuth = ({
         type: 'error',
       });
     });
-    // clearFields();
   };
 
   const handleRecoverySubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -111,7 +109,6 @@ export const SidebarAuth = ({
           message: 'Benutzer bereits registriert',
           type: 'error',
         });
-        console.error('User already registered');
         setView('signin');
         return;
       }
@@ -177,11 +174,10 @@ export const SidebarAuth = ({
 
       throw error;
     }
-    if (data) {
+    if (!data) {
       setNotification({
-        message:
-          'Überprüfe deine E-Mails nach einem Link um dein Passwort zu ändern',
-        type: 'success',
+        message: `Es gab einen Fehler beim erstellen deines Accounts mit der  E-Mail ${quotesTag`${formData.email}`}. Bitte versuche es erneut.`,
+        type: 'error',
       });
     }
   };
@@ -248,7 +244,8 @@ export const SidebarAuth = ({
     case 'confirm': {
       form = (
         <Paragraph>
-          Überprüfe deine E-Mails Postfach nach einer E-Mail von{' '}
+          Überprüfe dein E-Mail Postfach für <Quotes>{formData.email}</Quotes>{' '}
+          nach einer E-Mail von{' '}
           <Quotes>{process.env.NEXT_PUBLIC_FROM_EMAIL}</Quotes> mit einem Link
           um deinen Account zu bestätigen.
         </Paragraph>
@@ -264,12 +261,6 @@ export const SidebarAuth = ({
         />
       );
     }
-
-    // default: {
-    //   console.log('default');
-    //   form = null;
-    //   linkText = null;
-    // }
   }
 
   if (isLoading) {
@@ -279,7 +270,6 @@ export const SidebarAuth = ({
   return (
     <>
       <SidebarTitle>{titles[view]}</SidebarTitle>
-      {console.log(form)}
       {form}
       <div>
         {linkText}
