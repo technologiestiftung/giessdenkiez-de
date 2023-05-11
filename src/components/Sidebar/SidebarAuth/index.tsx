@@ -179,7 +179,7 @@ export const SidebarAuth = ({
     }
     if (data) {
       setNotification({
-        message: `Überprüfe deine E-Mail ${quotesTag`${email}`} nach einem Link um dein Passwort zu ändern`,
+        message: `Überprüfe deine E-Mail „${email}” nach einem Link um dein Passwort zu ändern`,
         type: 'success',
       });
     }
