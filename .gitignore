@@ -131,3 +131,6 @@ docs/users-stats/token
 
 # Local Netlify folder
 .netlify
+
+# intellij
+.idea
