@@ -147,8 +147,8 @@ const content: Content = {
   whatsNew: {
     title: 'Gieß den Kiez Wartung:',
     description: [
-      'Zeit für den Frühjahrsputz! In den kommenden Tagen werden wir ein großes Update der Plattform vornehmen. Keine Angst - optisch verändert sich nichts. Der große Vorteil für euch Nutzer:innen ist jedoch, dass ihr nach der Migration eure E-Mail, euer Passwort und euren Benutzer:innen-Namen direkt in Gieß den Kiez ändern könnt.',
-      ' <strong>Damit uns niemand unterwegs verloren geht, müssen wir für ein paar Tage das registrieren neuer Accounts deaktivieren.</strong> Gießen könnt ihr weiterhin und all eure Gießleistungen bleiben natürlich erhalten. <br /><strong>Und zu guter Letzt - das neue Baumkataster für 2023 ist da! \\o/ Es sind circa 40.000 Bäume hinzugekommen. Viel Spaß beim Gießen!</strong>',
+      'Es ist Zeit für den Frühjahrsputz! In den kommenden Tagen werden wir ein großes Update an der Website vornehmen. Freut Euch über viele kleinere und größere Verbesserungen: Wir erleichtern die Übertragbarkeit von Giess den Kiez für andere Städte, ermöglichen Euch die Anpassung Eurer E-Mail Adresse oder des Passwortes und noch einiges mehr.',
+      '<strong>Achtung: Damit uns niemand unterwegs verloren geht, müssen wir die Registrierung neuer Accounts für einige Tage deaktivieren.</strong> Gießen könnt Ihr aber weiterhin und Eure bisherigen Gießungen bleiben natürlich erhalten.<br /><strong>Und zu guter Letzt - das neue Baumkataster für 2023 ist da! \\o/</strong> Es sind circa 40.000 Bäume hinzugekommen.<br/> Viel Spaß beim Gießen!',
       // `Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.`,
     ],
   },
