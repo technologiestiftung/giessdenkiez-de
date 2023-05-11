@@ -235,7 +235,6 @@ export interface Database {
         Row: {
           amount: number
           id: number
-          time: string | null
           timestamp: string
           tree_id: string
           username: string | null
@@ -244,7 +243,6 @@ export interface Database {
         Insert: {
           amount: number
           id?: number
-          time?: string | null
           timestamp: string
           tree_id: string
           username?: string | null
@@ -253,7 +251,6 @@ export interface Database {
         Update: {
           amount?: number
           id?: number
-          time?: string | null
           timestamp?: string
           tree_id?: string
           username?: string | null
@@ -279,6 +276,10 @@ export interface Database {
           adopted: number
           watered: number
         }[]
+      }
+      remove_account: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
       }
     }
     Enums: {
@@ -356,6 +357,7 @@ export interface Database {
           owner: string | null
           path_tokens: string[] | null
           updated_at: string | null
+          version: string | null
         }
         Insert: {
           bucket_id?: string | null
@@ -367,6 +369,7 @@ export interface Database {
           owner?: string | null
           path_tokens?: string[] | null
           updated_at?: string | null
+          version?: string | null
         }
         Update: {
           bucket_id?: string | null
@@ -378,6 +381,7 @@ export interface Database {
           owner?: string | null
           path_tokens?: string[] | null
           updated_at?: string | null
+          version?: string | null
         }
       }
     }
@@ -385,6 +389,15 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      can_insert_object: {
+        Args: {
+          bucketid: string
+          name: string
+          owner: string
+          metadata: Json
+        }
+        Returns: undefined
+      }
       extension: {
         Args: {
           name: string
