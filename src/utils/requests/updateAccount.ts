@@ -35,7 +35,10 @@ export const updateAccount = async ({
 
   if (newEmail !== currentSession.user.email) {
     try {
-      const emailSuccessMessage = await updateEmail(newEmail);
+      const emailSuccessMessage = await updateEmail({
+        oldEmail: currentSession.user.email,
+        newEmail,
+      });
       emailSuccessMessage && successMessages.push(emailSuccessMessage);
     } catch (error) {
       const errorMessage =
