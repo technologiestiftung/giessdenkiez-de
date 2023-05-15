@@ -21,11 +21,19 @@ export type UserNotificationObjectType = {
 export type UserNotificationType = 'success' | 'error';
 
 interface StyledMessageProps {
-  type: UserNotificationType;
+  type?: UserNotificationType;
 }
 const StyledDiv = styled.div<StyledMessageProps>`
-  background: ${p =>
-    p.type === 'success' ? p.theme.colorPrimary : p.theme.colorAlarm};
+  background: ${p => {
+    switch (p.type) {
+      case 'success':
+        return p.theme.colorPrimary;
+      case 'error':
+        return p.theme.colorAlarm;
+      default:
+        return undefined;
+    }
+  }};
   color: ${p => p.theme.colorTextDark};
   padding: 10px;
   border-radius: 5px;
@@ -47,3 +55,4 @@ export const UserNotification = ({
 );
 
 UserNotification.displayName = 'UserNotification';
+export const UserNotificationSpacer = () => <StyledDiv>&nbsp;</StyledDiv>;
