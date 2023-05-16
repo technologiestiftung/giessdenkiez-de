@@ -16,6 +16,8 @@ jobs:
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
       - name: Pumps data generate step
         id: pumps
         uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.4.0
@@ -34,7 +36,6 @@ jobs:
           message: 'Update ${{ steps.pumps.outputs.file }} via workflow'
         env:
           # This is necessary in order to push a commit to the repo
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
-        # Runs a set of commands using the runners shell
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Run a vercel build hook
         run: curl -X POST -d {} ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
