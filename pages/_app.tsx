@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { Page } from '../src/nextPage';
 import { Providers } from '../src/Providers';
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useMatomo } from '../src/utils/hooks/useMatomo';
 type PagePropsType = {
   treeId?: string | null;
 };
@@ -18,6 +19,7 @@ export default function MyApp({
   pageProps,
 }: AppPropsType): JSX.Element {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  useMatomo();
   const getLayout = Component.getLayout ?? (page => page);
   const Layout = Component.layout ?? (({ children }) => <>{children}</>);
   return (
