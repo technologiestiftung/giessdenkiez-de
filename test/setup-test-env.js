@@ -1,7 +1,6 @@
 import 'whatwg-fetch';
 import '@testing-library/jest-dom/extend-expect';
 import { server } from '../src/mocks/server';
-import webcrypto from '@trust/webcrypto';
 import ReactDOM from 'react-dom';
 
 // @ts-ignore
@@ -30,8 +29,6 @@ jest.mock('next/router', () => {
     }),
   };
 });
-
-window.crypto = webcrypto;
 
 beforeAll(() => {
   // Enable the mocking in tests.

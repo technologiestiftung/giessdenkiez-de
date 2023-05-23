@@ -1,7 +1,6 @@
-import { UserDataType } from '../../common/interfaces';
+import { OptionalUserDataType } from '../../common/interfaces';
 import { getTreesAdoptedByUser } from './getTreesAdoptedByUser';
 import { getUserWaterings } from './getUserWaterings';
-import { getUserInfo } from './getUserInfo';
 
 export const getUserData = async ({
   userId,
@@ -9,20 +8,14 @@ export const getUserData = async ({
 }: {
   userId: string;
   token: string;
-}): Promise<UserDataType | undefined> => {
+}): Promise<OptionalUserDataType | undefined> => {
   const res = await Promise.all([
-    getUserInfo({ userId, token }),
     getUserWaterings({ userId, token }),
     getTreesAdoptedByUser({ userId, token }),
   ]);
-  const [user, waterings, adoptedTrees] = res;
-  if (!user) return undefined;
+  const [waterings, adoptedTrees] = res;
 
   return {
-    id: userId,
-    email: user.email || '',
-    username: user.username || '',
-    isVerified: user.email_verified || false,
     waterings,
     adoptedTrees,
   };

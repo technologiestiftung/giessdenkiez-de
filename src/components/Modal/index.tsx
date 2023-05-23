@@ -15,7 +15,8 @@ const StyledTitle = styled(Dialog.Title)`
 `;
 
 const DialogContent = styled.div`
-  display: block;
+  display: grid;
+  grid-template-rows: auto 1fr;
   width: 440px;
   background-color: white;
   padding: 24px;
@@ -48,6 +49,7 @@ export const Modal: FC<ModalType> = ({
   isOpen = false,
   setIsOpen = () => undefined,
   children,
+  style: additionalStyle,
 }) => {
   return (
     <Dialog
@@ -64,9 +66,9 @@ export const Modal: FC<ModalType> = ({
     >
       <DialogWrapper>
         <StyledOverlay />
-        <DialogContent>
+        <DialogContent style={additionalStyle}>
           <StyledTitle>{title}</StyledTitle>
-          <div>{children}</div>
+          {children}
         </DialogContent>
       </DialogWrapper>
     </Dialog>

@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { useAuth0 } from '@auth0/auth0-react';
 import { useUserData } from '../../../utils/hooks/useUserData';
 
 import Paragraph from '../../Paragraph';
@@ -15,8 +14,9 @@ import SidebarTitle from '../SidebarTitle/';
 import { ParticipateButton } from '../../ParticipateButton';
 import { useAccountActions } from '../../../utils/hooks/useAccountActions';
 import { StyledComponentType, UserDataType } from '../../../common/interfaces';
+import { useSessionContext } from '@supabase/auth-helpers-react';
 import { SidebarLoading } from '../SidebarLoading';
-
+import { useUserProfile } from '../../../utils/hooks/useUserProfile';
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
 `;
@@ -41,13 +41,15 @@ Alle deine Benutzerdaten werden damit sofort gelöscht!`
 const SidebarProfile: FC<{
   isLoading?: boolean;
   userData?: UserDataType | undefined;
-}> = ({ userData: userDataProps, isLoading: isLoadingProps }) => {
+}> = ({ isLoading: isLoadingProps }) => {
   const { userData: userDataState } = useUserData();
+  const { userProfile } = useUserProfile();
   const { deleteAccount } = useAccountActions();
-  const { isLoading: isLoadingState, isAuthenticated } = useAuth0();
-  const userData = userDataProps || userDataState || false;
+  const userData = userDataState ?? false;
+  const { isLoading: isLoadingSupase, session } = useSessionContext();
+  const isAuthenticated = session?.user?.id ? true : false;
   const isLoadingAuthInfo = isAuthenticated && !userData;
-  const isLoading = isLoadingProps || isLoadingState || isLoadingAuthInfo;
+  const isLoading = isLoadingProps || isLoadingSupase || isLoadingAuthInfo;
 
   const handleDeleteClick = (): void => {
     if (!confirmAccountDeletion()) return;
@@ -57,7 +59,6 @@ const SidebarProfile: FC<{
   if (isLoading) {
     return <SidebarLoading title='Profil' />;
   }
-
   if (!userData) {
     return (
       <>
@@ -96,14 +97,17 @@ const SidebarProfile: FC<{
           <TreesList trees={userData.adoptedTrees} />
         )}
       </ExpandablePanel>
-      <UserCredentials email={userData.email} username={userData.username} />
+      <UserCredentials
+        email={userData.email}
+        username={userProfile?.username ?? ''}
+      />
       <br />
       <Login width='-webkit-fill-available' />
       <>
         <Paragraph>
           Möchtest du deinen Account löschen? Damit werden alle von dir
           generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein
-          Benutzer bei unserem Authentifizierungsdienst Auth0.com wird sofort
+          Benutzer bei unserem Authentifizierungsdienst Supabase.com wird sofort
           und unwiderruflich gelöscht.
         </Paragraph>
         <LastButtonRound
