@@ -6,7 +6,7 @@ import OverlayTitle from '../OverlayTitle/';
 import Icon from '../../Icons';
 import OverlayBeta from '../OverlayBeta/';
 import OverlayDescription from '../OverlayDescription/';
-import ButtonRound from '../../../components/ButtonRound/';
+import ButtonRound from '../../ButtonRound';
 import Login from '../../../components/Login/';
 
 import content from '../../../assets/content';

@@ -12,7 +12,7 @@ export const adoptTree = async ({
   token: string;
   userId: string;
 }): Promise<Tree> => {
-  const url = createAPIUrl(`/post/adopt`);
+  const url = createAPIUrl(`/v3/post/adopt`);
 
   await requests(url, {
     token,
@@ -23,7 +23,7 @@ export const adoptTree = async ({
   });
 
   const res = await requests<{ data: Tree[] }>(
-    createAPIUrl(`/get/byid?id=${id}`)
+    createAPIUrl(`/v3/get/byid?id=${id}`)
   );
   const tree = res.data[0];
 

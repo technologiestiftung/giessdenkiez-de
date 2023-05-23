@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { waterTree } from '../requests/waterTree';
 import { unwaterTree } from '../requests/unwaterTree';
-import { useAuth0Token } from './useAuth0Token';
 import { useCommunityData } from './useCommunityData';
 import { useTreeData } from './useTreeData';
 import { useUserData } from './useUserData';
+import { useSupabaseToken } from './useSupabaseToken';
 
 export const useWateringActions = (
   treeId: string | null | undefined
@@ -14,7 +14,7 @@ export const useWateringActions = (
   isBeingWatered: boolean;
   isBeingUnwatered: boolean;
 } => {
-  const token = useAuth0Token();
+  const token = useSupabaseToken();
   const { userData, invalidate: invalidateUserData } = useUserData();
   const { invalidate: invalidateCommunityData } = useCommunityData();
   const { invalidate: invalidateTreeData } = useTreeData(treeId);
