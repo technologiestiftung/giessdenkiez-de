@@ -3,6 +3,7 @@ import React, { FC, useState } from 'react';
 import {
   UserNotification,
   UserNotificationObjectType,
+  UserNotificationSpacer,
 } from '../../Notification';
 import ButtonRound from '../../ButtonRound';
 import ButtonSubmitRound from '../Buttons/ButtonSubmitRound';
@@ -116,7 +117,11 @@ export const PasswordEditForm: FC<PasswordEditFormProps> = ({
             value={formData.repeatPassword}
           ></StyledFormTextInput>
         </StyledInputContainer>
-        {notification && <UserNotification {...notification} />}
+        {notification ? (
+          <UserNotification {...notification} />
+        ) : (
+          <UserNotificationSpacer />
+        )}
       </StyledGrid>
       <StyledButtonsContainer>
         <ButtonRound
