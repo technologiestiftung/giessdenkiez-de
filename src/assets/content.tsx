@@ -145,10 +145,10 @@ const content: Content = {
   //     '<b>Gieß den Kiez Maintenance: </b><br> Nach dem Herbstputz ist uns aufgefallen, daß auch unser Datenbank etwas aufgeräumt werden muss. Daher werden wir am 29.11.2022 von 11:00 bis 16:00 Uhr die Plattform für Wartungsarbeiten abschalten. Wir bitten um euer Verständnis.',
   // },
   whatsNew: {
-    title: 'Gieß den Kiez Wartung:',
+    title: 'Gieß den Kiez Update:',
     description: [
-      'Es ist Zeit für den Frühjahrsputz! In den kommenden Tagen werden wir ein großes Update an der Website vornehmen. Freut Euch über viele kleinere und größere Verbesserungen: Wir erleichtern die Übertragbarkeit von Giess den Kiez für andere Städte, ermöglichen Euch die Anpassung Eurer E-Mail Adresse oder des Passwortes und noch einiges mehr.',
-      '<strong>Achtung: Damit uns niemand unterwegs verloren geht, müssen wir die Registrierung neuer Accounts für einige Tage deaktivieren.</strong> Gießen könnt Ihr aber weiterhin und Eure bisherigen Gießungen bleiben natürlich erhalten.<br /><strong>Und zu guter Letzt - das neue Baumkataster für 2023 ist da! \\o/</strong> Es sind circa 40.000 Bäume hinzugekommen.<br/> Viel Spaß beim Gießen!',
+      '<strong>Der Frühjahrsputz ist voll im Gange!</strong> In den letzten Tagen haben wir ein großes Update der Seite vorgenommen. Freut Euch über viele kleinere und größere Verbesserungen: Wir erleichtern die Übertragbarkeit von Giess den Kiez für andere Städte, ermöglichen Euch die Anpassung Eurer E-Mail Adresse oder des Passwortes und noch einiges mehr. Wir haben bereits all eure Accounts in unser neues System übertragen und beobachten ob Fehler auftauchen, die wir nicht vorhersehen konnten.',
+      'Für den Fall, dass irgendetwas schief geht, zögert nicht euch an uns zu wenden. Per Slack, per E-Mail oder auf GitHub.<br /><strong>Und zu guter Letzt - das neue Baumkataster für 2023 ist da! \\o/</strong> Es sind circa 40.000 Bäume hinzugekommen, die in den nächsten Tagen auch auf der Seite verfügbar sind!<br/> Viel Spaß beim Gießen!',
       // `Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.`,
     ],
   },
