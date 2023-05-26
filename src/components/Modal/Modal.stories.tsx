@@ -20,4 +20,10 @@ Default.args = {
   children: <p>I am modal content</p>,
 };
 
+export const Account = Template.bind({});
+Account.args = {
+  title: 'Account bearbeiten',
+  isOpen: true,
+  children: <p>I am modal content</p>,
+};
 export default config;

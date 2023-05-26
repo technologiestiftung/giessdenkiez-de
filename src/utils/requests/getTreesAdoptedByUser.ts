@@ -10,7 +10,7 @@ export const getTreesAdoptedByUser = async ({
   userId: string;
   token: string;
 }): Promise<Tree[]> => {
-  const urlAdoptedTreesIds = createAPIUrl(`/get/adopted?uuid=${userId}`);
+  const urlAdoptedTreesIds = createAPIUrl(`/v3/get/adopted?uuid=${userId}`);
   const res = await requests<{ data: string[] }>(urlAdoptedTreesIds, { token });
   if (!res?.data || res.data.length === 0) return [];
   const trees = await getTreesByIds(res.data);

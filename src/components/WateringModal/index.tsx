@@ -1,12 +1,13 @@
-import React, { FC, useState } from 'react';
+import React, { FC, HTMLProps, useState } from 'react';
 import ButtonRound from '../ButtonRound';
-import { NumberInput } from '../NumberInput';
+import { NumberInput } from '../Forms/Inputs/NumberInput';
 import styled from 'styled-components';
 import { useWateringActions } from '../../utils/hooks/useWateringActions';
 import { useCurrentTreeId } from '../../utils/hooks/useCurrentTreeId';
 import { Modal } from '../Modal';
-import { DatePickerDialog } from '../DatePickerDialog';
+import { DatePickerDialog } from '../Forms/DatePickerDialog';
 import { subMonths, endOfDay } from 'date-fns';
+import { UserNotification } from '../Notification';
 
 const TwoColumnGrid = styled.div`
   width: 100%;
@@ -18,30 +19,28 @@ const TwoColumnGrid = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
 `;
-
 const ButtonsContainer = styled.div`
   margin-top: 48px;
   display: flex;
   justify-content: space-between;
 `;
-
-const StyledError = styled.p`
-  grid-column: 1 / 2;
-  color: ${p => p.theme.colorAlarm};
-  margin: 0;
-
-  @media (min-width: ${p => p.theme.screenWidthS}) {
-    grid-column: 1 / 3;
-  }
+const NotificationContainer = styled(ButtonsContainer)`
+  justify-content: center;
+  width: 100%;
 `;
 
 const SIX_MONTHS_AGO = subMonths(new Date(), 6);
 const END_OF_TODAY = endOfDay(new Date());
 
-export const WateringModal: FC<{
+export interface WateringModalProps extends HTMLProps<HTMLElement> {
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
-}> = ({ isOpen = false, setIsOpen = () => undefined, children }) => {
+}
+export const WateringModal: FC<WateringModalProps> = ({
+  isOpen = false,
+  setIsOpen = () => undefined,
+  children,
+}) => {
   const treeId = useCurrentTreeId();
   const { waterTree, isBeingWatered } = useWateringActions(treeId);
 
@@ -107,9 +106,19 @@ export const WateringModal: FC<{
             />
           </div>
         </div>
-        {error && <StyledError>{error}</StyledError>}
         {children}
       </TwoColumnGrid>
+      <NotificationContainer>
+        {error && (
+          <UserNotification
+            message={error}
+            style={{
+              width: '100%',
+            }}
+            type='error'
+          />
+        )}
+      </NotificationContainer>
       <ButtonsContainer>
         <ButtonRound
           key={`cancel-watering`}

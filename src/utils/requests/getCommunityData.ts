@@ -15,7 +15,7 @@ type WateredAndAdoptedResponseType = RawRequestResponse<
 >;
 
 export const getCommunityData = async (): Promise<CommunityDataType> => {
-  const fetchWateredAndAdoptedUrl = createAPIUrl(`/get/wateredandadopted`);
+  const fetchWateredAndAdoptedUrl = createAPIUrl(`/v3/get/wateredandadopted`);
 
   const wateredAndAdopted = await requests<WateredAndAdoptedResponseType>(
     fetchWateredAndAdoptedUrl
