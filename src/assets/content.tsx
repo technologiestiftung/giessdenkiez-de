@@ -154,7 +154,7 @@ const content: Content = {
   },
   loading: {
     snippets: [
-      'Wir laden gerade 801.195 Bäume aus dem Berliner Baumbestand.',
+      'Wir laden gerade  839.049 Bäume aus dem Berliner Baumbestand.',
       'Wenn du diese Seite über das Mobilfunknetz aufrufst, kann es etwas dauern.',
       'Sammle Informationen aller Bäume aus Berlins Baumkataster.',
       'Schon gewusst? Ein Stadtbaum benötigt etwa 70l Wasser in der Woche.',
