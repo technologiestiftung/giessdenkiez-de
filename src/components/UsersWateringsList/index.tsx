@@ -43,7 +43,7 @@ const DeleteButton = styled.button`
   }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.li`
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -94,11 +94,13 @@ const DeleteConfirmButton = styled.button`
   }
 `;
 
-const WrapperOuter = styled.div`
+const WrapperOuter = styled.ol`
   padding-top: 5px;
   width: 100%;
   display: flex;
   flex-direction: column;
+  padding-left: 0;
+  padding-ottom: 0;
 `;
 
 const FlexRow = styled.div`
@@ -156,7 +158,7 @@ const WateringRow: FC<WateringRowPropTypes> = ({
   const { userData } = useUserData();
   const [isDeleting, setIsDeleting] = useState(false);
   const [hasClickedDelete, setHasClickedDelete] = useState(false);
-  const elRef = useClickOutside<HTMLDivElement>(() => setIsDeleting(false));
+  const elRef = useClickOutside<HTMLLIElement>(() => setIsDeleting(false));
   const { unwaterTree } = useWateringActions(treeId);
 
   const escListener = useCallback((e: KeyboardEvent) => {
@@ -204,7 +206,8 @@ const WateringRow: FC<WateringRowPropTypes> = ({
             >
               <Image
                 src={iconTrashcan}
-                alt='Trashcan icon'
+                alt=''
+                aria-hidden
                 width={13}
                 height={15}
               />
@@ -212,7 +215,7 @@ const WateringRow: FC<WateringRowPropTypes> = ({
           )}
         </FlexRow>
         <SmallParagraph>{`${amount}l`}</SmallParagraph>
-        <StyledIcon src={iconDrop} alt='Water drop icon' />
+        <StyledIcon src={iconDrop} aria-hidden />
       </SlideContainer>
     </Wrapper>
   );
@@ -223,11 +226,16 @@ const UsersWateringsList: FC<{
   treeId: string;
 }> = ({ waterings, treeId }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const surpassedMaxItems = waterings.length > MAX_ITEMS;
-  const listItems = isExpanded ? waterings : waterings.slice(0, MAX_ITEMS);
+  const orderedWaterings = waterings.sort((a, b) => {
+    return Date.parse(b.timestamp) - Date.parse(a.timestamp);
+  });
+  const surpassedMaxItems = orderedWaterings.length > MAX_ITEMS;
+  const listItems = isExpanded
+    ? orderedWaterings
+    : orderedWaterings.slice(0, MAX_ITEMS);
 
   return (
-    <WrapperOuter>
+    <WrapperOuter aria-label='Letzte Bewässerungen (neueste zuerst)'>
       {listItems.map(d => (
         <WateringRow key={d.id} {...d} treeId={treeId} />
       ))}
@@ -236,8 +244,8 @@ const UsersWateringsList: FC<{
           {isExpanded
             ? 'Weniger anzeigen'
             : `${
-                waterings.length - MAX_ITEMS
-              } zusätzliche Bewässerungen anzeigen`}
+                orderedWaterings.length - MAX_ITEMS
+              } weitere Bewässerungen anzeigen`}
         </ToggleExpansionLink>
       )}
     </WrapperOuter>
