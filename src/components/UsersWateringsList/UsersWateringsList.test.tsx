@@ -1,8 +1,9 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import UsersWateringsList from '.';
 import { WateringType } from '../../common/interfaces';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { formatUnixTimestamp } from '../../utils/formatUnixTimestamp';
 
 const queryClient = new QueryClient();
 
@@ -27,7 +28,7 @@ jest.mock('../../utils/hooks/useUserData', () => {
       },
       error: null,
       invalidate: () => undefined,
-    })
+    }),
   };
 });
 
@@ -80,13 +81,54 @@ describe('component UsersWateringsList', () => {
     const titles = document.getElementsByTagName('h3');
     expect(titles).toHaveLength(8);
   });
+  test('should show the most recent watering at the top and the oldest at the bottom', () => {
+    const EARLIEST_TIMESTAMP = '2023-06-03T09:45:12+00:00';
+    const MIDDLE_TIMESTAMP = '2023-06-09T18:05:44+00:00';
+    const LATEST_TIMESTAMP = '2023-06-12T12:21:34+00:00';
+    const waterings: WateringType[] = [
+      {
+        username: 'x',
+        treeId: 'x',
+        id: 2,
+        amount: 10,
+        timestamp: MIDDLE_TIMESTAMP,
+      },
+      {
+        username: 'x',
+        treeId: 'x',
+        id: 1,
+        amount: 10,
+        timestamp: EARLIEST_TIMESTAMP,
+      },
+      {
+        username: 'x',
+        treeId: 'x',
+        id: 3,
+        amount: 10,
+        timestamp: LATEST_TIMESTAMP,
+      },
+    ];
+    render(<Component waterings={waterings} />);
+
+    const wateringsList = screen.getByRole('list', {
+      name: 'Letzte Bewässerungen (neueste zuerst)',
+    });
+    expect(wateringsList).toBeInTheDocument();
+
+    const wateringListItems = within(wateringsList).getAllByRole('listitem');
+
+    expect(wateringListItems[0]).toContainHTML(
+      formatUnixTimestamp(LATEST_TIMESTAMP)
+    );
+    expect(wateringListItems[wateringListItems.length - 1]).toContainHTML(
+      formatUnixTimestamp(EARLIEST_TIMESTAMP)
+    );
+  });
   test('should expand on click and render all the waterings', () => {
     const waterings = createTestWaterings(50);
     render(<Component waterings={waterings} />);
 
-    const showMoreButton = screen.getByText(
-      /zusätzliche Bewässerungen anzeigen/i
-    );
+    const showMoreButton = screen.getByText(/weitere Bewässerungen anzeigen/i);
 
     fireEvent.click(showMoreButton);
 
