@@ -128,9 +128,7 @@ describe('component UsersWateringsList', () => {
     const waterings = createTestWaterings(50);
     render(<Component waterings={waterings} />);
 
-    const showMoreButton = screen.getByText(
-      /zusätzliche Bewässerungen anzeigen/i
-    );
+    const showMoreButton = screen.getByText(/weitere Bewässerungen anzeigen/i);
 
     fireEvent.click(showMoreButton);
 

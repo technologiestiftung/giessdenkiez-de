@@ -245,7 +245,7 @@ const UsersWateringsList: FC<{
             ? 'Weniger anzeigen'
             : `${
                 orderedWaterings.length - MAX_ITEMS
-              } zusätzliche Bewässerungen anzeigen`}
+              } weitere Bewässerungen anzeigen`}
         </ToggleExpansionLink>
       )}
     </WrapperOuter>
