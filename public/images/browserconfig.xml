@@ -3,6 +3,9 @@
     <msapplication>
         <tile>
             <square150x150logo src="/images/mstile-150x150.png"/>
+            <square70x70logo src="/images/mstile-70x70.png"/>
+			<wide310x150logo src="/images/mstile-310x150.png"/>
+			<square310x310logo src="/images/mstile-310x310.png"/>
             <TileColor>#00a300</TileColor>
         </tile>
     </msapplication>

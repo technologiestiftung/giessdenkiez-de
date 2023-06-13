@@ -40,7 +40,6 @@ export const MapLayout: FC<{ treeId?: string | null }> = ({
           href='/images/safari-pinned-tab.svg'
           color='#5bbad5'
         />
-        <link rel='shortcut icon' href='/images/favicon.ico' />
         <meta name='msapplication-TileColor' content='#da532c' />
         <meta name='msapplication-config' content='/images/browserconfig.xml' />
         <meta name='theme-color' content='#ffffff' />
