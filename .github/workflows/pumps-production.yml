@@ -1,4 +1,4 @@
-name: Update Pumps in Supabase Storage (development)
+name: Update Pumps in Supabase Storage (production)
 
 on:
   workflow_dispatch: {}
@@ -8,7 +8,7 @@ on:
 
 jobs:
   collect_pumps:
-    environment: development
+    environment: production
     runs-on: ubuntu-latest
     name: A job to aggregate pumps data from open street maps and push to GDK Supabase
     steps:
