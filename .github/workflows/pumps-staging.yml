@@ -5,7 +5,7 @@ on:
     branches: [staging]
   schedule:
     - cron: '0 4 * * 0'
-  workflow_dispatch: // Enables this Action to be triggered manually
+  workflow_dispatch:
 
 jobs:
   collect_pumps:
