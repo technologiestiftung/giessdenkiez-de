@@ -3,9 +3,7 @@ name: Update Pumps in Supabase Storage (development)
 on:
   push:
     branches: [feat/fetch-pumpen-from-supabase]
-  workflow_dispatch: {}
-  repository_dispatch:
-    types: [pumps_cron]
+  workflow_dispatch:
   schedule:
     - cron: '0 4 * * 0'
 
