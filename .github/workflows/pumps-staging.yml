@@ -1,0 +1,56 @@
+name: Update Pumps in Supabase Storage (development)
+
+on:
+  push:
+    branches: [feat/fetch-pumpen-from-supabase]
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [pumps_cron]
+  schedule:
+    - cron: '0 4 * * 0'
+
+jobs:
+  collect_pumps:
+    environment: development
+    runs-on: ubuntu-latest
+    name: A job to aggregate pumps data from open street maps and push to GDK Supabase
+    steps:
+      - name: Pumps data generate step
+        id: pumps
+        uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.4.0
+        with:
+          outfile-path: 'public/data/pumps.geojson'
+      - name: File output
+        run: echo "The file was written to ${{ steps.pumps.outputs.file }}"
+      - name: Upload file to supabase
+        run: |
+          getStatusCode=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X GET \
+            ${{ vars.SUPABASE_URL }}/storage/v1/object/info/public/${{ vars.SUPABASE_DATA_ASSETS_BUCKET }}/pumps.geojson)
+          if [ "$getStatusCode" = "200" ]; then
+            putStatusCode=$(curl -s -o /dev/null -w "%{http_code}" \
+              -X PUT \
+              -H "Authorization: Bearer ${{ secrets.SUPABASE_ACCESS_TOKEN }}" \
+              -H "Content-Type: application/geo+json" \
+              -d "@${{ steps.pumps.outputs.file }}" \
+              ${{ vars.SUPABASE_URL }}/storage/v1/object/${{ vars.SUPABASE_DATA_ASSETS_BUCKET }}/pumps.geojson)
+            if [ "$putStatusCode" = "200" ]; then
+              echo "Uploading to Supabase successful"
+            else
+              echo "Uploading to Supabase failed"
+              exit 1
+            fi
+          else
+            postStatusCode=$(curl -s -o /dev/null -w "%{http_code}" \
+              -X POST \
+              -H "Authorization: Bearer ${{ secrets.SUPABASE_ACCESS_TOKEN }}" \
+              -H "Content-Type: application/geo+json" \
+              -d "@${{ steps.pumps.outputs.file }}" \
+              ${{ vars.SUPABASE_URL }}/storage/v1/object/${{ vars.SUPABASE_DATA_ASSETS_BUCKET }}/pumps.geojson)
+            if [ "$postStatusCode" = "200" ]; then
+              echo "Uploading to Supabase successful"
+            else
+              echo "Uploading to Supabase failed"
+              exit 1
+            fi
+          fi
