@@ -3,7 +3,7 @@ name: Update Pumps in Supabase Storage (production)
 on:
   workflow_dispatch: {}
   repository_dispatch:
-    # This gets triggered by a Cronjob running on https://pipedream.com/ sending the pumps_cron type
+    # This action can be triggered via Github API webook (see https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch)
     types: [pumps_cron]
 
 jobs:
