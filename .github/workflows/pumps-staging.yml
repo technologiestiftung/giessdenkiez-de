@@ -1,11 +1,11 @@
 name: Update Pumps in Supabase Storage (development)
 
 on:
-  workflow_dispatch: // Enables this Action to be triggered manually
   push:
     branches: [staging]
   schedule:
     - cron: '0 4 * * 0'
+  workflow_dispatch: // Enables this Action to be triggered manually
 
 jobs:
   collect_pumps:
