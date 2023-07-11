@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Aggregate pumps data and push to Supabase
     steps:
+      - uses: actions/checkout@v3
+        name: Checkout
       - name: Aggregate pumps data and push to Supabase
         uses: ./github/.workflows/upload_pumps.yml
         id: pumps
