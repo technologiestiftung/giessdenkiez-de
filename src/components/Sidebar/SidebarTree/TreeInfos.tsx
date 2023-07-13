@@ -232,9 +232,7 @@ const TreeInfos: FC<{
               <div>
                 <BaselineGrid>
                   <span>{wateredCircle}</span>
-                  <SmallParagraph>
-                    Bewässerungen: {wateringsSum}l
-                  </SmallParagraph>
+                  <SmallParagraph>Gießungen: {wateringsSum}l</SmallParagraph>
                 </BaselineGrid>
               </div>
               <div>
