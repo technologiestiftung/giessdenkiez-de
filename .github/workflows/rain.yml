@@ -14,7 +14,7 @@ jobs:
     name: Aggregate rain data from DWD radolan
     steps:
       - name: Harvester
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v1.2.4
+        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.1.0
         id: harvester
         with:
           PG_SERVER: ${{ secrets.PG_SERVER }}
@@ -24,7 +24,7 @@ jobs:
           PG_DB: ${{ secrets.PG_DB }}
           SUPABASE_URL: ${{ vars.SUPABASE_URL }}
           SUPABASE_BUCKET_NAME: ${{ vars.SUPABASE_DATA_ASSETS_BUCKET }}
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           OUTPUT: 'True'
           LOGGING: 'INFO'
           MAPBOXUSERNAME: ${{ secrets.MAPBOXUSERNAME }}
