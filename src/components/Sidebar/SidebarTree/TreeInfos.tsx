@@ -162,7 +162,10 @@ const TreeInfos: FC<{
   }, [waterings]);
 
   const rainSum = useMemo(() => {
-    const last30Days = selectedTreeData.radolan_days.slice(-30);
+    // reverse because last element is most recent rain
+    const last30Days = selectedTreeData.radolan_days
+      .reverse()
+      .slice(-(30 * 24));
     return last30Days.reduce((sum, current) => sum + current, 0);
   }, [selectedTreeData.radolan_days]);
 
@@ -232,13 +235,15 @@ const TreeInfos: FC<{
               <div>
                 <BaselineGrid>
                   <span>{wateredCircle}</span>
-                  <SmallParagraph>Gießungen: {wateringsSum}l</SmallParagraph>
+                  <SmallParagraph>
+                    Gießungen: {wateringsSum.toFixed(1)}l
+                  </SmallParagraph>
                 </BaselineGrid>
               </div>
               <div>
                 <BaselineGrid>
                   <span>{rainCircle}</span>
-                  <SmallParagraph>Regen: {rainSum}l</SmallParagraph>
+                  <SmallParagraph>Regen: {rainSum.toFixed(1)}l</SmallParagraph>
                 </BaselineGrid>
               </div>
             </>
