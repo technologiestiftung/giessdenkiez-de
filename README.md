@@ -17,10 +17,7 @@ The consequences of climate change, especially the dry and hot summers, are putt
 This project is composed of multiple repositories:
 
 - [React frontend (this is here)](https://github.com/technologiestiftung/giessdenkiez-de)
-- [AWS RDS Provisioning](https://github.com/technologiestiftung/giessdenkiez-de-aws-rds-terraform)
-- [AWS S3 Provisioning](https://github.com/technologiestiftung/giessdenkiez-de-aws-s3-terraform)
 - [Database API](https://github.com/technologiestiftung/giessdenkiez-de-postgres-api)
-- [User Management API](https://github.com/technologiestiftung/tsb-trees-api-user-management)
 - [DWD Harvester](https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester)
 - [OSM Harvester](https://github.com/technologiestiftung/giessdenkiez-de-osm-pumpen-harvester)
 
