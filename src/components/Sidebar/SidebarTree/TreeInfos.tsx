@@ -22,7 +22,6 @@ import SmallParagraph from '../../SmallParagraph';
 import { useAdoptingActions } from '../../../utils/hooks/useAdoptingActions';
 import { useCommunityData } from '../../../utils/hooks/useCommunityData';
 import { rainCircle, wateredCircle } from '../../StackedBarChart/TooltipLegend';
-
 const { treetypes } = content.sidebar;
 
 const Wrapper = styled.div`
@@ -157,8 +156,16 @@ const TreeInfos: FC<{
   const barChartDate = currentDate < todayAt3pm ? todayAt3pm : currentDate;
 
   const wateringsSum = useMemo(() => {
-    if (!waterings || waterings.length > 0) return 0;
-    return waterings.reduce((sum, current) => sum + current.amount, 0);
+    if (!waterings) return 0;
+    const last30DaysWaterings = waterings.filter(w => {
+      const msPerDay = 86400000;
+      const elapsedMs = new Date().getTime() - Date.parse(w.timestamp);
+      return elapsedMs / msPerDay < 30;
+    });
+    return last30DaysWaterings.reduce(
+      (sum, current) => sum + current.amount,
+      0
+    );
   }, [waterings]);
 
   const rainSum = useMemo(() => {
