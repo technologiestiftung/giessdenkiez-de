@@ -171,7 +171,7 @@ const TreeInfos: FC<{
 
   const rainSum = useMemo(() => {
     // reverse because last element is most recent rain
-    const last30Days = selectedTreeData.radolan_days
+    const last30Days = [...selectedTreeData.radolan_days]
       .reverse()
       .slice(-(30 * 24));
     return last30Days.reduce((sum, current) => sum + current, 0);
