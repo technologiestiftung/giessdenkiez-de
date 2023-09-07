@@ -16,9 +16,8 @@ export const getOSMEditorURL = ({
     'https://raw.githubusercontent.com/technologiestiftung/MapComplete-ThemeHelper/024ef9134987e0ead34f261a6270d5572c4d31a4/OSM-Berlin-Themes/man_made-walter_well-status-checker/theme.json'
   );
 
-  if (zoom) {
-    params.set('z', `${zoom}`);
-  }
+  params.set('z', `${zoom ? zoom : 18}`);
+
   if (lat && lon) {
     params.set('lat', `${lat}`);
     params.set('lon', `${lon}`);
