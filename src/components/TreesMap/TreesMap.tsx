@@ -122,10 +122,13 @@ if (
   `);
 }
 
-const initialLatitude = +process.env.NEXT_PUBLIC_MAP_INITIAL_LATITUDE || 52.500869;
-const initialLongitude = +process.env.NEXT_PUBLIC_MAP_INITIAL_LONGITUDE || 13.419047;
+const initialLatitude =
+  +process.env.NEXT_PUBLIC_MAP_INITIAL_LATITUDE || 52.500869;
+const initialLongitude =
+  +process.env.NEXT_PUBLIC_MAP_INITIAL_LONGITUDE || 13.419047;
 const initialZoom = +process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM || 11;
-const initialZoomMobile = +process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM_MOBILE || 13;
+const initialZoomMobile =
+  +process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM_MOBILE || 13;
 
 const defaultViewport = {
   latitude: initialLatitude,
@@ -603,7 +606,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
               ? {
                   '': (
                     <StyledTextLink
-                      href={getOSMEditorURL(pumpInfo.id)}
+                      href={getOSMEditorURL({ nodeId: pumpInfo.id })}
                       target='_blank'
                       rel='noreferrer nofollow'
                     >
