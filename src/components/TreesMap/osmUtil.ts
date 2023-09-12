@@ -1,5 +1,5 @@
 export const getOSMEditorURL = (nodeId: number): string => {
-  const mapcompleteUrl = 'https://mapcomplete.osm.be/theme';
+  const mapcompleteUrl = 'https://mapcomplete.org/theme';
   const params = new URLSearchParams();
   params.set(
     'userlayout',
