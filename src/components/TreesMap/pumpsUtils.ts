@@ -2,6 +2,9 @@ export interface PumpEventInfoType {
   x: number;
   y: number;
   object?: {
+    geometry: {
+      coordinates: [number, number];
+    };
     properties?:
       | {
           id: number;
@@ -22,6 +25,8 @@ interface ParsedPumpInfoType {
   style: string;
   x: number;
   y: number;
+  lat: number;
+  lon: number;
 }
 
 export const pumpEventInfoToState = (
@@ -29,6 +34,8 @@ export const pumpEventInfoToState = (
 ): ParsedPumpInfoType | null => {
   if (info && info.object && info.object.properties) {
     return {
+      lat: info.object.geometry.coordinates[1],
+      lon: info.object.geometry.coordinates[0],
       id: info.object.properties.id,
       address: info.object.properties['addr:full'] || '',
       check_date: info.object.properties['check_date'] || '',
