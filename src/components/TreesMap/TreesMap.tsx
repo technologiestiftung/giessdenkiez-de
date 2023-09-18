@@ -97,8 +97,6 @@ interface PumpPropertiesType {
   status: string;
   check_date: string;
   style: string;
-  lat: number;
-  lon: number;
 }
 
 interface PumpTooltipType extends PumpPropertiesType {
@@ -610,8 +608,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
                     <StyledTextLink
                       href={getOSMEditorURL({
                         nodeId: pumpInfo.id,
-                        lat: pumpInfo.lat,
-                        lon: pumpInfo.lon,
                       })}
                       target='_blank'
                       rel='noreferrer nofollow'
