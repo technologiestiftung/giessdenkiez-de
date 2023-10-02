@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import NatureIcon from '@material-ui/icons/Nature';
+import NatureIcon from '@mui/icons-material/Nature';
 
 const StyledTreeButton = styled.div`
   font-size: 12px;
