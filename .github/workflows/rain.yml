@@ -16,7 +16,7 @@ jobs:
       - name: Harvester Staging
         if: ${{ github.event.client_payload.environment == 'development' }}
         uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.1.1-rc.1
-        id: harvester
+        id: harvester-staging
         with:
           PG_SERVER: ${{ secrets.PG_SERVER }}
           PG_PORT: ${{ secrets.PG_PORT }}
@@ -36,7 +36,7 @@ jobs:
       - name: Harvester Production
         if: ${{ github.event.client_payload.environment == 'production' }}
         uses: technologiestiftung/giessdenkiez-de-dwd-harvester@2.1.0
-        id: harvester
+        id: harvester-production
         with:
           PG_SERVER: ${{ secrets.PG_SERVER }}
           PG_PORT: ${{ secrets.PG_PORT }}
