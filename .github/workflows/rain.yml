@@ -35,7 +35,7 @@ jobs:
           SKIP_MAPBOX: 'False'
       - name: Harvester Production
         if: ${{ github.event.client_payload.environment == 'production' }}
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@2.1.0
+        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.1.0
         id: harvester-production
         with:
           PG_SERVER: ${{ secrets.PG_SERVER }}
