@@ -10,11 +10,13 @@ jobs:
   rain:
     # Using the payload of the repository_dispatch webhook to specify the environment
     environment: "${{ github.event.client_payload.environment }}"
+    env:
+      DWD_HARVESTER_VERSION: ${{ vars.DWD_HARVESTER_VERSION }}
     runs-on: ubuntu-latest
     name: Aggregate rain data from DWD radolan
     steps:
       - name: Harvester
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@${{ vars.DWD_HARVESTER_VERSION }}
+        uses: "technologiestiftung/giessdenkiez-de-dwd-harvester@$DWD_HARVESTER_VERSION"
         id: harvester
         with:
           PG_SERVER: ${{ secrets.PG_SERVER }}
