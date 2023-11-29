@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import Icon from '../../Icons';
 import { CollaborationItem } from '../../../assets/content';
 import SmallParagraph from '../../SmallParagraph';
+import { SlackButton } from '../../SlackButton';
 
 const StyledTileWrapper = styled.div`
   display: flex;
   align-items: flex-start;
-  justify-content: center;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     flex-direction: column;
@@ -38,6 +38,7 @@ const OverlayTile: FC<{ collaborationItem: CollaborationItem }> = ({
       <StyledContentWrapper>
         <StyledTileTitle>{collaborationItem.title}</StyledTileTitle>
         <SmallParagraph>{collaborationItem.description}</SmallParagraph>
+        {collaborationItem.showSlackButton && <SlackButton />}
       </StyledContentWrapper>
     </StyledTileWrapper>
   );

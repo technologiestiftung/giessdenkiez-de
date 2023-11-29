@@ -6,13 +6,10 @@ import { CollaborationItem } from '../../../assets/content';
 
 const Wrapper = styled.div`
   display: grid;
-  gap: 1rem;
+  column-gap: 1.5rem;
+  row-gap: 1rem;
   margin: 0 40px;
-  grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
-
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
 `;
 
 const OverlayTiles: FC<{ tiles: CollaborationItem[] }> = ({ tiles }) => {

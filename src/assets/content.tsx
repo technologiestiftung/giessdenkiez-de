@@ -11,6 +11,7 @@ export interface TreeType extends Item {
 type IconType = 'info' | 'zoom' | 'water' | 'subscribe';
 export interface CollaborationItem extends Item {
   icon: IconType;
+  showSlackButton?: boolean;
 }
 interface FAQ extends Item {
   qa: Array<{ question: string; answer: string }>;
@@ -25,7 +26,6 @@ interface Content {
   intro: {
     title: string;
     subline: string;
-    disclaimer: string;
     description: string[];
   };
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
@@ -46,8 +46,13 @@ interface Content {
     treetypes: TreeType[];
   };
   collaborate: {
-    title: string;
     tiles: CollaborationItem[];
+  };
+  sales: {
+    title: string;
+    subtitle?: string;
+    buttonText: string;
+    buttonLink: string;
   };
 }
 
@@ -131,12 +136,9 @@ const content: Content = {
   intro: {
     title: '<b>Gieß den <span>Kiez</span></b>',
     subline:
-      'Die Berliner Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
-    disclaimer:
-      'Hinweis: Das Laden von über 800.000 Bäumen ist ressourcenintensiv und funktioniert aktuell nicht auf allen Mobilgeräten einwandfrei. Wir empfehlen die Nutzung via Desktop-Computer',
+      'Die Berliner Stadtbäume leiden unter Trockenheit <br class="large" /> und du kannst ihnen helfen!',
     description: [
-      'Auf dieser Plattform kannst Du Dich über Bäume in Deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen.',
-      'Die Karte zeigt über 800.000 Stadtbäume, die Du ganz einfach, auch ohne Konto, erkunden kannst.<br/>Du möchtest Dich über das Gießen von Bäumen informieren, Pumpen melden und Dich mit anderen aktiven Nutzer:innen austauschen? Dann tritt unserem Slack-Chat bei!',
+      'Auf dieser Plattform kannst du dich über Bäume in deiner Nachbarschaft und ihren Wasserbedarf informieren, und vieles mehr:',
     ],
   },
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
@@ -144,14 +146,14 @@ const content: Content = {
   //   title:
   //     '<b>Gieß den Kiez Maintenance: </b><br> Nach dem Herbstputz ist uns aufgefallen, daß auch unser Datenbank etwas aufgeräumt werden muss. Daher werden wir am 29.11.2022 von 11:00 bis 16:00 Uhr die Plattform für Wartungsarbeiten abschalten. Wir bitten um euer Verständnis.',
   // },
-  whatsNew: {
-    title: 'Gieß den Kiez Update:',
-    description: [
-      '<strong>Der Frühjahrsputz ist voll im Gange!</strong> In den letzten Tagen haben wir ein großes Update an der Seite vorgenommen. Ihr könnt euch über viele kleine und große Verbesserungen freuen: Wir erleichtern die Übertragbarkeit von Giess den Kiez für andere Städte, ermöglichen Euch die Anpassung Eurer E-Mail-Adresse oder Eures Passwortes und noch einiges mehr. Wir haben bereits all eure Accounts in unser neues System übertragen und beobachten ob Fehler auftauchen, die wir nicht vorhersehen konnten.',
-      'Für den Fall, dass irgendetwas schief geht, zögert nicht euch an uns zu wenden. Per Slack, per E-Mail oder auf GitHub.<br /><strong>Und zu guter Letzt - das neue Baumkataster für 2023 ist da! \\o/</strong> Es sind circa 40.000 Bäume hinzugekommen, die in den nächsten Tagen auch auf der Seite verfügbar sind!<br/> Viel Spaß beim Gießen!',
-      // `Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.`,
-    ],
-  },
+  // whatsNew: {
+  //   title: 'Gieß den Kiez Update:',
+  //   description: [
+  //     '<strong>Der Frühjahrsputz ist voll im Gange!</strong> In den letzten Tagen haben wir ein großes Update an der Seite vorgenommen. Ihr könnt euch über viele kleine und große Verbesserungen freuen: Wir erleichtern die Übertragbarkeit von Giess den Kiez für andere Städte, ermöglichen Euch die Anpassung Eurer E-Mail-Adresse oder Eures Passwortes und noch einiges mehr. Wir haben bereits all eure Accounts in unser neues System übertragen und beobachten ob Fehler auftauchen, die wir nicht vorhersehen konnten.',
+  //     'Für den Fall, dass irgendetwas schief geht, zögert nicht euch an uns zu wenden. Per Slack, per E-Mail oder auf GitHub.<br /><strong>Und zu guter Letzt - das neue Baumkataster für 2023 ist da! \\o/</strong> Es sind circa 40.000 Bäume hinzugekommen, die in den nächsten Tagen auch auf der Seite verfügbar sind!<br/> Viel Spaß beim Gießen!',
+  //     // `Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.`,
+  //   ],
+  // },
   loading: {
     snippets: [
       'Wir laden gerade 839.049 Bäume aus dem Berliner Baumbestand.',
@@ -246,7 +248,6 @@ const content: Content = {
     ],
   },
   collaborate: {
-    title: '<b>Wie kann ich mitmachen?</b>',
     tiles: [
       {
         icon: 'water',
@@ -271,8 +272,15 @@ const content: Content = {
         title: 'Mit anderen austauschen',
         description:
           'Tritt unserem <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack-Chat</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.',
+        showSlackButton: true,
       },
     ],
+  },
+  sales: {
+    title: 'Gieß den Kiez auch bei dir im Kiez?',
+    subtitle: 'Wir setzen es für deine Stadt um!',
+    buttonText: 'Erfahre mehr!',
+    buttonLink: 'https://deine-stadt.giessdenkiez.de',
   },
 };
 
