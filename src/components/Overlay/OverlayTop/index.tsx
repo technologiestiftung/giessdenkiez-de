@@ -4,7 +4,6 @@ import { isMobile } from 'react-device-detect';
 
 import OverlayTitle from '../OverlayTitle/';
 import Icon from '../../Icons';
-import OverlayBeta from '../OverlayBeta/';
 import OverlayDescription from '../OverlayDescription/';
 import ButtonRound from '../../ButtonRound';
 import Login from '../../../components/Login/';
@@ -76,7 +75,6 @@ const OverlayTop: FC = () => {
       <Wrapper>
         <OverlayTitle size='xxl' title={title} />
         <Icon iconType='trees' />
-        <OverlayBeta />
       </Wrapper>
       <OverlayTitle size='xxl' title={subline} />
       {isMobile && <OverlayTitle size='medium' title={disclaimer} />}
