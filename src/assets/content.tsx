@@ -275,9 +275,10 @@ const content: Content = {
     ],
   },
   sales: {
-    title: 'Gieß den Kiez auch bei dir im Kiez?',
-    subtitle: 'Wir setzen es für deine Stadt um!',
-    buttonText: 'Erfahre mehr!',
+    title: 'Gieß den Kiez auch für deine Stadt?',
+    subtitle:
+      'Weitere Städte wie Leipzig haben sich bereits erfolgreich angeschlossen, du kannst die nächste sein!',
+    buttonText: 'Mehr erfahren',
     buttonLink: 'https://deine-stadt.giessdenkiez.de',
   },
 };

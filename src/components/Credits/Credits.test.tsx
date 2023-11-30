@@ -13,7 +13,9 @@ describe('component Credits', () => {
     );
     const citylabImage = screen.getByAltText(/Logo Citylab/i);
     expect(citylabImage).toBeInTheDocument();
-    expect(citylabImage.getAttribute('src')).toContain('citylab-logo.svg');
+    expect(citylabImage.getAttribute('src')).toContain(
+      'logo-citylab-berlin-outline.svg'
+    );
   });
   test('should render the Technologiestiftung logo', () => {
     render(
@@ -23,7 +25,9 @@ describe('component Credits', () => {
     );
     const tsbImage = screen.getByAltText(/Logo Technologiestiftung Berlin/i);
     expect(tsbImage).toBeInTheDocument();
-    expect(tsbImage.getAttribute('src')).toContain('tsb-logo-coloured.svg');
+    expect(tsbImage.getAttribute('src')).toContain(
+      'logo-technologiestiftung-berlin-de.svg'
+    );
   });
   test('should render the Berlin logo', () => {
     render(

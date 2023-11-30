@@ -7,6 +7,7 @@ import content from '../../../assets/content';
 import ExpandablePanel from '../../ExpandablePanel';
 import SmallParagraph from '../../SmallParagraph';
 import { SlackButton } from '../../SlackButton';
+import Credits from '../../Credits';
 
 const SidebarAbout: FC = () => {
   const { sidebar } = content;
@@ -33,8 +34,11 @@ const SidebarAbout: FC = () => {
           <SmallParagraph>{item.answer}</SmallParagraph>
         </ExpandablePanel>
       ))}
-      <SocialSharing />
+      <br />
       <OpenSourceNote />
+      <SocialSharing />
+      <hr style={{ marginBottom: '2rem', opacity: 0.1 }} />
+      <Credits />
     </>
   );
 };

@@ -8,7 +8,7 @@ const StyledBottom = styled.div`
   height: auto;
   border-top: 1px solid ${({ theme }) => theme.colorPrimaryHover};
   background: #f7fffa url('/images/city-skyline.svg') no-repeat right -40px bottom -2px;
-  background-size: 60% auto;
+  background-size: 50% auto;
   padding: 30px 40px;
   grid-area: sales;
 
@@ -32,6 +32,8 @@ const StyledContainer = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   gap: 16px;
+  max-width: 540px;
+  text-wrap: balance;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     display: flex;
@@ -47,6 +49,8 @@ const StyledSalesTitle = styled.h2`
   column-gap: 8px;
   row-gap: 4px;
   font-size: 1rem;
+  line-height: 1.4rem;
+  text-wrap: balance;
 
   strong {
     font-size: 1.25rem;
@@ -65,8 +69,20 @@ const StyledSalesButton = styled.a`
   text-underline-offset: 2px;
   font-size: 1rem;
   transition: color 0.2s ease-in-out;
+  display: inline-block;
+  align-self: flex-start;
+
   &:hover {
     color: ${({ theme }) => theme.colorPrimary};
+  }
+
+  &:focus {
+    outline: none;
+  }
+  &:focus-visible {
+    box-shadow: 0 0 0 4px ${({ theme }) => theme.colorPrimaryVeryLight},
+      0 0 0 6px ${({ theme }) => theme.colorPrimary};
+    border-radius: 1px;
   }
 `;
 

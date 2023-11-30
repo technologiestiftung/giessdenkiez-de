@@ -1,27 +1,49 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-const logoCitylab = '/images/citylab-logo.svg';
-const logoTSB = '/images/tsb-logo-coloured.svg';
-const logoBerlin = '/images/berlin.svg';
+const logoCitylab =
+  'https://logos.citylab-berlin.org/logo-citylab-berlin-outline.svg';
+const logoTSB =
+  'https://logos.citylab-berlin.org/logo-technologiestiftung-berlin-de.svg';
+const logoBerlin =
+  'https://logos.citylab-berlin.org/logo-senatskanzlei-buergermeister-horizontal.svg';
 
 const CreditsContainer = styled.div`
-  display: inline-grid;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(3, auto);
-  grid-template-rows: repeat(2, auto);
-  row-gap: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1.5rem;
   column-gap: 2rem;
 `;
 
+const LogoGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+`;
+
 const Label = styled.span`
-  font-size: ${p => p.theme.fontSizeL};
+  font-size: ${p => p.theme.fontSizeM};
   color: ${p => p.theme.colorTextLight};
   white-space: nowrap;
 `;
 
-const TSBLink = styled.a`
+const LogoLink = styled.a`
   width: fit-content;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 4px white, 0 0 0 6px ${p => p.theme.colorPrimary};
+    border-radius: 1px;
+  }
 `;
 
 const TSBLogo = styled.img`
@@ -39,24 +61,36 @@ const BerlinLogo = styled.img`
 const Credits: FC = () => {
   return (
     <CreditsContainer>
-      <Label>Ein Projekt der</Label>
-      <TSBLink
-        href='https://technologiestiftung-berlin.de'
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        <TSBLogo src={logoTSB} alt='Logo Technologiestiftung Berlin' />
-      </TSBLink>
-      <Label>Durchgeführt vom</Label>
-      <a
-        href='https://citylab-berlin.org'
-        rel='noopener noreferrer'
-        target='_blank'
-      >
-        <CityLABLogo src={logoCitylab} alt='Logo Citylab' />
-      </a>
-      <Label>Gefördert durch</Label>
-      <BerlinLogo src={logoBerlin} alt='Logo Berlin' />
+      <LogoGroup>
+        <Label>Ein Projekt der</Label>
+        <LogoLink
+          href='https://technologiestiftung-berlin.de'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <TSBLogo src={logoTSB} alt='Logo Technologiestiftung Berlin' />
+        </LogoLink>
+      </LogoGroup>
+      <LogoGroup>
+        <Label>Durchgeführt vom</Label>
+        <LogoLink
+          href='https://citylab-berlin.org'
+          rel='noopener noreferrer'
+          target='_blank'
+        >
+          <CityLABLogo src={logoCitylab} alt='Logo Citylab' />
+        </LogoLink>
+      </LogoGroup>
+      <LogoGroup>
+        <Label>Gefördert durch</Label>
+        <LogoLink
+          href='https://www.berlin.de/rbmskzl/'
+          rel='noopener noreferrer'
+          target='_blank'
+        >
+          <BerlinLogo src={logoBerlin} alt='Logo Berlin' />
+        </LogoLink>
+      </LogoGroup>
     </CreditsContainer>
   );
 };

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const SlackButtonLink = styled.a`
   --slackColor: #4a154b;
-  border-radius: 16px;
+  border-radius: 999px;
   background: white;
   color: var(--slackColor);
   display: inline-flex;

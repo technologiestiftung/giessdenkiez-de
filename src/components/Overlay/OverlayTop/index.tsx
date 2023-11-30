@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 
 import OverlayTitle from '../OverlayTitle/';
@@ -52,33 +52,39 @@ const StyledTop = styled.div`
 
 const StyledWrapper = styled.div`
   display: flex;
-  padding: 40px 40px 0px 40px;
-  margin-top: 40px;
+  padding: 20px 40px 0px 40px;
   cursor: pointer;
   justify-content: space-between;
-  align-items: end;
+  align-items: start;
   flex-wrap: wrap;
   column-gap: 16px;
   row-gap: 32px;
-  flex-direction: row-reverse;
+  flex-direction: row;
   position: relative;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     flex-direction: column;
     align-items: start;
   }
+`;
+
+const CreditsContainer = styled.div`
+  position: relative;
+  padding-top: 40px;
+  margin-top: 20px;
+  align-self: flex-end;
 
   &:before {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
+    right: -40px;
     width: 100%;
     height: 1px;
     background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.05) 0%,
-      rgba(0, 0, 0, 0) 90%
+      -90deg,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0) 100%
     );
   }
 `;
@@ -93,8 +99,16 @@ const StyledButtonWrapper = styled.div`
 const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
   const { intro, collaborate } = content;
-
   const { title, subline, description } = intro;
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        closeOverlay();
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+  }, [closeOverlay]);
 
   return (
     <StyledTop>
@@ -111,7 +125,6 @@ const OverlayTop: FC = () => {
       <OverlayTiles tiles={collaborate.tiles} />
       <StyledWrapper>
         <StyledButtonWrapper>
-          <SlackButton />
           <ButtonRound
             width='fit-content'
             onClick={() => {
@@ -123,7 +136,9 @@ const OverlayTop: FC = () => {
           </ButtonRound>
         </StyledButtonWrapper>
 
-        <Credits />
+        <CreditsContainer>
+          <Credits />
+        </CreditsContainer>
       </StyledWrapper>
       {whatsNew && (
         <StyledNewsSection aria-label='News und Updates'>

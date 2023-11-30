@@ -3,15 +3,8 @@ import styled from 'styled-components';
 import OverlayParagraph from '../OverlayParagraph';
 
 const Wrapper = styled.div`
-  display: grid;
-  gap: 1rem;
   margin: -10px 40px 24px;
-  grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
-
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-    gap: 0rem;
-    grid-template-columns: 1fr;
-  }
+  max-width: 56ch;
 `;
 
 const OverlayDescription: FC<{ content: string[] }> = ({ content }) => (

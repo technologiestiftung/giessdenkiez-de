@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import OverlayTop from './OverlayTop';
 import OverlayBottom from './OverlayBottom';
+import { useActions } from '../../state/unistore-hooks';
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -20,6 +21,19 @@ const StyledWrapper = styled.div`
     height: 100%;
     box-shadow: none;
   }
+`;
+
+const OverlayOverlay = styled.button`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: transparent;
+  z-index: 2;
+  cursor: pointer;
+  border: none;
+  outline: none;
 `;
 
 const StyledOverlayWrapper = styled.div`
@@ -53,15 +67,20 @@ const Wrapper = styled.div`
   }
 `;
 
-const Overlay: FC = () => (
-  <StyledOverlayWrapper>
-    <StyledWrapper>
-      <Wrapper>
-        <OverlayTop />
-        <OverlayBottom />
-      </Wrapper>
-    </StyledWrapper>
-  </StyledOverlayWrapper>
-);
+const Overlay: FC = () => {
+  const { closeOverlay } = useActions();
+
+  return (
+    <StyledOverlayWrapper>
+      <OverlayOverlay aria-hidden='true' onClick={closeOverlay} />
+      <StyledWrapper>
+        <Wrapper>
+          <OverlayTop />
+          <OverlayBottom />
+        </Wrapper>
+      </StyledWrapper>
+    </StyledOverlayWrapper>
+  );
+};
 
 export default Overlay;

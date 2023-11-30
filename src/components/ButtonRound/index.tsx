@@ -65,11 +65,16 @@ const StyledButton = styled.button<StyledButtonProps>`
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px
-      ${p => {
-        if (p.buttonType === 'primary') return p.theme.colorPrimary;
-        if (p.buttonType === 'secondary') return p.theme.colorTextDark;
-      }};
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px white,
+      0 0 0 4px
+        ${p => {
+          if (p.buttonType === 'primary') return p.theme.colorPrimary;
+          if (p.buttonType === 'cta') return p.theme.colorPrimary;
+          if (p.buttonType === 'secondary') return p.theme.colorTextDark;
+        }};
   }
 `;
 
