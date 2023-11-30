@@ -18,7 +18,7 @@ const SidebarAbout: FC = () => {
         <ExpandablePanel isExpanded title={item.title} key={item.title}>
           <SmallParagraph>{item.description}</SmallParagraph>
           {idx === 0 && (
-            <div style={{ paddingLeft: 16 }}>
+            <div>
               <br />
               <SlackButton />
             </div>

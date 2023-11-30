@@ -5,14 +5,12 @@ import Icon from '../../Icons';
 import { CollaborationItem } from '../../../assets/content';
 import SmallParagraph from '../../SmallParagraph';
 import { SlackButton } from '../../SlackButton';
+import Paragraph from '../../Paragraph';
 
 const StyledTileWrapper = styled.div`
   display: flex;
   align-items: flex-start;
-
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-    flex-direction: column;
-  }
+  flex-direction: column;
 `;
 
 const StyledContentWrapper = styled.div`
@@ -20,12 +18,13 @@ const StyledContentWrapper = styled.div`
   flex-direction: column;
   align-items: start;
   justify-content: center;
+  font-size: 1rem;
 `;
 
 const StyledTileTitle = styled.h2`
-  font-size: ${p => p.theme.fontSizeL};
+  font-size: 1rem;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   margin-top: 0px;
 `;
 
@@ -34,11 +33,10 @@ const OverlayTile: FC<{ collaborationItem: CollaborationItem }> = ({
 }) => {
   return (
     <StyledTileWrapper>
-      <Icon iconType={collaborationItem.icon} />
+      <Icon iconType={collaborationItem.icon} height={72} />
       <StyledContentWrapper>
         <StyledTileTitle>{collaborationItem.title}</StyledTileTitle>
-        <SmallParagraph>{collaborationItem.description}</SmallParagraph>
-        {collaborationItem.showSlackButton && <SlackButton />}
+        <Paragraph>{collaborationItem.description}</Paragraph>
       </StyledContentWrapper>
     </StyledTileWrapper>
   );

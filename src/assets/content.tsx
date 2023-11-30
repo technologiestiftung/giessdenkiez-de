@@ -11,7 +11,6 @@ export interface TreeType extends Item {
 type IconType = 'info' | 'zoom' | 'water' | 'subscribe';
 export interface CollaborationItem extends Item {
   icon: IconType;
-  showSlackButton?: boolean;
 }
 interface FAQ extends Item {
   qa: Array<{ question: string; answer: string }>;
@@ -251,28 +250,27 @@ const content: Content = {
     tiles: [
       {
         icon: 'water',
-        title: 'Bäume bewässern',
+        title: 'Bewässern',
         description:
           'Informiere Dich auf unserer Plattform, ob die Bäume in deiner Straße Wasser benötigen. Wenn ja, schnapp Dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst Du die Bewässerung hier ein.',
       },
       {
         icon: 'subscribe',
-        title: 'Bäume adoptieren',
+        title: 'Adoptieren',
         description:
           'Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst Du sie adoptieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.',
       },
       {
         icon: 'zoom',
-        title: 'Den Baumbestand erkunden',
+        title: 'Erkunden',
         description:
           'Unsere Karte ermöglicht es, mehr über einzelne Bäume und auch den gesamten Baumbestand zu erfahren. Nutze die Filter- und Suchfunktion, um mehr über die Bäume Berlins zu lernen.',
       },
       {
         icon: 'info',
-        title: 'Mit anderen austauschen',
+        title: 'Austauschen',
         description:
           'Tritt unserem <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack-Chat</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.',
-        showSlackButton: true,
       },
     ],
   },

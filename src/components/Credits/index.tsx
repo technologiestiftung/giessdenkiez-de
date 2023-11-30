@@ -6,25 +6,18 @@ const logoTSB = '/images/tsb-logo-coloured.svg';
 const logoBerlin = '/images/berlin.svg';
 
 const CreditsContainer = styled.div`
-  width: 150px;
-  height: auto;
-  flex-direction: column;
-  display: flex;
-  justify-content: end;
-  position: absolute;
-  top: 12px;
-  right: 12px;
-
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-    display: none;
-  }
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(2, auto);
+  row-gap: 0.8rem;
+  column-gap: 2rem;
 `;
 
 const Label = styled.span`
-  margin-top: 5px;
-  margin-bottom: 15px;
-  width: fit-content;
   font-size: ${p => p.theme.fontSizeL};
+  color: ${p => p.theme.colorTextLight};
+  white-space: nowrap;
 `;
 
 const TSBLink = styled.a`
@@ -32,33 +25,20 @@ const TSBLink = styled.a`
 `;
 
 const TSBLogo = styled.img`
-  width: 110px;
+  height: 30px;
 `;
 
 const CityLABLogo = styled.img`
-  width: 150px;
-  margin: 10px 0 5px 0;
-`;
-
-const FoerderlogoContainer = styled.div`
-  margin-top: 10px;
+  height: 30px;
 `;
 
 const BerlinLogo = styled.img`
-  width: 120px;
-  margin: 10px 0 5px 0;
+  height: 30px;
 `;
 
 const Credits: FC = () => {
   return (
     <CreditsContainer>
-      <a
-        href='https://citylab-berlin.org'
-        rel='noopener noreferrer'
-        target='_blank'
-      >
-        <CityLABLogo src={logoCitylab} alt='Logo Citylab' />
-      </a>
       <Label>Ein Projekt der</Label>
       <TSBLink
         href='https://technologiestiftung-berlin.de'
@@ -67,10 +47,16 @@ const Credits: FC = () => {
       >
         <TSBLogo src={logoTSB} alt='Logo Technologiestiftung Berlin' />
       </TSBLink>
-      <FoerderlogoContainer>
-        <Label>Gefördert durch</Label>
-        <BerlinLogo src={logoBerlin} alt='Logo Berlin' />
-      </FoerderlogoContainer>
+      <Label>Durchgeführt vom</Label>
+      <a
+        href='https://citylab-berlin.org'
+        rel='noopener noreferrer'
+        target='_blank'
+      >
+        <CityLABLogo src={logoCitylab} alt='Logo Citylab' />
+      </a>
+      <Label>Gefördert durch</Label>
+      <BerlinLogo src={logoBerlin} alt='Logo Berlin' />
     </CreditsContainer>
   );
 };

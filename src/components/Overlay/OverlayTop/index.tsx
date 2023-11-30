@@ -5,11 +5,13 @@ import OverlayTitle from '../OverlayTitle/';
 import Icon from '../../Icons';
 import OverlayDescription from '../OverlayDescription/';
 import ButtonRound from '../../ButtonRound';
+import Credits from '../../Credits';
 
 import content from '../../../assets/content';
 import { useActions } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
 import OverlayTiles from '../OverlayTiles';
+import { SlackButton } from '../../SlackButton';
 
 const { whatsNew } = content;
 
@@ -41,7 +43,6 @@ const Logo = styled.div`
 
 const StyledTop = styled.div`
   padding: 20px 0 40px 0;
-  overflow-y: auto;
   grid-area: intro;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
@@ -51,24 +52,42 @@ const StyledTop = styled.div`
 
 const StyledWrapper = styled.div`
   display: flex;
-  margin: 60px 40px 0px 24px;
+  padding: 40px 40px 0px 40px;
+  margin-top: 40px;
   cursor: pointer;
-  justify-content: flex-end;
-  align-items: start;
-  gap: 16px;
+  justify-content: space-between;
+  align-items: end;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  row-gap: 32px;
+  flex-direction: row-reverse;
+  position: relative;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     flex-direction: column;
+    align-items: start;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.05) 0%,
+      rgba(0, 0, 0, 0) 90%
+    );
   }
 `;
 
 const StyledButtonWrapper = styled.div`
   display: flex;
   gap: 16px;
-
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-    flex-direction: column;
-  }
+  align-items: center;
+  flex-wrap: wrap;
 `;
 
 const OverlayTop: FC = () => {
@@ -92,16 +111,19 @@ const OverlayTop: FC = () => {
       <OverlayTiles tiles={collaborate.tiles} />
       <StyledWrapper>
         <StyledButtonWrapper>
+          <SlackButton />
           <ButtonRound
             width='fit-content'
             onClick={() => {
               closeOverlay();
             }}
-            type='primary'
+            type='cta'
           >
             Los geht&apos;s
           </ButtonRound>
         </StyledButtonWrapper>
+
+        <Credits />
       </StyledWrapper>
       {whatsNew && (
         <StyledNewsSection aria-label='News und Updates'>

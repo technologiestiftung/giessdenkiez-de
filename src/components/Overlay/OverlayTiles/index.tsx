@@ -7,9 +7,17 @@ import { CollaborationItem } from '../../../assets/content';
 const Wrapper = styled.div`
   display: grid;
   column-gap: 1.5rem;
-  row-gap: 1rem;
+  row-gap: 2rem;
   margin: 0 40px;
-  grid-template-columns: repeat(auto-fill, minmax(12em, 1fr));
+  grid-template-columns: repeat(4, 1fr);
+
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: ${p => p.theme.screens.mobile}) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const OverlayTiles: FC<{ tiles: CollaborationItem[] }> = ({ tiles }) => {

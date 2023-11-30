@@ -7,9 +7,9 @@ const StyledBottom = styled.div`
   opacity: 1;
   height: auto;
   border-top: 1px solid ${({ theme }) => theme.colorPrimaryHover};
-  background: #f7fffa url('/images/city-skyline.svg') no-repeat right -40px bottom;
-  background-size: auto 100%;
-  padding: 24px 40px;
+  background: #f7fffa url('/images/city-skyline.svg') no-repeat right -40px bottom -2px;
+  background-size: 60% auto;
+  padding: 30px 40px;
   grid-area: sales;
 
   @media screen and (min-width: ${p =>
@@ -29,31 +29,31 @@ const StyledBottom = styled.div`
 
 const StyledContainer = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 16px;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     display: flex;
-    flex-direction: column;
     gap: 4px;
   }
 `;
 
 const StyledSalesTitle = styled.h2`
-  font-weight: 800;
-  font-size: 1rem;
   margin: 0;
   display: inline-flex;
   flex-wrap: wrap;
+  flex-direction: column;
   column-gap: 8px;
   row-gap: 4px;
+  font-size: 1rem;
 
+  strong {
+    font-size: 1.25rem;
+  }
   span {
     font-weight: 400;
-  }
-
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-    flex-direction: column;
+    font-size: 1rem;
   }
 `;
 

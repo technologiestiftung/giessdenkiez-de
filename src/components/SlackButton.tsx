@@ -17,7 +17,6 @@ const SlackButtonLink = styled.a`
   border: 1px solid rgba(0, 0, 0, 0.1);
   transition: color 200ms ease-out, background 200ms ease-out,
     border-color 200ms ease-out, box-shadow 200ms ease-out;
-  margin: 0.5rem 0 0 -14px;
 
   span {
     margin-top: 1px;
@@ -33,7 +32,7 @@ const SlackButtonLink = styled.a`
   }
 `;
 
-export const SlackButton: FC = ({ children = 'Community beitreten' }) => (
+export const SlackButton: FC = ({ children = 'Community' }) => (
   <SlackButtonLink
     href='https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ'
     target='_blank'

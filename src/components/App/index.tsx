@@ -73,14 +73,10 @@ const App: FC = ({ children }) => {
   return (
     <AppContainer>
       {!mapHasLoaded && <Loading />}
-      <Map
-        isNavOpened={isSidebarOpened}
-        showOverlay={showOverlay}
-      />
+      <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} />
       {showMapUI && children}
       {showOverlay && <Overlay />}
       {showMapUI && <Nav isNavOpened={!isHome} />}
-      <Credits />
       <Cookie />
       {showMapUI && <MapLayerLegend />}
       <ImprintAndPrivacyContainer>
