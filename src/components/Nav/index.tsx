@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import InfoIcon from '@material-ui/icons/InfoOutlined';
-import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
-import SearchIcon from '@material-ui/icons/Search';
+import InfoIcon from '@mui/icons-material/InfoOutlined';
+import AccountCircle from '@mui/icons-material/AccountCircleOutlined';
+import SearchIcon from '@mui/icons-material/Search';
 import SquareButton from '../SquareButton';
 import { useActions } from '../../state/unistore-hooks';
 import { useRouter } from 'next/router';
