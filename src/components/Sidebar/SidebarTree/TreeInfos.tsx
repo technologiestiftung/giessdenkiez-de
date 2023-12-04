@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import styled from 'styled-components';
 import { getWaterNeedByAge } from '../../../utils/getWaterNeedByAge';
 
@@ -21,6 +21,7 @@ import ButtonRound from '../../ButtonRound';
 import SmallParagraph from '../../SmallParagraph';
 import { useAdoptingActions } from '../../../utils/hooks/useAdoptingActions';
 import { useCommunityData } from '../../../utils/hooks/useCommunityData';
+import { rainCircle, wateredCircle } from '../../StackedBarChart/TooltipLegend';
 
 const { treetypes } = content.sidebar;
 
@@ -103,6 +104,13 @@ const ActionsWrapper = styled.div`
   padding-top: ${p => p.theme.spacingM};
 `;
 
+const BaselineGrid = styled.span`
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: baseline;
+  column-gap: 4px;
+`;
+
 const TreeInfos: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
@@ -147,6 +155,27 @@ const TreeInfos: FC<{
     We force the bar chart date to be 15:00 today, so that the new timestamped waterings (which are all at 15:00) will be displayed immediately. After 15:00 we can use the current time again.
   */
   const barChartDate = currentDate < todayAt3pm ? todayAt3pm : currentDate;
+
+  const wateringsSum = useMemo(() => {
+    if (!waterings) return 0;
+    const last30DaysWaterings = waterings.filter(w => {
+      const msPerDay = 86400000;
+      const elapsedMs = new Date().getTime() - Date.parse(w.timestamp);
+      return elapsedMs / msPerDay <= 30;
+    });
+    return last30DaysWaterings.reduce(
+      (sum, current) => sum + current.amount,
+      0
+    );
+  }, [waterings]);
+
+  const rainSum = useMemo(() => {
+    // reverse because last element is most recent rain
+    const last30Days = [...selectedTreeData.radolan_days]
+      .reverse()
+      .slice(-(30 * 24));
+    return last30Days.reduce((sum, current) => sum + current, 0);
+  }, [selectedTreeData.radolan_days]);
 
   return (
     <Wrapper>
@@ -211,6 +240,20 @@ const TreeInfos: FC<{
             <>
               <div>Wassermenge</div>
               <SmallParagraph>der letzten 30 Tage</SmallParagraph>
+              <div>
+                <BaselineGrid>
+                  <span>{wateredCircle}</span>
+                  <SmallParagraph>
+                    Gießungen: {wateringsSum.toFixed(1)}l
+                  </SmallParagraph>
+                </BaselineGrid>
+              </div>
+              <div>
+                <BaselineGrid>
+                  <span>{rainCircle}</span>
+                  <SmallParagraph>Regen: {rainSum.toFixed(1)}l</SmallParagraph>
+                </BaselineGrid>
+              </div>
             </>
           }
           isExpanded

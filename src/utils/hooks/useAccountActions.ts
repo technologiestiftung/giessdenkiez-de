@@ -1,27 +1,40 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import Router from 'next/router';
 import { deleteAccount } from '../requests/deleteAccount';
-import { useAuth0Token } from './useAuth0Token';
+import { useSupabaseToken } from './useSupabaseToken';
+import { useSupabaseUser } from './useSupabaseUser';
 
 export const useAccountActions = (): {
   logout: () => void;
   login: () => void;
   deleteAccount: () => Promise<void>;
 } => {
-  const { user, logout, loginWithRedirect } = useAuth0();
-  const token = useAuth0Token();
+  const user = useSupabaseUser();
+  const supabase = useSupabaseClient();
+  const token = useSupabaseToken();
 
   return {
-    logout: () => {
-      if (!user?.sub) return;
-      logout({ returnTo: window.location.origin });
+    logout: async () => {
+      if (!user?.id) return;
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error(error);
+        return;
+      }
+      Router.push('/');
     },
     login: () => {
-      loginWithRedirect({ ui_locales: 'de' });
+      Router.push('/auth');
     },
     deleteAccount: async () => {
-      if (!user?.sub || !token) return;
-      await deleteAccount({ token, userId: user.sub });
-      logout({ returnTo: window.location.origin });
+      if (!user?.id || !token) return;
+      await deleteAccount({ token });
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error(error);
+        return;
+      }
+      Router.push('/');
     },
   };
 };

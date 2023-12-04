@@ -1,9 +1,9 @@
 import { QueryFunction, useQuery, useQueryClient } from 'react-query';
 import { SelectedTreeType } from '../../common/interfaces';
-import { useAuth0 } from '@auth0/auth0-react';
 import { getTreeData } from '../requests/getTreeData';
 import { isTreeAdopted as isTreeAdoptedReq } from '../requests/isTreeAdopted';
-import { useAuth0Token } from './useAuth0Token';
+import { useSupabaseToken } from './useSupabaseToken';
+import { useSupabaseUser } from './useSupabaseUser';
 
 const loadTree: QueryFunction<SelectedTreeType | undefined> = async ({
   queryKey,
@@ -49,8 +49,8 @@ export const useTreeData = (
   invalidate: () => void;
 } => {
   const queryClient = useQueryClient();
-  const { user } = useAuth0();
-  const token = useAuth0Token();
+  const user = useSupabaseUser();
+  const token = useSupabaseToken();
 
   const treeDataParams = [`tree-${treeId}`, treeId];
   const { data: treeData, error } = useQuery<
@@ -61,7 +61,7 @@ export const useTreeData = (
     refetchOnWindowFocus: false,
   });
 
-  const isAdoptedParams = [`tree-${treeId}-adopted`, treeId, token, user?.sub];
+  const isAdoptedParams = [`tree-${treeId}-adopted`, treeId, token, user?.id];
   const { data: isAdopted, error: adoptedError } = useQuery<
     boolean | undefined,
     Error

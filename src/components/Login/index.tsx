@@ -3,19 +3,25 @@ import { useAccountActions } from '../../utils/hooks/useAccountActions';
 
 import { useUserData } from '../../utils/hooks/useUserData';
 
-import ButtonRound from '../ButtonRound/';
+import ButtonRound from '../ButtonRound';
+import Router from 'next/router';
 
 const Login: FC<{
   width?: string;
   noLogout?: boolean;
 }> = ({ width, noLogout }) => {
   const { userData } = useUserData();
-  const { login, logout } = useAccountActions();
+  const { logout } = useAccountActions();
 
   return (
     <>
       {!userData && (
-        <ButtonRound width={width} onClick={login}>
+        <ButtonRound
+          width={width}
+          onClick={() => {
+            Router.push('/auth');
+          }}
+        >
           Konto anlegen / Einloggen
         </ButtonRound>
       )}

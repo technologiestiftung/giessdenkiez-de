@@ -61,11 +61,11 @@ export function getProperty(
 export const handlers = [
   // Handles a POST /login request
 
-  rest.post(`${location}/login`, async (_req, res, ctx) => {
-    return res(ctx.status(201));
-  }),
+  // rest.post(`${location}/login`, async (_req, res, ctx) => {
+  //   return res(ctx.status(201));
+  // }),
 
-  rest.delete(`${location}/delete/:type`, (req, res, ctx) => {
+  rest.delete(`${location}/v3/delete/:type`, (req, res, ctx) => {
     // console.log('intercepting DELETE requests');
     const json: Payload = {};
     let body: Record<string, unknown> = {};
@@ -107,7 +107,7 @@ export const handlers = [
     }
     return res(ctx.status(201), ctx.json(json));
   }),
-  rest.post(`${location}/post/:type`, (req, res, ctx) => {
+  rest.post(`${location}/v3/post/:type`, (req, res, ctx) => {
     let json: Payload = {};
     let body: Record<string, unknown> = {};
     if (typeof req.body === 'string') {
@@ -201,7 +201,7 @@ export const handlers = [
     return res(ctx.status(200), ctx.json({ foo: 'bar' }));
   }),
 
-  rest.get(`${location}/get/:type`, async (req, res, ctx) => {
+  rest.get(`${location}/v3/get/:type`, async (req, res, ctx) => {
     let json: Payload = {};
 
     const { type } = req.params as Record<string, unknown>;

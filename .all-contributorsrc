@@ -1,0 +1,113 @@
+{
+  "files": ["README.md"],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "JensWinter",
+      "name": "Jens Winter-Hübenthal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6548550?v=4",
+      "profile": "https://github.com/JensWinter",
+      "contributions": ["code"]
+    },
+    {
+      "login": "ff6347",
+      "name": "Fabian Morón Zirfas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/315106?v=4",
+      "profile": "https://fabianmoronzirfas.me/",
+      "contributions": ["code"]
+    },
+    {
+      "login": "vogelino",
+      "name": "Lucas Vogel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2759340?v=4",
+      "profile": "https://github.com/vogelino",
+      "contributions": ["code"]
+    },
+    {
+      "login": "dnsos",
+      "name": "Dennis Ostendorf",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15640196?v=4",
+      "profile": "https://github.com/dnsos",
+      "contributions": ["code"]
+    },
+    {
+      "login": "fdnklg",
+      "name": "Fabian",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9034032?v=4",
+      "profile": "https://github.com/fdnklg",
+      "contributions": ["code"]
+    },
+    {
+      "login": "Jaszkowic",
+      "name": "Jonas Jaszkowic",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10830180?v=4",
+      "profile": "https://github.com/Jaszkowic",
+      "contributions": ["code"]
+    },
+    {
+      "login": "julizet",
+      "name": "Julia Zet",
+      "avatar_url": "https://avatars.githubusercontent.com/u/52455010?v=4",
+      "profile": "https://github.com/julizet",
+      "contributions": ["code"]
+    },
+    {
+      "login": "lucasoeth",
+      "name": "lucasoeth",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43838158?v=4",
+      "profile": "https://github.com/lucasoeth",
+      "contributions": ["code"]
+    },
+    {
+      "login": "raphael-arce",
+      "name": "Raphael.A",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8709861?v=4",
+      "profile": "https://github.com/raphael-arce",
+      "contributions": ["code"]
+    },
+    {
+      "login": "sebastian-meier",
+      "name": "Sebastian Meier",
+      "avatar_url": "https://avatars.githubusercontent.com/u/302789?v=4",
+      "profile": "http://www.sebastianmeier.eu/",
+      "contributions": ["code"]
+    },
+    {
+      "login": "bnjmnsbl",
+      "name": "Benjamin Seibel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11134234?v=4",
+      "profile": "https://github.com/bnjmnsbl",
+      "contributions": ["code"]
+    },
+    {
+      "login": "Lisa-Stubert",
+      "name": "Lisa-Stubert",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61182572?v=4",
+      "profile": "https://github.com/Lisa-Stubert",
+      "contributions": ["code"]
+    },
+    {
+      "login": "donni106",
+      "name": "Daniel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1942953?v=4",
+      "profile": "https://github.com/donni106",
+      "contributions": ["code"]
+    },
+    {
+      "login": "maximilianpalm",
+      "name": "Max",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11571655?v=4",
+      "profile": "https://github.com/maximilianpalm",
+      "contributions": ["code"]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "giessdenkiez-de",
+  "projectOwner": "technologiestiftung"
+}
+

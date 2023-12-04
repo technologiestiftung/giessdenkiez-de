@@ -40,8 +40,8 @@ export const getTreeData = async (
 ): Promise<{
   selectedTreeData: SelectedTreeType | undefined;
 }> => {
-  const urlSelectedTree = createAPIUrl(`/get/byid?id=${id}`);
-  const urlWaterings = createAPIUrl(`/get/lastwatered?id=${id}`);
+  const urlSelectedTree = createAPIUrl(`/v3/get/byid?id=${id}`);
+  const urlWaterings = createAPIUrl(`/v3/get/lastwatered?id=${id}`);
 
   const [resSelectedTree, resWaterings] = await Promise.all([
     requests<SelectedTreeResponseType>(urlSelectedTree),

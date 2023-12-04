@@ -8,7 +8,8 @@ import SidebarSearch from './SidebarSearch';
 import SidebarProfile from './SidebarProfile';
 import { treeData } from '../../assets/stories-data';
 import { useRouter } from 'next/router';
-
+import { SidebarAuth } from './SidebarAuth';
+import { PasswordResetForm } from './SidebarAuth/PasswordResetForm';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Sidebar',
@@ -102,6 +103,57 @@ ProfileLoggedInWithData.args = {
         waterings: [watering, watering],
         adoptedTrees: [treeData],
       }}
+    />
+  ),
+};
+
+export const AuthSignIn = Template.bind({});
+AuthSignIn.args = {
+  match: '/auth',
+
+  children: (
+    <SidebarAuth
+      view='signin'
+      setView={() => undefined}
+      setNotification={() => undefined}
+    />
+  ),
+};
+
+export const AuthSignUp = Template.bind({});
+AuthSignUp.args = {
+  match: '/auth',
+
+  children: (
+    <SidebarAuth
+      view='signup'
+      setView={() => undefined}
+      setNotification={() => undefined}
+    />
+  ),
+};
+
+export const AuthRecovery = Template.bind({});
+AuthRecovery.args = {
+  match: '/auth',
+
+  children: (
+    <SidebarAuth
+      view='recovery'
+      setView={() => undefined}
+      setNotification={() => undefined}
+    />
+  ),
+};
+
+export const AuthReset = Template.bind({});
+AuthReset.args = {
+  match: '/auth',
+  children: (
+    <PasswordResetForm
+      returnClickHandler={() => undefined}
+      additionalSubmitHandler={() => undefined}
+      setNotification={() => undefined}
     />
   ),
 };

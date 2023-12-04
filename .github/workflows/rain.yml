@@ -3,18 +3,18 @@ name: DWD Radolan Harvester
 on:
   workflow_dispatch: {}
   repository_dispatch:
+    # This action can be triggered via Github API webook (see https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch)
     types: [radolan_cron]
-  # schedule:
-  #   - cron: '30 5 * * *'
 
 jobs:
   rain:
-    environment: production
+    # Using the payload of the repository_dispatch webhook to specify the environment
+    environment: "${{ github.event.client_payload.environment }}"
     runs-on: ubuntu-latest
     name: Aggregate rain data from DWD radolan
     steps:
       - name: Harvester
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v1.2.3
+        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.1.2
         id: harvester
         with:
           PG_SERVER: ${{ secrets.PG_SERVER }}
@@ -22,12 +22,13 @@ jobs:
           PG_USER: ${{ secrets.PG_USER }}
           PG_PASS: ${{ secrets.PG_PASS }}
           PG_DB: ${{ secrets.PG_DB }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_BUCKET_NAME: ${{ vars.SUPABASE_DATA_ASSETS_BUCKET }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           OUTPUT: 'True'
           LOGGING: 'INFO'
           MAPBOXUSERNAME: ${{ secrets.MAPBOXUSERNAME }}
           MAPBOXTOKEN: ${{ secrets.MAPBOXTOKEN }}
           MAPBOXTILESET: ${{ secrets.MAPBOXTILESET }}
           MAPBOXLAYERNAME: ${{ secrets.MAPBOXLAYERNAME }}
+          SKIP_MAPBOX: 'False'
