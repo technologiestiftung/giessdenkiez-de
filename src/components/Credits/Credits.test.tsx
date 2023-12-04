@@ -37,7 +37,9 @@ describe('component Credits', () => {
     );
     const berlinImage = screen.getByAltText(/Logo Berlin/i);
     expect(berlinImage).toBeInTheDocument();
-    expect(berlinImage.getAttribute('src')).toContain('berlin.svg');
+    expect(berlinImage.getAttribute('src')).toContain(
+      'logo-senatskanzlei-buergermeister-horizontal.svg'
+    );
   });
   test('should render the "Ein Projekt der" label', () => {
     render(
