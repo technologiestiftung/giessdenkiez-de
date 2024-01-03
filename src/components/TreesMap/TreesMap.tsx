@@ -383,7 +383,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           'model-scale': [4, 4, 4],
           'model-translation': [0, 0, 1],
         },
-        minzoom: 17,
+        minzoom: 15,
       });
 
       map.current.moveLayer('trees', 'tree-model-layer');
