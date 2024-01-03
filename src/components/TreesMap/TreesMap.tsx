@@ -368,6 +368,24 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         },
       });
 
+      map.current.addLayer({
+        id: 'tree-model-layer',
+        //@ts-ignore
+        type: 'model',
+        source: 'trees',
+        'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
+        layout: {
+          //@ts-ignore
+          'model-id': 'tree-model',
+        },
+        paint: {
+          //@ts-ignore
+          'model-scale': [4, 4, 4],
+          'model-translation': [0, 0, 1],
+        },
+        minzoom: 17,
+      });
+
       map.current.moveLayer('trees', 'tree-model-layer');
 
       map.current.on('mousemove', 'trees', e => {

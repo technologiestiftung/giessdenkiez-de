@@ -105,12 +105,6 @@
     "composite": {
       "url": "mapbox://mapbox.mapbox-streets-v8",
       "type": "vector"
-    },
-    "3d-trees": {
-      "type": "vector",
-      "tiles": ["http://localhost:3000/tiles/{z}/{x}/{y}.pbf"],
-      "minzoom": 14,
-      "maxzoom": 14
     }
   },
   "sprite": "mapbox://sprites/technologiestiftung/ckke3kyr00w5w17mytksdr3ro/6rkkbogczoeewyit12gdnzd0j",
@@ -1646,19 +1640,6 @@
         ]
       },
       "source-layer": "road"
-    },
-    {
-      "id": "tree-model-layer",
-      "type": "model",
-      "source": "3d-trees",
-      "source-layer": "trees2024",
-      "layout": {
-        "model-id": "tree-model"
-      },
-      "paint": {
-        "model-scale": [5, 5, 5],
-        "model-translation": [0, 0, 1]
-      }
     },
     {
       "minzoom": 15,
