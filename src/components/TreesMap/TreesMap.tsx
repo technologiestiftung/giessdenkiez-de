@@ -31,6 +31,7 @@ import {
 import { useActions, useStoreState } from '../../state/unistore-hooks';
 import React from 'react';
 import Map from 'react-map-gl';
+import { getTreeModel } from './mapTreeModelUtil';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
@@ -376,7 +377,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
         layout: {
           //@ts-ignore
-          'model-id': 'tree-model',
+          'model-id': getTreeModel(),
         },
         paint: {
           //@ts-ignore
