@@ -4,7 +4,7 @@ import OverlayParagraph from '../OverlayParagraph';
 
 const Wrapper = styled.div`
   margin: -10px 40px 24px;
-  max-width: 56ch;
+  max-width: 64ch;
 `;
 
 const OverlayDescription: FC<{ content: string[] }> = ({ content }) => (
