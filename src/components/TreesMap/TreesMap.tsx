@@ -1,16 +1,17 @@
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
-import { Map as MapboxMap } from 'mapbox-gl';
+import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
 import {
-  FlyToInterpolator,
+  // FlyToInterpolator,
   GeolocateControl,
   MapRef,
   NavigationControl,
-  StaticMap,
+  Map as StaticMap,
   ViewportProps,
 } from 'react-map-gl';
+
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
-import DeckGL, { GeoJsonLayer, RGBAColor } from 'deck.gl';
+import DeckGL, { FlyToInterpolator, GeoJsonLayer, RGBAColor } from 'deck.gl';
 import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
 import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
 import { hexToRgb, interpolateColor } from '../../utils/colorUtil';
@@ -36,10 +37,11 @@ import {
   HIGH_WATER_NEED_NUM,
 } from '../../utils/getWaterNeedByAge';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
+import React from '@deck.gl/react';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
-
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY || '';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -172,6 +174,10 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   const { setMapHasLoaded } = useActions();
   const pumpInfo = clickedPump || hoveredPump;
   const mapHasLoaded = useStoreState('mapHasLoaded');
+
+  useEffect(() => {
+    console.log(process.env.NEXT_PUBLIC_MAPBOX_API_KEY);
+  }, []);
 
   useEffect(
     () => () => {
