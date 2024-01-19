@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
-
-import { Map } from '../TreesMap';
+import dynamic from 'next/dynamic';
+const Map = dynamic(() => import('../TreesMap'), { ssr: false });
+// import { Map } from '../TreesMap';
 import Nav from '../Nav';
 import MapLayerLegend from '../Legend/MapLayersLegend';
 import Cookie from '../Cookie';
@@ -9,7 +10,6 @@ import Overlay from '../Overlay';
 import Credits from '../Credits';
 import { MapAttributionImprintAndPrivacy } from '../ImprintAndPrivacy';
 import { useStoreState } from '../../state/unistore-hooks';
-
 import 'react-day-picker/dist/style.css';
 import Loading from '../Loading';
 import { useRouter } from 'next/router';
@@ -63,6 +63,9 @@ const App: FC = ({ children }) => {
   const isNavOpen = useStoreState('isNavOpen');
   const mapHasLoaded = useStoreState('mapHasLoaded');
 
+  useEffect(() => {
+    console.log(mapHasLoaded);
+  }, [mapHasLoaded]);
   const { pathname } = useRouter();
 
   const isHome = pathname === '/';
@@ -73,10 +76,7 @@ const App: FC = ({ children }) => {
   return (
     <AppContainer>
       {!mapHasLoaded && <Loading />}
-      <Map
-        isNavOpened={isSidebarOpened}
-        showOverlay={showOverlay}
-      />
+      <Map isNavOpened={isSidebarOpened} showOverlay={showOverlay} />
       {showMapUI && children}
       {showOverlay && <Overlay />}
       {showMapUI && <Nav isNavOpened={!isHome} />}
