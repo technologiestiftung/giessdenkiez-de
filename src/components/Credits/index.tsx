@@ -38,7 +38,7 @@ const Credits: FC = () => {
     <LogoContainer>
       <LabelLogoGroup>
         <Label>Ein Projekt der</Label>
-        <Logo src={logoTSB} alt='Logo TSB' />
+        <Logo src={logoTSB} alt='Logo Technologiestiftung Berlin' />
       </LabelLogoGroup>
       <LabelLogoGroup>
         <Label>Durchgeführt von</Label>
@@ -46,7 +46,7 @@ const Credits: FC = () => {
       </LabelLogoGroup>
       <LabelLogoGroup>
         <Label>Gefördert durch</Label>
-        <Logo src={logoBerlin} alt='Logo Citylab' />
+        <Logo src={logoBerlin} alt='Logo Berlin' />
       </LabelLogoGroup>
     </LogoContainer>
   );
