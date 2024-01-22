@@ -2,8 +2,8 @@ import { requests } from './requestUtil';
 describe('utility function requests', () => {
   test('should call fetch using the provided url and json map header', () => {
     vi.spyOn(global, 'fetch');
-    requests('blablabla');
-    expect(global.fetch).toHaveBeenLastCalledWith('blablabla', {
+    requests('http://some-url.com/');
+    expect(global.fetch).toHaveBeenLastCalledWith('http://some-url.com/', {
       headers: new Headers({
         'content-type': 'application/json',
       }),
@@ -11,9 +11,9 @@ describe('utility function requests', () => {
   });
   test('should call fetch using the provided bearer token', () => {
     vi.spyOn(global, 'fetch');
-    requests('hello', { token: 'gepetto' });
+    requests('http://some-url.com/', { token: 'gepetto' });
 
-    expect(global.fetch).toHaveBeenLastCalledWith('hello', {
+    expect(global.fetch).toHaveBeenLastCalledWith('http://some-url.com/', {
       headers: new Headers({
         'content-type': 'application/json',
         authorization: 'Bearer gepetto',
@@ -28,7 +28,9 @@ describe('utility function requests', () => {
         json: () => Promise.resolve({ that: { is: 'myresponse' } }),
       })
     );
-    const res = await requests<{ that: { is: string } }>('blablabla');
+    const res = await requests<{ that: { is: string } }>(
+      'http://some-url.com/'
+    );
     expect(res?.that?.is).toBe('myresponse');
   });
   test('should throw if the response is not ok', async () => {
@@ -39,7 +41,7 @@ describe('utility function requests', () => {
         text: () => Promise.resolve('Pinocchio! Che ho dico! Non e buono!'),
       })
     );
-    await expect(requests('blablabla')).rejects.toThrow(
+    await expect(requests('http://some-url.com/')).rejects.toThrow(
       'Pinocchio! Che ho dico! Non e buono!'
     );
   });
