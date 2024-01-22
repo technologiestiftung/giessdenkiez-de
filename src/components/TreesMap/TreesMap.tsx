@@ -2,16 +2,16 @@ import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
 import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
 import {
-  // FlyToInterpolator,
+  FlyToInterpolator,
   GeolocateControl,
   MapRef,
   NavigationControl,
-  Map as StaticMap,
+  StaticMap,
   ViewportProps,
 } from 'react-map-gl';
 
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
-import DeckGL, { FlyToInterpolator, GeoJsonLayer, RGBAColor } from 'deck.gl';
+import DeckGL, { GeoJsonLayer, RGBAColor } from 'deck.gl';
 import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
 import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
 import { hexToRgb, interpolateColor } from '../../utils/colorUtil';
