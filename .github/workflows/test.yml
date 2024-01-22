@@ -39,7 +39,7 @@ on:
       - 'public/**/*'
       - '.github/workflows/**/*'
       - 'package*.json'
-      - 'jest.config.js'
+      - 'vitest.config.ts'
       - 'tsconfig.json'
       - '.eslintrc.json'
       - 'next.config.js'

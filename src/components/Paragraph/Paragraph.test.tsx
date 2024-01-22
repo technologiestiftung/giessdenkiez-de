@@ -23,7 +23,7 @@ describe('component Paragraph', () => {
     expect(bellissimo).toBeInTheDocument();
   });
   test('should be clickable', () => {
-    const clickHandler = jest.fn();
+    const clickHandler = vi.fn();
     render(<Paragraph onClick={clickHandler}>Bello</Paragraph>);
     const test = screen.getByText(/Bello/i);
     fireEvent.click(test);
