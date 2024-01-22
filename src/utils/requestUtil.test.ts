@@ -4,19 +4,20 @@ describe('utility function requests', () => {
     vi.spyOn(global, 'fetch');
     requests('blablabla');
     expect(global.fetch).toHaveBeenLastCalledWith('blablabla', {
-      headers: { map: { 'content-type': 'application/json' } },
+      headers: new Headers({
+        'content-type': 'application/json',
+      }),
     });
   });
   test('should call fetch using the provided bearer token', () => {
     vi.spyOn(global, 'fetch');
     requests('hello', { token: 'gepetto' });
+
     expect(global.fetch).toHaveBeenLastCalledWith('hello', {
-      headers: {
-        map: {
-          authorization: 'Bearer gepetto',
-          'content-type': 'application/json',
-        },
-      },
+      headers: new Headers({
+        'content-type': 'application/json',
+        authorization: 'Bearer gepetto',
+      }),
     });
   });
   test('should return the response as json', async () => {
