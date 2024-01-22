@@ -4,6 +4,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'happy-dom',
-    setupFiles: ['test/setup-test-env.js', 'dotenv/config'],
+    setupFiles: ['test/vitest.setup.js', 'dotenv/config'],
   },
 });

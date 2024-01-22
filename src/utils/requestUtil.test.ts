@@ -9,6 +9,7 @@ describe('utility function requests', () => {
       }),
     });
   });
+
   test('should call fetch using the provided bearer token', () => {
     vi.spyOn(global, 'fetch');
     requests('http://some-url.com/', { token: 'gepetto' });
