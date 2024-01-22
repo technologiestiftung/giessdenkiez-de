@@ -14,17 +14,22 @@ export const unwaterTree: UnwaterTreeSignature = async ({
   userId,
   wateringId,
 }) => {
-  const urlUnwater = createAPIUrl(`/v3/delete/unwater`);
+  try {
+    const urlUnwater = createAPIUrl(`/v3/delete/unwater`);
 
-  await requests(urlUnwater, {
-    token,
-    override: {
-      method: 'DELETE',
-      body: JSON.stringify({
-        tree_id: id,
-        watering_id: wateringId,
-        uuid: userId,
-      }),
-    },
-  });
+    await requests(urlUnwater, {
+      token,
+      override: {
+        method: 'DELETE',
+        body: JSON.stringify({
+          tree_id: id,
+          watering_id: wateringId,
+          uuid: userId,
+        }),
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 };
