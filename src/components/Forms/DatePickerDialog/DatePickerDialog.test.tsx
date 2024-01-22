@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from '../../../assets/theme';
 import { render } from '../../../../test/test-utils';
 
-const onDateChange = jest.fn();
+const onDateChange = vi.fn();
 
 describe('component DatePickerDialog', () => {
   test('calls onDateChange when date is changed', () => {

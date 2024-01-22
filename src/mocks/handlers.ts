@@ -1,6 +1,6 @@
 // src/mocks/handlers.js
 
-import { rest } from 'msw';
+import { DefaultBodyType, http, HttpResponse, bypass } from 'msw';
 interface Payload {
   data?: Record<string, any> | Record<string, any>[] | boolean | string;
   message?: string;
@@ -65,79 +65,99 @@ export const handlers = [
   //   return res(ctx.status(201));
   // }),
 
-  rest.delete(`${location}/v3/delete/:type`, (req, res, ctx) => {
-    // console.log('intercepting DELETE requests');
-    const json: Payload = {};
-    let body: Record<string, unknown> = {};
-    if (typeof req.body === 'string') {
-      body = JSON.parse(req.body) as Record<string, unknown>;
-    } else {
-      body = req.body ? req.body : {};
-    }
-    const { type } = req.params;
-    if (!type) {
-      return res(ctx.status(400), ctx.json({ message: 'type is undefined' }));
-    }
-    if (typeof type !== 'string') {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: 'type is not a string' })
-      );
-    }
+  http.delete(
+    `${location}/v3/delete/:type`,
+    async ({ request: req, params }) => {
+      // console.log('intercepting DELETE requests');
+      const json: Payload = {};
+      let body: DefaultBodyType = {};
 
-    // console.log(body);
-    switch (type) {
-      case 'unadopt': {
-        // remove from adopted trees list
-        // adoptedTreeIds[]
-        // reduce adopted list by one
-        //wateredAndAdopted
-        // get a call to adopted
-        // and is tree adopted
-        break;
+      body = await req.json();
+      const { type } = params;
+      if (!type) {
+        return new HttpResponse(
+          JSON.stringify({ message: 'type is undefined' }),
+          { status: 400 }
+        );
       }
-      case undefined:
-      case null: {
-        console.log(' type is undefined or null');
-        break;
+      if (typeof type !== 'string') {
+        return new HttpResponse(
+          JSON.stringify({ message: 'type is not a string' }),
+          { status: 400 }
+        );
       }
-      default: {
-        console.log('no default case for delete action defiend');
+
+      // console.log(body);
+      switch (type) {
+        case 'unadopt': {
+          // remove from adopted trees list
+          // adoptedTreeIds[]
+          // reduce adopted list by one
+          //wateredAndAdopted
+          // get a call to adopted
+          // and is tree adopted
+          break;
+        }
+        case undefined:
+        case null: {
+          console.log(' type is undefined or null');
+          break;
+        }
+        default: {
+          console.log('no default case for delete action defiend');
+        }
       }
+      return new HttpResponse(JSON.stringify(json), { status: 200 });
+      // return res(ctx.status(201), ctx.json(json));
     }
-    return res(ctx.status(201), ctx.json(json));
-  }),
-  rest.post(`${location}/v3/post/:type`, (req, res, ctx) => {
+  ),
+  http.post(`${location}/v3/post/:type`, async ({ request: req, params }) => {
     let json: Payload = {};
-    let body: Record<string, unknown> = {};
-    if (typeof req.body === 'string') {
-      body = JSON.parse(req.body) as Record<string, unknown>;
-    } else {
-      body = req.body ? req.body : {};
+    let body: DefaultBodyType = {};
+    body = await req.json();
+    // if (typeof req.body === 'string') {
+    //   body = JSON.parse(req.body) as Record<string, unknown>;
+    // } else {
+    //   body = req.body ? req.body : {};
+    // }
+    if (!body) {
+      return new HttpResponse(JSON.stringify({ message: 'body is missing' }), {
+        status: 400,
+      });
     }
-    const { type } = req.params;
+    const { type } = params;
     if (!type) {
-      return res(ctx.status(400), ctx.json({ message: 'type is undefined' }));
+      return new HttpResponse(
+        JSON.stringify({ message: 'type is undefined' }),
+        { status: 400 }
+      );
+
+      // res(ctx.status(400), ctx.json({ message: 'type is undefined' }));
     }
     if (typeof type !== 'string') {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: 'type is not a string' })
+      return new HttpResponse(
+        JSON.stringify({ message: 'type is not a string' }),
+        { status: 400 }
       );
+
+      // return res(
+      //   ctx.status(400),
+      //   ctx.json({ message: 'type is not a string' })
+      // );
     }
 
     switch (type) {
       case 'water': {
         treesWatered.push({
-          tree_id: getProperty(body, 'tree_id'),
+          tree_id: body['tree_id'],
           timestamp: new Date().toISOString(),
-          uuid: getProperty(body, 'uuid'),
-          username: getProperty(body, 'username'),
-          amount: `${body.amount ? (body.amount as number) : 0}`,
+          uuid: body['uuid'],
+          username: body['username'],
+          amount: body['amount'] ?? 0,
         });
         let found = false;
         for (let i = 0; i < wateredAndAdopted.length; i++) {
-          if (body.tree_id === wateredAndAdopted[i].tree_id) {
+          if (body['tree_id'] === wateredAndAdopted[i].tree_id) {
             wateredAndAdopted[i].watered = `${
               parseInt(wateredAndAdopted[i].watered) + 1
             }`;
@@ -147,7 +167,7 @@ export const handlers = [
         }
         if (found === false) {
           wateredAndAdopted.push({
-            tree_id: body.tree_id as string,
+            tree_id: body['tree_id'] as string,
             adopted: '0',
             watered: '1',
           });
@@ -157,12 +177,12 @@ export const handlers = [
       }
       case 'adopt': {
         adoptedTreeIds = Array.from(
-          new Set<string>([body.tree_id as string, ...adoptedTreeIds])
+          new Set<string>([body['tree_id'] as string, ...adoptedTreeIds])
         );
 
         let found = false;
         for (let i = 0; i < wateredAndAdopted.length; i++) {
-          if (body.tree_id === wateredAndAdopted[i].tree_id) {
+          if (body['tree_id'] === wateredAndAdopted[i].tree_id) {
             wateredAndAdopted[i].adopted = `${
               parseInt(wateredAndAdopted[i].adopted) + 1
             }`;
@@ -172,7 +192,7 @@ export const handlers = [
         }
         if (found === false) {
           wateredAndAdopted.push({
-            tree_id: body.tree_id as string,
+            tree_id: body['tree_id'] as string,
             adopted: '1',
             watered: '0',
           });
@@ -192,29 +212,29 @@ export const handlers = [
         };
       }
     }
-    return res(ctx.status(201), ctx.json(json));
+    return new HttpResponse(JSON.stringify(json), { status: 201 });
   }),
 
   // Handles a GET /user request
 
-  rest.get(`${location}/`, async (_req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ foo: 'bar' }));
+  http.get(`${location}/`, async () => {
+    return new HttpResponse(JSON.stringify({ foo: 'bar' }), { status: 200 });
   }),
 
-  rest.get(`${location}/v3/get/:type`, async (req, res, ctx) => {
+  http.get(`${location}/v3/get/:type`, async ({ request: req, params }) => {
     let json: Payload = {};
 
-    const { type } = req.params as Record<string, unknown>;
+    const { type } = params as Record<string, unknown>;
     if (!type) {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: 'url param is missing' })
+      return new HttpResponse(
+        JSON.stringify({ message: 'url param is missing' }),
+        { status: 400 }
       );
     }
     if (typeof type === 'string') {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: 'url param is not a string' })
+      return new HttpResponse(
+        JSON.stringify({ message: 'url param is not a string' }),
+        { status: 400 }
       );
     }
 
@@ -225,13 +245,14 @@ export const handlers = [
         break;
       }
       case 'treesbyids': {
-        const originalResponse = (await ctx.fetch(req)) as { data: any };
-        json = { ...originalResponse };
+        const originalResponse = await fetch(bypass(req));
+        json = await originalResponse.json();
         break;
       }
       case 'byid': {
-        const originalResponse = (await ctx.fetch(req)) as { data: any };
-        json = { ...originalResponse };
+        const originalResponse = await fetch(bypass(req));
+        json = await originalResponse.json();
+
         if (process.env.NODE_ENV === 'test') {
           json = { data: [{ id: '_abc' }] };
         }
@@ -242,9 +263,10 @@ export const handlers = [
         break;
       }
       case 'istreeadopted': {
-        const id = getProperty(req.url.searchParams, 'id');
+        const url = new URL(req.url);
+        const id = url.searchParams.get('id');
         json = {
-          data: adoptedTreeIds.includes(id) ? true : false,
+          data: adoptedTreeIds.includes(id ?? '') ? true : false,
           message: `${type}`,
         };
         break;
@@ -259,7 +281,8 @@ export const handlers = [
         break;
       }
       case 'lastwatered': {
-        const id = getProperty(req.url.searchParams, 'id');
+        const url = new URL(req.url);
+        const id = url.searchParams.get('id');
 
         const lastWateredByUser = treesWatered.map(tree => {
           if (tree.tree_id === id) {
@@ -281,25 +304,28 @@ export const handlers = [
       default: {
         // console.log('UNHANDELED request to');
         // console.log(req.url.href);
-        const originalResponse = (await ctx.fetch(req)) as { data?: any };
+        const originalResponse = await fetch(bypass(req));
+        json = await originalResponse.json();
         json = {
           data: [],
-          url: req.url.toString(),
+          url: req.url,
           message: `case ${type} with url "${req.url.toString()}" in default case. Not yet defined and passed through`,
-          ...originalResponse,
+          ...json,
         };
         // console.log('response is patched and gets passed through', json);
         break;
       }
     }
 
-    return res(ctx.status(200), ctx.json(json));
+    return new HttpResponse(JSON.stringify(json), { status: 200 });
   }),
 
-  rest.get(
+  http.get(
     'https://tsb-trees-api-user-management.now.sh/api/user',
-    (req, res, ctx) => {
-      const userid = getProperty(req.url.searchParams, 'id');
+    ({ request: req }) => {
+      const url = new URL(req.url);
+      const userid = getProperty(url.searchParams, 'id');
+
       const json: Payload = {
         data: {
           user_id: userid,
@@ -310,7 +336,7 @@ export const handlers = [
           username: 'GDK OG',
         },
       };
-      return res(ctx.status(200), ctx.json(json));
+      return new HttpResponse(JSON.stringify(json), { status: 200 });
     }
   ),
 ];
