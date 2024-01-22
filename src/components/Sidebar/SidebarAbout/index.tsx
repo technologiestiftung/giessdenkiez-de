@@ -1,12 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC } from "react";
 
-import SidebarTitle from '../SidebarTitle/';
-import SocialSharing from '../../SocialSharing';
-import OpenSourceNote from '../../OpenSource';
-import content from '../../../assets/content';
-import ExpandablePanel from '../../ExpandablePanel';
-import SmallParagraph from '../../SmallParagraph';
-import { SlackButton } from '../../SlackButton';
+import SidebarTitle from "../SidebarTitle/";
+import SocialSharing from "../../SocialSharing";
+import OpenSourceNote from "../../OpenSource";
+import content from "../../../assets/content";
+import ExpandablePanel from "../../ExpandablePanel";
+import SmallParagraph from "../../SmallParagraph";
+import { SlackButton } from "../../SlackButton";
+import Credits from "../../Credits";
 
 const SidebarAbout: FC = () => {
   const { sidebar } = content;
@@ -23,12 +24,13 @@ const SidebarAbout: FC = () => {
               <SlackButton />
             </>
           )}
+          {idx === 2 && <Credits></Credits>}
         </ExpandablePanel>
       ))}
 
       <SidebarTitle>{content.faq.title}</SidebarTitle>
       <SmallParagraph>{content.faq.description}</SmallParagraph>
-      {content.faq.qa.map(item => (
+      {content.faq.qa.map((item) => (
         <ExpandablePanel key={item.question} title={item.question}>
           <SmallParagraph>{item.answer}</SmallParagraph>
         </ExpandablePanel>

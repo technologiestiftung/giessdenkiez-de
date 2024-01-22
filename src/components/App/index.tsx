@@ -80,7 +80,6 @@ const App: FC = ({ children }) => {
       {showMapUI && children}
       {showOverlay && <Overlay />}
       {showMapUI && <Nav isNavOpened={!isHome} />}
-      <Credits />
       <Cookie />
       {showMapUI && <MapLayerLegend />}
       <ImprintAndPrivacyContainer>
