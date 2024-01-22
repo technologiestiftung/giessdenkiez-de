@@ -1,11 +1,11 @@
 import {
   Session,
-  createBrowserSupabaseClient,
+  createPagesBrowserClient,
 } from '@supabase/auth-helpers-nextjs';
 import { Database } from '../../common/database';
 import { isUsernameUnique } from './validateUsernameUniqueness';
 
-const supabase = createBrowserSupabaseClient<Database>();
+const supabase = createPagesBrowserClient<Database>();
 
 export const updateUsername = async (
   newUsername: string,

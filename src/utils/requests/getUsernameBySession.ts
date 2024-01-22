@@ -1,10 +1,10 @@
 import {
   Session,
-  createBrowserSupabaseClient,
+  createPagesBrowserClient,
 } from '@supabase/auth-helpers-nextjs';
 import { Database } from '../../common/database';
 
-const supabase = createBrowserSupabaseClient<Database>();
+const supabase = createPagesBrowserClient<Database>();
 
 export const getUsernameBySession = async (session: Session) => {
   const { data, error } = await supabase
