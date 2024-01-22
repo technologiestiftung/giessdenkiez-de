@@ -1,10 +1,10 @@
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 import { validatePassword } from '../validatePassword';
 import { nonPersistentSupabaseClient as supabaseValidationClient } from '../nonPersistentSupabaseClient';
 import { Session } from '@supabase/auth-helpers-react';
 import { Database } from '../../common/database';
 
-const supabaseClient = createBrowserSupabaseClient<Database>();
+const supabaseClient = createPagesBrowserClient<Database>();
 
 interface updatePasswordPropType {
   oldPassword: string;
