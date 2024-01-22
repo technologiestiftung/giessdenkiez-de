@@ -64,9 +64,6 @@ const App: FC<{ children: React.ReactNode }> = ({ children }) => {
   const isNavOpen = useStoreState('isNavOpen');
   const mapHasLoaded = useStoreState('mapHasLoaded');
 
-  useEffect(() => {
-    console.log(mapHasLoaded);
-  }, [mapHasLoaded]);
   const { pathname } = useRouter();
 
   const isHome = pathname === '/';

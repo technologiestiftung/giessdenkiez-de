@@ -1,5 +1,11 @@
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
-import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
 import {
   FlyToInterpolator,
@@ -37,7 +43,6 @@ import {
   HIGH_WATER_NEED_NUM,
 } from '../../utils/getWaterNeedByAge';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
-import React from '@deck.gl/react';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
@@ -174,10 +179,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   const { setMapHasLoaded } = useActions();
   const pumpInfo = clickedPump || hoveredPump;
   const mapHasLoaded = useStoreState('mapHasLoaded');
-
-  useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_MAPBOX_API_KEY);
-  }, []);
 
   useEffect(
     () => () => {
