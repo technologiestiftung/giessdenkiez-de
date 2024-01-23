@@ -11,7 +11,7 @@ const LogoContainer = styled.div`
   width: 100%;
   margin-top: 1rem;
   padding: 1rem 0rem 0.5rem 0rem;
-  border-top: 1px solid ${(p) => p.theme.colorGreyLight};
+  border-top: 1px solid ${p => p.theme.colorGreyLight};
   display: flex;
 `;
 
@@ -21,9 +21,9 @@ const LabelLogoGroup = styled.div`
 
 const Label = styled.div`
   width: 100%;
-  font-size: ${(p) => p.theme.fontSizeS};
+  font-size: ${p => p.theme.fontSizeS};
   margin-bottom: 0.5rem;
-  color: ${(p) => p.theme.colorTextDark};
+  color: ${p => p.theme.colorTextDark};
   opacity: 0.66;
 `;
 
@@ -36,15 +36,21 @@ const Credits: FC = () => {
     <LogoContainer>
       <LabelLogoGroup>
         <Label>Ein Projekt der</Label>
-        <Logo src={logoTSB} alt='Logo Technologiestiftung Berlin' />
+        <a href='https://technologiestiftung-berlin.de/'>
+          <Logo src={logoTSB} alt='Logo Technologiestiftung Berlin' />
+        </a>
       </LabelLogoGroup>
       <LabelLogoGroup>
         <Label>Durchgeführt von</Label>
-        <Logo src={logoCitylab} alt='Logo Citylab' />
+        <a href='https://citylab-berlin.org/de/start/'>
+          <Logo src={logoCitylab} alt='Logo Citylab' />
+        </a>
       </LabelLogoGroup>
       <LabelLogoGroup>
         <Label>Gefördert durch</Label>
-        <Logo src={logoBerlin} alt='Logo Berlin' />
+        <a href='https://www.berlin.de/senatskanzlei/'>
+          <Logo src={logoBerlin} alt='Logo Berlin' />
+        </a>
       </LabelLogoGroup>
     </LogoContainer>
   );
