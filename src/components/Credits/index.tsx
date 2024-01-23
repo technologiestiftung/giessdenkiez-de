@@ -13,8 +13,6 @@ const LogoContainer = styled.div`
   padding: 1rem 0rem 0.5rem 0rem;
   border-top: 1px solid ${(p) => p.theme.colorGreyLight};
   display: flex;
-  flex-wrap: wrap;
-  row-gap: 1rem;
 `;
 
 const LabelLogoGroup = styled.div`
@@ -23,7 +21,7 @@ const LabelLogoGroup = styled.div`
 
 const Label = styled.div`
   width: 100%;
-  font-size: ${(p) => p.theme.fontSizeL};
+  font-size: ${(p) => p.theme.fontSizeS};
   margin-bottom: 0.5rem;
   color: ${(p) => p.theme.colorTextDark};
   opacity: 0.66;
