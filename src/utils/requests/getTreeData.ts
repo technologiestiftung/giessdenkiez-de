@@ -40,21 +40,26 @@ export const getTreeData = async (
 ): Promise<{
   selectedTreeData: SelectedTreeType | undefined;
 }> => {
-  const urlSelectedTree = createAPIUrl(`/v3/get/byid?id=${id}`);
-  const urlWaterings = createAPIUrl(`/v3/get/lastwatered?id=${id}`);
+  try {
+    const urlSelectedTree = createAPIUrl(`/v3/get/byid?id=${id}`);
+    const urlWaterings = createAPIUrl(`/v3/get/lastwatered?id=${id}`);
 
-  const [resSelectedTree, resWaterings] = await Promise.all([
-    requests<SelectedTreeResponseType>(urlSelectedTree),
-    requests<TreeWateringsResponse>(urlWaterings),
-  ]);
+    const [resSelectedTree, resWaterings] = await Promise.all([
+      requests<SelectedTreeResponseType>(urlSelectedTree),
+      requests<TreeWateringsResponse>(urlWaterings),
+    ]);
 
-  return {
-    selectedTreeData:
-      resSelectedTree.data.length > 0
-        ? parseSelectedTreeResponse(
-            resSelectedTree as SelectedTreeResponseType,
-            resWaterings.data || []
-          )
-        : undefined,
-  };
+    return {
+      selectedTreeData:
+        resSelectedTree.data.length > 0
+          ? parseSelectedTreeResponse(
+              resSelectedTree as SelectedTreeResponseType,
+              resWaterings.data || []
+            )
+          : undefined,
+    };
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 };
