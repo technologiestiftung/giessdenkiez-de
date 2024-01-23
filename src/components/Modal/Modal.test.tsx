@@ -7,15 +7,16 @@ describe('component Modal', () => {
     const modals = document.querySelectorAll('#headlessui-portal-root');
     modals.forEach(modal => modal.parentNode?.removeChild(modal));
   });
-  test('should render an accessible dialog', () => {
+  test('should render an accessible dialog', async () => {
     render(
       <Modal isOpen={true} title='I am a test title'>
         <p>Body</p>
         <button>Close me</button>
       </Modal>
     );
-    const modalElement = screen.getByRole('dialog', {
+    const modalElement = await screen.findByRole('dialog', {
       name: 'I am a test title',
+      hidden: true,
     });
     expect(modalElement).toBeInTheDocument();
 

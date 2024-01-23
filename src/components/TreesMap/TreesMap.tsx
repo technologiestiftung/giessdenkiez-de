@@ -1,6 +1,12 @@
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
-import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
-import { Map as MapboxMap } from 'mapbox-gl';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
 import {
   FlyToInterpolator,
   GeolocateControl,
@@ -9,6 +15,7 @@ import {
   StaticMap,
   ViewportProps,
 } from 'react-map-gl';
+
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
 import DeckGL, { GeoJsonLayer, RGBAColor } from 'deck.gl';
 import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
@@ -39,7 +46,7 @@ import { useActions, useStoreState } from '../../state/unistore-hooks';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
-
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY || '';
 interface StyledProps {
   isNavOpen?: boolean;
 }

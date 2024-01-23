@@ -9,14 +9,19 @@ export const getUserData = async ({
   userId: string;
   token: string;
 }): Promise<OptionalUserDataType | undefined> => {
-  const res = await Promise.all([
-    getUserWaterings({ userId, token }),
-    getTreesAdoptedByUser({ userId, token }),
-  ]);
-  const [waterings, adoptedTrees] = res;
+  try {
+    const res = await Promise.all([
+      getUserWaterings({ userId, token }),
+      getTreesAdoptedByUser({ userId, token }),
+    ]);
+    const [waterings, adoptedTrees] = res;
 
-  return {
-    waterings,
-    adoptedTrees,
-  };
+    return {
+      waterings,
+      adoptedTrees,
+    };
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 };

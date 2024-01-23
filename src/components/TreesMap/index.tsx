@@ -9,7 +9,7 @@ import { TreesMap } from './TreesMap';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useRouter } from 'next/router';
 
-export const Map: FC<{
+const Map: FC<{
   showOverlay: boolean | undefined;
   isNavOpened: boolean | undefined;
 }> = ({ showOverlay, isNavOpened }) => {
@@ -55,3 +55,5 @@ export const Map: FC<{
     />
   );
 };
+
+export default Map;

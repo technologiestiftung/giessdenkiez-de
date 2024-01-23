@@ -9,7 +9,7 @@ describe('component Button Round', () => {
     expect(title).toBeInTheDocument();
   });
   test('should call its onClick Handler when clicked', () => {
-    const customClickHandler = jest.fn();
+    const customClickHandler = vi.fn();
     render(
       <ButtonRound onClick={customClickHandler}>some longer text</ButtonRound>
     );

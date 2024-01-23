@@ -13,7 +13,7 @@ describe('component TreeButton', () => {
     expect(icon).toBeInTheDocument();
   });
   test('should call the give click handler', () => {
-    const clickHandler = jest.fn();
+    const clickHandler = vi.fn();
     render(<TreeButton onClickHandler={clickHandler} />);
     const label = screen.getByText('Baum');
     fireEvent.click(label);
