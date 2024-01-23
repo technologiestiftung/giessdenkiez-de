@@ -2,6 +2,8 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
 name: Node.js CI
+permissions:
+  contents: write
 env:
   BUILD_TARGET: DEFAULT
   NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
@@ -76,8 +78,6 @@ jobs:
           node-version-file: '.nvmrc'
       - run: npm ci
       - id: semantic-release
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          semantic_version: 18
+        run: npx semantic-release --ci
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
