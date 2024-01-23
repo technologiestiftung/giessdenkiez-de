@@ -16,19 +16,27 @@ export const waterTree = async ({
   token: string;
   timestamp: Date;
 }): Promise<void> => {
-  const urlPostWatering = createAPIUrl(`/v3/post/water`);
+  try {
+    const urlPostWatering = createAPIUrl(`/v3/post/water`);
 
-  await requests<undefined, { method: 'POST'; body: string }>(urlPostWatering, {
-    token,
-    override: {
-      method: 'POST',
-      body: JSON.stringify({
-        tree_id: id,
-        amount,
-        uuid: userId,
-        username,
-        timestamp,
-      }),
-    },
-  });
+    await requests<undefined, { method: 'POST'; body: string }>(
+      urlPostWatering,
+      {
+        token,
+        override: {
+          method: 'POST',
+          body: JSON.stringify({
+            tree_id: id,
+            amount,
+            uuid: userId,
+            username,
+            timestamp,
+          }),
+        },
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 };

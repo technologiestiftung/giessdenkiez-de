@@ -13,7 +13,7 @@ const Component = ({ waterings }) => (
   </QueryClientProvider>
 );
 
-jest.mock('../../utils/hooks/useUserData', () => {
+vi.mock('../../utils/hooks/useUserData', () => {
   return {
     useUserData: () => ({
       userData: {
@@ -32,10 +32,10 @@ jest.mock('../../utils/hooks/useUserData', () => {
   };
 });
 
-const waterTreeMock = jest.fn();
-const unwaterTreeMock = jest.fn();
+const waterTreeMock = vi.fn();
+const unwaterTreeMock = vi.fn();
 
-jest.mock('../../utils/hooks/useWateringActions', () => {
+vi.mock('../../utils/hooks/useWateringActions', () => {
   return {
     useWateringActions: () => ({
       waterTree: waterTreeMock,

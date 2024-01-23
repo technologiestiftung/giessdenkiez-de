@@ -8,13 +8,13 @@ import store from '../state/Store';
 import ErrorBoundary from '../ErrorBoundary';
 import { theme } from '../assets/theme';
 import GlobalStyles from '../assets/Global';
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 import { Session, SessionContextProvider } from '@supabase/auth-helpers-react';
 
 const queryClient = new QueryClient();
 
 export const TestProviders: FC = ({ children }) => {
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  const [supabaseClient] = useState(() => createPagesBrowserClient());
   const [session, setSession] = useState<Session | null>(null);
   useEffect(() => {
     const getSession = async () => {
@@ -27,7 +27,7 @@ export const TestProviders: FC = ({ children }) => {
         setSession(data.session);
       }
     };
-    getSession().catch(error => console.log(error));
+    getSession().catch((error) => console.log(error));
   }, [supabaseClient]);
   return (
     <ErrorBoundary>
