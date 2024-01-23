@@ -78,7 +78,6 @@ const App: FC<{ children: React.ReactNode }> = ({ children }) => {
       {showMapUI && children}
       {showOverlay && <Overlay />}
       {showMapUI && <Nav isNavOpened={!isHome} />}
-      <Credits />
       <Cookie />
       {showMapUI && <MapLayerLegend />}
       <ImprintAndPrivacyContainer>
