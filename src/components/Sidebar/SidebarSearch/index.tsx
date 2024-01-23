@@ -49,6 +49,9 @@ const SidebarSearch: FC = () => {
   return (
     <>
       <SidebarTitle>Suche & Filter</SidebarTitle>
+      <ExpandablePanel title='Standortsuche' isExpanded>
+        <SidebarSearchLocation />
+      </ExpandablePanel>
       <ExpandablePanel title='Datenansicht' isExpanded>
         <SmallParagraph>
           Betrachte welche Bäume bereits von anderen Nutzern gegossen wurden.
@@ -110,9 +113,6 @@ const SidebarSearch: FC = () => {
         </SmallParagraph>
         <br />
         <SidebarSearchAge />
-      </ExpandablePanel>
-      <ExpandablePanel title='Standortsuche' isExpanded>
-        <SidebarSearchLocation />
       </ExpandablePanel>
     </>
   );
