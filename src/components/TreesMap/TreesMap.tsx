@@ -401,12 +401,12 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
         layout: {
           //@ts-ignore
-          'model-id': getTreeModel(),
+          'model-id': 'tree-general-model',
         },
         paint: {
           //@ts-ignore
           'model-scale': getTreeModelScale(),
-          'model-translation': [0, 0, 1],
+          'model-translation': [0.008, 0.008, 0.008],
         },
         minzoom: 15,
       });
