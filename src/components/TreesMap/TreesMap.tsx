@@ -404,8 +404,8 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         },
         paint: {
           //@ts-ignore
-          'model-scale': getTreeModelScale(),
-          'model-translation': [0.008, 0.008, 0.008],
+          'model-scale': [0.008, 0.008, 0.008],
+          'model-translation': [0, 0, 0],
         },
         minzoom: 15,
       });
