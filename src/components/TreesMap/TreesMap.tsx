@@ -37,7 +37,6 @@ import {
   HIGH_WATER_NEED_NUM,
 } from '../../utils/getWaterNeedByAge';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
-import { getTreeModel, getTreeModelScale } from './mapTreeModelUtil';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
