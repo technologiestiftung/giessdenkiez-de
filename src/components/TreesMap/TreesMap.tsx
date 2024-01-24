@@ -37,6 +37,7 @@ import {
   HIGH_WATER_NEED_NUM,
 } from '../../utils/getWaterNeedByAge';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
+import { getTreeModel, getTreeModelScale } from './mapTreeModelUtil';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
@@ -392,6 +393,26 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         },
       });
 
+      map.current.addLayer({
+        id: 'tree-model-layer',
+        //@ts-ignore
+        type: 'model',
+        source: 'trees',
+        'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
+        layout: {
+          //@ts-ignore
+          'model-id': getTreeModel(),
+        },
+        paint: {
+          //@ts-ignore
+          'model-scale': getTreeModelScale(),
+          'model-translation': [0, 0, 1],
+        },
+        minzoom: 15,
+      });
+
+      map.current.moveLayer('trees', 'tree-model-layer');
+
       map.current.on('mousemove', 'trees', e => {
         if (!map.current || !e.features) return;
         if (e.features?.length === 0) setHoveredTreeId(null);
@@ -562,7 +583,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         <Map
           reuseMaps
           ref={ref}
-          mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
+          mapStyle='style.json'
           styleDiffing={true}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
           onZoom={onZoom}
