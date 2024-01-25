@@ -130,6 +130,7 @@ export interface FeatureType {
 export interface CredentialsData {
   email: string;
   password: string;
+  username?: string;
 }
 export interface ResetCredentialsData extends CredentialsData {
   repeatPassword: string;
