@@ -110,7 +110,8 @@
   "sprite": "mapbox://sprites/technologiestiftung/ckke3kyr00w5w17mytksdr3ro/6rkkbogczoeewyit12gdnzd0j",
   "glyphs": "mapbox://fonts/technologiestiftung/{fontstack}/{range}.pbf",
   "models": {
-    "tree-general-model": "tree-general.glb"
+    "tree-general-model": "tree-general.glb",
+    "tree-highlight-model": "tree-general.glb"
   },
   "layers": [
     {

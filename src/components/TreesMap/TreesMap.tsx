@@ -1,4 +1,5 @@
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
+import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
 import React, {
   forwardRef,
   useCallback,
@@ -6,37 +7,48 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
-import { GeolocateControl, MapRef, NavigationControl } from 'react-map-gl';
-import Map from 'react-map-gl';
+import Map, { GeolocateControl, MapRef, NavigationControl } from 'react-map-gl';
 
-import { CommunityDataType, StoreProps } from '../../common/interfaces';
 import DeckGL, { GeoJsonLayer, RGBAColor } from 'deck.gl';
-import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
-import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
-import { hexToRgb, interpolateColor } from '../../utils/colorUtil';
-import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-import { MapTooltip } from './MapTooltip';
-import { getOSMEditorURL } from './osmUtil';
+import styled from 'styled-components';
+import { CommunityDataType, StoreProps } from '../../common/interfaces';
+import { useActions, useStoreState } from '../../state/unistore-hooks';
+import { hexToRgb, interpolateColor } from '../../utils/colorUtil';
 import {
-  getTreeCircleRadius,
-  updateTreeCirclePaintProps,
-} from './mapPaintPropsUtils';
+  HIGH_WATER_NEED_NUM,
+  LOW_WATER_NEED_NUM,
+  MEDIUM_WATER_NEED_NUM,
+  OLD_TREE_MIN_AGE,
+  YOUNG_TREE_MAX_AGE,
+} from '../../utils/getWaterNeedByAge';
+import {
+  add3dTreesCylinderHoverListener,
+  add3dTreesCylinderMouseLeaveListener,
+  add3dTreesCylinderMouseMoveListener,
+  trees3DCylinderLayer,
+  trees3DCylinderLayerId,
+  trees3DCylinderSource,
+  trees3DCylinderSourceId,
+  trees3DHighlightLayerId,
+  trees3DHighlightSourceId,
+  trees3DLayer,
+  trees3DLayerId,
+} from './3d/trees-3d-layer';
+import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
+import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
+import { setBodyMapLayerClass } from './mapCSSClassUtil';
 import {
   updateHoverFeatureState,
   updateSelectedTreeIdFeatureState,
 } from './mapFeatureStateUtil';
-import { setBodyMapLayerClass } from './mapCSSClassUtil';
-import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
 import {
-  YOUNG_TREE_MAX_AGE,
-  OLD_TREE_MIN_AGE,
-  LOW_WATER_NEED_NUM,
-  MEDIUM_WATER_NEED_NUM,
-  HIGH_WATER_NEED_NUM,
-} from '../../utils/getWaterNeedByAge';
-import { useActions, useStoreState } from '../../state/unistore-hooks';
+  getTreeCircleRadius,
+  updateTreeCirclePaintProps,
+} from './mapPaintPropsUtils';
+import { MapTooltip } from './MapTooltip';
+import { getOSMEditorURL } from './osmUtil';
+import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
@@ -172,6 +184,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   const { setMapHasLoaded } = useActions();
   const pumpInfo = clickedPump || hoveredPump;
   const mapHasLoaded = useStoreState('mapHasLoaded');
+  const [hoveredTreeCylinderId, setHoveredTreeCylinderId] = useState<string>();
 
   useEffect(
     () => () => {
@@ -179,6 +192,29 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     },
     []
   );
+
+  const lastHoveredTreeCylinderIdRef = useRef<string | undefined>(undefined);
+
+  useEffect(() => {
+    lastHoveredTreeCylinderIdRef.current = hoveredTreeCylinderId;
+  }, [hoveredTreeCylinderId]);
+
+  useEffect(() => {
+    if (!selectedTreeId) {
+      setHoveredTreeCylinderId(undefined);
+      map.current?.setFeatureState(
+        {
+          source: trees3DCylinderSourceId,
+          id: lastHoveredTreeCylinderIdRef.current,
+        },
+        { hovered: false }
+      );
+      if (map.current?.getSource(trees3DHighlightSourceId)) {
+        map.current?.removeLayer(trees3DHighlightLayerId);
+        map.current?.removeSource(trees3DHighlightSourceId);
+      }
+    }
+  }, [selectedTreeId]);
 
   const renderLayers = useCallback(() => {
     if (!map?.current || !rainGeojson || !pumpsGeoJson || hasUnmounted)
@@ -261,7 +297,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       const eventTarget = (evt?.target as unknown) as { tagName: string };
       if (eventTarget.tagName !== 'CANVAS') return;
       const features = map.current.queryRenderedFeatures([info.x, info.y], {
-        layers: ['trees'],
+        layers: [trees3DCylinderLayerId],
       });
 
       if (features.length === 0) {
@@ -269,7 +305,8 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         return;
       }
 
-      const id: string = features[0].properties?.id as string;
+      const id: string =
+        (features[0].properties?.id as string) ?? (features[0].id as string);
 
       if (!id) return;
 
@@ -392,25 +429,36 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         },
       });
 
-      map.current.addLayer({
-        id: 'tree-model-layer',
-        //@ts-ignore
-        type: 'model',
-        source: 'trees',
-        'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
-        layout: {
-          //@ts-ignore
-          'model-id': 'tree-general-model',
-        },
-        paint: {
-          //@ts-ignore
-          'model-scale': [0.008, 0.008, 0.008],
-          'model-translation': [0, 0, 0],
-        },
-        minzoom: 15,
-      });
+      // --- START 3D trees here ----
+      //@ts-ignore
+      map.current.addLayer(trees3DLayer);
+      //@ts-ignore
+      map.current.addSource(trees3DCylinderSourceId, trees3DCylinderSource);
+      //@ts-ignore
+      map.current.addLayer(trees3DCylinderLayer);
 
-      map.current.moveLayer('trees', 'tree-model-layer');
+      add3dTreesCylinderMouseMoveListener(
+        map.current!,
+        (hoveredTreeId: string) => {
+          setHoveredTreeCylinderId(hoveredTreeId);
+          setHoveredTreeId(hoveredTreeId);
+        }
+      );
+
+      add3dTreesCylinderMouseLeaveListener(
+        map.current!,
+        lastHoveredTreeCylinderIdRef,
+        lastSelectedTree,
+        () => {
+          setHoveredTreeCylinderId(undefined);
+          setHoveredTreeId(null);
+        }
+      );
+
+      add3dTreesCylinderHoverListener(map.current);
+
+      map.current.moveLayer('trees', trees3DLayerId);
+      // -- END 3D trees here
 
       map.current.on('mousemove', 'trees', e => {
         if (!map.current || !e.features) return;
