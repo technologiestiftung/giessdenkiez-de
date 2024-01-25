@@ -26,12 +26,11 @@ import {
   add3dTreesCylinderHoverListener,
   add3dTreesCylinderMouseLeaveListener,
   add3dTreesCylinderMouseMoveListener,
+  remove3dHighlightLayer,
   trees3DCylinderLayer,
   trees3DCylinderLayerId,
   trees3DCylinderSource,
   trees3DCylinderSourceId,
-  trees3DHighlightLayerId,
-  trees3DHighlightSourceId,
   trees3DLayer,
   trees3DLayerId,
 } from './3d/trees-3d-layer';
@@ -175,7 +174,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   ref
 ) {
   const map = useRef<MapboxMap | null>(null);
-  const lastSelectedTree = useRef<string | undefined>(selectedTreeId);
+  const lastSelectedTreeIdRef = useRef<string | undefined>(selectedTreeId);
   const lastHoveredTreeId = useRef<string | null>(null);
   const [hoveredTreeId, setHoveredTreeId] = useState<string | null>(null);
   const [hoveredPump, setHoveredPump] = useState<PumpTooltipType | null>(null);
@@ -184,7 +183,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   const { setMapHasLoaded } = useActions();
   const pumpInfo = clickedPump || hoveredPump;
   const mapHasLoaded = useStoreState('mapHasLoaded');
+
   const [hoveredTreeCylinderId, setHoveredTreeCylinderId] = useState<string>();
+  const lastHoveredTreeCylinderIdRef = useRef<string | undefined>(undefined);
+  const [
+    selectedTreeCylinderId,
+    setSelectedTreeCylinderId,
+  ] = useState<string>();
+  const selectedTreeCylinderIdRef = useRef<string | undefined>(undefined);
 
   useEffect(
     () => () => {
@@ -193,26 +199,22 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     []
   );
 
-  const lastHoveredTreeCylinderIdRef = useRef<string | undefined>(undefined);
-
   useEffect(() => {
     lastHoveredTreeCylinderIdRef.current = hoveredTreeCylinderId;
   }, [hoveredTreeCylinderId]);
 
   useEffect(() => {
-    if (!selectedTreeId) {
+    selectedTreeCylinderIdRef.current = selectedTreeCylinderId;
+  }, [selectedTreeCylinderId]);
+
+  useEffect(() => {
+    if (!selectedTreeId && lastHoveredTreeCylinderIdRef.current) {
       setHoveredTreeCylinderId(undefined);
-      map.current?.setFeatureState(
-        {
-          source: trees3DCylinderSourceId,
-          id: lastHoveredTreeCylinderIdRef.current,
-        },
-        { hovered: false }
+      setSelectedTreeCylinderId(undefined);
+      remove3dHighlightLayer(
+        map.current!,
+        lastHoveredTreeCylinderIdRef.current!
       );
-      if (map.current?.getSource(trees3DHighlightSourceId)) {
-        map.current?.removeLayer(trees3DHighlightLayerId);
-        map.current?.removeSource(trees3DHighlightSourceId);
-      }
     }
   }, [selectedTreeId]);
 
@@ -301,6 +303,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       });
 
       if (features.length === 0) {
+        setSelectedTreeCylinderId(undefined);
         onTreeSelect(null);
         return;
       }
@@ -310,6 +313,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
       if (!id) return;
 
+      setSelectedTreeCylinderId(id);
       onTreeSelect(id);
     },
     [onTreeSelect]
@@ -448,7 +452,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       add3dTreesCylinderMouseLeaveListener(
         map.current!,
         lastHoveredTreeCylinderIdRef,
-        lastSelectedTree,
+        selectedTreeCylinderIdRef,
         () => {
           setHoveredTreeCylinderId(undefined);
           setHoveredTreeId(null);
@@ -500,10 +504,10 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     if (!map?.current || hasUnmounted || !mapHasLoaded) return;
     updateSelectedTreeIdFeatureState({
       map: map.current,
-      prevSelectedTreeId: lastSelectedTree.current,
+      prevSelectedTreeId: lastSelectedTreeIdRef.current,
       currentSelectedTreeId: selectedTreeId,
     });
-    lastSelectedTree.current = selectedTreeId;
+    lastSelectedTreeIdRef.current = selectedTreeId;
   }, [selectedTreeId, mapHasLoaded]);
 
   useEffect(() => {

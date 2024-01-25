@@ -144,19 +144,14 @@ export const add3dTreesCylinderMouseMoveListener = function (
 export const add3dTreesCylinderMouseLeaveListener = function (
   map: mapboxgl.Map,
   lastHoveredTreeIdRef: React.MutableRefObject<string | undefined>,
-  selectedTreeIdRef: React.MutableRefObject<string | undefined>,
+  selectedTreeCylinderIdRef: React.MutableRefObject<string | undefined>,
   callback: () => void
 ) {
   map.on('mouseleave', trees3DCylinderLayerId, function () {
-    console.log(
-      'mouseleave',
-      lastHoveredTreeIdRef.current,
-      selectedTreeIdRef.current
-    );
-    if (lastHoveredTreeIdRef.current && !selectedTreeIdRef.current) {
+    if (lastHoveredTreeIdRef.current && !selectedTreeCylinderIdRef.current) {
       remove3dHighlightLayer(map, lastHoveredTreeIdRef.current);
+      callback();
     }
-    callback();
   });
 };
 
