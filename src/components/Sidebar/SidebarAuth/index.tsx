@@ -1,5 +1,5 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AuthView } from '../../../../pages/auth';
 import SidebarTitle from '../SidebarTitle';
 import { UserNotificationObjectType } from '../../Notification';
@@ -11,11 +11,11 @@ import { SidebarLoading } from '../SidebarLoading';
 import styled from 'styled-components';
 import Paragraph from '../../Paragraph';
 import { Quotes } from '../../Quotes';
-import debounce from 'lodash/debounce';
 import {
   UsernamePattern,
   validateUsername,
 } from '../../../utils/validateUsername';
+import debounce from 'lodash/debounce';
 
 enum titles {
   signin = 'Anmelden',
@@ -66,42 +66,6 @@ export const SidebarAuth = ({
     });
   };
 
-  const checkIfUsernameIsNotTaken = debounce(
-    async (
-      username: string,
-      setNotification: React.Dispatch<
-        React.SetStateAction<UserNotificationObjectType | null>
-      >,
-      setUsernamePattern: React.Dispatch<React.SetStateAction<UsernamePattern>>
-    ): Promise<void> => {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('username')
-        .eq('username', username);
-      if (error) {
-        console.error(error);
-        return;
-      }
-      if (data) {
-        if (data.length > 0) {
-          setNotification({
-            message: 'Benutzername bereits vergeben',
-            type: 'error',
-          });
-          setUsernamePattern(up => {
-            return { ...up, notTaken: false };
-          });
-        } else {
-          setUsernamePattern(up => {
-            return { ...up, notTaken: true };
-          });
-        }
-      } else {
-        throw new Error('could not check username');
-      }
-    },
-    500
-  );
   const handleSignInSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -270,18 +234,42 @@ export const SidebarAuth = ({
     }
   };
 
-  useEffect(() => {
-    if (formData.username === '') {
-      setUsernamePatterns({
-        ...usernamePatterns,
-        notTaken: false,
-        minLength: false,
-        maxLength: false,
-
-        allowedCharacters: false,
-      });
-    }
-  }, [usernamePatterns, formData.username]);
+  const checkIfUsernameIsNotTaken = debounce(
+    async (
+      username: string,
+      setNotification: React.Dispatch<
+        React.SetStateAction<UserNotificationObjectType | null>
+      >,
+      setUsernamePattern: React.Dispatch<React.SetStateAction<UsernamePattern>>
+    ): Promise<void> => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('username', username);
+      if (error) {
+        console.error(error);
+        return;
+      }
+      if (data) {
+        if (data.length > 0) {
+          setNotification({
+            message: 'Benutzername bereits vergeben',
+            type: 'error',
+          });
+          setUsernamePattern(up => {
+            return { ...up, notTaken: false };
+          });
+        } else {
+          setUsernamePattern(up => {
+            return { ...up, notTaken: true };
+          });
+        }
+      } else {
+        throw new Error('could not check username');
+      }
+    },
+    500
+  );
 
   switch (view) {
     case 'signin': {
