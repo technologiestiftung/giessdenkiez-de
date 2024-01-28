@@ -577,9 +577,10 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
               <NavigationControl position={'bottom-left'} />
               <GeolocateControl
                 position={'bottom-left'}
-                positionOptions={{ enableHighAccuracy: true }}
+                positionOptions={{ enableHighAccuracy: false }}
                 trackUserLocation={isMobile ? true : false}
                 showUserLocation={true}
+                showAccuracyCircle={false}
               />
             </ControlWrapper>
           )}
