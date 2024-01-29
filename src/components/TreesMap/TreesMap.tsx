@@ -23,7 +23,6 @@ import {
   YOUNG_TREE_MAX_AGE,
 } from '../../utils/getWaterNeedByAge';
 import {
-  add3dTreesCylinderHoverListener,
   add3dTreesCylinderMouseLeaveListener,
   add3dTreesCylinderMouseMoveListener,
   remove3dHighlightLayer,
@@ -443,6 +442,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
       add3dTreesCylinderMouseMoveListener(
         map.current!,
+        lastHoveredTreeCylinderIdRef,
         (hoveredTreeId: string) => {
           setHoveredTreeCylinderId(hoveredTreeId);
           setHoveredTreeId(hoveredTreeId);
@@ -458,8 +458,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           setHoveredTreeId(null);
         }
       );
-
-      add3dTreesCylinderHoverListener(map.current);
 
       map.current.moveLayer('trees', trees3DLayerId);
       // -- END 3D trees here

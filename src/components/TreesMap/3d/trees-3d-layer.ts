@@ -5,6 +5,7 @@ export const trees3DHighlightLayerId = 'trees-3d-highlight-layer';
 export const trees3DCylinderSourceId = 'trees-3d-cylinders-source';
 export const trees3DCylinderLayerId = 'trees-3d-cylinders-layer';
 export const trees3DLayerId = 'trees-3d-layer';
+export const treeModelId = 'tree-general-model';
 
 export const trees3DLayer = {
   id: trees3DLayerId,
@@ -14,7 +15,7 @@ export const trees3DLayer = {
   'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
   layout: {
     //@ts-ignore
-    'model-id': 'tree-general-model',
+    'model-id': treeModelId,
   },
   paint: {
     //@ts-ignore
@@ -25,8 +26,11 @@ export const trees3DLayer = {
 };
 
 export const trees3DCylinderSource = {
-  type: 'geojson',
-  data: 'tree_cylinders.json',
+  id: trees3DCylinderSourceId,
+  type: 'vector',
+  url: 'mapbox://technologiestiftung.82oerc1s',
+  minzoom: 0,
+  maxzoom: 20,
   promoteId: 'id',
 };
 
@@ -34,9 +38,10 @@ export const trees3DCylinderLayer = {
   id: trees3DCylinderLayerId,
   type: 'fill-extrusion',
   source: trees3DCylinderSourceId,
+  'source-layer': 'tree_cylinders',
   paint: {
     'fill-extrusion-height': 8,
-    'fill-extrusion-opacity': 0.1,
+    'fill-extrusion-opacity': 0,
     'fill-extrusion-color': '#ff0000',
   },
 };
@@ -73,15 +78,13 @@ export const trees3DHighlightLayer = {
   source: trees3DHighlightSourceId,
   layout: {
     //@ts-ignore
-    'model-id': 'tree-highlight-model',
+    'model-id': treeModelId,
   },
   paint: {
     //@ts-ignore
-    'model-scale': [0.011, 0.011, 0.01],
+    'model-scale': [0.01, 0.01, 0.008],
     'model-translation': [0, 0, 0],
     'model-opacity': 1,
-    // 'model-color': '#ff0000',
-    // 'model-color-mix-intensity': 0.5,
   },
 };
 
@@ -90,8 +93,13 @@ export const add3dHighlightLayer = function (
   feature: mapboxgl.MapboxGeoJSONFeature
 ) {
   const treeId = feature.id as string;
-  const lat = feature.properties!.lat;
-  const lng = feature.properties!.lng;
+  var featureTree = map.queryRenderedFeatures(undefined, {
+    layers: ['trees'],
+    filter: ['==', 'id', treeId],
+  })[0];
+  const lat = featureTree.geometry.coordinates[1];
+  const lng = featureTree.geometry.coordinates[0];
+
   if (!map.getSource(trees3DHighlightSourceId)) {
     map.addSource(
       trees3DHighlightSourceId,
@@ -100,10 +108,13 @@ export const add3dHighlightLayer = function (
     );
     //@ts-ignore
     map.addLayer(trees3DHighlightLayer);
+    map.moveLayer(trees3DHighlightLayerId, trees3DLayerId);
   }
+
   map.setFeatureState(
     {
       source: trees3DCylinderSourceId,
+      sourceLayer: 'tree_cylinders',
       id: treeId,
     },
     { hovered: true }
@@ -117,6 +128,7 @@ export const remove3dHighlightLayer = function (
   map.setFeatureState(
     {
       source: trees3DCylinderSourceId,
+      sourceLayer: 'tree_cylinders',
       id: treeId,
     },
     { hovered: false }
@@ -129,12 +141,19 @@ export const remove3dHighlightLayer = function (
 
 export const add3dTreesCylinderMouseMoveListener = function (
   map: mapboxgl.Map,
+  lastHoveredTreeIdRef: React.MutableRefObject<string | undefined>,
   hoverCallback: (treeId: string) => void
 ) {
   map.on('mousemove', trees3DCylinderLayerId, function (e) {
     const firstFeature = e.features ? e.features[0] : null;
     if (firstFeature) {
       const treeId = firstFeature.id as string;
+      if (
+        lastHoveredTreeIdRef.current &&
+        lastHoveredTreeIdRef.current !== treeId
+      ) {
+        remove3dHighlightLayer(map, lastHoveredTreeIdRef.current);
+      }
       add3dHighlightLayer(map, firstFeature);
       hoverCallback(treeId);
     }
@@ -153,13 +172,4 @@ export const add3dTreesCylinderMouseLeaveListener = function (
       callback();
     }
   });
-};
-
-export const add3dTreesCylinderHoverListener = function (map: mapboxgl.Map) {
-  map.setPaintProperty(trees3DCylinderLayerId, 'fill-extrusion-color', [
-    'case',
-    ['boolean', ['feature-state', 'hovered'], false],
-    '#00ff00',
-    '#0000ff',
-  ]);
 };
