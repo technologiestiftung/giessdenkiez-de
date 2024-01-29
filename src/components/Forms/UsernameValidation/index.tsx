@@ -16,7 +16,8 @@ export const UsernameValidation = ({
         <ValidOrNot success={patterns.maxLength} /> Zeichen lang sein, nur aus
         Zeichen und Zahlen (ohne Leerzeichen am Anfang und Ende){' '}
         <ValidOrNot success={patterns.allowedCharacters} /> bestehen und
-        naturlich nicht vergeben sein <ValidOrNot success={patterns.notTaken} />
+        natürlich nicht vergeben sein <ValidOrNot success={patterns.notTaken} />
+        .
       </SmallParagraph>
     </>
   );
