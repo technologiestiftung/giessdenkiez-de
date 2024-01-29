@@ -122,15 +122,6 @@ export const SidebarAuth = ({
       [name]: value,
     });
   };
-  const handleEmailInputBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    console.log(event.target);
-    const { name, value } = event.target;
-    if (name === 'email' && formData.username === '') {
-      setFormData(fd => {
-        return { ...fd, username: value.split('@')[0] };
-      });
-    }
-  };
 
   let form: JSX.Element | null = null;
   let linkText: JSX.Element | null = null;
@@ -297,7 +288,6 @@ export const SidebarAuth = ({
           formData={formData}
           handleInputChange={handleInputChange}
           handleSubmit={handleSignUpSubmit}
-          handleEmailInputBlur={handleEmailInputBlur}
           buttonText='Registrieren'
           usernamePatterns={usernamePatterns}
           isSignIn={false}

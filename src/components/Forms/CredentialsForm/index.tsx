@@ -15,7 +15,7 @@ export const CredentialsForm = ({
   buttonText,
   isRecovery,
   isSignIn,
-  handleEmailInputBlur,
+
   usernamePatterns,
 }: {
   formData: CredentialsData;
@@ -47,7 +47,6 @@ export const CredentialsForm = ({
             required
             onChange={e => handleInputChange(e).catch(console.error)}
             value={formData.email}
-            // onBlur={handleEmailInputBlur}
           ></StyledFormTextInput>
         </StyledFormRow>
         {!isSignIn && !isRecovery && (
