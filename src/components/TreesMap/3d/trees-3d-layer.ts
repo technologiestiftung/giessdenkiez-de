@@ -7,12 +7,17 @@ export const trees3DCylinderLayerId = 'trees-3d-cylinders-layer';
 export const trees3DLayerId = 'trees-3d-layer';
 export const treeModelId = 'tree-general-model';
 
+const MAPBOX_TREE_CYLINDERS_TILESET_URL =
+  process.env.NEXT_PUBLIC_MAPBOX_TREE_CYLINDERS_TILESET_URL;
+const MAPBOX_TREE_CYLINDERS_LAYERNAME =
+  process.env.NEXT_PUBLIC_MAPBOX_TREE_CYLINDERS_LAYERNAME;
+
 export const trees3DLayer = {
   id: trees3DLayerId,
   //@ts-ignore
   type: 'model',
   source: 'trees',
-  'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
+  'source-layer': 'trees',
   layout: {
     //@ts-ignore
     'model-id': treeModelId,
@@ -28,7 +33,7 @@ export const trees3DLayer = {
 export const trees3DCylinderSource = {
   id: trees3DCylinderSourceId,
   type: 'vector',
-  url: 'mapbox://technologiestiftung.82oerc1s',
+  url: MAPBOX_TREE_CYLINDERS_TILESET_URL,
   minzoom: 0,
   maxzoom: 20,
   promoteId: 'id',
@@ -38,7 +43,7 @@ export const trees3DCylinderLayer = {
   id: trees3DCylinderLayerId,
   type: 'fill-extrusion',
   source: trees3DCylinderSourceId,
-  'source-layer': 'tree_cylinders',
+  'source-layer': MAPBOX_TREE_CYLINDERS_LAYERNAME,
   paint: {
     'fill-extrusion-height': 8,
     'fill-extrusion-opacity': 0,
@@ -97,7 +102,10 @@ export const add3dHighlightLayer = function (
     layers: ['trees'],
     filter: ['==', 'id', treeId],
   })[0];
+
+  //@ts-ignore
   const lat = featureTree.geometry.coordinates[1];
+  //@ts-ignore
   const lng = featureTree.geometry.coordinates[0];
 
   if (!map.getSource(trees3DHighlightSourceId)) {
