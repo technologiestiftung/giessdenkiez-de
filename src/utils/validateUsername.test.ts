@@ -35,11 +35,4 @@ describe('Username validation', () => {
     const { usernameIsValid } = validateUsername(username);
     expect(usernameIsValid).toBe(true);
   });
-
-  test.todo('Rejects username is taken');
-  // test('Rejects username is taken', () => {
-  //   const username = 'abc';
-  //   const { usernameIsValid } = validateUsername(username);
-  //   expect(usernameIsValid).toBe(false);
-  // });
 });
