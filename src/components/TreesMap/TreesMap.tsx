@@ -48,6 +48,8 @@ import { MapTooltip } from './MapTooltip';
 import { getOSMEditorURL } from './osmUtil';
 import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
 
+const SHOW_3D_TREES =
+  (process.env.NEXT_PUBLIC_SHOW_3D_TREES ?? 'false') === 'true';
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY || '';
@@ -432,35 +434,36 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         },
       });
 
-      // --- START 3D trees here ----
-      //@ts-ignore
-      map.current.addLayer(trees3DLayer);
-      //@ts-ignore
-      map.current.addSource(trees3DCylinderSourceId, trees3DCylinderSource);
-      //@ts-ignore
-      map.current.addLayer(trees3DCylinderLayer);
+      if (SHOW_3D_TREES) {
+        console.log('adding 3d layer');
+        //@ts-ignore
+        map.current.addLayer(trees3DLayer);
+        //@ts-ignore
+        map.current.addSource(trees3DCylinderSourceId, trees3DCylinderSource);
+        //@ts-ignore
+        map.current.addLayer(trees3DCylinderLayer);
 
-      add3dTreesCylinderMouseMoveListener(
-        map.current!,
-        lastHoveredTreeCylinderIdRef,
-        (hoveredTreeId: string) => {
-          setHoveredTreeCylinderId(hoveredTreeId);
-          setHoveredTreeId(hoveredTreeId);
-        }
-      );
+        add3dTreesCylinderMouseMoveListener(
+          map.current!,
+          lastHoveredTreeCylinderIdRef,
+          (hoveredTreeId: string) => {
+            setHoveredTreeCylinderId(hoveredTreeId);
+            setHoveredTreeId(hoveredTreeId);
+          }
+        );
 
-      add3dTreesCylinderMouseLeaveListener(
-        map.current!,
-        lastHoveredTreeCylinderIdRef,
-        selectedTreeCylinderIdRef,
-        () => {
-          setHoveredTreeCylinderId(undefined);
-          setHoveredTreeId(null);
-        }
-      );
+        add3dTreesCylinderMouseLeaveListener(
+          map.current!,
+          lastHoveredTreeCylinderIdRef,
+          selectedTreeCylinderIdRef,
+          () => {
+            setHoveredTreeCylinderId(undefined);
+            setHoveredTreeId(null);
+          }
+        );
 
-      map.current.moveLayer('trees', trees3DLayerId);
-      // -- END 3D trees here
+        map.current.moveLayer('trees', trees3DLayerId);
+      }
 
       map.current.on('mousemove', 'trees', e => {
         if (!map.current || !e.features) return;
