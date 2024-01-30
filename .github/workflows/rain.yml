@@ -9,7 +9,7 @@ on:
 jobs:
   rain:
     # Using the payload of the repository_dispatch webhook to specify the environment
-    environment: "${{ github.event.client_payload.environment }}"
+    environment: '${{ github.event.client_payload.environment }}'
     runs-on: ubuntu-latest
     name: Aggregate rain data from DWD radolan
     steps:
@@ -31,4 +31,6 @@ jobs:
           MAPBOXTOKEN: ${{ secrets.MAPBOXTOKEN }}
           MAPBOXTILESET: ${{ secrets.MAPBOXTILESET }}
           MAPBOXLAYERNAME: ${{ secrets.MAPBOXLAYERNAME }}
+          MAPBOX_CYLINDER_TILESET: ${{ secrets.MAPBOX_TREE_CYLINDERS_TILESET }}
+          MAPBOX_CYLINDER_LAYERNAME: ${{ secrets.NEXT_PUBLIC_MAPBOX_TREE_CYLINDERS_LAYERNAME }}
           SKIP_MAPBOX: 'False'
