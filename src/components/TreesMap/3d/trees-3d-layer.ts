@@ -88,7 +88,7 @@ export const trees3DHighlightLayer = {
   paint: {
     //@ts-ignore
     'model-scale': [0.01, 0.01, 0.008],
-    'model-translation': [0, 0, 0],
+    'model-translation': [0, 0, 0.05],
     'model-opacity': 1,
   },
 };
