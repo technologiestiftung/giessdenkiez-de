@@ -46,7 +46,7 @@ export const trees3DCylinderLayer = {
   'source-layer': MAPBOX_TREE_CYLINDERS_LAYERNAME,
   paint: {
     'fill-extrusion-height': 8,
-    'fill-extrusion-opacity': 0.2,
+    'fill-extrusion-opacity': 0,
     'fill-extrusion-color': '#ff0000',
   },
 };
