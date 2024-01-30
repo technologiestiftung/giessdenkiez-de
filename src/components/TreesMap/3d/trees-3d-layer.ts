@@ -243,6 +243,16 @@ const generateTreeCylindersDynamically = (
   return geojson;
 };
 
+export const addTreeCylindersDynamicallyOnTap = (map: mapboxgl.Map) => {
+  if (map.getZoom() > 17) {
+    var features = map.queryRenderedFeatures(undefined, {
+      layers: ['trees'],
+    });
+    const geojson = generateTreeCylindersDynamically(features);
+    map.getSource(trees3DCylinderSourceId).setData(geojson);
+  }
+};
+
 export const addTreeCylindersDynamicallyOnMapMove = (map: mapboxgl.Map) => {
   map.on('move', function () {
     if (map.getZoom() > 17) {
@@ -260,7 +270,6 @@ export const addTreeCylindersDynamicallyOnMouseMove = (
   x: number,
   y: number
 ) => {
-  console.log('mouse move');
   const boxSize = 80;
 
   var bbox = [

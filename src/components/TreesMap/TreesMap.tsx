@@ -27,6 +27,7 @@ import {
   add3dTreesCylinderMouseMoveListener,
   addTreeCylindersDynamicallyOnMapMove,
   addTreeCylindersDynamicallyOnMouseMove,
+  addTreeCylindersDynamicallyOnTap,
   remove3dHighlightLayer,
   trees3DCylinderLayer,
   trees3DCylinderLayerId,
@@ -318,6 +319,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
       setSelectedTreeCylinderId(id);
       onTreeSelect(id);
+      addTreeCylindersDynamicallyOnTap(map.current);
     },
     [onTreeSelect]
   );
