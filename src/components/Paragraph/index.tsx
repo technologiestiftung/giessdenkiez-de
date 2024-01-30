@@ -17,11 +17,11 @@ const ParagraphContainer = styled.p`
   }
 `;
 
-const Paragraph: FC<{ className?: string; onClick?: () => void }> = ({
-  children,
-  className = '',
-  onClick = () => undefined,
-}) =>
+const Paragraph: FC<{
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+}> = ({ children, className = '', onClick = () => undefined }) =>
   typeof children === 'string' ? (
     <ParagraphContainer
       className={className}
