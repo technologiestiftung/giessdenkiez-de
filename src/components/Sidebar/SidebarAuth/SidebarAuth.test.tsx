@@ -1,7 +1,8 @@
 import React from 'react';
+import { describe, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { SidebarAuth } from './index';
 
+import { SidebarAuth } from './';
 describe('component SidebarAuth', () => {
   test('should render view sigin', () => {
     render(
@@ -12,6 +13,7 @@ describe('component SidebarAuth', () => {
         isLoading={false}
       />
     );
+
     expect(screen.getByText(/Anmelden/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/E-Mail/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/passwort/i)).toBeInTheDocument();
@@ -34,6 +36,7 @@ describe('component SidebarAuth', () => {
     expect(button).toBeInTheDocument();
     expect(screen.getByLabelText(/E-Mail/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/passwort/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/benutzername/i)).toBeInTheDocument();
     expect(screen.getByText(/Log dich ein/i)).toBeInTheDocument();
     expect(screen.getByText(/Passwort vergessen\?/i)).toBeInTheDocument();
   });
