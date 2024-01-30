@@ -46,7 +46,7 @@ export const trees3DCylinderLayer = {
   'source-layer': MAPBOX_TREE_CYLINDERS_LAYERNAME,
   paint: {
     'fill-extrusion-height': 8,
-    'fill-extrusion-opacity': 0,
+    'fill-extrusion-opacity': 0.2,
     'fill-extrusion-color': '#ff0000',
   },
 };
@@ -102,6 +102,8 @@ export const add3dHighlightLayer = function (
     layers: ['trees'],
     filter: ['==', 'id', treeId],
   })[0];
+
+  if (!featureTree) return;
 
   //@ts-ignore
   const lat = featureTree.geometry.coordinates[1];
