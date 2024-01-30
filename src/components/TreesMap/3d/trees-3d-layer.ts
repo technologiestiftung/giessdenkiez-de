@@ -51,11 +51,11 @@ export const trees3DCylinderLayer = {
   },
 };
 
-export const trees3DHighlightSource = function (
+export const trees3DHighlightSource = (
   lat: number,
   lng: number,
   featureId: string
-) {
+) => {
   return {
     type: 'geojson',
     data: {
@@ -93,12 +93,12 @@ export const trees3DHighlightLayer = {
   },
 };
 
-export const add3dHighlightLayer = function (
+export const add3dHighlightLayer = (
   map: mapboxgl.Map,
   feature: mapboxgl.MapboxGeoJSONFeature
-) {
+) => {
   const treeId = feature.id as string;
-  var featureTree = map.queryRenderedFeatures(undefined, {
+  const featureTree = map.queryRenderedFeatures(undefined, {
     layers: ['trees'],
     filter: ['==', 'id', treeId],
   })[0];
@@ -131,10 +131,7 @@ export const add3dHighlightLayer = function (
   );
 };
 
-export const remove3dHighlightLayer = function (
-  map: mapboxgl.Map,
-  treeId: string
-) {
+export const remove3dHighlightLayer = (map: mapboxgl.Map, treeId: string) => {
   map.setFeatureState(
     {
       source: trees3DCylinderSourceId,
@@ -149,11 +146,11 @@ export const remove3dHighlightLayer = function (
   }
 };
 
-export const add3dTreesCylinderMouseMoveListener = function (
+export const add3dTreesCylinderMouseMoveListener = (
   map: mapboxgl.Map,
   lastHoveredTreeIdRef: React.MutableRefObject<string | undefined>,
   hoverCallback: (treeId: string) => void
-) {
+) => {
   map.on('mousemove', trees3DCylinderLayerId, function (e) {
     const firstFeature = e.features ? e.features[0] : null;
     if (firstFeature) {
@@ -170,12 +167,12 @@ export const add3dTreesCylinderMouseMoveListener = function (
   });
 };
 
-export const add3dTreesCylinderMouseLeaveListener = function (
+export const add3dTreesCylinderMouseLeaveListener = (
   map: mapboxgl.Map,
   lastHoveredTreeIdRef: React.MutableRefObject<string | undefined>,
   selectedTreeCylinderIdRef: React.MutableRefObject<string | undefined>,
   callback: () => void
-) {
+) => {
   map.on('mouseleave', trees3DCylinderLayerId, function () {
     if (lastHoveredTreeIdRef.current && !selectedTreeCylinderIdRef.current) {
       remove3dHighlightLayer(map, lastHoveredTreeIdRef.current);
