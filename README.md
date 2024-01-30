@@ -1,6 +1,9 @@
 ![Node.js CI](https://github.com/technologiestiftung/giessdenkiez-de/workflows/Node.js%20CI/badge.svg?branch=master) ![love badge](https://img.shields.io/badge/Built%20with-%E2%99%A5-red) ![citylab badge](https://img.shields.io/badge/@-CityLAB%20Berlin-blue)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # [![Logo of _Gieß den Kiez_](./docs/images/logo.svg)](https://www.giessdenkiez.de)
@@ -29,6 +32,10 @@ This project is composed of multiple repositories:
 ## Documentation
 
 You can find the projects documentation in this repos [wiki](https://github.com/technologiestiftung/giessdenkiez-de/wiki).
+
+## Licences
+
+The 3D tree models are taken from https://sketchfab.com/3d-models/low-poly-tree-a65141ab47d04842b36009434476c6c2 with a license of https://creativecommons.org/licenses/by/4.0/.
 
 ## Contributors ✨
 
