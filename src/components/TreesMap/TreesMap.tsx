@@ -25,6 +25,7 @@ import {
 import {
   add3dTreesCylinderMouseLeaveListener,
   add3dTreesCylinderMouseMoveListener,
+  addTreeCylindersDynamicallyOnMapMove,
   addTreeCylindersDynamicallyOnMouseMove,
   remove3dHighlightLayer,
   trees3DCylinderLayer,
@@ -462,6 +463,8 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
             setHoveredTreeId(null);
           }
         );
+
+        addTreeCylindersDynamicallyOnMapMove(map.current!);
 
         map.current.moveLayer('trees', trees3DLayerId);
       }

@@ -70,7 +70,7 @@ export const trees3DCylinderLayer = {
   // 'source-layer': MAPBOX_TREE_CYLINDERS_LAYERNAME,
   paint: {
     'fill-extrusion-height': 10,
-    'fill-extrusion-opacity': 0.5,
+    'fill-extrusion-opacity': 0.3,
     'fill-extrusion-color': '#ff0000',
   },
 };
@@ -205,28 +205,13 @@ export const add3dTreesCylinderMouseLeaveListener = (
   });
 };
 
-export const addTreeCylindersDynamicallyOnMouseMove = (
-  map: mapboxgl.Map,
-  x: number,
-  y: number
+const generateTreeCylindersDynamically = (
+  features: mapboxgl.MapboxGeoJSONFeature[]
 ) => {
-  const boxSize = 80;
-
-  // Calculate the bounding box in pixel coordinates
-  var bbox = [
-    [x - boxSize, y - boxSize],
-    [x + boxSize, y + boxSize],
-  ];
-
-  // Use queryRenderedFeatures to get features within the bounding box
-  var features = map.queryRenderedFeatures(bbox, {
-    layers: ['trees'], // Specify the layer(s) you want to query
-  });
-
   const geojson = {
     type: 'FeatureCollection',
     features: features.map(f => {
-      const offsetMeters = 3.7;
+      const offsetMeters = 2;
 
       const lat = f.geometry.coordinates[1];
       const lng = f.geometry.coordinates[0];
@@ -255,6 +240,38 @@ export const addTreeCylindersDynamicallyOnMouseMove = (
       };
     }),
   };
+  return geojson;
+};
 
+export const addTreeCylindersDynamicallyOnMapMove = (map: mapboxgl.Map) => {
+  map.on('move', function () {
+    if (map.getZoom() > 17) {
+      var features = map.queryRenderedFeatures(undefined, {
+        layers: ['trees'],
+      });
+      const geojson = generateTreeCylindersDynamically(features);
+      map.getSource(trees3DCylinderSourceId).setData(geojson);
+    }
+  });
+};
+
+export const addTreeCylindersDynamicallyOnMouseMove = (
+  map: mapboxgl.Map,
+  x: number,
+  y: number
+) => {
+  console.log('mouse move');
+  const boxSize = 80;
+
+  var bbox = [
+    [x - boxSize, y - boxSize],
+    [x + boxSize, y + boxSize],
+  ];
+
+  var features = map.queryRenderedFeatures(bbox, {
+    layers: ['trees'], // Specify the layer(s) you want to query
+  });
+
+  const geojson = generateTreeCylindersDynamically(features);
   map.getSource(trees3DCylinderSourceId).setData(geojson);
 };
