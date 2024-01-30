@@ -25,6 +25,7 @@ import {
 import {
   add3dTreesCylinderMouseLeaveListener,
   add3dTreesCylinderMouseMoveListener,
+  addTreeCylindersDynamicallyOnMouseMove,
   remove3dHighlightLayer,
   trees3DCylinderLayer,
   trees3DCylinderLayerId,
@@ -621,7 +622,15 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   ]);
 
   return (
-    <>
+    <div
+      onMouseMove={e => {
+        addTreeCylindersDynamicallyOnMouseMove(
+          map.current!,
+          e.clientX,
+          e.clientY
+        );
+      }}
+    >
       <DeckGL
         layers={renderLayers()}
         viewState={viewport as unknown}
@@ -689,6 +698,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           }}
         />
       )}
-    </>
+    </div>
   );
 });

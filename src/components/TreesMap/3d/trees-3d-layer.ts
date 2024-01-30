@@ -12,6 +12,27 @@ const MAPBOX_TREE_CYLINDERS_TILESET_URL =
 const MAPBOX_TREE_CYLINDERS_LAYERNAME =
   process.env.NEXT_PUBLIC_MAPBOX_TREE_CYLINDERS_LAYERNAME;
 
+interface Position {
+  lat: number;
+  lng: number;
+}
+
+function offset(
+  lat: number,
+  lon: number,
+  toEastInMeters: number,
+  toSouthInMeters: number
+): Position {
+  const AVERAGE_RADIUS_OF_EARTH_M = 6371000;
+  const dLat = -1.0 * (toSouthInMeters / AVERAGE_RADIUS_OF_EARTH_M);
+  const dLon =
+    toEastInMeters /
+    (AVERAGE_RADIUS_OF_EARTH_M * Math.cos((Math.PI * lat) / 180));
+  const newLat = lat + (dLat * 180) / Math.PI;
+  const newLon = lon + (dLon * 180) / Math.PI;
+  return { lat: newLat, lng: newLon };
+}
+
 export const trees3DLayer = {
   id: trees3DLayerId,
   //@ts-ignore
@@ -32,8 +53,11 @@ export const trees3DLayer = {
 
 export const trees3DCylinderSource = {
   id: trees3DCylinderSourceId,
-  type: 'vector',
-  url: MAPBOX_TREE_CYLINDERS_TILESET_URL,
+  type: 'geojson',
+  data: {
+    type: 'FeatureCollection',
+    features: [],
+  },
   minzoom: 0,
   maxzoom: 20,
   promoteId: 'id',
@@ -43,10 +67,10 @@ export const trees3DCylinderLayer = {
   id: trees3DCylinderLayerId,
   type: 'fill-extrusion',
   source: trees3DCylinderSourceId,
-  'source-layer': MAPBOX_TREE_CYLINDERS_LAYERNAME,
+  // 'source-layer': MAPBOX_TREE_CYLINDERS_LAYERNAME,
   paint: {
-    'fill-extrusion-height': 8,
-    'fill-extrusion-opacity': 0,
+    'fill-extrusion-height': 10,
+    'fill-extrusion-opacity': 0.5,
     'fill-extrusion-color': '#ff0000',
   },
 };
@@ -124,7 +148,7 @@ export const add3dHighlightLayer = (
   map.setFeatureState(
     {
       source: trees3DCylinderSourceId,
-      sourceLayer: 'tree_cylinders',
+      // sourceLayer: 'tree_cylinders',
       id: treeId,
     },
     { hovered: true }
@@ -135,7 +159,7 @@ export const remove3dHighlightLayer = (map: mapboxgl.Map, treeId: string) => {
   map.setFeatureState(
     {
       source: trees3DCylinderSourceId,
-      sourceLayer: 'tree_cylinders',
+      // sourceLayer: 'tree_cylinders',
       id: treeId,
     },
     { hovered: false }
@@ -179,4 +203,58 @@ export const add3dTreesCylinderMouseLeaveListener = (
       callback();
     }
   });
+};
+
+export const addTreeCylindersDynamicallyOnMouseMove = (
+  map: mapboxgl.Map,
+  x: number,
+  y: number
+) => {
+  const boxSize = 80;
+
+  // Calculate the bounding box in pixel coordinates
+  var bbox = [
+    [x - boxSize, y - boxSize],
+    [x + boxSize, y + boxSize],
+  ];
+
+  // Use queryRenderedFeatures to get features within the bounding box
+  var features = map.queryRenderedFeatures(bbox, {
+    layers: ['trees'], // Specify the layer(s) you want to query
+  });
+
+  const geojson = {
+    type: 'FeatureCollection',
+    features: features.map(f => {
+      const offsetMeters = 3.7;
+
+      const lat = f.geometry.coordinates[1];
+      const lng = f.geometry.coordinates[0];
+
+      const topLeft = offset(lat, lng, offsetMeters, -offsetMeters);
+      const topRight = offset(lat, lng, -offsetMeters, -offsetMeters);
+      const bottomLeft = offset(lat, lng, offsetMeters, offsetMeters);
+      const bottomRight = offset(lat, lng, -offsetMeters, offsetMeters);
+
+      return {
+        type: 'Feature',
+        properties: { id: f.id, lat: lat, lng: lng },
+        geometry: {
+          type: 'Polygon',
+          coordinates: [
+            [
+              [topLeft.lng, topLeft.lat],
+              [topRight.lng, topRight.lat],
+              [bottomRight.lng, bottomRight.lat],
+              [bottomLeft.lng, bottomLeft.lat],
+              [topLeft.lng, topLeft.lat],
+            ],
+          ],
+        },
+        id: f.id,
+      };
+    }),
+  };
+
+  map.getSource(trees3DCylinderSourceId).setData(geojson);
 };
