@@ -39,7 +39,7 @@ import {
 import { useActions, useStoreState } from '../../state/unistore-hooks';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
-const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
+const VIEWSTATE_ZOOMEDIN_ZOOM = 20;
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY || '';
 interface StyledProps {
   isNavOpen?: boolean;
@@ -278,23 +278,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     [onTreeSelect]
   );
 
-  const onZoom = useCallback(
-    e => {
-      if (e.geolocateSource) {
-        onViewStateChange({
-          ...viewport,
-          longitude: e.viewState.longitude,
-          latitude: e.viewState.latitude,
-          zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-        });
-        return;
-      }
-
-      onViewStateChange(e.viewState);
-    },
-    [viewport, onViewStateChange]
-  );
-
   const onLoad = useCallback(
     (evt: { target: MapboxMap }) => {
       map.current = evt.target;
@@ -352,8 +335,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       map.current.addSource('trees', {
         type: 'vector',
         url: process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_URL,
-        minzoom: 0,
-        maxzoom: 20,
         promoteId: 'id',
       });
 
@@ -363,7 +344,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         source: 'trees',
         'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
         interactive: true,
-        minzoom: 0,
         paint: {
           'circle-pitch-alignment': 'map',
           'circle-radius': getTreeCircleRadius({}),
@@ -551,10 +531,8 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     <>
       <DeckGL
         layers={renderLayers()}
-        viewState={viewport as unknown}
-        onViewStateChange={(e: { viewState: any }) =>
-          onViewStateChange(e.viewState)
-        }
+        viewState={viewport}
+        onViewStateChange={e => setViewport(e.viewState)}
         onClick={onMapClick}
         controller
         style={{ overflow: 'hidden' }}
@@ -565,7 +543,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
           styleDiffing={true}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
-          onZoom={onZoom}
           onLoad={onLoad}
           style={{
             width: '100%',
