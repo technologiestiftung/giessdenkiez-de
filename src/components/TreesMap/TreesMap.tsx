@@ -149,7 +149,7 @@ const defaultViewport = {
   zoom: isMobile ? initialZoomMobile : initialZoom,
   maxZoom: VIEWSTATE_ZOOMEDIN_ZOOM,
   minZoom: 11,
-  pitch: isMobile ? 0 : 45,
+  pitch: 45,
   bearing: 0,
   transitionDuration: 2000,
   transitionEasing: d3EaseCubic,
@@ -367,12 +367,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         },
         firstLabelLayerId
       );
-
-      // disable map rotation using right click + drag
-      map.current.dragRotate.disable();
-
-      // disable map rotation using touch rotation gesture
-      map.current.touchZoomRotate.disableRotation();
 
       map.current.addSource('trees', {
         type: 'vector',

@@ -12,6 +12,8 @@ const MAPBOX_TREE_CYLINDERS_TILESET_URL =
 const MAPBOX_TREE_CYLINDERS_LAYERNAME =
   process.env.NEXT_PUBLIC_MAPBOX_TREE_CYLINDERS_LAYERNAME;
 
+const minZoomFor3DTrees = 15;
+
 export const trees3DLayer = {
   id: trees3DLayerId,
   //@ts-ignore
@@ -22,6 +24,7 @@ export const trees3DLayer = {
     //@ts-ignore
     'model-id': treeModelId,
   },
+  minzoom: minZoomFor3DTrees,
   paint: {
     //@ts-ignore
     'model-scale': [0.008, 0.008, 0.008],
@@ -34,8 +37,6 @@ export const trees3DCylinderSource = {
   id: trees3DCylinderSourceId,
   type: 'vector',
   url: MAPBOX_TREE_CYLINDERS_TILESET_URL,
-  minzoom: 0,
-  maxzoom: 20,
   promoteId: 'id',
 };
 
@@ -44,6 +45,7 @@ export const trees3DCylinderLayer = {
   type: 'fill-extrusion',
   source: trees3DCylinderSourceId,
   'source-layer': MAPBOX_TREE_CYLINDERS_LAYERNAME,
+  minzoom: minZoomFor3DTrees,
   paint: {
     'fill-extrusion-height': 8,
     'fill-extrusion-opacity': 0,
