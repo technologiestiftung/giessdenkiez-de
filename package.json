@@ -80,6 +80,7 @@
     "deck.gl": "8.9.34",
     "focus-trap-react": "10.2.2",
     "history": "4.10.1",
+    "lodash.debounce": "4.0.8",
     "mapbox-gl": "3.1.0",
     "next": "14.1.0",
     "rc-slider": "9.7.5",

@@ -1,6 +1,6 @@
 // import 'whatwg-fetch';
 import '@testing-library/dom';
-import '@testing-library/jest-dom/vitest';
+import '@testing-library/jest-dom';
 import { server } from '../src/mocks/server';
 import ReactDOM from 'react-dom';
 
