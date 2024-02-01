@@ -25,7 +25,6 @@ interface Content {
   intro: {
     title: string;
     subline: string;
-    disclaimer: string;
     description: string[];
   };
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
@@ -46,8 +45,13 @@ interface Content {
     treetypes: TreeType[];
   };
   collaborate: {
-    title: string;
     tiles: CollaborationItem[];
+  };
+  sales: {
+    title: string;
+    subtitle?: string;
+    buttonText: string;
+    buttonLink: string;
   };
 }
 
@@ -132,11 +136,8 @@ const content: Content = {
     title: '<b>Gieß den <span>Kiez</span></b>',
     subline:
       'Die Berliner Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
-    disclaimer:
-      'Hinweis: Das Laden von über 800.000 Bäumen ist ressourcenintensiv und funktioniert aktuell nicht auf allen Mobilgeräten einwandfrei. Wir empfehlen die Nutzung via Desktop-Computer',
     description: [
-      'Auf dieser Plattform kannst Du Dich über Bäume in Deiner Nachbarschaft und ihren Wasserbedarf informieren. Du kannst einzelne Bäume adoptieren und markieren, wenn Du sie gegossen hast. Wenn Du die Seite regelmäßig nutzen möchtest, solltest Du ein Konto erstellen.',
-      'Die Karte zeigt über 800.000 Stadtbäume, die Du ganz einfach, auch ohne Konto, erkunden kannst.<br/>Du möchtest Dich über das Gießen von Bäumen informieren, Pumpen melden und Dich mit anderen aktiven Nutzer:innen austauschen? Dann tritt unserem Slack-Chat bei!',
+      'Erkundige Dich über den Wasserbedarf der Bäume in Deiner Nachbarschaft, adoptiere den Baum vor Deiner Haustür und werde Teil der aktiven Gieß-Community in Berlin!',
     ],
   },
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
@@ -246,33 +247,39 @@ const content: Content = {
     ],
   },
   collaborate: {
-    title: '<b>Wie kann ich mitmachen?</b>',
     tiles: [
       {
-        icon: 'water',
-        title: 'Bäume bewässern',
+        icon: 'zoom',
+        title: 'Entdecken',
         description:
-          'Informiere Dich auf unserer Plattform, ob die Bäume in Deiner Straße Wasser benötigen. Wenn ja, schnapp Dir eine Gießkanne, einen Eimer oder einen Schlauch und leg los. Danach trägst Du die Bewässerung hier ein.',
+          'Unsere interaktive Karte visualisiert über 800.000 Stadtbäume und zeigt Informationen zu Art, Alter und Wasserbedarf an. Nutze die Filter- und Suchfunktionen, um schnell einen Überblick zu erhalten.',
+      },
+      {
+        icon: 'water',
+        title: 'Gießen',
+        description:
+          'Schnapp Dir eine Gießkanne und werde Teil der Gieß-Community! Bereits über tausend Mitglieder:innen haben sich für die Bäume Berlins zusammengeschlossen und tragen ihre Gießungen regelmäßig ein.',
       },
       {
         icon: 'subscribe',
-        title: 'Bäume adoptieren',
+        title: 'Adoptieren',
         description:
-          'Wenn Du regelmäßig die gleichen Bäume gießen willst, kannst Du sie adoptieren und so anzeigen, dass für sie gesorgt ist. So findet eine Koordinierung in der Nachbarschaft statt.',
-      },
-      {
-        icon: 'zoom',
-        title: 'Den Baumbestand erkunden',
-        description:
-          'Unsere Karte ermöglicht es, mehr über einzelne Bäume und auch den gesamten Baumbestand zu erfahren. Nutze die Filter- und Suchfunktion, um mehr über die Bäume Berlins zu lernen.',
+          'Durch das Adoptieren eines Baumes - oder auch mehrerer - lässt Du deine Nachbarschaft wissen, dass für diese Bäume gesorgt wird. So gelingt ein koordiniertes Engagement.',
       },
       {
         icon: 'info',
-        title: 'Mit anderen austauschen',
+        title: 'Austauschen',
         description:
-          'Tritt unserem <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack-Chat</a> bei, um Dich mit anderen User*innen auszutauschen und die Bewässerung von Bäumen in deinem Kiez zu koordinieren.',
+          'Tritt unserem <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack-Chat</a> bei, um Dich mit der Gieß-Community zu vernetzen, Fragen auszutauschen und die Bewässerung in Deinem Kiez abzustimmen.',
       },
     ],
+  },
+  sales: {
+    title: '<i>Gieß den Kiez</i> auch in Deiner Stadt?',
+    subtitle:
+      'Städte wie Leipzig, Magdeburg und Co. haben sich bereits erfolgreich der Gieß-Welle angeschlossen! Ist deine Stadt die nächste?',
+    buttonText: 'Erfahre mehr!',
+    buttonLink: 'https://deine-stadt.giessdenkiez.de',
   },
 };
 

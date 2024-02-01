@@ -578,6 +578,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
                 positionOptions={{ enableHighAccuracy: true }}
                 trackUserLocation={isMobile ? true : false}
                 showUserLocation={true}
+                showAccuracyCircle={false}
               />
             </ControlWrapper>
           )}
