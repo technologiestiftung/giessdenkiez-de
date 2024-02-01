@@ -6,12 +6,17 @@ import { CollaborationItem } from '../../../assets/content';
 
 const Wrapper = styled.div`
   display: grid;
-  gap: 1rem;
+  column-gap: 1.5rem;
+  row-gap: 2rem;
   margin: 0 40px;
-  grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+  grid-template-columns: repeat(4, 1fr);
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: ${p => p.theme.screens.mobile}) {
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 

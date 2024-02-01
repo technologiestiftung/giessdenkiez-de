@@ -52,7 +52,7 @@ export const MapLayout: FC<{ treeId?: string | null }> = ({
           content='<%= domain %>/images/social_media.jpg'
         />
       </Head>
-      <App treeId={treeId}>
+      <App>
         <SidebarWrapper isVisible={pathname !== '/'}>{children}</SidebarWrapper>
       </App>
     </>
