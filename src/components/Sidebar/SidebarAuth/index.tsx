@@ -10,7 +10,12 @@ import { CredentialsForm } from '../../Forms/CredentialsForm';
 import { SidebarLoading } from '../SidebarLoading';
 import styled from 'styled-components';
 import Paragraph from '../../Paragraph';
-import { Quotes, quotesTag } from '../../Quotes';
+import { Quotes } from '../../Quotes';
+import {
+  UsernamePattern,
+  validateUsername,
+} from '../../../utils/validateUsername';
+import debounce from 'lodash/debounce';
 
 enum titles {
   signin = 'Anmelden',
@@ -43,12 +48,21 @@ export const SidebarAuth = ({
   const [formData, setFormData] = useState<CredentialsData>({
     email: '',
     password: '',
+    username: '',
+  });
+
+  const [usernamePatterns, setUsernamePatterns] = useState<UsernamePattern>({
+    minLength: false,
+    maxLength: false,
+    notTaken: false,
+    allowedCharacters: false,
   });
 
   const clearFields = () => {
     setFormData({
       email: '',
       password: '',
+      username: '',
     });
   };
 
@@ -64,13 +78,15 @@ export const SidebarAuth = ({
   };
   const handleSignUpSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    signUp(formData.email, formData.password).catch(error => {
-      console.error(error);
-      setNotification({
-        message: error.message,
-        type: 'error',
-      });
-    });
+    signUp(formData.email, formData.password, formData.username).catch(
+      error => {
+        console.error(error);
+        setNotification({
+          message: error.message,
+          type: 'error',
+        });
+      }
+    );
   };
 
   const handleRecoverySubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -85,10 +101,22 @@ export const SidebarAuth = ({
     clearFields();
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = event.target;
+    if (name === 'username') {
+      // make a throttled request to the api to check if the username is available
+      // if not, show a message
+      const { patterns } = validateUsername(value);
+      setUsernamePatterns(patterns);
+      await checkIfUsernameIsNotTaken(
+        value,
+        setNotification,
+        setUsernamePatterns
+      );
+    }
     setNotification(null);
-
     setFormData({
       ...formData,
       [name]: value,
@@ -98,10 +126,22 @@ export const SidebarAuth = ({
   let form: JSX.Element | null = null;
   let linkText: JSX.Element | null = null;
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string, username?: string) => {
+    if (Object.values(usernamePatterns).every(Boolean) === false) {
+      setNotification({
+        message: 'Bitte überprüfe deinen Benutzernamen',
+        type: 'error',
+      });
+      return;
+    }
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          signup_username: username,
+        },
+      },
     });
     if (error) {
       if (error.message.includes('User already registered')) {
@@ -185,6 +225,43 @@ export const SidebarAuth = ({
     }
   };
 
+  const checkIfUsernameIsNotTaken = debounce(
+    async (
+      username: string,
+      setNotification: React.Dispatch<
+        React.SetStateAction<UserNotificationObjectType | null>
+      >,
+      setUsernamePattern: React.Dispatch<React.SetStateAction<UsernamePattern>>
+    ): Promise<void> => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('username', username);
+      if (error) {
+        console.error(error);
+        return;
+      }
+      if (data) {
+        if (data.length > 0) {
+          setNotification({
+            message: 'Benutzername bereits vergeben',
+            type: 'error',
+          });
+          setUsernamePattern(up => {
+            return { ...up, notTaken: false };
+          });
+        } else {
+          setUsernamePattern(up => {
+            return { ...up, notTaken: true };
+          });
+        }
+      } else {
+        throw new Error('could not check username');
+      }
+    },
+    500
+  );
+
   switch (view) {
     case 'signin': {
       form = (
@@ -212,6 +289,7 @@ export const SidebarAuth = ({
           handleInputChange={handleInputChange}
           handleSubmit={handleSignUpSubmit}
           buttonText='Registrieren'
+          usernamePatterns={usernamePatterns}
           isSignIn={false}
         />
       );

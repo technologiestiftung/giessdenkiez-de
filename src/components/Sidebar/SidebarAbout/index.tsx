@@ -24,6 +24,7 @@ const SidebarAbout: FC = () => {
               <SlackButton />
             </div>
           )}
+          {idx === 2 && <Credits></Credits>}
         </ExpandablePanel>
       ))}
 

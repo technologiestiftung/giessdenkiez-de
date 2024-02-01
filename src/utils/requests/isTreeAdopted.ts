@@ -12,16 +12,21 @@ interface IsTreeAdoptedProps {
 export async function isTreeAdopted(
   opts: IsTreeAdoptedProps
 ): Promise<boolean> {
-  const { isAuthenticated, uuid, id, token, signal } = opts;
-  if (!isAuthenticated) return false;
-  const url = createAPIUrl(`/v3/get/istreeadopted?uuid=${uuid}&id=${id}`);
+  try {
+    const { isAuthenticated, uuid, id, token, signal } = opts;
+    if (!isAuthenticated) return false;
+    const url = createAPIUrl(`/v3/get/istreeadopted?uuid=${uuid}&id=${id}`);
 
-  const json = await requests<
-    { data: IsTreeAdoptedProps },
-    { signal: AbortSignal | undefined }
-  >(url, {
-    token,
-    override: { signal },
-  });
-  return Boolean(json.data);
+    const json = await requests<
+      { data: IsTreeAdoptedProps },
+      { signal: AbortSignal | undefined }
+    >(url, {
+      token,
+      override: { signal },
+    });
+    return Boolean(json.data);
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 }

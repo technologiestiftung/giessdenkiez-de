@@ -11,7 +11,6 @@ import content from '../../../assets/content';
 import { useActions } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
 import OverlayTiles from '../OverlayTiles';
-import { SlackButton } from '../../SlackButton';
 
 const { whatsNew } = content;
 
@@ -42,7 +41,7 @@ const Logo = styled.div`
 `;
 
 const StyledTop = styled.div`
-  padding: 20px 0 40px 0;
+  padding: 20px 0 0 0;
   grid-area: intro;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
@@ -70,10 +69,9 @@ const StyledWrapper = styled.div`
 
 const CreditsContainer = styled.div`
   position: relative;
-  padding-top: 40px;
   margin-top: 20px;
   align-self: flex-end;
-
+  width: 60%;
   &:before {
     content: '';
     position: absolute;

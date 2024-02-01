@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import OverlayTop from './OverlayTop';
-import OverlayBottom from './OverlayBottom';
 import { useActions } from '../../state/unistore-hooks';
 
 const StyledWrapper = styled.div`
@@ -45,7 +44,7 @@ const StyledOverlayWrapper = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
-  min-height: 60vh;
+  padding-bottom: 20px;
   max-height: calc(100vh - 40px);
   display: grid;
   grid-template:
@@ -76,7 +75,6 @@ const Overlay: FC = () => {
       <StyledWrapper>
         <Wrapper>
           <OverlayTop />
-          <OverlayBottom />
         </Wrapper>
       </StyledWrapper>
     </StyledOverlayWrapper>

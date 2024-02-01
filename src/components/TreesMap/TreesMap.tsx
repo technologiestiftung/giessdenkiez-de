@@ -1,14 +1,15 @@
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
-import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
-import { Map as MapboxMap } from 'mapbox-gl';
-import {
-  FlyToInterpolator,
-  GeolocateControl,
-  MapRef,
-  NavigationControl,
-  StaticMap,
-  ViewportProps,
-} from 'react-map-gl';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
+import { GeolocateControl, MapRef, NavigationControl } from 'react-map-gl';
+import Map from 'react-map-gl';
+
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
 import DeckGL, { GeoJsonLayer, RGBAColor } from 'deck.gl';
 import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
@@ -39,7 +40,7 @@ import { useActions, useStoreState } from '../../state/unistore-hooks';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
-
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY || '';
 interface StyledProps {
   isNavOpen?: boolean;
 }
@@ -85,10 +86,10 @@ interface TreesMapPropsType {
   onTreeSelect: (id?: string | null) => void;
 }
 
-interface ViewportType extends Partial<ViewportProps> {
-  latitude: ViewportProps['latitude'];
-  longitude: ViewportProps['longitude'];
-  zoom: ViewportProps['zoom'];
+interface ViewportType {
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
 interface PumpPropertiesType {
@@ -123,12 +124,12 @@ if (
 }
 
 const initialLatitude =
-  +process.env.NEXT_PUBLIC_MAP_INITIAL_LATITUDE || 52.500869;
+  Number(process.env.NEXT_PUBLIC_MAP_INITIAL_LATITUDE) || 52.500869;
 const initialLongitude =
-  +process.env.NEXT_PUBLIC_MAP_INITIAL_LONGITUDE || 13.419047;
-const initialZoom = +process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM || 11;
+  Number(process.env.NEXT_PUBLIC_MAP_INITIAL_LONGITUDE) || 13.419047;
+const initialZoom = Number(process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM) || 11;
 const initialZoomMobile =
-  +process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM_MOBILE || 13;
+  Number(process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM_MOBILE) || 13;
 
 const defaultViewport = {
   latitude: initialLatitude,
@@ -140,7 +141,6 @@ const defaultViewport = {
   bearing: 0,
   transitionDuration: 2000,
   transitionEasing: d3EaseCubic,
-  transitionInterpolator: new FlyToInterpolator(),
 };
 
 let hasUnmounted = false;
@@ -238,7 +238,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     return layers as unknown[];
   }, [pumpsGeoJson, rainGeojson, visibleMapLayer]);
 
-  const onViewStateChange = useCallback((newViewport: ViewportProps) => {
+  const onViewStateChange = useCallback((newViewport: any) => {
     if (hasUnmounted) return;
     const newViewState = {
       ...defaultViewport,
@@ -276,6 +276,23 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       onTreeSelect(id);
     },
     [onTreeSelect]
+  );
+
+  const onZoom = useCallback(
+    e => {
+      if (e.geolocateSource) {
+        onViewStateChange({
+          ...viewport,
+          longitude: e.viewState.longitude,
+          latitude: e.viewState.latitude,
+          zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+        });
+        return;
+      }
+
+      onViewStateChange(e.viewState);
+    },
+    [viewport, onViewStateChange]
   );
 
   const onLoad = useCallback(
@@ -535,59 +552,38 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       <DeckGL
         layers={renderLayers()}
         viewState={viewport as unknown}
-        onViewStateChange={(e: { viewState: ViewportProps }) =>
+        onViewStateChange={(e: { viewState: any }) =>
           onViewStateChange(e.viewState)
         }
         onClick={onMapClick}
         controller
         style={{ overflow: 'hidden' }}
       >
-        <StaticMap
+        <Map
           reuseMaps
           ref={ref}
           mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
-          preventStyleDiffing={true}
-          mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
+          styleDiffing={true}
+          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
+          onZoom={onZoom}
           onLoad={onLoad}
-          width='100%'
-          height='100%'
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
         >
           {!showControls && (
             <ControlWrapper isNavOpen={isNavOpen}>
+              <NavigationControl position={'bottom-left'} />
               <GeolocateControl
+                position={'bottom-left'}
                 positionOptions={{ enableHighAccuracy: true }}
                 trackUserLocation={isMobile ? true : false}
                 showUserLocation={true}
-                onGeolocate={(posOptions: {
-                  coords: {
-                    latitude: number;
-                    longitude: number;
-                  };
-                }) => {
-                  const { latitude, longitude } = posOptions.coords;
-                  onViewStateChange({
-                    longitude,
-                    latitude,
-                    zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-                    transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-                  });
-                }}
-              />
-              <NavigationControl
-                onViewStateChange={e => {
-                  const newViewState = (e as { viewState: ViewportType })
-                    .viewState;
-                  onViewStateChange({
-                    latitude: newViewState.latitude,
-                    longitude: newViewState.longitude,
-                    zoom: newViewState.zoom,
-                    transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-                  });
-                }}
               />
             </ControlWrapper>
           )}
-        </StaticMap>
+        </Map>
       </DeckGL>
       {pumpInfo && pumpInfo.x && pumpInfo.y && (
         <MapTooltip

@@ -20,11 +20,11 @@ const SmallParagraphContainer = styled.p`
   }
 `;
 
-const SmallParagraph: FC<{ className?: string; onClick?: () => void }> = ({
-  children,
-  className = '',
-  onClick = () => undefined,
-}) =>
+const SmallParagraph: FC<{
+  className?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+}> = ({ children, className = '', onClick = () => undefined }) =>
   typeof children === 'string' ? (
     <SmallParagraphContainer
       className={className}

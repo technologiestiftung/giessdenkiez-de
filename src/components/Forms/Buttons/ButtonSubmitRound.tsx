@@ -74,6 +74,7 @@ const ButtonSubmitRound: FC<{
   fontSize?: string;
   margin?: string;
   disabled?: boolean;
+  children: React.ReactNode;
 }> = ({
   type = 'submit',
   colorType = 'primary',
