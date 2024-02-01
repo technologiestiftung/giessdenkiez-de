@@ -5,8 +5,8 @@ import RoundButton from '../../../components/RoundButton';
 
 const StyledRoundButton = styled(RoundButton)`
   position: absolute;
-  top: 40px;
-  right: 40px;
+  top: 16px;
+  right: 16px;
   z-index: 10;
 `;
 

@@ -6,7 +6,6 @@ import Nav from '../Nav';
 import MapLayerLegend from '../Legend/MapLayersLegend';
 import Cookie from '../Cookie';
 import Overlay from '../Overlay';
-import Credits from '../Credits';
 import { MapAttributionImprintAndPrivacy } from '../ImprintAndPrivacy';
 import { useStoreState } from '../../state/unistore-hooks';
 import 'react-day-picker/dist/style.css';
