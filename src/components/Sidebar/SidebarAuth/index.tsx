@@ -219,7 +219,7 @@ export const SidebarAuth = ({
     }
     if (data) {
       setNotification({
-        message: `Überprüfe deine E-Mail „${email}” nach einem Link um dein Passwort zu ändern`,
+        message: `ÜberprüfeDeine E-Mail „${email}” nach einem Link um Dein Passwort zu ändern`,
         type: 'success',
       });
     }
@@ -296,7 +296,7 @@ export const SidebarAuth = ({
       linkText = (
         <CredentialsSubline
           text={'Du hast schon einen Account?'}
-          aText={'Log dich ein'}
+          aText={'Log Dich ein'}
           onClick={() => setView('signin')}
         />
       );
@@ -325,7 +325,7 @@ export const SidebarAuth = ({
     case 'confirm': {
       form = (
         <Paragraph>
-          Überprüfe dein E-Mail Postfach für <Quotes>{formData.email}</Quotes>{' '}
+          Überprüfe Dein E-Mail Postfach für <Quotes>{formData.email}</Quotes>{' '}
           nach einer E-Mail von{' '}
           <Quotes>{process.env.NEXT_PUBLIC_FROM_EMAIL}</Quotes> mit einem Link
           um deinen Account zu bestätigen.
@@ -358,7 +358,7 @@ export const SidebarAuth = ({
           <>
             <StyledSpacer />
             <CredentialsSubline
-              text={' Oh nein. Du hast dein '}
+              text={' Oh nein. Du hast Dein '}
               aText={'Passwort vergessen?'}
               onClick={() => setView('recovery')}
             />

@@ -107,8 +107,8 @@ const Cookie: FC = () => {
           <Inner>
             <Text>
               Diese Webseite verwendet Cookies, um bestimmte Funktionen zu
-              ermöglichen und das Angebot zu verbessern. Indem du hier
-              fortfährst stimmst du der Nutzung von Cookies zu.{' '}
+              ermöglichen und das Angebot zu verbessern. IndemDuhier fortfährst
+              stimmstDuder Nutzung von Cookies zu.{' '}
             </Text>
             <MoreInfoLink
               href='https://www.technologiestiftung-berlin.de/de/datenschutz/'

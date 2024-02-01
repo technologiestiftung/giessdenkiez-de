@@ -56,7 +56,7 @@ export default class ErrorBoundary extends Component<
             >
               <h1>Irgendwas ist schief gelaufen.</h1>
               <p>
-                Bitte wende dich an das{' '}
+                Bitte wende Dich an das{' '}
                 <a href='https://www.citylab-berlin.org/'>CityLAB</a> oder
                 schreib uns einen Issue auf{' '}
                 <a href='https://github.com/technologiestiftung/giessdenkiez-de/issues/new'>

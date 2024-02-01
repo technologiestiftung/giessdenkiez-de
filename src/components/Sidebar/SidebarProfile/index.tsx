@@ -34,8 +34,8 @@ const WateringsTitle = styled.span<StyledComponentType>`
 const confirmAccountDeletion = (): boolean =>
   window.confirm(
     `🚨 🚨 🚨
-Willst du deinen Account wirklich löschen? Diese Aktion ist endgültig.
-Alle deine Benutzerdaten werden damit sofort gelöscht!`
+WillstDudeinen Account wirklich löschen? Diese Aktion ist endgültig.
+AlleDeine Benutzerdaten werden damit sofort gelöscht!`
   );
 
 const SidebarProfile: FC<{
@@ -65,9 +65,9 @@ const SidebarProfile: FC<{
         <SidebarTitle>Profil</SidebarTitle>
         <FlexCol>
           <Paragraph>
-            Du bist momentan nicht eingeloggt. Wenn du das Gießen von Bäumen in
-            deiner Umgebung hier eintragen möchtest, dann registriere dich oder
-            logge dich ein.
+            Du bist momentan nicht eingeloggt. WennDudas Gießen von Bäumen in
+            Deiner Umgebung hier eintragen möchtest, dann registriere Dich oder
+            logge Dich ein.
           </Paragraph>
           <Login width='-webkit-fill-available' />
           <ParticipateButton />
@@ -105,7 +105,7 @@ const SidebarProfile: FC<{
       <Login width='-webkit-fill-available' />
       <>
         <Paragraph>
-          Möchtest du deinen Account löschen? Damit werden alle von dir
+          MöchtestDudeinen Account löschen? Damit werden alle von dir
           generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein
           Benutzer bei unserem Authentifizierungsdienst Supabase.com wird sofort
           und unwiderruflich gelöscht.
