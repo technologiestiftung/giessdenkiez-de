@@ -269,11 +269,20 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         return;
       }
 
-      const id: string = features[0].properties?.id as string;
+      const treeFeature: mapboxgl.MapboxGeoJSONFeature = features[0];
+      const id: string = treeFeature.properties?.id as string;
+      const geometry = treeFeature.geometry as GeoJSON.Point;
 
       if (!id) return;
 
       onTreeSelect(id);
+
+      onViewStateChange({
+        latitude: geometry.coordinates[1],
+        longitude: geometry.coordinates[0],
+        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+      });
     },
     [onTreeSelect]
   );
