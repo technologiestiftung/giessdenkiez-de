@@ -135,9 +135,9 @@ const content: Content = {
   intro: {
     title: '<b>Gieß den <span>Kiez</span></b>',
     subline:
-      'Die Berliner Stadtbäume leiden unter Trockenheit <br class="large" /> und du kannst ihnen helfen!',
+      'Die Berliner Stadtbäume leiden unter Trockenheit <br class="large" /> und Du kannst ihnen helfen!',
     description: [
-      'Erkundige dich über den Wasserbedarf der Bäume in deiner Nachbarschaft, adoptiere den Baum vor deiner Haustür und werde Teil der aktiven Gieß-Community in Berlin!',
+      'Erkundige Dich über den Wasserbedarf der Bäume in Deiner Nachbarschaft, adoptiere den Baum vor Deiner Haustür und werde Teil der aktiven Gieß-Community in Berlin!',
     ],
   },
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
@@ -258,19 +258,19 @@ const content: Content = {
         icon: 'water',
         title: 'Gießen',
         description:
-          'Schnapp dir eine Gießkanne und werde Teil der Gieß-Community! Bereits über tausend Mitglieder:innen haben sich für die Bäume Berlins zusammengeschlossen und tragen ihre Gießungen regelmäßig ein.',
+          'Schnapp Dir eine Gießkanne und werde Teil der Gieß-Community! Bereits über tausend Mitglieder:innen haben sich für die Bäume Berlins zusammengeschlossen und tragen ihre Gießungen regelmäßig ein.',
       },
       {
         icon: 'subscribe',
         title: 'Adoptieren',
         description:
-          'Durch das Adoptieren eines Baumes - oder auch mehrerer - lässt du deine Nachbarschaft wissen, dass für diese Bäume gesorgt wird. So gelingt ein koordiniertes Engagement.',
+          'Durch das Adoptieren eines Baumes - oder auch mehrerer - lässt Du deine Nachbarschaft wissen, dass für diese Bäume gesorgt wird. So gelingt ein koordiniertes Engagement.',
       },
       {
         icon: 'info',
         title: 'Austauschen',
         description:
-          'Tritt unserem <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack-Chat</a> bei, um dich mit der Gieß-Community zu vernetzen, Fragen auszutauschen und die Bewässerung in deinem Kiez abzustimmen.'
+          'Tritt unserem <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack-Chat</a> bei, um Dich mit der Gieß-Community zu vernetzen, Fragen auszutauschen und die Bewässerung in Deinem Kiez abzustimmen.',
       },
     ],
   },

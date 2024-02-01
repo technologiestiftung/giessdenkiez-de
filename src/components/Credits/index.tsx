@@ -35,19 +35,31 @@ const Credits: FC = () => {
     <LogoContainer>
       <LabelLogoGroup>
         <Label>Ein Projekt der</Label>
-        <a href='https://technologiestiftung-berlin.de/'>
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          href='https://technologiestiftung-berlin.de/'
+        >
           <Logo src={logoTSB} alt='Logo Technologiestiftung Berlin' />
         </a>
       </LabelLogoGroup>
       <LabelLogoGroup>
         <Label>Durchgeführt von</Label>
-        <a href='https://citylab-berlin.org/de/start/'>
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          href='https://citylab-berlin.org/de/start/'
+        >
           <Logo src={logoCitylab} alt='Logo Citylab' />
         </a>
       </LabelLogoGroup>
       <LabelLogoGroup>
         <Label>Gefördert durch</Label>
-        <a href='https://www.berlin.de/senatskanzlei/'>
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          href='https://www.berlin.de/senatskanzlei/'
+        >
           <Logo src={logoBerlin} alt='Logo Berlin' />
         </a>
       </LabelLogoGroup>
