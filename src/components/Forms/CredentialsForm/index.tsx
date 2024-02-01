@@ -1,4 +1,3 @@
-import React from 'react';
 import React, { useEffect, useState } from 'react';
 import { StyledForm, StyledFormRow } from '..';
 import { CredentialsData } from '../../../common/interfaces';
@@ -9,7 +8,6 @@ import { StyledFormTextInput } from '../Inputs';
 import { StyledLabel } from '../Labels';
 import { PasswordValidation } from '../PasswordValidation';
 import { UsernameValidation } from '../UsernameValidation';
-import { UsernamePattern } from '../../../utils/validateUsername';
 
 export const CredentialsForm = ({
   formData,
@@ -18,7 +16,6 @@ export const CredentialsForm = ({
   buttonText,
   isRecovery,
   isSignIn,
-
   usernamePatterns,
 }: {
   formData: CredentialsData;
