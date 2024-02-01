@@ -65,7 +65,7 @@ const SidebarProfile: FC<{
         <SidebarTitle>Profil</SidebarTitle>
         <FlexCol>
           <Paragraph>
-            Du bist momentan nicht eingeloggt. WennDudas Gießen von Bäumen in
+            Du bist momentan nicht eingeloggt. Wenn Du das Gießen von Bäumen in
             Deiner Umgebung hier eintragen möchtest, dann registriere Dich oder
             logge Dich ein.
           </Paragraph>
@@ -105,7 +105,7 @@ const SidebarProfile: FC<{
       <Login width='-webkit-fill-available' />
       <>
         <Paragraph>
-          MöchtestDudeinen Account löschen? Damit werden alle von dir
+          Möchtest Du deinen Account löschen? Damit werden alle von dir
           generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein
           Benutzer bei unserem Authentifizierungsdienst Supabase.com wird sofort
           und unwiderruflich gelöscht.
