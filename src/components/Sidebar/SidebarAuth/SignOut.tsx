@@ -1,8 +1,8 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import Router from 'next/router';
 import React from 'react';
-import { AuthView } from '../../../../pages/auth';
 import ButtonRound from '../../ButtonRound';
+import { AuthView } from '../../Forms/AuthForm';
 export const SignOut = ({
   setView,
 }: {

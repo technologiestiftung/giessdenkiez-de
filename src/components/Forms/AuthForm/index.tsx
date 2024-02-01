@@ -8,7 +8,7 @@ import {
 } from '../../Notification';
 
 import { useRouter } from 'next/router';
-import { AuthView } from '../../../../pages/auth';
+export type AuthView = 'signin' | 'signup' | 'recovery' | 'confirm';
 
 function AuthForm() {
   const { replace: routerReplace } = useRouter();
