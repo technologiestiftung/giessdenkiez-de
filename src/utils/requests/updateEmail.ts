@@ -15,7 +15,7 @@ export const updateEmail = async ({
       email: newEmail,
     });
 
-    return `Um die Änderung zu bestätigen, bitte klicke auf die Links die per Mail jeweils an deine alte E-Mail-Adresse „${oldEmail}“ und neue E-Mail-Adresse „${newEmail}“ verschickt wurde.`;
+    return `Um die Änderung zu bestätigen, bitte klicke auf die Links die per Mail jeweils an Deine alte E-Mail-Adresse „${oldEmail}“ und neue E-Mail-Adresse „${newEmail}“ verschickt wurde.`;
   } catch (error) {
     console.error(error);
     return error;

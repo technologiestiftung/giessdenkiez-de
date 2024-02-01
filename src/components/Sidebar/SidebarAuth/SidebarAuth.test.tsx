@@ -37,7 +37,7 @@ describe('component SidebarAuth', () => {
     expect(screen.getByLabelText(/E-Mail/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/passwort/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/benutzername/i)).toBeInTheDocument();
-    expect(screen.getByText(/Log dich ein/i)).toBeInTheDocument();
+    expect(screen.getByText(/Log Dich ein/i)).toBeInTheDocument();
     expect(screen.getByText(/Passwort vergessen\?/i)).toBeInTheDocument();
   });
   test('should render view recovery', () => {
