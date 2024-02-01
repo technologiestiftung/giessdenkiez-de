@@ -243,10 +243,6 @@ export const SidebarAuth = ({
       }
       if (data) {
         if (data.length > 0) {
-          setNotification({
-            message: 'Benutzername bereits vergeben',
-            type: 'error',
-          });
           setUsernamePattern(up => {
             return { ...up, notTaken: false };
           });
