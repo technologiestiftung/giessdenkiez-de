@@ -553,6 +553,18 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           styleDiffing={true}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
           onLoad={onLoad}
+          onZoom={e => {
+            //@ts-ignore
+            if (e.geolocateSource) {
+              onViewStateChange({
+                ...viewport,
+                longitude: e.viewState.longitude,
+                latitude: e.viewState.latitude,
+                zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+              });
+              return;
+            }
+          }}
           style={{
             width: '100%',
             height: '100%',
