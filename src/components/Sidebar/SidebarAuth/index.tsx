@@ -129,7 +129,7 @@ export const SidebarAuth = ({
   const signUp = async (email: string, password: string, username?: string) => {
     if (Object.values(usernamePatterns).every(Boolean) === false) {
       setNotification({
-        message: 'Bitte überprüfe deinen Benutzernamen',
+        message: 'Bitte überprüfe Deinen Benutzernamen',
         type: 'error',
       });
       return;
@@ -219,7 +219,7 @@ export const SidebarAuth = ({
     }
     if (data) {
       setNotification({
-        message: `ÜberprüfeDeine E-Mail „${email}” nach einem Link um Dein Passwort zu ändern`,
+        message: `Überprüfe Deine E-Mail „${email}” nach einem Link um Dein Passwort zu ändern`,
         type: 'success',
       });
     }

@@ -34,8 +34,8 @@ const WateringsTitle = styled.span<StyledComponentType>`
 const confirmAccountDeletion = (): boolean =>
   window.confirm(
     `🚨 🚨 🚨
-WillstDudeinen Account wirklich löschen? Diese Aktion ist endgültig.
-AlleDeine Benutzerdaten werden damit sofort gelöscht!`
+Willst Du Deinen Account wirklich löschen? Diese Aktion ist endgültig.
+Alle Deine Benutzerdaten werden damit sofort gelöscht!`
   );
 
 const SidebarProfile: FC<{
