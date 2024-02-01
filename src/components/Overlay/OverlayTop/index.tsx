@@ -72,6 +72,9 @@ const CreditsContainer = styled.div`
   margin-top: 20px;
   align-self: flex-end;
   width: 60%;
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    width: 100%;
+  }
   &:before {
     content: '';
     position: absolute;
