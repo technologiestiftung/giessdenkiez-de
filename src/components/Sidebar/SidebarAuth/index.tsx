@@ -16,6 +16,7 @@ import {
   validateUsername,
 } from '../../../utils/validateUsername';
 import debounce from 'lodash/debounce';
+import { AuthView } from '../../Forms/AuthForm';
 
 enum titles {
   signin = 'Anmelden',
