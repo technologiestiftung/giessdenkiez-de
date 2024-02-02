@@ -11,10 +11,9 @@ export const UsernameValidation = ({
   return (
     <>
       <SmallParagraph>
-        Dein Benutzername sollte zwischen 3{' '}
-        <ValidOrNot success={patterns.minLength} /> und 50{' '}
-        <ValidOrNot success={patterns.maxLength} /> Zeichen lang sein, nur aus
-        Zeichen und Zahlen bestehen, ohne Leerzeichen am Anfang und Ende{' '}
+        Dein Benutzername sollte zwischen 3 und 50 Zeichen lang sein{' '}
+        <ValidOrNot success={patterns.allowedLength} />, nur aus Zeichen und
+        Zahlen bestehen, ohne Leerzeichen am Anfang und Ende{' '}
         <ValidOrNot success={patterns.allowedCharacters} />.
       </SmallParagraph>
     </>
