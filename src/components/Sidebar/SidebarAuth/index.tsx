@@ -54,8 +54,9 @@ export const SidebarAuth = ({
   const [usernamePatterns, setUsernamePatterns] = useState<UsernamePattern>({
     minLength: false,
     maxLength: false,
-    notTaken: false,
+    taken: false,
     allowedCharacters: false,
+    allowedLength: false,
   });
 
   const clearFields = () => {
@@ -228,7 +229,7 @@ export const SidebarAuth = ({
   const checkIfUsernameIsNotTaken = debounce(
     async (
       username: string,
-      setNotification: React.Dispatch<
+      _setNotification: React.Dispatch<
         React.SetStateAction<UserNotificationObjectType | null>
       >,
       setUsernamePattern: React.Dispatch<React.SetStateAction<UsernamePattern>>
@@ -244,11 +245,11 @@ export const SidebarAuth = ({
       if (data) {
         if (data.length > 0) {
           setUsernamePattern(up => {
-            return { ...up, notTaken: false };
+            return { ...up, taken: true };
           });
         } else {
           setUsernamePattern(up => {
-            return { ...up, notTaken: true };
+            return { ...up, taken: false };
           });
         }
       } else {

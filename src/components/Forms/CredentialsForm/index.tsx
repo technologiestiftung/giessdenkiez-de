@@ -29,11 +29,11 @@ export const CredentialsForm = ({
   isSignIn?: boolean;
   usernamePatterns?: UsernamePattern;
 }) => {
-  const [notTaken, setNotTaken] = useState<boolean | undefined>(true);
+  const [taken, setTaken] = useState<boolean | undefined>(false);
 
   useEffect(() => {
-    setNotTaken(usernamePatterns?.notTaken);
-  }, [usernamePatterns?.notTaken]);
+    setTaken(usernamePatterns?.taken);
+  }, [usernamePatterns?.taken]);
 
   return (
     <>
@@ -73,7 +73,7 @@ export const CredentialsForm = ({
                 <UsernameValidation patterns={usernamePatterns} />
               )}
             </StyledFormRow>
-            {!notTaken && (
+            {taken && (
               <UserNotification
                 message={'Benutzername bereits vergeben'}
                 type={'error'}
