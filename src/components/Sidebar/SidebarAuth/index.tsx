@@ -128,7 +128,8 @@ export const SidebarAuth = ({
   let linkText: JSX.Element | null = null;
 
   const signUp = async (email: string, password: string, username?: string) => {
-    if (Object.values(usernamePatterns).every(Boolean) === false) {
+    const { taken, ...rest } = usernamePatterns;
+    if (Object.values(rest).every(Boolean) === false && taken === true) {
       setNotification({
         message: 'Bitte überprüfe Deinen Benutzernamen',
         type: 'error',
