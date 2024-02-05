@@ -17,7 +17,7 @@ describe('component SidebarAuth', () => {
     expect(screen.getByText(/Anmelden/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/E-Mail/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/passwort/i)).toBeInTheDocument();
-    expect(screen.getByText(/Registrier dich/i)).toBeInTheDocument();
+    expect(screen.getByText(/Registrier Dich/i)).toBeInTheDocument();
     expect(screen.getByText(/Passwort vergessen\?/i)).toBeInTheDocument();
   });
 

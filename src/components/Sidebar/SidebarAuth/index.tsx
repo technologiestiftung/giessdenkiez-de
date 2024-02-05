@@ -276,7 +276,7 @@ export const SidebarAuth = ({
       linkText = (
         <CredentialsSubline
           text={'Du hast noch keinen Account?'}
-          aText={'Registrier dich'}
+          aText={'Registrier Dich'}
           onClick={() => setView('signup')}
         />
       );
