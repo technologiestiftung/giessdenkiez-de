@@ -52,7 +52,7 @@ const SocialSharing: FC = () => {
                 src={mailIcon}
                 width={36}
                 height={36}
-                alt='Calendar Icon'
+                alt='Mail Icon'
               />
         </EmailShareButton>
       </ButtonsContainer>
