@@ -5,7 +5,7 @@ import {
   FacebookShareButton,
   FacebookIcon,
   TwitterShareButton,
-  TwitterIcon,
+  XIcon,
   WhatsappShareButton,
   WhatsappIcon,
   EmailShareButton,
@@ -42,7 +42,7 @@ const SocialSharing: FC = () => {
           <FacebookIcon size={36} round />
         </FacebookShareButton>
         <TwitterShareButton url='https://www.giessdenkiez.de/'>
-          <TwitterIcon size={36} round />
+          <XIcon size={36} round />
         </TwitterShareButton>
         <WhatsappShareButton url='https://www.giessdenkiez.de/'>
           <WhatsappIcon size={36} round />
