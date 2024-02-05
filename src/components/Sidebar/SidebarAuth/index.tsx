@@ -146,6 +146,7 @@ export const SidebarAuth = ({
       },
     });
     if (error) {
+      console.error('SIGNUP ERROR', error);
       if (error.message.includes('User already registered')) {
         setNotification({
           message: 'Benutzer bereits registriert',
