@@ -98,6 +98,7 @@ const deContent: Content = {
     info: 'Weitere Informationen',
   },
   legend: {
+    title: 'Legende',
     pumps: 'Öffentliche Pumpen',
     precipitation: 'Niederschlag',
     precipitationAreas: 'Niederschlagsflächen',
@@ -110,6 +111,12 @@ const deContent: Content = {
       locked: 'verriegelt',
       unknown: 'unbekannt',
     },
+  },
+  sharing: {
+    title:
+      'Teile Gieß den Kiez mit Deinem Umfeld und hilf uns die Gieß-Community zu vergrößern:',
+    content:
+      'Auf Gieß den Kiez kannst Du Dich über den Berliner Baumbestand erkundigen, durstige Bäume finden, und eintragen, wann Du diese gegossen hast!',
   },
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
   // eventNote: {
@@ -323,7 +330,7 @@ const enContent = {
   imprintAndPrivacy: {
     title: 'Imprint and data protection',
     description:
-      '<a target="blank" href="https://www.technologiestiftung-berlin.de/de/impressum/">imprint</a> – <a target="blank" href="https://www.technologiestiftung-berlin.de/de/datenschutz/">data protection</a>',
+      '<a target="blank" href="https://www.technologiestiftung-berlin.de/de/impressum/">Imprint</a> – <a target="blank" href="https://www.technologiestiftung-berlin.de/de/datenschutz/">Data protection</a>',
     attribution:
       '© <a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noreferrer">Mapbox</a> – © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> – <a href="https://www.mapbox.com/map-feedback" target="_blank" rel="noreferrer"><strong>Improve this map</strong></a> – <a href="https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK" target="_blank" rel="noreferrer">Feedback</a>',
   },
@@ -348,6 +355,7 @@ const enContent = {
     info: 'More information',
   },
   legend: {
+    title: 'Legend',
     pumps: 'Public pumps',
     precipitation: 'Precipitation',
     precipitationAreas: 'Precipitation areas',
@@ -361,6 +369,12 @@ const enContent = {
       unknown: 'unknown',
     },
   },
+  sharing: {
+    title:
+      'Share Gieß den Kiez with those around you and help us expand the Gieß community:',
+    content:
+      "On Gieß den Kiez you can find out about Berlin's tree population, find thirsty trees and record when you watered them!",
+  },
   loading: {
     snippets: [
       'We are currently loading 839,049 trees from the Berlin tree population.',
@@ -372,12 +386,12 @@ const enContent = {
   sidebar: {
     about: [
       {
-        title: 'about the project',
+        title: 'About the project',
         description:
           'The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin\'s ecosystem. <br/><br/>Would you like to find out more about watering trees, report pumps and exchange ideas with other active users? <br/><br/>Do you have feedback about Gieß den Kiez?<br/><a target="_blank" rel="noreferrer" href="https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK">Please feel free to answer a few questions for us.</a>',
       },
       {
-        title: 'usefull links',
+        title: 'Useful links',
         description:
           '<ul><li><a target="blank" href="https://www.lieblingsbaum-initiative.de/">Favorite Tree Initiative</a></li><li><a target="blank" href="https://www.bund-berlin.de/mitmachen/aktion-baeume-giessen/">BUND - Watering trees campaign</a></li><li><a target="blank" href="https://www.baumpflegeportal.de/baumpflege/trockenheit-duerre-wann-baeume-giessen/">Tree care portal - watering in dry conditions</a></li><li><a target="blank" href="https://www.berlin.de/senuvk/umwelt/stadtgruen/stadtbaeume/kampagne/start.shtml">Berlin city tree campaign</a></li><li><a target="blank" href="https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/">Soil moisture Berlin project</a></li><li><a target="blank" href="https://www.bmi.bund.de/SharedDocs/downloads/DE/publikationen/themen/bauen/wohnen/weissbuch-stadtgruen.html">Green paper urban green</a></li><li><a target="blank" href="https://www.hcu-hamburg.de/fileadmin/documents/REAP/files/Bildungsmaterial_Stadtbaeume_im_Klimawandel_2017.pdf">City trees - significance and challenges in times of climate change</a></li><li><a target="blank" href="https://www.bund-naturschutz.de/natur-und-landschaft/stadt-als-lebensraum/stadtbaeume/funktionen-von-stadtbaeumen.html">BUND - Functions of city trees</a></li></ul>',
       },

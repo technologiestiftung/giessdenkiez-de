@@ -45,6 +45,7 @@ export interface Content {
     info: string;
   };
   legend: {
+    title: string;
     pumps: string;
     precipitation: string;
     precipitationAreas: string;
@@ -52,6 +53,10 @@ export interface Content {
     treeLayer: string;
     ofLastDays: string;
     pumpState: PumpStates;
+  };
+  sharing: {
+    title: string;
+    content: string;
   };
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
   //if event announcemnt is needed just de-comment this section and fill in the announcement text below

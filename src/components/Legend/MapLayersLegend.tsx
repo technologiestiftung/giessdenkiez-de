@@ -92,7 +92,9 @@ const MapLayerLegend: FC = () => {
       <LegendDiv onClick={() => setLegendExpanded(true)}>
         <FlexSpace>
           <FlexColumn>
-            <StyledCardDescription>Legende</StyledCardDescription>
+            <StyledCardDescription>
+              {content.legend.title}
+            </StyledCardDescription>
           </FlexColumn>
           <LegendToggle>+</LegendToggle>
         </FlexSpace>
