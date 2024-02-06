@@ -9,7 +9,7 @@ import ButtonWater from '../../ButtonWater';
 import WaterDrops from '../../WaterDrops';
 import Login from '../../Login';
 
-import content from '../../../assets/content';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 import { SelectedTreeType } from '../../../common/interfaces';
 import Icon from '../../Icons';
 import StackedBarChart from '../../StackedBarChart';
@@ -22,8 +22,7 @@ import SmallParagraph from '../../SmallParagraph';
 import { useAdoptingActions } from '../../../utils/hooks/useAdoptingActions';
 import { useCommunityData } from '../../../utils/hooks/useCommunityData';
 import { rainCircle, wateredCircle } from '../../StackedBarChart/TooltipLegend';
-
-const { treetypes } = content.sidebar;
+import localizedContent from '../../../assets/content';
 
 const Wrapper = styled.div`
   z-index: 3;
@@ -114,6 +113,9 @@ const BaselineGrid = styled.span`
 const TreeInfos: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
+  const content = useLocalizedContent();
+  const { treetypes } = content.sidebar;
+
   const {
     id: treeId,
     pflanzjahr,

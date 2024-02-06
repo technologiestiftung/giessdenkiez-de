@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 const logoCitylab =
   'https://logos.citylab-berlin.org/logo-citylab-berlin-outline.svg';
@@ -31,10 +32,12 @@ const Logo = styled.img`
 `;
 
 const Credits: FC = () => {
+  const content = useLocalizedContent();
+  const { projectOf, executedBy, fundedBy } = content.credits;
   return (
     <LogoContainer>
       <LabelLogoGroup>
-        <Label>Ein Projekt der</Label>
+        <Label>{projectOf}</Label>
         <a
           target='_blank'
           rel='noopener noreferrer'
@@ -44,7 +47,7 @@ const Credits: FC = () => {
         </a>
       </LabelLogoGroup>
       <LabelLogoGroup>
-        <Label>Durchgeführt von</Label>
+        <Label>{executedBy}</Label>
         <a
           target='_blank'
           rel='noopener noreferrer'
@@ -54,7 +57,7 @@ const Credits: FC = () => {
         </a>
       </LabelLogoGroup>
       <LabelLogoGroup>
-        <Label>Gefördert durch</Label>
+        <Label>{fundedBy}</Label>
         <a
           target='_blank'
           rel='noopener noreferrer'

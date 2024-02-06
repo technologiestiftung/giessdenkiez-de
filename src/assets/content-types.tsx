@@ -26,6 +26,17 @@ export interface Content {
     title: string;
     subline: string;
     description: string[];
+    action: string;
+  };
+  credits: {
+    projectOf: string;
+    executedBy: string;
+    fundedBy: string;
+  };
+  cookies: {
+    disclaimer: string;
+    accept: string;
+    info: string;
   };
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
   //if event announcemnt is needed just de-comment this section and fill in the announcement text below

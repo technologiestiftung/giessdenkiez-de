@@ -7,12 +7,10 @@ import OverlayDescription from '../OverlayDescription/';
 import ButtonRound from '../../ButtonRound';
 import Credits from '../../Credits';
 
-import content from '../../../assets/content';
 import { useActions } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
 import OverlayTiles from '../OverlayTiles';
-
-const { whatsNew } = content;
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 const StyledNewsSection = styled.section`
   background-color: #f7fffa;
@@ -99,8 +97,8 @@ const StyledButtonWrapper = styled.div`
 
 const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
-  const { intro, collaborate } = content;
-  const { title, subline, description } = intro;
+  const { intro, collaborate, whatsNew } = useLocalizedContent();
+  const { title, subline, description, action } = intro;
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -133,7 +131,7 @@ const OverlayTop: FC = () => {
             }}
             type='cta'
           >
-            Los geht&apos;s
+            {action}
           </ButtonRound>
         </StyledButtonWrapper>
 

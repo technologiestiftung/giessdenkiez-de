@@ -1,6 +1,6 @@
-import { Content } from './content-types';
+import { Content, LocalizedContent } from './content-types';
 
-const content: Content = {
+const deContent: Content = {
   faq: {
     title: 'F.A.Q.',
     description:
@@ -84,6 +84,18 @@ const content: Content = {
     description: [
       'Erkundige Dich über den Wasserbedarf der Bäume in Deiner Nachbarschaft, adoptiere den Baum vor Deiner Haustür und werde Teil der aktiven Gieß-Community in Berlin!',
     ],
+    action: "Los geht's",
+  },
+  credits: {
+    projectOf: 'Ein Projekt der',
+    executedBy: 'Durchgeführt von',
+    fundedBy: 'Gefördert durch',
+  },
+  cookies: {
+    disclaimer:
+      'Diese Webseite verwendet Cookies, um bestimmte Funktionen zu ermöglichen und das Angebot zu verbessern. Indem Du hier fortfährst stimmst Du der Nutzung von Cookies zu.',
+    accept: 'Einverstanden',
+    info: 'Weitere Informationen',
   },
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
   // eventNote: {
@@ -228,4 +240,220 @@ const content: Content = {
   },
 };
 
-export default content;
+const enContent = {
+  faq: {
+    title: 'F.A.Q.',
+    description: 'Based on the lively exchange between our community on Slack',
+    qa: [
+      {
+        question: 'How can I participate?',
+        answer:
+          'Inform: <br><br>Curious which tree is in front of your door?  <br><br>Watering and adopting trees: <br><br>Do you want to get active or are you already actively watering?  <br><br>Connect: <br><br>About our public <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a> You can exchange ideas with other foundrymen and report defective pumps in your neighborhood.',
+      },
+      {
+        question: 'What can I do if trees are not registered correctly?',
+        answer:
+          'We obtain the tree data set with all attributes such as address, tree species and planting year for each tree from the geoportal of the city of Berlin, the FIS broker. ',
+      },
+      {
+        question: 'Why should I take action and water trees?',
+        answer:
+          "The long periods of drought and heat of the last two years have caused immense damage to Berlin's urban greenery.  <br><br>The street and green space authorities are already active, but cannot keep up with watering during Berlin's hot summers. ",
+      },
+      {
+        question: 'How do I water correctly?',
+        answer:
+          'Depending on their age, location and tree species, trees need different amounts of water.  <br><br>Since freshly planted trees up to the age of three are usually supplied with water by the district parks authorities, trees between the ages of four and 15 particularly need our attention and our water.  <br><br>Based on the Berlin one <a target="blank" href="https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/handbuch-gute-pflege/">Good Care Handbook</a> We recommend that you water it rarely, but rather with a larger amount of water. ',
+      },
+      {
+        question: 'Who can I contact if pumps are broken or damaged?',
+        answer:
+          'The respective district roads and green spaces authorities are responsible for the infrastructure of the roads, which also includes the public hand pumps.  <a target="blank" href="https://app.slack.com/client/T012K4SDYBY/C019SJQDPL7">Slack channel </a> do. ',
+      },
+      {
+        question: 'How are technical problems handled?',
+        answer:
+          'The participation platform “Gieß den Kiez” is a prototype and therefore a beta version of a web app.  <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a> or by email.  <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">Open source GitHub repository</a> invited and can comment on their issues or code fixes directly in the repository.',
+      },
+      {
+        question: 'Why is the website not loading or loading very slowly?',
+        answer:
+          'When the page is first opened, the browser loads over 800,000 data points - this can take a while!  <br><br>Use via smartphone (mobile network) can lead to performance problems (page loads slowly).  <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a>, by email or via GitHub Issue, stating the device used, the operating system, the browser and the browser version.',
+      },
+      {
+        question: 'What should I do if I watered a tree incorrectly?',
+        answer:
+          'To undo a watering, for example because the neighboring tree was watered instead or on a different day, first click on the tree. ',
+      },
+      {
+        question: 'Can the principle be transferred to other cities?',
+        answer:
+          'The “Gieß den Kiez” platform is an open source software project and runs under an MIT license.  <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">GitHub repository</a> drop by or contact us via email.',
+      },
+      {
+        question: 'I still have a question!',
+        answer:
+          'The FAQ couldn\'t help you or you have a more complex query?  <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Frage:...">E-mail.</a>',
+      },
+      {
+        question: "Why aren't all of Berlin's trees shown?",
+        answer: 'Pour the neighborhood is based on the tree register. ',
+      },
+      {
+        question: "I don't speak any German: What's going on here?",
+        answer:
+          'Gieß den Kiez is a participatory platform where you can inform yourself about the trees in your neighborhood and their water needs. ',
+      },
+    ],
+  },
+  imprintAndPrivacy: {
+    title: 'Imprint and data protection',
+    description:
+      '<a target="blank" href="https://www.technologiestiftung-berlin.de/de/impressum/">imprint</a> – <a target="blank" href="https://www.technologiestiftung-berlin.de/de/datenschutz/">data protection</a>',
+    attribution:
+      '© <a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noreferrer">Mapbox</a> – © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> – <a href="https://www.mapbox.com/map-feedback" target="_blank" rel="noreferrer"><strong>Improve this map</strong></a> – <a href="https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK" target="_blank" rel="noreferrer">Feedback</a>',
+  },
+  intro: {
+    title: '<b>Pour that <span>neighbourhood</span></b>',
+    subline:
+      'Berlin\'s city trees are suffering from drought <br class="large" /> and you can help them!',
+    description: [
+      'Find out about the water needs of the trees in your neighborhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!',
+    ],
+    action: "Let's go",
+  },
+  credits: {
+    projectOf: 'A project of',
+    executedBy: 'Executed by',
+    fundedBy: 'Funded by',
+  },
+  cookies: {
+    disclaimer:
+      'This website uses cookies to enable certain functions and to improve the offering. By continuing here you agree to the use of cookies.',
+    accept: 'Accept',
+    info: 'More information',
+  },
+  loading: {
+    snippets: [
+      'We are currently loading 839,049 trees from the Berlin tree population.',
+      'If you access this page via the mobile network, it may take some time.',
+      "Collect information about all trees from Berlin's tree register.",
+      'Already knew? ',
+    ],
+  },
+  sidebar: {
+    about: [
+      {
+        title: 'about the project',
+        description:
+          'The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin\'s ecosystem. <br/><br/>Would you like to find out more about watering trees, report pumps and exchange ideas with other active users? <br/><br/>Do you have feedback about Gieß den Kiez?<br/><a target="_blank" rel="noreferrer" href="https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK">Please feel free to answer a few questions for us.</a>',
+      },
+      {
+        title: 'usefull links',
+        description:
+          '<ul><li><a target="blank" href="https://www.lieblingsbaum-initiative.de/">Favorite Tree Initiative</a></li><li><a target="blank" href="https://www.bund-berlin.de/mitmachen/aktion-baeume-giessen/">BUND - Watering trees campaign</a></li><li><a target="blank" href="https://www.baumpflegeportal.de/baumpflege/trockenheit-duerre-wann-baeume-giessen/">Tree care portal - watering in dry conditions</a></li><li><a target="blank" href="https://www.berlin.de/senuvk/umwelt/stadtgruen/stadtbaeume/kampagne/start.shtml">Berlin city tree campaign</a></li><li><a target="blank" href="https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/">Soil moisture Berlin project</a></li><li><a target="blank" href="https://www.bmi.bund.de/SharedDocs/downloads/DE/publikationen/themen/bauen/wohnen/weissbuch-stadtgruen.html">Green paper urban green</a></li><li><a target="blank" href="https://www.hcu-hamburg.de/fileadmin/documents/REAP/files/Bildungsmaterial_Stadtbaeume_im_Klimawandel_2017.pdf">City trees - significance and challenges in times of climate change</a></li><li><a target="blank" href="https://www.bund-naturschutz.de/natur-und-landschaft/stadt-als-lebensraum/stadtbaeume/funktionen-von-stadtbaeumen.html">BUND - Functions of city trees</a></li></ul>',
+      },
+      {
+        title: 'About Us',
+        description:
+          '“Gieß den Kiez” is a project by <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>.  <br /> <br /> The CityLAB is a project of the Technology Foundation Berlin and is funded by the Berlin Senate Chancellery. <br /> <br /> Exchange ideas with our casting community!  <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to hear from you.<br /> <br />Press inquiries are best addressed to:<br /> Anna Hantelmann<br /><a href="mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage">anna.hantelmann@ts.berlin</a><br /><a href="tel:+4915118457242">Tel.: 49 151 18457 242 </a>',
+      },
+      {
+        title: 'Data sources',
+        description:
+          'The map shows the majority of Berlin\'s street and plant trees (839,049; as of May 2023). <ul><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS">Geoportal Berlin / Street trees</a></li><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand_an@senstadt&type=WFS">Geoportal Berlin / Plant trees</a></li><li><a target="blank" href="https://www.dwd.de/">German Weather Service</a></li><li>Pumps off <a target="blank" href=" https://www.openstreetmap.de"> Open Street Map</a></li></ul>',
+      },
+    ],
+    waterNeeds: [
+      {
+        title: 'Low water requirements',
+        description:
+          'Street trees of older age (>40 years) have usually learned to supply themselves with groundwater, but they also suffer from the increasing heat and are happy about additional water. ',
+      },
+      {
+        title: 'Medium water requirements',
+        description:
+          'Middle-aged trees between 15 and 40 years old are usually no longer watered by the parks departments, but they do have a certain amount of staying power.  ',
+      },
+      {
+        title: 'High water requirements',
+        description:
+          'Young trees between four and 15 years old are not irrigated by the administration in all districts and are not yet “self-sufficient”. ',
+      },
+    ],
+    treetypes: [
+      {
+        id: 'LINDE',
+        title: 'Linden (Tilia)',
+        description:
+          'The linden tree has been considered the typical Berlin street tree for years. ',
+      },
+      {
+        id: 'MAPLE',
+        title: 'Maple (Acer)',
+        description:
+          'The maple genus comprises around 20% of the total population. ',
+      },
+      {
+        id: 'OAK',
+        title: 'Oak (Quercus)',
+        description:
+          'The proportion of oak trees is around 9% of the total stock. ',
+      },
+      {
+        id: 'PLANE',
+        title: 'Plane tree (Platanus)',
+        description:
+          'An ideal avenue tree for wide streets is the plane tree (Platanus acerifolia), which can reach a height of 20 to 30 m and an impressive crown diameter of 15 to 20 m. ',
+      },
+      {
+        id: 'CHESTNUT',
+        title: 'Chestnut (Aesculus)',
+        description:
+          "The horse chestnut (Aesculus hippocastanum) accounts for around 5% of the total population, placing it in fifth place among Berlin's street trees.",
+      },
+    ],
+  },
+  collaborate: {
+    tiles: [
+      {
+        icon: 'zoom',
+        title: 'Discover',
+        description:
+          'Our interactive map visualizes over 800,000 urban trees and displays information on species, age and water requirements. ',
+      },
+      {
+        icon: 'water',
+        title: 'Pour',
+        description:
+          'Grab a watering can and become part of the watering community! ',
+      },
+      {
+        icon: 'subscribe',
+        title: 'To adopt',
+        description:
+          'By adopting a tree - or several - you let your neighborhood know that these trees will be cared for. ',
+      },
+      {
+        icon: 'info',
+        title: 'Exchange',
+        description:
+          'Join ours <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to network with the irrigation community, exchange questions and coordinate irrigation in your neighborhood.',
+      },
+    ],
+  },
+  sales: {
+    title: '<i>Water the neighborhood</i> also in your city?',
+    subtitle:
+      'Cities like Leipzig, Magdeburg and Co. have already successfully joined the casting wave! ',
+    buttonText: 'Learn more!',
+    buttonLink: 'https://deine-stadt.giessdenkiez.de',
+  },
+};
+
+const localizedContent = {
+  de: deContent,
+  en: enContent,
+} as LocalizedContent;
+
+export default localizedContent;
