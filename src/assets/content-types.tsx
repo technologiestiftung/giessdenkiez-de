@@ -15,6 +15,12 @@ export interface CollaborationItem extends Item {
 interface FAQ extends Item {
   qa: Array<{ question: string; answer: string }>;
 }
+interface PumpStates {
+  working: string;
+  defect: string;
+  locked: string;
+  unknown: string;
+}
 export interface Content {
   faq: FAQ;
   imprintAndPrivacy: {
@@ -37,6 +43,15 @@ export interface Content {
     disclaimer: string;
     accept: string;
     info: string;
+  };
+  legend: {
+    pumps: string;
+    precipitation: string;
+    precipitationAreas: string;
+    dataPoints: string;
+    treeLayer: string;
+    ofLastDays: string;
+    pumpState: PumpStates;
   };
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
   //if event announcemnt is needed just de-comment this section and fill in the announcement text below

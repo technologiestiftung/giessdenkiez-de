@@ -97,6 +97,20 @@ const deContent: Content = {
     accept: 'Einverstanden',
     info: 'Weitere Informationen',
   },
+  legend: {
+    pumps: 'Öffentliche Pumpen',
+    precipitation: 'Niederschlag',
+    precipitationAreas: 'Niederschlagsflächen',
+    dataPoints: 'Datenpunkte',
+    treeLayer: 'Straßen- & Anlagenbäume',
+    ofLastDays: 'der letzten 30 Tage (Liter)',
+    pumpState: {
+      working: 'funktionsfähig',
+      defect: 'defekt',
+      locked: 'verriegelt',
+      unknown: 'unbekannt',
+    },
+  },
   //pls do not delete the following eventNote section to facilitate process of enabling/disabling future news & notes
   // eventNote: {
   //   title:
@@ -332,6 +346,20 @@ const enContent = {
       'This website uses cookies to enable certain functions and to improve the offering. By continuing here you agree to the use of cookies.',
     accept: 'Accept',
     info: 'More information',
+  },
+  legend: {
+    pumps: 'Public pumps',
+    precipitation: 'Precipitation',
+    precipitationAreas: 'Precipitation areas',
+    dataPoints: 'Data points',
+    treeLayer: 'Street and park trees',
+    ofLastDays: 'of last 30 days (liters)',
+    pumpState: {
+      working: 'working',
+      defect: 'defect',
+      locked: 'locked',
+      unknown: 'unknown',
+    },
   },
   loading: {
     snippets: [
