@@ -35,9 +35,8 @@ const SidebarAbout: FC = () => {
           <SmallParagraph>{item.answer}</SmallParagraph>
         </ExpandablePanel>
       ))}
-      <br />
-      <OpenSourceNote />
       <SocialSharing />
+      <OpenSourceNote />
       <hr style={{ marginBottom: '2rem', opacity: 0.1 }} />
       <Credits />
     </>
