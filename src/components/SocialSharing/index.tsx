@@ -49,12 +49,14 @@ const SocialSharing: FC = () => {
         </FacebookShareButton>
         <TwitterShareButton
           aria-label='x-sharing-button'
+          title='Auf Gieß den Kiez kannst Du Dich über den Berliner Baumbestand erkundigen, durstige Bäume finden, und eintragen, wann Du diese gegossen hast!'
           url='https://www.giessdenkiez.de/'
         >
           <XIcon size={36} round />
         </TwitterShareButton>
         <WhatsappShareButton
           aria-label='whatsapp-sharing-button'
+          title='Auf Gieß den Kiez kannst Du Dich über den Berliner Baumbestand erkundigen, durstige Bäume finden, und eintragen, wann Du diese gegossen hast!'
           url='https://www.giessdenkiez.de/'
         >
           <WhatsappIcon size={36} round />
@@ -62,6 +64,7 @@ const SocialSharing: FC = () => {
         <EmailShareButton
           aria-label='mail-sharing-button'
           url='https://www.giessdenkiez.de/'
+          body='Auf Gieß den Kiez kannst Du Dich über den Berliner Baumbestand erkundigen, durstige Bäume finden, und eintragen, wann Du diese gegossen hast!'
         >
           <Image src={mailIcon} width={36} height={36} alt='Mail Icon' />
         </EmailShareButton>
