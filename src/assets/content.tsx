@@ -140,6 +140,18 @@ const deContent: Content = {
     ],
   },
   sidebar: {
+    title: 'Suche & Filter',
+    locationSearchTitle: 'Standortsuche',
+    dataViewTitle: 'Datenansicht',
+    dataViewDescription:
+      'Betrachte welche Bäume bereits von anderen Nutzern gegossen wurden. Oder finde heraus, wieviel Niederschlag die Bäume in den letzten 30 Tagen erreicht hat.',
+    precipitation: 'Niederschläge',
+    adopted: 'Bereits adoptiert',
+    lastWatered: 'In den letzten 30 Tagen gegossen',
+    waterNeedsTitle: 'Wasserbedarf',
+    waterNeedsDescription: 'Finde heraus wie sehr Bäume Wasser benötigen.',
+    treeAgeTitle: 'Baumalter',
+    treeAgeDescription: 'Erkunde die Geschichte von Berlins Baumlandschaft',
     about: [
       {
         title: 'Über das Projekt',
@@ -384,6 +396,18 @@ const enContent = {
     ],
   },
   sidebar: {
+    title: 'Search & Filtering',
+    locationSearchTitle: 'Location search',
+    dataViewTitle: 'Data view',
+    dataViewDescription:
+      'See which trees have already been watered by other users. Or find out how much rainfall has reached the trees in the last 30 days.',
+    precipitation: 'Precipitation',
+    adopted: 'Already adopted',
+    lastWatered: 'Watered in last 30 days',
+    waterNeedsTitle: 'Water needs',
+    waterNeedsDescription: 'Find out how much trees need water.',
+    treeAgeTitle: 'Tree age',
+    treeAgeDescription: "Explore the history of Berlin's tree landscape",
     about: [
       {
         title: 'About the project',

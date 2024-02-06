@@ -71,6 +71,17 @@ export interface Content {
     snippets: string[];
   };
   sidebar: {
+    title: string;
+    locationSearchTitle: string;
+    dataViewTitle: string;
+    dataViewDescription: string;
+    precipitation: string;
+    adopted: string;
+    lastWatered: string;
+    waterNeedsTitle: string;
+    waterNeedsDescription: string;
+    treeAgeTitle: string;
+    treeAgeDescription: string;
     about: Item[];
     waterNeeds: Item[];
     treetypes: TreeType[];
