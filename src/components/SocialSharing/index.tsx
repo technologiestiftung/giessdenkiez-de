@@ -36,24 +36,34 @@ const ButtonsContainer = styled.div`
 const SocialSharing: FC = () => {
   return (
     <StyledContainer>
-      <span>Teile Gieß den Kiez mit deinem Umfeld und hilf uns die Gieß-Community zu vergrößern:</span>
+      <span>
+        Teile Gieß den Kiez mit Deinem Umfeld und hilf uns die Gieß-Community zu
+        vergrößern:
+      </span>
       <ButtonsContainer>
-        <FacebookShareButton url='https://www.giessdenkiez.de/'>
+        <FacebookShareButton
+          aria-label='facebook-sharing-button'
+          url='https://www.giessdenkiez.de/'
+        >
           <FacebookIcon size={36} round />
         </FacebookShareButton>
-        <TwitterShareButton url='https://www.giessdenkiez.de/'>
+        <TwitterShareButton
+          aria-label='x-sharing-button'
+          url='https://www.giessdenkiez.de/'
+        >
           <XIcon size={36} round />
         </TwitterShareButton>
-        <WhatsappShareButton url='https://www.giessdenkiez.de/'>
+        <WhatsappShareButton
+          aria-label='whatsapp-sharing-button'
+          url='https://www.giessdenkiez.de/'
+        >
           <WhatsappIcon size={36} round />
         </WhatsappShareButton>
-        <EmailShareButton url='https://www.giessdenkiez.de/'>
-        <Image
-                src={mailIcon}
-                width={36}
-                height={36}
-                alt='Mail Icon'
-              />
+        <EmailShareButton
+          aria-label='mail-sharing-button'
+          url='https://www.giessdenkiez.de/'
+        >
+          <Image src={mailIcon} width={36} height={36} alt='Mail Icon' />
         </EmailShareButton>
       </ButtonsContainer>
     </StyledContainer>
