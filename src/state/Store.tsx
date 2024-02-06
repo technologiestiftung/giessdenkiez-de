@@ -1,5 +1,6 @@
 import createStore from 'unistore';
 import { StoreProps } from '../common/interfaces';
+import { Language } from '../assets/content-types';
 
 const initialState: StoreProps = {
   mapViewFilter: 'rain',
@@ -10,6 +11,7 @@ const initialState: StoreProps = {
   overlay: true,
   mapFocusPoint: null,
   mapHasLoaded: undefined,
+  language: Language.de,
 };
 
 const store = createStore<StoreProps>(initialState);
