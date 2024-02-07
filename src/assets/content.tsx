@@ -239,6 +239,19 @@ const deContent: Content = {
     openSourceNote: 'Giess den Kiez ist ein',
     openSourceLink: 'https://github.com/technologiestiftung/giessdenkiez-de',
     openSourceText: 'Open Source Projekt!',
+    profile: {
+      loggedInHint:
+        'Du bist momentan nicht eingeloggt. Wenn Du das Gießen von Bäumen in Deiner Umgebung hier eintragen möchtest, dann registriere Dich oder logge Dich ein.',
+      title: 'Profil',
+      progress: 'Dein Gießfortschritt',
+      adoptedTrees: 'Adoptierte Bäume',
+      noTreesAdopted: 'Du hast noch keine Bäume adoptiert.',
+      deleteAccountHint:
+        'Möchtest Du deinen Account löschen? Damit werden alle von dir generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein Benutzer bei unserem Authentifizierungsdienst Supabase.com wird sofort und unwiderruflich gelöscht.',
+      deleteAccountAction: 'Account Löschen',
+      deleteAccountWarning:
+        '🚨 🚨 🚨 Willst Du Deinen Account wirklich löschen? Diese Aktion ist endgültig. Alle Deine Benutzerdaten werden damit sofort gelöscht!',
+    },
   },
   auth: {
     signinTitle: 'Anmelden',
@@ -530,6 +543,19 @@ const enContent = {
     openSourceNote: 'Giess den Kiez is an',
     openSourceLink: 'https://github.com/technologiestiftung/giessdenkiez-de',
     openSourceText: 'Open Source project!',
+    profile: {
+      loggedInHint:
+        'You are currently not logged in. If you would like to list the watering of trees in your area here, then register or log in.',
+      title: 'Profile',
+      progress: 'Your waterings',
+      adoptedTrees: 'Adopted trees',
+      noTreesAdopted: "You don't have adopted any trees yet",
+      deleteAccountHint:
+        'Do you want to delete your account? This means that all watering data you generate is assigned to an anonymous user. Your user on our authentication service Supabase.com will be deleted immediately and irrevocably.',
+      deleteAccountAction: 'Delete account',
+      deleteAccountWarning:
+        '🚨 🚨 🚨 Do you really want to delete your account? This action is final. All your user data will be deleted immediately!',
+    },
   },
   auth: {
     signinTitle: 'Login',

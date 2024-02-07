@@ -17,6 +17,7 @@ import { StyledComponentType, UserDataType } from '../../../common/interfaces';
 import { useSessionContext } from '@supabase/auth-helpers-react';
 import { SidebarLoading } from '../SidebarLoading';
 import { useUserProfile } from '../../../utils/hooks/useUserProfile';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
 `;
@@ -31,17 +32,21 @@ const WateringsTitle = styled.span<StyledComponentType>`
   font-weight: bold;
 `;
 
-const confirmAccountDeletion = (): boolean =>
-  window.confirm(
-    `🚨 🚨 🚨
-Willst Du Deinen Account wirklich löschen? Diese Aktion ist endgültig.
-Alle Deine Benutzerdaten werden damit sofort gelöscht!`
-  );
-
 const SidebarProfile: FC<{
   isLoading?: boolean;
   userData?: UserDataType | undefined;
 }> = ({ isLoading: isLoadingProps }) => {
+  const content = useLocalizedContent();
+  const {
+    loggedInHint,
+    title,
+    progress,
+    adoptedTrees,
+    noTreesAdopted,
+    deleteAccountHint,
+    deleteAccountAction,
+    deleteAccountWarning,
+  } = content.sidebar.profile;
   const { userData: userDataState } = useUserData();
   const { userProfile } = useUserProfile();
   const { deleteAccount } = useAccountActions();
@@ -51,24 +56,23 @@ const SidebarProfile: FC<{
   const isLoadingAuthInfo = isAuthenticated && !userData;
   const isLoading = isLoadingProps || isLoadingSupase || isLoadingAuthInfo;
 
+  const confirmAccountDeletion = (): boolean =>
+    window.confirm(deleteAccountWarning);
+
   const handleDeleteClick = (): void => {
     if (!confirmAccountDeletion()) return;
     void deleteAccount();
   };
 
   if (isLoading) {
-    return <SidebarLoading title='Profil' />;
+    return <SidebarLoading title={title} />;
   }
   if (!userData) {
     return (
       <>
-        <SidebarTitle>Profil</SidebarTitle>
+        <SidebarTitle>{title}</SidebarTitle>
         <FlexCol>
-          <Paragraph>
-            Du bist momentan nicht eingeloggt. Wenn Du das Gießen von Bäumen in
-            Deiner Umgebung hier eintragen möchtest, dann registriere Dich oder
-            logge Dich ein.
-          </Paragraph>
+          <Paragraph>{loggedInHint}</Paragraph>
           <Login width='-webkit-fill-available' />
           <ParticipateButton />
         </FlexCol>
@@ -87,12 +91,12 @@ const SidebarProfile: FC<{
 
   return (
     <>
-      <SidebarTitle>Profil</SidebarTitle>
-      <WateringsTitle>Dein Gießfortschritt</WateringsTitle>
+      <SidebarTitle>{title}</SidebarTitle>
+      <WateringsTitle>{progress}</WateringsTitle>
       <WateredTreesIndicator waterings={userData.waterings} />
-      <ExpandablePanel isExpanded title={<span>Adoptierte Bäume</span>}>
+      <ExpandablePanel isExpanded title={<span>{adoptedTrees}</span>}>
         {userData.adoptedTrees.length === 0 ? (
-          'Du hast noch keine Bäume adoptiert.'
+          noTreesAdopted
         ) : (
           <TreesList trees={userData.adoptedTrees} />
         )}
@@ -104,12 +108,7 @@ const SidebarProfile: FC<{
       <br />
       <Login width='-webkit-fill-available' />
       <>
-        <Paragraph>
-          Möchtest Du deinen Account löschen? Damit werden alle von dir
-          generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein
-          Benutzer bei unserem Authentifizierungsdienst Supabase.com wird sofort
-          und unwiderruflich gelöscht.
-        </Paragraph>
+        <Paragraph>{deleteAccountHint}</Paragraph>
         <LastButtonRound
           width='-webkit-fill-available'
           onClick={evt => {
@@ -117,7 +116,7 @@ const SidebarProfile: FC<{
             handleDeleteClick();
           }}
         >
-          Account Löschen
+          {deleteAccountAction}
         </LastButtonRound>
       </>
     </>

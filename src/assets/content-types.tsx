@@ -42,6 +42,16 @@ interface AuthErrors {
   checkMailForPasswordReset: string;
   usernameTaken: string;
 }
+interface Profile {
+  loggedInHint: string;
+  title: string;
+  progress: string;
+  adoptedTrees: string;
+  noTreesAdopted: string;
+  deleteAccountHint: string;
+  deleteAccountAction: string;
+  deleteAccountWarning: string;
+}
 export interface Content {
   faq: FAQ;
   imprintAndPrivacy: {
@@ -110,6 +120,7 @@ export interface Content {
     openSourceNote: string;
     openSourceLink: string;
     openSourceText: string;
+    profile: Profile;
   };
   auth: {
     signinTitle: string;
