@@ -78,6 +78,28 @@ interface Account {
   repeatNewPasswordTitle: string;
   editPasswordSuccess: string;
 }
+interface Tree {
+  title: string;
+  age: string;
+  needs: string;
+  wateringAmount: string;
+  ofLastDays: string;
+  waterings: string;
+  rain: string;
+  litersPerSqm: string;
+  years: string;
+  adoptedByMe: string;
+  adoptedAlsoByOthers: string;
+  adoptedOnlyByOthers: string;
+  regularlyWateredBy: string;
+  lastWaterings: string;
+  latestFirst: string;
+  needsVerification: string;
+  stopAdoption: string;
+  stopAdoptionProgress: string;
+  adopt: string;
+  adoptProgress: string;
+}
 export interface Content {
   faq: FAQ;
   imprintAndPrivacy: {
@@ -153,6 +175,7 @@ export interface Content {
     openSourceText: string;
     profile: Profile;
     account: Account;
+    tree: Tree;
   };
   auth: {
     signinTitle: string;
