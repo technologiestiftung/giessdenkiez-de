@@ -252,6 +252,15 @@ const deContent: Content = {
       deleteAccountWarning:
         '🚨 🚨 🚨 Willst Du Deinen Account wirklich löschen? Diese Aktion ist endgültig. Alle Deine Benutzerdaten werden damit sofort gelöscht!',
     },
+    account: {
+      title: 'Dein Account',
+      username: 'Benutzername',
+      registeredMail: 'Registrierte E-Mail Adresse',
+      editHint: 'Benutzername oder E-Mail',
+      editLink: 'bearbeiten?',
+      passwordEditHint: 'Passwort',
+      passwordEditLink: 'ändern?',
+    },
   },
   auth: {
     signinTitle: 'Anmelden',
@@ -555,6 +564,15 @@ const enContent = {
       deleteAccountAction: 'Delete account',
       deleteAccountWarning:
         '🚨 🚨 🚨 Do you really want to delete your account? This action is final. All your user data will be deleted immediately!',
+    },
+    account: {
+      title: 'Your account',
+      username: 'Username',
+      registeredMail: 'Registered email address',
+      editHint: 'Username or email',
+      editLink: 'edit?',
+      passwordEditHint: 'Password',
+      passwordEditLink: 'change?',
     },
   },
   auth: {

@@ -52,6 +52,15 @@ interface Profile {
   deleteAccountAction: string;
   deleteAccountWarning: string;
 }
+interface Account {
+  title: string;
+  username: string;
+  registeredMail: string;
+  editHint: string;
+  editLink: string;
+  passwordEditHint: string;
+  passwordEditLink: string;
+}
 export interface Content {
   faq: FAQ;
   imprintAndPrivacy: {
@@ -121,6 +130,7 @@ export interface Content {
     openSourceLink: string;
     openSourceText: string;
     profile: Profile;
+    account: Account;
   };
   auth: {
     signinTitle: string;
