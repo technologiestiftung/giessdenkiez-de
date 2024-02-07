@@ -260,6 +260,15 @@ const deContent: Content = {
       editLink: 'bearbeiten?',
       passwordEditHint: 'Passwort',
       passwordEditLink: 'ändern?',
+      editTitle: 'Account bearbeiten',
+      editSave: 'Speichern',
+      editSaving: 'Wird gespeichert...',
+      editClose: 'Schließen',
+      editUsernameSuccess: 'Benutzername geändert.',
+      editUsernameError:
+        'Interner Fehler beim Ändern des Benutzernamens. Versuche es später erneut.',
+      editEmailSuccess:
+        'Um die Änderung zu bestätigen, bitte klicke auf die Links die per Mail jeweils an Deine alte E-Mail-Adresse "_1_" und deine neue E-Mail-Adresse "_2_" verschickt wurden.',
     },
   },
   auth: {
@@ -573,6 +582,15 @@ const enContent = {
       editLink: 'edit?',
       passwordEditHint: 'Password',
       passwordEditLink: 'change?',
+      editTitle: 'Edit account',
+      editSave: 'Save',
+      editSaving: 'Saving...',
+      editClose: 'Close',
+      editUsernameSuccess: 'Username changed successfully.',
+      editUsernameError:
+        'Internal error while updating username. Please try again later.',
+      editEmailSuccess:
+        'To confirm the changes, please click the link that was sent to your old email address "_1_" and your new email address "_2_".',
     },
   },
   auth: {

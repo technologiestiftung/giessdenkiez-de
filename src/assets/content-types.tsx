@@ -60,6 +60,13 @@ interface Account {
   editLink: string;
   passwordEditHint: string;
   passwordEditLink: string;
+  editTitle: string;
+  editSave: string;
+  editSaving: string;
+  editClose: string;
+  editUsernameSuccess: string;
+  editUsernameError: string;
+  editEmailSuccess: string;
 }
 export interface Content {
   faq: FAQ;

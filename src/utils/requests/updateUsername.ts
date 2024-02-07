@@ -9,13 +9,16 @@ const supabase = createPagesBrowserClient<Database>();
 
 export const updateUsername = async (
   newUsername: string,
-  session?: Session | null
+  session: Session | null,
+  successMessage: string,
+  errorMessage: string,
+  alreadyRegisteredHint: string
 ): Promise<string> => {
   try {
     const newUsernameIsUnique = await isUsernameUnique(newUsername);
 
     if (!newUsernameIsUnique) {
-      throw new Error('Benutzername ist bereits vergeben');
+      throw new Error(alreadyRegisteredHint);
     }
 
     const { data, error } = await supabase
@@ -25,12 +28,10 @@ export const updateUsername = async (
       .select();
 
     if (error || !data) {
-      throw new Error(
-        'Interner Fehler beim Speichern des neuen Namens. Bitte versuch es später erneut.'
-      );
+      throw new Error(errorMessage);
     }
 
-    return 'Benutzername geändert.';
+    return successMessage;
   } catch (error) {
     console.error(error);
     return error;

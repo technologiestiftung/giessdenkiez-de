@@ -8,6 +8,7 @@ import ButtonSubmitRound from '../Buttons/ButtonSubmitRound';
 import { StyledFormTextInput } from '../Inputs';
 import { StyledLabel } from '../Labels';
 import { updateAccount } from '../../../utils/requests/updateAccount';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 // We contstrain the username to 20 characters
 // in the database we have 50. In case the username already exsists
@@ -46,6 +47,18 @@ export const AccountEditForm: FC<AccountEditFormProps> = ({
   onSuccess,
   onCancel,
 }: AccountEditFormProps) => {
+  const content = useLocalizedContent();
+  const {
+    editSave,
+    editSaving,
+    editClose,
+    username,
+    registeredMail,
+    editUsernameSuccess,
+    editUsernameError,
+    editEmailSuccess,
+  } = content.sidebar.account;
+
   const session = useSession();
   const { userProfile: profile, refetch } = useUserProfile();
   const [isBeeingSaved, setIsBeeingSaved] = useState(false);
@@ -89,6 +102,10 @@ export const AccountEditForm: FC<AccountEditFormProps> = ({
       currentSession: session,
       newEmail: formData.email,
       newUsername: formData.name,
+      emailSuccessMessageText: editEmailSuccess,
+      usernameSuccessMessageText: editUsernameSuccess,
+      usernameErrorMessage: editUsernameError,
+      alreadyRegisteredHint: content.auth.alreadyRegisteredHint,
     });
 
     setIsBeeingSaved(false);
@@ -109,7 +126,7 @@ export const AccountEditForm: FC<AccountEditFormProps> = ({
     <form onSubmit={handleSubmit}>
       <StyledGrid>
         <StyledInputContainer>
-          <StyledLabel htmlFor='name'>Benutzername</StyledLabel>
+          <StyledLabel htmlFor='name'>{username}</StyledLabel>
           <StyledFormTextInputExtended
             type='text'
             name='name'
@@ -123,7 +140,7 @@ export const AccountEditForm: FC<AccountEditFormProps> = ({
         </StyledInputContainer>
         <StyledInputContainer>
           <StyledLabel htmlFor='email'>
-            <>E-Mail</>
+            <>{registeredMail}</>
           </StyledLabel>
           <StyledFormTextInputExtended
             type='email'
@@ -161,7 +178,7 @@ export const AccountEditForm: FC<AccountEditFormProps> = ({
           width='fit-content'
           onClick={onCancel}
         >
-          Schließen
+          {editClose}
         </ButtonRound>
         <ButtonSubmitRound
           key={`save-account-edit`}
@@ -169,7 +186,7 @@ export const AccountEditForm: FC<AccountEditFormProps> = ({
           type='submit'
           colorType='primary'
         >
-          {isBeeingSaved ? 'Wird eingetragen ...' : 'Speichern'}
+          {isBeeingSaved ? editSaving : editSave}
         </ButtonSubmitRound>
       </StyledButtonsContainer>
     </form>
