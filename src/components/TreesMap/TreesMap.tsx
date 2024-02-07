@@ -393,7 +393,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         if (map.current) {
           map.current.getCanvas().style.cursor = '';
         }
-        if (!map.current || !e.features?.length) return;
       });
 
       updateSelectedTreeIdFeatureState({
