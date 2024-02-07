@@ -140,6 +140,7 @@ const deContent: Content = {
     ],
   },
   sidebar: {
+    furtherInfo: 'Weitere Infos',
     title: 'Suche & Filter',
     locationSearchTitle: 'Standortsuche',
     dataViewTitle: 'Datenansicht',
@@ -235,6 +236,9 @@ const deContent: Content = {
           'Die Rosskastanie (Aesculus hippocastanum) hat einem Anteil von ca. 5% am Gesamtbestand, belegt damit den fünften Platz unter den Berliner Straßenbäumen.',
       },
     ],
+    openSourceNote: 'Giess den Kiez ist ein',
+    openSourceLink: 'https://github.com/technologiestiftung/giessdenkiez-de',
+    openSourceText: 'Open Source Projekt!',
   },
   auth: {
     signinTitle: 'Anmelden',
@@ -439,6 +443,7 @@ const enContent = {
     ],
   },
   sidebar: {
+    furtherInfo: 'More information',
     title: 'Search & Filtering',
     locationSearchTitle: 'Location search',
     dataViewTitle: 'Data view',
@@ -522,6 +527,9 @@ const enContent = {
           "The horse chestnut (Aesculus hippocastanum) accounts for around 5% of the total population, placing it in fifth place among Berlin's street trees.",
       },
     ],
+    openSourceNote: 'Giess den Kiez is an',
+    openSourceLink: 'https://github.com/technologiestiftung/giessdenkiez-de',
+    openSourceText: 'Open Source project!',
   },
   auth: {
     signinTitle: 'Login',

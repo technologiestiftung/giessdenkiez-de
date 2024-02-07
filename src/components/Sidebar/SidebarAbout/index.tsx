@@ -12,10 +12,10 @@ import SidebarTitle from '../SidebarTitle/';
 const SidebarAbout: FC = () => {
   const content = useLocalizedContent();
   const { sidebar } = content;
-  const { about } = sidebar;
+  const { about, furtherInfo } = sidebar;
   return (
     <>
-      <SidebarTitle>Weitere Infos</SidebarTitle>
+      <SidebarTitle>{furtherInfo}</SidebarTitle>
       {about.map((item, idx) => (
         <ExpandablePanel isExpanded title={item.title} key={item.title}>
           <SmallParagraph>{item.description}</SmallParagraph>

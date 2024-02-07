@@ -92,6 +92,7 @@ export interface Content {
     snippets: string[];
   };
   sidebar: {
+    furtherInfo: string;
     title: string;
     locationSearchTitle: string;
     dataViewTitle: string;
@@ -106,6 +107,9 @@ export interface Content {
     about: Item[];
     waterNeeds: Item[];
     treetypes: TreeType[];
+    openSourceNote: string;
+    openSourceLink: string;
+    openSourceText: string;
   };
   auth: {
     signinTitle: string;
