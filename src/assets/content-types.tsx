@@ -154,6 +154,7 @@ export interface Content {
     snippets: string[];
   };
   sidebar: {
+    participateButton: string;
     loading: string;
     furtherInfo: string;
     title: string;

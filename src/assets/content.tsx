@@ -144,6 +144,7 @@ const deContent: Content = {
     ],
   },
   sidebar: {
+    participateButton: 'Wie kann ich mitmachen?',
     loading: 'Lade',
     furtherInfo: 'Weitere Infos',
     title: 'Suche & Filter',
@@ -522,6 +523,7 @@ const enContent = {
     ],
   },
   sidebar: {
+    participateButton: 'How can I participate?',
     loading: 'Loading',
     furtherInfo: 'More information',
     title: 'Search & Filtering',

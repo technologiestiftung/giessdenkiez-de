@@ -46,6 +46,7 @@ export const SidebarAuth = ({
     noAccountHint,
     registerLink,
     forgotPasswordLink,
+    forgotPasswordHint,
   } = content.auth;
 
   const {
@@ -389,8 +390,8 @@ export const SidebarAuth = ({
           <>
             <StyledSpacer />
             <CredentialsSubline
-              text={' Oh nein. Du hast Dein '}
-              aText={'Passwort vergessen?'}
+              text={forgotPasswordHint}
+              aText={forgotPasswordLink}
               onClick={() => setView('recovery')}
             />
           </>
