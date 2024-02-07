@@ -140,6 +140,7 @@ const deContent: Content = {
     ],
   },
   sidebar: {
+    loading: 'Lade',
     furtherInfo: 'Weitere Infos',
     title: 'Suche & Filter',
     locationSearchTitle: 'Standortsuche',
@@ -240,6 +241,8 @@ const deContent: Content = {
     openSourceLink: 'https://github.com/technologiestiftung/giessdenkiez-de',
     openSourceText: 'Open Source Projekt!',
     profile: {
+      logoutAction: 'Ausloggen',
+      loginAction: 'Einloggen / Registrieren',
       loggedInHint:
         'Du bist momentan nicht eingeloggt. Wenn Du das Gießen von Bäumen in Deiner Umgebung hier eintragen möchtest, dann registriere Dich oder logge Dich ein.',
       title: 'Profil',
@@ -251,6 +254,8 @@ const deContent: Content = {
       deleteAccountAction: 'Account Löschen',
       deleteAccountWarning:
         '🚨 🚨 🚨 Willst Du Deinen Account wirklich löschen? Diese Aktion ist endgültig. Alle Deine Benutzerdaten werden damit sofort gelöscht!',
+      timesWatered: 'mal gegossen',
+      litersWatered: 'Liter gegossen',
     },
     account: {
       title: 'Dein Account',
@@ -269,6 +274,11 @@ const deContent: Content = {
         'Interner Fehler beim Ändern des Benutzernamens. Versuche es später erneut.',
       editEmailSuccess:
         'Um die Änderung zu bestätigen, bitte klicke auf die Links die per Mail jeweils an Deine alte E-Mail-Adresse "_1_" und deine neue E-Mail-Adresse "_2_" verschickt wurden.',
+      editPasswordTitle: 'Passwort ändern',
+      oldPasswordTitle: 'Altes Passwort',
+      newPasswordTitle: 'Neues Passwort',
+      repeatNewPasswordTitle: 'Neues Passwort wiederholen',
+      editPasswordSuccess: 'Dein Passwort wurde erfolgreich geändert',
     },
   },
   auth: {
@@ -474,6 +484,7 @@ const enContent = {
     ],
   },
   sidebar: {
+    loading: 'Loading',
     furtherInfo: 'More information',
     title: 'Search & Filtering',
     locationSearchTitle: 'Location search',
@@ -562,6 +573,8 @@ const enContent = {
     openSourceLink: 'https://github.com/technologiestiftung/giessdenkiez-de',
     openSourceText: 'Open Source project!',
     profile: {
+      logoutAction: 'Logout',
+      loginAction: 'Login / Register',
       loggedInHint:
         'You are currently not logged in. If you would like to list the watering of trees in your area here, then register or log in.',
       title: 'Profile',
@@ -573,6 +586,8 @@ const enContent = {
       deleteAccountAction: 'Delete account',
       deleteAccountWarning:
         '🚨 🚨 🚨 Do you really want to delete your account? This action is final. All your user data will be deleted immediately!',
+      timesWatered: 'times watered',
+      litersWatered: 'liters watered',
     },
     account: {
       title: 'Your account',
@@ -591,6 +606,11 @@ const enContent = {
         'Internal error while updating username. Please try again later.',
       editEmailSuccess:
         'To confirm the changes, please click the link that was sent to your old email address "_1_" and your new email address "_2_".',
+      editPasswordTitle: 'Change password',
+      oldPasswordTitle: 'Old password',
+      newPasswordTitle: 'New password',
+      repeatNewPasswordTitle: 'Repeat new password',
+      editPasswordSuccess: 'Your password was changed successfully',
     },
   },
   auth: {

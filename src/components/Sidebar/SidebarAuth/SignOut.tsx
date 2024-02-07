@@ -3,11 +3,13 @@ import Router from 'next/router';
 import React from 'react';
 import { AuthView } from '../../../../pages/auth';
 import ButtonRound from '../../ButtonRound';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 export const SignOut = ({
   setView,
 }: {
   setView: React.Dispatch<React.SetStateAction<AuthView>>;
 }) => {
+  const content = useLocalizedContent();
   const supabase = useSupabaseClient();
   return (
     <>
@@ -21,7 +23,7 @@ export const SignOut = ({
           });
         }}
       >
-        Ausloggen
+        {content.sidebar.profile.logoutAction}
       </ButtonRound>
     </>
   );

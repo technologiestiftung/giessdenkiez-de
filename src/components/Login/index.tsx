@@ -5,11 +5,14 @@ import { useUserData } from '../../utils/hooks/useUserData';
 
 import ButtonRound from '../ButtonRound';
 import Router from 'next/router';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 const Login: FC<{
   width?: string;
   noLogout?: boolean;
 }> = ({ width, noLogout }) => {
+  const content = useLocalizedContent();
+  const { loginAction, logoutAction } = content.sidebar.profile;
   const { userData } = useUserData();
   const { logout } = useAccountActions();
 
@@ -22,12 +25,12 @@ const Login: FC<{
             Router.push('/auth');
           }}
         >
-          Konto anlegen / Einloggen
+          {loginAction}
         </ButtonRound>
       )}
       {userData && !noLogout && (
         <ButtonRound width={width} onClick={logout}>
-          Ausloggen
+          {logoutAction}
         </ButtonRound>
       )}
     </>

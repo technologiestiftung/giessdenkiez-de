@@ -15,6 +15,7 @@ import { CredentialsData } from '../../../common/interfaces';
 import { CredentialValue } from '../../UserCredentials';
 import { PasswordValidation } from '../PasswordValidation';
 import { validatePassword } from '../../../utils/validatePassword';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 export const PasswordRecoveryForm = ({
   additionalSubmitHandler,

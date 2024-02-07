@@ -43,6 +43,8 @@ interface AuthErrors {
   usernameTaken: string;
 }
 interface Profile {
+  logoutAction: string;
+  loginAction: string;
   loggedInHint: string;
   title: string;
   progress: string;
@@ -51,6 +53,8 @@ interface Profile {
   deleteAccountHint: string;
   deleteAccountAction: string;
   deleteAccountWarning: string;
+  timesWatered: string;
+  litersWatered: string;
 }
 interface Account {
   title: string;
@@ -67,6 +71,11 @@ interface Account {
   editUsernameSuccess: string;
   editUsernameError: string;
   editEmailSuccess: string;
+  editPasswordTitle: string;
+  oldPasswordTitle: string;
+  newPasswordTitle: string;
+  repeatNewPasswordTitle: string;
+  editPasswordSuccess: string;
 }
 export interface Content {
   faq: FAQ;
@@ -118,6 +127,7 @@ export interface Content {
     snippets: string[];
   };
   sidebar: {
+    loading: string;
     furtherInfo: string;
     title: string;
     locationSearchTitle: string;
