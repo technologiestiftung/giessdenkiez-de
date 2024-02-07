@@ -7,10 +7,12 @@ import OverlayDescription from '../OverlayDescription/';
 import ButtonRound from '../../ButtonRound';
 import Credits from '../../Credits';
 
-import { useActions } from '../../../state/unistore-hooks';
+import { useActions, useStoreState } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
 import OverlayTiles from '../OverlayTiles';
 import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
+import Switch from '../../Switch';
+import { Language } from '../../../assets/content-types';
 
 const StyledNewsSection = styled.section`
   background-color: #f7fffa;
@@ -99,6 +101,8 @@ const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
   const { intro, collaborate, whatsNew } = useLocalizedContent();
   const { title, subline, description, action } = intro;
+  const language = useStoreState('language');
+  const { setLanguage } = useActions();
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -114,6 +118,14 @@ const OverlayTop: FC = () => {
       <Logo>
         <OverlayTitle size='xxl' title={title} />
         <Icon iconType='trees' />
+        <Switch
+          firstOption={Language.de}
+          secondOption={Language.en}
+          selectedOption={language}
+          onOptionSelect={option => {
+            setLanguage(option);
+          }}
+        ></Switch>
       </Logo>
       <OverlayTitle size='xxl' title={subline} />
       {/* the beow is here for local testing */}

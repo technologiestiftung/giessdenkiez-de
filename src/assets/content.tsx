@@ -673,19 +673,19 @@ const enContent = {
         icon: 'zoom',
         title: 'Discover',
         description:
-          'Our interactive map visualizes over 800,000 urban trees and displays information on species, age and water requirements. ',
+          'Our interactive map visualizes over 800,000 urban trees and displays information on species, age and water requirements. Use the filter and search functions to quickly get an overview.',
       },
       {
         icon: 'water',
         title: 'Pour',
         description:
-          'Grab a watering can and become part of the watering community! ',
+          "Grab a watering can and become part of the watering community! Over a thousand members have already joined forces for Berlin's trees and regularly submit their waterings.",
       },
       {
         icon: 'subscribe',
         title: 'To adopt',
         description:
-          'By adopting a tree - or several - you let your neighborhood know that these trees will be cared for. ',
+          'By adopting a tree - or several - you let your neighborhood know that these trees will be cared for. This is how coordinated engagement succeeds.',
       },
       {
         icon: 'info',
