@@ -33,6 +33,15 @@ interface PasswordRestrictions {
   part3: string;
   part4: string;
 }
+interface AuthErrors {
+  checkUsername: string;
+  userExistsAlready: string;
+  emailCouldNotBeSent: string;
+  usernameOrPasswordWrong: string;
+  ooops: string;
+  checkMailForPasswordReset: string;
+  usernameTaken: string;
+}
 export interface Content {
   faq: FAQ;
   imprintAndPrivacy: {
@@ -111,8 +120,14 @@ export interface Content {
     registerLink: string;
     forgotPasswordHint: string;
     forgotPasswordLink: string;
+    resetPassword: string;
+    backToLogin: string;
+    clickHere: string;
+    bored: string;
+    profile: string;
     usernameRestrictions: UsernameRestrictions;
     passwordRestrictions: PasswordRestrictions;
+    errors: AuthErrors;
   };
   collaborate: {
     tiles: CollaborationItem[];

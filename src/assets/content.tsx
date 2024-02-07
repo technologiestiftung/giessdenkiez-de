@@ -249,6 +249,11 @@ const deContent: Content = {
     registerLink: 'Registrier Dich',
     forgotPasswordHint: 'Oh nein. Du hast Dein',
     forgotPasswordLink: 'Passwort vergessen?',
+    resetPassword: 'Passwort zurücksetzen',
+    backToLogin: 'Zurück zur Anmeldung',
+    clickHere: 'Hier klicken',
+    bored: 'Dir ist langweilig bis dahin? Dann lies etwas über Gieß den Kiez!',
+    profile: 'Profil',
     usernameRestrictions: {
       part1: 'Dein Benutzername sollte zwischen',
       and: 'und',
@@ -261,6 +266,17 @@ const deContent: Content = {
       part2: 'Klein- und Großbuchstaben',
       part3: 'mindestens eines dieser Sonderzeichen @#$%&*()!_+=:;',
       part4: 'und Zahlen enthalten.',
+    },
+    errors: {
+      checkUsername: 'Bitte überprüfe Deinen Benutzernamen',
+      userExistsAlready: 'Benutzer bereits registriert',
+      emailCouldNotBeSent:
+        'Die E-Mail konnte nicht verschickt werden. Versuch es erneut',
+      usernameOrPasswordWrong: 'Benutzername oder Passwort ist falsch',
+      ooops: 'Ups... da ist etwas schief gelaufen',
+      checkMailForPasswordReset:
+        'Überprüfe Deine E-Mail nach einem Link um Dein Passwort zu ändern',
+      usernameTaken: 'Benutzername bereits vergeben',
     },
   },
   collaborate: {
@@ -520,6 +536,11 @@ const enContent = {
     registerLink: 'Register here',
     forgotPasswordHint: 'Oh no, forgot your password?',
     forgotPasswordLink: 'Reset password',
+    resetPassword: 'Reset password',
+    backToLogin: 'Back to Login',
+    clickHere: 'Click here',
+    bored: 'Bored? Read something about Gieß den Kiez',
+    profile: 'Profile',
     usernameRestrictions: {
       part1: 'Your username should be between',
       and: 'and',
@@ -532,6 +553,16 @@ const enContent = {
       part2: 'have lower- and uppercase letters',
       part3: 'contain at least one of these special characters @#$%&*()!_+=:;',
       part4: 'and contain numbers.',
+    },
+    errors: {
+      checkUsername: 'Please check your username',
+      userExistsAlready: 'User already registered',
+      emailCouldNotBeSent: 'Email could not be sent. Try again.',
+      usernameOrPasswordWrong: 'Username or password are wrong',
+      ooops: 'Ooops... something did not work as expected',
+      checkMailForPasswordReset:
+        'Check your email for a link to reset your password',
+      usernameTaken: 'Username already taken',
     },
   },
   collaborate: {

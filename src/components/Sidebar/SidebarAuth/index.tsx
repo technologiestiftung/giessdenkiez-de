@@ -50,6 +50,24 @@ export const SidebarAuth = ({
     forgotPasswordLink,
   } = content.auth;
 
+  const {
+    checkUsername,
+    userExistsAlready,
+    emailCouldNotBeSent,
+    usernameOrPasswordWrong,
+    ooops,
+    checkMailForPasswordReset,
+    usernameTaken,
+  } = content.auth.errors;
+
+  const {
+    resetPassword,
+    backToLogin,
+    clickHere,
+    bored,
+    profile,
+  } = content.auth;
+
   const supabase = useSupabaseClient();
 
   const [formData, setFormData] = useState<CredentialsData>({
@@ -136,7 +154,7 @@ export const SidebarAuth = ({
   const signUp = async (email: string, password: string, username?: string) => {
     if (Object.values(usernamePatterns).every(Boolean) === false) {
       setNotification({
-        message: 'Bitte überprüfe Deinen Benutzernamen',
+        message: checkUsername,
         type: 'error',
       });
       return;
@@ -153,7 +171,7 @@ export const SidebarAuth = ({
     if (error) {
       if (error.message.includes('User already registered')) {
         setNotification({
-          message: 'Benutzer bereits registriert',
+          message: userExistsAlready,
           type: 'error',
         });
         setView('signin');
@@ -163,7 +181,7 @@ export const SidebarAuth = ({
     }
     if (!data.user) {
       setNotification({
-        message: `Eine E-Mail an "${email}" konnte nicht verschickt werden. Versuch es erneut`,
+        message: emailCouldNotBeSent,
         type: 'error',
       });
       setView('signup');
@@ -181,7 +199,7 @@ export const SidebarAuth = ({
       });
       if (error) {
         setNotification({
-          message: 'Benutzername oder Passwort ist falsch',
+          message: usernameOrPasswordWrong,
           type: 'error',
         });
         console.error(error);
@@ -189,7 +207,7 @@ export const SidebarAuth = ({
       }
       if (!data.user) {
         setNotification({
-          message: 'Ups... da ist etwas schief gelaufen',
+          message: ooops,
           type: 'error',
         });
         console.error('No user');
@@ -198,7 +216,7 @@ export const SidebarAuth = ({
 
       if (!data.session) {
         setNotification({
-          message: 'Ups... da ist etwas schief gelaufen',
+          message: ooops,
           type: 'error',
         });
         console.error('No session');
@@ -226,7 +244,7 @@ export const SidebarAuth = ({
     }
     if (data) {
       setNotification({
-        message: `Überprüfe Deine E-Mail „${email}” nach einem Link um Dein Passwort zu ändern`,
+        message: checkMailForPasswordReset,
         type: 'success',
       });
     }
@@ -251,7 +269,7 @@ export const SidebarAuth = ({
       if (data) {
         if (data.length > 0) {
           setNotification({
-            message: 'Benutzername bereits vergeben',
+            message: usernameTaken,
             type: 'error',
           });
           setUsernamePattern(up => {
@@ -316,14 +334,14 @@ export const SidebarAuth = ({
           formData={formData}
           handleInputChange={handleInputChange}
           handleSubmit={handleRecoverySubmit}
-          buttonText='Passwort zurücksetzen'
+          buttonText={resetPassword}
           isRecovery={true}
         />
       );
       linkText = (
         <CredentialsSubline
-          text={'Zurück zur Anmeldung?'}
-          aText={'Hier klicken'}
+          text={backToLogin}
+          aText={clickHere}
           onClick={() => setView('signin')}
         />
       );
@@ -341,10 +359,8 @@ export const SidebarAuth = ({
 
       linkText = (
         <CredentialsSubline
-          text={
-            'Dir ist langweilig bis dahin? Dann lies etwas über Gieß den Kiez!'
-          }
-          aText={'Hier klicken'}
+          text={bored}
+          aText={clickHere}
           onClick={() => Router.push('/about')}
         />
       );
@@ -352,7 +368,7 @@ export const SidebarAuth = ({
   }
 
   if (isLoading) {
-    return <SidebarLoading title='Profil' />;
+    return <SidebarLoading title={profile} />;
   }
 
   return (
