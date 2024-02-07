@@ -85,7 +85,7 @@ export const CredentialsForm = ({
         {!isRecovery && (
           <StyledFormRow>
             <StyledLabel htmlFor='password'>
-              <>Passwort</>
+              <>{password}</>
             </StyledLabel>
             <StyledFormTextInput
               id='password'

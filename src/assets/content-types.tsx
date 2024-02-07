@@ -21,6 +21,18 @@ interface PumpStates {
   locked: string;
   unknown: string;
 }
+interface UsernameRestrictions {
+  part1: string;
+  and: string;
+  part2: string;
+  part3: string;
+}
+interface PasswordRestrictions {
+  part1: string;
+  part2: string;
+  part3: string;
+  part4: string;
+}
 export interface Content {
   faq: FAQ;
   imprintAndPrivacy: {
@@ -92,10 +104,15 @@ export interface Content {
     username: string;
     password: string;
     signinAction: string;
+    signupAction: string;
     noAccountHint: string;
+    alreadyRegisteredHint: string;
+    alreadyRegisteredAction: string;
     registerLink: string;
     forgotPasswordHint: string;
     forgotPasswordLink: string;
+    usernameRestrictions: UsernameRestrictions;
+    passwordRestrictions: PasswordRestrictions;
   };
   collaborate: {
     tiles: CollaborationItem[];

@@ -242,10 +242,26 @@ const deContent: Content = {
     username: 'Benutzername',
     password: 'Passwort',
     signinAction: 'Einloggen',
+    signupAction: 'Registrieren',
     noAccountHint: 'Du hast noch keinen Account?',
+    alreadyRegisteredHint: 'Du hast schon einen Account?',
+    alreadyRegisteredAction: 'Log Dich ein',
     registerLink: 'Registrier Dich',
     forgotPasswordHint: 'Oh nein. Du hast Dein',
     forgotPasswordLink: 'Passwort vergessen?',
+    usernameRestrictions: {
+      part1: 'Dein Benutzername sollte zwischen',
+      and: 'und',
+      part2:
+        'Zeichen lang sein, nur aus Zeichen und Zahlen (ohne Leerzeichen am Anfang und Ende) ',
+      part3: 'bestehen und natürlich nicht vergeben sein.',
+    },
+    passwordRestrictions: {
+      part1: 'Dein Passwort sollte: Mindestens 8 Zeichen lang sein',
+      part2: 'Klein- und Großbuchstaben',
+      part3: 'mindestens eines dieser Sonderzeichen @#$%&*()!_+=:;',
+      part4: 'und Zahlen enthalten.',
+    },
   },
   collaborate: {
     tiles: [
@@ -497,10 +513,26 @@ const enContent = {
     username: 'Username',
     password: 'Password',
     signinAction: 'Login',
+    signupAction: 'Register',
     noAccountHint: 'No account yet?',
+    alreadyRegisteredHint: 'You already have an account?',
+    alreadyRegisteredAction: 'Login',
     registerLink: 'Register here',
     forgotPasswordHint: 'Oh no, forgot your password?',
     forgotPasswordLink: 'Reset password',
+    usernameRestrictions: {
+      part1: 'Your username should be between',
+      and: 'and',
+      part2:
+        'characters long, made only of numbers and characters (without whitespace at start and end)',
+      part3: 'and of course should not be already taken.',
+    },
+    passwordRestrictions: {
+      part1: 'Your password should be: At least 8 characters long',
+      part2: 'have lower- and uppercase letters',
+      part3: 'contain at least one of these special characters @#$%&*()!_+=:;',
+      part4: 'and contain numbers.',
+    },
   },
   collaborate: {
     tiles: [

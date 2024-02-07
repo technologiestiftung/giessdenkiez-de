@@ -40,10 +40,11 @@ export const SidebarAuth = ({
 
   const {
     signinTitle,
-    email,
-    password,
     signinAction,
+    signupAction,
     noAccountHint,
+    alreadyRegisteredHint,
+    alreadyRegisteredAction,
     registerLink,
     forgotPasswordHint,
     forgotPasswordLink,
@@ -294,15 +295,15 @@ export const SidebarAuth = ({
           formData={formData}
           handleInputChange={handleInputChange}
           handleSubmit={handleSignUpSubmit}
-          buttonText='Registrieren'
+          buttonText={signupAction}
           usernamePatterns={usernamePatterns}
           isSignIn={false}
         />
       );
       linkText = (
         <CredentialsSubline
-          text={'Du hast schon einen Account?'}
-          aText={'Log Dich ein'}
+          text={alreadyRegisteredHint}
+          aText={alreadyRegisteredAction}
           onClick={() => setView('signin')}
         />
       );

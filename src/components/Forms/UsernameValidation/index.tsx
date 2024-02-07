@@ -2,22 +2,22 @@ import React from 'react';
 import SmallParagraph from '../../SmallParagraph';
 import { ValidOrNot } from '../ValidOrNot';
 import { UsernamePattern } from '../../../utils/validateUsername';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 export const UsernameValidation = ({
   patterns,
 }: {
   patterns: UsernamePattern;
 }) => {
+  const content = useLocalizedContent();
+  const { part1, and, part2, part3 } = content.auth.usernameRestrictions;
   return (
     <>
       <SmallParagraph>
-        Dein Benutzername sollte zwischen 3{' '}
-        <ValidOrNot success={patterns.minLength} /> und 50{' '}
-        <ValidOrNot success={patterns.maxLength} /> Zeichen lang sein, nur aus
-        Zeichen und Zahlen (ohne Leerzeichen am Anfang und Ende){' '}
-        <ValidOrNot success={patterns.allowedCharacters} /> bestehen und
-        natürlich nicht vergeben sein <ValidOrNot success={patterns.notTaken} />
-        .
+        {part1} 3 <ValidOrNot success={patterns.minLength} /> {and} 50{' '}
+        <ValidOrNot success={patterns.maxLength} /> {part2}{' '}
+        <ValidOrNot success={patterns.allowedCharacters} /> {part3}{' '}
+        <ValidOrNot success={patterns.notTaken} />
       </SmallParagraph>
     </>
   );
