@@ -22,7 +22,6 @@ import SmallParagraph from '../../SmallParagraph';
 import { useAdoptingActions } from '../../../utils/hooks/useAdoptingActions';
 import { useCommunityData } from '../../../utils/hooks/useCommunityData';
 import { rainCircle, wateredCircle } from '../../StackedBarChart/TooltipLegend';
-import localizedContent from '../../../assets/content';
 
 const Wrapper = styled.div`
   z-index: 3;
