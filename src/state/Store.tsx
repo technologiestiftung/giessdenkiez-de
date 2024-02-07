@@ -11,7 +11,7 @@ const initialState: StoreProps = {
   overlay: true,
   mapFocusPoint: null,
   mapHasLoaded: undefined,
-  language: Language.en,
+  language: Language.de,
 };
 
 const store = createStore<StoreProps>(initialState);
