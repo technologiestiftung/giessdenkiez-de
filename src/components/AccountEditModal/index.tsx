@@ -10,13 +10,7 @@ export interface AccountEditModalProps {
 }
 export const AccountEditModal: FC<AccountEditModalProps> = ({ onClose }) => {
   const content = useLocalizedContent();
-  const {
-    editTitle,
-    editSave,
-    editClose,
-    username,
-    registeredMail,
-  } = content.sidebar.account;
+  const { editTitle, editClose } = content.sidebar.account;
 
   const [successMessages, setSuccessMessages] = useState<string[] | null>(null);
   return (

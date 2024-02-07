@@ -34,6 +34,6 @@ export const updateUsername = async (
     return successMessage;
   } catch (error) {
     console.error(error);
-    return error;
+    throw error;
   }
 };
