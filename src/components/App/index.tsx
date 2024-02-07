@@ -7,11 +7,12 @@ import MapLayerLegend from '../Legend/MapLayersLegend';
 import Cookie from '../Cookie';
 import Overlay from '../Overlay';
 import { MapAttributionImprintAndPrivacy } from '../ImprintAndPrivacy';
-import { useStoreState } from '../../state/unistore-hooks';
+import { useActions, useStoreState } from '../../state/unistore-hooks';
 import 'react-day-picker/dist/style.css';
 import Loading from '../Loading';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { Language } from '../../assets/content-types';
 
 const Map = dynamic(() => import('../TreesMap'), { ssr: false });
 
@@ -59,6 +60,8 @@ const MapboxLogo = styled.a`
 `;
 
 const App: FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { setLanguage } = useActions();
+
   const overlay = useStoreState('overlay');
   const isNavOpen = useStoreState('isNavOpen');
   const mapHasLoaded = useStoreState('mapHasLoaded');
@@ -69,6 +72,16 @@ const App: FC<{ children: React.ReactNode }> = ({ children }) => {
   const showOverlay = isHome && overlay;
   const showMapUI = !showOverlay;
   const isSidebarOpened = !isHome && isNavOpen;
+
+  useEffect(() => {
+    if (navigator) {
+      const locale = navigator.language.split('-')[0];
+      setLanguage(Language.en);
+      if (locale && locale === 'de') {
+        setLanguage(Language.de);
+      }
+    }
+  }, []);
 
   return (
     <AppContainer>
