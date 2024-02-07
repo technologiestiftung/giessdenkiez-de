@@ -144,6 +144,7 @@ const deContent: Content = {
     ],
   },
   sidebar: {
+    addressPlaceholder: 'Addresse',
     participateButton: 'Wie kann ich mitmachen?',
     loading: 'Lade',
     furtherInfo: 'Weitere Infos',
@@ -523,6 +524,7 @@ const enContent = {
     ],
   },
   sidebar: {
+    addressPlaceholder: 'Address',
     participateButton: 'How can I participate?',
     loading: 'Loading',
     furtherInfo: 'More information',

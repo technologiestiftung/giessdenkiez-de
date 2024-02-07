@@ -4,6 +4,7 @@ import { useQuery, QueryFunction } from 'react-query';
 import { useActions } from '../../../state/unistore-hooks';
 import { FeatureType } from '../../../common/interfaces';
 import { ThemeType } from '../../../assets/theme';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 const Wrapper = styled.div`
   display: flex;
@@ -81,6 +82,7 @@ const fetchSearch: QueryFunction<FeatureType[]> = async ({ queryKey }) => {
 };
 
 const SidebarSearchLocation: FC = () => {
+  const { addressPlaceholder } = useLocalizedContent().sidebar;
   const [value, setValue] = useState('');
   const { setMapFocusPoint } = useActions();
   const { data: results } = useQuery(['sidebarSearch', value], fetchSearch, {
@@ -101,7 +103,7 @@ const SidebarSearchLocation: FC = () => {
     <Wrapper>
       <SearchInput
         type='text'
-        placeholder='Adresse'
+        placeholder={addressPlaceholder}
         value={value}
         onChange={handleOnChange}
       />
