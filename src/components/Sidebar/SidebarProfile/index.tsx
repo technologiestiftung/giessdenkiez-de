@@ -1,22 +1,25 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from 'styled-components';
 import { useUserData } from '../../../utils/hooks/useUserData';
 
-import Paragraph from '../../Paragraph';
-import WateredTreesIndicator from '../../WateredTreesIndicator';
-import ExpandablePanel from '../../ExpandablePanel';
-import UserCredentials from '../../UserCredentials';
-import TreesList from '../../TreesList';
-import { NonVerfiedMailMessage } from '../../NonVerfiedMailMessage';
-import Login from '../../Login';
-import ButtonRound from '../../ButtonRound';
-import SidebarTitle from '../SidebarTitle/';
-import { ParticipateButton } from '../../ParticipateButton';
-import { useAccountActions } from '../../../utils/hooks/useAccountActions';
-import { StyledComponentType, UserDataType } from '../../../common/interfaces';
 import { useSessionContext } from '@supabase/auth-helpers-react';
-import { SidebarLoading } from '../SidebarLoading';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { StyledComponentType, UserDataType } from '../../../common/interfaces';
+import { useAccountActions } from '../../../utils/hooks/useAccountActions';
 import { useUserProfile } from '../../../utils/hooks/useUserProfile';
+import ButtonRound from '../../ButtonRound';
+import ExpandablePanel from '../../ExpandablePanel';
+import Login from '../../Login';
+import { NonVerfiedMailMessage } from '../../NonVerfiedMailMessage';
+import Paragraph from '../../Paragraph';
+import { ParticipateButton } from '../../ParticipateButton';
+import TreesList from '../../TreesList';
+import UserCredentials from '../../UserCredentials';
+import WateredTreesIndicator from '../../WateredTreesIndicator';
+import { SidebarLoading } from '../SidebarLoading';
+import SidebarTitle from '../SidebarTitle/';
+
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
 `;
@@ -50,6 +53,13 @@ const SidebarProfile: FC<{
   const isAuthenticated = session?.user?.id ? true : false;
   const isLoadingAuthInfo = isAuthenticated && !userData;
   const isLoading = isLoadingProps || isLoadingSupase || isLoadingAuthInfo;
+  const { replace: routerReplace } = useRouter();
+  const { logout } = useAccountActions();
+  const [requestedLogout, setRequestedLogout] = useState(false);
+
+  useEffect(() => {
+    if (!session && !requestedLogout) routerReplace('/auth');
+  }, [requestedLogout, session, routerReplace]);
 
   const handleDeleteClick = (): void => {
     if (!confirmAccountDeletion()) return;
@@ -102,7 +112,13 @@ const SidebarProfile: FC<{
         username={userProfile?.username ?? ''}
       />
       <br />
-      <Login width='-webkit-fill-available' />
+      <Login
+        width='-webkit-fill-available'
+        onLogout={() => {
+          setRequestedLogout(true);
+          logout();
+        }}
+      />
       <>
         <Paragraph>
           Möchtest Du deinen Account löschen? Damit werden alle von dir
