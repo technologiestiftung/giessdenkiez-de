@@ -11,6 +11,8 @@ const StyledTooltipWrapper = styled.div`
   z-index: 3;
   box-shadow: ${({ theme }) => theme.boxShadow};
   transform: translate(-50%, 10px);
+  padding: 20px;
+  background-color: white;
 `;
 
 export const MapTooltip: FC<{
