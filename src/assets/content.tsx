@@ -258,6 +258,7 @@ const deContent: Content = {
       litersWatered: 'Liter gegossen',
     },
     account: {
+      confirm: 'Account bestätigen',
       title: 'Dein Account',
       username: 'Benutzername',
       registeredMail: 'Registrierte E-Mail Adresse',
@@ -283,6 +284,7 @@ const deContent: Content = {
   },
   auth: {
     signinTitle: 'Anmelden',
+    signupTitle: 'Registrieren',
     email: 'E-Mail',
     username: 'Benutzername',
     password: 'Passwort',
@@ -295,7 +297,7 @@ const deContent: Content = {
     forgotPasswordHint: 'Oh nein. Du hast Dein',
     forgotPasswordLink: 'Passwort vergessen?',
     resetPassword: 'Passwort zurücksetzen',
-    backToLogin: 'Zurück zur Anmeldung',
+    backToLogin: 'Zurück zur Anmeldung?',
     clickHere: 'Hier klicken',
     bored: 'Dir ist langweilig bis dahin? Dann lies etwas über Gieß den Kiez!',
     profile: 'Profil',
@@ -316,11 +318,11 @@ const deContent: Content = {
       checkUsername: 'Bitte überprüfe Deinen Benutzernamen',
       userExistsAlready: 'Benutzer bereits registriert',
       emailCouldNotBeSent:
-        'Die E-Mail konnte nicht verschickt werden. Versuch es erneut',
+        'Die E-Mail an "_1_" konnte nicht verschickt werden. Versuch es erneut.',
       usernameOrPasswordWrong: 'Benutzername oder Passwort ist falsch',
       ooops: 'Ups... da ist etwas schief gelaufen',
       checkMailForPasswordReset:
-        'Überprüfe Deine E-Mail nach einem Link um Dein Passwort zu ändern',
+        'Überprüfe Deine E-Mail "_1_" nach einem Link um Dein Passwort zu ändern',
       usernameTaken: 'Benutzername bereits vergeben',
     },
     passwordNotSecureEnough: 'Passwort ist nicht sicher genug',
@@ -619,6 +621,7 @@ const enContent = {
   },
   auth: {
     signinTitle: 'Login',
+    signupTitle: 'Register',
     email: 'Email',
     username: 'Username',
     password: 'Password',
@@ -631,7 +634,7 @@ const enContent = {
     forgotPasswordHint: 'Oh no, forgot your password?',
     forgotPasswordLink: 'Reset password',
     resetPassword: 'Reset password',
-    backToLogin: 'Back to Login',
+    backToLogin: 'Back to Login?',
     clickHere: 'Click here',
     bored: 'Bored? Read something about Gieß den Kiez',
     profile: 'Profile',
@@ -651,11 +654,11 @@ const enContent = {
     errors: {
       checkUsername: 'Please check your username',
       userExistsAlready: 'User already registered',
-      emailCouldNotBeSent: 'Email could not be sent. Try again.',
+      emailCouldNotBeSent: 'Email to "_1_" could not be sent. Try again.',
       usernameOrPasswordWrong: 'Username or password are wrong',
       ooops: 'Ooops... something did not work as expected',
       checkMailForPasswordReset:
-        'Check your email for a link to reset your password',
+        'Check your email "_1_" for a link to reset your password',
       usernameTaken: 'Username already taken',
     },
     passwordNotSecureEnough: 'Password ist not secure enough',

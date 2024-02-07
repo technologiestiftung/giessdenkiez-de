@@ -40,13 +40,11 @@ export const SidebarAuth = ({
 
   const {
     signinTitle,
+    signupTitle,
     signinAction,
     signupAction,
     noAccountHint,
-    alreadyRegisteredHint,
-    alreadyRegisteredAction,
     registerLink,
-    forgotPasswordHint,
     forgotPasswordLink,
   } = content.auth;
 
@@ -67,6 +65,16 @@ export const SidebarAuth = ({
     bored,
     profile,
   } = content.auth;
+
+  const { confirm, editPasswordTitle } = content.sidebar.account;
+
+  const titles = {
+    signin: signinTitle,
+    signup: signupTitle,
+    recovery: forgotPasswordLink,
+    confirm: confirm,
+    change: editPasswordTitle,
+  };
 
   const supabase = useSupabaseClient();
 
@@ -181,7 +189,7 @@ export const SidebarAuth = ({
     }
     if (!data.user) {
       setNotification({
-        message: emailCouldNotBeSent,
+        message: emailCouldNotBeSent.replace('_1_', email),
         type: 'error',
       });
       setView('signup');
@@ -244,7 +252,7 @@ export const SidebarAuth = ({
     }
     if (data) {
       setNotification({
-        message: checkMailForPasswordReset,
+        message: checkMailForPasswordReset.replace('_1_', email),
         type: 'success',
       });
     }
@@ -320,8 +328,8 @@ export const SidebarAuth = ({
       );
       linkText = (
         <CredentialsSubline
-          text={alreadyRegisteredHint}
-          aText={alreadyRegisteredAction}
+          text={'Du hast schon einen Account?'}
+          aText={'Log Dich ein'}
           onClick={() => setView('signin')}
         />
       );
@@ -373,7 +381,7 @@ export const SidebarAuth = ({
 
   return (
     <>
-      <SidebarTitle>{signinTitle}</SidebarTitle>
+      <SidebarTitle>{titles[view]}</SidebarTitle>
       {form}
       <div>
         {linkText}
@@ -381,8 +389,8 @@ export const SidebarAuth = ({
           <>
             <StyledSpacer />
             <CredentialsSubline
-              text={forgotPasswordHint}
-              aText={forgotPasswordLink}
+              text={' Oh nein. Du hast Dein '}
+              aText={'Passwort vergessen?'}
               onClick={() => setView('recovery')}
             />
           </>

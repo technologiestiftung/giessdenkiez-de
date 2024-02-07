@@ -57,6 +57,7 @@ interface Profile {
   litersWatered: string;
 }
 interface Account {
+  confirm: string;
   title: string;
   username: string;
   registeredMail: string;
@@ -151,6 +152,7 @@ export interface Content {
   };
   auth: {
     signinTitle: string;
+    signupTitle: string;
     email: string;
     username: string;
     password: string;
