@@ -375,61 +375,62 @@ const enContent = {
       {
         question: 'How can I participate?',
         answer:
-          'Inform: <br><br>Curious which tree is in front of your door?  <br><br>Watering and adopting trees: <br><br>Do you want to get active or are you already actively watering?  <br><br>Connect: <br><br>About our public <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a> You can exchange ideas with other foundrymen and report defective pumps in your neighborhood.',
+          'Inform: <br><br>Curious which tree is in front of your door? Our interactive map visualizes over 800,000 street and plant trees in Berlin. If you want to find out more about a tree, navigate and zoom to the desired location and click on the colored dot. You will now see a lot of information about the selected tree in the menu ribbon on the left. <br><br>Watering and adopting trees: <br><br>Do you want to get active or are you already actively watering? On Gieß den Kiez you can enter whether and with how much water you watered a tree. Trees can also be adopted. The adopted trees appear in your own user profile and can be found more quickly. This allows other neighbors in the area to see which trees need their attention. To water and adopt trees, first create a profile with a valid email address and then log in. Now you can document your watering activities accordingly and see whether and how often trees in your neighborhood have already been watered by other users.<br><br>Connect: <br><br> You can use our public <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a> to exchange ideas with other foundries and report defective pumps in your neighborhood.',
       },
       {
         question: 'What can I do if trees are not registered correctly?',
         answer:
-          'We obtain the tree data set with all attributes such as address, tree species and planting year for each tree from the geoportal of the city of Berlin, the FIS broker. ',
+          'We obtain the tree data set with all attributes such as address, tree species and planting year for each tree from the geoportal of the city of Berlin, the FIS broker. The tree register provided in the geoportal is based on the district-aggregated data from the road and green space authorities. It can therefore happen again and again that data from trees is out of date or that properties differ from current reality. Unfortunately, we cannot make any changes to the tree register ourselves. Any deviations can only be reported directly to the responsible district authority. Once a year, the green space authorities publish an updated tree register, which we link to Gieß den Kiez after publication.',
       },
       {
         question: 'Why should I take action and water trees?',
         answer:
-          "The long periods of drought and heat of the last two years have caused immense damage to Berlin's urban greenery.  <br><br>The street and green space authorities are already active, but cannot keep up with watering during Berlin's hot summers. ",
+          "The long periods of drought and heat of the last two years have caused immense damage to Berlin's urban greenery. Although not only due to drought damage, over 7,000 trees had to be felled between 2018 and 2019 alone. <br><br>The street and green space authorities are already active, but cannot keep up with the watering during Berlin's hot summers. Since the green space authorities are organized by district, each district works slightly differently, so holistic and needs-based coordination is certainly associated with hurdles. Through the platform, we would also like to give citizens the opportunity to help trees specifically based on their current water supply and to obtain information. The goal is to save as many trees as possible through neighborly involvement.",
       },
       {
         question: 'How do I water correctly?',
         answer:
-          'Depending on their age, location and tree species, trees need different amounts of water.  <br><br>Since freshly planted trees up to the age of three are usually supplied with water by the district parks authorities, trees between the ages of four and 15 particularly need our attention and our water.  <br><br>Based on the Berlin one <a target="blank" href="https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/handbuch-gute-pflege/">Good Care Handbook</a> We recommend that you water it rarely, but rather with a larger amount of water. ',
+          'Depending on their age, location and tree species, trees need different amounts of water. Young trees (0-15 years) need more water than medium-aged trees (15-40 years). Old trees (40 years and older) are usually completely self-sufficient. <br><br>Since freshly planted trees up to the age of three are usually supplied with water by the district parks authorities, the trees between four and 15 years in particular need our attention and our water. We have highlighted this with the labels of low, medium or high water requirement. <br><br>Based on the Berlin <a target="blank" href="https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/katalog-good-care/">Manual Good Care</a> we recommend that you water it rarely, but rather with a larger amount of water. The manual recommends up to 200l per watering for freshly planted trees. In this way you ensure that the soil moisture is increased even at depth. In the end, even smaller amounts don\'t hurt, especially in midsummer. It is important to loosen the dried out soil before watering so that the water can penetrate into the soil and does not run off above ground or accumulate incorrectly. So-called watering bags are also recommended, from which the water only emerges very slowly, hardly runs off the surface and therefore continuously seeps into the ground.',
       },
       {
         question: 'Who can I contact if pumps are broken or damaged?',
         answer:
-          'The respective district roads and green spaces authorities are responsible for the infrastructure of the roads, which also includes the public hand pumps.  <a target="blank" href="https://app.slack.com/client/T012K4SDYBY/C019SJQDPL7">Slack channel </a> do. ',
+          'The respective district roads and green spaces authorities are responsible for the infrastructure of the roads, which also includes the public hand pumps. If pumps are broken or damaged, the need for repairs can be reported there. We load the locations of the pumps on the map weekly from the Open Street Map database. If you want to help improve the data, for example by reporting a defective pump, you can do so in our <a target="blank" href="https://app.slack.com/client/T012K4SDYBY/C019SJQDPL7" >Slack Channel #pump-report </a> do. The OSM community then has the opportunity to enter your information into the database.',
       },
       {
         question: 'How are technical problems handled?',
         answer:
-          'The participation platform “Gieß den Kiez” is a prototype and therefore a beta version of a web app.  <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a> or by email.  <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">Open source GitHub repository</a> invited and can comment on their issues or code fixes directly in the repository.',
+          'The participation platform “Gieß den Kiez” is a prototype and therefore a beta version of a web app. We are aware of some technical hurdles, but depend on your help. We are happy to receive your technical feedback and questions in our <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack Channel</a> or by email. Anyone who feels at home in the “tech world” is welcome to participate in our <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">Open Source GitHub Repository</ a> invited and can comment on his issues or code fixes directly in the repository.',
       },
       {
         question: 'Why is the website not loading or loading very slowly?',
         answer:
-          'When the page is first opened, the browser loads over 800,000 data points - this can take a while!  <br><br>Use via smartphone (mobile network) can lead to performance problems (page loads slowly).  <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a>, by email or via GitHub Issue, stating the device used, the operating system, the browser and the browser version.',
+          'When the page is first opened, the browser loads over 800,000 data points - this can take a while! Regardless, there may be slightly different displays when using different browsers. For the best experience, we recommend using Chrome or Firefox Desktop. Experience has shown that the most common problems can be solved if the browser is not outdated or the latest version is installed and there is a stable internet connection (LAN or WLAN). <br><br>Use via smartphone (mobile network) can lead to performance problems (page loads slowly). If problems occur repeatedly, you can report them in our <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack Channel</a>, Report by email or via GitHub Issue, stating the device used, the operating system, the browser and the browser version.',
       },
       {
         question: 'What should I do if I watered a tree incorrectly?',
         answer:
-          'To undo a watering, for example because the neighboring tree was watered instead or on a different day, first click on the tree. ',
+          'To undo a watering, for example because the neighboring tree was watered instead or on a different day, first click on the tree. Scroll down the tree sidebar to the view of past waterings, click the trash can icon next to the entry you want to delete, and click “Delete” to confirm. Only castings that you have made yourself can be deleted. After deleting, enter the watering with the correct information (number of liters and time).',
       },
       {
         question: 'Can the principle be transferred to other cities?',
         answer:
-          'The “Gieß den Kiez” platform is an open source software project and runs under an MIT license.  <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">GitHub repository</a> drop by or contact us via email.',
+          'The “Gieß den Kiez” platform is an open source software project and runs under an MIT license. Accordingly, the idea and also the source code can be used and further developed free of charge for implementation in other cities. If you are interested, please take a look at our <a target="blank" href="https://github.com/technologiestiftung/giessdenkiez-de">GitHub Repository</a> or contact us via email.',
       },
       {
         question: 'I still have a question!',
         answer:
-          'The FAQ couldn\'t help you or you have a more complex query?  <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Frage:...">E-mail.</a>',
+          'The FAQ couldn\'t help you or you have a more complex query? Then write us an <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Question:...">Email.</a>',
       },
       {
         question: "Why aren't all of Berlin's trees shown?",
-        answer: 'Pour the neighborhood is based on the tree register. ',
+        answer:
+          "Giess den Kiez is based on the tree register. The tree register is a city directory in which (city/street or park) trees are managed and which is provided by the street and green spaces authorities. However, the Streets and Green Spaces Authority is not responsible for all of Berlin's trees. The trees in the Plänterwald, for example, are subject to the forestry office. These trees therefore do not appear in Gieß den Kiez.",
       },
       {
         question: "I don't speak any German: What's going on here?",
         answer:
-          'Gieß den Kiez is a participatory platform where you can inform yourself about the trees in your neighborhood and their water needs. ',
+          'Gieß den Kiez is a participatory platform where you can inform yourself about the trees in your neighbourhood and their water needs. You can explore individual trees in Berlin and find out about the proper watering of trees. If you want to water the same trees regularly, you should create an account, adopt the trees and show that they are taken care of. This way, coordination takes place in the neighbourhood.',
       },
     ],
   },
@@ -441,7 +442,7 @@ const enContent = {
       '© <a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noreferrer">Mapbox</a> – © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> – <a href="https://www.mapbox.com/map-feedback" target="_blank" rel="noreferrer"><strong>Improve this map</strong></a> – <a href="https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK" target="_blank" rel="noreferrer">Feedback</a>',
   },
   intro: {
-    title: '<b>Pour that <span>neighbourhood</span></b>',
+    title: '<b>Giess den <span>Kiez</span></b>',
     subline:
       'Berlin\'s city trees are suffering from drought <br class="large" /> and you can help them!',
     description: [
@@ -695,7 +696,7 @@ const enContent = {
     ],
   },
   sales: {
-    title: '<i>Water the neighborhood</i> also in your city?',
+    title: '<i>Giess den Kiez</i> also in your city?',
     subtitle:
       'Cities like Leipzig, Magdeburg and Co. have already successfully joined the casting wave! ',
     buttonText: 'Learn more!',
