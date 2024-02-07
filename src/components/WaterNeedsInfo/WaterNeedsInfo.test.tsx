@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import TreeWatering from '.';
-import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
+import useLocalizedContent from '../../utils/hooks/useOverridenLocalizedContent';
 
 describe('component TreeWatering', () => {
   test('should render all the waterNeeds blocks', () => {
