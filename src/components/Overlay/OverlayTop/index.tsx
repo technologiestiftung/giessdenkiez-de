@@ -13,6 +13,7 @@ import OverlayTiles from '../OverlayTiles';
 import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 import Switch from '../../Switch';
 import { Language } from '../../../assets/content-types';
+import { setLocalStorageLanguage } from '../../../assets/local-storage';
 
 const StyledNewsSection = styled.section`
   background-color: #f7fffa;
@@ -123,7 +124,8 @@ const OverlayTop: FC = () => {
           secondOption={Language.en}
           selectedOption={language}
           onOptionSelect={option => {
-            setLanguage(option);
+            setLocalStorageLanguage(option as Language);
+            setLanguage(option as Language);
           }}
         ></Switch>
       </Logo>

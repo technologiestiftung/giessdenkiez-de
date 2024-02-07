@@ -1,17 +1,18 @@
 import dynamic from 'next/dynamic';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 // import { Map } from '../TreesMap';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import 'react-day-picker/dist/style.css';
-import { useStoreState } from '../../state/unistore-hooks';
+import { useActions, useStoreState } from '../../state/unistore-hooks';
 import Cookie from '../Cookie';
 import { MapAttributionImprintAndPrivacy } from '../ImprintAndPrivacy';
 import MapLayerLegend from '../Legend/MapLayersLegend';
 import Loading from '../Loading';
 import Nav from '../Nav';
 import Overlay from '../Overlay';
+import { getLocalStorageLanguage } from '../../assets/local-storage';
 
 const Map = dynamic(() => import('../TreesMap'), { ssr: false });
 
@@ -69,6 +70,12 @@ const App: FC<{ children: React.ReactNode }> = ({ children }) => {
   const showOverlay = isHome && overlay;
   const showMapUI = !showOverlay;
   const isSidebarOpened = !isHome && isNavOpen;
+  const { setLanguage } = useActions();
+
+  useEffect(() => {
+    const foundLanguage = getLocalStorageLanguage();
+    setLanguage(foundLanguage);
+  }, []);
 
   return (
     <AppContainer>
