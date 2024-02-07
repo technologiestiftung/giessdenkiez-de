@@ -135,7 +135,7 @@ export const PasswordEditForm: FC<PasswordEditFormProps> = ({
           key={`save-password-edit`}
           width='fit-content'
           type='submit'
-          colorType='primary'
+          $colorType='primary'
         >
           {isBeeingSaved ? 'Wird eingetragen ...' : 'Speichern'}
         </ButtonSubmitRound>

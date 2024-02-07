@@ -100,7 +100,7 @@ const SidebarProfile: FC<{
       <SidebarTitle>Profil</SidebarTitle>
       <WateringsTitle>Dein Gießfortschritt</WateringsTitle>
       <WateredTreesIndicator waterings={userData.waterings} />
-      <ExpandablePanel isExpanded title={<span>Adoptierte Bäume</span>}>
+      <ExpandablePanel $isExpanded title={<span>Adoptierte Bäume</span>}>
         {userData.adoptedTrees.length === 0 ? (
           'Du hast noch keine Bäume adoptiert.'
         ) : (

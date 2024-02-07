@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 interface StyledButtonProps {
   width?: string;
-  colorType?: string;
+  $colorType?: string;
   margin?: string;
   fontSize?: string;
   disabled?: boolean;
@@ -14,7 +14,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   background-color: ${p =>
     p.disabled
       ? p.theme.colorLightGrey
-      : p.colorType === 'primary'
+      : p.$colorType === 'primary'
       ? '#F7FFFA'
       : '#FFFFFF'};
   padding: 12px 15px 12px 15px;
@@ -25,10 +25,10 @@ const StyledButton = styled.button<StyledButtonProps>`
   font-size: ${p => (p.fontSize ? p.fontSize : p.theme.fontSizeLl)};
   border: 1px solid
     ${p => {
-      if (p.colorType === 'primary') {
+      if (p.$colorType === 'primary') {
         return p.theme.colorPrimary;
       }
-      if (p.colorType === 'secondary') {
+      if (p.$colorType === 'secondary') {
         return p.theme.colorTextDark;
       }
     }};
@@ -36,10 +36,10 @@ const StyledButton = styled.button<StyledButtonProps>`
     if (p.disabled) {
       return p.theme.colorTextLight;
     }
-    if (p.colorType === 'primary') {
+    if (p.$colorType === 'primary') {
       return p.theme.colorPrimary;
     }
-    if (p.colorType === 'secondary') {
+    if (p.$colorType === 'secondary') {
       return p.theme.colorTextDark;
     }
   }};
@@ -48,7 +48,9 @@ const StyledButton = styled.button<StyledButtonProps>`
 
   &:hover {
     background-color: ${p =>
-      p.colorType === 'primary' ? p.theme.colorPrimary : p.theme.colorTextDark};
+      p.$colorType === 'primary'
+        ? p.theme.colorPrimary
+        : p.theme.colorTextDark};
     color: white;
     transition: ${p => p.theme.transition};
   }
@@ -57,10 +59,10 @@ const StyledButton = styled.button<StyledButtonProps>`
     outline: none;
     box-shadow: 0 0 0 2px
       ${p => {
-        if (p.colorType === 'primary') {
+        if (p.$colorType === 'primary') {
           return p.theme.colorPrimary;
         }
-        if (p.colorType === 'secondary') {
+        if (p.$colorType === 'secondary') {
           return p.theme.colorTextDark;
         }
       }};
@@ -69,7 +71,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 
 const ButtonSubmitRound: FC<{
   type?: 'button' | 'submit' | 'reset';
-  colorType?: 'primary' | 'secondary';
+  $colorType?: 'primary' | 'secondary';
   width?: string;
   fontSize?: string;
   margin?: string;
@@ -77,7 +79,7 @@ const ButtonSubmitRound: FC<{
   children: React.ReactNode;
 }> = ({
   type = 'submit',
-  colorType = 'primary',
+  $colorType = 'primary',
   children,
   width,
   fontSize,
@@ -88,7 +90,7 @@ const ButtonSubmitRound: FC<{
     fontSize={fontSize}
     margin={margin}
     width={width}
-    colorType={colorType}
+    $colorType={$colorType}
     type={type}
     disabled={disabled}
     role={'button'}

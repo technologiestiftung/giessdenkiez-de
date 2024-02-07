@@ -47,7 +47,7 @@ const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 20;
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY || '';
 interface StyledProps {
-  isNavOpen?: boolean;
+  $isNavOpen?: boolean;
 }
 
 const ControlWrapper = styled.div<StyledProps>`
@@ -59,7 +59,7 @@ const ControlWrapper = styled.div<StyledProps>`
 
   @media screen and (min-width: ${p => p.theme.screens.tablet}) {
     transform: ${props =>
-      props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'translate3d(0, 0, 0)'};
+      props.$isNavOpen ? 'translate3d(350px, 0, 0)' : 'translate3d(0, 0, 0)'};
   }
 
   & > div {
@@ -596,7 +596,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           }}
         >
           {!showControls && (
-            <ControlWrapper isNavOpen={isNavOpen}>
+            <ControlWrapper $isNavOpen={isNavOpen}>
               <NavigationControl position={'bottom-left'} />
               <GeolocateControl
                 position={'bottom-left'}
