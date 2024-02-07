@@ -7,6 +7,7 @@ import { StyledLabel } from '../Labels';
 import { PasswordValidation } from '../PasswordValidation';
 import { UsernameValidation } from '../UsernameValidation';
 import { UsernamePattern } from '../../../utils/validateUsername';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 export const CredentialsForm = ({
   formData,
@@ -29,6 +30,20 @@ export const CredentialsForm = ({
   isSignIn?: boolean;
   usernamePatterns?: UsernamePattern;
 }) => {
+  const content = useLocalizedContent();
+
+  const {
+    signinTitle,
+    email,
+    username,
+    password,
+    signinAction,
+    noAccountHint,
+    registerLink,
+    forgotPasswordHint,
+    forgotPasswordLink,
+  } = content.auth;
+
   return (
     <>
       <StyledForm
@@ -38,7 +53,7 @@ export const CredentialsForm = ({
       >
         <StyledFormRow>
           <StyledLabel htmlFor='email'>
-            <>E-Mail</>
+            <>{email}</>
           </StyledLabel>
           <StyledFormTextInput
             id='email'
@@ -52,7 +67,7 @@ export const CredentialsForm = ({
         {!isSignIn && !isRecovery && (
           <StyledFormRow>
             <StyledLabel htmlFor='username'>
-              <>Benutzername</>
+              <>{username}</>
             </StyledLabel>
             <StyledFormTextInput
               id='username'

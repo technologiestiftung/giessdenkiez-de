@@ -7,7 +7,6 @@ import { useActions, useStoreState } from '../../../state/unistore-hooks';
 import SidebarSearchAge from './SidebarSearchAge';
 import SidebarSearchLocation from './SidebarSearchLocation';
 import WaterDrops from '../../WaterDrops';
-import localizedContent from '../../../assets/content';
 import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 const FilterLinksContainer = styled.div`

@@ -86,6 +86,17 @@ export interface Content {
     waterNeeds: Item[];
     treetypes: TreeType[];
   };
+  auth: {
+    signinTitle: string;
+    email: string;
+    username: string;
+    password: string;
+    signinAction: string;
+    noAccountHint: string;
+    registerLink: string;
+    forgotPasswordHint: string;
+    forgotPasswordLink: string;
+  };
   collaborate: {
     tiles: CollaborationItem[];
   };

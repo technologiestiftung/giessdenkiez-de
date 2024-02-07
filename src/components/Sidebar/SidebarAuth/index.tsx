@@ -16,14 +16,7 @@ import {
   validateUsername,
 } from '../../../utils/validateUsername';
 import debounce from 'lodash/debounce';
-
-enum titles {
-  signin = 'Anmelden',
-  signup = 'Registrieren',
-  recovery = 'Passwort vergessen',
-  confirm = 'Account Bestätigen',
-  change = 'Passwort ändern',
-}
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 export const StyledSpacer = styled.div`
   padding: 10px;
@@ -43,6 +36,19 @@ export const SidebarAuth = ({
   view: AuthView;
   setView: React.Dispatch<React.SetStateAction<AuthView>>;
 }) => {
+  const content = useLocalizedContent();
+
+  const {
+    signinTitle,
+    email,
+    password,
+    signinAction,
+    noAccountHint,
+    registerLink,
+    forgotPasswordHint,
+    forgotPasswordLink,
+  } = content.auth;
+
   const supabase = useSupabaseClient();
 
   const [formData, setFormData] = useState<CredentialsData>({
@@ -269,14 +275,14 @@ export const SidebarAuth = ({
           formData={formData}
           handleInputChange={handleInputChange}
           handleSubmit={handleSignInSubmit}
-          buttonText='Einloggen'
+          buttonText={signinAction}
           isSignIn={true}
         />
       );
       linkText = (
         <CredentialsSubline
-          text={'Du hast noch keinen Account?'}
-          aText={'Registrier Dich'}
+          text={noAccountHint}
+          aText={registerLink}
           onClick={() => setView('signup')}
         />
       );
@@ -350,7 +356,7 @@ export const SidebarAuth = ({
 
   return (
     <>
-      <SidebarTitle>{titles[view]}</SidebarTitle>
+      <SidebarTitle>{signinTitle}</SidebarTitle>
       {form}
       <div>
         {linkText}
@@ -358,8 +364,8 @@ export const SidebarAuth = ({
           <>
             <StyledSpacer />
             <CredentialsSubline
-              text={' Oh nein. Du hast Dein '}
-              aText={'Passwort vergessen?'}
+              text={forgotPasswordHint}
+              aText={forgotPasswordLink}
               onClick={() => setView('recovery')}
             />
           </>

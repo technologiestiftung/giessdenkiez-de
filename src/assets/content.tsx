@@ -236,6 +236,17 @@ const deContent: Content = {
       },
     ],
   },
+  auth: {
+    signinTitle: 'Anmelden',
+    email: 'E-Mail',
+    username: 'Benutzername',
+    password: 'Passwort',
+    signinAction: 'Einloggen',
+    noAccountHint: 'Du hast noch keinen Account?',
+    registerLink: 'Registrier Dich',
+    forgotPasswordHint: 'Oh nein. Du hast Dein',
+    forgotPasswordLink: 'Passwort vergessen?',
+  },
   collaborate: {
     tiles: [
       {
@@ -479,6 +490,17 @@ const enContent = {
           "The horse chestnut (Aesculus hippocastanum) accounts for around 5% of the total population, placing it in fifth place among Berlin's street trees.",
       },
     ],
+  },
+  auth: {
+    signinTitle: 'Login',
+    email: 'Email',
+    username: 'Username',
+    password: 'Password',
+    signinAction: 'Login',
+    noAccountHint: 'No account yet?',
+    registerLink: 'Register here',
+    forgotPasswordHint: 'Oh no, forgot your password?',
+    forgotPasswordLink: 'Reset password',
   },
   collaborate: {
     tiles: [
