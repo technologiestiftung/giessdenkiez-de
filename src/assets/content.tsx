@@ -323,6 +323,10 @@ const deContent: Content = {
         'Überprüfe Deine E-Mail nach einem Link um Dein Passwort zu ändern',
       usernameTaken: 'Benutzername bereits vergeben',
     },
+    passwordNotSecureEnough: 'Passwort ist nicht sicher genug',
+    passwordCouldNotBeChanged: 'Passwort konnte nicht geändert werden',
+    passwordChangeSuccess: 'Passwort erfolgreich geändert',
+    changePasswordFor: 'Passwort ändern für',
   },
   collaborate: {
     tiles: [
@@ -654,6 +658,10 @@ const enContent = {
         'Check your email for a link to reset your password',
       usernameTaken: 'Username already taken',
     },
+    passwordNotSecureEnough: 'Password ist not secure enough',
+    passwordCouldNotBeChanged: 'Password could not be changed',
+    passwordChangeSuccess: 'Password changed successfully',
+    changePasswordFor: 'Change password for',
   },
   collaborate: {
     tiles: [

@@ -170,6 +170,10 @@ export interface Content {
     usernameRestrictions: UsernameRestrictions;
     passwordRestrictions: PasswordRestrictions;
     errors: AuthErrors;
+    passwordNotSecureEnough: string;
+    passwordCouldNotBeChanged: string;
+    passwordChangeSuccess: string;
+    changePasswordFor: string;
   };
   collaborate: {
     tiles: CollaborationItem[];
