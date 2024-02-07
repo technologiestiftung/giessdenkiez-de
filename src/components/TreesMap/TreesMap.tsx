@@ -385,10 +385,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         if (!map.current || !e.features) return;
         if (e.features?.length === 0) setHoveredTreeId(null);
         setHoveredTreeId(e.features[0].id as string);
+        map.current.getCanvas().style.cursor = 'pointer';
       });
 
       map.current.on('mouseleave', 'trees', e => {
         setHoveredTreeId(null);
+        if (map.current) {
+          map.current.getCanvas().style.cursor = '';
+        }
         if (!map.current || !e.features?.length) return;
       });
 
