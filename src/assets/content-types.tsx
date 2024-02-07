@@ -110,6 +110,10 @@ export interface Content {
     treeLayer: string;
     ofLastDays: string;
     pumpState: PumpStates;
+    publicPump: string;
+    lastPumpCheck: string;
+    pumpStyle: string;
+    updatePumpLink: string;
   };
   sharing: {
     title: string;

@@ -37,6 +37,7 @@ import {
   HIGH_WATER_NEED_NUM,
 } from '../../utils/getWaterNeedByAge';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 20;
@@ -162,6 +163,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   },
   ref
 ) {
+  const content = useLocalizedContent();
+  const {
+    publicPump,
+    lastPumpCheck,
+    pumpStyle,
+    updatePumpLink,
+  } = content.legend;
+
   const map = useRef<MapboxMap | null>(null);
   const lastSelectedTree = useRef<string | undefined>(selectedTreeId);
   const lastHoveredTreeId = useRef<string | null>(null);
@@ -588,15 +597,15 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         <MapTooltip
           x={pumpInfo.x}
           y={pumpInfo.y}
-          title='Öffentliche Straßenpumpe'
+          title={publicPump}
           subtitle={pumpInfo.address}
           onClickOutside={() => {
             setClickedPump(null);
           }}
           infos={{
             Status: pumpInfo.status,
-            'Letzter Check': pumpInfo.check_date,
-            Pumpenstil: pumpInfo.style,
+            [lastPumpCheck]: pumpInfo.check_date,
+            [pumpStyle]: pumpInfo.style,
             ...(pumpInfo.id
               ? {
                   '': (
@@ -607,7 +616,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
                       target='_blank'
                       rel='noreferrer nofollow'
                     >
-                      Status in OpenStreetMap aktualisieren
+                      {updatePumpLink}
                     </StyledTextLink>
                   ),
                 }

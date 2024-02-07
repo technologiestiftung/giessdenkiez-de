@@ -100,6 +100,10 @@ const deContent: Content = {
   legend: {
     title: 'Legende',
     pumps: 'Öffentliche Pumpen',
+    publicPump: 'Öffentliche Straßenpumpe',
+    lastPumpCheck: 'Letzter Check',
+    pumpStyle: 'Pumpenstil',
+    updatePumpLink: 'Status in OpenStreetMap aktualisieren',
     precipitation: 'Niederschlag',
     precipitationAreas: 'Niederschlagsflächen',
     dataPoints: 'Datenpunkte',
@@ -464,6 +468,10 @@ const enContent = {
   legend: {
     title: 'Legend',
     pumps: 'Public pumps',
+    publicPump: 'Public street pump',
+    lastPumpCheck: 'Last check',
+    pumpStyle: 'Pump style',
+    updatePumpLink: 'Update status in OpenStreetMap',
     precipitation: 'Precipitation',
     precipitationAreas: 'Precipitation areas',
     dataPoints: 'Data points',
