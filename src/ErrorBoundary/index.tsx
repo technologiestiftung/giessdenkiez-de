@@ -1,5 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import Link from 'next/link';
+
 /**
  * For more info on the error boundary see
  * https://reactjs.org/docs/error-boundaries.html
@@ -89,7 +90,7 @@ export default class ErrorBoundary extends Component<
                   marginBottom: '0',
                 }}
               >
-                Irgendwas ist schief gelaufen.
+                {title}
               </h1>
               <p
                 style={{
@@ -98,14 +99,14 @@ export default class ErrorBoundary extends Component<
                   lineHeight: '145%',
                 }}
               >
-                Bitte wende Dich an das{' '}
+                {contact}{' '}
                 <a
                   href='mailto:giessdenkiez@citylab-berlin.de'
                   className='error-page-link'
                 >
                   CityLAB
                 </a>{' '}
-                oder schreib uns einen Issue auf{' '}
+                {issue}{' '}
                 <a
                   href='https://github.com/technologiestiftung/giessdenkiez-de/issues/new'
                   className='error-page-link'
@@ -113,10 +114,10 @@ export default class ErrorBoundary extends Component<
                   GitHub
                 </a>
                 . <br />
-                Vielleicht hilft es auch die Seite neu zu laden?
+                {reload}
               </p>
               <Link href='/' className='error-page-button'>
-                Zurück zur Startseite
+                {backToHome}
               </Link>
             </div>
           </div>
