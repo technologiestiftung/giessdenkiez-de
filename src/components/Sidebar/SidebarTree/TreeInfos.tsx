@@ -334,12 +334,14 @@ const TreeInfos: FC<{
               }
               type='secondary'
             >
-              {adoptedByLoggedInUser && !isBeingUnadopted && stopAdoption}
-              {adoptedByLoggedInUser &&
-                isBeingUnadopted &&
-                stopAdoptionProgress}
-              {!adoptedByLoggedInUser && !isBeingAdopted && adopt}
-              {!adoptedByLoggedInUser && isBeingAdopted && adoptProgress}
+              {adoptedByLoggedInUser && !isBeingUnadopted && (
+                <>{stopAdoption}</>
+              )}
+              {adoptedByLoggedInUser && isBeingUnadopted && (
+                <>{stopAdoptionProgress}</>
+              )}
+              {!adoptedByLoggedInUser && !isBeingAdopted && <>{adopt}</>}
+              {!adoptedByLoggedInUser && isBeingAdopted && <>{adoptProgress}</>}
             </ButtonRound>
             <ParticipateButton />
           </ActionsWrapper>

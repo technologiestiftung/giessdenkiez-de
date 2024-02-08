@@ -41,7 +41,6 @@ const Loading: FC<{ show?: boolean }> = ({ show }) => {
   const { loading } = useLocalizedContent();
   const { snippets } = loading;
 
-  // const { disclaimer } = intro;
   const [current, setCurrent] = useState(0);
   const maxIndex = snippets.length - 1;
 

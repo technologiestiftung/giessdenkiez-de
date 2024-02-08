@@ -4,7 +4,7 @@ import { useStoreState } from '../../state/unistore-hooks';
 
 const useLocalizedContent = (): Content => {
   const language = useStoreState('language');
-  const returnContent = localizedContent[language!];
+  const returnContent = localizedContent[language];
   return returnContent;
 };
 

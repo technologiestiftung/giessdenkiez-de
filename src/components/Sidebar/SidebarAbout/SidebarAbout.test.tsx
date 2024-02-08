@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import SidebarAbout from '.';
-import useLocalizedContent from '../../../utils/hooks/useOverridenLocalizedContent';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 describe('component SidebarAbout', () => {
-  const content = useLocalizedContent('de');
+  const content = useLocalizedContent();
   test('should render title', () => {
     render(<SidebarAbout />);
 
