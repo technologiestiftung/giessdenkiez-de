@@ -17,14 +17,14 @@ const FilterLinksContainer = styled.div`
   padding-top: 16px;
 `;
 
-const FilterLink = styled.span<{ isActive?: boolean }>`
+const FilterLink = styled.span<{ $isActive?: boolean }>`
   display: inline-flex;
   padding: 6px 10px;
   border-radius: 16px;
   cursor: pointer;
   font-size: ${p => p.theme.fontSizeL};
-  background: ${p => (p.isActive ? p.theme.colorTextMedium : 'white')};
-  color: ${p => (p.isActive ? p.theme.colorTextDark : p.theme.colorTextLight)};
+  background: ${p => (p.$isActive ? p.theme.colorTextMedium : 'white')};
+  color: ${p => (p.$isActive ? p.theme.colorTextDark : p.theme.colorTextLight)};
   transition: all 0.125s ease-in-out;
 
   &:hover {
@@ -66,51 +66,51 @@ const SidebarSearch: FC = () => {
   return (
     <>
       <SidebarTitle>{title}</SidebarTitle>
-      <ExpandablePanel title={locationSearchTitle} isExpanded>
+      <ExpandablePanel title={locationSearchTitle} $isExpanded>
         <SidebarSearchLocation />
       </ExpandablePanel>
-      <ExpandablePanel title={dataViewTitle} isExpanded>
+      <ExpandablePanel title={dataViewTitle} $isExpanded>
         <SmallParagraph>{dataViewDescription}</SmallParagraph>
         <FilterLinksContainer>
           <FilterLink
-            isActive={mapViewFilter === 'rain'}
+            $isActive={mapViewFilter === 'rain'}
             onClick={() => setMapViewFilter('rain')}
           >
             {precipitation}
           </FilterLink>
           <FilterLink
-            isActive={mapViewFilter === 'adopted'}
+            $isActive={mapViewFilter === 'adopted'}
             onClick={() => setMapViewFilter('adopted')}
           >
             {adopted}
           </FilterLink>
           <FilterLink
-            isActive={mapViewFilter === 'watered'}
+            $isActive={mapViewFilter === 'watered'}
             onClick={() => setMapViewFilter('watered')}
           >
             {lastWatered}
           </FilterLink>
         </FilterLinksContainer>
       </ExpandablePanel>
-      <ExpandablePanel title={waterNeedsTitle} isExpanded>
+      <ExpandablePanel title={waterNeedsTitle} $isExpanded>
         <SmallParagraph>{waterNeedsDescription}</SmallParagraph>
         <FilterLinksContainer>
           <FilterLink
-            isActive={mapWaterNeedFilter === 1}
+            $isActive={mapWaterNeedFilter === 1}
             onClick={() => setWaterNeedFilter(1)}
           >
             {waterNeeds[0].title}
             <WaterDrops dropsAmount={1} />
           </FilterLink>
           <FilterLink
-            isActive={mapWaterNeedFilter === 2}
+            $isActive={mapWaterNeedFilter === 2}
             onClick={() => setWaterNeedFilter(2)}
           >
             {waterNeeds[1].title}
             <WaterDrops dropsAmount={2} />
           </FilterLink>
           <FilterLink
-            isActive={mapWaterNeedFilter === 3}
+            $isActive={mapWaterNeedFilter === 3}
             onClick={() => setWaterNeedFilter(3)}
           >
             {waterNeeds[2].title}
@@ -118,7 +118,7 @@ const SidebarSearch: FC = () => {
           </FilterLink>
         </FilterLinksContainer>
       </ExpandablePanel>
-      <ExpandablePanel title={treeAgeTitle} isExpanded>
+      <ExpandablePanel title={treeAgeTitle} $isExpanded>
         <SmallParagraph>{treeAgeDescription}</SmallParagraph>
         <br />
         <SidebarSearchAge />

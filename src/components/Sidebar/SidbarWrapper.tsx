@@ -1,14 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 import SidebarClose from './SidebarClose';
 
 interface SidebarWrapperType {
-  isVisible?: boolean;
+  children: ReactNode;
+  $isVisible?: boolean;
   title?: string;
   isLoading?: boolean;
 }
 
-type StyledSidebarWrapperType = Pick<SidebarWrapperType, 'isVisible'>;
+type StyledSidebarWrapperType = Pick<SidebarWrapperType, '$isVisible'>;
 
 const StyledSidebarWrapper = styled.div<StyledSidebarWrapperType>`
   z-index: 3;
@@ -19,7 +20,7 @@ const StyledSidebarWrapper = styled.div<StyledSidebarWrapperType>`
   left: 12px;
   bottom: 12px;
   transform: ${props =>
-    props.isVisible
+    props.$isVisible
       ? 'translate3d(0, 0, 0)'
       : 'translate3d(calc(-100% - 20px), 0, 0)'};
   background: white;
@@ -42,9 +43,9 @@ const SidebarContent = styled.div`
 
 const SidebarWrapper: FC<SidebarWrapperType> = ({
   children,
-  isVisible = true,
+  $isVisible = true,
 }) => (
-  <StyledSidebarWrapper isVisible={isVisible}>
+  <StyledSidebarWrapper $isVisible={$isVisible}>
     <SidebarClose />
     <SidebarContent>{children}</SidebarContent>
   </StyledSidebarWrapper>

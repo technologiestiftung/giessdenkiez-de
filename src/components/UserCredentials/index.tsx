@@ -41,7 +41,7 @@ const CardCredentials: FC<{
       {isEditingPassword && (
         <PasswordEditModal onClose={() => setIsEditingPassword(false)} />
       )}
-      <ExpandablePanel isExpanded title={title}>
+      <ExpandablePanel $isExpanded title={title}>
         <SmallParagraph>{usernameText}</SmallParagraph>
         <CredentialValue>{username}</CredentialValue>
         <SmallParagraph>{registeredMail}</SmallParagraph>

@@ -184,7 +184,7 @@ export const AccountEditForm: FC<AccountEditFormProps> = ({
           key={`save-account-edit`}
           width='fit-content'
           type='submit'
-          colorType='primary'
+          $colorType='primary'
         >
           {isBeeingSaved ? editSaving : editSave}
         </ButtonSubmitRound>

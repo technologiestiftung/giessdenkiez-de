@@ -17,7 +17,7 @@ const SidebarAbout: FC = () => {
     <>
       <SidebarTitle>{furtherInfo}</SidebarTitle>
       {about.map((item, idx) => (
-        <ExpandablePanel isExpanded title={item.title} key={item.title}>
+        <ExpandablePanel $isExpanded title={item.title} key={item.title}>
           <SmallParagraph>{item.description}</SmallParagraph>
           {idx === 0 && (
             <div>

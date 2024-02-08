@@ -55,8 +55,9 @@ const Indicator = styled.span`
 
 const ExpandablePanel: FC<{
   title: ReactNode;
-  isExpanded?: boolean;
-}> = ({ title, children, isExpanded: isExpandedExternal = false }) => {
+  children: ReactNode;
+  $isExpanded?: boolean;
+}> = ({ title, children, $isExpanded: isExpandedExternal = false }) => {
   const [isExpandedLocal, toggleIsExpanded] = useState(isExpandedExternal);
 
   useEffect(() => {

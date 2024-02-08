@@ -7,7 +7,12 @@ import React, {
   useState,
 } from 'react';
 import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
-import { GeolocateControl, MapRef, NavigationControl } from 'react-map-gl';
+import {
+  GeolocateControl,
+  MapRef,
+  NavigationControl,
+  ViewStateChangeEvent,
+} from 'react-map-gl';
 import Map from 'react-map-gl';
 
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
@@ -43,7 +48,7 @@ const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 20;
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY || '';
 interface StyledProps {
-  isNavOpen?: boolean;
+  $isNavOpen?: boolean;
 }
 
 const ControlWrapper = styled.div<StyledProps>`
@@ -55,7 +60,7 @@ const ControlWrapper = styled.div<StyledProps>`
 
   @media screen and (min-width: ${p => p.theme.screens.tablet}) {
     transform: ${props =>
-      props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'translate3d(0, 0, 0)'};
+      props.$isNavOpen ? 'translate3d(350px, 0, 0)' : 'translate3d(0, 0, 0)'};
   }
 
   & > div {
@@ -394,11 +399,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         if (!map.current || !e.features) return;
         if (e.features?.length === 0) setHoveredTreeId(null);
         setHoveredTreeId(e.features[0].id as string);
+        map.current.getCanvas().style.cursor = 'pointer';
       });
 
       map.current.on('mouseleave', 'trees', e => {
         setHoveredTreeId(null);
-        if (!map.current || !e.features?.length) return;
+        if (map.current) {
+          map.current.getCanvas().style.cursor = '';
+        }
       });
 
       updateSelectedTreeIdFeatureState({
@@ -545,6 +553,34 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     onViewStateChange,
   ]);
 
+  const handleZoomCallback = (e: ViewStateChangeEvent) => {
+    //@ts-ignore
+    if (e.geolocateSource) {
+      onViewStateChange({
+        ...viewport,
+        longitude: e.viewState.longitude,
+        latitude: e.viewState.latitude,
+        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+      });
+    }
+
+    //@ts-ignore
+    const classList = e.originalEvent?.target.parentElement.classList.values();
+    const isZoomInOrOutControlButton =
+      classList &&
+      [...classList].some(
+        value =>
+          value === 'mapboxgl-ctrl-zoom-in' ||
+          value === 'mapboxgl-ctrl-zoom-out'
+      );
+    if (isZoomInOrOutControlButton) {
+      onViewStateChange({
+        ...viewport,
+        zoom: Math.min(e.viewState.zoom, VIEWSTATE_ZOOMEDIN_ZOOM),
+      });
+    }
+  };
+
   return (
     <>
       <DeckGL
@@ -562,25 +598,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           styleDiffing={true}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
           onLoad={onLoad}
-          onZoom={e => {
-            //@ts-ignore
-            if (e.geolocateSource) {
-              onViewStateChange({
-                ...viewport,
-                longitude: e.viewState.longitude,
-                latitude: e.viewState.latitude,
-                zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-              });
-              return;
-            }
-          }}
+          onZoom={handleZoomCallback}
           style={{
             width: '100%',
             height: '100%',
           }}
         >
           {!showControls && (
-            <ControlWrapper isNavOpen={isNavOpen}>
+            <ControlWrapper $isNavOpen={isNavOpen}>
               <NavigationControl position={'bottom-left'} />
               <GeolocateControl
                 position={'bottom-left'}
