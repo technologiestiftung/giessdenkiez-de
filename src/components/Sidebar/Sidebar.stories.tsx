@@ -25,7 +25,7 @@ const Template: Story<{
   void push(args.match);
   return (
     <TestProviders>
-      <SidebarWrapper isVisible>{args.children}</SidebarWrapper>
+      <SidebarWrapper $isVisible>{args.children}</SidebarWrapper>
     </TestProviders>
   );
 };
@@ -116,6 +116,7 @@ AuthSignIn.args = {
       view='signin'
       setView={() => undefined}
       setNotification={() => undefined}
+      isLoading={false}
     />
   ),
 };
@@ -129,6 +130,7 @@ AuthSignUp.args = {
       view='signup'
       setView={() => undefined}
       setNotification={() => undefined}
+      isLoading={false}
     />
   ),
 };
@@ -142,6 +144,7 @@ AuthRecovery.args = {
       view='recovery'
       setView={() => undefined}
       setNotification={() => undefined}
+      isLoading={false}
     />
   ),
 };

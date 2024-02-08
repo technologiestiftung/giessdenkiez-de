@@ -16,14 +16,14 @@ const FilterLinksContainer = styled.div`
   padding-top: 16px;
 `;
 
-const FilterLink = styled.span<{ isActive?: boolean }>`
+const FilterLink = styled.span<{ $isActive?: boolean }>`
   display: inline-flex;
   padding: 6px 10px;
   border-radius: 16px;
   cursor: pointer;
   font-size: ${p => p.theme.fontSizeL};
-  background: ${p => (p.isActive ? p.theme.colorTextMedium : 'white')};
-  color: ${p => (p.isActive ? p.theme.colorTextDark : p.theme.colorTextLight)};
+  background: ${p => (p.$isActive ? p.theme.colorTextMedium : 'white')};
+  color: ${p => (p.$isActive ? p.theme.colorTextDark : p.theme.colorTextLight)};
   transition: all 0.125s ease-in-out;
 
   &:hover {
@@ -49,10 +49,10 @@ const SidebarSearch: FC = () => {
   return (
     <>
       <SidebarTitle>Suche & Filter</SidebarTitle>
-      <ExpandablePanel title='Standortsuche' isExpanded>
+      <ExpandablePanel title='Standortsuche' $isExpanded>
         <SidebarSearchLocation />
       </ExpandablePanel>
-      <ExpandablePanel title='Datenansicht' isExpanded>
+      <ExpandablePanel title='Datenansicht' $isExpanded>
         <SmallParagraph>
           Betrachte welche Bäume bereits von anderen Nutzern gegossen wurden.
           Oder finde heraus, wieviel Niederschlag die Bäume in den letzten 30
@@ -60,46 +60,46 @@ const SidebarSearch: FC = () => {
         </SmallParagraph>
         <FilterLinksContainer>
           <FilterLink
-            isActive={mapViewFilter === 'rain'}
+            $isActive={mapViewFilter === 'rain'}
             onClick={() => setMapViewFilter('rain')}
           >
             Niederschläge
           </FilterLink>
           <FilterLink
-            isActive={mapViewFilter === 'adopted'}
+            $isActive={mapViewFilter === 'adopted'}
             onClick={() => setMapViewFilter('adopted')}
           >
             Bereits adoptiert
           </FilterLink>
           <FilterLink
-            isActive={mapViewFilter === 'watered'}
+            $isActive={mapViewFilter === 'watered'}
             onClick={() => setMapViewFilter('watered')}
           >
             In den letzten 30 Tagen gegossen
           </FilterLink>
         </FilterLinksContainer>
       </ExpandablePanel>
-      <ExpandablePanel title='Wasserbedarf' isExpanded>
+      <ExpandablePanel title='Wasserbedarf' $isExpanded>
         <SmallParagraph>
           Finde heraus wie sehr Bäume Wasser benötigen.
         </SmallParagraph>
         <FilterLinksContainer>
           <FilterLink
-            isActive={mapWaterNeedFilter === 1}
+            $isActive={mapWaterNeedFilter === 1}
             onClick={() => setWaterNeedFilter(1)}
           >
             Niedrig
             <WaterDrops dropsAmount={1} />
           </FilterLink>
           <FilterLink
-            isActive={mapWaterNeedFilter === 2}
+            $isActive={mapWaterNeedFilter === 2}
             onClick={() => setWaterNeedFilter(2)}
           >
             Mittel
             <WaterDrops dropsAmount={2} />
           </FilterLink>
           <FilterLink
-            isActive={mapWaterNeedFilter === 3}
+            $isActive={mapWaterNeedFilter === 3}
             onClick={() => setWaterNeedFilter(3)}
           >
             Hoch
@@ -107,7 +107,7 @@ const SidebarSearch: FC = () => {
           </FilterLink>
         </FilterLinksContainer>
       </ExpandablePanel>
-      <ExpandablePanel title='Baumalter' isExpanded>
+      <ExpandablePanel title='Baumalter' $isExpanded>
         <SmallParagraph>
           Erkunde die Geschichte von Berlins Baumlandschaft
         </SmallParagraph>

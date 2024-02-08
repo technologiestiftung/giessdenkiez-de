@@ -256,7 +256,7 @@ const TreeInfos: FC<{
               </div>
             </>
           }
-          isExpanded
+          $isExpanded
         >
           <StackedBarChart
             selectedTreeData={selectedTreeData}
@@ -266,7 +266,7 @@ const TreeInfos: FC<{
         </ExpandablePanel>
         {Array.isArray(waterings) && waterings.length > 0 && (
           <ExpandablePanel
-            isExpanded={true}
+            $isExpanded={true}
             title={
               <>
                 Letzte Bewässerungen
