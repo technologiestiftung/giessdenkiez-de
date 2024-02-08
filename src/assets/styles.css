@@ -1,0 +1,54 @@
+/*
+ * These styles are defined here instead of Global.tsx
+ * because they are needed to render the error page.
+ * The styles defined in Global.tsx are only loaded
+ * further down the rendering tree.
+ */
+
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('/fonts/IBMPlexSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('/fonts/IBMPlexSans-Bold.woff2') format('woff2'),
+    url('/fonts/IBMPlexSans-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.error-page-link {
+    color: #000000;
+    transition: opacity 200ms ease-out 0s;
+
+    &:hover {
+        opacity: 0.33;
+    }
+}
+
+.error-page-button {
+    text-decoration: none;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #37E88F;
+    padding: 12px 25px 12px 25px;
+    color: #FFFFFF;
+    margin-top: 20px;
+    width: fit-content;
+    transition: background-color 200ms ease-out 0s;
+
+    &:hover {
+        background-color: #45B87E;
+    }
+}
+
+@media (max-width: 669px) {
+    .error-page-button {
+        align-self: center;
+    }
+}
