@@ -100,7 +100,17 @@ interface Tree {
   adopt: string;
   adoptProgress: string;
 }
+
+interface Error {
+  title: string;
+  contact: string;
+  issue: string;
+  reload: string;
+  backToHome: string;
+}
+
 export interface Content {
+  error: Error;
   faq: FAQ;
   imprintAndPrivacy: {
     title: string;

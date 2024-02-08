@@ -1,6 +1,13 @@
 import { Content, LocalizedContent } from './content-types';
 
 const deContent: Content = {
+  error: {
+    title: 'Irgendwas ist schiefgelaufen.',
+    contact: 'Bitte wende Dich an das',
+    issue: 'oder schreib uns einen Issue auf',
+    reload: 'Vielleicht hilft es auch die Seite neu zu laden?',
+    backToHome: 'Back to home',
+  },
   faq: {
     title: 'F.A.Q.',
     description:
@@ -397,6 +404,13 @@ const deContent: Content = {
 };
 
 const enContent = {
+  error: {
+    title: 'Something went wrong.',
+    contact: 'Please contact',
+    issue: 'or submit an issue on',
+    reload: 'Maybe it helps to reload the page?',
+    backToHome: 'Back to home',
+  },
   faq: {
     title: 'F.A.Q.',
     description: 'Based on the lively exchange between our community on Slack',
