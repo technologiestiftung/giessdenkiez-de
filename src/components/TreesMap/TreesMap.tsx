@@ -7,7 +7,12 @@ import React, {
   useState,
 } from 'react';
 import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
-import { GeolocateControl, MapRef, NavigationControl } from 'react-map-gl';
+import {
+  GeolocateControl,
+  MapRef,
+  NavigationControl,
+  ViewStateChangeEvent,
+} from 'react-map-gl';
 import Map from 'react-map-gl';
 
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
@@ -539,6 +544,34 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     onViewStateChange,
   ]);
 
+  const handleZoomCallback = (e: ViewStateChangeEvent) => {
+    //@ts-ignore
+    if (e.geolocateSource) {
+      onViewStateChange({
+        ...viewport,
+        longitude: e.viewState.longitude,
+        latitude: e.viewState.latitude,
+        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+      });
+    }
+
+    //@ts-ignore
+    const classList = e.originalEvent?.target.parentElement.classList.values();
+    const isZoomInOrOutControlButton =
+      classList &&
+      [...classList].some(
+        value =>
+          value === 'mapboxgl-ctrl-zoom-in' ||
+          value === 'mapboxgl-ctrl-zoom-out'
+      );
+    if (isZoomInOrOutControlButton) {
+      onViewStateChange({
+        ...viewport,
+        zoom: Math.min(e.viewState.zoom, VIEWSTATE_ZOOMEDIN_ZOOM),
+      });
+    }
+  };
+
   return (
     <>
       <DeckGL
@@ -556,18 +589,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           styleDiffing={true}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
           onLoad={onLoad}
-          onZoom={e => {
-            //@ts-ignore
-            if (e.geolocateSource) {
-              onViewStateChange({
-                ...viewport,
-                longitude: e.viewState.longitude,
-                latitude: e.viewState.latitude,
-                zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-              });
-              return;
-            }
-          }}
+          onZoom={handleZoomCallback}
           style={{
             width: '100%',
             height: '100%',
