@@ -3,7 +3,16 @@ interface Item {
   description: string;
 }
 
-type TreeTypeId = 'LINDE' | 'AHORN' | 'EICHE' | 'KASTANIE' | 'PLATANE';
+type TreeTypeId =
+  | 'LINDE'
+  | 'AHORN'
+  | 'EICHE'
+  | 'KASTANIE'
+  | 'PLATANE'
+  | 'ESCHE'
+  | 'BIRKE'
+  | 'ROBINIE'
+  | 'ULME';
 export interface TreeType extends Item {
   id: TreeTypeId;
 }
@@ -243,6 +252,30 @@ const content: Content = {
         title: 'Kastanie (Aesculus)',
         description:
           'Die Rosskastanie (Aesculus hippocastanum) hat einem Anteil von ca. 5% am Gesamtbestand, belegt damit den fünften Platz unter den Berliner Straßenbäumen.',
+      },
+      {
+        id: 'ESCHE',
+        title: 'Esche (Fraxinus)',
+        description:
+          'Die Esche (Fraxinus) hat einem Anteil von ca. 3% am Gesamtbestand, belegt damit den siebten Platz unter den Berliner Straßenbäumen.',
+      },
+      {
+        id: 'BIRKE',
+        title: 'Birke (Betula)',
+        description:
+          'Die Birke (Betula) hat einem Anteil von ca. 3% am Gesamtbestand, belegt damit den achten Platz unter den Berliner Straßenbäumen.',
+      },
+      {
+        id: 'ROBINIE',
+        title: 'Robinie (Robinia)',
+        description:
+          'Die Robinie (Robinia) hat einem Anteil von ca. 2% am Gesamtbestand, belegt damit den neunten Platz unter den Berliner Straßenbäumen.',
+      },
+      {
+        id: 'ULME',
+        title: 'Ulme (Ulmus)',
+        description:
+          'Die Ulme (Ulmus) hat einem Anteil von ca. 2% am Gesamtbestand, belegt damit den dreizehnten Platz unter den Berliner Straßenbäumen.',
       },
     ],
   },
