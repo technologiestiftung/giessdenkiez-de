@@ -134,8 +134,6 @@ const TreeInfos: FC<{
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
 
-  console.log(gattungdeutsch);
-
   const adoptedByLoggedInUser =
     userData && userData.adoptedTrees.find(({ id }) => id === treeId);
 

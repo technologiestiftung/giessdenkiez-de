@@ -8,11 +8,15 @@ type TreeTypeId =
   | 'AHORN'
   | 'EICHE'
   | 'KASTANIE'
+  | 'ROSSKASTANIE'
   | 'PLATANE'
   | 'ESCHE'
   | 'BIRKE'
   | 'ROBINIE'
-  | 'ULME';
+  | 'ULME'
+  | 'HASEL'
+  | 'HAINBUCHE'
+  | 'PAPPEL';
 export interface TreeType extends Item {
   id: TreeTypeId;
 }
@@ -251,31 +255,55 @@ const content: Content = {
         id: 'KASTANIE',
         title: 'Kastanie (Aesculus)',
         description:
+          'Die Kastanie (Aesculus) hat einem Anteil von ca. 5% am Gesamtbestand, belegt damit den fünften Platz unter den Berliner Straßenbäumen.',
+      },
+      {
+        id: 'ROSSKASTANIE',
+        title: 'Rosskastanie (Aesculus hippocastanum)',
+        description:
           'Die Rosskastanie (Aesculus hippocastanum) hat einem Anteil von ca. 5% am Gesamtbestand, belegt damit den fünften Platz unter den Berliner Straßenbäumen.',
       },
       {
         id: 'ESCHE',
         title: 'Esche (Fraxinus)',
         description:
-          'Die Esche (Fraxinus) hat einem Anteil von ca. 3% am Gesamtbestand, belegt damit den siebten Platz unter den Berliner Straßenbäumen.',
+          'Die Esche (Fraxinus) hat einem Anteil von ca. 3% am Gesamtbestand, belegt damit den sechsten Platz unter den Berliner Straßenbäumen.  Mit einer Wuchshöhe von bis zu 40 m zählt sie zu den höchsten Laubbäumen Europas.',
       },
       {
         id: 'BIRKE',
         title: 'Birke (Betula)',
         description:
-          'Die Birke (Betula) hat einem Anteil von ca. 3% am Gesamtbestand, belegt damit den achten Platz unter den Berliner Straßenbäumen.',
+          'Die Birke (Betula) hat einem Anteil von ca. 3% am Gesamtbestand, belegt damit den siebten Platz unter den Berliner Bäumen. Obwohl die Birke als Pionierbaum sehr anspruchslos und wachsend auf jedem Boden ist, eignet sie sich als Straßenbaum weniger, da die Baumscheiben oft zu wenig Raum für die Flachwurzler bieten.',
       },
       {
         id: 'ROBINIE',
         title: 'Robinie (Robinia)',
         description:
-          'Die Robinie (Robinia) hat einem Anteil von ca. 2% am Gesamtbestand, belegt damit den neunten Platz unter den Berliner Straßenbäumen.',
+          'Die Robinie (Robinia) hat einem Anteil von ca. 2% am Gesamtbestand, belegt damit den achten Platz unter den Berliner Straßenbäumen. Sie wurde ab 1672 im Berliner Lustgarten als Parkbaum kultiviert und ist heute in ganz Berlin sehr häufig. Die Robinie stellt nur geringe Anforderungen an den Boden, und sie kann dank der Knöllchenbakterien an ihren Wurzeln Luftstickstoff bindenden und düngt damit den Boden auf.',
+      },
+      {
+        id: 'HASEL',
+        title: 'Hasel Baum (Corylus)',
+        description:
+          'Der Hasel Baum (Corylus) hat einem Anteil von ca. 2% am Gesamtbestand, belegt damit den neunten Platz unter den Berliner Straßenbäumen. Die Haselnuss wächst als Strauch oder kleiner Baum bis 6 m hoch.',
+      },
+      {
+        id: 'HAINBUCHE',
+        title: 'Hainbuche (Carpinus)',
+        description:
+          'Die Hainbuche (Carpinus) hat einem Anteil von ca. 2% am Gesamtbestand. Der Baum erreicht eine Höhe bis zu 25 m. Die Krone ist erst leicht kegelförmig und später weit ausladend.',
+      },
+      {
+        id: 'PAPPEL',
+        title: 'Pappel (Populus)',
+        description:
+          'Die Pappel (Populus) hat einem Anteil von ca. 2% am Gesamtbestand. Sie haben eiförmige bis dreieckige, teils herzförmige Laubblätter.',
       },
       {
         id: 'ULME',
         title: 'Ulme (Ulmus)',
         description:
-          'Die Ulme (Ulmus) hat einem Anteil von ca. 2% am Gesamtbestand, belegt damit den dreizehnten Platz unter den Berliner Straßenbäumen.',
+          'Die Ulme (Ulmus) hat einem Anteil von ca. 2% am Gesamtbestand der Berliner Bäume. Sie kann bis zu 250 Jahre alt werden.',
       },
     ],
   },
