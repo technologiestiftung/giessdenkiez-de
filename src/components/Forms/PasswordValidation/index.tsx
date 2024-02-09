@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import {
-  PasswordPattern,
   specialCharacters,
   validatePassword,
 } from '../../../utils/validatePassword';
 import SmallParagraph from '../../SmallParagraph';
 import { ValidOrNot } from '../ValidOrNot';
 
-export const PasswordValidation = ({ password }: { password: string }) => {
-  const [errors, setErrors] = useState<PasswordPattern>({
-    length: false,
-    lowerCase: false,
-    upperCase: false,
-    specialChar: false,
-    digit: false,
-  });
-
-  useEffect(() => {
-    const { patterns } = validatePassword(password);
-    setErrors(patterns);
-  }, [password]);
+export const PasswordValidation = memo(function PasswordValidation({
+  password,
+}: {
+  password: string;
+}) {
+  const { patterns: errors } = validatePassword(password);
 
   return (
     <>
@@ -33,4 +25,4 @@ export const PasswordValidation = ({ password }: { password: string }) => {
       </SmallParagraph>
     </>
   );
-};
+});

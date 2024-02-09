@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyledForm, StyledFormRow } from '..';
 import { CredentialsData } from '../../../common/interfaces';
 import { UsernamePattern } from '../../../utils/validateUsername';
@@ -17,6 +17,7 @@ export const CredentialsForm = ({
   isRecovery,
   isSignIn,
   usernamePatterns,
+  isUsernameTaken,
 }: {
   formData: CredentialsData;
   handleInputChange: (
@@ -28,13 +29,8 @@ export const CredentialsForm = ({
   isRecovery?: boolean;
   isSignIn?: boolean;
   usernamePatterns?: UsernamePattern;
+  isUsernameTaken?: boolean;
 }) => {
-  const [taken, setTaken] = useState<boolean | undefined>(false);
-
-  useEffect(() => {
-    setTaken(usernamePatterns?.taken);
-  }, [usernamePatterns?.taken]);
-
   return (
     <>
       <StyledForm
@@ -73,7 +69,7 @@ export const CredentialsForm = ({
                 <UsernameValidation patterns={usernamePatterns} />
               )}
             </StyledFormRow>
-            {taken && (
+            {isUsernameTaken && (
               <UserNotification
                 message={'Benutzername bereits vergeben'}
                 type={'error'}
