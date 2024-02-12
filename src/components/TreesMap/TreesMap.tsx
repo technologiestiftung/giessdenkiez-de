@@ -1,49 +1,47 @@
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
+import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
 import React, {
   forwardRef,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
-import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
-import {
+import Map, {
   GeolocateControl,
   MapRef,
   NavigationControl,
   ViewStateChangeEvent,
 } from 'react-map-gl';
-import Map from 'react-map-gl';
 
-import { CommunityDataType, StoreProps } from '../../common/interfaces';
-import DeckGL, { GeoJsonLayer, RGBAColor } from 'deck.gl';
-import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
-import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
-import { hexToRgb, interpolateColor } from '../../utils/colorUtil';
-import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-import { MapTooltip } from './MapTooltip';
-import { getOSMEditorURL } from './osmUtil';
+import styled from 'styled-components';
+import { CommunityDataType, StoreProps } from '../../common/interfaces';
+import { useActions, useStoreState } from '../../state/unistore-hooks';
 import {
-  getTreeCircleRadius,
-  updateTreeCirclePaintProps,
-} from './mapPaintPropsUtils';
+  HIGH_WATER_NEED_NUM,
+  LOW_WATER_NEED_NUM,
+  MEDIUM_WATER_NEED_NUM,
+  OLD_TREE_MIN_AGE,
+  YOUNG_TREE_MAX_AGE,
+} from '../../utils/getWaterNeedByAge';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
+import localizePumpState from '../../utils/hooks/useLocalizedPumpState';
+import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
+import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
+import { setBodyMapLayerClass } from './mapCSSClassUtil';
 import {
   updateHoverFeatureState,
   updateSelectedTreeIdFeatureState,
 } from './mapFeatureStateUtil';
-import { setBodyMapLayerClass } from './mapCSSClassUtil';
-import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
 import {
-  YOUNG_TREE_MAX_AGE,
-  OLD_TREE_MIN_AGE,
-  LOW_WATER_NEED_NUM,
-  MEDIUM_WATER_NEED_NUM,
-  HIGH_WATER_NEED_NUM,
-} from '../../utils/getWaterNeedByAge';
-import { useActions, useStoreState } from '../../state/unistore-hooks';
-import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
-import localizePumpState from '../../utils/hooks/useLocalizedPumpState';
+  getTreeCircleRadius,
+  updateTreeCirclePaintProps,
+} from './mapPaintPropsUtils';
+import { MapTooltip } from './MapTooltip';
+import { getOSMEditorURL } from './osmUtil';
+import { pumpEventInfoToState } from './pumpsUtils';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 20;
@@ -153,7 +151,6 @@ const defaultViewport = {
 let hasUnmounted = false;
 export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   {
-    rainGeojson,
     visibleMapLayer,
     ageRange,
     mapViewFilter,
@@ -185,7 +182,11 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   const [clickedPump, setClickedPump] = useState<PumpTooltipType | null>(null);
   const [viewport, setViewport] = useState<ViewportType>(defaultViewport);
   const { setMapHasLoaded } = useActions();
-  const pumpInfo = clickedPump || hoveredPump;
+
+  const pumpInfo: PumpTooltipType | null = useMemo(() => {
+    return hoveredPump || clickedPump;
+  }, [hoveredPump, clickedPump]);
+
   const mapHasLoaded = useStoreState('mapHasLoaded');
 
   useEffect(
@@ -194,64 +195,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     },
     []
   );
-
-  const renderLayers = useCallback(() => {
-    if (!map?.current || !rainGeojson || !pumpsGeoJson || hasUnmounted)
-      return [];
-    const layers = [
-      new GeoJsonLayer({
-        id: 'rain',
-        data: rainGeojson as unknown,
-        opacity: 0.95,
-        visible: visibleMapLayer === 'rain' ? true : false,
-        stroked: false,
-        filled: true,
-        extruded: true,
-        wireframe: true,
-        getElevation: 1,
-        getFillColor: (f?: { properties?: { data?: number[] } }): RGBAColor => {
-          /**
-           * Apparently DWD 1 is not 1ml but 0.1ml
-           * We could change this in the database, but this would mean,
-           * transferring 800.000 "," characters, therefore,
-           * changing it client-side makes more sense.
-           */
-          const features = f?.properties?.data || [];
-          if (features.length === 0) return [0, 0, 0, 0];
-          const interpolated = interpolateColor(features[0] / 10);
-          const hex = hexToRgb(interpolated);
-          return hex;
-        },
-        pickable: true,
-      }),
-      new GeoJsonLayer({
-        id: 'pumps',
-        data: pumpsGeoJson as unknown,
-        opacity: 1,
-        visible: visibleMapLayer === 'pumps' ? true : false,
-        stroked: true,
-        filled: true,
-        extruded: true,
-        wireframe: true,
-        getElevation: 1,
-        getLineColor: [0, 0, 0, 200],
-        getFillColor: pumpToColor,
-        // We ignore this because getPointRadius is missing typing in the version that we use:
-        // @ts-ignore
-        getPointRadius: 9,
-        pointRadiusMinPixels: 4,
-        pickable: true,
-        lineWidthScale: 3,
-        lineWidthMinPixels: 1.5,
-        onHover: (pumpInfo: PumpEventInfoType) =>
-          setHoveredPump(pumpEventInfoToState(pumpInfo)),
-        onClick: (pumpInfo: PumpEventInfoType) =>
-          setClickedPump(pumpEventInfoToState(pumpInfo)),
-      }),
-    ];
-
-    return layers as unknown[];
-  }, [pumpsGeoJson, rainGeojson, visibleMapLayer]);
 
   const onViewStateChange = useCallback((newViewport: any) => {
     if (hasUnmounted) return;
@@ -436,6 +379,61 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   );
 
   useEffect(() => {
+    if (pumpsGeoJson && map.current) {
+      if (visibleMapLayer === 'pumps') {
+        if (!map.current.getSource('pumps-source')) {
+          map.current.addSource('pumps-source', {
+            type: 'geojson',
+            //@ts-ignore
+            data: pumpsGeoJson,
+          });
+        }
+        map.current.addLayer({
+          id: 'pumps',
+          type: 'circle',
+          source: 'pumps-source',
+          paint: {
+            'circle-opacity': 0.6,
+            'circle-stroke-width': 2,
+            'circle-stroke-color': '#000000',
+            'circle-color': pumpToColor(),
+            'circle-radius': {
+              base: 1.75,
+              stops: [
+                [12, 2],
+                [22, 180],
+              ],
+            },
+          },
+        });
+
+        map.current.on('mousemove', 'pumps', e => {
+          if (!map.current || !e.features) return;
+          if (e.features?.length === 0) setHoveredPump(null);
+          setHoveredPump(
+            pumpEventInfoToState({
+              x: e.point.x,
+              y: e.point.y,
+              //@ts-ignore
+              properties: e.features[0].properties,
+            })
+          );
+          map.current.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.current.on('mouseleave', 'pumps', e => {
+          setHoveredPump(null);
+          if (map.current) {
+            map.current.getCanvas().style.cursor = '';
+          }
+        });
+      } else {
+        map.current.removeLayer('pumps');
+      }
+    }
+  }, [pumpsGeoJson, visibleMapLayer]);
+
+  useEffect(() => {
     if (!map?.current || hasUnmounted || !mapHasLoaded) return;
     updateSelectedTreeIdFeatureState({
       map: map.current,
@@ -584,41 +582,33 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
   return (
     <>
-      <DeckGL
-        layers={renderLayers()}
-        viewState={viewport}
-        onViewStateChange={e => setViewport(e.viewState)}
-        onClick={onMapClick}
-        controller
-        style={{ overflow: 'hidden' }}
+      <Map
+        reuseMaps
+        ref={ref}
+        mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
+        styleDiffing={true}
+        mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
+        onLoad={onLoad}
+        onZoom={handleZoomCallback}
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+        initialViewState={viewport}
       >
-        <Map
-          reuseMaps
-          ref={ref}
-          mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
-          styleDiffing={true}
-          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
-          onLoad={onLoad}
-          onZoom={handleZoomCallback}
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          {!showControls && (
-            <ControlWrapper $isNavOpen={isNavOpen}>
-              <NavigationControl position={'bottom-left'} />
-              <GeolocateControl
-                position={'bottom-left'}
-                positionOptions={{ enableHighAccuracy: true }}
-                trackUserLocation={isMobile ? true : false}
-                showUserLocation={true}
-                showAccuracyCircle={false}
-              />
-            </ControlWrapper>
-          )}
-        </Map>
-      </DeckGL>
+        {!showControls && (
+          <ControlWrapper $isNavOpen={isNavOpen}>
+            <NavigationControl position={'bottom-left'} />
+            <GeolocateControl
+              position={'bottom-left'}
+              positionOptions={{ enableHighAccuracy: true }}
+              trackUserLocation={isMobile ? true : false}
+              showUserLocation={true}
+              showAccuracyCircle={false}
+            />
+          </ControlWrapper>
+        )}
+      </Map>
       {pumpInfo && pumpInfo.x && pumpInfo.y && (
         <MapTooltip
           x={pumpInfo.x}

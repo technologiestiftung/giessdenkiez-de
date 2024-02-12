@@ -57,33 +57,20 @@ export const lockedColor: Color = {
   lab: [91, -7, 0],
 }; // [203, 225, 77, 200];
 
-export const pumpToColor: (pumpInfo?: {
-  properties?: {
-    'pump:status'?: string;
-  };
-}) => RGBAColor = pumpInfo => {
-  if (pumpInfo?.properties && pumpInfo.properties['pump:status']) {
-    const status = pumpInfo.properties['pump:status'];
-    switch (status) {
-      case 'unbekannt': {
-        return defaultColor.rgba;
-      }
-      case 'defekt': {
-        return brokenColor.rgba;
-      }
-      case 'funktionsfähig': {
-        return workingColor.rgba;
-      }
-      case 'verriegelt': {
-        return lockedColor.rgba;
-      }
-
-      default: {
-        return defaultColor.rgba;
-      }
-    }
-  }
-  return defaultColor.rgba;
+export const pumpToColor = (): mapboxgl.Expression => {
+  return [
+    'match',
+    ['get', 'pump:status'],
+    'unbekannt',
+    defaultColor.hex,
+    'defekt',
+    brokenColor.hex, // Color for 'defekt' status
+    'funktionsfähig',
+    workingColor.hex, // Color for 'funktionsfähig' status
+    'verriegelt',
+    lockedColor.hex, // Color for 'verriegelt' status
+    defaultColor.hex, // Default color if status doesn't match any of the above
+  ];
 };
 
 export const getTreeCircleColor = (): CirclePaint['circle-color'] => {

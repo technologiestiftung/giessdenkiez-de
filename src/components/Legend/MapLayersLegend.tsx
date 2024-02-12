@@ -150,17 +150,6 @@ const MapLayerLegend: FC = () => {
             <LegendRadio checked={visibleMapLayer === 'pumps'} />
             <StyledItemLabel>{content.legend.pumps}</StyledItemLabel>
           </FlexRowFit>
-          <FlexRowFit
-            $isActive={visibleMapLayer === 'rain'}
-            onClick={() => {
-              setVisibleMapLayer('rain');
-            }}
-          >
-            <LegendRadio checked={visibleMapLayer === 'rain'} />
-            <StyledItemLabel>
-              {content.legend.precipitationAreas}
-            </StyledItemLabel>
-          </FlexRowFit>
         </RadiosParent>
       </FlexColumnLast>
     </LegendDiv>
