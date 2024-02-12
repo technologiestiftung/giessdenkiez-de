@@ -1,14 +1,20 @@
 import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
-import { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
-import { Map as MapboxMap } from 'mapbox-gl';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
 import {
-  FlyToInterpolator,
   GeolocateControl,
   MapRef,
   NavigationControl,
-  StaticMap,
-  ViewportProps,
+  ViewStateChangeEvent,
 } from 'react-map-gl';
+import Map from 'react-map-gl';
+
 import { CommunityDataType, StoreProps } from '../../common/interfaces';
 import DeckGL, { GeoJsonLayer, RGBAColor } from 'deck.gl';
 import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
@@ -36,12 +42,14 @@ import {
   HIGH_WATER_NEED_NUM,
 } from '../../utils/getWaterNeedByAge';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
+import localizePumpState from '../../utils/hooks/useLocalizedPumpState';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
-const VIEWSTATE_ZOOMEDIN_ZOOM = 19;
-
+const VIEWSTATE_ZOOMEDIN_ZOOM = 20;
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY || '';
 interface StyledProps {
-  isNavOpen?: boolean;
+  $isNavOpen?: boolean;
 }
 
 const ControlWrapper = styled.div<StyledProps>`
@@ -53,7 +61,7 @@ const ControlWrapper = styled.div<StyledProps>`
 
   @media screen and (min-width: ${p => p.theme.screens.tablet}) {
     transform: ${props =>
-      props.isNavOpen ? 'translate3d(350px, 0, 0)' : 'translate3d(0, 0, 0)'};
+      props.$isNavOpen ? 'translate3d(350px, 0, 0)' : 'translate3d(0, 0, 0)'};
   }
 
   & > div {
@@ -85,10 +93,10 @@ interface TreesMapPropsType {
   onTreeSelect: (id?: string | null) => void;
 }
 
-interface ViewportType extends Partial<ViewportProps> {
-  latitude: ViewportProps['latitude'];
-  longitude: ViewportProps['longitude'];
-  zoom: ViewportProps['zoom'];
+interface ViewportType {
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
 interface PumpPropertiesType {
@@ -97,8 +105,6 @@ interface PumpPropertiesType {
   status: string;
   check_date: string;
   style: string;
-  lat: number;
-  lon: number;
 }
 
 interface PumpTooltipType extends PumpPropertiesType {
@@ -125,12 +131,12 @@ if (
 }
 
 const initialLatitude =
-  +process.env.NEXT_PUBLIC_MAP_INITIAL_LATITUDE || 52.500869;
+  Number(process.env.NEXT_PUBLIC_MAP_INITIAL_LATITUDE) || 52.500869;
 const initialLongitude =
-  +process.env.NEXT_PUBLIC_MAP_INITIAL_LONGITUDE || 13.419047;
-const initialZoom = +process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM || 11;
+  Number(process.env.NEXT_PUBLIC_MAP_INITIAL_LONGITUDE) || 13.419047;
+const initialZoom = Number(process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM) || 11;
 const initialZoomMobile =
-  +process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM_MOBILE || 13;
+  Number(process.env.NEXT_PUBLIC_MAP_INITIAL_ZOOM_MOBILE) || 13;
 
 const defaultViewport = {
   latitude: initialLatitude,
@@ -142,7 +148,6 @@ const defaultViewport = {
   bearing: 0,
   transitionDuration: 2000,
   transitionEasing: d3EaseCubic,
-  transitionInterpolator: new FlyToInterpolator(),
 };
 
 let hasUnmounted = false;
@@ -164,6 +169,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   },
   ref
 ) {
+  const content = useLocalizedContent();
+  const {
+    publicPump,
+    lastPumpCheck,
+    pumpStyle,
+    updatePumpLink,
+  } = content.legend;
+
   const map = useRef<MapboxMap | null>(null);
   const lastSelectedTree = useRef<string | undefined>(selectedTreeId);
   const lastHoveredTreeId = useRef<string | null>(null);
@@ -240,7 +253,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     return layers as unknown[];
   }, [pumpsGeoJson, rainGeojson, visibleMapLayer]);
 
-  const onViewStateChange = useCallback((newViewport: ViewportProps) => {
+  const onViewStateChange = useCallback((newViewport: any) => {
     if (hasUnmounted) return;
     const newViewState = {
       ...defaultViewport,
@@ -271,11 +284,20 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         return;
       }
 
-      const id: string = features[0].properties?.id as string;
+      const treeFeature: mapboxgl.MapboxGeoJSONFeature = features[0];
+      const id: string = treeFeature.properties?.id as string;
+      const geometry = treeFeature.geometry as GeoJSON.Point;
 
       if (!id) return;
 
       onTreeSelect(id);
+
+      onViewStateChange({
+        latitude: geometry.coordinates[1],
+        longitude: geometry.coordinates[0],
+        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+      });
     },
     [onTreeSelect]
   );
@@ -337,8 +359,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       map.current.addSource('trees', {
         type: 'vector',
         url: process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_URL,
-        minzoom: 0,
-        maxzoom: 20,
         promoteId: 'id',
       });
 
@@ -348,7 +368,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         source: 'trees',
         'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
         interactive: true,
-        minzoom: 0,
         paint: {
           'circle-pitch-alignment': 'map',
           'circle-radius': getTreeCircleRadius({}),
@@ -381,11 +400,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         if (!map.current || !e.features) return;
         if (e.features?.length === 0) setHoveredTreeId(null);
         setHoveredTreeId(e.features[0].id as string);
+        map.current.getCanvas().style.cursor = 'pointer';
       });
 
       map.current.on('mouseleave', 'trees', e => {
         setHoveredTreeId(null);
-        if (!map.current || !e.features?.length) return;
+        if (map.current) {
+          map.current.getCanvas().style.cursor = '';
+        }
       });
 
       updateSelectedTreeIdFeatureState({
@@ -532,91 +554,95 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     onViewStateChange,
   ]);
 
+  const handleZoomCallback = (e: ViewStateChangeEvent) => {
+    //@ts-ignore
+    if (e.geolocateSource) {
+      onViewStateChange({
+        ...viewport,
+        longitude: e.viewState.longitude,
+        latitude: e.viewState.latitude,
+        zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+      });
+    }
+
+    //@ts-ignore
+    const classList = e.originalEvent?.target.parentElement.classList.values();
+    const isZoomInOrOutControlButton =
+      classList &&
+      [...classList].some(
+        value =>
+          value === 'mapboxgl-ctrl-zoom-in' ||
+          value === 'mapboxgl-ctrl-zoom-out'
+      );
+    if (isZoomInOrOutControlButton) {
+      onViewStateChange({
+        ...viewport,
+        zoom: Math.min(e.viewState.zoom, VIEWSTATE_ZOOMEDIN_ZOOM),
+      });
+    }
+  };
+
   return (
     <>
       <DeckGL
         layers={renderLayers()}
-        viewState={viewport as unknown}
-        onViewStateChange={(e: { viewState: ViewportProps }) =>
-          onViewStateChange(e.viewState)
-        }
+        viewState={viewport}
+        onViewStateChange={e => setViewport(e.viewState)}
         onClick={onMapClick}
         controller
         style={{ overflow: 'hidden' }}
       >
-        <StaticMap
+        <Map
           reuseMaps
           ref={ref}
           mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
-          preventStyleDiffing={true}
-          mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
+          styleDiffing={true}
+          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
           onLoad={onLoad}
-          width='100%'
-          height='100%'
+          onZoom={handleZoomCallback}
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
         >
           {!showControls && (
-            <ControlWrapper isNavOpen={isNavOpen}>
+            <ControlWrapper $isNavOpen={isNavOpen}>
+              <NavigationControl position={'bottom-left'} />
               <GeolocateControl
+                position={'bottom-left'}
                 positionOptions={{ enableHighAccuracy: true }}
                 trackUserLocation={isMobile ? true : false}
                 showUserLocation={true}
-                onGeolocate={(posOptions: {
-                  coords: {
-                    latitude: number;
-                    longitude: number;
-                  };
-                }) => {
-                  const { latitude, longitude } = posOptions.coords;
-                  onViewStateChange({
-                    longitude,
-                    latitude,
-                    zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-                    transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-                  });
-                }}
-              />
-              <NavigationControl
-                onViewStateChange={e => {
-                  const newViewState = (e as { viewState: ViewportType })
-                    .viewState;
-                  onViewStateChange({
-                    latitude: newViewState.latitude,
-                    longitude: newViewState.longitude,
-                    zoom: newViewState.zoom,
-                    transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-                  });
-                }}
+                showAccuracyCircle={false}
               />
             </ControlWrapper>
           )}
-        </StaticMap>
+        </Map>
       </DeckGL>
       {pumpInfo && pumpInfo.x && pumpInfo.y && (
         <MapTooltip
           x={pumpInfo.x}
           y={pumpInfo.y}
-          title='Öffentliche Straßenpumpe'
+          title={publicPump}
           subtitle={pumpInfo.address}
           onClickOutside={() => {
             setClickedPump(null);
           }}
           infos={{
-            Status: pumpInfo.status,
-            'Letzter Check': pumpInfo.check_date,
-            Pumpenstil: pumpInfo.style,
+            Status: `${localizePumpState(pumpInfo.status)}`,
+            [lastPumpCheck]: pumpInfo.check_date,
+            [pumpStyle]: pumpInfo.style,
             ...(pumpInfo.id
               ? {
                   '': (
                     <StyledTextLink
                       href={getOSMEditorURL({
                         nodeId: pumpInfo.id,
-                        lat: pumpInfo.lat,
-                        lon: pumpInfo.lon,
                       })}
                       target='_blank'
                       rel='noreferrer nofollow'
                     >
-                      Status in OpenStreetMap aktualisieren
+                      {updatePumpLink}
                     </StyledTextLink>
                   ),
                 }

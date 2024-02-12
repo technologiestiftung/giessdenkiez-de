@@ -14,9 +14,10 @@ import {
 import { ItemLabel } from './LegendLabels';
 import SmallParagraph from '../SmallParagraph';
 import { isMobile } from 'react-device-detect';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 export interface IsActiveProps {
-  isActive?: boolean;
+  $isActive?: boolean;
 }
 
 const StyledItemLabel = styled(ItemLabel)`
@@ -35,9 +36,9 @@ const LegendDiv = styled.div<IsActiveProps>`
   font-size: 12px;
   box-shadow: ${p => p.theme.boxShadow};
   height: min-content;
-  ${props => (props.isActive ? 'min-height: 180px;' : '')}
+  ${props => (props.$isActive ? 'min-height: 180px;' : '')}
   padding: 8px 12px;
-  width: ${p => (p.isActive ? '210px' : '110px')};
+  width: ${p => (p.$isActive ? '210px' : '110px')};
   background: white;
 
   &:hover {
@@ -58,7 +59,7 @@ const LegendToggle = styled.span<IsActiveProps>`
   transition: background-color 200ms ease-out;
   &:hover {
     background-color: ${props =>
-      props.isActive ? props.theme.colorGreyLight : ''};
+      props.$isActive ? props.theme.colorGreyLight : ''};
   }
 `;
 
@@ -84,12 +85,16 @@ const MapLayerLegend: FC = () => {
 
   const [legendExpanded, setLegendExpanded] = useState(isMobile ? false : true);
 
+  const content = useLocalizedContent();
+
   if (legendExpanded === false) {
     return (
       <LegendDiv onClick={() => setLegendExpanded(true)}>
         <FlexSpace>
           <FlexColumn>
-            <StyledCardDescription>Legende</StyledCardDescription>
+            <StyledCardDescription>
+              {content.legend.title}
+            </StyledCardDescription>
           </FlexColumn>
           <LegendToggle>+</LegendToggle>
         </FlexSpace>
@@ -98,19 +103,19 @@ const MapLayerLegend: FC = () => {
   }
 
   return (
-    <LegendDiv isActive>
-      <FlexSpace isActive>
+    <LegendDiv $isActive>
+      <FlexSpace $isActive>
         <FlexColumnLast>
           <StyledCardDescription onClick={() => setLegendExpanded(false)}>
             {visibleMapLayer === 'pumps'
-              ? 'Öffentliche Pumpen'
-              : 'Niederschlag'}
+              ? content.legend.pumps
+              : content.legend.precipitation}
           </StyledCardDescription>
           {visibleMapLayer !== 'pumps' && (
-            <SmallParagraph>der letzten 30 Tage (Liter)</SmallParagraph>
+            <SmallParagraph>{content.legend.ofLastDays}</SmallParagraph>
           )}
         </FlexColumnLast>
-        <LegendToggle isActive onClick={() => setLegendExpanded(false)}>
+        <LegendToggle $isActive onClick={() => setLegendExpanded(false)}>
           —
         </LegendToggle>
       </FlexSpace>
@@ -122,35 +127,39 @@ const MapLayerLegend: FC = () => {
       )}
       {visibleMapLayer === 'pumps' && <PumpsColorLegend />}
 
-      <FlexColumnLast isLast={true}>
-        <StyledCardDescription>Datenpunkte</StyledCardDescription>
+      <FlexColumnLast $isLast={true}>
+        <StyledCardDescription>
+          {content.legend.dataPoints}
+        </StyledCardDescription>
         <RadiosParent>
           <FlexRowFit
-            isActive={visibleMapLayer === 'trees'}
+            $isActive={visibleMapLayer === 'trees'}
             onClick={() => {
               setVisibleMapLayer('trees');
             }}
           >
             <LegendRadio checked={visibleMapLayer === 'trees'} />
-            <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
+            <StyledItemLabel>{content.legend.treeLayer}</StyledItemLabel>
           </FlexRowFit>
           <FlexRowFit
-            isActive={visibleMapLayer === 'pumps'}
+            $isActive={visibleMapLayer === 'pumps'}
             onClick={() => {
               setVisibleMapLayer('pumps');
             }}
           >
             <LegendRadio checked={visibleMapLayer === 'pumps'} />
-            <StyledItemLabel>Öffentl. Pumpen</StyledItemLabel>
+            <StyledItemLabel>{content.legend.pumps}</StyledItemLabel>
           </FlexRowFit>
           <FlexRowFit
-            isActive={visibleMapLayer === 'rain'}
+            $isActive={visibleMapLayer === 'rain'}
             onClick={() => {
               setVisibleMapLayer('rain');
             }}
           >
             <LegendRadio checked={visibleMapLayer === 'rain'} />
-            <StyledItemLabel>Niederschlagsflächen</StyledItemLabel>
+            <StyledItemLabel>
+              {content.legend.precipitationAreas}
+            </StyledItemLabel>
           </FlexRowFit>
         </RadiosParent>
       </FlexColumnLast>

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import SmallParagraph from '../SmallParagraph';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 // file-loader will be removed in separate issue
 const iconGithub = '/images/icon-github.svg';
@@ -19,16 +20,15 @@ const GithubIcon = styled.img`
 `;
 
 const OpenSourceNote: FC = () => {
+  const content = useLocalizedContent();
+  const { openSourceLink, openSourceNote, openSourceText } = content.sidebar;
   return (
     <OpenSourceContainer>
       <GithubIcon alt='GitHub Mark' src={iconGithub} />
       <SmallParagraph>
-        Giess den Kiez ist ein&nbsp;
-        <a
-          target='blank'
-          href='https://github.com/technologiestiftung/giessdenkiez-de'
-        >
-          Open Source Projekt!
+        {openSourceNote}{' '}
+        <a target='blank' href={openSourceLink}>
+          {openSourceText}
         </a>
       </SmallParagraph>
     </OpenSourceContainer>

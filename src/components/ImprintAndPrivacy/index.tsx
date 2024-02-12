@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
 import SmallParagraph from '../SmallParagraph';
-import content from '../../assets/content';
 import styled from 'styled-components';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 const ImprintAndPrivacySpan = styled(SmallParagraph)`
   display: block;
@@ -10,15 +10,15 @@ const ImprintAndPrivacySpan = styled(SmallParagraph)`
 
 export const ImprintAndPrivacy: FC = () => (
   <ImprintAndPrivacySpan>
-    {content.imprintAndPrivacy.description}
+    {useLocalizedContent().imprintAndPrivacy.description}
   </ImprintAndPrivacySpan>
 );
 
 export const MapAttributionImprintAndPrivacy: FC = () => (
   <ImprintAndPrivacySpan>
     {[
-      content.imprintAndPrivacy.attribution,
-      content.imprintAndPrivacy.description,
+      useLocalizedContent().imprintAndPrivacy.attribution,
+      useLocalizedContent().imprintAndPrivacy.description,
     ].join(' – ')}
   </ImprintAndPrivacySpan>
 );

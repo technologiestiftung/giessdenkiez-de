@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 interface StyledProps {
   active?: boolean;
-  isNavOpened?: boolean;
+  $isNavOpened?: boolean;
 }
 const NavWrapper = styled.div<StyledProps>`
   display: flex;
@@ -27,18 +27,8 @@ const NavWrapper = styled.div<StyledProps>`
 
   @media screen and (min-width: ${p => p.theme.screens.tablet}) {
     transform: ${props =>
-      props.isNavOpened ? 'translate3d(350px, 0, 0)' : 'none'};
+      props.$isNavOpened ? 'translate3d(350px, 0, 0)' : 'none'};
   }
-`;
-
-const NavItem = styled.a`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 1;
-  text-decoration: none;
 `;
 
 const navConfig = [
@@ -54,23 +44,30 @@ const Nav: FC<{
   const { pathname } = useRouter();
 
   return (
-    <NavWrapper isNavOpened={isNavOpened}>
+    <NavWrapper $isNavOpened={isNavOpened}>
       {navConfig.map(item => (
         <Link
           href={{ pathname: item.path, search: '' }}
           onClick={() => openNav()}
           title={item.title}
           key={item.path}
+          style={{
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            opacity: '1',
+            textDecoration: 'none',
+          }}
         >
-          <NavItem>
-            <SquareButton
-              title={item.title}
-              aria-label={item.title}
-              isActive={pathname === item.path}
-            >
-              {item.icon}
-            </SquareButton>
-          </NavItem>
+          <SquareButton
+            title={item.title}
+            aria-label={item.title}
+            $isActive={pathname === item.path}
+          >
+            {item.icon}
+          </SquareButton>
         </Link>
       ))}
     </NavWrapper>

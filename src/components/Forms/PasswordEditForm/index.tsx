@@ -17,6 +17,7 @@ import {
 } from '../AccountEditForm';
 import { PasswordValidation } from '../PasswordValidation';
 import { updatePassword } from '../../../utils/requests/updatePassword';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 interface PasswordEditFormProps {
   onSuccess: () => void;
@@ -27,6 +28,16 @@ export const PasswordEditForm: FC<PasswordEditFormProps> = ({
   onSuccess,
   onCancel,
 }) => {
+  const content = useLocalizedContent();
+  const {
+    oldPasswordTitle,
+    newPasswordTitle,
+    repeatNewPasswordTitle,
+    editClose,
+    editSave,
+    editSaving,
+  } = content.sidebar.account;
+
   const session = useSession();
   const [isBeeingSaved, setIsBeeingSaved] = useState(false);
 
@@ -76,7 +87,7 @@ export const PasswordEditForm: FC<PasswordEditFormProps> = ({
     <form onSubmit={handleSubmit}>
       <StyledGrid>
         <StyledInputContainer>
-          <StyledLabel htmlFor='oldPassword'>Altes Passwort</StyledLabel>
+          <StyledLabel htmlFor='oldPassword'>{oldPasswordTitle}</StyledLabel>
           <StyledFormTextInput
             id='oldPassword'
             type='password'
@@ -89,7 +100,7 @@ export const PasswordEditForm: FC<PasswordEditFormProps> = ({
           ></StyledFormTextInput>
         </StyledInputContainer>
         <StyledInputContainer>
-          <StyledLabel htmlFor='password'>Neues Passwort</StyledLabel>
+          <StyledLabel htmlFor='password'>{newPasswordTitle}</StyledLabel>
           <StyledFormTextInput
             id='password'
             type='password'
@@ -104,7 +115,7 @@ export const PasswordEditForm: FC<PasswordEditFormProps> = ({
         </StyledInputContainer>
         <StyledInputContainer>
           <StyledLabel htmlFor='repeatPassword'>
-            Neues Passwort wiederholen
+            {repeatNewPasswordTitle}
           </StyledLabel>
           <StyledFormTextInput
             id='repeatPassword'
@@ -129,15 +140,15 @@ export const PasswordEditForm: FC<PasswordEditFormProps> = ({
           width='fit-content'
           onClick={onCancel}
         >
-          Schließen
+          {editClose}
         </ButtonRound>
         <ButtonSubmitRound
           key={`save-password-edit`}
           width='fit-content'
           type='submit'
-          colorType='primary'
+          $colorType='primary'
         >
-          {isBeeingSaved ? 'Wird eingetragen ...' : 'Speichern'}
+          {isBeeingSaved ? editSaving : editSave}
         </ButtonSubmitRound>
       </StyledButtonsContainer>
     </form>

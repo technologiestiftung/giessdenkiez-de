@@ -7,6 +7,7 @@ import { useActions, useStoreState } from '../../../state/unistore-hooks';
 import SidebarSearchAge from './SidebarSearchAge';
 import SidebarSearchLocation from './SidebarSearchLocation';
 import WaterDrops from '../../WaterDrops';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 const FilterLinksContainer = styled.div`
   display: flex;
@@ -16,14 +17,14 @@ const FilterLinksContainer = styled.div`
   padding-top: 16px;
 `;
 
-const FilterLink = styled.span<{ isActive?: boolean }>`
+const FilterLink = styled.span<{ $isActive?: boolean }>`
   display: inline-flex;
   padding: 6px 10px;
   border-radius: 16px;
   cursor: pointer;
   font-size: ${p => p.theme.fontSizeL};
-  background: ${p => (p.isActive ? p.theme.colorTextMedium : 'white')};
-  color: ${p => (p.isActive ? p.theme.colorTextDark : p.theme.colorTextLight)};
+  background: ${p => (p.$isActive ? p.theme.colorTextMedium : 'white')};
+  color: ${p => (p.$isActive ? p.theme.colorTextDark : p.theme.colorTextLight)};
   transition: all 0.125s ease-in-out;
 
   &:hover {
@@ -37,6 +38,22 @@ const FilterLink = styled.span<{ isActive?: boolean }>`
 `;
 
 const SidebarSearch: FC = () => {
+  const content = useLocalizedContent();
+  const {
+    title,
+    locationSearchTitle,
+    dataViewTitle,
+    dataViewDescription,
+    precipitation,
+    adopted,
+    lastWatered,
+    waterNeedsTitle,
+    waterNeedsDescription,
+    waterNeeds,
+    treeAgeTitle,
+    treeAgeDescription,
+  } = content.sidebar;
+
   const mapViewFilter = useStoreState('mapViewFilter');
   const mapWaterNeedFilter = useStoreState('mapWaterNeedFilter');
   const { setMapViewFilter, setMapWaterNeedFilter } = useActions();
@@ -48,71 +65,63 @@ const SidebarSearch: FC = () => {
 
   return (
     <>
-      <SidebarTitle>Suche & Filter</SidebarTitle>
-      <ExpandablePanel title='Datenansicht' isExpanded>
-        <SmallParagraph>
-          Betrachte welche Bäume bereits von anderen Nutzern gegossen wurden.
-          Oder finde heraus, wieviel Niederschlag die Bäume in den letzten 30
-          Tagen erreicht hat.
-        </SmallParagraph>
+      <SidebarTitle>{title}</SidebarTitle>
+      <ExpandablePanel title={locationSearchTitle} $isExpanded>
+        <SidebarSearchLocation />
+      </ExpandablePanel>
+      <ExpandablePanel title={dataViewTitle} $isExpanded>
+        <SmallParagraph>{dataViewDescription}</SmallParagraph>
         <FilterLinksContainer>
           <FilterLink
-            isActive={mapViewFilter === 'rain'}
+            $isActive={mapViewFilter === 'rain'}
             onClick={() => setMapViewFilter('rain')}
           >
-            Niederschläge
+            {precipitation}
           </FilterLink>
           <FilterLink
-            isActive={mapViewFilter === 'adopted'}
+            $isActive={mapViewFilter === 'adopted'}
             onClick={() => setMapViewFilter('adopted')}
           >
-            Bereits adoptiert
+            {adopted}
           </FilterLink>
           <FilterLink
-            isActive={mapViewFilter === 'watered'}
+            $isActive={mapViewFilter === 'watered'}
             onClick={() => setMapViewFilter('watered')}
           >
-            In den letzten 30 Tagen gegossen
+            {lastWatered}
           </FilterLink>
         </FilterLinksContainer>
       </ExpandablePanel>
-      <ExpandablePanel title='Wasserbedarf' isExpanded>
-        <SmallParagraph>
-          Finde heraus wie sehr Bäume Wasser benötigen.
-        </SmallParagraph>
+      <ExpandablePanel title={waterNeedsTitle} $isExpanded>
+        <SmallParagraph>{waterNeedsDescription}</SmallParagraph>
         <FilterLinksContainer>
           <FilterLink
-            isActive={mapWaterNeedFilter === 1}
+            $isActive={mapWaterNeedFilter === 1}
             onClick={() => setWaterNeedFilter(1)}
           >
-            Niedrig
+            {waterNeeds[0].title}
             <WaterDrops dropsAmount={1} />
           </FilterLink>
           <FilterLink
-            isActive={mapWaterNeedFilter === 2}
+            $isActive={mapWaterNeedFilter === 2}
             onClick={() => setWaterNeedFilter(2)}
           >
-            Mittel
+            {waterNeeds[1].title}
             <WaterDrops dropsAmount={2} />
           </FilterLink>
           <FilterLink
-            isActive={mapWaterNeedFilter === 3}
+            $isActive={mapWaterNeedFilter === 3}
             onClick={() => setWaterNeedFilter(3)}
           >
-            Hoch
+            {waterNeeds[2].title}
             <WaterDrops dropsAmount={3} />
           </FilterLink>
         </FilterLinksContainer>
       </ExpandablePanel>
-      <ExpandablePanel title='Baumalter' isExpanded>
-        <SmallParagraph>
-          Erkunde die Geschichte von Berlins Baumlandschaft
-        </SmallParagraph>
+      <ExpandablePanel title={treeAgeTitle} $isExpanded>
+        <SmallParagraph>{treeAgeDescription}</SmallParagraph>
         <br />
         <SidebarSearchAge />
-      </ExpandablePanel>
-      <ExpandablePanel title='Standortsuche' isExpanded>
-        <SidebarSearchLocation />
       </ExpandablePanel>
     </>
   );

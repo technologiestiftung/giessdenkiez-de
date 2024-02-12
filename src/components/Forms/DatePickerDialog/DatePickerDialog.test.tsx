@@ -1,8 +1,11 @@
-import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import React, { Component } from 'react';
+import { fireEvent, screen } from '@testing-library/react';
 import { DatePickerDialog, formatDate } from '.';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../../../assets/theme';
+import { render } from '../../../../test/test-utils';
 
-const onDateChange = jest.fn();
+const onDateChange = vi.fn();
 
 describe('component DatePickerDialog', () => {
   test('calls onDateChange when date is changed', () => {
@@ -14,7 +17,8 @@ describe('component DatePickerDialog', () => {
         label='I am a label'
         defaultDate={initialValue}
         onDateChange={onDateChange}
-      />
+      />,
+      {}
     );
 
     const input = screen.getByRole('textbox') as HTMLInputElement;
@@ -35,7 +39,8 @@ describe('component DatePickerDialog', () => {
         label='I am a label'
         defaultDate={initialValue}
         onDateChange={onDateChange}
-      />
+      />,
+      {}
     );
 
     const input = screen.getByRole('textbox') as HTMLInputElement;

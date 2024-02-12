@@ -1,28 +1,31 @@
 import React, { FC } from 'react';
 
-import SidebarTitle from '../SidebarTitle/';
-import SocialSharing from '../../SocialSharing';
-import OpenSourceNote from '../../OpenSource';
-import content from '../../../assets/content';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
+import Credits from '../../Credits';
 import ExpandablePanel from '../../ExpandablePanel';
-import SmallParagraph from '../../SmallParagraph';
+import OpenSourceNote from '../../OpenSource';
 import { SlackButton } from '../../SlackButton';
+import SmallParagraph from '../../SmallParagraph';
+import SocialSharing from '../../SocialSharing';
+import SidebarTitle from '../SidebarTitle/';
 
 const SidebarAbout: FC = () => {
+  const content = useLocalizedContent();
   const { sidebar } = content;
-  const { about } = sidebar;
+  const { about, furtherInfo } = sidebar;
   return (
     <>
-      <SidebarTitle>Weitere Infos</SidebarTitle>
+      <SidebarTitle>{furtherInfo}</SidebarTitle>
       {about.map((item, idx) => (
-        <ExpandablePanel isExpanded title={item.title} key={item.title}>
+        <ExpandablePanel $isExpanded title={item.title} key={item.title}>
           <SmallParagraph>{item.description}</SmallParagraph>
           {idx === 0 && (
-            <>
+            <div>
               <br />
               <SlackButton />
-            </>
+            </div>
           )}
+          {idx === 2 && <Credits></Credits>}
         </ExpandablePanel>
       ))}
 
@@ -35,6 +38,8 @@ const SidebarAbout: FC = () => {
       ))}
       <SocialSharing />
       <OpenSourceNote />
+      <hr style={{ marginBottom: '2rem', opacity: 0.1 }} />
+      <Credits />
     </>
   );
 };

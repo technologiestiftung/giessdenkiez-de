@@ -5,6 +5,7 @@ import ExpandablePanel from '../ExpandablePanel';
 import { StyledA } from '../Forms';
 import SmallParagraph from '../SmallParagraph';
 import { PasswordEditModal } from '../PasswordEditModal';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 export const CredentialValue = styled.p`
   display: block;
@@ -16,6 +17,17 @@ const CardCredentials: FC<{
   username: string;
   email: string;
 }> = ({ username, email }) => {
+  const content = useLocalizedContent();
+  const {
+    title,
+    username: usernameText,
+    registeredMail,
+    editHint,
+    editLink,
+    passwordEditHint,
+    passwordEditLink,
+  } = content.sidebar.account;
+
   const [isEditingAccount, setIsEditingAccount] = useState(false);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
 
@@ -29,31 +41,31 @@ const CardCredentials: FC<{
       {isEditingPassword && (
         <PasswordEditModal onClose={() => setIsEditingPassword(false)} />
       )}
-      <ExpandablePanel isExpanded title='Dein Account'>
-        <SmallParagraph>Benutzername</SmallParagraph>
+      <ExpandablePanel $isExpanded title={title}>
+        <SmallParagraph>{usernameText}</SmallParagraph>
         <CredentialValue>{username}</CredentialValue>
-        <SmallParagraph>Registrierte E-Mail Adresse</SmallParagraph>
+        <SmallParagraph>{registeredMail}</SmallParagraph>
         <CredentialValue>{email}</CredentialValue>
         <SmallParagraph>
-          Benutzername oder E-Mail{' '}
+          {editHint}{' '}
           <StyledA
             onClick={e => {
               e.preventDefault();
               setIsEditingAccount(true);
             }}
           >
-            bearbeiten?
+            {editLink}
           </StyledA>
         </SmallParagraph>
         <SmallParagraph>
-          Passwort{' '}
+          {passwordEditHint}{' '}
           <StyledA
             onClick={e => {
               e.preventDefault();
               setIsEditingPassword(true);
             }}
           >
-            ändern?
+            {passwordEditLink}
           </StyledA>
         </SmallParagraph>
       </ExpandablePanel>

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ButtonRound from '../ButtonRound';
 import { areCookiesAccepted } from '../../utils/areCookiesAccepted';
 import { StyledComponentType } from '../../common/interfaces';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 const CookieWrapper = styled.div<StyledComponentType>`
   z-index: 1;
@@ -87,6 +88,8 @@ const CookieContainer = styled.div<StyledComponentType>`
 `;
 
 const Cookie: FC = () => {
+  const content = useLocalizedContent();
+
   const [cookiesAccepted, setCookieAccepted] = useState<boolean>(false);
 
   const setCookie = () => {
@@ -105,24 +108,20 @@ const Cookie: FC = () => {
       {!cookiesAccepted && (
         <CookieWrapper>
           <Inner>
-            <Text>
-              Diese Webseite verwendet Cookies, um bestimmte Funktionen zu
-              ermöglichen und das Angebot zu verbessern. Indem du hier
-              fortfährst stimmst du der Nutzung von Cookies zu.{' '}
-            </Text>
+            <Text>{content.cookies.disclaimer} </Text>
             <MoreInfoLink
               href='https://www.technologiestiftung-berlin.de/de/datenschutz/'
               target='_blank'
               rel='noopener noreferrer'
             >
-              Weitere Informationen.
+              {content.cookies.info}
             </MoreInfoLink>
             <ButtonRound
               width='fit-content'
               fontSize={'.8rem'}
               onClick={() => setCookie()}
             >
-              Einverstanden
+              {content.cookies.accept}
             </ButtonRound>
           </Inner>
         </CookieWrapper>

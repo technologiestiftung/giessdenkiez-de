@@ -13,7 +13,9 @@ describe('component Credits', () => {
     );
     const citylabImage = screen.getByAltText(/Logo Citylab/i);
     expect(citylabImage).toBeInTheDocument();
-    expect(citylabImage.getAttribute('src')).toContain('citylab-logo.svg');
+    expect(citylabImage.getAttribute('src')).toEqual(
+      'https://logos.citylab-berlin.org/logo-citylab-berlin-outline.svg'
+    );
   });
   test('should render the Technologiestiftung logo', () => {
     render(
@@ -23,7 +25,9 @@ describe('component Credits', () => {
     );
     const tsbImage = screen.getByAltText(/Logo Technologiestiftung Berlin/i);
     expect(tsbImage).toBeInTheDocument();
-    expect(tsbImage.getAttribute('src')).toContain('tsb-logo-coloured.svg');
+    expect(tsbImage.getAttribute('src')).toEqual(
+      'https://logos.citylab-berlin.org/logo-tsb-outline.svg'
+    );
   });
   test('should render the Berlin logo', () => {
     render(
@@ -33,7 +37,9 @@ describe('component Credits', () => {
     );
     const berlinImage = screen.getByAltText(/Logo Berlin/i);
     expect(berlinImage).toBeInTheDocument();
-    expect(berlinImage.getAttribute('src')).toContain('berlin.svg');
+    expect(berlinImage.getAttribute('src')).toEqual(
+      'https://logos.citylab-berlin.org/logo-senatskanzlei-buergermeister-horizontal.svg'
+    );
   });
   test('should render the "Ein Projekt der" label', () => {
     render(

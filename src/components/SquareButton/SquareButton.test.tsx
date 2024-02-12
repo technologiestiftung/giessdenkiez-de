@@ -33,7 +33,7 @@ describe('component SquareButton', () => {
   test('should have the a different color when active', () => {
     render(
       <ThemeProvider theme={theme}>
-        <SquareButton isActive />
+        <SquareButton $isActive />
         <SquareButton />
       </ThemeProvider>
     );

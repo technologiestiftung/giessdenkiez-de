@@ -9,7 +9,7 @@ import ButtonWater from '../../ButtonWater';
 import WaterDrops from '../../WaterDrops';
 import Login from '../../Login';
 
-import content from '../../../assets/content';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 import { SelectedTreeType } from '../../../common/interfaces';
 import Icon from '../../Icons';
 import StackedBarChart from '../../StackedBarChart';
@@ -22,8 +22,6 @@ import SmallParagraph from '../../SmallParagraph';
 import { useAdoptingActions } from '../../../utils/hooks/useAdoptingActions';
 import { useCommunityData } from '../../../utils/hooks/useCommunityData';
 import { rainCircle, wateredCircle } from '../../StackedBarChart/TooltipLegend';
-
-const { treetypes } = content.sidebar;
 
 const Wrapper = styled.div`
   z-index: 3;
@@ -114,6 +112,31 @@ const BaselineGrid = styled.span`
 const TreeInfos: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
+  const content = useLocalizedContent();
+  const { treetypes } = content.sidebar;
+  const {
+    title,
+    age,
+    needs,
+    wateringAmount,
+    ofLastDays,
+    waterings: wateringsText,
+    rain,
+    litersPerSqm,
+    years,
+    adoptedByMe,
+    adoptedAlsoByOthers,
+    adoptedOnlyByOthers,
+    regularlyWateredBy,
+    lastWaterings,
+    latestFirst,
+    needsVerification,
+    stopAdoption,
+    stopAdoptionProgress,
+    adopt,
+    adoptProgress,
+  } = content.sidebar.tree;
+
   const {
     id: treeId,
     pflanzjahr,
@@ -130,6 +153,7 @@ const TreeInfos: FC<{
     isBeingAdopted,
     isBeingUnadopted,
   } = useAdoptingActions(treeId);
+
   const { data: communityData } = useCommunityData();
 
   const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
@@ -192,15 +216,13 @@ const TreeInfos: FC<{
         {(adoptedByLoggedInUser || adoptedByOtherUsers) && (
           <AdoptionsParent>
             {adoptedByLoggedInUser && (
-              <AdoptedIndication selfAdopted>
-                Von mir adoptiert ✔
-              </AdoptedIndication>
+              <AdoptedIndication selfAdopted>{adoptedByMe}</AdoptedIndication>
             )}
             {adoptedByOtherUsers && (
               <AdoptedIndication>
                 {adoptedByLoggedInUser
-                  ? `Ebenfalls von anderen adoptiert`
-                  : `Von anderen Nutzer:innen adoptiert`}{' '}
+                  ? adoptedAlsoByOthers
+                  : adoptedOnlyByOthers}{' '}
                 ✔
               </AdoptedIndication>
             )}
@@ -209,7 +231,9 @@ const TreeInfos: FC<{
         {caretaker && caretaker.length > 0 && (
           <CaretakerDiv>
             <Icon iconType='water' height={32}></Icon>
-            <CaretakerSublineSpan>{`Dieser Baum wird regelmäßig vom ${caretaker} gewässert.`}</CaretakerSublineSpan>
+            <CaretakerSublineSpan>
+              {regularlyWateredBy.replace('_1_', caretaker)}
+            </CaretakerSublineSpan>
           </CaretakerDiv>
         )}
         {treeType && treeType.title && (
@@ -220,13 +244,15 @@ const TreeInfos: FC<{
         {treeAge && (
           <>
             <AgeInfoContainer>
-              <span>Standalter</span>
-              <AgeInfoValue>{treeAge} Jahre</AgeInfoValue>
+              <span>{age}</span>
+              <AgeInfoValue>
+                {treeAge} {years}
+              </AgeInfoValue>
             </AgeInfoContainer>
             <ExpandablePanel
               title={
                 <>
-                  <span style={{ marginRight: 8 }}>Wasserbedarf:</span>
+                  <span style={{ marginRight: 8 }}>{needs}:</span>
                   <WaterDrops dropsAmount={getWaterNeedByAge(treeAge)} />
                 </>
               }
@@ -238,25 +264,27 @@ const TreeInfos: FC<{
         <ExpandablePanel
           title={
             <>
-              <div>Wassermenge</div>
-              <SmallParagraph>der letzten 30 Tage</SmallParagraph>
+              <div>{wateringAmount}</div>
+              <SmallParagraph>{ofLastDays}</SmallParagraph>
               <div>
                 <BaselineGrid>
                   <span>{wateredCircle}</span>
                   <SmallParagraph>
-                    Gießungen: {wateringsSum.toFixed(1)}l
+                    {wateringsText}: {wateringsSum.toFixed(1)}l
                   </SmallParagraph>
                 </BaselineGrid>
               </div>
               <div>
                 <BaselineGrid>
                   <span>{rainCircle}</span>
-                  <SmallParagraph>Regen: {rainSum.toFixed(1)}l</SmallParagraph>
+                  <SmallParagraph>
+                    {rain}: {rainSum.toFixed(1)}l
+                  </SmallParagraph>
                 </BaselineGrid>
               </div>
             </>
           }
-          isExpanded
+          $isExpanded
         >
           <StackedBarChart
             selectedTreeData={selectedTreeData}
@@ -266,11 +294,11 @@ const TreeInfos: FC<{
         </ExpandablePanel>
         {Array.isArray(waterings) && waterings.length > 0 && (
           <ExpandablePanel
-            isExpanded={true}
+            $isExpanded={true}
             title={
               <>
-                Letzte Bewässerungen
-                <SmallParagraph>Neueste zuerst</SmallParagraph>
+                {lastWaterings}
+                <SmallParagraph>{latestFirst}</SmallParagraph>
               </>
             }
           >
@@ -291,10 +319,7 @@ const TreeInfos: FC<{
 
         {userData && !userData.isVerified && (
           <>
-            <Paragraph>
-              Bäume adoptieren und wässern ist nur möglich mit verifiziertem
-              Account.
-            </Paragraph>
+            <Paragraph>{needsVerification}</Paragraph>
             <NonVerfiedMailMessage />
           </>
         )}
@@ -309,16 +334,14 @@ const TreeInfos: FC<{
               }
               type='secondary'
             >
-              {adoptedByLoggedInUser &&
-                !isBeingUnadopted &&
-                'Adoption aufheben'}
-              {adoptedByLoggedInUser &&
-                isBeingUnadopted &&
-                'Adoption wird aufgehoben'}
-              {!adoptedByLoggedInUser && !isBeingAdopted && 'Baum adoptieren'}
-              {!adoptedByLoggedInUser &&
-                isBeingAdopted &&
-                'Baum wird adoptiert'}
+              {adoptedByLoggedInUser && !isBeingUnadopted && (
+                <>{stopAdoption}</>
+              )}
+              {adoptedByLoggedInUser && isBeingUnadopted && (
+                <>{stopAdoptionProgress}</>
+              )}
+              {!adoptedByLoggedInUser && !isBeingAdopted && <>{adopt}</>}
+              {!adoptedByLoggedInUser && isBeingAdopted && <>{adoptProgress}</>}
             </ButtonRound>
             <ParticipateButton />
           </ActionsWrapper>

@@ -5,12 +5,19 @@ import {
   FacebookShareButton,
   FacebookIcon,
   TwitterShareButton,
-  TwitterIcon,
+  XIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  EmailShareButton,
 } from 'react-share';
+import Image from 'next/image';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
+
+const mailIcon = '/images/mail_icon.svg';
 
 const StyledContainer = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   margin: 20px 0;
   span {
     font-size: ${p => p.theme.fontSizeL};
@@ -18,24 +25,48 @@ const StyledContainer = styled.div`
 `;
 
 const ButtonsContainer = styled.div`
-  margin-left: 10px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-start;
 
   > *:not(:first-child) {
-    margin-left: 5px;
+    margin-left: 10px;
   }
 `;
 
 const SocialSharing: FC = () => {
+  const content = useLocalizedContent();
   return (
     <StyledContainer>
-      <span>Teilen:</span>
+      <span>{content.sharing.title}</span>
       <ButtonsContainer>
-        <FacebookShareButton url='https://www.giessdenkiez.de/'>
+        <FacebookShareButton
+          aria-label='facebook-sharing-button'
+          url='https://www.giessdenkiez.de/'
+        >
           <FacebookIcon size={36} round />
         </FacebookShareButton>
-        <TwitterShareButton url='https://www.giessdenkiez.de/'>
-          <TwitterIcon size={36} round />
+        <TwitterShareButton
+          aria-label='x-sharing-button'
+          title={content.sharing.content}
+          url='https://www.giessdenkiez.de/'
+        >
+          <XIcon size={36} round />
         </TwitterShareButton>
+        <WhatsappShareButton
+          aria-label='whatsapp-sharing-button'
+          title={content.sharing.content}
+          url='https://www.giessdenkiez.de/'
+        >
+          <WhatsappIcon size={36} round />
+        </WhatsappShareButton>
+        <EmailShareButton
+          aria-label='mail-sharing-button'
+          url='https://www.giessdenkiez.de/'
+          body={content.sharing.content}
+        >
+          <Image src={mailIcon} width={36} height={36} alt='Mail Icon' />
+        </EmailShareButton>
       </ButtonsContainer>
     </StyledContainer>
   );

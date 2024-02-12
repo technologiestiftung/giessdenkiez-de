@@ -2,6 +2,8 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
 name: Node.js CI
+permissions:
+  contents: write
 env:
   BUILD_TARGET: DEFAULT
   NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
@@ -39,7 +41,7 @@ on:
       - 'public/**/*'
       - '.github/workflows/**/*'
       - 'package*.json'
-      - 'jest.config.js'
+      - 'vitest.config.ts'
       - 'tsconfig.json'
       - '.eslintrc.json'
       - 'next.config.js'
@@ -50,9 +52,9 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js from .nvmrc
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
       - run: npm ci
@@ -68,16 +70,14 @@ jobs:
       new-release-published: ${{ steps.semantic-release.outputs.new_release_published }}
       new-release-version: ${{ steps.semantic-release.outputs.new_release_version }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
       - run: npm ci
       - id: semantic-release
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          semantic_version: 18
+        run: npx semantic-release --ci
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

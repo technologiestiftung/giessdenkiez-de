@@ -13,10 +13,6 @@ export const MapboxStyleOverrides = css`
     display: none;
   }
 
-  .mapboxgl-user-location-dot {
-    display: none;
-  }
-
   .mapboxgl-ctrl-group {
     background-color: transparent !important;
     box-shadow: none !important;

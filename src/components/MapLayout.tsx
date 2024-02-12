@@ -1,13 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import Head from 'next/head';
 import App from './App';
 import SidebarWrapper from './Sidebar/SidbarWrapper';
 import { useRouter } from 'next/router';
 
-export const MapLayout: FC<{ treeId?: string | null }> = ({
-  treeId,
-  children,
-}) => {
+export const MapLayout = ({ children }: { children: ReactNode }) => {
   const { pathname } = useRouter();
   return (
     <>
@@ -52,8 +49,10 @@ export const MapLayout: FC<{ treeId?: string | null }> = ({
           content='<%= domain %>/images/social_media.jpg'
         />
       </Head>
-      <App treeId={treeId}>
-        <SidebarWrapper isVisible={pathname !== '/'}>{children}</SidebarWrapper>
+      <App>
+        <SidebarWrapper $isVisible={pathname !== '/'}>
+          {children}
+        </SidebarWrapper>
       </App>
     </>
   );

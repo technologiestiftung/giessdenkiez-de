@@ -1,24 +1,20 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
-import { isMobile } from 'react-device-detect';
 
 import OverlayTitle from '../OverlayTitle/';
 import Icon from '../../Icons';
-import OverlayBeta from '../OverlayBeta/';
 import OverlayDescription from '../OverlayDescription/';
 import ButtonRound from '../../ButtonRound';
-import Login from '../../../components/Login/';
+import Credits from '../../Credits';
 
-import content from '../../../assets/content';
-import { useActions } from '../../../state/unistore-hooks';
+import { useActions, useStoreState } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
-import { SlackButton } from '../../SlackButton';
-
-const { whatsNew } = content;
+import OverlayTiles from '../OverlayTiles';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 const StyledNewsSection = styled.section`
-  background-color: ${({ theme }) => theme.colorPrimaryHover};
-  border: 1px solid ${({ theme }) => theme.colorPrimary};
+  background-color: #f7fffa;
+  border: 1px solid ${({ theme }) => theme.colorPrimaryHover};
   padding: 30px 0;
   margin: 40px;
   position: relative;
@@ -27,63 +23,119 @@ const StyledNewsSection = styled.section`
   }
 `;
 
-const Wrapper = styled.div`
+const Logo = styled.div`
   display: flex;
-  img {
-    transform: translate(-35px, -20px);
-    @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-      transform: translate(-35px, -40px);
-    }
+  margin: 0 40px 20px;
+  align-items: end;
+  gap: 6px;
+
+  & > div > img {
+    translate: 0 6px;
+  }
+
+  h2 {
+    margin: 0 0 0 0;
   }
 `;
 
 const StyledTop = styled.div`
-  height: 500px;
-  height: auto;
-  padding: 40px 0;
+  padding: 20px 0 0 0;
+  grid-area: intro;
+
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    overflow-y: initial;
+  }
 `;
 
 const StyledWrapper = styled.div`
   display: flex;
-  margin: 20px 40px 20px 40px;
+  padding: 20px 40px 0px 40px;
   cursor: pointer;
   justify-content: space-between;
   align-items: start;
-  gap: 16px;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  row-gap: 32px;
+  flex-direction: row;
+  position: relative;
 
   @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     flex-direction: column;
+    align-items: start;
+  }
+`;
+
+const CreditsContainer = styled.div`
+  position: relative;
+  margin-top: 20px;
+  align-self: flex-end;
+  width: 60%;
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+    width: 100%;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -40px;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      -90deg,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
 `;
 
 const StyledButtonWrapper = styled.div`
   display: flex;
   gap: 16px;
-
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
-    flex-direction: column;
-  }
+  align-items: center;
+  flex-wrap: wrap;
 `;
 
 const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
-  const { intro } = content;
+  const { intro, collaborate, whatsNew } = useLocalizedContent();
+  const { title, subline, description, action } = intro;
+  const language = useStoreState('language');
+  const { setLanguage } = useActions();
 
-  const { title, subline, description, disclaimer } = intro;
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        closeOverlay();
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+  }, [closeOverlay]);
 
   return (
     <StyledTop>
-      <Wrapper>
+      <Logo>
         <OverlayTitle size='xxl' title={title} />
         <Icon iconType='trees' />
-        <OverlayBeta />
-      </Wrapper>
+
+        {/*
+          TODO: Uncomment as soon as all translations are reviewed and ready
+         <Switch
+          firstOption={Language.de}
+          secondOption={Language.en}
+          selectedOption={language}
+          onOptionSelect={option => {
+            setLocalStorageLanguage(option as Language);
+            setLanguage(option as Language);
+          }}
+        ></Switch> */}
+      </Logo>
       <OverlayTitle size='xxl' title={subline} />
-      {isMobile && <OverlayTitle size='medium' title={disclaimer} />}
       {/* the beow is here for local testing */}
       {/* {true && <OverlayTitle size='medium' content={disclaimer} />} */}
       <OverlayDescription content={description} />
       <OverlayClose onClick={closeOverlay} />
+
+      <OverlayTiles tiles={collaborate.tiles} />
       <StyledWrapper>
         <StyledButtonWrapper>
           <ButtonRound
@@ -91,13 +143,15 @@ const OverlayTop: FC = () => {
             onClick={() => {
               closeOverlay();
             }}
-            type='primary'
+            type='cta'
           >
-            Los geht&apos;s
+            {action}
           </ButtonRound>
-          <Login width='fit-content' noLogout={true} />
         </StyledButtonWrapper>
-        <SlackButton />
+
+        <CreditsContainer>
+          <Credits />
+        </CreditsContainer>
       </StyledWrapper>
       {whatsNew && (
         <StyledNewsSection aria-label='News und Updates'>

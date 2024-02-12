@@ -1,3 +1,4 @@
+import { Language } from '../assets/content-types';
 import { ThemeType } from '../assets/theme';
 import { RadolanDays } from './types';
 
@@ -67,6 +68,7 @@ export interface StoreProps {
   overlay: boolean;
   mapFocusPoint: FocusPointType | null;
   mapHasLoaded: boolean | undefined;
+  language: Language;
 }
 
 export interface Tree {
@@ -130,6 +132,7 @@ export interface FeatureType {
 export interface CredentialsData {
   email: string;
   password: string;
+  username?: string;
 }
 export interface ResetCredentialsData extends CredentialsData {
   repeatPassword: string;

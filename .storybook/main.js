@@ -3,12 +3,15 @@ module.exports = {
     "../src/**/*.stories.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
-  "addons": [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "storybook-addon-next-router"
-  ],
-  "core": {
-    "builder": "webpack5"
+
+  "addons": ["@storybook/addon-links", "@storybook/addon-essentials"],
+
+  framework: {
+    name: "@storybook/nextjs",
+    options: {}
+  },
+
+  docs: {
+    autodocs: true
   }
 }
