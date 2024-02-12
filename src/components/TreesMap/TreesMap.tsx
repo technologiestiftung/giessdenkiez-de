@@ -43,6 +43,7 @@ import {
 } from '../../utils/getWaterNeedByAge';
 import { useActions, useStoreState } from '../../state/unistore-hooks';
 import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
+import useLocalizedPumpState from '../../utils/hooks/useLocalizedPumpState';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 20;
@@ -628,7 +629,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
             setClickedPump(null);
           }}
           infos={{
-            Status: pumpInfo.status,
+            Status: `${useLocalizedPumpState(pumpInfo.status)}`,
             [lastPumpCheck]: pumpInfo.check_date,
             [pumpStyle]: pumpInfo.style,
             ...(pumpInfo.id

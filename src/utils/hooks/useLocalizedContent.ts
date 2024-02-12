@@ -1,5 +1,5 @@
-import { Content, LocalizedContent } from '../../assets/content-types';
 import localizedContent from '../../assets/content';
+import { Content } from '../../assets/content-types';
 import { useStoreState } from '../../state/unistore-hooks';
 
 const useLocalizedContent = (): Content => {

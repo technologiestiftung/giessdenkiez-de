@@ -494,7 +494,7 @@ const enContent = {
     action: "Let's go",
   },
   credits: {
-    projectOf: 'A project of',
+    projectOf: 'A project by',
     executedBy: 'Executed by',
     fundedBy: 'Funded by',
   },
@@ -551,7 +551,7 @@ const enContent = {
     adopted: 'Already adopted',
     lastWatered: 'Watered in last 30 days',
     waterNeedsTitle: 'Water needs',
-    waterNeedsDescription: 'Find out how much trees need water.',
+    waterNeedsDescription: 'Find out how urgently trees need water.',
     treeAgeTitle: 'Tree age',
     treeAgeDescription: "Explore the history of Berlin's tree landscape",
     about: [
@@ -568,7 +568,7 @@ const enContent = {
       {
         title: 'About Us',
         description:
-          '“Gieß den Kiez” is a project by <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>.  <br /> <br /> The CityLAB is a project of the Technology Foundation Berlin and is funded by the Berlin Senate Chancellery. <br /> <br /> Exchange ideas with our casting community!  <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to hear from you.<br /> <br />Press inquiries are best addressed to:<br /> Anna Hantelmann<br /><a href="mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage">anna.hantelmann@ts.berlin</a><br /><a href="tel:+4915118457242">Tel.: 49 151 18457 242 </a>',
+          '“Gieß den Kiez” is a project by <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>.  <br /> <br /> The CityLAB is a project by the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery. <br /> <br /> Exchange ideas with our casting community!  <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to hear from you.<br /> <br />Press inquiries are best addressed to:<br /> Anna Hantelmann<br /><a href="mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage">anna.hantelmann@ts.berlin</a><br /><a href="tel:+4915118457242">Tel.: 49 151 18457 242 </a>',
       },
       {
         title: 'Data sources',
