@@ -144,7 +144,7 @@ export const SidebarAuth = ({
 
     if (!isPasswordValid) {
       setNotification({
-        message: 'Bitte überprüfe dein Password',
+        message: 'Bitte überprüfe dein Passwort',
         type: 'error',
       });
       return;

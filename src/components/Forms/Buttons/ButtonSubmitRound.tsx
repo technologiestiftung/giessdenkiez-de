@@ -25,6 +25,9 @@ const StyledButton = styled.button<StyledButtonProps>`
   font-size: ${p => (p.fontSize ? p.fontSize : p.theme.fontSizeLl)};
   border: 1px solid
     ${p => {
+      if (p.disabled) {
+        return p.theme.colorLightGrey;
+      }
       if (p.$colorType === 'primary') {
         return p.theme.colorPrimary;
       }
@@ -34,7 +37,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     }};
   color: ${p => {
     if (p.disabled) {
-      return p.theme.colorTextLight;
+      return p.theme.colorTextMedium;
     }
     if (p.$colorType === 'primary') {
       return p.theme.colorPrimary;
@@ -47,11 +50,20 @@ const StyledButton = styled.button<StyledButtonProps>`
   box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 
   &:hover {
-    background-color: ${p =>
-      p.$colorType === 'primary'
-        ? p.theme.colorPrimary
-        : p.theme.colorTextDark};
-    color: white;
+    background-color: ${p => {
+      if (p.disabled) {
+        return;
+      }
+      if (p.$colorType === 'primary') {
+        return p.theme.colorPrimary;
+      }
+      return p.theme.colorTextDark;
+    }};
+    color: ${p => {
+      if (!p.disabled) {
+        return 'white';
+      }
+    }};
     transition: ${p => p.theme.transition};
   }
 
@@ -85,19 +97,21 @@ const ButtonSubmitRound: FC<{
   fontSize,
   margin = '0px',
   disabled = false,
-}) => (
-  <StyledButton
-    fontSize={fontSize}
-    margin={margin}
-    width={width}
-    $colorType={$colorType}
-    type={type}
-    disabled={disabled}
-    role={'button'}
-    tabIndex={0}
-  >
-    {children}
-  </StyledButton>
-);
+}) => {
+  return (
+    <StyledButton
+      fontSize={fontSize}
+      margin={margin}
+      width={width}
+      $colorType={$colorType}
+      type={type}
+      disabled={disabled}
+      role={'button'}
+      tabIndex={0}
+    >
+      {children}
+    </StyledButton>
+  );
+};
 
 export default ButtonSubmitRound;
