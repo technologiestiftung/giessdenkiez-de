@@ -4,8 +4,6 @@ import { Page } from '../src/nextPage';
 
 import AuthForm from '../src/components/Forms/AuthForm';
 
-export type AuthView = 'signin' | 'signup' | 'recovery' | 'confirm';
-
 const AuthPage: Page = () => {
   return <AuthForm />;
 };

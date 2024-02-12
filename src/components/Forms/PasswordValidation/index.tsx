@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import {
-  PasswordPattern,
   specialCharacters,
   validatePassword,
 } from '../../../utils/validatePassword';
@@ -8,22 +7,15 @@ import SmallParagraph from '../../SmallParagraph';
 import { ValidOrNot } from '../ValidOrNot';
 import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
-export const PasswordValidation = ({ password }: { password: string }) => {
+export const PasswordValidation = memo(function PasswordValidation({
+  password,
+}: {
+  password: string;
+}) {
   const content = useLocalizedContent();
   const { part1, part2, part3, part4 } = content.auth.passwordRestrictions;
 
-  const [errors, setErrors] = useState<PasswordPattern>({
-    length: false,
-    lowerCase: false,
-    upperCase: false,
-    specialChar: false,
-    digit: false,
-  });
-
-  useEffect(() => {
-    const { patterns } = validatePassword(password);
-    setErrors(patterns);
-  }, [password]);
+  const { patterns: errors } = validatePassword(password);
 
   return (
     <>
@@ -36,4 +28,4 @@ export const PasswordValidation = ({ password }: { password: string }) => {
       </SmallParagraph>
     </>
   );
-};
+});
