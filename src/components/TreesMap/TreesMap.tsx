@@ -184,7 +184,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   const { setMapHasLoaded } = useActions();
 
   const pumpInfo: PumpTooltipType | null = useMemo(() => {
-    return hoveredPump || clickedPump;
+    return clickedPump || hoveredPump;
   }, [hoveredPump, clickedPump]);
 
   const mapHasLoaded = useStoreState('mapHasLoaded');
@@ -212,22 +212,20 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     });
   }, []);
 
-  const onMapClick = useCallback(
-    (info: { x: number; y: number }, evt: MouseEvent) => {
-      if (!map.current || hasUnmounted) return;
+  const onMapTreeClick = useCallback(
+    (
+      evt: mapboxgl.MapMouseEvent & {
+        features?: mapboxgl.MapboxGeoJSONFeature[] | undefined;
+      } & mapboxgl.EventData
+    ) => {
+      if (!map.current || hasUnmounted || !evt.features) return;
 
-      const eventTarget = (evt?.target as unknown) as { tagName: string };
-      if (eventTarget.tagName !== 'CANVAS') return;
-      const features = map.current.queryRenderedFeatures([info.x, info.y], {
-        layers: ['trees'],
-      });
-
-      if (features.length === 0) {
+      if (evt.features.length === 0) {
         onTreeSelect(null);
         return;
       }
 
-      const treeFeature: mapboxgl.MapboxGeoJSONFeature = features[0];
+      const treeFeature: mapboxgl.MapboxGeoJSONFeature = evt.features[0];
       const id: string = treeFeature.properties?.id as string;
       const geometry = treeFeature.geometry as GeoJSON.Point;
 
@@ -353,6 +351,8 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         }
       });
 
+      map.current.on('click', 'trees', onMapTreeClick);
+
       updateSelectedTreeIdFeatureState({
         map: map.current,
         prevSelectedTreeId: undefined,
@@ -425,6 +425,19 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           setHoveredPump(null);
           if (map.current) {
             map.current.getCanvas().style.cursor = '';
+          }
+        });
+
+        map.current.on('click', 'pumps', e => {
+          if (e.features) {
+            setClickedPump(
+              pumpEventInfoToState({
+                x: e.point.x,
+                y: e.point.y,
+                //@ts-ignore
+                properties: e.features[0].properties,
+              })
+            );
           }
         });
       } else {
@@ -590,6 +603,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
         onLoad={onLoad}
         onZoom={handleZoomCallback}
+        onMove={onViewStateChange}
         style={{
           width: '100%',
           height: '100%',
