@@ -27,10 +27,12 @@ export const StyledSpacer = styled.div`
 export const SidebarAuth = ({
   view,
   setView,
+  currentNotification,
   setNotification,
   isLoading,
 }: {
   isLoading: boolean;
+  currentNotification: UserNotificationObjectType | null;
   setNotification: React.Dispatch<
     React.SetStateAction<UserNotificationObjectType | null>
   >;
@@ -52,12 +54,12 @@ export const SidebarAuth = ({
 
   const {
     checkUsername,
+    checkPassword,
     userExistsAlready,
     emailCouldNotBeSent,
     usernameOrPasswordWrong,
     ooops,
     checkMailForPasswordReset,
-    usernameTaken,
   } = content.auth.errors;
 
   const {
@@ -158,7 +160,7 @@ export const SidebarAuth = ({
   const signUp = async ({ email, password, username }: CredentialsData) => {
     if (username === undefined) {
       setNotification({
-        message: 'Bitte überprüfe dein Benutzername',
+        message: checkUsername,
         type: 'error',
       });
       return;
@@ -168,7 +170,7 @@ export const SidebarAuth = ({
 
     if (!isUsernameValid) {
       setNotification({
-        message: 'Bitte überprüfe dein Benutzername',
+        message: checkUsername,
         type: 'error',
       });
       return;
@@ -178,7 +180,7 @@ export const SidebarAuth = ({
 
     if (!isPasswordValid) {
       setNotification({
-        message: checkUsername,
+        message: checkPassword,
         type: 'error',
       });
       return;
@@ -317,6 +319,7 @@ export const SidebarAuth = ({
           handleSubmit={handleSignInSubmit}
           buttonText={signinAction}
           isSignIn={true}
+          currentNotification={currentNotification}
         />
       );
       linkText = (
@@ -337,6 +340,7 @@ export const SidebarAuth = ({
           buttonText={signupAction}
           usernamePatterns={usernamePatterns}
           isUsernameTaken={isUsernameTaken}
+          currentNotification={currentNotification}
           isSignIn={false}
         />
       );
@@ -358,6 +362,7 @@ export const SidebarAuth = ({
           handleSubmit={handleRecoverySubmit}
           buttonText={resetPassword}
           isRecovery={true}
+          currentNotification={currentNotification}
         />
       );
       linkText = (

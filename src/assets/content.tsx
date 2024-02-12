@@ -352,6 +352,7 @@ const deContent: Content = {
     },
     errors: {
       checkUsername: 'Bitte überprüfe Deinen Benutzernamen',
+      checkPassword: 'Bitte überprüfe Dein Passwort',
       userExistsAlready: 'Benutzer bereits registriert',
       emailCouldNotBeSent:
         'Die E-Mail an "_1_" konnte nicht verschickt werden. Versuch es erneut.',
@@ -726,6 +727,7 @@ const enContent = {
     },
     errors: {
       checkUsername: 'Please check your username',
+      checkPassword: 'Please check your password',
       userExistsAlready: 'User already registered',
       emailCouldNotBeSent: 'Email to "_1_" could not be sent. Try again.',
       usernameOrPasswordWrong: 'Username or password are wrong',

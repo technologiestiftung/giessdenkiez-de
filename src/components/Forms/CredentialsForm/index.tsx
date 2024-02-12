@@ -2,7 +2,10 @@ import React from 'react';
 import { StyledForm, StyledFormRow } from '..';
 import { CredentialsData } from '../../../common/interfaces';
 import { UsernamePattern } from '../../../utils/validateUsername';
-import { UserNotification } from '../../Notification';
+import {
+  UserNotification,
+  UserNotificationObjectType,
+} from '../../Notification';
 import ButtonSubmitRound from '../Buttons/ButtonSubmitRound';
 import { StyledFormTextInput } from '../Inputs';
 import { StyledLabel } from '../Labels';
@@ -19,6 +22,7 @@ export const CredentialsForm = ({
   isSignIn,
   usernamePatterns,
   isUsernameTaken,
+  currentNotification,
 }: {
   formData: CredentialsData;
   handleInputChange: (
@@ -31,6 +35,7 @@ export const CredentialsForm = ({
   isSignIn?: boolean;
   usernamePatterns?: UsernamePattern;
   isUsernameTaken?: boolean;
+  currentNotification: UserNotificationObjectType | null;
 }) => {
   const content = useLocalizedContent();
 
@@ -115,6 +120,14 @@ export const CredentialsForm = ({
         <StyledFormRow>
           <ButtonSubmitRound type='submit'>{buttonText}</ButtonSubmitRound>
         </StyledFormRow>
+        {currentNotification && (
+          <StyledFormRow>
+            <UserNotification
+              type={currentNotification.type}
+              message={currentNotification.message}
+            />
+          </StyledFormRow>
+        )}
       </StyledForm>
     </>
   );

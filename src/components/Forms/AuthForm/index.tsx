@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSession, useSessionContext } from '@supabase/auth-helpers-react';
 import { SidebarAuth } from '../../Sidebar/SidebarAuth';
-import { StyledFlexContainer, StyledFormRow } from '../../Forms';
-import {
-  UserNotification,
-  UserNotificationObjectType,
-} from '../../Notification';
+import { UserNotificationObjectType } from '../../Notification';
 
 import { useRouter } from 'next/router';
 export type AuthView = 'signin' | 'signup' | 'recovery' | 'confirm';
@@ -44,18 +40,9 @@ function AuthForm() {
         isLoading={isLoading}
         view={view}
         setView={setView}
+        currentNotification={currentNotification}
         setNotification={setCurrentNotification}
       />
-      <StyledFlexContainer>
-        <StyledFormRow>
-          {currentNotification && (
-            <UserNotification
-              type={currentNotification.type}
-              message={currentNotification.message}
-            />
-          )}
-        </StyledFormRow>
-      </StyledFlexContainer>
     </div>
   );
 }
