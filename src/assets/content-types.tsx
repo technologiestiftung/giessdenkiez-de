@@ -3,7 +3,21 @@ interface Item {
   description: string;
 }
 
-type TreeTypeId = 'LINDE' | 'AHORN' | 'EICHE' | 'KASTANIE' | 'PLATANE';
+type TreeTypeId =
+  | 'LINDE'
+  | 'AHORN'
+  | 'EICHE'
+  | 'KASTANIE'
+  | 'ROSSKASTANIE'
+  | 'PLATANE'
+  | 'ESCHE'
+  | 'BIRKE'
+  | 'ROBINIE'
+  | 'ULME'
+  | 'HASEL'
+  | 'HAINBUCHE'
+  | 'PAPPEL';
+
 export interface TreeType extends Item {
   id: TreeTypeId;
 }
