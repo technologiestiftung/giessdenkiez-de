@@ -1,5 +1,5 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AuthView } from '../../../../pages/auth';
 import SidebarTitle from '../SidebarTitle';
 import { UserNotificationObjectType } from '../../Notification';
@@ -36,6 +36,9 @@ export const SidebarAuth = ({
   view: AuthView;
   setView: React.Dispatch<React.SetStateAction<AuthView>>;
 }) => {
+  useEffect(() => {
+    throw new Error('test');
+  }, []);
   const content = useLocalizedContent();
 
   const {

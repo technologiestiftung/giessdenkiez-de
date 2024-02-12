@@ -1,6 +1,6 @@
 import { Language } from './content-types';
 
-const I18N_KEY = 'i18n';
+export const I18N_KEY = 'i18n';
 
 export function getLocalStorageLanguage(): Language {
   const foundLanguage = localStorage.getItem(I18N_KEY);
