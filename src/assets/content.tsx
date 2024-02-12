@@ -689,7 +689,7 @@ const enContent = {
         id: 'BIRKE',
         title: 'Birch (Betula)',
         description:
-          'The birch (Betula) has a share of approx. 3% of the total population, thus occupying seventh place among Berlins trees. Although the birch is a pioneer tree that is very undemanding and grows on any soil, it is less suitable as a street tree because the tree grates often offer too little space for the shallow-rooted trees,
+          'The birch (Betula) has a share of approx. 3% of the total population, thus occupying seventh place among Berlins trees. Although the birch is a pioneer tree that is very undemanding and grows on any soil, it is less suitable as a street tree because the tree grates often offer too little space for the shallow-rooted trees',
       },
       {
         id: 'ROBINIE',
