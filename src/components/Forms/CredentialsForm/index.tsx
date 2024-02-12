@@ -39,17 +39,9 @@ export const CredentialsForm = ({
 }) => {
   const content = useLocalizedContent();
 
-  const {
-    signinTitle,
-    email,
-    username,
-    password,
-    signinAction,
-    noAccountHint,
-    registerLink,
-    forgotPasswordHint,
-    forgotPasswordLink,
-  } = content.auth;
+  const { email, username, password } = content.auth;
+
+  const { usernameTaken } = content.auth.errors;
 
   return (
     <>
@@ -90,10 +82,7 @@ export const CredentialsForm = ({
               )}
             </StyledFormRow>
             {isUsernameTaken && (
-              <UserNotification
-                message={'Benutzername bereits vergeben'}
-                type={'error'}
-              />
+              <UserNotification message={usernameTaken} type={'error'} />
             )}
           </StyledFormRow>
         )}
