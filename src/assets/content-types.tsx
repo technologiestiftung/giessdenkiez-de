@@ -216,6 +216,7 @@ export interface Content {
     passwordCouldNotBeChanged: string;
     passwordChangeSuccess: string;
     changePasswordFor: string;
+    checkSignupMail: string;
   };
   collaborate: {
     tiles: CollaborationItem[];

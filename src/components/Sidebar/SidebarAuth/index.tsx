@@ -1,23 +1,22 @@
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import React, { useState } from 'react';
-import SidebarTitle from '../SidebarTitle';
-import { UserNotificationObjectType } from '../../Notification';
-import { CredentialsSubline } from '../../Forms';
+import debounce from 'lodash/debounce';
 import Router from 'next/router';
-import { CredentialsData } from '../../../common/interfaces';
-import { CredentialsForm } from '../../Forms/CredentialsForm';
-import { SidebarLoading } from '../SidebarLoading';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Paragraph from '../../Paragraph';
-import { Quotes } from '../../Quotes';
+import { CredentialsData } from '../../../common/interfaces';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
+import { validatePassword } from '../../../utils/validatePassword';
 import {
   UsernamePattern,
   validateUsername,
 } from '../../../utils/validateUsername';
-import debounce from 'lodash/debounce';
+import { CredentialsSubline } from '../../Forms';
 import { AuthView } from '../../Forms/AuthForm';
-import { validatePassword } from '../../../utils/validatePassword';
-import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
+import { CredentialsForm } from '../../Forms/CredentialsForm';
+import { UserNotificationObjectType } from '../../Notification';
+import Paragraph from '../../Paragraph';
+import { SidebarLoading } from '../SidebarLoading';
+import SidebarTitle from '../SidebarTitle';
 
 export const StyledSpacer = styled.div`
   padding: 10px;
@@ -57,6 +56,7 @@ export const SidebarAuth = ({
     checkPassword,
     userExistsAlready,
     emailCouldNotBeSent,
+    checkSignupMail,
     usernameOrPasswordWrong,
     ooops,
     checkMailForPasswordReset,
@@ -68,6 +68,8 @@ export const SidebarAuth = ({
     clickHere,
     bored,
     profile,
+    alreadyRegisteredHint,
+    alreadyRegisteredAction,
   } = content.auth;
 
   const { confirm, editPasswordTitle } = content.sidebar.account;
@@ -346,8 +348,8 @@ export const SidebarAuth = ({
       );
       linkText = (
         <CredentialsSubline
-          text={'Du hast schon einen Account?'}
-          aText={'Log Dich ein'}
+          text={alreadyRegisteredHint}
+          aText={alreadyRegisteredAction}
           onClick={() => setView('signin')}
         />
       );
@@ -377,10 +379,9 @@ export const SidebarAuth = ({
     case 'confirm': {
       form = (
         <Paragraph>
-          Überprüfe Dein E-Mail Postfach für <Quotes>{formData.email}</Quotes>{' '}
-          nach einer E-Mail von{' '}
-          <Quotes>{process.env.NEXT_PUBLIC_FROM_EMAIL}</Quotes> mit einem Link
-          um deinen Account zu bestätigen.
+          {checkSignupMail
+            .replace('_1_', formData.email)
+            .replace('_2_', process.env.NEXT_PUBLIC_FROM_EMAIL)}
         </Paragraph>
       );
 

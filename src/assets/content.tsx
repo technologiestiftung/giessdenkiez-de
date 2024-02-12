@@ -366,6 +366,8 @@ const deContent: Content = {
     passwordCouldNotBeChanged: 'Passwort konnte nicht geändert werden',
     passwordChangeSuccess: 'Passwort erfolgreich geändert',
     changePasswordFor: 'Passwort ändern für',
+    checkSignupMail:
+      'Überprüfe Dein E-Mail Postfach für "_1_" nach einer E-Mail von "_2_" mit einem Link um deinen Account zu bestätigen.',
   },
   collaborate: {
     tiles: [
@@ -419,7 +421,7 @@ const enContent = {
       {
         question: 'How can I participate?',
         answer:
-          'Inform: <br><br>Curious which tree is in front of your door? Our interactive map visualizes over 800,000 street and plant trees in Berlin. If you want to find out more about a tree, navigate and zoom to the desired location and click on the colored dot. You will now see a lot of information about the selected tree in the menu ribbon on the left. <br><br>Watering and adopting trees: <br><br>Do you want to get active or are you already actively watering? On Gieß den Kiez you can enter whether and with how much water you watered a tree. Trees can also be adopted. The adopted trees appear in your own user profile and can be found more quickly. This allows other neighbors in the area to see which trees need their attention. To water and adopt trees, first create a profile with a valid email address and then log in. Now you can document your watering activities accordingly and see whether and how often trees in your neighborhood have already been watered by other users.<br><br>Connect: <br><br> You can use our public <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a> to exchange ideas with other foundries and report defective pumps in your neighborhood.',
+          'Inform: <br><br>Curious which tree is in front of your door? Our interactive map visualizes over 800,000 street and plant trees in Berlin. If you want to find out more about a tree, navigate and zoom to the desired location and click on the colored dot. You will now see a lot of information about the selected tree in the menu ribbon on the left. <br><br>Watering and adopting trees: <br><br>Do you want to get active or are you already actively watering? On Gieß den Kiez you can enter whether and with how much water you watered a tree. Trees can also be adopted. The adopted trees appear in your own user profile and can be found more quickly. This allows other neighbors in the area to see which trees need their attention. To water and adopt trees, first create a profile with a valid email address and then log in. Now you can document your watering activities accordingly and see whether and how often trees in your neighbourhood have already been watered by other users.<br><br>Connect: <br><br> You can use our public <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a> to exchange ideas with other members and report defective pumps in your neighbourhood.',
       },
       {
         question: 'What can I do if trees are not registered correctly?',
@@ -454,7 +456,7 @@ const enContent = {
       {
         question: 'What should I do if I watered a tree incorrectly?',
         answer:
-          'To undo a watering, for example because the neighboring tree was watered instead or on a different day, first click on the tree. Scroll down the tree sidebar to the view of past waterings, click the trash can icon next to the entry you want to delete, and click “Delete” to confirm. Only castings that you have made yourself can be deleted. After deleting, enter the watering with the correct information (number of liters and time).',
+          'To undo a watering, for example because the neighboring tree was watered instead or on a different day, first click on the tree. Scroll down the tree sidebar to the view of past waterings, click the trash can icon next to the entry you want to delete, and click “Delete” to confirm. Only waterings that you have made yourself can be deleted. After deleting, enter the watering with the correct information (number of liters and time).',
       },
       {
         question: 'Can the principle be transferred to other cities?',
@@ -471,11 +473,6 @@ const enContent = {
         answer:
           "Giess den Kiez is based on the tree register. The tree register is a city directory in which (city/street or park) trees are managed and which is provided by the street and green spaces authorities. However, the Streets and Green Spaces Authority is not responsible for all of Berlin's trees. The trees in the Plänterwald, for example, are subject to the forestry office. These trees therefore do not appear in Gieß den Kiez.",
       },
-      {
-        question: "I don't speak any German: What's going on here?",
-        answer:
-          'Gieß den Kiez is a participatory platform where you can inform yourself about the trees in your neighbourhood and their water needs. You can explore individual trees in Berlin and find out about the proper watering of trees. If you want to water the same trees regularly, you should create an account, adopt the trees and show that they are taken care of. This way, coordination takes place in the neighbourhood.',
-      },
     ],
   },
   imprintAndPrivacy: {
@@ -490,7 +487,7 @@ const enContent = {
     subline:
       'Berlin\'s city trees are suffering from drought <br class="large" /> and you can help them!',
     description: [
-      'Find out about the water needs of the trees in your neighborhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!',
+      'Find out about the water needs of the trees in your neighbourhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!',
     ],
     action: "Let's go",
   },
@@ -526,7 +523,7 @@ const enContent = {
   },
   sharing: {
     title:
-      'Share Gieß den Kiez with those around you and help us expand the Gieß community:',
+      'Share Gieß den Kiez with those around you and help us expand the watering community:',
     content:
       "On Gieß den Kiez you can find out about Berlin's tree population, find thirsty trees and record when you watered them!",
   },
@@ -559,7 +556,7 @@ const enContent = {
       {
         title: 'About the project',
         description:
-          'The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin\'s ecosystem. <br/><br/>Would you like to find out more about watering trees, report pumps and exchange ideas with other active users? <br/><br/>Do you have feedback about Gieß den Kiez?<br/><a target="_blank" rel="noreferrer" href="https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK">Please feel free to answer a few questions for us.</a>',
+          'The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin\'s ecosystem. <br/><br/>Would you like to find out more about watering trees, report pumps and exchange ideas with other active users? <br/><br/>Do you have feedback about Gieß den Kiez?<br/><a target="_blank" rel="noreferrer" href="https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK">Please answer a few questions.</a>',
       },
       {
         title: 'Useful links',
@@ -569,12 +566,12 @@ const enContent = {
       {
         title: 'About Us',
         description:
-          '“Gieß den Kiez” is a project by <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>.  <br /> <br /> The CityLAB is a project by the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery. <br /> <br /> Exchange ideas with our casting community!  <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to hear from you.<br /> <br />Press inquiries are best addressed to:<br /> Anna Hantelmann<br /><a href="mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage">anna.hantelmann@ts.berlin</a><br /><a href="tel:+4915118457242">Tel.: 49 151 18457 242 </a>',
+          '“Gieß den Kiez” is a project by <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>.  <br /> <br /> The CityLAB is a project by the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery. <br /> <br /> Exchange ideas with our watering community!  <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to hear from you.<br /> <br />Press inquiries are best addressed to:<br /> Anna Hantelmann<br /><a href="mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage">anna.hantelmann@ts.berlin</a><br /><a href="tel:+4915118457242">Tel.: 49 151 18457 242 </a>',
       },
       {
         title: 'Data sources',
         description:
-          'The map shows the majority of Berlin\'s street and plant trees (839,049; as of May 2023). <ul><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS">Geoportal Berlin / Street trees</a></li><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand_an@senstadt&type=WFS">Geoportal Berlin / Plant trees</a></li><li><a target="blank" href="https://www.dwd.de/">German Weather Service</a></li><li>Pumps off <a target="blank" href=" https://www.openstreetmap.de"> Open Street Map</a></li></ul>',
+          'The map shows the majority of Berlin\'s street and plant trees (839,049 as of May 2023). <ul><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS">Geoportal Berlin / Street trees</a></li><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand_an@senstadt&type=WFS">Geoportal Berlin / Plant trees</a></li><li><a target="blank" href="https://www.dwd.de/">German Weather Service</a></li><li>Pumps off <a target="blank" href=" https://www.openstreetmap.de"> Open Street Map</a></li></ul>',
       },
     ],
     waterNeeds: [
@@ -740,6 +737,8 @@ const enContent = {
     passwordCouldNotBeChanged: 'Password could not be changed',
     passwordChangeSuccess: 'Password changed successfully',
     changePasswordFor: 'Change password for',
+    checkSignupMail:
+      'Check your inbox for "_1_", you should have received a mail from "_2_" containing a link to activate your account.',
   },
   collaborate: {
     tiles: [
@@ -751,28 +750,28 @@ const enContent = {
       },
       {
         icon: 'water',
-        title: 'Pour',
+        title: 'Water',
         description:
-          "Grab a watering can and become part of the watering community! Over a thousand members have already joined forces for Berlin's trees and regularly submit their waterings.",
+          "Grab a watering can and become part of the watering community! Over a thousand members have already joined forces for Berlin's trees and regularly log their waterings.",
       },
       {
         icon: 'subscribe',
-        title: 'To adopt',
+        title: 'Adopt',
         description:
-          'By adopting a tree - or several - you let your neighborhood know that these trees will be cared for. This is how coordinated engagement succeeds.',
+          'By adopting a tree - or several - you let your neighbourhood know that these trees will be cared for. This is how coordinated engagement succeeds.',
       },
       {
         icon: 'info',
         title: 'Exchange',
         description:
-          'Join ours <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to network with the irrigation community, exchange questions and coordinate irrigation in your neighborhood.',
+          'Join our <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to connect with the tree watering community, exchange questions and coordinate activities in your neighbourhood.',
       },
     ],
   },
   sales: {
     title: '<i>Giess den Kiez</i> also in your city?',
     subtitle:
-      'Cities like Leipzig, Magdeburg and Co. have already successfully joined the casting wave! ',
+      'Cities like Leipzig, Magdeburg and Co. have already successfully joined the watering wave! ',
     buttonText: 'Learn more!',
     buttonLink: 'https://deine-stadt.giessdenkiez.de',
   },
