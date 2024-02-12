@@ -650,28 +650,64 @@ const enContent = {
           'The linden tree has been considered the typical Berlin street tree for years. ',
       },
       {
-        id: 'MAPLE',
+        id: 'AHORN',
         title: 'Maple (Acer)',
         description:
           'The maple genus comprises around 20% of the total population. ',
       },
       {
-        id: 'OAK',
+        id: 'EICHE',
         title: 'Oak (Quercus)',
         description:
           'The proportion of oak trees is around 9% of the total stock. ',
       },
       {
-        id: 'PLANE',
+        id: 'PLATANE',
         title: 'Plane tree (Platanus)',
         description:
           'An ideal avenue tree for wide streets is the plane tree (Platanus acerifolia), which can reach a height of 20 to 30 m and an impressive crown diameter of 15 to 20 m. ',
       },
       {
-        id: 'CHESTNUT',
+        id: 'KASTANIE',
         title: 'Chestnut (Aesculus)',
         description:
           "The horse chestnut (Aesculus hippocastanum) accounts for around 5% of the total population, placing it in fifth place among Berlin's street trees.",
+      },
+      {
+        id: 'ROSSKASTANIE',
+        title: 'Horse chestnut (Aesculus hippocastanum)',
+        description:
+          'The horse chestnut (Aesculus hippocastanum) has a share of about 5% of the total stock, thus occupying fifth place among Berlins street trees',
+      },
+      {
+        id: 'ESCHE',
+        title: 'Ash (Fraxinus)',
+        description:
+          'The ash tree (Fraxinus) accounts for approx. 3% of the total population, making it the sixth most common street tree in Berlin.  With a growth height of up to 40 m, it is one of the tallest deciduous trees in Europe.',
+      },
+      {
+        id: 'BIRKE',
+        title: 'Birch (Betula)',
+        description:
+          'The birch (Betula) has a share of approx. 3% of the total population, thus occupying seventh place among Berlins trees. Although the birch is a pioneer tree that is very undemanding and grows on any soil, it is less suitable as a street tree because the tree grates often offer too little space for the shallow-rooted trees,
+      },
+      {
+        id: 'ROBINIE',
+        title: 'Robinia (Robinia)',
+        description:
+          'The robinia (Robinia) accounts for about 2% of the total population and thus occupies eighth place among Berlins street trees. It was cultivated as a park tree in the Berlin pleasure garden from 1672 and is now very common throughout Berlin. The robinia has low soil requirements and, thanks to the nodule bacteria on its roots, it can bind atmospheric nitrogen and thus fertilize the soil.',
+      },
+      {
+        id: 'PAPPEL',
+        title: 'Poplar (Populus)',
+        description:
+          'The poplar (Populus) accounts for about 2% of the total population. They have ovoid to triangular, partly heart-shaped leaves.',
+      },
+      {
+        id: 'ULME',
+        title: 'Elm (Ulmus)',
+        description:
+          'The elm (Ulmus) accounts for about 2% of Berlins total tree population. It can live up to 250 years.',
       },
     ],
     openSourceNote: 'Giess den Kiez is an',
