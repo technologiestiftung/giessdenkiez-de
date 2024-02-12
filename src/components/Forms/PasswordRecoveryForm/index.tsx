@@ -43,9 +43,9 @@ export const PasswordRecoveryForm = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const updatePassword = async () => {
-      const { passwordIsValid } = validatePassword(formData.password);
+      const { isPasswordValid } = validatePassword(formData.password);
 
-      if (!passwordIsValid) {
+      if (!isPasswordValid) {
         setNotification({
           message: 'Passwort ist nicht sicher genug',
           type: 'error',

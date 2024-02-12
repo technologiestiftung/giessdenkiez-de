@@ -10,7 +10,7 @@ export interface PasswordPattern {
 }
 export function validatePassword(
   password: string
-): { passwordIsValid: boolean; patterns: PasswordPattern } {
+): { isPasswordValid: boolean; patterns: PasswordPattern } {
   const patterns = {
     length: password.length >= 8,
     lowerCase: /[a-z]/.test(password),
@@ -18,5 +18,8 @@ export function validatePassword(
     specialChar: specialCharactersRegex.test(password),
     digit: /[0-9]/.test(password),
   };
-  return { patterns, passwordIsValid: Object.values(patterns).every(Boolean) };
+  return {
+    patterns,
+    isPasswordValid: Object.values(patterns).every(pattern => pattern === true),
+  };
 }

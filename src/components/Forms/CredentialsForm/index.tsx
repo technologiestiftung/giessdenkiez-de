@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyledForm, StyledFormRow } from '..';
 import { CredentialsData } from '../../../common/interfaces';
+import { UsernamePattern } from '../../../utils/validateUsername';
+import { UserNotification } from '../../Notification';
 import ButtonSubmitRound from '../Buttons/ButtonSubmitRound';
 import { StyledFormTextInput } from '../Inputs';
 import { StyledLabel } from '../Labels';
 import { PasswordValidation } from '../PasswordValidation';
 import { UsernameValidation } from '../UsernameValidation';
-import { UsernamePattern } from '../../../utils/validateUsername';
 
 export const CredentialsForm = ({
   formData,
@@ -15,8 +16,8 @@ export const CredentialsForm = ({
   buttonText,
   isRecovery,
   isSignIn,
-
   usernamePatterns,
+  isUsernameTaken,
 }: {
   formData: CredentialsData;
   handleInputChange: (
@@ -28,6 +29,7 @@ export const CredentialsForm = ({
   isRecovery?: boolean;
   isSignIn?: boolean;
   usernamePatterns?: UsernamePattern;
+  isUsernameTaken?: boolean;
 }) => {
   return (
     <>
@@ -62,8 +64,16 @@ export const CredentialsForm = ({
               onChange={handleInputChange}
               value={formData.username}
             ></StyledFormTextInput>
-            {usernamePatterns && (
-              <UsernameValidation patterns={usernamePatterns} />
+            <StyledFormRow>
+              {usernamePatterns && (
+                <UsernameValidation patterns={usernamePatterns} />
+              )}
+            </StyledFormRow>
+            {isUsernameTaken && (
+              <UserNotification
+                message={'Benutzername bereits vergeben'}
+                type={'error'}
+              />
             )}
           </StyledFormRow>
         )}
@@ -82,8 +92,10 @@ export const CredentialsForm = ({
               onChange={handleInputChange}
               value={formData.password}
             ></StyledFormTextInput>
-            {!isSignIn && <PasswordValidation password={formData.password} />}
           </StyledFormRow>
+        )}
+        {!isRecovery && !isSignIn && (
+          <PasswordValidation password={formData.password} />
         )}
         <StyledFormRow>
           <ButtonSubmitRound type='submit'>{buttonText}</ButtonSubmitRound>
