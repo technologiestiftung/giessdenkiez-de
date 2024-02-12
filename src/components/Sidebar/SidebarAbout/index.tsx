@@ -1,20 +1,21 @@
 import React, { FC } from 'react';
 
-import SidebarTitle from '../SidebarTitle/';
-import SocialSharing from '../../SocialSharing';
-import OpenSourceNote from '../../OpenSource';
-import content from '../../../assets/content';
-import ExpandablePanel from '../../ExpandablePanel';
-import SmallParagraph from '../../SmallParagraph';
-import { SlackButton } from '../../SlackButton';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 import Credits from '../../Credits';
+import ExpandablePanel from '../../ExpandablePanel';
+import OpenSourceNote from '../../OpenSource';
+import { SlackButton } from '../../SlackButton';
+import SmallParagraph from '../../SmallParagraph';
+import SocialSharing from '../../SocialSharing';
+import SidebarTitle from '../SidebarTitle/';
 
 const SidebarAbout: FC = () => {
+  const content = useLocalizedContent();
   const { sidebar } = content;
-  const { about } = sidebar;
+  const { about, furtherInfo } = sidebar;
   return (
     <>
-      <SidebarTitle>Weitere Infos</SidebarTitle>
+      <SidebarTitle>{furtherInfo}</SidebarTitle>
       {about.map((item, idx) => (
         <ExpandablePanel $isExpanded title={item.title} key={item.title}>
           <SmallParagraph>{item.description}</SmallParagraph>

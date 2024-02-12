@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { DayWaterAmountsType, formatXLabel } from './mapStackedBarchartData';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 interface TooltipPropsType {
   hoveredBar: DayWaterAmountsType | null;
@@ -86,21 +87,29 @@ export const Tooltip: FC<TooltipPropsType> = ({ hoveredBar, today }) => (
   </StyledWrapper>
 );
 
-export const YAxisLegend: FC = () => (
-  <g transform='translate(0,12)'>
-    <StyledYAxisLabelText>↑ Liter pro m²</StyledYAxisLabelText>
-  </g>
-);
+export const YAxisLegend: FC = () => {
+  const content = useLocalizedContent();
+  const { litersPerSqm } = content.sidebar.tree;
+  return (
+    <g transform='translate(0,12)'>
+      <StyledYAxisLabelText>↑ {litersPerSqm}</StyledYAxisLabelText>
+    </g>
+  );
+};
 
-export const ColorLegend: FC = () => (
-  <StyledLegendWrapper>
-    <div>
-      {wateredCircle}
-      <div>&nbsp;Gießungen</div>
-    </div>
-    <div>
-      {rainCircle}
-      <div>&nbsp;Regen</div>
-    </div>
-  </StyledLegendWrapper>
-);
+export const ColorLegend: FC = () => {
+  const content = useLocalizedContent();
+  const { rain, waterings } = content.sidebar.tree;
+  return (
+    <StyledLegendWrapper>
+      <div>
+        {wateredCircle}
+        <div>&nbsp;{waterings}</div>
+      </div>
+      <div>
+        {rainCircle}
+        <div>&nbsp;{rain}</div>
+      </div>
+    </StyledLegendWrapper>
+  );
+};

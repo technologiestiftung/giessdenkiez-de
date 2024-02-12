@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-import content from '../../assets/content';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 const iconTrees = '/images/icon-trees.svg';
 
@@ -59,7 +59,7 @@ const LoadingIcon: FC<{ text?: string; hasError?: boolean }> = ({
   text,
   hasError,
 }) => {
-  const { intro } = content;
+  const { intro } = useLocalizedContent();
   const { disclaimer } = intro;
   return (
     <IconContainer>

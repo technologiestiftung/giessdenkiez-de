@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-
-import content from '../../assets/content';
 import SmallParagraph from '../SmallParagraph';
 import WaterDrops from '../WaterDrops';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 const StyledDescription = styled(SmallParagraph)`
   padding: 4px 0 8px;
@@ -29,6 +28,7 @@ const StyledTitleText = styled.span`
 `;
 
 const TreeWatering: FC = () => {
+  const content = useLocalizedContent();
   return (
     <StyledWrapper>
       {content.sidebar.waterNeeds.map(({ title, description }, i) => {

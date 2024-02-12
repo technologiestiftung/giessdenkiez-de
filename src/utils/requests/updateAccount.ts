@@ -7,6 +7,10 @@ interface updateAccountPropType {
   newEmail: string;
   newUsername: string;
   currentSession: Session | null;
+  emailSuccessMessageText: string;
+  usernameSuccessMessageText: string;
+  usernameErrorMessage: string;
+  alreadyRegisteredHint: string;
 }
 
 interface UpdateAccountReturnType {
@@ -22,6 +26,10 @@ export const updateAccount = async ({
   currentSession,
   newUsername,
   newEmail,
+  emailSuccessMessageText,
+  usernameSuccessMessageText,
+  usernameErrorMessage,
+  alreadyRegisteredHint,
 }: updateAccountPropType): Promise<UpdateAccountReturnType> => {
   try {
     const successMessages: string[] = [];
@@ -39,6 +47,7 @@ export const updateAccount = async ({
         const emailSuccessMessage = await updateEmail({
           oldEmail: currentSession.user.email ?? '',
           newEmail,
+          emailSuccessMessageText,
         });
         emailSuccessMessage && successMessages.push(emailSuccessMessage);
       } catch (error) {
@@ -54,7 +63,10 @@ export const updateAccount = async ({
       try {
         const usernameSuccessMessage = await updateUsername(
           newUsername,
-          currentSession
+          currentSession,
+          usernameSuccessMessageText,
+          usernameErrorMessage,
+          alreadyRegisteredHint
         );
         usernameSuccessMessage && successMessages.push(usernameSuccessMessage);
       } catch (error) {

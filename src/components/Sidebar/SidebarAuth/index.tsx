@@ -17,14 +17,7 @@ import {
 import debounce from 'lodash/debounce';
 import { AuthView } from '../../Forms/AuthForm';
 import { validatePassword } from '../../../utils/validatePassword';
-
-enum titles {
-  signin = 'Anmelden',
-  signup = 'Registrieren',
-  recovery = 'Passwort vergessen',
-  confirm = 'Account Bestätigen',
-  change = 'Passwort ändern',
-}
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 export const StyledSpacer = styled.div`
   padding: 10px;
@@ -44,6 +37,47 @@ export const SidebarAuth = ({
   view: AuthView;
   setView: React.Dispatch<React.SetStateAction<AuthView>>;
 }) => {
+  const content = useLocalizedContent();
+
+  const {
+    signinTitle,
+    signupTitle,
+    signinAction,
+    signupAction,
+    noAccountHint,
+    registerLink,
+    forgotPasswordLink,
+    forgotPasswordHint,
+  } = content.auth;
+
+  const {
+    checkUsername,
+    userExistsAlready,
+    emailCouldNotBeSent,
+    usernameOrPasswordWrong,
+    ooops,
+    checkMailForPasswordReset,
+    usernameTaken,
+  } = content.auth.errors;
+
+  const {
+    resetPassword,
+    backToLogin,
+    clickHere,
+    bored,
+    profile,
+  } = content.auth;
+
+  const { confirm, editPasswordTitle } = content.sidebar.account;
+
+  const titles = {
+    signin: signinTitle,
+    signup: signupTitle,
+    recovery: forgotPasswordLink,
+    confirm: confirm,
+    change: editPasswordTitle,
+  };
+
   const supabase = useSupabaseClient();
 
   const [formData, setFormData] = useState<CredentialsData>({
@@ -144,7 +178,7 @@ export const SidebarAuth = ({
 
     if (!isPasswordValid) {
       setNotification({
-        message: 'Bitte überprüfe dein Passwort',
+        message: checkUsername,
         type: 'error',
       });
       return;
@@ -164,7 +198,7 @@ export const SidebarAuth = ({
       console.error('SIGNUP ERROR', error);
       if (error.message.includes('User already registered')) {
         setNotification({
-          message: 'Benutzer bereits registriert',
+          message: userExistsAlready,
           type: 'error',
         });
         setView('signin');
@@ -175,7 +209,7 @@ export const SidebarAuth = ({
 
     if (!data.user) {
       setNotification({
-        message: `Eine E-Mail an "${email}" konnte nicht verschickt werden. Versuch es erneut`,
+        message: emailCouldNotBeSent.replace('_1_', email),
         type: 'error',
       });
       setView('signup');
@@ -194,7 +228,7 @@ export const SidebarAuth = ({
       });
       if (error) {
         setNotification({
-          message: 'Benutzername oder Passwort ist falsch',
+          message: usernameOrPasswordWrong,
           type: 'error',
         });
         console.error(error);
@@ -202,7 +236,7 @@ export const SidebarAuth = ({
       }
       if (!data.user) {
         setNotification({
-          message: 'Ups... da ist etwas schief gelaufen',
+          message: ooops,
           type: 'error',
         });
         console.error('No user');
@@ -211,7 +245,7 @@ export const SidebarAuth = ({
 
       if (!data.session) {
         setNotification({
-          message: 'Ups... da ist etwas schief gelaufen',
+          message: ooops,
           type: 'error',
         });
         console.error('No session');
@@ -239,7 +273,7 @@ export const SidebarAuth = ({
     }
     if (data) {
       setNotification({
-        message: `Überprüfe Deine E-Mail „${email}” nach einem Link um Dein Passwort zu ändern`,
+        message: checkMailForPasswordReset.replace('_1_', email),
         type: 'success',
       });
     }
@@ -281,14 +315,14 @@ export const SidebarAuth = ({
           formData={formData}
           handleInputChange={handleInputChange}
           handleSubmit={handleSignInSubmit}
-          buttonText='Einloggen'
+          buttonText={signinAction}
           isSignIn={true}
         />
       );
       linkText = (
         <CredentialsSubline
-          text={'Du hast noch keinen Account?'}
-          aText={'Registrier Dich'}
+          text={noAccountHint}
+          aText={registerLink}
           onClick={() => setView('signup')}
         />
       );
@@ -300,7 +334,7 @@ export const SidebarAuth = ({
           formData={formData}
           handleInputChange={handleInputChange}
           handleSubmit={handleSignUpSubmit}
-          buttonText='Registrieren'
+          buttonText={signupAction}
           usernamePatterns={usernamePatterns}
           isUsernameTaken={isUsernameTaken}
           isSignIn={false}
@@ -322,14 +356,14 @@ export const SidebarAuth = ({
           formData={formData}
           handleInputChange={handleInputChange}
           handleSubmit={handleRecoverySubmit}
-          buttonText='Passwort zurücksetzen'
+          buttonText={resetPassword}
           isRecovery={true}
         />
       );
       linkText = (
         <CredentialsSubline
-          text={'Zurück zur Anmeldung?'}
-          aText={'Hier klicken'}
+          text={backToLogin}
+          aText={clickHere}
           onClick={() => setView('signin')}
         />
       );
@@ -347,10 +381,8 @@ export const SidebarAuth = ({
 
       linkText = (
         <CredentialsSubline
-          text={
-            'Dir ist langweilig bis dahin? Dann lies etwas über Gieß den Kiez!'
-          }
-          aText={'Hier klicken'}
+          text={bored}
+          aText={clickHere}
           onClick={() => Router.push('/about')}
         />
       );
@@ -358,7 +390,7 @@ export const SidebarAuth = ({
   }
 
   if (isLoading) {
-    return <SidebarLoading title='Profil' />;
+    return <SidebarLoading title={profile} />;
   }
 
   return (
@@ -371,8 +403,8 @@ export const SidebarAuth = ({
           <>
             <StyledSpacer />
             <CredentialsSubline
-              text={' Oh nein. Du hast Dein '}
-              aText={'Passwort vergessen?'}
+              text={forgotPasswordHint}
+              aText={forgotPasswordLink}
               onClick={() => setView('recovery')}
             />
           </>

@@ -7,12 +7,13 @@ import OverlayDescription from '../OverlayDescription/';
 import ButtonRound from '../../ButtonRound';
 import Credits from '../../Credits';
 
-import content from '../../../assets/content';
-import { useActions } from '../../../state/unistore-hooks';
+import { useActions, useStoreState } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
 import OverlayTiles from '../OverlayTiles';
-
-const { whatsNew } = content;
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
+import Switch from '../../Switch';
+import { Language } from '../../../assets/content-types';
+import { setLocalStorageLanguage } from '../../../assets/local-storage';
 
 const StyledNewsSection = styled.section`
   background-color: #f7fffa;
@@ -99,8 +100,10 @@ const StyledButtonWrapper = styled.div`
 
 const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
-  const { intro, collaborate } = content;
-  const { title, subline, description } = intro;
+  const { intro, collaborate, whatsNew } = useLocalizedContent();
+  const { title, subline, description, action } = intro;
+  const language = useStoreState('language');
+  const { setLanguage } = useActions();
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -116,6 +119,15 @@ const OverlayTop: FC = () => {
       <Logo>
         <OverlayTitle size='xxl' title={title} />
         <Icon iconType='trees' />
+        <Switch
+          firstOption={Language.de}
+          secondOption={Language.en}
+          selectedOption={language}
+          onOptionSelect={option => {
+            setLocalStorageLanguage(option as Language);
+            setLanguage(option as Language);
+          }}
+        ></Switch>
       </Logo>
       <OverlayTitle size='xxl' title={subline} />
       {/* the beow is here for local testing */}
@@ -133,7 +145,7 @@ const OverlayTop: FC = () => {
             }}
             type='cta'
           >
-            Los geht&apos;s
+            {action}
           </ButtonRound>
         </StyledButtonWrapper>
 

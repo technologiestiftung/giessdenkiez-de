@@ -1,5 +1,8 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import Link from 'next/link';
+import localizedContent from '../assets/content';
+import { I18N_KEY } from '../assets/local-storage';
+
 /**
  * For more info on the error boundary see
  * https://reactjs.org/docs/error-boundaries.html
@@ -7,11 +10,27 @@ import Link from 'next/link';
  */
 export default class ErrorBoundary extends Component<
   Record<string, unknown>,
-  { hasError: boolean; error: Error | null }
+  {
+    hasError: boolean;
+    error: Error | null;
+    title: string | undefined;
+    contact: string | undefined;
+    issue: string | undefined;
+    reload: string | undefined;
+    backToHome: string | undefined;
+  }
 > {
   constructor(props: Record<string, unknown>) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = {
+      hasError: false,
+      error: null,
+      title: undefined,
+      contact: undefined,
+      issue: undefined,
+      reload: undefined,
+      backToHome: undefined,
+    };
   }
 
   static getDerivedStateFromError(): { hasError: boolean } {
@@ -24,6 +43,20 @@ export default class ErrorBoundary extends Component<
 
     this.setState({ hasError: this.state.hasError, error });
     console.error(error, errorInfo);
+  }
+
+  componentDidMount() {
+    const language = localStorage.getItem(I18N_KEY);
+    const content = localizedContent[language ?? 'de'];
+    const { title, contact, issue, reload, backToHome } = content.error;
+    this.setState({
+      ...this.state,
+      title,
+      contact,
+      issue,
+      reload,
+      backToHome,
+    });
   }
 
   render(): ReactNode {
@@ -89,7 +122,7 @@ export default class ErrorBoundary extends Component<
                   marginBottom: '0',
                 }}
               >
-                Irgendwas ist schief gelaufen.
+                {this.state.title}
               </h1>
               <p
                 style={{
@@ -98,14 +131,14 @@ export default class ErrorBoundary extends Component<
                   lineHeight: '145%',
                 }}
               >
-                Bitte wende Dich an das{' '}
+                {this.state.contact}{' '}
                 <a
                   href='mailto:giessdenkiez@citylab-berlin.de'
                   className='error-page-link'
                 >
                   CityLAB
                 </a>{' '}
-                oder schreib uns einen Issue auf{' '}
+                {this.state.issue}{' '}
                 <a
                   href='https://github.com/technologiestiftung/giessdenkiez-de/issues/new'
                   className='error-page-link'
@@ -113,10 +146,10 @@ export default class ErrorBoundary extends Component<
                   GitHub
                 </a>
                 . <br />
-                Vielleicht hilft es auch die Seite neu zu laden?
+                {this.state.reload}
               </p>
               <Link href='/' className='error-page-button'>
-                Zurück zur Startseite
+                {this.state.backToHome}
               </Link>
             </div>
           </div>

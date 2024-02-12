@@ -19,6 +19,7 @@ import UserCredentials from '../../UserCredentials';
 import WateredTreesIndicator from '../../WateredTreesIndicator';
 import { SidebarLoading } from '../SidebarLoading';
 import SidebarTitle from '../SidebarTitle/';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 const LastButtonRound = styled(ButtonRound)`
   margin-bottom: 20px !important;
@@ -34,17 +35,21 @@ const WateringsTitle = styled.span<StyledComponentType>`
   font-weight: bold;
 `;
 
-const confirmAccountDeletion = (): boolean =>
-  window.confirm(
-    `🚨 🚨 🚨
-Willst Du Deinen Account wirklich löschen? Diese Aktion ist endgültig.
-Alle Deine Benutzerdaten werden damit sofort gelöscht!`
-  );
-
 const SidebarProfile: FC<{
   isLoading?: boolean;
   userData?: UserDataType | undefined;
 }> = ({ isLoading: isLoadingProps }) => {
+  const content = useLocalizedContent();
+  const {
+    loggedInHint,
+    title,
+    progress,
+    adoptedTrees,
+    noTreesAdopted,
+    deleteAccountHint,
+    deleteAccountAction,
+    deleteAccountWarning,
+  } = content.sidebar.profile;
   const { userData: userDataState } = useUserData();
   const { userProfile } = useUserProfile();
   const { deleteAccount } = useAccountActions();
@@ -53,13 +58,16 @@ const SidebarProfile: FC<{
   const isAuthenticated = session?.user?.id ? true : false;
   const isLoadingAuthInfo = isAuthenticated && !userData;
   const isLoading = isLoadingProps || isLoadingSupase || isLoadingAuthInfo;
-  const { replace: routerReplace } = useRouter();
   const { logout } = useAccountActions();
   const [requestedLogout, setRequestedLogout] = useState(false);
+  const { replace: routerReplace } = useRouter();
 
   useEffect(() => {
     if (!session && !requestedLogout) routerReplace('/auth');
   }, [requestedLogout, session, routerReplace]);
+
+  const confirmAccountDeletion = (): boolean =>
+    window.confirm(deleteAccountWarning);
 
   const handleDeleteClick = (): void => {
     if (!confirmAccountDeletion()) return;
@@ -67,18 +75,14 @@ const SidebarProfile: FC<{
   };
 
   if (isLoading) {
-    return <SidebarLoading title='Profil' />;
+    return <SidebarLoading title={title} />;
   }
   if (!userData) {
     return (
       <>
-        <SidebarTitle>Profil</SidebarTitle>
+        <SidebarTitle>{title}</SidebarTitle>
         <FlexCol>
-          <Paragraph>
-            Du bist momentan nicht eingeloggt. Wenn Du das Gießen von Bäumen in
-            Deiner Umgebung hier eintragen möchtest, dann registriere Dich oder
-            logge Dich ein.
-          </Paragraph>
+          <Paragraph>{loggedInHint}</Paragraph>
           <Login width='-webkit-fill-available' />
           <ParticipateButton />
         </FlexCol>
@@ -97,12 +101,12 @@ const SidebarProfile: FC<{
 
   return (
     <>
-      <SidebarTitle>Profil</SidebarTitle>
-      <WateringsTitle>Dein Gießfortschritt</WateringsTitle>
+      <SidebarTitle>{title}</SidebarTitle>
+      <WateringsTitle>{progress}</WateringsTitle>
       <WateredTreesIndicator waterings={userData.waterings} />
-      <ExpandablePanel $isExpanded title={<span>Adoptierte Bäume</span>}>
+      <ExpandablePanel $isExpanded title={<span>{adoptedTrees}</span>}>
         {userData.adoptedTrees.length === 0 ? (
-          'Du hast noch keine Bäume adoptiert.'
+          noTreesAdopted
         ) : (
           <TreesList trees={userData.adoptedTrees} />
         )}
@@ -120,12 +124,7 @@ const SidebarProfile: FC<{
         }}
       />
       <>
-        <Paragraph>
-          Möchtest Du deinen Account löschen? Damit werden alle von dir
-          generierten Wässerungsdaten einem anonymen Benutzer zugeordnet. Dein
-          Benutzer bei unserem Authentifizierungsdienst Supabase.com wird sofort
-          und unwiderruflich gelöscht.
-        </Paragraph>
+        <Paragraph>{deleteAccountHint}</Paragraph>
         <LastButtonRound
           width='-webkit-fill-available'
           onClick={evt => {
@@ -133,7 +132,7 @@ const SidebarProfile: FC<{
             handleDeleteClick();
           }}
         >
-          Account Löschen
+          {deleteAccountAction}
         </LastButtonRound>
       </>
     </>
