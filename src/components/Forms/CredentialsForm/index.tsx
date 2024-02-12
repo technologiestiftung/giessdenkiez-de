@@ -1,12 +1,17 @@
 import React from 'react';
 import { StyledForm, StyledFormRow } from '..';
 import { CredentialsData } from '../../../common/interfaces';
+import { UsernamePattern } from '../../../utils/validateUsername';
+import {
+  UserNotification,
+  UserNotificationObjectType,
+} from '../../Notification';
 import ButtonSubmitRound from '../Buttons/ButtonSubmitRound';
 import { StyledFormTextInput } from '../Inputs';
 import { StyledLabel } from '../Labels';
 import { PasswordValidation } from '../PasswordValidation';
 import { UsernameValidation } from '../UsernameValidation';
-import { UsernamePattern } from '../../../utils/validateUsername';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 export const CredentialsForm = ({
   formData,
@@ -15,8 +20,9 @@ export const CredentialsForm = ({
   buttonText,
   isRecovery,
   isSignIn,
-
   usernamePatterns,
+  isUsernameTaken,
+  currentNotification,
 }: {
   formData: CredentialsData;
   handleInputChange: (
@@ -28,7 +34,23 @@ export const CredentialsForm = ({
   isRecovery?: boolean;
   isSignIn?: boolean;
   usernamePatterns?: UsernamePattern;
+  isUsernameTaken?: boolean;
+  currentNotification: UserNotificationObjectType | null;
 }) => {
+  const content = useLocalizedContent();
+
+  const {
+    signinTitle,
+    email,
+    username,
+    password,
+    signinAction,
+    noAccountHint,
+    registerLink,
+    forgotPasswordHint,
+    forgotPasswordLink,
+  } = content.auth;
+
   return (
     <>
       <StyledForm
@@ -38,7 +60,7 @@ export const CredentialsForm = ({
       >
         <StyledFormRow>
           <StyledLabel htmlFor='email'>
-            <>E-Mail</>
+            <>{email}</>
           </StyledLabel>
           <StyledFormTextInput
             id='email'
@@ -52,7 +74,7 @@ export const CredentialsForm = ({
         {!isSignIn && !isRecovery && (
           <StyledFormRow>
             <StyledLabel htmlFor='username'>
-              <>Benutzername</>
+              <>{username}</>
             </StyledLabel>
             <StyledFormTextInput
               id='username'
@@ -62,15 +84,23 @@ export const CredentialsForm = ({
               onChange={handleInputChange}
               value={formData.username}
             ></StyledFormTextInput>
-            {usernamePatterns && (
-              <UsernameValidation patterns={usernamePatterns} />
+            <StyledFormRow>
+              {usernamePatterns && (
+                <UsernameValidation patterns={usernamePatterns} />
+              )}
+            </StyledFormRow>
+            {isUsernameTaken && (
+              <UserNotification
+                message={'Benutzername bereits vergeben'}
+                type={'error'}
+              />
             )}
           </StyledFormRow>
         )}
         {!isRecovery && (
           <StyledFormRow>
             <StyledLabel htmlFor='password'>
-              <>Passwort</>
+              <>{password}</>
             </StyledLabel>
             <StyledFormTextInput
               id='password'
@@ -82,12 +112,22 @@ export const CredentialsForm = ({
               onChange={handleInputChange}
               value={formData.password}
             ></StyledFormTextInput>
-            {!isSignIn && <PasswordValidation password={formData.password} />}
           </StyledFormRow>
+        )}
+        {!isRecovery && !isSignIn && (
+          <PasswordValidation password={formData.password} />
         )}
         <StyledFormRow>
           <ButtonSubmitRound type='submit'>{buttonText}</ButtonSubmitRound>
         </StyledFormRow>
+        {currentNotification && (
+          <StyledFormRow>
+            <UserNotification
+              type={currentNotification.type}
+              message={currentNotification.message}
+            />
+          </StyledFormRow>
+        )}
       </StyledForm>
     </>
   );

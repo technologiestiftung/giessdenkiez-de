@@ -3,14 +3,18 @@ import { Modal } from '../Modal';
 import { AccountEditForm } from '../Forms/AccountEditForm';
 import ButtonRound from '../ButtonRound';
 import { UserNotification } from '../Notification';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 export interface AccountEditModalProps {
   onClose: () => void;
 }
 export const AccountEditModal: FC<AccountEditModalProps> = ({ onClose }) => {
+  const content = useLocalizedContent();
+  const { editTitle, editClose } = content.sidebar.account;
+
   const [successMessages, setSuccessMessages] = useState<string[] | null>(null);
   return (
-    <Modal title={'Account bearbeiten'} isOpen={true} setIsOpen={onClose}>
+    <Modal title={editTitle} isOpen={true} setIsOpen={onClose}>
       {successMessages ? (
         <div
           style={{
@@ -29,7 +33,7 @@ export const AccountEditModal: FC<AccountEditModalProps> = ({ onClose }) => {
           </div>
           <div style={{ paddingTop: '40px' }}>
             <ButtonRound width='fit-content' onClick={onClose}>
-              Schließen
+              {editClose}
             </ButtonRound>
           </div>
         </div>

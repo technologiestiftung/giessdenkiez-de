@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Icon from '../Icons';
 import { WateringType } from '../../common/interfaces';
 import SmallParagraph from '../SmallParagraph';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,6 +32,9 @@ const LitersAmountNumber = styled.span`
 const WateredTreesIndicator: FC<{ waterings: WateringType[] }> = ({
   waterings,
 }) => {
+  const content = useLocalizedContent();
+  const { timesWatered, litersWatered } = content.sidebar.profile;
+
   const [liters, setLiters] = useState(0);
   const [times, setTimes] = useState(0);
 
@@ -43,12 +47,12 @@ const WateredTreesIndicator: FC<{ waterings: WateringType[] }> = ({
   const progressItems = [
     {
       icon: 'here',
-      label: 'mal gegossen',
+      label: timesWatered,
       id: 'timesSpend',
     },
     {
       icon: 'here',
-      label: 'Liter gegossen.',
+      label: litersWatered,
       id: 'liters',
     },
   ];

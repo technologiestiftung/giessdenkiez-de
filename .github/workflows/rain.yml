@@ -9,12 +9,12 @@ on:
 jobs:
   rain:
     # Using the payload of the repository_dispatch webhook to specify the environment
-    environment: "${{ github.event.client_payload.environment }}"
+    environment: '${{ github.event.client_payload.environment }}'
     runs-on: ubuntu-latest
     name: Aggregate rain data from DWD radolan
     steps:
       - name: Harvester
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.2.1
+        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.2.2
         id: harvester
         with:
           PG_SERVER: ${{ secrets.PG_SERVER }}

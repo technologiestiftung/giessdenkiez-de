@@ -14,6 +14,7 @@ import {
 import { ItemLabel } from './LegendLabels';
 import SmallParagraph from '../SmallParagraph';
 import { isMobile } from 'react-device-detect';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 export interface IsActiveProps {
   $isActive?: boolean;
@@ -84,12 +85,16 @@ const MapLayerLegend: FC = () => {
 
   const [legendExpanded, setLegendExpanded] = useState(isMobile ? false : true);
 
+  const content = useLocalizedContent();
+
   if (legendExpanded === false) {
     return (
       <LegendDiv onClick={() => setLegendExpanded(true)}>
         <FlexSpace>
           <FlexColumn>
-            <StyledCardDescription>Legende</StyledCardDescription>
+            <StyledCardDescription>
+              {content.legend.title}
+            </StyledCardDescription>
           </FlexColumn>
           <LegendToggle>+</LegendToggle>
         </FlexSpace>
@@ -103,11 +108,11 @@ const MapLayerLegend: FC = () => {
         <FlexColumnLast>
           <StyledCardDescription onClick={() => setLegendExpanded(false)}>
             {visibleMapLayer === 'pumps'
-              ? 'Öffentliche Pumpen'
-              : 'Niederschlag'}
+              ? content.legend.pumps
+              : content.legend.precipitation}
           </StyledCardDescription>
           {visibleMapLayer !== 'pumps' && (
-            <SmallParagraph>der letzten 30 Tage (Liter)</SmallParagraph>
+            <SmallParagraph>{content.legend.ofLastDays}</SmallParagraph>
           )}
         </FlexColumnLast>
         <LegendToggle $isActive onClick={() => setLegendExpanded(false)}>
@@ -123,7 +128,9 @@ const MapLayerLegend: FC = () => {
       {visibleMapLayer === 'pumps' && <PumpsColorLegend />}
 
       <FlexColumnLast $isLast={true}>
-        <StyledCardDescription>Datenpunkte</StyledCardDescription>
+        <StyledCardDescription>
+          {content.legend.dataPoints}
+        </StyledCardDescription>
         <RadiosParent>
           <FlexRowFit
             $isActive={visibleMapLayer === 'trees'}
@@ -132,7 +139,7 @@ const MapLayerLegend: FC = () => {
             }}
           >
             <LegendRadio checked={visibleMapLayer === 'trees'} />
-            <StyledItemLabel>Straßen- & Anlagenbäume</StyledItemLabel>
+            <StyledItemLabel>{content.legend.treeLayer}</StyledItemLabel>
           </FlexRowFit>
           <FlexRowFit
             $isActive={visibleMapLayer === 'pumps'}
@@ -141,7 +148,7 @@ const MapLayerLegend: FC = () => {
             }}
           >
             <LegendRadio checked={visibleMapLayer === 'pumps'} />
-            <StyledItemLabel>Öffentl. Pumpen</StyledItemLabel>
+            <StyledItemLabel>{content.legend.pumps}</StyledItemLabel>
           </FlexRowFit>
           <FlexRowFit
             $isActive={visibleMapLayer === 'rain'}
@@ -150,7 +157,9 @@ const MapLayerLegend: FC = () => {
             }}
           >
             <LegendRadio checked={visibleMapLayer === 'rain'} />
-            <StyledItemLabel>Niederschlagsflächen</StyledItemLabel>
+            <StyledItemLabel>
+              {content.legend.precipitationAreas}
+            </StyledItemLabel>
           </FlexRowFit>
         </RadiosParent>
       </FlexColumnLast>

@@ -4,16 +4,23 @@ import ButtonRound from '../ButtonRound';
 import { PasswordEditForm } from '../Forms/PasswordEditForm';
 import { Modal } from '../Modal';
 import { UserNotification } from '../Notification';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 interface PasswordEditModalType {
   onClose: () => void;
 }
 
 export const PasswordEditModal: FC<PasswordEditModalType> = ({ onClose }) => {
+  const content = useLocalizedContent();
+  const {
+    editPasswordTitle,
+    editClose,
+    editPasswordSuccess,
+  } = content.sidebar.account;
   const [passwordEditCompleted, setPasswordEditCompleted] = useState(false);
   return (
     <Modal
-      title='Passwort ändern'
+      title={editPasswordTitle}
       isOpen={true}
       setIsOpen={onClose}
       style={{ minHeight: '250px' }}
@@ -27,12 +34,9 @@ export const PasswordEditModal: FC<PasswordEditModalType> = ({ onClose }) => {
             placeContent: 'space-between',
           }}
         >
-          <UserNotification
-            message='Dein Passwort wurde erfolgreich geändert'
-            type='success'
-          />
+          <UserNotification message={editPasswordSuccess} type='success' />
           <ButtonRound width='fit-content' onClick={onClose}>
-            Schließen
+            {editClose}
           </ButtonRound>
         </div>
       ) : (

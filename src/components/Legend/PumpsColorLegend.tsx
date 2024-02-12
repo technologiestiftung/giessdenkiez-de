@@ -9,29 +9,31 @@ import {
 import { FlexRow, FlexColumn } from './LegendFlexBoxes';
 import { PumpLabel } from './LegendLabels';
 import { PumpsDot } from './LegendRectsDots';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 const FlexRowDots = styled(FlexColumn)`
   flex-direction: row;
 `;
 export const PumpsColorLegend: FC = () => {
+  const content = useLocalizedContent();
   return (
     <FlexRow>
       <FlexRowDots>
         <PumpsDot color={workingColor.hex} size={13} />
-        <PumpLabel>funktionsfähig</PumpLabel>
+        <PumpLabel>{content.legend.pumpState.working}</PumpLabel>
       </FlexRowDots>
       <FlexRowDots>
         <PumpsDot color={brokenColor.hex} size={13} />
-        <PumpLabel>defekt</PumpLabel>
+        <PumpLabel>{content.legend.pumpState.defect}</PumpLabel>
       </FlexRowDots>
 
       <FlexRowDots>
         <PumpsDot color={lockedColor.hex} size={13} />
-        <PumpLabel>verriegelt</PumpLabel>
+        <PumpLabel>{content.legend.pumpState.locked}</PumpLabel>
       </FlexRowDots>
       <FlexRowDots>
         <PumpsDot color={defaultColor.hex} size={13} />
-        <PumpLabel>unbekannt</PumpLabel>
+        <PumpLabel>{content.legend.pumpState.unknown}</PumpLabel>
       </FlexRowDots>
     </FlexRow>
   );

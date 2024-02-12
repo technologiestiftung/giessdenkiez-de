@@ -20,8 +20,9 @@ export const updatePassword = async ({
   currentSession,
 }: updatePasswordPropType): Promise<string> => {
   try {
-    const { passwordIsValid } = validatePassword(newPassword);
-    if (!passwordIsValid) {
+    const { isPasswordValid } = validatePassword(newPassword);
+
+    if (!isPasswordValid) {
       throw new Error('Dein neues Passwort ist nicht sicher genug');
     }
 
@@ -32,6 +33,7 @@ export const updatePassword = async ({
       email: currentSession?.user?.email ?? '',
       password: oldPassword,
     });
+
     if (verifyUserError) {
       const errorMessage = verifyUserError.message.includes(
         'Invalid login credentials'
@@ -66,6 +68,6 @@ export const updatePassword = async ({
     return 'Passwort erfolgreich geändert';
   } catch (error) {
     console.error(error);
-    return error;
+    return (error as Error).message;
   }
 };

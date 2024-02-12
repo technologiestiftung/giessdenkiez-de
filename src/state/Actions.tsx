@@ -1,3 +1,4 @@
+import { Language } from '../assets/content-types';
 import { StoreProps } from '../common/interfaces';
 
 const setAgeRange = (
@@ -41,6 +42,12 @@ const setMapHasLoaded = (): { mapHasLoaded: StoreProps['mapHasLoaded'] } => ({
   mapHasLoaded: true,
 });
 
+const setLanguage = (
+  language: Language
+): { language: StoreProps['language'] } => ({
+  language: language,
+});
+
 const allActions = {
   setMapFocusPoint,
   setAgeRange,
@@ -52,6 +59,7 @@ const allActions = {
   setMapViewFilter,
   setMapWaterNeedFilter,
   setMapHasLoaded,
+  setLanguage,
 };
 
 export type ActionsType = typeof allActions;

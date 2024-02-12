@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { useActions } from '../../state/unistore-hooks';
 import SmallParagraph from '../SmallParagraph';
 import { useRouter } from 'next/router';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 const Container = styled(SmallParagraph)`
   padding-top: 10px;
@@ -18,6 +19,7 @@ const Container = styled(SmallParagraph)`
 `;
 
 export const ParticipateButton: FC = () => {
+  const { participateButton } = useLocalizedContent().sidebar;
   const { openOverlay } = useActions();
   const { push } = useRouter();
 
@@ -28,7 +30,7 @@ export const ParticipateButton: FC = () => {
         void push('/');
       }}
     >
-      Wie kann ich mitmachen?
+      {participateButton}
     </Container>
   );
 };

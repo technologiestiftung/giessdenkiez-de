@@ -15,6 +15,7 @@ import { CredentialsData } from '../../../common/interfaces';
 import { CredentialValue } from '../../UserCredentials';
 import { PasswordValidation } from '../PasswordValidation';
 import { validatePassword } from '../../../utils/validatePassword';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 export const PasswordRecoveryForm = ({
   additionalSubmitHandler,
@@ -27,6 +28,17 @@ export const PasswordRecoveryForm = ({
     React.SetStateAction<UserNotificationObjectType | null>
   >;
 }) => {
+  const content = useLocalizedContent();
+  const { newPasswordTitle } = content.sidebar.account;
+
+  const {
+    passwordNotSecureEnough,
+    passwordCouldNotBeChanged,
+    passwordChangeSuccess,
+    changePasswordFor,
+    backToLogin,
+  } = content.auth;
+
   const supabase = useSupabaseClient();
   const session = useSession();
   const [formData, setFormData] = useState<CredentialsData>({
@@ -43,11 +55,11 @@ export const PasswordRecoveryForm = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const updatePassword = async () => {
-      const { passwordIsValid } = validatePassword(formData.password);
+      const { isPasswordValid } = validatePassword(formData.password);
 
-      if (!passwordIsValid) {
+      if (!isPasswordValid) {
         setNotification({
-          message: 'Passwort ist nicht sicher genug',
+          message: passwordNotSecureEnough,
           type: 'error',
         });
         return;
@@ -58,7 +70,7 @@ export const PasswordRecoveryForm = ({
       });
       if (error) {
         setNotification({
-          message: 'Passwort konnte nicht geändert werden',
+          message: passwordCouldNotBeChanged,
           type: 'error',
         });
         console.error('Error updating user:', error.message);
@@ -66,7 +78,7 @@ export const PasswordRecoveryForm = ({
       }
       if (data) {
         setNotification({
-          message: 'Passwort erfolgreich geändert',
+          message: passwordChangeSuccess,
           type: 'success',
         });
         additionalSubmitHandler();
@@ -76,14 +88,14 @@ export const PasswordRecoveryForm = ({
   };
   return (
     <>
-      <SidebarTitle>Passwort ändern für</SidebarTitle>
+      <SidebarTitle>{changePasswordFor}</SidebarTitle>
       <CredentialValue> {session?.user?.email}</CredentialValue>
       <SidebarSubTitle></SidebarSubTitle>
       <>
         <StyledForm onSubmit={handleSubmit}>
           <StyledFormRow>
             <StyledLabel htmlFor='password'>
-              <>Neues Passwort</>
+              <>{newPasswordTitle}</>
             </StyledLabel>
             <StyledFormTextInput
               id='password'
@@ -98,13 +110,15 @@ export const PasswordRecoveryForm = ({
           </StyledFormRow>
 
           <StyledFormRow>
-            <ButtonSubmitRound type='submit'>Speichern</ButtonSubmitRound>
+            <ButtonSubmitRound type='submit'>
+              {content.sidebar.account.editSave}
+            </ButtonSubmitRound>
           </StyledFormRow>
         </StyledForm>
       </>
       <CredentialsSubline
-        text={'Zurück zur Anmeldung?'}
-        aText={'Hier klicken'}
+        text={backToLogin}
+        aText={content.auth.clickHere}
         onClick={returnClickHandler}
       />
     </>

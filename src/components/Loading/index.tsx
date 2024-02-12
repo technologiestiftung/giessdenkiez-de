@@ -2,8 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import LoadingIcon from '../LoadingIcon/';
-import content from '../../assets/content';
 import { ImprintAndPrivacy } from '../ImprintAndPrivacy';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
 const LoadingDiv = styled.div`
   position: absolute;
@@ -38,9 +38,9 @@ const LoadingDiv = styled.div`
 `;
 
 const Loading: FC<{ show?: boolean }> = ({ show }) => {
-  const { loading } = content;
-  // const { disclaimer } = intro;
+  const { loading } = useLocalizedContent();
   const { snippets } = loading;
+
   const [current, setCurrent] = useState(0);
   const maxIndex = snippets.length - 1;
 
