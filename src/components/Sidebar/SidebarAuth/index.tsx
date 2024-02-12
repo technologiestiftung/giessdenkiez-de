@@ -54,6 +54,7 @@ export const SidebarAuth = ({
 
   const {
     checkUsername,
+    checkPassword,
     userExistsAlready,
     emailCouldNotBeSent,
     usernameOrPasswordWrong,
@@ -159,7 +160,7 @@ export const SidebarAuth = ({
   const signUp = async ({ email, password, username }: CredentialsData) => {
     if (username === undefined) {
       setNotification({
-        message: 'Bitte überprüfe dein Benutzername',
+        message: checkUsername,
         type: 'error',
       });
       return;
@@ -169,7 +170,7 @@ export const SidebarAuth = ({
 
     if (!isUsernameValid) {
       setNotification({
-        message: 'Bitte überprüfe dein Benutzername',
+        message: checkUsername,
         type: 'error',
       });
       return;
@@ -179,7 +180,7 @@ export const SidebarAuth = ({
 
     if (!isPasswordValid) {
       setNotification({
-        message: checkUsername,
+        message: checkPassword,
         type: 'error',
       });
       return;
