@@ -35,6 +35,7 @@ interface PasswordRestrictions {
 }
 interface AuthErrors {
   checkUsername: string;
+  checkPassword: string;
   userExistsAlready: string;
   emailCouldNotBeSent: string;
   usernameOrPasswordWrong: string;
