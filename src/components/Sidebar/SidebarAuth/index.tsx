@@ -27,10 +27,12 @@ export const StyledSpacer = styled.div`
 export const SidebarAuth = ({
   view,
   setView,
+  currentNotification,
   setNotification,
   isLoading,
 }: {
   isLoading: boolean;
+  currentNotification: UserNotificationObjectType | null;
   setNotification: React.Dispatch<
     React.SetStateAction<UserNotificationObjectType | null>
   >;
@@ -57,7 +59,6 @@ export const SidebarAuth = ({
     usernameOrPasswordWrong,
     ooops,
     checkMailForPasswordReset,
-    usernameTaken,
   } = content.auth.errors;
 
   const {
@@ -317,6 +318,7 @@ export const SidebarAuth = ({
           handleSubmit={handleSignInSubmit}
           buttonText={signinAction}
           isSignIn={true}
+          currentNotification={currentNotification}
         />
       );
       linkText = (
@@ -337,6 +339,7 @@ export const SidebarAuth = ({
           buttonText={signupAction}
           usernamePatterns={usernamePatterns}
           isUsernameTaken={isUsernameTaken}
+          currentNotification={currentNotification}
           isSignIn={false}
         />
       );
@@ -358,6 +361,7 @@ export const SidebarAuth = ({
           handleSubmit={handleRecoverySubmit}
           buttonText={resetPassword}
           isRecovery={true}
+          currentNotification={currentNotification}
         />
       );
       linkText = (
