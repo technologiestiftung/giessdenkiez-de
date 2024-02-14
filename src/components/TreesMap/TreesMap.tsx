@@ -229,6 +229,9 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       if (!map.current || typeof map.current === 'undefined' || hasUnmounted)
         return;
 
+      map.current.scrollZoom.setZoomRate(0.3);
+      map.current.scrollZoom.setWheelZoomRate(0.1);
+
       setMapHasLoaded();
 
       const firstLabelLayerId = map.current
@@ -537,8 +540,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         styleDiffing={true}
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
         onLoad={onLoad}
-        // onZoom={handleZoomCallback}
-        // onMove={onViewStateChange}
         style={{
           width: '100%',
           height: '100%',
