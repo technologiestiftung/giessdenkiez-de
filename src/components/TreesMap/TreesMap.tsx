@@ -231,8 +231,8 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
       // Customizing the zoom rates according to
       // https://docs.mapbox.com/mapbox-gl-js/api/handlers/#scrollzoomhandler
-      map.current.scrollZoom.setZoomRate(1 / 25);
-      map.current.scrollZoom.setWheelZoomRate(1 / 400);
+      map.current.scrollZoom.setZoomRate(1 / 50);
+      map.current.scrollZoom.setWheelZoomRate(1 / 500);
 
       setMapHasLoaded();
 
