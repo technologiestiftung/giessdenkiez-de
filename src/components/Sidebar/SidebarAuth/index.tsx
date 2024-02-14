@@ -344,6 +344,7 @@ export const SidebarAuth = ({
           isUsernameTaken={isUsernameTaken}
           currentNotification={currentNotification}
           isSignIn={false}
+          isSignup={true}
         />
       );
       linkText = (

@@ -28,6 +28,7 @@ export const CredentialsForm = ({
   buttonText,
   isRecovery,
   isSignIn,
+  isSignup,
   usernamePatterns,
   isUsernameTaken,
   currentNotification,
@@ -41,6 +42,7 @@ export const CredentialsForm = ({
   buttonText: string;
   isRecovery?: boolean;
   isSignIn?: boolean;
+  isSignup?: boolean;
   usernamePatterns?: UsernamePattern;
   isUsernameTaken?: boolean;
   currentNotification: UserNotificationObjectType | null;
@@ -60,25 +62,39 @@ export const CredentialsForm = ({
   const [showMissingPasswordHint, setShowMissingPasswordHint] = useState(false);
   const [showMissingUsernameHint, setShowMissingUsernameHint] = useState(false);
 
+  const requiredFieldsPresent = (): boolean => {
+    if (isSignIn) {
+      setShowEmailHint(!formData.email);
+      setShowMissingPasswordHint(!formData.password);
+      if (!formData.email || !formData.password) {
+        return false;
+      }
+    } else if (isRecovery) {
+      setShowEmailHint(!formData.email);
+      if (!formData.email) {
+        return false;
+      }
+    } else if (isSignup) {
+      setShowEmailHint(!formData.email);
+      setShowMissingUsernameHint(!formData.username);
+      setShowMissingPasswordHint(!formData.password);
+      if (!formData.email || !formData.username || !formData.password) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   return (
     <>
       <StyledForm
         noValidate
         onSubmit={(e) => {
-          if (!formData.email) {
-            setShowEmailHint(true);
-          }
-          if (!formData.username) {
-            setShowMissingUsernameHint(true);
-          }
-          if (!formData.password) {
-            setShowMissingPasswordHint(true);
-          }
-          if (!formData.email || !formData.username || !formData.password) {
+          if (!requiredFieldsPresent()) {
             e.preventDefault();
-            return;
+          } else {
+            handleSubmit(e);
           }
-          handleSubmit(e);
         }}
       >
         <StyledFormRow>
