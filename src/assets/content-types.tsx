@@ -36,16 +36,16 @@ interface PumpStates {
   unknown: string;
 }
 interface UsernameRestrictions {
-  part1: string;
+  intro: string;
   and: string;
-  part2: string;
-  part3: string;
+  restrictions: string;
+  notTaken: string;
 }
 interface PasswordRestrictions {
-  part1: string;
-  part2: string;
-  part3: string;
-  part4: string;
+  minLength: string;
+  upperAndLowercase: string;
+  specialCharacters: string;
+  containNumbers: string;
 }
 interface AuthErrors {
   checkUsername: string;

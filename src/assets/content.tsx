@@ -389,17 +389,17 @@ const deContent: Content = {
     bored: 'Dir ist langweilig bis dahin? Dann lies etwas über Gieß den Kiez!',
     profile: 'Profil',
     usernameRestrictions: {
-      part1: 'Dein Benutzername sollte zwischen',
+      intro: 'Dein Benutzername sollte zwischen',
       and: 'und',
-      part2:
+      restrictions:
         'Zeichen lang sein, nur aus Zeichen und Zahlen (ohne Leerzeichen am Anfang und Ende) ',
-      part3: 'bestehen und natürlich nicht vergeben sein.',
+      notTaken: 'bestehen und natürlich nicht vergeben sein.',
     },
     passwordRestrictions: {
-      part1: 'Dein Passwort sollte: Mindestens 8 Zeichen lang sein',
-      part2: 'Klein- und Großbuchstaben',
-      part3: 'mindestens eines dieser Sonderzeichen @#$%&*()!_+=:;',
-      part4: 'und Zahlen enthalten.',
+      minLength: 'Dein Passwort sollte: Mindestens 8 Zeichen lang sein',
+      upperAndLowercase: 'Klein- und Großbuchstaben',
+      specialCharacters: 'mindestens eines dieser Sonderzeichen @#$%&*()!_+=:;',
+      containNumbers: 'und Zahlen enthalten.',
     },
     errors: {
       checkUsername: 'Bitte überprüfe Deinen Benutzernamen',
@@ -819,17 +819,18 @@ const enContent = {
     bored: 'Bored? Read something about Gieß den Kiez',
     profile: 'Profile',
     usernameRestrictions: {
-      part1: 'Your username should be between',
+      intro: 'Your username should be between',
       and: 'and',
-      part2:
+      restrictions:
         'characters long, made only of numbers and characters (without whitespace at start and end)',
-      part3: 'and of course should not be already taken.',
+      notTaken: 'and of course should not be already taken.',
     },
     passwordRestrictions: {
-      part1: 'Your password should be: At least 8 characters long',
-      part2: 'have lower- and uppercase letters',
-      part3: 'contain at least one of these special characters @#$%&*()!_+=:;',
-      part4: 'and contain numbers.',
+      minLength: 'Your password should be: At least 8 characters long',
+      upperAndLowercase: 'have lower- and uppercase letters',
+      specialCharacters:
+        'contain at least one of these special characters @#$%&*()!_+=:;',
+      containNumbers: 'and contain numbers.',
     },
     errors: {
       checkUsername: 'Please check your username',
