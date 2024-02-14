@@ -247,55 +247,55 @@ const deContent: Content = {
         id: 'KASTANIE',
         title: 'Kastanie (Aesculus)',
         description:
-          'Die Kastanie (Aesculus) hat einem Anteil von ca. 5% am Gesamtbestand, belegt damit den fünften Platz unter den Berliner Straßenbäumen.',
+          'Die Kastanie (Aesculus) hat einen Anteil von ca. 5% am Gesamtbestand, und belegt damit den fünften Platz unter den Berliner Straßenbäumen. Rosskastanien haben fünf- und mehrgliedrige Blätter, die an die Finger einer Hand erinnern; Esskastanien haben einzelne Blätter, die überdies deutlich gezackt sind.',
       },
       {
         id: 'ROSSKASTANIE',
         title: 'Rosskastanie (Aesculus hippocastanum)',
         description:
-          'Die Rosskastanie (Aesculus hippocastanum) hat einem Anteil von ca. 5% am Gesamtbestand, belegt damit den fünften Platz unter den Berliner Straßenbäumen.',
+          'Die Rosskastanie (Aesculus hippocastanum) hat einen Anteil von ca. 5% am Gesamtbestand, und belegt damit den fünften Platz unter den Berliner Straßenbäumen. Rosskastanien haben fünf- und mehrgliedrige Blätter, die an die Finger einer Hand erinnern; Esskastanien haben einzelne Blätter, die überdies deutlich gezackt sind.',
       },
       {
         id: 'ESCHE',
         title: 'Esche (Fraxinus)',
         description:
-          'Die Esche (Fraxinus) hat einem Anteil von ca. 3% am Gesamtbestand, belegt damit den sechsten Platz unter den Berliner Straßenbäumen.  Mit einer Wuchshöhe von bis zu 40 m zählt sie zu den höchsten Laubbäumen Europas.',
+          'Die Esche (Fraxinus) hat einen Anteil von ca. 3% am Gesamtbestand, und belegt damit den sechsten Platz unter den Berliner Straßenbäumen. Mit einer Wuchshöhe von bis zu 40 m zählt sie zu den höchsten Laubbäumen Europas.',
       },
       {
         id: 'BIRKE',
         title: 'Birke (Betula)',
         description:
-          'Die Birke (Betula) hat einem Anteil von ca. 3% am Gesamtbestand, belegt damit den siebten Platz unter den Berliner Bäumen. Obwohl die Birke als Pionierbaum sehr anspruchslos und wachsend auf jedem Boden ist, eignet sie sich als Straßenbaum weniger, da die Baumscheiben oft zu wenig Raum für die Flachwurzler bieten.',
+          'Die Birke (Betula) hat einen Anteil von ca. 3% am Gesamtbestand. Obwohl die Birke als Pionierbaum sehr anspruchslos und wachsend auf jedem Boden ist, eignet sie sich als Straßenbaum weniger, da die Baumscheiben oft zu wenig Raum für die Flachwurzler bieten.',
       },
       {
         id: 'ROBINIE',
         title: 'Robinie (Robinia)',
         description:
-          'Die Robinie (Robinia) hat einem Anteil von ca. 2% am Gesamtbestand, belegt damit den achten Platz unter den Berliner Straßenbäumen. Sie wurde ab 1672 im Berliner Lustgarten als Parkbaum kultiviert und ist heute in ganz Berlin sehr häufig. Die Robinie stellt nur geringe Anforderungen an den Boden, und sie kann dank der Knöllchenbakterien an ihren Wurzeln Luftstickstoff bindenden und düngt damit den Boden auf.',
+          'Die Robinie (Robinia) hat einen Anteil von ca. 2% am Gesamtbestand. Sie wurde ab 1672 im Berliner Lustgarten als Parkbaum kultiviert und ist heute in ganz Berlin sehr häufig. Die Robinie stellt nur geringe Anforderungen an den Boden, und sie kann dank der Knöllchenbakterien an ihren Wurzeln Luftstickstoff bindenden und düngt damit den Boden auf.',
       },
       {
         id: 'HASEL',
         title: 'Hasel Baum (Corylus)',
         description:
-          'Der Hasel Baum (Corylus) hat einem Anteil von ca. 2% am Gesamtbestand, belegt damit den neunten Platz unter den Berliner Straßenbäumen. Die Haselnuss wächst als Strauch oder kleiner Baum bis 6 m hoch.',
+          'Der Hasel Baum (Corylus) hat einen Anteil von ca. 2% am Gesamtbestand, und ist somit der neunt häufigste Straßenbaum in Berlin. Die Haselnuss wächst als Strauch oder kleiner Baum bis zu 6 m hoch.',
       },
       {
         id: 'HAINBUCHE',
         title: 'Hainbuche (Carpinus)',
         description:
-          'Die Hainbuche (Carpinus) hat einem Anteil von ca. 2% am Gesamtbestand. Der Baum erreicht eine Höhe bis zu 25 m. Die Krone ist erst leicht kegelförmig und später weit ausladend.',
+          'Der Anteil der Hainbuchen (Carpinus) beträgt rund 2% des Gesamtbestandes. Der Baum erreicht eine Höhe von bis zu 25 m. Die Krone ist erst leicht kegelförmig und später weit ausladend.',
       },
       {
         id: 'PAPPEL',
         title: 'Pappel (Populus)',
         description:
-          'Die Pappel (Populus) hat einem Anteil von ca. 2% am Gesamtbestand. Sie haben eiförmige bis dreieckige, teils herzförmige Laubblätter.',
+          'Die Pappel (Populus) hat einen Anteil von ca. 2% am Berliner Gesamtbestand. Sie haben eiförmige bis dreieckige, teils herzförmige Laubblätter.',
       },
       {
         id: 'ULME',
         title: 'Ulme (Ulmus)',
         description:
-          'Die Ulme (Ulmus) hat einem Anteil von ca. 2% am Gesamtbestand der Berliner Bäume. Sie kann bis zu 250 Jahre alt werden.',
+          'Der Anteil der Ulmen (Ulmus) beträgt rund 2% des Gesamtbestandes. Es gibt bei uns drei der weltweit 45 Arten dieses sommergrünen Laubbaumes: die Bergulme, die Feldulme und die Flatter-Ulme. Sie kommt mit einer Höhe von bis zu 600 Metern vor und kann 250 Jahre alt werden.',
       },
     ],
     openSourceNote: 'Giess den Kiez ist ein',
@@ -671,43 +671,55 @@ const enContent = {
         id: 'KASTANIE',
         title: 'Chestnut (Aesculus)',
         description:
-          "The horse chestnut (Aesculus hippocastanum) accounts for around 5% of the total population, placing it in fifth place among Berlin's street trees.",
+          'The chestnut (Aesculus) accounts for about 5% of the total population, and thus occupies fifth place among Berlins street trees. Horse chestnuts have five- and multi-lobed leaves that resemble the fingers of a hand; sweet chestnuts have single leaves that are also clearly serrated.',
       },
       {
         id: 'ROSSKASTANIE',
         title: 'Horse chestnut (Aesculus hippocastanum)',
         description:
-          'The horse chestnut (Aesculus hippocastanum) has a share of about 5% of the total stock, thus occupying fifth place among Berlins street trees',
+          'The horse chestnut (Aesculus hippocastanum) accounts for about 5% of the total stock. Horse chestnuts have five- and multi-lobed leaves that resemble the fingers of a hand; sweet chestnuts have single leaves that are also clearly serrated.',
       },
       {
         id: 'ESCHE',
         title: 'Ash (Fraxinus)',
         description:
-          'The ash tree (Fraxinus) accounts for approx. 3% of the total population, making it the sixth most common street tree in Berlin.  With a growth height of up to 40 m, it is one of the tallest deciduous trees in Europe.',
+          'The ash tree (Fraxinus) accounts for about 3% of the total population, and thus occupies sixth place among Berlins street trees. With a growth height of up to 40 m, it is one of the tallest deciduous trees in Europe.',
       },
       {
         id: 'BIRKE',
         title: 'Birch (Betula)',
         description:
-          'The birch (Betula) has a share of approx. 3% of the total population, thus occupying seventh place among Berlins trees. Although the birch is a pioneer tree that is very undemanding and grows on any soil, it is less suitable as a street tree because the tree grates often offer too little space for the shallow-rooted trees',
+          'The birch (Betula) accounts for about 3% of the total population. Although the birch is a pioneer tree that is very undemanding and grows on any soil, it is less suitable as a street tree because there is often too little space for the shallow-rooted trees.',
       },
       {
         id: 'ROBINIE',
         title: 'Robinia (Robinia)',
         description:
-          'The robinia (Robinia) accounts for about 2% of the total population and thus occupies eighth place among Berlins street trees. It was cultivated as a park tree in the Berlin pleasure garden from 1672 and is now very common throughout Berlin. The robinia has low soil requirements and, thanks to the nodule bacteria on its roots, it can bind atmospheric nitrogen and thus fertilize the soil.',
+          'The robinia (Robinia) accounts for about 2% of the total population. It was cultivated as a park tree in the "Berliner Lustgarten" park from 1672 and is now very common throughout Berlin. The robinia has low soil requirements and, thanks to the nodule bacteria on its roots, it can bind atmospheric nitrogen and thus fertilize the soil.',
+      },
+      {
+        id: 'HASEL',
+        title: 'Hazel tree (Corylus)',
+        description:
+          'The hazel tree (Corylus) accounts for about 2% of the total population. The hazel grows as a shrub or small tree up to 6 m high.',
+      },
+      {
+        id: 'HAINBUCHE',
+        title: 'Hornbeam (Carpinus)',
+        description:
+          'The proportion of hornbeam (Carpinus) is around 2% of the total population. The tree reaches a height of up to 25 meters. The crown is initially slightly conical and later expands widely.',
       },
       {
         id: 'PAPPEL',
         title: 'Poplar (Populus)',
         description:
-          'The poplar (Populus) accounts for about 2% of the total population. They have ovoid to triangular, partly heart-shaped leaves.',
+          'Poplars (Populus) make up about 2% of Berlins total population. They have ovoid to triangular, partly heart-shaped leaves.',
       },
       {
         id: 'ULME',
         title: 'Elm (Ulmus)',
         description:
-          'The elm (Ulmus) accounts for about 2% of Berlins total tree population. It can live up to 250 years.',
+          'The proportion of elms (Ulmus) is around 2% of the total population. Here we have three of the worlds 45 species of this deciduous tree: the mountain elm, the field elm and the elm with a flutter. It grows up to 600 meters high and can live to be 250 years old.',
       },
     ],
     openSourceNote: 'Giess den Kiez is an',
