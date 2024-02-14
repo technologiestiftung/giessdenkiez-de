@@ -213,7 +213,7 @@ export const SidebarAuth = ({
 
     if (!data.user) {
       setNotification({
-        message: emailCouldNotBeSent.replace('_1_', email),
+        message: emailCouldNotBeSent(email),
         type: 'error',
       });
       setView('signup');
@@ -277,7 +277,7 @@ export const SidebarAuth = ({
     }
     if (data) {
       setNotification({
-        message: checkMailForPasswordReset.replace('_1_', email),
+        message: checkMailForPasswordReset(email),
         type: 'success',
       });
     }
@@ -379,9 +379,10 @@ export const SidebarAuth = ({
     case 'confirm': {
       form = (
         <Paragraph>
-          {checkSignupMail
-            .replace('_1_', formData.email)
-            .replace('_2_', process.env.NEXT_PUBLIC_FROM_EMAIL ?? '')}
+          {checkSignupMail(
+            formData.email,
+            process.env.NEXT_PUBLIC_FROM_EMAIL ?? ''
+          )}
         </Paragraph>
       );
 

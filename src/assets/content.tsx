@@ -334,8 +334,9 @@ const deContent: Content = {
       editUsernameSuccess: 'Benutzername geändert.',
       editUsernameError:
         'Interner Fehler beim Ändern des Benutzernamens. Versuche es später erneut.',
-      editEmailSuccess:
-        'Um die Änderung zu bestätigen, bitte klicke auf die Links die per Mail jeweils an Deine alte E-Mail-Adresse "_1_" und deine neue E-Mail-Adresse "_2_" verschickt wurden.',
+      editEmailSuccess: (oldMail: string, newMail: string) => {
+        return `Um die Änderung zu bestätigen, bitte klicke auf die Links die per Mail jeweils an Deine alte E-Mail-Adresse "${oldMail}" und deine neue E-Mail-Adresse "${newMail}" verschickt wurden.`;
+      },
       editPasswordTitle: 'Passwort ändern',
       oldPasswordTitle: 'Altes Passwort',
       newPasswordTitle: 'Neues Passwort',
@@ -355,7 +356,9 @@ const deContent: Content = {
       adoptedByMe: 'Von mir adoptiert ✔',
       adoptedAlsoByOthers: 'Ebenfalls von anderen adoptiert',
       adoptedOnlyByOthers: 'Von anderen Nutzer:innen adoptiert',
-      regularlyWateredBy: 'Dieser Baum wird regelmäßig von "_1_" gewässert.',
+      regularlyWateredBy: (user: string) => {
+        return `Dieser Baum wird regelmäßig von ${user} gewässert.`;
+      },
       lastWaterings: 'Letzte Bewässerungen',
       latestFirst: 'Neueste zuerst',
       needsVerification:
@@ -401,12 +404,14 @@ const deContent: Content = {
     errors: {
       checkUsername: 'Bitte überprüfe Deinen Benutzernamen',
       userExistsAlready: 'Benutzer bereits registriert',
-      emailCouldNotBeSent:
-        'Die E-Mail an "_1_" konnte nicht verschickt werden. Versuch es erneut.',
+      emailCouldNotBeSent: (mail: string) => {
+        return `Die E-Mail an "${mail}" konnte nicht verschickt werden. Versuch es erneut.`;
+      },
       usernameOrPasswordWrong: 'Benutzername oder Passwort ist falsch',
       ooops: 'Ups... da ist etwas schief gelaufen',
-      checkMailForPasswordReset:
-        'Überprüfe Deine E-Mail "_1_" nach einem Link um Dein Passwort zu ändern',
+      checkMailForPasswordReset: (mail: string) => {
+        return `Überprüfe Deine E-Mail "${mail}" nach einem Link um Dein Passwort zu ändern`;
+      },
       usernameTaken: 'Benutzername bereits vergeben',
       checkPassword: 'Bitte überprüfe Dein Passwort',
     },
@@ -414,8 +419,9 @@ const deContent: Content = {
     passwordCouldNotBeChanged: 'Passwort konnte nicht geändert werden',
     passwordChangeSuccess: 'Passwort erfolgreich geändert',
     changePasswordFor: 'Passwort ändern für',
-    checkSignupMail:
-      'Überprüfe Dein E-Mail Postfach für "_1_" nach einer E-Mail von "_2_" mit einem Link um deinen Account zu bestätigen.',
+    checkSignupMail: (recipientMail: string, senderMail: string) => {
+      return `Überprüfe Dein E-Mail Postfach für "${recipientMail}" nach einer E-Mail von "${senderMail}" mit einem Link um deinen Account zu bestätigen.`;
+    },
   },
   collaborate: {
     tiles: [
@@ -754,8 +760,10 @@ const enContent = {
       editUsernameSuccess: 'Username changed successfully.',
       editUsernameError:
         'Internal error while updating username. Please try again later.',
-      editEmailSuccess:
-        'To confirm the changes, please click the link that was sent to your old email address "_1_" and your new email address "_2_".',
+      editEmailSuccess: (oldMail: string, newMail: string) => {
+        return `To confirm the changes, please click the link that was sent to your old email address "${oldMail}" and your new email address "${newMail}".`;
+      },
+
       editPasswordTitle: 'Change password',
       oldPasswordTitle: 'Old password',
       newPasswordTitle: 'New password',
@@ -775,7 +783,9 @@ const enContent = {
       adoptedByMe: 'Adopted by me ✔',
       adoptedAlsoByOthers: 'Adopted also by others',
       adoptedOnlyByOthers: 'Adopted by others',
-      regularlyWateredBy: 'This tree is regularly watered by "_1_".',
+      regularlyWateredBy: (user: string) => {
+        return `This tree is regularly watered by "${user}".`;
+      },
       lastWaterings: 'Last waterings',
       latestFirst: 'Latest first',
       needsVerification:
@@ -821,11 +831,14 @@ const enContent = {
     errors: {
       checkUsername: 'Please check your username',
       userExistsAlready: 'User already registered',
-      emailCouldNotBeSent: 'Email to "_1_" could not be sent. Try again.',
+      emailCouldNotBeSent: (mail: string) => {
+        return `Email to "${mail}" could not be sent. Try again.`;
+      },
       usernameOrPasswordWrong: 'Username or password are wrong',
       ooops: 'Ooops... something did not work as expected',
-      checkMailForPasswordReset:
-        'Check your email "_1_" for a link to reset your password',
+      checkMailForPasswordReset: (mail: string) => {
+        return `Check your email "${mail}" for a link to reset your password`;
+      },
       usernameTaken: 'Username already taken',
       checkPassword: 'Please check your password',
     },
@@ -833,8 +846,9 @@ const enContent = {
     passwordCouldNotBeChanged: 'Password could not be changed',
     passwordChangeSuccess: 'Password changed successfully',
     changePasswordFor: 'Change password for',
-    checkSignupMail:
-      'Check your inbox for "_1_", you should have received a mail from "_2_" containing a link to activate your account.',
+    checkSignupMail: (recipientMail: string, senderMail: string) => {
+      return `Check your inbox for "${recipientMail}", you should have received a mail from "${senderMail}" containing a link to activate your account.`;
+    },
   },
   collaborate: {
     tiles: [

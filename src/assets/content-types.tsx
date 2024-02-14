@@ -50,10 +50,10 @@ interface PasswordRestrictions {
 interface AuthErrors {
   checkUsername: string;
   userExistsAlready: string;
-  emailCouldNotBeSent: string;
+  emailCouldNotBeSent: (mail: string) => string;
   usernameOrPasswordWrong: string;
   ooops: string;
-  checkMailForPasswordReset: string;
+  checkMailForPasswordReset: (mail: string) => string;
   usernameTaken: string;
   checkPassword: string;
 }
@@ -86,7 +86,7 @@ interface Account {
   editClose: string;
   editUsernameSuccess: string;
   editUsernameError: string;
-  editEmailSuccess: string;
+  editEmailSuccess: (oldMail: string, newMail: string) => string;
   editPasswordTitle: string;
   oldPasswordTitle: string;
   newPasswordTitle: string;
@@ -106,7 +106,7 @@ interface Tree {
   adoptedByMe: string;
   adoptedAlsoByOthers: string;
   adoptedOnlyByOthers: string;
-  regularlyWateredBy: string;
+  regularlyWateredBy: (user: string) => string;
   lastWaterings: string;
   latestFirst: string;
   needsVerification: string;
@@ -230,7 +230,7 @@ export interface Content {
     passwordCouldNotBeChanged: string;
     passwordChangeSuccess: string;
     changePasswordFor: string;
-    checkSignupMail: string;
+    checkSignupMail: (recipientMail: string, senderMail: string) => string;
   };
   collaborate: {
     tiles: CollaborationItem[];
