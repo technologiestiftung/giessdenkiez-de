@@ -229,8 +229,8 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       if (!map.current || typeof map.current === 'undefined' || hasUnmounted)
         return;
 
-      map.current.scrollZoom.setZoomRate(0.3);
-      map.current.scrollZoom.setWheelZoomRate(0.1);
+      map.current.scrollZoom.setZoomRate(0.15);
+      map.current.scrollZoom.setWheelZoomRate(0.08);
 
       setMapHasLoaded();
 
