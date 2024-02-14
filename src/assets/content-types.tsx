@@ -56,6 +56,9 @@ interface AuthErrors {
   checkMailForPasswordReset: (mail: string) => string;
   usernameTaken: string;
   checkPassword: string;
+  enterEmail: string;
+  enterPassword: string;
+  enterUsername: string;
 }
 interface Profile {
   logoutAction: string;
