@@ -11,9 +11,6 @@ import { useActions, useStoreState } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
 import OverlayTiles from '../OverlayTiles';
 import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
-import Switch from '../../Switch';
-import { Language } from '../../../assets/content-types';
-import { setLocalStorageLanguage } from '../../../assets/local-storage';
 
 const StyledNewsSection = styled.section`
   background-color: #f7fffa;
@@ -119,7 +116,10 @@ const OverlayTop: FC = () => {
       <Logo>
         <OverlayTitle size='xxl' title={title} />
         <Icon iconType='trees' />
-        <Switch
+
+        {/*
+          TODO: Uncomment as soon as all translations are reviewed and ready
+         <Switch
           firstOption={Language.de}
           secondOption={Language.en}
           selectedOption={language}
@@ -127,7 +127,7 @@ const OverlayTop: FC = () => {
             setLocalStorageLanguage(option as Language);
             setLanguage(option as Language);
           }}
-        ></Switch>
+        ></Switch> */}
       </Logo>
       <OverlayTitle size='xxl' title={subline} />
       {/* the beow is here for local testing */}
