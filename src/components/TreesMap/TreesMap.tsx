@@ -211,7 +211,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
       onTreeSelect(id);
 
-      map.current.flyTo({
+      map.current.easeTo({
         center: [geometry.coordinates[0], geometry.coordinates[1]],
         essential: true,
         zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
@@ -518,7 +518,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
   useEffect(() => {
     if (focusPoint && map.current) {
-      map.current.flyTo({
+      map.current.easeTo({
         center: [focusPoint.longitude, focusPoint.latitude],
         essential: true,
         zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
