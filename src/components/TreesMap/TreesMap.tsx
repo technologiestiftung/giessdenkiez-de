@@ -1,4 +1,4 @@
-import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
+import { easeLinear, ExtendedFeatureCollection } from 'd3';
 import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
 import React, {
   forwardRef,
@@ -8,12 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import Map, {
-  GeolocateControl,
-  MapRef,
-  NavigationControl,
-  ViewStateChangeEvent,
-} from 'react-map-gl';
+import Map, { GeolocateControl, MapRef, NavigationControl } from 'react-map-gl';
 
 import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
@@ -57,8 +52,8 @@ const ControlWrapper = styled.div<StyledProps>`
   z-index: 2;
   transition: transform 500ms;
 
-  @media screen and (min-width: ${p => p.theme.screens.tablet}) {
-    transform: ${props =>
+  @media screen and (min-width: ${(p) => p.theme.screens.tablet}) {
+    transform: ${(props) =>
       props.$isNavOpen ? 'translate3d(350px, 0, 0)' : 'translate3d(0, 0, 0)'};
   }
 
@@ -114,7 +109,7 @@ const [minLng, minLat, maxLng, maxLat] = (
   process.env.NEXT_PUBLIC_MAP_BOUNDING_BOX || ''
 )
   .split(',')
-  .map(coord => parseFloat(coord));
+  .map((coord) => parseFloat(coord));
 
 if (
   typeof maxLat !== 'number' ||
@@ -145,7 +140,7 @@ const defaultViewport = {
   pitch: isMobile ? 0 : 45,
   bearing: 0,
   transitionDuration: 2000,
-  transitionEasing: d3EaseCubic,
+  transitionEasing: easeLinear,
 };
 
 let hasUnmounted = false;
@@ -180,7 +175,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   const [hoveredTreeId, setHoveredTreeId] = useState<string | null>(null);
   const [hoveredPump, setHoveredPump] = useState<PumpTooltipType | null>(null);
   const [clickedPump, setClickedPump] = useState<PumpTooltipType | null>(null);
-  const [viewport, setViewport] = useState<ViewportType>(defaultViewport);
   const { setMapHasLoaded } = useActions();
 
   const pumpInfo: PumpTooltipType | null = useMemo(() => {
@@ -195,22 +189,6 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     },
     []
   );
-
-  const onViewStateChange = useCallback((newViewport: any) => {
-    if (hasUnmounted) return;
-    const newViewState = {
-      ...defaultViewport,
-      ...newViewport,
-      transitionDuration: newViewport.transitionDuration || 0,
-    };
-    setClickedPump(null);
-    setHoveredPump(null);
-    setViewport({
-      ...newViewState,
-      latitude: Math.min(maxLat, Math.max(newViewState.latitude, minLat)),
-      longitude: Math.min(maxLng, Math.max(newViewState.longitude, minLng)),
-    });
-  }, []);
 
   const onMapTreeClick = useCallback(
     (
@@ -233,11 +211,12 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
       onTreeSelect(id);
 
-      onViewStateChange({
-        latitude: geometry.coordinates[1],
-        longitude: geometry.coordinates[0],
+      map.current.flyTo({
+        center: [geometry.coordinates[0], geometry.coordinates[1]],
+        essential: true,
         zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+        easing: easeLinear,
+        duration: VIEWSTATE_TRANSITION_DURATION,
       });
     },
     [onTreeSelect]
@@ -254,7 +233,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
       const firstLabelLayerId = map.current
         .getStyle()
-        .layers?.find(layer => layer.type === 'symbol')?.id;
+        .layers?.find((layer) => layer.type === 'symbol')?.id;
 
       if (!firstLabelLayerId) return;
 
@@ -337,14 +316,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         },
       });
 
-      map.current.on('mousemove', 'trees', e => {
+      map.current.on('mousemove', 'trees', (e) => {
         if (!map.current || !e.features) return;
         if (e.features?.length === 0) setHoveredTreeId(null);
         setHoveredTreeId(e.features[0].id as string);
         map.current.getCanvas().style.cursor = 'pointer';
       });
 
-      map.current.on('mouseleave', 'trees', e => {
+      map.current.on('mouseleave', 'trees', (e) => {
         setHoveredTreeId(null);
         if (map.current) {
           map.current.getCanvas().style.cursor = '';
@@ -362,20 +341,8 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       setBodyMapLayerClass(visibleMapLayer);
 
       if (!focusPoint) return;
-      onViewStateChange({
-        latitude: focusPoint.latitude,
-        longitude: focusPoint.longitude,
-        zoom: focusPoint.zoom || VIEWSTATE_ZOOMEDIN_ZOOM,
-        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-      });
     },
-    [
-      focusPoint,
-      onViewStateChange,
-      selectedTreeId,
-      setMapHasLoaded,
-      visibleMapLayer,
-    ]
+    [focusPoint, selectedTreeId, setMapHasLoaded, visibleMapLayer]
   );
 
   useEffect(() => {
@@ -407,7 +374,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           },
         });
 
-        map.current.on('mousemove', 'pumps', e => {
+        map.current.on('mousemove', 'pumps', (e) => {
           if (!map.current || !e.features) return;
           if (e.features?.length === 0) setHoveredPump(null);
           setHoveredPump(
@@ -421,14 +388,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           map.current.getCanvas().style.cursor = 'pointer';
         });
 
-        map.current.on('mouseleave', 'pumps', e => {
+        map.current.on('mouseleave', 'pumps', (e) => {
           setHoveredPump(null);
           if (map.current) {
             map.current.getCanvas().style.cursor = '';
           }
         });
 
-        map.current.on('click', 'pumps', e => {
+        map.current.on('click', 'pumps', (e) => {
           if (e.features) {
             setClickedPump(
               pumpEventInfoToState({
@@ -524,7 +491,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
     map.current.setFilter(
       'trees',
-      ['all', communityFilter, waterNeedFilter].filter(val => val !== null)
+      ['all', communityFilter, waterNeedFilter].filter((val) => val !== null)
     );
   }, [
     communityDataAdopted,
@@ -550,48 +517,16 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   }, [hoveredTreeId, hoveredPump]);
 
   useEffect(() => {
-    if (!focusPoint?.id || hasUnmounted) return;
-    onViewStateChange({
-      latitude: focusPoint.latitude,
-      longitude: focusPoint.longitude,
-      zoom: focusPoint.zoom || VIEWSTATE_ZOOMEDIN_ZOOM,
-      transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-    });
-  }, [
-    focusPoint?.latitude,
-    focusPoint?.longitude,
-    focusPoint?.zoom,
-    focusPoint?.id,
-    onViewStateChange,
-  ]);
-
-  const handleZoomCallback = (e: ViewStateChangeEvent) => {
-    //@ts-ignore
-    if (e.geolocateSource) {
-      onViewStateChange({
-        ...viewport,
-        longitude: e.viewState.longitude,
-        latitude: e.viewState.latitude,
+    if (focusPoint && map.current) {
+      map.current.flyTo({
+        center: [focusPoint.longitude, focusPoint.latitude],
+        essential: true,
         zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+        easing: easeLinear,
+        duration: VIEWSTATE_TRANSITION_DURATION,
       });
     }
-
-    //@ts-ignore
-    const classList = e.originalEvent?.target.parentElement.classList.values();
-    const isZoomInOrOutControlButton =
-      classList &&
-      [...classList].some(
-        value =>
-          value === 'mapboxgl-ctrl-zoom-in' ||
-          value === 'mapboxgl-ctrl-zoom-out'
-      );
-    if (isZoomInOrOutControlButton) {
-      onViewStateChange({
-        ...viewport,
-        zoom: Math.min(e.viewState.zoom, VIEWSTATE_ZOOMEDIN_ZOOM),
-      });
-    }
-  };
+  }, [focusPoint]);
 
   return (
     <>
@@ -602,13 +537,13 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         styleDiffing={true}
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
         onLoad={onLoad}
-        onZoom={handleZoomCallback}
-        onMove={onViewStateChange}
+        // onZoom={handleZoomCallback}
+        // onMove={onViewStateChange}
         style={{
           width: '100%',
           height: '100%',
         }}
-        initialViewState={viewport}
+        initialViewState={defaultViewport}
       >
         {!showControls && (
           <ControlWrapper $isNavOpen={isNavOpen}>
