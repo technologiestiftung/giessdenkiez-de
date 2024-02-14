@@ -391,9 +391,9 @@ const deContent: Content = {
     usernameRestrictions: {
       intro: 'Dein Benutzername sollte zwischen',
       and: 'und',
-      restrictions:
-        'Zeichen lang sein, nur aus Zeichen und Zahlen (ohne Leerzeichen am Anfang und Ende) ',
-      notTaken: 'bestehen und natürlich nicht vergeben sein.',
+      length: 'Zeichen lang sein',
+      specialCharacters:
+        'und nur aus Zeichen und Zahlen (ohne Leerzeichen am Anfang und Ende) bestehen.',
     },
     passwordRestrictions: {
       minLength: 'Dein Passwort sollte: Mindestens 8 Zeichen lang sein',
@@ -821,9 +821,9 @@ const enContent = {
     usernameRestrictions: {
       intro: 'Your username should be between',
       and: 'and',
-      restrictions:
-        'characters long, made only of numbers and characters (without whitespace at start and end)',
-      notTaken: 'and of course should not be already taken.',
+      length: 'characters long',
+      specialCharacters:
+        'made only of numbers and characters (without whitespace at start and end)',
     },
     passwordRestrictions: {
       minLength: 'Your password should be: At least 8 characters long',

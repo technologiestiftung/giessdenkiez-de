@@ -13,16 +13,16 @@ export const UsernameValidation = ({
   const {
     intro,
     and,
-    restrictions,
-    notTaken,
+    length,
+    specialCharacters,
   } = content.auth.usernameRestrictions;
+
   return (
     <>
       <SmallParagraph>
-        {intro} 3 <ValidOrNot success={patterns.minLength} /> {and} 50{' '}
-        <ValidOrNot success={patterns.maxLength} /> {restrictions}{' '}
-        <ValidOrNot success={patterns.allowedCharacters} /> {notTaken}{' '}
-        <ValidOrNot success={patterns.notTaken} />
+        {intro} 3 {and} 50 {length}{' '}
+        <ValidOrNot success={patterns.allowedLength} /> {specialCharacters}{' '}
+        <ValidOrNot success={patterns.allowedCharacters} />
       </SmallParagraph>
     </>
   );

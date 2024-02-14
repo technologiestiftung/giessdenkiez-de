@@ -38,8 +38,8 @@ interface PumpStates {
 interface UsernameRestrictions {
   intro: string;
   and: string;
-  restrictions: string;
-  notTaken: string;
+  length: string;
+  specialCharacters: string;
 }
 interface PasswordRestrictions {
   minLength: string;
