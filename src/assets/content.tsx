@@ -408,6 +408,7 @@ const deContent: Content = {
       checkMailForPasswordReset:
         'Überprüfe Deine E-Mail "_1_" nach einem Link um Dein Passwort zu ändern',
       usernameTaken: 'Benutzername bereits vergeben',
+      checkPassword: 'Bitte überprüfe Dein Passwort',
     },
     passwordNotSecureEnough: 'Passwort ist nicht sicher genug',
     passwordCouldNotBeChanged: 'Passwort konnte nicht geändert werden',
@@ -781,6 +782,7 @@ const enContent = {
       checkMailForPasswordReset:
         'Check your email "_1_" for a link to reset your password',
       usernameTaken: 'Username already taken',
+      checkPassword: 'Please check your password',
     },
     passwordNotSecureEnough: 'Password ist not secure enough',
     passwordCouldNotBeChanged: 'Password could not be changed',

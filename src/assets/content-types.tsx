@@ -55,6 +55,7 @@ interface AuthErrors {
   ooops: string;
   checkMailForPasswordReset: string;
   usernameTaken: string;
+  checkPassword: string;
 }
 interface Profile {
   logoutAction: string;

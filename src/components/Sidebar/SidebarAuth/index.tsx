@@ -18,7 +18,6 @@ import debounce from 'lodash/debounce';
 import { AuthView } from '../../Forms/AuthForm';
 import { validatePassword } from '../../../utils/validatePassword';
 import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
-import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 export const StyledSpacer = styled.div`
   padding: 10px;
@@ -60,7 +59,7 @@ export const SidebarAuth = ({
     usernameOrPasswordWrong,
     ooops,
     checkMailForPasswordReset,
-    usernameTaken,
+    checkPassword,
   } = content.auth.errors;
 
   const {
@@ -80,6 +79,8 @@ export const SidebarAuth = ({
     confirm: confirm,
     change: editPasswordTitle,
   };
+
+  const { alreadyRegisteredHint } = content.auth;
 
   const supabase = useSupabaseClient();
 
@@ -347,7 +348,7 @@ export const SidebarAuth = ({
       );
       linkText = (
         <CredentialsSubline
-          text={'Du hast schon einen Account?'}
+          text={alreadyRegisteredHint}
           aText={'Log Dich ein'}
           onClick={() => setView('signin')}
         />
