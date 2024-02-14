@@ -53,13 +53,13 @@ export const SidebarAuth = ({
 
   const {
     checkUsername,
-    checkPassword,
     userExistsAlready,
     emailCouldNotBeSent,
     checkSignupMail,
     usernameOrPasswordWrong,
     ooops,
     checkMailForPasswordReset,
+    checkPassword,
   } = content.auth.errors;
 
   const {
@@ -81,6 +81,8 @@ export const SidebarAuth = ({
     confirm: confirm,
     change: editPasswordTitle,
   };
+
+  const { alreadyRegisteredHint } = content.auth;
 
   const supabase = useSupabaseClient();
 
@@ -108,7 +110,7 @@ export const SidebarAuth = ({
   const handleSignInSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    signIn(formData.email, formData.password).catch(error => {
+    signIn(formData.email, formData.password).catch((error) => {
       setNotification({
         message: error.message,
         type: 'error',
@@ -117,7 +119,7 @@ export const SidebarAuth = ({
   };
   const handleSignUpSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    signUp(formData).catch(error => {
+    signUp(formData).catch((error) => {
       console.error(error);
       setNotification({
         message: error.message,
@@ -128,7 +130,7 @@ export const SidebarAuth = ({
 
   const handleRecoverySubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    recovery(formData.email).catch(error => {
+    recovery(formData.email).catch((error) => {
       console.error(error);
       setNotification({
         message: error.message,

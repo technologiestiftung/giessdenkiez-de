@@ -3,7 +3,21 @@ interface Item {
   description: string;
 }
 
-type TreeTypeId = 'LINDE' | 'AHORN' | 'EICHE' | 'KASTANIE' | 'PLATANE';
+type TreeTypeId =
+  | 'LINDE'
+  | 'AHORN'
+  | 'EICHE'
+  | 'KASTANIE'
+  | 'ROSSKASTANIE'
+  | 'PLATANE'
+  | 'ESCHE'
+  | 'BIRKE'
+  | 'ROBINIE'
+  | 'ULME'
+  | 'HASEL'
+  | 'HAINBUCHE'
+  | 'PAPPEL';
+
 export interface TreeType extends Item {
   id: TreeTypeId;
 }
@@ -35,13 +49,13 @@ interface PasswordRestrictions {
 }
 interface AuthErrors {
   checkUsername: string;
-  checkPassword: string;
   userExistsAlready: string;
   emailCouldNotBeSent: string;
   usernameOrPasswordWrong: string;
   ooops: string;
   checkMailForPasswordReset: string;
   usernameTaken: string;
+  checkPassword: string;
 }
 interface Profile {
   logoutAction: string;

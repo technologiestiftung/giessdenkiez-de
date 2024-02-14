@@ -63,7 +63,7 @@ const deContent: Content = {
       {
         question: 'Ich habe immer noch eine Frage!',
         answer:
-          'Das FAQ konnte Dir nicht weiterhelfen oder Du hast eine komplexere Anfrage? Dann schreib uns eine <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Frage:...">Email.</a>',
+          'Das FAQ konnte Dir nicht weiterhelfen oder Du hast eine komplexere Anfrage? Dann schreib uns eine <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Gieß Den Kiez] Frage:...">Email.</a>',
       },
       {
         question: 'Warum werden nicht alle Bäume Berlins angezeigt?',
@@ -137,7 +137,7 @@ const deContent: Content = {
   // whatsNew: {
   //   title: 'Gieß den Kiez Update:',
   //   description: [
-  //     '<strong>Der Frühjahrsputz ist voll im Gange!</strong> In den letzten Tagen haben wir ein großes Update an der Seite vorgenommen. Ihr könnt euch über viele kleine und große Verbesserungen freuen: Wir erleichtern die Übertragbarkeit von Giess den Kiez für andere Städte, ermöglichen Euch die Anpassung Eurer E-Mail-Adresse oder Eures Passwortes und noch einiges mehr. Wir haben bereits all eure Accounts in unser neues System übertragen und beobachten ob Fehler auftauchen, die wir nicht vorhersehen konnten.',
+  //     '<strong>Der Frühjahrsputz ist voll im Gange!</strong> In den letzten Tagen haben wir ein großes Update an der Seite vorgenommen. Ihr könnt euch über viele kleine und große Verbesserungen freuen: Wir erleichtern die Übertragbarkeit von Gieß den Kiez für andere Städte, ermöglichen Euch die Anpassung Eurer E-Mail-Adresse oder Eures Passwortes und noch einiges mehr. Wir haben bereits all eure Accounts in unser neues System übertragen und beobachten ob Fehler auftauchen, die wir nicht vorhersehen konnten.',
   //     'Für den Fall, dass irgendetwas schief geht, zögert nicht euch an uns zu wenden. Per Slack, per E-Mail oder auf GitHub.<br /><strong>Und zu guter Letzt - das neue Baumkataster für 2023 ist da! \\o/</strong> Es sind circa 40.000 Bäume hinzugekommen, die in den nächsten Tagen auch auf der Seite verfügbar sind!<br/> Viel Spaß beim Gießen!',
   //     // `Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.`,
   //   ],
@@ -247,10 +247,58 @@ const deContent: Content = {
         id: 'KASTANIE',
         title: 'Kastanie (Aesculus)',
         description:
-          'Die Rosskastanie (Aesculus hippocastanum) hat einem Anteil von ca. 5% am Gesamtbestand, belegt damit den fünften Platz unter den Berliner Straßenbäumen.',
+          'Die Kastanie (Aesculus) hat einen Anteil von ca. 5% am Gesamtbestand, und belegt damit den fünften Platz unter den Berliner Straßenbäumen. Rosskastanien haben fünf- und mehrgliedrige Blätter, die an die Finger einer Hand erinnern; Esskastanien haben einzelne Blätter, die überdies deutlich gezackt sind.',
+      },
+      {
+        id: 'ROSSKASTANIE',
+        title: 'Rosskastanie (Aesculus hippocastanum)',
+        description:
+          'Die Rosskastanie (Aesculus hippocastanum) hat einen Anteil von ca. 5% am Gesamtbestand, und belegt damit den fünften Platz unter den Berliner Straßenbäumen. Rosskastanien haben fünf- und mehrgliedrige Blätter, die an die Finger einer Hand erinnern; Esskastanien haben einzelne Blätter, die überdies deutlich gezackt sind.',
+      },
+      {
+        id: 'ESCHE',
+        title: 'Esche (Fraxinus)',
+        description:
+          'Die Esche (Fraxinus) hat einen Anteil von ca. 3% am Gesamtbestand, und belegt damit den sechsten Platz unter den Berliner Straßenbäumen. Mit einer Wuchshöhe von bis zu 40 m zählt sie zu den höchsten Laubbäumen Europas.',
+      },
+      {
+        id: 'BIRKE',
+        title: 'Birke (Betula)',
+        description:
+          'Die Birke (Betula) hat einen Anteil von ca. 3% am Gesamtbestand. Obwohl die Birke als Pionierbaum sehr anspruchslos und wachsend auf jedem Boden ist, eignet sie sich als Straßenbaum weniger, da die Baumscheiben oft zu wenig Raum für die Flachwurzler bieten.',
+      },
+      {
+        id: 'ROBINIE',
+        title: 'Robinie (Robinia)',
+        description:
+          'Die Robinie (Robinia) hat einen Anteil von ca. 2% am Gesamtbestand. Sie wurde ab 1672 im Berliner Lustgarten als Parkbaum kultiviert und ist heute in ganz Berlin sehr häufig. Die Robinie stellt nur geringe Anforderungen an den Boden, und sie kann dank der Knöllchenbakterien an ihren Wurzeln Luftstickstoff bindenden und düngt damit den Boden auf.',
+      },
+      {
+        id: 'HASEL',
+        title: 'Hasel Baum (Corylus)',
+        description:
+          'Der Hasel Baum (Corylus) hat einen Anteil von ca. 2% am Gesamtbestand, und ist somit der neunt häufigste Straßenbaum in Berlin. Die Haselnuss wächst als Strauch oder kleiner Baum bis zu 6 m hoch.',
+      },
+      {
+        id: 'HAINBUCHE',
+        title: 'Hainbuche (Carpinus)',
+        description:
+          'Der Anteil der Hainbuchen (Carpinus) beträgt rund 2% des Gesamtbestandes. Der Baum erreicht eine Höhe von bis zu 25 m. Die Krone ist erst leicht kegelförmig und später weit ausladend.',
+      },
+      {
+        id: 'PAPPEL',
+        title: 'Pappel (Populus)',
+        description:
+          'Die Pappel (Populus) hat einen Anteil von ca. 2% am Berliner Gesamtbestand. Sie haben eiförmige bis dreieckige, teils herzförmige Laubblätter.',
+      },
+      {
+        id: 'ULME',
+        title: 'Ulme (Ulmus)',
+        description:
+          'Der Anteil der Ulmen (Ulmus) beträgt rund 2% des Gesamtbestandes. Es gibt bei uns drei der weltweit 45 Arten dieses sommergrünen Laubbaumes: die Bergulme, die Feldulme und die Flatter-Ulme. Sie kommt mit einer Höhe von bis zu 600 Metern vor und kann 250 Jahre alt werden.',
       },
     ],
-    openSourceNote: 'Giess den Kiez ist ein',
+    openSourceNote: 'Gieß den Kiez ist ein',
     openSourceLink: 'https://github.com/technologiestiftung/giessdenkiez-de',
     openSourceText: 'Open Source Projekt!',
     profile: {
@@ -352,7 +400,6 @@ const deContent: Content = {
     },
     errors: {
       checkUsername: 'Bitte überprüfe Deinen Benutzernamen',
-      checkPassword: 'Bitte überprüfe Dein Passwort',
       userExistsAlready: 'Benutzer bereits registriert',
       emailCouldNotBeSent:
         'Die E-Mail an "_1_" konnte nicht verschickt werden. Versuch es erneut.',
@@ -361,6 +408,7 @@ const deContent: Content = {
       checkMailForPasswordReset:
         'Überprüfe Deine E-Mail "_1_" nach einem Link um Dein Passwort zu ändern',
       usernameTaken: 'Benutzername bereits vergeben',
+      checkPassword: 'Bitte überprüfe Dein Passwort',
     },
     passwordNotSecureEnough: 'Passwort ist nicht sicher genug',
     passwordCouldNotBeChanged: 'Passwort konnte nicht geändert werden',
@@ -421,7 +469,7 @@ const enContent = {
       {
         question: 'How can I participate?',
         answer:
-          'Inform: <br><br>Curious which tree is in front of your door? Our interactive map visualizes over 800,000 street and plant trees in Berlin. If you want to find out more about a tree, navigate and zoom to the desired location and click on the colored dot. You will now see a lot of information about the selected tree in the menu ribbon on the left. <br><br>Watering and adopting trees: <br><br>Do you want to get active or are you already actively watering? On Gieß den Kiez you can enter whether and with how much water you watered a tree. Trees can also be adopted. The adopted trees appear in your own user profile and can be found more quickly. This allows other neighbors in the area to see which trees need their attention. To water and adopt trees, first create a profile with a valid email address and then log in. Now you can document your watering activities accordingly and see whether and how often trees in your neighbourhood have already been watered by other users.<br><br>Connect: <br><br> You can use our public <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a> to exchange ideas with other members and report defective pumps in your neighbourhood.',
+          'Inform: <br><br>Curious which tree is in front of your door? Our interactive map visualizes over 800,000 street and plant trees in Berlin. If you want to find out more about a tree, navigate and zoom to the desired location and click on the colored dot. You will now see a lot of information about the selected tree in the menu ribbon on the left. <br><br>Watering and adopting trees: <br><br>Do you want to get active or are you already actively watering? On Gieß den Kiez, you can enter whether and with how much water you watered a tree. Trees can also be adopted. The adopted trees appear in your own user profile and can be found more quickly. This allows other neighbors in the area to see which trees need their attention. To water and adopt trees, first create a profile with a valid email address and then log in. Now you can document your watering activities accordingly and see whether and how often trees in your neighborhood have already been watered by other users.<br><br>Connect: <br><br> You can use our public <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a> to exchange ideas with other foundries and report defective pumps in your neighborhood.',
       },
       {
         question: 'What can I do if trees are not registered correctly?',
@@ -431,12 +479,12 @@ const enContent = {
       {
         question: 'Why should I take action and water trees?',
         answer:
-          "The long periods of drought and heat of the last two years have caused immense damage to Berlin's urban greenery. Although not only due to drought damage, over 7,000 trees had to be felled between 2018 and 2019 alone. <br><br>The street and green space authorities are already active, but cannot keep up with the watering during Berlin's hot summers. Since the green space authorities are organized by district, each district works slightly differently, so holistic and needs-based coordination is certainly associated with hurdles. Through the platform, we would also like to give citizens the opportunity to help trees specifically based on their current water supply and to obtain information. The goal is to save as many trees as possible through neighborly involvement.",
+          "The long periods of drought and heat of the last two years have caused immense damage to Berlin's urban greenery. Between 2018 and 2019 alone, over 7,000 trees had to be felled, not solely due to drought damage. <br><br>The street and green space authorities are already active, but cannot keep up with the watering during Berlin's hot summers. Since the green space authorities are organized by district, each district works slightly differently, so holistic and needs-based coordination is certainly associated with hurdles. Through the platform, we would also like to give citizens the opportunity to help trees specifically based on their current water supply and to obtain information. The goal is to save as many trees as possible through neighborly involvement.",
       },
       {
         question: 'How do I water correctly?',
         answer:
-          'Depending on their age, location and tree species, trees need different amounts of water. Young trees (0-15 years) need more water than medium-aged trees (15-40 years). Old trees (40 years and older) are usually completely self-sufficient. <br><br>Since freshly planted trees up to the age of three are usually supplied with water by the district parks authorities, the trees between four and 15 years in particular need our attention and our water. We have highlighted this with the labels of low, medium or high water requirement. <br><br>Based on the Berlin <a target="blank" href="https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/katalog-good-care/">Manual Good Care</a> we recommend that you water it rarely, but rather with a larger amount of water. The manual recommends up to 200l per watering for freshly planted trees. In this way you ensure that the soil moisture is increased even at depth. In the end, even smaller amounts don\'t hurt, especially in midsummer. It is important to loosen the dried out soil before watering so that the water can penetrate into the soil and does not run off above ground or accumulate incorrectly. So-called watering bags are also recommended, from which the water only emerges very slowly, hardly runs off the surface and therefore continuously seeps into the ground.',
+          'Depending on their age, location and tree species, trees need different amounts of water. Young trees (0-15 years) need more water than medium-aged trees (15-40 years). Old trees (40 years and older) are usually completely self-sufficient. <br><br>Since freshly planted trees up to the age of three are usually supplied with water by the district parks authorities, the trees between four and 15 years in particular need our attention and our water. We have highlighted this with the labels of low, medium or high water requirement. <br><br>Based on the Berlin <a target="blank" href="https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/katalog-good-care/">Manual Good Care</a>, we recommend you to water rarely, but rather with a larger amount of water. The manual recommends up to 200l per watering for freshly planted trees. In this way, you ensure that the soil moisture is increased even at depth. In the end, even smaller amounts do not hurt, especially in midsummer. It is important to loosen the dried out soil before watering so that the water can penetrate into the soil and does not run off above ground or accumulate incorrectly. So-called watering bags are also recommended, from which the water only emerges very slowly, hardly runs off the surface and therefore continuously seeps into the ground.',
       },
       {
         question: 'Who can I contact if pumps are broken or damaged?',
@@ -466,12 +514,12 @@ const enContent = {
       {
         question: 'I still have a question!',
         answer:
-          'The FAQ couldn\'t help you or you have a more complex query? Then write us an <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Question:...">Email.</a>',
+          'The FAQ couldn\'t help you or you have a more complex query? Then write us an <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Gieß Den Kiez] Question:...">Email.</a>',
       },
       {
         question: "Why aren't all of Berlin's trees shown?",
         answer:
-          "Giess den Kiez is based on the tree register. The tree register is a city directory in which (city/street or park) trees are managed and which is provided by the street and green spaces authorities. However, the Streets and Green Spaces Authority is not responsible for all of Berlin's trees. The trees in the Plänterwald, for example, are subject to the forestry office. These trees therefore do not appear in Gieß den Kiez.",
+          "Gieß den Kiez is based on the tree register. The tree register is a city directory in which (city/street or park) trees are managed and which is provided by the street and green spaces authorities. However, the green space authorities are not responsible for all of Berlin's trees. The trees in the Plänterwald, for example, are subject to the forestry office. These trees therefore do not appear in Gieß den Kiez.",
       },
     ],
   },
@@ -483,7 +531,7 @@ const enContent = {
       '© <a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noreferrer">Mapbox</a> – © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> – <a href="https://www.mapbox.com/map-feedback" target="_blank" rel="noreferrer"><strong>Improve this map</strong></a> – <a href="https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK" target="_blank" rel="noreferrer">Feedback</a>',
   },
   intro: {
-    title: '<b>Giess den <span>Kiez</span></b>',
+    title: '<b>Gieß den <span>Kiez</span></b>',
     subline:
       'Berlin\'s city trees are suffering from drought <br class="large" /> and you can help them!',
     description: [
@@ -623,7 +671,7 @@ const enContent = {
           "The horse chestnut (Aesculus hippocastanum) accounts for around 5% of the total population, placing it in fifth place among Berlin's street trees.",
       },
     ],
-    openSourceNote: 'Giess den Kiez is an',
+    openSourceNote: 'Gieß den Kiez is an',
     openSourceLink: 'https://github.com/technologiestiftung/giessdenkiez-de',
     openSourceText: 'Open Source project!',
     profile: {
@@ -724,7 +772,6 @@ const enContent = {
     },
     errors: {
       checkUsername: 'Please check your username',
-      checkPassword: 'Please check your password',
       userExistsAlready: 'User already registered',
       emailCouldNotBeSent: 'Email to "_1_" could not be sent. Try again.',
       usernameOrPasswordWrong: 'Username or password are wrong',
@@ -732,6 +779,7 @@ const enContent = {
       checkMailForPasswordReset:
         'Check your email "_1_" for a link to reset your password',
       usernameTaken: 'Username already taken',
+      checkPassword: 'Please check your password',
     },
     passwordNotSecureEnough: 'Password ist not secure enough',
     passwordCouldNotBeChanged: 'Password could not be changed',
@@ -769,7 +817,7 @@ const enContent = {
     ],
   },
   sales: {
-    title: '<i>Giess den Kiez</i> also in your city?',
+    title: '<i>Gieß den Kiez</i> also in your city?',
     subtitle:
       'Cities like Leipzig, Magdeburg and Co. have already successfully joined the watering wave! ',
     buttonText: 'Learn more!',

@@ -7,7 +7,7 @@ import OverlayDescription from '../OverlayDescription/';
 import ButtonRound from '../../ButtonRound';
 import Credits from '../../Credits';
 
-import { useActions, useStoreState } from '../../../state/unistore-hooks';
+import { useActions } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
 import OverlayTiles from '../OverlayTiles';
 import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
@@ -45,7 +45,7 @@ const StyledTop = styled.div`
   padding: 20px 0 0 0;
   grid-area: intro;
 
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+  @media screen and (max-width: ${(p) => p.theme.screens.tablet}) {
     overflow-y: initial;
   }
 `;
@@ -62,7 +62,7 @@ const StyledWrapper = styled.div`
   flex-direction: row;
   position: relative;
 
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+  @media screen and (max-width: ${(p) => p.theme.screens.tablet}) {
     flex-direction: column;
     align-items: start;
   }
@@ -73,7 +73,7 @@ const CreditsContainer = styled.div`
   margin-top: 20px;
   align-self: flex-end;
   width: 60%;
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+  @media screen and (max-width: ${(p) => p.theme.screens.tablet}) {
     width: 100%;
   }
   &:before {
@@ -102,8 +102,6 @@ const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
   const { intro, collaborate, whatsNew } = useLocalizedContent();
   const { title, subline, description, action } = intro;
-  const language = useStoreState('language');
-  const { setLanguage } = useActions();
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
