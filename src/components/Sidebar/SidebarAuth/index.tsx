@@ -18,6 +18,7 @@ import debounce from 'lodash/debounce';
 import { AuthView } from '../../Forms/AuthForm';
 import { validatePassword } from '../../../utils/validatePassword';
 import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 export const StyledSpacer = styled.div`
   padding: 10px;
@@ -27,10 +28,12 @@ export const StyledSpacer = styled.div`
 export const SidebarAuth = ({
   view,
   setView,
+  currentNotification,
   setNotification,
   isLoading,
 }: {
   isLoading: boolean;
+  currentNotification: UserNotificationObjectType | null;
   setNotification: React.Dispatch<
     React.SetStateAction<UserNotificationObjectType | null>
   >;
@@ -104,7 +107,7 @@ export const SidebarAuth = ({
   const handleSignInSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    signIn(formData.email, formData.password).catch(error => {
+    signIn(formData.email, formData.password).catch((error) => {
       setNotification({
         message: error.message,
         type: 'error',
@@ -113,7 +116,7 @@ export const SidebarAuth = ({
   };
   const handleSignUpSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    signUp(formData).catch(error => {
+    signUp(formData).catch((error) => {
       console.error(error);
       setNotification({
         message: error.message,
@@ -124,7 +127,7 @@ export const SidebarAuth = ({
 
   const handleRecoverySubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    recovery(formData.email).catch(error => {
+    recovery(formData.email).catch((error) => {
       console.error(error);
       setNotification({
         message: error.message,
@@ -158,7 +161,7 @@ export const SidebarAuth = ({
   const signUp = async ({ email, password, username }: CredentialsData) => {
     if (username === undefined) {
       setNotification({
-        message: 'Bitte überprüfe dein Benutzername',
+        message: checkUsername,
         type: 'error',
       });
       return;
@@ -168,7 +171,7 @@ export const SidebarAuth = ({
 
     if (!isUsernameValid) {
       setNotification({
-        message: 'Bitte überprüfe dein Benutzername',
+        message: checkUsername,
         type: 'error',
       });
       return;
@@ -178,7 +181,7 @@ export const SidebarAuth = ({
 
     if (!isPasswordValid) {
       setNotification({
-        message: checkUsername,
+        message: checkPassword,
         type: 'error',
       });
       return;
@@ -317,6 +320,7 @@ export const SidebarAuth = ({
           handleSubmit={handleSignInSubmit}
           buttonText={signinAction}
           isSignIn={true}
+          currentNotification={currentNotification}
         />
       );
       linkText = (
@@ -337,6 +341,7 @@ export const SidebarAuth = ({
           buttonText={signupAction}
           usernamePatterns={usernamePatterns}
           isUsernameTaken={isUsernameTaken}
+          currentNotification={currentNotification}
           isSignIn={false}
         />
       );
@@ -358,6 +363,7 @@ export const SidebarAuth = ({
           handleSubmit={handleRecoverySubmit}
           buttonText={resetPassword}
           isRecovery={true}
+          currentNotification={currentNotification}
         />
       );
       linkText = (

@@ -8,6 +8,14 @@ const deContent: Content = {
     reload: 'Vielleicht hilft es auch die Seite neu zu laden?',
     backToHome: 'Back to home',
   },
+const deContent: Content = {
+  error: {
+    title: 'Irgendwas ist schiefgelaufen.',
+    contact: 'Bitte wende Dich an das',
+    issue: 'oder schreib uns einen Issue auf',
+    reload: 'Vielleicht hilft es auch die Seite neu zu laden?',
+    backToHome: 'Back to home',
+  },
   faq: {
     title: 'F.A.Q.',
     description:
@@ -247,7 +255,55 @@ const deContent: Content = {
         id: 'KASTANIE',
         title: 'Kastanie (Aesculus)',
         description:
-          'Die Rosskastanie (Aesculus hippocastanum) hat einem Anteil von ca. 5% am Gesamtbestand, belegt damit den fünften Platz unter den Berliner Straßenbäumen.',
+          'Die Kastanie (Aesculus) hat einen Anteil von ca. 5% am Gesamtbestand, und belegt damit den fünften Platz unter den Berliner Straßenbäumen. Rosskastanien haben fünf- und mehrgliedrige Blätter, die an die Finger einer Hand erinnern; Esskastanien haben einzelne Blätter, die überdies deutlich gezackt sind.',
+      },
+      {
+        id: 'ROSSKASTANIE',
+        title: 'Rosskastanie (Aesculus hippocastanum)',
+        description:
+          'Die Rosskastanie (Aesculus hippocastanum) hat einen Anteil von ca. 5% am Gesamtbestand, und belegt damit den fünften Platz unter den Berliner Straßenbäumen. Rosskastanien haben fünf- und mehrgliedrige Blätter, die an die Finger einer Hand erinnern; Esskastanien haben einzelne Blätter, die überdies deutlich gezackt sind.',
+      },
+      {
+        id: 'ESCHE',
+        title: 'Esche (Fraxinus)',
+        description:
+          'Die Esche (Fraxinus) hat einen Anteil von ca. 3% am Gesamtbestand, und belegt damit den sechsten Platz unter den Berliner Straßenbäumen. Mit einer Wuchshöhe von bis zu 40 m zählt sie zu den höchsten Laubbäumen Europas.',
+      },
+      {
+        id: 'BIRKE',
+        title: 'Birke (Betula)',
+        description:
+          'Die Birke (Betula) hat einen Anteil von ca. 3% am Gesamtbestand. Obwohl die Birke als Pionierbaum sehr anspruchslos und wachsend auf jedem Boden ist, eignet sie sich als Straßenbaum weniger, da die Baumscheiben oft zu wenig Raum für die Flachwurzler bieten.',
+      },
+      {
+        id: 'ROBINIE',
+        title: 'Robinie (Robinia)',
+        description:
+          'Die Robinie (Robinia) hat einen Anteil von ca. 2% am Gesamtbestand. Sie wurde ab 1672 im Berliner Lustgarten als Parkbaum kultiviert und ist heute in ganz Berlin sehr häufig. Die Robinie stellt nur geringe Anforderungen an den Boden, und sie kann dank der Knöllchenbakterien an ihren Wurzeln Luftstickstoff bindenden und düngt damit den Boden auf.',
+      },
+      {
+        id: 'HASEL',
+        title: 'Hasel Baum (Corylus)',
+        description:
+          'Der Hasel Baum (Corylus) hat einen Anteil von ca. 2% am Gesamtbestand, und ist somit der neunt häufigste Straßenbaum in Berlin. Die Haselnuss wächst als Strauch oder kleiner Baum bis zu 6 m hoch.',
+      },
+      {
+        id: 'HAINBUCHE',
+        title: 'Hainbuche (Carpinus)',
+        description:
+          'Der Anteil der Hainbuchen (Carpinus) beträgt rund 2% des Gesamtbestandes. Der Baum erreicht eine Höhe von bis zu 25 m. Die Krone ist erst leicht kegelförmig und später weit ausladend.',
+      },
+      {
+        id: 'PAPPEL',
+        title: 'Pappel (Populus)',
+        description:
+          'Die Pappel (Populus) hat einen Anteil von ca. 2% am Berliner Gesamtbestand. Sie haben eiförmige bis dreieckige, teils herzförmige Laubblätter.',
+      },
+      {
+        id: 'ULME',
+        title: 'Ulme (Ulmus)',
+        description:
+          'Der Anteil der Ulmen (Ulmus) beträgt rund 2% des Gesamtbestandes. Es gibt bei uns drei der weltweit 45 Arten dieses sommergrünen Laubbaumes: die Bergulme, die Feldulme und die Flatter-Ulme. Sie kommt mit einer Höhe von bis zu 600 Metern vor und kann 250 Jahre alt werden.',
       },
     ],
     openSourceNote: 'Giess den Kiez ist ein',

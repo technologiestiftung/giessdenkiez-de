@@ -8,12 +8,10 @@ import ButtonRound from '../../ButtonRound';
 import Credits from '../../Credits';
 
 import { useActions, useStoreState } from '../../../state/unistore-hooks';
+import { useActions, useStoreState } from '../../../state/unistore-hooks';
 import OverlayClose from '../OverlayClose';
 import OverlayTiles from '../OverlayTiles';
 import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
-import Switch from '../../Switch';
-import { Language } from '../../../assets/content-types';
-import { setLocalStorageLanguage } from '../../../assets/local-storage';
 
 const StyledNewsSection = styled.section`
   background-color: #f7fffa;
@@ -45,7 +43,7 @@ const StyledTop = styled.div`
   padding: 20px 0 0 0;
   grid-area: intro;
 
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+  @media screen and (max-width: ${(p) => p.theme.screens.tablet}) {
     overflow-y: initial;
   }
 `;
@@ -62,7 +60,7 @@ const StyledWrapper = styled.div`
   flex-direction: row;
   position: relative;
 
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+  @media screen and (max-width: ${(p) => p.theme.screens.tablet}) {
     flex-direction: column;
     align-items: start;
   }
@@ -73,7 +71,7 @@ const CreditsContainer = styled.div`
   margin-top: 20px;
   align-self: flex-end;
   width: 60%;
-  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
+  @media screen and (max-width: ${(p) => p.theme.screens.tablet}) {
     width: 100%;
   }
   &:before {
@@ -119,7 +117,10 @@ const OverlayTop: FC = () => {
       <Logo>
         <OverlayTitle size='xxl' title={title} />
         <Icon iconType='trees' />
-        <Switch
+
+        {/*
+          TODO: Uncomment as soon as all translations are reviewed and ready
+         <Switch
           firstOption={Language.de}
           secondOption={Language.en}
           selectedOption={language}
@@ -127,7 +128,7 @@ const OverlayTop: FC = () => {
             setLocalStorageLanguage(option as Language);
             setLanguage(option as Language);
           }}
-        ></Switch>
+        ></Switch> */}
       </Logo>
       <OverlayTitle size='xxl' title={subline} />
       {/* the beow is here for local testing */}
