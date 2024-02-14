@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 const StyledSwitch = styled.div`
+  z-index: 4;
   position: fixed;
   right: 10px;
   top: 10px;
