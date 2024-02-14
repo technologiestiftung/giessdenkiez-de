@@ -229,8 +229,10 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       if (!map.current || typeof map.current === 'undefined' || hasUnmounted)
         return;
 
-      map.current.scrollZoom.setZoomRate(0.15);
-      map.current.scrollZoom.setWheelZoomRate(0.08);
+      // Customizing the zoom rates according to
+      // https://docs.mapbox.com/mapbox-gl-js/api/handlers/#scrollzoomhandler
+      map.current.scrollZoom.setZoomRate(1 / 25);
+      map.current.scrollZoom.setWheelZoomRate(1 / 400);
 
       setMapHasLoaded();
 
@@ -555,6 +557,17 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
               trackUserLocation={isMobile ? true : false}
               showUserLocation={true}
               showAccuracyCircle={false}
+              fitBoundsOptions={{ maxZoom: VIEWSTATE_ZOOMEDIN_ZOOM }}
+              onGeolocate={(e) => {
+                if (!map.current) return;
+                map.current.easeTo({
+                  center: [e.coords.longitude, e.coords.latitude],
+                  essential: true,
+                  zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+                  easing: easeLinear,
+                  duration: VIEWSTATE_TRANSITION_DURATION,
+                });
+              }}
             />
           </ControlWrapper>
         )}
