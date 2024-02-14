@@ -49,13 +49,13 @@ export const SidebarAuth = ({
     registerLink,
     forgotPasswordLink,
     forgotPasswordHint,
+    checkSignupMail,
   } = content.auth;
 
   const {
     checkUsername,
     userExistsAlready,
     emailCouldNotBeSent,
-    checkSignupMail,
     usernameOrPasswordWrong,
     ooops,
     checkMailForPasswordReset,
@@ -81,8 +81,6 @@ export const SidebarAuth = ({
     confirm: confirm,
     change: editPasswordTitle,
   };
-
-  const { alreadyRegisteredHint } = content.auth;
 
   const supabase = useSupabaseClient();
 
@@ -383,7 +381,7 @@ export const SidebarAuth = ({
         <Paragraph>
           {checkSignupMail
             .replace('_1_', formData.email)
-            .replace('_2_', process.env.NEXT_PUBLIC_FROM_EMAIL)}
+            .replace('_2_', process.env.NEXT_PUBLIC_FROM_EMAIL ?? '')}
         </Paragraph>
       );
 
