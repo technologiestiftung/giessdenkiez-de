@@ -67,16 +67,14 @@ export const CredentialsForm = ({
         onSubmit={(e) => {
           if (!formData.email) {
             setShowEmailHint(true);
-            e.preventDefault();
-            return;
           }
           if (!formData.username) {
             setShowMissingUsernameHint(true);
-            e.preventDefault();
-            return;
           }
           if (!formData.password) {
             setShowMissingPasswordHint(true);
+          }
+          if (!formData.email || !formData.username || !formData.password) {
             e.preventDefault();
             return;
           }
