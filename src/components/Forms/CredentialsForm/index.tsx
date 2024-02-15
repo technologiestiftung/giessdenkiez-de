@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import { StyledForm, StyledFormRow } from '..';
 import { CredentialsData } from '../../../common/interfaces';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 import { UsernamePattern } from '../../../utils/validateUsername';
 import {
   UserNotification,
@@ -11,7 +13,13 @@ import { StyledFormTextInput } from '../Inputs';
 import { StyledLabel } from '../Labels';
 import { PasswordValidation } from '../PasswordValidation';
 import { UsernameValidation } from '../UsernameValidation';
-import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
+
+const StyledSpan = styled.span`
+  color: ${(p) => p.theme.colorAlarm};
+  font-size: ${(p) => p.theme.fontSizeL};
+  padding-top: 4px;
+  padding-bottom: 4px;
+`;
 
 export const CredentialsForm = ({
   formData,
@@ -20,6 +28,7 @@ export const CredentialsForm = ({
   buttonText,
   isRecovery,
   isSignIn,
+  isSignup,
   usernamePatterns,
   isUsernameTaken,
   currentNotification,
@@ -33,29 +42,59 @@ export const CredentialsForm = ({
   buttonText: string;
   isRecovery?: boolean;
   isSignIn?: boolean;
+  isSignup?: boolean;
   usernamePatterns?: UsernamePattern;
   isUsernameTaken?: boolean;
   currentNotification: UserNotificationObjectType | null;
 }) => {
   const content = useLocalizedContent();
 
+  const { email, username, password } = content.auth;
+
   const {
-    signinTitle,
-    email,
-    username,
-    password,
-    signinAction,
-    noAccountHint,
-    registerLink,
-    forgotPasswordHint,
-    forgotPasswordLink,
-  } = content.auth;
+    usernameTaken,
+    enterEmail,
+    enterPassword,
+    enterUsername,
+  } = content.auth.errors;
+
+  const [showEmailHint, setShowEmailHint] = useState(false);
+  const [showMissingPasswordHint, setShowMissingPasswordHint] = useState(false);
+  const [showMissingUsernameHint, setShowMissingUsernameHint] = useState(false);
+
+  const requiredFieldsPresent = (): boolean => {
+    if (isSignIn) {
+      setShowEmailHint(!formData.email);
+      setShowMissingPasswordHint(!formData.password);
+      if (!formData.email || !formData.password) {
+        return false;
+      }
+    } else if (isRecovery) {
+      setShowEmailHint(!formData.email);
+      if (!formData.email) {
+        return false;
+      }
+    } else if (isSignup) {
+      setShowEmailHint(!formData.email);
+      setShowMissingUsernameHint(!formData.username);
+      setShowMissingPasswordHint(!formData.password);
+      if (!formData.email || !formData.username || !formData.password) {
+        return false;
+      }
+    }
+    return true;
+  };
 
   return (
     <>
       <StyledForm
-        onSubmit={e => {
-          handleSubmit(e);
+        noValidate
+        onSubmit={(e) => {
+          if (!requiredFieldsPresent()) {
+            e.preventDefault();
+          } else {
+            handleSubmit(e);
+          }
         }}
       >
         <StyledFormRow>
@@ -67,9 +106,13 @@ export const CredentialsForm = ({
             type='email'
             name='email'
             required
-            onChange={e => handleInputChange(e).catch(console.error)}
+            onChange={(e) => {
+              setShowEmailHint(false);
+              handleInputChange(e).catch(console.error);
+            }}
             value={formData.email}
           ></StyledFormTextInput>
+          {showEmailHint && <StyledSpan>{enterEmail}</StyledSpan>}
         </StyledFormRow>
         {!isSignIn && !isRecovery && (
           <StyledFormRow>
@@ -81,19 +124,20 @@ export const CredentialsForm = ({
               type='username'
               name='username'
               required
-              onChange={handleInputChange}
+              onChange={(e) => {
+                setShowMissingUsernameHint(false);
+                handleInputChange(e);
+              }}
               value={formData.username}
             ></StyledFormTextInput>
-            <StyledFormRow>
-              {usernamePatterns && (
-                <UsernameValidation patterns={usernamePatterns} />
-              )}
-            </StyledFormRow>
+            {showMissingUsernameHint && (
+              <StyledSpan>{enterUsername}</StyledSpan>
+            )}
+            {usernamePatterns && (
+              <UsernameValidation patterns={usernamePatterns} />
+            )}
             {isUsernameTaken && (
-              <UserNotification
-                message={'Benutzername bereits vergeben'}
-                type={'error'}
-              />
+              <UserNotification message={usernameTaken} type={'error'} />
             )}
           </StyledFormRow>
         )}
@@ -109,14 +153,21 @@ export const CredentialsForm = ({
               minLength={8}
               maxLength={128}
               required
-              onChange={handleInputChange}
+              onChange={(e) => {
+                setShowMissingPasswordHint(false);
+                handleInputChange(e);
+              }}
               value={formData.password}
             ></StyledFormTextInput>
+            {showMissingPasswordHint && (
+              <StyledSpan>{enterPassword}</StyledSpan>
+            )}
+            {!isRecovery && !isSignIn && (
+              <PasswordValidation password={formData.password} />
+            )}
           </StyledFormRow>
         )}
-        {!isRecovery && !isSignIn && (
-          <PasswordValidation password={formData.password} />
-        )}
+
         <StyledFormRow>
           <ButtonSubmitRound type='submit'>{buttonText}</ButtonSubmitRound>
         </StyledFormRow>

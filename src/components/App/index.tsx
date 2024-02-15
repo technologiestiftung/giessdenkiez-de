@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
-// import { Map } from '../TreesMap';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import 'react-day-picker/dist/style.css';

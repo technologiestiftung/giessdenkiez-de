@@ -10,16 +10,14 @@ export const updateEmail = async ({
 }: {
   oldEmail: string;
   newEmail: string;
-  emailSuccessMessageText: string;
+  emailSuccessMessageText: (oldMail: string, newMail: string) => string;
 }): Promise<string> => {
   try {
     await supabase.auth.updateUser({
       email: newEmail,
     });
 
-    return emailSuccessMessageText
-      .replace('_1_', oldEmail)
-      .replace('_2_', newEmail);
+    return emailSuccessMessageText(oldEmail, newEmail);
   } catch (error) {
     console.error(error);
     return error;

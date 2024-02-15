@@ -7,7 +7,7 @@ import Icon from '../../Icons';
 import OverlayDescription from '../OverlayDescription/';
 import OverlayTitle from '../OverlayTitle/';
 
-import { useActions, useStoreState } from '../../../state/unistore-hooks';
+import { useActions } from '../../../state/unistore-hooks';
 import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 import OverlayClose from '../OverlayClose';
 import OverlayTiles from '../OverlayTiles';
@@ -99,8 +99,6 @@ const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
   const { intro, collaborate, whatsNew } = useLocalizedContent();
   const { title, subline, description, action } = intro;
-  const language = useStoreState('language');
-  const { setLanguage } = useActions();
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {

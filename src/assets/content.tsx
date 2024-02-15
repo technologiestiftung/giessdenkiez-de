@@ -63,7 +63,7 @@ const deContent: Content = {
       {
         question: 'Ich habe immer noch eine Frage!',
         answer:
-          'Das FAQ konnte Dir nicht weiterhelfen oder Du hast eine komplexere Anfrage? Dann schreib uns eine <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Frage:...">Email.</a>',
+          'Das FAQ konnte Dir nicht weiterhelfen oder Du hast eine komplexere Anfrage? Dann schreib uns eine <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Gieß Den Kiez] Frage:...">Email.</a>',
       },
       {
         question: 'Warum werden nicht alle Bäume Berlins angezeigt?',
@@ -137,7 +137,7 @@ const deContent: Content = {
   // whatsNew: {
   //   title: 'Gieß den Kiez Update:',
   //   description: [
-  //     '<strong>Der Frühjahrsputz ist voll im Gange!</strong> In den letzten Tagen haben wir ein großes Update an der Seite vorgenommen. Ihr könnt euch über viele kleine und große Verbesserungen freuen: Wir erleichtern die Übertragbarkeit von Giess den Kiez für andere Städte, ermöglichen Euch die Anpassung Eurer E-Mail-Adresse oder Eures Passwortes und noch einiges mehr. Wir haben bereits all eure Accounts in unser neues System übertragen und beobachten ob Fehler auftauchen, die wir nicht vorhersehen konnten.',
+  //     '<strong>Der Frühjahrsputz ist voll im Gange!</strong> In den letzten Tagen haben wir ein großes Update an der Seite vorgenommen. Ihr könnt euch über viele kleine und große Verbesserungen freuen: Wir erleichtern die Übertragbarkeit von Gieß den Kiez für andere Städte, ermöglichen Euch die Anpassung Eurer E-Mail-Adresse oder Eures Passwortes und noch einiges mehr. Wir haben bereits all eure Accounts in unser neues System übertragen und beobachten ob Fehler auftauchen, die wir nicht vorhersehen konnten.',
   //     'Für den Fall, dass irgendetwas schief geht, zögert nicht euch an uns zu wenden. Per Slack, per E-Mail oder auf GitHub.<br /><strong>Und zu guter Letzt - das neue Baumkataster für 2023 ist da! \\o/</strong> Es sind circa 40.000 Bäume hinzugekommen, die in den nächsten Tagen auch auf der Seite verfügbar sind!<br/> Viel Spaß beim Gießen!',
   //     // `Auch neu: die <strong>Caretaker-Labels im Bezirk Friedrichshain-Kreuzberg</strong>. Vielleicht findet Ihr ja einen der knapp 1.500 Bäume, die bereits durch das Grünflächenamt gegossen werden! Das Label befindet sich in der Seitenleiste eines Baumes.`,
   //   ],
@@ -298,7 +298,7 @@ const deContent: Content = {
           'Der Anteil der Ulmen (Ulmus) beträgt rund 2% des Gesamtbestandes. Es gibt bei uns drei der weltweit 45 Arten dieses sommergrünen Laubbaumes: die Bergulme, die Feldulme und die Flatter-Ulme. Sie kommt mit einer Höhe von bis zu 600 Metern vor und kann 250 Jahre alt werden.',
       },
     ],
-    openSourceNote: 'Giess den Kiez ist ein',
+    openSourceNote: 'Gieß den Kiez ist ein',
     openSourceLink: 'https://github.com/technologiestiftung/giessdenkiez-de',
     openSourceText: 'Open Source Projekt!',
     profile: {
@@ -334,8 +334,9 @@ const deContent: Content = {
       editUsernameSuccess: 'Benutzername geändert.',
       editUsernameError:
         'Interner Fehler beim Ändern des Benutzernamens. Versuche es später erneut.',
-      editEmailSuccess:
-        'Um die Änderung zu bestätigen, bitte klicke auf die Links die per Mail jeweils an Deine alte E-Mail-Adresse "_1_" und deine neue E-Mail-Adresse "_2_" verschickt wurden.',
+      editEmailSuccess: (oldMail: string, newMail: string) => {
+        return `Um die Änderung zu bestätigen, bitte klicke auf die Links die per Mail jeweils an Deine alte E-Mail-Adresse "${oldMail}" und deine neue E-Mail-Adresse "${newMail}" verschickt wurden.`;
+      },
       editPasswordTitle: 'Passwort ändern',
       oldPasswordTitle: 'Altes Passwort',
       newPasswordTitle: 'Neues Passwort',
@@ -355,7 +356,9 @@ const deContent: Content = {
       adoptedByMe: 'Von mir adoptiert ✔',
       adoptedAlsoByOthers: 'Ebenfalls von anderen adoptiert',
       adoptedOnlyByOthers: 'Von anderen Nutzer:innen adoptiert',
-      regularlyWateredBy: 'Dieser Baum wird regelmäßig von "_1_" gewässert.',
+      regularlyWateredBy: (user: string) => {
+        return `Dieser Baum wird regelmäßig von ${user} gewässert.`;
+      },
       lastWaterings: 'Letzte Bewässerungen',
       latestFirst: 'Neueste zuerst',
       needsVerification:
@@ -386,34 +389,42 @@ const deContent: Content = {
     bored: 'Dir ist langweilig bis dahin? Dann lies etwas über Gieß den Kiez!',
     profile: 'Profil',
     usernameRestrictions: {
-      part1: 'Dein Benutzername sollte zwischen',
+      intro: 'Dein Benutzername sollte zwischen',
       and: 'und',
-      part2:
-        'Zeichen lang sein, nur aus Zeichen und Zahlen (ohne Leerzeichen am Anfang und Ende) ',
-      part3: 'bestehen und natürlich nicht vergeben sein.',
+      length: 'Zeichen lang sein',
+      specialCharacters:
+        'und nur aus Zeichen und Zahlen (ohne Leerzeichen am Anfang und Ende) bestehen.',
     },
     passwordRestrictions: {
-      part1: 'Dein Passwort sollte: Mindestens 8 Zeichen lang sein',
-      part2: 'Klein- und Großbuchstaben',
-      part3: 'mindestens eines dieser Sonderzeichen @#$%&*()!_+=:;',
-      part4: 'und Zahlen enthalten.',
+      minLength: 'Dein Passwort sollte: Mindestens 8 Zeichen lang sein',
+      upperAndLowercase: 'Klein- und Großbuchstaben',
+      specialCharacters: 'mindestens eines dieser Sonderzeichen @#$%&*()!_+=:;',
+      containNumbers: 'und Zahlen enthalten.',
     },
     errors: {
       checkUsername: 'Bitte überprüfe Deinen Benutzernamen',
-      checkPassword: 'Bitte überprüfe Dein Passwort',
       userExistsAlready: 'Benutzer bereits registriert',
-      emailCouldNotBeSent:
-        'Die E-Mail an "_1_" konnte nicht verschickt werden. Versuch es erneut.',
+      emailCouldNotBeSent: (mail: string) => {
+        return `Die E-Mail an "${mail}" konnte nicht verschickt werden. Versuch es erneut.`;
+      },
       usernameOrPasswordWrong: 'Benutzername oder Passwort ist falsch',
       ooops: 'Ups... da ist etwas schief gelaufen',
-      checkMailForPasswordReset:
-        'Überprüfe Deine E-Mail "_1_" nach einem Link um Dein Passwort zu ändern',
+      checkMailForPasswordReset: (mail: string) => {
+        return `Überprüfe Deine E-Mail "${mail}" nach einem Link um Dein Passwort zu ändern`;
+      },
       usernameTaken: 'Benutzername bereits vergeben',
+      checkPassword: 'Bitte überprüfe Dein Passwort',
+      enterEmail: 'Bitte gebe eine E-Mail an',
+      enterPassword: 'Bitte gebe ein Passwort an',
+      enterUsername: 'Bitte gebe einen Benutzernamen an',
     },
     passwordNotSecureEnough: 'Passwort ist nicht sicher genug',
     passwordCouldNotBeChanged: 'Passwort konnte nicht geändert werden',
     passwordChangeSuccess: 'Passwort erfolgreich geändert',
     changePasswordFor: 'Passwort ändern für',
+    checkSignupMail: (recipientMail: string, senderMail: string) => {
+      return `Überprüfe Dein E-Mail Postfach für "${recipientMail}" nach einer E-Mail von "${senderMail}" mit einem Link um deinen Account zu bestätigen.`;
+    },
   },
   collaborate: {
     tiles: [
@@ -467,7 +478,7 @@ const enContent = {
       {
         question: 'How can I participate?',
         answer:
-          'Inform: <br><br>Curious which tree is in front of your door? Our interactive map visualizes over 800,000 street and plant trees in Berlin. If you want to find out more about a tree, navigate and zoom to the desired location and click on the colored dot. You will now see a lot of information about the selected tree in the menu ribbon on the left. <br><br>Watering and adopting trees: <br><br>Do you want to get active or are you already actively watering? On Gieß den Kiez you can enter whether and with how much water you watered a tree. Trees can also be adopted. The adopted trees appear in your own user profile and can be found more quickly. This allows other neighbors in the area to see which trees need their attention. To water and adopt trees, first create a profile with a valid email address and then log in. Now you can document your watering activities accordingly and see whether and how often trees in your neighborhood have already been watered by other users.<br><br>Connect: <br><br> You can use our public <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a> to exchange ideas with other foundries and report defective pumps in your neighborhood.',
+          'Inform: <br><br>Curious which tree is in front of your door? Our interactive map visualizes over 800,000 street and plant trees in Berlin. If you want to find out more about a tree, navigate and zoom to the desired location and click on the colored dot. You will now see a lot of information about the selected tree in the menu ribbon on the left. <br><br>Watering and adopting trees: <br><br>Do you want to get active or are you already actively watering? On Gieß den Kiez, you can enter whether and with how much water you watered a tree. Trees can also be adopted. The adopted trees appear in your own user profile and can be found more quickly. This allows other neighbors in the area to see which trees need their attention. To water and adopt trees, first create a profile with a valid email address and then log in. Now you can document your watering activities accordingly and see whether and how often trees in your neighborhood have already been watered by other users.<br><br>Connect: <br><br> You can use our public <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack channel</a> to exchange ideas with other foundries and report defective pumps in your neighborhood.',
       },
       {
         question: 'What can I do if trees are not registered correctly?',
@@ -477,12 +488,12 @@ const enContent = {
       {
         question: 'Why should I take action and water trees?',
         answer:
-          "The long periods of drought and heat of the last two years have caused immense damage to Berlin's urban greenery. Although not only due to drought damage, over 7,000 trees had to be felled between 2018 and 2019 alone. <br><br>The street and green space authorities are already active, but cannot keep up with the watering during Berlin's hot summers. Since the green space authorities are organized by district, each district works slightly differently, so holistic and needs-based coordination is certainly associated with hurdles. Through the platform, we would also like to give citizens the opportunity to help trees specifically based on their current water supply and to obtain information. The goal is to save as many trees as possible through neighborly involvement.",
+          "The long periods of drought and heat of the last two years have caused immense damage to Berlin's urban greenery. Between 2018 and 2019 alone, over 7,000 trees had to be felled, not solely due to drought damage. <br><br>The street and green space authorities are already active, but cannot keep up with the watering during Berlin's hot summers. Since the green space authorities are organized by district, each district works slightly differently, so holistic and needs-based coordination is certainly associated with hurdles. Through the platform, we would also like to give citizens the opportunity to help trees specifically based on their current water supply and to obtain information. The goal is to save as many trees as possible through neighborly involvement.",
       },
       {
         question: 'How do I water correctly?',
         answer:
-          'Depending on their age, location and tree species, trees need different amounts of water. Young trees (0-15 years) need more water than medium-aged trees (15-40 years). Old trees (40 years and older) are usually completely self-sufficient. <br><br>Since freshly planted trees up to the age of three are usually supplied with water by the district parks authorities, the trees between four and 15 years in particular need our attention and our water. We have highlighted this with the labels of low, medium or high water requirement. <br><br>Based on the Berlin <a target="blank" href="https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/katalog-good-care/">Manual Good Care</a> we recommend that you water it rarely, but rather with a larger amount of water. The manual recommends up to 200l per watering for freshly planted trees. In this way you ensure that the soil moisture is increased even at depth. In the end, even smaller amounts don\'t hurt, especially in midsummer. It is important to loosen the dried out soil before watering so that the water can penetrate into the soil and does not run off above ground or accumulate incorrectly. So-called watering bags are also recommended, from which the water only emerges very slowly, hardly runs off the surface and therefore continuously seeps into the ground.',
+          'Depending on their age, location and tree species, trees need different amounts of water. Young trees (0-15 years) need more water than medium-aged trees (15-40 years). Old trees (40 years and older) are usually completely self-sufficient. <br><br>Since freshly planted trees up to the age of three are usually supplied with water by the district parks authorities, the trees between four and 15 years in particular need our attention and our water. We have highlighted this with the labels of low, medium or high water requirement. <br><br>Based on the Berlin <a target="blank" href="https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/katalog-good-care/">Manual Good Care</a>, we recommend you to water rarely, but rather with a larger amount of water. The manual recommends up to 200l per watering for freshly planted trees. In this way, you ensure that the soil moisture is increased even at depth. In the end, even smaller amounts do not hurt, especially in midsummer. It is important to loosen the dried out soil before watering so that the water can penetrate into the soil and does not run off above ground or accumulate incorrectly. So-called watering bags are also recommended, from which the water only emerges very slowly, hardly runs off the surface and therefore continuously seeps into the ground.',
       },
       {
         question: 'Who can I contact if pumps are broken or damaged?',
@@ -502,7 +513,7 @@ const enContent = {
       {
         question: 'What should I do if I watered a tree incorrectly?',
         answer:
-          'To undo a watering, for example because the neighboring tree was watered instead or on a different day, first click on the tree. Scroll down the tree sidebar to the view of past waterings, click the trash can icon next to the entry you want to delete, and click “Delete” to confirm. Only castings that you have made yourself can be deleted. After deleting, enter the watering with the correct information (number of liters and time).',
+          'To undo a watering, for example because the neighboring tree was watered instead or on a different day, first click on the tree. Scroll down the tree sidebar to the view of past waterings, click the trash can icon next to the entry you want to delete, and click “Delete” to confirm. Only waterings that you have made yourself can be deleted. After deleting, enter the watering with the correct information (number of liters and time).',
       },
       {
         question: 'Can the principle be transferred to other cities?',
@@ -512,17 +523,12 @@ const enContent = {
       {
         question: 'I still have a question!',
         answer:
-          'The FAQ couldn\'t help you or you have a more complex query? Then write us an <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Giess Den Kiez] Question:...">Email.</a>',
+          'The FAQ couldn\'t help you or you have a more complex query? Then write us an <a href="mailto:giessdenkiez@citylab-berlin.org?subject=[Gieß Den Kiez] Question:...">Email.</a>',
       },
       {
         question: "Why aren't all of Berlin's trees shown?",
         answer:
-          "Giess den Kiez is based on the tree register. The tree register is a city directory in which (city/street or park) trees are managed and which is provided by the street and green spaces authorities. However, the Streets and Green Spaces Authority is not responsible for all of Berlin's trees. The trees in the Plänterwald, for example, are subject to the forestry office. These trees therefore do not appear in Gieß den Kiez.",
-      },
-      {
-        question: "I don't speak any German: What's going on here?",
-        answer:
-          'Gieß den Kiez is a participatory platform where you can inform yourself about the trees in your neighbourhood and their water needs. You can explore individual trees in Berlin and find out about the proper watering of trees. If you want to water the same trees regularly, you should create an account, adopt the trees and show that they are taken care of. This way, coordination takes place in the neighbourhood.',
+          "Gieß den Kiez is based on the tree register. The tree register is a city directory in which (city/street or park) trees are managed and which is provided by the street and green spaces authorities. However, the green space authorities are not responsible for all of Berlin's trees. The trees in the Plänterwald, for example, are subject to the forestry office. These trees therefore do not appear in Gieß den Kiez.",
       },
     ],
   },
@@ -534,11 +540,11 @@ const enContent = {
       '© <a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noreferrer">Mapbox</a> – © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> – <a href="https://www.mapbox.com/map-feedback" target="_blank" rel="noreferrer"><strong>Improve this map</strong></a> – <a href="https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK" target="_blank" rel="noreferrer">Feedback</a>',
   },
   intro: {
-    title: '<b>Giess den <span>Kiez</span></b>',
+    title: '<b>Gieß den <span>Kiez</span></b>',
     subline:
       'Berlin\'s city trees are suffering from drought <br class="large" /> and you can help them!',
     description: [
-      'Find out about the water needs of the trees in your neighborhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!',
+      'Find out about the water needs of the trees in your neighbourhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!',
     ],
     action: "Let's go",
   },
@@ -574,7 +580,7 @@ const enContent = {
   },
   sharing: {
     title:
-      'Share Gieß den Kiez with those around you and help us expand the Gieß community:',
+      'Share Gieß den Kiez with those around you and help us expand the watering community:',
     content:
       "On Gieß den Kiez you can find out about Berlin's tree population, find thirsty trees and record when you watered them!",
   },
@@ -607,7 +613,7 @@ const enContent = {
       {
         title: 'About the project',
         description:
-          'The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin\'s ecosystem. <br/><br/>Would you like to find out more about watering trees, report pumps and exchange ideas with other active users? <br/><br/>Do you have feedback about Gieß den Kiez?<br/><a target="_blank" rel="noreferrer" href="https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK">Please feel free to answer a few questions for us.</a>',
+          'The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin\'s ecosystem. <br/><br/>Would you like to find out more about watering trees, report pumps and exchange ideas with other active users? <br/><br/>Do you have feedback about Gieß den Kiez?<br/><a target="_blank" rel="noreferrer" href="https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK">Please answer a few questions.</a>',
       },
       {
         title: 'Useful links',
@@ -617,12 +623,12 @@ const enContent = {
       {
         title: 'About Us',
         description:
-          '“Gieß den Kiez” is a project by <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>.  <br /> <br /> The CityLAB is a project by the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery. <br /> <br /> Exchange ideas with our casting community!  <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to hear from you.<br /> <br />Press inquiries are best addressed to:<br /> Anna Hantelmann<br /><a href="mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage">anna.hantelmann@ts.berlin</a><br /><a href="tel:+4915118457242">Tel.: 49 151 18457 242 </a>',
+          '“Gieß den Kiez” is a project by <a target="blank" href="https://www.citylab-berlin.org/">CityLAB Berlin</a>.  <br /> <br /> The CityLAB is a project by the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery. <br /> <br /> Exchange ideas with our watering community!  <a target="blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to hear from you.<br /> <br />Press inquiries are best addressed to:<br /> Anna Hantelmann<br /><a href="mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage">anna.hantelmann@ts.berlin</a><br /><a href="tel:+4915118457242">Tel.: 49 151 18457 242 </a>',
       },
       {
         title: 'Data sources',
         description:
-          'The map shows the majority of Berlin\'s street and plant trees (839,049; as of May 2023). <ul><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS">Geoportal Berlin / Street trees</a></li><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand_an@senstadt&type=WFS">Geoportal Berlin / Plant trees</a></li><li><a target="blank" href="https://www.dwd.de/">German Weather Service</a></li><li>Pumps off <a target="blank" href=" https://www.openstreetmap.de"> Open Street Map</a></li></ul>',
+          'The map shows the majority of Berlin\'s street and plant trees (839,049 as of May 2023). <ul><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS">Geoportal Berlin / Street trees</a></li><li><a target="blank" href="https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand_an@senstadt&type=WFS">Geoportal Berlin / Plant trees</a></li><li><a target="blank" href="https://www.dwd.de/">German Weather Service</a></li><li>Pumps off <a target="blank" href=" https://www.openstreetmap.de"> Open Street Map</a></li></ul>',
       },
     ],
     waterNeeds: [
@@ -722,7 +728,7 @@ const enContent = {
           'The proportion of elms (Ulmus) is around 2% of the total population. Here we have three of the worlds 45 species of this deciduous tree: the mountain elm, the field elm and the elm with a flutter. It grows up to 600 meters high and can live to be 250 years old.',
       },
     ],
-    openSourceNote: 'Giess den Kiez is an',
+    openSourceNote: 'Gieß den Kiez is an',
     openSourceLink: 'https://github.com/technologiestiftung/giessdenkiez-de',
     openSourceText: 'Open Source project!',
     profile: {
@@ -757,8 +763,10 @@ const enContent = {
       editUsernameSuccess: 'Username changed successfully.',
       editUsernameError:
         'Internal error while updating username. Please try again later.',
-      editEmailSuccess:
-        'To confirm the changes, please click the link that was sent to your old email address "_1_" and your new email address "_2_".',
+      editEmailSuccess: (oldMail: string, newMail: string) => {
+        return `To confirm the changes, please click the link that was sent to your old email address "${oldMail}" and your new email address "${newMail}".`;
+      },
+
       editPasswordTitle: 'Change password',
       oldPasswordTitle: 'Old password',
       newPasswordTitle: 'New password',
@@ -778,7 +786,9 @@ const enContent = {
       adoptedByMe: 'Adopted by me ✔',
       adoptedAlsoByOthers: 'Adopted also by others',
       adoptedOnlyByOthers: 'Adopted by others',
-      regularlyWateredBy: 'This tree is regularly watered by "_1_".',
+      regularlyWateredBy: (user: string) => {
+        return `This tree is regularly watered by "${user}".`;
+      },
       lastWaterings: 'Last waterings',
       latestFirst: 'Latest first',
       needsVerification:
@@ -809,33 +819,43 @@ const enContent = {
     bored: 'Bored? Read something about Gieß den Kiez',
     profile: 'Profile',
     usernameRestrictions: {
-      part1: 'Your username should be between',
+      intro: 'Your username should be between',
       and: 'and',
-      part2:
-        'characters long, made only of numbers and characters (without whitespace at start and end)',
-      part3: 'and of course should not be already taken.',
+      length: 'characters long',
+      specialCharacters:
+        'made only of numbers and characters (without whitespace at start and end)',
     },
     passwordRestrictions: {
-      part1: 'Your password should be: At least 8 characters long',
-      part2: 'have lower- and uppercase letters',
-      part3: 'contain at least one of these special characters @#$%&*()!_+=:;',
-      part4: 'and contain numbers.',
+      minLength: 'Your password should be: At least 8 characters long',
+      upperAndLowercase: 'have lower- and uppercase letters',
+      specialCharacters:
+        'contain at least one of these special characters @#$%&*()!_+=:;',
+      containNumbers: 'and contain numbers.',
     },
     errors: {
       checkUsername: 'Please check your username',
-      checkPassword: 'Please check your password',
       userExistsAlready: 'User already registered',
-      emailCouldNotBeSent: 'Email to "_1_" could not be sent. Try again.',
+      emailCouldNotBeSent: (mail: string) => {
+        return `Email to "${mail}" could not be sent. Try again.`;
+      },
       usernameOrPasswordWrong: 'Username or password are wrong',
       ooops: 'Ooops... something did not work as expected',
-      checkMailForPasswordReset:
-        'Check your email "_1_" for a link to reset your password',
+      checkMailForPasswordReset: (mail: string) => {
+        return `Check your email "${mail}" for a link to reset your password`;
+      },
       usernameTaken: 'Username already taken',
+      checkPassword: 'Please check your password',
+      enterEmail: 'Please enter an email address',
+      enterPassword: 'Please enter a password',
+      enterUsername: 'Please enter an username',
     },
     passwordNotSecureEnough: 'Password ist not secure enough',
     passwordCouldNotBeChanged: 'Password could not be changed',
     passwordChangeSuccess: 'Password changed successfully',
     changePasswordFor: 'Change password for',
+    checkSignupMail: (recipientMail: string, senderMail: string) => {
+      return `Check your inbox for "${recipientMail}", you should have received a mail from "${senderMail}" containing a link to activate your account.`;
+    },
   },
   collaborate: {
     tiles: [
@@ -847,28 +867,28 @@ const enContent = {
       },
       {
         icon: 'water',
-        title: 'Pour',
+        title: 'Water',
         description:
-          "Grab a watering can and become part of the watering community! Over a thousand members have already joined forces for Berlin's trees and regularly submit their waterings.",
+          "Grab a watering can and become part of the watering community! Over a thousand members have already joined forces for Berlin's trees and regularly log their waterings.",
       },
       {
         icon: 'subscribe',
-        title: 'To adopt',
+        title: 'Adopt',
         description:
-          'By adopting a tree - or several - you let your neighborhood know that these trees will be cared for. This is how coordinated engagement succeeds.',
+          'By adopting a tree - or several - you let your neighbourhood know that these trees will be cared for. This is how coordinated engagement succeeds.',
       },
       {
         icon: 'info',
         title: 'Exchange',
         description:
-          'Join ours <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to network with the irrigation community, exchange questions and coordinate irrigation in your neighborhood.',
+          'Join our <a target="_blank" href="https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ">Slack chat</a> to connect with the tree watering community, exchange questions and coordinate activities in your neighbourhood.',
       },
     ],
   },
   sales: {
-    title: '<i>Giess den Kiez</i> also in your city?',
+    title: '<i>Gieß den Kiez</i> also in your city?',
     subtitle:
-      'Cities like Leipzig, Magdeburg and Co. have already successfully joined the casting wave! ',
+      'Cities like Leipzig, Magdeburg and Co. have already successfully joined the watering wave! ',
     buttonText: 'Learn more!',
     buttonLink: 'https://deine-stadt.giessdenkiez.de',
   },
