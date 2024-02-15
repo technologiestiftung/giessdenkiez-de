@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { trackClick } from './matomo.ts';
 
 const StyledSwitch = styled.div`
   z-index: 4;
@@ -61,7 +62,11 @@ const Switch: FC<SwitchProps> = ({
 }) => {
   return (
     <>
-      <StyledSwitch>
+      <StyledSwitch
+        onClick={() => {
+          trackClick();
+        }}
+      >
         <StyledSwitchLeft
           $isActive={selectedOption === firstOption}
           onClick={() => {
