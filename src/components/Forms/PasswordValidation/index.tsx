@@ -13,17 +13,22 @@ export const PasswordValidation = memo(function PasswordValidation({
   password: string;
 }) {
   const content = useLocalizedContent();
-  const { part1, part2, part3, part4 } = content.auth.passwordRestrictions;
+  const {
+    minLength,
+    upperAndLowercase,
+    specialCharacters: specialCharactersHint,
+    containNumbers,
+  } = content.auth.passwordRestrictions;
 
   const { patterns: errors } = validatePassword(password);
 
   return (
     <>
       <SmallParagraph>
-        {part1} <ValidOrNot success={errors.length} />, {part2}{' '}
-        <ValidOrNot success={errors.lowerCase && errors.upperCase} />,{part3}{' '}
-        <code>{specialCharacters}</code>{' '}
-        <ValidOrNot success={errors.specialChar} /> {part4}{' '}
+        {minLength} <ValidOrNot success={errors.length} />, {upperAndLowercase}{' '}
+        <ValidOrNot success={errors.lowerCase && errors.upperCase} />,
+        {specialCharactersHint} <code>{specialCharacters}</code>{' '}
+        <ValidOrNot success={errors.specialChar} /> {containNumbers}{' '}
         <ValidOrNot success={errors.digit} />
       </SmallParagraph>
     </>

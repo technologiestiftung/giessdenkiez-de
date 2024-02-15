@@ -1,7 +1,6 @@
 import createStore from 'unistore';
-import { StoreProps } from '../common/interfaces';
-import { getLocalStorageLanguage } from '../assets/local-storage';
 import { Language } from '../assets/content-types';
+import { StoreProps } from '../common/interfaces';
 
 const initialState: StoreProps = {
   mapViewFilter: 'rain',
