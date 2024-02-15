@@ -12,6 +12,9 @@ import Loading from '../Loading';
 import Nav from '../Nav';
 import Overlay from '../Overlay';
 import { getLocalStorageLanguage } from '../../assets/local-storage';
+import Switch from '../Switch';
+import { Language } from '../../assets/content-types';
+import { setLocalStorageLanguage } from '../../assets/local-storage';
 
 const Map = dynamic(() => import('../TreesMap'), { ssr: false });
 
@@ -69,6 +72,7 @@ const App: FC<{ children: React.ReactNode }> = ({ children }) => {
   const showOverlay = isHome && overlay;
   const showMapUI = !showOverlay;
   const isSidebarOpened = !isHome && isNavOpen;
+  const language = useStoreState('language');
   const { setLanguage } = useActions();
 
   useEffect(() => {
@@ -83,6 +87,7 @@ const App: FC<{ children: React.ReactNode }> = ({ children }) => {
       {showMapUI && children}
       {showOverlay && <Overlay />}
       {showMapUI && <Nav isNavOpened={!isHome} />}
+
       <Cookie />
       {showMapUI && <MapLayerLegend />}
       <ImprintAndPrivacyContainer>
@@ -100,6 +105,15 @@ const App: FC<{ children: React.ReactNode }> = ({ children }) => {
           height={23}
         />
       </MapboxLogo>
+      <Switch
+        firstOption={Language.de}
+        secondOption={Language.en}
+        selectedOption={language}
+        onOptionSelect={option => {
+          setLocalStorageLanguage(option as Language);
+          setLanguage(option as Language);
+        }}
+      ></Switch>
     </AppContainer>
   );
 };
