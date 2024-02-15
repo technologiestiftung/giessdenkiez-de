@@ -9,7 +9,7 @@ on:
 jobs:
   collect_pumps:
     # Using the payload of the repository_dispatch webhook to specify the environment
-    environment: "${{ github.event.client_payload.environment }}"
+    environment: '${{ github.event.client_payload.environment }}'
     runs-on: ubuntu-latest
     name: A job to aggregate pumps data from open street maps and push to GDK Supabase
     steps:

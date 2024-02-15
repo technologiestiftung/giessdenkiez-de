@@ -1,5 +1,5 @@
 import { MapLayout } from '../src/components/MapLayout';
-import { Page } from '../src/nextPage'
+import { Page } from '../src/nextPage';
 
 const LandingPage: Page = () => null;
 

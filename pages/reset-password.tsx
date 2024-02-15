@@ -7,9 +7,7 @@ import {
   StyledFlexContainer,
   StyledFormRow,
 } from '../src/components/Forms';
-import {
-  StyledSpacer,
-} from '../src/components/Sidebar/SidebarAuth';
+import { StyledSpacer } from '../src/components/Sidebar/SidebarAuth';
 import {
   UserNotification,
   UserNotificationObjectType,

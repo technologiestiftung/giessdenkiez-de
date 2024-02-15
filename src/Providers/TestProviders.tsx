@@ -27,7 +27,7 @@ export const TestProviders: FC = ({ children }) => {
         setSession(data.session);
       }
     };
-    getSession().catch((error) => console.log(error));
+    getSession().catch(error => console.log(error));
   }, [supabaseClient]);
   return (
     <ErrorBoundary>
