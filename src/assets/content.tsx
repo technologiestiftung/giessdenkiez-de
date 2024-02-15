@@ -549,7 +549,7 @@ const enContent = {
     action: "Let's go",
   },
   credits: {
-    projectOf: 'A project by',
+    projectOf: 'A project of',
     executedBy: 'Executed by',
     fundedBy: 'Funded by',
   },
