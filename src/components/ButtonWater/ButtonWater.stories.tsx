@@ -27,10 +27,10 @@ ButtonWaterStory.parameters = {
     path: `/tree/[id]`,
     asPath: `/tree/_er9lvc14r`,
     query: {
-      id: `_er9lvc14r`,
-    },
-  },
-};
+      id: `_er9lvc14r`
+    }
+  }
+}
 ButtonWaterStory.args = {
   isAuthenticated: true,
   isEmailVerified: true,

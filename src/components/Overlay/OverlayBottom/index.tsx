@@ -93,7 +93,7 @@ const OverlayBottom: FC = () => {
     <StyledBottom>
       <StyledContainer>
         <StyledSalesTitle>
-          <strong dangerouslySetInnerHTML={{ __html: sales.title }}></strong>
+          <strong dangerouslySetInnerHTML={ {__html: sales.title }}></strong>
           {sales.subtitle && <span>{sales.subtitle}</span>}
         </StyledSalesTitle>
         <StyledSalesButton

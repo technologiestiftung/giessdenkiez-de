@@ -15,8 +15,8 @@ import { PasswordValidation } from '../PasswordValidation';
 import { UsernameValidation } from '../UsernameValidation';
 
 const StyledSpan = styled.span`
-  color: ${p => p.theme.colorAlarm};
-  font-size: ${p => p.theme.fontSizeL};
+  color: ${(p) => p.theme.colorAlarm};
+  font-size: ${(p) => p.theme.fontSizeL};
   padding-top: 4px;
   padding-bottom: 4px;
 `;
@@ -89,7 +89,7 @@ export const CredentialsForm = ({
     <>
       <StyledForm
         noValidate
-        onSubmit={e => {
+        onSubmit={(e) => {
           if (!requiredFieldsPresent()) {
             e.preventDefault();
           } else {
@@ -106,7 +106,7 @@ export const CredentialsForm = ({
             type='email'
             name='email'
             required
-            onChange={e => {
+            onChange={(e) => {
               setShowEmailHint(false);
               handleInputChange(e).catch(console.error);
             }}
@@ -124,7 +124,7 @@ export const CredentialsForm = ({
               type='username'
               name='username'
               required
-              onChange={e => {
+              onChange={(e) => {
                 setShowMissingUsernameHint(false);
                 handleInputChange(e);
               }}
@@ -153,7 +153,7 @@ export const CredentialsForm = ({
               minLength={8}
               maxLength={128}
               required
-              onChange={e => {
+              onChange={(e) => {
                 setShowMissingPasswordHint(false);
                 handleInputChange(e);
               }}

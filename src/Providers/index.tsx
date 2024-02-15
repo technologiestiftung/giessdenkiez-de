@@ -27,7 +27,7 @@ export const Providers: FC = ({ children }) => {
         setSession(data.session);
       }
     };
-    getSession().catch(error => console.log(error));
+    getSession().catch((error) => console.log(error));
   }, [supabaseClient.auth]);
   return (
     <ErrorBoundary>

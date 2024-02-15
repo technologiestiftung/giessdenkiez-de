@@ -4,7 +4,7 @@ Please fill out all three section to give a brief and sufficient description.
 If the issue spans across multiple repositories, consider splitting it in a smaller per-repo issues if possible.
 -->
 
-## Background: Why this issue?
+## Background: Why this issue? 
 
 -
 
@@ -16,8 +16,8 @@ If the issue spans across multiple repositories, consider splitting it in a smal
 
 -
 
-## Issue creation checklist
 
+## Issue creation checklist
 - [x] I have attached one of the priority labels `HIGH`, `MIDDLE`, `LOW`
 - [x] I have attached other labels with regard to the issues purpose (i.e.`enhancement`, `bug`, `community feedback`)
 
