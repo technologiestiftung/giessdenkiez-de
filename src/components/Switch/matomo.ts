@@ -4,6 +4,6 @@ declare global {
   }
 }
 
-export function trackClick() {
-  window._mtm.push(['feedback', 'feedback', 'clickedButton']);
+export function trackInteraction(eventName: string) {
+  window._mtm.push(['feedback', 'feedback', eventName]);
 }

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { trackClick } from './matomo.ts';
+import { trackInteraction } from './matomo.ts';
 
 const StyledSwitch = styled.div`
   z-index: 4;
@@ -64,7 +64,7 @@ const Switch: FC<SwitchProps> = ({
     <>
       <StyledSwitch
         onClick={() => {
-          trackClick();
+          trackInteraction('clicked Language switch');
         }}
       >
         <StyledSwitchLeft

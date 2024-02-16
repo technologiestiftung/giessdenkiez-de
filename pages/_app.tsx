@@ -19,7 +19,7 @@ export default function MyApp({
   Component,
   pageProps,
 }: AppPropsType): JSX.Element {
-  useMatomo();
+  // useMatomo();
   const getLayout = Component.getLayout ?? (page => page);
   const Layout = Component.layout ?? (({ children }) => <>{children}</>);
   return (
