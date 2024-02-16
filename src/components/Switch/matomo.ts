@@ -1,9 +1,9 @@
 declare global {
   interface Window {
-    _mtm: any[];
+    _paq: any[];
   }
 }
 
 export function trackInteraction(eventName: string) {
-  window._mtm.push(['trackEvent', 'button', eventName]);
+  window._paq.push(['trackEvent', 'button', eventName]);
 }
