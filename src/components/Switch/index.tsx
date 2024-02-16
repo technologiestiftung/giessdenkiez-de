@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { trackInteraction } from './matomo.ts';
+import { trackInteraction } from '../../utils/matomo.ts';
 
 const StyledSwitch = styled.div`
   z-index: 4;
