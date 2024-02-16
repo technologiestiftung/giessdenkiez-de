@@ -66,7 +66,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Overlay: FC = () => {
+export const Overlay: FC = () => {
   const { closeOverlay } = useActions();
 
   return (
