@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Story } from '@storybook/react/types-6-0';
+import { StoryFn } from '@storybook/react';
 import { TestProviders } from '../../Providers/TestProviders';
 import SidebarWrapper from './SidbarWrapper';
 import SidebarAbout from './SidebarAbout';
@@ -9,13 +9,12 @@ import SidebarProfile from './SidebarProfile';
 import { treeData } from '../../assets/stories-data';
 import { useRouter } from 'next/router';
 import { SidebarAuth } from './SidebarAuth';
-import { PasswordResetForm } from './SidebarAuth/PasswordResetForm';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Sidebar',
 };
 
-const Template: Story<{
+const Template: StoryFn<{
   children: ReactNode;
   isLoading?: boolean;
   title?: string;
@@ -117,6 +116,7 @@ AuthSignIn.args = {
       setView={() => undefined}
       setNotification={() => undefined}
       isLoading={false}
+      currentNotification={null}
     />
   ),
 };
@@ -131,6 +131,7 @@ AuthSignUp.args = {
       setView={() => undefined}
       setNotification={() => undefined}
       isLoading={false}
+      currentNotification={null}
     />
   ),
 };
@@ -145,18 +146,7 @@ AuthRecovery.args = {
       setView={() => undefined}
       setNotification={() => undefined}
       isLoading={false}
-    />
-  ),
-};
-
-export const AuthReset = Template.bind({});
-AuthReset.args = {
-  match: '/auth',
-  children: (
-    <PasswordResetForm
-      returnClickHandler={() => undefined}
-      additionalSubmitHandler={() => undefined}
-      setNotification={() => undefined}
+      currentNotification={null}
     />
   ),
 };

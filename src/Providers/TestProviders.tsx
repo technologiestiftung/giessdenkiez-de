@@ -13,7 +13,9 @@ import { Session, SessionContextProvider } from '@supabase/auth-helpers-react';
 
 const queryClient = new QueryClient();
 
-export const TestProviders: FC = ({ children }) => {
+export const TestProviders: FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [supabaseClient] = useState(() => createPagesBrowserClient());
   const [session, setSession] = useState<Session | null>(null);
   useEffect(() => {
@@ -27,7 +29,7 @@ export const TestProviders: FC = ({ children }) => {
         setSession(data.session);
       }
     };
-    getSession().catch((error) => console.log(error));
+    getSession().catch(error => console.log(error));
   }, [supabaseClient]);
   return (
     <ErrorBoundary>

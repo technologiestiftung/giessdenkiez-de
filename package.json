@@ -13,8 +13,8 @@
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "prettier:list": "prettier --list-different './src/**/*'",
     "prettier:write": "prettier --write './src/**/*'",
-    "storybook": "storybook dev -p 6006 -s ./public",
-    "build-storybook": "storybook build -s ./public"
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "keywords": [],
   "author": "Technologiestiftung Berlin",
@@ -33,12 +33,12 @@
   "devDependencies": {
     "@danmarshall/deckgl-typings": "4.9.28",
     "@saithodev/semantic-release-backmerge": "4.0.1",
-    "@storybook/addon-actions": "^7.6.10",
-    "@storybook/addon-essentials": "^7.6.10",
-    "@storybook/addon-links": "^7.6.10",
-    "@storybook/nextjs": "7.6.10",
+    "@storybook/addon-actions": "^8.0.0-beta.2",
+    "@storybook/addon-essentials": "^8.0.0-beta.2",
+    "@storybook/addon-links": "^8.0.0-beta.2",
+    "@storybook/nextjs": "^8.0.0-beta.2",
     "@storybook/preset-scss": "1.0.3",
-    "@storybook/react": "^7.6.10",
+    "@storybook/react": "^8.0.0-beta.2",
     "@technologiestiftung/semantic-release-config": "1.2.4",
     "@testing-library/dom": "9.3.4",
     "@testing-library/jest-dom": "6.2.0",
@@ -61,7 +61,7 @@
     "next-router-mock": "0.9.11",
     "prettier": "2.2.1",
     "react-is": "16.13.1",
-    "storybook": "7.6.10",
+    "storybook": "^8.0.0-beta.2",
     "typescript": "5.3.3",
     "vitest": "1.2.1",
     "whatwg-fetch": "3.6.2"

@@ -13,7 +13,7 @@ import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 
 const queryClient = new QueryClient();
 
-export const Providers: FC = ({ children }) => {
+export const Providers: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [supabaseClient] = useState(() => createPagesBrowserClient());
   const [session, setSession] = useState<Session | null>(null);
   useEffect(() => {
@@ -27,7 +27,7 @@ export const Providers: FC = ({ children }) => {
         setSession(data.session);
       }
     };
-    getSession().catch((error) => console.log(error));
+    getSession().catch(error => console.log(error));
   }, [supabaseClient.auth]);
   return (
     <ErrorBoundary>

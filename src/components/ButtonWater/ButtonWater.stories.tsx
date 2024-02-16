@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Story } from '@storybook/react/types-6-0';
+import { StoryFn } from '@storybook/react';
 import ButtonWater from './';
 import { TestProviders } from '../../Providers/TestProviders';
 
@@ -13,7 +13,7 @@ const config = {
   },
 };
 
-const Template: Story = args => {
+const Template: StoryFn = args => {
   return (
     <TestProviders>
       <ButtonWater {...args}></ButtonWater>
@@ -27,10 +27,10 @@ ButtonWaterStory.parameters = {
     path: `/tree/[id]`,
     asPath: `/tree/_er9lvc14r`,
     query: {
-      id: `_er9lvc14r`
-    }
-  }
-}
+      id: `_er9lvc14r`,
+    },
+  },
+};
 ButtonWaterStory.args = {
   isAuthenticated: true,
   isEmailVerified: true,
