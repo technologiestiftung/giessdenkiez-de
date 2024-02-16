@@ -109,6 +109,14 @@ const BaselineGrid = styled.span`
   column-gap: 4px;
 `;
 
+const FixedPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1.3rem;
+  padding: 16px 0;
+`;
 const TreeInfos: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
@@ -309,12 +317,11 @@ const TreeInfos: FC<{
           </ExpandablePanel>
         )}
 
-        <br />
         {!userData && (
-          <div>
+          <FixedPanel>
             <Login />
             <ParticipateButton />
-          </div>
+          </FixedPanel>
         )}
 
         {userData && !userData.isVerified && (
