@@ -62,15 +62,12 @@ const Switch: FC<SwitchProps> = ({
 }) => {
   return (
     <>
-      <StyledSwitch
-        onClick={() => {
-          trackInteraction('clicked Language switch');
-        }}
-      >
+      <StyledSwitch>
         <StyledSwitchLeft
           $isActive={selectedOption === firstOption}
           onClick={() => {
             onOptionSelect(firstOption);
+            trackInteraction('switch language to ' + firstOption);
           }}
         >
           {firstOption.toUpperCase()}
@@ -79,6 +76,7 @@ const Switch: FC<SwitchProps> = ({
           $isActive={selectedOption === secondOption}
           onClick={() => {
             onOptionSelect(secondOption);
+            trackInteraction('switch language to ' + secondOption);
           }}
         >
           {secondOption.toUpperCase()}
