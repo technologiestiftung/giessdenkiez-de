@@ -10,14 +10,19 @@ export const UsernameValidation = ({
   patterns: UsernamePattern;
 }) => {
   const content = useLocalizedContent();
-  const { part1, and, part2, part3 } = content.auth.usernameRestrictions;
+  const {
+    intro,
+    and,
+    length,
+    specialCharacters,
+  } = content.auth.usernameRestrictions;
+
   return (
     <>
       <SmallParagraph>
-        {part1} 3 <ValidOrNot success={patterns.minLength} /> {and} 50{' '}
-        <ValidOrNot success={patterns.maxLength} /> {part2}{' '}
-        <ValidOrNot success={patterns.allowedCharacters} /> {part3}{' '}
-        <ValidOrNot success={patterns.notTaken} />
+        {intro} 3 {and} 50 {length}{' '}
+        <ValidOrNot success={patterns.allowedLength} /> {specialCharacters}{' '}
+        <ValidOrNot success={patterns.allowedCharacters} />
       </SmallParagraph>
     </>
   );

@@ -13,9 +13,7 @@ describe('component Credits', () => {
     );
     const citylabImage = screen.getByAltText(/Logo Citylab/i);
     expect(citylabImage).toBeInTheDocument();
-    expect(citylabImage.getAttribute('src')).toEqual(
-      'https://logos.citylab-berlin.org/logo-citylab-berlin-outline.svg'
-    );
+    expect(citylabImage.getAttribute('src')).toEqual('images/citylab-logo.svg');
   });
   test('should render the Technologiestiftung logo', () => {
     render(

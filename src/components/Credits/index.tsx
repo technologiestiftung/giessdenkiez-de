@@ -2,8 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
-const logoCitylab =
-  'https://logos.citylab-berlin.org/logo-citylab-berlin-outline.svg';
+const logoCitylab = 'images/citylab-logo.svg';
 const logoTSB = 'https://logos.citylab-berlin.org/logo-tsb-outline.svg';
 const logoBerlin =
   'https://logos.citylab-berlin.org/logo-senatskanzlei-buergermeister-horizontal.svg';
@@ -17,6 +16,9 @@ const LogoContainer = styled.div`
 
 const LabelLogoGroup = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Label = styled.div`
@@ -37,6 +39,16 @@ const Credits: FC = () => {
   return (
     <LogoContainer>
       <LabelLogoGroup>
+        <Label></Label>
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          href='https://citylab-berlin.org/de/start/'
+        >
+          <Logo src={logoCitylab} alt='Logo Citylab' />
+        </a>
+      </LabelLogoGroup>
+      <LabelLogoGroup>
         <Label>{projectOf}</Label>
         <a
           target='_blank'
@@ -44,16 +56,6 @@ const Credits: FC = () => {
           href='https://technologiestiftung-berlin.de/'
         >
           <Logo src={logoTSB} alt='Logo Technologiestiftung Berlin' />
-        </a>
-      </LabelLogoGroup>
-      <LabelLogoGroup>
-        <Label>{executedBy}</Label>
-        <a
-          target='_blank'
-          rel='noopener noreferrer'
-          href='https://citylab-berlin.org/de/start/'
-        >
-          <Logo src={logoCitylab} alt='Logo Citylab' />
         </a>
       </LabelLogoGroup>
       <LabelLogoGroup>
