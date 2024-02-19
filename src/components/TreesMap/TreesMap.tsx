@@ -369,7 +369,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         id: 'trees',
         type: 'circle',
         source: 'trees',
-        'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
+        //'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
         interactive: true,
         paint: {
           'circle-pitch-alignment': 'map',
