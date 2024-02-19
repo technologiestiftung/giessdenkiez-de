@@ -155,7 +155,6 @@ export interface Content {
     title: string;
     pumps: string;
     precipitation: string;
-    precipitationAreas: string;
     dataPoints: string;
     treeLayer: string;
     ofLastDays: string;

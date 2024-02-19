@@ -1,49 +1,42 @@
-import { easeCubic as d3EaseCubic, ExtendedFeatureCollection } from 'd3';
+import { easeLinear, ExtendedFeatureCollection } from 'd3';
+import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
 import React, {
   forwardRef,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
-import mapboxgl, { Map as MapboxMap } from 'mapbox-gl';
-import {
-  GeolocateControl,
-  MapRef,
-  NavigationControl,
-  ViewStateChangeEvent,
-} from 'react-map-gl';
-import Map from 'react-map-gl';
+import Map, { GeolocateControl, MapRef, NavigationControl } from 'react-map-gl';
 
-import { CommunityDataType, StoreProps } from '../../common/interfaces';
-import DeckGL, { GeoJsonLayer, RGBAColor } from 'deck.gl';
-import { pumpEventInfoToState, PumpEventInfoType } from './pumpsUtils';
-import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
-import { hexToRgb, interpolateColor } from '../../utils/colorUtil';
-import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
-import { MapTooltip } from './MapTooltip';
-import { getOSMEditorURL } from './osmUtil';
+import styled from 'styled-components';
+import { CommunityDataType, StoreProps } from '../../common/interfaces';
+import { useActions, useStoreState } from '../../state/unistore-hooks';
 import {
-  getTreeCircleRadius,
-  updateTreeCirclePaintProps,
-} from './mapPaintPropsUtils';
+  HIGH_WATER_NEED_NUM,
+  LOW_WATER_NEED_NUM,
+  MEDIUM_WATER_NEED_NUM,
+  OLD_TREE_MIN_AGE,
+  YOUNG_TREE_MAX_AGE,
+} from '../../utils/getWaterNeedByAge';
+import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
+import localizePumpState from '../../utils/hooks/useLocalizedPumpState';
+import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
+import { getTreeCircleColor, pumpToColor } from './mapColorUtil';
+import { setBodyMapLayerClass } from './mapCSSClassUtil';
 import {
   updateHoverFeatureState,
   updateSelectedTreeIdFeatureState,
 } from './mapFeatureStateUtil';
-import { setBodyMapLayerClass } from './mapCSSClassUtil';
-import { getFilterMatchingIdsList } from './mapboxGLExpressionsUtils';
 import {
-  YOUNG_TREE_MAX_AGE,
-  OLD_TREE_MIN_AGE,
-  LOW_WATER_NEED_NUM,
-  MEDIUM_WATER_NEED_NUM,
-  HIGH_WATER_NEED_NUM,
-} from '../../utils/getWaterNeedByAge';
-import { useActions, useStoreState } from '../../state/unistore-hooks';
-import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
-import localizePumpState from '../../utils/hooks/useLocalizedPumpState';
+  getTreeCircleRadius,
+  updateTreeCirclePaintProps,
+} from './mapPaintPropsUtils';
+import { MapTooltip } from './MapTooltip';
+import { getOSMEditorURL } from './osmUtil';
+import { pumpEventInfoToState } from './pumpsUtils';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 20;
@@ -59,8 +52,8 @@ const ControlWrapper = styled.div<StyledProps>`
   z-index: 2;
   transition: transform 500ms;
 
-  @media screen and (min-width: ${p => p.theme.screens.tablet}) {
-    transform: ${props =>
+  @media screen and (min-width: ${(p) => p.theme.screens.tablet}) {
+    transform: ${(props) =>
       props.$isNavOpen ? 'translate3d(350px, 0, 0)' : 'translate3d(0, 0, 0)'};
   }
 
@@ -116,7 +109,7 @@ const [minLng, minLat, maxLng, maxLat] = (
   process.env.NEXT_PUBLIC_MAP_BOUNDING_BOX || ''
 )
   .split(',')
-  .map(coord => parseFloat(coord));
+  .map((coord) => parseFloat(coord));
 
 if (
   typeof maxLat !== 'number' ||
@@ -147,13 +140,12 @@ const defaultViewport = {
   pitch: isMobile ? 0 : 45,
   bearing: 0,
   transitionDuration: 2000,
-  transitionEasing: d3EaseCubic,
+  transitionEasing: easeLinear,
 };
 
 let hasUnmounted = false;
 export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   {
-    rainGeojson,
     visibleMapLayer,
     ageRange,
     mapViewFilter,
@@ -183,9 +175,12 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   const [hoveredTreeId, setHoveredTreeId] = useState<string | null>(null);
   const [hoveredPump, setHoveredPump] = useState<PumpTooltipType | null>(null);
   const [clickedPump, setClickedPump] = useState<PumpTooltipType | null>(null);
-  const [viewport, setViewport] = useState<ViewportType>(defaultViewport);
   const { setMapHasLoaded } = useActions();
-  const pumpInfo = clickedPump || hoveredPump;
+
+  const pumpInfo: PumpTooltipType | null = useMemo(() => {
+    return clickedPump || hoveredPump;
+  }, [hoveredPump, clickedPump]);
+
   const mapHasLoaded = useStoreState('mapHasLoaded');
 
   useEffect(
@@ -195,96 +190,20 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
     []
   );
 
-  const renderLayers = useCallback(() => {
-    if (!map?.current || !rainGeojson || !pumpsGeoJson || hasUnmounted)
-      return [];
-    const layers = [
-      new GeoJsonLayer({
-        id: 'rain',
-        data: rainGeojson as unknown,
-        opacity: 0.95,
-        visible: visibleMapLayer === 'rain' ? true : false,
-        stroked: false,
-        filled: true,
-        extruded: true,
-        wireframe: true,
-        getElevation: 1,
-        getFillColor: (f?: { properties?: { data?: number[] } }): RGBAColor => {
-          /**
-           * Apparently DWD 1 is not 1ml but 0.1ml
-           * We could change this in the database, but this would mean,
-           * transferring 800.000 "," characters, therefore,
-           * changing it client-side makes more sense.
-           */
-          const features = f?.properties?.data || [];
-          if (features.length === 0) return [0, 0, 0, 0];
-          const interpolated = interpolateColor(features[0] / 10);
-          const hex = hexToRgb(interpolated);
-          return hex;
-        },
-        pickable: true,
-      }),
-      new GeoJsonLayer({
-        id: 'pumps',
-        data: pumpsGeoJson as unknown,
-        opacity: 1,
-        visible: visibleMapLayer === 'pumps' ? true : false,
-        stroked: true,
-        filled: true,
-        extruded: true,
-        wireframe: true,
-        getElevation: 1,
-        getLineColor: [0, 0, 0, 200],
-        getFillColor: pumpToColor,
-        // We ignore this because getPointRadius is missing typing in the version that we use:
-        // @ts-ignore
-        getPointRadius: 9,
-        pointRadiusMinPixels: 4,
-        pickable: true,
-        lineWidthScale: 3,
-        lineWidthMinPixels: 1.5,
-        onHover: (pumpInfo: PumpEventInfoType) =>
-          setHoveredPump(pumpEventInfoToState(pumpInfo)),
-        onClick: (pumpInfo: PumpEventInfoType) =>
-          setClickedPump(pumpEventInfoToState(pumpInfo)),
-      }),
-    ];
+  const onMapTreeClick = useCallback(
+    (
+      evt: mapboxgl.MapMouseEvent & {
+        features?: mapboxgl.MapboxGeoJSONFeature[] | undefined;
+      } & mapboxgl.EventData
+    ) => {
+      if (!map.current || hasUnmounted || !evt.features) return;
 
-    return layers as unknown[];
-  }, [pumpsGeoJson, rainGeojson, visibleMapLayer]);
-
-  const onViewStateChange = useCallback((newViewport: any) => {
-    if (hasUnmounted) return;
-    const newViewState = {
-      ...defaultViewport,
-      ...newViewport,
-      transitionDuration: newViewport.transitionDuration || 0,
-    };
-    setClickedPump(null);
-    setHoveredPump(null);
-    setViewport({
-      ...newViewState,
-      latitude: Math.min(maxLat, Math.max(newViewState.latitude, minLat)),
-      longitude: Math.min(maxLng, Math.max(newViewState.longitude, minLng)),
-    });
-  }, []);
-
-  const onMapClick = useCallback(
-    (info: { x: number; y: number }, evt: MouseEvent) => {
-      if (!map.current || hasUnmounted) return;
-
-      const eventTarget = (evt?.target as unknown) as { tagName: string };
-      if (eventTarget.tagName !== 'CANVAS') return;
-      const features = map.current.queryRenderedFeatures([info.x, info.y], {
-        layers: ['trees'],
-      });
-
-      if (features.length === 0) {
+      if (evt.features.length === 0) {
         onTreeSelect(null);
         return;
       }
 
-      const treeFeature: mapboxgl.MapboxGeoJSONFeature = features[0];
+      const treeFeature: mapboxgl.MapboxGeoJSONFeature = evt.features[0];
       const id: string = treeFeature.properties?.id as string;
       const geometry = treeFeature.geometry as GeoJSON.Point;
 
@@ -292,11 +211,12 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
       onTreeSelect(id);
 
-      onViewStateChange({
-        latitude: geometry.coordinates[1],
-        longitude: geometry.coordinates[0],
+      map.current.easeTo({
+        center: [geometry.coordinates[0], geometry.coordinates[1]],
+        essential: true,
         zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
-        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
+        easing: easeLinear,
+        duration: VIEWSTATE_TRANSITION_DURATION,
       });
     },
     [onTreeSelect]
@@ -309,11 +229,16 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       if (!map.current || typeof map.current === 'undefined' || hasUnmounted)
         return;
 
+      // Customizing the zoom rates according to
+      // https://docs.mapbox.com/mapbox-gl-js/api/handlers/#scrollzoomhandler
+      map.current.scrollZoom.setZoomRate(1 / 50);
+      map.current.scrollZoom.setWheelZoomRate(1 / 500);
+
       setMapHasLoaded();
 
       const firstLabelLayerId = map.current
         .getStyle()
-        .layers?.find(layer => layer.type === 'symbol')?.id;
+        .layers?.find((layer) => layer.type === 'symbol')?.id;
 
       if (!firstLabelLayerId) return;
 
@@ -396,19 +321,21 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         },
       });
 
-      map.current.on('mousemove', 'trees', e => {
+      map.current.on('mousemove', 'trees', (e) => {
         if (!map.current || !e.features) return;
         if (e.features?.length === 0) setHoveredTreeId(null);
         setHoveredTreeId(e.features[0].id as string);
         map.current.getCanvas().style.cursor = 'pointer';
       });
 
-      map.current.on('mouseleave', 'trees', e => {
+      map.current.on('mouseleave', 'trees', (e) => {
         setHoveredTreeId(null);
         if (map.current) {
           map.current.getCanvas().style.cursor = '';
         }
       });
+
+      map.current.on('click', 'trees', onMapTreeClick);
 
       updateSelectedTreeIdFeatureState({
         map: map.current,
@@ -419,21 +346,77 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       setBodyMapLayerClass(visibleMapLayer);
 
       if (!focusPoint) return;
-      onViewStateChange({
-        latitude: focusPoint.latitude,
-        longitude: focusPoint.longitude,
-        zoom: focusPoint.zoom || VIEWSTATE_ZOOMEDIN_ZOOM,
-        transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-      });
     },
-    [
-      focusPoint,
-      onViewStateChange,
-      selectedTreeId,
-      setMapHasLoaded,
-      visibleMapLayer,
-    ]
+    [focusPoint, selectedTreeId, setMapHasLoaded, visibleMapLayer]
   );
+
+  useEffect(() => {
+    if (pumpsGeoJson && map.current) {
+      if (visibleMapLayer === 'pumps') {
+        if (!map.current.getSource('pumps-source')) {
+          map.current.addSource('pumps-source', {
+            type: 'geojson',
+            //@ts-ignore
+            data: pumpsGeoJson,
+          });
+        }
+        map.current.addLayer({
+          id: 'pumps',
+          type: 'circle',
+          source: 'pumps-source',
+          paint: {
+            'circle-opacity': 0.6,
+            'circle-stroke-width': 2,
+            'circle-stroke-color': '#000000',
+            'circle-color': pumpToColor(),
+            'circle-radius': {
+              base: 1.75,
+              stops: [
+                [12, 2],
+                [22, 180],
+              ],
+            },
+          },
+        });
+
+        map.current.on('mousemove', 'pumps', (e) => {
+          if (!map.current || !e.features) return;
+          if (e.features?.length === 0) setHoveredPump(null);
+          setHoveredPump(
+            pumpEventInfoToState({
+              x: e.point.x,
+              y: e.point.y,
+              //@ts-ignore
+              properties: e.features[0].properties,
+            })
+          );
+          map.current.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.current.on('mouseleave', 'pumps', (e) => {
+          setHoveredPump(null);
+          if (map.current) {
+            map.current.getCanvas().style.cursor = '';
+          }
+        });
+
+        map.current.on('click', 'pumps', (e) => {
+          if (e.features) {
+            setClickedPump(
+              pumpEventInfoToState({
+                x: e.point.x,
+                y: e.point.y,
+                //@ts-ignore
+                properties: e.features[0].properties,
+              })
+            );
+          }
+        });
+      } else {
+        map.current.removeLayer('pumps');
+      }
+    }
+  }, [pumpsGeoJson, visibleMapLayer]);
 
   useEffect(() => {
     if (!map?.current || hasUnmounted || !mapHasLoaded) return;
@@ -513,7 +496,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
 
     map.current.setFilter(
       'trees',
-      ['all', communityFilter, waterNeedFilter].filter(val => val !== null)
+      ['all', communityFilter, waterNeedFilter].filter((val) => val !== null)
     );
   }, [
     communityDataAdopted,
@@ -539,86 +522,56 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
   }, [hoveredTreeId, hoveredPump]);
 
   useEffect(() => {
-    if (!focusPoint?.id || hasUnmounted) return;
-    onViewStateChange({
-      latitude: focusPoint.latitude,
-      longitude: focusPoint.longitude,
-      zoom: focusPoint.zoom || VIEWSTATE_ZOOMEDIN_ZOOM,
-      transitionDuration: VIEWSTATE_TRANSITION_DURATION,
-    });
-  }, [
-    focusPoint?.latitude,
-    focusPoint?.longitude,
-    focusPoint?.zoom,
-    focusPoint?.id,
-    onViewStateChange,
-  ]);
-
-  const handleZoomCallback = (e: ViewStateChangeEvent) => {
-    //@ts-ignore
-    if (e.geolocateSource) {
-      onViewStateChange({
-        ...viewport,
-        longitude: e.viewState.longitude,
-        latitude: e.viewState.latitude,
+    if (focusPoint && map.current) {
+      map.current.easeTo({
+        center: [focusPoint.longitude, focusPoint.latitude],
+        essential: true,
         zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+        easing: easeLinear,
+        duration: VIEWSTATE_TRANSITION_DURATION,
       });
     }
-
-    //@ts-ignore
-    const classList = e.originalEvent?.target.parentElement.classList.values();
-    const isZoomInOrOutControlButton =
-      classList &&
-      [...classList].some(
-        value =>
-          value === 'mapboxgl-ctrl-zoom-in' ||
-          value === 'mapboxgl-ctrl-zoom-out'
-      );
-    if (isZoomInOrOutControlButton) {
-      onViewStateChange({
-        ...viewport,
-        zoom: Math.min(e.viewState.zoom, VIEWSTATE_ZOOMEDIN_ZOOM),
-      });
-    }
-  };
+  }, [focusPoint]);
 
   return (
     <>
-      <DeckGL
-        layers={renderLayers()}
-        viewState={viewport}
-        onViewStateChange={e => setViewport(e.viewState)}
-        onClick={onMapClick}
-        controller
-        style={{ overflow: 'hidden' }}
+      <Map
+        reuseMaps
+        ref={ref}
+        mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
+        styleDiffing={true}
+        mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
+        onLoad={onLoad}
+        style={{
+          width: '100%',
+          height: '100%',
+        }}
+        initialViewState={defaultViewport}
       >
-        <Map
-          reuseMaps
-          ref={ref}
-          mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
-          styleDiffing={true}
-          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
-          onLoad={onLoad}
-          onZoom={handleZoomCallback}
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          {!showControls && (
-            <ControlWrapper $isNavOpen={isNavOpen}>
-              <NavigationControl position={'bottom-left'} />
-              <GeolocateControl
-                position={'bottom-left'}
-                positionOptions={{ enableHighAccuracy: true }}
-                trackUserLocation={isMobile ? true : false}
-                showUserLocation={true}
-                showAccuracyCircle={false}
-              />
-            </ControlWrapper>
-          )}
-        </Map>
-      </DeckGL>
+        {!showControls && (
+          <ControlWrapper $isNavOpen={isNavOpen}>
+            <NavigationControl position={'bottom-left'} />
+            <GeolocateControl
+              position={'bottom-left'}
+              positionOptions={{ enableHighAccuracy: true }}
+              trackUserLocation={isMobile ? true : false}
+              showUserLocation={true}
+              showAccuracyCircle={false}
+              fitBoundsOptions={{ maxZoom: VIEWSTATE_ZOOMEDIN_ZOOM }}
+              onGeolocate={(e) => {
+                if (!map.current) return;
+                map.current.easeTo({
+                  center: [e.coords.longitude, e.coords.latitude],
+                  essential: true,
+                  zoom: VIEWSTATE_ZOOMEDIN_ZOOM,
+                  easing: easeLinear,
+                  duration: VIEWSTATE_TRANSITION_DURATION,
+                });
+              }}
+            />
+          </ControlWrapper>
+        )}
+      </Map>
       {pumpInfo && pumpInfo.x && pumpInfo.y && (
         <MapTooltip
           x={pumpInfo.x}
