@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         // matching all API routes
-        source: '/api/:path*',
+        source: 'https://gdk-api-2ns2.vercel.app/api/*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },
