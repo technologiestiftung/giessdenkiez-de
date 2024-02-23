@@ -44,6 +44,7 @@ import {
 import { useActions, useStoreState } from '../../state/unistore-hooks';
 import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 import localizePumpState from '../../utils/hooks/useLocalizedPumpState';
+import { yellow } from '@mui/material/colors';
 
 const VIEWSTATE_TRANSITION_DURATION = 1000;
 const VIEWSTATE_ZOOMEDIN_ZOOM = 20;
@@ -209,19 +210,20 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         extruded: true,
         wireframe: true,
         getElevation: 1,
-        getFillColor: (f?: { properties?: { data?: number[] } }): RGBAColor => {
-          /**
-           * Apparently DWD 1 is not 1ml but 0.1ml
-           * We could change this in the database, but this would mean,
-           * transferring 800.000 "," characters, therefore,
-           * changing it client-side makes more sense.
-           */
-          const features = f?.properties?.data || [];
+        /*         getFillColor: (f: { properties?: { data?: number[] } }): RGBAColor => { */
+        /**
+         * Apparently DWD 1 is not 1ml but 0.1ml
+         * We could change this in the database, but this would mean,
+         * transferring 800.000 "," characters, therefore,
+         * changing it client-side makes more sense.
+         */
+        /**  const features = f?.properties?.data || [];
           if (features.length === 0) return [0, 0, 0, 0];
           const interpolated = interpolateColor(features[0] / 10);
           const hex = hexToRgb(interpolated);
           return hex;
-        },
+        }, */
+        getFillColor: [160, 160, 180, 200],
         pickable: true,
       }),
       new GeoJsonLayer({
@@ -235,7 +237,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         wireframe: true,
         getElevation: 1,
         getLineColor: [0, 0, 0, 200],
-        getFillColor: pumpToColor,
+        getFillColor: [0, 0, 0, 200],
         // We ignore this because getPointRadius is missing typing in the version that we use:
         // @ts-ignore
         getPointRadius: 9,
@@ -243,13 +245,14 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         pickable: true,
         lineWidthScale: 3,
         lineWidthMinPixels: 1.5,
-        onHover: (pumpInfo: PumpEventInfoType) =>
-          setHoveredPump(pumpEventInfoToState(pumpInfo)),
-        onClick: (pumpInfo: PumpEventInfoType) =>
-          setClickedPump(pumpEventInfoToState(pumpInfo)),
+        //onHover: (pumpInfo: PumpEventInfoType) =>
+        //setHoveredPump(pumpEventInfoToState(pumpInfo)),
+        //onClick: (pumpInfo: PumpEventInfoType) =>
+        //  setClickedPump(pumpEventInfoToState(pumpInfo)),
       }),
     ];
 
+    console.log(layers);
     return layers as unknown[];
   }, [pumpsGeoJson, rainGeojson, visibleMapLayer]);
 
