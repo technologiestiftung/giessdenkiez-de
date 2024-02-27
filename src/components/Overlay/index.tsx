@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import OverlayTop from './OverlayTop';
 import { useActions } from '../../state/unistore-hooks';
+import OverlayBottom from './OverlayBottom';
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -70,14 +71,17 @@ const Overlay: FC = () => {
   const { closeOverlay } = useActions();
 
   return (
-    <StyledOverlayWrapper>
-      <OverlayOverlay aria-hidden='true' onClick={closeOverlay} />
-      <StyledWrapper>
-        <Wrapper>
-          <OverlayTop />
-        </Wrapper>
-      </StyledWrapper>
-    </StyledOverlayWrapper>
+    <>
+      <StyledOverlayWrapper>
+        <OverlayOverlay aria-hidden='true' onClick={closeOverlay} />
+        <StyledWrapper>
+          <Wrapper>
+            <OverlayTop />
+            <OverlayBottom />
+          </Wrapper>
+        </StyledWrapper>
+      </StyledOverlayWrapper>
+    </>
   );
 };
 

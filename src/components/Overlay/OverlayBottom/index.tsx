@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import content from '../../../assets/content';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
+import { trackInteraction } from '../../../utils/matomo';
 
 const StyledBottom = styled.div`
   opacity: 1;
@@ -87,19 +89,20 @@ const StyledSalesButton = styled.a`
 `;
 
 const OverlayBottom: FC = () => {
-  const { sales } = content;
+  const { sales } = useLocalizedContent();
 
   return (
     <StyledBottom>
       <StyledContainer>
         <StyledSalesTitle>
-          <strong dangerouslySetInnerHTML={ {__html: sales.title }}></strong>
+          <strong dangerouslySetInnerHTML={{ __html: sales.title }}></strong>
           {sales.subtitle && <span>{sales.subtitle}</span>}
         </StyledSalesTitle>
         <StyledSalesButton
           href={sales.buttonLink}
           target='_blank'
           rel='noopener noreferrer'
+          onClick={() => trackInteraction('click sales button')}
         >
           {sales.buttonText}
         </StyledSalesButton>

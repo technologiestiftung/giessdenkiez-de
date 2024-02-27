@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { trackInteraction } from '../../utils/matomo';
 
 const StyledSwitch = styled.div`
   z-index: 4;
@@ -45,10 +46,6 @@ const StyledSwitchRight = styled.div<{ $isActive?: boolean }>`
     text-decoration: underline;
   }
 `;
-
-function trackInteraction(eventName: string) {
-  window._paq.push(['trackEvent', 'button', eventName]);
-}
 
 interface SwitchProps {
   firstOption: string;
