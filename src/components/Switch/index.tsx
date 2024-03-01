@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { trackInteraction } from '../../utils/matomo';
 
 const StyledSwitch = styled.div`
   z-index: 4;
@@ -66,6 +67,7 @@ const Switch: FC<SwitchProps> = ({
           $isActive={selectedOption === firstOption}
           onClick={() => {
             onOptionSelect(firstOption);
+            trackInteraction('switch language to ' + firstOption);
           }}
         >
           {firstOption.toUpperCase()}
@@ -74,6 +76,7 @@ const Switch: FC<SwitchProps> = ({
           $isActive={selectedOption === secondOption}
           onClick={() => {
             onOptionSelect(secondOption);
+            trackInteraction('switch language to ' + secondOption);
           }}
         >
           {secondOption.toUpperCase()}

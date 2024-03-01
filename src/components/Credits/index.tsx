@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
-const logoCitylab = 'images/citylab-logo.svg';
+const logoCitylab = 'https://logos.citylab-berlin.org/logo-citylab-color.svg';
 const logoTSB = 'https://logos.citylab-berlin.org/logo-tsb-outline.svg';
 const logoBerlin =
   'https://logos.citylab-berlin.org/logo-senatskanzlei-buergermeister-horizontal.svg';
@@ -16,17 +16,18 @@ const LogoContainer = styled.div`
 
 const LabelLogoGroup = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 `;
 
 const Label = styled.div`
   width: 100%;
   font-size: ${p => p.theme.fontSizeS};
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   color: ${p => p.theme.colorTextDark};
   opacity: 0.66;
+`;
+const Spacer = styled.div`
+  width: 100%;
+  height: 2rem;
 `;
 
 const Logo = styled.img`
@@ -35,11 +36,11 @@ const Logo = styled.img`
 
 const Credits: FC = () => {
   const content = useLocalizedContent();
-  const { projectOf, executedBy, fundedBy } = content.credits;
+  const { projectOf, fundedBy } = content.credits;
   return (
     <LogoContainer>
       <LabelLogoGroup>
-        <Label></Label>
+        <Spacer />
         <a
           target='_blank'
           rel='noopener noreferrer'

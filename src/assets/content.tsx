@@ -456,9 +456,9 @@ const deContent: Content = {
   sales: {
     title: '<i>Gieß den Kiez</i> auch in Deiner Stadt?',
     subtitle:
-      'Städte wie Leipzig, Magdeburg und Co. haben sich bereits erfolgreich der Gieß-Welle angeschlossen! Ist deine Stadt die nächste?',
+      'Städte wie Leipzig, Magdeburg und Co. haben sich bereits erfolgreich der Gieß-Welle angeschlossen! Ist Deine Stadt die nächste?',
     buttonText: 'Erfahre mehr!',
-    buttonLink: 'https://deine-stadt.giessdenkiez.de',
+    buttonLink: 'https://deinestadt.giessdenkiez.de',
   },
 };
 
@@ -888,7 +888,7 @@ const enContent = {
     subtitle:
       'Cities like Leipzig, Magdeburg and Co. have already successfully joined the watering wave! ',
     buttonText: 'Learn more!',
-    buttonLink: 'https://deine-stadt.giessdenkiez.de',
+    buttonLink: 'https://deinestadt.giessdenkiez.de',
   },
 };
 
