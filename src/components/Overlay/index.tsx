@@ -13,10 +13,10 @@ const StyledWrapper = styled.div`
   position: relative;
   overflow-y: auto;
   background-color: white;
-  box-shadow: ${(p) => p.theme.boxShadow};
+  box-shadow: ${p => p.theme.boxShadow};
   z-index: 3;
 
-  @media screen and (max-width: ${(p) => p.theme.screens.tablet}) {
+  @media screen and (max-width: ${p => p.theme.screens.tablet}) {
     width: 100%;
     height: 100%;
     box-shadow: none;
@@ -38,18 +38,18 @@ const OverlayOverlay = styled.button`
 
 const StyledOverlayWrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 80px);
   display: flex;
   align-items: center;
-  position: fixed;
-  top: 0;
+  position: absolute;
+  z-index: 3;
+  top: 80px;
   left: 0;
 `;
 
 const Wrapper = styled.div`
   width: 100%;
-  padding-bottom: 20px;
-  max-height: calc(100vh - 40px);
+  max-height: calc(100vh - 80px);
   display: grid;
   grid-template:
     'intro'
