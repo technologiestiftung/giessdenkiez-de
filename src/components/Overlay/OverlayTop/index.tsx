@@ -1,16 +1,16 @@
 import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 
-import OverlayTitle from '../OverlayTitle/';
-import Icon from '../../Icons';
-import OverlayDescription from '../OverlayDescription/';
 import ButtonRound from '../../ButtonRound';
 import Credits from '../../Credits';
+import Icon from '../../Icons';
+import OverlayDescription from '../OverlayDescription/';
+import OverlayTitle from '../OverlayTitle/';
 
-import { useActions, useStoreState } from '../../../state/unistore-hooks';
+import { useActions } from '../../../state/unistore-hooks';
+import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 import OverlayClose from '../OverlayClose';
 import OverlayTiles from '../OverlayTiles';
-import useLocalizedContent from '../../../utils/hooks/useLocalizedContent';
 
 const StyledNewsSection = styled.section`
   background-color: #f7fffa;
@@ -99,8 +99,6 @@ const OverlayTop: FC = () => {
   const { closeOverlay } = useActions();
   const { intro, collaborate, whatsNew } = useLocalizedContent();
   const { title, subline, description, action } = intro;
-  const language = useStoreState('language');
-  const { setLanguage } = useActions();
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -116,18 +114,6 @@ const OverlayTop: FC = () => {
       <Logo>
         <OverlayTitle size='xxl' title={title} />
         <Icon iconType='trees' />
-
-        {/*
-          TODO: Uncomment as soon as all translations are reviewed and ready
-         <Switch
-          firstOption={Language.de}
-          secondOption={Language.en}
-          selectedOption={language}
-          onOptionSelect={option => {
-            setLocalStorageLanguage(option as Language);
-            setLanguage(option as Language);
-          }}
-        ></Switch> */}
       </Logo>
       <OverlayTitle size='xxl' title={subline} />
       {/* the beow is here for local testing */}

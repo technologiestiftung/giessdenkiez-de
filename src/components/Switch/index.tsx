@@ -1,41 +1,50 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { trackInteraction } from '../../utils/matomo';
 
 const StyledSwitch = styled.div`
+  z-index: 4;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  background-color: white;
+  width: 52px;
+  height: 65px;
+  border-radius: 10px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   flex-wrap: wrap;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.125));
 `;
 
 const StyledSwitchLeft = styled.div<{ $isActive?: boolean }>`
-  border-right: 1px solid black;
-  border-left: 1px solid black;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  padding: 6px;
+  padding-top: 5%;
+  height: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  border-radius: 10px 10px 0 0;
+  text-decoration: ${p => p.$isActive && 'underline'};
+  font-weight: ${p => p.$isActive && 'bold'};
   &:hover {
-    background-color: ${p => p.theme.colorPrimaryDark};
-    color: white;
+    text-decoration: underline;
   }
-  background-color: ${p => p.$isActive && p.theme.colorPrimary};
 `;
 
 const StyledSwitchRight = styled.div<{ $isActive?: boolean }>`
-  border-right: 1px solid black;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  padding: 6px;
+  padding-bottom: 5%;
+  height: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  border-radius: 0 0 10px 10px;
+  text-decoration: ${p => p.$isActive && 'underline'};
+  font-weight: ${p => p.$isActive && 'bold'};
   &:hover {
-    background-color: ${p => p.theme.colorPrimaryDark};
-    color: white;
+    text-decoration: underline;
   }
-  background-color: ${p => p.$isActive && p.theme.colorPrimary};
 `;
 
 interface SwitchProps {
@@ -58,17 +67,19 @@ const Switch: FC<SwitchProps> = ({
           $isActive={selectedOption === firstOption}
           onClick={() => {
             onOptionSelect(firstOption);
+            trackInteraction('switch language to ' + firstOption);
           }}
         >
-          {firstOption}
+          {firstOption.toUpperCase()}
         </StyledSwitchLeft>
         <StyledSwitchRight
           $isActive={selectedOption === secondOption}
           onClick={() => {
             onOptionSelect(secondOption);
+            trackInteraction('switch language to ' + secondOption);
           }}
         >
-          {secondOption}
+          {secondOption.toUpperCase()}
         </StyledSwitchRight>
       </StyledSwitch>
     </>

@@ -40,14 +40,14 @@ const CaretakerDiv = styled.div`
   flex-direction: row;
   justify-content: start;
   align-items: center;
-  line-height: ${p =>
+  line-height: ${(p) =>
     parseFloat(p.theme.fontSizeM.replace('rem', '')) * 1.2}rem;
 `;
 
 const CaretakerSublineSpan = styled.span`
-  font-size: ${p => p.theme.fontSizeM};
-  margin-top: -${p => parseFloat(p.theme.fontSizeM.replace('rem', '')) / 2 + 0.1}rem;
-  margin-left: -${p => p.theme.fontSizeM};
+  font-size: ${(p) => p.theme.fontSizeM};
+  margin-top: -${(p) => parseFloat(p.theme.fontSizeM.replace('rem', '')) / 2 + 0.1}rem;
+  margin-left: -${(p) => p.theme.fontSizeM};
 `;
 
 const SublineSpan = styled.span`
@@ -66,7 +66,7 @@ const TreeTitle = styled.h2`
 const AgeInfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid ${p => p.theme.colorGreyLight};
+  border-bottom: 1px solid ${(p) => p.theme.colorGreyLight};
   padding: 12px 0;
   font-weight: bold;
 `;
@@ -80,9 +80,9 @@ const AdoptedIndication = styled.span<{
 }>`
   display: inline-block;
   border-radius: 2px;
-  font-size: ${p => p.theme.fontSizeM};
-  line-height: ${p => p.theme.fontSizeM};
-  color: ${p =>
+  font-size: ${(p) => p.theme.fontSizeM};
+  line-height: ${(p) => p.theme.fontSizeM};
+  color: ${(p) =>
     p.selfAdopted ? p.theme.colorPrimary : p.theme.colorSecondary};
   border: 1px solid;
   padding: 4px 5px;
@@ -99,7 +99,7 @@ const AdoptionsParent = styled.div`
 `;
 
 const ActionsWrapper = styled.div`
-  padding-top: ${p => p.theme.spacingM};
+  padding-top: ${(p) => p.theme.spacingM};
 `;
 
 const BaselineGrid = styled.span`
@@ -109,6 +109,14 @@ const BaselineGrid = styled.span`
   column-gap: 4px;
 `;
 
+const FixedPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1.3rem;
+  padding: 16px 0;
+`;
 const TreeInfos: FC<{
   selectedTreeData: SelectedTreeType;
 }> = ({ selectedTreeData }) => {
@@ -156,7 +164,7 @@ const TreeInfos: FC<{
 
   const { data: communityData } = useCommunityData();
 
-  const treeType = treetypes.find(treetype => treetype.id === gattungdeutsch);
+  const treeType = treetypes.find((treetype) => treetype.id === gattungdeutsch);
 
   const adoptedByLoggedInUser =
     userData && userData.adoptedTrees.find(({ id }) => id === treeId);
@@ -182,7 +190,7 @@ const TreeInfos: FC<{
 
   const wateringsSum = useMemo(() => {
     if (!waterings) return 0;
-    const last30DaysWaterings = waterings.filter(w => {
+    const last30DaysWaterings = waterings.filter((w) => {
       const msPerDay = 86400000;
       const elapsedMs = new Date().getTime() - Date.parse(w.timestamp);
       return elapsedMs / msPerDay <= 30;
@@ -232,7 +240,7 @@ const TreeInfos: FC<{
           <CaretakerDiv>
             <Icon iconType='water' height={32}></Icon>
             <CaretakerSublineSpan>
-              {regularlyWateredBy.replace('_1_', caretaker)}
+              {regularlyWateredBy(caretaker)}
             </CaretakerSublineSpan>
           </CaretakerDiv>
         )}
@@ -309,12 +317,11 @@ const TreeInfos: FC<{
           </ExpandablePanel>
         )}
 
-        <br />
         {!userData && (
-          <div>
+          <FixedPanel>
             <Login />
             <ParticipateButton />
-          </div>
+          </FixedPanel>
         )}
 
         {userData && !userData.isVerified && (

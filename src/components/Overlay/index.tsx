@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import OverlayTop from './OverlayTop';
 import { useActions } from '../../state/unistore-hooks';
+import OverlayBottom from './OverlayBottom';
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -37,15 +38,18 @@ const OverlayOverlay = styled.button`
 
 const StyledOverlayWrapper = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 80px);
   display: flex;
   align-items: center;
+  position: absolute;
+  z-index: 3;
+  top: 80px;
+  left: 0;
 `;
 
 const Wrapper = styled.div`
   width: 100%;
-  padding-bottom: 20px;
-  max-height: calc(100vh - 40px);
+  max-height: calc(100vh - 80px);
   display: grid;
   grid-template:
     'intro'
@@ -70,14 +74,17 @@ const Overlay: FC = () => {
   const { closeOverlay } = useActions();
 
   return (
-    <StyledOverlayWrapper>
-      <OverlayOverlay aria-hidden='true' onClick={closeOverlay} />
-      <StyledWrapper>
-        <Wrapper>
-          <OverlayTop />
-        </Wrapper>
-      </StyledWrapper>
-    </StyledOverlayWrapper>
+    <>
+      <StyledOverlayWrapper>
+        <OverlayOverlay aria-hidden='true' onClick={closeOverlay} />
+        <StyledWrapper>
+          <Wrapper>
+            <OverlayTop />
+            <OverlayBottom />
+          </Wrapper>
+        </StyledWrapper>
+      </StyledOverlayWrapper>
+    </>
   );
 };
 

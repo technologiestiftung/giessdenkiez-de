@@ -3,7 +3,21 @@ interface Item {
   description: string;
 }
 
-type TreeTypeId = 'LINDE' | 'AHORN' | 'EICHE' | 'KASTANIE' | 'PLATANE';
+type TreeTypeId =
+  | 'LINDE'
+  | 'AHORN'
+  | 'EICHE'
+  | 'KASTANIE'
+  | 'ROSSKASTANIE'
+  | 'PLATANE'
+  | 'ESCHE'
+  | 'BIRKE'
+  | 'ROBINIE'
+  | 'ULME'
+  | 'HASEL'
+  | 'HAINBUCHE'
+  | 'PAPPEL';
+
 export interface TreeType extends Item {
   id: TreeTypeId;
 }
@@ -22,26 +36,29 @@ interface PumpStates {
   unknown: string;
 }
 interface UsernameRestrictions {
-  part1: string;
+  intro: string;
   and: string;
-  part2: string;
-  part3: string;
+  length: string;
+  specialCharacters: string;
 }
 interface PasswordRestrictions {
-  part1: string;
-  part2: string;
-  part3: string;
-  part4: string;
+  minLength: string;
+  upperAndLowercase: string;
+  specialCharacters: string;
+  containNumbers: string;
 }
 interface AuthErrors {
   checkUsername: string;
-  checkPassword: string;
   userExistsAlready: string;
-  emailCouldNotBeSent: string;
+  emailCouldNotBeSent: (mail: string) => string;
   usernameOrPasswordWrong: string;
   ooops: string;
-  checkMailForPasswordReset: string;
+  checkMailForPasswordReset: (mail: string) => string;
   usernameTaken: string;
+  checkPassword: string;
+  enterEmail: string;
+  enterPassword: string;
+  enterUsername: string;
 }
 interface Profile {
   logoutAction: string;
@@ -72,7 +89,7 @@ interface Account {
   editClose: string;
   editUsernameSuccess: string;
   editUsernameError: string;
-  editEmailSuccess: string;
+  editEmailSuccess: (oldMail: string, newMail: string) => string;
   editPasswordTitle: string;
   oldPasswordTitle: string;
   newPasswordTitle: string;
@@ -92,7 +109,7 @@ interface Tree {
   adoptedByMe: string;
   adoptedAlsoByOthers: string;
   adoptedOnlyByOthers: string;
-  regularlyWateredBy: string;
+  regularlyWateredBy: (user: string) => string;
   lastWaterings: string;
   latestFirst: string;
   needsVerification: string;
@@ -138,7 +155,6 @@ export interface Content {
     title: string;
     pumps: string;
     precipitation: string;
-    precipitationAreas: string;
     dataPoints: string;
     treeLayer: string;
     ofLastDays: string;
@@ -216,6 +232,7 @@ export interface Content {
     passwordCouldNotBeChanged: string;
     passwordChangeSuccess: string;
     changePasswordFor: string;
+    checkSignupMail: (recipientMail: string, senderMail: string) => string;
   };
   collaborate: {
     tiles: CollaborationItem[];

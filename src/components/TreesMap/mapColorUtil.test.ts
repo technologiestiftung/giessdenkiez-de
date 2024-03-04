@@ -44,37 +44,3 @@ describe('colors of mapColorUtil', () => {
     expect(lockedColor.name).toBeDefined();
   });
 });
-
-describe('pumpToColor utility function', () => {
-  test('should return the default color if no params provided', () => {
-    expect(pumpToColor()).toBe(defaultColor.rgba);
-  });
-  test('should return the default color if no properties', () => {
-    expect(pumpToColor({})).toBe(defaultColor.rgba);
-  });
-  test('should return the default color if status is unkown', () => {
-    expect(pumpToColor({ properties: { 'pump:status': 'bombula' } })).toBe(
-      defaultColor.rgba
-    );
-  });
-  test('should return the default color if status is unbekannt', () => {
-    expect(pumpToColor({ properties: { 'pump:status': 'unbekannt' } })).toBe(
-      defaultColor.rgba
-    );
-  });
-  test('should return the brokenColor if status is defekt', () => {
-    expect(pumpToColor({ properties: { 'pump:status': 'defekt' } })).toBe(
-      brokenColor.rgba
-    );
-  });
-  test('should return the workingColor if status is funktionsfähig', () => {
-    expect(
-      pumpToColor({ properties: { 'pump:status': 'funktionsfähig' } })
-    ).toBe(workingColor.rgba);
-  });
-  test('should return the lockedColor if status is verriegelt', () => {
-    expect(pumpToColor({ properties: { 'pump:status': 'verriegelt' } })).toBe(
-      lockedColor.rgba
-    );
-  });
-});

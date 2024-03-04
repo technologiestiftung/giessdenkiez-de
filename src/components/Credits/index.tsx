@@ -2,8 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import useLocalizedContent from '../../utils/hooks/useLocalizedContent';
 
-const logoCitylab =
-  'https://logos.citylab-berlin.org/logo-citylab-berlin-outline.svg';
+const logoCitylab = 'https://logos.citylab-berlin.org/logo-citylab-color.svg';
 const logoTSB = 'https://logos.citylab-berlin.org/logo-tsb-outline.svg';
 const logoBerlin =
   'https://logos.citylab-berlin.org/logo-senatskanzlei-buergermeister-horizontal.svg';
@@ -22,9 +21,13 @@ const LabelLogoGroup = styled.div`
 const Label = styled.div`
   width: 100%;
   font-size: ${p => p.theme.fontSizeS};
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   color: ${p => p.theme.colorTextDark};
   opacity: 0.66;
+`;
+const Spacer = styled.div`
+  width: 100%;
+  height: 2rem;
 `;
 
 const Logo = styled.img`
@@ -33,9 +36,19 @@ const Logo = styled.img`
 
 const Credits: FC = () => {
   const content = useLocalizedContent();
-  const { projectOf, executedBy, fundedBy } = content.credits;
+  const { projectOf, fundedBy } = content.credits;
   return (
     <LogoContainer>
+      <LabelLogoGroup>
+        <Spacer />
+        <a
+          target='_blank'
+          rel='noopener noreferrer'
+          href='https://citylab-berlin.org/de/start/'
+        >
+          <Logo src={logoCitylab} alt='Logo Citylab' />
+        </a>
+      </LabelLogoGroup>
       <LabelLogoGroup>
         <Label>{projectOf}</Label>
         <a
@@ -44,16 +57,6 @@ const Credits: FC = () => {
           href='https://technologiestiftung-berlin.de/'
         >
           <Logo src={logoTSB} alt='Logo Technologiestiftung Berlin' />
-        </a>
-      </LabelLogoGroup>
-      <LabelLogoGroup>
-        <Label>{executedBy}</Label>
-        <a
-          target='_blank'
-          rel='noopener noreferrer'
-          href='https://citylab-berlin.org/de/start/'
-        >
-          <Logo src={logoCitylab} alt='Logo Citylab' />
         </a>
       </LabelLogoGroup>
       <LabelLogoGroup>

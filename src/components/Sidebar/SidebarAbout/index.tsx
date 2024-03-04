@@ -39,7 +39,6 @@ const SidebarAbout: FC = () => {
       <SocialSharing />
       <OpenSourceNote />
       <hr style={{ marginBottom: '2rem', opacity: 0.1 }} />
-      <Credits />
     </>
   );
 };
