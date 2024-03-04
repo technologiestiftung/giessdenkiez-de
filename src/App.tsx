@@ -1,11 +1,12 @@
 import React from "react";
+import Map from "./components/map/map";
 
-const MyComponent: React.FC = () => {
+const App: React.FC = () => {
   return (
     <>
-      <h1 className="text-4xl">Hello, Giess den Kiez</h1>
+      <Map />
     </>
   );
 };
 
-export default MyComponent;
+export default App;
