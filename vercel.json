@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/:wildcard",
+      "destination": "/index.html"
+    }
+  ]
+}
