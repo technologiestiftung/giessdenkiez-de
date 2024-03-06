@@ -1,10 +1,22 @@
 import React, { useEffect } from "react";
 import mapboxgl from "mapbox-gl";
+import { useMapStore } from "../map-store";
 
 export function useMapSetup(
   mapContainer: React.MutableRefObject<HTMLDivElement | null>,
   map: React.MutableRefObject<mapboxgl.Map | null>,
 ) {
+  const { setMap } = useMapStore();
+
+  useEffect(() => {
+    if (map && map.current) {
+      setMap(map.current);
+    }
+    return () => {
+      setMap(undefined);
+    };
+  }, [map]);
+
   useEffect(() => {
     if (map.current) {
       return;
