@@ -7,6 +7,7 @@ const UserIcon: React.FC = () => {
       height="25"
       viewBox="0 0 23 25"
       fill="none"
+      className="h-6 w-6"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
