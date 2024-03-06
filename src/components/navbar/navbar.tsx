@@ -3,15 +3,18 @@ import { useUrlState } from "../router/store";
 import MapIcon from "../icons/map-icon";
 import UserIcon from "../icons/user-icon";
 import InfoIcon from "../icons/info-icon";
+import { useI18nStore } from "../../i18n/i18n-store";
 
 const Navbar: React.FC = () => {
+  const i18n = useI18nStore().i18n();
+
   const setPathname = useUrlState((state) => state.setPathname);
   const url = useUrlState((state) => state.url);
 
   const navItems = [
-    { label: "Karte", path: "/map", icon: <MapIcon /> },
-    { label: "Profil", path: "/profile", icon: <UserIcon /> },
-    { label: "Info", path: "/about", icon: <InfoIcon /> },
+    { label: i18n.navbar.map, path: "/map", icon: <MapIcon /> },
+    { label: i18n.navbar.profile, path: "/profile", icon: <UserIcon /> },
+    { label: i18n.navbar.info, path: "/about", icon: <InfoIcon /> },
   ];
 
   return (

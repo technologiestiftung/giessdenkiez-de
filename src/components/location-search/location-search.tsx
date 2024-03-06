@@ -3,8 +3,11 @@ import ClearIcon from "../icons/clear-icon";
 import SearchIcon from "../icons/search-icon";
 import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
+import { useI18nStore } from "../../i18n/i18n-store";
 
 const LocationSearch: React.FC = () => {
+  const i18n = useI18nStore().i18n();
+  console.log(i18n);
   const [search, setSearch] = useState("");
   const [selectedGeocodingResult, setSelectedGeocodingResult] =
     useState<GeocodingResult>();
@@ -68,7 +71,7 @@ const LocationSearch: React.FC = () => {
               setSelectedGeocodingResult(undefined);
               setSearch(e.target.value);
             }}
-            placeholder="Suche nach einem Ort"
+            placeholder={i18n.locationSearch.placeholder}
           />
           <button className="px-4" onClick={clearSearch}>
             <ClearIcon></ClearIcon>
