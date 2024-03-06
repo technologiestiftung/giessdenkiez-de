@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
+import React, { useMemo, useState } from "react";
 import ClearIcon from "../icons/clear-icon";
 import SearchIcon from "../icons/search-icon";
 import { useMapStore } from "../map/map-store";
+import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
 
-const LocationSearch: React.FC = ({}) => {
+const LocationSearch: React.FC = () => {
   const [search, setSearch] = useState("");
   const [selectedGeocodingResult, setSelectedGeocodingResult] =
     useState<GeocodingResult>();

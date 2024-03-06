@@ -1,42 +1,32 @@
-import React, { useEffect } from "react";
 import mapboxgl from "mapbox-gl";
+import { useEffect } from "react";
 import { useMapStore } from "../map-store";
 
 export function useMapSetup(
   mapContainer: React.MutableRefObject<HTMLDivElement | null>,
-  map: React.MutableRefObject<mapboxgl.Map | null>,
 ) {
   const { setMap } = useMapStore();
 
   useEffect(() => {
-    if (map && map.current) {
-      setMap(map.current);
-    }
-    return () => {
-      setMap(undefined);
-    };
-  }, [map]);
-
-  useEffect(() => {
-    if (map.current) {
+    if (!mapContainer.current) {
       return;
     }
 
-    map.current = new mapboxgl.Map({
+    const map = new mapboxgl.Map({
       container: mapContainer.current!,
       style: import.meta.env.VITE_MAPBOX_STYLE_URL,
       center: [13.4, 52.52],
       zoom: 15,
     });
 
-    map.current.on("load", () => {
-      map.current!.addSource("trees", {
+    map.on("load", () => {
+      map.addSource("trees", {
         type: "vector",
         url: import.meta.env.VITE_MAPBOX_TREES_TILESET_URL,
         promoteId: "id",
       });
 
-      map.current!.addLayer({
+      map.addLayer({
         id: "trees",
         type: "circle",
         source: "trees",
@@ -70,5 +60,7 @@ export function useMapSetup(
         },
       });
     });
-  });
+
+    setMap(map);
+  }, [mapContainer]);
 }
