@@ -40,10 +40,10 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
       </form>
 
       {geocodingResults.length > 0 && (
-        <div className="rounded-b-pill flex flex-col bg-white py-2">
+        <div className="rounded-b-pill flex flex-col overflow-hidden bg-white pt-2">
           {geocodingResults.map((geocodingResult) => (
             <button
-              className="truncate px-4 py-4 text-left hover:cursor-pointer hover:bg-sky-100"
+              className=" truncate px-4 py-4 text-left hover:cursor-pointer hover:bg-sky-100"
               onClick={() => onGeocodedResultChoice(geocodingResult)}
             >
               {geocodingResult.place_name_de}
