@@ -5,6 +5,7 @@ import Navbar from "../navbar/navbar";
 import Profile from "../profile/profile";
 import Info from "../info/info";
 import PageNotFound from "../page-not-found/page-not-found";
+import LocationSearch from "../location-search/location-search";
 
 const Router: React.FC = () => {
   const url = useUrlState((state) => state.url);
@@ -19,8 +20,9 @@ const Router: React.FC = () => {
 
     case "/map":
       return (
-        <div className="flex lg:h-full lg:flex-row">
+        <div className="flex h-full flex-col-reverse justify-between lg:flex-row">
           <Navbar />
+          <LocationSearch onGeocodedResultChoice={() => {}}></LocationSearch>
         </div>
       );
     case "/profile":
