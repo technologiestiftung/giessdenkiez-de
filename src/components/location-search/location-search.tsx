@@ -15,7 +15,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
   const hasResults = geocodingResults.length;
 
   return (
-    <div className="flex w-full justify-center">
+    <div className="mt-2 flex w-full justify-center">
       <div
         className={`pointer-events-auto flex h-fit w-[100%] flex-col px-2 drop-shadow-xl sm:w-[70%] sm:px-0 md:w-[50%] lg:w-[40%]`}
       >
