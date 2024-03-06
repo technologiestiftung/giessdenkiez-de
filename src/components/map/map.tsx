@@ -15,7 +15,17 @@ const Map: React.FC = () => {
     <div className="grid grid-cols-1">
       <div ref={mapContainer} className="col-start-1 row-start-1 h-screen" />
       <div className="z-[1000] col-start-1 row-start-1 mt-2 flex h-fit w-full justify-center">
-        <LocationSearch onGeocodedResultChoice={() => {}}></LocationSearch>
+        <LocationSearch
+          onGeocodedResultChoice={(geocodingResult) => {
+            map.current!.easeTo({
+              center: [
+                geocodingResult.geometry.coordinates[0],
+                geocodingResult.geometry.coordinates[1],
+              ],
+              essential: true,
+            });
+          }}
+        ></LocationSearch>
       </div>
     </div>
   );
