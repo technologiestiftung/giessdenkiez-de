@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
 import ClearIcon from "../icons/clear-icon";
 import SearchIcon from "../icons/search-icon";
@@ -6,9 +6,28 @@ import { useMapStore } from "../map/map-store";
 
 const LocationSearch: React.FC = ({}) => {
   const [search, setSearch] = useState("");
-  const geocodingResults = useGeocoding(search);
-  const hasResults = geocodingResults.length;
+  const [selectedGeocodingResult, setSelectedGeocodingResult] =
+    useState<GeocodingResult>();
+
   const { map } = useMapStore();
+  const { geocodingResults, clearGeocodingResults } = useGeocoding(search);
+
+  const hasResults = useMemo(() => {
+    return geocodingResults.length;
+  }, [geocodingResults]);
+
+  const clearSearch = () => {
+    setSearch("");
+    setSelectedGeocodingResult(undefined);
+  };
+
+  map?.on("dragstart", function () {
+    clearSearch();
+  });
+
+  map?.on("zoomstart", function () {
+    clearSearch();
+  });
 
   const onGeocodingResultClick = (geocodingResult: GeocodingResult) => {
     map &&
@@ -19,6 +38,8 @@ const LocationSearch: React.FC = ({}) => {
         ],
         essential: true,
       });
+    setSelectedGeocodingResult(geocodingResult);
+    clearGeocodingResults();
   };
 
   return (
@@ -38,11 +59,14 @@ const LocationSearch: React.FC = ({}) => {
           <input
             className={`grow p-4 focus:outline-none ${hasResults ? "rounded-t-pill" : "rounded-pill"}`}
             type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={selectedGeocodingResult?.place_name_de || search}
+            onChange={(e) => {
+              setSelectedGeocodingResult(undefined);
+              setSearch(e.target.value);
+            }}
             placeholder="Suche nach einem Ort"
           />
-          <button className="px-4" onClick={() => setSearch("")}>
+          <button className="px-4" onClick={clearSearch}>
             <ClearIcon></ClearIcon>
           </button>
         </form>

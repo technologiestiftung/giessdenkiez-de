@@ -8,10 +8,19 @@ export interface GeocodingResult {
   };
 }
 
-export function useGeocoding(search: string): GeocodingResult[] {
+export interface GeocodingResultState {
+  geocodingResults: GeocodingResult[];
+  clearGeocodingResults: () => void;
+}
+
+export function useGeocoding(search: string): GeocodingResultState {
   const [geocodingResults, setGeocodingResults] = useState<GeocodingResult[]>(
     [],
   );
+
+  const clearGeocodingResults = () => {
+    setGeocodingResults([]);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,5 +42,5 @@ export function useGeocoding(search: string): GeocodingResult[] {
     }
   }, [search]);
 
-  return geocodingResults;
+  return { geocodingResults, clearGeocodingResults };
 }
