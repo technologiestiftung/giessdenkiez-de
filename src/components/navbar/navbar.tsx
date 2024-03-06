@@ -21,12 +21,12 @@ const Navbar: React.FC = () => {
     <nav
       className={`pointer-events-auto
       flex h-auto w-full justify-center rounded-tl-3xl rounded-tr-3xl bg-white pt-0 shadow 
-      lg:h-full lg:w-auto lg:justify-start lg:rounded-br lg:rounded-tl-none lg:rounded-tr lg:px-2 lg:pt-20`}
+      lg:h-full lg:w-auto lg:justify-start lg:rounded-br lg:rounded-tl-none lg:rounded-tr lg:px-2 lg:pt-10`}
     >
       <div
         className={`
-        flex flex-row gap-x-16 gap-y-0 pb-2 pt-1 
-        lg:h-auto lg:flex-col lg:gap-x-0 lg:gap-y-8`}
+        flex flex-row gap-x-16 gap-y-0 pb-2 pt-1 md:gap-x-32
+        lg:h-auto lg:flex-col lg:gap-x-0 lg:gap-y-8 lg:pt-0`}
       >
         {navItems.map((item) => (
           <a
@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
             }}
             className={`
             flex h-14 w-14 flex-col items-center justify-center rounded-xl pt-1 text-sm font-medium
-            hover:bg-blue-600 hover:bg-opacity-10 lg:text-base 
+            hover:bg-blue-600 hover:bg-opacity-10 lg:h-16 lg:w-16 lg:rounded lg:text-base
             ${url.pathname === item.path ? "bg-blue-600 bg-opacity-10 text-blue-600" : "text-black"}
             `}
           >
