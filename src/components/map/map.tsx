@@ -14,7 +14,10 @@ const Map: React.FC = () => {
   return (
     <div className="grid grid-cols-1">
       <div ref={mapContainer} className="col-start-1 row-start-1 h-screen" />
-      <div className="z-[1000] col-start-1 row-start-1 mt-2 flex h-fit w-full justify-center">
+      <div
+        className="z-[1000] col-start-1 row-start-1 mt-2 flex h-fit w-full justify-center"
+        style={{ backgroundColor: "#ff000033", pointerEvents: "none" }}
+      >
         <LocationSearch
           onGeocodedResultChoice={(geocodingResult) => {
             map.current!.easeTo({
