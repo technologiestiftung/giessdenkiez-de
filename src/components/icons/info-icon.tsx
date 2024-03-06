@@ -3,40 +3,30 @@ import React from "react";
 const InfoIcon: React.FC = () => {
   return (
     <svg
-      width="24"
+      width="26"
       height="26"
-      viewBox="0 0 24 26"
+      viewBox="0 0 27 27"
       fill="none"
-      className="h-6 w-6"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g id="Group 33">
-        <g id="Group 32">
-          <g id="info icon">
-            <path
-              id="Vector"
-              d="M12 24.3931C18.0751 24.3931 23 19.2275 23 12.8554C23 6.48334 18.0751 1.31775 12 1.31775C5.92487 1.31775 1 6.48334 1 12.8554C1 19.2275 5.92487 24.3931 12 24.3931Z"
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-            <path
-              id="Vector_2"
-              d="M12.0112 8.04846H12"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-            <path
-              id="Vector_3"
-              d="M11.0835 11.8937H12.4586V17.6625M11.0835 17.6625H13.8335"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </g>
-        </g>
-      </g>
+      <path
+        d="M13 25.9746C19.6274 25.9746 25 20.602 25 13.9746C25 7.34719 19.6274 1.97461 13 1.97461C6.37258 1.97461 1 7.34719 1 13.9746C1 20.602 6.37258 25.9746 13 25.9746Z"
+        stroke="currentColor"
+        stroke-width="2"
+      />
+      <path
+        d="M13.0122 8.97461H13"
+        stroke="currentColor"
+        stroke-width="3"
+        stroke-linecap="round"
+      />
+      <path
+        d="M12 12.9746H13.5001V18.9746M12 18.9746H15"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </svg>
   );
 };
