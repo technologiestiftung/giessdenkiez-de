@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
 import ClearIcon from "../icons/clear-icon";
 import SearchIcon from "../icons/search-icon";
@@ -26,6 +26,10 @@ const LocationSearch: React.FC = ({}) => {
   });
 
   map?.on("zoomstart", function () {
+    clearSearch();
+  });
+
+  map?.on("click", function () {
     clearSearch();
   });
 
