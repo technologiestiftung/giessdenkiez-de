@@ -16,7 +16,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 
   return (
     <div
-      className={`flex flex-col px-2 sm:w-[70%] sm:px-0 md:w-[50%] lg:w-[40%]`}
+      className={`flex w-[100%] flex-col px-2 sm:w-[70%] sm:px-0 md:w-[50%] lg:w-[40%]`}
     >
       <form
         onSubmit={(e) => {
