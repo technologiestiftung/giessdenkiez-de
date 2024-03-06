@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GeocodingResult, useGeocoding } from "../map/hooks/use-geocoding";
+import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
 import ClearIcon from "../icons/clear-icon";
 import SearchIcon from "../icons/search-icon";
 
