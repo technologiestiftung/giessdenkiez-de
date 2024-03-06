@@ -1,5 +1,5 @@
 import mapboxgl from "mapbox-gl";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useMapStore } from "../map-store";
 import { useCirclePaint } from "./use-circle-paint";
 import { useMapConstants } from "./use-map-constants";
@@ -57,6 +57,24 @@ export function useMapSetup(
         },
       });
     });
+
+    map.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        // When active the map will receive updates to the device's location as it changes.
+        trackUserLocation: true,
+        // Draw an arrow next to the location dot to indicate which direction the device is heading.
+        showUserHeading: true,
+        showAccuracyCircle: false,
+      }),
+      "bottom-left",
+    );
+    map.addControl(
+      new mapboxgl.NavigationControl({ showCompass: false, showZoom: true }),
+      "bottom-left",
+    );
 
     setMap(map);
   }, [mapContainer]);

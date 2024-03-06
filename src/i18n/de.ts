@@ -1,6 +1,34 @@
 import { Content } from "./content-types";
 
 const de: Content = {
+  map: {
+    attribution: {
+      mapbox: {
+        href: "https://www.mapbox.com/about/maps/",
+        label: "© Mapbox",
+      },
+      openStreetMap: {
+        href: "https://www.openstreetmap.org/copyright",
+        label: "© OpenStreetMap",
+      },
+      improve: {
+        href: "https://www.mapbox.com/map-feedback",
+        label: "<strong>Diese Karte verbessern</strong>",
+      },
+      feedback: {
+        href: "https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK",
+        label: "Feedback",
+      },
+      imprint: {
+        href: "https://www.technologiestiftung-berlin.de/de/impressum/",
+        label: "Impressum",
+      },
+      privacy: {
+        href: "https://www.technologiestiftung-berlin.de/de/datenschutz/",
+        label: "Datenschutz",
+      },
+    },
+  },
   locationSearch: {
     placeholder: "Suche nach einem Ort",
   },

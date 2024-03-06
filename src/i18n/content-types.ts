@@ -151,6 +151,34 @@ interface Common {
 
 export interface Content {
   common: Common;
+  map: {
+    attribution: {
+      mapbox: {
+        href: string;
+        label: string;
+      };
+      openStreetMap: {
+        href: string;
+        label: string;
+      };
+      improve: {
+        href: string;
+        label: string;
+      };
+      feedback: {
+        href: string;
+        label: string;
+      };
+      imprint: {
+        href: string;
+        label: string;
+      };
+      privacy: {
+        href: string;
+        label: string;
+      };
+    };
+  };
   locationSearch: LocationSearch;
   navbar: Navbar;
   notFound: NotFound;
