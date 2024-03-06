@@ -16,6 +16,9 @@ const Map: React.FC = () => {
     if (map && map.current) {
       setMap(map.current);
     }
+    return () => {
+      setMap(undefined);
+    };
   }, [map]);
 
   return <div ref={mapContainer} className="h-screen" />;

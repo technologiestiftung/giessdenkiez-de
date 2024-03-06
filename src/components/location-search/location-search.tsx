@@ -49,8 +49,9 @@ const LocationSearch: React.FC = ({}) => {
 
         {geocodingResults.length > 0 && (
           <div className="rounded-b-pill flex flex-col overflow-hidden bg-white pt-2">
-            {geocodingResults.map((geocodingResult) => (
+            {geocodingResults.map((geocodingResult, idx) => (
               <button
+                key={`geocoding-result-${idx}`}
                 className=" truncate px-4 py-4 text-left hover:cursor-pointer hover:bg-sky-100"
                 onClick={() => onGeocodingResultClick(geocodingResult)}
               >
