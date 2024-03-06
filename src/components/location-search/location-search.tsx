@@ -2,17 +2,24 @@ import React, { useState } from "react";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
 import ClearIcon from "../icons/clear-icon";
 import SearchIcon from "../icons/search-icon";
+import { useMapStore } from "../map/map-store";
 
-export interface LocationSearchProps {
-  onGeocodedResultChoice: (result: GeocodingResult) => void;
-}
-
-const LocationSearch: React.FC<LocationSearchProps> = ({
-  onGeocodedResultChoice,
-}) => {
+const LocationSearch: React.FC = ({}) => {
   const [search, setSearch] = useState("");
   const geocodingResults = useGeocoding(search);
   const hasResults = geocodingResults.length;
+  const { map } = useMapStore();
+
+  const onGeocodingResultClick = (geocodingResult: GeocodingResult) => {
+    map &&
+      map.easeTo({
+        center: [
+          geocodingResult.geometry.coordinates[0],
+          geocodingResult.geometry.coordinates[1],
+        ],
+        essential: true,
+      });
+  };
 
   return (
     <div className="mt-2 flex w-full justify-center">
@@ -45,7 +52,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
             {geocodingResults.map((geocodingResult) => (
               <button
                 className=" truncate px-4 py-4 text-left hover:cursor-pointer hover:bg-sky-100"
-                onClick={() => onGeocodedResultChoice(geocodingResult)}
+                onClick={() => onGeocodingResultClick(geocodingResult)}
               >
                 {geocodingResult.place_name_de}
               </button>
