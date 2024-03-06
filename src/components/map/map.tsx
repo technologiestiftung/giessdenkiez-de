@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
 import mapboxgl from "mapbox-gl";
+import React, { useRef } from "react";
 import { useMapSetup } from "./hooks/use-map-setup";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_API_KEY;
