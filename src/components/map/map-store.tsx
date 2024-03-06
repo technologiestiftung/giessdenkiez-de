@@ -6,7 +6,7 @@ interface URLState {
   setMap: (map: mapboxgl.Map | undefined) => void;
 }
 
-export const useMapStore = create<URLState>()((set, get) => ({
+export const useMapStore = create<URLState>()((set) => ({
   map: undefined,
   setMap: (map: mapboxgl.Map | undefined) => {
     set({ map });

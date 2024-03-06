@@ -22,7 +22,7 @@ const Router: React.FC = () => {
       return (
         <div className="flex h-full flex-col-reverse justify-between lg:flex-row">
           <Navbar />
-          <LocationSearch onGeocodedResultChoice={() => {}}></LocationSearch>
+          <LocationSearch />
         </div>
       );
     case "/profile":
