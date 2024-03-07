@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useTreeData(treeId: string): any {
+export function useWateringData(treeId: string): any {
   const [data, setData] = useState<any>([]);
 
   useEffect(() => {
@@ -8,7 +8,7 @@ export function useTreeData(treeId: string): any {
 
     const fetchData = async () => {
       try {
-        const geocodingUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/byid?id=${treeId}`;
+        const geocodingUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/lastwatered?id=${treeId}`;
         const res = await fetch(geocodingUrl, {
           method: "GET",
           headers: {
@@ -19,7 +19,7 @@ export function useTreeData(treeId: string): any {
         });
         if (!res.ok) return [];
         const json = await res.json();
-        setData(json.data[0]);
+        setData(json.data);
       } catch (_) {
         setData([]);
       }

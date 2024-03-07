@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 interface TreeAgeProps {
   age: number;
 }
 
 const TreeAge: React.FC<TreeAgeProps> = ({ age }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
   return (
     <div className="flex flex-row items-center justify-between border-b-2 pb-4 text-xl font-bold">
       <div className="flex flex-row items-center gap-2">
@@ -18,6 +16,7 @@ const TreeAge: React.FC<TreeAgeProps> = ({ age }) => {
         />
         <div className="">Standalter</div>
       </div>
+      <div>{age} Jahre</div>
     </div>
   );
 };

@@ -5,13 +5,15 @@ import { useTreeData } from "./hooks/use-tree-data";
 import TreeCard from "./tree-card";
 import TreeAge from "./tree-age";
 import TreeWaterNeed from "./tree-water-need";
+import { useWateringData } from "./hooks/use-watering-data";
 
 const TreeDetail: React.FC = () => {
   const url = useUrlState((state) => state.url);
   const setSearchParams = useUrlState((state) => state.setSearchParams);
   const treeId = url.searchParams.get("treeId");
   const treeData = useTreeData(treeId!).data;
-  console.log(treeData);
+  const wateringData = useWateringData(treeId!).data;
+
   return (
     <div className={`pointer-events-auto bg-white`}>
       <div className="flex w-[100vw] flex-col gap-4 overflow-hidden p-4 md:w-[40vw] lg:w-[30vw] xl:w-[15vw]">
@@ -40,7 +42,10 @@ const TreeDetail: React.FC = () => {
           <TreeAge
             age={new Date().getFullYear() - parseInt(treeData.pflanzjahr)}
           />
-          <TreeWaterNeed age={0}></TreeWaterNeed>
+          <TreeWaterNeed
+            tree={treeData}
+            waterings={wateringData}
+          ></TreeWaterNeed>
         </div>
       </div>
     </div>
