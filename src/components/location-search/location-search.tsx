@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
+import { useI18nStore } from "../../i18n/i18n-store";
 import ClearIcon from "../icons/clear-icon";
 import SearchIcon from "../icons/search-icon";
 import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
-import { useI18nStore } from "../../i18n/i18n-store";
 
 const LocationSearch: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -14,10 +14,6 @@ const LocationSearch: React.FC = () => {
 
   const { map } = useMapStore();
   const { geocodingResults, clearGeocodingResults } = useGeocoding(search);
-
-  const hasResults = useMemo(() => {
-    return geocodingResults.length;
-  }, [geocodingResults]);
 
   const clearSearch = () => {
     setSearch("");
@@ -52,19 +48,19 @@ const LocationSearch: React.FC = () => {
   return (
     <div className="mt-2 flex w-full justify-center">
       <div
-        className={`pointer-events-auto flex h-fit w-[100%] flex-col px-2 drop-shadow-xl sm:w-[50%] sm:px-0 md:w-[40%] lg:w-[35%] xl:w-[25%]`}
+        className={`pointer-events-auto z-[2] flex h-fit w-[100%] flex-col px-2 drop-shadow-xl sm:w-[50%] sm:px-0 md:w-[40%] lg:w-[35%] xl:w-[25%] `}
       >
         <form
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className={`flex flex-row items-center justify-center bg-white ${hasResults ? "rounded-t-full" : "rounded-full"}`}
+          className={` z-[2] flex flex-row items-center justify-center rounded-full bg-white`}
         >
-          <button className="px-4">
+          <button className="pl-4">
             <SearchIcon></SearchIcon>
           </button>
           <input
-            className={`grow p-4 focus:outline-none ${hasResults ? "rounded-t-full" : "rounded-full"}`}
+            className={`w-full py-4 pl-2 focus:outline-none`}
             type="text"
             value={selectedGeocodingResult?.place_name_de || search}
             onChange={(e) => {
@@ -79,7 +75,7 @@ const LocationSearch: React.FC = () => {
         </form>
 
         {geocodingResults.length > 0 && (
-          <div className="rounded-b-pill flex flex-col overflow-hidden bg-white pt-2">
+          <div className="z-[1] -mt-8 flex flex-col overflow-hidden rounded-b-lg bg-white pt-8">
             {geocodingResults.map((geocodingResult, idx) => (
               <button
                 key={`geocoding-result-${idx}`}
