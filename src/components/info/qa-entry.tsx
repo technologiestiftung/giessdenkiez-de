@@ -22,13 +22,13 @@ const QaEntry: React.FC<QaEntryProps> = ({
   return (
     <div key={key} className={`w-full ${!isLast && "border-b-2"} py-4`}>
       <button
-        className="flex w-full flex-row justify-between text-xl"
+        className="flex w-full flex-row justify-between gap-2 text-left text-xl"
         onClick={() => {
           setIsExpanded(!isExpanded);
         }}
       >
-        <div>{question}</div>
-        <div>
+        <div className="text-2xl font-semibold">{question}</div>
+        <div className="text-gdk-blue">
           {isExpanded ? (
             <ChevronDown></ChevronDown>
           ) : (
@@ -37,7 +37,7 @@ const QaEntry: React.FC<QaEntryProps> = ({
         </div>
       </button>
       {isExpanded && (
-        <Markdown className="mt-4 grid gap-4 text-slate-500 [&>p>a]:underline">
+        <Markdown className="text-gdk-gray mt-4 grid gap-4 [&>p>a]:underline">
           {answer}
         </Markdown>
       )}
