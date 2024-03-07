@@ -31,7 +31,7 @@ const Info: React.FC = () => {
                 question={item.question}
                 answer={item.answer}
                 key={`info-about-item-${idx}`}
-                isLast={idx === i18n.info.about.length - 1}
+                isLast={idx === i18n.info.faq.qa.length - 1}
                 isInitiallyExpanded={false}
               ></QaEntry>
             ))}
