@@ -5,11 +5,13 @@ export default {
     extend: {
       colors: {
         "gdk-gray": "#2C303B",
+        "gdk-light-gray": "#808080",
         "gdk-white": "#FEFEFE",
         "gdk-blue": "#1169EE",
         "gdk-light-blue": "#96BCF4",
         "gdk-lighter-blue": "#E7F0FD",
-        "gdk-red": "#BD0909",
+        "gdk-dark-red": "#BD0909",
+        "gdk-light-red": "#C75555",
         "gdk-neon-green": "#3DF99A",
         "gdk-tree-green": "#CAE11F",
         "gdk-dark-blue": "#0948A7",
