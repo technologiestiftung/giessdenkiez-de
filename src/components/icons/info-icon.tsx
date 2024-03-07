@@ -18,14 +18,14 @@ const InfoIcon: React.FC = () => {
         d="M13.0122 8.97461H13"
         stroke="currentColor"
         stroke-width="3"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
       <path
         d="M12 12.9746H13.5001V18.9746M12 18.9746H15"
         stroke="currentColor"
         stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

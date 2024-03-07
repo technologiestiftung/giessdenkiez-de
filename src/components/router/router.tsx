@@ -6,10 +6,12 @@ import Profile from "../profile/profile";
 import Info from "../info/info";
 import PageNotFound from "../page-not-found/page-not-found";
 import LocationSearch from "../location-search/location-search";
+import TreeDetail from "../tree-detail/tree-detail";
 
 const Router: React.FC = () => {
   const url = useUrlState((state) => state.url);
   const setPathname = useUrlState((state) => state.setPathname);
+  const treeId = url.searchParams.get("treeId");
 
   useLocationEventListener();
 
@@ -23,6 +25,7 @@ const Router: React.FC = () => {
         <div className="flex h-full flex-col-reverse justify-between lg:flex-row">
           <Navbar />
           <LocationSearch />
+          {treeId && <TreeDetail></TreeDetail>}
         </div>
       );
     case "/profile":
