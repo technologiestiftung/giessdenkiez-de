@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
+import { useI18nStore } from "../../i18n/i18n-store";
 import ClearIcon from "../icons/clear-icon";
 import SearchIcon from "../icons/search-icon";
 import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
-import { useI18nStore } from "../../i18n/i18n-store";
 
 const LocationSearch: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -14,10 +14,6 @@ const LocationSearch: React.FC = () => {
 
   const { map } = useMapStore();
   const { geocodingResults, clearGeocodingResults } = useGeocoding(search);
-
-  const hasResults = useMemo(() => {
-    return geocodingResults.length;
-  }, [geocodingResults]);
 
   const clearSearch = () => {
     setSearch("");
@@ -58,7 +54,7 @@ const LocationSearch: React.FC = () => {
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className={` z-[2] flex flex-row items-center justify-center bg-white ${hasResults ? "rounded-[40px]" : "rounded-[40px]"}`}
+          className={` z-[2] flex flex-row items-center justify-center rounded-full bg-white`}
         >
           <button className="pl-4">
             <SearchIcon></SearchIcon>
