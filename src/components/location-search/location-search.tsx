@@ -7,7 +7,7 @@ import { useI18nStore } from "../../i18n/i18n-store";
 
 const LocationSearch: React.FC = () => {
   const i18n = useI18nStore().i18n();
-  console.log(i18n);
+
   const [search, setSearch] = useState("");
   const [selectedGeocodingResult, setSelectedGeocodingResult] =
     useState<GeocodingResult>();
