@@ -4,7 +4,31 @@ interface LocationSearch {
 
 interface Navbar {
   map: string;
-  profile: string;
+  profile: {
+    sidebarLabel: string;
+    title: string;
+    overview: {
+      subtitle: string;
+      irrigations: string;
+      liter: string;
+      adoptedTrees: string;
+    };
+    adoptedTrees: {
+      subtitle: string;
+      irrigationTimes: string;
+      irrigationAmount: string;
+      showAll: string;
+    };
+    settings: {
+      subtitle: string;
+      username: string;
+      email: string;
+      password: string;
+      changePassword: string;
+      deleteAccount: string;
+    };
+    logOut: string;
+  };
   info: string;
 }
 

@@ -27,9 +27,9 @@ const Router: React.FC = () => {
       );
     case "/profile":
       return (
-        <div className="flex h-screen w-screen flex-col-reverse bg-white lg:flex-row">
-          <Navbar />
+        <div className="pointer-events-auto flex h-screen w-screen flex-col justify-between bg-white lg:flex-row">
           <Profile />
+          <Navbar />
         </div>
       );
     case "/about":
