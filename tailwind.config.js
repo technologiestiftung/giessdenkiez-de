@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["IBM", "sans-serif"],
+      },
       colors: {
         "gdk-gray": "#2C303B",
         "gdk-light-gray": "#808080",

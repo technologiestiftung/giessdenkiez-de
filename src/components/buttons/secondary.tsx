@@ -15,7 +15,7 @@ const SecondaryButton: React.FC<SecondaryButtonProps> = ({
     <button
       className={`bg-gdk-white outline-gdk-blue text-gdk-blue enabled:hover:bg-gdk-light-blue hover:text-gdk-white 
       disabled:outline-gdk-light-gray disabled:text-gdk-light-gray  
-      pointer-events-auto my-4 flex  h-[51px] w-fit items-center justify-center rounded-xl px-8 py-3.5 outline outline-2`}
+      pointer-events-auto my-4 flex  h-[51px] w-fit items-center justify-center rounded-[10px] px-8 py-3.5 font-semibold outline outline-2`}
       disabled={disabled}
       onClick={onClick}
     >

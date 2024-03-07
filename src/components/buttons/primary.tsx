@@ -14,7 +14,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   return (
     <button
       className={`text-gdk-white bg-gdk-blue hover:bg-gdk-light-blue disabled:bg-gdk-light-gray 
-      pointer-events-auto my-4 flex h-[51px] w-fit items-center justify-center rounded-xl px-8 `}
+      pointer-events-auto my-4 flex h-[51px] w-fit items-center justify-center rounded-[10px] px-8 font-semibold`}
       disabled={disabled}
       onClick={onClick}
     >

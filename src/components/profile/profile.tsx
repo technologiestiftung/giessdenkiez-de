@@ -16,7 +16,7 @@ const Profile: React.FC = () => {
         label={
           <>
             <WateringIcon />
-            Primary Button"
+            Primary Button
           </>
         }
         disabled={false}

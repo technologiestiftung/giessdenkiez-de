@@ -16,7 +16,7 @@ const TertiaryButton: React.FC<TertiaryButtonProps> = ({
   return (
     <button
       className={`hover:text-bg-gdk-light-blue disabled:text-gdk-light-gray enabled:hover:text-gdk-light-blue
-      pointer-events-auto  my-4 flex h-[51px] w-fit items-center justify-center rounded-xl px-8 py-3.5 
+      pointer-events-auto  my-4 flex h-[51px] w-fit items-center justify-center rounded-[10px] px-8 py-3.5 font-semibold
       ${!destructive ? "text-gdk-blue" : "text-gdk-dark-red enabled:hover:text-gdk-light-red"}
         `}
       disabled={disabled}
