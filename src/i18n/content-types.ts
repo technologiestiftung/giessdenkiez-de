@@ -19,7 +19,11 @@ interface QuestionAnswer {
 
 interface Info {
   about: QuestionAnswer[];
-  qa: QuestionAnswer[];
+  faq: {
+    title: string;
+    description: string;
+    qa: QuestionAnswer[];
+  };
 }
 
 export interface Content {

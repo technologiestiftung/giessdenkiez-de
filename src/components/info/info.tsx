@@ -35,10 +35,42 @@ const Info: React.FC = () => {
           <div className="flex flex-col gap-4 rounded-lg border-2 p-8">
             {i18n.info.about.map((item, idx) => (
               <div
+                key={`info-about-item-${idx}`}
                 className={`w-full ${idx < i18n.info.about.length - 1 && "border-b-2"} py-4`}
               >
                 <button
                   className="flex w-full flex-row justify-between text-xl"
+                  onClick={() => {
+                    toggleCollapseAnswer(item.question);
+                  }}
+                >
+                  <div>{item.question}</div>
+                  <div>
+                    {isExpanded(item.question) ? (
+                      <ChevronDown></ChevronDown>
+                    ) : (
+                      <ChevronRight></ChevronRight>
+                    )}
+                  </div>
+                </button>
+                {isExpanded(item.question) && (
+                  <Markdown className="mt-4 grid gap-4 text-slate-500 [&>p>a]:underline">
+                    {item.answer}
+                  </Markdown>
+                )}
+              </div>
+            ))}
+            <div className={`w-full pt-4 text-xl`}>{i18n.info.faq.title}</div>
+            <div className={`w-full text-slate-500`}>
+              {i18n.info.faq.description}
+            </div>
+            {i18n.info.faq.qa.map((item, idx) => (
+              <div
+                key={`info-faq-item-${idx}`}
+                className={`w-full ${idx < i18n.info.faq.qa.length - 1 && "border-b-2"} py-4`}
+              >
+                <button
+                  className="flex w-full flex-row justify-between text-left text-xl"
                   onClick={() => {
                     toggleCollapseAnswer(item.question);
                   }}

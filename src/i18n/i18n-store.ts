@@ -17,7 +17,7 @@ interface I18NState {
 }
 
 export const useI18nStore = create<I18NState>()((set, get) => ({
-  language: "de",
+  language: "en",
   setLanguage: (language: string) => {
     set({ language });
   },
