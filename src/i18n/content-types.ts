@@ -24,6 +24,11 @@ interface Info {
     description: string;
     qa: QuestionAnswer[];
   };
+  share: {
+    title: string;
+    content: string;
+    openSource: string;
+  };
 }
 
 export interface Content {

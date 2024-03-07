@@ -132,6 +132,14 @@ Vernetzen:
         },
       ],
     },
+    share: {
+      title:
+        "Teile Gieß den Kiez mit Deinem Umfeld und hilf uns die Gieß-Community zu vergrößern:",
+      content:
+        "Auf Gieß den Kiez kannst Du Dich über den Berliner Baumbestand erkundigen, durstige Bäume finden, und eintragen, wann Du diese gegossen hast!",
+      openSource:
+        "Gieß den Kiez ist ein [OpenSource Projekt](https://github.com/technologiestiftung/giessdenkiez-de)!",
+    },
   },
 };
 

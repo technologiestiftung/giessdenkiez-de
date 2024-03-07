@@ -5,6 +5,7 @@ import ChevronRight from "../icons/chevron-right";
 import ChevronDown from "../icons/chevron-down";
 import Markdown from "react-markdown";
 import { useUrlState } from "../router/store";
+import SocialShare from "./social-share";
 
 const Info: React.FC = () => {
   const setPathname = useUrlState((store) => store.setPathname);
@@ -102,6 +103,9 @@ const Info: React.FC = () => {
                 )}
               </div>
             ))}
+            <div className="pt-8">
+              <SocialShare></SocialShare>
+            </div>
           </div>
         </div>
       </div>

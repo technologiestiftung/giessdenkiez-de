@@ -133,6 +133,14 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
         },
       ],
     },
+    share: {
+      title:
+        "Share Gieß den Kiez with those around you and help us expand the watering community:",
+      content:
+        "On Gieß den Kiez you can find out about Berlin's tree population, find thirsty trees and record when you watered them!",
+      openSource:
+        "Gieß den Kiez is an [OpenSource Project](https://github.com/technologiestiftung/giessdenkiez-de)!",
+    },
   },
 };
 
