@@ -1,8 +1,11 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect, useRef, useState } from "react";
 import { useUrlState } from "../../router/store";
+import { useMapConstants } from "./use-map-constants";
 
 export function useMapInteraction(map: mapboxgl.Map | undefined) {
+  const { ZOOMED_IN_ZOOM_LEVEL } = useMapConstants();
+
   const setSearchParams = useUrlState((state) => state.setSearchParams);
 
   const [hoveredTreeId, setHoveredTreeId] = useState<string | undefined>(
@@ -81,6 +84,7 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
           //@ts-ignore
           treeFeature.geometry.coordinates[1],
         ],
+        zoom: ZOOMED_IN_ZOOM_LEVEL,
         essential: true,
       });
     });
