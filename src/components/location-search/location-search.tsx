@@ -60,11 +60,11 @@ const LocationSearch: React.FC = () => {
           }}
           className={`flex flex-row items-center justify-center bg-white ${hasResults ? "rounded-t-pill" : "rounded-pill"}`}
         >
-          <button className="px-4">
+          <button className="pl-4">
             <SearchIcon></SearchIcon>
           </button>
           <input
-            className={`grow p-4 focus:outline-none ${hasResults ? "rounded-t-pill" : "rounded-pill"}`}
+            className={`w-full py-4 pl-2 focus:outline-none ${hasResults ? "rounded-t-pill" : "rounded-pill"}`}
             type="text"
             value={selectedGeocodingResult?.place_name_de || search}
             onChange={(e) => {
