@@ -76,7 +76,9 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
       setSelectedTreeId(treeFeature.id as string);
       map.easeTo({
         center: [
+          //@ts-ignore
           treeFeature.geometry.coordinates[0],
+          //@ts-ignore
           treeFeature.geometry.coordinates[1],
         ],
         essential: true,

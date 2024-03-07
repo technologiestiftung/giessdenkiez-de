@@ -1,8 +1,7 @@
 import mapboxgl from "mapbox-gl";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useMapStore } from "../map-store";
 import { useCirclePaint } from "./use-circle-paint";
-import { useUrlState } from "../../router/store";
 import { useMapInteraction } from "./use-map-interactions";
 
 export function useMapSetup(
