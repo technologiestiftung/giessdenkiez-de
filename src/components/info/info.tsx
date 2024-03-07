@@ -4,8 +4,11 @@ import ClearIcon from "../icons/clear-icon";
 import ChevronRight from "../icons/chevron-right";
 import ChevronDown from "../icons/chevron-down";
 import Markdown from "react-markdown";
+import { useUrlState } from "../router/store";
 
 const Info: React.FC = () => {
+  const setPathname = useUrlState((store) => store.setPathname);
+
   const i18n = useI18nStore().i18n();
   const [collapsedAnswers, setCollapsedAnswers] = useState<string[]>([
     i18n.info.about[0].question,
@@ -27,12 +30,20 @@ const Info: React.FC = () => {
   return (
     <div className="pointer-events-auto w-full overflow-auto">
       <div className="flex flex-col items-center justify-center">
-        <div className="flex w-[100%] flex-col gap-4 px-4 py-8 sm:w-[50%]">
+        <div className="flex w-[100%] flex-col gap-4 px-0 py-8 md:w-[70%] md:px-4 lg:w-[60%] xl:w-[50%]">
           <div className="flex w-full items-center justify-between px-4">
             <h1 className="text-4xl font-bold">Info</h1>
-            <ClearIcon />
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                setPathname("/");
+              }}
+            >
+              <ClearIcon />
+            </a>
           </div>
-          <div className="flex flex-col gap-4 rounded-lg border-2 p-8">
+          <div className="flex flex-col gap-4 rounded-lg p-4 md:border-2 md:p-8">
             {i18n.info.about.map((item, idx) => (
               <div
                 key={`info-about-item-${idx}`}
