@@ -1,7 +1,7 @@
 import React from "react";
 
 interface TreeAgeProps {
-  age: number;
+  age: number | undefined;
 }
 
 const TreeAge: React.FC<TreeAgeProps> = ({ age }) => {
@@ -16,7 +16,7 @@ const TreeAge: React.FC<TreeAgeProps> = ({ age }) => {
         />
         <div className="">Standalter</div>
       </div>
-      <div>{age} Jahre</div>
+      {age ? <div>{age} Jahre</div> : <div>Unbekannt</div>}
     </div>
   );
 };

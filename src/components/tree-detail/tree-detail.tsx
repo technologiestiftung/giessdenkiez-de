@@ -13,7 +13,7 @@ const TreeDetail: React.FC = () => {
   const treeId = url.searchParams.get("treeId");
   const treeData = useTreeData(treeId!).data;
   const wateringData = useWateringData(treeId!).data;
-
+  console.log(treeData);
   return (
     <div className={`pointer-events-auto bg-white`}>
       <div className="flex w-[100vw] flex-col gap-4 overflow-hidden p-4 md:w-[40vw] lg:w-[30vw] xl:w-[15vw]">
@@ -40,7 +40,11 @@ const TreeDetail: React.FC = () => {
         <div className="flex flex-col gap-10">
           <TreeCard data={treeData} />
           <TreeAge
-            age={new Date().getFullYear() - parseInt(treeData.pflanzjahr)}
+            age={
+              parseInt(treeData.pflanzjahr) === 0
+                ? undefined
+                : new Date().getFullYear() - parseInt(treeData.pflanzjahr)
+            }
           />
           <TreeWaterNeed
             tree={treeData}

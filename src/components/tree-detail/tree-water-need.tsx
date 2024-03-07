@@ -10,16 +10,21 @@ interface TreeWaterNeedProps {
 
 const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({ tree, waterings }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const referenceWaterAmount = 200;
+  const referenceWaterAmount = useMemo(() => {
+    const age = new Date().getFullYear() - parseInt(tree.standalter);
+    if (age <= 14) {
+      return 200;
+    } else {
+      return 100;
+    }
+  }, [tree]);
 
   const rainSum = useMemo(() => {
     if (tree && tree.radolan_days) {
       const rains = tree.radolan_days;
       rains.reverse();
       const lastXDays = rains.slice(0, 7 * 24);
-      console.log(lastXDays);
       const sum = lastXDays.reduce((l: number, r: number) => l + r, 0) / 10;
-      console.log(sum);
       return sum;
     }
     return 0;
@@ -32,11 +37,9 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({ tree, waterings }) => {
       (w) => new Date(w.timestamp).getTime() > daysAgo.getTime(),
     );
     if (waterings) {
-      console.log(wateringsLastXDays);
       const sum = wateringsLastXDays
         .map((w) => w.amount)
         .reduce((l: number, r: number) => l + r, 0);
-      console.log(sum);
       return sum;
     }
     return 0;
@@ -94,7 +97,9 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({ tree, waterings }) => {
               height={24}
             />
           </div>
-          <div className="text-xl font-bold">Braucht 200l pro Woche</div>
+          <div className="text-xl font-bold">
+            Braucht {referenceWaterAmount} Liter pro Woche
+          </div>
           <div className="flex flex-row items-center justify-center gap-4">
             <PartialProgressCircle
               parts={[
@@ -111,20 +116,6 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({ tree, waterings }) => {
                 referenceWaterAmount - rainSum - wateringSum,
               )}
             ></PartialProgressCircle>
-            {/* <div className="flex flex-col gap-4">
-              <div className="flex flex-row items-center gap-2">
-                <div className="h-5 w-5 rounded-full bg-[#1169EE]"> </div>
-                <div className="font-bold">
-                  {Math.round(rainSum)} Liter* Regen
-                </div>
-              </div>
-              <div className="flex flex-row items-center gap-2">
-                <div className="h-5 w-5 rounded-full bg-[#3DF99A]"> </div>
-                <div className="font-bold">
-                  {Math.round(wateringSum)} Liter* gegossen
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       )}
