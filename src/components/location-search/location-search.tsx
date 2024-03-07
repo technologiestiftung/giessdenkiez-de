@@ -58,13 +58,13 @@ const LocationSearch: React.FC = () => {
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className={`flex flex-row items-center justify-center bg-white ${hasResults ? "rounded-t-pill" : "rounded-pill"}`}
+          className={`flex flex-row items-center justify-center bg-white ${hasResults ? "rounded-t-full" : "rounded-full"}`}
         >
           <button className="px-4">
             <SearchIcon></SearchIcon>
           </button>
           <input
-            className={`grow p-4 focus:outline-none ${hasResults ? "rounded-t-pill" : "rounded-pill"}`}
+            className={`grow p-4 focus:outline-none ${hasResults ? "rounded-t-full" : "rounded-full"}`}
             type="text"
             value={selectedGeocodingResult?.place_name_de || search}
             onChange={(e) => {
