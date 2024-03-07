@@ -18,7 +18,10 @@ interface QuestionAnswer {
 }
 
 interface Info {
-  about: QuestionAnswer[];
+  about: {
+    head: QuestionAnswer;
+    qa: QuestionAnswer[];
+  };
   faq: {
     title: string;
     description: string;

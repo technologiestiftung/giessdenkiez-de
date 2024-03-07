@@ -13,20 +13,21 @@ const en: Content = {
     title: "404 - Page Not Found",
   },
   info: {
-    about: [
-      {
+    about: {
+      head: {
         question: "About the project",
         answer: `The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin's ecosystem.
-        
+      
 Would you like to find out more about watering trees, report pumps and exchange ideas with other active users?
 
 Do you have feedback about Gieß den Kiez?
 
 [Please answer a few questions](https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK)`,
       },
-      {
-        question: "Useful links",
-        answer: `[Favorite Tree Initiative](https://www.lieblingsbaum-initiative.de)
+      qa: [
+        {
+          question: "Useful links",
+          answer: `[Favorite Tree Initiative](https://www.lieblingsbaum-initiative.de)
           
 [BUND - Watering trees campaign](https://www.bund-berlin.de/mitmachen/aktion-baeume-giessen/)
 
@@ -41,19 +42,19 @@ Do you have feedback about Gieß den Kiez?
 [City trees - significance and challenges in times of climate change](https://www.hcu-hamburg.de/fileadmin/documents/REAP/files/Bildungsmaterial_Stadtbaeume_im_Klimawandel_2017.pdf)
 
 [BUND - Functions of city trees](https://www.bund-naturschutz.de/natur-und-landschaft/stadt-als-lebensraum/stadtbaeume/funktionen-von-stadtbaeumen.html)`,
-      },
-      {
-        question: "About Us",
-        answer: `“Gieß den Kiez” is a project by [CityLAB Berlin](https://www.citylab-berlin.org/).
+        },
+        {
+          question: "About Us",
+          answer: `“Gieß den Kiez” is a project by [CityLAB Berlin](https://www.citylab-berlin.org/).
 The CityLAB is a project by the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery
 
 Exchange ideas with our watering community! We like to hear from you in our [Slack chat](https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ).
 
 Press inquiries are best addressed  [Anna Hantelmann](mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage) Tel.: +4915118457242`,
-      },
-      {
-        question: "Data sources",
-        answer: `The map shows the majority of Berlin\`s street and plant trees (839,049 as of May 2023).
+        },
+        {
+          question: "Data sources",
+          answer: `The map shows the majority of Berlin\`s street and plant trees (839,049 as of May 2023).
 
 [Geoportal Berlin / Street trees](https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS)
 
@@ -62,8 +63,9 @@ Press inquiries are best addressed  [Anna Hantelmann](mailto:anna.hantelmann@ts.
 [German Weather Service](https://www.dwd.de/)
 
 Pumps off [Open Street Map](https://www.openstreetmap.de)`,
-      },
-    ],
+        },
+      ],
+    },
     faq: {
       title: "F.A.Q.",
       description:
