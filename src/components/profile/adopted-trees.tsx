@@ -1,5 +1,6 @@
 import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store.ts";
+import TertiaryButton from "../buttons/tertiary.tsx";
 
 const AdoptedTrees: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -28,7 +29,7 @@ const AdoptedTrees: React.FC = () => {
             className="flex flex-col gap-3 rounded-2xl border px-4 pb-4 pt-1.5"
           >
             <a
-              className="font-semibold text-blue-600"
+              className="py-2 font-semibold text-blue-600"
               href={`/map?treeId=${tree.id}`}
             >
               {tree.name}
@@ -57,9 +58,13 @@ const AdoptedTrees: React.FC = () => {
           </div>
         ))}
       </div>
-      <button className="w-full justify-center pt-8 font-semibold text-blue-700">
-        Alle Anzeigen
-      </button>
+      <div className=" pointer-events-auto flex justify-center pt-8">
+        <TertiaryButton
+          onClick={() => console.log("You clicked alle anzeigen")}
+          label={i18n.navbar.profile.adoptedTrees.showAll}
+          disabled={false}
+        />
+      </div>
     </>
   );
 };
