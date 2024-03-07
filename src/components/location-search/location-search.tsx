@@ -4,6 +4,7 @@ import ClearIcon from "../icons/clear-icon";
 import SearchIcon from "../icons/search-icon";
 import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
+import { useMapConstants } from "../map/hooks/use-map-constants";
 
 const LocationSearch: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -13,6 +14,7 @@ const LocationSearch: React.FC = () => {
     useState<GeocodingResult>();
 
   const { map } = useMapStore();
+  const { ZOOMED_IN_ZOOM_LEVEL } = useMapConstants();
   const { geocodingResults, clearGeocodingResults } = useGeocoding(search);
 
   const clearSearch = () => {
@@ -40,6 +42,7 @@ const LocationSearch: React.FC = () => {
           geocodingResult.geometry.coordinates[1],
         ],
         essential: true,
+        zoom: ZOOMED_IN_ZOOM_LEVEL,
       });
     setSelectedGeocodingResult(geocodingResult);
     clearGeocodingResults();
