@@ -9,6 +9,7 @@ const Navbar: React.FC = () => {
   const i18n = useI18nStore().i18n();
 
   const setPathname = useUrlState((state) => state.setPathname);
+  const setSearchParams = useUrlState((state) => state.setSearchParams);
   const url = useUrlState((state) => state.url);
 
   const navItems = [
@@ -35,6 +36,7 @@ const Navbar: React.FC = () => {
             onClick={(e) => {
               e.preventDefault();
               setPathname(item.path);
+              setSearchParams(new URLSearchParams());
             }}
             className={`
             flex h-14 w-14 flex-col items-center justify-center rounded-xl pt-1 text-sm font-medium
