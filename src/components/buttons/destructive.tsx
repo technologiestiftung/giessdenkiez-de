@@ -1,7 +1,7 @@
 import React from "react";
 
 export interface DestructiveButtonProps {
-  label: string;
+  label: string | React.ReactNode;
   onClick: () => void;
   disabled?: boolean;
 }
@@ -14,11 +14,11 @@ const DestructiveButton: React.FC<DestructiveButtonProps> = ({
   return (
     <button
       className={`text-gdk-white bg-gdk-dark-red hover:bg-gdk-light-red disabled:bg-gdk-light-gray 
-      pointer-events-auto my-4 flex w-fit justify-center rounded-xl px-8 py-3.5`}
+      pointer-events-auto my-4 flex  h-[51px] w-fit items-center justify-center rounded-xl px-8 py-3.5`}
       disabled={disabled}
       onClick={onClick}
     >
-      {label}
+      <span className="flex flex-row  items-center gap-3">{label}</span>
     </button>
   );
 };

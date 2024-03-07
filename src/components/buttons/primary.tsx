@@ -1,7 +1,7 @@
 import React from "react";
 
 export interface PrimaryButtonProps {
-  label: string;
+  label: string | React.ReactNode;
   onClick: () => void;
   disabled?: boolean;
 }
@@ -14,11 +14,11 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   return (
     <button
       className={`text-gdk-white bg-gdk-blue hover:bg-gdk-light-blue disabled:bg-gdk-light-gray 
-      pointer-events-auto my-4 flex w-fit justify-center rounded-xl px-8 py-3.5`}
+      pointer-events-auto my-4 flex h-[51px] w-fit items-center justify-center rounded-xl px-8 `}
       disabled={disabled}
       onClick={onClick}
     >
-      {label}
+      <span className="flex flex-row  items-center gap-3">{label}</span>
     </button>
   );
 };
