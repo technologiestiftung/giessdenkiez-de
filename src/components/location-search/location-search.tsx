@@ -52,19 +52,19 @@ const LocationSearch: React.FC = () => {
   return (
     <div className="mt-2 flex w-full justify-center">
       <div
-        className={`pointer-events-auto flex h-fit w-[100%] flex-col px-2 drop-shadow-xl sm:w-[50%] sm:px-0 md:w-[40%] lg:w-[35%] xl:w-[25%]`}
+        className={`pointer-events-auto z-[2] flex h-fit w-[100%] flex-col px-2 drop-shadow-xl sm:w-[50%] sm:px-0 md:w-[40%] lg:w-[35%] xl:w-[25%] `}
       >
         <form
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className={`flex flex-row items-center justify-center bg-white ${hasResults ? "rounded-t-pill" : "rounded-pill"}`}
+          className={` z-[2] flex flex-row items-center justify-center bg-white ${hasResults ? "rounded-[40px]" : "rounded-[40px]"}`}
         >
           <button className="pl-4">
             <SearchIcon></SearchIcon>
           </button>
           <input
-            className={`w-full py-4 pl-2 focus:outline-none ${hasResults ? "rounded-t-pill" : "rounded-pill"}`}
+            className={`w-full py-4 pl-2 focus:outline-none`}
             type="text"
             value={selectedGeocodingResult?.place_name_de || search}
             onChange={(e) => {
@@ -79,7 +79,7 @@ const LocationSearch: React.FC = () => {
         </form>
 
         {geocodingResults.length > 0 && (
-          <div className="rounded-b-pill flex flex-col overflow-hidden bg-white pt-2">
+          <div className="z-[1] -mt-8 flex flex-col overflow-hidden rounded-b-lg bg-white pt-8">
             {geocodingResults.map((geocodingResult, idx) => (
               <button
                 key={`geocoding-result-${idx}`}
