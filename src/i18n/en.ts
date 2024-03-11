@@ -144,6 +144,14 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
         "Gieß den Kiez is an [OpenSource Project](https://github.com/technologiestiftung/giessdenkiez-de)!",
     },
   },
+  treeDetail: {
+    title: "Tree information",
+    adoptIt: "Adopt this tree",
+    alreadyAdoptedBy: "Also adopted by other users",
+    ageTitle: "Age",
+    age: (age: number) => `${age} years`,
+    ageUnknown: "Unknown",
+  },
 };
 
 export default en;

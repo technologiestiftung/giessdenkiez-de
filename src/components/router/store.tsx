@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { trackPageView } from "../matomo/utils/matomo";
+import { URLSearchParams } from "url";
 
 interface URLState {
   url: URL;

@@ -141,6 +141,14 @@ Vernetzen:
         "Gieß den Kiez ist ein [OpenSource Projekt](https://github.com/technologiestiftung/giessdenkiez-de)!",
     },
   },
+  treeDetail: {
+    title: "Bauminformationen",
+    adoptIt: "Diesen Baum adoptieren",
+    alreadyAdoptedBy: "Auch von anderen User:innen adoptiert",
+    ageTitle: "Standalter",
+    age: (age: number) => `${age} Jahre`,
+    ageUnknown: "Unbekannt",
+  },
 };
 
 export default de;

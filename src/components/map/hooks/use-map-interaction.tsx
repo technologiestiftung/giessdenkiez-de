@@ -4,6 +4,7 @@ import { useUrlState } from "../../router/store";
 import useHoveredTree from "./use-hovered-tree";
 import { useMapConstants } from "./use-map-constants";
 import useSelectedTree from "./use-selected-tree";
+import { useTreeStore } from "../../tree-detail/tree-store";
 
 export function useMapInteraction(map: mapboxgl.Map | undefined) {
   const { MAX_ZOOM_LEVEL } = useMapConstants();
@@ -12,6 +13,41 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
 
   const { setHoveredTreeId, hoveredTreeIdRef } = useHoveredTree();
   const { setSelectedTreeId, selectedTreeIdRef } = useSelectedTree();
+
+  const { treeData } = useTreeStore();
+
+  useEffect(() => {
+    if (treeData) {
+      map?.on("load", () => {
+        setSelectedTreeId(treeData.id);
+        map.setFeatureState(
+          {
+            id: treeData.id,
+            source: "trees",
+            sourceLayer: "trees",
+          },
+          { select: true },
+        );
+        map.easeTo({
+          center: [parseFloat(treeData.lat), parseFloat(treeData.lng)],
+          zoom: MAX_ZOOM_LEVEL,
+          essential: true,
+        });
+      });
+      return;
+    }
+
+    if (selectedTreeIdRef.current) {
+      map?.setFeatureState(
+        {
+          id: selectedTreeIdRef.current,
+          source: "trees",
+          sourceLayer: "trees",
+        },
+        { select: false },
+      );
+    }
+  }, [treeData, map]);
 
   useEffect(() => {
     if (!map) {

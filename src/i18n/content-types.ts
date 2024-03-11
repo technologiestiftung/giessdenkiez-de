@@ -34,9 +34,19 @@ interface Info {
   };
 }
 
+interface TreeDetail {
+  title: string;
+  adoptIt: string;
+  alreadyAdoptedBy: string;
+  ageTitle: string;
+  age: (age: number) => string;
+  ageUnknown: string;
+}
+
 export interface Content {
   locationSearch: LocationSearch;
   navbar: Navbar;
   notFound: NotFound;
   info: Info;
+  treeDetail: TreeDetail;
 }
