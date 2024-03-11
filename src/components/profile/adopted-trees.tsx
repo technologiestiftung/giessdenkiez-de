@@ -22,7 +22,7 @@ const AdoptedTrees: React.FC = () => {
         {i18n.navbar.profile.overview.adoptedTrees}
       </h2>
 
-      <div className="mt-7 grid grid-cols-2 gap-2">
+      <div className="mt-7 grid grid-cols-2 gap-2 xl:grid-cols-4">
         {adoptedTrees.slice(0, 4).map((tree) => (
           <div
             key={tree.id}
