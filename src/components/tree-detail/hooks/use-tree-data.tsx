@@ -1,12 +1,31 @@
 import { useEffect, useMemo, useState } from "react";
 
+export interface TreeData {
+  artbot: string;
+  artdtsch: string;
+  baumhoehe: string;
+  bezirk: string;
+  caretaker: string | null;
+  eigentuemer: string | null;
+  gattung: string;
+  gattungdeutsch: string;
+  id: string;
+  lat: string;
+  lng: string;
+  pflanzjahr: number;
+  radolan_days: number[];
+  radolan_sum: number;
+  standalter: string | null;
+}
+
 export function useTreeData(treeId: string): any {
-  const [treeData, setTreeData] = useState<any>([]);
+  const [treeData, setTreeData] = useState<TreeData>();
 
   const treeAge = useMemo(() => {
-    return parseInt(treeData.pflanzjahr) === 0
+    if (!treeData) return undefined;
+    return treeData.pflanzjahr === 0
       ? undefined
-      : new Date().getFullYear() - parseInt(treeData.pflanzjahr);
+      : new Date().getFullYear() - treeData.pflanzjahr;
   }, [treeData]);
 
   useEffect(() => {
@@ -27,7 +46,7 @@ export function useTreeData(treeId: string): any {
         const json = await res.json();
         setTreeData(json.data[0]);
       } catch (_) {
-        setTreeData([]);
+        setTreeData(undefined);
       }
     };
 

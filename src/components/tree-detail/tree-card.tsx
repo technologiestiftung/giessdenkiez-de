@@ -1,14 +1,15 @@
 import React from "react";
+import { TreeData } from "./hooks/use-tree-data";
 
 interface TreeCardProps {
-  data: any;
+  treeData: TreeData;
 }
 
-const TreeCard: React.FC<TreeCardProps> = ({ data }) => {
+const TreeCard: React.FC<TreeCardProps> = ({ treeData }) => {
   return (
     <div className="flex flex-col gap-4 rounded-lg bg-slate-100 p-4 drop-shadow-lg">
       <div className="flex flex-row items-center justify-between text-xl">
-        <div className="font-bold">{data.artdtsch}</div>
+        <div className="font-bold">{treeData.artdtsch}</div>
         <img
           src="/images/heart-icon.svg"
           alt="Tree Icon"
