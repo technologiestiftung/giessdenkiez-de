@@ -69,9 +69,7 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({ treeData }) => {
                   progress: wateringPercentage,
                 },
               ]}
-              needsWaterAmount={Math.round(
-                referenceWaterAmount - rainSum - wateringSum,
-              )}
+              needsWaterAmount={stillMissingWater}
             />
             <div className="flex flex-col gap-3">
               <div className="flex flex-row items-center gap-4">

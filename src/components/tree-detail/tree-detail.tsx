@@ -8,6 +8,7 @@ import { useTreeStore } from "./tree-store";
 import useSelectedTree from "../map/hooks/use-selected-tree";
 import { useI18nStore } from "../../i18n/i18n-store";
 import TreeWaterNeed from "./tree-water-needs";
+import TreeWaterNeedUnknown from "./tree-water-need-unknown";
 
 const TreeDetail: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -45,11 +46,31 @@ const TreeDetail: React.FC = () => {
           />
           <div className="text-xl font-bold">{i18n.treeDetail.title}</div>
         </div>
-        <div className="flex flex-col gap-10">
-          {treeData && <TreeAdoptCard treeData={treeData} />}
-          {treeAge && <TreeAge age={treeAge} />}
-          {treeData && <TreeWaterNeed treeData={treeData} />}
-        </div>
+        {treeData && (
+          <div className="flex flex-col gap-10">
+            <TreeAdoptCard treeData={treeData} />
+            <TreeAge age={treeAge} />
+            {treeAge && treeAge <= 40 && <TreeWaterNeed treeData={treeData} />}
+            {!treeAge && (
+              <TreeWaterNeedUnknown
+                title={"Wasserbedarf unbekannt"}
+                description={
+                  "Das Alter, und dementsprechend der Wasserbedarf, sind leider unbekannt. Eventuell hilft Dir die Infobox für eine eigenständige Einschätzung."
+                }
+                treeData={treeData}
+              />
+            )}
+            {treeAge && treeAge > 40 && (
+              <TreeWaterNeedUnknown
+                title={"Braucht nur in trockenen Phasen Wasser"}
+                description={
+                  "Ältere Bäume können sich in der Regel über das Grundwasser selbst versorgen, aber bei zunehmender Hitze freuen auch sie sich über zusätzliches Wasser."
+                }
+                treeData={treeData}
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

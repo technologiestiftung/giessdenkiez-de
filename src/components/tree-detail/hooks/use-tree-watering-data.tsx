@@ -21,13 +21,19 @@ interface TreeWateringDataState {
 }
 
 export function useTreeWateringData(treeData: TreeData): TreeWateringDataState {
+  const NUMBER_OF_DAYS_TO_LOOK_AT = 7;
+
   const [treeWateringData, setTreeWateringData] = useTreeStore((store) => [
     store.treeWateringData,
     store.setTreeWateringData,
   ]);
 
   const referenceWaterAmount = useMemo(() => {
-    const age = new Date().getFullYear() - parseInt(treeData.standalter!);
+    if (!treeData.standalter) {
+      return undefined;
+    }
+
+    const age = new Date().getFullYear() - parseInt(treeData.standalter);
     if (age <= 14) {
       return 200;
     } else {
@@ -37,9 +43,9 @@ export function useTreeWateringData(treeData: TreeData): TreeWateringDataState {
 
   const rainSum = useMemo(() => {
     if (treeData && treeData.radolan_days) {
-      const rains = treeData.radolan_days;
+      const rains = [...treeData.radolan_days];
       rains.reverse();
-      const lastXDays = rains.slice(0, 7 * 24);
+      const lastXDays = rains.slice(0, NUMBER_OF_DAYS_TO_LOOK_AT * 24);
       const sum = lastXDays.reduce((l: number, r: number) => l + r, 0) / 10;
       return sum;
     }
@@ -48,7 +54,7 @@ export function useTreeWateringData(treeData: TreeData): TreeWateringDataState {
 
   const wateringSum = useMemo(() => {
     const daysAgo = new Date();
-    daysAgo.setDate(daysAgo.getDate() - 30);
+    daysAgo.setDate(daysAgo.getDate() - NUMBER_OF_DAYS_TO_LOOK_AT);
     const wateringsLastXDays = treeWateringData.filter(
       (w) => new Date(w.timestamp).getTime() > daysAgo.getTime(),
     );
@@ -81,7 +87,9 @@ export function useTreeWateringData(treeData: TreeData): TreeWateringDataState {
   }, [rainSum, wateringSum]);
 
   const stillMissingWater = useMemo(() => {
-    return referenceWaterAmount - rainSum - wateringSum;
+    return Math.round(
+      Math.max(0, referenceWaterAmount - rainSum - wateringSum),
+    );
   }, [rainSum, wateringSum, referenceWaterAmount]);
 
   useEffect(() => {
