@@ -17,12 +17,10 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
   const { treeData } = useTreeStore();
 
   useEffect(() => {
-    if (!map) return;
     if (treeData) {
-      console.log("set tree", treeData);
-      map.on("load", () => {
+      map?.on("load", () => {
         setSelectedTreeId(treeData.id);
-        map?.setFeatureState(
+        map.setFeatureState(
           {
             id: treeData.id,
             source: "trees",
@@ -30,24 +28,24 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
           },
           { select: true },
         );
-        map?.easeTo({
+        map.easeTo({
           center: [parseFloat(treeData.lat), parseFloat(treeData.lng)],
           zoom: MAX_ZOOM_LEVEL,
           essential: true,
         });
       });
-    } else {
-      if (selectedTreeIdRef.current) {
-        console.log("un-set tree", treeData);
-        map?.setFeatureState(
-          {
-            id: selectedTreeIdRef.current,
-            source: "trees",
-            sourceLayer: "trees",
-          },
-          { select: false },
-        );
-      }
+      return;
+    }
+
+    if (selectedTreeIdRef.current) {
+      map?.setFeatureState(
+        {
+          id: selectedTreeIdRef.current,
+          source: "trees",
+          sourceLayer: "trees",
+        },
+        { select: false },
+      );
     }
   }, [treeData, map]);
 

@@ -5,7 +5,6 @@ import UserIcon from "../icons/user-icon";
 import InfoIcon from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { useTreeStore } from "../tree-detail/tree-store";
-import useSelectedTree from "../map/hooks/use-selected-tree";
 
 const Navbar: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -13,7 +12,6 @@ const Navbar: React.FC = () => {
   const setPathname = useUrlState((state) => state.setPathname);
   const url = useUrlState((state) => state.url);
   const { setTreeData } = useTreeStore();
-  const { setSelectedTreeId } = useSelectedTree();
 
   const navItems = [
     { label: i18n.navbar.map, path: "/map", icon: <MapIcon /> },
@@ -40,7 +38,6 @@ const Navbar: React.FC = () => {
               e.preventDefault();
               setPathname(item.path);
               setTreeData(undefined);
-              setSelectedTreeId(undefined);
             }}
             className={`
             flex h-14 w-14 flex-col items-center justify-center rounded-xl pt-1 text-sm font-medium
