@@ -3,6 +3,7 @@ import { useI18nStore } from "../../i18n/i18n-store";
 import Overview from "./overview";
 import AdoptedTrees from "./adopted-trees";
 import ProfileDetails from "./profile-details";
+import SecondaryButton from "../buttons/secondary";
 
 const Profile: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -18,6 +19,13 @@ const Profile: React.FC = () => {
           <AdoptedTrees />
 
           <ProfileDetails />
+
+          <div className="self-center">
+            <SecondaryButton
+              onClick={() => {}}
+              label={i18n.navbar.profile.logOut}
+            />
+          </div>
         </div>
       </div>
     </div>
