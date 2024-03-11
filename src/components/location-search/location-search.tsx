@@ -14,7 +14,7 @@ const LocationSearch: React.FC = () => {
     useState<GeocodingResult>();
 
   const { map } = useMapStore();
-  const { ZOOMED_IN_ZOOM_LEVEL } = useMapConstants();
+  const { MAX_ZOOM_LEVEL } = useMapConstants();
   const { geocodingResults, clearGeocodingResults } = useGeocoding(search);
 
   const clearSearch = () => {
@@ -42,7 +42,7 @@ const LocationSearch: React.FC = () => {
           geocodingResult.geometry.coordinates[1],
         ],
         essential: true,
-        zoom: ZOOMED_IN_ZOOM_LEVEL,
+        zoom: MAX_ZOOM_LEVEL,
       });
     setSelectedGeocodingResult(geocodingResult);
     clearGeocodingResults();
