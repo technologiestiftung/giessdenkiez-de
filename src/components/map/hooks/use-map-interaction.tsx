@@ -6,7 +6,7 @@ import { useMapConstants } from "./use-map-constants";
 import useSelectedTree from "./use-selected-tree";
 
 export function useMapInteraction(map: mapboxgl.Map | undefined) {
-  const { ZOOMED_IN_ZOOM_LEVEL } = useMapConstants();
+  const { MAX_ZOOM_LEVEL } = useMapConstants();
 
   const setSearchParams = useUrlState((state) => state.setSearchParams);
 
@@ -73,7 +73,7 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
           //@ts-ignore
           treeFeature.geometry.coordinates[1],
         ],
-        zoom: ZOOMED_IN_ZOOM_LEVEL,
+        zoom: MAX_ZOOM_LEVEL,
         essential: true,
       });
     });
