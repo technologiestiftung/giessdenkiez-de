@@ -18,7 +18,12 @@ export interface TreeData {
   standalter: string | null;
 }
 
-export function useTreeData(treeId: string): any {
+interface TreeDataState {
+  treeData: TreeData | undefined;
+  treeAge: number | undefined;
+}
+
+export function useTreeData(treeId: string): TreeDataState {
   const [treeData, setTreeData] = useState<TreeData>();
 
   const treeAge = useMemo(() => {

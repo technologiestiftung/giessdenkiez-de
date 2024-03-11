@@ -35,8 +35,8 @@ const TreeDetail: React.FC = () => {
           <div className="text-xl font-bold">Bauminformationen</div>
         </div>
         <div className="flex flex-col gap-10">
-          <TreeCard data={treeData} />
-          <TreeAge age={treeAge} />
+          {treeData && <TreeCard treeData={treeData} />}
+          {treeAge && <TreeAge age={treeAge} />}
         </div>
       </div>
     </div>
