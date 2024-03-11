@@ -19,8 +19,8 @@ const Overview: React.FC = () => {
   );
 
   return (
-    <>
-      <h2 className="pt-7 text-2xl font-semibold">
+    <div className="mb-3 md:rounded-2xl md:border md:p-7 md:drop-shadow-sm">
+      <h2 className="text-2xl font-semibold">
         {i18n.navbar.profile.overview.subtitle}
       </h2>
 
@@ -49,7 +49,7 @@ const Overview: React.FC = () => {
           </span>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

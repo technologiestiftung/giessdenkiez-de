@@ -24,10 +24,13 @@ const de: Content = {
       settings: {
         subtitle: "Profildetails",
         username: "Benutzername",
+        placeholderUser: "Dein Benutzername",
         email: "Registrierte E-Mail Adresse",
+        placeholderMail: "xyz@ts.berlin",
         password: "Passwort",
         changePassword: "Passwort ändern",
         deleteAccount: "Account löschen",
+        approve: "Fertig",
       },
       logOut: "Ausloggen",
     },

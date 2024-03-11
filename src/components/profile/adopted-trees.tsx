@@ -17,8 +17,8 @@ const AdoptedTrees: React.FC = () => {
   );
 
   return (
-    <>
-      <h2 className="mt-11 text-2xl font-semibold">
+    <div className="mb-3 md:rounded-2xl md:border md:p-7 md:drop-shadow-sm">
+      <h2 className="text-2xl font-semibold">
         {i18n.navbar.profile.overview.adoptedTrees}
       </h2>
 
@@ -65,7 +65,7 @@ const AdoptedTrees: React.FC = () => {
           disabled={false}
         />
       </div>
-    </>
+    </div>
   );
 };
 

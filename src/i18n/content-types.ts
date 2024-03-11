@@ -22,10 +22,13 @@ interface Navbar {
     settings: {
       subtitle: string;
       username: string;
+      placeholderUser: string;
       email: string;
+      placeholderMail: string;
       password: string;
       changePassword: string;
       deleteAccount: string;
+      approve: string;
     };
     logOut: string;
   };
