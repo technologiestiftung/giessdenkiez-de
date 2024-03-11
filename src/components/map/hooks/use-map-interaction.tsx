@@ -1,28 +1,17 @@
 import mapboxgl from "mapbox-gl";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useUrlState } from "../../router/store";
+import useHoveredTree from "./use-hovered-tree";
 import { useMapConstants } from "./use-map-constants";
+import useSelectedTree from "./use-selected-tree";
 
 export function useMapInteraction(map: mapboxgl.Map | undefined) {
   const { ZOOMED_IN_ZOOM_LEVEL } = useMapConstants();
 
   const setSearchParams = useUrlState((state) => state.setSearchParams);
 
-  const [hoveredTreeId, setHoveredTreeId] = useState<string | undefined>(
-    undefined,
-  );
-  const hoveredTreeIdRef = useRef<string | undefined>(undefined);
-  useEffect(() => {
-    hoveredTreeIdRef.current = hoveredTreeId;
-  }, [hoveredTreeId]);
-
-  const [selectedTreeId, setSelectedTreeId] = useState<string | undefined>(
-    undefined,
-  );
-  const selectedTreeIdRef = useRef<string | undefined>(undefined);
-  useEffect(() => {
-    selectedTreeIdRef.current = selectedTreeId;
-  }, [selectedTreeId]);
+  const { setHoveredTreeId, hoveredTreeIdRef } = useHoveredTree();
+  const { setSelectedTreeId, selectedTreeIdRef } = useSelectedTree();
 
   useEffect(() => {
     if (!map) {

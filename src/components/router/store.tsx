@@ -13,6 +13,7 @@ export const useUrlState = create<URLState>()((set, get) => ({
   setPathname: (pathname) => {
     const url = new URL(get().url);
     url.pathname = pathname;
+    url.search = "";
 
     set({ url });
 
