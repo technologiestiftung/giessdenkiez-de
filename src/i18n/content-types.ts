@@ -18,6 +18,7 @@ interface Navbar {
       irrigationTimes: string;
       irrigationAmount: string;
       showAll: string;
+      showLess: string;
     };
     settings: {
       subtitle: string;

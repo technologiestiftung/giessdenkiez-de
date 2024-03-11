@@ -20,6 +20,7 @@ const de: Content = {
         irrigationTimes: "Mal",
         irrigationAmount: "Liter",
         showAll: "Alle anzeigen",
+        showLess: "Weniger anzeigen",
       },
       settings: {
         subtitle: "Profildetails",
