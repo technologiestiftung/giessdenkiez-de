@@ -22,6 +22,7 @@ const ProfileDetails: React.FC = () => {
           setUsernameDisabled(!usernameIsDisabled);
         }}
         disabled={usernameIsDisabled}
+        setDisabled={setUsernameDisabled}
         icon={<EditIcon />}
       ></InputFieldIcon>
 
@@ -32,6 +33,7 @@ const ProfileDetails: React.FC = () => {
           setEmailDisabled(!emailIsDisabled);
         }}
         disabled={emailIsDisabled}
+        setDisabled={setEmailDisabled}
         icon={<EditIcon />}
       ></InputFieldIcon>
 

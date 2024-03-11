@@ -1,5 +1,5 @@
 // <p> </p> input field submit + button
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useI18nStore } from "../../i18n/i18n-store.ts";
 
 export interface InputFieldIconProps {
@@ -7,6 +7,7 @@ export interface InputFieldIconProps {
   placeholder: string;
   onClick: () => void;
   disabled?: boolean;
+  setDisabled: Dispatch<SetStateAction<boolean>>;
   icon: React.ReactNode;
 }
 
@@ -14,6 +15,7 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
   label,
   onClick,
   disabled,
+  setDisabled,
   icon,
   placeholder,
 }) => {
@@ -23,8 +25,10 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
     <div className="mt-6 flex flex-col">
       <form
         className="flex flex-col justify-between gap-x-8"
-        action=""
-        method="get"
+        onSubmit={(e) => {
+          e.preventDefault();
+          setDisabled(!disabled);
+        }}
       >
         <label className="mb-2 font-semibold">{label}</label>
         {disabled && (
@@ -45,11 +49,12 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
               disabled={disabled}
               placeholder={placeholder}
             />
-            <input
+            <button
               className="mt-2 cursor-pointer self-end font-semibold text-gdk-blue md:mt-0 md:self-center"
               type="submit"
-              value={i18n.navbar.profile.settings.approve}
-            />
+            >
+              {i18n.navbar.profile.settings.approve}
+            </button>
           </div>
         )}
       </form>
