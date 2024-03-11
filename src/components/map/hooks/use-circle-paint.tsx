@@ -1,7 +1,13 @@
 import { Expression } from "mapbox-gl";
+import { useMapConstants } from "./use-map-constants";
+import resolveConfig from "tailwindcss/resolveConfig";
+
+//@ts-ignore
+import tailwindConfig from "../../../../tailwind.config.js";
+const fullConfig = resolveConfig(tailwindConfig);
 
 export function useCirclePaint() {
-  const treeDefaultColor = "#CAE11F";
+  const { TREE_DEFAULT_COLOR } = useMapConstants();
 
   const circleRadius = {
     base: 1.75,
@@ -24,28 +30,50 @@ export function useCirclePaint() {
   const circleStrokeColor = [
     "case",
     ["boolean", ["feature-state", "hover"], false],
-    "#1169EE",
+    fullConfig.theme.colors["gdk-blue"],
     ["boolean", ["feature-state", "select"], false],
-    "#1169EE",
+    fullConfig.theme.colors["gdk-blue"],
     "#000000",
   ] as Expression;
 
   const circleStrokeWidth = [
-    "case",
-    ["boolean", ["feature-state", "hover"], false],
-    8,
-    ["boolean", ["feature-state", "select"], false],
-    8,
-    0,
+    "interpolate",
+    ["exponential", 2],
+    ["zoom"],
+    16,
+    [
+      "case",
+      ["boolean", ["feature-state", "hover"], false],
+      2,
+      ["boolean", ["feature-state", "select"], false],
+      2,
+      0,
+    ],
+    18,
+    [
+      "case",
+      ["boolean", ["feature-state", "hover"], false],
+      6,
+      ["boolean", ["feature-state", "select"], false],
+      6,
+      0,
+    ],
+    20,
+    [
+      "case",
+      ["boolean", ["feature-state", "hover"], false],
+      10,
+      ["boolean", ["feature-state", "select"], false],
+      10,
+      0,
+    ],
   ] as Expression;
-
-  const circleColor = treeDefaultColor;
 
   return {
     circleRadius,
     circleOpacity,
     circleStrokeColor,
-    circleColor,
+    circleColor: TREE_DEFAULT_COLOR,
     circleStrokeWidth,
   };
 }

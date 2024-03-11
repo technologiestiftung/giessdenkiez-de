@@ -15,8 +15,8 @@ const SocialShare: React.FC = () => {
   const i18n = useI18nStore().i18n();
   return (
     <div className="flex w-full flex-col items-center justify-center text-center">
-      <div className="flex w-[80%] flex-col gap-6 text-slate-500 sm:w-[60%] md:w-[40%]">
-        <span className="">{i18n.info.share.title}</span>
+      <div className="text-gdk-gray flex w-[60%] flex-col gap-4">
+        <div>{i18n.info.share.title}</div>
         <div className="flex flex-row justify-center gap-2">
           <FacebookShareButton
             aria-label="facebook-sharing-button"

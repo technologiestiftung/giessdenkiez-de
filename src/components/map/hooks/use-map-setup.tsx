@@ -1,12 +1,15 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import { useMapStore } from "../map-store";
+import { useMapInteraction } from "./use-map-interaction";
 import { useCirclePaint } from "./use-circle-paint";
-import { useMapInteraction } from "./use-map-interactions";
+import { useMapConstants } from "./use-map-constants";
 
 export function useMapSetup(
   mapContainer: React.MutableRefObject<HTMLDivElement | null>,
 ) {
+  const { MAP_PITCH_DEGREES } = useMapConstants();
+
   const { map, setMap } = useMapStore();
   useMapInteraction(map);
 
@@ -28,6 +31,7 @@ export function useMapSetup(
       style: import.meta.env.VITE_MAPBOX_STYLE_URL,
       center: [13.4, 52.52],
       zoom: 15,
+      pitch: MAP_PITCH_DEGREES,
     });
 
     map.on("load", () => {
