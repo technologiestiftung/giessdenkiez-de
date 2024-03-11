@@ -19,8 +19,6 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
 }) => {
   const i18n = useI18nStore().i18n();
 
-  console.log(disabled);
-
   return (
     <div className="mt-6 flex flex-col">
       <form
@@ -29,6 +27,14 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
         method="get"
       >
         <label className="mb-2 font-semibold">{label}</label>
+        {disabled && (
+          <div className="flex flex-row justify-between gap-x-8">
+            <p className="italic">{placeholder}</p>
+            <button className="self-end text-gdk-blue" onClick={onClick}>
+              {icon}
+            </button>
+          </div>
+        )}
         {!disabled && (
           <div className="flex flex-col justify-between gap-x-8 md:flex-row">
             <input
@@ -44,14 +50,6 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
               type="submit"
               value={i18n.navbar.profile.settings.approve}
             />
-          </div>
-        )}
-        {disabled && (
-          <div className="flex flex-row justify-between gap-x-8">
-            <p className="italic">{placeholder}</p>
-            <button className="self-end text-gdk-blue" onClick={onClick}>
-              {icon}
-            </button>
           </div>
         )}
       </form>

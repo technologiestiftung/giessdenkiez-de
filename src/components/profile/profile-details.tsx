@@ -10,7 +10,7 @@ const ProfileDetails: React.FC = () => {
   const [emailIsDisabled, setEmailDisabled] = useState(true);
 
   return (
-    <div className="mb-3 md:rounded-2xl md:border md:p-7 md:drop-shadow-sm">
+    <div className="mb-3 md:rounded-2xl md:border md:p-7 md:shadow-sm">
       <h2 className="text-2xl font-semibold">
         {i18n.navbar.profile.settings.subtitle}
       </h2>
@@ -40,7 +40,13 @@ const ProfileDetails: React.FC = () => {
           {i18n.navbar.profile.settings.password}
         </label>
         <div className="flex flex-row justify-between gap-x-4 ">
-          <input id="password" type="password" value="1234567890" />
+          <input
+            className="disabled:bg-gdk-white "
+            disabled={true}
+            id="password"
+            type="password"
+            value="1234567890"
+          />
           <TertiaryButton
             onClick={() => {}}
             label={i18n.navbar.profile.settings.changePassword}

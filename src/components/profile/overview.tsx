@@ -19,7 +19,7 @@ const Overview: React.FC = () => {
   );
 
   return (
-    <div className="mb-3 md:rounded-2xl md:border md:p-7 md:drop-shadow-sm">
+    <div className="mb-3 md:rounded-2xl md:border md:p-7 md:shadow-sm">
       <h2 className="text-2xl font-semibold">
         {i18n.navbar.profile.overview.subtitle}
       </h2>
