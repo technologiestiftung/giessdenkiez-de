@@ -37,7 +37,7 @@ const ProfileDetails: React.FC = () => {
         icon={<EditIcon />}
       ></InputFieldIcon>
 
-      <div className="mt-6 flex flex-col">
+      <div className="mt-7 flex flex-col">
         <label className="font-semibold" htmlFor="email">
           {i18n.navbar.profile.settings.password}
         </label>

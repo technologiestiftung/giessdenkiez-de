@@ -22,7 +22,7 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
   const i18n = useI18nStore().i18n();
 
   return (
-    <div className="mt-6 flex flex-col">
+    <div className="mt-7 flex flex-col">
       <form
         className="flex flex-col justify-between gap-x-8"
         onSubmit={(e) => {

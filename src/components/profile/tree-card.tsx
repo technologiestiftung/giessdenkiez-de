@@ -20,7 +20,7 @@ const TreeCard: React.FC<TreeCardProps> = ({
   return (
     <div
       key={id}
-      className="flex flex-col gap-3 rounded-2xl border px-4 pb-4 pt-1.5 shadow-sm"
+      className="flex flex-col gap-3 rounded-2xl border p-4 shadow-sm"
     >
       <a
         className="py-2 font-semibold text-blue-600"
