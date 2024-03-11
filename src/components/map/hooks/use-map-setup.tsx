@@ -1,9 +1,9 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import { useMapStore } from "../map-store";
-import { useMapInteraction } from "./use-map-interaction";
 import { useCirclePaint } from "./use-circle-paint";
 import { useMapConstants } from "./use-map-constants";
+import { useMapInteraction } from "./use-map-interaction";
 
 export function useMapSetup(
   mapContainer: React.MutableRefObject<HTMLDivElement | null>,

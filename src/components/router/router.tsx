@@ -1,18 +1,17 @@
 import React from "react";
-import { useUrlState } from "./store";
-import { useLocationEventListener } from "./hooks/use-location-event-listener";
-import Navbar from "../navbar/navbar";
-import Profile from "../profile/profile";
 import Info from "../info/info";
-import PageNotFound from "../page-not-found/page-not-found";
 import LocationSearch from "../location-search/location-search";
+import Navbar from "../navbar/navbar";
+import PageNotFound from "../page-not-found/page-not-found";
+import Profile from "../profile/profile";
 import TreeDetail from "../tree-detail/tree-detail";
+import { useLocationEventListener } from "./hooks/use-location-event-listener";
+import { useUrlState } from "./store";
 
 const Router: React.FC = () => {
   const url = useUrlState((state) => state.url);
   const setPathname = useUrlState((state) => state.setPathname);
   const treeId = url.searchParams.get("treeId");
-
   useLocationEventListener();
 
   switch (url.pathname) {

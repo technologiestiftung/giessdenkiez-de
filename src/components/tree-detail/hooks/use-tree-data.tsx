@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
+import { useTreeStore } from "../tree-store";
 
 export interface TreeData {
   artbot: string;
@@ -23,8 +24,11 @@ interface TreeDataState {
   treeAge: number | undefined;
 }
 
-export function useTreeData(treeId: string): TreeDataState {
-  const [treeData, setTreeData] = useState<TreeData>();
+export function useTreeData(treeId: string | undefined): TreeDataState {
+  const [treeData, setTreeData] = useTreeStore((store) => [
+    store.treeData,
+    store.setTreeData,
+  ]);
 
   const treeAge = useMemo(() => {
     if (!treeData) return undefined;

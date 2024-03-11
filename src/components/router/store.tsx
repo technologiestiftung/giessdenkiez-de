@@ -31,14 +31,4 @@ export const useUrlState = create<URLState>()((set, get) => ({
     window.history.pushState({}, "", url);
     trackPageView();
   },
-
-  setSearchParams: (searchParams: URLSearchParams) => {
-    const url = new URL(get().url);
-    url.search = searchParams.toString();
-
-    set({ url });
-
-    window.history.pushState({}, "", url);
-    trackPageView();
-  },
 }));
