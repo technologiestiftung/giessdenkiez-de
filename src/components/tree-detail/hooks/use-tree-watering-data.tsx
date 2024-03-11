@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
-import { useTreeStore } from "../tree-store";
 import { TreeData } from "./use-tree-data";
+import { useTreeStore } from "../tree-store";
 
 export interface TreeWateringData {
   amount: number;

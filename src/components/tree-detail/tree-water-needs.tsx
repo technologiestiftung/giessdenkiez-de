@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import ChevronDown from "../icons/chevron-down";
 import ChevronRight from "../icons/chevron-right";
-import { TreeData } from "./hooks/use-tree-data";
 import { useTreeWateringData } from "./hooks/use-tree-watering-data";
 import PartialProgressCircle from "./partial-progress-circle";
+import { TreeData } from "./hooks/use-tree-data";
 
 interface TreeWaterNeedProps {
   treeData: TreeData;
