@@ -1,11 +1,25 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import { useMapStore } from "../map-store";
+import { useMapInteraction } from "./use-map-interaction";
+import { useCirclePaint } from "./use-circle-paint";
+import { useMapConstants } from "./use-map-constants";
 
 export function useMapSetup(
   mapContainer: React.MutableRefObject<HTMLDivElement | null>,
 ) {
-  const { setMap } = useMapStore();
+  const { MAP_PITCH_DEGREES } = useMapConstants();
+
+  const { map, setMap } = useMapStore();
+  useMapInteraction(map);
+
+  const {
+    circleRadius,
+    circleOpacity,
+    circleStrokeColor,
+    circleColor,
+    circleStrokeWidth,
+  } = useCirclePaint();
 
   useEffect(() => {
     if (!mapContainer.current) {
@@ -17,6 +31,7 @@ export function useMapSetup(
       style: import.meta.env.VITE_MAPBOX_STYLE_URL,
       center: [13.4, 52.52],
       zoom: 15,
+      pitch: MAP_PITCH_DEGREES,
     });
 
     map.on("load", () => {
@@ -34,29 +49,11 @@ export function useMapSetup(
         interactive: true,
         paint: {
           "circle-pitch-alignment": "map",
-          "circle-radius": 2,
-          "circle-opacity": [
-            "interpolate",
-            ["linear"],
-            ["zoom"],
-            0,
-            1,
-            20,
-            0.5,
-          ],
-          "circle-stroke-color": [
-            "case",
-            ["boolean", ["feature-state", "select"], false],
-            "rgba(247, 105, 6, 1)",
-            "rgb(12,101,81)",
-          ],
-          "circle-color": "rgb(12,101,81)",
-          "circle-stroke-width": [
-            "case",
-            ["boolean", ["feature-state", "select"], false],
-            15,
-            0,
-          ],
+          "circle-radius": circleRadius,
+          "circle-opacity": circleOpacity,
+          "circle-stroke-color": circleStrokeColor,
+          "circle-color": circleColor,
+          "circle-stroke-width": circleStrokeWidth,
         },
       });
     });
