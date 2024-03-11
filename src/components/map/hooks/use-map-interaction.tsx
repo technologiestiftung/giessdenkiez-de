@@ -19,6 +19,7 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
   useEffect(() => {
     if (!map) return;
     if (treeData) {
+      console.log("set tree", treeData);
       map.on("load", () => {
         setSelectedTreeId(treeData.id);
         map?.setFeatureState(
@@ -37,6 +38,7 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
       });
     } else {
       if (selectedTreeIdRef.current) {
+        console.log("un-set tree", treeData);
         map?.setFeatureState(
           {
             id: selectedTreeIdRef.current,

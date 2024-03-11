@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { trackPageView } from "../matomo/utils/matomo";
 import { URLSearchParams } from "url";
+import { useTreeStore } from "../tree-detail/tree-store";
+import useSelectedTree from "../map/hooks/use-selected-tree";
 
 interface URLState {
   url: URL;
