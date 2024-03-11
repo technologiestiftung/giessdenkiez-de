@@ -1,22 +1,19 @@
 import React from "react";
-import ClearIcon from "../icons/clear-icon";
+import CloseIcon from "../icons/close-icon";
 import { useUrlState } from "../router/store";
 import { useTreeData } from "./hooks/use-tree-data";
-import TreeCard from "./tree-card";
 import TreeAge from "./tree-age";
-import TreeWaterNeed from "./tree-water-need";
-import { useWateringData } from "./hooks/use-watering-data";
+import TreeCard from "./tree-card";
 
 const TreeDetail: React.FC = () => {
   const url = useUrlState((state) => state.url);
   const setSearchParams = useUrlState((state) => state.setSearchParams);
   const treeId = url.searchParams.get("treeId");
-  const treeData = useTreeData(treeId!).data;
-  const wateringData = useWateringData(treeId!).data;
-  console.log(treeData);
+  const { treeData, treeAge } = useTreeData(treeId!);
+
   return (
     <div className={`pointer-events-auto bg-white`}>
-      <div className="flex w-[100vw] flex-col gap-4 overflow-hidden p-4 md:w-[40vw] lg:w-[30vw] xl:w-[15vw]">
+      <div className="flex min-h-[100vh] w-[100vw] flex-col gap-4 overflow-hidden p-4 lg:w-[30vw] xl:w-[20vw]">
         <a
           href="/map"
           className="flex flex-row justify-end"
@@ -25,7 +22,7 @@ const TreeDetail: React.FC = () => {
             setSearchParams(new URLSearchParams());
           }}
         >
-          <ClearIcon></ClearIcon>
+          <CloseIcon />
         </a>
 
         <div className="flex flex-row items-center gap-2">
@@ -39,17 +36,7 @@ const TreeDetail: React.FC = () => {
         </div>
         <div className="flex flex-col gap-10">
           <TreeCard data={treeData} />
-          <TreeAge
-            age={
-              parseInt(treeData.pflanzjahr) === 0
-                ? undefined
-                : new Date().getFullYear() - parseInt(treeData.pflanzjahr)
-            }
-          />
-          <TreeWaterNeed
-            tree={treeData}
-            waterings={wateringData}
-          ></TreeWaterNeed>
+          <TreeAge age={treeAge} />
         </div>
       </div>
     </div>

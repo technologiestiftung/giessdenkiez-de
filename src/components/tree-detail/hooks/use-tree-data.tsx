@@ -1,7 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export function useTreeData(treeId: string): any {
-  const [data, setData] = useState<any>([]);
+  const [treeData, setTreeData] = useState<any>([]);
+
+  const treeAge = useMemo(() => {
+    return parseInt(treeData.pflanzjahr) === 0
+      ? undefined
+      : new Date().getFullYear() - parseInt(treeData.pflanzjahr);
+  }, [treeData]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -19,9 +25,9 @@ export function useTreeData(treeId: string): any {
         });
         if (!res.ok) return [];
         const json = await res.json();
-        setData(json.data[0]);
+        setTreeData(json.data[0]);
       } catch (_) {
-        setData([]);
+        setTreeData([]);
       }
     };
 
@@ -32,5 +38,5 @@ export function useTreeData(treeId: string): any {
     };
   }, [treeId]);
 
-  return { data };
+  return { treeData, treeAge };
 }

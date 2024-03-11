@@ -5,7 +5,6 @@ import SocialShare from "./social-share";
 import PrimaryButton from "../buttons/primary";
 
 const Info: React.FC = () => {
-  const setPathname = useUrlState((store) => store.setPathname);
   const i18n = useI18nStore().i18n();
 
   return (
