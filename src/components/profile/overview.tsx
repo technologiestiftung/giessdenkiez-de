@@ -24,29 +24,31 @@ const Overview: React.FC = () => {
         {i18n.navbar.profile.overview.subtitle}
       </h2>
 
-      <div className="mt-7 flex flex-col gap-3 rounded-2xl border pb-4 pl-3.5 pt-1.5 font-semibold">
-        {i18n.navbar.profile.overview.liter}
-        <span className="flex items-baseline gap-x-5 text-5xl font-medium">
-          <img src="images/icon-drop.svg" alt="" className="w-5" />
-          {formatNumber(totalIrrigationAmount)}
-        </span>
-      </div>
-
-      <div className="mt-3 flex w-full gap-3">
-        <div className="flex w-full flex-col gap-3 rounded-2xl border pb-4 pl-3.5 pt-1.5 font-semibold">
-          {i18n.navbar.profile.overview.adoptedTrees}
+      <div className="mt-7 flex flex-col gap-3 lg:flex-row ">
+        <div className="flex w-auto flex-col justify-between gap-3 rounded-2xl border px-3.5 pb-4  pt-1.5 font-semibold shadow-sm">
+          {i18n.navbar.profile.overview.liter}
           <span className="flex items-baseline gap-x-5 text-5xl font-medium">
-            <img src="images/icon-tree.svg" alt="" className="w-[1.625rem]" />
-            {formatNumber(adoptedTrees.length)}
+            <img src="images/icon-drop.svg" alt="" className="w-5" />
+            {formatNumber(totalIrrigationAmount)}
           </span>
         </div>
 
-        <div className="flex w-full flex-col gap-3 rounded-2xl border pb-4 pl-3.5 pt-1.5 font-semibold">
-          {i18n.navbar.profile.overview.irrigations}
-          <span className="flex items-baseline gap-x-5 text-5xl font-medium">
-            <img src="images/icon-watering-can.svg" alt="" className="" />
-            {formatNumber(totalIrrigationTimes)}
-          </span>
+        <div className="flex gap-3">
+          <div className="flex w-full flex-col justify-between gap-3 rounded-2xl border px-3.5 pb-4 pt-1.5 font-semibold shadow-sm">
+            {i18n.navbar.profile.overview.adoptedTrees}
+            <span className="flex items-baseline gap-x-5 text-5xl font-medium">
+              <img src="images/icon-tree.svg" alt="" className="w-[1.625rem]" />
+              {formatNumber(adoptedTrees.length)}
+            </span>
+          </div>
+
+          <div className="flex w-full flex-col justify-between gap-3 rounded-2xl border px-3.5 pb-4 pt-1.5 font-semibold shadow-sm">
+            {i18n.navbar.profile.overview.irrigations}
+            <span className="flex items-baseline gap-x-5 text-5xl font-medium">
+              <img src="images/icon-watering-can.svg" alt="" className="" />
+              {formatNumber(totalIrrigationTimes)}
+            </span>
+          </div>
         </div>
       </div>
     </div>
