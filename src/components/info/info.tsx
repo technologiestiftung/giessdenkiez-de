@@ -19,19 +19,23 @@ const Info: React.FC = () => {
                 key="head-qa"
                 question={i18n.info.about.head.question}
                 answer={i18n.info.about.head.answer}
-                isLast={true}
+                isLast={false}
                 isInitiallyExpanded={true}
-              ></QaEntry>
-              <PrimaryButton
-                label={"Slack Community"}
-                onClick={() => {
-                  window.open(
-                    "https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ",
-                    "_blank",
-                  );
-                }}
-                disabled={false}
-              ></PrimaryButton>
+                children={
+                  <div className="py-2">
+                    <PrimaryButton
+                      label={"Slack Community"}
+                      onClick={() => {
+                        window.open(
+                          "https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ",
+                          "_blank",
+                        );
+                      }}
+                      disabled={false}
+                    />
+                  </div>
+                }
+              />
             </div>
 
             {i18n.info.about.qa.map((item, idx) => (
@@ -41,7 +45,8 @@ const Info: React.FC = () => {
                 key={`info-about-item-${idx}`}
                 isLast={idx === i18n.info.about.qa.length - 1}
                 isInitiallyExpanded={false}
-              ></QaEntry>
+                children={undefined}
+              />
             ))}
             <div className={`w-full pt-4 text-xl`}>{i18n.info.faq.title}</div>
             <div className={`text-gdk-gray w-full`}>
@@ -54,10 +59,11 @@ const Info: React.FC = () => {
                 key={`info-about-item-${idx}`}
                 isLast={idx === i18n.info.faq.qa.length - 1}
                 isInitiallyExpanded={false}
-              ></QaEntry>
+                children={undefined}
+              />
             ))}
             <div className="pt-8">
-              <SocialShare></SocialShare>
+              <SocialShare />
             </div>
           </div>
         </div>

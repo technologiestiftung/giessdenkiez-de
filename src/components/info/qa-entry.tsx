@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Markdown from "react-markdown";
 import ChevronDown from "../icons/chevron-down";
 import ChevronRight from "../icons/chevron-right";
@@ -9,6 +9,7 @@ interface QaEntryProps {
   key: string;
   isLast: boolean;
   isInitiallyExpanded: boolean;
+  children: React.ReactNode | undefined;
 }
 
 const QaEntry: React.FC<QaEntryProps> = ({
@@ -17,6 +18,7 @@ const QaEntry: React.FC<QaEntryProps> = ({
   key,
   isLast,
   isInitiallyExpanded,
+  children,
 }) => {
   const [isExpanded, setIsExpanded] = useState(isInitiallyExpanded);
   return (
@@ -37,9 +39,12 @@ const QaEntry: React.FC<QaEntryProps> = ({
         </div>
       </button>
       {isExpanded && (
-        <Markdown className="text-gdk-gray mt-4 grid gap-4 [&>p>a]:underline">
-          {answer}
-        </Markdown>
+        <div>
+          <Markdown className="text-gdk-gray mt-4 grid gap-4 [&>p>a]:underline">
+            {answer}
+          </Markdown>
+          {children}
+        </div>
       )}
     </div>
   );
