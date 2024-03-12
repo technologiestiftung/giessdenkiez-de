@@ -209,6 +209,21 @@ Vernetzen:
       lastXDaysYLitersRain: (days: number, liters: number) =>
         `In den letzten ${days} Tagen sind **${liters} Liter Regen** gefallen.`,
     },
+    lastWaterings: {
+      title: "Letzte Gießungen",
+      thisWeek: "Diese Woche",
+      nothingThisWeek: "Keine Gießungen diese Woche",
+      thisMonth: "Dieser Monat",
+      nothingThisMonth: "Keine Gießungen diesen Monat",
+      thisYear: "Dieses Jahr",
+      nothingThisYear: "Keine Gießungen dieses Jahr",
+    },
+    problem: {
+      title: "Problem melden",
+      description:
+        "Du hast einen Baumschaden entdeckt, oder die Baumscheibe wird missbraucht? Teile es dem Ordnungsamt mit!",
+      link: "Zum offiziellen Formular",
+    },
   },
 };
 

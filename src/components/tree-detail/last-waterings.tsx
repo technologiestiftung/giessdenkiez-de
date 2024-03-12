@@ -16,7 +16,7 @@ interface LastWateringsProps {
 }
 
 const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
-  // const i18n = useI18nStore().i18n();
+  const i18n = useI18nStore().i18n();
   const [isExpanded, setIsExpanded] = useState(false);
   const now = new Date();
 
@@ -60,7 +60,7 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
             width={30}
             height={30}
           />
-          <div className="">Letzte Gießungen</div>
+          <div>{i18n.treeDetail.lastWaterings.title}</div>
         </div>
         <div className="text-gdk-blue">
           {isExpanded ? (
@@ -74,18 +74,18 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
         <div className="flex flex-col gap-8">
           <WateringSection
             waterings={wateringsThisWeek}
-            title="Diese Woche"
-            noWateringsHint="Keine Gießungen diese Woche"
+            title={i18n.treeDetail.lastWaterings.thisWeek}
+            noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisWeek}
           />
           <WateringSection
             waterings={wateringsThisMonth}
-            title="Dieser Monat"
-            noWateringsHint="Keine Gießungen diesen Monat"
+            title={i18n.treeDetail.lastWaterings.thisMonth}
+            noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisMonth}
           />
           <WateringSection
             waterings={wateringsThisYear}
-            title="Dieses Jahr"
-            noWateringsHint="Keine Gießungen dieses Jahr"
+            title={i18n.treeDetail.lastWaterings.thisYear}
+            noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisYear}
           />
         </div>
       )}

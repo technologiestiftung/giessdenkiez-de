@@ -2,7 +2,7 @@ import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 
 const ProblemCard: React.FC = () => {
-  // const i18n = useI18nStore().i18n();
+  const i18n = useI18nStore().i18n();
 
   return (
     <div className="mt-8 flex flex-col gap-2 rounded-lg border-2 p-4">
@@ -14,16 +14,13 @@ const ProblemCard: React.FC = () => {
             width={20}
             height={20}
           />
-          <div className="font-bold">Problem melden</div>
+          <div className="font-bold">{i18n.treeDetail.problem.title}</div>
         </div>
         <div className="flex flex-col gap-2">
-          <div>
-            Du hast einen Baumschaden entdeckt, oder die Baumscheibe wird
-            missbraucht? Teile es dem Ordnungsamt mit!
-          </div>
+          <div>{i18n.treeDetail.problem.description}</div>
           <div>
             <a href="/" className="font-bold text-gdk-blue">
-              Zum offiziellen Formular
+              {i18n.treeDetail.problem.link}
             </a>
           </div>
         </div>
