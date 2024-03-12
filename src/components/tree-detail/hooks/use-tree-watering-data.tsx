@@ -1,32 +1,14 @@
 import { useEffect, useMemo } from "react";
-import { TreeAgeClassification, TreeData } from "./use-tree-data";
 import { useTreeStore } from "../tree-store";
 //@ts-ignore
 import tailwindConfig from "../../../../tailwind.config.js";
 import resolveConfig from "tailwindcss/resolveConfig";
-import { ProgressPart } from "../partial-progress-circle";
+import {
+  TreeAgeClassification,
+  TreeData,
+  TreeWateringDataState,
+} from "../tree-types.js";
 const fullConfig = resolveConfig(tailwindConfig);
-
-export interface TreeWateringData {
-  amount: number;
-  id: number;
-  timestamp: string;
-  tree_id: string;
-  username: string;
-}
-
-interface TreeWateringDataState {
-  treeWateringData: TreeWateringData[];
-  rainSum: number;
-  wateringSum: number;
-  rainPercentage: number;
-  wateringPercentage: number;
-  referenceWaterAmount: number;
-  stillMissingWater: number;
-  waterParts: ProgressPart[];
-  treeAgeClassification: TreeAgeClassification;
-  shouldBeWatered: boolean;
-}
 
 export function useTreeWateringData(
   treeData: TreeData,

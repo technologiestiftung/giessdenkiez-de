@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import ChevronDown from "../icons/chevron-down";
 import ChevronRight from "../icons/chevron-right";
-import { TreeAgeClassification, TreeData } from "./hooks/use-tree-data";
 import { useTreeWateringData } from "./hooks/use-tree-watering-data";
 import PartialProgressCircle from "./partial-progress-circle";
 import TreeWaterNeedHint from "./tree-water-needs-hint";
+import { TreeAgeClassification, TreeData } from "./tree-types";
 
 interface TreeWaterNeedProps {
   treeData: TreeData;
   treeAgeClassification: TreeAgeClassification;
-  treeAge: number | unknown;
 }
 
 const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
   treeData,
-  treeAge,
   treeAgeClassification,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -121,15 +119,15 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
                   <div className="flex flex-row items-center gap-4">
                     <div className="h-5 w-5 rounded-full bg-[#ddd]"></div>
                     <div className="flex flex-col">
-                      <div className="font-bold">
-                        {stillMissingWater} Liter*
-                      </div>
+                      <div className="font-bold">{stillMissingWater} Liter</div>
                       <div>fehlen noch</div>
                     </div>
                   </div>
                 )}
             </div>
           </div>
+
+          <div className="font-bold">* Daten der letzen 7 Tage</div>
         </div>
       )}
     </div>

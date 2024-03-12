@@ -1,17 +1,5 @@
 import React from "react";
-import { TreeAgeClassification } from "./hooks/use-tree-data";
-
-export interface ProgressPart {
-  color: string;
-  progress: number;
-}
-
-interface PartialCircleProps {
-  parts: ProgressPart[];
-  needsWaterAmount: number;
-  shouldBeWatered: boolean;
-  treeAgeClassification: TreeAgeClassification;
-}
+import { PartialCircleProps, TreeAgeClassification } from "./tree-types";
 
 const PartialProgressCircle: React.FC<PartialCircleProps> = ({
   parts,

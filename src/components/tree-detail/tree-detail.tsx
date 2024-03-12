@@ -9,7 +9,7 @@ import useSelectedTree from "../map/hooks/use-selected-tree";
 import { useI18nStore } from "../../i18n/i18n-store";
 import TreeWaterNeed from "./tree-water-needs";
 import TreeWaterNeedUnknown from "./tree-water-need-unknown";
-import { TreeAgeClassification } from "./hooks/use-tree-data";
+import { TreeAgeClassification } from "./tree-types";
 
 const TreeDetail: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -54,7 +54,6 @@ const TreeDetail: React.FC = () => {
             {treeAgeClassification !== TreeAgeClassification.UNKNOWN && (
               <TreeWaterNeed
                 treeData={treeData}
-                treeAge={treeAge}
                 treeAgeClassification={treeAgeClassification}
               />
             )}

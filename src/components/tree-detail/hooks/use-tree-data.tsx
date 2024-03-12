@@ -1,37 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useTreeStore } from "../tree-store";
-
-export enum TreeAgeClassification {
-  BABY = "BABY",
-  JUNIOR = "JUNIOR",
-  GROWNUP = "GROWNUP",
-  SENIOR = "SENIOR",
-  UNKNOWN = "UNKNOWN",
-}
-
-export interface TreeData {
-  artbot: string;
-  artdtsch: string;
-  baumhoehe: string;
-  bezirk: string;
-  caretaker: string | null;
-  eigentuemer: string | null;
-  gattung: string;
-  gattungdeutsch: string;
-  id: string;
-  lat: string;
-  lng: string;
-  pflanzjahr: number;
-  radolan_days: number[];
-  radolan_sum: number;
-  standalter: string | null;
-}
-
-interface TreeDataState {
-  treeData: TreeData | undefined;
-  treeAge: number | undefined;
-  treeAgeClassification: TreeAgeClassification;
-}
+import { TreeAgeClassification, TreeDataState } from "../tree-types";
 
 export function useTreeData(treeId: string | undefined): TreeDataState {
   const BABY_AGE_LIMIT = 4;
