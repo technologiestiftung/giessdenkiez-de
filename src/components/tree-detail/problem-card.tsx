@@ -2,7 +2,7 @@ import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 
 const ProblemCard: React.FC = () => {
-  const i18n = useI18nStore().i18n();
+  // const i18n = useI18nStore().i18n();
 
   return (
     <div className="mt-8 flex flex-col gap-2 rounded-lg border-2 p-4">

@@ -16,7 +16,7 @@ interface LastWateringsProps {
 }
 
 const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
-  const i18n = useI18nStore().i18n();
+  // const i18n = useI18nStore().i18n();
   const [isExpanded, setIsExpanded] = useState(false);
   const now = new Date();
 

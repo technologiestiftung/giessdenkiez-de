@@ -7,7 +7,7 @@ interface WateringCardProps {
 }
 
 const LastWaterings: React.FC<WateringCardProps> = ({ wateringData }) => {
-  const i18n = useI18nStore().i18n();
+  // const i18n = useI18nStore().i18n();
 
   return (
     <div className="shadow-gdk-hard flex flex-col gap-2 rounded-lg p-4">
