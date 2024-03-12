@@ -24,7 +24,7 @@ const TreeDetail: React.FC = () => {
 
   return (
     <div className={`pointer-events-auto bg-white`}>
-      <div className="flex max-h-[100vh] min-h-[100vh] w-[100vw] flex-col gap-4 overflow-hidden overflow-scroll p-4 lg:w-[30vw] xl:w-[25vw]">
+      <div className="flex max-h-[100vh] min-h-[100vh] w-[100vw] flex-col gap-4 overflow-hidden overflow-scroll p-4 lg:w-[380px]">
         <a
           href="/map"
           className="flex flex-row justify-end"
@@ -48,7 +48,7 @@ const TreeDetail: React.FC = () => {
           <div className="text-xl font-bold">{i18n.treeDetail.title}</div>
         </div>
         {treeData && (
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col">
             <TreeAdoptCard treeData={treeData} />
             <TreeAge treeAge={treeAge} />
             {treeAgeClassification !== TreeAgeClassification.UNKNOWN && (

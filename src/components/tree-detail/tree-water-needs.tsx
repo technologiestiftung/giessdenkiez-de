@@ -28,8 +28,11 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
   } = useTreeWateringData(treeData, treeAgeClassification);
 
   return (
-    <div className="flex flex-col gap-4 border-b-2 pb-4">
-      <div className="flex flex-row items-center justify-between  text-xl font-bold">
+    <div className="flex flex-col gap-4 border-b-2 py-8">
+      <button
+        className="flex flex-row items-center justify-between  text-xl font-bold"
+        onClick={() => setIsExpanded(!isExpanded)}
+      >
         <div className="flex flex-row items-center gap-2">
           <img
             src="/images/watering-can.svg"
@@ -39,14 +42,12 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
           />
           <div className="">Wasserbedarf</div>
         </div>
-        <button className="" onClick={() => setIsExpanded(!isExpanded)}>
-          {isExpanded ? (
-            <ChevronDown></ChevronDown>
-          ) : (
-            <ChevronRight></ChevronRight>
-          )}
-        </button>
-      </div>
+        {isExpanded ? (
+          <ChevronDown></ChevronDown>
+        ) : (
+          <ChevronRight></ChevronRight>
+        )}
+      </button>
       {isExpanded && (
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-1 grid-rows-1">
