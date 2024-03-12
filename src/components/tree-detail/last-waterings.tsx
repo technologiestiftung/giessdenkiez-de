@@ -19,9 +19,7 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
   const i18n = useI18nStore().i18n();
   const [isExpanded, setIsExpanded] = useState(true);
 
-  const treeWateringData = useFetchTreeWateringData(
-    treeData,
-  ).treeWateringData.slice(0, 10);
+  const { treeWateringData } = useFetchTreeWateringData(treeData);
 
   const wateringsThisWeek = useMemo(() => {
     return treeWateringData.filter((watering) => {
