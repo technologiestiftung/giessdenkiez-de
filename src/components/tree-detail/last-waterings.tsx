@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import {
   isDateInCurrentMonth,
-  isDateInCurrentWeek,
+  isDateInWeek,
   isDateInCurrentYear,
 } from "../../utils/date-utils";
 import ChevronDown from "../icons/chevron-down";
@@ -17,13 +17,17 @@ interface LastWateringsProps {
 
 const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
   const i18n = useI18nStore().i18n();
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const now = new Date();
+  console.log("now", now.toISOString());
 
-  const { treeWateringData } = useFetchTreeWateringData(treeData);
+  const treeWateringData = useFetchTreeWateringData(
+    treeData,
+  ).treeWateringData.slice(0, 10);
 
   const wateringsThisWeek = useMemo(() => {
     return treeWateringData.filter((watering) => {
-      return isDateInCurrentWeek(new Date(watering.timestamp));
+      return isDateInWeek(new Date(watering.timestamp), now);
     });
   }, [treeWateringData]);
 
@@ -31,7 +35,7 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
     return treeWateringData.filter((watering) => {
       return (
         isDateInCurrentMonth(new Date(watering.timestamp)) &&
-        !isDateInCurrentWeek(new Date(watering.timestamp))
+        !isDateInWeek(new Date(watering.timestamp), now)
       );
     });
   }, [treeWateringData]);
@@ -41,7 +45,7 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
       return (
         isDateInCurrentYear(new Date(watering.timestamp)) &&
         !isDateInCurrentMonth(new Date(watering.timestamp)) &&
-        !isDateInCurrentWeek(new Date(watering.timestamp))
+        !isDateInWeek(new Date(watering.timestamp), now)
       );
     });
   }, [treeWateringData]);
@@ -61,11 +65,13 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
           />
           <div className="">Letzte Gießungen</div>
         </div>
-        {isExpanded ? (
-          <ChevronDown></ChevronDown>
-        ) : (
-          <ChevronRight></ChevronRight>
-        )}
+        <div className="text-gdk-blue">
+          {isExpanded ? (
+            <ChevronDown></ChevronDown>
+          ) : (
+            <ChevronRight></ChevronRight>
+          )}
+        </div>
       </button>
       {isExpanded && (
         <div className="flex flex-col gap-8">
