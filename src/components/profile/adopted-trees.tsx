@@ -33,6 +33,7 @@ const AdoptedTrees: React.FC = () => {
                 name={tree.name}
                 irrigationAmount={tree.irrigationAmount}
                 irrigationTimes={tree.irrigationTimes}
+                key={tree.id}
               />
             ))}
         {showAllTrees &&
@@ -42,6 +43,7 @@ const AdoptedTrees: React.FC = () => {
               name={tree.name}
               irrigationAmount={tree.irrigationAmount}
               irrigationTimes={tree.irrigationTimes}
+              key={tree.id}
             />
           ))}
       </div>
