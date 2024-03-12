@@ -1,19 +1,12 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useTreeStore } from "../tree-store";
-import { TreeAgeClassification, TreeDataState } from "../tree-types";
+import { TreeDataState } from "../tree-types";
 
-export function useTreeData(treeId: string | undefined): TreeDataState {
+export function useFetchTreeData(treeId: string | undefined): TreeDataState {
   const [treeData, setTreeData] = useTreeStore((store) => [
     store.treeData,
     store.setTreeData,
   ]);
-
-  const treeAge = useMemo(() => {
-    if (!treeData) return undefined;
-    return treeData.pflanzjahr === 0
-      ? undefined
-      : new Date().getFullYear() - treeData.pflanzjahr;
-  }, [treeData]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -44,5 +37,5 @@ export function useTreeData(treeId: string | undefined): TreeDataState {
     };
   }, [treeId]);
 
-  return { treeData, treeAge };
+  return { treeData };
 }

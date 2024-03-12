@@ -1,7 +1,7 @@
 import React from "react";
 import CloseIcon from "../icons/close-icon";
 import { useUrlState } from "../router/store";
-import { useTreeData } from "./hooks/use-tree-data";
+import { useFetchTreeData } from "./hooks/use-fetch-tree-data";
 import TreeAge from "./tree-age";
 import TreeAdoptCard from "./tree-adopt-card";
 import { useTreeStore } from "./tree-store";
@@ -23,7 +23,7 @@ const TreeDetail: React.FC = () => {
 
   const { setTreeData } = useTreeStore();
   const { setSelectedTreeId } = useSelectedTree();
-  const { treeData } = useTreeData(treeId);
+  const { treeData } = useFetchTreeData(treeId);
   const { treeAge, treeAgeClassification } = useTreeAgeClassification(treeData);
 
   console.log(treeData);

@@ -1,4 +1,3 @@
-import { TreeAgeClassification } from "./tree-types";
 export enum TreeAgeClassification {
   BABY = "BABY",
   JUNIOR = "JUNIOR",
