@@ -24,7 +24,7 @@ const TreeDetail: React.FC = () => {
 
   return (
     <div className={`pointer-events-auto bg-white`}>
-      <div className="flex max-h-[100vh] min-h-[100vh] w-[100vw] flex-col gap-4 overflow-hidden overflow-scroll p-4 lg:w-[380px]">
+      <div className="flex max-h-[100vh] min-h-[100vh] w-[100vw] flex-col gap-4 overflow-hidden overflow-scroll p-4 lg:w-[400px]">
         <a
           href="/map"
           className="flex flex-row justify-end"
@@ -59,10 +59,6 @@ const TreeDetail: React.FC = () => {
             )}
             {treeAgeClassification === TreeAgeClassification.UNKNOWN && (
               <TreeWaterNeedUnknown
-                title={"Wasserbedarf unbekannt"}
-                description={
-                  "Das Alter, und dementsprechend der Wasserbedarf, sind leider unbekannt. Eventuell hilft Dir die Infobox für eine eigenständige Einschätzung."
-                }
                 treeData={treeData}
                 treeAgeClassification={treeAgeClassification}
               />

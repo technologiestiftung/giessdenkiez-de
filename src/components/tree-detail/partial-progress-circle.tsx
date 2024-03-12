@@ -1,5 +1,6 @@
 import React from "react";
 import { PartialCircleProps, TreeAgeClassification } from "./tree-types";
+import { useI18nStore } from "../../i18n/i18n-store";
 
 const PartialProgressCircle: React.FC<PartialCircleProps> = ({
   parts,
@@ -7,6 +8,8 @@ const PartialProgressCircle: React.FC<PartialCircleProps> = ({
   shouldBeWatered,
   treeAgeClassification,
 }) => {
+  const i18n = useI18nStore().i18n();
+
   const size = 200;
   const dasharray = 2 * Math.PI * 80;
   return (
@@ -57,9 +60,9 @@ const PartialProgressCircle: React.FC<PartialCircleProps> = ({
       {treeAgeClassification === TreeAgeClassification.BABY && (
         <div className="col-start-1 row-start-1 flex items-center justify-center text-center">
           <div className="flex flex-col items-center justify-center text-center">
-            <div>Bereits</div>
-            <div className="font-bold">vom Bezirksamt</div>
-            <div>versorgt</div>
+            <div className="m-12">
+              {i18n.treeDetail.waterNeed.alreadyWateredByManager}
+            </div>
           </div>
         </div>
       )}
@@ -68,9 +71,9 @@ const PartialProgressCircle: React.FC<PartialCircleProps> = ({
           treeAgeClassification === TreeAgeClassification.GROWNUP) && (
           <div className="col-start-1 row-start-1 flex items-center justify-center text-center">
             <div className="flex flex-col items-center justify-center text-center">
-              <div>Noch</div>
-              <div className="font-bold">{needsWaterAmount} Liter</div>
-              <div>gießen</div>
+              <div className="m-12">
+                {i18n.treeDetail.waterNeed.stillWaterXLiters(needsWaterAmount)}
+              </div>
             </div>
           </div>
         )}
@@ -78,9 +81,9 @@ const PartialProgressCircle: React.FC<PartialCircleProps> = ({
         treeAgeClassification === TreeAgeClassification.SENIOR && (
           <div className="col-start-1 row-start-1 flex items-center justify-center text-center">
             <div className="flex flex-col items-center justify-center text-center">
-              <div>Sollte</div>
-              <div className="font-bold">gegossen</div>
-              <div>werden</div>
+              <div className="m-12">
+                {i18n.treeDetail.waterNeed.shouldBeWatered}
+              </div>
             </div>
           </div>
         )}
@@ -88,9 +91,9 @@ const PartialProgressCircle: React.FC<PartialCircleProps> = ({
         treeAgeClassification !== TreeAgeClassification.BABY && (
           <div className="col-start-1 row-start-1 flex items-center justify-center text-center">
             <div className="flex flex-col items-center justify-center text-center">
-              <div>Momentan</div>
-              <div className="font-bold">ausreichend</div>
-              <div>bewässert</div>
+              <div className="m-12">
+                {i18n.treeDetail.waterNeed.sufficientlyWatered}
+              </div>
             </div>
           </div>
         )}

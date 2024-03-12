@@ -1,3 +1,5 @@
+import { list } from "postcss";
+
 interface LocationSearch {
   placeholder: string;
 }
@@ -34,6 +36,30 @@ interface Info {
   };
 }
 
+interface WaterNeed {
+  title: string;
+  hint: string;
+  needXLiters: (liters: number) => string;
+  needsOnlyOnDryDays: string;
+  waterManaged: string;
+  unknown: string;
+  unknownTitle: string;
+  liters: string;
+  watered: string;
+  rained: string;
+  stillMissing: string;
+  dataOfLastXDays: string;
+  manager: string;
+  alreadyWateredByManager: string;
+  stillWaterXLiters: (liters: number) => string;
+  shouldBeWatered: string;
+  sufficientlyWatered: string;
+  ageAndWaterHintTitle: string;
+  ageAndWaterHint: string;
+  lastXDaysYLitersWater: (days: number, liters: number) => string;
+  lastXDaysYLitersRain: (days: number, liters: number) => string;
+}
+
 interface TreeDetail {
   title: string;
   adoptIt: string;
@@ -41,6 +67,7 @@ interface TreeDetail {
   ageTitle: string;
   age: (age: number) => string;
   ageUnknown: string;
+  waterNeed: WaterNeed;
 }
 
 export interface Content {

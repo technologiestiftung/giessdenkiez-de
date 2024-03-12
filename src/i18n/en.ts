@@ -151,6 +151,48 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
     ageTitle: "Age",
     age: (age: number) => `${age} years`,
     ageUnknown: "Unknown",
+    waterNeed: {
+      title: "Water requirements",
+      hint: "Depending on the age of the tree, the need for water varies.",
+      needXLiters: (liters: number) => `Needs ${liters} liters per week`,
+      needsOnlyOnDryDays: "Only needs water on dry days",
+      waterManaged: "Supplied by the district office",
+      unknownTitle: "Water needs unknown",
+      unknown:
+        "The age and therefore the water requirement are unfortunately unknown. The info box may help you make your own assessment.",
+      liters: "liters",
+      watered: "watered",
+      rained: "rain",
+      stillMissing: "still missing",
+      dataOfLastXDays: "* data of last 7 days",
+      manager: "district",
+      alreadyWateredByManager: "Watered by district",
+      stillWaterXLiters: (liters: number) => `${liters} liters to water`,
+      shouldBeWatered: "Should be watered",
+      sufficientlyWatered: "Sufficiently watered at the moment",
+      ageAndWaterHintTitle: "Water requirements and age",
+      ageAndWaterHint: `
+**Baby (under 4 years):**
+
+We are fresh young trees and our thirst is satisfied by the district parks department breastfed.
+  
+**Young (4-14 years):**
+
+At that age we will no longer be watered by the administration in all districts and are not yet “self-sufficient”. We are happy about lots of water up to 200l per watering (once a week).
+     
+**Adult (15-40 years):**
+
+We have a certain amount of stamina but we need it in hot phases also a good extra sip of water: up to 100l once a day week.
+  
+**Old (over 40 years old):**
+
+We manage largely on our own and are happy in particularly dry phases but still about an extra sip.
+      `,
+      lastXDaysYLitersWater: (days: number, liters: number) =>
+        `In the last ${days} days, **${liters} liters** were watered.`,
+      lastXDaysYLitersRain: (days: number, liters: number) =>
+        `In the last ${days} days, it rained **${liters} liters**.`,
+    },
   },
 };
 
