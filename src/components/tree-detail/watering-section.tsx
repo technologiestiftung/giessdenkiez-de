@@ -18,8 +18,10 @@ const WateringSection: React.FC<WateringSectionProps> = ({
       <div className="text-xl font-semibold text-gdk-light-gray">{title}</div>
       {waterings.length === 0 && <div>{noWateringsHint}</div>}
       <div className="flex flex-col gap-4">
-        {waterings.map((wateringData) => (
-          <WateringCard wateringData={wateringData}></WateringCard>
+        {waterings.map((wateringData, idx) => (
+          <div key={`watering-${idx}`}>
+            <WateringCard wateringData={wateringData}></WateringCard>
+          </div>
         ))}
       </div>
     </div>

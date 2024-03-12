@@ -19,7 +19,9 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
   const i18n = useI18nStore().i18n();
   const [isExpanded, setIsExpanded] = useState(true);
 
-  const { treeWateringData } = useFetchTreeWateringData(treeData);
+  const treeWateringData = useFetchTreeWateringData(
+    treeData,
+  ).treeWateringData.slice(0, 10);
 
   const wateringsThisWeek = useMemo(() => {
     return treeWateringData.filter((watering) => {
@@ -29,13 +31,20 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
 
   const wateringsThisMonth = useMemo(() => {
     return treeWateringData.filter((watering) => {
-      return isDateInCurrentMonth(new Date(watering.timestamp));
+      return (
+        isDateInCurrentMonth(new Date(watering.timestamp)) &&
+        !isDateInCurrentWeek(new Date(watering.timestamp))
+      );
     });
   }, [treeWateringData]);
 
   const wateringsThisYear = useMemo(() => {
     return treeWateringData.filter((watering) => {
-      return isDateInCurrentYear(new Date(watering.timestamp));
+      return (
+        isDateInCurrentYear(new Date(watering.timestamp)) &&
+        !isDateInCurrentMonth(new Date(watering.timestamp)) &&
+        !isDateInCurrentWeek(new Date(watering.timestamp))
+      );
     });
   }, [treeWateringData]);
 
@@ -61,7 +70,7 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
         )}
       </button>
       {isExpanded && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-8">
           <WateringSection
             waterings={wateringsThisWeek}
             title="Diese Woche"

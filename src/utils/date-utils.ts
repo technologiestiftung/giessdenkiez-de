@@ -8,11 +8,11 @@ export function lastDayOfWeek(currentDate: Date, dayOfWeek: number) {
 
 export function isDateInCurrentWeek(date: Date): boolean {
   const lastSunday = lastDayOfWeek(new Date(), 0);
-  const lastMonday = lastSunday;
-  lastMonday.setDate(lastSunday.getDate() + 1);
-  const elapsedDaysSinceSunday =
-    (lastMonday.getTime() - date.getTime()) / 1000 / 60 / 60 / 24;
-  return elapsedDaysSinceSunday <= 7;
+  const mondayMidnight = lastSunday;
+  mondayMidnight.setDate(lastSunday.getDate() + 1);
+  const elapsedDaysSinceMondayNight =
+    (date.getTime() - mondayMidnight.getTime()) / 1000 / 60 / 60 / 24;
+  return elapsedDaysSinceMondayNight <= 7 && elapsedDaysSinceMondayNight >= 0;
 }
 
 export function isDateInCurrentMonth(date: Date): boolean {
