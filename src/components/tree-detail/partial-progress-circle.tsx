@@ -1,6 +1,7 @@
 import React from "react";
+import { TreeAgeClassification } from "./hooks/use-tree-data";
 
-interface ProgressPart {
+export interface ProgressPart {
   color: string;
   progress: number;
 }
@@ -8,11 +9,15 @@ interface ProgressPart {
 interface PartialCircleProps {
   parts: ProgressPart[];
   needsWaterAmount: number;
+  shouldBeWatered: boolean;
+  treeAgeClassification: TreeAgeClassification;
 }
 
 const PartialProgressCircle: React.FC<PartialCircleProps> = ({
   parts,
   needsWaterAmount,
+  shouldBeWatered,
+  treeAgeClassification,
 }) => {
   const size = 200;
   const dasharray = 2 * Math.PI * 80;
@@ -61,13 +66,46 @@ const PartialProgressCircle: React.FC<PartialCircleProps> = ({
           </div>
         );
       })}
-      <div className="col-start-1 row-start-1 flex items-center justify-center text-center">
-        <div className="flex flex-col items-center justify-center text-center">
-          <div>Noch</div>
-          <div className="font-bold">{needsWaterAmount} Liter</div>
-          <div>gießen</div>
+      {treeAgeClassification === TreeAgeClassification.BABY && (
+        <div className="col-start-1 row-start-1 flex items-center justify-center text-center">
+          <div className="flex flex-col items-center justify-center text-center">
+            <div>Bereits</div>
+            <div className="font-bold">vom Bezirksamt</div>
+            <div>versorgt</div>
+          </div>
         </div>
-      </div>
+      )}
+      {shouldBeWatered &&
+        (treeAgeClassification === TreeAgeClassification.JUNIOR ||
+          treeAgeClassification === TreeAgeClassification.GROWNUP) && (
+          <div className="col-start-1 row-start-1 flex items-center justify-center text-center">
+            <div className="flex flex-col items-center justify-center text-center">
+              <div>Noch</div>
+              <div className="font-bold">{needsWaterAmount} Liter</div>
+              <div>gießen</div>
+            </div>
+          </div>
+        )}
+      {shouldBeWatered &&
+        treeAgeClassification === TreeAgeClassification.SENIOR && (
+          <div className="col-start-1 row-start-1 flex items-center justify-center text-center">
+            <div className="flex flex-col items-center justify-center text-center">
+              <div>Sollte</div>
+              <div className="font-bold">gegossen</div>
+              <div>werden</div>
+            </div>
+          </div>
+        )}
+      {!shouldBeWatered &&
+        treeAgeClassification !== TreeAgeClassification.BABY && (
+          <div className="col-start-1 row-start-1 flex items-center justify-center text-center">
+            <div className="flex flex-col items-center justify-center text-center">
+              <div>Momentan</div>
+              <div className="font-bold">ausreichend</div>
+              <div>bewässert</div>
+            </div>
+          </div>
+        )}
     </div>
   );
 };

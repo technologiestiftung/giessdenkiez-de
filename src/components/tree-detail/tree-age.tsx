@@ -2,10 +2,10 @@ import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 
 interface TreeAgeProps {
-  age: number | undefined;
+  treeAge: number | undefined;
 }
 
-const TreeAge: React.FC<TreeAgeProps> = ({ age }) => {
+const TreeAge: React.FC<TreeAgeProps> = ({ treeAge }) => {
   const i18n = useI18nStore().i18n();
   return (
     <div className="flex flex-row items-center justify-between border-b-2 pb-4 text-xl font-bold">
@@ -18,8 +18,8 @@ const TreeAge: React.FC<TreeAgeProps> = ({ age }) => {
         />
         <div className="">{i18n.treeDetail.ageTitle}</div>
       </div>
-      {age ? (
-        <div>{i18n.treeDetail.age(age)}</div>
+      {treeAge ? (
+        <div>{i18n.treeDetail.age(treeAge)}</div>
       ) : (
         <div>{i18n.treeDetail.ageUnknown}</div>
       )}

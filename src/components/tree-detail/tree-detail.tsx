@@ -9,6 +9,7 @@ import useSelectedTree from "../map/hooks/use-selected-tree";
 import { useI18nStore } from "../../i18n/i18n-store";
 import TreeWaterNeed from "./tree-water-needs";
 import TreeWaterNeedUnknown from "./tree-water-need-unknown";
+import { TreeAgeClassification } from "./hooks/use-tree-data";
 
 const TreeDetail: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -16,14 +17,14 @@ const TreeDetail: React.FC = () => {
   const setPathname = useUrlState((state) => state.setPathname);
 
   const treeId = url.searchParams.get("treeId")!;
-  const { treeData, treeAge } = useTreeData(treeId);
+  const { treeData, treeAge, treeAgeClassification } = useTreeData(treeId);
 
   const { setTreeData } = useTreeStore();
   const { setSelectedTreeId } = useSelectedTree();
 
   return (
     <div className={`pointer-events-auto bg-white`}>
-      <div className="flex min-h-[100vh] w-[100vw] flex-col gap-4 overflow-hidden p-4 lg:w-[30vw] xl:w-[25vw]">
+      <div className="flex max-h-[100vh] min-h-[100vh] w-[100vw] flex-col gap-4 overflow-hidden overflow-scroll p-4 lg:w-[30vw] xl:w-[25vw]">
         <a
           href="/map"
           className="flex flex-row justify-end"
@@ -49,24 +50,22 @@ const TreeDetail: React.FC = () => {
         {treeData && (
           <div className="flex flex-col gap-10">
             <TreeAdoptCard treeData={treeData} />
-            <TreeAge age={treeAge} />
-            {treeAge && treeAge <= 40 && <TreeWaterNeed treeData={treeData} />}
-            {!treeAge && (
+            <TreeAge treeAge={treeAge} />
+            {treeAgeClassification !== TreeAgeClassification.UNKNOWN && (
+              <TreeWaterNeed
+                treeData={treeData}
+                treeAge={treeAge}
+                treeAgeClassification={treeAgeClassification}
+              />
+            )}
+            {treeAgeClassification === TreeAgeClassification.UNKNOWN && (
               <TreeWaterNeedUnknown
                 title={"Wasserbedarf unbekannt"}
                 description={
                   "Das Alter, und dementsprechend der Wasserbedarf, sind leider unbekannt. Eventuell hilft Dir die Infobox für eine eigenständige Einschätzung."
                 }
                 treeData={treeData}
-              />
-            )}
-            {treeAge && treeAge > 40 && (
-              <TreeWaterNeedUnknown
-                title={"Braucht nur in trockenen Phasen Wasser"}
-                description={
-                  "Ältere Bäume können sich in der Regel über das Grundwasser selbst versorgen, aber bei zunehmender Hitze freuen auch sie sich über zusätzliches Wasser."
-                }
-                treeData={treeData}
+                treeAgeClassification={treeAgeClassification}
               />
             )}
           </div>

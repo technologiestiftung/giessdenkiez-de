@@ -1,6 +1,11 @@
 import { useEffect, useMemo } from "react";
-import { TreeData } from "./use-tree-data";
+import { TreeAgeClassification, TreeData } from "./use-tree-data";
 import { useTreeStore } from "../tree-store";
+//@ts-ignore
+import tailwindConfig from "../../../../tailwind.config.js";
+import resolveConfig from "tailwindcss/resolveConfig";
+import { ProgressPart } from "../partial-progress-circle";
+const fullConfig = resolveConfig(tailwindConfig);
 
 export interface TreeWateringData {
   amount: number;
@@ -18,10 +23,21 @@ interface TreeWateringDataState {
   wateringPercentage: number;
   referenceWaterAmount: number;
   stillMissingWater: number;
+  waterParts: ProgressPart[];
+  treeAgeClassification: TreeAgeClassification;
+  shouldBeWatered: boolean;
 }
 
-export function useTreeWateringData(treeData: TreeData): TreeWateringDataState {
+export function useTreeWateringData(
+  treeData: TreeData,
+  treeAgeClassification: TreeAgeClassification,
+): TreeWateringDataState {
+  const YOUNG_TREES_WATERING_AMOUNT = 200;
+  const OLD_TREES_WATERING_AMOUNT = 100;
   const NUMBER_OF_DAYS_TO_LOOK_AT = 7;
+
+  const WATERING_COLOR = fullConfig.theme.colors["gdk-neon-green"];
+  const RAIN_COLOR = fullConfig.theme.colors["gdk-blue"];
 
   const [treeWateringData, setTreeWateringData] = useTreeStore((store) => [
     store.treeWateringData,
@@ -29,15 +45,17 @@ export function useTreeWateringData(treeData: TreeData): TreeWateringDataState {
   ]);
 
   const referenceWaterAmount = useMemo(() => {
-    if (!treeData.standalter) {
-      return undefined;
-    }
-
-    const age = new Date().getFullYear() - parseInt(treeData.standalter);
-    if (age <= 14) {
-      return 200;
-    } else {
-      return 100;
+    switch (treeAgeClassification) {
+      case TreeAgeClassification.BABY:
+        return YOUNG_TREES_WATERING_AMOUNT;
+      case TreeAgeClassification.JUNIOR:
+        return YOUNG_TREES_WATERING_AMOUNT;
+      case TreeAgeClassification.GROWNUP:
+        return OLD_TREES_WATERING_AMOUNT;
+      case TreeAgeClassification.SENIOR:
+        return OLD_TREES_WATERING_AMOUNT;
+      default:
+        return 0;
     }
   }, [treeData]);
 
@@ -78,6 +96,9 @@ export function useTreeWateringData(treeData: TreeData): TreeWateringDataState {
   }, [rainSum, wateringSum]);
 
   const wateringPercentage = useMemo(() => {
+    if (treeAgeClassification === TreeAgeClassification.BABY) {
+      return 1 - rainPercentage;
+    }
     const ratio = wateringSum / referenceWaterAmount;
     if (ratio >= 1) {
       return 1;
@@ -91,6 +112,27 @@ export function useTreeWateringData(treeData: TreeData): TreeWateringDataState {
       Math.max(0, referenceWaterAmount - rainSum - wateringSum),
     );
   }, [rainSum, wateringSum, referenceWaterAmount]);
+
+  const shouldBeWatered = useMemo(() => {
+    if (treeAgeClassification === TreeAgeClassification.BABY) {
+      return false;
+    } else {
+      return wateringSum + rainSum < referenceWaterAmount;
+    }
+  }, [wateringSum, rainSum, referenceWaterAmount]);
+
+  const waterParts = useMemo(() => {
+    return [
+      {
+        color: RAIN_COLOR,
+        progress: rainPercentage,
+      },
+      {
+        color: WATERING_COLOR,
+        progress: wateringPercentage,
+      },
+    ];
+  }, [rainPercentage, wateringPercentage]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -129,5 +171,8 @@ export function useTreeWateringData(treeData: TreeData): TreeWateringDataState {
     wateringPercentage,
     referenceWaterAmount,
     stillMissingWater,
+    waterParts,
+    treeAgeClassification,
+    shouldBeWatered,
   };
 }

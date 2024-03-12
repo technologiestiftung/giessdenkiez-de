@@ -1,19 +1,24 @@
 import React from "react";
-import { TreeData } from "./hooks/use-tree-data";
+import { TreeAgeClassification, TreeData } from "./hooks/use-tree-data";
 import { useTreeWateringData } from "./hooks/use-tree-watering-data";
 
 interface TreeWaterNeedUnknownProps {
   treeData: TreeData;
   title: string;
   description: string;
+  treeAgeClassification: TreeAgeClassification;
 }
 
 const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
   treeData,
   title,
   description,
+  treeAgeClassification,
 }) => {
-  const { rainSum, wateringSum } = useTreeWateringData(treeData);
+  const { rainSum, wateringSum } = useTreeWateringData(
+    treeData,
+    treeAgeClassification,
+  );
 
   return (
     <div className="flex flex-col gap-4 border-b-2 pb-4">

@@ -1,25 +1,33 @@
 import React, { useState } from "react";
 import ChevronDown from "../icons/chevron-down";
 import ChevronRight from "../icons/chevron-right";
+import { TreeAgeClassification, TreeData } from "./hooks/use-tree-data";
 import { useTreeWateringData } from "./hooks/use-tree-watering-data";
 import PartialProgressCircle from "./partial-progress-circle";
-import { TreeData } from "./hooks/use-tree-data";
+import TreeWaterNeedHint from "./tree-water-needs-hint";
 
 interface TreeWaterNeedProps {
   treeData: TreeData;
+  treeAgeClassification: TreeAgeClassification;
+  treeAge: number | unknown;
 }
 
-const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({ treeData }) => {
+const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
+  treeData,
+  treeAge,
+  treeAgeClassification,
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showInfoBox, setShowInfoBox] = useState(false);
 
   const {
     rainSum,
     wateringSum,
-    rainPercentage,
-    wateringPercentage,
     referenceWaterAmount,
     stillMissingWater,
-  } = useTreeWateringData(treeData);
+    waterParts,
+    shouldBeWatered,
+  } = useTreeWateringData(treeData, treeAgeClassification);
 
   return (
     <div className="flex flex-col gap-4 border-b-2 pb-4">
@@ -43,33 +51,44 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({ treeData }) => {
       </div>
       {isExpanded && (
         <div className="flex flex-col gap-4">
-          <div className="flex flex-row items-center justify-between">
-            <div className="pr-8">
-              Je nach Alter des Baumes, unterscheidet sich der Bedarf an Wasser.
+          <div className="grid grid-cols-1 grid-rows-1">
+            <div className="relative col-start-1 row-start-1 flex flex-row items-center justify-between">
+              <div className="pr-8">
+                Je nach Baumalter unterscheidet sich der Bedarf an Wasser.
+              </div>
+              <button
+                className="h-8 w-8"
+                onClick={() => setShowInfoBox(!showInfoBox)}
+              >
+                <img src="/images/info-icon.svg" alt="Tree Icon" />
+              </button>
             </div>
-            <img
-              src="/images/info-icon.svg"
-              alt="Tree Icon"
-              width={24}
-              height={24}
-            />
           </div>
-          <div className="text-xl font-bold">
-            Braucht {referenceWaterAmount} Liter pro Woche
-          </div>
+          {showInfoBox && <TreeWaterNeedHint></TreeWaterNeedHint>}
+
+          {treeAgeClassification === TreeAgeClassification.SENIOR && (
+            <div className="text-xl font-bold">
+              Braucht nur an trockenen Tagen Wasser
+            </div>
+          )}
+
+          {treeAgeClassification === TreeAgeClassification.BABY && (
+            <div className="text-xl font-bold">Vom Bezirksamt versorgt</div>
+          )}
+
+          {(treeAgeClassification === TreeAgeClassification.JUNIOR ||
+            treeAgeClassification === TreeAgeClassification.GROWNUP) && (
+            <div className="text-xl font-bold">
+              Braucht {referenceWaterAmount} Liter pro Woche
+            </div>
+          )}
+
           <div className="flex flex-row items-center justify-start gap-4">
             <PartialProgressCircle
-              parts={[
-                {
-                  color: "#1169EE",
-                  progress: rainPercentage,
-                },
-                {
-                  color: "#3DF99A",
-                  progress: wateringPercentage,
-                },
-              ]}
+              parts={waterParts}
               needsWaterAmount={stillMissingWater}
+              shouldBeWatered={shouldBeWatered}
+              treeAgeClassification={treeAgeClassification}
             />
             <div className="flex flex-col gap-3">
               <div className="flex flex-row items-center gap-4">
@@ -79,20 +98,36 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({ treeData }) => {
                   <div>Regen</div>
                 </div>
               </div>
-              <div className="flex flex-row items-center gap-4">
-                <div className="h-5 w-5 rounded-full bg-[#3DF99A]"></div>
-                <div className="flex flex-col">
-                  <div className="font-bold">{wateringSum} Liter*</div>
-                  <div>gegossen</div>
+              {treeAgeClassification === TreeAgeClassification.BABY && (
+                <div className="flex flex-row items-center gap-4">
+                  <div className="h-5 w-5 rounded-full bg-[#3DF99A]"></div>
+                  <div className="flex flex-col">
+                    <div className="font-bold">vom Bezirksamt</div>
+                    <div>gegossen</div>
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-row items-center gap-4">
-                <div className="h-5 w-5 rounded-full bg-[#ddd]"></div>
-                <div className="flex flex-col">
-                  <div className="font-bold">{stillMissingWater} Liter*</div>
-                  <div>fehlen noch</div>
+              )}
+              {treeAgeClassification !== TreeAgeClassification.BABY && (
+                <div className="flex flex-row items-center gap-4">
+                  <div className="h-5 w-5 rounded-full bg-[#3DF99A]"></div>
+                  <div className="flex flex-col">
+                    <div className="font-bold">{wateringSum} Liter*</div>
+                    <div>gegossen</div>
+                  </div>
                 </div>
-              </div>
+              )}
+              {shouldBeWatered &&
+                treeAgeClassification !== TreeAgeClassification.SENIOR && (
+                  <div className="flex flex-row items-center gap-4">
+                    <div className="h-5 w-5 rounded-full bg-[#ddd]"></div>
+                    <div className="flex flex-col">
+                      <div className="font-bold">
+                        {stillMissingWater} Liter*
+                      </div>
+                      <div>fehlen noch</div>
+                    </div>
+                  </div>
+                )}
             </div>
           </div>
         </div>
