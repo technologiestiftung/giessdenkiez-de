@@ -1,4 +1,3 @@
-import { test } from "@playwright/test";
 interface LocationSearch {
   placeholder: string;
 }
