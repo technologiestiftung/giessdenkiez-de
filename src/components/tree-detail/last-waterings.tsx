@@ -19,11 +19,8 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
   const i18n = useI18nStore().i18n();
   const [isExpanded, setIsExpanded] = useState(false);
   const now = new Date();
-  console.log("now", now.toISOString());
 
-  const treeWateringData = useFetchTreeWateringData(
-    treeData,
-  ).treeWateringData.slice(0, 10);
+  const { treeWateringData } = useFetchTreeWateringData(treeData);
 
   const wateringsThisWeek = useMemo(() => {
     return treeWateringData.filter((watering) => {
@@ -34,7 +31,7 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
   const wateringsThisMonth = useMemo(() => {
     return treeWateringData.filter((watering) => {
       return (
-        isDateInCurrentMonth(new Date(watering.timestamp)) &&
+        isDateInCurrentMonth(new Date(watering.timestamp), now) &&
         !isDateInWeek(new Date(watering.timestamp), now)
       );
     });
@@ -43,8 +40,8 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
   const wateringsThisYear = useMemo(() => {
     return treeWateringData.filter((watering) => {
       return (
-        isDateInCurrentYear(new Date(watering.timestamp)) &&
-        !isDateInCurrentMonth(new Date(watering.timestamp)) &&
+        isDateInCurrentYear(new Date(watering.timestamp), now) &&
+        !isDateInCurrentMonth(new Date(watering.timestamp), now) &&
         !isDateInWeek(new Date(watering.timestamp), now)
       );
     });

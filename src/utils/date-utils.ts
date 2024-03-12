@@ -17,15 +17,13 @@ export function isDateInWeek(date: Date, referenceDate: Date): boolean {
   return elapsedDaysSinceMondayNight < 7 && elapsedDaysSinceMondayNight >= 0;
 }
 
-export function isDateInCurrentMonth(date: Date): boolean {
-  const now = new Date();
+export function isDateInCurrentMonth(date: Date, referenceDate: Date): boolean {
   return (
-    now.getFullYear() === date.getFullYear() &&
-    now.getMonth() === date.getMonth()
+    referenceDate.getUTCFullYear() === date.getUTCFullYear() &&
+    referenceDate.getUTCMonth() === date.getUTCMonth()
   );
 }
 
-export function isDateInCurrentYear(date: Date): boolean {
-  const now = new Date();
-  return now.getFullYear() === date.getFullYear();
+export function isDateInCurrentYear(date: Date, referenceDate: Date): boolean {
+  return referenceDate.getUTCFullYear() === date.getUTCFullYear();
 }
