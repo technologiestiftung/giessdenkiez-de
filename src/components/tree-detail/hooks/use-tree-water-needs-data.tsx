@@ -17,7 +17,7 @@ export function useTreeWaterNeedsData(
 ): TreeWateringDataState {
   const YOUNG_TREES_WATERING_AMOUNT = 200;
   const OLD_TREES_WATERING_AMOUNT = 100;
-  const NUMBER_OF_DAYS_TO_LOOK_AT = 7;
+  const NUMBER_OF_DAYS_TO_LOOK_AT = 30;
 
   const WATERING_COLOR = fullConfig.theme.colors["gdk-neon-green"];
   const RAIN_COLOR = fullConfig.theme.colors["gdk-blue"];

@@ -19,7 +19,11 @@ const ProblemCard: React.FC = () => {
         <div className="flex flex-col gap-2">
           <div>{i18n.treeDetail.problem.description}</div>
           <div>
-            <a href="/" className="font-bold text-gdk-blue">
+            <a
+              href="https://ordnungsamt.berlin.de/frontend/meldungNeu/wo"
+              target="_blank"
+              className="font-bold text-gdk-blue"
+            >
               {i18n.treeDetail.problem.link}
             </a>
           </div>
