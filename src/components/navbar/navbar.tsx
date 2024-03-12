@@ -15,14 +15,18 @@ const Navbar: React.FC = () => {
 
   const navItems = [
     { label: i18n.navbar.map, path: "/map", icon: <MapIcon /> },
-    { label: i18n.navbar.profile, path: "/profile", icon: <UserIcon /> },
+    {
+      label: i18n.navbar.profile.sidebarLabel,
+      path: "/profile",
+      icon: <UserIcon />,
+    },
     { label: i18n.navbar.info, path: "/about", icon: <InfoIcon /> },
   ];
 
   return (
     <nav
-      className={`pointer-events-auto
-      flex h-auto w-full justify-center rounded-tl-3xl rounded-tr-3xl bg-white pt-0 shadow 
+      className={`shadow-gdk-hard
+      pointer-events-auto flex h-auto w-full justify-center rounded-tl-3xl rounded-tr-3xl bg-white pt-0 
       lg:h-full lg:w-auto lg:justify-start lg:rounded-br lg:rounded-tl-none lg:rounded-tr lg:px-2 lg:pt-10`}
     >
       <div

@@ -6,7 +6,35 @@ const de: Content = {
   },
   navbar: {
     map: "Karte",
-    profile: "Profil",
+    profile: {
+      sidebarLabel: "Profil",
+      title: "Dein Profil",
+      overview: {
+        subtitle: "Deine Übersicht",
+        irrigations: "Gießungen",
+        liter: "Liter",
+        adoptedTrees: "Adoptierte Bäume",
+      },
+      adoptedTrees: {
+        subtitle: "Adoptierte Bäume",
+        irrigationTimes: "Mal",
+        irrigationAmount: "Liter",
+        showAll: "Alle anzeigen",
+        showLess: "Weniger anzeigen",
+      },
+      settings: {
+        subtitle: "Profildetails",
+        username: "Benutzername",
+        placeholderUser: "Dein Benutzername",
+        email: "Registrierte E-Mail Adresse",
+        placeholderMail: "xyz@ts.berlin",
+        password: "Passwort",
+        changePassword: "Passwort ändern",
+        deleteAccount: "Account löschen",
+        approve: "Fertig",
+      },
+      logOut: "Ausloggen",
+    },
     info: "Info",
   },
   notFound: {
