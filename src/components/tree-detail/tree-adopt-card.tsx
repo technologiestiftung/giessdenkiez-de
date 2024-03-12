@@ -1,6 +1,6 @@
 import React from "react";
-import { TreeData } from "./hooks/use-tree-data";
 import { useI18nStore } from "../../i18n/i18n-store";
+import { TreeData } from "./tree-types";
 
 interface TreeAdoptCardProps {
   treeData: TreeData;

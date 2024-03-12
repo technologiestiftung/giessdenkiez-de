@@ -1,5 +1,3 @@
-import { list } from "postcss";
-
 interface LocationSearch {
   placeholder: string;
 }

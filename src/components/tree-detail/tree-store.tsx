@@ -1,6 +1,5 @@
 import { create } from "zustand";
-import { TreeData } from "./hooks/use-tree-data";
-import { TreeWateringData } from "./hooks/use-tree-watering-data";
+import { TreeData, TreeWateringData } from "./tree-types";
 
 interface TreeStore {
   treeData: TreeData | undefined;
