@@ -26,6 +26,8 @@ const TreeDetail: React.FC = () => {
   const { treeData } = useFetchTreeData(treeId);
   const { treeAge, treeAgeClassification } = useTreeAgeClassification(treeData);
 
+  console.log(treeData);
+
   return (
     <div className={`pointer-events-auto bg-white`}>
       <div className="flex max-h-[100vh] min-h-[100vh] w-[100vw] flex-col gap-4 overflow-hidden overflow-scroll p-4 lg:w-[400px]">

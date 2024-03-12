@@ -2,6 +2,7 @@ import { expect, test } from "vitest";
 import { useTreeAgeClassification } from "../../components/tree-detail/hooks/use-tree-age-classification";
 import { useTreeWaterNeedsData } from "../../components/tree-detail/hooks/use-tree-water-needs-data";
 import {
+  TreeAgeClassification,
   TreeData,
   TreeWateringData,
 } from "../../components/tree-detail/tree-types";
@@ -73,6 +74,7 @@ test("should calculate correct water needs for grownup tree", () => {
   };
 
   const { treeAgeClassification } = useTreeAgeClassification(treeData);
+  expect(treeAgeClassification).toBe(TreeAgeClassification.GROWNUP);
 
   const {
     rainSum,
