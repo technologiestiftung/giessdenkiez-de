@@ -6,7 +6,35 @@ const en: Content = {
   },
   navbar: {
     map: "Map",
-    profile: "Profile",
+    profile: {
+      sidebarLabel: "Profile",
+      title: "Your profile",
+      overview: {
+        subtitle: "Your overview",
+        irrigations: "irrigations",
+        liter: "Liter",
+        adoptedTrees: "Adopted trees",
+      },
+      adoptedTrees: {
+        subtitle: "Adopted trees",
+        irrigationTimes: "Times",
+        irrigationAmount: "Liter",
+        showAll: "Show all",
+        showLess: "Show less",
+      },
+      settings: {
+        subtitle: "Profile details",
+        username: "Username",
+        placeholderUser: "Your username",
+        email: "Registered email address",
+        placeholderMail: "xyz@ts.berlin",
+        password: "Password",
+        changePassword: "Change password",
+        deleteAccount: "Delete account",
+        approve: "Done",
+      },
+      logOut: "Log out",
+    },
     info: "Info",
   },
   notFound: {
