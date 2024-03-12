@@ -1,3 +1,4 @@
+import { TreeAgeClassification } from "./tree-types";
 export enum TreeAgeClassification {
   BABY = "BABY",
   JUNIOR = "JUNIOR",
@@ -26,8 +27,6 @@ export interface TreeData {
 
 export interface TreeDataState {
   treeData: TreeData | undefined;
-  treeAge: number | undefined;
-  treeAgeClassification: TreeAgeClassification;
 }
 
 export interface TreeWateringData {
@@ -67,5 +66,10 @@ export interface WaterCircleProps {
   parts: ProgressPart[];
   needsWaterAmount: number;
   shouldBeWatered: boolean;
+  treeAgeClassification: TreeAgeClassification;
+}
+
+export interface TreeAgeClassificationState {
+  treeAge: number | undefined;
   treeAgeClassification: TreeAgeClassification;
 }

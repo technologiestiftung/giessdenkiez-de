@@ -10,17 +10,23 @@ import { useI18nStore } from "../../i18n/i18n-store";
 import TreeWaterNeed from "./tree-water-needs";
 import TreeWaterNeedUnknown from "./tree-water-need-unknown";
 import { TreeAgeClassification } from "./tree-types";
+import { useTreeAgeClassification } from "./hooks/use-tree-age-classification";
 
 const TreeDetail: React.FC = () => {
   const i18n = useI18nStore().i18n();
-  const url = useUrlState((state) => state.url);
-  const setPathname = useUrlState((state) => state.setPathname);
 
+  const [url, setPathname] = useUrlState((state) => [
+    state.url,
+    state.setPathname,
+  ]);
   const treeId = url.searchParams.get("treeId")!;
-  const { treeData, treeAge, treeAgeClassification } = useTreeData(treeId);
 
   const { setTreeData } = useTreeStore();
   const { setSelectedTreeId } = useSelectedTree();
+  const { treeData } = useTreeData(treeId);
+  const { treeAge, treeAgeClassification } = useTreeAgeClassification(treeData);
+
+  console.log(treeData);
 
   return (
     <div className={`pointer-events-auto bg-white`}>

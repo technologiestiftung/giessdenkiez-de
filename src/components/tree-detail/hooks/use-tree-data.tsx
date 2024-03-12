@@ -3,10 +3,6 @@ import { useTreeStore } from "../tree-store";
 import { TreeAgeClassification, TreeDataState } from "../tree-types";
 
 export function useTreeData(treeId: string | undefined): TreeDataState {
-  const BABY_AGE_LIMIT = 4;
-  const JUNIOR_TREES_AGE_LIMIT = 14;
-  const SENIOR_TREES_AGE_LIMIT = 40;
-
   const [treeData, setTreeData] = useTreeStore((store) => [
     store.treeData,
     store.setTreeData,
@@ -17,27 +13,6 @@ export function useTreeData(treeId: string | undefined): TreeDataState {
     return treeData.pflanzjahr === 0
       ? undefined
       : new Date().getFullYear() - treeData.pflanzjahr;
-  }, [treeData]);
-
-  const treeAgeClassification = useMemo(() => {
-    if (
-      !treeData ||
-      !treeData.standalter ||
-      treeData.standalter === "undefined"
-    ) {
-      return TreeAgeClassification.UNKNOWN;
-    }
-    const age = parseInt(treeData.standalter);
-    if (age <= BABY_AGE_LIMIT) {
-      return TreeAgeClassification.BABY;
-    }
-    if (age <= JUNIOR_TREES_AGE_LIMIT) {
-      return TreeAgeClassification.JUNIOR;
-    }
-    if (age <= SENIOR_TREES_AGE_LIMIT) {
-      return TreeAgeClassification.GROWNUP;
-    }
-    return TreeAgeClassification.SENIOR;
   }, [treeData]);
 
   useEffect(() => {
@@ -69,5 +44,5 @@ export function useTreeData(treeId: string | undefined): TreeDataState {
     };
   }, [treeId]);
 
-  return { treeData, treeAge, treeAgeClassification };
+  return { treeData, treeAge };
 }

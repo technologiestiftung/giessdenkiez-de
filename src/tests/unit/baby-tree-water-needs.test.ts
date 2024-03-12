@@ -1,10 +1,10 @@
 import { expect, test } from "vitest";
+import { useTreeAgeClassification } from "../../components/tree-detail/hooks/use-tree-age-classification";
+import { useTreeWaterNeedsData } from "../../components/tree-detail/hooks/use-tree-water-needs-data";
 import {
-  TreeAgeClassification,
   TreeData,
   TreeWateringData,
 } from "../../components/tree-detail/tree-types";
-import { useTreeWaterNeedsData } from "../../components/tree-detail/hooks/use-tree-water-needs-data";
 
 test("should calculate correct water needs for baby tree", () => {
   const waterings: TreeWateringData[] = [
@@ -38,7 +38,7 @@ test("should calculate correct water needs for baby tree", () => {
     },
   ];
 
-  const babyTreeData: TreeData = {
+  const treeData: TreeData = {
     id: "_22002d8af7",
     lat: "13.54072",
     lng: "52.57403",
@@ -86,13 +86,23 @@ test("should calculate correct water needs for baby tree", () => {
     caretaker: null,
   };
 
-  const { rainSum, wateringSum, referenceWaterAmount } = useTreeWaterNeedsData(
-    babyTreeData,
-    waterings,
-    TreeAgeClassification.BABY,
-  );
+  const { treeAgeClassification } = useTreeAgeClassification(treeData);
+
+  const {
+    rainSum,
+    rainPercentage,
+    wateringSum,
+    wateringPercentage,
+    referenceWaterAmount,
+    shouldBeWatered,
+    waterParts,
+  } = useTreeWaterNeedsData(treeData, waterings, treeAgeClassification);
 
   expect(rainSum).toBe(2);
   expect(wateringSum).toBe(100);
   expect(referenceWaterAmount).toBe(200);
+  expect(rainPercentage).toBe(0.01);
+  expect(wateringPercentage).toBe(0.99);
+  expect(shouldBeWatered).toBe(false);
+  expect(waterParts.map((p) => p.progress)).toEqual([0.01, 0.99]);
 });
