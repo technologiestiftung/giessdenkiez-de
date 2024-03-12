@@ -23,7 +23,7 @@ const TreeCard: React.FC<TreeCardProps> = ({
       className="flex flex-col gap-3 rounded-2xl border p-4 shadow-sm"
     >
       <a
-        className="py-2 font-semibold text-blue-600"
+        className="py-2 font-semibold text-blue-600 hover:text-gdk-light-blue"
         href={`/map?treeId=${id}`}
       >
         {name}

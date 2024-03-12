@@ -1,4 +1,3 @@
-// <p> </p> input field submit + button
 import React, { Dispatch, SetStateAction } from "react";
 import { useI18nStore } from "../../i18n/i18n-store.ts";
 
@@ -34,7 +33,10 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
         {disabled && (
           <div className="flex flex-row justify-between gap-x-8">
             <p className="italic">{placeholder}</p>
-            <button className="self-end text-gdk-blue" onClick={onClick}>
+            <button
+              className="self-end text-gdk-blue enabled:hover:text-gdk-light-blue"
+              onClick={onClick}
+            >
               {icon}
             </button>
           </div>
@@ -50,7 +52,7 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
               placeholder={placeholder}
             />
             <button
-              className="mt-2 cursor-pointer self-end font-semibold text-gdk-blue md:mt-0 md:self-center"
+              className="mt-2 cursor-pointer self-end font-semibold text-gdk-blue enabled:hover:text-gdk-light-blue md:mt-0 md:self-center"
               type="submit"
             >
               {i18n.navbar.profile.settings.approve}
