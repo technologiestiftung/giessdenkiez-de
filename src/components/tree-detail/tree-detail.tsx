@@ -11,6 +11,7 @@ import TreeWaterNeed from "./tree-water-needs";
 import TreeWaterNeedUnknown from "./tree-water-need-unknown";
 import { TreeAgeClassification } from "./tree-types";
 import { useTreeAgeClassification } from "./hooks/use-tree-age-classification";
+import LastWaterings from "./last-waterings";
 
 const TreeDetail: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -25,8 +26,6 @@ const TreeDetail: React.FC = () => {
   const { setSelectedTreeId } = useSelectedTree();
   const { treeData } = useFetchTreeData(treeId);
   const { treeAge, treeAgeClassification } = useTreeAgeClassification(treeData);
-
-  console.log(treeData);
 
   return (
     <div className={`pointer-events-auto bg-white`}>
@@ -69,6 +68,7 @@ const TreeDetail: React.FC = () => {
                 treeAgeClassification={treeAgeClassification}
               />
             )}
+            {treeData && <LastWaterings treeData={treeData}></LastWaterings>}
           </div>
         )}
       </div>
