@@ -10,7 +10,7 @@ const ProfileDetails: React.FC = () => {
   const [emailIsDisabled, setEmailDisabled] = useState(true);
 
   return (
-    <div className="mb-3 md:rounded-2xl md:border-2 md:p-7 md:shadow-sm">
+    <div className="md:shadow-gdk-soft mb-3 md:rounded-2xl md:border-2 md:p-7">
       <h2 className="text-2xl font-semibold">
         {i18n.navbar.profile.settings.subtitle}
       </h2>

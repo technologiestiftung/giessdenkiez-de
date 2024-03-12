@@ -25,8 +25,8 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`pointer-events-auto
-      flex h-auto w-full justify-center rounded-tl-3xl rounded-tr-3xl bg-white pt-0 shadow 
+      className={`shadow-gdk-hard
+      pointer-events-auto flex h-auto w-full justify-center rounded-tl-3xl rounded-tr-3xl bg-white pt-0 
       lg:h-full lg:w-auto lg:justify-start lg:rounded-br lg:rounded-tl-none lg:rounded-tr lg:px-2 lg:pt-10`}
     >
       <div

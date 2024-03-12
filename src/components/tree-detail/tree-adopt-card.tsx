@@ -9,7 +9,7 @@ interface TreeAdoptCardProps {
 const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({ treeData }) => {
   const i18n = useI18nStore().i18n();
   return (
-    <div className="flex flex-col gap-4 rounded-lg bg-slate-100 p-4 drop-shadow-lg">
+    <div className="shadow-gdk-hard flex flex-col gap-4 rounded-lg bg-slate-100 p-4">
       <div className="flex flex-row items-center justify-between text-xl">
         <div className="font-bold">{treeData.artdtsch}</div>
         <img

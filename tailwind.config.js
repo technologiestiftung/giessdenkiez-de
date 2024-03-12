@@ -21,6 +21,11 @@ export default {
         "gdk-dark-green": "#07964E",
         "gdk-purple": "#660A9C",
       },
+      boxShadow: {
+        "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
+        "gdk-soft": "0px 3px 6px 0px rgba(184, 184, 184, 0.10);",
+        "gdk-hard": "0px 3px 6px 0px rgba(105, 105, 105, 0.20);",
+      },
     },
   },
   plugins: [],
