@@ -1,15 +1,11 @@
 import React, { useMemo, useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import {
-  isDateInCurrentMonth,
-  isDateInWeek,
-  isDateInCurrentYear,
-} from "../../utils/date-utils";
 import ChevronDown from "../icons/chevron-down";
 import ChevronRight from "../icons/chevron-right";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 import { TreeData } from "./tree-types";
 import WateringSection from "./watering-section";
+import { isSameWeek, isSameMonth, isSameYear } from "date-fns";
 
 interface LastWateringsProps {
   treeData: TreeData;
@@ -24,15 +20,15 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
 
   const wateringsThisWeek = useMemo(() => {
     return treeWateringData.filter((watering) => {
-      return isDateInWeek(new Date(watering.timestamp), now);
+      return isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 });
     });
   }, [treeWateringData]);
 
   const wateringsThisMonth = useMemo(() => {
     return treeWateringData.filter((watering) => {
       return (
-        isDateInCurrentMonth(new Date(watering.timestamp), now) &&
-        !isDateInWeek(new Date(watering.timestamp), now)
+        isSameMonth(new Date(watering.timestamp), now) &&
+        !isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 })
       );
     });
   }, [treeWateringData]);
@@ -40,9 +36,9 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
   const wateringsThisYear = useMemo(() => {
     return treeWateringData.filter((watering) => {
       return (
-        isDateInCurrentYear(new Date(watering.timestamp), now) &&
-        !isDateInCurrentMonth(new Date(watering.timestamp), now) &&
-        !isDateInWeek(new Date(watering.timestamp), now)
+        isSameYear(new Date(watering.timestamp), now) &&
+        !isSameMonth(new Date(watering.timestamp), now) &&
+        !isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 })
       );
     });
   }, [treeWateringData]);
