@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import ChevronDown from "../icons/chevron-down";
 import ChevronRight from "../icons/chevron-right";
-import { useTreeWateringData } from "./hooks/use-tree-watering-data";
-import PartialProgressCircle from "./partial-progress-circle";
+import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
 import TreeWaterNeedHint from "./tree-water-needs-hint";
 import { TreeAgeClassification, TreeData } from "./tree-types";
 import { useI18nStore } from "../../i18n/i18n-store";
+import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
+import WaterProgressCircle from "./water-progress-circle";
 
 interface TreeWaterNeedProps {
   treeData: TreeData;
@@ -21,6 +22,8 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
   const [isExpanded, setIsExpanded] = useState(true);
   const [showInfoBox, setShowInfoBox] = useState(false);
 
+  const { treeWateringData } = useFetchTreeWateringData(treeData);
+
   const {
     rainSum,
     wateringSum,
@@ -28,7 +31,7 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
     stillMissingWater,
     waterParts,
     shouldBeWatered,
-  } = useTreeWateringData(treeData, treeAgeClassification);
+  } = useTreeWaterNeedsData(treeData, treeWateringData, treeAgeClassification);
 
   return (
     <div className="flex flex-col gap-4 border-b-2 py-8">
@@ -86,7 +89,7 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
           )}
 
           <div className="flex flex-row items-center justify-start gap-4">
-            <PartialProgressCircle
+            <WaterProgressCircle
               parts={waterParts}
               needsWaterAmount={stillMissingWater}
               shouldBeWatered={shouldBeWatered}

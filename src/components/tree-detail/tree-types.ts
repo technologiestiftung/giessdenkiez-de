@@ -39,7 +39,6 @@ export interface TreeWateringData {
 }
 
 export interface TreeWateringDataState {
-  treeWateringData: TreeWateringData[];
   rainSum: number;
   wateringSum: number;
   rainPercentage: number;
@@ -47,8 +46,11 @@ export interface TreeWateringDataState {
   referenceWaterAmount: number;
   stillMissingWater: number;
   waterParts: ProgressPart[];
-  treeAgeClassification: TreeAgeClassification;
   shouldBeWatered: boolean;
+}
+
+export interface TreeFetchWateringDataState {
+  treeWateringData: TreeWateringData[];
 }
 
 export interface ProgressPart {
@@ -57,6 +59,11 @@ export interface ProgressPart {
 }
 
 export interface PartialCircleProps {
+  parts: ProgressPart[];
+  title: string;
+}
+
+export interface WaterCircleProps {
   parts: ProgressPart[];
   needsWaterAmount: number;
   shouldBeWatered: boolean;

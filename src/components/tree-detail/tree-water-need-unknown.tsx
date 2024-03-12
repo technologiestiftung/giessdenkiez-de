@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useTreeWateringData } from "./hooks/use-tree-watering-data";
+import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
 import TreeWaterNeedHint from "./tree-water-needs-hint";
 import { TreeAgeClassification, TreeData } from "./tree-types";
 import { useI18nStore } from "../../i18n/i18n-store";
 import Markdown from "react-markdown";
+import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 
 interface TreeWaterNeedUnknownProps {
   treeData: TreeData;
@@ -18,11 +19,13 @@ const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 
   const [showInfoBox, setShowInfoBox] = useState(false);
 
-  const { rainSum, wateringSum } = useTreeWateringData(
+  const { treeWateringData } = useFetchTreeWateringData(treeData);
+
+  const { rainSum, wateringSum } = useTreeWaterNeedsData(
     treeData,
+    treeWateringData,
     treeAgeClassification,
   );
-
   return (
     <div className="flex flex-col gap-4 border-b-2 py-8">
       <div className="flex flex-row items-center gap-2">
