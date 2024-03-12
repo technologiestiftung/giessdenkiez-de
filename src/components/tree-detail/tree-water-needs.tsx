@@ -18,7 +18,7 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 }) => {
   const i18n = useI18nStore().i18n();
 
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [showInfoBox, setShowInfoBox] = useState(false);
 
   const {
