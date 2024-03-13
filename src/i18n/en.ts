@@ -175,8 +175,11 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
   treeDetail: {
     title: "Tree information",
     adoptIt: "Adopt this tree",
-    alreadyAdoptedBy: "Also adopted by other users",
+    alsoAdoptedBy: "Also adopted by other users",
+    exclusivelyAdoptedBy: "Adopted by other users",
     ageTitle: "Age",
+    adoptLoading: "Tree is being adopted...",
+    isAdopted: "You have adopted this tree",
     age: (age: number) => `${age} years`,
     ageUnknown: "Unknown",
     managedBy:

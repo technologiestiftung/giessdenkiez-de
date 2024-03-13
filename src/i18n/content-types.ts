@@ -105,7 +105,10 @@ interface LastWaterings {
 interface TreeDetail {
   title: string;
   adoptIt: string;
-  alreadyAdoptedBy: string;
+  alsoAdoptedBy: string;
+  exclusivelyAdoptedBy: string;
+  adoptLoading: string;
+  isAdopted: string;
   ageTitle: string;
   age: (age: number) => string;
   ageUnknown: string;

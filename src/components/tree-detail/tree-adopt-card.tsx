@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import { TreeAgeClassification, TreeData } from "./tree-types";
 import { useAdoptTree } from "./hooks/use-adopt-tree";
+import { TreeAgeClassification, TreeData } from "./tree-types";
 
 interface TreeAdoptCardProps {
   treeData: TreeData;
@@ -15,12 +15,8 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
   const [heartHovered, setHeartHovered] = useState(false);
   const i18n = useI18nStore().i18n();
 
-  // TODO: replace with actual userId
-  const userId = "cc8f3c60-3b2c-46f6-b1b7-2453478d77ee";
-  const token = "TODO";
-
-  const { adoptTree, unadoptTree, isAdopted } = useAdoptTree();
-  console.log(isAdopted);
+  const { adoptTree, unadoptTree, isAdopted, isLoading, adoptedByOthers } =
+    useAdoptTree(treeData.id);
 
   return (
     <div className="shadow-gdk-hard flex flex-col gap-4 rounded-lg bg-slate-100 p-4">
@@ -30,9 +26,9 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
         <button
           onClick={async () => {
             if (!isAdopted) {
-              await adoptTree(userId, treeData.id, token);
+              await adoptTree();
             } else {
-              await unadoptTree(userId, treeData.id, token);
+              await unadoptTree();
             }
           }}
           onMouseEnter={() => setHeartHovered(true)}
@@ -68,7 +64,13 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
       {treeAgeClassification !== TreeAgeClassification.BABY && (
         <div className="flex flex-col gap-4">
           <div className="flex flex-row items-center justify-between">
-            <div className="text-slate-500">{i18n.treeDetail.adoptIt}</div>
+            <div className="text-slate-500">
+              {isLoading
+                ? "Baum wird adoptiert..."
+                : isAdopted
+                  ? i18n.treeDetail.isAdopted
+                  : i18n.treeDetail.adoptIt}
+            </div>
             <img
               src="/images/info-icon.svg"
               alt="Tree Icon"
@@ -76,17 +78,21 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
               height={24}
             />
           </div>
-          <div className="items-left flex flex-row gap-2">
-            <img
-              src="/images/hi-there-icon.svg"
-              alt="Tree Icon"
-              width={24}
-              height={24}
-            />
-            <div className="italic leading-tight text-slate-500">
-              {i18n.treeDetail.alreadyAdoptedBy}
+          {adoptedByOthers && (
+            <div className="items-left flex flex-row gap-2">
+              <img
+                src="/images/hi-there-icon.svg"
+                alt="Tree Icon"
+                width={24}
+                height={24}
+              />
+              <div className="italic leading-tight text-slate-500">
+                {isAdopted
+                  ? i18n.treeDetail.alsoAdoptedBy
+                  : i18n.treeDetail.exclusivelyAdoptedBy}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>

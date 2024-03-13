@@ -172,7 +172,10 @@ Vernetzen:
   treeDetail: {
     title: "Bauminformationen",
     adoptIt: "Diesen Baum adoptieren",
-    alreadyAdoptedBy: "Auch von anderen User:innen adoptiert",
+    alsoAdoptedBy: "Auch von anderen User:innen adoptiert",
+    exclusivelyAdoptedBy: "Von anderen User:innen adoptiert",
+    adoptLoading: "Baum wird adoptiert...",
+    isAdopted: "Du hast diesen Baum adoptiert",
     ageTitle: "Standalter",
     age: (age: number) => `${age} Jahre`,
     ageUnknown: "Unbekannt",
