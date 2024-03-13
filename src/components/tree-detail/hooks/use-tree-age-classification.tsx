@@ -7,7 +7,7 @@ import {
 export function useTreeAgeClassification(
   treeData: TreeData | undefined,
 ): TreeAgeClassificationState {
-  const BABY_AGE_LIMIT = 4;
+  const BABY_AGE_LIMIT = 3;
   const JUNIOR_TREES_AGE_LIMIT = 14;
   const SENIOR_TREES_AGE_LIMIT = 40;
 

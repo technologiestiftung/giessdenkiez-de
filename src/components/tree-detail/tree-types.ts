@@ -59,6 +59,7 @@ export interface ProgressPart {
 export interface PartialCircleProps {
   parts: ProgressPart[];
   title: string;
+  size: number;
 }
 
 export interface WaterCircleProps {
@@ -66,6 +67,7 @@ export interface WaterCircleProps {
   needsWaterAmount: number;
   shouldBeWatered: boolean;
   treeAgeClassification: TreeAgeClassification;
+  size: number;
 }
 
 export interface TreeAgeClassificationState {

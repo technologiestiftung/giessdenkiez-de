@@ -4,9 +4,10 @@ import { PartialCircleProps } from "./tree-types";
 const PartialProgressCircle: React.FC<PartialCircleProps> = ({
   parts,
   title,
+  size,
 }) => {
-  const size = 200;
-  const dasharray = 2 * Math.PI * 80;
+  const scale = 0.45;
+  const dasharray = 2 * Math.PI * (size * scale);
   return (
     <div className="grid grid-cols-1 grid-rows-1">
       <div className="col-start-1 row-start-1 flex items-center justify-center">
@@ -14,12 +15,12 @@ const PartialProgressCircle: React.FC<PartialCircleProps> = ({
           <circle
             cx={size / 2}
             cy={size / 2}
-            r={size * 0.4}
+            r={size * scale}
             fill="none"
             stroke="#ddd"
             strokeWidth="15"
             strokeDasharray={dasharray.toString()}
-            transform="rotate(-90 100 100)"
+            transform={`rotate(-90 ${size / 2} ${size / 2})`}
           />
         </svg>
       </div>
@@ -40,13 +41,13 @@ const PartialProgressCircle: React.FC<PartialCircleProps> = ({
               <circle
                 cx={size / 2}
                 cy={size / 2}
-                r={size * 0.4}
+                r={size * scale}
                 fill="none"
                 stroke={part.color}
                 strokeWidth="15"
                 strokeDasharray={dasharray.toString()}
                 strokeDashoffset={((1 - part.progress) * dasharray).toString()}
-                transform={`rotate(${-90 + rotate} 100 100)`}
+                transform={`rotate(${-90 + rotate} ${size / 2} ${size / 2})`}
               ></circle>
             </svg>
           </div>

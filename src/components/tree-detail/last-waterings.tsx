@@ -18,8 +18,6 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeData }) => {
 
   const { treeWateringData } = useFetchTreeWateringData(treeData);
 
-  console.log(treeWateringData);
-
   const wateringsThisWeek = useMemo(() => {
     return treeWateringData.filter((watering) => {
       return isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 });

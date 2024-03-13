@@ -94,10 +94,11 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
               needsWaterAmount={stillMissingWater}
               shouldBeWatered={shouldBeWatered}
               treeAgeClassification={treeAgeClassification}
+              size={200}
             />
             <div className="flex flex-col gap-3">
               <div className="flex flex-row items-center gap-4">
-                <div className="h-5 w-5 rounded-full bg-[#1169EE]"></div>
+                <div className="h-5 min-h-5 w-5 min-w-5  rounded-full bg-[#1169EE]"></div>
                 <div className="flex flex-col">
                   <div className="font-bold">
                     {rainSum} {i18n.treeDetail.waterNeed.liters}*
@@ -107,7 +108,7 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
               </div>
               {treeAgeClassification === TreeAgeClassification.BABY && (
                 <div className="flex flex-row items-center gap-4">
-                  <div className="h-5 w-5 rounded-full bg-[#3DF99A]"></div>
+                  <div className="h-5 min-h-5 w-5 min-w-5  rounded-full bg-[#3DF99A]"></div>
                   <div className="flex flex-col">
                     <div className="font-bold">
                       {i18n.treeDetail.waterNeed.manager}
@@ -118,7 +119,7 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
               )}
               {treeAgeClassification !== TreeAgeClassification.BABY && (
                 <div className="flex flex-row items-center gap-4">
-                  <div className="h-5 w-5 rounded-full bg-[#3DF99A]"></div>
+                  <div className="h-5 min-h-5 w-5 min-w-5  rounded-full bg-[#3DF99A]"></div>
                   <div className="flex flex-col">
                     <div className="font-bold">
                       {wateringSum} {i18n.treeDetail.waterNeed.liters}*
@@ -130,7 +131,7 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
               {shouldBeWatered &&
                 treeAgeClassification !== TreeAgeClassification.SENIOR && (
                   <div className="flex flex-row items-center gap-4">
-                    <div className="h-5 w-5 rounded-full bg-[#ddd]"></div>
+                    <div className="h-5 min-h-5 w-5 min-w-5 rounded-full bg-[#ddd]"></div>
                     <div className="flex flex-col">
                       <div className="font-bold">
                         {stillMissingWater} {i18n.treeDetail.waterNeed.liters}

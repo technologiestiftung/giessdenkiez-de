@@ -8,8 +8,8 @@ const WaterProgressCircle: React.FC<WaterCircleProps> = ({
   needsWaterAmount,
   shouldBeWatered,
   treeAgeClassification,
+  size,
 }) => {
-  console.log(parts, needsWaterAmount, shouldBeWatered, treeAgeClassification);
   const i18n = useI18nStore().i18n();
 
   const circleTitle = useMemo(() => {
@@ -35,8 +35,12 @@ const WaterProgressCircle: React.FC<WaterCircleProps> = ({
   }, [treeAgeClassification]);
 
   return (
-    <div className="grid grid-cols-1 grid-rows-1">
-      <PartialProgressCircle parts={parts} title={circleTitle} />
+    <div className={`grid w-[${size}px] grid-cols-1 grid-rows-1`}>
+      <PartialProgressCircle
+        parts={parts}
+        title={circleTitle}
+        size={size * 0.9}
+      />
     </div>
   );
 };
