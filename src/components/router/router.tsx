@@ -7,6 +7,7 @@ import Profile from "../profile/profile";
 import TreeDetail from "../tree-detail/tree-detail";
 import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
+import PasswordReset from "../profile/password-reset";
 
 const Router: React.FC = () => {
   const url = useUrlState((state) => state.url);
@@ -39,9 +40,16 @@ const Router: React.FC = () => {
           )}
         </div>
       );
+    case "/profile/reset-password":
+      return (
+        <div className="pointer-events-auto flex h-screen w-screen flex-col-reverse justify-between bg-white lg:flex-row">
+          <Navbar />
+          <PasswordReset />
+        </div>
+      );
     case "/profile":
       return (
-        <div className="pointer-events-auto flex h-screen w-screen flex-col flex-col-reverse justify-between bg-white lg:flex-row">
+        <div className="pointer-events-auto flex h-screen w-screen flex-col-reverse justify-between bg-white lg:flex-row">
           <Navbar />
           <Profile />
         </div>
