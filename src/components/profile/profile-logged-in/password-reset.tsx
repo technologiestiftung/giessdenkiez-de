@@ -1,7 +1,6 @@
 import React from "react";
 import { useAuthStore } from "../../../auth/auth-store";
 import PasswordInputWithValidation from "../validation/password-input-with-validation";
-import TertiaryButton from "../../buttons/tertiary";
 import PrimaryButton from "../../buttons/primary";
 
 const PasswordReset: React.FC = () => {
@@ -26,7 +25,12 @@ const PasswordReset: React.FC = () => {
         </div>
 
         <div className="md: flex flex-row items-center justify-between gap-24 pt-11">
-          <TertiaryButton label="Abbrechen" onClick={() => {}} />
+          <a
+            className="font-semibold text-gdk-blue hover:text-gdk-light-blue"
+            href="/profile"
+          >
+            Abbrechen
+          </a>
           <PrimaryButton type="submit" label="Speichern" />
         </div>
       </form>

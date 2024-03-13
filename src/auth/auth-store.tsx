@@ -14,6 +14,7 @@ interface RegistrationCredentials extends Credentials {
 interface AuthState {
   session: Session | null | undefined;
   isLoggedIn: () => boolean | undefined;
+  getUserData: () => void | undefined;
   login: ({ email, password }: Credentials) => void;
   logout: () => void;
   register: ({ email, username, password }: RegistrationCredentials) => void;
@@ -40,6 +41,14 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       }
 
       return !!get().session;
+    },
+
+    getUserData: () => {
+      if (get().session === undefined) {
+        return undefined;
+      }
+
+      return get().session?.user;
     },
 
     login: async ({ email, password }) => {
@@ -134,7 +143,13 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       }
 
       if (data) {
-        alert("Dein Passwort wurde geändert!");
+        if (
+          window.confirm(
+            'Dein Passwort wurde geändert. Klicke auf "ok" um zu deinem Profil zu kommen.',
+          )
+        ) {
+          window.location.href = "/profile";
+        }
       }
 
       console.log("Update password success:", data);
