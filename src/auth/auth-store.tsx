@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { Session } from "@supabase/supabase-js";
-import { supabaseClient } from "./supabase-client.ts";
+import { Session, User } from "@supabase/supabase-js";
+import { supabaseClient } from "./supabase-client";
+import { useUrlState } from "../components/router/store";
 
 interface Credentials {
   email: string;
@@ -14,15 +15,21 @@ interface RegistrationCredentials extends Credentials {
 interface AuthState {
   session: Session | null | undefined;
   isLoggedIn: () => boolean | undefined;
+  getUserData: () => User | undefined;
   login: ({ email, password }: Credentials) => void;
   logout: () => void;
-  register: ({ email, username, password }: RegistrationCredentials) => void;
-  forgotPassword: (email: string) => void;
-  updatePassword: (password: string) => void;
+  register: ({
+    email,
+    username,
+    password,
+  }: RegistrationCredentials) => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
+  updatePassword: (password: string) => Promise<void>;
+  updateEmail: (email: string) => Promise<void>;
+  updateUsername: (username: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>()((set, get) => {
-  console.log("initialize auth store");
   supabaseClient.auth.getSession().then(({ data: { session } }) => {
     set({ session });
   });
@@ -39,7 +46,15 @@ export const useAuthStore = create<AuthState>()((set, get) => {
         return undefined;
       }
 
-      return !!get().session;
+      return get().session !== null && get().session !== undefined;
+    },
+
+    getUserData: () => {
+      if (get().session === undefined) {
+        return undefined;
+      }
+
+      return get().session?.user;
     },
 
     login: async ({ email, password }) => {
@@ -49,30 +64,23 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       });
 
       if (error) {
-        console.error(error);
-        return;
+        throw error;
       }
 
       if (!data) {
-        console.error("data is null");
-        return;
+        throw new Error("data is null");
       }
 
-      console.log("login success:", data);
       set({ session: data.session });
     },
 
     logout: async () => {
-      console.log("onLogout");
-
       const { error } = await supabaseClient.auth.signOut();
 
       if (error) {
-        console.error(error);
-        return;
+        throw error;
       }
 
-      console.log("success logout");
       set({ session: null });
     },
 
@@ -88,16 +96,13 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       });
 
       if (error) {
-        console.error(error);
-        return;
+        throw error;
       }
 
       if (!data) {
-        console.error("data is null");
-        return;
+        throw new Error("data is null");
       }
 
-      console.log("login success:", data);
       set({ session: data.session });
     },
 
@@ -133,11 +138,56 @@ export const useAuthStore = create<AuthState>()((set, get) => {
         throw error;
       }
 
-      if (data) {
-        alert("Dein Passwort wurde geändert!");
+      if (!data) {
+        throw new Error("data is null");
       }
 
-      console.log("Update password success:", data);
+      if (
+        !window.confirm(
+          'Dein Passwort wurde geändert. Klicke auf "ok" um zu deinem Profil zu kommen.',
+        )
+      ) {
+        return;
+      }
+
+      useUrlState.getState().setPathname("/profile");
+    },
+
+    updateEmail: async (email: string) => {
+      const { data, error } = await supabaseClient.auth.updateUser({
+        email: email,
+      });
+
+      if (error) {
+        alert(error.message);
+        throw error;
+      }
+
+      if (!data) {
+        throw new Error("data is null");
+      }
+
+      alert(
+        "Wir haben an Deine alte und neue E–Mail einen Bestätigungslink zum Ändern Deiner Email gesendet. Checke Deine Postfächer und logge Dich neu ein!",
+      );
+    },
+
+    updateUsername: async (username: string) => {
+      const { data, error } = await supabaseClient.auth.updateUser({
+        data: {
+          signup_username: username,
+        },
+      });
+
+      if (error) {
+        alert(error.message);
+
+        throw error;
+      }
+
+      if (!data) {
+        throw new Error("data is null");
+      }
     },
   };
 });

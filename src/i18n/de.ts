@@ -53,8 +53,10 @@ const de: Content = {
       settings: {
         subtitle: "Profildetails",
         username: "Benutzername",
+        editUsername: "Neuer Benutzername",
         placeholderUser: "Dein Benutzername",
         email: "Registrierte E-Mail Adresse",
+        editEmail: "Neue E-Mail Adresse",
         placeholderMail: "xyz@ts.berlin",
         password: "Passwort",
         changePassword: "Passwort ändern",

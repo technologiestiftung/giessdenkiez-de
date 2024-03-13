@@ -1,12 +1,28 @@
 import React from "react";
 import TextInput from "../../input/text-input";
 
-const EmailInputWithValidation: React.FC = () => {
+export interface EmailInputValidationProps {
+  label: string | React.ReactNode;
+  defaultValue?: string;
+}
+
+const EmailInputWithValidation: React.FC<EmailInputValidationProps> = ({
+  label,
+  defaultValue,
+}) => {
   return (
-    <>
-      <label htmlFor="email">Email</label>
-      <TextInput type="email" id="email" required name="email" />
-    </>
+    <div className="flex-auto">
+      <label className="mb-2 font-semibold" htmlFor="email">
+        {label}
+      </label>
+      <TextInput
+        type="email"
+        id="email"
+        name="email"
+        required
+        defaultValue={defaultValue}
+      />
+    </div>
   );
 };
 

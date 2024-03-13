@@ -44,8 +44,10 @@ interface Navbar {
     settings: {
       subtitle: string;
       username: string;
+      editUsername: string;
       placeholderUser: string;
       email: string;
+      editEmail: string;
       placeholderMail: string;
       password: string;
       changePassword: string;
