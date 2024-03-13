@@ -48,6 +48,7 @@ const LocationSearch: React.FC = () => {
         zoom: MAX_ZOOM_LEVEL,
       });
     setSelectedGeocodingResult(geocodingResult);
+    setSelectedGeocodingResultIndex(0);
     clearGeocodingResults();
   };
 
@@ -115,7 +116,7 @@ const LocationSearch: React.FC = () => {
             {geocodingResults.map((geocodingResult, idx) => (
               <button
                 key={`geocoding-result-${idx}`}
-                className={`truncate px-4 py-4 text-left hover:cursor-pointer hover:bg-sky-100 ${selectedGeocodingResultIndex === idx && "bg-sky-100"}`}
+                className={`truncate px-4 py-4 text-left hover:cursor-pointer hover:bg-gdk-lighter-blue ${selectedGeocodingResultIndex === idx && "bg-gdk-lighter-blue"}`}
                 onClick={() => onGeocodingResultClick(geocodingResult)}
               >
                 {geocodingResult.place_name_de}
