@@ -13,7 +13,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@supabase/supabase-js": "2.39.7",
+    "@supabase/supabase-js": "2.39.8",
     "date-fns": "3.4.0",
     "mapbox-gl": "3.2.0",
     "react": "18.2.0",
