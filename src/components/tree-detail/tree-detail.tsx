@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import CloseIcon from "../icons/close-icon";
 import { useUrlState } from "../router/store";
 import { useFetchTreeData } from "./hooks/use-fetch-tree-data";
@@ -13,6 +13,7 @@ import { TreeAgeClassification } from "./tree-types";
 import { useTreeAgeClassification } from "./hooks/use-tree-age-classification";
 import LastWaterings from "./last-waterings";
 import ProblemCard from "./problem-card";
+import TreeFlier from "./tree-flier";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 
 const TreeDetail: React.FC = () => {
@@ -30,6 +31,11 @@ const TreeDetail: React.FC = () => {
   const { treeWateringData } = useFetchTreeWateringData(treeData);
 
   const { treeAge, treeAgeClassification } = useTreeAgeClassification(treeData);
+  const treeTypeInfo = useMemo(() => {
+    return i18n.treeDetail.treeTypeInfos.find(
+      (treeType) => treeType.id === treeData?.gattungdeutsch,
+    );
+  }, [treeData]);
 
   return (
     <div className={`pointer-events-auto bg-white`}>
@@ -62,6 +68,9 @@ const TreeDetail: React.FC = () => {
               treeData={treeData}
               treeAgeClassification={treeAgeClassification}
             />
+            {treeTypeInfo && (
+              <TreeFlier info={treeTypeInfo.description}></TreeFlier>
+            )}
             <TreeAge treeAge={treeAge} />
             {treeAgeClassification !== TreeAgeClassification.UNKNOWN && (
               <TreeWaterNeed

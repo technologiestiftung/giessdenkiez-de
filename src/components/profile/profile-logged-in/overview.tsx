@@ -1,5 +1,5 @@
 import React from "react";
-import { useI18nStore } from "../../i18n/i18n-store.ts";
+import { useI18nStore } from "../../../i18n/i18n-store";
 
 const Overview: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -19,7 +19,7 @@ const Overview: React.FC = () => {
   );
 
   return (
-    <div className="md:shadow-gdk-soft mb-3 md:rounded-2xl md:border md:border-2 md:p-7">
+    <div className="md:shadow-gdk-soft mb-3 md:rounded-2xl md:border-2 md:p-7">
       <h2 className="text-2xl font-semibold">
         {i18n.navbar.profile.overview.subtitle}
       </h2>

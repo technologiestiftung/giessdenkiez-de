@@ -1,8 +1,8 @@
 import React from "react";
-import { useAuthStore } from "../../auth/auth-store";
-import PrimaryButton from "../buttons/primary";
-import TextInput from "../input/text-input";
-import { useUrlState } from "../router/store";
+import { useAuthStore } from "../../../auth/auth-store";
+import PrimaryButton from "../../buttons/primary";
+import TextInput from "../../input/text-input";
+import { useUrlState } from "../../router/store";
 
 const Login: React.FC = () => {
   const { login } = useAuthStore();

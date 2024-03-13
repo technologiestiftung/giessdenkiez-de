@@ -1,3 +1,24 @@
+type TreeTypeId =
+  | "LINDE"
+  | "AHORN"
+  | "EICHE"
+  | "KASTANIE"
+  | "ROSSKASTANIE"
+  | "PLATANE"
+  | "ESCHE"
+  | "BIRKE"
+  | "ROBINIE"
+  | "ULME"
+  | "HASEL"
+  | "HAINBUCHE"
+  | "PAPPEL";
+
+interface TreeTypeInfo {
+  id: TreeTypeId;
+  title: string;
+  description: string;
+}
+
 interface LocationSearch {
   placeholder: string;
 }
@@ -117,6 +138,8 @@ interface TreeDetail {
   lastWaterings: LastWaterings;
   problem: Problem;
   managedBy: string;
+  treeTypeInfos: TreeTypeInfo[];
+  treeTypeInfoTitle: string;
 }
 
 export interface Content {

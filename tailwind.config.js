@@ -20,6 +20,7 @@ export default {
         "gdk-dark-blue": "#0948A7",
         "gdk-dark-green": "#07964E",
         "gdk-purple": "#660A9C",
+        "gdk-orange": "#FF8617",
       },
       boxShadow: {
         "3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
