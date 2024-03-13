@@ -66,7 +66,9 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
           <div className="flex flex-row items-center justify-between">
             <div className="text-slate-500">
               {isLoading
-                ? "Baum wird adoptiert..."
+                ? isAdopted
+                  ? i18n.treeDetail.unadoptLoading
+                  : i18n.treeDetail.adoptLoading
                 : isAdopted
                   ? i18n.treeDetail.isAdopted
                   : i18n.treeDetail.adoptIt}

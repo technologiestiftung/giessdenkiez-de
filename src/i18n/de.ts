@@ -175,6 +175,7 @@ Vernetzen:
     alsoAdoptedBy: "Auch von anderen User:innen adoptiert",
     exclusivelyAdoptedBy: "Von anderen User:innen adoptiert",
     adoptLoading: "Baum wird adoptiert...",
+    unadoptLoading: "Adoption wird aufgehoben...",
     isAdopted: "Du hast diesen Baum adoptiert",
     ageTitle: "Standalter",
     age: (age: number) => `${age} Jahre`,

@@ -108,6 +108,7 @@ interface TreeDetail {
   alsoAdoptedBy: string;
   exclusivelyAdoptedBy: string;
   adoptLoading: string;
+  unadoptLoading: string;
   isAdopted: string;
   ageTitle: string;
   age: (age: number) => string;

@@ -179,6 +179,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
     exclusivelyAdoptedBy: "Adopted by other users",
     ageTitle: "Age",
     adoptLoading: "Tree is being adopted...",
+    unadoptLoading: "Adoption is being canceled...",
     isAdopted: "You have adopted this tree",
     age: (age: number) => `${age} years`,
     ageUnknown: "Unknown",
