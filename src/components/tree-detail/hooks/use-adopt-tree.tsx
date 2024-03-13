@@ -36,9 +36,10 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
       }
       setIsAdopted(true);
       setAdoptLoading(false);
-    } catch (_) {
-      setIsAdopted(false);
+    } catch (error) {
       setAdoptLoading(false);
+      alert(error);
+      throw error;
     }
   };
 
@@ -60,8 +61,10 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
       }
       setIsAdopted(false);
       setAdoptLoading(false);
-    } catch (_) {
+    } catch (error) {
       setAdoptLoading(false);
+      alert(error);
+      throw error;
     }
   };
 
@@ -86,8 +89,9 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
         }
         const json = await res.json();
         setIsAdopted(json.data);
-      } catch (e) {
-        setIsAdopted(false);
+      } catch (error) {
+        alert(error);
+        throw error;
       }
     };
 
@@ -108,11 +112,12 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
         const json = await res.json();
         const adoptedByOthers =
           json.data.filter(
-            (tree: any) => tree.tree_id === treeId && tree.adopted >= 1,
+            (tree: any) => tree.tree_id === treeId && tree.adopted > 1,
           ).length > 0;
         setAdoptedByOthers(adoptedByOthers);
-      } catch (e) {
-        setAdoptedByOthers(false);
+      } catch (error) {
+        alert(error);
+        throw error;
       }
     };
 
@@ -120,6 +125,8 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
       await isTreeAdoptedByUser(treeId);
       await isTreeAdoptedByOthers();
     };
+
+    console.log("fetching data", treeId);
 
     fetchData();
   }, [treeId]);

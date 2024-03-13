@@ -1,28 +1,31 @@
 import React, { useState } from "react";
+import { useI18nStore } from "../../i18n/i18n-store";
 import ChevronDown from "../icons/chevron-down";
 import ChevronRight from "../icons/chevron-right";
 import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
+import {
+  TreeAgeClassification,
+  TreeData,
+  TreeWateringData,
+} from "./tree-types";
 import TreeWaterNeedHint from "./tree-water-needs-hint";
-import { TreeAgeClassification, TreeData } from "./tree-types";
-import { useI18nStore } from "../../i18n/i18n-store";
-import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 import WaterProgressCircle from "./water-progress-circle";
 
 interface TreeWaterNeedProps {
   treeData: TreeData;
   treeAgeClassification: TreeAgeClassification;
+  treeWateringData: TreeWateringData[];
 }
 
 const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
   treeData,
   treeAgeClassification,
+  treeWateringData,
 }) => {
   const i18n = useI18nStore().i18n();
 
   const [isExpanded, setIsExpanded] = useState(true);
   const [showInfoBox, setShowInfoBox] = useState(false);
-
-  const { treeWateringData } = useFetchTreeWateringData(treeData);
 
   const {
     rainSum,

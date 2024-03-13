@@ -1,25 +1,28 @@
 import React, { useState } from "react";
-import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
-import TreeWaterNeedHint from "./tree-water-needs-hint";
-import { TreeAgeClassification, TreeData } from "./tree-types";
-import { useI18nStore } from "../../i18n/i18n-store";
 import Markdown from "react-markdown";
-import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
+import { useI18nStore } from "../../i18n/i18n-store";
+import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
+import {
+  TreeAgeClassification,
+  TreeData,
+  TreeWateringData,
+} from "./tree-types";
+import TreeWaterNeedHint from "./tree-water-needs-hint";
 
 interface TreeWaterNeedUnknownProps {
   treeData: TreeData;
   treeAgeClassification: TreeAgeClassification;
+  treeWateringData: TreeWateringData[];
 }
 
 const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
   treeData,
   treeAgeClassification,
+  treeWateringData,
 }) => {
   const i18n = useI18nStore().i18n();
 
   const [showInfoBox, setShowInfoBox] = useState(false);
-
-  const { treeWateringData } = useFetchTreeWateringData(treeData);
 
   const { rainSum, wateringSum } = useTreeWaterNeedsData(
     treeData,
