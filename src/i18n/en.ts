@@ -181,6 +181,9 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
     adoptLoading: "Tree is being adopted...",
     unadoptLoading: "Adoption is being canceled...",
     isAdopted: "You have adopted this tree",
+    adoptHintTitle: "Adopt a tree",
+    adoptHint:
+      "If you regularly water the same tree, you can subscribe to it. This way you can quickly find it in your profile overview.",
     age: (age: number) => `${age} years`,
     ageUnknown: "Unknown",
     managedBy:

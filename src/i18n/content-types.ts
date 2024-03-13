@@ -132,6 +132,8 @@ interface TreeDetail {
   unadoptLoading: string;
   isAdopted: string;
   ageTitle: string;
+  adoptHintTitle: string;
+  adoptHint: string;
   age: (age: number) => string;
   ageUnknown: string;
   waterNeed: WaterNeed;

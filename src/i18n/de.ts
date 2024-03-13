@@ -177,6 +177,9 @@ Vernetzen:
     adoptLoading: "Baum wird adoptiert...",
     unadoptLoading: "Adoption wird aufgehoben...",
     isAdopted: "Du hast diesen Baum adoptiert",
+    adoptHintTitle: "Baum adoptieren",
+    adoptHint:
+      "Wenn Du regelmäßig den gleichen Baum gießt, kannst Du diesen abonnieren. So findest Du ihn schnell in Deiner Profilübersicht wieder.",
     ageTitle: "Standalter",
     age: (age: number) => `${age} Jahre`,
     ageUnknown: "Unbekannt",

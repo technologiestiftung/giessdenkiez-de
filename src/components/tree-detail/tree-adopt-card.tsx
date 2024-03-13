@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { useAdoptTree } from "./hooks/use-adopt-tree";
 import { TreeAgeClassification, TreeData } from "./tree-types";
+import AdoptTreeDialog from "./adopt-tree-tooltip";
 
 interface TreeAdoptCardProps {
   treeData: TreeData;
@@ -12,6 +13,7 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
   treeData,
   treeAgeClassification,
 }) => {
+  const [showTooltip, setShowTooltip] = useState(false);
   const [heartHovered, setHeartHovered] = useState(false);
   const i18n = useI18nStore().i18n();
 
@@ -73,12 +75,27 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
                   ? i18n.treeDetail.isAdopted
                   : i18n.treeDetail.adoptIt}
             </div>
-            <img
-              src="/images/info-icon.svg"
-              alt="Tree Icon"
-              width={24}
-              height={24}
-            />
+            <div className="relative">
+              <button
+                onClick={() => {
+                  setShowTooltip(!showTooltip);
+                }}
+                onMouseMove={() => setShowTooltip(true)}
+                onMouseOut={() => setShowTooltip(false)}
+              >
+                <img
+                  src="/images/info-icon.svg"
+                  alt="Tree Icon"
+                  width={24}
+                  height={24}
+                />
+              </button>
+              {showTooltip && (
+                <div className="absolute right-0 top-8">
+                  <AdoptTreeDialog />
+                </div>
+              )}
+            </div>
           </div>
           {adoptedByOthers && !isAdopted && (
             <div className="items-left flex flex-row gap-2">
