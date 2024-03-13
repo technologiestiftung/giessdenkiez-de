@@ -238,6 +238,86 @@ We manage largely on our own and are happy in particularly dry phases but still 
         "Have you discovered tree damage or is the tree disk being misused? Tell the public order office!",
       link: "To the official form",
     },
+    treeTypeInfos: [
+      {
+        id: "LINDE",
+        title: "Linden (Tilia)",
+        description:
+          "The linden tree has been considered the typical Berlin street tree for years. ",
+      },
+      {
+        id: "AHORN",
+        title: "Maple (Acer)",
+        description:
+          "The maple genus comprises around 20% of the total population. ",
+      },
+      {
+        id: "EICHE",
+        title: "Oak (Quercus)",
+        description:
+          "The proportion of oak trees is around 9% of the total stock. ",
+      },
+      {
+        id: "PLATANE",
+        title: "Plane tree (Platanus)",
+        description:
+          "An ideal avenue tree for wide streets is the plane tree (Platanus acerifolia), which can reach a height of 20 to 30 m and an impressive crown diameter of 15 to 20 m. ",
+      },
+      {
+        id: "KASTANIE",
+        title: "Chestnut (Aesculus)",
+        description:
+          "The chestnut (Aesculus) accounts for about 5% of the total population, and thus occupies fifth place among Berlins street trees. Horse chestnuts have five- and multi-lobed leaves that resemble the fingers of a hand; sweet chestnuts have single leaves that are also clearly serrated.",
+      },
+      {
+        id: "ROSSKASTANIE",
+        title: "Horse chestnut (Aesculus hippocastanum)",
+        description:
+          "The horse chestnut (Aesculus hippocastanum) accounts for about 5% of the total stock. Horse chestnuts have five- and multi-lobed leaves that resemble the fingers of a hand; sweet chestnuts have single leaves that are also clearly serrated.",
+      },
+      {
+        id: "ESCHE",
+        title: "Ash (Fraxinus)",
+        description:
+          "The ash tree (Fraxinus) accounts for about 3% of the total population, and thus occupies sixth place among Berlins street trees. With a growth height of up to 40 m, it is one of the tallest deciduous trees in Europe.",
+      },
+      {
+        id: "BIRKE",
+        title: "Birch (Betula)",
+        description:
+          "The birch (Betula) accounts for about 3% of the total population. Although the birch is a pioneer tree that is very undemanding and grows on any soil, it is less suitable as a street tree because there is often too little space for the shallow-rooted trees.",
+      },
+      {
+        id: "ROBINIE",
+        title: "Robinia (Robinia)",
+        description:
+          'The robinia (Robinia) accounts for about 2% of the total population. It was cultivated as a park tree in the "Berliner Lustgarten" park from 1672 and is now very common throughout Berlin. The robinia has low soil requirements and, thanks to the nodule bacteria on its roots, it can bind atmospheric nitrogen and thus fertilize the soil.',
+      },
+      {
+        id: "HASEL",
+        title: "Hazel tree (Corylus)",
+        description:
+          "The hazel tree (Corylus) accounts for about 2% of the total population. The hazel grows as a shrub or small tree up to 6 m high.",
+      },
+      {
+        id: "HAINBUCHE",
+        title: "Hornbeam (Carpinus)",
+        description:
+          "The proportion of hornbeam (Carpinus) is around 2% of the total population. The tree reaches a height of up to 25 meters. The crown is initially slightly conical and later expands widely.",
+      },
+      {
+        id: "PAPPEL",
+        title: "Poplar (Populus)",
+        description:
+          "Poplars (Populus) make up about 2% of Berlins total population. They have ovoid to triangular, partly heart-shaped leaves.",
+      },
+      {
+        id: "ULME",
+        title: "Elm (Ulmus)",
+        description:
+          "The proportion of elms (Ulmus) is around 2% of the total population. Here we have three of the worlds 45 species of this deciduous tree: the mountain elm, the field elm and the elm with a flutter. It grows up to 600 meters high and can live to be 250 years old.",
+      },
+    ],
   },
 };
 
