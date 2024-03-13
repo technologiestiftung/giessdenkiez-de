@@ -7,7 +7,7 @@ import {
   TreeData,
   TreeWateringData,
 } from "./tree-types";
-import TreeWaterNeedHint from "./tree-water-needs-hint";
+import Tooltip from "./tooltip";
 
 interface TreeWaterNeedUnknownProps {
   treeData: TreeData;
@@ -38,18 +38,39 @@ const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
           width={36}
           height={36}
         />
-        <div className="col-start-1 row-start-1 flex w-full flex-row items-center justify-between text-xl font-bold">
-          <div className="pr-8">{i18n.treeDetail.waterNeed.unknownTitle}</div>
-          <button
-            className="h-6 w-6"
-            onClick={() => setShowInfoBox(!showInfoBox)}
-          >
-            <img src="/images/info-icon.svg" alt="Tree Icon" />
-          </button>
+        <div className="col-start-1 row-start-1 flex w-full flex-row items-center justify-between ">
+          <div className="pr-8 text-xl font-bold">
+            {i18n.treeDetail.waterNeed.unknownTitle}
+          </div>
+          <div className="relative col-start-1 row-start-1 flex flex-row items-center justify-between">
+            <div className="relative">
+              <button
+                onClick={() => {
+                  setShowInfoBox(!showInfoBox);
+                }}
+                onMouseMove={() => setShowInfoBox(true)}
+                onMouseOut={() => setShowInfoBox(false)}
+              >
+                <img
+                  src="/images/info-icon.svg"
+                  alt="Tree Icon"
+                  width={24}
+                  height={24}
+                />
+              </button>
+              {showInfoBox && (
+                <div className="text-default absolute right-0 top-8">
+                  <Tooltip
+                    title={i18n.treeDetail.waterNeed.ageAndWaterHintTitle}
+                    content={i18n.treeDetail.waterNeed.ageAndWaterHint}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
       <div>{i18n.treeDetail.waterNeed.unknown}</div>
-      {showInfoBox && <TreeWaterNeedHint></TreeWaterNeedHint>}
       <div>
         <div className="flex flex-col gap-3">
           <div className="flex flex-row items-center gap-4">

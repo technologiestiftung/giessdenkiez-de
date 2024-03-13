@@ -8,7 +8,6 @@ import {
   TreeData,
   TreeWateringData,
 } from "./tree-types";
-import TreeWaterNeedHint from "./tree-water-needs-hint";
 import WaterProgressCircle from "./water-progress-circle";
 import Tooltip from "./tooltip";
 
