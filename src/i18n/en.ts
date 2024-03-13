@@ -25,8 +25,10 @@ const en: Content = {
       settings: {
         subtitle: "Profile details",
         username: "Username",
+        editUsername: "New username",
         placeholderUser: "Your username",
         email: "Registered email address",
+        editEmail: "New email address",
         placeholderMail: "xyz@ts.berlin",
         password: "Password",
         changePassword: "Change password",

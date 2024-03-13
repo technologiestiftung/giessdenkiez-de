@@ -4,7 +4,15 @@ import Warning from "./warning";
 import { checkIfUsernameIsTaken, validateUsername } from "./validation";
 import { UsernameErrors } from "./types";
 
-const UsernameInputWithValidation: React.FC = () => {
+export interface UsernameInputValidationProps {
+  label: string | React.ReactNode;
+  defaultValue?: string;
+}
+
+const UsernameInputWithValidation: React.FC<UsernameInputValidationProps> = ({
+  label,
+  defaultValue,
+}) => {
   const [usernameErrors, setUsernameErrors] = useState<UsernameErrors>({
     validLength: false,
     onlyNumberAndLetters: false,
@@ -55,15 +63,16 @@ const UsernameInputWithValidation: React.FC = () => {
   );
 
   return (
-    <>
-      <label htmlFor="username" className="">
-        Benutzername
+    <div className="flex-auto">
+      <label className="font-semibold" htmlFor="username">
+        {label}
       </label>
       <TextInput
         type="text"
         id="username"
         name="username"
         required
+        defaultValue={defaultValue}
         onChange={onChange}
       />
       {isUsernameTakenWarningVisible && (
@@ -82,7 +91,7 @@ const UsernameInputWithValidation: React.FC = () => {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 

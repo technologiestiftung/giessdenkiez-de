@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
-import TextInput from "../../input/text-input.tsx";
-import { validatePassword } from "./validation.ts";
-import { PasswordErrors } from "./types.ts";
+import TextInput from "../../input/text-input";
+import { validatePassword } from "./validation";
+import { PasswordErrors } from "./types";
 
 const PasswordInputWithValidation: React.FC = () => {
   const [passwordErrors, setPasswordErrors] = useState<PasswordErrors>({

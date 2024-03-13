@@ -40,11 +40,11 @@ const Register: React.FC = () => {
         <h1 className="pt-6 text-2xl font-semibold">Registrieren</h1>
         <form onSubmit={onSubmit} className="flex flex-col">
           <div className="flex flex-col gap-y-2 pt-5">
-            <EmailInputWithValidation />
+            <EmailInputWithValidation label="E-mail" />
           </div>
 
           <div className="flex flex-col gap-y-2 pt-6">
-            <UsernameInputWithValidation />
+            <UsernameInputWithValidation label="Benutzername" />
           </div>
 
           <div className="flex flex-col gap-y-2 pt-6">
