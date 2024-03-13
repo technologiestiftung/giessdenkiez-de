@@ -8,7 +8,7 @@ interface TreeAgeProps {
 const TreeAge: React.FC<TreeAgeProps> = ({ treeAge }) => {
   const i18n = useI18nStore().i18n();
   return (
-    <div className="flex flex-row items-center justify-between border-b-2 py-8 text-xl font-bold">
+    <div className="flex flex-row items-center justify-between border-b-2 pb-8 pt-10 text-xl font-bold">
       <div className="flex flex-row items-center gap-2">
         <img
           src="/images/tree-age-icon.svg"

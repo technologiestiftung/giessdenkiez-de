@@ -86,6 +86,22 @@ interface WaterNeed {
   lastXDaysYLitersRain: (days: number, liters: number) => string;
 }
 
+interface Problem {
+  title: string;
+  description: string;
+  link: string;
+}
+
+interface LastWaterings {
+  title: string;
+  thisWeek: string;
+  nothingThisWeek: string;
+  thisMonth: string;
+  nothingThisMonth: string;
+  thisYear: string;
+  nothingThisYear: string;
+}
+
 interface TreeDetail {
   title: string;
   adoptIt: string;
@@ -94,6 +110,8 @@ interface TreeDetail {
   age: (age: number) => string;
   ageUnknown: string;
   waterNeed: WaterNeed;
+  lastWaterings: LastWaterings;
+  problem: Problem;
   managedBy: string;
 }
 

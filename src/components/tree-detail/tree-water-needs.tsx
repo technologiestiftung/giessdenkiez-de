@@ -48,11 +48,13 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
           />
           <div className="">{i18n.treeDetail.waterNeed.title}</div>
         </div>
-        {isExpanded ? (
-          <ChevronDown></ChevronDown>
-        ) : (
-          <ChevronRight></ChevronRight>
-        )}
+        <div className="text-gdk-blue">
+          {isExpanded ? (
+            <ChevronDown></ChevronDown>
+          ) : (
+            <ChevronRight></ChevronRight>
+          )}
+        </div>
       </button>
       {isExpanded && (
         <div className="flex flex-col gap-4">

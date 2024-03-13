@@ -223,6 +223,21 @@ We manage largely on our own and are happy in particularly dry phases but still 
       lastXDaysYLitersRain: (days: number, liters: number) =>
         `In the last ${days} days, it rained **${liters} liters**.`,
     },
+    lastWaterings: {
+      title: "Last waterings",
+      thisWeek: "This week",
+      nothingThisWeek: "No waterings this week",
+      thisMonth: "This month",
+      nothingThisMonth: "No waterings this month",
+      thisYear: "This year",
+      nothingThisYear: "No waterings this year",
+    },
+    problem: {
+      title: "Report a problem",
+      description:
+        "Have you discovered tree damage or is the tree disk being misused? Tell the public order office!",
+      link: "To the official form",
+    },
   },
 };
 
