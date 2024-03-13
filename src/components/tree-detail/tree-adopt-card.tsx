@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { useAdoptTree } from "./hooks/use-adopt-tree";
 import { TreeAgeClassification, TreeData } from "./tree-types";
-import AdoptTreeDialog from "./adopt-tree-tooltip";
+import AdoptTreeTooltip from "./tooltip";
 
 interface TreeAdoptCardProps {
   treeData: TreeData;
@@ -92,7 +92,10 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
               </button>
               {showTooltip && (
                 <div className="absolute right-0 top-8">
-                  <AdoptTreeDialog />
+                  <AdoptTreeTooltip
+                    title={i18n.treeDetail.adoptHintTitle}
+                    content={i18n.treeDetail.adoptHint}
+                  />
                 </div>
               )}
             </div>

@@ -10,6 +10,7 @@ import {
 } from "./tree-types";
 import TreeWaterNeedHint from "./tree-water-needs-hint";
 import WaterProgressCircle from "./water-progress-circle";
+import Tooltip from "./tooltip";
 
 interface TreeWaterNeedProps {
   treeData: TreeData;
@@ -66,15 +67,32 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
           <div className="grid grid-cols-1 grid-rows-1">
             <div className="relative col-start-1 row-start-1 flex flex-row items-center justify-between">
               <div className="pr-8">{i18n.treeDetail.waterNeed.hint}</div>
-              <button
-                className="h-8 w-8"
-                onClick={() => setShowInfoBox(!showInfoBox)}
-              >
-                <img src="/images/info-icon.svg" alt="Tree Icon" />
-              </button>
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setShowInfoBox(!showInfoBox);
+                  }}
+                  onMouseMove={() => setShowInfoBox(true)}
+                  onMouseOut={() => setShowInfoBox(false)}
+                >
+                  <img
+                    src="/images/info-icon.svg"
+                    alt="Tree Icon"
+                    width={30}
+                    height={30}
+                  />
+                </button>
+                {showInfoBox && (
+                  <div className="absolute right-0 top-8">
+                    <Tooltip
+                      title={i18n.treeDetail.waterNeed.ageAndWaterHintTitle}
+                      content={i18n.treeDetail.waterNeed.ageAndWaterHint}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-          {showInfoBox && <TreeWaterNeedHint></TreeWaterNeedHint>}
 
           {treeAgeClassification === TreeAgeClassification.SENIOR && (
             <div className="text-xl font-bold">
