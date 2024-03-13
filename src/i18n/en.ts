@@ -179,6 +179,8 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
     ageTitle: "Age",
     age: (age: number) => `${age} years`,
     ageUnknown: "Unknown",
+    managedBy:
+      "This tree is already being cared for by the district office and does not need to be watered.",
     waterNeed: {
       title: "Water requirements",
       hint: "Depending on the age of the tree, the need for water varies.",

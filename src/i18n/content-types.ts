@@ -112,6 +112,7 @@ interface TreeDetail {
   waterNeed: WaterNeed;
   lastWaterings: LastWaterings;
   problem: Problem;
+  managedBy: string;
 }
 
 export interface Content {

@@ -55,7 +55,10 @@ const TreeDetail: React.FC = () => {
         </div>
         {treeData && (
           <div className="flex flex-col">
-            <TreeAdoptCard treeData={treeData} />
+            <TreeAdoptCard
+              treeData={treeData}
+              treeAgeClassification={treeAgeClassification}
+            />
             <TreeAge treeAge={treeAge} />
             {treeAgeClassification !== TreeAgeClassification.UNKNOWN && (
               <TreeWaterNeed
