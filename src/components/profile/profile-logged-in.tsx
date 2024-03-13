@@ -14,9 +14,6 @@ const ProfileLoggedIn: React.FC = () => {
   const { url } = useUrlState();
   const authType = url.searchParams.get("mode");
 
-  console.log("isLoggedIn", isLoggedIn());
-  console.log("authType", authType);
-
   if (authType === "reset-password") return <PasswordReset />;
   else {
     return (
