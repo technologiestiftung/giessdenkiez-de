@@ -13,6 +13,7 @@ import { TreeAgeClassification } from "./tree-types";
 import { useTreeAgeClassification } from "./hooks/use-tree-age-classification";
 import LastWaterings from "./last-waterings";
 import ProblemCard from "./problem-card";
+import TreeFlier from "./tree-flier";
 
 const TreeDetail: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -59,6 +60,7 @@ const TreeDetail: React.FC = () => {
               treeData={treeData}
               treeAgeClassification={treeAgeClassification}
             />
+            {treeData && <TreeFlier treeData={treeData}></TreeFlier>}
             <TreeAge treeAge={treeAge} />
             {treeAgeClassification !== TreeAgeClassification.UNKNOWN && (
               <TreeWaterNeed
