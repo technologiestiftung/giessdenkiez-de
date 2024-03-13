@@ -9,6 +9,7 @@ const WaterProgressCircle: React.FC<WaterCircleProps> = ({
   shouldBeWatered,
   treeAgeClassification,
 }) => {
+  console.log(parts, needsWaterAmount, shouldBeWatered, treeAgeClassification);
   const i18n = useI18nStore().i18n();
 
   const circleTitle = useMemo(() => {

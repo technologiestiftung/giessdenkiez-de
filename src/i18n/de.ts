@@ -176,6 +176,8 @@ Vernetzen:
     ageTitle: "Standalter",
     age: (age: number) => `${age} Jahre`,
     ageUnknown: "Unbekannt",
+    managedBy:
+      "Dieser Baum wird bereits vom Bezirksamt versorgt und muss nicht gegossen werden.",
     waterNeed: {
       title: "Wasserbedarf",
       hint: "Je nach Baumalter unterscheidet sich der Bedarf an Wasser.",

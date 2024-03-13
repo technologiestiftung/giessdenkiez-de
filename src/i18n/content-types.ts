@@ -94,6 +94,7 @@ interface TreeDetail {
   age: (age: number) => string;
   ageUnknown: string;
   waterNeed: WaterNeed;
+  managedBy: string;
 }
 
 export interface Content {
