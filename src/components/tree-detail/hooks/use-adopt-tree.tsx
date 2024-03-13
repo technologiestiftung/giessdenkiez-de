@@ -126,8 +126,6 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
       await isTreeAdoptedByOthers();
     };
 
-    console.log("fetching data", treeId);
-
     fetchData();
   }, [treeId]);
 
