@@ -49,7 +49,7 @@ const Info: React.FC = () => {
               />
             ))}
             <div className={`w-full pt-4 text-xl`}>{i18n.info.faq.title}</div>
-            <div className={`text-gdk-gray w-full`}>
+            <div className={`w-full text-gdk-gray`}>
               {i18n.info.faq.description}
             </div>
             {i18n.info.faq.qa.map((item, idx) => (

@@ -1,25 +1,36 @@
 import React from "react";
 import CloseIcon from "../icons/close-icon";
 import { useUrlState } from "../router/store";
-import { useTreeData } from "./hooks/use-tree-data";
+import { useFetchTreeData } from "./hooks/use-fetch-tree-data";
 import TreeAge from "./tree-age";
 import TreeAdoptCard from "./tree-adopt-card";
 import { useTreeStore } from "./tree-store";
 import useSelectedTree from "../map/hooks/use-selected-tree";
 import { useI18nStore } from "../../i18n/i18n-store";
+import TreeWaterNeed from "./tree-water-needs";
+import TreeWaterNeedUnknown from "./tree-water-need-unknown";
+import { TreeAgeClassification } from "./tree-types";
+import { useTreeAgeClassification } from "./hooks/use-tree-age-classification";
+import LastWaterings from "./last-waterings";
+import ProblemCard from "./problem-card";
 
 const TreeDetail: React.FC = () => {
   const i18n = useI18nStore().i18n();
-  const url = useUrlState((state) => state.url);
-  const setPathname = useUrlState((state) => state.setPathname);
-  const treeId = url.searchParams.get("treeId");
-  const { treeData, treeAge } = useTreeData(treeId!);
+
+  const [url, setPathname] = useUrlState((state) => [
+    state.url,
+    state.setPathname,
+  ]);
+  const treeId = url.searchParams.get("treeId")!;
+
   const { setTreeData } = useTreeStore();
   const { setSelectedTreeId } = useSelectedTree();
+  const { treeData } = useFetchTreeData(treeId);
+  const { treeAge, treeAgeClassification } = useTreeAgeClassification(treeData);
 
   return (
     <div className={`pointer-events-auto bg-white`}>
-      <div className="flex min-h-[100vh] w-[100vw] flex-col gap-4 overflow-hidden p-4 lg:w-[30vw] xl:w-[20vw]">
+      <div className="flex max-h-[100vh] min-h-[100vh] w-[100vw] flex-col gap-4 overflow-hidden overflow-scroll p-4 lg:w-[400px]">
         <a
           href="/map"
           className="flex flex-row justify-end"
@@ -42,10 +53,29 @@ const TreeDetail: React.FC = () => {
           />
           <div className="text-xl font-bold">{i18n.treeDetail.title}</div>
         </div>
-        <div className="flex flex-col gap-10">
-          {treeData && <TreeAdoptCard treeData={treeData} />}
-          {treeAge && <TreeAge age={treeAge} />}
-        </div>
+        {treeData && (
+          <div className="flex flex-col">
+            <TreeAdoptCard
+              treeData={treeData}
+              treeAgeClassification={treeAgeClassification}
+            />
+            <TreeAge treeAge={treeAge} />
+            {treeAgeClassification !== TreeAgeClassification.UNKNOWN && (
+              <TreeWaterNeed
+                treeData={treeData}
+                treeAgeClassification={treeAgeClassification}
+              />
+            )}
+            {treeAgeClassification === TreeAgeClassification.UNKNOWN && (
+              <TreeWaterNeedUnknown
+                treeData={treeData}
+                treeAgeClassification={treeAgeClassification}
+              />
+            )}
+            {treeData && <LastWaterings treeData={treeData}></LastWaterings>}
+            <ProblemCard></ProblemCard>
+          </div>
+        )}
       </div>
     </div>
   );

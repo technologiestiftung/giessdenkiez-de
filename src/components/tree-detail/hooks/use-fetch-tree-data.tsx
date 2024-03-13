@@ -1,41 +1,12 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useTreeStore } from "../tree-store";
+import { TreeDataState } from "../tree-types";
 
-export interface TreeData {
-  artbot: string;
-  artdtsch: string;
-  baumhoehe: string;
-  bezirk: string;
-  caretaker: string | null;
-  eigentuemer: string | null;
-  gattung: string;
-  gattungdeutsch: string;
-  id: string;
-  lat: string;
-  lng: string;
-  pflanzjahr: number;
-  radolan_days: number[];
-  radolan_sum: number;
-  standalter: string | null;
-}
-
-interface TreeDataState {
-  treeData: TreeData | undefined;
-  treeAge: number | undefined;
-}
-
-export function useTreeData(treeId: string | undefined): TreeDataState {
+export function useFetchTreeData(treeId: string | undefined): TreeDataState {
   const [treeData, setTreeData] = useTreeStore((store) => [
     store.treeData,
     store.setTreeData,
   ]);
-
-  const treeAge = useMemo(() => {
-    if (!treeData) return undefined;
-    return treeData.pflanzjahr === 0
-      ? undefined
-      : new Date().getFullYear() - treeData.pflanzjahr;
-  }, [treeData]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -66,5 +37,5 @@ export function useTreeData(treeId: string | undefined): TreeDataState {
     };
   }, [treeId]);
 
-  return { treeData, treeAge };
+  return { treeData };
 }

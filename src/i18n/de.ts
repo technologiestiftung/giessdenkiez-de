@@ -176,6 +176,56 @@ Vernetzen:
     ageTitle: "Standalter",
     age: (age: number) => `${age} Jahre`,
     ageUnknown: "Unbekannt",
+    managedBy:
+      "Dieser Baum wird bereits vom Bezirksamt versorgt und muss nicht gegossen werden.",
+    waterNeed: {
+      title: "Wasserbedarf",
+      hint: "Je nach Baumalter unterscheidet sich der Bedarf an Wasser.",
+      needXLiters: (liters: number) => `Braucht ${liters} Liter pro Woche`,
+      needsOnlyOnDryDays: "Braucht nur an trockenen Tagen Wasser",
+      waterManaged: "Vom Bezirksamt versorgt",
+      unknownTitle: "Wasserbedarf unbekannt",
+      unknown:
+        "Das Alter, und dementsprechend der Wasserbedarf, sind leider unbekannt. Eventuell hilft Dir die Infobox für eine eigenständige Einschätzung.",
+      liters: "Liter",
+      watered: "gegossen",
+      rained: "Regen",
+      stillMissing: "fehlen noch",
+      dataOfLastXDays: "* Daten der letzen 7 Tage",
+      manager: "vom Bezirksamt",
+      alreadyWateredByManager: "Bereits vom Bezirksamt versorgt",
+      stillWaterXLiters: (liters: number) => `Noch ${liters} Liter gießen`,
+      shouldBeWatered: "Sollte gegossen werden",
+      sufficientlyWatered: "Momentan ausreichend bewässert",
+      ageAndWaterHintTitle: "Wasserbedarf und Standalter",
+      ageAndWaterHint: `
+   **Baby (unter 4 Jahren):** Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
+
+   **Jung (4-14 Jahre):** In dem Alter werden wir nicht mehr in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Wir freuen uns über viel Wasser von bis zu 200l pro Gießung (ein Mal in der Woche).
+
+   **Erwachsen (15-40 Jahre):** Wir haben ein gewisses Durchhaltevermögen aber brauchen in heißen Phasen auch einen ordentlichen extra Schluck Wasser: bis zu 100l ein Mal in der Woche.
+
+   **Alt (über 40 Jahre):** Wir kommen weitestgehend alleine klar, freuen uns in besonders trockenen Phasen aber dennoch über einen extra Schluck.`,
+      lastXDaysYLitersWater: (days: number, liters: number) =>
+        `Die letzten ${days} Tage wurden **${liters} Liter gegossen**.`,
+      lastXDaysYLitersRain: (days: number, liters: number) =>
+        `In den letzten ${days} Tagen sind **${liters} Liter Regen** gefallen.`,
+    },
+    lastWaterings: {
+      title: "Letzte Gießungen",
+      thisWeek: "Diese Woche",
+      nothingThisWeek: "Keine Gießungen diese Woche",
+      thisMonth: "Dieser Monat",
+      nothingThisMonth: "Keine Gießungen diesen Monat",
+      thisYear: "Dieses Jahr",
+      nothingThisYear: "Keine Gießungen dieses Jahr",
+    },
+    problem: {
+      title: "Problem melden",
+      description:
+        "Du hast einen Baumschaden entdeckt, oder die Baumscheibe wird missbraucht? Teile es dem Ordnungsamt mit!",
+      link: "Zum offiziellen Formular",
+    },
   },
 };
 

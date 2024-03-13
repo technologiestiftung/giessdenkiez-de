@@ -62,6 +62,46 @@ interface Info {
   };
 }
 
+interface WaterNeed {
+  title: string;
+  hint: string;
+  needXLiters: (liters: number) => string;
+  needsOnlyOnDryDays: string;
+  waterManaged: string;
+  unknown: string;
+  unknownTitle: string;
+  liters: string;
+  watered: string;
+  rained: string;
+  stillMissing: string;
+  dataOfLastXDays: string;
+  manager: string;
+  alreadyWateredByManager: string;
+  stillWaterXLiters: (liters: number) => string;
+  shouldBeWatered: string;
+  sufficientlyWatered: string;
+  ageAndWaterHintTitle: string;
+  ageAndWaterHint: string;
+  lastXDaysYLitersWater: (days: number, liters: number) => string;
+  lastXDaysYLitersRain: (days: number, liters: number) => string;
+}
+
+interface Problem {
+  title: string;
+  description: string;
+  link: string;
+}
+
+interface LastWaterings {
+  title: string;
+  thisWeek: string;
+  nothingThisWeek: string;
+  thisMonth: string;
+  nothingThisMonth: string;
+  thisYear: string;
+  nothingThisYear: string;
+}
+
 interface TreeDetail {
   title: string;
   adoptIt: string;
@@ -69,6 +109,10 @@ interface TreeDetail {
   ageTitle: string;
   age: (age: number) => string;
   ageUnknown: string;
+  waterNeed: WaterNeed;
+  lastWaterings: LastWaterings;
+  problem: Problem;
+  managedBy: string;
 }
 
 export interface Content {
