@@ -1,5 +1,5 @@
 import React from "react";
-import { useI18nStore } from "../../i18n/i18n-store.ts";
+import { useI18nStore } from "../../../i18n/i18n-store";
 
 export interface TreeCardProps {
   id: number;

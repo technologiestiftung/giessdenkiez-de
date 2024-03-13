@@ -1,8 +1,8 @@
 import React from "react";
-import { useAuthStore } from "../../auth/auth-store";
-import PasswordInputWithValidation from "./register/password-input-with-validation";
-import PrimaryButton from "../buttons/primary";
-import TertiaryButton from "../buttons/tertiary";
+import { useAuthStore } from "../../../auth/auth-store";
+import PasswordInputWithValidation from "../validation/password-input-with-validation";
+import TertiaryButton from "../../buttons/tertiary";
+import PrimaryButton from "../../buttons/primary";
 
 const PasswordReset: React.FC = () => {
   const { updatePassword } = useAuthStore();
