@@ -17,9 +17,7 @@ const PasswordReset: React.FC = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          updatePassword({
-            password: e.currentTarget.password.value,
-          });
+          updatePassword(e.currentTarget.password.value);
         }}
         className="flex flex-col"
       >

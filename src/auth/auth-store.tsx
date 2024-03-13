@@ -136,6 +136,8 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       if (data) {
         alert("Dein Passwort wurde geändert!");
       }
+
+      console.log("Update password success:", data);
     },
   };
 });
