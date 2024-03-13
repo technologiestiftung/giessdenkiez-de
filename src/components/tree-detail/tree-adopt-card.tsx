@@ -78,7 +78,7 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
               height={24}
             />
           </div>
-          {adoptedByOthers && (
+          {adoptedByOthers && !isAdopted && (
             <div className="items-left flex flex-row gap-2">
               <img
                 src="/images/hi-there-icon.svg"
@@ -87,9 +87,20 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
                 height={24}
               />
               <div className="italic leading-tight text-slate-500">
-                {isAdopted
-                  ? i18n.treeDetail.alsoAdoptedBy
-                  : i18n.treeDetail.exclusivelyAdoptedBy}
+                {i18n.treeDetail.exclusivelyAdoptedBy}
+              </div>
+            </div>
+          )}
+          {adoptedByOthers && isAdopted && (
+            <div className="items-left flex flex-row gap-2">
+              <img
+                src="/images/hi-there-icon.svg"
+                alt="Tree Icon"
+                width={24}
+                height={24}
+              />
+              <div className="italic leading-tight text-slate-500">
+                {i18n.treeDetail.alsoAdoptedBy}
               </div>
             </div>
           )}
