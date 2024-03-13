@@ -105,7 +105,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       const { data, error } = await supabaseClient.auth.resetPasswordForEmail(
         email,
         {
-          redirectTo: import.meta.env.VITE_APP_URL,
+          redirectTo: import.meta.env.VITE_RECOVERY_AUTH_REDIRECT_URL,
         },
       );
 
@@ -122,6 +122,20 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       }
     },
 
-    updatePassword: (password: string) => {},
+    updatePassword: async (password: string) => {
+      const { data, error } = await supabaseClient.auth.updateUser({
+        password: password,
+      });
+
+      if (error) {
+        alert(error.message);
+
+        throw error;
+      }
+
+      if (data) {
+        alert("Dein Passwort wurde geändert!");
+      }
+    },
   };
 });
