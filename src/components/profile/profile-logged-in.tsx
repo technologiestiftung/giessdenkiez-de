@@ -10,7 +10,7 @@ import PasswordReset from "./password-reset";
 
 const ProfileLoggedIn: React.FC = () => {
   const i18n = useI18nStore().i18n();
-  const { isLoggedIn, logout } = useAuthStore();
+  const { logout } = useAuthStore();
   const { url } = useUrlState();
   const authType = url.searchParams.get("mode");
 
