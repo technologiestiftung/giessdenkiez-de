@@ -28,6 +28,21 @@ export interface TreeDataState {
   treeData: TreeData | undefined;
 }
 
+export interface TreeAdoptState {
+  isLoading: boolean;
+  isAdopted: boolean;
+  adoptTree: (
+    userId: string,
+    treeId: string,
+    token: string,
+  ) => Promise<boolean>;
+  unadoptTree: (
+    userId: string,
+    treeId: string,
+    token: string,
+  ) => Promise<boolean>;
+}
+
 export interface TreeWateringData {
   amount: number;
   id: number;

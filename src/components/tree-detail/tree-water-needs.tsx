@@ -33,7 +33,6 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
     shouldBeWatered,
     rainColor,
     wateringColor,
-    stillNeedsWaterColor,
   } = useTreeWaterNeedsData(treeData, treeWateringData, treeAgeClassification);
 
   return (
@@ -143,7 +142,7 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
                 treeAgeClassification !== TreeAgeClassification.SENIOR && (
                   <div className="flex flex-row items-center gap-4">
                     <div
-                      className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-[${stillNeedsWaterColor}]`}
+                      className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-[#d3d3d3]`}
                     ></div>
                     <div className="flex flex-col">
                       <div className="font-bold">
