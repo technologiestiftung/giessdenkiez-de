@@ -135,6 +135,7 @@ interface TreeDetail {
   problem: Problem;
   managedBy: string;
   treeTypeInfos: TreeTypeInfo[];
+  treeTypeInfoTitle: string;
 }
 
 export interface Content {

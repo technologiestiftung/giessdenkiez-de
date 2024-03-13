@@ -306,6 +306,7 @@ Vernetzen:
           "Der Anteil der Ulmen (Ulmus) beträgt rund 2% des Gesamtbestandes. Es gibt bei uns drei der weltweit 45 Arten dieses sommergrünen Laubbaumes: die Bergulme, die Feldulme und die Flatter-Ulme. Sie kommt mit einer Höhe von bis zu 600 Metern vor und kann 250 Jahre alt werden.",
       },
     ],
+    treeTypeInfoTitle: "Baumsteckbrief",
   },
 };
 

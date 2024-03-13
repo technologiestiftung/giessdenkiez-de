@@ -318,6 +318,7 @@ We manage largely on our own and are happy in particularly dry phases but still 
           "Elms (Ulmus) make up around 2% of the total population. There are three of the world's 45 species of this deciduous deciduous tree: the mountain elm, the field elm and the elm tree. It grows up to 600 meters high and can live to be 250 years old.",
       },
     ],
+    treeTypeInfoTitle: "Tree profile",
   },
 };
 

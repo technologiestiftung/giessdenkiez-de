@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import CloseIcon from "../icons/close-icon";
 import { useUrlState } from "../router/store";
 import { useFetchTreeData } from "./hooks/use-fetch-tree-data";
@@ -28,6 +28,11 @@ const TreeDetail: React.FC = () => {
   const { setSelectedTreeId } = useSelectedTree();
   const { treeData } = useFetchTreeData(treeId);
   const { treeAge, treeAgeClassification } = useTreeAgeClassification(treeData);
+  const treeTypeInfo = useMemo(() => {
+    return i18n.treeDetail.treeTypeInfos.find(
+      (treeType) => treeType.id === treeData?.gattungdeutsch,
+    );
+  }, [treeData]);
 
   return (
     <div className={`pointer-events-auto bg-white`}>
@@ -60,7 +65,9 @@ const TreeDetail: React.FC = () => {
               treeData={treeData}
               treeAgeClassification={treeAgeClassification}
             />
-            {treeData && <TreeFlier treeData={treeData}></TreeFlier>}
+            {treeTypeInfo && (
+              <TreeFlier info={treeTypeInfo.description}></TreeFlier>
+            )}
             <TreeAge treeAge={treeAge} />
             {treeAgeClassification !== TreeAgeClassification.UNKNOWN && (
               <TreeWaterNeed
