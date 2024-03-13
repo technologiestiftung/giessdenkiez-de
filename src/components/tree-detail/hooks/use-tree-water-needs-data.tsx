@@ -21,6 +21,7 @@ export function useTreeWaterNeedsData(
 
   const WATERING_COLOR = fullConfig.theme.colors["gdk-neon-green"];
   const RAIN_COLOR = fullConfig.theme.colors["gdk-blue"];
+  const STILL_NEEDS_WATER_COLOR = fullConfig.theme.colors["gdk-light-gray"];
 
   const referenceWaterAmount = () => {
     switch (treeAgeClassification) {
@@ -121,5 +122,8 @@ export function useTreeWaterNeedsData(
     stillMissingWater: stillMissingWater(),
     waterParts: waterParts(),
     shouldBeWatered: shouldBeWatered(),
+    wateringColor: WATERING_COLOR,
+    rainColor: RAIN_COLOR,
+    stillNeedsWaterColor: STILL_NEEDS_WATER_COLOR,
   };
 }
