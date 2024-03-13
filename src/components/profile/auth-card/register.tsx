@@ -1,14 +1,23 @@
-import React from "react";
-import { useAuthStore } from "../../../auth/auth-store";
-import PrimaryButton from "../../buttons/primary";
+import React, { useCallback } from "react";
 import { useUrlState } from "../../router/store";
-import UsernameInputWithValidation from "./username-input-with-validation";
-import PasswordInputWithValidation from "./password-input-with-validation";
-import EmailInputWithValidation from "./email-input-with-validation";
+import { useAuthStore } from "../../../auth/auth-store";
+import EmailInputWithValidation from "../validation/email-input-with-validation";
+import UsernameInputWithValidation from "../validation/username-input-with-validation";
+import PasswordInputWithValidation from "../validation/password-input-with-validation";
+import PrimaryButton from "../../buttons/primary";
 
 const Register: React.FC = () => {
-  const { register } = useAuthStore();
   const { setPathname } = useUrlState();
+  const { register } = useAuthStore();
+
+  const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    register({
+      email: e.currentTarget.email.value,
+      username: e.currentTarget.username.value,
+      password: e.currentTarget.password.value,
+    });
+  }, []);
 
   return (
     <>
@@ -28,18 +37,8 @@ const Register: React.FC = () => {
           <span>&lt;</span> zurück zum Login
         </a>
 
-        <h1 className="pt-12 text-2xl font-semibold">Registrieren</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            register({
-              email: e.currentTarget.email.value,
-              username: e.currentTarget.username.value,
-              password: e.currentTarget.password.value,
-            });
-          }}
-          className="flex flex-col"
-        >
+        <h1 className="pt-6 text-2xl font-semibold">Registrieren</h1>
+        <form onSubmit={onSubmit} className="flex flex-col">
           <div className="flex flex-col gap-y-2 pt-5">
             <EmailInputWithValidation />
           </div>

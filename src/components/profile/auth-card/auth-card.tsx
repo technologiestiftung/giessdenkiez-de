@@ -1,7 +1,7 @@
 import React from "react";
-import { useUrlState } from "../router/store";
+import { useUrlState } from "../../router/store";
 import Login from "./login.tsx";
-import Register from "./register/register";
+import Register from "./register";
 import ForgotPassword from "./forgot-password";
 
 const AuthCard: React.FC = () => {

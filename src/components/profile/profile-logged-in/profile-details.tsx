@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useI18nStore } from "../../i18n/i18n-store.ts";
-import EditIcon from "../icons/edit-icon.tsx";
-import TertiaryButton from "../buttons/tertiary.tsx";
-import InputFieldIcon from "../input/input-field-icon.tsx";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import InputFieldIcon from "../../input/input-field-icon";
+import TertiaryButton from "../../buttons/tertiary";
+import EditIcon from "../../icons/edit-icon";
 
 const ProfileDetails: React.FC = () => {
   const i18n = useI18nStore().i18n();

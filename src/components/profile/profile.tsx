@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuthStore } from "../../auth/auth-store";
-import AuthCard from "./auth-card";
-import ProfileLoggedIn from "./profile-logged-in";
+import AuthCard from "./auth-card/auth-card";
+import ProfileLoggedIn from "./profile-logged-in/profile-logged-in";
 
 const Profile: React.FC = () => {
   const { isLoggedIn } = useAuthStore();

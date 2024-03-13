@@ -1,41 +1,19 @@
 import React, { useCallback, useState } from "react";
 import TextInput from "../../input/text-input.tsx";
-
-interface PasswordErrors {
-  enoughChars: boolean;
-  upperAndLowerCase: boolean;
-  number: boolean;
-  special: boolean;
-}
+import { validatePassword } from "./validation.ts";
+import { PasswordErrors } from "./types.ts";
 
 const PasswordInputWithValidation: React.FC = () => {
-  const [password, setPassword] = useState<string>("");
   const [passwordErrors, setPasswordErrors] = useState<PasswordErrors>({
-    enoughChars: false,
+    validLength: false,
     upperAndLowerCase: false,
     number: false,
     special: false,
   });
 
-  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-
-    const enoughChars = e.target.value.length > 8;
-    const upperAndLowerCase = /[a-zA-Z]/.test(e.target.value);
-    const number = /[0-9]/.test(e.target.value);
-    const special = /[!@#$%^&*(),.?":{}|<>]/.test(e.target.value);
-
-    setPasswordErrors({
-      enoughChars,
-      upperAndLowerCase,
-      number,
-      special,
-    });
-  }, []);
-
   const checks: { name: keyof PasswordErrors; description: string }[] = [
     {
-      name: "enoughChars",
+      name: "validLength",
       description: "mindestens 8 Zeichen",
     },
     {
@@ -52,18 +30,33 @@ const PasswordInputWithValidation: React.FC = () => {
     },
   ];
 
+  const onChange = useCallback(
+    ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+      const passwordErrors = validatePassword(target.value);
+
+      setPasswordErrors(passwordErrors);
+
+      const hasErrors = Object.values(passwordErrors).some((error) => !error);
+
+      if (!hasErrors) {
+        target.setCustomValidity("");
+        return;
+      }
+
+      target.setCustomValidity("Bitte überprüfe Deine Eingabe");
+    },
+    [],
+  );
+
   return (
     <>
-      <label htmlFor="password" className="">
-        Passwort
-      </label>
+      <label htmlFor="password">Passwort</label>
       <TextInput
         type="password"
         id="password"
         name="password"
-        value={password}
+        required
         onChange={onChange}
-        onBlur={() => console.log("should show warning if it has errors")}
       />
       <p className="font-medium">Dein Passwort sollte enthalten:</p>
       <ul>
