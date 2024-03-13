@@ -243,79 +243,79 @@ We manage largely on our own and are happy in particularly dry phases but still 
         id: "LINDE",
         title: "Linden (Tilia)",
         description:
-          "The linden tree has been considered the typical Berlin street tree for years. ",
+          "The lime tree has been the typical street tree in Berlin for years. With a share of a good third, it characterizes the street tree population. A total of 10 different species can be distinguished. The winter lime tree (Tilia cordata), a medium-sized tree that also finds room in narrower streets, is the preferred tree. The large-crowned imperial lime (Tilia intermedia), on the other hand, is reserved for wide avenues.",
       },
       {
         id: "AHORN",
         title: "Maple (Acer)",
         description:
-          "The maple genus comprises around 20% of the total population. ",
+          "The maple genus comprises approx. 20% of the total stock. The Norway maple (Acer platanoides) is particularly suitable for the street location. The early flowering and the colorful autumn coloring make the maple a particularly popular tree species.",
       },
       {
         id: "EICHE",
         title: "Oak (Quercus)",
         description:
-          "The proportion of oak trees is around 9% of the total stock. ",
+          "Oaks make up around 9% of the total stock. In Berlin, it is mainly the common oak (Quercus robur) that is planted. As a light tree, the oak is not suitable for narrow streets. The most recent avenues in the parliamentary and government district were planted with the so-called Spree oak (Quercus palustris), which is characterized by its particularly beautiful autumn colouring, among other things.",
       },
       {
         id: "PLATANE",
         title: "Plane tree (Platanus)",
         description:
-          "An ideal avenue tree for wide streets is the plane tree (Platanus acerifolia), which can reach a height of 20 to 30 m and an impressive crown diameter of 15 to 20 m. ",
+          "An ideal avenue tree for wide streets is the plane tree (Platanus acerifolia), which in addition to a height of 20 to 30 m can also reach a stately crown diameter of 15 to 20 m. Sycamore trees make up around 6% of the total population. The best-known and, at over 120 years old, oldest plane tree avenue in Berlin is Puschkinallee in Berlin-Treptow.",
       },
       {
         id: "KASTANIE",
         title: "Chestnut (Aesculus)",
         description:
-          "The chestnut (Aesculus) accounts for about 5% of the total population, and thus occupies fifth place among Berlins street trees. Horse chestnuts have five- and multi-lobed leaves that resemble the fingers of a hand; sweet chestnuts have single leaves that are also clearly serrated.",
+          "The chestnut (Aesculus) accounts for around 5% of the total population, putting it in fifth place among Berlin's street trees. Horse chestnuts have five- and multi-lobed leaves that resemble the fingers of a hand; sweet chestnuts have single leaves that are also clearly serrated.",
       },
       {
         id: "ROSSKASTANIE",
         title: "Horse chestnut (Aesculus hippocastanum)",
         description:
-          "The horse chestnut (Aesculus hippocastanum) accounts for about 5% of the total stock. Horse chestnuts have five- and multi-lobed leaves that resemble the fingers of a hand; sweet chestnuts have single leaves that are also clearly serrated.",
+          "The horse chestnut (Aesculus hippocastanum) accounts for around 5% of the total population, making it the fifth most popular street tree in Berlin. Horse chestnuts have five- and multi-lobed leaves that resemble the fingers of a hand; sweet chestnuts have single leaves that are also clearly serrated.",
       },
       {
         id: "ESCHE",
         title: "Ash (Fraxinus)",
         description:
-          "The ash tree (Fraxinus) accounts for about 3% of the total population, and thus occupies sixth place among Berlins street trees. With a growth height of up to 40 m, it is one of the tallest deciduous trees in Europe.",
+          "The ash tree (Fraxinus) accounts for approx. 3% of the total population and thus occupies sixth place among Berlin's street trees. With a height of up to 40 m, it is one of the tallest deciduous trees in Europe.",
       },
       {
         id: "BIRKE",
         title: "Birch (Betula)",
         description:
-          "The birch (Betula) accounts for about 3% of the total population. Although the birch is a pioneer tree that is very undemanding and grows on any soil, it is less suitable as a street tree because there is often too little space for the shallow-rooted trees.",
+          "The birch (Betula) accounts for around 3% of the total population. Although the birch is a pioneer tree that is very undemanding and grows on any soil, it is less suitable as a street tree as the tree grates often offer too little space for the shallow-rooted trees.",
       },
       {
         id: "ROBINIE",
         title: "Robinia (Robinia)",
         description:
-          'The robinia (Robinia) accounts for about 2% of the total population. It was cultivated as a park tree in the "Berliner Lustgarten" park from 1672 and is now very common throughout Berlin. The robinia has low soil requirements and, thanks to the nodule bacteria on its roots, it can bind atmospheric nitrogen and thus fertilize the soil.',
+          "The Robinia (Robinia) accounts for around 2% of the total population. It was cultivated as a park tree in Berlin's Lustgarten from 1672 and is now very common throughout Berlin. The Robinia has low demands on the soil and, thanks to the nodule bacteria on its roots, it can bind atmospheric nitrogen and thus fertilize the soil.",
       },
       {
         id: "HASEL",
         title: "Hazel tree (Corylus)",
         description:
-          "The hazel tree (Corylus) accounts for about 2% of the total population. The hazel grows as a shrub or small tree up to 6 m high.",
+          "The hazel tree (Corylus) accounts for around 2% of the total population, making it the ninth most common street tree in Berlin. The hazelnut grows as a shrub or small tree up to 6 m high.",
       },
       {
         id: "HAINBUCHE",
         title: "Hornbeam (Carpinus)",
         description:
-          "The proportion of hornbeam (Carpinus) is around 2% of the total population. The tree reaches a height of up to 25 meters. The crown is initially slightly conical and later expands widely.",
+          "The proportion of hornbeams (Carpinus) is around 2% of the total population. The tree reaches a height of up to 25 meters. The crown is initially slightly conical and later expands widely.",
       },
       {
         id: "PAPPEL",
         title: "Poplar (Populus)",
         description:
-          "Poplars (Populus) make up about 2% of Berlins total population. They have ovoid to triangular, partly heart-shaped leaves.",
+          "The poplar (Populus) accounts for around 2% of Berlin's total population. They have ovoid to triangular, sometimes heart-shaped leaves.",
       },
       {
         id: "ULME",
         title: "Elm (Ulmus)",
         description:
-          "The proportion of elms (Ulmus) is around 2% of the total population. Here we have three of the worlds 45 species of this deciduous tree: the mountain elm, the field elm and the elm with a flutter. It grows up to 600 meters high and can live to be 250 years old.",
+          "Elms (Ulmus) make up around 2% of the total population. There are three of the world's 45 species of this deciduous deciduous tree: the mountain elm, the field elm and the elm tree. It grows up to 600 meters high and can live to be 250 years old.",
       },
     ],
   },
