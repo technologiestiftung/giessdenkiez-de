@@ -55,11 +55,15 @@ const en: Content = {
 				username: "Username",
 				editUsername: "New username",
 				placeholderUser: "Your username",
+				updateEmailEmailSent:
+					"We sent you an email with a link to both your old and your new email address to confirm the change. Check your mailbox!",
 				email: "You email address",
 				editEmail: "New email address",
 				placeholderMail: "xyz@ts.berlin",
 				password: "Password",
 				changePassword: "Change password",
+				passwordChangeConfirmation:
+					'Password changed, press "ok" to go to your profile',
 				deleteAccount: "Delete account",
 				approve: "Done",
 				checkInput: "Please check your input",
@@ -82,8 +86,12 @@ const en: Content = {
 				forgotYourPassword: "forgot your password?",
 				ohNoforgotYourPassword: "Oh no. You",
 				passwordForgotten: "Password forgotten",
+				resetPasswordEmailSent:
+					"Email sent! We sent you an email with a link to reset your password. Check your mailbox!",
 				clickHere: "click here",
 				resetPassword: "Reset password",
+				invalidCredentials: "Invalid credentials",
+				deleteAccountConfirm: "Are you sure you want to delete your account?",
 			},
 			logOut: "Log out",
 		},

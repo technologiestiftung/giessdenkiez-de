@@ -3,7 +3,7 @@ import React from "react";
 interface WarningProps {
 	label: string;
 }
-const Warning: React.FC<WarningProps> = ({ label }) => {
+export const Warning: React.FC<WarningProps> = ({ label }) => {
 	return (
 		<div
 			className={`flex w-full items-center gap-2.5 rounded bg-gdk-orange px-3 py-4 text-white`}
@@ -13,5 +13,3 @@ const Warning: React.FC<WarningProps> = ({ label }) => {
 		</div>
 	);
 };
-
-export default Warning;

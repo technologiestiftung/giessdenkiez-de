@@ -8,9 +8,9 @@ export interface PasswordInputValidationProps {
 	label?: string | React.ReactNode;
 }
 
-const PasswordInputWithValidation: React.FC<PasswordInputValidationProps> = ({
-	label,
-}) => {
+export const PasswordInputWithValidation: React.FC<
+	PasswordInputValidationProps
+> = ({ label }) => {
 	const i18n = useI18nStore().i18n();
 
 	const [passwordErrors, setPasswordErrors] = useState<PasswordErrors>({
@@ -41,11 +41,13 @@ const PasswordInputWithValidation: React.FC<PasswordInputValidationProps> = ({
 
 	const onChange = useCallback(
 		({ target }: React.ChangeEvent<HTMLInputElement>) => {
-			const passwordErrors = validatePassword(target.value);
+			const validatedPasswordErrors = validatePassword(target.value);
 
-			setPasswordErrors(passwordErrors);
+			setPasswordErrors(validatedPasswordErrors);
 
-			const hasErrors = Object.values(passwordErrors).some((error) => !error);
+			const hasErrors = Object.values(validatedPasswordErrors).some(
+				(error) => !error,
+			);
 
 			if (!hasErrors) {
 				target.setCustomValidity("");
@@ -87,5 +89,3 @@ const PasswordInputWithValidation: React.FC<PasswordInputValidationProps> = ({
 		</>
 	);
 };
-
-export default PasswordInputWithValidation;

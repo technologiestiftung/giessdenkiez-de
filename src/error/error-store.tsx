@@ -14,7 +14,7 @@ export const useErrorStore = create<ErrorStore>()((set, get) => ({
 	clearErrors: () => set({ error: undefined }),
 
 	handleError: (userFacingErrorMessage: string, thrownError?: any) => {
-		console.log(thrownError);
+		console.error(thrownError);
 		set({ error: userFacingErrorMessage });
 		setTimeout(() => {
 			get().clearErrors();

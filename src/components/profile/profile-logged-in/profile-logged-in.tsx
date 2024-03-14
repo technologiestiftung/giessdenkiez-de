@@ -1,18 +1,29 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useUrlState } from "../../router/store";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useAuthStore } from "../../../auth/auth-store";
-import Overview from "./overview";
-import AdoptedTrees from "./adopted-trees";
-import ProfileDetails from "./profile-details/profile-details";
+import { Overview } from "./overview";
+import { AdoptedTrees } from "./adopted-trees";
+import { ProfileDetails } from "./profile-details/profile-details";
 import SecondaryButton from "../../buttons/secondary";
-import PasswordReset from "./password-reset";
+import { PasswordReset } from "./password-reset";
+import { useErrorStore } from "../../../error/error-store.tsx";
 
-const ProfileLoggedIn: React.FC = () => {
+export const ProfileLoggedIn: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { logout } = useAuthStore();
-	const { url } = useUrlState();
+	const { url, setSearchParams } = useUrlState();
 	const authType = url.searchParams.get("mode");
+	const { handleError } = useErrorStore();
+
+	const onClick = useCallback(async () => {
+		try {
+			await logout();
+			setSearchParams(new URLSearchParams());
+		} catch (error) {
+			handleError(i18n.common.defaultErrorMessage);
+		}
+	}, []);
 
 	if (authType === "reset-password") {
 		return <PasswordReset />;
@@ -32,7 +43,7 @@ const ProfileLoggedIn: React.FC = () => {
 
 					<div className="self-center">
 						<SecondaryButton
-							onClick={() => logout()}
+							onClick={onClick}
 							label={i18n.navbar.profile.logOut}
 						/>
 					</div>
@@ -41,5 +52,3 @@ const ProfileLoggedIn: React.FC = () => {
 		</div>
 	);
 };
-
-export default ProfileLoggedIn;

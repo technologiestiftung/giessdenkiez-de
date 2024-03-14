@@ -1,10 +1,10 @@
 import React from "react";
 import { useAuthStore } from "../../../auth/auth-store";
-import PasswordInputWithValidation from "../validation/password-input-with-validation";
+import { PasswordInputWithValidation } from "../validation/password-input-with-validation";
 import PrimaryButton from "../../buttons/primary";
 import { useUrlState } from "../../router/store";
 
-const PasswordReset: React.FC = () => {
+export const PasswordReset: React.FC = () => {
 	const { updatePassword } = useAuthStore();
 
 	const { setPathname } = useUrlState();
@@ -45,5 +45,3 @@ const PasswordReset: React.FC = () => {
 		</div>
 	);
 };
-
-export default PasswordReset;

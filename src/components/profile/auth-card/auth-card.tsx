@@ -1,10 +1,10 @@
 import React from "react";
 import { useUrlState } from "../../router/store";
-import Login from "./login.tsx";
-import Register from "./register";
-import ForgotPassword from "./forgot-password";
+import { Login } from "./login";
+import { Register } from "./register";
+import { ForgotPassword } from "./forgot-password";
 
-const AuthCard: React.FC = () => {
+export const AuthCard: React.FC = () => {
 	const { url } = useUrlState();
 
 	const authType = url.searchParams.get("mode");
@@ -18,5 +18,3 @@ const AuthCard: React.FC = () => {
 			return <Login />;
 	}
 };
-
-export default AuthCard;

@@ -3,7 +3,7 @@ import { supabaseClient } from "../../../auth/supabase-client";
 
 export function validatePassword(password: string): PasswordErrors {
 	const validLength = password.length > 8;
-	const upperAndLowerCase = /[a-zA-Z]/.test(password);
+	const upperAndLowerCase = /^(?=.*[a-z])(?=.*[A-Z]).+$/.test(password);
 	const number = /[0-9]/.test(password);
 	const special = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
@@ -60,4 +60,11 @@ export async function checkIfUsernameIsTaken(
 	});
 
 	return promise;
+}
+
+export function getErrorMessage(error: unknown) {
+	if (error instanceof Error) {
+		return error.message;
+	}
+	return String(error);
 }
