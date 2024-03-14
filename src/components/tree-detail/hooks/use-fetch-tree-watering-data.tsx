@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { useTreeStore } from "../tree-store.js";
+import { useTreeStore } from "../tree-store";
 import { TreeData, TreeWateringData } from "../tree-types";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import { useErrorStore } from "../../../error/error-store";
 
 export interface TreeFetchWateringDataState {
   treeWateringData: TreeWateringData[];
@@ -10,6 +12,9 @@ export interface TreeFetchWateringDataState {
 export function useFetchTreeWateringData(
   treeData?: TreeData,
 ): TreeFetchWateringDataState {
+  const i18n = useI18nStore().i18n();
+  const handleError = useErrorStore().handleError;
+
   const [treeWateringData, setTreeWateringData] = useTreeStore((store) => [
     store.treeWateringData,
     store.setTreeWateringData,
@@ -29,12 +34,13 @@ export function useFetchTreeWateringData(
         },
       });
       if (!res.ok) {
+        handleError(i18n.common.defaultErrorMessage);
         return;
       }
       const json = await res.json();
       setTreeWateringData(json.data);
-    } catch (_) {
-      setTreeWateringData([]);
+    } catch (error) {
+      handleError(i18n.common.defaultErrorMessage, error);
     }
   };
 

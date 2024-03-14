@@ -1,8 +1,13 @@
 import { useEffect } from "react";
 import { useTreeStore } from "../tree-store";
 import { TreeDataState } from "../tree-types";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import { useErrorStore } from "../../../error/error-store";
 
 export function useFetchTreeData(treeId: string | undefined): TreeDataState {
+  const i18n = useI18nStore().i18n();
+  const handleError = useErrorStore().handleError;
+
   const [treeData, setTreeData] = useTreeStore((store) => [
     store.treeData,
     store.setTreeData,
@@ -22,11 +27,14 @@ export function useFetchTreeData(treeId: string | undefined): TreeDataState {
           },
           signal: abortController.signal,
         });
-        if (!res.ok) return [];
+        if (!res.ok) {
+          handleError(i18n.common.defaultErrorMessage);
+          return;
+        }
         const json = await res.json();
         setTreeData(json.data[0]);
-      } catch (_) {
-        setTreeData(undefined);
+      } catch (error) {
+        handleError(i18n.common.defaultErrorMessage, error);
       }
     };
 

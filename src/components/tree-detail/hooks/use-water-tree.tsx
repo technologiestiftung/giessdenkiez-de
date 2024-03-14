@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useAuthStore } from "../../../auth/auth-store";
+import { useErrorStore } from "../../../error/error-store";
+import { useI18nStore } from "../../../i18n/i18n-store";
 
 export interface WaterTreeState {
   isLoading: boolean;
@@ -7,6 +9,9 @@ export interface WaterTreeState {
 }
 
 export function useWaterTree(treeId: string): WaterTreeState {
+  const i18n = useI18nStore().i18n();
+  const handleError = useErrorStore().handleError;
+
   const access_token = useAuthStore((store) => store).session?.access_token;
   const user = useAuthStore((store) => store).session?.user;
 
@@ -33,13 +38,13 @@ export function useWaterTree(treeId: string): WaterTreeState {
         signal: abortController.signal,
       });
       if (!res.ok) {
+        handleError(i18n.common.defaultErrorMessage);
         setWateringLoading(false);
       }
       setWateringLoading(false);
     } catch (error) {
+      handleError(i18n.common.defaultErrorMessage, error);
       setWateringLoading(false);
-      alert(error);
-      throw error;
     }
   };
 
