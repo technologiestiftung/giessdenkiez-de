@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import { useI18nStore } from "../../i18n/i18n-store";
 import ChevronDown from "../icons/chevron-down";
 import ChevronRight from "../icons/chevron-right";
-import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
+import Tooltip from "./tooltip";
 import {
   TreeAgeClassification,
   TreeData,
   TreeWateringData,
 } from "./tree-types";
 import WaterProgressCircle from "./water-progress-circle";
-import Tooltip from "./tooltip";
+import WateringDialog from "./watering-dialog";
 
 interface TreeWaterNeedProps {
   treeData: TreeData;

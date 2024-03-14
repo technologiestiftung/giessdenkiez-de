@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { useTreeStore } from "../tree-store.js";
-import { TreeData, TreeFetchWateringDataState } from "../tree-types";
+import { TreeData, TreeWateringData } from "../tree-types";
+
+export interface TreeFetchWateringDataState {
+  treeWateringData: TreeWateringData[];
+  fetchWateringData: () => Promise<void>;
+}
 
 export function useFetchTreeWateringData(
   treeData?: TreeData,
@@ -10,12 +15,10 @@ export function useFetchTreeWateringData(
     store.setTreeWateringData,
   ]);
 
-  useEffect(() => {
-    if (!treeData) return;
-
-    const abortController = new AbortController();
-
   const fetchData = async () => {
+    if (!treeData) {
+      return;
+    }
     try {
       const geocodingUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/lastwatered?id=${treeData.id}`;
       const res = await fetch(geocodingUrl, {
