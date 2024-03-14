@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@playwright/test": "1.42.1",
-    "@technologiestiftung/eslint-config": "0.1.3",
+    "@technologiestiftung/eslint-config": "0.1.4",
     "@technologiestiftung/eslint-plugin": "0.1.1-0",
     "@types/mapbox-gl": "3.1.0",
     "@types/react": "18.2.61",
