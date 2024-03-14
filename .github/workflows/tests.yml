@@ -4,9 +4,9 @@ permissions:
   packages: write
 on:
   push:
-    branches: [feat/ui-rework]
+    branches: [main, staging, feat/ui-rework]
   pull_request:
-    branches: [feat/ui-rework]
+    branches: [main, staging, feat/ui-rework]
 
 jobs:
   test:
@@ -33,3 +33,18 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+  release:
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - run: |
+          npm ci
+          npx semantic-release --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
