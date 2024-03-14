@@ -4,23 +4,29 @@ import MapIcon from "../icons/map-icon";
 import UserIcon from "../icons/user-icon";
 import InfoIcon from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
+import { useTreeStore } from "../tree-detail/tree-store";
 
 const Navbar: React.FC = () => {
   const i18n = useI18nStore().i18n();
 
   const setPathname = useUrlState((state) => state.setPathname);
   const url = useUrlState((state) => state.url);
+  const { setTreeData } = useTreeStore();
 
   const navItems = [
     { label: i18n.navbar.map, path: "/map", icon: <MapIcon /> },
-    { label: i18n.navbar.profile, path: "/profile", icon: <UserIcon /> },
+    {
+      label: i18n.navbar.profile.sidebarLabel,
+      path: "/profile",
+      icon: <UserIcon />,
+    },
     { label: i18n.navbar.info, path: "/about", icon: <InfoIcon /> },
   ];
 
   return (
     <nav
-      className={`pointer-events-auto
-      flex h-auto w-full justify-center rounded-tl-3xl rounded-tr-3xl bg-white pt-0 shadow 
+      className={`shadow-gdk-hard
+      pointer-events-auto flex h-auto w-full justify-center rounded-tl-3xl rounded-tr-3xl bg-white pt-0 
       lg:h-full lg:w-auto lg:justify-start lg:rounded-br lg:rounded-tl-none lg:rounded-tr lg:px-2 lg:pt-10`}
     >
       <div
@@ -35,11 +41,12 @@ const Navbar: React.FC = () => {
             onClick={(e) => {
               e.preventDefault();
               setPathname(item.path);
+              setTreeData(undefined);
             }}
             className={`
             flex h-14 w-14 flex-col items-center justify-center rounded-xl pt-1 text-sm font-medium
             hover:bg-blue-600 hover:bg-opacity-10 lg:h-16 lg:w-16 lg:rounded lg:text-base
-            ${url.pathname === item.path ? "bg-blue-600 bg-opacity-10 text-blue-600" : "text-gray-800"}
+            ${url.pathname.startsWith(item.path) ? "bg-blue-600 bg-opacity-10 text-blue-600" : "text-gray-800"}
             `}
           >
             {item.icon}

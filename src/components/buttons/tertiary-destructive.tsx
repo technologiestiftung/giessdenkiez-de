@@ -13,9 +13,9 @@ const TertiaryDestructiveButton: React.FC<TertiaryDestructiveButtonProps> = ({
 }) => {
   return (
     <button
-      className={`hover:text-bg-gdk-light-blue disabled:text-gdk-light-gray enabled:hover:text-gdk-light-blue
-      text-gdk-dark-red enabled:hover:text-gdk-light-red" flex h-[51px] w-fit items-center justify-center rounded-[10px] 
-      p-3.5 font-semibold
+      className={`hover:text-bg-gdk-light-blue enabled:hover:text-gdk-light-red" p-y-3.5
+      flex h-[51px] w-fit items-center justify-center rounded-[10px] font-semibold text-gdk-dark-red 
+      enabled:hover:text-gdk-light-blue disabled:text-gdk-light-gray
         `}
       disabled={disabled}
       onClick={onClick}
