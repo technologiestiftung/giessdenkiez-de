@@ -72,6 +72,9 @@ interface Navbar {
 			registerNow: string;
 			forgotYourPassword: string;
 			ohNoforgotYourPassword: string;
+			passwordForgotten: string;
+			clickHere: string;
+			resetPassword: string;
 		};
 		logOut: string;
 	};
