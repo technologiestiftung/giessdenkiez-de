@@ -31,5 +31,6 @@
   "peacock.color": "#68217A",
   "typescript.tsdk": "node_modules/typescript/lib",
   "prettier.singleQuote": true,
-  "prettier.jsxSingleQuote": true
+  "prettier.jsxSingleQuote": true,
+  "eslint.experimental.useFlatConfig": true
 }
