@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useTreeStore } from "../tree-store.js";
-import { TreeData, TreeFetchWateringDataState } from "../tree-types.js";
+import { TreeData, TreeFetchWateringDataState } from "../tree-types";
 
 export function useFetchTreeWateringData(
   treeData?: TreeData,

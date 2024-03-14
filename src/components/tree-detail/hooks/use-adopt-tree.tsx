@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../../../auth/auth-store";
+import { useErrorStore } from "../../../error/error-store";
+import { useI18nStore } from "../../../i18n/i18n-store";
 
 export interface TreeAdoptState {
   isLoading: boolean;
@@ -10,6 +12,10 @@ export interface TreeAdoptState {
 }
 
 export function useAdoptTree(treeId: string): TreeAdoptState {
+  const i18n = useI18nStore().i18n();
+
+  const handleError = useErrorStore().handleError;
+
   const access_token = useAuthStore((store) => store).session?.access_token;
   const user = useAuthStore((store) => store).session?.user;
 
@@ -32,15 +38,15 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
         signal: abortController.signal,
       });
       if (!res.ok) {
+        handleError(i18n.treeDetail.adoptErrorMessage);
         setAdoptLoading(false);
         return;
       }
       setIsAdopted(true);
       setAdoptLoading(false);
     } catch (error) {
+      handleError(i18n.treeDetail.adoptErrorMessage, error);
       setAdoptLoading(false);
-      alert(error);
-      throw error;
     }
   };
 
@@ -59,14 +65,14 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
       });
       if (!res.ok) {
         setAdoptLoading(false);
+        handleError(i18n.treeDetail.adoptErrorMessage);
         return;
       }
       setIsAdopted(false);
       setAdoptLoading(false);
     } catch (error) {
+      handleError(i18n.treeDetail.adoptErrorMessage, error);
       setAdoptLoading(false);
-      alert(error);
-      throw error;
     }
   };
 
@@ -87,13 +93,13 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
           signal: abortController.signal,
         });
         if (!res.ok) {
+          handleError(i18n.treeDetail.adoptErrorMessage);
           return;
         }
         const json = await res.json();
         setIsAdopted(json.data);
       } catch (error) {
-        alert(error);
-        throw error;
+        handleError(i18n.treeDetail.adoptErrorMessage, error);
       }
     };
 
@@ -109,6 +115,7 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
           signal: abortController.signal,
         });
         if (!res.ok) {
+          handleError(i18n.treeDetail.adoptErrorMessage);
           return;
         }
         const json = await res.json();
@@ -118,8 +125,7 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
           ).length > 0;
         setAdoptedByOthers(adoptedByOthers);
       } catch (error) {
-        alert(error);
-        throw error;
+        handleError(i18n.treeDetail.adoptErrorMessage, error);
       }
     };
 

@@ -1,10 +1,14 @@
 import React from "react";
+import { useAuthStore } from "./auth/auth-store.tsx";
 import Map from "./components/map/map";
 import Router from "./components/router/router";
-import { useAuthStore } from "./auth/auth-store.tsx";
+import { useErrorStore } from "./error/error-store.tsx";
+import ErrorToast from "./error/error-toast.tsx";
 
 const App: React.FC = () => {
   useAuthStore();
+
+  const error = useErrorStore().error;
 
   return (
     <>
@@ -15,6 +19,7 @@ const App: React.FC = () => {
         <div className="pointer-events-none z-[1000] col-start-1 row-start-1 h-full w-full">
           <Router />
         </div>
+        {error && <ErrorToast error={error} />}
       </div>
     </>
   );

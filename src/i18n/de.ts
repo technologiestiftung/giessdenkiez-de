@@ -180,6 +180,8 @@ Vernetzen:
     adoptHintTitle: "Baum adoptieren",
     adoptHint:
       "Wenn Du regelmäßig den gleichen Baum gießt, kannst Du diesen abonnieren. So findest Du ihn schnell in Deiner Profilübersicht wieder.",
+    adoptErrorMessage:
+      "Fehler beim Adoptieren des Baumes. Bitte versuche es erneut.",
     ageTitle: "Standalter",
     age: (age: number) => `${age} Jahre`,
     ageUnknown: "Unbekannt",
@@ -314,6 +316,10 @@ Vernetzen:
       },
     ],
     treeTypeInfoTitle: "Baumsteckbrief",
+  },
+  common: {
+    defaultErrorMessage:
+      "Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.",
   },
 };
 

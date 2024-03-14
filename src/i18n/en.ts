@@ -184,6 +184,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
     adoptHintTitle: "Adopt a tree",
     adoptHint:
       "If you regularly water the same tree, you can subscribe to it. This way you can quickly find it in your profile overview.",
+    adoptErrorMessage: "Error adopting the tree. Please try again.",
     age: (age: number) => `${age} years`,
     ageUnknown: "Unknown",
     managedBy:
@@ -326,6 +327,9 @@ We manage largely on our own and are happy in particularly dry phases but still 
       },
     ],
     treeTypeInfoTitle: "Tree profile",
+  },
+  common: {
+    defaultErrorMessage: "Something went wrong! Please try again later.",
   },
 };
 
