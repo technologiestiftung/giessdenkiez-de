@@ -1,3 +1,4 @@
+import { clear } from "console";
 import { create } from "zustand";
 
 interface ErrorStore {
@@ -8,14 +9,16 @@ interface ErrorStore {
 
 const errorShowTimeMs = 5000;
 
-export const useErrorStore = create<ErrorStore>()((set) => ({
+export const useErrorStore = create<ErrorStore>()((set, get) => ({
   error: undefined,
+
+  clearErrors: () => set({ error: undefined }),
+
   handleError: (userFacingErrorMessage: string, thrownError?: any) => {
     console.log(thrownError);
     set({ error: userFacingErrorMessage });
     setTimeout(() => {
-      set({ error: undefined });
+      get().clearErrors();
     }, errorShowTimeMs);
   },
-  clearErrors: () => set({ error: undefined }),
 }));
