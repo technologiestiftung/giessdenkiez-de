@@ -5,7 +5,7 @@ import { PasswordErrors } from "./types";
 import { useI18nStore } from "../../../i18n/i18n-store";
 
 export interface PasswordInputValidationProps {
-	label: string | React.ReactNode;
+	label?: string | React.ReactNode;
 }
 
 const PasswordInputWithValidation: React.FC<PasswordInputValidationProps> = ({
