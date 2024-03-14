@@ -7,6 +7,9 @@ import { TreeAgeClassification, TreeData } from "./tree-types";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 import WaterProgressCircle from "./water-progress-circle";
+import { useWaterTree } from "./hooks/use-water-tree";
+import PrimaryButton from "../buttons/primary";
+import WateringDialog from "./watering-dialog";
 
 interface TreeWaterNeedProps {
   treeData: TreeData;
@@ -19,6 +22,7 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 }) => {
   const i18n = useI18nStore().i18n();
 
+  const [showDialog, setShowDialog] = useState(false);
   const [isExpanded, setIsExpanded] = useState(true);
   const [showInfoBox, setShowInfoBox] = useState(false);
 
@@ -36,6 +40,7 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
     stillNeedsWaterColor,
   } = useTreeWaterNeedsData(treeData, treeWateringData, treeAgeClassification);
 
+  console.log(stillMissingWater);
   return (
     <div className="flex flex-col gap-4 border-b-2 py-8">
       <button
@@ -159,6 +164,24 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
           <div className="font-bold">
             {i18n.treeDetail.waterNeed.dataOfLastXDays}
           </div>
+
+          <div className="flex flex-row justify-center">
+            <PrimaryButton
+              label={"Ich habe gegossen"}
+              disabled={false}
+              onClick={async () => {
+                setShowDialog(true);
+              }}
+            />
+          </div>
+          {showDialog && (
+            <WateringDialog
+              treeData={treeData}
+              close={() => {
+                setShowDialog(false);
+              }}
+            />
+          )}
         </div>
       )}
     </div>
