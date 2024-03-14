@@ -1,7 +1,7 @@
 import React from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 
-const Overview: React.FC = () => {
+export const Overview: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
 
@@ -54,5 +54,3 @@ const Overview: React.FC = () => {
 		</div>
 	);
 };
-
-export default Overview;

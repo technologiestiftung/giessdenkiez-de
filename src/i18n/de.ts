@@ -58,8 +58,12 @@ const de: Content = {
 				email: "Deine E-Mail Adresse",
 				editEmail: "Neue E-Mail Adresse",
 				placeholderMail: "xyz@ts.berlin",
+				updateEmailEmailSent:
+					"Wir haben an Deine alte und neue E–Mail einen Bestätigungslink zum Ändern Deiner Email gesendet. Checke Deine Postfächer und logge Dich neu ein!",
 				password: "Passwort",
 				changePassword: "Passwort ändern",
+				passwordChangeConfirmation:
+					'Dein Passwort wurde geändert. Klicke auf "ok" um zu deinem Profil zu kommen.',
 				deleteAccount: "Account löschen",
 				approve: "Fertig",
 				checkInput: "Bitte überprüfe Deine Eingabe",
@@ -82,8 +86,13 @@ const de: Content = {
 				forgotYourPassword: "Passwort vergessen?",
 				ohNoforgotYourPassword: "Oh nein. Du hast Dein",
 				passwordForgotten: "Passwort Vergessen",
+				resetPasswordEmailSent:
+					"E–Mail gesendet! Wir haben Dir eine E–Mail zum Ändern Deines Passworts gesendet. Checke Dein Postfach!",
 				clickHere: "Hier klicken",
 				resetPassword: "Passwort zurücksetzen",
+				invalidCredentials: "Falsches Passwort oder E-Mail Adresse",
+				deleteAccountConfirm:
+					"Bist du Dir sicher, den Account löschen zu wollen?",
 			},
 			logOut: "Ausloggen",
 		},

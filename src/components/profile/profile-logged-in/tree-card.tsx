@@ -8,7 +8,7 @@ export interface TreeCardProps {
 	irrigationTimes: number;
 }
 
-const TreeCard: React.FC<TreeCardProps> = ({
+export const TreeCard: React.FC<TreeCardProps> = ({
 	id,
 	name,
 	irrigationAmount,
@@ -52,5 +52,3 @@ const TreeCard: React.FC<TreeCardProps> = ({
 		</div>
 	);
 };
-
-export default TreeCard;

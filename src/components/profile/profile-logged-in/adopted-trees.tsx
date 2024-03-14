@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import TertiaryButton from "../../buttons/tertiary";
-import TreeCard from "./tree-card";
+import { TreeCard } from "./tree-card";
 
-const AdoptedTrees: React.FC = () => {
+export const AdoptedTrees: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const [showAllTrees, setshowAllTrees] = useState(false);
 
@@ -60,5 +60,3 @@ const AdoptedTrees: React.FC = () => {
 		</div>
 	);
 };
-
-export default AdoptedTrees;
