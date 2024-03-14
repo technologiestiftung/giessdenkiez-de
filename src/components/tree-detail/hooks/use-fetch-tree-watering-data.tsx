@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useTreeStore } from "../tree-store.js";
-import { TreeData, TreeFetchWateringDataState } from "../tree-types.js";
+import { TreeData, TreeFetchWateringDataState } from "../tree-types";
 
 export function useFetchTreeWateringData(
-  treeData: TreeData,
+  treeData?: TreeData,
 ): TreeFetchWateringDataState {
   const [treeWateringData, setTreeWateringData] = useTreeStore((store) => [
     store.treeWateringData,
@@ -11,6 +11,8 @@ export function useFetchTreeWateringData(
   ]);
 
   useEffect(() => {
+    if (!treeData) return;
+
     const abortController = new AbortController();
 
     const fetchData = async () => {

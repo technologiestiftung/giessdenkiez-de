@@ -172,7 +172,16 @@ Vernetzen:
   treeDetail: {
     title: "Bauminformationen",
     adoptIt: "Diesen Baum adoptieren",
-    alreadyAdoptedBy: "Auch von anderen User:innen adoptiert",
+    alsoAdoptedBy: "Auch von anderen User:innen adoptiert",
+    exclusivelyAdoptedBy: "Von anderen User:innen adoptiert",
+    adoptLoading: "Baum wird adoptiert...",
+    unadoptLoading: "Adoption wird aufgehoben...",
+    isAdopted: "Du hast diesen Baum adoptiert",
+    adoptHintTitle: "Baum adoptieren",
+    adoptHint:
+      "Wenn Du regelmäßig den gleichen Baum gießt, kannst Du diesen abonnieren. So findest Du ihn schnell in Deiner Profilübersicht wieder.",
+    adoptErrorMessage:
+      "Fehler beim Adoptieren des Baumes. Bitte versuche es erneut.",
     ageTitle: "Standalter",
     age: (age: number) => `${age} Jahre`,
     ageUnknown: "Unbekannt",
@@ -307,6 +316,10 @@ Vernetzen:
       },
     ],
     treeTypeInfoTitle: "Baumsteckbrief",
+  },
+  common: {
+    defaultErrorMessage:
+      "Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.",
   },
 };
 

@@ -14,6 +14,7 @@ import { useTreeAgeClassification } from "./hooks/use-tree-age-classification";
 import LastWaterings from "./last-waterings";
 import ProblemCard from "./problem-card";
 import TreeFlier from "./tree-flier";
+import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 
 const TreeDetail: React.FC = () => {
   const i18n = useI18nStore().i18n();
@@ -27,6 +28,8 @@ const TreeDetail: React.FC = () => {
   const { setTreeData } = useTreeStore();
   const { setSelectedTreeId } = useSelectedTree();
   const { treeData } = useFetchTreeData(treeId);
+  const { treeWateringData } = useFetchTreeWateringData(treeData);
+
   const { treeAge, treeAgeClassification } = useTreeAgeClassification(treeData);
   const treeTypeInfo = useMemo(() => {
     return i18n.treeDetail.treeTypeInfos.find(
@@ -73,16 +76,18 @@ const TreeDetail: React.FC = () => {
               <TreeWaterNeed
                 treeData={treeData}
                 treeAgeClassification={treeAgeClassification}
+                treeWateringData={treeWateringData}
               />
             )}
             {treeAgeClassification === TreeAgeClassification.UNKNOWN && (
               <TreeWaterNeedUnknown
                 treeData={treeData}
                 treeAgeClassification={treeAgeClassification}
+                treeWateringData={treeWateringData}
               />
             )}
-            {treeData && <LastWaterings treeData={treeData}></LastWaterings>}
-            <ProblemCard></ProblemCard>
+            {treeData && <LastWaterings treeWateringData={treeWateringData} />}
+            <ProblemCard />
           </div>
         )}
       </div>
