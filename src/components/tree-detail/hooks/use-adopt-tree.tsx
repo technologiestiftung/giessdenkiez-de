@@ -33,6 +33,7 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
       });
       if (!res.ok) {
         setAdoptLoading(false);
+        return;
       }
       setIsAdopted(true);
       setAdoptLoading(false);
@@ -58,6 +59,7 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
       });
       if (!res.ok) {
         setAdoptLoading(false);
+        return;
       }
       setIsAdopted(false);
       setAdoptLoading(false);
@@ -107,7 +109,7 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
           signal: abortController.signal,
         });
         if (!res.ok) {
-          return false;
+          return;
         }
         const json = await res.json();
         const adoptedByOthers =

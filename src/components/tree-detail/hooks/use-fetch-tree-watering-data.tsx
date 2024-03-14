@@ -3,7 +3,7 @@ import { useTreeStore } from "../tree-store.js";
 import { TreeData, TreeFetchWateringDataState } from "../tree-types.js";
 
 export function useFetchTreeWateringData(
-  treeData: TreeData | undefined,
+  treeData?: TreeData,
 ): TreeFetchWateringDataState {
   const [treeWateringData, setTreeWateringData] = useTreeStore((store) => [
     store.treeWateringData,
