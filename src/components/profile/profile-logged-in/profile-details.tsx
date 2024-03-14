@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import TertiaryButton from "../../buttons/tertiary";
 import { useAuthStore } from "../../../auth/auth-store";
@@ -7,11 +7,8 @@ import UsernameInputWithIcon from "../validation/username-input-with-icon";
 
 const ProfileDetails: React.FC = () => {
   const i18n = useI18nStore().i18n();
-  const [usernameIsDisabled, setUsernameDisabled] = useState(true);
-  const [emailIsDisabled, setEmailDisabled] = useState(true);
 
-  const { forgotPassword, getUserData, updateEmail, updateUsername } =
-    useAuthStore();
+  const { forgotPassword, getUserData } = useAuthStore();
 
   return (
     <div className="md:shadow-gdk-soft mb-3 md:rounded-2xl md:border-2 md:p-7">
@@ -19,41 +16,15 @@ const ProfileDetails: React.FC = () => {
         {i18n.navbar.profile.settings.subtitle}
       </h2>
 
-      <form
-        className="flex flex-col justify-between gap-x-8"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setUsernameDisabled(!usernameIsDisabled);
-          updateUsername(e.currentTarget.username.value);
-        }}
-      >
-        <UsernameInputWithIcon
-          label={i18n.navbar.profile.settings.username}
-          placeholder={getUserData()?.user_metadata.signup_username}
-          disabled={usernameIsDisabled}
-          onClick={() => {
-            setUsernameDisabled(!usernameIsDisabled);
-          }}
-        ></UsernameInputWithIcon>
-      </form>
+      <UsernameInputWithIcon
+        label={i18n.navbar.profile.settings.username}
+        placeholder={getUserData()?.user_metadata.signup_username}
+      ></UsernameInputWithIcon>
 
-      <form
-        className="flex flex-col justify-between gap-x-8"
-        onSubmit={(e) => {
-          e.preventDefault();
-          updateEmail(e.currentTarget.email.value);
-          setEmailDisabled(!emailIsDisabled);
-        }}
-      >
-        <EmailInputWithIcon
-          label={i18n.navbar.profile.settings.email}
-          placeholder={getUserData()?.email}
-          disabled={emailIsDisabled}
-          onClick={() => {
-            setEmailDisabled(!emailIsDisabled);
-          }}
-        ></EmailInputWithIcon>
-      </form>
+      <EmailInputWithIcon
+        label={i18n.navbar.profile.settings.email}
+        placeholder={getUserData()?.email}
+      ></EmailInputWithIcon>
 
       <div className="mt-7 flex flex-col">
         <label className="font-semibold" htmlFor="email">
