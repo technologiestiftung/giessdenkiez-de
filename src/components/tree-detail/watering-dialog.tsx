@@ -4,8 +4,8 @@ import SecondaryButton from "../buttons/secondary";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 import { useWaterTree } from "./hooks/use-water-tree";
 import { TreeData } from "./tree-types";
-
 import { format, parse, parseISO } from "date-fns";
+import "../../index.css";
 
 interface WateringDialogProps {
   treeData: TreeData;
@@ -21,11 +21,11 @@ const WateringDialog: React.FC<WateringDialogProps> = ({ treeData, close }) => {
   const [waterDate, setWaterDate] = useState(new Date());
 
   return (
-    <dialog className="shadow-gdk-hard absolute top-[50%] flex w-[100%] -translate-y-[50%] flex-col rounded-lg bg-gdk-white p-8 md:w-[30%]">
+    <dialog id="water-dialog" className="shadow-3xl flex-col rounded-lg p-8">
       <div className="flex flex-col gap-6">
         <div className="text-xl font-bold">Gießung eintragen</div>
         <div className="flex flex-col gap-2">
-          <div>Wie viele Liter?</div>
+          <div className="text-lg font-semibold">Wie viele Liter?</div>
           <input
             className="rounded-lg border-2 p-4"
             type="number"
@@ -37,7 +37,7 @@ const WateringDialog: React.FC<WateringDialogProps> = ({ treeData, close }) => {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <div>Wann?</div>
+          <div className="text-lg font-semibold">Wann?</div>
           <input
             className="rounded-lg border-2 p-4"
             type="datetime-local"
@@ -48,7 +48,7 @@ const WateringDialog: React.FC<WateringDialogProps> = ({ treeData, close }) => {
             }}
           />
         </div>
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between gap-8">
           <SecondaryButton
             label={"Abbrechen"}
             disabled={false}

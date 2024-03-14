@@ -7,6 +7,10 @@
     @apply text-gdk-gray;
   }
 
+  dialog::backdrop {
+    background: #2c303b66;
+  }
+
   @font-face {
     font-family: "IBM";
     font-style: normal;

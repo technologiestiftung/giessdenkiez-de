@@ -1,14 +1,13 @@
 import React, { useState } from "react";
+import { useI18nStore } from "../../i18n/i18n-store";
+import PrimaryButton from "../buttons/primary";
 import ChevronDown from "../icons/chevron-down";
 import ChevronRight from "../icons/chevron-right";
-import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
-import TreeWaterNeedHint from "./tree-water-needs-hint";
-import { TreeAgeClassification, TreeData } from "./tree-types";
-import { useI18nStore } from "../../i18n/i18n-store";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
+import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
+import { TreeAgeClassification, TreeData } from "./tree-types";
+import TreeWaterNeedHint from "./tree-water-needs-hint";
 import WaterProgressCircle from "./water-progress-circle";
-import { useWaterTree } from "./hooks/use-water-tree";
-import PrimaryButton from "../buttons/primary";
 import WateringDialog from "./watering-dialog";
 
 interface TreeWaterNeedProps {
@@ -22,7 +21,6 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 }) => {
   const i18n = useI18nStore().i18n();
 
-  const [showDialog, setShowDialog] = useState(false);
   const [isExpanded, setIsExpanded] = useState(true);
   const [showInfoBox, setShowInfoBox] = useState(false);
 
@@ -170,18 +168,19 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
               label={"Ich habe gegossen"}
               disabled={false}
               onClick={async () => {
-                setShowDialog(true);
+                //@ts-ignore
+                document.getElementById("water-dialog")?.showModal();
               }}
             />
           </div>
-          {showDialog && (
-            <WateringDialog
-              treeData={treeData}
-              close={() => {
-                setShowDialog(false);
-              }}
-            />
-          )}
+
+          <WateringDialog
+            treeData={treeData}
+            close={() => {
+              //@ts-ignore
+              document.getElementById("water-dialog")?.close();
+            }}
+          />
         </div>
       )}
     </div>
