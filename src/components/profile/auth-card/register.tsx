@@ -7,69 +7,69 @@ import PasswordInputWithValidation from "../validation/password-input-with-valid
 import PrimaryButton from "../../buttons/primary";
 
 const Register: React.FC = () => {
-  const { setPathname } = useUrlState();
-  const { register } = useAuthStore();
+	const { setPathname } = useUrlState();
+	const { register } = useAuthStore();
 
-  const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    register({
-      email: e.currentTarget.email.value,
-      username: e.currentTarget.username.value,
-      password: e.currentTarget.password.value,
-    });
-  }, []);
+	const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		register({
+			email: e.currentTarget.email.value,
+			username: e.currentTarget.username.value,
+			password: e.currentTarget.password.value,
+		});
+	}, []);
 
-  return (
-    <>
-      <div
-        className={`
+	return (
+		<>
+			<div
+				className={`
         h-full w-full px-4 pt-10
         lg:mx-auto lg:my-auto lg:max-h-[40rem] lg:max-w-[42rem] lg:rounded lg:border lg:shadow`}
-      >
-        <a
-          className="font-semibold text-blue-600"
-          href="/profile"
-          onClick={(e) => {
-            e.preventDefault();
-            setPathname("/profile");
-          }}
-        >
-          <span>&lt;</span> zurück zum Login
-        </a>
+			>
+				<a
+					className="font-semibold text-blue-600"
+					href="/profile"
+					onClick={(e) => {
+						e.preventDefault();
+						setPathname("/profile");
+					}}
+				>
+					<span>&lt;</span> zurück zum Login
+				</a>
 
-        <h1 className="pt-6 text-2xl font-semibold">Registrieren</h1>
-        <form onSubmit={onSubmit} className="flex flex-col">
-          <div className="flex flex-col gap-y-2 pt-5">
-            <EmailInputWithValidation label="E-mail" />
-          </div>
+				<h1 className="pt-6 text-2xl font-semibold">Registrieren</h1>
+				<form onSubmit={onSubmit} className="flex flex-col">
+					<div className="flex flex-col gap-y-2 pt-5">
+						<EmailInputWithValidation label="E-mail" />
+					</div>
 
-          <div className="flex flex-col gap-y-2 pt-6">
-            <UsernameInputWithValidation label="Benutzername" />
-          </div>
+					<div className="flex flex-col gap-y-2 pt-6">
+						<UsernameInputWithValidation label="Benutzername" />
+					</div>
 
-          <div className="flex flex-col gap-y-2 pt-6">
-            <PasswordInputWithValidation />
-          </div>
+					<div className="flex flex-col gap-y-2 pt-6">
+						<PasswordInputWithValidation />
+					</div>
 
-          <div className="pt-11">
-            <PrimaryButton type="submit" label="Registrieren" />
-          </div>
-        </form>
+					<div className="pt-11">
+						<PrimaryButton type="submit" label="Registrieren" />
+					</div>
+				</form>
 
-        <p className="pt-6">Du hast schon einen Account?</p>
-        <a
-          className="font-semibold text-blue-600"
-          href="/profile"
-          onClick={(e) => {
-            e.preventDefault();
-            setPathname("/profile");
-          }}
-        >
-          Melde Dich an
-        </a>
-      </div>
-    </>
-  );
+				<p className="pt-6">Du hast schon einen Account?</p>
+				<a
+					className="font-semibold text-blue-600"
+					href="/profile"
+					onClick={(e) => {
+						e.preventDefault();
+						setPathname("/profile");
+					}}
+				>
+					Melde Dich an
+				</a>
+			</div>
+		</>
+	);
 };
 
 export default Register;

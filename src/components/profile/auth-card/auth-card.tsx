@@ -5,18 +5,18 @@ import Register from "./register";
 import ForgotPassword from "./forgot-password";
 
 const AuthCard: React.FC = () => {
-  const { url } = useUrlState();
+	const { url } = useUrlState();
 
-  const authType = url.searchParams.get("mode");
+	const authType = url.searchParams.get("mode");
 
-  switch (authType) {
-    case "register":
-      return <Register />;
-    case "forgot-password":
-      return <ForgotPassword />;
-    default:
-      return <Login />;
-  }
+	switch (authType) {
+		case "register":
+			return <Register />;
+		case "forgot-password":
+			return <ForgotPassword />;
+		default:
+			return <Login />;
+	}
 };
 
 export default AuthCard;

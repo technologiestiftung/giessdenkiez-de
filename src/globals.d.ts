@@ -1,3 +1,3 @@
 declare interface Window {
-  _paq: string[][];
+	_paq: string[][];
 }
