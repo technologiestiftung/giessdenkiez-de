@@ -13,6 +13,7 @@ jobs:
     timeout-minutes: 60
     env:
       CI: true
+      ESLINT_USE_FLAT_CONFIG: true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,6 +22,8 @@ jobs:
         with:
           node-version-file: ".nvmrc"
       - run: npm ci
+      - name: lint
+        run: npm run lint
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - run: npm run test  --if-present
