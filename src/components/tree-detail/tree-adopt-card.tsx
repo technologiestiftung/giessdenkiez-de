@@ -3,6 +3,10 @@ import { useI18nStore } from "../../i18n/i18n-store";
 import { useAdoptTree } from "./hooks/use-adopt-tree";
 import { TreeAgeClassification, TreeData } from "./tree-types";
 import AdoptTreeTooltip from "./tooltip";
+import HeartIcon, {
+  HeartIconFillState,
+  HeartIconState,
+} from "../icons/heart-icon";
 
 interface TreeAdoptCardProps {
   treeData: TreeData;
@@ -36,28 +40,12 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
           onMouseEnter={() => setHeartHovered(true)}
           onMouseLeave={() => setHeartHovered(false)}
         >
-          {heartHovered ? (
-            <img
-              src="/images/heart-icon-hover.svg"
-              alt="Tree Icon"
-              width={24}
-              height={24}
-            />
-          ) : isAdopted ? (
-            <img
-              src="/images/heart-icon-filled.svg"
-              alt="Tree Icon"
-              width={24}
-              height={24}
-            />
-          ) : (
-            <img
-              src="/images/heart-icon.svg"
-              alt="Tree Icon"
-              width={24}
-              height={24}
-            />
-          )}
+          <HeartIcon
+            state={heartHovered ? HeartIconState.Hover : HeartIconState.Default}
+            fillState={
+              isAdopted ? HeartIconFillState.Filled : HeartIconFillState.Empty
+            }
+          />
         </button>
       </div>
       {treeAgeClassification === TreeAgeClassification.BABY && (
