@@ -12,8 +12,6 @@ const WaterProgressCircle: React.FC<WaterCircleProps> = ({
 }) => {
   const i18n = useI18nStore().i18n();
 
-  console.log(needsWaterAmount);
-
   const circleTitle = useMemo(() => {
     if (treeAgeClassification === TreeAgeClassification.BABY) {
       return i18n.treeDetail.waterNeed.alreadyWateredByManager;

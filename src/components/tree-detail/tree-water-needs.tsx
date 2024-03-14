@@ -37,7 +37,6 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
     stillNeedsWaterColor,
   } = useTreeWaterNeedsData(treeData, treeWateringData, treeAgeClassification);
 
-  console.log(stillMissingWater);
   return (
     <div className="flex flex-col gap-4 border-b-2 py-8">
       <button

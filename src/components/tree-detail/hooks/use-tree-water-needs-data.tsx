@@ -87,11 +87,9 @@ export function useTreeWaterNeedsData(
   };
 
   const stillMissingWater = () => {
-    const test = Math.round(
+    return Math.round(
       Math.max(0, referenceWaterAmount() - rainSum() - wateringSum()),
     );
-    console.log(test);
-    return test;
   };
 
   const shouldBeWatered = () => {
