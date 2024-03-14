@@ -105,6 +105,12 @@ interface WaterNeed {
   ageAndWaterHint: string;
   lastXDaysYLitersWater: (days: number, liters: number) => string;
   lastXDaysYLitersRain: (days: number, liters: number) => string;
+  iWatered: string;
+  submitWatering: string;
+  wateredHowMuch: string;
+  wateredWhen: string;
+  waterSave: string;
+  waterCancel: string;
 }
 
 interface Problem {

@@ -6,6 +6,7 @@ import { useWaterTree } from "./hooks/use-water-tree";
 import { TreeData } from "./tree-types";
 import { format, parse, parseISO } from "date-fns";
 import "../../index.css";
+import { useI18nStore } from "../../i18n/i18n-store";
 
 interface WateringDialogProps {
   treeData: TreeData;
@@ -13,6 +14,7 @@ interface WateringDialogProps {
 }
 
 const WateringDialog: React.FC<WateringDialogProps> = ({ treeData, close }) => {
+  const i18n = useI18nStore().i18n();
   const dateFormat = "yyyy-MM-dd'T'hh:mm";
 
   const { waterTree } = useWaterTree(treeData.id);
@@ -23,9 +25,13 @@ const WateringDialog: React.FC<WateringDialogProps> = ({ treeData, close }) => {
   return (
     <dialog id="water-dialog" className="shadow-3xl flex-col rounded-lg p-8">
       <div className="flex flex-col gap-6">
-        <div className="text-xl font-bold">Gießung eintragen</div>
+        <div className="text-xl font-bold">
+          {i18n.treeDetail.waterNeed.submitWatering}
+        </div>
         <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold">Wie viele Liter?</div>
+          <div className="text-lg font-semibold">
+            {i18n.treeDetail.waterNeed.wateredHowMuch}
+          </div>
           <input
             className="rounded-lg border-2 p-4"
             type="number"
@@ -37,7 +43,9 @@ const WateringDialog: React.FC<WateringDialogProps> = ({ treeData, close }) => {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <div className="text-lg font-semibold">Wann?</div>
+          <div className="text-lg font-semibold">
+            {i18n.treeDetail.waterNeed.wateredWhen}
+          </div>
           <input
             className="rounded-lg border-2 p-4"
             type="datetime-local"
@@ -50,12 +58,12 @@ const WateringDialog: React.FC<WateringDialogProps> = ({ treeData, close }) => {
         </div>
         <div className="flex flex-row flex-wrap justify-between gap-4">
           <SecondaryButton
-            label={"Abbrechen"}
+            label={i18n.treeDetail.waterNeed.waterCancel}
             disabled={false}
             onClick={close}
           />
           <PrimaryButton
-            label={"Speichern"}
+            label={i18n.treeDetail.waterNeed.waterSave}
             disabled={false}
             onClick={async () => {
               await waterTree(amount, waterDate);

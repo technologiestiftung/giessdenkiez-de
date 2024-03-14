@@ -222,6 +222,12 @@ We manage largely on our own and are happy in particularly dry phases but still 
         `In the last ${days} days, **${liters} liters** were watered.`,
       lastXDaysYLitersRain: (days: number, liters: number) =>
         `In the last ${days} days, it rained **${liters} liters**.`,
+      iWatered: "I watered",
+      submitWatering: "Submit watering",
+      wateredHowMuch: "How much?",
+      wateredWhen: "When?",
+      waterSave: "Save",
+      waterCancel: "Cancel",
     },
     lastWaterings: {
       title: "Last waterings",
