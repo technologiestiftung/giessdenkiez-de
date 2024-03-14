@@ -1,21 +1,18 @@
 import React from "react";
-import { useI18nStore } from "../../i18n/i18n-store.ts";
+import { useI18nStore } from "../../../i18n/i18n-store.ts";
+import EditIcon from "../../icons/edit-icon.tsx";
 
-export interface InputFieldIconProps {
+export interface EmailInputWithIconProps {
   label: string | React.ReactNode;
   placeholder: string | undefined;
   onClick: () => void;
   disabled?: boolean;
-  icon: React.ReactNode;
-  name: string;
 }
 
-const InputFieldIcon: React.FC<InputFieldIconProps> = ({
+const EmailInputWithIcon: React.FC<EmailInputWithIconProps> = ({
   label,
   onClick,
   disabled,
-  name,
-  icon,
   placeholder,
 }) => {
   const i18n = useI18nStore().i18n();
@@ -30,7 +27,7 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
             className="self-end text-gdk-blue enabled:hover:text-gdk-light-blue"
             onClick={onClick}
           >
-            {icon}
+            <EditIcon />
           </button>
         </div>
       )}
@@ -40,7 +37,7 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
             className={`h-14 flex-auto rounded-2xl px-3 py-2 outline-1 focus:outline-2
               focus:outline-gdk-blue enabled:outline disabled:bg-gdk-white `}
             type="text"
-            name={name}
+            name="email"
             disabled={disabled}
             placeholder={placeholder}
           />
@@ -56,4 +53,4 @@ const InputFieldIcon: React.FC<InputFieldIconProps> = ({
   );
 };
 
-export default InputFieldIcon;
+export default EmailInputWithIcon;

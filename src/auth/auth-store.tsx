@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Session } from "@supabase/supabase-js";
+import { Session, User } from "@supabase/supabase-js";
 import { supabaseClient } from "./supabase-client.ts";
 
 interface Credentials {
@@ -14,12 +14,14 @@ interface RegistrationCredentials extends Credentials {
 interface AuthState {
   session: Session | null | undefined;
   isLoggedIn: () => boolean | undefined;
-  getUserData: () => void | undefined;
+  getUserData: () => User | undefined;
   login: ({ email, password }: Credentials) => void;
   logout: () => void;
   register: ({ email, username, password }: RegistrationCredentials) => void;
   forgotPassword: (email: string) => void;
   updatePassword: (password: string) => void;
+  updateEmail: (email: string) => void;
+  updateUsername: (username: string) => void;
 }
 
 export const useAuthStore = create<AuthState>()((set, get) => {
@@ -153,6 +155,51 @@ export const useAuthStore = create<AuthState>()((set, get) => {
       }
 
       console.log("Update password success:", data);
+    },
+
+    updateEmail: async (email: string) => {
+      const { data, error } = await supabaseClient.auth.updateUser({
+        email: email,
+      });
+
+      console.log("email:", data);
+
+      if (error) {
+        alert(error.message);
+        throw error;
+      }
+
+      if (!data) {
+        console.error("data is null");
+        return;
+      }
+
+      if (data) {
+        alert(
+          "Wir haben an Deine alte und neue E–Mail einen Bestätigungslink zum Ändern Deiner Email gesendet. Checke Deine Postfächer und logge Dich neu ein!",
+        );
+      }
+    },
+
+    updateUsername: async (username: string) => {
+      const { data, error } = await supabaseClient.auth.updateUser({
+        data: {
+          signup_username: username,
+        },
+      });
+
+      if (error) {
+        alert(error.message);
+
+        throw error;
+      }
+
+      if (!data) {
+        console.error("data is null");
+        return;
+      }
+
+      console.log("Update username success:", data);
     },
   };
 });

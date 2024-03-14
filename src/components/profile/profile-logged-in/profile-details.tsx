@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
-import InputFieldIcon from "../../input/input-field-icon";
 import TertiaryButton from "../../buttons/tertiary";
-import EditIcon from "../../icons/edit-icon";
 import { useAuthStore } from "../../../auth/auth-store";
+import EmailInputWithIcon from "../validation/email-input-with-icon";
+import UsernameInputWithIcon from "../validation/username-input-with-icon";
 
 const ProfileDetails: React.FC = () => {
   const i18n = useI18nStore().i18n();
   const [usernameIsDisabled, setUsernameDisabled] = useState(true);
   const [emailIsDisabled, setEmailDisabled] = useState(true);
 
-  const { forgotPassword } = useAuthStore();
-  const { getUserData } = useAuthStore();
-  const userDate = getUserData();
+  const { forgotPassword, getUserData, updateEmail, updateUsername } =
+    useAuthStore();
 
   return (
     <div className="md:shadow-gdk-soft mb-3 md:rounded-2xl md:border-2 md:p-7">
@@ -20,33 +19,47 @@ const ProfileDetails: React.FC = () => {
         {i18n.navbar.profile.settings.subtitle}
       </h2>
 
-      <InputFieldIcon
-        label={i18n.navbar.profile.settings.username}
-        placeholder={userDate.user_metadata.signup_username}
-        onClick={() => {
+      <form
+        className="flex flex-col justify-between gap-x-8"
+        onSubmit={(e) => {
+          e.preventDefault();
           setUsernameDisabled(!usernameIsDisabled);
+          updateUsername(e.currentTarget.username.value);
         }}
-        disabled={usernameIsDisabled}
-        setDisabled={setUsernameDisabled}
-        icon={<EditIcon />}
-      ></InputFieldIcon>
+      >
+        <UsernameInputWithIcon
+          label={i18n.navbar.profile.settings.username}
+          placeholder={getUserData()?.user_metadata.signup_username}
+          disabled={usernameIsDisabled}
+          onClick={() => {
+            setUsernameDisabled(!usernameIsDisabled);
+          }}
+        ></UsernameInputWithIcon>
+      </form>
 
-      <InputFieldIcon
-        label={i18n.navbar.profile.settings.email}
-        placeholder={userDate.email}
-        onClick={() => {
+      <form
+        className="flex flex-col justify-between gap-x-8"
+        onSubmit={(e) => {
+          e.preventDefault();
+          updateEmail(e.currentTarget.email.value);
           setEmailDisabled(!emailIsDisabled);
         }}
-        disabled={emailIsDisabled}
-        setDisabled={setEmailDisabled}
-        icon={<EditIcon />}
-      ></InputFieldIcon>
+      >
+        <EmailInputWithIcon
+          label={i18n.navbar.profile.settings.email}
+          placeholder={getUserData()?.email}
+          disabled={emailIsDisabled}
+          onClick={() => {
+            setEmailDisabled(!emailIsDisabled);
+          }}
+        ></EmailInputWithIcon>
+      </form>
 
       <div className="mt-7 flex flex-col">
         <label className="font-semibold" htmlFor="email">
           {i18n.navbar.profile.settings.password}
         </label>
-        <div className="flex flex-row justify-between gap-x-4 ">
+        <form className="flex flex-row justify-between gap-x-4 ">
           <input
             className="disabled:bg-gdk-white "
             disabled={true}
@@ -56,11 +69,11 @@ const ProfileDetails: React.FC = () => {
           />
           <TertiaryButton
             onClick={() => {
-              forgotPassword(userDate.email);
+              forgotPassword(getUserData()?.email ?? "");
             }}
             label={i18n.navbar.profile.settings.changePassword}
           ></TertiaryButton>
-        </div>
+        </form>
       </div>
     </div>
   );
