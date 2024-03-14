@@ -2,8 +2,17 @@ import React, { useCallback, useState } from "react";
 import TextInput from "../../input/text-input";
 import { validatePassword } from "./validation";
 import { PasswordErrors } from "./types";
+import { useI18nStore } from "../../../i18n/i18n-store";
 
-const PasswordInputWithValidation: React.FC = () => {
+export interface PasswordInputValidationProps {
+	label: string | React.ReactNode;
+}
+
+const PasswordInputWithValidation: React.FC<PasswordInputValidationProps> = ({
+	label,
+}) => {
+	const i18n = useI18nStore().i18n();
+
 	const [passwordErrors, setPasswordErrors] = useState<PasswordErrors>({
 		validLength: false,
 		upperAndLowerCase: false,
@@ -14,19 +23,19 @@ const PasswordInputWithValidation: React.FC = () => {
 	const checks: { name: keyof PasswordErrors; description: string }[] = [
 		{
 			name: "validLength",
-			description: "mindestens 8 Zeichen",
+			description: i18n.navbar.profile.settings.passwordLength,
 		},
 		{
 			name: "upperAndLowerCase",
-			description: "Klein- und Großbuchstaben",
+			description: i18n.navbar.profile.settings.passwordUpperAndLowerCase,
 		},
 		{
 			name: "special",
-			description: "mindestens ein Sonderzeichen",
+			description: i18n.navbar.profile.settings.passwordSpecialChar,
 		},
 		{
 			name: "number",
-			description: "eine Zahl",
+			description: i18n.navbar.profile.settings.passwordNumber,
 		},
 	];
 
@@ -43,14 +52,16 @@ const PasswordInputWithValidation: React.FC = () => {
 				return;
 			}
 
-			target.setCustomValidity("Bitte überprüfe Deine Eingabe");
+			target.setCustomValidity(i18n.navbar.profile.settings.checkInput);
 		},
 		[],
 	);
 
 	return (
 		<>
-			<label htmlFor="password">Passwort</label>
+			<label className="mb-2 font-semibold" htmlFor="password">
+				{label}
+			</label>
 			<TextInput
 				type="password"
 				id="password"
@@ -58,7 +69,9 @@ const PasswordInputWithValidation: React.FC = () => {
 				required
 				onChange={onChange}
 			/>
-			<p className="font-medium">Dein Passwort sollte enthalten:</p>
+			<p className="font-medium">
+				{i18n.navbar.profile.settings.passwordShould}
+			</p>
 			<ul>
 				{checks.map((check) => (
 					<li key={check.name} className="flex gap-2">

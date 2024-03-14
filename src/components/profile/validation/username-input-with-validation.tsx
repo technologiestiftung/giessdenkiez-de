@@ -3,6 +3,7 @@ import TextInput from "../../input/text-input";
 import Warning from "./warning";
 import { checkIfUsernameIsTaken, validateUsername } from "./validation";
 import { UsernameErrors } from "./types";
+import { useI18nStore } from "../../../i18n/i18n-store";
 
 export interface UsernameInputValidationProps {
 	label: string | React.ReactNode;
@@ -13,6 +14,7 @@ const UsernameInputWithValidation: React.FC<UsernameInputValidationProps> = ({
 	label,
 	defaultValue,
 }) => {
+	const i18n = useI18nStore().i18n();
 	const [usernameErrors, setUsernameErrors] = useState<UsernameErrors>({
 		validLength: false,
 		onlyNumberAndLetters: false,
@@ -26,11 +28,11 @@ const UsernameInputWithValidation: React.FC<UsernameInputValidationProps> = ({
 	}[] = [
 		{
 			name: "validLength",
-			description: "mindestens 3–50 Zeichen lang sein,",
+			description: i18n.navbar.profile.settings.validateLength,
 		},
 		{
 			name: "onlyNumberAndLetters",
-			description: "und nur aus Zeichen oder Zahlen bestehen",
+			description: i18n.navbar.profile.settings.onlyNumberAndLetters,
 		},
 	];
 
@@ -45,7 +47,7 @@ const UsernameInputWithValidation: React.FC<UsernameInputValidationProps> = ({
 			const hasErrors = Object.values(usernameErrors).some((error) => !error);
 
 			if (hasErrors) {
-				target.setCustomValidity("Bitte überprüfe Deine Eingabe");
+				target.setCustomValidity(i18n.navbar.profile.settings.checkInput);
 				return;
 			}
 
@@ -53,7 +55,7 @@ const UsernameInputWithValidation: React.FC<UsernameInputValidationProps> = ({
 			setIsUsernameTakenWarningVisible(isTaken);
 
 			if (isTaken) {
-				target.setCustomValidity("Bitte überprüfe Dein Eingabe");
+				target.setCustomValidity(i18n.navbar.profile.settings.checkInput);
 				return;
 			}
 
@@ -76,9 +78,11 @@ const UsernameInputWithValidation: React.FC<UsernameInputValidationProps> = ({
 				onChange={onChange}
 			/>
 			{isUsernameTakenWarningVisible && (
-				<Warning label="Dieser Benutzername ist bereits vergeben" />
+				<Warning label={i18n.navbar.profile.settings.userOccupied} />
 			)}
-			<p className="font-medium">Dein Benutzername sollte: </p>
+			<p className="font-medium">
+				{i18n.navbar.profile.settings.usernameShould}
+			</p>
 			<ul>
 				{checks.map((check) => (
 					<li key={check.name} className="flex gap-2">
