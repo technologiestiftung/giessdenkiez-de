@@ -132,8 +132,15 @@ interface LastWaterings {
 interface TreeDetail {
   title: string;
   adoptIt: string;
-  alreadyAdoptedBy: string;
+  alsoAdoptedBy: string;
+  exclusivelyAdoptedBy: string;
+  adoptLoading: string;
+  unadoptLoading: string;
+  isAdopted: string;
   ageTitle: string;
+  adoptHintTitle: string;
+  adoptHint: string;
+  adoptErrorMessage: string;
   age: (age: number) => string;
   ageUnknown: string;
   waterNeed: WaterNeed;
@@ -144,7 +151,12 @@ interface TreeDetail {
   treeTypeInfoTitle: string;
 }
 
+interface Common {
+  defaultErrorMessage: string;
+}
+
 export interface Content {
+  common: Common;
   locationSearch: LocationSearch;
   navbar: Navbar;
   notFound: NotFound;
