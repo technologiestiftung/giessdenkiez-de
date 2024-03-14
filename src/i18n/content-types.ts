@@ -67,6 +67,11 @@ interface Navbar {
 			passwordUpperAndLowerCase: string;
 			passwordSpecialChar: string;
 			passwordNumber: string;
+			logInShort: string;
+			missinAccount: string;
+			registerNow: string;
+			forgotYourPassword: string;
+			ohNoforgotYourPassword: string;
 		};
 		logOut: string;
 	};
