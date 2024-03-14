@@ -7,83 +7,83 @@ import { TreeWateringData } from "./tree-types";
 import WateringSection from "./watering-section";
 
 interface LastWateringsProps {
-  treeWateringData: TreeWateringData[];
+	treeWateringData: TreeWateringData[];
 }
 
 const LastWaterings: React.FC<LastWateringsProps> = ({ treeWateringData }) => {
-  const i18n = useI18nStore().i18n();
-  const [isExpanded, setIsExpanded] = useState(false);
-  const now = new Date();
+	const i18n = useI18nStore().i18n();
+	const [isExpanded, setIsExpanded] = useState(false);
+	const now = new Date();
 
-  const wateringsThisWeek = useMemo(() => {
-    return treeWateringData.filter((watering) => {
-      return isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 });
-    });
-  }, [treeWateringData]);
+	const wateringsThisWeek = useMemo(() => {
+		return treeWateringData.filter((watering) => {
+			return isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 });
+		});
+	}, [treeWateringData]);
 
-  const wateringsThisMonth = useMemo(() => {
-    return treeWateringData.filter((watering) => {
-      return (
-        isSameMonth(new Date(watering.timestamp), now) &&
-        !isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 })
-      );
-    });
-  }, [treeWateringData]);
+	const wateringsThisMonth = useMemo(() => {
+		return treeWateringData.filter((watering) => {
+			return (
+				isSameMonth(new Date(watering.timestamp), now) &&
+				!isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 })
+			);
+		});
+	}, [treeWateringData]);
 
-  const wateringsThisYear = useMemo(() => {
-    return treeWateringData.filter((watering) => {
-      return (
-        isSameYear(new Date(watering.timestamp), now) &&
-        !isSameMonth(new Date(watering.timestamp), now) &&
-        !isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 })
-      );
-    });
-  }, [treeWateringData]);
+	const wateringsThisYear = useMemo(() => {
+		return treeWateringData.filter((watering) => {
+			return (
+				isSameYear(new Date(watering.timestamp), now) &&
+				!isSameMonth(new Date(watering.timestamp), now) &&
+				!isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 })
+			);
+		});
+	}, [treeWateringData]);
 
-  return (
-    <div className="flex flex-col gap-4 border-b-2 py-8">
-      <button
-        className="flex flex-row items-center justify-between  text-xl font-bold"
-        onClick={() => setIsExpanded(!isExpanded)}
-      >
-        <div className="flex flex-row items-center gap-2">
-          <img
-            src="/images/calendar-icon.svg"
-            alt="Calendar Icon"
-            width={30}
-            height={30}
-          />
-          <div>{i18n.treeDetail.lastWaterings.title}</div>
-        </div>
-        <div className="text-gdk-blue">
-          {isExpanded ? (
-            <ChevronDown></ChevronDown>
-          ) : (
-            <ChevronRight></ChevronRight>
-          )}
-        </div>
-      </button>
-      {isExpanded && (
-        <div className="flex flex-col gap-8">
-          <WateringSection
-            waterings={wateringsThisWeek}
-            title={i18n.treeDetail.lastWaterings.thisWeek}
-            noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisWeek}
-          />
-          <WateringSection
-            waterings={wateringsThisMonth}
-            title={i18n.treeDetail.lastWaterings.thisMonth}
-            noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisMonth}
-          />
-          <WateringSection
-            waterings={wateringsThisYear}
-            title={i18n.treeDetail.lastWaterings.thisYear}
-            noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisYear}
-          />
-        </div>
-      )}
-    </div>
-  );
+	return (
+		<div className="flex flex-col gap-4 border-b-2 py-8">
+			<button
+				className="flex flex-row items-center justify-between  text-xl font-bold"
+				onClick={() => setIsExpanded(!isExpanded)}
+			>
+				<div className="flex flex-row items-center gap-2">
+					<img
+						src="/images/calendar-icon.svg"
+						alt="Calendar Icon"
+						width={30}
+						height={30}
+					/>
+					<div>{i18n.treeDetail.lastWaterings.title}</div>
+				</div>
+				<div className="text-gdk-blue">
+					{isExpanded ? (
+						<ChevronDown></ChevronDown>
+					) : (
+						<ChevronRight></ChevronRight>
+					)}
+				</div>
+			</button>
+			{isExpanded && (
+				<div className="flex flex-col gap-8">
+					<WateringSection
+						waterings={wateringsThisWeek}
+						title={i18n.treeDetail.lastWaterings.thisWeek}
+						noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisWeek}
+					/>
+					<WateringSection
+						waterings={wateringsThisMonth}
+						title={i18n.treeDetail.lastWaterings.thisMonth}
+						noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisMonth}
+					/>
+					<WateringSection
+						waterings={wateringsThisYear}
+						title={i18n.treeDetail.lastWaterings.thisYear}
+						noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisYear}
+					/>
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default LastWaterings;

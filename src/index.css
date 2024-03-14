@@ -3,113 +3,113 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    @apply text-gdk-gray;
-  }
+	html {
+		@apply text-gdk-gray;
+	}
 
-  dialog::backdrop {
-    background: #2c303b66;
-  }
+	dialog::backdrop {
+		background: #2c303b66;
+	}
 
-  @font-face {
-    font-family: "IBM";
-    font-style: normal;
-    font-weight: 700;
-    src: url("/fonts/IBMPlexSans-Bold.woff2");
-  }
+	@font-face {
+		font-family: "IBM";
+		font-style: normal;
+		font-weight: 700;
+		src: url("/fonts/IBMPlexSans-Bold.woff2");
+	}
 
-  @font-face {
-    font-family: "IBM";
-    font-style: italic;
-    font-weight: 400;
-    src: url("/fonts/IBMPlexSans-Italic.woff2");
-  }
+	@font-face {
+		font-family: "IBM";
+		font-style: italic;
+		font-weight: 400;
+		src: url("/fonts/IBMPlexSans-Italic.woff2");
+	}
 
-  @font-face {
-    font-family: "IBM";
-    font-style: normal;
-    font-weight: 500;
-    src: url("/fonts/IBMPlexSans-Medium.woff2");
-  }
+	@font-face {
+		font-family: "IBM";
+		font-style: normal;
+		font-weight: 500;
+		src: url("/fonts/IBMPlexSans-Medium.woff2");
+	}
 
-  @font-face {
-    font-family: "IBM";
-    font-style: normal;
-    font-weight: 400;
-    src: url("/fonts/IBMPlexSans-Regular.woff2");
-  }
+	@font-face {
+		font-family: "IBM";
+		font-style: normal;
+		font-weight: 400;
+		src: url("/fonts/IBMPlexSans-Regular.woff2");
+	}
 
-  @font-face {
-    font-family: "IBM";
-    font-style: normal;
-    font-weight: 600;
-    src: url("/fonts/IBMPlexSans-Medium.woff2");
-  }
+	@font-face {
+		font-family: "IBM";
+		font-style: normal;
+		font-weight: 600;
+		src: url("/fonts/IBMPlexSans-Medium.woff2");
+	}
 }
 
 /* Mapbox controls */
 .mapboxgl-ctrl-bottom-left {
-  @apply bottom-16 lg:bottom-0 lg:left-20;
+	@apply bottom-16 lg:bottom-0 lg:left-20;
 }
 
 .mapboxgl-ctrl-bottom-right {
-  @apply hidden;
+	@apply hidden;
 }
 
 .mapboxgl-ctrl-group {
-  @apply rounded-full bg-transparent;
+	@apply rounded-full bg-transparent;
 }
 
 .mapboxgl-ctrl button:not(:disabled):hover {
-  @apply bg-transparent;
+	@apply bg-transparent;
 }
 
 .mapboxgl-ctrl
-  button.mapboxgl-ctrl-geolocate.mapboxgl-ctrl-geolocate-active
-  .mapboxgl-ctrl-icon {
-  @apply bg-[url('/images/icon-locate.svg')];
+	button.mapboxgl-ctrl-geolocate.mapboxgl-ctrl-geolocate-active
+	.mapboxgl-ctrl-icon {
+	@apply bg-[url('/images/icon-locate.svg')];
 }
 
 .mapboxgl-ctrl
-  button.mapboxgl-ctrl-geolocate.mapboxgl-ctrl-geolocate-waiting
-  .mapboxgl-ctrl-icon {
-  @apply animate-none;
+	button.mapboxgl-ctrl-geolocate.mapboxgl-ctrl-geolocate-waiting
+	.mapboxgl-ctrl-icon {
+	@apply animate-none;
 }
 
 .mapboxgl-ctrl-group:not(:empty) {
-  @apply shadow-none;
+	@apply shadow-none;
 }
 
 .mapboxgl-ctrl-group button:first-child {
-  @apply h-14 w-14;
+	@apply h-14 w-14;
 }
 
 .mapboxgl-ctrl-group button:last-child {
-  @apply h-14 w-14;
+	@apply h-14 w-14;
 }
 
 .mapboxgl-ctrl-group button:only-child {
-  @apply rounded-none;
+	@apply rounded-none;
 }
 
 .mapboxgl-ctrl-group button + button {
-  @apply border-t-0;
+	@apply border-t-0;
 }
 
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
-  @apply hidden bg-[url('/images/icon-zoom-in.svg')] lg:block;
+	@apply hidden bg-[url('/images/icon-zoom-in.svg')] lg:block;
 }
 
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
-  @apply hidden bg-[url('/images/icon-zoom-out.svg')] lg:block;
+	@apply hidden bg-[url('/images/icon-zoom-out.svg')] lg:block;
 }
 
 .mapboxgl-ctrl button.mapboxgl-ctrl-geolocate .mapboxgl-ctrl-icon {
-  @apply bg-[url('/images/icon-locate.svg')];
+	@apply bg-[url('/images/icon-locate.svg')];
 }
 
 .mapboxgl-ctrl
-  button.mapboxgl-ctrl-geolocate.mapboxgl-ctrl-geolocate-background
-  .mapboxgl-ctrl-icon {
-  @apply bg-[url('/images/icon-locate.svg')];
+	button.mapboxgl-ctrl-geolocate.mapboxgl-ctrl-geolocate-background
+	.mapboxgl-ctrl-icon {
+	@apply bg-[url('/images/icon-locate.svg')];
 }

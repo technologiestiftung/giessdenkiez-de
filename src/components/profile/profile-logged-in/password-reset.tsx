@@ -5,45 +5,45 @@ import PrimaryButton from "../../buttons/primary";
 import { useUrlState } from "../../router/store";
 
 const PasswordReset: React.FC = () => {
-  const { updatePassword } = useAuthStore();
+	const { updatePassword } = useAuthStore();
 
-  const { setPathname } = useUrlState();
+	const { setPathname } = useUrlState();
 
-  return (
-    <div
-      className={`
+	return (
+		<div
+			className={`
         h-full w-full px-5 pt-10 lg:mx-auto lg:my-auto lg:max-h-[40rem] 
         lg:max-w-[42rem] lg:rounded-2xl lg:border-2  lg:p-14 lg:shadow-sm`}
-    >
-      <h1 className="text-2xl font-semibold">Passwort ändern</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          updatePassword(e.currentTarget.password.value);
-        }}
-        className="flex flex-col"
-      >
-        <div className="flex flex-col gap-y-2 pt-6">
-          <PasswordInputWithValidation />
-        </div>
+		>
+			<h1 className="text-2xl font-semibold">Passwort ändern</h1>
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					updatePassword(e.currentTarget.password.value);
+				}}
+				className="flex flex-col"
+			>
+				<div className="flex flex-col gap-y-2 pt-6">
+					<PasswordInputWithValidation />
+				</div>
 
-        <div className="md: flex flex-row items-center justify-between gap-24 pt-11">
-          <a
-            className="font-semibold text-gdk-blue hover:text-gdk-light-blue"
-            href="/profile"
-            onClick={(e) => {
-              e.preventDefault();
-              setPathname("/profile");
-            }}
-          >
-            Abbrechen
-          </a>
+				<div className="md: flex flex-row items-center justify-between gap-24 pt-11">
+					<a
+						className="font-semibold text-gdk-blue hover:text-gdk-light-blue"
+						href="/profile"
+						onClick={(e) => {
+							e.preventDefault();
+							setPathname("/profile");
+						}}
+					>
+						Abbrechen
+					</a>
 
-          <PrimaryButton type="submit" label="Speichern" />
-        </div>
-      </form>
-    </div>
-  );
+					<PrimaryButton type="submit" label="Speichern" />
+				</div>
+			</form>
+		</div>
+	);
 };
 
 export default PasswordReset;
