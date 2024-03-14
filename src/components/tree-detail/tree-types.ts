@@ -49,10 +49,6 @@ export interface TreeWateringDataState {
   rainColor: string;
 }
 
-export interface TreeFetchWateringDataState {
-  treeWateringData: TreeWateringData[];
-}
-
 export interface ProgressPart {
   color: string;
   progress: number;
