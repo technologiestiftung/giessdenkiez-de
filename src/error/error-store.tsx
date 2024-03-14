@@ -1,4 +1,3 @@
-import { clear } from "console";
 import { create } from "zustand";
 
 interface ErrorStore {
