@@ -78,7 +78,7 @@ const UsernameInputWithValidation: React.FC<UsernameInputValidationProps> = ({
 				onChange={onChange}
 			/>
 			{isUsernameTakenWarningVisible && (
-				<Warning label={i18n.navbar.profile.settings.userOccupied} />
+				<Warning label={i18n.navbar.profile.settings.usernameTaken} />
 			)}
 			<p className="font-medium">
 				{i18n.navbar.profile.settings.usernameShould}

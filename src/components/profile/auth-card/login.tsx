@@ -52,7 +52,7 @@ const Login: React.FC = () => {
 					</div>
 				</form>
 
-				<p className="pt-6">{i18n.navbar.profile.settings.missinAccount}</p>
+				<p className="pt-6">{i18n.navbar.profile.settings.missingAccount}</p>
 				<a
 					className="font-semibold text-blue-600"
 					href="/profile?mode=register"

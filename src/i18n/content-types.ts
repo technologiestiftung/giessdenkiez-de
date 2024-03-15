@@ -55,7 +55,7 @@ interface Navbar {
 			approve: string;
 			usernameShould: string;
 			checkInput: string;
-			validateLength: string;
+			usernameLength: string;
 			onlyNumberAndLetters: string;
 			userOccupied: string;
 			backToLogin: string;
@@ -68,7 +68,7 @@ interface Navbar {
 			passwordSpecialChar: string;
 			passwordNumber: string;
 			logInShort: string;
-			missinAccount: string;
+			missingAccount: string;
 			registerNow: string;
 			forgotYourPassword: string;
 			ohNoforgotYourPassword: string;
