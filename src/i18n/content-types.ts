@@ -77,6 +77,8 @@ interface Navbar {
 			resetPassword: string;
 		};
 		logOut: string;
+		showPassword: string;
+		hidePassword: string;
 	};
 	info: string;
 }

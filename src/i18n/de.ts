@@ -86,6 +86,8 @@ const de: Content = {
 				resetPassword: "Passwort zurücksetzen",
 			},
 			logOut: "Ausloggen",
+			showPassword: "Zeigen",
+			hidePassword: "Verbergen",
 		},
 		info: "Info",
 	},

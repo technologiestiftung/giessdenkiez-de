@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuthStore } from "../../../auth/auth-store";
 import PrimaryButton from "../../buttons/primary";
 import TextInput from "../../input/text-input";
@@ -9,6 +9,7 @@ const Login: React.FC = () => {
 	const { login } = useAuthStore();
 	const { setSearchParams } = useUrlState();
 	const i18n = useI18nStore().i18n();
+	const [showPassword, setShowPassword] = useState(false);
 
 	return (
 		<>
@@ -36,7 +37,28 @@ const Login: React.FC = () => {
 					<label htmlFor="password" className="">
 						{i18n.navbar.profile.settings.password}
 					</label>
-					<TextInput type="password" id="password" name="password" />
+
+					<div className="flex flex-row relative">
+						<TextInput
+							type={showPassword ? "text" : "password"}
+							id="password"
+							name="password"
+						/>
+						<button
+							type="button"
+							className="right-3 absolute top-[1rem] p-1 rounded-xl"
+							onClick={() => {
+								setShowPassword(!showPassword);
+							}}
+						>
+							{showPassword
+								? i18n.navbar.profile.hidePassword
+								: i18n.navbar.profile.showPassword}
+							<span className="sr-only">
+								{showPassword ? "Hide password" : "Show password"}
+							</span>
+						</button>
+					</div>
 				</div>
 
 				<div className="pt-11">
