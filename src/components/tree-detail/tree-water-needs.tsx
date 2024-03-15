@@ -180,26 +180,28 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 						{i18n.treeDetail.waterNeed.dataOfLastXDays}
 					</div>
 
-					<div className="flex flex-row justify-center">
-						<button
-							className={`my-4 flex h-[51px] w-full items-center justify-center rounded-[10px] bg-gdk-blue px-8 font-semibold text-gdk-white hover:bg-gdk-light-blue disabled:bg-gdk-light-gray sm:w-fit`}
-							disabled={false}
-							onClick={async () => {
-								//@ts-ignore
-								document.getElementById("water-dialog")?.showModal();
-							}}
-						>
-							<div className="flex flex-row items-center gap-2">
-								<img
-									src="images/watering-can-white.svg"
-									alt="Icon Watering Can White"
-								/>
-								<div className="flex flex-row items-center gap-3">
-									{i18n.treeDetail.waterNeed.iWatered}
+					{treeAgeClassification !== TreeAgeClassification.BABY && (
+						<div className="flex flex-row justify-center">
+							<button
+								className={`my-4 flex h-[51px] w-full items-center justify-center rounded-[10px] bg-gdk-blue px-8 font-semibold text-gdk-white hover:bg-gdk-light-blue disabled:bg-gdk-light-gray sm:w-fit`}
+								disabled={false}
+								onClick={async () => {
+									//@ts-ignore
+									document.getElementById("water-dialog")?.showModal();
+								}}
+							>
+								<div className="flex flex-row items-center gap-2">
+									<img
+										src="images/watering-can-white.svg"
+										alt="Icon Watering Can White"
+									/>
+									<div className="flex flex-row items-center gap-3">
+										{i18n.treeDetail.waterNeed.iWatered}
+									</div>
 								</div>
-							</div>
-						</button>
-					</div>
+							</button>
+						</div>
+					)}
 
 					<WateringDialog
 						treeData={treeData}

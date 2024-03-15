@@ -86,7 +86,10 @@ const TreeDetail: React.FC = () => {
 								treeWateringData={treeWateringData}
 							/>
 						)}
-						{treeData && <LastWaterings treeWateringData={treeWateringData} />}
+						{treeData &&
+							treeAgeClassification !== TreeAgeClassification.BABY && (
+								<LastWaterings treeWateringData={treeWateringData} />
+							)}
 						<ProblemCard />
 					</div>
 				)}

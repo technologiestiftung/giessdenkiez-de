@@ -12,14 +12,10 @@ export function useTreeAgeClassification(
 	const SENIOR_TREES_AGE_LIMIT = 40;
 
 	const treeAgeClassification = () => {
-		if (
-			!treeData ||
-			!treeData.standalter ||
-			treeData.standalter === "undefined"
-		) {
+		if (!treeData || !treeData.pflanzjahr || treeData.pflanzjahr === 0) {
 			return TreeAgeClassification.UNKNOWN;
 		}
-		const age = parseInt(treeData.standalter);
+		const age = new Date().getFullYear() - treeData.pflanzjahr;
 		if (age <= BABY_AGE_LIMIT) {
 			return TreeAgeClassification.BABY;
 		}
