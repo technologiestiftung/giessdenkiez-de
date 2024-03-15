@@ -25,6 +25,9 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 	const [adoptedByOthers, setAdoptedByOthers] = useState(false);
 
 	const adoptTree = async () => {
+		if (!user?.id) {
+			return;
+		}
 		try {
 			setAdoptLoading(true);
 			const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/post/adopt`;
@@ -51,6 +54,9 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 	};
 
 	const unadoptTree = async () => {
+		if (!user?.id) {
+			return;
+		}
 		try {
 			setAdoptLoading(true);
 			const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/delete/unadopt`;
@@ -81,7 +87,11 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 		setAdoptLoading(false);
 		setAdoptedByOthers(false);
 
-		const isTreeAdoptedByUser = async (treeId: string) => {
+		const isTreeAdoptedByUser = async () => {
+			if (!user?.id) {
+				return;
+			}
+
 			try {
 				const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/istreeadopted?uuid=${user?.id}&id=${treeId}`;
 				const res = await fetch(adoptUrl, {
@@ -119,18 +129,18 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 					return;
 				}
 				const json = await res.json();
-				const adoptedByOthers =
+				const adoptedByOthersList =
 					json.data.filter(
 						(tree: any) => tree.tree_id === treeId && tree.adopted > 1,
 					).length > 0;
-				setAdoptedByOthers(adoptedByOthers);
+				setAdoptedByOthers(adoptedByOthersList);
 			} catch (error) {
 				handleError(i18n.treeDetail.adoptErrorMessage, error);
 			}
 		};
 
 		const fetchData = async () => {
-			await isTreeAdoptedByUser(treeId);
+			await isTreeAdoptedByUser();
 			await isTreeAdoptedByOthers();
 		};
 
