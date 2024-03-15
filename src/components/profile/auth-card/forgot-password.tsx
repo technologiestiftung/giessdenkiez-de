@@ -13,60 +13,54 @@ const ForgotPassword: React.FC = () => {
 
 	return (
 		<>
-			<div
-				className={`
-        h-full w-full px-4 pt-10
-        lg:mx-auto lg:my-auto lg:max-h-[40rem] lg:max-w-[42rem] lg:rounded lg:border lg:shadow`}
+			<a
+				className="font-semibold text-blue-600"
+				href="/profile"
+				onClick={(e) => {
+					e.preventDefault();
+					setPathname("/profile");
+				}}
 			>
-				<a
-					className="font-semibold text-blue-600"
-					href="/profile"
-					onClick={(e) => {
-						e.preventDefault();
-						setPathname("/profile");
-					}}
-				>
-					<span>&lt;</span> {i18n.navbar.profile.settings.backToLogin}
-				</a>
+				<span>&lt;</span> {i18n.navbar.profile.settings.backToLogin}
+			</a>
 
-				<h1 className="pt-12 text-2xl font-semibold">
-					{" "}
-					{i18n.navbar.profile.settings.passwordForgotten}
-				</h1>
-				<form
-					onSubmit={(e) => {
-						e.preventDefault();
-						forgotPassword(e.currentTarget.email.value);
-					}}
-					className="flex flex-col"
-				>
-					<div className="flex flex-col gap-y-2 pt-7">
-						<label htmlFor="email" className="">
-							{i18n.navbar.profile.settings.email}
-						</label>
-						<TextInput type="email" id="email" name="email" />
-					</div>
+			<h1 className="pt-12 text-2xl font-semibold">
+				{" "}
+				{i18n.navbar.profile.settings.passwordForgotten}
+			</h1>
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					forgotPassword(e.currentTarget.email.value);
+				}}
+				className="flex flex-col"
+			>
+				<div className="flex flex-col gap-y-2 pt-7">
+					<label htmlFor="email" className="">
+						{i18n.navbar.profile.settings.email}
+					</label>
+					<TextInput type="email" id="email" name="email" />
+				</div>
 
-					<div className="pt-11">
-						<PrimaryButton
-							type="submit"
-							label={i18n.navbar.profile.settings.resetPassword}
-						/>
-					</div>
-				</form>
+				<div className="pt-11">
+					<PrimaryButton
+						type="submit"
+						label={i18n.navbar.profile.settings.resetPassword}
+					/>
+				</div>
+			</form>
 
-				<p className="pt-6">{i18n.navbar.profile.settings.backToLogin}?</p>
-				<a
-					className="font-semibold text-blue-600"
-					href="/profile"
-					onClick={(e) => {
-						e.preventDefault();
-						setPathname("/profile");
-					}}
-				>
-					{i18n.navbar.profile.settings.clickHere}
-				</a>
-			</div>
+			<p className="pt-6">{i18n.navbar.profile.settings.backToLogin}?</p>
+			<a
+				className="font-semibold text-blue-600"
+				href="/profile"
+				onClick={(e) => {
+					e.preventDefault();
+					setPathname("/profile");
+				}}
+			>
+				{i18n.navbar.profile.settings.clickHere}
+			</a>
 		</>
 	);
 };
