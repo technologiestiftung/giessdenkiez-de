@@ -220,6 +220,10 @@ Vernetzen:
 			openSource:
 				"Gieß den Kiez ist ein [OpenSource Projekt](https://github.com/technologiestiftung/giessdenkiez-de)!",
 		},
+		credits: {
+			projectBy: "Ein Projekt der",
+			fundedBy: "Gefördert durch",
+		},
 	},
 	treeDetail: {
 		title: "Bauminformationen",

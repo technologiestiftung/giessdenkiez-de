@@ -223,6 +223,10 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			openSource:
 				"Gieß den Kiez is an [OpenSource Project](https://github.com/technologiestiftung/giessdenkiez-de)!",
 		},
+		credits: {
+			projectBy: "A project of",
+			fundedBy: "Funded by",
+		},
 	},
 	treeDetail: {
 		title: "Tree information",

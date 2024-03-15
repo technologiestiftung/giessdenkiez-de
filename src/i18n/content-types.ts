@@ -105,6 +105,10 @@ interface Info {
 		content: string;
 		openSource: string;
 	};
+	credits: {
+		projectBy: string;
+		fundedBy: string;
+	};
 }
 
 interface WaterNeed {
