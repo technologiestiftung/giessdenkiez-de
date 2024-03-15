@@ -29,6 +29,7 @@
 		"@saithodev/semantic-release-backmerge": "4.0.1",
 		"@technologiestiftung/eslint-config": "0.1.4",
 		"@technologiestiftung/eslint-plugin": "0.1.1-0",
+		"@technologiestiftung/prettier-config": "1.0.0",
 		"@technologiestiftung/semantic-release-config": "1.2.4",
 		"@types/mapbox-gl": "3.1.0",
 		"@types/react": "18.2.61",
