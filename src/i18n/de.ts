@@ -252,6 +252,9 @@ Vernetzen:
 			unknownTitle: "Wasserbedarf unbekannt",
 			unknown:
 				"Das Alter, und dementsprechend der Wasserbedarf, sind leider unbekannt. Eventuell hilft Dir die Infobox für eine eigenständige Einschätzung.",
+			seniorTitle: "Braucht nur in trockenen Phasen Wasser",
+			seniorExplanation:
+				"Ältere Bäume können sich in der Regel über das Grundwasser selbst versorgen, aber bei zunehmender Hitze freuen auch sie sich über zusätzliches Wasser.",
 			liters: "Liter",
 			watered: "gegossen",
 			rained: "Regen",

@@ -94,12 +94,6 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 						</div>
 					</div>
 
-					{treeAgeClassification === TreeAgeClassification.SENIOR && (
-						<div className="text-xl font-bold">
-							{i18n.treeDetail.waterNeed.needsOnlyOnDryDays}
-						</div>
-					)}
-
 					{treeAgeClassification === TreeAgeClassification.BABY && (
 						<div className="text-xl font-bold">
 							{i18n.treeDetail.waterNeed.waterManaged}

@@ -119,6 +119,8 @@ interface WaterNeed {
 	waterManaged: string;
 	unknown: string;
 	unknownTitle: string;
+	seniorTitle: string;
+	seniorExplanation: string;
 	liters: string;
 	watered: string;
 	rained: string;

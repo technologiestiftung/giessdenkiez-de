@@ -254,6 +254,9 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			unknownTitle: "Water needs unknown",
 			unknown:
 				"The age and therefore the water requirement are unfortunately unknown. The info box may help you make your own assessment.",
+			seniorTitle: "Only needs water in dry phases",
+			seniorExplanation:
+				"Older trees can usually supply themselves with groundwater, but as the heat increases they also appreciate additional water.",
 			liters: "liters",
 			watered: "watered",
 			rained: "rain",

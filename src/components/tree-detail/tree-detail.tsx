@@ -72,14 +72,17 @@ const TreeDetail: React.FC = () => {
 							<TreeFlier info={treeTypeInfo.description}></TreeFlier>
 						)}
 						<TreeAge treeAge={treeAge} />
-						{treeAgeClassification !== TreeAgeClassification.UNKNOWN && (
+						{(treeAgeClassification === TreeAgeClassification.BABY ||
+							treeAgeClassification === TreeAgeClassification.JUNIOR ||
+							treeAgeClassification === TreeAgeClassification.GROWNUP) && (
 							<TreeWaterNeed
 								treeData={treeData}
 								treeAgeClassification={treeAgeClassification}
 								treeWateringData={treeWateringData}
 							/>
 						)}
-						{treeAgeClassification === TreeAgeClassification.UNKNOWN && (
+						{(treeAgeClassification === TreeAgeClassification.UNKNOWN ||
+							treeAgeClassification === TreeAgeClassification.SENIOR) && (
 							<TreeWaterNeedUnknown
 								treeData={treeData}
 								treeAgeClassification={treeAgeClassification}
