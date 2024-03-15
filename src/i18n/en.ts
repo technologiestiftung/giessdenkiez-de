@@ -301,7 +301,7 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		problem: {
 			title: "Report a problem",
 			description:
-				"Have you discovered tree damage or is the tree disk being misused? Tell the public order office!",
+				"Have you discovered tree damage or is the tree disk being misused? Tell the public order office:",
 			link: "To the official form",
 		},
 		treeTypeInfos: [

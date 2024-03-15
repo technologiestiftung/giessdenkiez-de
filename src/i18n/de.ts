@@ -290,7 +290,7 @@ Vernetzen:
 		problem: {
 			title: "Problem melden",
 			description:
-				"Du hast einen Baumschaden entdeckt, oder die Baumscheibe wird missbraucht? Teile es dem Ordnungsamt mit!",
+				"Du hast einen Baumschaden entdeckt, oder die Baumscheibe wird fehlgenutzt? Teile es dem Ordnungsamt mit:",
 			link: "Zum offiziellen Formular",
 		},
 		treeTypeInfos: [
