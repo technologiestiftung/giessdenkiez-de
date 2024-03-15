@@ -28,7 +28,7 @@ const UsernameInputWithValidation: React.FC<UsernameInputValidationProps> = ({
 	}[] = [
 		{
 			name: "validLength",
-			description: i18n.navbar.profile.settings.validateLength,
+			description: i18n.navbar.profile.settings.usernameLength,
 		},
 		{
 			name: "onlyNumberAndLetters",

@@ -66,7 +66,7 @@ const de: Content = {
 				usernameShould: "Dein Benutzername sollte: ",
 				usernameLength: "mindestens 3–50 Zeichen lang sein",
 				onlyNumberAndLetters: "und nur aus Zeichen oder Zahlen bestehen",
-				userOccupied: "Dieser Benutzername ist bereits vergeben",
+				usernameTaken: "Dieser Benutzername ist bereits vergeben",
 				backToLogin: "zurück zum Login",
 				register: "Registrieren",
 				existingAccount: "Du hast schon einen Account?",

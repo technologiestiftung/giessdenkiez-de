@@ -57,7 +57,7 @@ interface Navbar {
 			checkInput: string;
 			usernameLength: string;
 			onlyNumberAndLetters: string;
-			userOccupied: string;
+			usernameTaken: string;
 			backToLogin: string;
 			register: string;
 			existingAccount: string;
