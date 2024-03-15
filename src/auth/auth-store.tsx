@@ -17,7 +17,7 @@ interface AuthState {
 	isLoggedIn: () => boolean | undefined;
 	getUserData: () => User | undefined;
 	login: ({ email, password }: Credentials) => void;
-	logout: () => void;
+	logout: () => Promise<void>;
 	register: ({
 		email,
 		username,
@@ -27,6 +27,7 @@ interface AuthState {
 	updatePassword: (password: string) => Promise<void>;
 	updateEmail: (email: string) => Promise<void>;
 	updateUsername: (username: string) => Promise<void>;
+	deleteUser: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>()((set, get) => {
@@ -104,6 +105,37 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			}
 
 			set({ session: data.session });
+		},
+
+		deleteUser: async () => {
+			if (!window.confirm("Willst du Deinen Account wirklich löschen?")) {
+				return;
+			}
+
+			const token = get().session?.access_token;
+			/**
+			 * logout needs to happen before the account is deleted to invalidate
+			 * existing sessions https://supabase.com/docs/reference/javascript/auth-signout
+			 */
+			get().logout();
+
+			const res = await fetch(
+				`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/rpc/remove_account`,
+				{
+					mode: "cors",
+					method: "POST",
+					headers: {
+						Authorization: `Bearer ${token}`,
+						"Content-Type": "application/json",
+						apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+					},
+				},
+			);
+
+			if (!res.ok) {
+				const text = await res.text();
+				throw new Error(text);
+			}
 		},
 
 		forgotPassword: async (email: string) => {
