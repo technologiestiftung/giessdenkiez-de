@@ -8,7 +8,13 @@ import { useMapInteraction } from "./use-map-interaction";
 export function useMapSetup(
 	mapContainer: React.MutableRefObject<HTMLDivElement | null>,
 ) {
-	const { MAP_PITCH_DEGREES } = useMapConstants();
+	const {
+		MAP_PITCH_DEGREES,
+		MAP_MIN_ZOOM_LEVEL,
+		MAP_INITIAL_ZOOM_LEVEL,
+		MAP_CENTER_LNG,
+		MAP_CENTER_LAT,
+	} = useMapConstants();
 
 	const { map, setMap } = useMapStore();
 	useMapInteraction(map);
@@ -29,8 +35,9 @@ export function useMapSetup(
 		const map = new mapboxgl.Map({
 			container: mapContainer.current!,
 			style: import.meta.env.VITE_MAPBOX_STYLE_URL,
-			center: [13.4, 52.52],
-			zoom: 15,
+			center: [MAP_CENTER_LNG, MAP_CENTER_LAT],
+			zoom: MAP_INITIAL_ZOOM_LEVEL,
+			minZoom: MAP_MIN_ZOOM_LEVEL,
 			pitch: MAP_PITCH_DEGREES,
 		});
 

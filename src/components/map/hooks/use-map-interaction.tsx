@@ -7,7 +7,7 @@ import useSelectedTree from "./use-selected-tree";
 import { useTreeStore } from "../../tree-detail/tree-store";
 
 export function useMapInteraction(map: mapboxgl.Map | undefined) {
-	const { MAX_ZOOM_LEVEL } = useMapConstants();
+	const { MAP_MAX_ZOOM_LEVEL } = useMapConstants();
 
 	const setSearchParams = useUrlState((state) => state.setSearchParams);
 
@@ -30,7 +30,7 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
 				);
 				map.easeTo({
 					center: [parseFloat(treeData.lat), parseFloat(treeData.lng)],
-					zoom: MAX_ZOOM_LEVEL,
+					zoom: MAP_MAX_ZOOM_LEVEL,
 					essential: true,
 				});
 			});
@@ -55,8 +55,12 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
 		}
 
 		map.on("mousemove", "trees", (e) => {
-			if (!map || !e.features) return;
-			if (e.features?.length === 0) setHoveredTreeId(undefined);
+			if (!map || !e.features) {
+				return;
+			}
+			if (e.features?.length === 0) {
+				setHoveredTreeId(undefined);
+			}
 			const treeFeature = e.features[0];
 			setHoveredTreeId(treeFeature.id as string);
 			map.setFeatureState(treeFeature, { hover: true });
@@ -77,8 +81,12 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
 		});
 
 		map.on("click", "trees", (e) => {
-			if (!map || !e.features) return;
-			if (e.features?.length === 0) setHoveredTreeId(undefined);
+			if (!map || !e.features) {
+				return;
+			}
+			if (e.features?.length === 0) {
+				setHoveredTreeId(undefined);
+			}
 			const treeFeature = e.features[0];
 			setSearchParams(
 				new URLSearchParams({ treeId: treeFeature.id as string }),
@@ -109,7 +117,7 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
 					//@ts-ignore
 					treeFeature.geometry.coordinates[1],
 				],
-				zoom: MAX_ZOOM_LEVEL,
+				zoom: MAP_MAX_ZOOM_LEVEL,
 				essential: true,
 			});
 		});
