@@ -27,6 +27,7 @@ interface AuthState {
 	updatePassword: (password: string) => Promise<void>;
 	updateEmail: (email: string) => Promise<void>;
 	updateUsername: (username: string) => Promise<void>;
+	deleteUser: (userID: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>()((set, get) => {
@@ -104,6 +105,20 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			}
 
 			set({ session: data.session });
+		},
+
+		deleteUser: async (userID: string) => {
+			const { data, error } =
+				await supabaseClient.auth.admin.deleteUser(userID);
+
+			if (error) {
+				alert(error.message);
+				throw error;
+			}
+
+			if (!data) {
+				throw new Error("data is null");
+			}
 		},
 
 		forgotPassword: async (email: string) => {
