@@ -88,9 +88,7 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
 				setHoveredTreeId(undefined);
 			}
 			const treeFeature = e.features[0];
-			setSearchParams(
-				new URLSearchParams({ treeId: treeFeature.id as string }),
-			);
+
 			if (selectedTreeIdRef.current) {
 				map.setFeatureState(
 					{
@@ -119,6 +117,11 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
 				],
 				zoom: MAP_MAX_ZOOM_LEVEL,
 				essential: true,
+			});
+			map.once("moveend", () => {
+				setSearchParams(
+					new URLSearchParams({ treeId: treeFeature.id as string }),
+				);
 			});
 		});
 
