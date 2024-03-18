@@ -49,7 +49,7 @@ const Login: React.FC = () => {
 
 			<p className="pt-6">{i18n.navbar.profile.settings.missingAccount}</p>
 			<a
-				className="font-semibold text-blue-600"
+				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
 				href="/profile?mode=register"
 				onClick={(e) => {
 					e.preventDefault();
@@ -63,7 +63,7 @@ const Login: React.FC = () => {
 				{i18n.navbar.profile.settings.ohNoforgotYourPassword}
 			</p>
 			<a
-				className="font-semibold text-blue-600"
+				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
 				href="/profile?mode=forgot-password"
 				onClick={(e) => {
 					e.preventDefault();
