@@ -9,7 +9,7 @@ const Login: React.FC = () => {
 	const { login } = useAuthStore();
 	const { setSearchParams } = useUrlState();
 	const i18n = useI18nStore().i18n();
-	const [showPassword, setShowPassword] = useState(false);
+	const [isPasswordVisible, setPasswordVisible] = useState(false);
 
 	return (
 		<>
@@ -40,7 +40,7 @@ const Login: React.FC = () => {
 
 					<div className="flex flex-row relative">
 						<TextInput
-							type={showPassword ? "text" : "password"}
+							type={isPasswordVisible ? "text" : "password"}
 							id="password"
 							name="password"
 						/>
@@ -48,14 +48,14 @@ const Login: React.FC = () => {
 							type="button"
 							className="right-3 absolute top-[1rem] p-1 rounded-xl"
 							onClick={() => {
-								setShowPassword(!showPassword);
+								setPasswordVisible(!isPasswordVisible);
 							}}
 						>
-							{showPassword
+							{isPasswordVisible
 								? i18n.navbar.profile.hidePassword
 								: i18n.navbar.profile.showPassword}
 							<span className="sr-only">
-								{showPassword ? "Hide password" : "Show password"}
+								{isPasswordVisible ? "Hide password" : "Show password"}
 							</span>
 						</button>
 					</div>
