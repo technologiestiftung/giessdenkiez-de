@@ -1,5 +1,3 @@
-import { title } from "process";
-
 type TreeTypeId =
 	| "LINDE"
 	| "AHORN"
