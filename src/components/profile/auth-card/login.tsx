@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuthStore } from "../../../auth/auth-store";
 import PrimaryButton from "../../buttons/primary";
 import TextInput from "../../input/text-input";
@@ -11,6 +11,8 @@ export const Login: React.FC = () => {
 	const { login } = useAuthStore();
 	const { setSearchParams } = useUrlState();
 	const i18n = useI18nStore().i18n();
+	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
 	const { handleError } = useErrorStore();
 
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,7 +49,27 @@ export const Login: React.FC = () => {
 					<label htmlFor="password" className="">
 						{i18n.navbar.profile.settings.password}
 					</label>
-					<TextInput type="password" id="password" name="password" required />
+					<div className="flex flex-row relative">
+						<TextInput
+							type={isPasswordVisible ? "text" : "password"}
+							id="password"
+							name="password"
+						/>
+						<button
+							type="button"
+							className="right-3 absolute top-[1rem] p-1 rounded-xl"
+							onClick={() => {
+								setIsPasswordVisible(!isPasswordVisible);
+							}}
+						>
+							{isPasswordVisible
+								? i18n.navbar.profile.hidePassword
+								: i18n.navbar.profile.showPassword}
+							<span className="sr-only">
+								{isPasswordVisible ? "Hide password" : "Show password"}
+							</span>
+						</button>
+					</div>
 				</div>
 
 				<div className="pt-11">

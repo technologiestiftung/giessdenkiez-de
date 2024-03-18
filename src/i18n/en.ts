@@ -94,6 +94,8 @@ const en: Content = {
 				deleteAccountConfirm: "Are you sure you want to delete your account?",
 			},
 			logOut: "Log out",
+			showPassword: "Show",
+			hidePassword: "Hide",
 		},
 		info: "Info",
 	},

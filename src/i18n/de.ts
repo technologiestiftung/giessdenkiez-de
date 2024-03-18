@@ -95,6 +95,8 @@ const de: Content = {
 					"Bist du Dir sicher, den Account löschen zu wollen?",
 			},
 			logOut: "Ausloggen",
+			showPassword: "Zeigen",
+			hidePassword: "Verbergen",
 		},
 		info: "Info",
 	},

@@ -12,6 +12,7 @@ export const PasswordInputWithValidation: React.FC<
 	PasswordInputValidationProps
 > = ({ label }) => {
 	const i18n = useI18nStore().i18n();
+	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
 	const [passwordErrors, setPasswordErrors] = useState<PasswordErrors>({
 		validLength: false,
@@ -64,13 +65,29 @@ export const PasswordInputWithValidation: React.FC<
 			<label className="mb-2 font-semibold" htmlFor="password">
 				{label}
 			</label>
-			<TextInput
-				type="password"
-				id="password"
-				name="password"
-				required
-				onChange={onChange}
-			/>
+			<div className="flex flex-row relative">
+				<TextInput
+					type={isPasswordVisible ? "text" : "password"}
+					id="password"
+					name="password"
+					required
+					onChange={onChange}
+				/>
+				<button
+					type="button"
+					className="right-3 absolute top-[1rem] p-1 rounded-xl"
+					onClick={() => {
+						setIsPasswordVisible(!isPasswordVisible);
+					}}
+				>
+					{isPasswordVisible
+						? i18n.navbar.profile.hidePassword
+						: i18n.navbar.profile.showPassword}
+					<span className="sr-only">
+						{isPasswordVisible ? "Hide password" : "Show password"}
+					</span>
+				</button>
+			</div>
 			<p className="font-medium">
 				{i18n.navbar.profile.settings.passwordShould}
 			</p>

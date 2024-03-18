@@ -82,6 +82,8 @@ interface Navbar {
 			deleteAccountConfirm: string;
 		};
 		logOut: string;
+		showPassword: string;
+		hidePassword: string;
 	};
 	info: string;
 }
