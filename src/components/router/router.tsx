@@ -42,7 +42,11 @@ const Router: React.FC = () => {
 
 					<div className="mt-2 flex w-full flex-row justify-center">
 						<div className="w-[100%] sm:w-[50%] md:w-[40%] lg:w-[35%] xl:w-[25%] sm:max-w-[50%] md:max-w-[40%] lg:max-w-[35%] xl:max-w-[25%] flex flex-col gap-4">
-							<LocationSearch onShowFilter={() => setShowFilter(!showFilter)} />
+							<LocationSearch
+								onToggleShowFilter={(show) =>
+									setShowFilter(show ?? !showFilter)
+								}
+							/>
 							<div className="hidden lg:block">
 								{showFilter && (
 									<Filter

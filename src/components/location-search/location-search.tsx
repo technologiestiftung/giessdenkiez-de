@@ -7,10 +7,12 @@ import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
 
 interface LocationSearchProps {
-	onShowFilter: () => void;
+	onToggleShowFilter: (showFilter?: boolean) => void;
 }
 
-const LocationSearch: React.FC<LocationSearchProps> = ({ onShowFilter }) => {
+const LocationSearch: React.FC<LocationSearchProps> = ({
+	onToggleShowFilter,
+}) => {
 	const i18n = useI18nStore().i18n();
 
 	const [search, setSearch] = useState("");
@@ -82,7 +84,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onShowFilter }) => {
 	}, [geocodingResults, selectedGeocodingResultIndex]);
 
 	return (
-		<div className="flex flex-row w-full justify-start pointer-events-auto">
+		<div className="flex flex-row w-full gap-1 justify-start pointer-events-auto">
 			<div
 				className={`w-[85%] max-w-[85%] flex h-fit flex-col px-2 drop-shadow-md sm:px-0`}
 			>
@@ -108,6 +110,9 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onShowFilter }) => {
 							setSelectedGeocodingResult(undefined);
 							setSearch(e.target.value);
 						}}
+						onFocus={() => {
+							onToggleShowFilter(false);
+						}}
 						placeholder={i18n.locationSearch.placeholder}
 					/>
 					<button className="px-4" onClick={clearSearch}>
@@ -129,10 +134,12 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onShowFilter }) => {
 					</div>
 				)}
 			</div>
-			<div className="w-[15%] max-w-[15%] flex flex-row justify-center lg:justify-end items-center mt-1 mr-1 lg:mr-0">
+			<div className="w-[15%] max-w-[15%] flex flex-col justify-start items-center mt-1 mr-1 lg:mr-0">
 				<button
 					className="p-3 rounded-full bg-white drop-shadow-md"
-					onClick={onShowFilter}
+					onClick={() => {
+						onToggleShowFilter();
+					}}
 				>
 					<img src="/images/filter-icon-default.svg" alt="" />
 				</button>
