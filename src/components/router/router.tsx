@@ -7,7 +7,7 @@ import Profile from "../profile/profile";
 import TreeDetail from "../tree-detail/tree-detail";
 import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
-import PasswordReset from "../profile/profile-logged-in/password-reset";
+import { PasswordReset } from "../profile/profile-logged-in/password-reset";
 import Filter from "../filter/filter";
 
 const Router: React.FC = () => {

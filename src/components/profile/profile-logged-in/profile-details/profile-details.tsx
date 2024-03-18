@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
-import EditEmail from "./edit-email";
-import EditUsername from "./edit-username";
-import EditPassword from "./edit-password";
+import { EditEmail } from "./edit-email";
+import { EditUsername } from "./edit-username";
+import { EditPassword } from "./edit-password";
 import TertiaryDestructiveButton from "../../../buttons/tertiary-destructive";
 import { useAuthStore } from "../../../../auth/auth-store";
 import { useErrorStore } from "../../../../error/error-store";
 import { useUrlState } from "../../../router/store";
 
-const ProfileDetails: React.FC = () => {
+export const ProfileDetails: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { deleteUser } = useAuthStore();
 	const { handleError } = useErrorStore();
@@ -39,5 +39,3 @@ const ProfileDetails: React.FC = () => {
 		</div>
 	);
 };
-
-export default ProfileDetails;

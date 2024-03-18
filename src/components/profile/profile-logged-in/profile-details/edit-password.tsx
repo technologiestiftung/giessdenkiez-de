@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { useAuthStore } from "../../../../auth/auth-store";
 import TertiaryButton from "../../../buttons/tertiary";
+import { useErrorStore } from "../../../../error/error-store";
 
-const EditPassword: React.FC = () => {
+export const EditPassword: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { forgotPassword, getUserData } = useAuthStore();
+	const { handleError } = useErrorStore();
+
+	const onClick = useCallback(async () => {
+		try {
+			await forgotPassword(getUserData()?.email ?? "");
+		} catch (error) {
+			handleError(i18n.common.defaultErrorMessage);
+		}
+	}, []);
 
 	return (
 		<div className="mt-7 flex flex-col">
@@ -21,14 +31,10 @@ const EditPassword: React.FC = () => {
 					value="1234567890"
 				/>
 				<TertiaryButton
-					onClick={() => {
-						forgotPassword(getUserData()?.email ?? "");
-					}}
+					onClick={onClick}
 					label={i18n.navbar.profile.settings.changePassword}
 				></TertiaryButton>
 			</div>
 		</div>
 	);
 };
-
-export default EditPassword;

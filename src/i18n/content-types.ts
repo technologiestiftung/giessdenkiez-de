@@ -51,8 +51,10 @@ interface Navbar {
 			email: string;
 			editEmail: string;
 			placeholderMail: string;
+			updateEmailEmailSent: string;
 			password: string;
 			changePassword: string;
+			passwordChangeConfirmation: string;
 			deleteAccount: string;
 			approve: string;
 			usernameShould: string;
@@ -75,10 +77,15 @@ interface Navbar {
 			forgotYourPassword: string;
 			ohNoforgotYourPassword: string;
 			passwordForgotten: string;
+			resetPasswordEmailSent: string;
 			clickHere: string;
 			resetPassword: string;
+			invalidCredentials: string;
+			deleteAccountConfirm: string;
 		};
 		logOut: string;
+		showPassword: string;
+		hidePassword: string;
 	};
 	info: string;
 }
