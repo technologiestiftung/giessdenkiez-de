@@ -1,3 +1,5 @@
+import { title } from "process";
+
 type TreeTypeId =
 	| "LINDE"
 	| "AHORN"
@@ -181,6 +183,18 @@ interface TreeDetail {
 	treeTypeInfoTitle: string;
 }
 
+interface Filter {
+	title: string;
+	publicPumps: string;
+	waterNeedTrees: string;
+	treeAge: string;
+	youngTrees: string;
+	mediumTrees: string;
+	oldTrees: string;
+	show: string;
+	reset: string;
+}
+
 interface Common {
 	defaultErrorMessage: string;
 }
@@ -220,4 +234,5 @@ export interface Content {
 	notFound: NotFound;
 	info: Info;
 	treeDetail: TreeDetail;
+	filter: Filter;
 }

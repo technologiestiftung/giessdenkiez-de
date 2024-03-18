@@ -382,6 +382,17 @@ Vernetzen:
 		],
 		treeTypeInfoTitle: "Baumsteckbrief",
 	},
+	filter: {
+		title: "Filter",
+		publicPumps: "Öffentliche Pumpen",
+		waterNeedTrees: "Gießbedürftige Bäume",
+		treeAge: "Baumalter",
+		youngTrees: "0 - 3 Jahre",
+		mediumTrees: "4 - 40 Jahre",
+		oldTrees: "+40 Jahre",
+		show: "Anzeigen",
+		reset: "Zurücksetzen",
+	},
 	common: {
 		defaultErrorMessage:
 			"Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.",

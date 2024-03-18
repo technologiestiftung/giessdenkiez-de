@@ -129,7 +129,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onShowFilter }) => {
 					</div>
 				)}
 			</div>
-			<div className="w-[15%] max-w-[15%] flex flex-col justify-start items-center mt-1">
+			<div className="w-[15%] max-w-[15%] flex flex-col justify-start items-center mt-1 mr-1">
 				<button
 					className="p-3 rounded-full bg-white drop-shadow-md"
 					onClick={onShowFilter}

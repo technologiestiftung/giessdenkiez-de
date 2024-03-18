@@ -393,6 +393,17 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		],
 		treeTypeInfoTitle: "Tree profile",
 	},
+	filter: {
+		title: "Filter",
+		publicPumps: "Public pumps",
+		waterNeedTrees: "Trees in need of water",
+		treeAge: "Tree age",
+		youngTrees: "0 - 3 years",
+		mediumTrees: "4 - 40 years",
+		oldTrees: "+40 years",
+		show: "Show",
+		reset: "Reset",
+	},
 	common: {
 		defaultErrorMessage: "Something went wrong! Please try again later.",
 	},
