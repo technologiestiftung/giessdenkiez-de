@@ -9,7 +9,7 @@ const Login: React.FC = () => {
 	const { login } = useAuthStore();
 	const { setSearchParams } = useUrlState();
 	const i18n = useI18nStore().i18n();
-	const [isPasswordVisible, setPasswordVisible] = useState(false);
+	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
 	return (
 		<>
@@ -48,7 +48,7 @@ const Login: React.FC = () => {
 							type="button"
 							className="right-3 absolute top-[1rem] p-1 rounded-xl"
 							onClick={() => {
-								setPasswordVisible(!isPasswordVisible);
+								setIsPasswordVisible(!isPasswordVisible);
 							}}
 						>
 							{isPasswordVisible
