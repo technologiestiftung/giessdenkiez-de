@@ -246,7 +246,7 @@ Vernetzen:
 		waterNeed: {
 			title: "Wasserbedarf",
 			hint: "Je nach Baumalter unterscheidet sich der Bedarf an Wasser.",
-			needXLiters: (liters: number) => `Braucht ${liters} Liter pro Woche`,
+			needXLiters: (liters: string) => `Braucht ${liters} Liter pro Woche`,
 			needsOnlyOnDryDays: "Braucht nur an trockenen Tagen Wasser",
 			waterManaged: "Vom Bezirksamt versorgt",
 			unknownTitle: "Wasserbedarf unbekannt",
@@ -262,7 +262,7 @@ Vernetzen:
 			dataOfLastXDays: "* Daten der letzen 7 Tage",
 			manager: "vom Bezirksamt",
 			alreadyWateredByManager: "Bereits vom Bezirksamt versorgt",
-			stillWaterXLiters: (liters: number) => `Noch ${liters} Liter gießen`,
+			stillWaterXLiters: (liters: string) => `Noch ${liters} Liter gießen`,
 			shouldBeWatered: "Sollte gegossen werden",
 			sufficientlyWatered: "Momentan ausreichend bewässert",
 			ageAndWaterHintTitle: "Wasserbedarf und Standalter",
@@ -274,9 +274,9 @@ Vernetzen:
    **Erwachsen (15-40 Jahre):** Wir haben ein gewisses Durchhaltevermögen aber brauchen in heißen Phasen auch einen ordentlichen extra Schluck Wasser: bis zu 100l ein Mal in der Woche.
 
    **Alt (über 40 Jahre):** Wir kommen weitestgehend alleine klar, freuen uns in besonders trockenen Phasen aber dennoch über einen extra Schluck.`,
-			lastXDaysYLitersWater: (days: number, liters: number) =>
+			lastXDaysYLitersWater: (days: number, liters: string) =>
 				`Die letzten ${days} Tage wurden **${liters} Liter gegossen**.`,
-			lastXDaysYLitersRain: (days: number, liters: number) =>
+			lastXDaysYLitersRain: (days: number, liters: string) =>
 				`In den letzten ${days} Tagen sind **${liters} Liter Regen** gefallen.`,
 			iWatered: "Ich habe gegossen",
 			submitWatering: "Gießung eintragen",

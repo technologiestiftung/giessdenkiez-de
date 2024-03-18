@@ -248,7 +248,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 		waterNeed: {
 			title: "Water requirements",
 			hint: "Depending on the age of the tree, the need for water varies.",
-			needXLiters: (liters: number) => `Needs ${liters} liters per week`,
+			needXLiters: (liters: string) => `Needs ${liters} liters per week`,
 			needsOnlyOnDryDays: "Only needs water on dry days",
 			waterManaged: "Supplied by the district office",
 			unknownTitle: "Water needs unknown",
@@ -264,7 +264,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			dataOfLastXDays: "* data of last 7 days",
 			manager: "district",
 			alreadyWateredByManager: "Watered by district",
-			stillWaterXLiters: (liters: number) => `${liters} liters to water`,
+			stillWaterXLiters: (liters: string) => `${liters} liters to water`,
 			shouldBeWatered: "Should be watered",
 			sufficientlyWatered: "Sufficiently watered at the moment",
 			ageAndWaterHintTitle: "Water requirements and age",
@@ -285,9 +285,9 @@ We have a certain amount of stamina but we need it in hot phases also a good ext
 
 We manage largely on our own and are happy in particularly dry phases but still about an extra sip.
       `,
-			lastXDaysYLitersWater: (days: number, liters: number) =>
+			lastXDaysYLitersWater: (days: number, liters: string) =>
 				`In the last ${days} days, **${liters} liters** were watered.`,
-			lastXDaysYLitersRain: (days: number, liters: number) =>
+			lastXDaysYLitersRain: (days: number, liters: string) =>
 				`In the last ${days} days, it rained **${liters} liters**.`,
 			iWatered: "I watered",
 			submitWatering: "Submit watering",
