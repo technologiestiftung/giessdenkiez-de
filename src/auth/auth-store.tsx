@@ -16,7 +16,7 @@ interface RegistrationCredentials extends Credentials {
 
 interface AuthState {
 	session: Session | null | undefined;
-	username: string | null;
+	username: string | null | undefined;
 	isLoggedIn: () => boolean | undefined;
 	getUserData: () => User | undefined;
 	refreshUsername: () => Promise<void>;
