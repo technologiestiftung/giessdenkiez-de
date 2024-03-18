@@ -3,6 +3,7 @@ import { useI18nStore } from "../../i18n/i18n-store";
 import QaEntry from "./qa-entry";
 import SocialShare from "./social-share";
 import PrimaryButton from "../buttons/primary";
+import Credits from "./credits";
 
 const Info: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -21,46 +22,49 @@ const Info: React.FC = () => {
 								answer={i18n.info.about.head.answer}
 								isLast={false}
 								isInitiallyExpanded={true}
-								children={
-									<div className="py-2">
-										<PrimaryButton
-											label={"Slack Community"}
-											onClick={() => {
-												window.open(
-													"https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ",
-													"_blank",
-												);
-											}}
-											disabled={false}
-										/>
-									</div>
-								}
-							/>
+							>
+								<div className="py-2">
+									<PrimaryButton
+										label={"Slack Community"}
+										onClick={() => {
+											window.open(
+												"https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ",
+												"_blank",
+											);
+										}}
+										disabled={false}
+									/>
+								</div>
+							</QaEntry>
 						</div>
 
 						{i18n.info.about.qa.map((item, idx) => (
-							<QaEntry
-								question={item.question}
-								answer={item.answer}
-								key={`info-about-item-${idx}`}
-								isLast={idx === i18n.info.about.qa.length - 1}
-								isInitiallyExpanded={false}
-								children={undefined}
-							/>
+							<React.Fragment key={`info-about-item-${idx}`}>
+								<QaEntry
+									question={item.question}
+									answer={item.answer}
+									key={`info-about-item-${idx}`}
+									isLast={idx === i18n.info.about.qa.length - 1}
+									isInitiallyExpanded={false}
+								>
+									{idx === 1 && <Credits></Credits>}
+								</QaEntry>{" "}
+							</React.Fragment>
 						))}
 						<div className={`w-full pt-4 text-xl`}>{i18n.info.faq.title}</div>
 						<div className={`w-full text-gdk-gray`}>
 							{i18n.info.faq.description}
 						</div>
 						{i18n.info.faq.qa.map((item, idx) => (
-							<QaEntry
-								question={item.question}
-								answer={item.answer}
-								key={`info-about-item-${idx}`}
-								isLast={idx === i18n.info.faq.qa.length - 1}
-								isInitiallyExpanded={false}
-								children={undefined}
-							/>
+							<React.Fragment key={`info-faq-item-${idx}`}>
+								<QaEntry
+									question={item.question}
+									answer={item.answer}
+									isLast={idx === i18n.info.faq.qa.length - 1}
+									isInitiallyExpanded={false}
+									children={undefined}
+								/>
+							</React.Fragment>
 						))}
 						<div className="pt-8">
 							<SocialShare />

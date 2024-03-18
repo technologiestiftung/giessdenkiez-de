@@ -2,43 +2,40 @@ import React, { useState } from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import EditIcon from "../../../icons/edit-icon";
 import { useAuthStore } from "../../../../auth/auth-store";
-import UsernameInputWithValidation from "../../validation/username-input-with-validation";
+import { UsernameInputWithValidation } from "../../validation/username-input-with-validation";
+import { useErrorStore } from "../../../../error/error-store";
 
-const EditUsername: React.FC = () => {
+export const EditUsername: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { updateUsername, getUserData } = useAuthStore();
+	const { handleError } = useErrorStore();
 
-	const [usernameIsDisabled, setUsernameDisabled] = useState(true);
+	const [isUsernameInputEnabled, setIsUsernameInputEnabled] = useState(false);
+
+	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const form = e.currentTarget;
+		setIsUsernameInputEnabled(false);
+
+		const isSameUsername =
+			form.username.value === getUserData()?.user_metadata.signup_username;
+		if (isSameUsername) {
+			return;
+		}
+
+		try {
+			await updateUsername(e.currentTarget.username.value);
+		} catch (error) {
+			handleError(i18n.common.defaultErrorMessage);
+		}
+	};
 
 	return (
 		<div className="mt-7 flex flex-col">
-			{usernameIsDisabled ? (
-				<>
-					<p className="mb-2 font-semibold">
-						{i18n.navbar.profile.settings.username}
-					</p>
-					<div className="flex flex-row justify-between gap-x-8">
-						<p className="italic">
-							{getUserData()?.user_metadata.signup_username}
-						</p>
-						<button
-							className="self-end text-gdk-blue enabled:hover:text-gdk-light-blue"
-							onClick={() => {
-								setUsernameDisabled(!usernameIsDisabled);
-							}}
-						>
-							<EditIcon />
-						</button>
-					</div>
-				</>
-			) : (
+			{isUsernameInputEnabled ? (
 				<form
 					className="flex flex-col justify-between gap-x-8"
-					onSubmit={(e) => {
-						e.preventDefault();
-						updateUsername(e.currentTarget.username.value);
-						setUsernameDisabled(!usernameIsDisabled);
-					}}
+					onSubmit={onSubmit}
 				>
 					<div className="flex flex-col justify-between gap-x-8 md:flex-row">
 						<UsernameInputWithValidation
@@ -54,9 +51,26 @@ const EditUsername: React.FC = () => {
 						</button>
 					</div>
 				</form>
+			) : (
+				<>
+					<p className="mb-2 font-semibold">
+						{i18n.navbar.profile.settings.username}
+					</p>
+					<div className="flex flex-row justify-between gap-x-8">
+						<p className="italic">
+							{getUserData()?.user_metadata.signup_username}
+						</p>
+						<button
+							className="self-end text-gdk-blue enabled:hover:text-gdk-light-blue"
+							onClick={() => {
+								setIsUsernameInputEnabled(true);
+							}}
+						>
+							<EditIcon />
+						</button>
+					</div>
+				</>
 			)}
 		</div>
 	);
 };
-
-export default EditUsername;
