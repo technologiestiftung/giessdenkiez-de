@@ -23,10 +23,10 @@ const Router: React.FC = () => {
 		case "/map":
 			return (
 				<div
-					className={`flex h-screen w-screen flex-col-reverse justify-between lg:flex-row ${treeId && "bg-white"} sm:bg-transparent`}
+					className={`flex h-screen w-screen flex-col-reverse justify-between lg:flex-row ${treeId && "bg-white"} lg:bg-transparent`}
 				>
 					<Navbar />
-					<div className={`${treeId && "hidden"} sm:block w-full`}>
+					<div className={`${treeId && "hidden"} lg:block w-full`}>
 						<LocationSearch />
 					</div>
 					{treeId && <TreeDetail />}
