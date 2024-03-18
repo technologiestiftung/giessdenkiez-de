@@ -26,7 +26,9 @@ const Router: React.FC = () => {
 					className={`flex h-screen w-screen flex-col-reverse justify-between lg:flex-row ${treeId && "bg-white"} sm:bg-transparent`}
 				>
 					<Navbar />
-					{!treeId && <LocationSearch />}
+					<div className={`${treeId && "hidden"} sm:block w-full`}>
+						<LocationSearch />
+					</div>
 					{treeId && <TreeDetail />}
 				</div>
 			);
