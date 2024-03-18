@@ -17,7 +17,7 @@ export const EditUsername: React.FC = () => {
 		const form = e.currentTarget;
 		setIsUsernameInputEnabled(false);
 
-		const isSameUsername = form.username.value === username;
+		const isSameUsername = form.username.value === username ?? "";
 		if (isSameUsername) {
 			return;
 		}
@@ -39,7 +39,7 @@ export const EditUsername: React.FC = () => {
 					<div className="flex flex-col justify-between gap-x-8 md:flex-row">
 						<UsernameInputWithValidation
 							label={i18n.navbar.profile.settings.editUsername}
-							defaultValue={username}
+							defaultValue={username ?? ""}
 						/>
 						<button
 							className={`mt-2 cursor-pointer self-end  font-semibold 
@@ -56,7 +56,7 @@ export const EditUsername: React.FC = () => {
 						{i18n.navbar.profile.settings.username}
 					</p>
 					<div className="flex flex-row justify-between gap-x-8">
-						<p className="italic">{username}</p>
+						<p className="italic">{username ?? ""}</p>
 						<button
 							className="self-end text-gdk-blue enabled:hover:text-gdk-light-blue"
 							onClick={() => {
