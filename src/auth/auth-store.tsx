@@ -37,22 +37,7 @@ interface AuthState {
 export const useAuthStore = create<AuthState>()((set, get) => {
 	supabaseClient.auth.getSession().then(({ data: { session } }) => {
 		set({ session });
-
-		supabaseClient
-			.from("profiles")
-			.select("username")
-			.eq("id", get().session?.user?.id)
-			.then(({ data, error }) => {
-				if (error) throw new Error("Benutzername konnte nicht gefunden werden");
-
-				if (data.length > 1)
-					throw new Error(
-						"Benutzername konnte nicht eindeutig identifiziert werden",
-					);
-
-				const currentUsername = data[0].username;
-				set({ username: currentUsername });
-			});
+		get().refreshUsername();
 	});
 
 	supabaseClient.auth.onAuthStateChange((_event, session) => {
