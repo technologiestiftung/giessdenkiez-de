@@ -81,7 +81,7 @@ const de: Content = {
 				registerNow: "Registriere Dich",
 				forgotYourPassword: "Passwort vergessen?",
 				ohNoforgotYourPassword: "Oh nein. Du hast Dein",
-				passwordForgotten: "Passwort Vergessen",
+				passwordForgotten: "Passwort vergessen",
 				clickHere: "Hier klicken",
 				resetPassword: "Passwort zurücksetzen",
 			},
