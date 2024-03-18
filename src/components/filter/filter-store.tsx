@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { replaceSearchParam } from "../../utils/url-utils";
+import { replaceUrlSearchParam } from "../../utils/url-utils";
 
 export enum TreeAgeIntervalIdentifier {
 	Young = "young",
@@ -29,12 +29,12 @@ const ageIntervalSearch = new URL(window.location.href).searchParams.getAll(
 	treeAgeKey,
 );
 
-const showPumpsKey = "pumps";
+const showPumpsKey = "showPumps";
 const showPumpsSearch = new URL(window.location.href).searchParams.get(
 	showPumpsKey,
 );
 
-const showWaterNeedTreesKey = "showWaterNeedTrees";
+const showWaterNeedTreesKey = "showInNeed";
 const showWaterNeedTreesSearch = new URL(window.location.href).searchParams.get(
 	showWaterNeedTreesKey,
 );
@@ -74,7 +74,7 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 	setShowPumps: (showPumps) => {
 		set({ showPumps });
 		const url = new URL(window.location.href);
-		const updatedUrl = replaceSearchParam(url, showPumpsKey, [
+		const updatedUrl = replaceUrlSearchParam(url, showPumpsKey, [
 			showPumps ? "true" : "false",
 		]);
 		window.history.pushState({}, "", updatedUrl);
@@ -82,7 +82,7 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 	setShowWaterNeedTrees: (showWaterNeedTrees) => {
 		set({ showWaterNeedTrees });
 		const url = new URL(window.location.href);
-		const updatedUrl = replaceSearchParam(url, showWaterNeedTreesKey, [
+		const updatedUrl = replaceUrlSearchParam(url, showWaterNeedTreesKey, [
 			showWaterNeedTrees ? "true" : "false",
 		]);
 		window.history.pushState({}, "", updatedUrl);
@@ -108,7 +108,7 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 					return int.identifier.toString();
 				});
 			const url = new URL(window.location.href);
-			const updatedUrl = replaceSearchParam(
+			const updatedUrl = replaceUrlSearchParam(
 				url,
 				treeAgeKey,
 				updatedIntervalIdentifiers,
