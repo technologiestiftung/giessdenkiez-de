@@ -5,12 +5,16 @@ import PrimaryButton from "../buttons/primary";
 import SecondaryButton from "../buttons/secondary";
 import { useI18nStore } from "../../i18n/i18n-store";
 
-const Filter: React.FC = () => {
+interface FilterProps {
+	onFilterChange: () => void;
+	onFilterReset: () => void;
+}
+const Filter: React.FC<FilterProps> = ({ onFilterChange, onFilterReset }) => {
 	const i18n = useI18nStore().i18n();
 	return (
 		<div className="flex flex-row w-full justify-center pointer-events-auto">
 			<div
-				className={`flex flex-col lg:drop-shadow-md bg-white rounded-lg p-4 lg:p-8 gap-6 w-full`}
+				className={`flex flex-col lg:drop-shadow-md bg-white rounded-lg p-4 lg:p-6 gap-6 w-full`}
 			>
 				<div className="flex flex-col gap-2">
 					<div className="font-bold text-xl">{i18n.filter.title}</div>
@@ -51,8 +55,8 @@ const Filter: React.FC = () => {
 				</div>
 
 				<div className="flex flex-row justify-between gap-4">
-					<SecondaryButton label={i18n.filter.reset} onClick={() => {}} />
-					<PrimaryButton label={i18n.filter.show} />
+					<SecondaryButton label={i18n.filter.reset} onClick={onFilterReset} />
+					<PrimaryButton label={i18n.filter.show} onClick={onFilterChange} />
 				</div>
 			</div>
 		</div>
