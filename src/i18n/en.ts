@@ -55,11 +55,15 @@ const en: Content = {
 				username: "Username",
 				editUsername: "New username",
 				placeholderUser: "Your username",
+				updateEmailEmailSent:
+					"We sent you an email with a link to both your old and your new email address to confirm the change. Check your mailbox!",
 				email: "You email address",
 				editEmail: "New email address",
 				placeholderMail: "xyz@ts.berlin",
 				password: "Password",
 				changePassword: "Change password",
+				passwordChangeConfirmation:
+					'Password changed, press "ok" to go to your profile',
 				deleteAccount: "Delete account",
 				approve: "Done",
 				checkInput: "Please check your input",
@@ -82,8 +86,12 @@ const en: Content = {
 				forgotYourPassword: "forgot your password?",
 				ohNoforgotYourPassword: "Oh no. You",
 				passwordForgotten: "Password forgotten",
+				resetPasswordEmailSent:
+					"Email sent! We sent you an email with a link to reset your password. Check your mailbox!",
 				clickHere: "click here",
 				resetPassword: "Reset password",
+				invalidCredentials: "Invalid credentials",
+				deleteAccountConfirm: "Are you sure you want to delete your account?",
 			},
 			logOut: "Log out",
 		},
@@ -223,10 +231,6 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			openSource:
 				"Gieß den Kiez is an [OpenSource Project](https://github.com/technologiestiftung/giessdenkiez-de)!",
 		},
-		credits: {
-			projectBy: "A project of",
-			fundedBy: "Funded by",
-		},
 	},
 	treeDetail: {
 		title: "Tree information",
@@ -248,15 +252,12 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 		waterNeed: {
 			title: "Water requirements",
 			hint: "Depending on the age of the tree, the need for water varies.",
-			needXLiters: (liters: number) => `Needs ${liters} liters per week`,
+			needXLiters: (liters: string) => `Needs ${liters} liters per week`,
 			needsOnlyOnDryDays: "Only needs water on dry days",
 			waterManaged: "Supplied by the district office",
 			unknownTitle: "Water needs unknown",
 			unknown:
 				"The age and therefore the water requirement are unfortunately unknown. The info box may help you make your own assessment.",
-			seniorTitle: "Only needs water in dry phases",
-			seniorExplanation:
-				"Older trees can usually supply themselves with groundwater, but as the heat increases they also appreciate additional water.",
 			liters: "liters",
 			watered: "watered",
 			rained: "rain",
@@ -264,7 +265,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			dataOfLastXDays: "* data of last 7 days",
 			manager: "district",
 			alreadyWateredByManager: "Watered by district",
-			stillWaterXLiters: (liters: number) => `${liters} liters to water`,
+			stillWaterXLiters: (liters: string) => `${liters} liters to water`,
 			shouldBeWatered: "Should be watered",
 			sufficientlyWatered: "Sufficiently watered at the moment",
 			ageAndWaterHintTitle: "Water requirements and age",
@@ -285,9 +286,9 @@ We have a certain amount of stamina but we need it in hot phases also a good ext
 
 We manage largely on our own and are happy in particularly dry phases but still about an extra sip.
       `,
-			lastXDaysYLitersWater: (days: number, liters: number) =>
+			lastXDaysYLitersWater: (days: number, liters: string) =>
 				`In the last ${days} days, **${liters} liters** were watered.`,
-			lastXDaysYLitersRain: (days: number, liters: number) =>
+			lastXDaysYLitersRain: (days: number, liters: string) =>
 				`In the last ${days} days, it rained **${liters} liters**.`,
 			iWatered: "I watered",
 			submitWatering: "Submit watering",
@@ -308,7 +309,7 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		problem: {
 			title: "Report a problem",
 			description:
-				"Have you discovered tree damage or is the tree disk being misused? Tell the public order office:",
+				"Have you discovered tree damage or is the tree disk being misused? Tell the public order office!",
 			link: "To the official form",
 		},
 		treeTypeInfos: [

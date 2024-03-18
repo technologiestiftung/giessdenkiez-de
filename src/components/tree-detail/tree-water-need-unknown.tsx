@@ -22,6 +22,7 @@ const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 	treeWateringData,
 }) => {
 	const i18n = useI18nStore().i18n();
+	const { formatNumber } = useI18nStore();
 
 	const [showInfoBox, setShowInfoBox] = useState(false);
 
@@ -81,15 +82,21 @@ const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 			<div>
 				<div className="flex flex-col gap-3">
 					<div className="flex flex-row items-center gap-4">
-						<div className="h-5 w-5 rounded-full bg-[#1169EE]"></div>
+						<div className="h-5 w-5 min-h-5 min-w-5 rounded-full bg-[#1169EE]"></div>
 						<Markdown className="">
-							{i18n.treeDetail.waterNeed.lastXDaysYLitersRain(7, rainSum)}
+							{i18n.treeDetail.waterNeed.lastXDaysYLitersRain(
+								7,
+								formatNumber(rainSum),
+							)}
 						</Markdown>
 					</div>
 					<div className="flex flex-row items-center gap-4">
-						<div className="h-5 w-5 rounded-full bg-[#3DF99A]"></div>
+						<div className="h-5 w-5 min-h-5 min-w-5 rounded-full bg-[#3DF99A]"></div>
 						<Markdown className="">
-							{i18n.treeDetail.waterNeed.lastXDaysYLitersWater(7, wateringSum)}
+							{i18n.treeDetail.waterNeed.lastXDaysYLitersWater(
+								7,
+								formatNumber(wateringSum),
+							)}
 						</Markdown>
 					</div>
 				</div>

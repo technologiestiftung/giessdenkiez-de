@@ -11,6 +11,7 @@ const WaterProgressCircle: React.FC<WaterCircleProps> = ({
 	size,
 }) => {
 	const i18n = useI18nStore().i18n();
+	const { formatNumber } = useI18nStore();
 
 	const circleTitle = useMemo(() => {
 		if (treeAgeClassification === TreeAgeClassification.BABY) {
@@ -21,7 +22,9 @@ const WaterProgressCircle: React.FC<WaterCircleProps> = ({
 			(treeAgeClassification === TreeAgeClassification.JUNIOR ||
 				treeAgeClassification === TreeAgeClassification.GROWNUP)
 		) {
-			return i18n.treeDetail.waterNeed.stillWaterXLiters(needsWaterAmount);
+			return i18n.treeDetail.waterNeed.stillWaterXLiters(
+				formatNumber(needsWaterAmount),
+			);
 		}
 
 		if (
