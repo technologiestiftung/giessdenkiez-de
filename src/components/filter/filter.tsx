@@ -1,16 +1,43 @@
 import React from "react";
-import FilterSwitch from "./filter-switch";
-import TreeAgeButton from "./tree-age-button";
+import { useI18nStore } from "../../i18n/i18n-store";
 import PrimaryButton from "../buttons/primary";
 import SecondaryButton from "../buttons/secondary";
-import { useI18nStore } from "../../i18n/i18n-store";
+import { TreeAgeIntervalIdentifier, useFilterStore } from "./filter-store";
+import FilterSwitch from "./filter-switch";
+import TreeAgeButton from "./tree-age-button";
 
 interface FilterProps {
 	onFilterChange: () => void;
 	onFilterReset: () => void;
 }
+
 const Filter: React.FC<FilterProps> = ({ onFilterChange, onFilterReset }) => {
 	const i18n = useI18nStore().i18n();
+
+	const {
+		treeAgeIntervals,
+		toggleTreeAgeInterval,
+		showPumps,
+		setShowPumps,
+		showWaterNeedTrees,
+		setShowWaterNeedTrees,
+	} = useFilterStore();
+
+	const paddingMap = {
+		[TreeAgeIntervalIdentifier.Young]: {
+			padding: "p-3 lg:p-4",
+			label: i18n.filter.youngTrees,
+		},
+		[TreeAgeIntervalIdentifier.Medium]: {
+			padding: "p-2 lg:p-3",
+			label: i18n.filter.mediumTrees,
+		},
+		[TreeAgeIntervalIdentifier.Old]: {
+			padding: "p-1 lg:p-2",
+			label: i18n.filter.oldTrees,
+		},
+	};
+
 	return (
 		<div className="flex flex-row w-full justify-center pointer-events-auto">
 			<div
@@ -19,10 +46,19 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange, onFilterReset }) => {
 				<div className="flex flex-col gap-2">
 					<div className="font-bold text-xl">{i18n.filter.title}</div>
 					<div className="flex flex-col gap-2">
-						<FilterSwitch name={i18n.filter.publicPumps} onChange={() => {}} />
+						<FilterSwitch
+							name={i18n.filter.publicPumps}
+							onToggle={() => {
+								setShowPumps(!showPumps);
+							}}
+							isEnabled={showPumps}
+						/>
 						<FilterSwitch
 							name={i18n.filter.waterNeedTrees}
-							onChange={() => {}}
+							onToggle={() => {
+								setShowWaterNeedTrees(!showWaterNeedTrees);
+							}}
+							isEnabled={showWaterNeedTrees}
 						/>
 					</div>
 				</div>
@@ -30,27 +66,20 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange, onFilterReset }) => {
 				<div className="flex flex-col gap-2 w-full md:w-[50%] lg:w-full">
 					<div className="font-bold text-xl">{i18n.filter.treeAge}</div>
 					<div className="flex flex-row gap-2">
-						<div className="w-[33%]">
-							<TreeAgeButton
-								onChange={() => {}}
-								name={i18n.filter.youngTrees}
-								padding="p-3 lg:p-4"
-							/>
-						</div>
-						<div className="w-[33%]">
-							<TreeAgeButton
-								onChange={() => {}}
-								name={i18n.filter.mediumTrees}
-								padding="p-2 lg:p-3"
-							/>
-						</div>
-						<div className="w-[33%]">
-							<TreeAgeButton
-								onChange={() => {}}
-								name={i18n.filter.oldTrees}
-								padding="p-1 lg:p-2"
-							/>
-						</div>
+						{treeAgeIntervals.map((interval, index) => {
+							return (
+								<div key={`interval-${index}`} className="w-[33%]">
+									<TreeAgeButton
+										onChange={() => {
+											toggleTreeAgeInterval(interval);
+										}}
+										name={paddingMap[interval.identifier].label}
+										padding={paddingMap[interval.identifier].padding}
+										interval={interval}
+									/>
+								</div>
+							);
+						})}
 					</div>
 				</div>
 

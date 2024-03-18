@@ -1,18 +1,25 @@
 import React, { useState } from "react";
+import { TreeAgeInterval } from "./filter-store";
 
 type TreeAgeButtonProps = {
+	interval: TreeAgeInterval;
 	name: string;
 	padding: string;
-	onChange: () => void;
+	onChange: (interval: TreeAgeInterval) => void;
 };
 
-const TreeAgeButton: React.FC<TreeAgeButtonProps> = ({ name, padding }) => {
-	const [isSelected, setIsSelected] = useState(true);
+const TreeAgeButton: React.FC<TreeAgeButtonProps> = ({
+	interval,
+	name,
+	padding,
+	onChange,
+}) => {
+	// const [isSelected, setIsSelected] = useState(true);
 	return (
 		<div
-			className={`${isSelected && "border-gdk-blue"} border-2 h-full flex flex-col justify-center text-center p-2 rounded-lg bg-[#F7F7F7] hover:cursor-pointer gap-0 p-4`}
+			className={`${interval.enabled && "border-gdk-blue"} border-2 h-full flex flex-col justify-center text-center p-2 rounded-lg bg-[#F7F7F7] hover:cursor-pointer gap-0 p-4`}
 			onClick={() => {
-				setIsSelected(!isSelected);
+				onChange(interval);
 			}}
 		>
 			<div className=" flex flex-col justify-center items-center">

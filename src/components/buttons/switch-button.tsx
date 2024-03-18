@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 
 type SwitchButtonProps = {
-	onChange: (enabled: boolean) => void;
+	isEnabled: boolean;
+	onToggle: () => void;
 };
 
-const SwitchButton: React.FC<SwitchButtonProps> = ({ onChange }) => {
-	const [isEnabled, setIsEnabled] = useState(true);
+const SwitchButton: React.FC<SwitchButtonProps> = ({ isEnabled, onToggle }) => {
 	return (
 		<button
 			onClick={() => {
-				setIsEnabled(!isEnabled);
-				onChange(isEnabled);
+				onToggle();
 			}}
 			className={`w-14 h-8 bg-white rounded-full border-2 flex flex-row ${isEnabled ? "border-gdk-blue justify-end" : "border-[#989898] justify-start"}`}
 		>
