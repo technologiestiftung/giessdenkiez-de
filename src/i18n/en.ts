@@ -55,15 +55,11 @@ const en: Content = {
 				username: "Username",
 				editUsername: "New username",
 				placeholderUser: "Your username",
-				updateEmailEmailSent:
-					"We sent you an email with a link to both your old and your new email address to confirm the change. Check your mailbox!",
 				email: "You email address",
 				editEmail: "New email address",
 				placeholderMail: "xyz@ts.berlin",
 				password: "Password",
 				changePassword: "Change password",
-				passwordChangeConfirmation:
-					'Password changed, press "ok" to go to your profile',
 				deleteAccount: "Delete account",
 				approve: "Done",
 				checkInput: "Please check your input",
@@ -86,12 +82,8 @@ const en: Content = {
 				forgotYourPassword: "forgot your password?",
 				ohNoforgotYourPassword: "Oh no. You",
 				passwordForgotten: "Password forgotten",
-				resetPasswordEmailSent:
-					"Email sent! We sent you an email with a link to reset your password. Check your mailbox!",
 				clickHere: "click here",
 				resetPassword: "Reset password",
-				invalidCredentials: "Invalid credentials",
-				deleteAccountConfirm: "Are you sure you want to delete your account?",
 			},
 			logOut: "Log out",
 		},
@@ -231,6 +223,10 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			openSource:
 				"Gieß den Kiez is an [OpenSource Project](https://github.com/technologiestiftung/giessdenkiez-de)!",
 		},
+		credits: {
+			projectBy: "A project of",
+			fundedBy: "Funded by",
+		},
 	},
 	treeDetail: {
 		title: "Tree information",
@@ -258,6 +254,9 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			unknownTitle: "Water needs unknown",
 			unknown:
 				"The age and therefore the water requirement are unfortunately unknown. The info box may help you make your own assessment.",
+			seniorTitle: "Only needs water in dry phases",
+			seniorExplanation:
+				"Older trees can usually supply themselves with groundwater, but as the heat increases they also appreciate additional water.",
 			liters: "liters",
 			watered: "watered",
 			rained: "rain",

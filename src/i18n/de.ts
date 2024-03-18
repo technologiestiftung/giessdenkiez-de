@@ -246,7 +246,7 @@ Vernetzen:
 		waterNeed: {
 			title: "Wasserbedarf",
 			hint: "Je nach Baumalter unterscheidet sich der Bedarf an Wasser.",
-			needXLiters: (liters: number) => `Braucht ${liters} Liter pro Woche`,
+			needXLiters: (liters: string) => `Braucht ${liters} Liter pro Woche`,
 			needsOnlyOnDryDays: "Braucht nur an trockenen Tagen Wasser",
 			waterManaged: "Vom Bezirksamt versorgt",
 			unknownTitle: "Wasserbedarf unbekannt",
@@ -262,7 +262,7 @@ Vernetzen:
 			dataOfLastXDays: "* Daten der letzen 7 Tage",
 			manager: "vom Bezirksamt",
 			alreadyWateredByManager: "Bereits vom Bezirksamt versorgt",
-			stillWaterXLiters: (liters: number) => `Noch ${liters} Liter gießen`,
+			stillWaterXLiters: (liters: string) => `Noch ${liters} Liter gießen`,
 			shouldBeWatered: "Sollte gegossen werden",
 			sufficientlyWatered: "Momentan ausreichend bewässert",
 			ageAndWaterHintTitle: "Wasserbedarf und Standalter",
