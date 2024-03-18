@@ -49,8 +49,10 @@ interface Navbar {
 			email: string;
 			editEmail: string;
 			placeholderMail: string;
+			updateEmailEmailSent: string;
 			password: string;
 			changePassword: string;
+			passwordChangeConfirmation: string;
 			deleteAccount: string;
 			approve: string;
 			usernameShould: string;
@@ -73,10 +75,15 @@ interface Navbar {
 			forgotYourPassword: string;
 			ohNoforgotYourPassword: string;
 			passwordForgotten: string;
+			resetPasswordEmailSent: string;
 			clickHere: string;
 			resetPassword: string;
+			invalidCredentials: string;
+			deleteAccountConfirm: string;
 		};
 		logOut: string;
+		showPassword: string;
+		hidePassword: string;
 	};
 	info: string;
 }
@@ -105,16 +112,22 @@ interface Info {
 		content: string;
 		openSource: string;
 	};
+	credits: {
+		projectBy: string;
+		fundedBy: string;
+	};
 }
 
 interface WaterNeed {
 	title: string;
 	hint: string;
-	needXLiters: (liters: number) => string;
+	needXLiters: (liters: string) => string;
 	needsOnlyOnDryDays: string;
 	waterManaged: string;
 	unknown: string;
 	unknownTitle: string;
+	seniorTitle: string;
+	seniorExplanation: string;
 	liters: string;
 	watered: string;
 	rained: string;
@@ -122,13 +135,13 @@ interface WaterNeed {
 	dataOfLastXDays: string;
 	manager: string;
 	alreadyWateredByManager: string;
-	stillWaterXLiters: (liters: number) => string;
+	stillWaterXLiters: (liters: string) => string;
 	shouldBeWatered: string;
 	sufficientlyWatered: string;
 	ageAndWaterHintTitle: string;
 	ageAndWaterHint: string;
-	lastXDaysYLitersWater: (days: number, liters: number) => string;
-	lastXDaysYLitersRain: (days: number, liters: number) => string;
+	lastXDaysYLitersWater: (days: number, liters: string) => string;
+	lastXDaysYLitersRain: (days: number, liters: string) => string;
 	iWatered: string;
 	submitWatering: string;
 	wateredHowMuch: string;

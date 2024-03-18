@@ -6,7 +6,6 @@ import ChevronRight from "../icons/chevron-right";
 interface QaEntryProps {
 	question: string;
 	answer: string;
-	key: string;
 	isLast: boolean;
 	isInitiallyExpanded: boolean;
 	children: React.ReactNode | undefined;
@@ -15,14 +14,13 @@ interface QaEntryProps {
 const QaEntry: React.FC<QaEntryProps> = ({
 	question,
 	answer,
-	key,
 	isLast,
 	isInitiallyExpanded,
 	children,
 }) => {
 	const [isExpanded, setIsExpanded] = useState(isInitiallyExpanded);
 	return (
-		<div key={key} className={`w-full ${!isLast && "border-b-2"} py-4`}>
+		<div className={`w-full ${!isLast && "border-b-2"} py-4`}>
 			<button
 				className="flex w-full flex-row justify-between gap-2 text-left text-xl"
 				onClick={() => {

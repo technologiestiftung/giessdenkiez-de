@@ -2,23 +2,41 @@ import React, { useCallback } from "react";
 import { useUrlState } from "../../router/store";
 import { useAuthStore } from "../../../auth/auth-store";
 import { useI18nStore } from "../../../i18n/i18n-store";
-import EmailInputWithValidation from "../validation/email-input-with-validation";
-import UsernameInputWithValidation from "../validation/username-input-with-validation";
-import PasswordInputWithValidation from "../validation/password-input-with-validation";
+import { EmailInputWithValidation } from "../validation/email-input-with-validation";
+import { UsernameInputWithValidation } from "../validation/username-input-with-validation";
+import { PasswordInputWithValidation } from "../validation/password-input-with-validation";
 import PrimaryButton from "../../buttons/primary";
+import { useEmailTakenStore } from "../validation/email-taken-store";
+import { getErrorMessage } from "../validation/validation";
+import { useErrorStore } from "../../../error/error-store";
 
-const Register: React.FC = () => {
+export const Register: React.FC = () => {
 	const { setPathname } = useUrlState();
 	const { register } = useAuthStore();
+	const { setIsEmailTaken } = useEmailTakenStore();
 	const i18n = useI18nStore().i18n();
+	const { handleError } = useErrorStore();
 
-	const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+	const onSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		register({
-			email: e.currentTarget.email.value,
-			username: e.currentTarget.username.value,
-			password: e.currentTarget.password.value,
-		});
+		const form = e.currentTarget;
+
+		try {
+			await register({
+				email: form.email.value,
+				username: form.username.value,
+				password: form.password.value,
+			});
+		} catch (error) {
+			if (getErrorMessage(error) === "User already registered") {
+				setIsEmailTaken(true);
+				form.email.setCustomValidity("Bitte überprüfe Deine Eingabe");
+				form.reportValidity();
+				return;
+			}
+
+			handleError(i18n.common.defaultErrorMessage);
+		}
 	}, []);
 
 	return (
@@ -76,5 +94,3 @@ const Register: React.FC = () => {
 		</>
 	);
 };
-
-export default Register;

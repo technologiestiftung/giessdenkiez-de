@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { useAdoptTree } from "./hooks/use-adopt-tree";
 import { TreeAgeClassification, TreeData } from "./tree-types";
@@ -24,29 +24,46 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 	const { adoptTree, unadoptTree, isAdopted, isLoading, adoptedByOthers } =
 		useAdoptTree(treeData.id);
 
+	const adoptLabel = useMemo(() => {
+		if (isLoading) {
+			if (isAdopted) {
+				return i18n.treeDetail.unadoptLoading;
+			}
+			return i18n.treeDetail.adoptLoading;
+		}
+		if (isAdopted) {
+			return i18n.treeDetail.isAdopted;
+		}
+		return i18n.treeDetail.adoptIt;
+	}, [isLoading, isAdopted]);
+
 	return (
 		<div className="shadow-gdk-hard flex flex-col gap-4 rounded-lg bg-slate-100 p-4">
 			<div className="flex flex-row items-center justify-between text-xl">
 				<div className="font-bold">{treeData.artdtsch}</div>
 
-				<button
-					onClick={async () => {
-						if (!isAdopted) {
-							await adoptTree();
-						} else {
-							await unadoptTree();
-						}
-					}}
-					onMouseEnter={() => setHeartHovered(true)}
-					onMouseLeave={() => setHeartHovered(false)}
-				>
-					<HeartIcon
-						state={heartHovered ? HeartIconState.Hover : HeartIconState.Default}
-						fillState={
-							isAdopted ? HeartIconFillState.Filled : HeartIconFillState.Empty
-						}
-					/>
-				</button>
+				{treeAgeClassification !== TreeAgeClassification.BABY && (
+					<button
+						onClick={async () => {
+							if (!isAdopted) {
+								await adoptTree();
+							} else {
+								await unadoptTree();
+							}
+						}}
+						onMouseEnter={() => setHeartHovered(true)}
+						onMouseLeave={() => setHeartHovered(false)}
+					>
+						<HeartIcon
+							state={
+								heartHovered ? HeartIconState.Hover : HeartIconState.Default
+							}
+							fillState={
+								isAdopted ? HeartIconFillState.Filled : HeartIconFillState.Empty
+							}
+						/>
+					</button>
+				)}
 			</div>
 			{treeAgeClassification === TreeAgeClassification.BABY && (
 				<div>{i18n.treeDetail.managedBy}</div>
@@ -54,15 +71,7 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 			{treeAgeClassification !== TreeAgeClassification.BABY && (
 				<div className="flex flex-col gap-4">
 					<div className="flex flex-row items-center justify-between">
-						<div className="text-slate-500">
-							{isLoading
-								? isAdopted
-									? i18n.treeDetail.unadoptLoading
-									: i18n.treeDetail.adoptLoading
-								: isAdopted
-									? i18n.treeDetail.isAdopted
-									: i18n.treeDetail.adoptIt}
-						</div>
+						<div className="text-slate-500">{adoptLabel}</div>
 						<div className="relative">
 							<button
 								onClick={() => {

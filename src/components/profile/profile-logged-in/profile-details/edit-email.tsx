@@ -1,41 +1,55 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import EditIcon from "../../../icons/edit-icon";
 import { useAuthStore } from "../../../../auth/auth-store";
-import EmailInputWithValidation from "../../validation/email-input-with-validation";
+import { EmailInputWithValidation } from "../../validation/email-input-with-validation";
+import { getErrorMessage } from "../../validation/validation";
+import { useEmailTakenStore } from "../../validation/email-taken-store";
+import { useErrorStore } from "../../../../error/error-store";
 
-const EditEmail: React.FC = () => {
+export const EditEmail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { updateEmail, getUserData } = useAuthStore();
-	const [emailIsDisabled, setEmailDisabled] = useState(true);
+	const { setIsEmailTaken } = useEmailTakenStore();
+	const { handleError } = useErrorStore();
+	const [isEmailInputEnabled, setIsEmailInputEnabled] = useState(false);
+
+	const onSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const form = e.currentTarget;
+
+		const isSameEmail = form.email.value === getUserData()?.email;
+
+		if (isSameEmail) {
+			setIsEmailInputEnabled(false);
+			return;
+		}
+
+		try {
+			await updateEmail(form.email.value);
+		} catch (error) {
+			if (
+				getErrorMessage(error) ===
+				"A user with this email address has already been registered"
+			) {
+				setIsEmailTaken(true);
+				form.email.setCustomValidity(i18n.navbar.profile.settings.checkInput);
+				form.reportValidity();
+				return;
+			}
+
+			handleError(i18n.common.defaultErrorMessage);
+		}
+
+		setIsEmailInputEnabled(false);
+	}, []);
 
 	return (
 		<div className="mt-7 flex flex-col">
-			{emailIsDisabled ? (
-				<>
-					<p className="mb-2 font-semibold">
-						{i18n.navbar.profile.settings.email}
-					</p>
-					<div className="flex flex-row justify-between gap-x-8">
-						<p className="italic">{getUserData()?.email}</p>
-						<button
-							className="self-end text-gdk-blue enabled:hover:text-gdk-light-blue"
-							onClick={() => {
-								setEmailDisabled(!emailIsDisabled);
-							}}
-						>
-							<EditIcon />
-						</button>
-					</div>
-				</>
-			) : (
+			{isEmailInputEnabled ? (
 				<form
 					className="flex flex-col justify-between gap-x-8"
-					onSubmit={(e) => {
-						e.preventDefault();
-						updateEmail(e.currentTarget.email.value);
-						setEmailDisabled(!emailIsDisabled);
-					}}
+					onSubmit={onSubmit}
 				>
 					<div className="flex flex-col justify-between gap-x-8 md:flex-row">
 						<EmailInputWithValidation
@@ -51,9 +65,22 @@ const EditEmail: React.FC = () => {
 						</button>
 					</div>
 				</form>
+			) : (
+				<>
+					<p className="mb-2 font-semibold">
+						{i18n.navbar.profile.settings.email}
+					</p>
+					<div className="flex flex-row justify-between gap-x-8">
+						<p className="italic">{getUserData()?.email}</p>
+						<button
+							className="self-end text-gdk-blue enabled:hover:text-gdk-light-blue"
+							onClick={() => setIsEmailInputEnabled(true)}
+						>
+							<EditIcon />
+						</button>
+					</div>
+				</>
 			)}
 		</div>
 	);
 };
-
-export default EditEmail;

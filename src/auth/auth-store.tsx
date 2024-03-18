@@ -1,7 +1,9 @@
+/* eslint-disable max-lines */
 import { create } from "zustand";
 import { Session, User } from "@supabase/supabase-js";
 import { supabaseClient } from "./supabase-client";
 import { useUrlState } from "../components/router/store";
+import { useI18nStore } from "../i18n/i18n-store";
 
 interface Credentials {
 	email: string;
@@ -16,7 +18,7 @@ interface AuthState {
 	session: Session | null | undefined;
 	isLoggedIn: () => boolean | undefined;
 	getUserData: () => User | undefined;
-	login: ({ email, password }: Credentials) => void;
+	login: ({ email, password }: Credentials) => Promise<void>;
 	logout: () => Promise<void>;
 	register: ({
 		email,
@@ -68,10 +70,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 				throw error;
 			}
 
-			if (!data) {
-				throw new Error("data is null");
-			}
-
 			set({ session: data.session });
 		},
 
@@ -100,24 +98,26 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 				throw error;
 			}
 
-			if (!data) {
-				throw new Error("data is null");
-			}
-
 			set({ session: data.session });
 		},
 
 		deleteUser: async () => {
-			if (!window.confirm("Willst du Deinen Account wirklich löschen?")) {
+			if (
+				!window.confirm(
+					useI18nStore.getState().i18n().navbar.profile.settings
+						.deleteAccountConfirm,
+				)
+			) {
 				return;
 			}
 
 			const token = get().session?.access_token;
 			/**
-			 * logout needs to happen before the account is deleted to invalidate
-			 * existing sessions https://supabase.com/docs/reference/javascript/auth-signout
+			 * logout needs to happen before the account is deleted, otherwise supabase
+			 * will answer with a 404 error when trying to invalidate existing sessions
+			 * https://supabase.com/docs/reference/javascript/auth-signout
 			 */
-			get().logout();
+			await get().logout();
 
 			const res = await fetch(
 				`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/rpc/remove_account`,
@@ -139,44 +139,33 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		},
 
 		forgotPassword: async (email: string) => {
-			const { data, error } = await supabaseClient.auth.resetPasswordForEmail(
-				email,
-				{
-					redirectTo: import.meta.env.VITE_RECOVERY_AUTH_REDIRECT_URL,
-				},
-			);
+			const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+				redirectTo: import.meta.env.VITE_RECOVERY_AUTH_REDIRECT_URL,
+			});
 
 			if (error) {
-				alert(error.message);
-
 				throw error;
 			}
 
-			if (data) {
-				alert(
-					"E–Mail gesendet! Wir haben Dir eine E–Mail zum Ändern Deines Passworts gesendet. Checke Dein Postfach!",
-				);
-			}
+			alert(
+				useI18nStore.getState().i18n().navbar.profile.settings
+					.resetPasswordEmailSent,
+			);
 		},
 
 		updatePassword: async (password: string) => {
-			const { data, error } = await supabaseClient.auth.updateUser({
+			const { error } = await supabaseClient.auth.updateUser({
 				password: password,
 			});
 
 			if (error) {
-				alert(error.message);
-
 				throw error;
-			}
-
-			if (!data) {
-				throw new Error("data is null");
 			}
 
 			if (
 				!window.confirm(
-					'Dein Passwort wurde geändert. Klicke auf "ok" um zu deinem Profil zu kommen.',
+					useI18nStore.getState().i18n().navbar.profile.settings
+						.passwordChangeConfirmation,
 				)
 			) {
 				return;
@@ -186,39 +175,29 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		},
 
 		updateEmail: async (email: string) => {
-			const { data, error } = await supabaseClient.auth.updateUser({
+			const { error } = await supabaseClient.auth.updateUser({
 				email: email,
 			});
 
 			if (error) {
-				alert(error.message);
 				throw error;
 			}
 
-			if (!data) {
-				throw new Error("data is null");
-			}
-
 			alert(
-				"Wir haben an Deine alte und neue E–Mail einen Bestätigungslink zum Ändern Deiner Email gesendet. Checke Deine Postfächer und logge Dich neu ein!",
+				useI18nStore.getState().i18n().navbar.profile.settings
+					.updateEmailEmailSent,
 			);
 		},
 
 		updateUsername: async (username: string) => {
-			const { data, error } = await supabaseClient.auth.updateUser({
+			const { error } = await supabaseClient.auth.updateUser({
 				data: {
 					signup_username: username,
 				},
 			});
 
 			if (error) {
-				alert(error.message);
-
 				throw error;
-			}
-
-			if (!data) {
-				throw new Error("data is null");
 			}
 		},
 	};
