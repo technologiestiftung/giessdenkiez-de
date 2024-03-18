@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SwitchButton from "../buttons/switch-button";
 
 type TreeAgeButtonProps = {
 	name: string;
@@ -8,13 +7,18 @@ type TreeAgeButtonProps = {
 };
 
 const TreeAgeButton: React.FC<TreeAgeButtonProps> = ({ name, padding }) => {
-	const [isEnabled, setIsEnabled] = useState(false);
+	const [isSelected, setIsSelected] = useState(true);
 	return (
 		<div
-			className={`h-full flex flex-col justify-center text-center p-2 rounded-lg bg-[#F7F7F7] hover:cursor-pointer gap-2`}
+			className={`${isSelected && "border-gdk-blue"} border-2 h-full flex flex-col justify-center text-center p-2 rounded-lg bg-[#F7F7F7] hover:cursor-pointer gap-0 p-4`}
+			onClick={() => {
+				setIsSelected(!isSelected);
+			}}
 		>
-			<img src="/images/tree-icon.svg" className={`${padding}`}></img>
-			<div className="text-lg font-bold">{name}</div>
+			<div className=" flex flex-col justify-center items-center">
+				<img src="/images/tree-icon.svg" className={`${padding} w-[60%]`}></img>
+			</div>
+			<div className="text-sm font-semibold overflow-hidden">{name}</div>
 		</div>
 	);
 };

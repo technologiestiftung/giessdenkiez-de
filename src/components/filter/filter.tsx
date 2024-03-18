@@ -4,56 +4,51 @@ import TreeAgeButton from "./tree-age-button";
 import PrimaryButton from "../buttons/primary";
 import SecondaryButton from "../buttons/secondary";
 
-type FilterProps = {};
-
-const Filter: React.FC<FilterProps> = ({}) => {
+const Filter: React.FC = () => {
 	return (
-		<div
-			className={`z-[2] flex h-fit w-full flex-col drop-shadow-md bg-white p-4 rounded-lg gap-4`}
-		>
-			<div className="font-bold text-xl">Filter</div>
-			<div className="flex flex-col gap-2">
-				<FilterSwitch
-					name="Öffentliche Pumpen"
-					onChange={() => {}}
-				></FilterSwitch>
-				<FilterSwitch
-					name="Gießbedürftige Bäume"
-					onChange={() => {}}
-				></FilterSwitch>
-			</div>
+		<div className="flex flex-row w-full justify-center pointer-events-auto">
+			<div
+				className={`flex flex-col lg:drop-shadow-md bg-white rounded-lg p-4 lg:p-8 gap-6 w-full`}
+			>
+				<div className="flex flex-col gap-2">
+					<div className="font-bold text-xl">Filter</div>
+					<div className="flex flex-col gap-2">
+						<FilterSwitch name="Öffentliche Pumpen" onChange={() => {}} />
+						<FilterSwitch name="Gießbedürftige Bäume" onChange={() => {}} />
+					</div>
+				</div>
 
-			<div className="font-bold text-xl">Baumalter</div>
-			<div className="flex flex-row gap-2">
-				<div className="w-[33%]">
-					<TreeAgeButton
-						onChange={() => {}}
-						name={"0 - 3 Jahre"}
-						padding="px-8"
-					/>
+				<div className="flex flex-col gap-2">
+					<div className="font-bold text-xl">Baumalter</div>
+					<div className="flex flex-row gap-2">
+						<div className="w-[33%]">
+							<TreeAgeButton
+								onChange={() => {}}
+								name={"0 - 3 Jahre"}
+								padding="p-3 lg:p-4"
+							/>
+						</div>
+						<div className="w-[33%]">
+							<TreeAgeButton
+								onChange={() => {}}
+								name={"4 - 40 Jahre"}
+								padding="p-2 lg:p-3"
+							/>
+						</div>
+						<div className="w-[33%]">
+							<TreeAgeButton
+								onChange={() => {}}
+								name={"40+ Jahre"}
+								padding="p-1 lg:p-2"
+							/>
+						</div>
+					</div>
 				</div>
-				<div className="w-[33%]">
-					<TreeAgeButton
-						onChange={() => {}}
-						name={"4 - 40 Jahre"}
-						padding="px-6"
-					/>
-				</div>
-				<div className="w-[33%]">
-					<TreeAgeButton
-						onChange={() => {}}
-						name={"40+ Jahre"}
-						padding="px-4"
-					/>
-				</div>
-			</div>
 
-			<div className="flex flex-row justify-between">
-				<SecondaryButton
-					label={"Zurücksetzen"}
-					onClick={() => {}}
-				></SecondaryButton>
-				<PrimaryButton label={"Anzeigen"}></PrimaryButton>
+				<div className="flex flex-row justify-between gap-4">
+					<SecondaryButton label={"Zurücksetzen"} onClick={() => {}} />
+					<PrimaryButton label={"Anzeigen"} />
+				</div>
 			</div>
 		</div>
 	);

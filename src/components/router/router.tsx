@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Info from "../info/info";
 import LocationSearch from "../location-search/location-search";
 import Navbar from "../navbar/navbar";
@@ -16,6 +16,8 @@ const Router: React.FC = () => {
 	const treeId = url.searchParams.get("treeId");
 	useLocationEventListener();
 
+	const [showFilter, setShowFilter] = useState(false);
+
 	switch (url.pathname) {
 		case "/":
 			setPathname("/map");
@@ -26,9 +28,16 @@ const Router: React.FC = () => {
 				<div
 					className={`flex h-screen w-screen flex-col-reverse justify-between lg:flex-row ${treeId && "bg-white"} lg:bg-transparent`}
 				>
-					<Navbar />
-					<div className={`${treeId && "hidden"} lg:block w-full`}>
-						<LocationSearch />
+					<div className={`${showFilter && "bg-white lg:bg-transparent"}`}>
+						<div className="block lg:hidden">{showFilter && <Filter />}</div>
+						<Navbar />
+					</div>
+
+					<div className="mt-2 flex w-full flex-row justify-center">
+						<div className="w-[100%] sm:w-[50%] md:w-[40%] lg:w-[35%] xl:w-[25%] sm:max-w-[50%] md:max-w-[40%] lg:max-w-[35%] xl:max-w-[25%] flex flex-col gap-4">
+							<LocationSearch onShowFilter={() => setShowFilter(!showFilter)} />
+							<div className="hidden lg:block">{showFilter && <Filter />}</div>
+						</div>
 					</div>
 					{treeId && <TreeDetail />}
 				</div>

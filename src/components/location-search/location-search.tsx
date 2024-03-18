@@ -6,7 +6,11 @@ import { useMapConstants } from "../map/hooks/use-map-constants";
 import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
 
-const LocationSearch: React.FC = () => {
+interface LocationSearchProps {
+	onShowFilter: () => void;
+}
+
+const LocationSearch: React.FC<LocationSearchProps> = ({ onShowFilter }) => {
 	const i18n = useI18nStore().i18n();
 
 	const [search, setSearch] = useState("");
@@ -78,13 +82,15 @@ const LocationSearch: React.FC = () => {
 	}, [geocodingResults, selectedGeocodingResultIndex]);
 
 	return (
-		<div className="flex flex-row w-full justify-center gap-2 pointer-events-auto ">
-			<div className={`z-[2] flex h-fit flex-col px-2 drop-shadow-md sm:px-0`}>
+		<div className="flex flex-row w-full justify-start pointer-events-auto">
+			<div
+				className={`w-[85%] max-w-[85%] flex h-fit flex-col px-2 drop-shadow-md sm:px-0`}
+			>
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
 					}}
-					className={` z-[2] flex flex-row items-center justify-center rounded-full bg-white`}
+					className={`z-[2] flex flex-row items-center justify-center rounded-full bg-white`}
 				>
 					<button className="pl-4">
 						<SearchIcon />
@@ -123,8 +129,11 @@ const LocationSearch: React.FC = () => {
 					</div>
 				)}
 			</div>
-			<div>
-				<button className="p-4 rounded-full bg-white drop-shadow-md">
+			<div className="w-[15%] max-w-[15%] flex flex-col justify-start items-center mt-1">
+				<button
+					className="p-3 rounded-full bg-white drop-shadow-md"
+					onClick={onShowFilter}
+				>
 					<img src="/images/filter-icon-default.svg" alt="" />
 				</button>
 			</div>
