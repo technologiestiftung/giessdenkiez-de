@@ -32,7 +32,7 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 			return i18n.treeDetail.adoptLoading;
 		}
 		if (isAdopted) {
-			i18n.treeDetail.isAdopted;
+			return i18n.treeDetail.isAdopted;
 		}
 		return i18n.treeDetail.adoptIt;
 	}, [isLoading, isAdopted]);
