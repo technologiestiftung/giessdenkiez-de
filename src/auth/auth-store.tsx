@@ -16,8 +16,10 @@ interface RegistrationCredentials extends Credentials {
 
 interface AuthState {
 	session: Session | null | undefined;
+	username: string | null;
 	isLoggedIn: () => boolean | undefined;
 	getUserData: () => User | undefined;
+	refreshUsername: () => Promise<void>;
 	login: ({ email, password }: Credentials) => Promise<void>;
 	logout: () => Promise<void>;
 	register: ({
@@ -35,6 +37,22 @@ interface AuthState {
 export const useAuthStore = create<AuthState>()((set, get) => {
 	supabaseClient.auth.getSession().then(({ data: { session } }) => {
 		set({ session });
+
+		supabaseClient
+			.from("profiles")
+			.select("username")
+			.eq("id", get().session?.user?.id)
+			.then(({ data, error }) => {
+				if (error) throw new Error("Benutzername konnte nicht gefunden werden");
+
+				if (data.length > 1)
+					throw new Error(
+						"Benutzername konnte nicht eindeutig identifiziert werden",
+					);
+
+				const currentUsername = data[0].username;
+				set({ username: currentUsername });
+			});
 	});
 
 	supabaseClient.auth.onAuthStateChange((_event, session) => {
@@ -43,6 +61,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 
 	return {
 		session: null,
+		username: null,
 
 		isLoggedIn: () => {
 			if (get().session === undefined) {
@@ -58,6 +77,23 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			}
 
 			return get().session?.user;
+		},
+
+		refreshUsername: async () => {
+			const { data, error } = await supabaseClient
+				.from("profiles")
+				.select("username")
+				.eq("id", get().session?.user?.id);
+
+			if (error) throw new Error("Benutzername konnte nicht gefunden werden");
+
+			if (data.length > 1)
+				throw new Error(
+					"Benutzername konnte nicht eindeutig identifiziert werden",
+				);
+
+			const currentUsername = await data[0].username;
+			set({ username: currentUsername });
 		},
 
 		login: async ({ email, password }) => {
@@ -190,15 +226,17 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		},
 
 		updateUsername: async (username: string) => {
-			const { error } = await supabaseClient.auth.updateUser({
-				data: {
-					signup_username: username,
-				},
-			});
+			const { error } = await supabaseClient
+				.from("profiles")
+				.update({ username: username })
+				.eq("id", get().session?.user?.id ?? "")
+				.select();
 
 			if (error) {
 				throw error;
 			}
+
+			await get().refreshUsername();
 		},
 	};
 });
