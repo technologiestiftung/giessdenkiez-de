@@ -25,7 +25,7 @@ export const ForgotPassword: React.FC = () => {
 	return (
 		<>
 			<a
-				className="font-semibold text-blue-600"
+				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
 				href="/profile"
 				onClick={(e) => {
 					e.preventDefault();
@@ -57,7 +57,7 @@ export const ForgotPassword: React.FC = () => {
 
 			<p className="pt-6">{i18n.navbar.profile.settings.backToLogin}?</p>
 			<a
-				className="font-semibold text-blue-600"
+				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
 				href="/profile"
 				onClick={(e) => {
 					e.preventDefault();

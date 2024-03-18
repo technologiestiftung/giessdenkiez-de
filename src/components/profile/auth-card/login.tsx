@@ -82,7 +82,7 @@ export const Login: React.FC = () => {
 
 			<p className="pt-6">{i18n.navbar.profile.settings.missingAccount}</p>
 			<a
-				className="font-semibold text-blue-600"
+				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
 				href="/profile?mode=register"
 				onClick={(e) => {
 					e.preventDefault();
@@ -92,19 +92,19 @@ export const Login: React.FC = () => {
 				{i18n.navbar.profile.settings.registerNow}
 			</a>
 
-				<p className="pt-6">
-					{i18n.navbar.profile.settings.ohNoforgotYourPassword}
-				</p>
-				<a
-					className="font-semibold text-blue-600"
-					href="/profile?mode=forgot-password"
-					onClick={(e) => {
-						e.preventDefault();
-						setSearchParams(new URLSearchParams("mode=forgot-password"));
-					}}
-				>
-					{i18n.navbar.profile.settings.forgotYourPassword}
-				</a>
+			<p className="pt-6">
+				{i18n.navbar.profile.settings.ohNoforgotYourPassword}
+			</p>
+			<a
+				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
+				href="/profile?mode=forgot-password"
+				onClick={(e) => {
+					e.preventDefault();
+					setSearchParams(new URLSearchParams("mode=forgot-password"));
+				}}
+			>
+				{i18n.navbar.profile.settings.forgotYourPassword}
+			</a>
 		</>
 	);
 };

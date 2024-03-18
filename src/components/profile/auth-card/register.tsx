@@ -42,7 +42,7 @@ export const Register: React.FC = () => {
 	return (
 		<>
 			<a
-				className="font-semibold text-blue-600"
+				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
 				href="/profile"
 				onClick={(e) => {
 					e.preventDefault();
@@ -82,7 +82,7 @@ export const Register: React.FC = () => {
 
 			<p className="pt-6">{i18n.navbar.profile.settings.existingAccount}</p>
 			<a
-				className="font-semibold text-blue-600"
+				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
 				href="/profile"
 				onClick={(e) => {
 					e.preventDefault();
