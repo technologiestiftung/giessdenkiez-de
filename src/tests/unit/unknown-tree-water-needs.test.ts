@@ -67,7 +67,11 @@ test("should calculate correct water needs for senior tree", () => {
 		caretaker: null,
 	};
 
-	const { treeAgeClassification } = useTreeAgeClassification(treeData);
+	const { treeAgeClassification, treeAge } = useTreeAgeClassification(
+		treeData,
+		new Date("2024-01-01T00:00+00:00"),
+	);
+	expect(treeAge).toBe(undefined);
 	expect(treeAgeClassification).toBe(TreeAgeClassification.UNKNOWN);
 
 	const { rainSum, wateringSum, referenceWaterAmount, shouldBeWatered } =

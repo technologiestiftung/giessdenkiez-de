@@ -220,6 +220,10 @@ Vernetzen:
 			openSource:
 				"Gieß den Kiez ist ein [OpenSource Projekt](https://github.com/technologiestiftung/giessdenkiez-de)!",
 		},
+		credits: {
+			projectBy: "Ein Projekt der",
+			fundedBy: "Gefördert durch",
+		},
 	},
 	treeDetail: {
 		title: "Bauminformationen",
@@ -242,12 +246,15 @@ Vernetzen:
 		waterNeed: {
 			title: "Wasserbedarf",
 			hint: "Je nach Baumalter unterscheidet sich der Bedarf an Wasser.",
-			needXLiters: (liters: number) => `Braucht ${liters} Liter pro Woche`,
+			needXLiters: (liters: string) => `Braucht ${liters} Liter pro Woche`,
 			needsOnlyOnDryDays: "Braucht nur an trockenen Tagen Wasser",
 			waterManaged: "Vom Bezirksamt versorgt",
 			unknownTitle: "Wasserbedarf unbekannt",
 			unknown:
 				"Das Alter, und dementsprechend der Wasserbedarf, sind leider unbekannt. Eventuell hilft Dir die Infobox für eine eigenständige Einschätzung.",
+			seniorTitle: "Braucht nur in trockenen Phasen Wasser",
+			seniorExplanation:
+				"Ältere Bäume können sich in der Regel über das Grundwasser selbst versorgen, aber bei zunehmender Hitze freuen auch sie sich über zusätzliches Wasser.",
 			liters: "Liter",
 			watered: "gegossen",
 			rained: "Regen",
@@ -255,7 +262,7 @@ Vernetzen:
 			dataOfLastXDays: "* Daten der letzen 7 Tage",
 			manager: "vom Bezirksamt",
 			alreadyWateredByManager: "Bereits vom Bezirksamt versorgt",
-			stillWaterXLiters: (liters: number) => `Noch ${liters} Liter gießen`,
+			stillWaterXLiters: (liters: string) => `Noch ${liters} Liter gießen`,
 			shouldBeWatered: "Sollte gegossen werden",
 			sufficientlyWatered: "Momentan ausreichend bewässert",
 			ageAndWaterHintTitle: "Wasserbedarf und Standalter",
@@ -267,9 +274,9 @@ Vernetzen:
    **Erwachsen (15-40 Jahre):** Wir haben ein gewisses Durchhaltevermögen aber brauchen in heißen Phasen auch einen ordentlichen extra Schluck Wasser: bis zu 100l ein Mal in der Woche.
 
    **Alt (über 40 Jahre):** Wir kommen weitestgehend alleine klar, freuen uns in besonders trockenen Phasen aber dennoch über einen extra Schluck.`,
-			lastXDaysYLitersWater: (days: number, liters: number) =>
+			lastXDaysYLitersWater: (days: number, liters: string) =>
 				`Die letzten ${days} Tage wurden **${liters} Liter gegossen**.`,
-			lastXDaysYLitersRain: (days: number, liters: number) =>
+			lastXDaysYLitersRain: (days: number, liters: string) =>
 				`In den letzten ${days} Tagen sind **${liters} Liter Regen** gefallen.`,
 			iWatered: "Ich habe gegossen",
 			submitWatering: "Gießung eintragen",
@@ -290,7 +297,7 @@ Vernetzen:
 		problem: {
 			title: "Problem melden",
 			description:
-				"Du hast einen Baumschaden entdeckt, oder die Baumscheibe wird missbraucht? Teile es dem Ordnungsamt mit!",
+				"Du hast einen Baumschaden entdeckt, oder die Baumscheibe wird fehlgenutzt? Teile es dem Ordnungsamt mit:",
 			link: "Zum offiziellen Formular",
 		},
 		treeTypeInfos: [

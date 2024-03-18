@@ -22,22 +22,14 @@ const Router: React.FC = () => {
 
 		case "/map":
 			return (
-				<div className="flex h-full flex-col justify-between lg:flex-row">
-					<div
-						className={`${treeId && "hidden lg:block"} order-last lg:order-first`}
-					>
-						<Navbar />
-					</div>
-
-					<div className={`${treeId && "hidden lg:block"} w-full`}>
+				<div
+					className={`flex h-screen w-screen flex-col-reverse justify-between lg:flex-row ${treeId && "bg-white"} lg:bg-transparent`}
+				>
+					<Navbar />
+					<div className={`${treeId && "hidden"} lg:block w-full`}>
 						<LocationSearch />
 					</div>
-
-					{treeId && (
-						<div>
-							<TreeDetail></TreeDetail>
-						</div>
-					)}
+					{treeId && <TreeDetail />}
 				</div>
 			);
 		case "/profile/reset-password":

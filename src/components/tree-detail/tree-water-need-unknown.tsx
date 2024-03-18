@@ -8,6 +8,7 @@ import {
 	TreeWateringData,
 } from "./tree-types";
 import Tooltip from "./tooltip";
+import WateringDialog from "./watering-dialog";
 
 interface TreeWaterNeedUnknownProps {
 	treeData: TreeData;
@@ -21,6 +22,7 @@ const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 	treeWateringData,
 }) => {
 	const i18n = useI18nStore().i18n();
+	const { formatNumber } = useI18nStore();
 
 	const [showInfoBox, setShowInfoBox] = useState(false);
 
@@ -40,7 +42,9 @@ const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 				/>
 				<div className="col-start-1 row-start-1 flex w-full flex-row items-center justify-between ">
 					<div className="pr-8 text-xl font-bold">
-						{i18n.treeDetail.waterNeed.unknownTitle}
+						{treeAgeClassification === TreeAgeClassification.SENIOR
+							? i18n.treeDetail.waterNeed.seniorTitle
+							: i18n.treeDetail.waterNeed.unknownTitle}
 					</div>
 					<div className="relative col-start-1 row-start-1 flex flex-row items-center justify-between">
 						<div className="relative">
@@ -70,23 +74,61 @@ const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 					</div>
 				</div>
 			</div>
-			<div>{i18n.treeDetail.waterNeed.unknown}</div>
+			<div>
+				{treeAgeClassification === TreeAgeClassification.SENIOR
+					? i18n.treeDetail.waterNeed.seniorExplanation
+					: i18n.treeDetail.waterNeed.unknown}
+			</div>
 			<div>
 				<div className="flex flex-col gap-3">
 					<div className="flex flex-row items-center gap-4">
-						<div className="h-5 w-5 rounded-full bg-[#1169EE]"></div>
+						<div className="h-5 w-5 min-h-5 min-w-5 rounded-full bg-[#1169EE]"></div>
 						<Markdown className="">
-							{i18n.treeDetail.waterNeed.lastXDaysYLitersRain(7, rainSum)}
+							{i18n.treeDetail.waterNeed.lastXDaysYLitersRain(
+								7,
+								formatNumber(rainSum),
+							)}
 						</Markdown>
 					</div>
 					<div className="flex flex-row items-center gap-4">
-						<div className="h-5 w-5 rounded-full bg-[#3DF99A]"></div>
+						<div className="h-5 w-5 min-h-5 min-w-5 rounded-full bg-[#3DF99A]"></div>
 						<Markdown className="">
-							{i18n.treeDetail.waterNeed.lastXDaysYLitersWater(7, wateringSum)}
+							{i18n.treeDetail.waterNeed.lastXDaysYLitersWater(
+								7,
+								formatNumber(wateringSum),
+							)}
 						</Markdown>
 					</div>
 				</div>
 			</div>
+			<div className="flex flex-row justify-center">
+				<button
+					className={`my-4 flex h-[51px] w-full items-center justify-center rounded-[10px] bg-gdk-blue px-8 font-semibold text-gdk-white hover:bg-gdk-light-blue disabled:bg-gdk-light-gray sm:w-fit`}
+					disabled={false}
+					onClick={async () => {
+						//@ts-ignore
+						document.getElementById("water-dialog")?.showModal();
+					}}
+				>
+					<div className="flex flex-row items-center gap-2">
+						<img
+							src="images/watering-can-white.svg"
+							alt="Icon Watering Can White"
+						/>
+						<div className="flex flex-row items-center gap-3">
+							{i18n.treeDetail.waterNeed.iWatered}
+						</div>
+					</div>
+				</button>
+			</div>
+
+			<WateringDialog
+				treeData={treeData}
+				close={() => {
+					//@ts-ignore
+					document.getElementById("water-dialog")?.close();
+				}}
+			/>
 		</div>
 	);
 };

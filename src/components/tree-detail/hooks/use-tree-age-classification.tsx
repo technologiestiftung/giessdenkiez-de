@@ -5,21 +5,19 @@ import {
 } from "../tree-types";
 
 export function useTreeAgeClassification(
-	treeData: TreeData | undefined,
+	treeData?: TreeData,
+	referenceDate?: Date,
 ): TreeAgeClassificationState {
 	const BABY_AGE_LIMIT = 3;
 	const JUNIOR_TREES_AGE_LIMIT = 14;
 	const SENIOR_TREES_AGE_LIMIT = 40;
 
 	const treeAgeClassification = () => {
-		if (
-			!treeData ||
-			!treeData.standalter ||
-			treeData.standalter === "undefined"
-		) {
+		if (!treeData || !treeData.pflanzjahr || treeData.pflanzjahr === 0) {
 			return TreeAgeClassification.UNKNOWN;
 		}
-		const age = parseInt(treeData.standalter);
+		const age =
+			(referenceDate ?? new Date()).getFullYear() - treeData.pflanzjahr;
 		if (age <= BABY_AGE_LIMIT) {
 			return TreeAgeClassification.BABY;
 		}
@@ -33,7 +31,9 @@ export function useTreeAgeClassification(
 	};
 
 	const treeAge = () => {
-		if (!treeData) return undefined;
+		if (!treeData) {
+			return undefined;
+		}
 		return treeData.pflanzjahr === 0
 			? undefined
 			: new Date().getFullYear() - treeData.pflanzjahr;
