@@ -8,6 +8,7 @@ import TreeDetail from "../tree-detail/tree-detail";
 import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
 import PasswordReset from "../profile/profile-logged-in/password-reset";
+import Filter from "../filter/filter";
 
 const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
@@ -26,8 +27,11 @@ const Router: React.FC = () => {
 					className={`flex h-screen w-screen flex-col-reverse justify-between lg:flex-row ${treeId && "bg-white"} sm:bg-transparent`}
 				>
 					<Navbar />
-					<div className={`${treeId && "hidden"} sm:block w-full`}>
-						<LocationSearch />
+					<div className={`mt-2 w-full flex justify-center`}>
+						<div className="flex flex-col gap-2 w-[100%] sm:w-[50%]  md:w-[40%] lg:w-[35%] xl:w-[25%]">
+							<LocationSearch />
+							<Filter />
+						</div>
 					</div>
 					{treeId && <TreeDetail />}
 				</div>

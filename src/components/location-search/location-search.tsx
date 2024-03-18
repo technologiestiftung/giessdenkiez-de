@@ -78,10 +78,8 @@ const LocationSearch: React.FC = () => {
 	}, [geocodingResults, selectedGeocodingResultIndex]);
 
 	return (
-		<div className="mt-2 flex w-full justify-center">
-			<div
-				className={`pointer-events-auto z-[2] flex h-fit w-[100%] flex-col px-2 drop-shadow-md sm:w-[50%] sm:px-0 md:w-[40%] lg:w-[35%] xl:w-[25%] `}
-			>
+		<div className="flex flex-row w-full justify-center gap-2 pointer-events-auto ">
+			<div className={`z-[2] flex h-fit flex-col px-2 drop-shadow-md sm:px-0`}>
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
@@ -124,6 +122,11 @@ const LocationSearch: React.FC = () => {
 						))}
 					</div>
 				)}
+			</div>
+			<div>
+				<button className="p-4 rounded-full bg-white drop-shadow-md">
+					<img src="/images/filter-icon-default.svg" alt="" />
+				</button>
 			</div>
 		</div>
 	);
