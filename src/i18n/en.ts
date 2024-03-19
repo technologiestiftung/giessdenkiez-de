@@ -318,7 +318,7 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		problem: {
 			title: "Report a problem",
 			description:
-				"Have you discovered tree damage or is the tree disk being misused? Tell the public order office!",
+				"Have you discovered tree damage or is the tree disk being misused? Tell the public order office:",
 			link: "To the official form",
 		},
 		treeTypeInfos: [
@@ -402,6 +402,17 @@ We manage largely on our own and are happy in particularly dry phases but still 
 			},
 		],
 		treeTypeInfoTitle: "Tree profile",
+	},
+	filter: {
+		title: "Filter",
+		publicPumps: "Public pumps",
+		waterNeedTrees: "Trees in need of water",
+		treeAge: "Tree age",
+		youngTrees: "0 - 3 years",
+		mediumTrees: "4 - 40 years",
+		oldTrees: "+40 years",
+		show: "Show",
+		reset: "Reset",
 	},
 	common: {
 		defaultErrorMessage: "Something went wrong! Please try again later.",

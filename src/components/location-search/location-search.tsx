@@ -5,8 +5,15 @@ import SearchIcon from "../icons/search-icon";
 import { useMapConstants } from "../map/hooks/use-map-constants";
 import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
+import { useFilterStore } from "../filter/filter-store";
 
-const LocationSearch: React.FC = () => {
+interface LocationSearchProps {
+	onToggleShowFilter: (showFilter?: boolean) => void;
+}
+
+const LocationSearch: React.FC<LocationSearchProps> = ({
+	onToggleShowFilter,
+}) => {
 	const i18n = useI18nStore().i18n();
 
 	const [search, setSearch] = useState("");
@@ -19,6 +26,12 @@ const LocationSearch: React.FC = () => {
 	const { map } = useMapStore();
 	const { MAP_LOCATION_ZOOM_LEVEL } = useMapConstants();
 	const { geocodingResults, clearGeocodingResults } = useGeocoding(search);
+
+	const isFilterVisible = useFilterStore((store) => store.isFilterViewVisible);
+
+	useEffect(() => {
+		clearSearch();
+	}, [isFilterVisible]);
 
 	const clearSearch = () => {
 		setSearch("");
@@ -78,15 +91,15 @@ const LocationSearch: React.FC = () => {
 	}, [geocodingResults, selectedGeocodingResultIndex]);
 
 	return (
-		<div className="mt-2 flex w-full justify-center">
+		<div className="flex flex-row w-full gap-2 justify-between pointer-events-auto">
 			<div
-				className={`pointer-events-auto z-[2] flex h-fit w-[100%] flex-col px-2 drop-shadow-md sm:w-[50%] sm:px-0 md:w-[40%] lg:w-[35%] xl:w-[25%] `}
+				className={`flex flex-grow max-w-[90%] h-fit flex-col px-2 drop-shadow-md sm:px-0`}
 			>
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
 					}}
-					className={` z-[2] flex flex-row items-center justify-center rounded-full bg-white`}
+					className={`z-[2] flex flex-row items-center justify-center rounded-full bg-white`}
 				>
 					<button className="pl-4">
 						<SearchIcon />
@@ -103,6 +116,9 @@ const LocationSearch: React.FC = () => {
 						onChange={(e) => {
 							setSelectedGeocodingResult(undefined);
 							setSearch(e.target.value);
+						}}
+						onFocus={() => {
+							onToggleShowFilter(false);
 						}}
 						placeholder={i18n.locationSearch.placeholder}
 					/>
@@ -124,6 +140,16 @@ const LocationSearch: React.FC = () => {
 						))}
 					</div>
 				)}
+			</div>
+			<div className="min-w-[10%] flex flex-col mr-1 lg:mr-0">
+				<button
+					className="p-3 rounded-full bg-white drop-shadow-md w-[56px] h-[56px] flex items-center justify-center"
+					onClick={() => {
+						onToggleShowFilter();
+					}}
+				>
+					<img src="/images/filter-icon-default.svg" alt="" />
+				</button>
 			</div>
 		</div>
 	);

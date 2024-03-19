@@ -6,6 +6,7 @@ interface URLState {
 	url: URL;
 	setPathname: (url: string) => void;
 	setSearchParams: (searchParams: URLSearchParams) => void;
+	removeSearchParam: (keyToRemove: string) => void;
 }
 
 export const useUrlState = create<URLState>()((set, get) => ({
@@ -30,5 +31,12 @@ export const useUrlState = create<URLState>()((set, get) => ({
 
 		window.history.pushState({}, "", url);
 		trackPageView();
+	},
+
+	removeSearchParam: (keyToRemove) => {
+		const url = new URL(get().url);
+		url.searchParams.delete(keyToRemove);
+		const updatedSearchParams = url.searchParams;
+		get().setSearchParams(updatedSearchParams);
 	},
 }));

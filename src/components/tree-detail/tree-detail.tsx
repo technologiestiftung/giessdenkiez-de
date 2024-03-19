@@ -16,14 +16,17 @@ import ProblemCard from "./problem-card";
 import TreeFlier from "./tree-flier";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 
-const TreeDetail: React.FC = () => {
+export const TreeDetail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
 	const [url, setPathname] = useUrlState((state) => [
 		state.url,
 		state.setPathname,
 	]);
-	const treeId = url.searchParams.get("treeId")!;
+	const treeId = url.searchParams.get("treeId");
+	if (!treeId) {
+		return null;
+	}
 
 	const { setTreeData } = useTreeStore();
 	const { setSelectedTreeId } = useSelectedTree();
@@ -38,7 +41,7 @@ const TreeDetail: React.FC = () => {
 	}, [treeData]);
 
 	return (
-		<div className="pointer-events-auto h-full bg-white flex w-[100vw] flex-col gap-4 overflow-hidden overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">
+		<div className="pointer-events-auto h-full bg-white flex w-[100vw] flex-col gap-4 overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">
 			<a
 				href="/map"
 				className="flex flex-row justify-end"
@@ -97,5 +100,3 @@ const TreeDetail: React.FC = () => {
 		</div>
 	);
 };
-
-export default TreeDetail;
