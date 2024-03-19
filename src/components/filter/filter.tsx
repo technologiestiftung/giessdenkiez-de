@@ -3,8 +3,8 @@ import { useI18nStore } from "../../i18n/i18n-store";
 import PrimaryButton from "../buttons/primary";
 import SecondaryButton from "../buttons/secondary";
 import { TreeAgeIntervalIdentifier, useFilterStore } from "./filter-store";
-import FilterSwitch from "./filter-switch";
-import TreeAgeButton from "./tree-age-button";
+import { FilterSwitch } from "./filter-switch";
+import { TreeAgeButton } from "./tree-age-button";
 
 interface FilterProps {
 	onFilterChange: () => void;

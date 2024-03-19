@@ -8,7 +8,7 @@ type TreeAgeButtonProps = {
 	onChange: (interval: TreeAgeInterval) => void;
 };
 
-const TreeAgeButton: React.FC<TreeAgeButtonProps> = ({
+export const TreeAgeButton: React.FC<TreeAgeButtonProps> = ({
 	interval,
 	name,
 	padding,
@@ -28,5 +28,3 @@ const TreeAgeButton: React.FC<TreeAgeButtonProps> = ({
 		</div>
 	);
 };
-
-export default TreeAgeButton;

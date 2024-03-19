@@ -7,7 +7,7 @@ type FilterSwitchProps = {
 	onToggle: () => void;
 };
 
-const FilterSwitch: React.FC<FilterSwitchProps> = ({
+export const FilterSwitch: React.FC<FilterSwitchProps> = ({
 	name,
 	onToggle,
 	isEnabled,
@@ -21,5 +21,3 @@ const FilterSwitch: React.FC<FilterSwitchProps> = ({
 		</div>
 	);
 };
-
-export default FilterSwitch;
