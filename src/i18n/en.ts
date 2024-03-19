@@ -54,15 +54,18 @@ export const en: Content = {
 			settings: {
 				subtitle: "Profile details",
 				username: "Username",
+				yourUsername: "Your username",
 				editUsername: "New username",
 				placeholderUser: "Your username",
 				updateEmailEmailSent:
 					"We sent you an email with a link to both your old and your new email address to confirm the change. Check your mailbox!",
-				email: "You email address",
+				email: "Email",
+				yourEmail: "Your email address",
 				editEmail: "New email address",
 				placeholderMail: "xyz@ts.berlin",
 				password: "Password",
 				changePassword: "Change password",
+				newPassword: "New password",
 				passwordChangeConfirmation:
 					'Password changed, press "ok" to go to your profile',
 				deleteAccount: "Delete account",
@@ -74,6 +77,8 @@ export const en: Content = {
 				usernameTaken: "This username is already taken",
 				backToLogin: "Back to login",
 				register: "Register",
+				confirmEmail: (email: string) =>
+					`Check your inbox for "${email}", you should have received a mail from "noreply@mail.app.supabase.io" containing a link to activate your account.`,
 				existingAccount: "Do you already have an account?",
 				logIn: "Login",
 				passwordShould: "Your password needs to contain:",

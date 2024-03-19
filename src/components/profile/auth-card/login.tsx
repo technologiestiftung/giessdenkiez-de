@@ -39,19 +39,18 @@ export const Login: React.FC = () => {
 			</h1>
 			<form onSubmit={onSubmit} className="flex flex-col">
 				<div className="flex flex-col gap-y-2 pt-7">
-					<label htmlFor="email" className="">
-						{i18n.navbar.profile.settings.email}
-					</label>
+					<label htmlFor="email">{i18n.navbar.profile.settings.email}</label>
 					<TextInput type="email" id="email" name="email" required />
 				</div>
 
 				<div className="flex flex-col gap-y-2 pt-6">
-					<label htmlFor="password" className="">
+					<label htmlFor="password">
 						{i18n.navbar.profile.settings.password}
 					</label>
 					<div className="flex flex-row relative">
 						<TextInput
 							type={isPasswordVisible ? "text" : "password"}
+							required
 							id="password"
 							name="password"
 						/>

@@ -9,6 +9,7 @@ import { defineConfig, devices } from "@playwright/test";
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+// eslint-disable-next-line @technologiestiftung/no-default-export
 export default defineConfig({
 	testDir: "./src/tests/e2e",
 	/* Run tests in files in parallel */
@@ -18,7 +19,7 @@ export default defineConfig({
 	/* Retry on CI only */
 	retries: process.env.CI ? 2 : 0,
 	/* Opt out of parallel tests on CI. */
-	workers: process.env.CI ? 1 : undefined,
+	workers: 1,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
 	reporter: "list",
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -29,6 +30,7 @@ export default defineConfig({
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 		trace: "on-first-retry",
 	},
+	timeout: 60000,
 
 	/* Configure projects for major browsers */
 	projects: [
@@ -71,7 +73,7 @@ export default defineConfig({
 	/* Run your local dev server before starting the tests */
 	webServer: {
 		command: "npm run dev",
-		url: "http://localhost:5173",
+		url: process.env.VITE_BASE_URL,
 		reuseExistingServer: !process.env.CI,
 	},
 });

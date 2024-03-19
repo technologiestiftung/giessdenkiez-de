@@ -57,7 +57,9 @@ export const Register: React.FC = () => {
 			</h1>
 			<form onSubmit={onSubmit} className="flex flex-col">
 				<div className="flex flex-col gap-y-2 pt-5">
-					<EmailInputWithValidation label="E-mail" />
+					<EmailInputWithValidation
+						label={i18n.navbar.profile.settings.email}
+					/>
 				</div>
 
 				<div className="flex flex-col gap-y-2 pt-6">
