@@ -45,7 +45,7 @@ const Router: React.FC = () => {
 
 					<div className="mt-2 flex w-full flex-row justify-center">
 						<div
-							className={`${treeId ? "w-[100%] lg:w-[400px] xl:w-[500px] 2xl:w-[600px]" : "w-[100%] sm:w-[500px] md:w-[600px] lg:w-[700px]"} flex flex-col gap-4`}
+							className={`${treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"} flex flex-col gap-4`}
 						>
 							<div className={`${treeId && "hidden lg:flex"}`}>
 								<LocationSearch
