@@ -96,6 +96,7 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 			}
 			const pumpFeature = e.features[0];
 			const pump = mapboxFeatureToPump(map, pumpFeature);
+			console.log(pump);
 			if (!pump) {
 				return;
 			}

@@ -204,6 +204,16 @@ interface Common {
 	defaultErrorMessage: string;
 }
 
+interface Pumps {
+	title: string;
+	status: string;
+	lastCheck: string;
+	update: string;
+	working: string;
+	defect: string;
+	unknown: string;
+}
+
 export interface Content {
 	common: Common;
 	map: {
@@ -240,4 +250,5 @@ export interface Content {
 	info: Info;
 	treeDetail: TreeDetail;
 	filter: Filter;
+	pumps: Pumps;
 }

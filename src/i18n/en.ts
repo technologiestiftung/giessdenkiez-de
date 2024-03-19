@@ -417,6 +417,15 @@ We manage largely on our own and are happy in particularly dry phases but still 
 	common: {
 		defaultErrorMessage: "Something went wrong! Please try again later.",
 	},
+	pumps: {
+		title: "Public pump",
+		status: "Status",
+		lastCheck: "Last check",
+		update: "Update status in OpenStreetMap",
+		working: "Working",
+		defect: "Broken",
+		unknown: "Unknown",
+	},
 };
 
 export default en;
