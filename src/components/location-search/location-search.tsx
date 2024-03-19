@@ -141,9 +141,9 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 					</div>
 				)}
 			</div>
-			<div className="min-w-[10%] h-full flex flex-col justify-start items-center mt-1 mr-1 lg:mr-0">
+			<div className="min-w-[10%] flex flex-col mr-1 lg:mr-0">
 				<button
-					className="p-3 rounded-full bg-white drop-shadow-md"
+					className="p-3 rounded-full bg-white drop-shadow-md w-[56px] h-[56px] flex items-center justify-center"
 					onClick={() => {
 						onToggleShowFilter();
 					}}

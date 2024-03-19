@@ -25,15 +25,15 @@ export const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
 
 	const paddingMap = {
 		[TreeAgeIntervalIdentifier.Young]: {
-			size: "w-10 h-10",
+			size: "w-6 h-6",
 			label: i18n.filter.youngTrees,
 		},
 		[TreeAgeIntervalIdentifier.Medium]: {
-			size: "w-12 h-12",
+			size: "w-8 h-8",
 			label: i18n.filter.mediumTrees,
 		},
 		[TreeAgeIntervalIdentifier.Old]: {
-			size: "w-14 h-14",
+			size: "w-10 h-10",
 			label: i18n.filter.oldTrees,
 		},
 	};
