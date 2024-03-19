@@ -8,6 +8,7 @@ import { ProfileDetails } from "./profile-details/profile-details";
 import SecondaryButton from "../../buttons/secondary";
 import { PasswordReset } from "./password-reset";
 import { useErrorStore } from "../../../error/error-store.tsx";
+import { LanguageToggle } from "../../router/languageToggle.tsx";
 
 export const ProfileLoggedIn: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -31,8 +32,11 @@ export const ProfileLoggedIn: React.FC = () => {
 
 	return (
 		<div className="w-full overflow-y-auto px-5 pt-11">
-			<div className="flex flex-col items-center justify-center">
-				<div className="flex w-[100%] flex-col gap-4 px-0 py-8 md:w-[70%] md:px-4 lg:w-[70%] xl:w-[60%]">
+			<div className="flex flex-col items-center justify-center ">
+				<div className="flex w-[100%] flex-col gap-4 px-0 py-8 md:w-[70%] md:px-4 lg:w-[70%] xl:w-[60%] relative">
+					<div className="lg:hidden  absolute top-7 right-0 md:pr-2">
+						<LanguageToggle />
+					</div>
 					<h1 className="text-3xl font-bold">{i18n.navbar.profile.title}</h1>
 
 					<Overview />

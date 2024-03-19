@@ -3,6 +3,7 @@ import { useAuthStore } from "../../../auth/auth-store";
 import { PasswordInputWithValidation } from "../validation/password-input-with-validation";
 import PrimaryButton from "../../buttons/primary";
 import { useUrlState } from "../../router/store";
+import { LanguageToggle } from "../../router/languageToggle";
 
 export const PasswordReset: React.FC = () => {
 	const { updatePassword } = useAuthStore();
@@ -15,6 +16,9 @@ export const PasswordReset: React.FC = () => {
         h-full w-full px-5 pt-10 lg:mx-auto lg:my-auto lg:max-h-[40rem] 
         lg:max-w-[42rem] lg:rounded-2xl lg:border-2  lg:p-14 lg:shadow-sm`}
 		>
+			<div className="lg:hidden  absolute top-7 right-4">
+				<LanguageToggle />
+			</div>
 			<h1 className="text-2xl font-semibold">Passwort ändern</h1>
 			<form
 				onSubmit={(e) => {

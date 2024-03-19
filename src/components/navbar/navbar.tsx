@@ -5,6 +5,7 @@ import UserIcon from "../icons/user-icon";
 import InfoIcon from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { useTreeStore } from "../tree-detail/tree-store";
+import { LanguageToggle } from "../router/languageToggle";
 
 const Navbar: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -26,8 +27,8 @@ const Navbar: React.FC = () => {
 	return (
 		<nav
 			className={`shadow-gdk-hard
-      pointer-events-auto flex h-auto w-full justify-center rounded-tl-3xl rounded-tr-3xl bg-white pt-0 
-      lg:h-full lg:w-auto lg:justify-start lg:rounded-br lg:rounded-tl-none lg:rounded-tr lg:px-2 lg:pt-10`}
+      pointer-events-auto flex h-auto w-full justify-center rounded-tl-3xl lg:flex-col rounded-tr-3xl bg-white lg:justify-between pt-0 
+      lg:h-full lg:w-auto  lg:rounded-br lg:rounded-tl-none lg:rounded-tr lg:px-2 lg:pt-10`}
 		>
 			<div
 				className={`
@@ -53,6 +54,10 @@ const Navbar: React.FC = () => {
 						{item.label}
 					</a>
 				))}
+			</div>
+
+			<div className="hidden lg:flex justify-center pb-10">
+				<LanguageToggle />
 			</div>
 		</nav>
 	);

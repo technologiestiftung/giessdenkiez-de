@@ -4,16 +4,19 @@ import QaEntry from "./qa-entry";
 import SocialShare from "./social-share";
 import PrimaryButton from "../buttons/primary";
 import Credits from "./credits";
+import { LanguageToggle } from "../router/languageToggle";
 
 const Info: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
 	return (
 		<div className="pointer-events-auto w-full overflow-auto">
-			<div className="flex flex-col items-center justify-center">
-				<div className="flex w-[100%] flex-col gap-4 px-0 py-8 md:w-[70%] md:px-4 lg:w-[60%] xl:w-[50%]">
+			<div className="flex flex-col items-center justify-center ">
+				<div className="flex w-[100%] flex-col gap-4 px-0 py-8 md:w-[70%] md:px-4 lg:w-[60%] xl:w-[50%] relative">
+					<div className="lg:hidden absolute top-11 right-0 pr-4">
+						<LanguageToggle />
+					</div>
 					<h1 className="p-4 text-4xl font-bold">Info</h1>
-
 					<div className="flex flex-col gap-4 rounded-lg p-4 md:border-2 md:p-8">
 						<div>
 							<QaEntry
