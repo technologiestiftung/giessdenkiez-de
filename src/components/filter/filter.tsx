@@ -8,19 +8,19 @@ import TreeAgeButton from "./tree-age-button";
 
 interface FilterProps {
 	onFilterChange: () => void;
-	onFilterReset: () => void;
 }
 
-const Filter: React.FC<FilterProps> = ({ onFilterChange, onFilterReset }) => {
+export const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
 	const i18n = useI18nStore().i18n();
 
 	const {
 		treeAgeIntervals,
 		toggleTreeAgeInterval,
-		showPumps,
+		isPumpsVisible,
 		setShowPumps,
-		showWaterNeedTrees,
+		isTreeWaterNeedVisible,
 		setShowWaterNeedTrees,
+		resetFilters,
 	} = useFilterStore();
 
 	const paddingMap = {
@@ -49,16 +49,16 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange, onFilterReset }) => {
 						<FilterSwitch
 							name={i18n.filter.publicPumps}
 							onToggle={() => {
-								setShowPumps(!showPumps);
+								setShowPumps(!isPumpsVisible);
 							}}
-							isEnabled={showPumps}
+							isEnabled={isPumpsVisible}
 						/>
 						<FilterSwitch
 							name={i18n.filter.waterNeedTrees}
 							onToggle={() => {
-								setShowWaterNeedTrees(!showWaterNeedTrees);
+								setShowWaterNeedTrees(!isTreeWaterNeedVisible);
 							}}
-							isEnabled={showWaterNeedTrees}
+							isEnabled={isTreeWaterNeedVisible}
 						/>
 					</div>
 				</div>
@@ -84,12 +84,10 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange, onFilterReset }) => {
 				</div>
 
 				<div className="flex flex-row justify-between gap-4">
-					<SecondaryButton label={i18n.filter.reset} onClick={onFilterReset} />
+					<SecondaryButton label={i18n.filter.reset} onClick={resetFilters} />
 					<PrimaryButton label={i18n.filter.show} onClick={onFilterChange} />
 				</div>
 			</div>
 		</div>
 	);
 };
-
-export default Filter;

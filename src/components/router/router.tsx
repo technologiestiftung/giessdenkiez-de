@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
+import { Filter } from "../filter/filter";
+import { useFilterStore } from "../filter/filter-store";
 import Info from "../info/info";
 import LocationSearch from "../location-search/location-search";
 import Navbar from "../navbar/navbar";
 import PageNotFound from "../page-not-found/page-not-found";
 import Profile from "../profile/profile";
+import { PasswordReset } from "../profile/profile-logged-in/password-reset";
 import TreeDetail from "../tree-detail/tree-detail";
 import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
-import { PasswordReset } from "../profile/profile-logged-in/password-reset";
-import Filter from "../filter/filter";
 
 const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
@@ -16,7 +17,10 @@ const Router: React.FC = () => {
 	const treeId = url.searchParams.get("treeId");
 	useLocationEventListener();
 
-	const [showFilter, setShowFilter] = useState(false);
+	const [isFilterVisible, setIsFilterVisible] = useFilterStore((store) => [
+		store.isFilterViewVisible,
+		store.setIsFilterViewVisible,
+	]);
 
 	switch (url.pathname) {
 		case "/":
@@ -28,12 +32,11 @@ const Router: React.FC = () => {
 				<div
 					className={`flex h-screen w-screen flex-col-reverse justify-between lg:flex-row ${treeId && "bg-white"} lg:bg-transparent`}
 				>
-					<div className={`${showFilter && "bg-white lg:bg-transparent"}`}>
-						<div className="block lg:hidden">
-							{showFilter && (
+					<div className={`${isFilterVisible && "bg-white lg:bg-transparent"}`}>
+						<div className={`${treeId ? "hidden" : "block lg:hidden"}`}>
+							{isFilterVisible && (
 								<Filter
-									onFilterChange={() => setShowFilter(!showFilter)}
-									onFilterReset={() => setShowFilter(!showFilter)}
+									onFilterChange={() => setIsFilterVisible(!isFilterVisible)}
 								/>
 							)}
 						</div>
@@ -41,17 +44,22 @@ const Router: React.FC = () => {
 					</div>
 
 					<div className="mt-2 flex w-full flex-row justify-center">
-						<div className="w-[100%] sm:w-[50%] md:w-[40%] lg:w-[35%] xl:w-[25%] sm:max-w-[50%] md:max-w-[40%] lg:max-w-[35%] xl:max-w-[25%] flex flex-col gap-4">
-							<LocationSearch
-								onToggleShowFilter={(show) =>
-									setShowFilter(show ?? !showFilter)
-								}
-							/>
-							<div className="hidden lg:block">
-								{showFilter && (
+						<div
+							className={`${treeId ? "w-[100%] md:[w-80%] lg:w-[70%] xl:w-[60%] 2xl:w-[30%]" : "w-[100%] sm:w-[50%] md:w-[40%] lg:w-[35%] xl:w-[25%] sm:max-w-[50%] md:max-w-[40%] lg:max-w-[35%] xl:max-w-[25%]"} flex flex-col gap-4`}
+						>
+							<div className={`${treeId && "hidden lg:flex"}`}>
+								<LocationSearch
+									onToggleShowFilter={(show) => {
+										const test = show ?? !isFilterVisible;
+										setIsFilterVisible(test);
+									}}
+								/>
+							</div>
+
+							<div className={`hidden lg:block`}>
+								{isFilterVisible && (
 									<Filter
-										onFilterChange={() => setShowFilter(!showFilter)}
-										onFilterReset={() => setShowFilter(!showFilter)}
+										onFilterChange={() => setIsFilterVisible(!isFilterVisible)}
 									/>
 								)}
 							</div>

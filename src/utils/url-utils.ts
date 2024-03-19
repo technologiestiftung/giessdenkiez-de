@@ -4,6 +4,5 @@ export function replaceUrlSearchParam(url: URL, key: string, values: string[]) {
 	for (const value of values) {
 		searchParams.append(key, value);
 	}
-	url.search = searchParams.toString();
-	return url;
+	return searchParams;
 }
