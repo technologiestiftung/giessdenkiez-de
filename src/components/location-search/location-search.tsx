@@ -5,6 +5,7 @@ import SearchIcon from "../icons/search-icon";
 import { useMapConstants } from "../map/hooks/use-map-constants";
 import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
+import { useFilterStore } from "../filter/filter-store";
 
 interface LocationSearchProps {
 	onToggleShowFilter: (showFilter?: boolean) => void;
@@ -25,6 +26,12 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 	const { map } = useMapStore();
 	const { MAP_LOCATION_ZOOM_LEVEL } = useMapConstants();
 	const { geocodingResults, clearGeocodingResults } = useGeocoding(search);
+
+	const isFilterVisible = useFilterStore((store) => store.isFilterViewVisible);
+
+	useEffect(() => {
+		clearSearch();
+	}, [isFilterVisible]);
 
 	const clearSearch = () => {
 		setSearch("");
@@ -84,9 +91,9 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 	}, [geocodingResults, selectedGeocodingResultIndex]);
 
 	return (
-		<div className="flex flex-row w-full gap-1 justify-start pointer-events-auto">
+		<div className="flex flex-row w-full gap-2 justify-between pointer-events-auto">
 			<div
-				className={`w-[85%] max-w-[85%] flex h-fit flex-col px-2 drop-shadow-md sm:px-0`}
+				className={`flex flex-grow max-w-[90%] h-fit flex-col px-2 drop-shadow-md sm:px-0`}
 			>
 				<form
 					onSubmit={(e) => {
@@ -134,7 +141,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 					</div>
 				)}
 			</div>
-			<div className="w-[15%] max-w-[15%] flex flex-col justify-start items-center mt-1 mr-1 lg:mr-0">
+			<div className="min-w-[10%] h-full flex flex-col justify-start items-center mt-1 mr-1 lg:mr-0">
 				<button
 					className="p-3 rounded-full bg-white drop-shadow-md"
 					onClick={() => {

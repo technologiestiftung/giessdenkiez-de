@@ -7,7 +7,7 @@ import Navbar from "../navbar/navbar";
 import PageNotFound from "../page-not-found/page-not-found";
 import Profile from "../profile/profile";
 import { PasswordReset } from "../profile/profile-logged-in/password-reset";
-import TreeDetail from "../tree-detail/tree-detail";
+import { TreeDetail } from "../tree-detail/tree-detail";
 import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
 
@@ -45,7 +45,7 @@ const Router: React.FC = () => {
 
 					<div className="mt-2 flex w-full flex-row justify-center">
 						<div
-							className={`${treeId ? "w-[100%] sm:w-[90%] md:[w-80%] lg:w-[70%] xl:w-[60%] 2xl:w-[30%]" : "w-[100%] sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%]"} flex flex-col gap-4`}
+							className={`${treeId ? "w-[100%] sm:w-[90%] md:[w-80%] lg:w-[70%] xl:w-[60%] 2xl:w-[40%]" : "w-[100%] sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%]"} flex flex-col gap-4`}
 						>
 							<div className={`${treeId && "hidden lg:flex"}`}>
 								<LocationSearch
@@ -56,7 +56,9 @@ const Router: React.FC = () => {
 								/>
 							</div>
 
-							<div className={`hidden sm:block`}>
+							<div
+								className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
+							>
 								{isFilterVisible && (
 									<Filter
 										onFilterChange={() => setIsFilterVisible(!isFilterVisible)}

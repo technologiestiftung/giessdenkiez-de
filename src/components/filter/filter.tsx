@@ -25,15 +25,15 @@ export const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
 
 	const paddingMap = {
 		[TreeAgeIntervalIdentifier.Young]: {
-			padding: "p-3 lg:p-4",
+			size: "w-10 h-10",
 			label: i18n.filter.youngTrees,
 		},
 		[TreeAgeIntervalIdentifier.Medium]: {
-			padding: "p-2 lg:p-3",
+			size: "w-12 h-12",
 			label: i18n.filter.mediumTrees,
 		},
 		[TreeAgeIntervalIdentifier.Old]: {
-			padding: "p-1 lg:p-2",
+			size: "w-14 h-14",
 			label: i18n.filter.oldTrees,
 		},
 	};
@@ -74,7 +74,7 @@ export const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
 											toggleTreeAgeInterval(interval);
 										}}
 										name={paddingMap[interval.identifier].label}
-										padding={paddingMap[interval.identifier].padding}
+										size={paddingMap[interval.identifier].size}
 										interval={interval}
 									/>
 								</div>

@@ -16,14 +16,17 @@ import ProblemCard from "./problem-card";
 import TreeFlier from "./tree-flier";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 
-const TreeDetail: React.FC = () => {
+export const TreeDetail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
 	const [url, setPathname] = useUrlState((state) => [
 		state.url,
 		state.setPathname,
 	]);
-	const treeId = url.searchParams.get("treeId")!;
+	const treeId = url.searchParams.get("treeId");
+	if (!treeId) {
+		return null;
+	}
 
 	const { setTreeData } = useTreeStore();
 	const { setSelectedTreeId } = useSelectedTree();
@@ -97,5 +100,3 @@ const TreeDetail: React.FC = () => {
 		</div>
 	);
 };
-
-export default TreeDetail;
