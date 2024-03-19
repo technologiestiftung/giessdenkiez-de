@@ -38,7 +38,7 @@ const TreeDetail: React.FC = () => {
 	}, [treeData]);
 
 	return (
-		<div className="pointer-events-auto h-full bg-white flex w-[100vw] flex-col gap-4 overflow-hidden overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">
+		<div className="pointer-events-auto h-full bg-white flex w-[100vw] flex-col gap-4 overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">
 			<a
 				href="/map"
 				className="flex flex-row justify-end"

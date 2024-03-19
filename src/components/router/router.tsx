@@ -32,8 +32,8 @@ const Router: React.FC = () => {
 				<div
 					className={`flex h-screen w-screen flex-col-reverse justify-between lg:flex-row ${treeId && "bg-white"} lg:bg-transparent`}
 				>
-					<div className={`${isFilterVisible && "bg-white lg:bg-transparent"}`}>
-						<div className={`${treeId ? "hidden" : "block lg:hidden"}`}>
+					<div className={`${isFilterVisible && "bg-white sm:bg-transparent"}`}>
+						<div className={`${treeId ? "hidden" : "block sm:hidden"}`}>
 							{isFilterVisible && (
 								<Filter
 									onFilterChange={() => setIsFilterVisible(!isFilterVisible)}
@@ -45,7 +45,7 @@ const Router: React.FC = () => {
 
 					<div className="mt-2 flex w-full flex-row justify-center">
 						<div
-							className={`${treeId ? "w-[100%] md:[w-80%] lg:w-[70%] xl:w-[60%] 2xl:w-[30%]" : "w-[100%] sm:w-[50%] md:w-[40%] lg:w-[35%] xl:w-[25%] sm:max-w-[50%] md:max-w-[40%] lg:max-w-[35%] xl:max-w-[25%]"} flex flex-col gap-4`}
+							className={`${treeId ? "w-[100%] sm:w-[90%] md:[w-80%] lg:w-[70%] xl:w-[60%] 2xl:w-[30%]" : "w-[100%] sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%]"} flex flex-col gap-4`}
 						>
 							<div className={`${treeId && "hidden lg:flex"}`}>
 								<LocationSearch
@@ -56,7 +56,7 @@ const Router: React.FC = () => {
 								/>
 							</div>
 
-							<div className={`hidden lg:block`}>
+							<div className={`hidden sm:block`}>
 								{isFilterVisible && (
 									<Filter
 										onFilterChange={() => setIsFilterVisible(!isFilterVisible)}

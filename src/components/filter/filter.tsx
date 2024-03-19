@@ -63,7 +63,7 @@ export const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
 					</div>
 				</div>
 
-				<div className="flex flex-col gap-2 w-full md:w-[50%] lg:w-full">
+				<div className="flex flex-col gap-2 w-full">
 					<div className="font-bold text-xl">{i18n.filter.treeAge}</div>
 					<div className="flex flex-row gap-2">
 						{treeAgeIntervals.map((interval, index) => {
