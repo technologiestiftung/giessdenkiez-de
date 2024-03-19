@@ -16,14 +16,13 @@ interface HoveredPumpState {
 	mapboxFeatureToPump: (
 		map: mapboxgl.Map,
 		feature: mapboxgl.MapboxGeoJSONFeature,
-		event: mapboxgl.MapMouseEvent,
 	) => Pump | undefined;
 }
 
 export const useHoveredPump = create<HoveredPumpState>((set) => ({
 	hoveredPump: undefined,
 	setHoveredPump: (pump) => set({ hoveredPump: pump }),
-	mapboxFeatureToPump: (map, feature, event) => {
+	mapboxFeatureToPump: (map, feature) => {
 		if (!feature.properties) {
 			return undefined;
 		}

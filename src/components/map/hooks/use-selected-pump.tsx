@@ -1,14 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { create } from "zustand";
+import { Pump } from "./use-hovered-pump";
 
-export default function useSelectedPump() {
-	const [selectedPumpId, setSelectedPumpId] = useState<string | undefined>(
-		undefined,
-	);
-
-	const selectedPumpIdRef = useRef<string | undefined>(undefined);
-	useEffect(() => {
-		selectedPumpIdRef.current = selectedPumpId;
-	}, [selectedPumpId]);
-
-	return { selectedPumpIdRef, setSelectedPumpId };
+interface SelectedPumpState {
+	selectedPump: Pump | undefined;
+	setSelectedPump: (pump: Pump | undefined) => void;
 }
+
+export const useSelectedPump = create<SelectedPumpState>((set) => ({
+	selectedPump: undefined,
+	setSelectedPump: (pump) => set({ selectedPump: pump }),
+}));

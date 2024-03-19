@@ -4,6 +4,7 @@ import { useMapSetup } from "./hooks/use-map-setup";
 import MapAttribution from "./map-attribution";
 import { useHoveredPump } from "./hooks/use-hovered-pump";
 import { PumpTooltip } from "../pumps/pump-tooltip";
+import { useSelectedPump } from "./hooks/use-selected-pump";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_API_KEY;
 
@@ -13,6 +14,7 @@ const Map: React.FC = () => {
 	useMapSetup(mapContainer);
 
 	const { hoveredPump } = useHoveredPump();
+	const { selectedPump } = useSelectedPump();
 
 	return (
 		<div className="grid grid-cols-1 grid-rows-1">
@@ -20,7 +22,9 @@ const Map: React.FC = () => {
 				<MapAttribution />
 			</div>
 			<div ref={mapContainer} className="col-start-1 row-start-1 h-screen" />
-			{hoveredPump && <PumpTooltip pump={hoveredPump} />}
+			{(selectedPump || hoveredPump) && (
+				<PumpTooltip pump={selectedPump ?? hoveredPump} />
+			)}
 		</div>
 	);
 };

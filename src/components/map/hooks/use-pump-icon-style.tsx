@@ -24,10 +24,11 @@ export function usePumpIconStyle() {
 	const pumpIconSize = {
 		base: 0.1,
 		stops: [
-			[13, 0.1],
-			[15, 0.2],
-			[18, 0.3],
-			[22, 0.8],
+			[14, 0.1],
+			[16, 0.4],
+			[18, 0.6],
+			[20, 0.8],
+			[22, 1.0],
 		],
 	};
 
