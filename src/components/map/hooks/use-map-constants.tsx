@@ -19,19 +19,19 @@ export function useMapConstants() {
 
 	const MAP_PUMP_IMAGE_ICONS = [
 		{
-			url: "/public/images/pump_functioning_selected.png",
+			url: "/images/pump_functioning_selected.png",
 			id: "pump_functioning_selected",
 		},
 		{
-			url: "/public/images/pump_functioning_unselected.png",
+			url: "/images/pump_functioning_unselected.png",
 			id: "pump_functioning_unselected",
 		},
 		{
-			url: "/public/images/pump_not_functioning_selected.png",
+			url: "/images/pump_not_functioning_selected.png",
 			id: "pump_not_functioning_selected",
 		},
 		{
-			url: "/public/images/pump_not_functioning_unselected.png",
+			url: "/images/pump_not_functioning_unselected.png",
 			id: "pump_not_functioning_unselected",
 		},
 	];
