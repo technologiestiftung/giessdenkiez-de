@@ -17,6 +17,25 @@ export function useMapConstants() {
 	const MAP_CENTER_LNG = parseFloat(import.meta.env.VITE_MAP_CENTER_LNG);
 	const MAP_CENTER_LAT = parseFloat(import.meta.env.VITE_MAP_CENTER_LAT);
 
+	const MAP_PUMP_IMAGE_ICONS = [
+		{
+			url: "/public/images/pump_functioning_selected.png",
+			id: "pump_functioning_selected",
+		},
+		{
+			url: "/public/images/pump_functioning_unselected.png",
+			id: "pump_functioning_unselected",
+		},
+		{
+			url: "/public/images/pump_not_functioning_selected.png",
+			id: "pump_not_functioning_selected",
+		},
+		{
+			url: "/public/images/pump_not_functioning_unselected.png",
+			id: "pump_not_functioning_unselected",
+		},
+	];
+
 	return {
 		MAP_PITCH_DEGREES,
 		MAP_MAX_ZOOM_LEVEL,
@@ -26,5 +45,6 @@ export function useMapConstants() {
 		TREE_DEFAULT_COLOR,
 		MAP_CENTER_LNG,
 		MAP_CENTER_LAT,
+		MAP_PUMP_IMAGE_ICONS,
 	};
 }
