@@ -5,6 +5,7 @@ import useHoveredTree from "./use-hovered-tree";
 import { useMapConstants } from "./use-map-constants";
 import useSelectedTree from "./use-selected-tree";
 import { useTreeStore } from "../../tree-detail/tree-store";
+import { useFilterStore } from "../../filter/filter-store";
 
 export function useMapInteraction(map: mapboxgl.Map | undefined) {
 	const { MAP_MAX_ZOOM_LEVEL } = useMapConstants();
@@ -15,6 +16,21 @@ export function useMapInteraction(map: mapboxgl.Map | undefined) {
 	const { setSelectedTreeId, selectedTreeIdRef } = useSelectedTree();
 
 	const { treeData } = useTreeStore();
+
+	const isPumpsVisible = useFilterStore((store) => store.isPumpsVisible);
+
+	useEffect(() => {
+		if (!map) {
+			return;
+		}
+		if (map.isStyleLoaded()) {
+			map.setLayoutProperty(
+				"pumps",
+				"visibility",
+				isPumpsVisible ? "visible" : "none",
+			);
+		}
+	}, [map, isPumpsVisible]);
 
 	useEffect(() => {
 		if (treeData) {
