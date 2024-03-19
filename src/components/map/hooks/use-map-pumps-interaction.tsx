@@ -60,7 +60,7 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 			}
 
 			const pumpFeature = e.features[0];
-			const pump = mapboxFeatureToPump(map, pumpFeature, e);
+			const pump = mapboxFeatureToPump(map, pumpFeature);
 			if (!pump) {
 				return;
 			}
@@ -96,7 +96,6 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 			}
 			const pumpFeature = e.features[0];
 			const pump = mapboxFeatureToPump(map, pumpFeature);
-			console.log(pump);
 			if (!pump) {
 				return;
 			}
@@ -105,9 +104,9 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 
 			map.easeTo({
 				center: [
-					//@ts-ignore
+					//@ts-expect-error no types for geometry.coordinates
 					pumpFeature.geometry.coordinates[0],
-					//@ts-ignore
+					//@ts-expect-error no types for geometry.coordinates
 					pumpFeature.geometry.coordinates[1],
 				],
 				zoom: MAP_MAX_ZOOM_LEVEL,

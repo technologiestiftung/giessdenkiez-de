@@ -13,8 +13,9 @@ const Map: React.FC = () => {
 
 	useMapSetup(mapContainer);
 
-	const { hoveredPump } = useHoveredPump();
-	const { selectedPump } = useSelectedPump();
+	const selectedPump = useSelectedPump().selectedPump;
+	const hoveredPump = useHoveredPump().hoveredPump;
+	const highlightedPump = selectedPump ?? hoveredPump;
 
 	return (
 		<div className="grid grid-cols-1 grid-rows-1">
@@ -22,9 +23,7 @@ const Map: React.FC = () => {
 				<MapAttribution />
 			</div>
 			<div ref={mapContainer} className="col-start-1 row-start-1 h-screen" />
-			{(selectedPump || hoveredPump) && (
-				<PumpTooltip pump={selectedPump ?? hoveredPump} />
-			)}
+			{highlightedPump && <PumpTooltip pump={highlightedPump} />}
 		</div>
 	);
 };

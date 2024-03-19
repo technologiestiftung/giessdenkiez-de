@@ -27,6 +27,7 @@ export const useHoveredPump = create<HoveredPumpState>((set) => ({
 			return undefined;
 		}
 
+		//@ts-expect-error no types for geometry.coordinates
 		const pixelCoords = map.project(feature.geometry.coordinates);
 		const xPixel = pixelCoords.x;
 		const yPixel = pixelCoords.y;
