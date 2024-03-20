@@ -32,10 +32,8 @@ interface AuthState {
 	updateEmail: (email: string) => Promise<void>;
 	updateUsername: (username: string) => Promise<void>;
 	deleteUser: () => Promise<void>;
-	wateringData: Array<number>;
 	adoptedTrees: Array<string> | null;
 	adoptedTreesInfo: Array<any> | null;
-	refreshWateringData: () => Promise<void>;
 	refreshAdoptedTrees: () => Promise<void>;
 	refreshAdoptedTreesInfo: () => Promise<void>;
 }
@@ -44,7 +42,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 	supabaseClient.auth.getSession().then(({ data: { session } }) => {
 		set({ session });
 		get().refreshUsername();
-		get().refreshWateringData();
 		get().refreshAdoptedTrees();
 		get().refreshAdoptedTreesInfo();
 	});
@@ -56,7 +53,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 	return {
 		session: null,
 		username: null,
-		wateringData: [0, 0],
 		adoptedTrees: null,
 		adoptedTreesInfo: null,
 
@@ -74,38 +70,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			}
 
 			return get().session?.user;
-		},
-
-		refreshWateringData: async () => {
-			if (get().session === undefined) {
-				set({
-					wateringData: [0, 0],
-				});
-			}
-
-			const { data, error } = await supabaseClient
-				.from("trees_watered")
-				.select("amount")
-				.eq("uuid", get().session?.user?.id);
-
-			if (error) {
-				throw error;
-			}
-
-			if (data === null) {
-				throw new Error("No data received");
-			}
-
-			const reducedWateringAmount = data.reduce(
-				(acc: number, curr: { amount: number }) => acc + Number(curr.amount),
-				0,
-			);
-
-			const wateringCount = data.length;
-
-			set({
-				wateringData: [reducedWateringAmount, wateringCount],
-			});
 		},
 
 		refreshAdoptedTrees: async () => {
@@ -130,17 +94,15 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		},
 
 		refreshAdoptedTreesInfo: async () => {
-			// const treeIds = ["_2100294b1f", "_2100186c09"];
-
 			await get().refreshAdoptedTrees();
-			// console.log();
+
 			const { data, error } = await supabaseClient
 				.from("trees")
 				.select(
 					`
 					id, 
 					artdtsch, 
-					trees_watered ( id, amount )
+					trees_watered ( id, amount)
 				  `,
 				)
 				.in("id", get().adoptedTrees ?? []);
@@ -153,9 +115,23 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 				throw new Error("No data received");
 			}
 
-			// console.log(data);
+			const reducedWateringAmountperTree = data.map((tree) => {
+				const reducedWateringAmount = tree.trees_watered.reduce(
+					(acc: number, curr: { amount: number }) => acc + Number(curr.amount),
+					0,
+				);
+				const wateringCount = tree.trees_watered.length;
+				return {
+					id: tree.id,
+					artdtsch: tree.artdtsch,
+					trees_watered: tree.trees_watered,
+					reducedWateringAmount,
+					wateringCount,
+				};
+			}, 0);
+
 			set({
-				adoptedTreesInfo: data,
+				adoptedTreesInfo: reducedWateringAmountperTree,
 			});
 		},
 

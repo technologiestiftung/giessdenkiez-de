@@ -6,9 +6,17 @@ export const Overview: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
 
-	const { wateringData, adoptedTrees } = useAuthStore();
-	const irrigationAmount = wateringData[0];
-	const irrigationTimes = wateringData[1];
+	const { adoptedTrees, adoptedTreesInfo } = useAuthStore();
+
+	const wateringAmountTotal = adoptedTreesInfo?.reduce(
+		(acc, tree) => acc + tree.reducedWateringAmount,
+		0,
+	);
+
+	const wateringCountTotal = adoptedTreesInfo?.reduce(
+		(acc, tree) => acc + tree.trees_watered.length,
+		0,
+	);
 
 	return (
 		<div className="md:shadow-gdk-soft mb-3 md:rounded-2xl md:border-2 md:p-7">
@@ -21,7 +29,7 @@ export const Overview: React.FC = () => {
 					{i18n.navbar.profile.overview.liter}
 					<span className="flex items-baseline gap-x-5 text-5xl font-medium">
 						<img src="images/icon-drop.svg" alt="" className="w-5" />
-						{formatNumber(irrigationAmount)}
+						{formatNumber(wateringAmountTotal)}
 					</span>
 				</div>
 
@@ -38,7 +46,7 @@ export const Overview: React.FC = () => {
 						{i18n.navbar.profile.overview.irrigations}
 						<span className="flex items-baseline gap-x-5 text-5xl font-medium">
 							<img src="images/icon-watering-can.svg" alt="" className="" />
-							{formatNumber(irrigationTimes)}
+							{formatNumber(wateringCountTotal)}
 						</span>
 					</div>
 				</div>

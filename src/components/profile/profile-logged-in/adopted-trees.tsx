@@ -18,44 +18,47 @@ export const AdoptedTrees: React.FC = () => {
 			<h2 className="text-2xl font-semibold">
 				{i18n.navbar.profile.overview.adoptedTrees}
 			</h2>
-
-			<div className="mt-7 grid grid-cols-2 gap-4 xl:grid-cols-4">
-				{adoptedTreesInfo &&
-					!showAllTrees &&
-					adoptedTreesInfo
-						.slice(0, maxTrees)
-						.map((tree) => (
-							<TreeCard
-								id={tree.id}
-								name={tree.artdtsch}
-								irrigationAmount={tree.trees_watered[0].amount}
-								irrigationTimes={tree.trees_watered.length}
-								key={tree.id}
+			{adoptedTreesInfo && (
+				<>
+					<div className="mt-7 grid grid-cols-2 gap-4 xl:grid-cols-4">
+						{!showAllTrees &&
+							adoptedTreesInfo
+								.slice(0, maxTrees)
+								.map((tree) => (
+									<TreeCard
+										id={tree.id}
+										name={tree.artdtsch}
+										irrigationAmount={tree.reducedWateringAmount}
+										irrigationTimes={tree.trees_watered.length}
+										key={tree.id}
+									/>
+								))}
+						{showAllTrees &&
+							adoptedTreesInfo.map((tree) => (
+								<TreeCard
+									id={tree.id}
+									name={tree.artdtsch}
+									irrigationAmount={tree.reducedWateringAmount}
+									irrigationTimes={tree.trees_watered.length}
+									key={tree.id}
+								/>
+							))}
+					</div>
+					{adoptedTreesInfo.length > 3 && (
+						<div className=" pointer-events-auto flex justify-center pt-8">
+							<TertiaryButton
+								onClick={() => setshowAllTrees(!showAllTrees)}
+								label={
+									showAllTrees
+										? i18n.navbar.profile.adoptedTrees.showLess
+										: i18n.navbar.profile.adoptedTrees.showAll
+								}
 							/>
-						))}
-				{showAllTrees &&
-					adoptedTreesInfo.map((tree) => (
-						<TreeCard
-							id={tree.id}
-							name={tree.artdtsch}
-							irrigationAmount={tree.trees_watered[0].amount}
-							irrigationTimes={tree.trees_watered.length}
-							key={tree.id}
-						/>
-					))}
-			</div>
-			{adoptedTreesInfo && adoptedTreesInfo.length > 3 && (
-				<div className=" pointer-events-auto flex justify-center pt-8">
-					<TertiaryButton
-						onClick={() => setshowAllTrees(!showAllTrees)}
-						label={
-							showAllTrees
-								? i18n.navbar.profile.adoptedTrees.showLess
-								: i18n.navbar.profile.adoptedTrees.showAll
-						}
-					/>
-				</div>
+						</div>
+					)}
+				</>
 			)}
+			{/* add nudge to adopt for when no trees are adopted */}
 		</div>
 	);
 };
