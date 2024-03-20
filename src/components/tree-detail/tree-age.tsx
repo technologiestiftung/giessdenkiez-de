@@ -5,7 +5,7 @@ interface TreeAgeProps {
 	treeAge: number | undefined;
 }
 
-const TreeAge: React.FC<TreeAgeProps> = ({ treeAge }) => {
+export const TreeAge: React.FC<TreeAgeProps> = ({ treeAge }) => {
 	const i18n = useI18nStore().i18n();
 	return (
 		<div className="flex flex-row items-center justify-between border-b-2 pb-8 pt-10 text-xl font-bold">
@@ -26,5 +26,3 @@ const TreeAge: React.FC<TreeAgeProps> = ({ treeAge }) => {
 		</div>
 	);
 };
-
-export default TreeAge;

@@ -1,17 +1,17 @@
 import React from "react";
 import { Filter } from "../filter/filter";
 import { useFilterStore } from "../filter/filter-store";
-import Info from "../info/info";
+import { Info } from "../info/info";
 import { LocationSearch } from "../location-search/location-search";
-import Navbar from "../navbar/navbar";
-import PageNotFound from "../page-not-found/page-not-found";
-import Profile from "../profile/profile";
+import { Navbar } from "../navbar/navbar";
+import { PageNotFound } from "../page-not-found/page-not-found";
+import { Profile } from "../profile/profile";
 import { PasswordReset } from "../profile/profile-logged-in/password-reset";
 import { TreeDetail } from "../tree-detail/tree-detail";
 import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
 
-const Router: React.FC = () => {
+export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
 	const setPathname = useUrlState((state) => state.setPathname);
 	const treeId = url.searchParams.get("treeId");
@@ -100,5 +100,3 @@ const Router: React.FC = () => {
 			);
 	}
 };
-
-export default Router;

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function useHoveredTree() {
+export function useHoveredTree() {
 	const [hoveredTreeId, setHoveredTreeId] = useState<string | undefined>(
 		undefined,
 	);

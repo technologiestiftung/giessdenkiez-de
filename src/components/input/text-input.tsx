@@ -1,8 +1,8 @@
 import React from "react";
 
-const TextInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({
-	...props
-}) => {
+export const TextInput: React.FC<
+	React.InputHTMLAttributes<HTMLInputElement>
+> = ({ ...props }) => {
 	return (
 		<input
 			className={`
@@ -14,5 +14,3 @@ const TextInput: React.FC<React.InputHTMLAttributes<HTMLInputElement>> = ({
 		/>
 	);
 };
-
-export default TextInput;

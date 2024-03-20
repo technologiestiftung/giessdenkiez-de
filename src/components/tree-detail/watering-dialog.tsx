@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PrimaryButton from "../buttons/primary";
-import SecondaryButton from "../buttons/secondary";
+import { PrimaryButton } from "../buttons/primary";
+import { SecondaryButton } from "../buttons/secondary";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 import { useWaterTree } from "./hooks/use-water-tree";
 import { TreeData } from "./tree-types";
@@ -13,7 +13,10 @@ interface WateringDialogProps {
 	close: () => void;
 }
 
-const WateringDialog: React.FC<WateringDialogProps> = ({ treeData, close }) => {
+export const WateringDialog: React.FC<WateringDialogProps> = ({
+	treeData,
+	close,
+}) => {
 	const i18n = useI18nStore().i18n();
 	const dateFormat = "yyyy-MM-dd'T'hh:mm";
 
@@ -76,5 +79,3 @@ const WateringDialog: React.FC<WateringDialogProps> = ({ treeData, close }) => {
 		</dialog>
 	);
 };
-
-export default WateringDialog;

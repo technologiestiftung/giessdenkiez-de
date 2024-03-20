@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function useSelectedTree() {
+export function useSelectedTree() {
 	const [selectedTreeId, setSelectedTreeId] = useState<string | undefined>(
 		undefined,
 	);

@@ -4,7 +4,7 @@ import { AuthCard } from "./auth-card/auth-card";
 import { ProfileLoggedIn } from "./profile-logged-in/profile-logged-in";
 import { LanguageToggle } from "../router/languageToggle";
 
-const Profile: React.FC = () => {
+export const Profile: React.FC = () => {
 	const { isLoggedIn } = useAuthStore();
 
 	switch (isLoggedIn()) {
@@ -33,5 +33,3 @@ const Profile: React.FC = () => {
 			return <ProfileLoggedIn />;
 	}
 };
-
-export default Profile;
