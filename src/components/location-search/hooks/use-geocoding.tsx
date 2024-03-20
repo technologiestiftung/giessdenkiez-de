@@ -32,7 +32,11 @@ export function useGeocoding(search: string): GeocodingResultState {
 
 		const fetchData = async () => {
 			try {
-				const geocodingUrl = `${import.meta.env.VITE_MAPBOX_API_ENDPOINT}/geocoding/v5/mapbox.places/${search}.json?autocomplete=true&language=de&country=de&bbox=${import.meta.env.VITE_MAP_BOUNDING_BOX}&access_token=${import.meta.env.VITE_MAPBOX_API_KEY}`;
+				const geocodingUrl = `${
+					import.meta.env.VITE_MAPBOX_API_ENDPOINT
+				}/geocoding/v5/mapbox.places/${search}.json?autocomplete=true&language=de&country=de&bbox=${
+					import.meta.env.VITE_MAP_BOUNDING_BOX
+				}&access_token=${import.meta.env.VITE_MAPBOX_API_KEY}`;
 				const res = await fetch(geocodingUrl, {
 					signal: abortController.signal,
 				});

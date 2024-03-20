@@ -25,7 +25,9 @@ export function useFetchTreeWateringData(
 			return;
 		}
 		try {
-			const geocodingUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/lastwatered?id=${treeData.id}`;
+			const geocodingUrl = `${
+				import.meta.env.VITE_API_ENDPOINT
+			}/get/lastwatered?id=${treeData.id}`;
 			const res = await fetch(geocodingUrl, {
 				method: "GET",
 				headers: {

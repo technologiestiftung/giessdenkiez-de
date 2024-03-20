@@ -136,7 +136,9 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 						{geocodingResults.map((geocodingResult, idx) => (
 							<button
 								key={`geocoding-result-${idx}`}
-								className={`truncate px-4 py-4 text-left hover:cursor-pointer hover:bg-gdk-lighter-blue ${selectedGeocodingResultIndex === idx && "bg-gdk-lighter-blue"}`}
+								className={`truncate px-4 py-4 text-left hover:cursor-pointer hover:bg-gdk-lighter-blue ${
+									selectedGeocodingResultIndex === idx && "bg-gdk-lighter-blue"
+								}`}
 								onClick={() => onGeocodingResultClick(geocodingResult)}
 							>
 								{geocodingResult.place_name_de}

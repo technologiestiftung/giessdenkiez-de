@@ -47,7 +47,11 @@ export const Navbar: React.FC = () => {
 						className={`
             flex h-14 w-14 flex-col items-center justify-center rounded-xl pt-1 text-sm font-medium
             hover:bg-blue-600 hover:bg-opacity-10 lg:h-16 lg:w-16 lg:rounded lg:text-base
-            ${url.pathname.startsWith(item.path) ? "bg-blue-600 bg-opacity-10 text-blue-600" : "text-gray-800"}
+            ${
+							url.pathname.startsWith(item.path)
+								? "bg-blue-600 bg-opacity-10 text-blue-600"
+								: "text-gray-800"
+						}
             `}
 					>
 						{item.icon}
