@@ -1,7 +1,7 @@
 import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store.ts";
 
-const MapAttribution: React.FC = () => {
+export const MapAttribution: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
 	const links = [
@@ -30,5 +30,3 @@ const MapAttribution: React.FC = () => {
 		</p>
 	);
 };
-
-export default MapAttribution;

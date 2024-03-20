@@ -6,7 +6,7 @@ export interface TertiaryButtonProps {
 	disabled?: boolean;
 }
 
-const TertiaryButton: React.FC<TertiaryButtonProps> = ({
+export const TertiaryButton: React.FC<TertiaryButtonProps> = ({
 	label,
 	onClick,
 	disabled,
@@ -22,5 +22,3 @@ const TertiaryButton: React.FC<TertiaryButtonProps> = ({
 		</button>
 	);
 };
-
-export default TertiaryButton;

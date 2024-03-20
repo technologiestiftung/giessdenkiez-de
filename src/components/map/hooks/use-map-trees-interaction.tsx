@@ -1,11 +1,12 @@
+/* eslint-disable max-lines */
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import { useFilterStore } from "../../filter/filter-store";
 import { useUrlState } from "../../router/store";
 import { useTreeStore } from "../../tree-detail/tree-store";
-import useHoveredTree from "./use-hovered-tree";
+import { useHoveredTree } from "./use-hovered-tree";
 import { useMapConstants } from "./use-map-constants";
-import useSelectedTree from "./use-selected-tree";
+import { useSelectedTree } from "./use-selected-tree";
 import { useTreeCircleStyle } from "./use-tree-circle-style";
 
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {

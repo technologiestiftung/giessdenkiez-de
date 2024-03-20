@@ -1,6 +1,6 @@
 import React from "react";
 
-const PenIcon: React.FC = () => {
+export const PenIcon: React.FC = () => {
 	return (
 		<svg
 			width="24"
@@ -22,5 +22,3 @@ const PenIcon: React.FC = () => {
 		</svg>
 	);
 };
-
-export default PenIcon;

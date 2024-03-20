@@ -1,14 +1,14 @@
 import mapboxgl from "mapbox-gl";
 import React, { useRef } from "react";
 import { useMapSetup } from "./hooks/use-map-setup";
-import MapAttribution from "./map-attribution";
+import { MapAttribution } from "./map-attribution";
 import { useHoveredPump } from "./hooks/use-hovered-pump";
 import { PumpTooltip } from "../pumps/pump-tooltip";
 import { useSelectedPump } from "./hooks/use-selected-pump";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_API_KEY;
 
-const Map: React.FC = () => {
+export const Map: React.FC = () => {
 	const mapContainer = useRef<HTMLDivElement | null>(null);
 
 	useMapSetup(mapContainer);
@@ -27,5 +27,3 @@ const Map: React.FC = () => {
 		</div>
 	);
 };
-
-export default Map;

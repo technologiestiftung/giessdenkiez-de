@@ -8,7 +8,6 @@ export const LanguageToggle: React.FC = () => {
 
 	const switchLanguage = () => {
 		setLanguage(nonActiveLanguage);
-		console.log("clicked");
 	};
 
 	return (

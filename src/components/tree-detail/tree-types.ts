@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-shadow
 export enum TreeAgeClassification {
 	BABY = "BABY",
 	JUNIOR = "JUNIOR",

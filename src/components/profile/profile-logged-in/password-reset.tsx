@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuthStore } from "../../../auth/auth-store";
 import { PasswordInputWithValidation } from "../validation/password-input-with-validation";
-import PrimaryButton from "../../buttons/primary";
+import { PrimaryButton } from "../../buttons/primary";
 import { useUrlState } from "../../router/store";
 import { LanguageToggle } from "../../router/languageToggle";
 

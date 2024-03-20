@@ -6,7 +6,9 @@ interface WateringCardProps {
 	wateringData: TreeWateringData;
 }
 
-const LastWaterings: React.FC<WateringCardProps> = ({ wateringData }) => {
+export const LastWaterings: React.FC<WateringCardProps> = ({
+	wateringData,
+}) => {
 	const formatDate = useI18nStore().formatDate;
 	return (
 		<div className="shadow-gdk-hard flex flex-col gap-2 rounded-lg p-4">
@@ -26,5 +28,3 @@ const LastWaterings: React.FC<WateringCardProps> = ({ wateringData }) => {
 		</div>
 	);
 };
-
-export default LastWaterings;

@@ -1,7 +1,8 @@
+/* eslint-disable max-lines */
 import React, { useEffect, useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import ClearIcon from "../icons/clear-icon";
-import SearchIcon from "../icons/search-icon";
+import { ClearIcon } from "../icons/clear-icon";
+import { SearchIcon } from "../icons/search-icon";
 import { useMapConstants } from "../map/hooks/use-map-constants";
 import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";

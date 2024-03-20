@@ -1,12 +1,12 @@
 import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import QaEntry from "./qa-entry";
-import SocialShare from "./social-share";
-import PrimaryButton from "../buttons/primary";
-import Credits from "./credits";
+import { QaEntry } from "./qa-entry";
+import { SocialShare } from "./social-share";
+import { PrimaryButton } from "../buttons/primary";
+import { Credits } from "./credits";
 import { LanguageToggle } from "../router/languageToggle";
 
-const Info: React.FC = () => {
+export const Info: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
 	return (
@@ -65,7 +65,6 @@ const Info: React.FC = () => {
 									answer={item.answer}
 									isLast={idx === i18n.info.faq.qa.length - 1}
 									isInitiallyExpanded={false}
-									children={undefined}
 								/>
 							</React.Fragment>
 						))}
@@ -78,5 +77,3 @@ const Info: React.FC = () => {
 		</div>
 	);
 };
-
-export default Info;

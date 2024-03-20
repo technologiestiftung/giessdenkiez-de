@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import mapboxgl from "mapbox-gl";
 import { useEffect, useRef } from "react";
 import { useFilterStore } from "../../filter/filter-store";

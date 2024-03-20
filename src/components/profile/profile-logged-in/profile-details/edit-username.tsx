@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
-import EditIcon from "../../../icons/edit-icon";
+import { EditIcon } from "../../../icons/edit-icon";
 import { useAuthStore } from "../../../../auth/auth-store";
 import { UsernameInputWithValidation } from "../../validation/username-input-with-validation";
 import { useErrorStore } from "../../../../error/error-store";

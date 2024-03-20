@@ -1,6 +1,6 @@
 import React from "react";
 
-const WateringIcon: React.FC = () => {
+export const WateringIcon: React.FC = () => {
 	return (
 		<svg
 			width="34"
@@ -16,5 +16,3 @@ const WateringIcon: React.FC = () => {
 		</svg>
 	);
 };
-
-export default WateringIcon;

@@ -1,11 +1,11 @@
 import React from "react";
 import { useAuthStore } from "./auth/auth-store.tsx";
-import Map from "./components/map/map";
-import Router from "./components/router/router";
+import { Map } from "./components/map/map";
+import { Router } from "./components/router/router";
 import { useErrorStore } from "./error/error-store.tsx";
-import ErrorToast from "./error/error-toast.tsx";
+import { ErrorToast } from "./error/error-toast.tsx";
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
 	useAuthStore();
 
 	const error = useErrorStore().error;
@@ -24,5 +24,3 @@ const App: React.FC = () => {
 		</>
 	);
 };
-
-export default App;

@@ -5,7 +5,10 @@ type SwitchButtonProps = {
 	onToggle: () => void;
 };
 
-const SwitchButton: React.FC<SwitchButtonProps> = ({ isEnabled, onToggle }) => {
+export const SwitchButton: React.FC<SwitchButtonProps> = ({
+	isEnabled,
+	onToggle,
+}) => {
 	return (
 		<button
 			onClick={() => {
@@ -19,5 +22,3 @@ const SwitchButton: React.FC<SwitchButtonProps> = ({ isEnabled, onToggle }) => {
 		</button>
 	);
 };
-
-export default SwitchButton;

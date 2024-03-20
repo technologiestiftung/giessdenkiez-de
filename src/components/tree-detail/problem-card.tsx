@@ -1,7 +1,7 @@
 import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 
-const ProblemCard: React.FC = () => {
+export const ProblemCard: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
 	return (
@@ -22,6 +22,7 @@ const ProblemCard: React.FC = () => {
 						<a
 							href="https://ordnungsamt.berlin.de/frontend/meldungNeu/wo"
 							target="_blank"
+							rel="noreferrer noopener"
 							className="font-bold text-gdk-blue"
 						>
 							{i18n.treeDetail.problem.link}
@@ -32,5 +33,3 @@ const ProblemCard: React.FC = () => {
 		</div>
 	);
 };
-
-export default ProblemCard;

@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { useAuthStore } from "../../../../auth/auth-store";
-import TertiaryButton from "../../../buttons/tertiary";
+import { TertiaryButton } from "../../../buttons/tertiary";
 import { useErrorStore } from "../../../../error/error-store";
 
 export const EditPassword: React.FC = () => {

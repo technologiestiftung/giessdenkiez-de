@@ -5,7 +5,7 @@ interface TooltipProps {
 	title: string;
 	content: string;
 }
-const Tooltip: React.FC<TooltipProps> = ({ title, content }) => {
+export const Tooltip: React.FC<TooltipProps> = ({ title, content }) => {
 	return (
 		<div
 			className="shadow-gdk-hard flex w-[300px] flex-col gap-2 rounded-lg bg-gdk-white p-4"
@@ -16,5 +16,3 @@ const Tooltip: React.FC<TooltipProps> = ({ title, content }) => {
 		</div>
 	);
 };
-
-export default Tooltip;

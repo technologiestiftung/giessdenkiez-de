@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 interface ErrorStore {
 	error?: string;
-	handleError: (userFacingErrorMessage: string, thrownError?: any) => void;
+	handleError: (userFacingErrorMessage: string, thrownError?: unknown) => void;
 	clearErrors: () => void;
 }
 
@@ -13,7 +13,7 @@ export const useErrorStore = create<ErrorStore>()((set, get) => ({
 
 	clearErrors: () => set({ error: undefined }),
 
-	handleError: (userFacingErrorMessage: string, thrownError?: any) => {
+	handleError: (userFacingErrorMessage: string, thrownError?: unknown) => {
 		console.error(thrownError);
 		set({ error: userFacingErrorMessage });
 		setTimeout(() => {

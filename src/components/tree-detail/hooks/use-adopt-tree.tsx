@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../../../auth/auth-store";
 import { useErrorStore } from "../../../error/error-store";
@@ -131,7 +132,8 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 				const json = await res.json();
 				const adoptedByOthersList =
 					json.data.filter(
-						(tree: any) => tree.tree_id === treeId && tree.adopted > 1,
+						(tree: { tree_id: string; adopted: number }) =>
+							tree.tree_id === treeId && tree.adopted > 1,
 					).length > 0;
 				setAdoptedByOthers(adoptedByOthersList);
 			} catch (error) {

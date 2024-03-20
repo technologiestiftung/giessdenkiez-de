@@ -1,13 +1,13 @@
 import React from "react";
 import { useUrlState } from "../router/store";
-import MapIcon from "../icons/map-icon";
-import UserIcon from "../icons/user-icon";
-import InfoIcon from "../icons/info-icon";
+import { MapIcon } from "../icons/map-icon";
+import { UserIcon } from "../icons/user-icon";
+import { InfoIcon } from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { useTreeStore } from "../tree-detail/tree-store";
 import { LanguageToggle } from "../router/languageToggle";
 
-const Navbar: React.FC = () => {
+export const Navbar: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
 	const setPathname = useUrlState((state) => state.setPathname);
@@ -62,5 +62,3 @@ const Navbar: React.FC = () => {
 		</nav>
 	);
 };
-
-export default Navbar;
