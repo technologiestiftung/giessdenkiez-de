@@ -1,12 +1,13 @@
 import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import QaEntry from "./qa-entry";
+import { QaEntry } from "./qa-entry";
 import SocialShare from "./social-share";
 import PrimaryButton from "../buttons/primary";
 import Credits from "./credits";
 import { LanguageToggle } from "../router/languageToggle";
+import Markdown from "react-markdown";
 
-const Info: React.FC = () => {
+export const Info: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
 	return (
@@ -28,7 +29,7 @@ const Info: React.FC = () => {
 							>
 								<div className="py-2">
 									<PrimaryButton
-										label={"Slack Community"}
+										label={i18n.info.about.head.slackButton}
 										onClick={() => {
 											window.open(
 												"https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ",
@@ -37,6 +38,9 @@ const Info: React.FC = () => {
 										}}
 										disabled={false}
 									/>
+									<Markdown className={"[&>p>a]:underline [&>p]:pt-1 pt-2"}>
+										{i18n.info.about.head.feedback}
+									</Markdown>
 								</div>
 							</QaEntry>
 						</div>
@@ -50,8 +54,8 @@ const Info: React.FC = () => {
 									isLast={idx === i18n.info.about.qa.length - 1}
 									isInitiallyExpanded={false}
 								>
-									{idx === 1 && <Credits></Credits>}
-								</QaEntry>{" "}
+									{idx === 1 && <Credits />}
+								</QaEntry>
 							</React.Fragment>
 						))}
 						<div className={`w-full pt-4 text-xl`}>{i18n.info.faq.title}</div>
@@ -65,7 +69,6 @@ const Info: React.FC = () => {
 									answer={item.answer}
 									isLast={idx === i18n.info.faq.qa.length - 1}
 									isInitiallyExpanded={false}
-									children={undefined}
 								/>
 							</React.Fragment>
 						))}
@@ -78,5 +81,3 @@ const Info: React.FC = () => {
 		</div>
 	);
 };
-
-export default Info;

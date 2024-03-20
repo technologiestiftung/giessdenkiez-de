@@ -8,10 +8,10 @@ interface QaEntryProps {
 	answer: string;
 	isLast: boolean;
 	isInitiallyExpanded: boolean;
-	children: React.ReactNode | undefined;
+	children?: React.ReactNode;
 }
 
-const QaEntry: React.FC<QaEntryProps> = ({
+export const QaEntry: React.FC<QaEntryProps> = ({
 	question,
 	answer,
 	isLast,
@@ -47,5 +47,3 @@ const QaEntry: React.FC<QaEntryProps> = ({
 		</div>
 	);
 };
-
-export default QaEntry;
