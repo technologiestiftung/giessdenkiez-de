@@ -1,20 +1,47 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
+import { useFilterStore } from "../../filter/filter-store";
 import { useUrlState } from "../../router/store";
+import { useTreeStore } from "../../tree-detail/tree-store";
 import useHoveredTree from "./use-hovered-tree";
 import { useMapConstants } from "./use-map-constants";
 import useSelectedTree from "./use-selected-tree";
-import { useTreeStore } from "../../tree-detail/tree-store";
+import { useTreeCircleStyle } from "./use-tree-circle-style";
 
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { MAP_MAX_ZOOM_LEVEL } = useMapConstants();
 
-	const setSearchParams = useUrlState((state) => state.setSearchParams);
+	const addSearchParam = useUrlState((state) => state.addSearchParam);
 
 	const { setHoveredTreeId, hoveredTreeIdRef } = useHoveredTree();
 	const { setSelectedTreeId, selectedTreeIdRef } = useSelectedTree();
 
 	const { treeData } = useTreeStore();
+
+	const treeAgeIntervals = useFilterStore().treeAgeIntervals;
+
+	const { filteredCircleColor } = useTreeCircleStyle();
+
+	useEffect(() => {
+		if (!map) {
+			return;
+		}
+		if (map.isStyleLoaded()) {
+			map.setPaintProperty(
+				"trees",
+				"circle-color",
+				filteredCircleColor(treeAgeIntervals),
+			);
+			return;
+		}
+		map.on("load", () => {
+			map.setPaintProperty(
+				"trees",
+				"circle-color",
+				filteredCircleColor(treeAgeIntervals),
+			);
+		});
+	}, [map, treeAgeIntervals]);
 
 	useEffect(() => {
 		if (treeData) {
@@ -110,22 +137,20 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			setSelectedTreeId(treeFeature.id as string);
 			map.easeTo({
 				center: [
-					//@ts-ignore
+					//@ts-expect-error no types for geometry.coordinates
 					treeFeature.geometry.coordinates[0],
-					//@ts-ignore
+					//@ts-expect-error no types for geometry.coordinates
 					treeFeature.geometry.coordinates[1],
 				],
 				zoom: MAP_MAX_ZOOM_LEVEL,
 				essential: true,
 			});
 			map.once("moveend", () => {
-				setSearchParams(
-					new URLSearchParams({ treeId: treeFeature.id as string }),
-				);
+				addSearchParam("treeId", treeFeature.id as string);
 			});
 		});
 
-		map.on("mouseleave", "trees", (_) => {
+		map.on("mouseleave", "trees", () => {
 			if (map && hoveredTreeIdRef.current) {
 				map.setFeatureState(
 					{
