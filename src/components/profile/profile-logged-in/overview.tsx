@@ -7,7 +7,6 @@ export const Overview: React.FC = () => {
 	const { formatNumber } = useI18nStore();
 
 	const { wateringData, adoptedTrees } = useAuthStore();
-
 	const irrigationAmount = wateringData[0];
 	const irrigationTimes = wateringData[1];
 
@@ -31,7 +30,7 @@ export const Overview: React.FC = () => {
 						{i18n.navbar.profile.overview.adoptedTrees}
 						<span className="flex items-baseline gap-x-5 text-5xl font-medium">
 							<img src="images/icon-tree.svg" alt="" className="w-[1.625rem]" />
-							{formatNumber(adoptedTrees)}
+							{formatNumber(adoptedTrees?.length ?? 0)}
 						</span>
 					</div>
 

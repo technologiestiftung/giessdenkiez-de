@@ -33,7 +33,7 @@ interface AuthState {
 	updateUsername: (username: string) => Promise<void>;
 	deleteUser: () => Promise<void>;
 	wateringData: Array<number>;
-	adoptedTrees: number;
+	adoptedTrees: Array<string> | null;
 	adoptedTreesInfo: Array<any> | null;
 	refreshWateringData: () => Promise<void>;
 	refreshAdoptedTrees: () => Promise<void>;
@@ -57,7 +57,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		session: null,
 		username: null,
 		wateringData: [0, 0],
-		adoptedTrees: 0,
+		adoptedTrees: null,
 		adoptedTreesInfo: null,
 
 		isLoggedIn: () => {
@@ -122,16 +122,28 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 				throw new Error("No data received");
 			}
 
+			const treeIds = data?.flatMap((element) => element.tree_id);
+
 			set({
-				adoptedTrees: data.length,
+				adoptedTrees: treeIds,
 			});
 		},
 
 		refreshAdoptedTreesInfo: async () => {
+			// const treeIds = ["_2100294b1f", "_2100186c09"];
+
+			await get().refreshAdoptedTrees();
+			// console.log();
 			const { data, error } = await supabaseClient
 				.from("trees")
-				.select("artdtsch")
-				.eq("id", adoptedTrees[0].tree_id);
+				.select(
+					`
+					id, 
+					artdtsch, 
+					trees_watered ( id, amount )
+				  `,
+				)
+				.in("id", get().adoptedTrees ?? []);
 
 			if (error) {
 				throw error;
@@ -141,6 +153,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 				throw new Error("No data received");
 			}
 
+			// console.log(data);
 			set({
 				adoptedTreesInfo: data,
 			});
