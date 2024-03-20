@@ -2,7 +2,7 @@ import React from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 
 export interface TreeCardProps {
-	id: number;
+	id: string;
 	name: string;
 	irrigationAmount: number;
 	irrigationTimes: number;
