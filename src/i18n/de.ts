@@ -86,7 +86,8 @@ const de: Content = {
 				forgotYourPassword: "Passwort vergessen?",
 				ohNoforgotYourPassword: "Oh nein. Du hast Dein",
 				passwordForgotten: "Passwort vergessen",
-				resetPasswordEmailSent: "E–Mail gesendet! Wir haben Dir eine E–Mail zum Ändern Deines Passworts gesendet. Checke Dein Postfach!",
+				resetPasswordEmailSent:
+					"E–Mail gesendet! Wir haben Dir eine E–Mail zum Ändern Deines Passworts gesendet. Checke Dein Postfach!",
 				clickHere: "Hier klicken",
 				resetPassword: "Passwort zurücksetzen",
 				invalidCredentials: "Falsches Passwort oder E-Mail Adresse",
@@ -406,6 +407,15 @@ Vernetzen:
 	common: {
 		defaultErrorMessage:
 			"Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.",
+	},
+	pumps: {
+		title: "Öffentliche Straßenpumpe",
+		status: "Status",
+		lastCheck: "Letzter Check",
+		update: "Status in OpenStreetMap aktualisieren",
+		working: "Funktionsfähig",
+		defect: "Defekt",
+		unknown: "Unbekannt",
 	},
 };
 

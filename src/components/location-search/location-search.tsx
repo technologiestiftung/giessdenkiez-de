@@ -11,7 +11,7 @@ interface LocationSearchProps {
 	onToggleShowFilter: (showFilter?: boolean) => void;
 }
 
-const LocationSearch: React.FC<LocationSearchProps> = ({
+export const LocationSearch: React.FC<LocationSearchProps> = ({
 	onToggleShowFilter,
 }) => {
 	const i18n = useI18nStore().i18n();
@@ -28,6 +28,9 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 	const { geocodingResults, clearGeocodingResults } = useGeocoding(search);
 
 	const isFilterVisible = useFilterStore((store) => store.isFilterViewVisible);
+	useEffect(() => {
+		clearSearch();
+	}, [isFilterVisible]);
 
 	useEffect(() => {
 		clearSearch();
@@ -154,5 +157,3 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 		</div>
 	);
 };
-
-export default LocationSearch;

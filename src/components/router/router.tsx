@@ -2,7 +2,7 @@ import React from "react";
 import { Filter } from "../filter/filter";
 import { useFilterStore } from "../filter/filter-store";
 import Info from "../info/info";
-import LocationSearch from "../location-search/location-search";
+import { LocationSearch } from "../location-search/location-search";
 import Navbar from "../navbar/navbar";
 import PageNotFound from "../page-not-found/page-not-found";
 import Profile from "../profile/profile";
