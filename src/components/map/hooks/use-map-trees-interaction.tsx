@@ -85,7 +85,12 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		if (map.isStyleLoaded()) {
 			map.setCenter([lng, lat]);
 			map.setZoom(zoom);
+			return;
 		}
+		map.on("load", () => {
+			map.setCenter([lng, lat]);
+			map.setZoom(zoom);
+		});
 	}, [map, lat, lng, zoom]);
 
 	useEffect(() => {
