@@ -7,6 +7,7 @@ import { useMapConstants } from "../map/hooks/use-map-constants";
 import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
 import { useFilterStore } from "../filter/filter-store";
+import { FilterIcon } from "../icons/filter-icon";
 
 interface LocationSearchProps {
 	onToggleShowFilter: (showFilter?: boolean) => void;
@@ -28,14 +29,11 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 	const { MAP_LOCATION_ZOOM_LEVEL } = useMapConstants();
 	const { geocodingResults, clearGeocodingResults } = useGeocoding(search);
 
-	const isFilterVisible = useFilterStore((store) => store.isFilterViewVisible);
-	useEffect(() => {
-		clearSearch();
-	}, [isFilterVisible]);
+	const { isFilterViewVisible, isSomeFilterActive } = useFilterStore();
 
 	useEffect(() => {
 		clearSearch();
-	}, [isFilterVisible]);
+	}, [isFilterViewVisible]);
 
 	const clearSearch = () => {
 		setSearch("");
@@ -148,14 +146,10 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 				)}
 			</div>
 			<div className="min-w-[10%] flex flex-col mr-1 lg:mr-0">
-				<button
-					className="p-3 rounded-full bg-white drop-shadow-md w-[56px] h-[56px] flex items-center justify-center"
-					onClick={() => {
-						onToggleShowFilter();
-					}}
-				>
-					<img src="/images/filter-icon-default.svg" alt="" />
-				</button>
+				<FilterIcon
+					onToggleShowFilter={onToggleShowFilter}
+					filtersActive={isSomeFilterActive()}
+				/>
 			</div>
 		</div>
 	);

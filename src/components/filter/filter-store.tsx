@@ -23,6 +23,7 @@ export interface FilterState {
 	isPumpsVisible: boolean;
 	isTreeWaterNeedVisible: boolean;
 	isFilterViewVisible: boolean;
+	isSomeFilterActive: () => boolean;
 	lat: number;
 	lng: number;
 	zoom: number;
@@ -101,7 +102,13 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 	zoom: zoomSearch
 		? parseFloat(zoomSearch)
 		: useMapConstants().MAP_INITIAL_ZOOM_LEVEL,
-
+	isSomeFilterActive: () => {
+		return (
+			get().isPumpsVisible ||
+			get().isTreeWaterNeedVisible ||
+			get().treeAgeIntervals.some((int) => !int.enabled)
+		);
+	},
 	setShowPumps: (showPumps) => {
 		set({ isPumpsVisible: showPumps });
 		const url = new URL(window.location.href);
