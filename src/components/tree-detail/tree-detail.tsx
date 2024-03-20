@@ -66,7 +66,6 @@ export const TreeDetail: React.FC = () => {
 					height={36}
 				/>
 				<div className="text-xl font-bold">{i18n.treeDetail.title}</div>
-				<div>hallo</div>
 			</div>
 			{treeData && (
 				<div className="flex flex-col">
