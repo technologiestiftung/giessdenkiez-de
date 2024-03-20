@@ -1,7 +1,7 @@
 import mapboxgl from "mapbox-gl";
 import React, { useEffect } from "react";
 import { useMapStore } from "../map-store";
-import { useCirclePaint } from "./use-circle-paint";
+import { useTreeCircleStyle } from "./use-tree-circle-style";
 import { useMapConstants } from "./use-map-constants";
 import { useMapTreesInteraction } from "./use-map-trees-interaction";
 import { useMapPumpsInteraction } from "./use-map-pumps-interaction";
@@ -31,7 +31,7 @@ export function useMapSetup(
 		circleStrokeColor,
 		circleColor,
 		circleStrokeWidth,
-	} = useCirclePaint();
+	} = useTreeCircleStyle();
 
 	const { selectedPumpIcon, unselectedPumpIcon, pumpIconSize } =
 		usePumpIconStyle();
