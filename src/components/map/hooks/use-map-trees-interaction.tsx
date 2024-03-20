@@ -32,15 +32,15 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				"circle-color",
 				filteredCircleColor(treeAgeIntervals),
 			);
-		} else {
-			map.on("load", () => {
-				map.setPaintProperty(
-					"trees",
-					"circle-color",
-					filteredCircleColor(treeAgeIntervals),
-				);
-			});
+			return;
 		}
+		map.on("load", () => {
+			map.setPaintProperty(
+				"trees",
+				"circle-color",
+				filteredCircleColor(treeAgeIntervals),
+			);
+		});
 	}, [map, treeAgeIntervals]);
 
 	useEffect(() => {
