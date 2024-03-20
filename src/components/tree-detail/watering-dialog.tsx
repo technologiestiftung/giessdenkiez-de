@@ -7,6 +7,7 @@ import { TreeData } from "./tree-types";
 import { format, parse, parseISO } from "date-fns";
 import "../../index.css";
 import { useI18nStore } from "../../i18n/i18n-store";
+import { useAuthStore } from "../../auth/auth-store";
 
 interface WateringDialogProps {
 	treeData: TreeData;
@@ -24,6 +25,8 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	const { fetchWateringData } = useFetchTreeWateringData(treeData);
 	const [amount, setAmount] = useState(0);
 	const [waterDate, setWaterDate] = useState(new Date());
+
+	const { refreshAdoptedTreesInfo } = useAuthStore();
 
 	return (
 		<dialog id="water-dialog" className="shadow-3xl flex-col rounded-lg p-8">
@@ -71,6 +74,7 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 						onClick={async () => {
 							await waterTree(amount, waterDate);
 							await fetchWateringData();
+							await refreshAdoptedTreesInfo();
 							close();
 						}}
 					/>
