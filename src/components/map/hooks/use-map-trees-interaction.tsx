@@ -19,7 +19,8 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 	const { treeData } = useTreeStore();
 
-	const treeAgeIntervals = useFilterStore().treeAgeIntervals;
+	const { treeAgeIntervals, lat, lng, zoom, setLat, setLng, setZoom } =
+		useFilterStore();
 
 	const { filteredCircleColor } = useTreeCircleStyle();
 
@@ -81,6 +82,30 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		if (!map) {
 			return;
 		}
+		if (map.isStyleLoaded()) {
+			map.setCenter([lng, lat]);
+			map.setZoom(zoom);
+			return;
+		}
+		map.on("load", () => {
+			map.setCenter([lng, lat]);
+			map.setZoom(zoom);
+		});
+	}, [map, lat, lng, zoom]);
+
+	useEffect(() => {
+		if (!map) {
+			return;
+		}
+
+		map.on("zoomend", () => {
+			setZoom(map.getZoom());
+		});
+
+		map.on("moveend", () => {
+			setLat(map.getCenter().lat);
+			setLng(map.getCenter().lng);
+		});
 
 		map.on("mousemove", "trees", (e) => {
 			if (!map || !e.features) {

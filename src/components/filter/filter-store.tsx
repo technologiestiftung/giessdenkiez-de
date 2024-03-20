@@ -2,6 +2,7 @@
 import { create } from "zustand";
 import { replaceUrlSearchParam } from "../../utils/url-utils";
 import { useUrlState } from "../router/store";
+import { useMapConstants } from "../map/hooks/use-map-constants";
 
 /* eslint-disable-next-line no-shadow */
 export enum TreeAgeIntervalIdentifier {
@@ -22,16 +23,26 @@ export interface FilterState {
 	isPumpsVisible: boolean;
 	isTreeWaterNeedVisible: boolean;
 	isFilterViewVisible: boolean;
+	isSomeFilterActive: () => boolean;
+	lat: number;
+	lng: number;
+	zoom: number;
 	toggleTreeAgeInterval: (interval: TreeAgeInterval) => void;
 	setShowPumps: (showPumps: boolean) => void;
 	setShowWaterNeedTrees: (showWaterNeedTrees: boolean) => void;
 	setIsFilterViewVisible: (isFilterViewVisible: boolean) => void;
 	resetFilters: () => void;
+	setLat: (lat: number) => void;
+	setLng: (lng: number) => void;
+	setZoom: (zoom: number) => void;
 }
 
 const treeAgeUrlKey = "treeAge";
 const isPumpsVisibleUrlKey = "isPumpsVisible";
 const isTreeWaterNeedVisibleUrlKey = "isTreeWaterNeedVisible";
+const zoomUrlKey = "zoom";
+const latUrlKey = "lat";
+const lngUrlKey = "lng";
 
 const ageIntervalSearch = new URL(window.location.href).searchParams.getAll(
 	treeAgeUrlKey,
@@ -44,6 +55,10 @@ const isPumpsVisibleSearch = new URL(window.location.href).searchParams.get(
 const isTreeWaterNeedVisibleSearch = new URL(
 	window.location.href,
 ).searchParams.get(isTreeWaterNeedVisibleUrlKey);
+
+const zoomSearch = new URL(window.location.href).searchParams.get(zoomUrlKey);
+const latSearch = new URL(window.location.href).searchParams.get(latUrlKey);
+const lngSearch = new URL(window.location.href).searchParams.get(lngUrlKey);
 
 export const useFilterStore = create<FilterState>()((set, get) => ({
 	treeAgeIntervals: [
@@ -82,6 +97,18 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 
 	isFilterViewVisible: false,
 
+	lat: latSearch ? parseFloat(latSearch) : useMapConstants().MAP_CENTER_LAT,
+	lng: lngSearch ? parseFloat(lngSearch) : useMapConstants().MAP_CENTER_LNG,
+	zoom: zoomSearch
+		? parseFloat(zoomSearch)
+		: useMapConstants().MAP_INITIAL_ZOOM_LEVEL,
+	isSomeFilterActive: () => {
+		return (
+			get().isPumpsVisible ||
+			get().isTreeWaterNeedVisible ||
+			get().treeAgeIntervals.some((int) => !int.enabled)
+		);
+	},
 	setShowPumps: (showPumps) => {
 		set({ isPumpsVisible: showPumps });
 		const url = new URL(window.location.href);
@@ -196,5 +223,20 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 			isPumpsVisible: false,
 			isTreeWaterNeedVisible: false,
 		});
+	},
+
+	setLat: (lat) => {
+		useUrlState.getState().addSearchParam("lat", lat.toString());
+		set({ lat });
+	},
+
+	setLng: (lng) => {
+		useUrlState.getState().addSearchParam("lng", lng.toString());
+		set({ lng });
+	},
+
+	setZoom: (zoom) => {
+		useUrlState.getState().addSearchParam("zoom", zoom.toString());
+		set({ zoom });
 	},
 }));
