@@ -14,6 +14,14 @@ interface RegistrationCredentials extends Credentials {
 	username: string;
 }
 
+interface TreeInfo {
+	id: string;
+	artdtsch: string;
+	trees_watered: Array<{ id: string; amount: number }>;
+	reducedWateringAmount: number;
+	wateringCount: number;
+}
+
 interface AuthState {
 	session: Session | null | undefined;
 	username: string | null;
@@ -33,7 +41,7 @@ interface AuthState {
 	updateUsername: (username: string) => Promise<void>;
 	deleteUser: () => Promise<void>;
 	adoptedTrees: Array<string> | null;
-	adoptedTreesInfo: Array<any> | null;
+	adoptedTreesInfo: Array<TreeInfo> | null;
 	refreshAdoptedTrees: () => Promise<void>;
 	refreshAdoptedTreesInfo: () => Promise<void>;
 }

@@ -29,7 +29,7 @@ export const Overview: React.FC = () => {
 					{i18n.navbar.profile.overview.liter}
 					<span className="flex items-baseline gap-x-5 text-5xl font-medium">
 						<img src="images/icon-drop.svg" alt="" className="w-5" />
-						{formatNumber(wateringAmountTotal)}
+						{formatNumber(wateringAmountTotal ?? 0)}
 					</span>
 				</div>
 
@@ -46,7 +46,7 @@ export const Overview: React.FC = () => {
 						{i18n.navbar.profile.overview.irrigations}
 						<span className="flex items-baseline gap-x-5 text-5xl font-medium">
 							<img src="images/icon-watering-can.svg" alt="" className="" />
-							{formatNumber(wateringCountTotal)}
+							{formatNumber(wateringCountTotal ?? 0)}
 						</span>
 					</div>
 				</div>
