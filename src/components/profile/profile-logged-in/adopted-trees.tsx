@@ -44,7 +44,7 @@ export const AdoptedTrees: React.FC = () => {
 								/>
 							))}
 					</div>
-					{adoptedTreesInfo.length > 3 && (
+					{adoptedTreesInfo.length > 4 && (
 						<div className=" pointer-events-auto flex justify-center pt-8">
 							<TertiaryButton
 								onClick={() => setshowAllTrees(!showAllTrees)}
