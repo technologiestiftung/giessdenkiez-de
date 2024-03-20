@@ -52,21 +52,25 @@ jobs:
       # - uses: supabase/setup-cli@v1
       #   with:
       #     version: 1.142.2
-      - name: Get the source for the api
-        id: checkout-api
-        uses: actions/checkout@v4
-        with:
-          repository: technologiestiftung/giessdenkiez-de-postgres-api
-          path: api
-      - uses: supabase/setup-cli@v1
-        with:
-          version: 1.142.2
 
       - run: npm ci
       - name: lint
         run: npm run lint
       - name: prettier
         run: npm run prettier:ci
+
+      # checkout the api repository
+      - name: Get the source for the api
+        id: checkout-api
+        uses: actions/checkout@v4
+        with:
+          repository: technologiestiftung/giessdenkiez-de-postgres-api
+          path: api
+            - uses: supabase/setup-cli@v1
+              with:
+                version: 1.142.2
+
+
         # Start the supabase
       - name: Start supabase
         run: |
