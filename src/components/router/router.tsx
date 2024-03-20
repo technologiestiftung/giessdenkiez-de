@@ -30,7 +30,9 @@ export const Router: React.FC = () => {
 		case "/map":
 			return (
 				<div
-					className={`flex h-screen w-screen flex-col-reverse justify-between lg:flex-row ${treeId && "bg-white"} lg:bg-transparent`}
+					className={`flex h-screen w-screen flex-col-reverse justify-between lg:flex-row ${
+						treeId && "bg-white"
+					} lg:bg-transparent`}
 				>
 					<div className={`${isFilterVisible && "bg-white sm:bg-transparent"}`}>
 						<div className={`${treeId ? "hidden" : "block sm:hidden"}`}>
@@ -45,7 +47,9 @@ export const Router: React.FC = () => {
 
 					<div className="mt-2 flex w-full flex-row justify-center">
 						<div
-							className={`${treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"} flex flex-col gap-4`}
+							className={`${
+								treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
+							} flex flex-col gap-4`}
 						>
 							<div className={`${treeId && "hidden lg:flex"}`}>
 								<LocationSearch

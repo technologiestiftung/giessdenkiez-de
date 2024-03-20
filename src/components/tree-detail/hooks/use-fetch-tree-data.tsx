@@ -18,7 +18,9 @@ export function useFetchTreeData(treeId: string | undefined): TreeDataState {
 
 		const fetchData = async () => {
 			try {
-				const geocodingUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/byid?id=${treeId}`;
+				const geocodingUrl = `${
+					import.meta.env.VITE_API_ENDPOINT
+				}/get/byid?id=${treeId}`;
 				const res = await fetch(geocodingUrl, {
 					method: "GET",
 					headers: {

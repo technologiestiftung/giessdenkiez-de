@@ -94,7 +94,9 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 			}
 
 			try {
-				const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/istreeadopted?uuid=${user?.id}&id=${treeId}`;
+				const adoptUrl = `${
+					import.meta.env.VITE_API_ENDPOINT
+				}/get/istreeadopted?uuid=${user?.id}&id=${treeId}`;
 				const res = await fetch(adoptUrl, {
 					method: "GET",
 					headers: {
@@ -116,7 +118,9 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 
 		const isTreeAdoptedByOthers = async () => {
 			try {
-				const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/wateredandadopted`;
+				const adoptUrl = `${
+					import.meta.env.VITE_API_ENDPOINT
+				}/get/wateredandadopted`;
 				const res = await fetch(adoptUrl, {
 					method: "GET",
 					headers: {
