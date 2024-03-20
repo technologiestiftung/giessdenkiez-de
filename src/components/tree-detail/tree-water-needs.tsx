@@ -17,12 +17,14 @@ interface TreeWaterNeedProps {
 	treeData: TreeData;
 	treeAgeClassification: TreeAgeClassification;
 	treeWateringData: TreeWateringData[];
+	onTreeWatered: () => void;
 }
 
 export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 	treeData,
 	treeAgeClassification,
 	treeWateringData,
+	onTreeWatered,
 }) => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
@@ -209,6 +211,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 							(
 								document.getElementById("water-dialog") as HTMLDialogElement
 							).close();
+							onTreeWatered();
 						}}
 					/>
 				</div>

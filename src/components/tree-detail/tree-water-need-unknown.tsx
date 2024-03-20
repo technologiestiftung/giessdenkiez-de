@@ -14,12 +14,14 @@ interface TreeWaterNeedUnknownProps {
 	treeData: TreeData;
 	treeAgeClassification: TreeAgeClassification;
 	treeWateringData: TreeWateringData[];
+	onTreeWatered: () => void;
 }
 
 export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 	treeData,
 	treeAgeClassification,
 	treeWateringData,
+	onTreeWatered,
 }) => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
@@ -129,6 +131,7 @@ export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 					(
 						document.getElementById("water-dialog") as HTMLDialogElement
 					).close();
+					onTreeWatered();
 				}}
 			/>
 		</div>
