@@ -102,9 +102,16 @@ interface QuestionAnswer {
 	answer: string;
 }
 
+interface QuestionAnswerHead {
+	question: string;
+	answer: string;
+	slackButton: string;
+	feedback: string;
+}
+
 interface Info {
 	about: {
-		head: QuestionAnswer;
+		head: QuestionAnswerHead;
 		qa: QuestionAnswer[];
 	};
 	faq: {
