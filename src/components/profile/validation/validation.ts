@@ -5,7 +5,7 @@ export function validatePassword(password: string): PasswordErrors {
 	const validLength = password.length > 8;
 	const upperAndLowerCase = /^(?=.*[a-z])(?=.*[A-Z]).+$/.test(password);
 	const number = /[0-9]/.test(password);
-	const special = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+	const special = /[\^°!"§$%&/()=?´`+*#'\-_.:,;{}|<>@]/.test(password);
 
 	return {
 		validLength,
@@ -16,7 +16,7 @@ export function validatePassword(password: string): PasswordErrors {
 }
 
 export function validateUsername(username: string): UsernameErrors {
-	const validLength = username.length > 3;
+	const validLength = username.length > 3 && username.length < 51;
 	const onlyNumberAndLetters = /^[a-zA-Z0-9]*$/.test(username);
 
 	return {

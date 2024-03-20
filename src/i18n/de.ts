@@ -54,15 +54,18 @@ export const de: Content = {
 			settings: {
 				subtitle: "Profildetails",
 				username: "Benutzername",
+				yourUsername: "Dein Benutzername",
 				editUsername: "Neuer Benutzername",
 				placeholderUser: "Dein Benutzername",
-				email: "Deine E-Mail Adresse",
+				email: "E-Mail",
+				yourEmail: "Deine E-Mail Adresse",
 				editEmail: "Neue E-Mail Adresse",
 				placeholderMail: "xyz@ts.berlin",
 				updateEmailEmailSent:
 					"Wir haben an Deine alte und neue E–Mail einen Bestätigungslink zum Ändern Deiner Email gesendet. Checke Deine Postfächer und logge Dich neu ein!",
 				password: "Passwort",
 				changePassword: "Passwort ändern",
+				newPassword: "Neues Passwort",
 				passwordChangeConfirmation:
 					'Dein Passwort wurde geändert. Klicke auf "ok" um zu deinem Profil zu kommen.',
 				deleteAccount: "Account löschen",
@@ -74,6 +77,8 @@ export const de: Content = {
 				usernameTaken: "Dieser Benutzername ist bereits vergeben",
 				backToLogin: "zurück zum Login",
 				register: "Registrieren",
+				confirmEmail: (email: string) =>
+					`Überprüfe Dein E-Mail Postfach für ${email} nach einer E-Mail von "noreply@mail.app.supabase.io" mit einem Link um deinen Account zu bestätigen.`,
 				existingAccount: "Du hast schon einen Account?",
 				logIn: "Melde Dich an",
 				passwordShould: "Dein Passwort muss enthalten:",
@@ -110,7 +115,11 @@ export const de: Content = {
 				question: "Über das Projekt",
 				answer: `Die Folgen des Klimawandels, insbesondere die trockenen und heißen Sommer, belasten das Berliner Ökosystem. Unsere Stadtbäume vertrocknen und tragen langfristige Schäden davon: In den letzten Jahren mussten immer mehr Bäume gefällt werden und ihre Lebensdauer sinkt. Inzwischen wird die Bevölkerung regelmäßig zur Unterstützung aufgerufen, allerdings weitgehend unkoordiniert. Dies möchten wir ändern und mit diesem Projekt eine koordinierte Bürger*innenbeteiligung bei der Bewässerung städtischen Grüns ermöglichen.
         
-Du möchtest Dich über das Gießen von Bäumen informieren, Pumpen melden und Dich mit anderen aktiven Nutzer:innen austauschen? Dann tritt unserem Slack-Chat bei! Du hast Feedback zu Gieß den Kiez? [Beantworte uns gerne ein paar Fragen](https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK)`,
+Du möchtest Dich über das Gießen von Bäumen informieren, Pumpen melden und Dich mit anderen aktiven Nutzer:innen austauschen? Dann tritt unserem Slack-Chat bei!`,
+				feedback: `Du hast Feedback zu Gieß den Kiez?
+
+[Beantworte uns gerne ein paar Fragen](https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK)`,
+				slackButton: "Zur Slack Community",
 			},
 			qa: [
 				{
@@ -188,7 +197,7 @@ Vernetzen:
 				},
 				{
 					question: "Wie gieße ich richtig?",
-					answer: `Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Jungbäume (0-15 Jahre), benötigen mehr Wasser als mittelalte Bäume (15-40 Jahre). Altbäume (ab 40 Jahre) sind meist komplette Selbstversorger. Da frisch gepflanzte Bäume bis zum Alter von drei Jahren in der Regel von den bezirklichen Grünflächenämtern mit Wasser versorgt werden, benötigen besonders die Bäume zwischen vier und 15 Jahren unsere Aufmerksamkeit, beziehungsweise unser Wasser. Dies haben wir mit den Kennzeichnungen des geringen, mittleren oder hohen Wasserbedarfs hervorgehoben. Angelehnt an das Berliner [Handbuch Gute Pflege](https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/handbuch-gute-pflege/) empfehlen wir euch, lieber selten, dafür mit größeren Menge an Wasser zu gießen. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Im Endeffekt schaden aber auch kleinere Mengen gerade im Hochsommer nicht. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht oberirdisch abläuft oder sich falsch anstaut. Auch zu empfehlen sind sogenannte Gießsäcke aus denen das Wasser nur sehr langsam austritt, kaum oberflächlich abläuft und somit kontinuierlich in den Boden sickert.`,
+					answer: `Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Jungbäume (0-15 Jahre), benötigen mehr Wasser als mittelalte Bäume (15-40 Jahre). Altbäume (ab 40 Jahre) sind meist komplette Selbstversorger. Da frisch gepflanzte Bäume bis zum Alter von drei Jahren in der Regel von den bezirklichen Grünflächenämtern mit Wasser versorgt werden, benötigen besonders die Bäume zwischen vier und 15 Jahren unsere Aufmerksamkeit, beziehungsweise unser Wasser. Angelehnt an das Berliner [Handbuch Gute Pflege](https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/handbuch-gute-pflege/) empfehlen wir euch, lieber selten, dafür mit größeren Menge an Wasser zu gießen. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Im Endeffekt schaden aber auch kleinere Mengen gerade im Hochsommer nicht. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht oberirdisch abläuft oder sich falsch anstaut. Auch zu empfehlen sind sogenannte Gießsäcke aus denen das Wasser nur sehr langsam austritt, kaum oberflächlich abläuft und somit kontinuierlich in den Boden sickert.`,
 				},
 				{
 					question:
@@ -230,7 +239,7 @@ Vernetzen:
 			content:
 				"Auf Gieß den Kiez kannst Du Dich über den Berliner Baumbestand erkundigen, durstige Bäume finden, und eintragen, wann Du diese gegossen hast!",
 			openSource:
-				"Gieß den Kiez ist ein [OpenSource Projekt](https://github.com/technologiestiftung/giessdenkiez-de)!",
+				"Gieß den Kiez ist ein [Open Source Projekt](https://github.com/technologiestiftung/giessdenkiez-de)!",
 		},
 		credits: {
 			projectBy: "Ein Projekt der",

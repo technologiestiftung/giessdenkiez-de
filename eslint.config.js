@@ -3,6 +3,7 @@ import tsbConfig from "@technologiestiftung/eslint-config";
 import { plugin as tsbPlugin } from "@technologiestiftung/eslint-plugin";
 import reactRecommended from "eslint-plugin-react/configs/recommended.js";
 
+// eslint-disable-next-line @technologiestiftung/no-default-export
 export default [
 	...tsbConfig,
 	reactRecommended,
@@ -16,6 +17,7 @@ export default [
 			},
 			globals: {
 				...globals.browser,
+				...globals.node,
 			},
 		},
 		rules: {

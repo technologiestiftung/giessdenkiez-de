@@ -68,7 +68,7 @@ export const EditEmail: React.FC = () => {
 			) : (
 				<>
 					<p className="mb-2 font-semibold">
-						{i18n.navbar.profile.settings.email}
+						{i18n.navbar.profile.settings.yourEmail}
 					</p>
 					<div className="flex flex-row justify-between gap-x-8">
 						<p className="italic">{getUserData()?.email}</p>

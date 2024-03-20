@@ -45,14 +45,17 @@ interface Navbar {
 		settings: {
 			subtitle: string;
 			username: string;
+			yourUsername: string;
 			editUsername: string;
 			placeholderUser: string;
 			email: string;
+			yourEmail: string;
 			editEmail: string;
 			placeholderMail: string;
 			updateEmailEmailSent: string;
 			password: string;
 			changePassword: string;
+			newPassword: string;
 			passwordChangeConfirmation: string;
 			deleteAccount: string;
 			approve: string;
@@ -63,6 +66,7 @@ interface Navbar {
 			usernameTaken: string;
 			backToLogin: string;
 			register: string;
+			confirmEmail: (email: string) => string;
 			existingAccount: string;
 			logIn: string;
 			passwordShould: string;
@@ -98,9 +102,16 @@ interface QuestionAnswer {
 	answer: string;
 }
 
+interface QuestionAnswerHead {
+	question: string;
+	answer: string;
+	slackButton: string;
+	feedback: string;
+}
+
 interface Info {
 	about: {
-		head: QuestionAnswer;
+		head: QuestionAnswerHead;
 		qa: QuestionAnswer[];
 	};
 	faq: {
