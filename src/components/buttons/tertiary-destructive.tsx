@@ -6,11 +6,9 @@ export interface TertiaryDestructiveButtonProps {
 	disabled?: boolean;
 }
 
-const TertiaryDestructiveButton: React.FC<TertiaryDestructiveButtonProps> = ({
-	label,
-	onClick,
-	disabled,
-}) => {
+export const TertiaryDestructiveButton: React.FC<
+	TertiaryDestructiveButtonProps
+> = ({ label, onClick, disabled }) => {
 	return (
 		<button
 			className={`hover:text-bg-gdk-light-blue enabled:hover:text-gdk-light-red" p-y-3.5
@@ -24,5 +22,3 @@ const TertiaryDestructiveButton: React.FC<TertiaryDestructiveButtonProps> = ({
 		</button>
 	);
 };
-
-export default TertiaryDestructiveButton;

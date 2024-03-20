@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { create } from "zustand";
 import { replaceUrlSearchParam } from "../../utils/url-utils";
 import { useUrlState } from "../router/store";

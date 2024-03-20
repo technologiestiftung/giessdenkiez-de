@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
-import EditIcon from "../../../icons/edit-icon";
+import { EditIcon } from "../../../icons/edit-icon";
 import { useAuthStore } from "../../../../auth/auth-store";
 import { EmailInputWithValidation } from "../../validation/email-input-with-validation";
 import { getErrorMessage } from "../../validation/validation";

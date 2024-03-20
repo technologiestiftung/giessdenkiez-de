@@ -1,6 +1,6 @@
 import React from "react";
 
-const MapIcon: React.FC = () => {
+export const MapIcon: React.FC = () => {
 	return (
 		<svg
 			width="26"
@@ -21,5 +21,3 @@ const MapIcon: React.FC = () => {
 		</svg>
 	);
 };
-
-export default MapIcon;

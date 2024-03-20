@@ -1,6 +1,6 @@
 import React from "react";
 
-const InfoIcon: React.FC = () => {
+export const InfoIcon: React.FC = () => {
 	return (
 		<svg
 			width="26"
@@ -30,5 +30,3 @@ const InfoIcon: React.FC = () => {
 		</svg>
 	);
 };
-
-export default InfoIcon;

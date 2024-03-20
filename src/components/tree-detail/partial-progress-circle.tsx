@@ -1,7 +1,7 @@
 import React from "react";
 import { PartialCircleProps } from "./tree-types";
 
-const PartialProgressCircle: React.FC<PartialCircleProps> = ({
+export const PartialProgressCircle: React.FC<PartialCircleProps> = ({
 	parts,
 	title,
 	size,
@@ -61,5 +61,3 @@ const PartialProgressCircle: React.FC<PartialCircleProps> = ({
 		</div>
 	);
 };
-
-export default PartialProgressCircle;

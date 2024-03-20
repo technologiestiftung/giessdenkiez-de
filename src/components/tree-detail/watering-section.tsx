@@ -1,6 +1,6 @@
 import React from "react";
 import { TreeWateringData } from "./tree-types";
-import WateringCard from "./watering-card";
+import { LastWaterings } from "./watering-card";
 
 interface WateringSectionProps {
 	title: string;
@@ -8,7 +8,7 @@ interface WateringSectionProps {
 	waterings: TreeWateringData[];
 }
 
-const WateringSection: React.FC<WateringSectionProps> = ({
+export const WateringSection: React.FC<WateringSectionProps> = ({
 	title,
 	noWateringsHint,
 	waterings,
@@ -20,12 +20,10 @@ const WateringSection: React.FC<WateringSectionProps> = ({
 			<div className="flex flex-col gap-4">
 				{waterings.map((wateringData, idx) => (
 					<div key={`watering-${idx}`}>
-						<WateringCard wateringData={wateringData}></WateringCard>
+						<LastWaterings wateringData={wateringData} />
 					</div>
 				))}
 			</div>
 		</div>
 	);
 };
-
-export default WateringSection;

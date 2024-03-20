@@ -5,7 +5,7 @@ import { useAuthStore } from "../../../auth/auth-store";
 import { Overview } from "./overview";
 import { AdoptedTrees } from "./adopted-trees";
 import { ProfileDetails } from "./profile-details/profile-details";
-import SecondaryButton from "../../buttons/secondary";
+import { SecondaryButton } from "../../buttons/secondary";
 import { PasswordReset } from "./password-reset";
 import { useErrorStore } from "../../../error/error-store.tsx";
 import { LanguageToggle } from "../../router/languageToggle.tsx";

@@ -2,7 +2,7 @@ import { Expression } from "mapbox-gl";
 import { useMapConstants } from "./use-map-constants.js";
 import resolveConfig from "tailwindcss/resolveConfig";
 
-//@ts-ignore
+//@ts-expect-error tailwindConfig has no type definition
 import tailwindConfig from "../../../../tailwind.config.js";
 import {
 	TreeAgeInterval,

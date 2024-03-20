@@ -1,6 +1,6 @@
 import React from "react";
 
-const ChevronRight: React.FC = () => {
+export const ChevronRight: React.FC = () => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -18,5 +18,3 @@ const ChevronRight: React.FC = () => {
 		</svg>
 	);
 };
-
-export default ChevronRight;

@@ -1,5 +1,5 @@
 import resolveConfig from "tailwindcss/resolveConfig";
-//@ts-ignore
+//@ts-expect-error tailwindConfig has no type definition
 import tailwindConfig from "../../../../tailwind.config.js";
 const fullConfig = resolveConfig(tailwindConfig);
 

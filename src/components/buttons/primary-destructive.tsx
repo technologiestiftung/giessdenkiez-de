@@ -6,11 +6,9 @@ export interface PrimaryDestructiveButtonProps {
 	disabled?: boolean;
 }
 
-const PrimaryDestructiveButton: React.FC<PrimaryDestructiveButtonProps> = ({
-	label,
-	onClick,
-	disabled,
-}) => {
+export const PrimaryDestructiveButton: React.FC<
+	PrimaryDestructiveButtonProps
+> = ({ label, onClick, disabled }) => {
 	return (
 		<button
 			className={`text-gdk-white bg-gdk-dark-red hover:bg-gdk-light-red disabled:bg-gdk-light-gray 
@@ -22,5 +20,3 @@ const PrimaryDestructiveButton: React.FC<PrimaryDestructiveButtonProps> = ({
 		</button>
 	);
 };
-
-export default PrimaryDestructiveButton;

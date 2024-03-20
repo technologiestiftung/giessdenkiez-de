@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import TextInput from "../../input/text-input";
+import { TextInput } from "../../input/text-input";
 import { Warning } from "./warning";
 import { checkIfUsernameIsTaken, validateUsername } from "./validation";
 import { UsernameErrors } from "./types";

@@ -5,7 +5,7 @@ import { useI18nStore } from "../../../i18n/i18n-store";
 import { EmailInputWithValidation } from "../validation/email-input-with-validation";
 import { UsernameInputWithValidation } from "../validation/username-input-with-validation";
 import { PasswordInputWithValidation } from "../validation/password-input-with-validation";
-import PrimaryButton from "../../buttons/primary";
+import { PrimaryButton } from "../../buttons/primary";
 import { useEmailTakenStore } from "../validation/email-taken-store";
 import { getErrorMessage } from "../validation/validation";
 import { useErrorStore } from "../../../error/error-store";
