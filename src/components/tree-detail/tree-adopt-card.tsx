@@ -2,8 +2,9 @@ import React, { useMemo, useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { useAdoptTree } from "./hooks/use-adopt-tree";
 import { TreeAgeClassification, TreeData } from "./tree-types";
-import AdoptTreeTooltip from "./tooltip";
-import HeartIcon, {
+import { Tooltip as AdoptTreeTooltip } from "./tooltip";
+import {
+	HeartIcon,
 	HeartIconFillState,
 	HeartIconState,
 } from "../icons/heart-icon";
@@ -13,7 +14,7 @@ interface TreeAdoptCardProps {
 	treeAgeClassification: TreeAgeClassification;
 }
 
-const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
+export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 	treeData,
 	treeAgeClassification,
 }) => {
@@ -47,9 +48,10 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 						onClick={async () => {
 							if (!isAdopted) {
 								await adoptTree();
-							} else {
-								await unadoptTree();
+								return;
 							}
+
+							await unadoptTree();
 						}}
 						onMouseEnter={() => setHeartHovered(true)}
 						onMouseLeave={() => setHeartHovered(false)}
@@ -128,5 +130,3 @@ const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 		</div>
 	);
 };
-
-export default TreeAdoptCard;

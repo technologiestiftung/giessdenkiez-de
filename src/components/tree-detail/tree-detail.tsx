@@ -1,29 +1,33 @@
 import React, { useMemo } from "react";
-import CloseIcon from "../icons/close-icon";
+import { CloseIcon } from "../icons/close-icon";
 import { useUrlState } from "../router/store";
 import { useFetchTreeData } from "./hooks/use-fetch-tree-data";
-import TreeAge from "./tree-age";
-import TreeAdoptCard from "./tree-adopt-card";
+import { TreeAge } from "./tree-age";
+import { TreeAdoptCard } from "./tree-adopt-card";
 import { useTreeStore } from "./tree-store";
-import useSelectedTree from "../map/hooks/use-selected-tree";
+import { useSelectedTree } from "../map/hooks/use-selected-tree";
 import { useI18nStore } from "../../i18n/i18n-store";
-import TreeWaterNeed from "./tree-water-needs";
-import TreeWaterNeedUnknown from "./tree-water-need-unknown";
+import { TreeWaterNeed } from "./tree-water-needs";
+import { TreeWaterNeedUnknown } from "./tree-water-need-unknown";
 import { TreeAgeClassification } from "./tree-types";
 import { useTreeAgeClassification } from "./hooks/use-tree-age-classification";
-import LastWaterings from "./last-waterings";
-import ProblemCard from "./problem-card";
-import TreeFlier from "./tree-flier";
+import { LastWaterings } from "./last-waterings";
+import { ProblemCard } from "./problem-card";
+import { TreeFlier } from "./tree-flier";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 
-const TreeDetail: React.FC = () => {
+export const TreeDetail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
-	const [url, setPathname] = useUrlState((state) => [
+	const [url, setPathname, removeSearchParam] = useUrlState((state) => [
 		state.url,
 		state.setPathname,
+		state.removeSearchParam,
 	]);
-	const treeId = url.searchParams.get("treeId")!;
+	const treeId = url.searchParams.get("treeId");
+	if (!treeId) {
+		return null;
+	}
 
 	const { setTreeData } = useTreeStore();
 	const { setSelectedTreeId } = useSelectedTree();
@@ -38,13 +42,14 @@ const TreeDetail: React.FC = () => {
 	}, [treeData]);
 
 	return (
-		<div className="pointer-events-auto h-full bg-white flex w-[100vw] flex-col gap-4 overflow-hidden overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">
+		<div className="pointer-events-auto h-full bg-white flex w-[100vw] flex-col gap-4 overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">
 			<a
 				href="/map"
 				className="flex flex-row justify-end"
 				onClick={(e) => {
 					e.preventDefault();
 					setPathname("/map");
+					removeSearchParam("treeId");
 					setTreeData(undefined);
 					setSelectedTreeId(undefined);
 				}}
@@ -97,5 +102,3 @@ const TreeDetail: React.FC = () => {
 		</div>
 	);
 };
-
-export default TreeDetail;

@@ -7,8 +7,8 @@ import {
 	TreeData,
 	TreeWateringData,
 } from "./tree-types";
-import Tooltip from "./tooltip";
-import WateringDialog from "./watering-dialog";
+import { Tooltip } from "./tooltip";
+import { WateringDialog } from "./watering-dialog";
 
 interface TreeWaterNeedUnknownProps {
 	treeData: TreeData;
@@ -16,7 +16,7 @@ interface TreeWaterNeedUnknownProps {
 	treeWateringData: TreeWateringData[];
 }
 
-const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
+export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 	treeData,
 	treeAgeClassification,
 	treeWateringData,
@@ -105,9 +105,10 @@ const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 				<button
 					className={`my-4 flex h-[51px] w-full items-center justify-center rounded-[10px] bg-gdk-blue px-8 font-semibold text-gdk-white hover:bg-gdk-light-blue disabled:bg-gdk-light-gray sm:w-fit`}
 					disabled={false}
-					onClick={async () => {
-						//@ts-ignore
-						document.getElementById("water-dialog")?.showModal();
+					onClick={() => {
+						(
+							document.getElementById("water-dialog") as HTMLDialogElement
+						).showModal();
 					}}
 				>
 					<div className="flex flex-row items-center gap-2">
@@ -125,12 +126,11 @@ const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 			<WateringDialog
 				treeData={treeData}
 				close={() => {
-					//@ts-ignore
-					document.getElementById("water-dialog")?.close();
+					(
+						document.getElementById("water-dialog") as HTMLDialogElement
+					).close();
 				}}
 			/>
 		</div>
 	);
 };
-
-export default TreeWaterNeedUnknown;

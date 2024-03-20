@@ -52,10 +52,23 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		get().refreshUsername();
 		get().refreshAdoptedTrees();
 		get().refreshAdoptedTreesInfo();
+
+		if (!session) {
+			return;
+		}
+
+		get().refreshUsername().catch(console.error);
+
 	});
 
 	supabaseClient.auth.onAuthStateChange((_event, session) => {
 		set({ session });
+
+		if (!session) {
+			return;
+		}
+
+		get().refreshUsername().catch(console.error);
 	});
 
 	return {
@@ -149,12 +162,9 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 				.select("username")
 				.eq("id", get().session?.user?.id);
 
-			if (error) throw new Error("Benutzername konnte nicht gefunden werden");
-
-			if (data.length > 1)
-				throw new Error(
-					"Benutzername konnte nicht eindeutig identifiziert werden",
-				);
+			if (error) {
+				throw error;
+			}
 
 			const currentUsername = await data[0].username;
 			set({ username: currentUsername });
@@ -184,7 +194,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		},
 
 		register: async ({ email, username, password }) => {
-			const { data, error } = await supabaseClient.auth.signUp({
+			const { error } = await supabaseClient.auth.signUp({
 				email,
 				password,
 				options: {
@@ -198,7 +208,12 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 				throw error;
 			}
 
-			set({ session: data.session });
+			alert(
+				useI18nStore
+					.getState()
+					.i18n()
+					.navbar.profile.settings.confirmEmail(email),
+			);
 		},
 
 		deleteUser: async () => {

@@ -1,5 +1,5 @@
 import resolveConfig from "tailwindcss/resolveConfig";
-//@ts-ignore
+//@ts-expect-error tailwindConfig has no type definition
 import tailwindConfig from "../../../../tailwind.config.js";
 const fullConfig = resolveConfig(tailwindConfig);
 
@@ -10,12 +10,33 @@ export function useMapConstants() {
 		import.meta.env.VITE_MAP_LOCATION_ZOOM_LEVEL,
 	);
 	const TREE_DEFAULT_COLOR = fullConfig.theme.colors["gdk-tree-green"];
+	const TREE_GRAY_COLOR = fullConfig.theme.colors["gdk-light-gray"];
+
 	const MAP_MIN_ZOOM_LEVEL = parseInt(import.meta.env.VITE_MAP_MIN_ZOOM_LEVEL);
 	const MAP_INITIAL_ZOOM_LEVEL = parseInt(
 		import.meta.env.VITE_MAP_INITIAL_ZOOM_LEVEL,
 	);
 	const MAP_CENTER_LNG = parseFloat(import.meta.env.VITE_MAP_CENTER_LNG);
 	const MAP_CENTER_LAT = parseFloat(import.meta.env.VITE_MAP_CENTER_LAT);
+
+	const MAP_PUMP_IMAGE_ICONS = [
+		{
+			url: "/images/pump_functioning_selected.png",
+			id: "pump_functioning_selected",
+		},
+		{
+			url: "/images/pump_functioning_unselected.png",
+			id: "pump_functioning_unselected",
+		},
+		{
+			url: "/images/pump_not_functioning_selected.png",
+			id: "pump_not_functioning_selected",
+		},
+		{
+			url: "/images/pump_not_functioning_unselected.png",
+			id: "pump_not_functioning_unselected",
+		},
+	];
 
 	return {
 		MAP_PITCH_DEGREES,
@@ -26,5 +47,7 @@ export function useMapConstants() {
 		TREE_DEFAULT_COLOR,
 		MAP_CENTER_LNG,
 		MAP_CENTER_LAT,
+		MAP_PUMP_IMAGE_ICONS,
+		TREE_GRAY_COLOR,
 	};
 }

@@ -23,15 +23,26 @@ export function useGeocoding(search: string): GeocodingResultState {
 	};
 
 	useEffect(() => {
+		if (search.trim().length < 3) {
+			setGeocodingResults([]);
+			return () => {};
+		}
+
 		const abortController = new AbortController();
 
 		const fetchData = async () => {
 			try {
-				const geocodingUrl = `${import.meta.env.VITE_MAPBOX_API_ENDPOINT}/geocoding/v5/mapbox.places/${search}.json?autocomplete=true&language=de&country=de&bbox=${import.meta.env.VITE_MAP_BOUNDING_BOX}&access_token=${import.meta.env.VITE_MAPBOX_API_KEY}`;
+				const geocodingUrl = `${
+					import.meta.env.VITE_MAPBOX_API_ENDPOINT
+				}/geocoding/v5/mapbox.places/${search}.json?autocomplete=true&language=de&country=de&bbox=${
+					import.meta.env.VITE_MAP_BOUNDING_BOX
+				}&access_token=${import.meta.env.VITE_MAPBOX_API_KEY}`;
 				const res = await fetch(geocodingUrl, {
 					signal: abortController.signal,
 				});
-				if (!res.ok) return [];
+				if (!res.ok) {
+					return;
+				}
 				const json = (await res.json()) as { features: GeocodingResult[] };
 				setGeocodingResults(json.features);
 			} catch (_) {
@@ -39,11 +50,7 @@ export function useGeocoding(search: string): GeocodingResultState {
 			}
 		};
 
-		if (search.trim() !== "" && search.trim().length >= 3) {
-			fetchData();
-		} else {
-			setGeocodingResults([]);
-		}
+		fetchData().catch(console.error);
 
 		return () => {
 			abortController.abort();

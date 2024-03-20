@@ -1,9 +1,12 @@
 import mapboxgl from "mapbox-gl";
 import React, { useEffect } from "react";
 import { useMapStore } from "../map-store";
-import { useCirclePaint } from "./use-circle-paint";
+import { useTreeCircleStyle } from "./use-tree-circle-style";
 import { useMapConstants } from "./use-map-constants";
-import { useMapInteraction } from "./use-map-interaction";
+import { useMapTreesInteraction } from "./use-map-trees-interaction";
+import { useMapPumpsInteraction } from "./use-map-pumps-interaction";
+import { useFilterStore } from "../../filter/filter-store";
+import { usePumpIconStyle } from "./use-pump-icon-style";
 
 export function useMapSetup(
 	mapContainer: React.MutableRefObject<HTMLDivElement | null>,
@@ -14,10 +17,13 @@ export function useMapSetup(
 		MAP_INITIAL_ZOOM_LEVEL,
 		MAP_CENTER_LNG,
 		MAP_CENTER_LAT,
+		MAP_PUMP_IMAGE_ICONS,
 	} = useMapConstants();
 
 	const { map, setMap } = useMapStore();
-	useMapInteraction(map);
+
+	useMapTreesInteraction(map);
+	useMapPumpsInteraction(map);
 
 	const {
 		circleRadius,
@@ -25,15 +31,20 @@ export function useMapSetup(
 		circleStrokeColor,
 		circleColor,
 		circleStrokeWidth,
-	} = useCirclePaint();
+	} = useTreeCircleStyle();
+
+	const { selectedPumpIcon, unselectedPumpIcon, pumpIconSize } =
+		usePumpIconStyle();
+
+	const isPumpsVisible = useFilterStore((store) => store.isPumpsVisible);
 
 	useEffect(() => {
 		if (!mapContainer.current) {
 			return;
 		}
 
-		const map = new mapboxgl.Map({
-			container: mapContainer.current!,
+		const initializedMap = new mapboxgl.Map({
+			container: mapContainer.current,
 			style: import.meta.env.VITE_MAPBOX_STYLE_URL,
 			center: [MAP_CENTER_LNG, MAP_CENTER_LAT],
 			zoom: MAP_INITIAL_ZOOM_LEVEL,
@@ -41,14 +52,14 @@ export function useMapSetup(
 			pitch: MAP_PITCH_DEGREES,
 		});
 
-		map.on("load", () => {
-			map.addSource("trees", {
+		initializedMap.on("load", async () => {
+			initializedMap.addSource("trees", {
 				type: "vector",
 				url: import.meta.env.VITE_MAPBOX_TREES_TILESET_URL,
 				promoteId: "id",
 			});
 
-			map.addLayer({
+			initializedMap.addLayer({
 				id: "trees",
 				type: "circle",
 				source: "trees",
@@ -63,9 +74,57 @@ export function useMapSetup(
 					"circle-stroke-width": circleStrokeWidth,
 				},
 			});
+
+			Promise.all(
+				MAP_PUMP_IMAGE_ICONS.map(
+					(img) =>
+						new Promise<void>((resolve) => {
+							initializedMap.loadImage(img.url, function (error, image) {
+								if (error || !image) {
+									return;
+								}
+								initializedMap.addImage(img.id, image);
+								resolve();
+							});
+						}),
+				),
+			).then(() => {
+				initializedMap.addSource("pumps", {
+					type: "geojson",
+					data: import.meta.env.VITE_MAP_PUMPS_SOURCE_URL,
+					promoteId: "id",
+				});
+
+				initializedMap.addLayer({
+					id: "pumps",
+					type: "symbol",
+					source: "pumps",
+					layout: {
+						"icon-allow-overlap": true,
+						"icon-anchor": "top",
+						visibility: isPumpsVisible ? "visible" : "none",
+						"icon-image": unselectedPumpIcon,
+						"icon-size": pumpIconSize,
+					},
+				});
+
+				initializedMap.addLayer({
+					id: "pumps-highlight",
+					type: "symbol",
+					source: "pumps",
+					filter: ["==", "id", ""],
+					layout: {
+						"icon-allow-overlap": true,
+						"icon-anchor": "top",
+						visibility: isPumpsVisible ? "visible" : "none",
+						"icon-image": selectedPumpIcon,
+						"icon-size": pumpIconSize,
+					},
+				});
+			});
 		});
 
-		map.addControl(
+		initializedMap.addControl(
 			new mapboxgl.GeolocateControl({
 				positionOptions: {
 					enableHighAccuracy: true,
@@ -78,11 +137,11 @@ export function useMapSetup(
 			}),
 			"bottom-left",
 		);
-		map.addControl(
+		initializedMap.addControl(
 			new mapboxgl.NavigationControl({ showCompass: false, showZoom: true }),
 			"bottom-left",
 		);
 
-		setMap(map);
+		setMap(initializedMap);
 	}, [mapContainer]);
 }

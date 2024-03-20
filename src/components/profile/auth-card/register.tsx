@@ -5,7 +5,7 @@ import { useI18nStore } from "../../../i18n/i18n-store";
 import { EmailInputWithValidation } from "../validation/email-input-with-validation";
 import { UsernameInputWithValidation } from "../validation/username-input-with-validation";
 import { PasswordInputWithValidation } from "../validation/password-input-with-validation";
-import PrimaryButton from "../../buttons/primary";
+import { PrimaryButton } from "../../buttons/primary";
 import { useEmailTakenStore } from "../validation/email-taken-store";
 import { getErrorMessage } from "../validation/validation";
 import { useErrorStore } from "../../../error/error-store";
@@ -57,7 +57,9 @@ export const Register: React.FC = () => {
 			</h1>
 			<form onSubmit={onSubmit} className="flex flex-col">
 				<div className="flex flex-col gap-y-2 pt-5">
-					<EmailInputWithValidation label="E-mail" />
+					<EmailInputWithValidation
+						label={i18n.navbar.profile.settings.email}
+					/>
 				</div>
 
 				<div className="flex flex-col gap-y-2 pt-6">

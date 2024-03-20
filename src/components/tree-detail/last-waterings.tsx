@@ -1,16 +1,18 @@
 import { isSameMonth, isSameWeek, isSameYear } from "date-fns";
 import React, { useMemo, useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import ChevronDown from "../icons/chevron-down";
-import ChevronRight from "../icons/chevron-right";
+import { ChevronDown } from "../icons/chevron-down";
+import { ChevronRight } from "../icons/chevron-right";
 import { TreeWateringData } from "./tree-types";
-import WateringSection from "./watering-section";
+import { WateringSection } from "./watering-section";
 
 interface LastWateringsProps {
 	treeWateringData: TreeWateringData[];
 }
 
-const LastWaterings: React.FC<LastWateringsProps> = ({ treeWateringData }) => {
+export const LastWaterings: React.FC<LastWateringsProps> = ({
+	treeWateringData,
+}) => {
 	const i18n = useI18nStore().i18n();
 	const [isExpanded, setIsExpanded] = useState(false);
 	const now = new Date();
@@ -85,5 +87,3 @@ const LastWaterings: React.FC<LastWateringsProps> = ({ treeWateringData }) => {
 		</div>
 	);
 };
-
-export default LastWaterings;

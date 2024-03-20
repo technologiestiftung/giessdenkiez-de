@@ -1,6 +1,7 @@
+/* eslint-disable max-lines */
 import { Content } from "./content-types";
 
-const en: Content = {
+export const en: Content = {
 	map: {
 		attribution: {
 			mapbox: {
@@ -53,15 +54,18 @@ const en: Content = {
 			settings: {
 				subtitle: "Profile details",
 				username: "Username",
+				yourUsername: "Your username",
 				editUsername: "New username",
 				placeholderUser: "Your username",
 				updateEmailEmailSent:
 					"We sent you an email with a link to both your old and your new email address to confirm the change. Check your mailbox!",
-				email: "You email address",
+				email: "Email",
+				yourEmail: "Your email address",
 				editEmail: "New email address",
 				placeholderMail: "xyz@ts.berlin",
 				password: "Password",
 				changePassword: "Change password",
+				newPassword: "New password",
 				passwordChangeConfirmation:
 					'Password changed, press "ok" to go to your profile',
 				deleteAccount: "Delete account",
@@ -73,6 +77,8 @@ const en: Content = {
 				usernameTaken: "This username is already taken",
 				backToLogin: "Back to login",
 				register: "Register",
+				confirmEmail: (email: string) =>
+					`Check your inbox for "${email}", you should have received a mail from "noreply@mail.app.supabase.io" containing a link to activate your account.`,
 				existingAccount: "Do you already have an account?",
 				logIn: "Login",
 				passwordShould: "Your password needs to contain:",
@@ -108,10 +114,10 @@ const en: Content = {
 				question: "About the project",
 				answer: `The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin's ecosystem.
       
-Would you like to find out more about watering trees, report pumps and exchange ideas with other active users?
-
-Do you have feedback about Gieß den Kiez?
-
+Would you like to find out more about watering trees, report pumps and exchange ideas with other active users?`,
+				slackButton: "Go to Slack Community",
+				feedback: `Do you have feedback about Gieß den Kiez?
+				
 [Please answer a few questions](https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK)`,
 			},
 			qa: [
@@ -189,7 +195,7 @@ The street and green space authorities are already active, but cannot keep up wi
 					question: "How do I water correctly?",
 					answer: `Depending on their age, location and tree species, trees need different amounts of water. Young trees (0-15 years) need more water than medium-aged trees (15-40 years). Old trees (40 years and older) are usually completely self-sufficient. 
           
-Since freshly planted trees up to the age of three are usually supplied with water by the district parks authorities, the trees between four and 15 years in particular need our attention and our water. We have highlighted this with the labels of low, medium or high water requirement. 
+Since freshly planted trees up to the age of three are usually supplied with water by the district parks authorities, the trees between four and 15 years in particular need our attention and our water.
           
 Based on the Berlin [Manual Good Care](https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/katalog-good-care/), we recommend you to water rarely, but rather with a larger amount of water. The manual recommends up to 200l per watering for freshly planted trees. In this way, you ensure that the soil moisture is increased even at depth. In the end, even smaller amounts do not hurt, especially in midsummer. It is important to loosen the dried out soil before watering so that the water can penetrate into the soil and does not run off above ground or accumulate incorrectly. So-called watering bags are also recommended, from which the water only emerges very slowly, hardly runs off the surface and therefore continuously seeps into the ground.`,
 				},
@@ -231,7 +237,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			content:
 				"On Gieß den Kiez you can find out about Berlin's tree population, find thirsty trees and record when you watered them!",
 			openSource:
-				"Gieß den Kiez is an [OpenSource Project](https://github.com/technologiestiftung/giessdenkiez-de)!",
+				"Gieß den Kiez is an [Open Source Project](https://github.com/technologiestiftung/giessdenkiez-de)!",
 		},
 		credits: {
 			projectBy: "A project of",
@@ -318,7 +324,7 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		problem: {
 			title: "Report a problem",
 			description:
-				"Have you discovered tree damage or is the tree disk being misused? Tell the public order office!",
+				"Have you discovered tree damage or is the tree disk being misused? Tell the public order office:",
 			link: "To the official form",
 		},
 		treeTypeInfos: [
@@ -403,9 +409,27 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		],
 		treeTypeInfoTitle: "Tree profile",
 	},
+	filter: {
+		title: "Filter",
+		publicPumps: "Public pumps",
+		waterNeedTrees: "Trees in need of water",
+		treeAge: "Tree age",
+		youngTrees: "0 - 3 years",
+		mediumTrees: "4 - 40 years",
+		oldTrees: "+40 years",
+		show: "Show",
+		reset: "Reset",
+	},
 	common: {
 		defaultErrorMessage: "Something went wrong! Please try again later.",
 	},
+	pumps: {
+		title: "Public pump",
+		status: "Status",
+		lastCheck: "Last check",
+		update: "Update status in OpenStreetMap",
+		working: "Working",
+		defect: "Broken",
+		unknown: "Unknown",
+	},
 };
-
-export default en;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
-import EditIcon from "../../../icons/edit-icon";
+import { EditIcon } from "../../../icons/edit-icon";
 import { useAuthStore } from "../../../../auth/auth-store";
 import { UsernameInputWithValidation } from "../../validation/username-input-with-validation";
 import { useErrorStore } from "../../../../error/error-store";
@@ -17,7 +17,7 @@ export const EditUsername: React.FC = () => {
 		const form = e.currentTarget;
 		setIsUsernameInputEnabled(false);
 
-		const isSameUsername = form.username.value === username ?? "";
+		const isSameUsername = form.username.value === username;
 		if (isSameUsername) {
 			return;
 		}
@@ -53,7 +53,7 @@ export const EditUsername: React.FC = () => {
 			) : (
 				<>
 					<p className="mb-2 font-semibold">
-						{i18n.navbar.profile.settings.username}
+						{i18n.navbar.profile.settings.yourUsername}
 					</p>
 					<div className="flex flex-row justify-between gap-x-8">
 						<p className="italic">{username ?? ""}</p>

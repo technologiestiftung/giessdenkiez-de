@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 type TreeTypeId =
 	| "LINDE"
 	| "AHORN"
@@ -44,14 +45,17 @@ interface Navbar {
 		settings: {
 			subtitle: string;
 			username: string;
+			yourUsername: string;
 			editUsername: string;
 			placeholderUser: string;
 			email: string;
+			yourEmail: string;
 			editEmail: string;
 			placeholderMail: string;
 			updateEmailEmailSent: string;
 			password: string;
 			changePassword: string;
+			newPassword: string;
 			passwordChangeConfirmation: string;
 			deleteAccount: string;
 			approve: string;
@@ -62,6 +66,7 @@ interface Navbar {
 			usernameTaken: string;
 			backToLogin: string;
 			register: string;
+			confirmEmail: (email: string) => string;
 			existingAccount: string;
 			logIn: string;
 			passwordShould: string;
@@ -97,9 +102,16 @@ interface QuestionAnswer {
 	answer: string;
 }
 
+interface QuestionAnswerHead {
+	question: string;
+	answer: string;
+	slackButton: string;
+	feedback: string;
+}
+
 interface Info {
 	about: {
-		head: QuestionAnswer;
+		head: QuestionAnswerHead;
 		qa: QuestionAnswer[];
 	};
 	faq: {
@@ -188,8 +200,30 @@ interface TreeDetail {
 	treeTypeInfoTitle: string;
 }
 
+interface Filter {
+	title: string;
+	publicPumps: string;
+	waterNeedTrees: string;
+	treeAge: string;
+	youngTrees: string;
+	mediumTrees: string;
+	oldTrees: string;
+	show: string;
+	reset: string;
+}
+
 interface Common {
 	defaultErrorMessage: string;
+}
+
+interface Pumps {
+	title: string;
+	status: string;
+	lastCheck: string;
+	update: string;
+	working: string;
+	defect: string;
+	unknown: string;
 }
 
 export interface Content {
@@ -227,4 +261,6 @@ export interface Content {
 	notFound: NotFound;
 	info: Info;
 	treeDetail: TreeDetail;
+	filter: Filter;
+	pumps: Pumps;
 }

@@ -1,11 +1,11 @@
 import React from "react";
-import CloseIcon from "../components/icons/close-icon";
+import { CloseIcon } from "../components/icons/close-icon";
 import { useErrorStore } from "./error-store";
 
 interface ErrorToastProps {
 	error: string;
 }
-const ErrorToast: React.FC<ErrorToastProps> = ({ error }) => {
+export const ErrorToast: React.FC<ErrorToastProps> = ({ error }) => {
 	const clearErrors = useErrorStore().clearErrors;
 	return (
 		<div className="absolute bottom-5 left-0 right-0 z-[1000000] px-4 text-sm md:bottom-10 md:text-lg">
@@ -22,5 +22,3 @@ const ErrorToast: React.FC<ErrorToastProps> = ({ error }) => {
 		</div>
 	);
 };
-
-export default ErrorToast;

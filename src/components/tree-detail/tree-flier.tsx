@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import ChevronDown from "../icons/chevron-down";
-import ChevronRight from "../icons/chevron-right";
+import { ChevronDown } from "../icons/chevron-down";
+import { ChevronRight } from "../icons/chevron-right";
 
 interface TreeFlierProps {
 	info: string;
 }
 
-const TreeFlier: React.FC<TreeFlierProps> = ({ info }) => {
+export const TreeFlier: React.FC<TreeFlierProps> = ({ info }) => {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const i18n = useI18nStore().i18n();
 
@@ -31,5 +31,3 @@ const TreeFlier: React.FC<TreeFlierProps> = ({ info }) => {
 		</div>
 	);
 };
-
-export default TreeFlier;
