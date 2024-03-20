@@ -19,6 +19,7 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 
 	const access_token = useAuthStore((store) => store).session?.access_token;
 	const user = useAuthStore((store) => store).session?.user;
+	const { refreshAdoptedTreesInfo } = useAuthStore();
 
 	const abortController = new AbortController();
 	const [adoptLoading, setAdoptLoading] = useState(false);
@@ -48,6 +49,7 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 			}
 			setIsAdopted(true);
 			setAdoptLoading(false);
+			refreshAdoptedTreesInfo();
 		} catch (error) {
 			handleError(i18n.treeDetail.adoptErrorMessage, error);
 			setAdoptLoading(false);
@@ -77,6 +79,7 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 			}
 			setIsAdopted(false);
 			setAdoptLoading(false);
+			refreshAdoptedTreesInfo();
 		} catch (error) {
 			handleError(i18n.treeDetail.adoptErrorMessage, error);
 			setAdoptLoading(false);

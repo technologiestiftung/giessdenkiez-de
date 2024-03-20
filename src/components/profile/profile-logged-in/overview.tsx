@@ -25,7 +25,7 @@ export const Overview: React.FC = () => {
 			</h2>
 
 			<div className="mt-7 flex flex-col gap-3 lg:flex-row ">
-				<div className="shadow-gdk-soft  flex flex-col justify-between gap-3  rounded-2xl border-2 p-4 font-semibold">
+				<div className="shadow-gdk-soft  flex flex-col justify-between gap-3 lg:min-w-36 rounded-2xl border-2 p-4 font-semibold">
 					{i18n.navbar.profile.overview.liter}
 					<span className="flex items-baseline gap-x-5 text-5xl font-medium">
 						<img src="images/icon-drop.svg" alt="" className="w-5" />
@@ -34,7 +34,7 @@ export const Overview: React.FC = () => {
 				</div>
 
 				<div className="flex gap-3">
-					<div className="shadow-gdk-soft flex w-full flex-col justify-between gap-3  rounded-2xl border-2 p-4 font-semibold">
+					<div className="shadow-gdk-soft flex w-full flex-col justify-between gap-3 lg:min-w-36 rounded-2xl border-2 p-4 font-semibold">
 						{i18n.navbar.profile.overview.adoptedTrees}
 						<span className="flex items-baseline gap-x-5 text-5xl font-medium">
 							<img src="images/icon-tree.svg" alt="" className="w-[1.625rem]" />
@@ -42,7 +42,7 @@ export const Overview: React.FC = () => {
 						</span>
 					</div>
 
-					<div className="shadow-gdk-soft flex w-full flex-col justify-between gap-3  rounded-2xl border-2 p-4 font-semibold">
+					<div className="shadow-gdk-soft flex w-full flex-col justify-between gap-3 lg:min-w-36 rounded-2xl border-2 p-4 font-semibold">
 						{i18n.navbar.profile.overview.irrigations}
 						<span className="flex items-baseline gap-x-5 text-5xl font-medium">
 							<img src="images/icon-watering-can.svg" alt="" className="" />

@@ -8,7 +8,7 @@ import { useErrorStore } from "../../../error/error-store";
 import { getErrorMessage } from "../validation/validation.ts";
 
 export const Login: React.FC = () => {
-	const { login } = useAuthStore();
+	const { login, refreshAdoptedTreesInfo } = useAuthStore();
 	const { setSearchParams } = useUrlState();
 	const i18n = useI18nStore().i18n();
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -22,6 +22,7 @@ export const Login: React.FC = () => {
 				email: e.currentTarget.email.value,
 				password: e.currentTarget.password.value,
 			});
+			refreshAdoptedTreesInfo();
 		} catch (error) {
 			if (getErrorMessage(error) === "Invalid login credentials") {
 				handleError(i18n.navbar.profile.settings.invalidCredentials);

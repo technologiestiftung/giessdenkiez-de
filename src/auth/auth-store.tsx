@@ -50,7 +50,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 	supabaseClient.auth.getSession().then(({ data: { session } }) => {
 		set({ session });
 		get().refreshUsername();
-		get().refreshAdoptedTrees();
 		get().refreshAdoptedTreesInfo();
 
 		if (!session) {
@@ -58,7 +57,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		}
 
 		get().refreshUsername().catch(console.error);
-
 	});
 
 	supabaseClient.auth.onAuthStateChange((_event, session) => {
