@@ -11,7 +11,7 @@ import { useTreeCircleStyle } from "./use-tree-circle-style";
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { MAP_MAX_ZOOM_LEVEL } = useMapConstants();
 
-	const setSearchParams = useUrlState((state) => state.setSearchParams);
+	const addSearchParam = useUrlState((state) => state.addSearchParam);
 
 	const { setHoveredTreeId, hoveredTreeIdRef } = useHoveredTree();
 	const { setSelectedTreeId, selectedTreeIdRef } = useSelectedTree();
@@ -146,9 +146,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				essential: true,
 			});
 			map.once("moveend", () => {
-				setSearchParams(
-					new URLSearchParams({ treeId: treeFeature.id as string }),
-				);
+				addSearchParam("treeId", treeFeature.id as string);
 			});
 		});
 
