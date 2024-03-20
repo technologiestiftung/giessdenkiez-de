@@ -7,7 +7,7 @@ export interface PrimaryButtonProps {
 	type?: "button" | "submit";
 }
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = ({
+export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 	label,
 	onClick,
 	disabled,
@@ -26,5 +26,3 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 		</button>
 	);
 };
-
-export default PrimaryButton;

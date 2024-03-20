@@ -1,5 +1,5 @@
 import React from "react";
-import SwitchButton from "../buttons/switch-button";
+import { SwitchButton } from "../buttons/switch-button";
 
 type FilterSwitchProps = {
 	name: string;

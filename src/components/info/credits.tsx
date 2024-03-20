@@ -6,7 +6,7 @@ const logoTSB = "https://logos.citylab-berlin.org/logo-tsb-outline.svg";
 const logoBerlin =
 	"https://logos.citylab-berlin.org/logo-senatskanzlei-buergermeister-horizontal.svg";
 
-const Credits: React.FC = () => {
+export const Credits: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	return (
 		<div className="w-full flex flex-row gap-4 md:gap-10 px-4 py-8 text-xs sm:text-sm md:text-base">
@@ -45,5 +45,3 @@ const Credits: React.FC = () => {
 		</div>
 	);
 };
-
-export default Credits;

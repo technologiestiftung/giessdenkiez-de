@@ -1,6 +1,7 @@
+/* eslint-disable max-lines */
 import { Content } from "./content-types";
 
-const en: Content = {
+export const en: Content = {
 	map: {
 		attribution: {
 			mapbox: {
@@ -427,5 +428,3 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		unknown: "Unknown",
 	},
 };
-
-export default en;

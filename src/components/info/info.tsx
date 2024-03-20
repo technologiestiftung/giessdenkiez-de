@@ -1,9 +1,9 @@
 import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { QaEntry } from "./qa-entry";
-import SocialShare from "./social-share";
-import PrimaryButton from "../buttons/primary";
-import Credits from "./credits";
+import { SocialShare } from "./social-share";
+import { PrimaryButton } from "../buttons/primary";
+import { Credits } from "./credits";
 import { LanguageToggle } from "../router/languageToggle";
 import Markdown from "react-markdown";
 

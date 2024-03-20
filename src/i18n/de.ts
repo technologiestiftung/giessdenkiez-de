@@ -1,6 +1,7 @@
+/* eslint-disable max-lines */
 import { Content } from "./content-types";
 
-const de: Content = {
+export const de: Content = {
 	map: {
 		attribution: {
 			mapbox: {
@@ -422,5 +423,3 @@ Vernetzen:
 		unknown: "Unbekannt",
 	},
 };
-
-export default de;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
-import TertiaryButton from "../../buttons/tertiary";
+import { TertiaryButton } from "../../buttons/tertiary";
 import { TreeCard } from "./tree-card";
 
 export const AdoptedTrees: React.FC = () => {

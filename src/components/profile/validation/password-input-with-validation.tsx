@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import TextInput from "../../input/text-input";
+import { TextInput } from "../../input/text-input";
 import { validatePassword } from "./validation";
 import { PasswordErrors } from "./types";
 import { useI18nStore } from "../../../i18n/i18n-store";

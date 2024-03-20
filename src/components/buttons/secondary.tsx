@@ -6,7 +6,7 @@ export interface SecondaryButtonProps {
 	disabled?: boolean;
 }
 
-const SecondaryButton: React.FC<SecondaryButtonProps> = ({
+export const SecondaryButton: React.FC<SecondaryButtonProps> = ({
 	label,
 	onClick,
 	disabled,
@@ -23,5 +23,3 @@ const SecondaryButton: React.FC<SecondaryButtonProps> = ({
 		</button>
 	);
 };
-
-export default SecondaryButton;

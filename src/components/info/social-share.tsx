@@ -11,7 +11,7 @@ import {
 import { useI18nStore } from "../../i18n/i18n-store";
 import Markdown from "react-markdown";
 
-const SocialShare: React.FC = () => {
+export const SocialShare: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	return (
 		<div className="flex w-full flex-col items-center justify-center text-center">
@@ -58,5 +58,3 @@ const SocialShare: React.FC = () => {
 		</div>
 	);
 };
-
-export default SocialShare;

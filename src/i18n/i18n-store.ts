@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Content } from "./content-types";
-import de from "./de";
-import en from "./en";
+import { de } from "./de";
+import { en } from "./en";
 
 interface LocalizedContent {
 	en: Content;

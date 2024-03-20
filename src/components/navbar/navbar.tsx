@@ -1,13 +1,13 @@
 import React from "react";
 import { useUrlState } from "../router/store";
-import MapIcon from "../icons/map-icon";
-import UserIcon from "../icons/user-icon";
-import InfoIcon from "../icons/info-icon";
+import { MapIcon } from "../icons/map-icon";
+import { UserIcon } from "../icons/user-icon";
+import { InfoIcon } from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { useTreeStore } from "../tree-detail/tree-store";
 import { LanguageToggle } from "../router/languageToggle";
 
-const Navbar: React.FC = () => {
+export const Navbar: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
 	const setPathname = useUrlState((state) => state.setPathname);
@@ -47,7 +47,11 @@ const Navbar: React.FC = () => {
 						className={`
             flex h-14 w-14 flex-col items-center justify-center rounded-xl pt-1 text-sm font-medium
             hover:bg-blue-600 hover:bg-opacity-10 lg:h-16 lg:w-16 lg:rounded lg:text-base
-            ${url.pathname.startsWith(item.path) ? "bg-blue-600 bg-opacity-10 text-blue-600" : "text-gray-800"}
+            ${
+							url.pathname.startsWith(item.path)
+								? "bg-blue-600 bg-opacity-10 text-blue-600"
+								: "text-gray-800"
+						}
             `}
 					>
 						{item.icon}
@@ -62,5 +66,3 @@ const Navbar: React.FC = () => {
 		</nav>
 	);
 };
-
-export default Navbar;

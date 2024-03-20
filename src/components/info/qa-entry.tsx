@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Markdown from "react-markdown";
-import ChevronDown from "../icons/chevron-down";
-import ChevronRight from "../icons/chevron-right";
+import { ChevronDown } from "../icons/chevron-down";
+import { ChevronRight } from "../icons/chevron-right";
 
 interface QaEntryProps {
 	question: string;

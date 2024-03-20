@@ -6,7 +6,7 @@ import {
 } from "../tree-types.js";
 
 import resolveConfig from "tailwindcss/resolveConfig";
-//@ts-ignore
+//@ts-expect-error tailwindConfig has no type definition
 import tailwindConfig from "../../../../tailwind.config.js";
 const fullConfig = resolveConfig(tailwindConfig);
 
@@ -68,9 +68,8 @@ export function useTreeWaterNeedsData(
 		const ratio = rainSum() / referenceWaterAmount();
 		if (ratio >= 1) {
 			return 1 - wateringRatio;
-		} else {
-			return ratio;
 		}
+		return ratio;
 	};
 
 	const wateringPercentage = () => {
@@ -80,9 +79,8 @@ export function useTreeWaterNeedsData(
 		const ratio = wateringSum() / referenceWaterAmount();
 		if (ratio >= 1) {
 			return 1;
-		} else {
-			return ratio;
 		}
+		return ratio;
 	};
 
 	const stillMissingWater = () => {
@@ -94,9 +92,8 @@ export function useTreeWaterNeedsData(
 	const shouldBeWatered = () => {
 		if (treeAgeClassification === TreeAgeClassification.BABY) {
 			return false;
-		} else {
-			return wateringSum() + rainSum() < referenceWaterAmount();
 		}
+		return wateringSum() + rainSum() < referenceWaterAmount();
 	};
 
 	const waterParts = () => {

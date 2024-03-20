@@ -1,19 +1,19 @@
 import React, { useMemo } from "react";
-import CloseIcon from "../icons/close-icon";
+import { CloseIcon } from "../icons/close-icon";
 import { useUrlState } from "../router/store";
 import { useFetchTreeData } from "./hooks/use-fetch-tree-data";
-import TreeAge from "./tree-age";
-import TreeAdoptCard from "./tree-adopt-card";
+import { TreeAge } from "./tree-age";
+import { TreeAdoptCard } from "./tree-adopt-card";
 import { useTreeStore } from "./tree-store";
-import useSelectedTree from "../map/hooks/use-selected-tree";
+import { useSelectedTree } from "../map/hooks/use-selected-tree";
 import { useI18nStore } from "../../i18n/i18n-store";
-import TreeWaterNeed from "./tree-water-needs";
-import TreeWaterNeedUnknown from "./tree-water-need-unknown";
+import { TreeWaterNeed } from "./tree-water-needs";
+import { TreeWaterNeedUnknown } from "./tree-water-need-unknown";
 import { TreeAgeClassification } from "./tree-types";
 import { useTreeAgeClassification } from "./hooks/use-tree-age-classification";
-import LastWaterings from "./last-waterings";
-import ProblemCard from "./problem-card";
-import TreeFlier from "./tree-flier";
+import { LastWaterings } from "./last-waterings";
+import { ProblemCard } from "./problem-card";
+import { TreeFlier } from "./tree-flier";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 
 export const TreeDetail: React.FC = () => {

@@ -1,16 +1,17 @@
+/* eslint-disable max-lines */
 import React, { useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import ChevronDown from "../icons/chevron-down";
-import ChevronRight from "../icons/chevron-right";
+import { ChevronDown } from "../icons/chevron-down";
+import { ChevronRight } from "../icons/chevron-right";
 import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
-import Tooltip from "./tooltip";
+import { Tooltip } from "./tooltip";
 import {
 	TreeAgeClassification,
 	TreeData,
 	TreeWateringData,
 } from "./tree-types";
-import WaterProgressCircle from "./water-progress-circle";
-import WateringDialog from "./watering-dialog";
+import { WaterProgressCircle } from "./water-progress-circle";
+import { WateringDialog } from "./watering-dialog";
 
 interface TreeWaterNeedProps {
 	treeData: TreeData;
@@ -18,7 +19,7 @@ interface TreeWaterNeedProps {
 	treeWateringData: TreeWateringData[];
 }
 
-const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
+export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 	treeData,
 	treeAgeClassification,
 	treeWateringData,
@@ -184,8 +185,9 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 								className={`my-4 flex h-[51px] w-full items-center justify-center rounded-[10px] bg-gdk-blue px-8 font-semibold text-gdk-white hover:bg-gdk-light-blue disabled:bg-gdk-light-gray sm:w-fit`}
 								disabled={false}
 								onClick={async () => {
-									//@ts-ignore
-									document.getElementById("water-dialog")?.showModal();
+									(
+										document.getElementById("water-dialog") as HTMLDialogElement
+									).showModal();
 								}}
 							>
 								<div className="flex flex-row items-center gap-2">
@@ -204,8 +206,9 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 					<WateringDialog
 						treeData={treeData}
 						close={() => {
-							//@ts-ignore
-							document.getElementById("water-dialog")?.close();
+							(
+								document.getElementById("water-dialog") as HTMLDialogElement
+							).close();
 						}}
 					/>
 				</div>
@@ -213,5 +216,3 @@ const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 		</div>
 	);
 };
-
-export default TreeWaterNeed;
