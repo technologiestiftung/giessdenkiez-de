@@ -43,7 +43,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 						</Markdown>
 						<div className="text-base">{i18n.splash.subheadline}</div>
 					</div>
-					<div className="hidden lg:flex px-8">
+					<div className="hidden lg:flex pr-8 max-h-[180px] lg:scale-[1.3]">
 						<img src="/images/icon-water-large.svg" alt="" />
 					</div>
 				</div>
