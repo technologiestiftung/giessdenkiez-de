@@ -4,6 +4,8 @@ import { EditIcon } from "../../../icons/edit-icon";
 import { useAuthStore } from "../../../../auth/auth-store";
 import { UsernameInputWithValidation } from "../../validation/username-input-with-validation";
 import { useErrorStore } from "../../../../error/error-store";
+import { TertiaryDestructiveButton } from "../../../buttons/tertiary-destructive";
+import { TertiaryButton } from "../../../buttons/tertiary";
 
 export const EditUsername: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -15,6 +17,7 @@ export const EditUsername: React.FC = () => {
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = e.currentTarget;
+
 		setIsUsernameInputEnabled(false);
 
 		const isSameUsername = form.username.value === username;
@@ -41,13 +44,21 @@ export const EditUsername: React.FC = () => {
 							label={i18n.navbar.profile.settings.editUsername}
 							defaultValue={username ?? ""}
 						/>
-						<button
-							className={`mt-2 cursor-pointer self-end  font-semibold 
-              text-gdk-blue enabled:hover:text-gdk-light-blue md:mb-12 md:mt-0 md:self-center `}
-							type="submit"
-						>
-							{i18n.navbar.profile.settings.approve}
-						</button>
+						<div className="flex flex-row-reverse md:flex-col justify-between md:mt-8">
+							<TertiaryButton
+								onClick={() => {}}
+								label={i18n.navbar.profile.settings.approve}
+								type="submit"
+							/>
+							<div className="md:-mb-4">
+								<TertiaryDestructiveButton
+									onClick={() => {
+										setIsUsernameInputEnabled(false);
+									}}
+									label={i18n.navbar.profile.settings.cancel}
+								/>
+							</div>
+						</div>
 					</div>
 				</form>
 			) : (

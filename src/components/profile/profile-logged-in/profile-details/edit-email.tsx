@@ -6,6 +6,8 @@ import { EmailInputWithValidation } from "../../validation/email-input-with-vali
 import { getErrorMessage } from "../../validation/validation";
 import { useEmailTakenStore } from "../../validation/email-taken-store";
 import { useErrorStore } from "../../../../error/error-store";
+import { TertiaryDestructiveButton } from "../../../buttons/tertiary-destructive";
+import { TertiaryButton } from "../../../buttons/tertiary";
 
 export const EditEmail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -56,13 +58,21 @@ export const EditEmail: React.FC = () => {
 							label={i18n.navbar.profile.settings.editEmail}
 							defaultValue={getUserData()?.email}
 						/>
-						<button
-							className={`mt-2 cursor-pointer self-end font-semibold 
-              text-gdk-blue enabled:hover:text-gdk-light-blue md:mt-6 md:self-center `}
-							type="submit"
-						>
-							{i18n.navbar.profile.settings.approve}
-						</button>
+						<div className="flex flex-row-reverse md:flex-col justify-between md:mt-2">
+							<TertiaryButton
+								onClick={() => {}}
+								label={i18n.navbar.profile.settings.approve}
+								type="submit"
+							/>
+							<div className="md:-mb-4">
+								<TertiaryDestructiveButton
+									onClick={() => {
+										setIsEmailInputEnabled(false);
+									}}
+									label={i18n.navbar.profile.settings.cancel}
+								/>
+							</div>
+						</div>
 					</div>
 				</form>
 			) : (

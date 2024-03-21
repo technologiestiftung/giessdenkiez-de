@@ -45,7 +45,7 @@ export const PasswordReset: React.FC = () => {
 							setPathname("/profile");
 						}}
 					>
-						Abbrechen
+						{i18n.navbar.profile.settings.cancel}
 					</a>
 
 					<PrimaryButton type="submit" label="Speichern" />
