@@ -3,11 +3,7 @@ import { useI18nStore } from "../../i18n/i18n-store";
 import { useAdoptTree } from "./hooks/use-adopt-tree";
 import { TreeAgeClassification, TreeData } from "./tree-types";
 import { Tooltip as AdoptTreeTooltip } from "./tooltip";
-import {
-	HeartIcon,
-	HeartIconFillState,
-	HeartIconState,
-} from "../icons/heart-icon";
+import { AdoptButton } from "../buttons/adoptButton";
 
 interface TreeAdoptCardProps {
 	treeData: TreeData;
@@ -19,11 +15,9 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 	treeAgeClassification,
 }) => {
 	const [showTooltip, setShowTooltip] = useState(false);
-	const [heartHovered, setHeartHovered] = useState(false);
 	const i18n = useI18nStore().i18n();
 
-	const { adoptTree, unadoptTree, isAdopted, isLoading, adoptedByOthers } =
-		useAdoptTree(treeData.id);
+	const { isAdopted, isLoading, adoptedByOthers } = useAdoptTree(treeData.id);
 
 	const adoptLabel = useMemo(() => {
 		if (isLoading) {
@@ -44,27 +38,7 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 				<div className="font-bold">{treeData.artdtsch}</div>
 
 				{treeAgeClassification !== TreeAgeClassification.BABY && (
-					<button
-						onClick={async () => {
-							if (!isAdopted) {
-								await adoptTree();
-								return;
-							}
-
-							await unadoptTree();
-						}}
-						onMouseEnter={() => setHeartHovered(true)}
-						onMouseLeave={() => setHeartHovered(false)}
-					>
-						<HeartIcon
-							state={
-								heartHovered ? HeartIconState.Hover : HeartIconState.Default
-							}
-							fillState={
-								isAdopted ? HeartIconFillState.Filled : HeartIconFillState.Empty
-							}
-						/>
-					</button>
+					<AdoptButton treeId={treeData.id}></AdoptButton>
 				)}
 			</div>
 			{treeAgeClassification === TreeAgeClassification.BABY && (

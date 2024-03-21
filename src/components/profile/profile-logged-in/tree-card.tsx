@@ -1,8 +1,9 @@
 import React from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
+import { AdoptButton } from "../../buttons/adoptButton";
 
 export interface TreeCardProps {
-	id: number;
+	id: string;
 	name: string;
 	irrigationAmount: number;
 	irrigationTimes: number;
@@ -20,17 +21,17 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 	return (
 		<div
 			key={id}
-			className="shadow-gdk-soft flex flex-col gap-3 rounded-2xl border-2 p-4 "
+			className="shadow-gdk-soft flex flex-col gap-3 rounded-2xl border-2 p-4"
 		>
 			<a
-				className="py-2 font-semibold text-blue-600 hover:text-gdk-light-blue"
+				className="py-1 font-semibold text-blue-600 hover:text-gdk-light-blue"
 				href={`/map?treeId=${id}`}
 			>
 				{name}
 			</a>
-			<button className="-mt-4 self-end">
-				<img src="/images/icon-filled-heart.svg" alt="" />
-			</button>
+			<div className="-mt-4 self-end">
+				<AdoptButton treeId={id}></AdoptButton>
+			</div>
 			<hr />
 			<div className="flex gap-2 font-medium">
 				<div className="flex flex-col gap-3">

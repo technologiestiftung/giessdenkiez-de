@@ -6,7 +6,6 @@ import { PrimaryButton } from "../buttons/primary";
 import { SecondaryButton } from "../buttons/secondary";
 import { useWaterTree } from "./hooks/use-water-tree";
 import { TreeData } from "./tree-types";
-
 interface WateringDialogProps {
 	treeData: TreeData;
 	close: () => void;
