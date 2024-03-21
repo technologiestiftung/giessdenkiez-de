@@ -40,14 +40,14 @@ export const en: Content = {
 			title: "Your profile",
 			overview: {
 				subtitle: "Your overview",
-				irrigations: "Irrigations",
-				liter: "Liter",
+				irrigations: "Waterings",
+				liter: "Liters",
 				adoptedTrees: "Adopted trees",
 			},
 			adoptedTrees: {
 				subtitle: "Adopted trees",
 				irrigationTimes: "Times",
-				irrigationAmount: "Liter",
+				irrigationAmount: "Liters",
 				showAll: "Show all",
 				showLess: "Show less",
 				noAdoptedTreesMessage:
@@ -94,8 +94,8 @@ export const en: Content = {
 				missingAccount: "Don't have an account yet?",
 				registerNow: "Register now",
 				forgotYourPassword: "forgot your password?",
-				ohNoforgotYourPassword: "Oh no. You",
-				passwordForgotten: "Password forgotten",
+				ohNoforgotYourPassword: "Oh no. Did you",
+				passwordForgotten: "forget your password",
 				resetPasswordEmailSent:
 					"Email sent! We sent you an email with a link to reset your password. Check your mailbox!",
 				clickHere: "click here",
@@ -114,6 +114,7 @@ export const en: Content = {
 		title: "404 - Page Not Found",
 	},
 	info: {
+		infoTitel: "Information",
 		about: {
 			head: {
 				question: "About the project",

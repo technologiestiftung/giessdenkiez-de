@@ -114,6 +114,7 @@ interface QuestionAnswerHead {
 }
 
 interface Info {
+	infoTitel: string;
 	about: {
 		head: QuestionAnswerHead;
 		qa: QuestionAnswer[];
