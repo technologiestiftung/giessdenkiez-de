@@ -40,8 +40,8 @@ interface AuthState {
 	updateEmail: (email: string) => Promise<void>;
 	updateUsername: (username: string) => Promise<void>;
 	deleteUser: () => Promise<void>;
-	adoptedTrees: Array<string> | null;
-	adoptedTreesInfo: Array<TreeInfo> | null;
+	adoptedTrees: Array<string>;
+	adoptedTreesInfo: Array<TreeInfo>;
 	refreshAdoptedTrees: () => Promise<void>;
 	refreshAdoptedTreesInfo: () => Promise<void>;
 }
@@ -51,29 +51,20 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		set({ session });
 		get().refreshUsername();
 		get().refreshAdoptedTreesInfo();
-
-		if (!session) {
-			return;
-		}
-
 		get().refreshUsername().catch(console.error);
 	});
 
 	supabaseClient.auth.onAuthStateChange((_event, session) => {
 		set({ session });
-
-		if (!session) {
-			return;
-		}
-
+		get().refreshAdoptedTreesInfo();
 		get().refreshUsername().catch(console.error);
 	});
 
 	return {
 		session: null,
 		username: null,
-		adoptedTrees: null,
-		adoptedTreesInfo: null,
+		adoptedTrees: [],
+		adoptedTreesInfo: [],
 
 		isLoggedIn: () => {
 			if (get().session === undefined) {
@@ -113,6 +104,10 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		},
 
 		refreshAdoptedTreesInfo: async () => {
+			if (!get().session) {
+				return;
+			}
+
 			await get().refreshAdoptedTrees();
 
 			const { data, error } = await supabaseClient
@@ -155,6 +150,10 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		},
 
 		refreshUsername: async () => {
+			if (!get().session) {
+				return;
+			}
+
 			const { data, error } = await supabaseClient
 				.from("profiles")
 				.select("username")

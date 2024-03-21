@@ -9,9 +9,7 @@ export const AdoptedTrees: React.FC = () => {
 	const [showAllTrees, setshowAllTrees] = useState(false);
 
 	const { adoptedTreesInfo } = useAuthStore();
-
-	const maxTrees =
-		adoptedTreesInfo?.length ?? 0 > 3 ? 4 : adoptedTreesInfo?.length ?? 0;
+	const maxTrees = adoptedTreesInfo?.length > 3 ? 4 : adoptedTreesInfo?.length;
 
 	return (
 		<div className="md:shadow-gdk-soft mb-3 md:rounded-2xl md:border-2 md:p-7">

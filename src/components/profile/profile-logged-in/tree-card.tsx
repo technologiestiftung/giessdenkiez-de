@@ -1,11 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
-import {
-	HeartIcon,
-	HeartIconFillState,
-	HeartIconState,
-} from "../../icons/heart-icon";
-import { useAdoptTree } from "../../tree-detail/hooks/use-adopt-tree";
+import { AdoptButton } from "../../buttons/adoptButton";
 
 export interface TreeCardProps {
 	id: string;
@@ -22,9 +17,6 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 }) => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
-	const { unadoptTree, isAdopted } = useAdoptTree(id);
-
-	const [heartHovered, setHeartHovered] = useState(false);
 
 	return (
 		<div
@@ -37,23 +29,9 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 			>
 				{name}
 			</a>
-
-			<button
-				className="-mt-4 self-end"
-				onClick={async () => {
-					await unadoptTree();
-				}}
-				onMouseEnter={() => setHeartHovered(true)}
-				onMouseLeave={() => setHeartHovered(false)}
-			>
-				<HeartIcon
-					state={heartHovered ? HeartIconState.Hover : HeartIconState.Default}
-					fillState={
-						isAdopted ? HeartIconFillState.Filled : HeartIconFillState.Empty
-					}
-				/>
-			</button>
-
+			<div className="-mt-4 self-end">
+				<AdoptButton treeId={id}></AdoptButton>
+			</div>
 			<hr />
 			<div className="flex gap-2 font-medium">
 				<div className="flex flex-col gap-3">

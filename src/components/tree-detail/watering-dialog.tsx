@@ -6,7 +6,6 @@ import { PrimaryButton } from "../buttons/primary";
 import { SecondaryButton } from "../buttons/secondary";
 import { useWaterTree } from "./hooks/use-water-tree";
 import { TreeData } from "./tree-types";
-import { useAuthStore } from "../../auth/auth-store";
 interface WateringDialogProps {
 	treeData: TreeData;
 	close: () => void;
@@ -22,8 +21,6 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	const { waterTree } = useWaterTree(treeData.id);
 	const [amount, setAmount] = useState(0);
 	const [waterDate, setWaterDate] = useState(new Date());
-
-	const { refreshAdoptedTreesInfo } = useAuthStore();
 
 	return (
 		<dialog id="water-dialog" className="shadow-3xl flex-col rounded-lg p-8">
@@ -70,7 +67,6 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 						disabled={false}
 						onClick={async () => {
 							await waterTree(amount, waterDate);
-							await refreshAdoptedTreesInfo();
 							close();
 						}}
 					/>
