@@ -1,6 +1,7 @@
 import React from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useAuthStore } from "../../../auth/auth-store";
+import { AdoptedTreeIcon } from "../../icons/adopted-tree-icon";
 
 export const Overview: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -37,7 +38,9 @@ export const Overview: React.FC = () => {
 					<div className="shadow-gdk-soft flex w-full flex-col justify-between gap-3 lg:min-w-36 rounded-2xl border-2 p-4 font-semibold">
 						{i18n.navbar.profile.overview.adoptedTrees}
 						<span className="flex items-baseline gap-x-5 text-5xl font-medium">
-							<img src="images/icon-tree.svg" alt="" className="w-[1.625rem]" />
+							<div className="text-gdk-purple stroke-none">
+								<AdoptedTreeIcon />
+							</div>
 							{formatNumber(adoptedTrees?.length)}
 						</span>
 					</div>

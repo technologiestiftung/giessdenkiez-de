@@ -50,6 +50,8 @@ export const en: Content = {
 				irrigationAmount: "Liter",
 				showAll: "Show all",
 				showLess: "Show less",
+				noAdoptedTreesMessage:
+					"If you regularly water a tree, you can adopt it. The trees you have adopted will be displayed here.",
 			},
 			settings: {
 				subtitle: "Profile details",
