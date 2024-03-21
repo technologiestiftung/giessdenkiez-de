@@ -98,6 +98,7 @@ export const en: Content = {
 				resetPassword: "Reset password",
 				invalidCredentials: "Invalid credentials",
 				deleteAccountConfirm: "Are you sure you want to delete your account?",
+				cancel: "Cancel",
 			},
 			logOut: "Log out",
 			showPassword: "Show",

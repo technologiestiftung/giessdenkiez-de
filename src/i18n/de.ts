@@ -99,6 +99,7 @@ export const de: Content = {
 				invalidCredentials: "Falsches Passwort oder E-Mail Adresse",
 				deleteAccountConfirm:
 					"Bist Du Dir sicher, den Account löschen zu wollen?",
+				cancel: "Abbrechen",
 			},
 			logOut: "Ausloggen",
 			showPassword: "Zeigen",
