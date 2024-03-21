@@ -5,7 +5,6 @@ import {
 	HeartIconFillState,
 	HeartIconState,
 } from "../icons/heart-icon";
-import { HeartIcon2 } from "../icons/heart-icon2";
 
 export interface AdoptButtonProps {
 	treeId: string;
