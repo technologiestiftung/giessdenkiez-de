@@ -258,7 +258,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 		adoptHint:
 			"If you regularly water the same tree, you can subscribe to it. This way you can quickly find it in your profile overview.",
 		adoptErrorMessage: "Error adopting the tree. Please try again.",
-		age: (age: number) => `${age} years`,
+		age: (age: number) => `${age === 1 ? "year" : "year"}`,
 		ageUnknown: "Unknown",
 		managedBy:
 			"This tree is already being cared for by the district office and does not need to be watered.",

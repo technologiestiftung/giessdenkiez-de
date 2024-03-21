@@ -261,7 +261,7 @@ Vernetzen:
 		adoptErrorMessage:
 			"Fehler beim Adoptieren des Baumes. Bitte versuche es erneut.",
 		ageTitle: "Standalter",
-		age: (age: number) => `${age} Jahre`,
+		age: (age: number) => `${age === 1 ? "Jahr" : "Jahre"}`,
 		ageUnknown: "Unbekannt",
 		managedBy:
 			"Dieser Baum wird bereits vom Bezirksamt versorgt und muss nicht gegossen werden.",

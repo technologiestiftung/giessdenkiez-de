@@ -38,7 +38,10 @@ export const WaterProgressCircle: React.FC<WaterCircleProps> = ({
 	}, [treeAgeClassification, needsWaterAmount, shouldBeWatered]);
 
 	return (
-		<div className={`grid w-[${size}px] grid-cols-1 grid-rows-1`}>
+		<div
+			className={`grid w-[${size}px] grid-cols-1 grid-rows-1`}
+			data-testid="water-progress-circle"
+		>
 			<PartialProgressCircle
 				parts={parts}
 				title={circleTitle}
