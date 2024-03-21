@@ -245,6 +245,7 @@ interface Splash {
 	questionHeadline: string;
 	questionSubheadline: string;
 	discoverMoreTitle: string;
+	letsGo: string;
 }
 
 export interface Content {

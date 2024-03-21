@@ -459,5 +459,6 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		questionSubheadline:
 			"Cities like Leipzig, Magdeburg and Co. have already successfully joined the watering wave! Is your city the next one?",
 		discoverMoreTitle: "Learn more!",
+		letsGo: "Let's go",
 	},
 };

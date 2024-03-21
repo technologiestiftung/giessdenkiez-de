@@ -453,5 +453,6 @@ Vernetzen:
 		questionSubheadline:
 			"Städte wie Leipzig, Magdeburg und Co. haben sich bereits erfolgreich der Gieß–Welle angeschlossen! Ist Deine Stadt die nächste?",
 		discoverMoreTitle: "Erfahre mehr!",
+		letsGo: "Los geht's",
 	},
 };

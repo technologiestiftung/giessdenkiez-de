@@ -26,7 +26,7 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
 	content,
 }) => {
 	return (
-		<div className="flex flex-col gap-2">
+		<div className="flex flex-col gap-2 mt-4">
 			<div className="font-bold text-base flex flex-row items-center gap-3">
 				<div className="text-gdk-neon-green">{icon}</div>
 				<div>{title}</div>
@@ -70,14 +70,14 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 				</div>
 				<div className="flex flex-row w-full justify-between items-top pb-8">
 					<div className="flex flex-col gap-2 pr-6 w-full lg:max-w-[70%]">
-						<Markdown className="xl:text-2xl 2xl:text-3xl font-semibold">
+						<Markdown className="sm:text-xl xl:text-2xl 2xl:text-3xl font-semibold">
 							{i18n.splash.headline}
 						</Markdown>
 						<div className="text-sm xl:text-base">
 							{i18n.splash.subheadline}
 						</div>
 						<div>
-							<PrimaryButton label={"Los geht's"} onClick={onClose} />
+							<PrimaryButton label={i18n.splash.letsGo} onClick={onClose} />
 						</div>
 					</div>
 					<div className="hidden lg:flex pr-8 max-h-[150px] 2xl:scale-[1.3]">
