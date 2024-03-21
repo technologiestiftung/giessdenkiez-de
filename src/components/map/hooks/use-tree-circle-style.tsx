@@ -25,10 +25,10 @@ export function useTreeCircleStyle() {
 		"interpolate",
 		["linear"],
 		["zoom"],
-		0,
-		1,
-		20,
+		10,
 		0.5,
+		20,
+		0.7,
 	] as Expression;
 
 	const circleStrokeColor = [
