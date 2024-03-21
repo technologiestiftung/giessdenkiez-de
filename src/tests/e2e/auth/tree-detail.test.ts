@@ -4,6 +4,7 @@ import { baseUrl } from "./constants";
 test.describe("Tree detail view", () => {
 	test("should show tree info for baby tree", async ({ page }) => {
 		await page.goto(`${baseUrl}/map?treeId=_23002dc7a1`);
+
 		await expect(page.getByText("Bauminformationen")).toBeVisible();
 		await expect(page.getByText("Zier-Feld-Ahorn 'Red Shine'")).toBeVisible();
 		await expect(
@@ -25,12 +26,16 @@ test.describe("Tree detail view", () => {
 		await expect(page.getByText("Die Gattung der Ahorne")).toBeVisible();
 		await page.getByRole("button", { name: "Baumsteckbrief" }).click();
 		await expect(page.getByText("Die Gattung der Ahorne")).not.toBeVisible();
+
+		// Check for exact age
 		await expect(page.getByText("Standalter")).toBeVisible();
-		await expect(page.getByTestId("age")).toHaveText(
+		const calculatedAge = await page.getByTestId("age").textContent();
+		expect(calculatedAge).toBe(
 			// At the year of writing this test, the tree was 2 years old.
 			// Every year, the tree gets one year older, as we all do - time is merciless.
 			(2 + new Date().getFullYear() - 2024).toString(),
 		);
+
 		await expect(
 			page.getByText("Vom Bezirksamt versorgt", { exact: true }),
 		).toBeVisible();
