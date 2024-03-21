@@ -41,6 +41,7 @@ interface Navbar {
 			irrigationAmount: string;
 			showAll: string;
 			showLess: string;
+			noAdoptedTreesMessage: string;
 		};
 		settings: {
 			subtitle: string;

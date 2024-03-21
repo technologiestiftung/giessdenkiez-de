@@ -3,6 +3,7 @@ import { useI18nStore } from "../../../i18n/i18n-store";
 import { TertiaryButton } from "../../buttons/tertiary";
 import { TreeCard } from "./tree-card";
 import { useAuthStore } from "../../../auth/auth-store";
+import { AdoptedTreeIcon } from "../../icons/adopted-tree-icon";
 
 export const AdoptedTrees: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -16,7 +17,7 @@ export const AdoptedTrees: React.FC = () => {
 			<h2 className="text-2xl font-semibold">
 				{i18n.navbar.profile.overview.adoptedTrees}
 			</h2>
-			{adoptedTreesInfo && (
+			{adoptedTreesInfo.length > 0 ? (
 				<>
 					<div className="mt-7 grid grid-cols-2 gap-4 xl:grid-cols-4">
 						{!showAllTrees &&
@@ -55,8 +56,14 @@ export const AdoptedTrees: React.FC = () => {
 						</div>
 					)}
 				</>
+			) : (
+				<div className="mt-7 shadow-gdk-soft flex flex-row gap-3 rounded-2xl border-2 p-4 lg:w-3/6 gap-5 ">
+					<div className="text-gdk-white stroke-gdk-gray mt-1">
+						<AdoptedTreeIcon />
+					</div>
+					<p>{i18n.navbar.profile.adoptedTrees.noAdoptedTreesMessage}</p>
+				</div>
 			)}
-			{/* add nudge to adopt for when no trees are adopted */}
 		</div>
 	);
 };

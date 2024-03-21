@@ -50,6 +50,8 @@ export const de: Content = {
 				irrigationAmount: "Liter",
 				showAll: "Alle anzeigen",
 				showLess: "Weniger anzeigen",
+				noAdoptedTreesMessage:
+					"Wenn Du einen Baum regelmäßig gießt, kannst Du ihn adoptieren. Deine adoptierten Bäume erscheinen hier in deiner Profilübersicht.",
 			},
 			settings: {
 				subtitle: "Profildetails",
