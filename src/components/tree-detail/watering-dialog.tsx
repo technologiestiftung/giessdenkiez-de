@@ -1,12 +1,11 @@
+import { format, parse, parseISO } from "date-fns";
 import React, { useState } from "react";
+import { useI18nStore } from "../../i18n/i18n-store";
+import "../../index.css";
 import { PrimaryButton } from "../buttons/primary";
 import { SecondaryButton } from "../buttons/secondary";
-import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 import { useWaterTree } from "./hooks/use-water-tree";
 import { TreeData } from "./tree-types";
-import { format, parse, parseISO } from "date-fns";
-import "../../index.css";
-import { useI18nStore } from "../../i18n/i18n-store";
 
 interface WateringDialogProps {
 	treeData: TreeData;
@@ -21,7 +20,6 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	const dateFormat = "yyyy-MM-dd'T'hh:mm";
 
 	const { waterTree } = useWaterTree(treeData.id);
-	const { fetchWateringData } = useFetchTreeWateringData(treeData);
 	const [amount, setAmount] = useState(0);
 	const [waterDate, setWaterDate] = useState(new Date());
 
@@ -70,7 +68,6 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 						disabled={false}
 						onClick={async () => {
 							await waterTree(amount, waterDate);
-							await fetchWateringData();
 							close();
 						}}
 					/>

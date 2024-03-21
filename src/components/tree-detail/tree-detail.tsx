@@ -32,7 +32,8 @@ export const TreeDetail: React.FC = () => {
 	const { setTreeData } = useTreeStore();
 	const { setSelectedTreeId } = useSelectedTree();
 	const { treeData } = useFetchTreeData(treeId);
-	const { treeWateringData } = useFetchTreeWateringData(treeData);
+	const { treeWateringData, fetchWateringData } =
+		useFetchTreeWateringData(treeData);
 
 	const { treeAge, treeAgeClassification } = useTreeAgeClassification(treeData);
 	const treeTypeInfo = useMemo(() => {
@@ -83,6 +84,9 @@ export const TreeDetail: React.FC = () => {
 							treeData={treeData}
 							treeAgeClassification={treeAgeClassification}
 							treeWateringData={treeWateringData}
+							onTreeWatered={async () => {
+								await fetchWateringData();
+							}}
 						/>
 					)}
 					{(treeAgeClassification === TreeAgeClassification.UNKNOWN ||
@@ -91,6 +95,9 @@ export const TreeDetail: React.FC = () => {
 							treeData={treeData}
 							treeAgeClassification={treeAgeClassification}
 							treeWateringData={treeWateringData}
+							onTreeWatered={async () => {
+								await fetchWateringData();
+							}}
 						/>
 					)}
 					{treeData && treeAgeClassification !== TreeAgeClassification.BABY && (
