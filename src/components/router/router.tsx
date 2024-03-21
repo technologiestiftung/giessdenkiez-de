@@ -10,6 +10,7 @@ import { PasswordReset } from "../profile/profile-logged-in/password-reset";
 import { TreeDetail } from "../tree-detail/tree-detail";
 import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
+import { Splash } from "../splash/splash";
 
 export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
@@ -72,6 +73,7 @@ export const Router: React.FC = () => {
 						</div>
 					</div>
 					{treeId && <TreeDetail />}
+					<Splash></Splash>
 				</div>
 			);
 		case "/profile/reset-password":
