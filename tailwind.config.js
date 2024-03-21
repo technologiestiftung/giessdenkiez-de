@@ -16,7 +16,7 @@ export default {
 				"gdk-dark-red": "#BD0909",
 				"gdk-light-red": "#DA7B7B",
 				"gdk-neon-green": "#3DF99A",
-				"gdk-tree-green": "#CAE11F",
+				"gdk-tree-green": "#3DF99A",
 				"gdk-dark-blue": "#0948A7",
 				"gdk-dark-green": "#07964E",
 				"gdk-purple": "#660A9C",
