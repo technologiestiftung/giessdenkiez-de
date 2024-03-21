@@ -34,7 +34,7 @@ export const ProfileLoggedIn: React.FC = () => {
 		<div className="w-full overflow-y-auto px-5 pt-11">
 			<div className="flex flex-col items-center justify-center ">
 				<div className="flex w-[100%] flex-col gap-4 px-0 py-8 md:w-[70%] md:px-4 lg:w-[70%] xl:w-[60%] relative">
-					<div className="lg:hidden  absolute top-6 right-0 md:pr-2">
+					<div className="lg:hidden  absolute top-6 right-0 md:pr-4">
 						<LanguageToggle />
 					</div>
 					<h1 className="text-3xl font-bold">{i18n.navbar.profile.title}</h1>

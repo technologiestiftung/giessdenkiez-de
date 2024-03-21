@@ -12,7 +12,7 @@ export const LanguageToggle: React.FC = () => {
 
 	return (
 		<button
-			className=" bg-gdk-white h-[51px] w-[51px] rounded-full justify-center items-center hover:text-gdk-light-gray text-gdk-gray flex "
+			className=" bg-gdk-white h-[51px] justify-center items-center hover:text-gdk-light-gray text-gdk-gray flex "
 			onClick={switchLanguage}
 		>
 			<p className=" font-semibold hover:underline text-lg">
