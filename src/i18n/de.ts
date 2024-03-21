@@ -113,6 +113,7 @@ export const de: Content = {
 		title: "404 - Seite wurde nicht gefunden",
 	},
 	info: {
+		infoTitel: "Info",
 		about: {
 			head: {
 				question: "Über das Projekt",

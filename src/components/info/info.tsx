@@ -17,7 +17,7 @@ export const Info: React.FC = () => {
 					<div className="lg:hidden absolute top-11 right-0 pr-4">
 						<LanguageToggle />
 					</div>
-					<h1 className="p-4 text-4xl font-bold">Info</h1>
+					<h1 className="p-4 text-4xl font-bold">{i18n.info.infoTitel}</h1>
 					<div className="flex flex-col gap-4 rounded-lg p-4 md:border-2 md:p-8">
 						<div>
 							<QaEntry
