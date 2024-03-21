@@ -46,11 +46,14 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 		bg-white flex flex-col
 		rounded-lg shadow-gdk-hard pointer-events-auto`}
 		>
-			<div className="px-8 py-8 flex flex-col">
-				<div className="flex flex-row justify-end lg:hidden">
+			<div className="px-4 lg:px-8 py-4 lg:py-8 flex flex-col">
+				<button
+					className="flex flex-row justify-end lg:hidden pb-2"
+					onClick={onClose}
+				>
 					<CloseIcon />
-				</div>
-				<div className="flex flex-row w-full justify-between items-center mb-8">
+				</button>
+				<div className="flex flex-row w-full justify-between items-center mb-4 lg:mb-8">
 					<div className="text-2xl font-bold">
 						<span>Gieß den</span>{" "}
 						<span className="text-gdk-neon-green">Kiez</span>
