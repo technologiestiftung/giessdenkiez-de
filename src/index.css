@@ -49,67 +49,45 @@
 
 /* Mapbox controls */
 .mapboxgl-ctrl-bottom-left {
-	@apply bottom-16 lg:bottom-0 lg:left-20;
+	@apply bottom-16 lg:bottom-0 lg:left-20 !important;
 }
 
 .mapboxgl-ctrl-bottom-right {
 	@apply hidden;
 }
 
-.mapboxgl-ctrl-group {
-	@apply rounded-full bg-transparent;
-}
-
-.mapboxgl-ctrl button:not(:disabled):hover {
-	@apply bg-transparent;
-}
-
-.mapboxgl-ctrl
-	button.mapboxgl-ctrl-geolocate.mapboxgl-ctrl-geolocate-active
-	.mapboxgl-ctrl-icon {
-	@apply bg-[url('/images/icon-locate.svg')];
-}
-
-.mapboxgl-ctrl
-	button.mapboxgl-ctrl-geolocate.mapboxgl-ctrl-geolocate-waiting
-	.mapboxgl-ctrl-icon {
-	@apply animate-none;
-}
-
-.mapboxgl-ctrl-group:not(:empty) {
-	@apply shadow-none;
-}
-
 .mapboxgl-ctrl-group button:first-child {
-	@apply h-14 w-14;
+	@apply h-14 w-14 shadow-gdk-hard;
 }
 
 .mapboxgl-ctrl-group button:last-child {
-	@apply h-14 w-14;
+	@apply h-14 w-14 shadow-gdk-hard;
 }
 
-.mapboxgl-ctrl-group button:only-child {
-	@apply rounded-none;
+.mapboxgl-ctrl {
+	@apply rounded-none bg-transparent !important;
+}
+
+.mapboxgl-ctrl-group:not(:empty) {
+	@apply shadow-none !important;
+}
+
+.mapboxgl-ctrl-group button {
+	@apply bg-white rounded-full mb-1 !important;
 }
 
 .mapboxgl-ctrl-group button + button {
-	@apply border-t-0;
+	@apply border-t-0 !important;
 }
 
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon {
-	@apply hidden bg-[url('/images/icon-zoom-in.svg')] lg:block;
+	@apply bg-[url('/images/icon-zoom-in.svg')] hover:bg-[url('/images/icon-zoom-in-hover.svg')] w-14 h-14 !important;
 }
 
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon {
-	@apply hidden bg-[url('/images/icon-zoom-out.svg')] lg:block;
+	@apply bg-[url('/images/icon-zoom-out.svg')] hover:bg-[url('/images/icon-zoom-out-hover.svg')] !important;
 }
 
 .mapboxgl-ctrl button.mapboxgl-ctrl-geolocate .mapboxgl-ctrl-icon {
-	@apply bg-[url('/images/icon-locate.svg')];
-}
-
-.mapboxgl-ctrl
-	button.mapboxgl-ctrl-geolocate.mapboxgl-ctrl-geolocate-background
-	.mapboxgl-ctrl-icon {
-	@apply bg-[url('/images/icon-locate.svg')];
+	@apply bg-[url('/images/icon-locate.svg')] hover:bg-[url('/images/icon-locate-hover.svg')] !important;
 }
