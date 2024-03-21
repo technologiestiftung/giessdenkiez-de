@@ -18,7 +18,7 @@ export const TreeAgeButton: React.FC<TreeAgeButtonProps> = ({
 		<div
 			className={`${
 				interval.enabled && "border-gdk-blue"
-			} border-2 h-full flex flex-col justify-center text-center p-2 rounded-lg bg-[#F7F7F7] hover:cursor-pointer gap-2 p-3`}
+			} border-2 h-full flex flex-col justify-center text-center p-2 rounded-lg bg-[#F7F7F7] hover:cursor-pointer gap-2`}
 			onClick={() => {
 				onChange(interval);
 			}}

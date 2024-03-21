@@ -124,7 +124,10 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 						}}
 						placeholder={i18n.locationSearch.placeholder}
 					/>
-					<button className="px-4" onClick={clearSearch}>
+					<button
+						className={`${search === "" && "opacity-0"} px-4`}
+						onClick={clearSearch}
+					>
 						<ClearIcon />
 					</button>
 				</form>

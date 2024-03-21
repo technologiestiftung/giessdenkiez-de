@@ -13,8 +13,8 @@ export const FilterSwitch: React.FC<FilterSwitchProps> = ({
 	isEnabled,
 }) => {
 	return (
-		<div className="w-full flex flex-row items-center justify-between p-4 border-2 rounded-lg bg-[#FAFAFA] border-[#DDDDDD]">
-			<div className="text-lg font-semibold">{name}</div>
+		<div className="w-full flex flex-row items-center justify-between py-2 px-4 lg:p-4 border-2 rounded-lg bg-[#FAFAFA] border-[#DDDDDD]">
+			<div className="text-base lg:text-lg font-semibold">{name}</div>
 			<div>
 				<SwitchButton onToggle={onToggle} isEnabled={isEnabled} />
 			</div>
