@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import mapboxgl from "mapbox-gl";
 import React, { useEffect } from "react";
 import { useMapStore } from "../map-store";
@@ -14,10 +15,12 @@ export function useMapSetup(
 	const {
 		MAP_PITCH_DEGREES,
 		MAP_MIN_ZOOM_LEVEL,
+		MAP_MAX_ZOOM_LEVEL,
 		MAP_INITIAL_ZOOM_LEVEL,
 		MAP_CENTER_LNG,
 		MAP_CENTER_LAT,
 		MAP_PUMP_IMAGE_ICONS,
+		MAP_LOCATION_ZOOM_LEVEL,
 	} = useMapConstants();
 
 	const { map, setMap } = useMapStore();
@@ -49,6 +52,7 @@ export function useMapSetup(
 			center: [MAP_CENTER_LNG, MAP_CENTER_LAT],
 			zoom: MAP_INITIAL_ZOOM_LEVEL,
 			minZoom: MAP_MIN_ZOOM_LEVEL,
+			maxZoom: MAP_MAX_ZOOM_LEVEL,
 			pitch: MAP_PITCH_DEGREES,
 		});
 
@@ -124,19 +128,28 @@ export function useMapSetup(
 			});
 		});
 
-		initializedMap.addControl(
-			new mapboxgl.GeolocateControl({
-				positionOptions: {
-					enableHighAccuracy: true,
-				},
-				// When active the map will receive updates to the device's location as it changes.
-				trackUserLocation: true,
-				// Draw an arrow next to the location dot to indicate which direction the device is heading.
-				showUserHeading: true,
-				showAccuracyCircle: false,
-			}),
-			"bottom-left",
-		);
+		const geoLocateControl = new mapboxgl.GeolocateControl({
+			positionOptions: {
+				enableHighAccuracy: true,
+			},
+			// When active the map will receive updates to the device's location as it changes.
+			trackUserLocation: true,
+			// Draw an arrow next to the location dot to indicate which direction the device is heading.
+			showUserHeading: true,
+			showAccuracyCircle: false,
+		});
+		geoLocateControl.on("geolocate", function (e) {
+			const { coords } = e as {
+				coords: { longitude: number; latitude: number };
+			};
+
+			initializedMap.easeTo({
+				center: [coords.longitude, coords.latitude],
+				zoom: MAP_LOCATION_ZOOM_LEVEL,
+				pitch: MAP_PITCH_DEGREES,
+			});
+		});
+		initializedMap.addControl(geoLocateControl, "bottom-left");
 		initializedMap.addControl(
 			new mapboxgl.NavigationControl({ showCompass: false, showZoom: true }),
 			"bottom-left",
