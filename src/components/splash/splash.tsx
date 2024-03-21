@@ -104,7 +104,12 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 					</div>
 					<div>{i18n.splash.questionSubheadline}</div>
 					<div>
-						<a className="text-gdk-blue font-semibold" href="">
+						<a
+							className="text-gdk-blue font-semibold"
+							href="https://deinestadt.giessdenkiez.de/"
+							target="_blank"
+							rel="noreferrer"
+						>
 							{i18n.splash.discoverMoreTitle}
 						</a>
 					</div>
