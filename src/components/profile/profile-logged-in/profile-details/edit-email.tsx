@@ -58,7 +58,7 @@ export const EditEmail: React.FC = () => {
 							label={i18n.navbar.profile.settings.editEmail}
 							defaultValue={getUserData()?.email}
 						/>
-						<div className="flex flex-row-reverse md:flex-col justify-between md:mt-8">
+						<div className="flex flex-row-reverse md:flex-col justify-between md:mt-2">
 							<TertiaryButton
 								onClick={() => {}}
 								label={i18n.navbar.profile.settings.approve}
