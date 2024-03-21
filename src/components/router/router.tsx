@@ -30,7 +30,7 @@ export const Router: React.FC = () => {
 		case "/map":
 			return (
 				<div
-					className={`flex h-screen w-screen flex-col-reverse justify-between lg:flex-row ${
+					className={`flex h-dvh w-screen flex-col-reverse justify-between lg:flex-row ${
 						treeId && "bg-white"
 					} lg:bg-transparent`}
 				>
@@ -76,28 +76,28 @@ export const Router: React.FC = () => {
 			);
 		case "/profile/reset-password":
 			return (
-				<div className="pointer-events-auto flex h-screen w-screen flex-col-reverse justify-between bg-white lg:flex-row">
+				<div className="pointer-events-auto flex h-dvh w-screen flex-col-reverse justify-between bg-white lg:flex-row">
 					<Navbar />
 					<PasswordReset />
 				</div>
 			);
 		case "/profile":
 			return (
-				<div className="pointer-events-auto flex h-screen w-screen flex-col-reverse justify-between bg-white lg:flex-row">
+				<div className="pointer-events-auto flex h-dvh w-screen flex-col-reverse justify-between bg-white lg:flex-row">
 					<Navbar />
 					<Profile />
 				</div>
 			);
 		case "/about":
 			return (
-				<div className="flex h-screen w-screen flex-col-reverse bg-white lg:flex-row">
+				<div className="flex h-dvh w-screen flex-col-reverse bg-white lg:flex-row">
 					<Navbar />
 					<Info />
 				</div>
 			);
 		default:
 			return (
-				<div className="flex h-screen w-screen flex-col-reverse bg-white lg:flex-row">
+				<div className="flex h-dvh w-screen flex-col-reverse bg-white lg:flex-row">
 					<Navbar />
 					<PageNotFound />
 				</div>
