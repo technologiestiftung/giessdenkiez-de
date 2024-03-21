@@ -19,7 +19,10 @@ export const TreeAge: React.FC<TreeAgeProps> = ({ treeAge }) => {
 				<div className="">{i18n.treeDetail.ageTitle}</div>
 			</div>
 			{treeAge ? (
-				<div>{i18n.treeDetail.age(treeAge)}</div>
+				<div>
+					<span data-testid="age">{treeAge}</span>{" "}
+					{i18n.treeDetail.age(treeAge)}
+				</div>
 			) : (
 				<div>{i18n.treeDetail.ageUnknown}</div>
 			)}

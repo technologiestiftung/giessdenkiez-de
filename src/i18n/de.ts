@@ -50,6 +50,8 @@ export const de: Content = {
 				irrigationAmount: "Liter",
 				showAll: "Alle anzeigen",
 				showLess: "Weniger anzeigen",
+				noAdoptedTreesMessage:
+					"Wenn Du einen Baum regelmäßig gießt, kannst Du ihn adoptieren. Deine adoptierten Bäume erscheinen hier in deiner Profilübersicht.",
 			},
 			settings: {
 				subtitle: "Profildetails",
@@ -69,6 +71,7 @@ export const de: Content = {
 				passwordChangeConfirmation:
 					'Dein Passwort wurde geändert. Klicke auf "ok" um zu deinem Profil zu kommen.',
 				deleteAccount: "Account löschen",
+				confirmDelete: "Löschen",
 				approve: "Fertig",
 				checkInput: "Bitte überprüfe Deine Eingabe",
 				usernameShould: "Dein Benutzername muss: ",
@@ -97,8 +100,8 @@ export const de: Content = {
 				clickHere: "Hier klicken",
 				resetPassword: "Passwort zurücksetzen",
 				invalidCredentials: "Falsches Passwort oder E-Mail Adresse",
-				deleteAccountConfirm:
-					"Bist Du Dir sicher, den Account löschen zu wollen?",
+				deleteAccountConfirm: "Willst Du Deinen Account wirklich löschen?",
+				cancel: "Abbrechen",
 			},
 			logOut: "Ausloggen",
 			showPassword: "Zeigen",
@@ -110,6 +113,7 @@ export const de: Content = {
 		title: "404 - Seite wurde nicht gefunden",
 	},
 	info: {
+		infoTitel: "Info",
 		about: {
 			head: {
 				question: "Über das Projekt",
@@ -260,7 +264,7 @@ Vernetzen:
 		adoptErrorMessage:
 			"Fehler beim Adoptieren des Baumes. Bitte versuche es erneut.",
 		ageTitle: "Standalter",
-		age: (age: number) => `${age} Jahre`,
+		age: (age: number) => `${age === 1 ? "Jahr" : "Jahre"}`,
 		ageUnknown: "Unbekannt",
 		managedBy:
 			"Dieser Baum wird bereits vom Bezirksamt versorgt und muss nicht gegossen werden.",

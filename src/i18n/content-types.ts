@@ -41,6 +41,7 @@ interface Navbar {
 			irrigationAmount: string;
 			showAll: string;
 			showLess: string;
+			noAdoptedTreesMessage: string;
 		};
 		settings: {
 			subtitle: string;
@@ -58,6 +59,8 @@ interface Navbar {
 			newPassword: string;
 			passwordChangeConfirmation: string;
 			deleteAccount: string;
+			confirmDelete: string;
+			cancel: string;
 			approve: string;
 			usernameShould: string;
 			checkInput: string;
@@ -110,6 +113,7 @@ interface QuestionAnswerHead {
 }
 
 interface Info {
+	infoTitel: string;
 	about: {
 		head: QuestionAnswerHead;
 		qa: QuestionAnswer[];

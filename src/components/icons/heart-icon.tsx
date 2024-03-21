@@ -23,7 +23,7 @@ export const HeartIcon: React.FC<HeartIconProps> = ({ state, fillState }) => {
 			<div>
 				<img
 					src="/images/heart-icon-hover.svg"
-					alt="Tree Icon"
+					alt="Heart Icon"
 					width={24}
 					height={24}
 				/>
@@ -36,7 +36,7 @@ export const HeartIcon: React.FC<HeartIconProps> = ({ state, fillState }) => {
 			<div>
 				<img
 					src="/images/heart-icon-filled.svg"
-					alt="Tree Icon"
+					alt="Heart Icon"
 					width={24}
 					height={24}
 				/>
@@ -48,7 +48,7 @@ export const HeartIcon: React.FC<HeartIconProps> = ({ state, fillState }) => {
 		<div>
 			<img
 				src="/images/heart-icon.svg"
-				alt="Tree Icon"
+				alt="Heart Icon"
 				width={24}
 				height={24}
 			/>

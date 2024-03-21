@@ -1,22 +1,6 @@
-<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="locate" filter="url(#filter0_d_3976_2655)">
-<circle id="Ellipse 8" cx="25.5" cy="25.5" r="25.5" transform="matrix(-0.0141421 -0.9999 -0.9999 0.0141421 57.6426 54.2575)" fill="white"/>
-<g id="Group">
-<path id="Vector" d="M31.969 42.2134L31.9134 38.2854M31.6542 19.9548L31.5986 16.0268M44.8771 28.9349L40.9491 28.9905M22.6185 29.2497L18.6905 29.3053" stroke="#2C303B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_2" d="M22.6186 29.2511C22.547 24.1893 26.5924 20.0278 31.6543 19.9562C36.7162 19.8846 40.8776 23.93 40.9492 28.9919C41.0208 34.0537 36.9754 38.2152 31.9136 38.2868C26.8517 38.3584 22.6902 34.313 22.6186 29.2511Z" stroke="#2C303B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_3" d="M27.8553 29.1742C27.8246 27.0048 29.5584 25.2214 31.7277 25.1907C33.8971 25.16 35.6806 26.8937 35.7113 29.0631C35.742 31.2325 34.0082 33.016 31.8389 33.0466C29.6695 33.0773 27.886 31.3436 27.8553 29.1742Z" stroke="#2C303B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</g>
-<defs>
-<filter id="filter0_d_3976_2655" x="0.284424" y="0.620605" width="63.0002" height="63.0001" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="3"/>
-<feGaussianBlur stdDeviation="3"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.410075 0 0 0 0 0.410075 0 0 0 0 0.410075 0 0 0 0.2 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3976_2655"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3976_2655" result="shape"/>
-</filter>
-</defs>
+<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="25.5" cy="25.5" r="25.5" transform="matrix(-0.0141421 -0.9999 -0.9999 0.0141421 52 51)" fill="white"/>
+<path d="M26.9067 39.1852L26.8512 35.2572M26.5919 16.9266L26.5363 12.9986M39.8148 25.9067L35.8868 25.9623M17.5562 26.2215L13.6282 26.2771" stroke="#2C303B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.5564 26.2229C17.4848 21.161 21.5302 16.9995 26.592 16.9279C31.6539 16.8563 35.8154 20.9018 35.887 25.9636C35.9586 31.0255 31.9132 35.1869 26.8513 35.2585C21.7894 35.3301 17.628 31.2847 17.5564 26.2229Z" stroke="#2C303B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22.7931 26.146C22.7624 23.9767 24.4961 22.1932 26.6655 22.1625C28.8349 22.1318 30.6184 23.8655 30.649 26.0349C30.6797 28.2043 28.946 29.9878 26.7766 30.0184C24.6072 30.0491 22.8237 28.3154 22.7931 26.146Z" stroke="#2C303B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

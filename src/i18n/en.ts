@@ -40,16 +40,18 @@ export const en: Content = {
 			title: "Your profile",
 			overview: {
 				subtitle: "Your overview",
-				irrigations: "Irrigations",
-				liter: "Liter",
+				irrigations: "Waterings",
+				liter: "Liters",
 				adoptedTrees: "Adopted trees",
 			},
 			adoptedTrees: {
 				subtitle: "Adopted trees",
 				irrigationTimes: "Times",
-				irrigationAmount: "Liter",
+				irrigationAmount: "Liters",
 				showAll: "Show all",
 				showLess: "Show less",
+				noAdoptedTreesMessage:
+					"If you regularly water a tree, you can adopt it. The trees you have adopted will be displayed here.",
 			},
 			settings: {
 				subtitle: "Profile details",
@@ -69,6 +71,8 @@ export const en: Content = {
 				passwordChangeConfirmation:
 					'Password changed, press "ok" to go to your profile',
 				deleteAccount: "Delete account",
+				confirmDelete: "Delete",
+				cancel: "Cancel",
 				approve: "Done",
 				checkInput: "Please check your input",
 				usernameShould: "Your username needs to: ",
@@ -90,8 +94,8 @@ export const en: Content = {
 				missingAccount: "Don't have an account yet?",
 				registerNow: "Register now",
 				forgotYourPassword: "forgot your password?",
-				ohNoforgotYourPassword: "Oh no. You",
-				passwordForgotten: "Password forgotten",
+				ohNoforgotYourPassword: "Oh no. Did you",
+				passwordForgotten: "forget your password",
 				resetPasswordEmailSent:
 					"Email sent! We sent you an email with a link to reset your password. Check your mailbox!",
 				clickHere: "click here",
@@ -109,6 +113,7 @@ export const en: Content = {
 		title: "404 - Page Not Found",
 	},
 	info: {
+		infoTitel: "Information",
 		about: {
 			head: {
 				question: "About the project",
@@ -257,7 +262,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 		adoptHint:
 			"If you regularly water the same tree, you can subscribe to it. This way you can quickly find it in your profile overview.",
 		adoptErrorMessage: "Error adopting the tree. Please try again.",
-		age: (age: number) => `${age} years`,
+		age: (age: number) => `${age === 1 ? "year" : "years"}`,
 		ageUnknown: "Unknown",
 		managedBy:
 			"This tree is already being cared for by the district office and does not need to be watered.",
