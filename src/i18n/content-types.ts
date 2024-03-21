@@ -88,7 +88,6 @@ interface Navbar {
 			resetPassword: string;
 			invalidCredentials: string;
 			deleteAccountConfirm: string;
-			cancel: string;
 		};
 		logOut: string;
 		showPassword: string;
