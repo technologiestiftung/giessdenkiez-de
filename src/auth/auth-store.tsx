@@ -214,15 +214,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		},
 
 		deleteUser: async () => {
-			if (
-				!window.confirm(
-					useI18nStore.getState().i18n().navbar.profile.settings
-						.deleteAccountConfirm,
-				)
-			) {
-				return;
-			}
-
 			const token = get().session?.access_token;
 			/**
 			 * logout needs to happen before the account is deleted, otherwise supabase

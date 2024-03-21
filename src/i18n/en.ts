@@ -69,6 +69,8 @@ export const en: Content = {
 				passwordChangeConfirmation:
 					'Password changed, press "ok" to go to your profile',
 				deleteAccount: "Delete account",
+				confirmDelete: "Delete",
+				cancel: "Cancel",
 				approve: "Done",
 				checkInput: "Please check your input",
 				usernameShould: "Your username needs to: ",

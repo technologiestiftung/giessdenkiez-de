@@ -58,6 +58,8 @@ interface Navbar {
 			newPassword: string;
 			passwordChangeConfirmation: string;
 			deleteAccount: string;
+			confirmDelete: string;
+			cancel: string;
 			approve: string;
 			usernameShould: string;
 			checkInput: string;
