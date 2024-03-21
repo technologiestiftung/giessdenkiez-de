@@ -53,12 +53,12 @@ export const EditEmail: React.FC = () => {
 					className="flex flex-col justify-between gap-x-8"
 					onSubmit={onSubmit}
 				>
-					<div className="flex flex-col justify-between gap-x-8 md:flex-row">
+					<div className="flex flex-col justify-between gap-x-8 ">
 						<EmailInputWithValidation
 							label={i18n.navbar.profile.settings.editEmail}
 							defaultValue={getUserData()?.email}
 						/>
-						<div className="flex flex-row-reverse md:flex-col justify-between md:mt-2">
+						<div className="flex flex-row-reverse justify-between">
 							<TertiaryButton
 								onClick={() => {}}
 								label={i18n.navbar.profile.settings.approve}
