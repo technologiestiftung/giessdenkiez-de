@@ -71,6 +71,7 @@ export const de: Content = {
 				passwordChangeConfirmation:
 					'Dein Passwort wurde geändert. Klicke auf "ok" um zu deinem Profil zu kommen.',
 				deleteAccount: "Account löschen",
+				confirmDelete: "Löschen",
 				approve: "Fertig",
 				checkInput: "Bitte überprüfe Deine Eingabe",
 				usernameShould: "Dein Benutzername muss: ",
@@ -99,8 +100,7 @@ export const de: Content = {
 				clickHere: "Hier klicken",
 				resetPassword: "Passwort zurücksetzen",
 				invalidCredentials: "Falsches Passwort oder E-Mail Adresse",
-				deleteAccountConfirm:
-					"Bist Du Dir sicher, den Account löschen zu wollen?",
+				deleteAccountConfirm: "Willst Du Deinen Account wirklich löschen?",
 				cancel: "Abbrechen",
 			},
 			logOut: "Ausloggen",
