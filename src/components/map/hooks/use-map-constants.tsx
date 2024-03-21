@@ -9,7 +9,7 @@ export function useMapConstants() {
 	const MAP_LOCATION_ZOOM_LEVEL = parseInt(
 		import.meta.env.VITE_MAP_LOCATION_ZOOM_LEVEL,
 	);
-	const TREE_DEFAULT_COLOR = fullConfig.theme.colors["gdk-tree-green"];
+	const TREE_DEFAULT_COLOR = fullConfig.theme.colors["gdk-neon-green"];
 	const TREE_GRAY_COLOR = fullConfig.theme.colors["gdk-light-gray"];
 
 	const MAP_MIN_ZOOM_LEVEL = parseInt(import.meta.env.VITE_MAP_MIN_ZOOM_LEVEL);
