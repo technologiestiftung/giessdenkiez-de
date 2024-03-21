@@ -48,32 +48,36 @@ export const Router: React.FC = () => {
 						<Navbar />
 					</div>
 
-					<div className="mt-2 flex w-full flex-row justify-center">
-						<div
-							className={`${
-								treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
-							} flex flex-col gap-4`}
-						>
-							<div className={`${treeId && "hidden lg:flex"}`}>
-								<LocationSearch
-									onToggleShowFilter={(show) => {
-										const test = show ?? !isFilterVisible;
-										setIsFilterVisible(test);
-									}}
-								/>
-							</div>
-
+					{!showSplashScreen && (
+						<div className="mt-2 flex w-full flex-row justify-center">
 							<div
-								className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
+								className={`${
+									treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
+								} flex flex-col gap-4`}
 							>
-								{isFilterVisible && (
-									<Filter
-										onFilterChange={() => setIsFilterVisible(!isFilterVisible)}
+								<div className={`${treeId && "hidden lg:flex"}`}>
+									<LocationSearch
+										onToggleShowFilter={(show) => {
+											const test = show ?? !isFilterVisible;
+											setIsFilterVisible(test);
+										}}
 									/>
-								)}
+								</div>
+
+								<div
+									className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
+								>
+									{isFilterVisible && (
+										<Filter
+											onFilterChange={() =>
+												setIsFilterVisible(!isFilterVisible)
+											}
+										/>
+									)}
+								</div>
 							</div>
 						</div>
-					</div>
+					)}
 					{treeId && <TreeDetail />}
 					{showSplashScreen && (
 						<Splash onClose={() => setShowSplashScreen(false)} />
