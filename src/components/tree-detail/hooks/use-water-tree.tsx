@@ -14,6 +14,7 @@ export function useWaterTree(treeId: string): WaterTreeState {
 
 	const access_token = useAuthStore((store) => store).session?.access_token;
 	const user = useAuthStore((store) => store).session?.user;
+	const { refreshAdoptedTreesInfo } = useAuthStore();
 
 	const abortController = new AbortController();
 	const [wateringLoading, setWateringLoading] = useState(false);
@@ -45,6 +46,7 @@ export function useWaterTree(treeId: string): WaterTreeState {
 				setWateringLoading(false);
 			}
 			setWateringLoading(false);
+			await refreshAdoptedTreesInfo();
 		} catch (error) {
 			handleError(i18n.common.defaultErrorMessage, error);
 			setWateringLoading(false);
