@@ -7,11 +7,14 @@ import { WateringIcon } from "../icons/watering-icon";
 import { TreeIcon } from "../icons/tree-icon";
 import { HiThereIcon } from "../icons/hi-there-icon";
 import { LanguageToggle } from "../router/languageToggle";
+import { useI18nStore } from "../../i18n/i18n-store";
+import Markdown from "react-markdown";
 
 interface SplashProps {
 	onClose: () => void;
 }
 export const Splash: React.FC<SplashProps> = ({ onClose }) => {
+	const i18n = useI18nStore().i18n();
 	return (
 		<div className="w-full top-0 left-0 lg:w-[1200px] lg:max-w-[80%] lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 bg-white flex flex-col gap-4 absolute rounded-lg shadow-gdk-hard pointer-events-auto">
 			<div className="p-8 flex flex-col lg:gap-4 gap-2">
@@ -34,16 +37,11 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 					</div>
 				</div>
 				<div className="flex flex-row w-full justify-between items-center">
-					<div className="flex flex-col gap-2 pr-6 w-full lg:max-w-[80%]">
-						<div className="text-3xl font-semibold">
-							Die Berliner Stadtbäume leiden unter <br /> Trockenheit und Du
-							kannst ihnen helfen!
-						</div>
-						<div className="text-base">
-							Erkundige Dich über den Wasserbedarf der Bäume in Deiner
-							Nachbarschaft, adoptiere den Baum vor Deiner Haustür und werde
-							Teil der aktiven Gieß-Community in Berlin!
-						</div>
+					<div className="flex flex-col gap-2 pr-6 w-full lg:max-w-[70%]">
+						<Markdown className="text-4xl font-semibold">
+							{i18n.splash.headline}
+						</Markdown>
+						<div className="text-base">{i18n.splash.subheadline}</div>
 					</div>
 					<div className="hidden lg:flex px-8">
 						<img src="/images/icon-water-large.svg" alt="" />
@@ -58,52 +56,36 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 							<div className="text-gdk-neon-green">
 								<MapIcon className="w-10 h-10" />
 							</div>
-							<div>Entdecken</div>
+							<div>{i18n.splash.discoverTitle}</div>
 						</div>
-						<div className="text-base">
-							Die Karte visualisiert über 800.000 Stadtbäume und zeigt
-							Informationen zu Art, Alter und Wasserbedarf an. Nutze die Filter-
-							und Suchfunktionen, um schnell einen Überblick zu erhalten.
-						</div>
+						<div className="text-base">{i18n.splash.discoverContent}</div>
 					</div>
 					<div className="flex flex-col gap-2">
 						<div className="font-bold text-lg flex flex-row items-end gap-2">
 							<div className="text-gdk-neon-green">
 								<WateringIcon className="w-10 h-10" />
 							</div>
-							<div>Gießen</div>
+							<div>{i18n.splash.waterTitle}</div>
 						</div>
-						<div className="text-base">
-							Schnapp Dir eine Gießkanne und werde Teil der Gieß-Community!
-							Bereits über tausend Aktive haben sich für die Bäume Berlins
-							zusammengeschlossen und tragen ihre Gießungen regelmäßig ein.
-						</div>
+						<div className="text-base">{i18n.splash.waterContent}</div>
 					</div>
 					<div className="flex flex-col gap-2">
 						<div className="font-bold text-lg flex flex-row items-end gap-2">
 							<div className="text-gdk-neon-green">
 								<TreeIcon className="w-10 h-10" />
 							</div>
-							<div>Adoptieren</div>
+							<div>{i18n.splash.adoptTitle}</div>
 						</div>
-						<div className="text-base">
-							Durch das Adoptieren eines Baumes - oder auch mehrerer - lässt Du
-							deine Nachbarschaft wissen, dass für diese Bäume gesorgt wird. So
-							gelingt ein koordiniertes Engagement.
-						</div>
+						<div className="text-base">{i18n.splash.adoptContent}</div>
 					</div>
 					<div className="flex flex-col gap-2">
 						<div className="font-bold text-lg flex flex-row items-end gap-2">
 							<div className="text-gdk-neon-green">
 								<HiThereIcon className="w-10 h-10" />
 							</div>
-							<div>Vernetzen</div>
+							<div>{i18n.splash.networkTitle}</div>
 						</div>
-						<div className="text-base">
-							Tritt unserem Slack-Chat bei, um Dich mit der Gieß-Community zu
-							vernetzen, Fragen auszutauschen und die Bewässerung in Deinem Kiez
-							abzustimmen.
-						</div>
+						<div className="text-base">{i18n.splash.networkContent}</div>
 					</div>
 				</div>
 			</div>
@@ -118,15 +100,12 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 				</div>
 				<div className="lg:col-start-1 lg:row-start-1 flex flex-col gap-2 px-8 lg:w-[50%] w-full py-8">
 					<div className="text-xl font-bold">
-						Gieß den Kiez auch in deiner Stadt?
+						{i18n.splash.questionHeadline}
 					</div>
-					<div>
-						Städte wie Leipzig, Magdeburg und Co. haben sich bereits erfolgreich
-						der Gieß–Welle angeschlossen! Ist Deine Stadt die nächste?{" "}
-					</div>
+					<div>{i18n.splash.questionSubheadline}</div>
 					<div>
 						<a className="text-gdk-blue font-semibold" href="">
-							Erfahre mehr!
+							{i18n.splash.discoverMoreTitle}
 						</a>
 					</div>
 				</div>
