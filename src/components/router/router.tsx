@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Filter } from "../filter/filter";
 import { useFilterStore } from "../filter/filter-store";
 import { Info } from "../info/info";
@@ -22,6 +22,8 @@ export const Router: React.FC = () => {
 		store.isFilterViewVisible,
 		store.setIsFilterViewVisible,
 	]);
+
+	const [showSplashScreen, setShowSplashScreen] = useState(true);
 
 	switch (url.pathname) {
 		case "/":
@@ -73,7 +75,9 @@ export const Router: React.FC = () => {
 						</div>
 					</div>
 					{treeId && <TreeDetail />}
-					<Splash></Splash>
+					{showSplashScreen && (
+						<Splash onClose={() => setShowSplashScreen(false)} />
+					)}
 				</div>
 			);
 		case "/profile/reset-password":
