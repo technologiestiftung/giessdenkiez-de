@@ -24,7 +24,7 @@ export const DeleteAccountDialog: React.FC = () => {
 	return (
 		<dialog
 			id={"delete-account-dialog"}
-			className="pt-10 pb-8 px-12 bg-white shadow rounded-2xl backdrop:backdrop-blur"
+			className="pt-10 pb-8 px-12 bg-white shadow-gdk-hard rounded-2xl backdrop:backdrop-blur-xs"
 		>
 			<p className="font-semibold text-xl">
 				{
