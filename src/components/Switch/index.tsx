@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { trackInteraction } from '../../utils/matomo';
 
 const StyledSwitch = styled.div`
-  z-index: 4;
+  z-index: 0;
   position: fixed;
   right: 10px;
   top: 10px;
