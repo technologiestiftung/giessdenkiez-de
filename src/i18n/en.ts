@@ -93,7 +93,7 @@ export const en: Content = {
 				logInShort: "Login",
 				missingAccount: "Don't have an account yet?",
 				registerNow: "Register now",
-				forgotYourPassword: "forgot your password?",
+				forgotYourPassword: "forget your password?",
 				ohNoforgotYourPassword: "Oh no. Did you",
 				passwordForgotten: "forget your password",
 				resetPasswordEmailSent:
