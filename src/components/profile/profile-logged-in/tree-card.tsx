@@ -1,6 +1,7 @@
 import React from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { AdoptButton } from "../../buttons/adoptButton";
+import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 
 export interface TreeCardProps {
 	id: string;
@@ -23,12 +24,7 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 			key={id}
 			className="shadow-gdk-soft flex flex-col gap-3 rounded-2xl border-2 p-4"
 		>
-			<a
-				className="py-1 font-semibold text-blue-600 hover:text-gdk-light-blue"
-				href={`/map?treeId=${id}`}
-			>
-				{name}
-			</a>
+			<InternalAnchorLink href={`/map?treeId=${id}`} label={name} />
 			<div className="-mt-4 self-end">
 				<AdoptButton treeId={id}></AdoptButton>
 			</div>
