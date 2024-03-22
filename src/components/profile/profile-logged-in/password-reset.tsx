@@ -5,6 +5,8 @@ import { PrimaryButton } from "../../buttons/primary";
 import { useUrlState } from "../../router/store";
 import { LanguageToggle } from "../../router/languageToggle";
 import { useI18nStore } from "../../../i18n/i18n-store";
+import { AlertDialog } from "../profile-alert/alert-dialog";
+import { CheckIcon } from "../../icons/check-icon";
 
 export const PasswordReset: React.FC = () => {
 	const { updatePassword } = useAuthStore();
@@ -27,6 +29,10 @@ export const PasswordReset: React.FC = () => {
 				onSubmit={(e) => {
 					e.preventDefault();
 					updatePassword(e.currentTarget.password.value);
+
+					(
+						document.getElementById("alert-dialog") as HTMLDialogElement
+					).showModal();
 				}}
 				className="flex flex-col"
 			>
@@ -51,6 +57,19 @@ export const PasswordReset: React.FC = () => {
 					<PrimaryButton type="submit" label="Speichern" />
 				</div>
 			</form>
+			<AlertDialog
+				alertTitleWithIcon={
+					<>
+						{i18n.navbar.profile.settings.passwordChangeConfirmationTitle}
+						<div className="w-1/2 self-center">
+							<CheckIcon />
+						</div>
+					</>
+				}
+				alertMessage={
+					i18n.navbar.profile.settings.passwordChangeConfirmationMessage
+				}
+			/>
 		</div>
 	);
 };

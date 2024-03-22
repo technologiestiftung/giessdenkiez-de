@@ -68,11 +68,13 @@ export const en: Content = {
 				password: "Password",
 				changePassword: "Change password",
 				newPassword: "New password",
-				passwordChangeConfirmation:
-					'Password changed, press "ok" to go to your profile',
+				passwordChangeConfirmationTitle:
+					"Your password was successfully changed!",
+				passwordChangeConfirmationMessage: 'Press "OK" to go to your profile',
 				deleteAccount: "Delete account",
 				confirmDelete: "Delete",
 				cancel: "Cancel",
+				confirm: "OK",
 				approve: "Done",
 				checkInput: "Please check your input",
 				usernameShould: "Your username needs to: ",
@@ -96,8 +98,9 @@ export const en: Content = {
 				forgotYourPassword: "forgot your password?",
 				ohNoforgotYourPassword: "Oh no. Did you",
 				passwordForgotten: "forget your password",
-				resetPasswordEmailSent:
-					"Email sent! We sent you an email with a link to reset your password. Check your mailbox!",
+				resetPasswordEmailSentTitle: "Email sent!",
+				resetPasswordEmailSentMessage:
+					"We sent you an email with a link to reset your password. Check your mailbox!",
 				clickHere: "click here",
 				resetPassword: "Reset password",
 				invalidCredentials: "Invalid credentials",

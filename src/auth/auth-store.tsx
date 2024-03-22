@@ -249,11 +249,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
-
-			alert(
-				useI18nStore.getState().i18n().navbar.profile.settings
-					.resetPasswordEmailSent,
-			);
 		},
 
 		updatePassword: async (password: string) => {
@@ -265,14 +260,14 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 				throw error;
 			}
 
-			if (
-				!window.confirm(
-					useI18nStore.getState().i18n().navbar.profile.settings
-						.passwordChangeConfirmation,
-				)
-			) {
-				return;
-			}
+			// if (
+			// 	!window.confirm(
+			// 		useI18nStore.getState().i18n().navbar.profile.settings
+			// 			.passwordChangeConfirmation,
+			// 	)
+			// ) {
+			// 	return;
+			// }
 
 			useUrlState.getState().setPathname("/profile");
 		},

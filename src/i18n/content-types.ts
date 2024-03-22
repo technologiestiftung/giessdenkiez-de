@@ -57,7 +57,8 @@ interface Navbar {
 			password: string;
 			changePassword: string;
 			newPassword: string;
-			passwordChangeConfirmation: string;
+			passwordChangeConfirmationTitle: string;
+			passwordChangeConfirmationMessage: string;
 			deleteAccount: string;
 			confirmDelete: string;
 			cancel: string;
@@ -83,11 +84,13 @@ interface Navbar {
 			forgotYourPassword: string;
 			ohNoforgotYourPassword: string;
 			passwordForgotten: string;
-			resetPasswordEmailSent: string;
+			resetPasswordEmailSentTitle: string;
+			resetPasswordEmailSentMessage: string;
 			clickHere: string;
 			resetPassword: string;
 			invalidCredentials: string;
 			deleteAccountConfirm: string;
+			confirm: string;
 		};
 		logOut: string;
 		showPassword: string;
