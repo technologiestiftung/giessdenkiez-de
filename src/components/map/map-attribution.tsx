@@ -21,7 +21,7 @@ export const MapAttribution: React.FC = () => {
 						href={link.href}
 						key={link.label}
 						target="_blank"
-						rel="noreferrer"
+						rel="noopener noreferrer"
 						className="hover:text-gray-500"
 						dangerouslySetInnerHTML={{ __html: link.label }}
 					></a>

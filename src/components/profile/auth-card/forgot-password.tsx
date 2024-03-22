@@ -2,13 +2,12 @@ import React from "react";
 import { useAuthStore } from "../../../auth/auth-store";
 import { PrimaryButton } from "../../buttons/primary";
 import { TextInput } from "../../input/text-input";
-import { useUrlState } from "../../router/store";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useErrorStore } from "../../../error/error-store";
+import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 
 export const ForgotPassword: React.FC = () => {
 	const { forgotPassword } = useAuthStore();
-	const { setPathname } = useUrlState();
 	const i18n = useI18nStore().i18n();
 	const { handleError } = useErrorStore();
 
@@ -24,16 +23,10 @@ export const ForgotPassword: React.FC = () => {
 
 	return (
 		<>
-			<a
-				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
+			<InternalAnchorLink
 				href="/profile"
-				onClick={(e) => {
-					e.preventDefault();
-					setPathname("/profile");
-				}}
-			>
-				<span>&lt;</span> {i18n.navbar.profile.settings.backToLogin}
-			</a>
+				label={`< ${i18n.navbar.profile.settings.backToLogin}`}
+			/>
 
 			<h1 className="pt-12 text-2xl font-semibold">
 				{" "}
@@ -54,16 +47,10 @@ export const ForgotPassword: React.FC = () => {
 			</form>
 
 			<p className="pt-6">{i18n.navbar.profile.settings.backToLogin}?</p>
-			<a
-				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
+			<InternalAnchorLink
 				href="/profile"
-				onClick={(e) => {
-					e.preventDefault();
-					setPathname("/profile");
-				}}
-			>
-				{i18n.navbar.profile.settings.clickHere}
-			</a>
+				label={i18n.navbar.profile.settings.clickHere}
+			/>
 		</>
 	);
 };

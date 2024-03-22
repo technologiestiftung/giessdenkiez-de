@@ -4,7 +4,7 @@ import { EditEmail } from "./edit-email";
 import { EditUsername } from "./edit-username";
 import { EditPassword } from "./edit-password";
 import { TertiaryDestructiveButton } from "../../../buttons/tertiary-destructive";
-import { DeleteAccountDialog } from "./delete-account-dialog.tsx";
+import { DeleteAccountDialog } from "./delete-account-dialog";
 
 export const ProfileDetails: React.FC = () => {
 	const i18n = useI18nStore().i18n();

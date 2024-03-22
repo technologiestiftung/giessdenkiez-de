@@ -1,9 +1,9 @@
 import React from "react";
-import { useAuthStore } from "./auth/auth-store.tsx";
+import { useAuthStore } from "./auth/auth-store";
 import { Map } from "./components/map/map";
 import { Router } from "./components/router/router";
-import { useErrorStore } from "./error/error-store.tsx";
-import { ErrorToast } from "./error/error-toast.tsx";
+import { useErrorStore } from "./error/error-store";
+import { ErrorToast } from "./error/error-toast";
 
 export const App: React.FC = () => {
 	useAuthStore();
