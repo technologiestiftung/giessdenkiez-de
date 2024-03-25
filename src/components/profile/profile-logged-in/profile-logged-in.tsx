@@ -7,8 +7,8 @@ import { AdoptedTrees } from "./adopted-trees";
 import { ProfileDetails } from "./profile-details/profile-details";
 import { SecondaryButton } from "../../buttons/secondary";
 import { PasswordReset } from "./password-reset";
-import { useErrorStore } from "../../../error/error-store.tsx";
-import { LanguageToggle } from "../../router/languageToggle.tsx";
+import { useErrorStore } from "../../../error/error-store";
+import { LanguageToggle } from "../../router/languageToggle";
 
 export const ProfileLoggedIn: React.FC = () => {
 	const i18n = useI18nStore().i18n();

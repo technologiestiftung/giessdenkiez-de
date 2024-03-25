@@ -48,7 +48,7 @@ export const Overview: React.FC = () => {
 					<div className="shadow-gdk-soft flex w-full flex-col justify-between gap-3 lg:min-w-36 rounded-2xl border-2 p-4 font-semibold">
 						{i18n.navbar.profile.overview.irrigations}
 						<span className="flex items-baseline gap-x-5 text-5xl font-medium">
-							<img src="images/icon-watering-can.svg" alt="" className="" />
+							<img src="images/icon-watering-can.svg" alt="" />
 							{formatNumber(wateringCountTotal)}
 						</span>
 					</div>

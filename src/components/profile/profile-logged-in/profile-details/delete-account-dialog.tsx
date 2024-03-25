@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
-import { useAuthStore } from "../../../../auth/auth-store.tsx";
-import { useErrorStore } from "../../../../error/error-store.tsx";
-import { useUrlState } from "../../../router/store.tsx";
-import { useI18nStore } from "../../../../i18n/i18n-store.ts";
-import { SecondaryDestructiveButton } from "../../../buttons/secondary-destructive.tsx";
-import { PrimaryButton } from "../../../buttons/primary.tsx";
+import { useAuthStore } from "../../../../auth/auth-store";
+import { useErrorStore } from "../../../../error/error-store";
+import { useUrlState } from "../../../router/store";
+import { useI18nStore } from "../../../../i18n/i18n-store";
+import { SecondaryDestructiveButton } from "../../../buttons/secondary-destructive";
+import { PrimaryButton } from "../../../buttons/primary";
 
 export const DeleteAccountDialog: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -24,7 +24,7 @@ export const DeleteAccountDialog: React.FC = () => {
 	return (
 		<dialog
 			id={"delete-account-dialog"}
-			className="pt-10 pb-8 px-12 bg-white shadow rounded-2xl backdrop:backdrop-blur"
+			className="pt-10 pb-8 px-12 bg-white shadow-gdk-hard rounded-2xl backdrop:backdrop-blur-xs"
 		>
 			<p className="font-semibold text-xl">
 				{
