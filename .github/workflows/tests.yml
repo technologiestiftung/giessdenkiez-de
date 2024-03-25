@@ -23,7 +23,7 @@ jobs:
       SUPABASE_URL: http://localhost:54321
       VITE_BASE_URL: http://localhost:5173
       VITE_SUPABASE_URL: http://localhost:54321
-      TEST_INBUCKET_URL: http://localhost:54324
+      TEST_SUPABASE_INBUCKET_URL: http://localhost:54324
       # The values below are taken from the command `supabase start`
       # WARNING: Don't use production URLs or tokens here
       SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
@@ -31,7 +31,22 @@ jobs:
       SUPABASE_SERVICE_ROLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU
       VITE_MATOMO_SITE_ID: ""
       VITE_MATOMO_URL: ""
+      VITE_MAP_BOUNDING_BOX: "13.0824446341071,52.3281202651866,13.7682544186827,52.681600197973"
+      VITE_MAP_CENTER_LNG: "13.388836926491992"
+      VITE_MAP_CENTER_LAT: "52.494590307846366"
+      VITE_MAPBOX_API_ENDPOINT: "https://api.mapbox.com"
+      VITE_MAP_PITCH_DEGREES: "45"
+      VITE_MAP_MAX_ZOOM_LEVEL: "20"
+      VITE_MAP_MIN_ZOOM_LEVEL: "10"
+      VITE_MAP_INITIAL_ZOOM_LEVEL: "11"
+      VITE_MAP_LOCATION_ZOOM_LEVEL: "17"
+      VITE_API_ENDPOINT: "http://localhost:8080"
       VITE_MAPBOX_API_KEY: ${{ secrets.VITE_MAPBOX_API_KEY }}
+      VITE_MAPBOX_STYLE_URL: ${{ secrets.VITE_MAPBOX_STYLE_URL }}
+      VITE_MAPBOX_TREES_TILESET_URL: ${{ secrets.VITE_MAPBOX_TREES_TILESET_URL }}
+      VITE_MAPBOX_TREES_TILESET_LAYER: ${{ secrets.VITE_MAPBOX_TREES_TILESET_LAYER }}
+      VITE_MAP_PUMPS_SOURCE_URL: ${{ secrets.VITE_MAP_PUMPS_SOURCE_URL }}
+
       SUPABASE_MAX_ROWS: 10000
       # Set to scheme, domain and possibly port (if something else than port 80) of the origin you are expecting
       # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
