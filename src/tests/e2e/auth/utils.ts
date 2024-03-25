@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import {
 	baseUrl,
 	defaultEmail,
@@ -29,12 +29,12 @@ export async function registerThenLogoutWithDefaultAccount(page: Page) {
 	await page.getByRole("link", { name: "Confirm your email address" }).click();
 
 	await page.getByRole("link", { name: "Profil" }).click();
-	// await expect(
-	// 	page.getByRole("heading", { name: "Dein Profil" }),
-	// ).toBeVisible();
+	await expect(
+		page.getByRole("heading", { name: "Dein Profil" }),
+	).toBeVisible();
 
 	await page.getByRole("button", { name: "Ausloggen" }).click();
-	// await expect(page.getByRole("heading", { name: "Anmelden" })).toBeVisible();
+	await expect(page.getByRole("heading", { name: "Anmelden" })).toBeVisible();
 }
 
 export async function deleteDefaultAccount(page: Page) {
@@ -49,5 +49,5 @@ export async function deleteDefaultAccount(page: Page) {
 	await page.getByRole("button", { name: "Account löschen" }).click();
 	await page.getByRole("button", { name: "Löschen", exact: true }).click();
 
-	// await expect(page.getByRole("heading", { name: "Anmelden" })).toBeVisible();
+	await expect(page.getByRole("heading", { name: "Anmelden" })).toBeVisible();
 }
