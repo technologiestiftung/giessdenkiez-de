@@ -14,6 +14,9 @@ export const EditPassword: React.FC = () => {
 	const onClick = useCallback(async () => {
 		try {
 			await forgotPassword(getUserData()?.email ?? "");
+			(
+				document.getElementById("alert-dialog") as HTMLDialogElement
+			).showModal();
 		} catch (error) {
 			handleError(i18n.common.defaultErrorMessage);
 		}

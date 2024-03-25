@@ -203,10 +203,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
-
-			(
-				document.getElementById("alert-dialog") as HTMLDialogElement
-			).showModal();
 		},
 
 		deleteUser: async () => {
@@ -245,10 +241,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
-
-			(
-				document.getElementById("alert-dialog") as HTMLDialogElement
-			).showModal();
 		},
 
 		updatePassword: async (password: string) => {
@@ -259,10 +251,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
-
-			(
-				document.getElementById("alert-dialog") as HTMLDialogElement
-			).showModal();
 		},
 
 		updateEmail: async (email: string) => {

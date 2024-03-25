@@ -16,6 +16,13 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
 }) => {
 	const { setPathname } = useUrlState();
 
+	const onClick = () => {
+		(document.getElementById("alert-dialog") as HTMLDialogElement).close();
+		if (href) {
+			setPathname(href);
+		}
+	};
+
 	return (
 		<dialog
 			id={"alert-dialog"}
@@ -32,13 +39,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
 						label={
 							useI18nStore.getState().i18n().navbar.profile.settings.confirm
 						}
-						onClick={() => {
-							(
-								document.getElementById("alert-dialog") as HTMLDialogElement
-							).close();
-
-							href && setPathname(href);
-						}}
+						onClick={onClick}
 					/>
 				</div>
 			</div>

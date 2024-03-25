@@ -30,6 +30,9 @@ export const Register: React.FC = () => {
 				username: form.username.value,
 				password: form.password.value,
 			});
+			(
+				document.getElementById("alert-dialog") as HTMLDialogElement
+			).showModal();
 		} catch (error) {
 			if (getErrorMessage(error) === "User already registered") {
 				setIsEmailTaken(true);
@@ -94,7 +97,6 @@ export const Register: React.FC = () => {
 				alertMessage={i18n.navbar.profile.settings.confirmEmail(emailSubmitted)}
 				href="/profile"
 			/>
-			;
 		</>
 	);
 };
