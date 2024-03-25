@@ -263,7 +263,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			(
 				document.getElementById("alert-dialog") as HTMLDialogElement
 			).showModal();
-			// useUrlState.getState().setPathname("/profile");
 		},
 
 		updateEmail: async (email: string) => {

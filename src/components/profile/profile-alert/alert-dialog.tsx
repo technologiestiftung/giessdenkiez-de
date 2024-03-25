@@ -1,16 +1,21 @@
 import React from "react";
 import { useI18nStore } from "../../../i18n/i18n-store.ts";
 import { PrimaryButton } from "../../buttons/primary.tsx";
+import { useUrlState } from "../../router/store";
 
 export interface AlertDialogProps {
 	alertTitleWithIcon: string | React.ReactNode;
 	alertMessage: string;
+	href?: string;
 }
 
 export const AlertDialog: React.FC<AlertDialogProps> = ({
 	alertTitleWithIcon,
 	alertMessage,
+	href,
 }) => {
+	const { setPathname } = useUrlState();
+
 	return (
 		<dialog
 			id={"alert-dialog"}
@@ -31,6 +36,8 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
 							(
 								document.getElementById("alert-dialog") as HTMLDialogElement
 							).close();
+
+							href && setPathname(href);
 						}}
 					/>
 				</div>

@@ -58,6 +58,7 @@ export const PasswordReset: React.FC = () => {
 				alertMessage={
 					i18n.navbar.profile.settings.passwordChangeConfirmationMessage
 				}
+				href="/profile"
 			/>
 		</div>
 	);
