@@ -7,7 +7,13 @@ on:
     branches: [main, staging, feat/ui-rework]
   pull_request:
     branches: [main, staging, feat/ui-rework]
-
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        type: boolean
+        description: "Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)"
+        required: false
+        default: false
 jobs:
   test:
     timeout-minutes: 60
@@ -58,7 +64,11 @@ jobs:
       # - uses: supabase/setup-cli@v1
       #   with:
       #     version: 1.142.2
-
+      - name: Setup tmate session for dispatch
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+        with:
+          limit-access-to-actor: true
       - run: npm ci
       - name: lint
         run: npm run lint
@@ -66,7 +76,13 @@ jobs:
         run: npm run prettier:ci
       - name: test
         run: npm run test:unit
-
+        # please see https://github.com/mxschmitt/action-tmate
+      - name: Tmate session
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
+        timeout-minutes: 15
+        with:
+          limit-access-to-actor: true
       # todo: make e2e tests work in CI
   #      - name: Get the source for the api
   #        id: checkout-api
