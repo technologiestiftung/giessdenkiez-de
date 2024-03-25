@@ -68,8 +68,10 @@ export const de: Content = {
 				password: "Passwort",
 				changePassword: "Passwort ändern",
 				newPassword: "Neues Passwort",
-				passwordChangeConfirmation:
-					'Dein Passwort wurde geändert. Klicke auf "ok" um zu deinem Profil zu kommen.',
+				passwordChangeConfirmationTitle:
+					"Dein Passwort wurde erfolgreich geändert!",
+				passwordChangeConfirmationMessage:
+					'Klicke auf "OK" um zu deinem Profil zu gelangen.',
 				deleteAccount: "Account löschen",
 				confirmDelete: "Löschen",
 				approve: "Fertig",
@@ -80,6 +82,7 @@ export const de: Content = {
 				usernameTaken: "Dieser Benutzername ist bereits vergeben",
 				backToLogin: "zurück zum Login",
 				register: "Registrieren",
+				confirmEmailTitle: "Account bestätigen",
 				confirmEmail: (email: string) =>
 					`Überprüfe Dein E-Mail Postfach für ${email} nach einer E-Mail von "noreply@mail.app.supabase.io" mit einem Link um deinen Account zu bestätigen.`,
 				existingAccount: "Du hast schon einen Account?",
@@ -95,13 +98,15 @@ export const de: Content = {
 				forgotYourPassword: "Passwort vergessen?",
 				ohNoforgotYourPassword: "Oh nein. Du hast Dein",
 				passwordForgotten: "Passwort vergessen",
-				resetPasswordEmailSent:
-					"E–Mail gesendet! Wir haben Dir eine E–Mail zum Ändern Deines Passworts gesendet. Checke Dein Postfach!",
+				resetPasswordEmailSentTitle: "E–Mail gesendet!",
+				resetPasswordEmailSentMessage:
+					"Wir haben Dir eine E–Mail zum Ändern Deines Passworts gesendet. Checke Dein Postfach!",
 				clickHere: "Hier klicken",
 				resetPassword: "Passwort zurücksetzen",
 				invalidCredentials: "Falsches Passwort oder E-Mail Adresse",
 				deleteAccountConfirm: "Willst Du Deinen Account wirklich löschen?",
 				cancel: "Abbrechen",
+				confirm: "OK",
 			},
 			logOut: "Ausloggen",
 			showPassword: "Zeigen",
