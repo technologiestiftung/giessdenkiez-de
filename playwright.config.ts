@@ -74,6 +74,6 @@ export default defineConfig({
 	webServer: {
 		command: "npm run dev",
 		url: process.env.VITE_BASE_URL,
-		reuseExistingServer: !process.env.CI,
+		reuseExistingServer: true, //!process.env.CI,
 	},
 });
