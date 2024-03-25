@@ -10,6 +10,7 @@ import { LanguageToggle } from "../router/languageToggle";
 import { useI18nStore } from "../../i18n/i18n-store";
 import Markdown from "react-markdown";
 import { SplashTreeIcon } from "../icons/splash-tree-icon";
+import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 
 interface SplashProps {
 	onClose: () => void;
@@ -130,15 +131,11 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 						{i18n.splash.questionHeadline}
 					</div>
 					<div className="text-sm">{i18n.splash.questionSubheadline}</div>
-					<div>
-						<a
-							className="text-gdk-blue font-semibold text-sm"
+					<div className="text-sm">
+						<ExternalAnchorLink
 							href="https://deinestadt.giessdenkiez.de/"
-							target="_blank"
-							rel="noreferrer noopener"
-						>
-							{i18n.splash.discoverMoreTitle}
-						</a>
+							label={i18n.splash.discoverMoreTitle}
+						></ExternalAnchorLink>
 					</div>
 				</div>
 			</div>
