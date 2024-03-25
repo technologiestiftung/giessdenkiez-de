@@ -9,7 +9,7 @@ const logoBerlin =
 export const Credits: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	return (
-		<div className="w-full flex flex-row gap-4 md:gap-10 px-4 py-8 text-xs sm:text-sm md:text-base">
+		<div className="w-full flex flex-row gap-4 md:gap-10 px-4 py-4 text-xs">
 			<div className="w-[30%] flex flex-col gap-4 justify-center">
 				<div className="w-full"></div>
 				<a
