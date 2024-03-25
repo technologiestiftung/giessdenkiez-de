@@ -2,9 +2,7 @@
 import { create } from "zustand";
 import { Session, User } from "@supabase/supabase-js";
 import { supabaseClient } from "./supabase-client";
-import { useUrlState } from "../components/router/store";
 import { useI18nStore } from "../i18n/i18n-store";
-import { AlertDialog } from "../components/profile/profile-alert/alert-dialog";
 
 interface Credentials {
 	email: string;
