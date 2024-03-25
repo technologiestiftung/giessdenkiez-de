@@ -125,7 +125,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 						placeholder={i18n.locationSearch.placeholder}
 					/>
 					<button
-						className={`${search === "" && "opacity-0"} px-4`}
+						className={`${search === "" && "opacity-0"} px-4 hover:text-gdk-light-gray`}
 						onClick={clearSearch}
 					>
 						<ClearIcon />
@@ -133,7 +133,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 				</form>
 
 				{geocodingResults.length > 0 && (
-					<div className="z-[1] -mt-8 flex flex-col overflow-hidden rounded-b-lg bg-white pt-8">
+					<div className="z-[1] -mt-8 flex flex-col overflow-hidden rounded-b-3xl bg-white pt-8">
 						{geocodingResults.map((geocodingResult, idx) => (
 							<button
 								key={`geocoding-result-${idx}`}
