@@ -40,18 +40,18 @@ export const EditPassword: React.FC = () => {
 						onClick={onClick}
 						label={i18n.navbar.profile.settings.changePassword}
 					></TertiaryButton>
-					<AlertDialog
-						alertTitleWithIcon={
-							<>
-								{i18n.navbar.profile.settings.resetPasswordEmailSentTitle}
-								<MailIcon />
-							</>
-						}
-						alertMessage={
-							i18n.navbar.profile.settings.resetPasswordEmailSentMessage
-						}
-					/>
 				</div>
+				<AlertDialog
+					alertTitleWithIcon={
+						<>
+							{i18n.navbar.profile.settings.resetPasswordEmailSentTitle}
+							<MailIcon />
+						</>
+					}
+					alertMessage={
+						i18n.navbar.profile.settings.resetPasswordEmailSentMessage
+					}
+				/>
 			</div>
 		</>
 	);

@@ -29,10 +29,6 @@ export const PasswordReset: React.FC = () => {
 				onSubmit={(e) => {
 					e.preventDefault();
 					updatePassword(e.currentTarget.password.value);
-
-					(
-						document.getElementById("alert-dialog") as HTMLDialogElement
-					).showModal();
 				}}
 				className="flex flex-col"
 			>

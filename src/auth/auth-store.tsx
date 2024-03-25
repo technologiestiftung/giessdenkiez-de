@@ -260,16 +260,10 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 				throw error;
 			}
 
-			// if (
-			// 	!window.confirm(
-			// 		useI18nStore.getState().i18n().navbar.profile.settings
-			// 			.passwordChangeConfirmation,
-			// 	)
-			// ) {
-			// 	return;
-			// }
-
-			useUrlState.getState().setPathname("/profile");
+			(
+				document.getElementById("alert-dialog") as HTMLDialogElement
+			).showModal();
+			// useUrlState.getState().setPathname("/profile");
 		},
 
 		updateEmail: async (email: string) => {
