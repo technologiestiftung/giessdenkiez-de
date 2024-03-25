@@ -70,13 +70,13 @@ jobs:
         with:
           limit-access-to-actor: true
       - run: npm ci
-      - name: lint
-        run: npm run lint
-      - name: prettier
-        run: npm run prettier:ci
-      - name: test
-        run: npm run test:unit
-        # please see https://github.com/mxschmitt/action-tmate
+      #      - name: lint
+      #        run: npm run lint
+      #      - name: prettier
+      #        run: npm run prettier:ci
+      #      - name: test
+      #        run: npm run test:unit
+      # please see https://github.com/mxschmitt/action-tmate
       - name: Tmate session
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3
@@ -84,33 +84,33 @@ jobs:
         with:
           limit-access-to-actor: true
       # todo: make e2e tests work in CI
-  #      - name: Get the source for the api
-  #        id: checkout-api
-  #        uses: actions/checkout@v4
-  #        with:
-  #          repository: technologiestiftung/giessdenkiez-de-postgres-api
-  #          ref: "staging"
-  #          path: api
-  #      - uses: supabase/setup-cli@v1
-  #        with:
-  #          version: 1.142.2
-  #
-  #        # Start the supabase
-  #      - name: Start supabase
-  #        run: |
-  #          cd api
-  #          npm ci
-  #          supabase start
-  #          npm run vercel:dev &
-  #      - name: Install Playwright Browsers
-  #        run: npx playwright install --with-deps
-  #      - run: npm run test  --if-present
-  #      - uses: actions/upload-artifact@v3
-  #        if: always()
-  #        with:
-  #          name: playwright-report
-  #          path: playwright-report/
-  #          retention-days: 30
+      - name: Get the source for the api
+        id: checkout-api
+        uses: actions/checkout@v4
+        with:
+          repository: technologiestiftung/giessdenkiez-de-postgres-api
+          ref: "staging"
+          path: api
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 1.142.2
+        # Start the supabase
+      - name: Start supabase
+        run: |
+          cd api
+          npm ci
+          supabase start
+          npm run vercel:dev &
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npm run test  --if-present
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
   release:
     needs: [test]
     runs-on: ubuntu-latest

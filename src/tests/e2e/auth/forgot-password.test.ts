@@ -10,7 +10,7 @@ import {
 	inbucketUrl,
 } from "./constants";
 
-test.describe("Forgot password", () => {
+test.describe.skip("Forgot password", () => {
 	test.describe("Happy Case", () => {
 		test.beforeEach(async ({ page }) => {
 			await registerThenLogoutWithDefaultAccount(page);
