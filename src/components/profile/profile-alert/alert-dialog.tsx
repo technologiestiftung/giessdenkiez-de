@@ -26,7 +26,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
 	return (
 		<dialog
 			id={"alert-dialog"}
-			className="py-6 px-10 bg-gdk-lighter-gray shadow-gdk-hard rounded-2xl w-11/12 sm:w-[400px] backdrop:backdrop-blur"
+			className="py-6 px-10 bg-gdk-lighter-gray shadow-gdk-hard rounded-2xl w-11/12 sm:w-[400px] backdrop:backdrop-blur-xs"
 		>
 			<div className="flex-col flex">
 				<span className="font-semibold text-xl flex flex-row gap-x-5 my-4 justify-start">
