@@ -82,6 +82,7 @@ export const de: Content = {
 				usernameTaken: "Dieser Benutzername ist bereits vergeben",
 				backToLogin: "zurück zum Login",
 				register: "Registrieren",
+				confirmEmailTitle: "Account bestätigen",
 				confirmEmail: (email: string) =>
 					`Überprüfe Dein E-Mail Postfach für ${email} nach einer E-Mail von "noreply@mail.app.supabase.io" mit einem Link um deinen Account zu bestätigen.`,
 				existingAccount: "Du hast schon einen Account?",

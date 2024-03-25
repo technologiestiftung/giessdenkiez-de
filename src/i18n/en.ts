@@ -70,7 +70,7 @@ export const en: Content = {
 				newPassword: "New password",
 				passwordChangeConfirmationTitle:
 					"Your password was successfully changed!",
-				passwordChangeConfirmationMessage: 'Press "OK" to go to your profile',
+				passwordChangeConfirmationMessage: 'Press "OK" to go to your profile.',
 				deleteAccount: "Delete account",
 				confirmDelete: "Delete",
 				cancel: "Cancel",
@@ -83,6 +83,7 @@ export const en: Content = {
 				usernameTaken: "This username is already taken",
 				backToLogin: "Back to login",
 				register: "Register",
+				confirmEmailTitle: "Confirm account",
 				confirmEmail: (email: string) =>
 					`Check your inbox for "${email}", you should have received a mail from "noreply@mail.app.supabase.io" containing a link to activate your account.`,
 				existingAccount: "Do you already have an account?",

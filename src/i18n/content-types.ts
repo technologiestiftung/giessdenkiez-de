@@ -70,6 +70,7 @@ interface Navbar {
 			usernameTaken: string;
 			backToLogin: string;
 			register: string;
+			confirmEmailTitle: string;
 			confirmEmail: (email: string) => string;
 			existingAccount: string;
 			logIn: string;

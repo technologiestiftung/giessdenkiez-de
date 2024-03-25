@@ -4,6 +4,7 @@ import { Session, User } from "@supabase/supabase-js";
 import { supabaseClient } from "./supabase-client";
 import { useUrlState } from "../components/router/store";
 import { useI18nStore } from "../i18n/i18n-store";
+import { AlertDialog } from "../components/profile/profile-alert/alert-dialog";
 
 interface Credentials {
 	email: string;
@@ -205,12 +206,9 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 				throw error;
 			}
 
-			alert(
-				useI18nStore
-					.getState()
-					.i18n()
-					.navbar.profile.settings.confirmEmail(email),
-			);
+			(
+				document.getElementById("alert-dialog") as HTMLDialogElement
+			).showModal();
 		},
 
 		deleteUser: async () => {
@@ -249,6 +247,10 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
+
+			(
+				document.getElementById("alert-dialog") as HTMLDialogElement
+			).showModal();
 		},
 
 		updatePassword: async (password: string) => {
