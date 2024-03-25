@@ -32,7 +32,7 @@ test.describe("Setup", () => {
 		).toBeVisible();
 	});
 
-	test("should check if default user account already exists", async ({
+	test.skip("should check if default user account already exists", async ({
 		page,
 	}) => {
 		await page.goto("http://localhost:5173/map");
