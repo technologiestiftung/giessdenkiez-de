@@ -449,7 +449,7 @@ Vernetzen:
 		networkTitle: "Vernetzen",
 		networkContent:
 			"Tritt unserem Slack-Chat bei, um Dich mit der Gieß-Community zu vernetzen, Fragen auszutauschen und die Bewässerung in Deinem Kiez abzustimmen.",
-		questionHeadline: "Gieß den Kiez auch in deiner Stadt?",
+		questionHeadline: "Gieß den Kiez auch in Deiner Stadt?",
 		questionSubheadline:
 			"Städte wie Leipzig, Magdeburg und Co. haben sich bereits erfolgreich der Gieß–Welle angeschlossen! Ist Deine Stadt die nächste?",
 		discoverMoreTitle: "Erfahre mehr!",

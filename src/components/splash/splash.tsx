@@ -135,7 +135,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 							className="text-gdk-blue font-semibold text-sm"
 							href="https://deinestadt.giessdenkiez.de/"
 							target="_blank"
-							rel="noreferrer"
+							rel="noreferrer noopener"
 						>
 							{i18n.splash.discoverMoreTitle}
 						</a>

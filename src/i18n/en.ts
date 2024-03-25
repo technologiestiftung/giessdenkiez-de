@@ -452,7 +452,7 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		adoptTitle: "Adopt",
 		adoptContent:
 			"By adopting a tree - or several - you let your neighborhood know that these trees will be cared for. This creates a coordinated commitment.",
-		networkTitle: "Network",
+		networkTitle: "Connect",
 		networkContent:
 			"Join our Slack chat to connect with the watering community, exchange questions, and coordinate watering in your neighborhood.",
 		questionHeadline: "Gieß den Kiez also in your city?",
