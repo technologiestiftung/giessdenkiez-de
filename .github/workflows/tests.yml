@@ -78,12 +78,6 @@ jobs:
       #      - name: test
       #        run: npm run test:unit
       # please see https://github.com/mxschmitt/action-tmate
-      - name: Tmate session
-        if: ${{ failure() }}
-        uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 15
-        with:
-          limit-access-to-actor: true
       # todo: make e2e tests work in CI
       - name: Get the source for the api
         id: checkout-api
@@ -106,6 +100,12 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: npm run test  --if-present
+      - name: Tmate session
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
+        timeout-minutes: 15
+        with:
+          limit-access-to-actor: true
       - uses: actions/upload-artifact@v3
         if: always()
         with:
