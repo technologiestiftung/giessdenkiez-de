@@ -31,6 +31,7 @@ jobs:
       SUPABASE_SERVICE_ROLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU
       VITE_MATOMO_SITE_ID: ""
       VITE_MATOMO_URL: ""
+      VITE_MAPBOX_API_KEY: ${{ secrets.VITE_MAPBOX_API_KEY }}
       SUPABASE_MAX_ROWS: 10000
       # Set to scheme, domain and possibly port (if something else than port 80) of the origin you are expecting
       # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
