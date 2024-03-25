@@ -82,7 +82,6 @@ export const Register: React.FC = () => {
 				href="/profile"
 				label={i18n.navbar.profile.settings.logIn}
 			/>
-			{console.log(emailSubmitted)}
 			<AlertDialog
 				alertTitleWithIcon={
 					<>
