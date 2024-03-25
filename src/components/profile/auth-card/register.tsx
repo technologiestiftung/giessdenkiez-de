@@ -1,5 +1,4 @@
 import React, { useCallback } from "react";
-import { useUrlState } from "../../router/store";
 import { useAuthStore } from "../../../auth/auth-store";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { EmailInputWithValidation } from "../validation/email-input-with-validation";
@@ -9,9 +8,9 @@ import { PrimaryButton } from "../../buttons/primary";
 import { useEmailTakenStore } from "../validation/email-taken-store";
 import { getErrorMessage } from "../validation/validation";
 import { useErrorStore } from "../../../error/error-store";
+import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 
 export const Register: React.FC = () => {
-	const { setPathname } = useUrlState();
 	const { register } = useAuthStore();
 	const { setIsEmailTaken } = useEmailTakenStore();
 	const i18n = useI18nStore().i18n();
@@ -41,16 +40,10 @@ export const Register: React.FC = () => {
 
 	return (
 		<>
-			<a
-				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
+			<InternalAnchorLink
 				href="/profile"
-				onClick={(e) => {
-					e.preventDefault();
-					setPathname("/profile");
-				}}
-			>
-				<span>&lt;</span> {i18n.navbar.profile.settings.backToLogin}
-			</a>
+				label={`< ${i18n.navbar.profile.settings.backToLogin}`}
+			/>
 
 			<h1 className="pt-6 text-2xl font-semibold">
 				{i18n.navbar.profile.settings.register}
@@ -83,16 +76,10 @@ export const Register: React.FC = () => {
 			</form>
 
 			<p className="pt-6">{i18n.navbar.profile.settings.existingAccount}</p>
-			<a
-				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
+			<InternalAnchorLink
 				href="/profile"
-				onClick={(e) => {
-					e.preventDefault();
-					setPathname("/profile");
-				}}
-			>
-				{i18n.navbar.profile.settings.logIn}
-			</a>
+				label={i18n.navbar.profile.settings.logIn}
+			/>
 		</>
 	);
 };

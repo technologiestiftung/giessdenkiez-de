@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { useAuthStore } from "../../../auth/auth-store";
 import { PrimaryButton } from "../../buttons/primary";
 import { TextInput } from "../../input/text-input";
-import { useUrlState } from "../../router/store";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useErrorStore } from "../../../error/error-store";
 import { getErrorMessage } from "../validation/validation.ts";
+import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 
 export const Login: React.FC = () => {
 	const { login } = useAuthStore();
-	const { setSearchParams } = useUrlState();
 	const i18n = useI18nStore().i18n();
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -80,30 +79,18 @@ export const Login: React.FC = () => {
 			</form>
 
 			<p className="pt-6">{i18n.navbar.profile.settings.missingAccount}</p>
-			<a
-				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
+			<InternalAnchorLink
 				href="/profile?mode=register"
-				onClick={(e) => {
-					e.preventDefault();
-					setSearchParams(new URLSearchParams("mode=register"));
-				}}
-			>
-				{i18n.navbar.profile.settings.registerNow}
-			</a>
+				label={i18n.navbar.profile.settings.registerNow}
+			/>
 
 			<p className="pt-6">
 				{i18n.navbar.profile.settings.ohNoforgotYourPassword}
 			</p>
-			<a
-				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
+			<InternalAnchorLink
 				href="/profile?mode=forgot-password"
-				onClick={(e) => {
-					e.preventDefault();
-					setSearchParams(new URLSearchParams("mode=forgot-password"));
-				}}
-			>
-				{i18n.navbar.profile.settings.forgotYourPassword}
-			</a>
+				label={i18n.navbar.profile.settings.forgotYourPassword}
+			/>
 		</>
 	);
 };
