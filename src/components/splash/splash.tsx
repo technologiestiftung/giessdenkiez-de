@@ -9,6 +9,7 @@ import { HiThereIcon } from "../icons/hi-there-icon";
 import { LanguageToggle } from "../router/languageToggle";
 import { useI18nStore } from "../../i18n/i18n-store";
 import Markdown from "react-markdown";
+import { SplashTreeIcon } from "../icons/splash-tree-icon";
 
 interface SplashProps {
 	onClose: () => void;
@@ -53,18 +54,22 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 				>
 					<CloseIcon />
 				</button>
-				<div className="flex flex-row w-full justify-between items-center mb-4 lg:mb-8">
-					<div className="text-2xl font-bold">
+				<div className="flex flex-row w-full justify-between items-center mb-4 lg:mb-5">
+					<div className="text-2xl font-bold flex-row flex gap-1">
 						<span>Gieß den</span>{" "}
-						<span className="text-gdk-neon-green">Kiez</span>
+						<span className="text-gdk-neon-green"> Kiez</span>
+						<div className="-translate-y-4">
+							<SplashTreeIcon />
+						</div>
 					</div>
+
 					<button
-						className="hidden lg:flex hover:text-gdk-light-gray"
+						className="hidden lg:flex hover:text-gdk-light-gray self-start"
 						onClick={onClose}
 					>
 						<CloseIcon />
 					</button>
-					<div className="flex lg:hidden">
+					<div className="flex lg:hidden -translate-y-1">
 						<LanguageToggle />
 					</div>
 				</div>
