@@ -24,7 +24,7 @@ export const Router: React.FC = () => {
 
 	switch (url.pathname) {
 		case "/":
-			setPathname("/map");
+			setPathname("/map", { hasSameSearchParams: true, hasSameHash: true });
 			return <></>;
 
 		case "/map":

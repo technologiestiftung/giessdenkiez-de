@@ -1,5 +1,6 @@
 import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
+import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 
 export const ProblemCard: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -19,14 +20,10 @@ export const ProblemCard: React.FC = () => {
 				<div className="flex flex-col gap-2">
 					<div>{i18n.treeDetail.problem.description}</div>
 					<div>
-						<a
+						<ExternalAnchorLink
 							href="https://ordnungsamt.berlin.de/frontend/meldungNeu/wo"
-							target="_blank"
-							rel="noreferrer noopener"
-							className="font-bold text-gdk-blue"
-						>
-							{i18n.treeDetail.problem.link}
-						</a>
+							label={i18n.treeDetail.problem.link}
+						/>
 					</div>
 				</div>
 			</div>

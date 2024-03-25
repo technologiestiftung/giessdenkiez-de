@@ -19,9 +19,8 @@ import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 export const TreeDetail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
-	const [url, setPathname, removeSearchParam] = useUrlState((state) => [
+	const [url, removeSearchParam] = useUrlState((state) => [
 		state.url,
-		state.setPathname,
 		state.removeSearchParam,
 	]);
 	const treeId = url.searchParams.get("treeId");
@@ -49,7 +48,6 @@ export const TreeDetail: React.FC = () => {
 				className="flex flex-row justify-end"
 				onClick={(e) => {
 					e.preventDefault();
-					setPathname("/map");
 					removeSearchParam("treeId");
 					setTreeData(undefined);
 					setSelectedTreeId(undefined);
