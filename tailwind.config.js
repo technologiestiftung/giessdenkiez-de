@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// eslint-disable-next-line @technologiestiftung/no-default-export
 export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
@@ -9,6 +10,7 @@ export default {
 			colors: {
 				"gdk-gray": "#2C303B",
 				"gdk-light-gray": "#808080",
+				"gdk-lighter-gray": "#EFEFEF",
 				"gdk-white": "#FEFEFE",
 				"gdk-blue": "#1169EE",
 				"gdk-light-blue": "#96BCF4",
@@ -20,6 +22,9 @@ export default {
 				"gdk-dark-green": "#07964E",
 				"gdk-purple": "#660A9C",
 				"gdk-orange": "#FF8617",
+			},
+			blur: {
+				xs: "2px",
 			},
 			boxShadow: {
 				"3xl": "0 35px 60px -15px rgba(0, 0, 0, 0.3)",

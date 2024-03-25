@@ -19,6 +19,7 @@ test.describe("Setup", () => {
 		expect(defaultUsername).toBeDefined();
 		expect(defaultPassword).toBeDefined();
 	});
+
 	test("should check if supabase API and inbucket are running locally", async ({
 		page,
 	}) => {
@@ -29,5 +30,18 @@ test.describe("Setup", () => {
 		await expect(
 			page.getByRole("heading", { name: "Welcome to Inbucket" }),
 		).toBeVisible();
+	});
+
+	test("should check if default user account already exists", async ({
+		page,
+	}) => {
+		await page.goto("http://localhost:5173/map");
+		await page.getByRole("link", { name: "Profil" }).click();
+		await page.getByLabel("E-Mail").click();
+		await page.getByLabel("E-Mail").fill("user@example.com");
+		await page.getByLabel("E-Mail").press("Tab");
+		await page.getByLabel("Passwort").fill('123qwe!"§QWE');
+		await page.getByRole("button", { name: "Anmelden" }).click();
+		await expect(page.getByText("Falsches Passwort oder E-Mail")).toBeVisible();
 	});
 });

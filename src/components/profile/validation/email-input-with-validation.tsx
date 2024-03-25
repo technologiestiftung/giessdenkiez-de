@@ -2,7 +2,7 @@ import React from "react";
 import { TextInput } from "../../input/text-input";
 import { Warning } from "./warning";
 import { useEmailTakenStore } from "./email-taken-store";
-import { useResetIsEmailTakenOnUnmount } from "./hooks/use-reset-is-email-taken-on-unmount.tsx";
+import { useResetIsEmailTakenOnUnmount } from "./hooks/use-reset-is-email-taken-on-unmount";
 
 export interface EmailInputValidationProps {
 	label: string | React.ReactNode;

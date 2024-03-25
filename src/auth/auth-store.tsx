@@ -2,7 +2,6 @@
 import { create } from "zustand";
 import { Session, User } from "@supabase/supabase-js";
 import { supabaseClient } from "./supabase-client";
-import { useUrlState } from "../components/router/store";
 import { useI18nStore } from "../i18n/i18n-store";
 
 interface Credentials {
@@ -204,13 +203,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
-
-			alert(
-				useI18nStore
-					.getState()
-					.i18n()
-					.navbar.profile.settings.confirmEmail(email),
-			);
 		},
 
 		deleteUser: async () => {
@@ -249,11 +241,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
-
-			alert(
-				useI18nStore.getState().i18n().navbar.profile.settings
-					.resetPasswordEmailSent,
-			);
 		},
 
 		updatePassword: async (password: string) => {
@@ -264,17 +251,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
-
-			if (
-				!window.confirm(
-					useI18nStore.getState().i18n().navbar.profile.settings
-						.passwordChangeConfirmation,
-				)
-			) {
-				return;
-			}
-
-			useUrlState.getState().setPathname("/profile");
 		},
 
 		updateEmail: async (email: string) => {

@@ -68,11 +68,13 @@ export const en: Content = {
 				password: "Password",
 				changePassword: "Change password",
 				newPassword: "New password",
-				passwordChangeConfirmation:
-					'Password changed, press "ok" to go to your profile',
+				passwordChangeConfirmationTitle:
+					"Your password was successfully changed!",
+				passwordChangeConfirmationMessage: 'Press "OK" to go to your profile.',
 				deleteAccount: "Delete account",
 				confirmDelete: "Delete",
 				cancel: "Cancel",
+				confirm: "OK",
 				approve: "Done",
 				checkInput: "Please check your input",
 				usernameShould: "Your username needs to: ",
@@ -81,6 +83,7 @@ export const en: Content = {
 				usernameTaken: "This username is already taken",
 				backToLogin: "Back to login",
 				register: "Register",
+				confirmEmailTitle: "Confirm account",
 				confirmEmail: (email: string) =>
 					`Check your inbox for "${email}", you should have received a mail from "noreply@mail.app.supabase.io" containing a link to activate your account.`,
 				existingAccount: "Do you already have an account?",
@@ -93,11 +96,12 @@ export const en: Content = {
 				logInShort: "Login",
 				missingAccount: "Don't have an account yet?",
 				registerNow: "Register now",
-				forgotYourPassword: "forgot your password?",
+				forgotYourPassword: "forget your password?",
 				ohNoforgotYourPassword: "Oh no. Did you",
 				passwordForgotten: "forget your password",
-				resetPasswordEmailSent:
-					"Email sent! We sent you an email with a link to reset your password. Check your mailbox!",
+				resetPasswordEmailSentTitle: "Email sent!",
+				resetPasswordEmailSentMessage:
+					"We sent you an email with a link to reset your password. Check your mailbox!",
 				clickHere: "click here",
 				resetPassword: "Reset password",
 				invalidCredentials: "Invalid credentials",

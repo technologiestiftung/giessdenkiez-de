@@ -2,9 +2,14 @@ import { create } from "zustand";
 import { trackPageView } from "../matomo/utils/matomo";
 import { URLSearchParams } from "url";
 
+interface SetPathnameOptions {
+	hasSameSearchParams?: boolean;
+	hasSameHash?: boolean;
+}
+
 interface URLState {
 	url: URL;
-	setPathname: (url: string) => void;
+	setPathname: (url: string, options?: SetPathnameOptions) => void;
 	setSearchParams: (searchParams: URLSearchParams) => void;
 	addSearchParam: (key: string, value: string) => void;
 	removeSearchParam: (keyToRemove: string) => void;
@@ -13,9 +18,19 @@ interface URLState {
 export const useUrlState = create<URLState>()((set, get) => ({
 	url: new URL(window.location.href),
 
-	setPathname: (pathname) => {
-		const url = new URL(get().url);
-		url.pathname = pathname;
+	setPathname: (
+		pathname,
+		{ hasSameSearchParams = false, hasSameHash = false } = {},
+	) => {
+		const url = new URL(pathname, get().url.origin);
+
+		if (hasSameSearchParams) {
+			url.search = get().url.search;
+		}
+
+		if (hasSameHash) {
+			url.hash = get().url.hash;
+		}
 
 		set({ url });
 

@@ -1,5 +1,4 @@
-import React, { useCallback } from "react";
-import { useUrlState } from "../../router/store";
+import React, { useCallback, useState } from "react";
 import { useAuthStore } from "../../../auth/auth-store";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { EmailInputWithValidation } from "../validation/email-input-with-validation";
@@ -9,17 +8,21 @@ import { PrimaryButton } from "../../buttons/primary";
 import { useEmailTakenStore } from "../validation/email-taken-store";
 import { getErrorMessage } from "../validation/validation";
 import { useErrorStore } from "../../../error/error-store";
+import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
+import { AlertDialog } from "../profile-alert/alert-dialog";
+import { MailIcon } from "../../icons/mail-icon";
 
 export const Register: React.FC = () => {
-	const { setPathname } = useUrlState();
 	const { register } = useAuthStore();
 	const { setIsEmailTaken } = useEmailTakenStore();
 	const i18n = useI18nStore().i18n();
 	const { handleError } = useErrorStore();
+	const [emailSubmitted, setEmailSubmitted] = useState("");
 
 	const onSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const form = e.currentTarget;
+		setEmailSubmitted(form.email.value);
 
 		try {
 			await register({
@@ -27,6 +30,9 @@ export const Register: React.FC = () => {
 				username: form.username.value,
 				password: form.password.value,
 			});
+			(
+				document.getElementById("alert-dialog") as HTMLDialogElement
+			).showModal();
 		} catch (error) {
 			if (getErrorMessage(error) === "User already registered") {
 				setIsEmailTaken(true);
@@ -41,17 +47,10 @@ export const Register: React.FC = () => {
 
 	return (
 		<>
-			<a
-				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
+			<InternalAnchorLink
 				href="/profile"
-				onClick={(e) => {
-					e.preventDefault();
-					setPathname("/profile");
-				}}
-			>
-				<span>&lt;</span> {i18n.navbar.profile.settings.backToLogin}
-			</a>
-
+				label={`< ${i18n.navbar.profile.settings.backToLogin}`}
+			/>
 			<h1 className="pt-6 text-2xl font-semibold">
 				{i18n.navbar.profile.settings.register}
 			</h1>
@@ -81,18 +80,23 @@ export const Register: React.FC = () => {
 					/>
 				</div>
 			</form>
-
 			<p className="pt-6">{i18n.navbar.profile.settings.existingAccount}</p>
-			<a
-				className="font-semibold text-blue-600 hover:text-gdk-light-blue"
+			<InternalAnchorLink
 				href="/profile"
-				onClick={(e) => {
-					e.preventDefault();
-					setPathname("/profile");
-				}}
-			>
-				{i18n.navbar.profile.settings.logIn}
-			</a>
+				label={i18n.navbar.profile.settings.logIn}
+			/>
+			<AlertDialog
+				alertTitleWithIcon={
+					<>
+						{i18n.navbar.profile.settings.confirmEmailTitle}
+						<div className="self-center">
+							<MailIcon />
+						</div>
+					</>
+				}
+				alertMessage={i18n.navbar.profile.settings.confirmEmail(emailSubmitted)}
+				href="/profile"
+			/>
 		</>
 	);
 };
