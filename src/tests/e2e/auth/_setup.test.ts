@@ -18,6 +18,7 @@ test.describe("Setup", () => {
 		expect(defaultEmail).toBeDefined();
 		expect(defaultUsername).toBeDefined();
 		expect(defaultPassword).toBeDefined();
+		expect(process.env.VITE_MAPBOX_API_KEY).toBeDefined();
 	});
 
 	test("should check if supabase API and inbucket are running locally", async ({
