@@ -23,7 +23,7 @@ export const Router: React.FC = () => {
 		store.setIsFilterViewVisible,
 	]);
 
-	const [showSplashScreen, setShowSplashScreen] = useState(true);
+	const [isSplashScreenVisible, setIsSplashScreenVisible] = useState(true);
 
 	switch (url.pathname) {
 		case "/":
@@ -48,7 +48,7 @@ export const Router: React.FC = () => {
 						<Navbar />
 					</div>
 
-					{!showSplashScreen && (
+					{!isSplashScreenVisible && (
 						<div className="mt-2 flex w-full flex-row justify-center">
 							<div
 								className={`${
@@ -79,8 +79,8 @@ export const Router: React.FC = () => {
 						</div>
 					)}
 					{treeId && <TreeDetail />}
-					{showSplashScreen && (
-						<Splash onClose={() => setShowSplashScreen(false)} />
+					{isSplashScreenVisible && (
+						<Splash onClose={() => setIsSplashScreenVisible(false)} />
 					)}
 				</div>
 			);
