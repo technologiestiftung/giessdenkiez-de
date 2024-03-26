@@ -8,6 +8,7 @@ import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
 import { useFilterStore } from "../filter/filter-store";
 import { FilterIcon } from "../icons/filter-icon";
+import { useSearchStore } from "./search-store";
 
 interface LocationSearchProps {
 	onToggleShowFilter: (showFilter?: boolean) => void;
@@ -17,28 +18,34 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 	onToggleShowFilter,
 }) => {
 	const i18n = useI18nStore().i18n();
-
-	const [search, setSearch] = useState("");
+	const {
+		currentSearch,
+		setCurrentSearch,
+		pickedGeoCodingSearchResults,
+		setPickedGeoCodingSearchResults,
+	} = useSearchStore();
 	const [isTextInSearchbar, setIsTextInSearchbar] = useState(false);
 	const [selectedGeocodingResultIndex, setSelectedGeocodingResultIndex] =
 		useState(0);
-
 	const [selectedGeocodingResult, setSelectedGeocodingResult] =
 		useState<GeocodingResult>();
 
 	const { map } = useMapStore();
 	const { MAP_LOCATION_ZOOM_LEVEL } = useMapConstants();
-	const { geocodingResults, clearGeocodingResults } = useGeocoding(search);
+	const { geocodingResults, clearGeocodingResults } =
+		useGeocoding(currentSearch);
 
 	const { isFilterViewVisible, isSomeFilterActive } = useFilterStore();
 
 	useEffect(() => {
-		clearSearch();
+		if (isFilterViewVisible) {
+			clearSearch();
+		}
 	}, [isFilterViewVisible]);
 
 	const clearSearch = () => {
-		setSearch("");
-		setSelectedGeocodingResult(undefined);
+		setCurrentSearch("");
+		setPickedGeoCodingSearchResults("");
 		setIsTextInSearchbar(false);
 	};
 
@@ -46,9 +53,9 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 		clearSearch();
 	});
 
-	map?.on("zoomstart", function () {
-		clearSearch();
-	});
+	// map?.on("zoomstart", function () {
+	// 	// clearSearch();
+	// });
 
 	map?.on("click", function () {
 		clearSearch();
@@ -65,6 +72,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 				zoom: MAP_LOCATION_ZOOM_LEVEL,
 			});
 		setSelectedGeocodingResult(geocodingResult);
+		setPickedGeoCodingSearchResults(geocodingResult.place_name_de);
 		setSelectedGeocodingResultIndex(0);
 		clearGeocodingResults();
 	};
@@ -111,15 +119,19 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 					<input
 						className={`w-full py-4 pl-2 focus:outline-none`}
 						type="text"
-						value={selectedGeocodingResult?.place_name_de || search}
+						value={
+							selectedGeocodingResult?.place_name_de ||
+							pickedGeoCodingSearchResults
+						}
 						onKeyDown={(e) => {
 							if (e.key === "ArrowDown" || e.key === "ArrowUp") {
 								e.preventDefault();
 							}
 						}}
 						onChange={(e) => {
+							setCurrentSearch(e.target.value);
+							setPickedGeoCodingSearchResults(e.target.value);
 							setSelectedGeocodingResult(undefined);
-							setSearch(e.target.value);
 							setIsTextInSearchbar(true);
 						}}
 						onFocus={() => {
