@@ -91,3 +91,8 @@
 .mapboxgl-ctrl button.mapboxgl-ctrl-geolocate .mapboxgl-ctrl-icon {
 	@apply bg-[url('/images/icon-locate.svg')] hover:bg-[url('/images/icon-locate-hover.svg')] !important;
 }
+
+/* prettier-ignore */
+.mapboxgl-ctrl button.mapboxgl-ctrl-geolocate.mapboxgl-ctrl-geolocate-waiting .mapboxgl-ctrl-icon {
+	@apply animate-none !important;
+}
