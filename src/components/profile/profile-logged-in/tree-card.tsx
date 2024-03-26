@@ -1,8 +1,13 @@
-import React, { Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { AdoptButtonLazy } from "../../buttons/adoptButtonLazy";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 import { Skeleton } from "../../skeleton/skeleton";
+import {
+	HeartIcon,
+	HeartIconFillState,
+	HeartIconState,
+} from "../../icons/heart-icon.tsx";
 
 export interface TreeCardProps {
 	id: string;
@@ -19,10 +24,75 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 }) => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
+	const [heartHovered, setHeartHovered] = useState(false);
+
+	const LazyComponent = lazy(async (): Promise<{ default: React.FC }> => {
+		// const isAdopted = await getIsAdopted(treeId, access_token, user?.id);
+		const isAdopted = await new Promise((resolve) =>
+			setTimeout(() => resolve(true), 5000),
+		);
+
+		return {
+			default: () => {
+				return (
+					<div
+						key={id}
+						className="shadow-gdk-soft flex flex-col gap-3 rounded-2xl border-2 p-4"
+					>
+						<InternalAnchorLink href={`/map?treeId=${id}`} label={name} />
+						<div className="-mt-4 self-end">
+							<button
+								type="button"
+								onClick={async () => {
+									// if (!isAdopted) {
+									// 	await adoptTree();
+									// 	return;
+									// }
+									//
+									// await unadoptTree();
+								}}
+								onMouseEnter={() => setHeartHovered(true)}
+								onMouseLeave={() => setHeartHovered(false)}
+							>
+								<HeartIcon
+									state={
+										heartHovered ? HeartIconState.Hover : HeartIconState.Default
+									}
+									fillState={
+										isAdopted
+											? HeartIconFillState.Filled
+											: HeartIconFillState.Empty
+									}
+								/>
+							</button>
+						</div>
+						<hr />
+						<div className="flex gap-2 font-medium">
+							<div className="flex flex-col gap-3">
+								<img src="images/icon-watering-can.svg" alt="" className="" />
+								<img src="images/icon-drop.svg" alt="" className="ml-1 w-5" />
+							</div>
+
+							<div className="mt-1 flex flex-col gap-3">
+								<span>
+									{formatNumber(irrigationTimes)}{" "}
+									{i18n.navbar.profile.adoptedTrees.irrigationTimes}
+								</span>
+								<span>
+									{formatNumber(irrigationAmount)}{" "}
+									{i18n.navbar.profile.adoptedTrees.irrigationAmount}
+								</span>
+							</div>
+						</div>
+					</div>
+				);
+			},
+		};
+	});
 
 	return (
-		<Suspense fallback={<Skeleton className="bg-red-300" />}>
-			<AdoptButtonLazy treeId={id}></AdoptButtonLazy>
+		<Suspense fallback={<Skeleton className="bg-red-300 h-5 w-20" />}>
+			<LazyComponent />
 		</Suspense>
 	);
 };

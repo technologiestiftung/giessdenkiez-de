@@ -8,57 +8,73 @@ import {
 import { useAuthStore } from "../../auth/auth-store";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { useErrorStore } from "../../error/error-store";
+import { InternalAnchorLink } from "../anchor-link/internal-anchor-link";
 
 export interface AdoptButtonLazyProps {
 	treeId: string;
+	name: string;
+	irrigationAmount: number;
+	irrigationTimes: number;
 }
 
 const getIsAdopted = async (
 	treeId: string,
 	access_token: string | undefined,
-	userID: string,
-	handleError: (message: string, error?: any) => void,
+	userId: string | undefined,
+	// handleError: (message: string, error?: any) => void,
 ) => {
-	try {
-		const adoptUrl = `${
-			import.meta.env.VITE_API_ENDPOINT
-		}/get/istreeadopted?uuid=${user?.id}&id=${treeId}`;
-		const res = await fetch(adoptUrl, {
-			method: "GET",
-			headers: {
-				Authorization: `Bearer ${access_token}`,
-				"Content-Type": "application/json",
-			},
-		});
-		if (!res.ok) {
-			handleError(i18n.treeDetail.adoptErrorMessage);
-			return;
-		}
-		const json = await res.json();
-		isAdopted = json.data;
-	} catch (error) {
-		handleError(i18n.treeDetail.adoptErrorMessage, error);
-	}
+	// try {
+	// const adoptUrl = `${
+	// 	import.meta.env.VITE_API_ENDPOINT
+	// }/get/istreeadopted?uuid=${userId}&id=${treeId}`;
+	// const res = await fetch(adoptUrl, {
+	// 	method: "GET",
+	// 	headers: {
+	// 		Authorization: `Bearer ${access_token}`,
+	// 		"Content-Type": "application/json",
+	// 	},
+	// });
+
+	// const res = await new Promise((resolve) =>
+	// 	setTimeout(
+	// 		() => resolve({ ok: true, json: async () => ({ data: true }) }),
+	// 		1000,
+	// 	),
+	// );
+
+	// 	if (!res.ok) {
+	// 		console.error("response not ok");
+	// 		// handleError(i18n.treeDetail.adoptErrorMessage);
+	// 		return false;
+	// 	}
+	// 	const json = await res.json();
+	// 	return json.data;
+	// } catch (error) {
+	// 	console.error(error);
+	// 	return false;
+	// }
+	return true;
 };
 
-export const AdoptButtonLazy: React.FC<AdoptButtonLazyProps> = ({ treeId }) => {
+export const AdoptButtonLazy: React.FC<AdoptButtonLazyProps> = ({
+	treeId,
+	name,
+	irrigationAmount,
+	irrigationTimes,
+}) => {
 	const [heartHovered, setHeartHovered] = useState(false);
-	const { adoptTree, unadoptTree } = useAdoptTree(treeId);
+	// const { adoptTree, unadoptTree } = useAdoptTree(treeId);
 
 	const access_token = useAuthStore((store) => store).session?.access_token;
 	const user = useAuthStore((store) => store).session?.user;
 	const i18n = useI18nStore().i18n();
-	const handleError = useErrorStore().handleError;
+	const { formatNumber } = useI18nStore();
+	// const handleError = useErrorStore().handleError;
 
 	// const { refreshAdoptedTreesInfo } = useAuthStore();
 
-	const LazyComponent = lazy(async (): Promise<{ default: () => React.FC }> => {
-		let isAdopted = await getIsAdopted(
-			treeId,
-			access_token,
-			user?.id,
-			handleError,
-		);
+	const LazyComponent = lazy(async (): Promise<{ default: React.FC }> => {
+		const isAdopted = await getIsAdopted(treeId, access_token, user?.id);
 
 		return {
 			default: () => {
@@ -72,12 +88,12 @@ export const AdoptButtonLazy: React.FC<AdoptButtonLazyProps> = ({ treeId }) => {
 							<button
 								type="button"
 								onClick={async () => {
-									if (!isAdopted) {
-										await adoptTree();
-										return;
-									}
-
-									await unadoptTree();
+									// if (!isAdopted) {
+									// 	await adoptTree();
+									// 	return;
+									// }
+									//
+									// await unadoptTree();
 								}}
 								onMouseEnter={() => setHeartHovered(true)}
 								onMouseLeave={() => setHeartHovered(false)}
@@ -118,5 +134,5 @@ export const AdoptButtonLazy: React.FC<AdoptButtonLazyProps> = ({ treeId }) => {
 		};
 	});
 
-	return <LazyComponent />;
+	return LazyComponent;
 };
