@@ -436,4 +436,28 @@ Vernetzen:
 		defect: "Defekt",
 		unknown: "Unbekannt",
 	},
+	splash: {
+		headline:
+			"Die Berliner Stadtbäume leiden unter Trockenheit und Du kannst ihnen helfen!",
+		subheadline:
+			"Erkundige Dich über den Wasserbedarf der Bäume in Deiner Nachbarschaft, adoptiere den Baum vor Deiner Haustür und werde Teil der aktiven Gieß-Community in Berlin!",
+		actionTitle: "Los geht's",
+		discoverTitle: "Entdecken",
+		discoverContent:
+			"Die Karte visualisiert über 800.000 Stadtbäume und zeigt Informationen zu Art, Alter und Wasserbedarf an. Nutze die Filter- und Suchfunktionen, um schnell einen Überblick zu erhalten.",
+		waterTitle: "Gießen",
+		waterContent:
+			"Schnapp Dir eine Gießkanne und werde Teil der Gieß-Community! Bereits über tausend Aktive haben sich für die Bäume Berlins zusammengeschlossen und tragen ihre Gießungen regelmäßig ein.",
+		adoptTitle: "Adoptieren",
+		adoptContent:
+			"Durch das Adoptieren eines Baumes - oder auch mehrerer - lässt Du deine Nachbarschaft wissen, dass für diese Bäume gesorgt wird. So gelingt ein koordiniertes Engagement.",
+		networkTitle: "Vernetzen",
+		networkContent:
+			"Tritt unserem Slack-Chat bei, um Dich mit der Gieß-Community zu vernetzen, Fragen auszutauschen und die Bewässerung in Deinem Kiez abzustimmen.",
+		questionHeadline: "Gieß den Kiez auch in Deiner Stadt?",
+		questionSubheadline:
+			"Städte wie Leipzig, Magdeburg und Co. haben sich bereits erfolgreich der Gieß–Welle angeschlossen! Ist Deine Stadt die nächste?",
+		discoverMoreTitle: "Erfahre mehr!",
+		letsGo: "Los geht's",
+	},
 };

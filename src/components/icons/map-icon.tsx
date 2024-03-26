@@ -1,13 +1,17 @@
 import React from "react";
 
-export const MapIcon: React.FC = () => {
+interface MapIconProps {
+	className?: string;
+}
+
+export const MapIcon: React.FC<MapIconProps> = ({ className }) => {
 	return (
 		<svg
 			width="26"
 			height="26"
 			viewBox="0 0 26 26"
 			fill="none"
-			className="h-6 w-6"
+			className={`${className ?? "h-6 w-6 "}`}
 			xmlns="http://www.w3.org/2000/svg"
 		>
 			<path

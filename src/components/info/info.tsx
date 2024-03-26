@@ -54,7 +54,11 @@ export const Info: React.FC = () => {
 									isLast={idx === i18n.info.about.qa.length - 1}
 									isInitiallyExpanded={false}
 								>
-									{idx === 1 && <Credits />}
+									{idx === 1 && (
+										<div className="p-4">
+											<Credits />
+										</div>
+									)}
 								</QaEntry>
 							</React.Fragment>
 						))}
