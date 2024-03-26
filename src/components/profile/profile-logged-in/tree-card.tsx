@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
-import { AdoptButton } from "../../buttons/adoptButton";
+import { AdoptButtonLazy } from "../../buttons/adoptButtonLazy";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
+import { Skeleton } from "../../skeleton/skeleton";
 
 export interface TreeCardProps {
 	id: string;
@@ -20,32 +21,8 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 	const { formatNumber } = useI18nStore();
 
 	return (
-		<div
-			key={id}
-			className="shadow-gdk-soft flex flex-col gap-3 rounded-2xl border-2 p-4"
-		>
-			<InternalAnchorLink href={`/map?treeId=${id}`} label={name} />
-			<div className="-mt-4 self-end">
-				<AdoptButton treeId={id}></AdoptButton>
-			</div>
-			<hr />
-			<div className="flex gap-2 font-medium">
-				<div className="flex flex-col gap-3">
-					<img src="images/icon-watering-can.svg" alt="" className="" />
-					<img src="images/icon-drop.svg" alt="" className="ml-1 w-5" />
-				</div>
-
-				<div className="mt-1 flex flex-col gap-3">
-					<span>
-						{formatNumber(irrigationTimes)}{" "}
-						{i18n.navbar.profile.adoptedTrees.irrigationTimes}
-					</span>
-					<span>
-						{formatNumber(irrigationAmount)}{" "}
-						{i18n.navbar.profile.adoptedTrees.irrigationAmount}
-					</span>
-				</div>
-			</div>
-		</div>
+		<Suspense fallback={<Skeleton className="bg-red-300" />}>
+			<AdoptButtonLazy treeId={id}></AdoptButtonLazy>
+		</Suspense>
 	);
 };

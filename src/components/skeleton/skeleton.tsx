@@ -9,7 +9,7 @@ export const Skeleton: React.FC<
 > = ({ className, ...props }) => {
 	return (
 		<div
-			className={"animate-pulse rounded-md bg-muted" + className}
+			className={`animate-pulse rounded-md bg-muted ${className}`}
 			{...props}
 		/>
 	);
