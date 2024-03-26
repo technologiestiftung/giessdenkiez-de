@@ -33,7 +33,7 @@ export const Router: React.FC = () => {
 		case "/map":
 			return (
 				<div
-					className={`flex h-dvh w-screen flex-col-reverse justify-between lg:flex-row ${
+					className={`flex h-svh w-screen flex-col-reverse justify-between lg:flex-row ${
 						treeId && "bg-white"
 					} lg:bg-transparent`}
 				>
