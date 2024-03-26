@@ -87,10 +87,10 @@ jobs:
           limit-access-to-actor: true
       # please see https://github.com/mxschmitt/action-tmate
       - run: npm ci
-            - name: lint
-              run: npm run lint
-            - name: prettier
-              run: npm run prettier:ci
+      - name: lint
+        run: npm run lint
+      - name: prettier
+        run: npm run prettier:ci
       - name: Get the source for the api
         id: checkout-api
         uses: actions/checkout@v4
