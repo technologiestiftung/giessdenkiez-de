@@ -63,7 +63,8 @@ export const de: Content = {
 				yourEmail: "Deine E-Mail Adresse",
 				editEmail: "Neue E-Mail Adresse",
 				placeholderMail: "xyz@ts.berlin",
-				updateEmailEmailSent:
+				updateEmailEmailSentTitle: "E-Mail gesendet!",
+				updateEmailEmailSentContent:
 					"Wir haben an Deine alte und neue E–Mail einen Bestätigungslink zum Ändern Deiner Email gesendet. Checke Deine Postfächer und logge Dich neu ein!",
 				password: "Passwort",
 				changePassword: "Passwort ändern",

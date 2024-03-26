@@ -8,6 +8,8 @@ import { useEmailTakenStore } from "../../validation/email-taken-store";
 import { useErrorStore } from "../../../../error/error-store";
 import { TertiaryDestructiveButton } from "../../../buttons/tertiary-destructive";
 import { TertiaryButton } from "../../../buttons/tertiary";
+import { AlertDialog } from "../../profile-alert/alert-dialog";
+import { MailIcon } from "../../../icons/mail-icon";
 
 export const EditEmail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -29,6 +31,9 @@ export const EditEmail: React.FC = () => {
 
 		try {
 			await updateEmail(form.email.value);
+			(
+				document.getElementById("alert-dialog") as HTMLDialogElement
+			).showModal();
 		} catch (error) {
 			if (
 				getErrorMessage(error) ===
@@ -91,6 +96,15 @@ export const EditEmail: React.FC = () => {
 					</div>
 				</>
 			)}
+			<AlertDialog
+				alertTitleWithIcon={
+					<>
+						{i18n.navbar.profile.settings.updateEmailEmailSentTitle}
+						<MailIcon />
+					</>
+				}
+				alertMessage={i18n.navbar.profile.settings.updateEmailEmailSentContent}
+			/>
 		</div>
 	);
 };

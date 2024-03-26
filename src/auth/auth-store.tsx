@@ -261,11 +261,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
-
-			alert(
-				useI18nStore.getState().i18n().navbar.profile.settings
-					.updateEmailEmailSent,
-			);
 		},
 
 		updateUsername: async (username: string) => {

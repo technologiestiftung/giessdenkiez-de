@@ -53,7 +53,8 @@ interface Navbar {
 			yourEmail: string;
 			editEmail: string;
 			placeholderMail: string;
-			updateEmailEmailSent: string;
+			updateEmailEmailSentTitle: string;
+			updateEmailEmailSentContent: string;
 			password: string;
 			changePassword: string;
 			newPassword: string;
