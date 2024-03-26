@@ -40,7 +40,7 @@ interface AuthState {
 	updateUsername: (username: string) => Promise<void>;
 	deleteUser: () => Promise<void>;
 	adoptedTrees: Array<string>;
-	adoptedTreesInfo: Array<TreeInfo>;
+	adoptedTreesInfo: Array<TreeInfo> | null;
 	refreshAdoptedTrees: () => Promise<void>;
 	refreshAdoptedTreesInfo: () => Promise<void>;
 }
@@ -63,7 +63,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		session: null,
 		username: null,
 		adoptedTrees: [],
-		adoptedTreesInfo: [],
+		adoptedTreesInfo: null,
 
 		isLoggedIn: () => {
 			if (get().session === undefined) {
