@@ -85,16 +85,12 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
         with:
           limit-access-to-actor: true
-      - run: npm ci
-      - run: npm run dev &
-      #      - name: lint
-      #        run: npm run lint
-      #      - name: prettier
-      #        run: npm run prettier:ci
-      #      - name: test
-      #        run: npm run test:unit
       # please see https://github.com/mxschmitt/action-tmate
-      # todo: make e2e tests work in CI
+      - run: npm ci
+            - name: lint
+              run: npm run lint
+            - name: prettier
+              run: npm run prettier:ci
       - name: Get the source for the api
         id: checkout-api
         uses: actions/checkout@v4
@@ -105,7 +101,7 @@ jobs:
       - uses: supabase/setup-cli@v1
         with:
           version: 1.142.2
-        # Start the supabase
+        # Start the supabase & API
       - name: Start supabase
         run: |
           cd api
@@ -119,7 +115,7 @@ jobs:
       - name: Tmate session
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 30
+        timeout-minutes: 15
         with:
           limit-access-to-actor: true
       - uses: actions/upload-artifact@v3

@@ -1,9 +1,12 @@
 import { expect, test } from "@playwright/test";
 import { baseUrl } from "./constants";
 
-test.describe.skip("Tree detail view", () => {
+test.describe("Tree detail view", () => {
 	test("should show tree info for baby tree", async ({ page }) => {
 		await page.goto(`${baseUrl}/map?treeId=_23002dc7a1`);
+
+		// close splash screen
+		await page.getByRole("button", { name: "Los geht's" }).click();
 
 		await expect(page.getByText("Bauminformationen")).toBeVisible();
 		await expect(page.getByText("Zier-Feld-Ahorn 'Red Shine'")).toBeVisible();

@@ -9,5 +9,6 @@ export const inbucketUrl = process.env.TEST_SUPABASE_INBUCKET_URL ?? "";
 export const supabaseClient = createClient(supabaseApiUrl, supabaseAnonKey);
 
 export const defaultEmail = "user@example.com";
+export const defaultInbucketEmailUsername = "user";
 export const defaultUsername = "username";
 export const defaultPassword = '123qwe!"§QWE';

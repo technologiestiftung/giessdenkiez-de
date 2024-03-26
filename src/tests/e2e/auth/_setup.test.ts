@@ -2,11 +2,13 @@ import { expect, test } from "@playwright/test";
 import {
 	baseUrl,
 	defaultEmail,
+	defaultInbucketEmailUsername,
 	defaultPassword,
 	defaultUsername,
 	inbucketUrl,
 	supabaseAnonKey,
 	supabaseApiUrl,
+	supabaseClient,
 } from "./constants";
 
 test.describe("Setup", () => {
@@ -16,33 +18,30 @@ test.describe("Setup", () => {
 		expect(supabaseAnonKey).not.toBe("");
 		expect(inbucketUrl).not.toBe("");
 		expect(defaultEmail).toBeDefined();
+		expect(defaultInbucketEmailUsername).toBeDefined();
 		expect(defaultUsername).toBeDefined();
 		expect(defaultPassword).toBeDefined();
 		expect(process.env.VITE_MAPBOX_API_KEY).toBeDefined();
 	});
 
-	test("should check if supabase API and inbucket are running locally", async ({
-		page,
-	}) => {
-		await page.goto(supabaseApiUrl);
-		await expect(page.getByText('{"message":"no Route matched')).toBeVisible();
+	test("should check if supabase API and inbucket are running locally", async () => {
+		const apiResponse = await fetch(`${supabaseApiUrl}/rest/v1/`, {
+			method: "OPTIONS",
+		});
+		expect(apiResponse.status).toBe(200);
 
-		await page.goto(inbucketUrl);
-		await expect(
-			page.getByRole("heading", { name: "Welcome to Inbucket" }),
-		).toBeVisible();
+		const inbucketResponse = await fetch(inbucketUrl, { method: "OPTIONS" });
+		expect(inbucketResponse.status).toBe(200);
 	});
 
-	test.skip("should check if default user account already exists", async ({
-		page,
-	}) => {
-		await page.goto("http://localhost:5173/map");
-		await page.getByRole("link", { name: "Profil" }).click();
-		await page.getByLabel("E-Mail").click();
-		await page.getByLabel("E-Mail").fill("user@example.com");
-		await page.getByLabel("E-Mail").press("Tab");
-		await page.getByLabel("Passwort").fill('123qwe!"§QWE');
-		await page.getByRole("button", { name: "Anmelden" }).click();
-		await expect(page.getByText("Falsches Passwort oder E-Mail")).toBeVisible();
+	test("should check if default user account already exists", async () => {
+		const { data, error } = await supabaseClient.auth.signInWithPassword({
+			email: defaultEmail,
+			password: defaultPassword,
+		});
+
+		expect(error?.message).toBe("Invalid login credentials");
+		expect(data.session).toBeNull();
+		expect(data.user).toBeNull();
 	});
 });

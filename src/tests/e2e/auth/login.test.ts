@@ -10,12 +10,18 @@ test.describe("Login", () => {
 		test.beforeEach(async ({ page }) => {
 			await registerThenLogoutWithDefaultAccount(page);
 		});
-		test.afterEach(async ({ page }) => {
-			await deleteDefaultAccount(page);
+		test.afterEach(async () => {
+			await deleteDefaultAccount();
 		});
 
 		test("should be able to log-in then log-out", async ({ page }) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`${baseUrl}/map`);
+
+			// close splash screen
+			await page.getByRole("button", { name: "Los geht's" }).click();
+
+			// Go to profile
+			await page.getByRole("link", { name: "Profil" }).click();
 
 			// Login with new account
 			await page.getByLabel("E-Mail").click();
@@ -34,10 +40,10 @@ test.describe("Login", () => {
 		});
 	});
 
-	test.describe.skip("Client-Side Validation", () => {
+	test.describe("Client-Side Validation", () => {
 		test("should not be able to log-in with empty email", async ({ page }) => {
-			await page.goto(`${baseUrl}/map`);
-			await page.getByRole("link", { name: "Profil" }).click();
+			await page.goto(`${baseUrl}/profile`);
+
 			await page.getByLabel("E-Mail").click();
 			await page.getByLabel("E-Mail").fill(" ");
 			await page.getByLabel("E-Mail").press("Backspace");
@@ -51,8 +57,8 @@ test.describe("Login", () => {
 		test("should not be able to log-in with invalid email format", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/map`);
-			await page.getByRole("link", { name: "Profil" }).click();
+			await page.goto(`${baseUrl}/profile`);
+
 			await page.getByLabel("E-Mail").click();
 			await page.getByLabel("E-Mail").fill("invalid-email");
 			await page.getByLabel("E-Mail").press("Tab");
@@ -65,8 +71,8 @@ test.describe("Login", () => {
 		test("should not be able to log-in with empty password", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/map`);
-			await page.getByRole("link", { name: "Profil" }).click();
+			await page.goto(`${baseUrl}/profile`);
+
 			await page.getByLabel("E-Mail").click();
 			await page.getByLabel("E-Mail").fill("invalid-email");
 			await page.getByLabel("E-Mail").press("Tab");
@@ -78,12 +84,12 @@ test.describe("Login", () => {
 		});
 	});
 
-	test.describe.skip("Server-Side Validation", () => {
+	test.describe("Server-Side Validation", () => {
 		test("should not be able to log-in with wrong email/password credentials", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/map`);
-			await page.getByRole("link", { name: "Profil" }).click();
+			await page.goto(`${baseUrl}/profile`);
+
 			await page.getByLabel("E-Mail").click();
 			await page.getByLabel("E-Mail").fill("email-with-no-account@example.com");
 			await page.getByLabel("E-Mail").press("Tab");
@@ -98,7 +104,7 @@ test.describe("Login", () => {
 		});
 	});
 
-	test.describe.skip("Error Handling", () => {
+	test.describe("Error Handling", () => {
 		test("should show error toast when and unexpected error occurs", async ({
 			browser,
 		}) => {
