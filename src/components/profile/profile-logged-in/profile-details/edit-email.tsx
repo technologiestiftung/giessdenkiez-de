@@ -32,7 +32,9 @@ export const EditEmail: React.FC = () => {
 		try {
 			await updateEmail(form.email.value);
 			(
-				document.getElementById("alert-dialog") as HTMLDialogElement
+				document.getElementById(
+					"change-email-alert-dialog",
+				) as HTMLDialogElement
 			).showModal();
 		} catch (error) {
 			if (
@@ -103,7 +105,8 @@ export const EditEmail: React.FC = () => {
 						<MailIcon />
 					</>
 				}
-				alertMessage={i18n.navbar.profile.settings.updateEmailEmailSentContent}
+				alertMessage={i18n.navbar.profile.settings.updateEmailEmailSentMessage}
+				id="change-email-alert-dialog"
 			/>
 		</div>
 	);
