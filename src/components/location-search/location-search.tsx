@@ -19,6 +19,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 	const i18n = useI18nStore().i18n();
 
 	const [search, setSearch] = useState("");
+	const [isTextInSearchbar, setIsTextInSearchbar] = useState(false);
 	const [selectedGeocodingResultIndex, setSelectedGeocodingResultIndex] =
 		useState(0);
 
@@ -38,6 +39,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 	const clearSearch = () => {
 		setSearch("");
 		setSelectedGeocodingResult(undefined);
+		setIsTextInSearchbar(false);
 	};
 
 	map?.on("dragstart", function () {
@@ -118,6 +120,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 						onChange={(e) => {
 							setSelectedGeocodingResult(undefined);
 							setSearch(e.target.value);
+							setIsTextInSearchbar(true);
 						}}
 						onFocus={() => {
 							onToggleShowFilter(false);
@@ -125,7 +128,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 						placeholder={i18n.locationSearch.placeholder}
 					/>
 					<button
-						className={`${search === "" && "opacity-0"} px-4 hover:text-gdk-light-gray`}
+						className={`${isTextInSearchbar ? "opacity-100" : "opacity-0"} px-4 hover:text-gdk-light-gray`}
 						onClick={clearSearch}
 					>
 						<ClearIcon />
