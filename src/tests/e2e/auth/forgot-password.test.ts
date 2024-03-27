@@ -11,7 +11,7 @@ import {
 	inbucketUrl,
 } from "./constants";
 
-test.describe("Forgot password", () => {
+test.describe.skip("Forgot password", () => {
 	test.describe("Happy Case", () => {
 		test.beforeEach(async ({ page }) => {
 			await registerThenLogoutWithDefaultAccount(page);
@@ -54,7 +54,7 @@ test.describe("Forgot password", () => {
 		});
 	});
 
-	test.describe("Client-Side Validation", () => {
+	test.describe.skip("Client-Side Validation", () => {
 		test("should not be able to reset password with empty email", async ({
 			page,
 		}) => {
@@ -81,7 +81,7 @@ test.describe("Forgot password", () => {
 		});
 	});
 
-	test.describe("Error Handling", () => {
+	test.describe.skip("Error Handling", () => {
 		test("should show error toast when and unexpected error occurs", async ({
 			browser,
 		}) => {

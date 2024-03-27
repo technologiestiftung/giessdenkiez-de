@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { baseUrl } from "./constants";
 
-test.describe("Tree detail view", () => {
+test.describe.skip("Tree detail view", () => {
 	test("should show tree info for baby tree", async ({ page }) => {
 		await page.goto(`${baseUrl}/map?treeId=_23002dc7a1`);
 

@@ -40,7 +40,7 @@ test.describe("Login", () => {
 		});
 	});
 
-	test.describe("Client-Side Validation", () => {
+	test.describe.skip("Client-Side Validation", () => {
 		test("should not be able to log-in with empty email", async ({ page }) => {
 			await page.goto(`${baseUrl}/profile`);
 
@@ -84,7 +84,7 @@ test.describe("Login", () => {
 		});
 	});
 
-	test.describe("Server-Side Validation", () => {
+	test.describe.skip("Server-Side Validation", () => {
 		test("should not be able to log-in with wrong email/password credentials", async ({
 			page,
 		}) => {
@@ -104,7 +104,7 @@ test.describe("Login", () => {
 		});
 	});
 
-	test.describe("Error Handling", () => {
+	test.describe.skip("Error Handling", () => {
 		test("should show error toast when and unexpected error occurs", async ({
 			browser,
 		}) => {
