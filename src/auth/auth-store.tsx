@@ -2,7 +2,6 @@
 import { create } from "zustand";
 import { Session, User } from "@supabase/supabase-js";
 import { supabaseClient } from "./supabase-client";
-import { useI18nStore } from "../i18n/i18n-store";
 
 interface Credentials {
 	email: string;
@@ -261,11 +260,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
-
-			alert(
-				useI18nStore.getState().i18n().navbar.profile.settings
-					.updateEmailEmailSent,
-			);
 		},
 
 		updateUsername: async (username: string) => {
