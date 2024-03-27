@@ -3,7 +3,7 @@ import { useUrlState } from "../../router/store";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useAuthStore } from "../../../auth/auth-store";
 import { Overview } from "./overview";
-import { AdoptedTrees } from "./adopted-trees";
+import { AdoptedTrees } from "./adopted-trees/adopted-trees";
 import { ProfileDetails } from "./profile-details/profile-details";
 import { SecondaryButton } from "../../buttons/secondary";
 import { PasswordReset } from "./password-reset";
