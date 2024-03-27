@@ -15,7 +15,9 @@ export const EditPassword: React.FC = () => {
 		try {
 			await forgotPassword(getUserData()?.email ?? "");
 			(
-				document.getElementById("alert-dialog") as HTMLDialogElement
+				document.getElementById(
+					"edit-passwort-alert-dialog",
+				) as HTMLDialogElement
 			).showModal();
 		} catch (error) {
 			handleError(i18n.common.defaultErrorMessage);
@@ -51,6 +53,7 @@ export const EditPassword: React.FC = () => {
 					alertMessage={
 						i18n.navbar.profile.settings.resetPasswordEmailSentMessage
 					}
+					id="edit-passwort-alert-dialog"
 				/>
 			</div>
 		</>

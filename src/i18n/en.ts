@@ -59,7 +59,8 @@ export const en: Content = {
 				yourUsername: "Your username",
 				editUsername: "New username",
 				placeholderUser: "Your username",
-				updateEmailEmailSent:
+				updateEmailEmailSentTitle: "E-Mail sent!",
+				updateEmailEmailSentMessage:
 					"We sent you an email with a link to both your old and your new email address to confirm the change. Check your mailbox!",
 				email: "Email",
 				yourEmail: "Your email address",
@@ -440,5 +441,29 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		working: "Working",
 		defect: "Broken",
 		unknown: "Unknown",
+	},
+	splash: {
+		headline:
+			"Berlin's city trees are suffering from drought and you can help them!",
+		subheadline:
+			"Find out about the water needs of the trees in your neighborhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!",
+		actionTitle: "Let's go",
+		discoverTitle: "Discover",
+		discoverContent:
+			"The map visualizes over 800,000 urban trees and displays information on species, age and water requirements. Use the filter and search functions to quickly get an overview.",
+		waterTitle: "Water",
+		waterContent:
+			"Grab a watering can and become part of the watering community! Over a thousand active people have already joined forces for Berlin's trees and are regularly submitting their waterings.",
+		adoptTitle: "Adopt",
+		adoptContent:
+			"By adopting a tree - or several - you let your neighborhood know that these trees will be cared for. This creates a coordinated commitment.",
+		networkTitle: "Connect",
+		networkContent:
+			"Join our Slack chat to connect with the watering community, exchange questions, and coordinate watering in your neighborhood.",
+		questionHeadline: "Gieß den Kiez also in your city?",
+		questionSubheadline:
+			"Cities like Leipzig, Magdeburg and Co. have already successfully joined the watering wave! Is your city the next one?",
+		discoverMoreTitle: "Learn more!",
+		letsGo: "Let's go",
 	},
 };

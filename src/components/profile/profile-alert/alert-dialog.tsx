@@ -7,17 +7,19 @@ export interface AlertDialogProps {
 	alertTitleWithIcon: string | React.ReactNode;
 	alertMessage: string;
 	href?: string;
+	id: string;
 }
 
 export const AlertDialog: React.FC<AlertDialogProps> = ({
 	alertTitleWithIcon,
 	alertMessage,
 	href,
+	id,
 }) => {
 	const { setPathname } = useUrlState();
 
 	const onClick = () => {
-		(document.getElementById("alert-dialog") as HTMLDialogElement).close();
+		(document.getElementById(id) as HTMLDialogElement).close();
 		if (href) {
 			setPathname(href);
 		}
@@ -25,7 +27,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
 
 	return (
 		<dialog
-			id={"alert-dialog"}
+			id={id}
 			className="py-6 px-10 bg-gdk-lighter-gray shadow-gdk-hard rounded-2xl w-11/12 sm:w-[400px] backdrop:backdrop-blur-xs"
 		>
 			<div className="flex-col flex">

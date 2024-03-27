@@ -53,7 +53,8 @@ interface Navbar {
 			yourEmail: string;
 			editEmail: string;
 			placeholderMail: string;
-			updateEmailEmailSent: string;
+			updateEmailEmailSentTitle: string;
+			updateEmailEmailSentMessage: string;
 			password: string;
 			changePassword: string;
 			newPassword: string;
@@ -234,6 +235,24 @@ interface Pumps {
 	unknown: string;
 }
 
+interface Splash {
+	headline: string;
+	subheadline: string;
+	actionTitle: string;
+	discoverTitle: string;
+	discoverContent: string;
+	waterTitle: string;
+	waterContent: string;
+	adoptTitle: string;
+	adoptContent: string;
+	networkTitle: string;
+	networkContent: string;
+	questionHeadline: string;
+	questionSubheadline: string;
+	discoverMoreTitle: string;
+	letsGo: string;
+}
+
 export interface Content {
 	common: Common;
 	map: {
@@ -271,4 +290,5 @@ export interface Content {
 	treeDetail: TreeDetail;
 	filter: Filter;
 	pumps: Pumps;
+	splash: Splash;
 }

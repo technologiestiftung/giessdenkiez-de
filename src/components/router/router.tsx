@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Filter } from "../filter/filter";
 import { useFilterStore } from "../filter/filter-store";
 import { Info } from "../info/info";
@@ -10,6 +10,7 @@ import { PasswordReset } from "../profile/profile-logged-in/password-reset";
 import { TreeDetail } from "../tree-detail/tree-detail";
 import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
+import { Splash } from "../splash/splash";
 
 export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
@@ -21,6 +22,8 @@ export const Router: React.FC = () => {
 		store.isFilterViewVisible,
 		store.setIsFilterViewVisible,
 	]);
+
+	const [isSplashScreenVisible, setIsSplashScreenVisible] = useState(true);
 
 	switch (url.pathname) {
 		case "/":
@@ -45,33 +48,40 @@ export const Router: React.FC = () => {
 						<Navbar />
 					</div>
 
-					<div className="mt-2 flex w-full flex-row justify-center">
-						<div
-							className={`${
-								treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
-							} flex flex-col gap-4`}
-						>
-							<div className={`${treeId && "hidden lg:flex"}`}>
-								<LocationSearch
-									onToggleShowFilter={(show) => {
-										const test = show ?? !isFilterVisible;
-										setIsFilterVisible(test);
-									}}
-								/>
-							</div>
-
+					{!isSplashScreenVisible && (
+						<div className="mt-2 flex w-full flex-row justify-center">
 							<div
-								className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
+								className={`${
+									treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
+								} flex flex-col gap-4`}
 							>
-								{isFilterVisible && (
-									<Filter
-										onFilterChange={() => setIsFilterVisible(!isFilterVisible)}
+								<div className={`${treeId && "hidden lg:flex"}`}>
+									<LocationSearch
+										onToggleShowFilter={(show) => {
+											const test = show ?? !isFilterVisible;
+											setIsFilterVisible(test);
+										}}
 									/>
-								)}
+								</div>
+
+								<div
+									className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
+								>
+									{isFilterVisible && (
+										<Filter
+											onFilterChange={() =>
+												setIsFilterVisible(!isFilterVisible)
+											}
+										/>
+									)}
+								</div>
 							</div>
 						</div>
-					</div>
+					)}
 					{treeId && <TreeDetail />}
+					{isSplashScreenVisible && (
+						<Splash onClose={() => setIsSplashScreenVisible(false)} />
+					)}
 				</div>
 			);
 		case "/profile/reset-password":

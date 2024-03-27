@@ -31,7 +31,7 @@ export const Register: React.FC = () => {
 				password: form.password.value,
 			});
 			(
-				document.getElementById("alert-dialog") as HTMLDialogElement
+				document.getElementById("register-alert-dialog") as HTMLDialogElement
 			).showModal();
 		} catch (error) {
 			if (getErrorMessage(error) === "User already registered") {
@@ -96,6 +96,7 @@ export const Register: React.FC = () => {
 				}
 				alertMessage={i18n.navbar.profile.settings.confirmEmail(emailSubmitted)}
 				href="/profile"
+				id="register-alert-dialog"
 			/>
 		</>
 	);

@@ -29,7 +29,9 @@ export const PasswordReset: React.FC = () => {
 					e.preventDefault();
 					updatePassword(e.currentTarget.password.value);
 					(
-						document.getElementById("alert-dialog") as HTMLDialogElement
+						document.getElementById(
+							"password-reset-alert-dialog",
+						) as HTMLDialogElement
 					).showModal();
 				}}
 				className="flex flex-col"
@@ -62,6 +64,7 @@ export const PasswordReset: React.FC = () => {
 					i18n.navbar.profile.settings.passwordChangeConfirmationMessage
 				}
 				href="/profile"
+				id="password-reset-alert-dialog"
 			/>
 		</div>
 	);
