@@ -24,7 +24,7 @@ export const PumpTooltip: React.FC<PumpTooltipProps> = ({ pump }) => {
 				top: pump.y - 5,
 				transform: "translate(-50%, -100%)",
 			}}
-			className="p-6 bg-white rounded-lg flex flex-col gap-2 shadow-gdk-hard"
+			className="p-6 bg-white rounded-lg flex flex-col gap-2 shadow-gdk-hard min-w-[300px]"
 		>
 			<div className="border-b-2 pb-2">
 				<div className="font-bold text-lg">{i18n.pumps.title}</div>

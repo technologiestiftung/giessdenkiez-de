@@ -76,13 +76,21 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 			setHoveredPump(undefined);
 		});
 
+		map.on("click", () => {
+			setHoveredPump(undefined);
+			setSelectedPump(undefined);
+		});
+
 		map.on("click", "pumps", (e) => {
-			if (!map || !e.features) {
+			if (!map) {
 				return;
 			}
-			if (e.features?.length === 0) {
+
+			if (!e.features || e.features?.length === 0) {
 				setSelectedPump(undefined);
+				return;
 			}
+
 			setSelectedTreeId(undefined);
 			setHoveredTreeId(undefined);
 

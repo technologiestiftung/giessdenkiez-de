@@ -17,10 +17,12 @@ export function useHoveredPump(map: mapboxgl.Map | undefined) {
 
 		if (hoveredPumpRef.current) {
 			map.setFilter("pumps-highlight", ["==", "id", ""]);
+			map.getCanvas().style.cursor = "";
 		}
 
 		if (hoveredPump) {
 			map.setFilter("pumps-highlight", ["==", "id", hoveredPump.id]);
+			map.getCanvas().style.cursor = "pointer";
 		}
 
 		hoveredPumpRef.current = hoveredPump;
