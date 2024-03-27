@@ -19,8 +19,13 @@ export const App: React.FC = () => {
 				<div className="col-start-1 row-start-1 h-full w-full">
 					<Map />
 				</div>
-				<div className="pointer-events-none z-[1000] col-start-1 row-start-1 h-full w-full">
-					{!isMapLoaded && <Loading loadingText={i18n.loading.mapLoading} />}
+				<div className="z-[1000] col-start-1 row-start-1 h-full w-full">
+					{!isMapLoaded && (
+						<Loading
+							loadingText={i18n.loading.mapLoading}
+							isImprintPrivacyVisible={true}
+						/>
+					)}
 				</div>
 				<div className="pointer-events-none z-[1000] col-start-1 row-start-1 h-full w-full">
 					<Router />
