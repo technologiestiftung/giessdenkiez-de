@@ -265,12 +265,12 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 		isAdopted: "You have adopted this tree",
 		adoptHintTitle: "Adopt a tree",
 		adoptHint:
-			"If you regularly water the same tree, you can subscribe to it. This way you can quickly find it in your profile overview.",
+			"If you water this tree on a regular basis, you can adopt it. This way you can find it in your profile.",
 		adoptErrorMessage: "Error adopting the tree. Please try again.",
 		age: (age: number) => `${age === 1 ? "year" : "years"}`,
 		ageUnknown: "Unknown",
 		managedBy:
-			"This tree is already being cared for by the district office and does not need to be watered.",
+			"This tree is already being taken care of by the Berlin administration and does not need to be watered.",
 		waterNeed: {
 			title: "Water requirements",
 			hint: "Depending on the age of the tree, the need for water varies.",
