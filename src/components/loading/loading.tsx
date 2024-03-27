@@ -17,7 +17,7 @@ export const Loading: React.FC<LoadingProps> = ({
 			<div className="animate-bounce">
 				<SplashTreeIcon />
 			</div>
-			<p className="w-[245px] text-center	">{loadingText}</p>
+			<p className="w-[270px] text-center	">{loadingText}</p>
 			{isImprintPrivacyVisible && (
 				<div className="flex flex-row gap-3 text-slate-300">
 					<a
