@@ -1,6 +1,6 @@
 import React from "react";
-import { Pump } from "../map/hooks/use-hovered-pump";
 import { useI18nStore } from "../../i18n/i18n-store";
+import { Pump } from "../map/hooks/use-pump-store";
 
 interface PumpTooltipProps {
 	pump: Pump;

@@ -33,7 +33,7 @@ export function usePumpIconStyle() {
 		0.3,
 		22,
 		0.8,
-	];
+	] as Expression;
 
 	return {
 		unselectedPumpIcon,
