@@ -1,8 +1,8 @@
 import React from "react";
-import { useI18nStore } from "../../../i18n/i18n-store";
-import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
-import { useAdoptTree } from "../../tree-detail/hooks/use-adopt-tree";
-import { HeartIconProfile } from "../../icons/heart-icon-profile";
+import { useI18nStore } from "../../../../i18n/i18n-store";
+import { InternalAnchorLink } from "../../../anchor-link/internal-anchor-link";
+import { useAdoptTree } from "../../../tree-detail/hooks/use-adopt-tree";
+import { HeartIconProfile } from "../../../icons/heart-icon-profile";
 
 export interface TreeCardProps {
 	id: string;

@@ -26,13 +26,13 @@ export const Overview: React.FC = () => {
 				{i18n.navbar.profile.overview.subtitle}
 			</h2>
 
-			<div className="mt-7 flex flex-col gap-3 lg:flex-row ">
+			<div className="mt-7 flex flex-col gap-3 lg:flex-row justify-start">
 				{adoptedTreesInfo === null ? (
 					<>
-						<Skeleton className="h-[120px] lg:h-[144px] shadow-gdk-soft lg:min-w-36 rounded-2xl border-2 p-4" />
+						<Skeleton className="h-[120px] lg:h-[144px] shadow-gdk-soft lg:min-w-40 rounded-2xl border-2 p-4" />
 						<div className="flex gap-3">
-							<Skeleton className="h-[120px] lg:h-[144px] shadow-gdk-soft w-full lg:min-w-36 rounded-2xl border-2 p-4" />
-							<Skeleton className="h-[120px] lg:h-[144px] shadow-gdk-soft w-full lg:min-w-36 rounded-2xl border-2 p-4" />
+							<Skeleton className="h-[120px] lg:h-[144px] shadow-gdk-soft lg:min-w-40 rounded-2xl border-2 p-4" />
+							<Skeleton className="h-[120px] lg:h-[144px] shadow-gdk-soft lg:min-w-40 rounded-2xl border-2 p-4" />
 						</div>
 					</>
 				) : (

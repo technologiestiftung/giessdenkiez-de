@@ -1,25 +1,11 @@
 import React, { useState } from "react";
-import { useI18nStore } from "../../../i18n/i18n-store";
-import { TertiaryButton } from "../../buttons/tertiary";
+import { useI18nStore } from "../../../../i18n/i18n-store";
+import { TertiaryButton } from "../../../buttons/tertiary";
 import { TreeCard } from "./tree-card";
-import { useAuthStore } from "../../../auth/auth-store";
-import { AdoptedTreeIcon } from "../../icons/adopted-tree-icon";
-import { Skeleton } from "../../skeleton/skeleton";
-
-export interface AdoptedTreesWrapperProps {
-	sectionTitle?: string;
-}
-
-export const AdoptedTreesWrapper: React.FC<
-	AdoptedTreesWrapperProps & React.HTMLAttributes<HTMLDivElement>
-> = ({ sectionTitle, ...props }) => {
-	return (
-		<div className="md:shadow-gdk-soft mb-3 md:rounded-2xl md:border-2 md:p-7">
-			<h2 className="text-2xl font-semibold">{sectionTitle}</h2>
-			{props.children}
-		</div>
-	);
-};
+import { useAuthStore } from "../../../../auth/auth-store";
+import { AdoptedTreeIcon } from "../../../icons/adopted-tree-icon";
+import { Skeleton } from "../../../skeleton/skeleton";
+import { AdoptedTreesCard } from "./adoptedTreesCard";
 
 export const AdoptedTrees: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -32,7 +18,7 @@ export const AdoptedTrees: React.FC = () => {
 	switch (adoptedTreesInfo) {
 		case null:
 			return (
-				<AdoptedTreesWrapper
+				<AdoptedTreesCard
 					sectionTitle={i18n.navbar.profile.overview.adoptedTrees}
 				>
 					<div className="mt-7 grid grid-cols-2 gap-4 xl:grid-cols-4">
@@ -41,13 +27,13 @@ export const AdoptedTrees: React.FC = () => {
 						<Skeleton className="shadow-gdk-soft rounded-2xl border-2 p-4 h-[182px] justify-between" />
 						<Skeleton className="shadow-gdk-soft rounded-2xl border-2 p-4 h-[182px] justify-between" />
 					</div>
-				</AdoptedTreesWrapper>
+				</AdoptedTreesCard>
 			);
 		default:
 			switch (adoptedTreesInfo.length) {
 				case 0:
 					return (
-						<AdoptedTreesWrapper
+						<AdoptedTreesCard
 							sectionTitle={i18n.navbar.profile.overview.adoptedTrees}
 						>
 							<div className="mt-7 shadow-gdk-soft flex flex-row rounded-2xl border-2 p-4 lg:w-3/6 gap-3 ">
@@ -56,12 +42,12 @@ export const AdoptedTrees: React.FC = () => {
 								</div>
 								<p>{i18n.navbar.profile.adoptedTrees.noAdoptedTreesMessage}</p>
 							</div>
-						</AdoptedTreesWrapper>
+						</AdoptedTreesCard>
 					);
 
 				default:
 					return (
-						<AdoptedTreesWrapper
+						<AdoptedTreesCard
 							sectionTitle={i18n.navbar.profile.overview.adoptedTrees}
 						>
 							<div className="mt-7 grid grid-cols-2 gap-4 xl:grid-cols-4">
@@ -100,7 +86,7 @@ export const AdoptedTrees: React.FC = () => {
 									/>
 								</div>
 							)}
-						</AdoptedTreesWrapper>
+						</AdoptedTreesCard>
 					);
 			}
 	}
