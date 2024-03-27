@@ -22,7 +22,7 @@ export const Map: React.FC = () => {
 			<div className="pointer-events-none z-[1000] col-start-1 row-start-1 flex items-end justify-end">
 				<MapAttribution />
 			</div>
-			<div ref={mapContainer} className="col-start-1 row-start-1 h-screen" />
+			<div ref={mapContainer} className="col-start-1 row-start-1 h-svh" />
 			{highlightedPump && <PumpTooltip pump={highlightedPump} />}
 		</div>
 	);
