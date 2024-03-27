@@ -49,11 +49,13 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 	map?.on("dragstart", function () {
 		clearSearch();
 		setSelectedGeocodingResult(undefined);
+		clearGeocodingResults();
 	});
 
 	map?.on("click", function () {
 		clearSearch();
 		setSelectedGeocodingResult(undefined);
+		clearGeocodingResults();
 	});
 
 	const onGeocodingResultClick = (geocodingResult: GeocodingResult) => {
