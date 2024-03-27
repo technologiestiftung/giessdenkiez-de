@@ -463,5 +463,6 @@ Vernetzen:
 	},
 	loading: {
 		mapLoading: "Wir laden gerade 839.049 Bäume aus dem Berliner Baumbestand.",
+		treeLoading: "Lade Bauminformationen...",
 	},
 };

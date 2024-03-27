@@ -469,5 +469,6 @@ We manage largely on our own and are happy in particularly dry phases but still 
 	loading: {
 		mapLoading:
 			"We are currently loading 839,049 trees from the Berlin tree population.",
+		treeLoading: "Loading tree information...",
 	},
 };

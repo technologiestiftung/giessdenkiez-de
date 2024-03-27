@@ -15,6 +15,7 @@ import { LastWaterings } from "./last-waterings";
 import { ProblemCard } from "./problem-card";
 import { TreeFlier } from "./tree-flier";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
+import { Loading } from "../loading/loading";
 
 export const TreeDetail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -65,7 +66,7 @@ export const TreeDetail: React.FC = () => {
 				/>
 				<div className="text-xl font-bold">{i18n.treeDetail.title}</div>
 			</div>
-			{treeData && (
+			{treeData ? (
 				<div className="flex flex-col">
 					<TreeAdoptCard
 						treeData={treeData}
@@ -103,6 +104,8 @@ export const TreeDetail: React.FC = () => {
 					)}
 					<ProblemCard />
 				</div>
+			) : (
+				<Loading loadingText={i18n.loading.treeLoading} />
 			)}
 		</div>
 	);

@@ -255,6 +255,7 @@ interface Splash {
 
 interface Loading {
 	mapLoading: string;
+	treeLoading: string;
 }
 
 export interface Content {

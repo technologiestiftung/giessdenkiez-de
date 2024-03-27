@@ -81,7 +81,7 @@ export const Router: React.FC = () => {
 							</div>
 						</div>
 					)}
-					{treeId && <TreeDetail />}
+					{treeId && isMapLoaded && <TreeDetail />}
 					{isSplashScreenVisible && (
 						<Splash onClose={() => setIsSplashScreenVisible(false)} />
 					)}
