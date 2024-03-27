@@ -253,6 +253,10 @@ interface Splash {
 	letsGo: string;
 }
 
+interface Loading {
+	mapLoading: string;
+}
+
 export interface Content {
 	common: Common;
 	map: {
@@ -291,4 +295,5 @@ export interface Content {
 	filter: Filter;
 	pumps: Pumps;
 	splash: Splash;
+	loading: Loading;
 }
