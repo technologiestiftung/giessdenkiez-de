@@ -1,41 +1,12 @@
-import { useEffect, useRef } from "react";
-import mapboxgl from "mapbox-gl";
-import { useTreeStore } from "../../tree-detail/tree-store";
+import { useEffect, useRef, useState } from "react";
 
-export function useHoveredTree(map: mapboxgl.Map | undefined) {
-	const [hoveredTreeId, setHoveredTreeId] = useTreeStore((store) => [
-		store.hoveredTreeId,
-		store.setHoveredTreeId,
-	]);
+export function useHoveredTree() {
+	const [hoveredTreeId, setHoveredTreeId] = useState<string | undefined>(
+		undefined,
+	);
 
 	const hoveredTreeIdRef = useRef<string | undefined>(undefined);
 	useEffect(() => {
-		if (!map) {
-			return;
-		}
-
-		if (hoveredTreeId) {
-			map.setFeatureState(
-				{
-					id: hoveredTreeId,
-					source: "trees",
-					sourceLayer: "trees",
-				},
-				{ hover: true },
-			);
-		}
-
-		if (hoveredTreeIdRef.current) {
-			map.setFeatureState(
-				{
-					id: hoveredTreeIdRef.current,
-					source: "trees",
-					sourceLayer: "trees",
-				},
-				{ hover: false },
-			);
-		}
-
 		hoveredTreeIdRef.current = hoveredTreeId;
 	}, [hoveredTreeId]);
 

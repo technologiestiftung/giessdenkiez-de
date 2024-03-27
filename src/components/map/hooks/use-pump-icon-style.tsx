@@ -21,19 +21,16 @@ export function usePumpIconStyle() {
 		"pump_not_functioning_selected",
 	] as Expression;
 
-	const pumpIconSize = [
-		"interpolate",
-		["linear"],
-		["zoom"],
-		10,
-		0.07,
-		16,
-		0.15,
-		18,
-		0.3,
-		22,
-		0.8,
-	] as Expression;
+	const pumpIconSize = {
+		base: 0.1,
+		stops: [
+			[14, 0.1],
+			[16, 0.4],
+			[18, 0.6],
+			[20, 0.8],
+			[22, 1.0],
+		],
+	};
 
 	return {
 		unselectedPumpIcon,

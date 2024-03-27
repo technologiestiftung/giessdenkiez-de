@@ -3,7 +3,6 @@ import { create } from "zustand";
 import { replaceUrlSearchParam } from "../../utils/url-utils";
 import { useUrlState } from "../router/store";
 import { useMapConstants } from "../map/hooks/use-map-constants";
-import { usePumpStore } from "../map/hooks/use-pump-store";
 
 /* eslint-disable-next-line no-shadow */
 export enum TreeAgeIntervalIdentifier {
@@ -31,9 +30,7 @@ export interface FilterState {
 	toggleTreeAgeInterval: (interval: TreeAgeInterval) => void;
 	setShowPumps: (showPumps: boolean) => void;
 	setShowWaterNeedTrees: (showWaterNeedTrees: boolean) => void;
-	showFilterView: () => void;
-	hideFilterView: () => void;
-	toggleFilterView: () => void;
+	setIsFilterViewVisible: (isFilterViewVisible: boolean) => void;
 	resetFilters: () => void;
 	setLat: (lat: number) => void;
 	setLng: (lng: number) => void;
@@ -194,23 +191,8 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 		}
 	},
 
-	toggleFilterView: () => {
-		const shouldShow = !get().isFilterViewVisible;
-		set({ isFilterViewVisible: shouldShow });
-		if (shouldShow) {
-			usePumpStore.getState().setHoveredPump(undefined);
-			usePumpStore.getState().setSelectedPump(undefined);
-		}
-	},
-
-	showFilterView: () => {
-		usePumpStore.getState().setHoveredPump(undefined);
-		usePumpStore.getState().setSelectedPump(undefined);
-		set({ isFilterViewVisible: true });
-	},
-
-	hideFilterView: () => {
-		set({ isFilterViewVisible: false });
+	setIsFilterViewVisible: (isFilterViewVisible) => {
+		set({ isFilterViewVisible });
 	},
 
 	resetFilters: () => {

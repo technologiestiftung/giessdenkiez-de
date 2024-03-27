@@ -8,46 +8,54 @@ import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
 import { useFilterStore } from "../filter/filter-store";
 import { FilterIcon } from "../icons/filter-icon";
+import { useSearchStore } from "./search-store";
 
-export const LocationSearch: React.FC = () => {
+interface LocationSearchProps {
+	onToggleShowFilter: (showFilter?: boolean) => void;
+}
+
+export const LocationSearch: React.FC<LocationSearchProps> = ({
+	onToggleShowFilter,
+}) => {
 	const i18n = useI18nStore().i18n();
-
-	const { toggleFilterView, hideFilterView } = useFilterStore();
-
-	const [search, setSearch] = useState("");
-	const [isTextInSearchbar, setIsTextInSearchbar] = useState(false);
+	const {
+		isCurrentSearch,
+		setIsCurrentSearch,
+		isPickedGeoSearchResult,
+		setisPickedGeoSearchResult,
+		isTextInSearchbar,
+		setIsTextInSearchbar,
+		clearSearch,
+	} = useSearchStore();
 	const [selectedGeocodingResultIndex, setSelectedGeocodingResultIndex] =
 		useState(0);
-
 	const [selectedGeocodingResult, setSelectedGeocodingResult] =
 		useState<GeocodingResult>();
 
 	const { map } = useMapStore();
 	const { MAP_LOCATION_ZOOM_LEVEL } = useMapConstants();
-	const { geocodingResults, clearGeocodingResults } = useGeocoding(search);
-
+	const { geocodingResults, clearGeocodingResults, fetchGeocodingResults } =
+		useGeocoding(isCurrentSearch);
 	const { isFilterViewVisible, isSomeFilterActive } = useFilterStore();
 
-	useEffect(() => {
+	const clearSearchAndGeocodingResults = () => {
 		clearSearch();
-	}, [isFilterViewVisible]);
-
-	const clearSearch = () => {
-		setSearch("");
 		setSelectedGeocodingResult(undefined);
-		setIsTextInSearchbar(false);
+		clearGeocodingResults();
 	};
 
-	map?.on("dragstart", function () {
-		clearSearch();
-	});
+	useEffect(() => {
+		if (isFilterViewVisible) {
+			clearSearchAndGeocodingResults();
+		}
+	}, [isFilterViewVisible]);
 
-	map?.on("zoomstart", function () {
-		clearSearch();
+	map?.on("dragstart", function () {
+		clearSearchAndGeocodingResults();
 	});
 
 	map?.on("click", function () {
-		clearSearch();
+		clearSearchAndGeocodingResults();
 	});
 
 	const onGeocodingResultClick = (geocodingResult: GeocodingResult) => {
@@ -61,6 +69,7 @@ export const LocationSearch: React.FC = () => {
 				zoom: MAP_LOCATION_ZOOM_LEVEL,
 			});
 		setSelectedGeocodingResult(geocodingResult);
+		setisPickedGeoSearchResult(geocodingResult.place_name_de);
 		setSelectedGeocodingResultIndex(0);
 		clearGeocodingResults();
 	};
@@ -91,9 +100,9 @@ export const LocationSearch: React.FC = () => {
 	}, [geocodingResults, selectedGeocodingResultIndex]);
 
 	return (
-		<div className="flex flex-row w-full gap-2 justify-between pointer-events-auto">
+		<div className="flex flex-row w-full justify-center sm:justify-between pointer-events-auto gap-2 ">
 			<div
-				className={`flex flex-grow max-w-[90%] h-fit flex-col px-2 drop-shadow-md sm:px-0`}
+				className={`flex flex-grow max-w-[80%] sm:max-w-[87%] h-fit flex-col pl-2 drop-shadow-md sm:pl-0`}
 			>
 				<form
 					onSubmit={(e) => {
@@ -107,25 +116,31 @@ export const LocationSearch: React.FC = () => {
 					<input
 						className={`w-full py-4 pl-2 focus:outline-none`}
 						type="text"
-						value={selectedGeocodingResult?.place_name_de || search}
+						value={
+							selectedGeocodingResult?.place_name_de || isPickedGeoSearchResult
+						}
 						onKeyDown={(e) => {
 							if (e.key === "ArrowDown" || e.key === "ArrowUp") {
 								e.preventDefault();
 							}
 						}}
 						onChange={(e) => {
+							setIsCurrentSearch(e.target.value);
+							setisPickedGeoSearchResult(e.target.value);
 							setSelectedGeocodingResult(undefined);
-							setSearch(e.target.value);
+							fetchGeocodingResults();
 							setIsTextInSearchbar(true);
 						}}
 						onFocus={() => {
-							hideFilterView();
+							onToggleShowFilter(false);
 						}}
 						placeholder={i18n.locationSearch.placeholder}
 					/>
 					<button
 						className={`${isTextInSearchbar ? "opacity-100" : "opacity-0"} px-4 hover:text-gdk-light-gray`}
-						onClick={clearSearch}
+						onClick={() => {
+							clearSearchAndGeocodingResults();
+						}}
 					>
 						<ClearIcon />
 					</button>
@@ -147,9 +162,9 @@ export const LocationSearch: React.FC = () => {
 					</div>
 				)}
 			</div>
-			<div className="min-w-[10%] flex flex-col mr-1 lg:mr-0">
+			<div className="min-w-[10%] flex flex-col mr-1 lg:mr-0 sm:px-0">
 				<FilterIcon
-					onToggleShowFilter={toggleFilterView}
+					onToggleShowFilter={onToggleShowFilter}
 					filtersActive={isSomeFilterActive()}
 				/>
 			</div>

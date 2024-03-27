@@ -6,10 +6,12 @@ import { TreeAgeIntervalIdentifier, useFilterStore } from "./filter-store";
 import { FilterSwitch } from "./filter-switch";
 import { TreeAgeButton } from "./tree-age-button";
 
-export const Filter: React.FC = () => {
-	const i18n = useI18nStore().i18n();
+interface FilterProps {
+	onFilterChange: () => void;
+}
 
-	const { hideFilterView } = useFilterStore();
+export const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
+	const i18n = useI18nStore().i18n();
 
 	const {
 		treeAgeIntervals,
@@ -83,7 +85,7 @@ export const Filter: React.FC = () => {
 
 				<div className="flex flex-row justify-between gap-4">
 					<SecondaryButton label={i18n.filter.reset} onClick={resetFilters} />
-					<PrimaryButton label={i18n.filter.show} onClick={hideFilterView} />
+					<PrimaryButton label={i18n.filter.show} onClick={onFilterChange} />
 				</div>
 			</div>
 		</div>
