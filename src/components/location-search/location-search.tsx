@@ -100,9 +100,9 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 	}, [geocodingResults, selectedGeocodingResultIndex]);
 
 	return (
-		<div className="flex flex-row w-full gap-2 justify-between pointer-events-auto">
+		<div className="flex flex-row w-full justify-center sm:justify-between pointer-events-auto">
 			<div
-				className={`flex flex-grow max-w-[90%] h-fit flex-col px-2 drop-shadow-md sm:px-0`}
+				className={`flex flex-grow max-w-[80%] sm:max-w-[87%] h-fit flex-col px-2 drop-shadow-md sm:px-0`}
 			>
 				<form
 					onSubmit={(e) => {
@@ -163,7 +163,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 					</div>
 				)}
 			</div>
-			<div className="min-w-[10%] flex flex-col mr-1 lg:mr-0">
+			<div className="min-w-[10%] flex flex-col mr-1 lg:mr-0 px-2 sm:px-0">
 				<FilterIcon
 					onToggleShowFilter={onToggleShowFilter}
 					filtersActive={isSomeFilterActive()}
