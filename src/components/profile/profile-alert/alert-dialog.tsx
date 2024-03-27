@@ -1,6 +1,6 @@
 import React from "react";
 import { useI18nStore } from "../../../i18n/i18n-store.ts";
-import { PrimaryButton } from "../../buttons/primary.tsx";
+import { PrimaryButton } from "../../buttons/primary";
 import { useUrlState } from "../../router/store";
 
 export interface AlertDialogProps {

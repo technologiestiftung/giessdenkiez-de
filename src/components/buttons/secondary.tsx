@@ -4,12 +4,14 @@ export interface SecondaryButtonProps {
 	label: string | React.ReactNode;
 	onClick: () => void;
 	disabled?: boolean;
+	type?: "button" | "submit";
 }
 
 export const SecondaryButton: React.FC<SecondaryButtonProps> = ({
 	label,
 	onClick,
 	disabled,
+	type = "button",
 }) => {
 	return (
 		<button
@@ -18,6 +20,7 @@ export const SecondaryButton: React.FC<SecondaryButtonProps> = ({
 	  my-2 lg:my-4 flex  h-[51px] w-fit items-center justify-center rounded-[10px] px-8 py-3.5 font-semibold outline outline-2`}
 			disabled={disabled}
 			onClick={onClick}
+			type={type}
 		>
 			<span className="flex flex-row  items-center gap-3">{label}</span>
 		</button>
