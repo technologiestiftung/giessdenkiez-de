@@ -1,7 +1,7 @@
 import React from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { InternalAnchorLink } from "../../../anchor-link/internal-anchor-link";
-import { useAdoptTree } from "../../../tree-detail/hooks/use-adopt-tree";
+import { useTreeAdoptStore } from "../../../tree-detail/hooks/use-adopt-tree";
 import { HeartIconProfile } from "../../../icons/heart-icon-profile";
 
 export interface TreeCardProps {
@@ -19,7 +19,7 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 }) => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
-	const { unadoptTree } = useAdoptTree(id);
+	const { unadoptTree } = useTreeAdoptStore();
 
 	return (
 		<div
@@ -31,7 +31,7 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 				<button
 					type="button"
 					onClick={async () => {
-						await unadoptTree();
+						await unadoptTree(id);
 					}}
 				>
 					<div className="text-gdk-purple hover:text-opacity-30">
