@@ -10,6 +10,10 @@ import { useTreeCircleStyle } from "./use-tree-circle-style";
 import { usePumpStore } from "./use-pump-store";
 
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
+	const setIsFilterVisible = useFilterStore(
+		(store) => store.setIsFilterViewVisible,
+	);
+
 	const { MAP_MAX_ZOOM_LEVEL } = useMapConstants();
 
 	const { setHoveredTreeId } = useHoveredTree(map);
@@ -110,6 +114,10 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			map.getCanvas().style.cursor = "pointer";
 		});
 
+		map.on("click", () => {
+			setIsFilterVisible(false);
+		});
+
 		map.on("click", "trees", (e) => {
 			if (!map || !e.features) {
 				return;
@@ -121,8 +129,10 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 			setSelectedPump(undefined);
 			setHoveredPump(undefined);
+			setIsFilterVisible(false);
 
 			setSelectedTreeId(treeFeature.id as string);
+
 			map.easeTo({
 				center: [
 					//@ts-expect-error no types for geometry.coordinates
