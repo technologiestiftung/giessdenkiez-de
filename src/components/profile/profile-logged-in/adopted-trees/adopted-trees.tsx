@@ -9,7 +9,7 @@ import { AdoptedTreesCard } from "./adoptedTreesCard";
 
 export const AdoptedTrees: React.FC = () => {
 	const i18n = useI18nStore().i18n();
-	const [showAllTrees, setshowAllTrees] = useState(false);
+	const [areAllTreesVisible, setAreAllTreesVisible] = useState(false);
 	const { adoptedTreesInfo } = useAuthStore();
 
 	if (adoptedTreesInfo === null) {
@@ -45,7 +45,7 @@ export const AdoptedTrees: React.FC = () => {
 	return (
 		<AdoptedTreesCard sectionTitle={i18n.navbar.profile.overview.adoptedTrees}>
 			<div className="mt-7 grid grid-cols-2 gap-4 xl:grid-cols-4">
-				{!showAllTrees &&
+				{!areAllTreesVisible &&
 					adoptedTreesInfo
 						.slice(0, 4)
 						.map((tree) => (
@@ -57,7 +57,7 @@ export const AdoptedTrees: React.FC = () => {
 								key={tree.id}
 							/>
 						))}
-				{showAllTrees &&
+				{areAllTreesVisible &&
 					adoptedTreesInfo.map((tree) => (
 						<TreeCard
 							id={tree.id}
@@ -71,9 +71,9 @@ export const AdoptedTrees: React.FC = () => {
 			{adoptedTreesInfo.length > 4 && (
 				<div className=" pointer-events-auto flex justify-center pt-8">
 					<TertiaryButton
-						onClick={() => setshowAllTrees(!showAllTrees)}
+						onClick={() => setAreAllTreesVisible(!areAllTreesVisible)}
 						label={
-							showAllTrees
+							areAllTreesVisible
 								? i18n.navbar.profile.adoptedTrees.showLess
 								: i18n.navbar.profile.adoptedTrees.showAll
 						}

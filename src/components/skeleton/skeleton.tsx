@@ -9,7 +9,7 @@ export const Skeleton: React.FC<
 > = ({ className, ...props }) => {
 	return (
 		<div
-			className={`[...]
+			className={`
 				relative 
 				overflow-hidden
 				before:absolute before:inset-0
