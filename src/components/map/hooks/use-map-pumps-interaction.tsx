@@ -2,28 +2,27 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect, useRef } from "react";
 import { useFilterStore } from "../../filter/filter-store";
-import { Pump, useHoveredPump } from "./use-hovered-pump";
 import { useSelectedPump } from "./use-selected-pump";
 import { useMapConstants } from "./use-map-constants";
+import { useHoveredTree } from "./use-hovered-tree";
+import { useSelectedTree } from "./use-selected-tree";
+import { usePumpStore } from "./use-pump-store";
+import { useHoveredPump } from "./use-hovered-pump";
 
 export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 	const { MAP_MAX_ZOOM_LEVEL } = useMapConstants();
 
-	const { hoveredPump, setHoveredPump, mapboxFeatureToPump } = useHoveredPump();
-	const hoveredPumpRef = useRef<Pump | undefined>();
-	useEffect(() => {
-		hoveredPumpRef.current = hoveredPump;
-	}, [hoveredPump]);
+	const { mapboxFeatureToPump, updatePumpPosition } = usePumpStore();
 
-	const { selectedPump, setSelectedPump } = useSelectedPump();
-	const selectectedPumpRef = useRef<Pump | undefined>();
-	useEffect(() => {
-		selectectedPumpRef.current = selectedPump;
-	}, [selectedPump]);
+	const { setSelectedPump, selectedPumpRef } = useSelectedPump(map);
+	const { setHoveredPump } = useHoveredPump(map);
 
 	const flying = useRef(false);
 
 	const isPumpsVisible = useFilterStore((store) => store.isPumpsVisible);
+
+	const { setHoveredTreeId } = useHoveredTree(map);
+	const { setSelectedTreeId } = useSelectedTree(map);
 
 	useEffect(() => {
 		if (!map) {
@@ -59,6 +58,9 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 			if (e.features?.length === 0) {
 				setHoveredPump(undefined);
 			}
+			if (selectedPumpRef.current) {
+				return;
+			}
 
 			const pumpFeature = e.features[0];
 			const pump = mapboxFeatureToPump(map, pumpFeature);
@@ -68,23 +70,9 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 
 			setHoveredPump(pump);
 			setSelectedPump(undefined);
-			map.setFilter("pumps-highlight", ["==", "id", pump.id]);
-
-			map.getCanvas().style.cursor = "pointer";
-			if (hoveredPumpRef.current && pump.id !== hoveredPumpRef.current.id) {
-				map.setFilter("pumps-highlight", [
-					"==",
-					"id",
-					hoveredPumpRef.current.id,
-				]);
-			}
 		});
 
 		map.on("mouseleave", "pumps", () => {
-			if (map && hoveredPumpRef.current) {
-				map.setFilter("pumps-highlight", ["==", "id", ""]);
-				map.getCanvas().style.cursor = "";
-			}
 			setHoveredPump(undefined);
 		});
 
@@ -95,6 +83,9 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 			if (e.features?.length === 0) {
 				setSelectedPump(undefined);
 			}
+			setSelectedTreeId(undefined);
+			setHoveredTreeId(undefined);
+
 			const pumpFeature = e.features[0];
 			const pump = mapboxFeatureToPump(map, pumpFeature);
 			if (!pump) {
@@ -123,7 +114,6 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 						return;
 					}
 					setSelectedPump(newPump);
-					map.setFilter("pumps-highlight", ["==", "id", newPump.id]);
 				}
 			});
 
@@ -134,7 +124,6 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 					return;
 				}
 				setSelectedPump(newPump);
-				map.setFilter("pumps-highlight", ["==", "id", newPump.id]);
 			});
 
 			map.on("moveend", function () {
@@ -144,11 +133,24 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 			});
 		});
 
-		map.on("movestart", function () {
+		map.on("dragstart", function () {
 			if (map.getLayer("pumps-highlight") && !flying.current) {
 				setSelectedPump(undefined);
 				setHoveredPump(undefined);
-				map.setFilter("pumps-highlight", ["==", "id", ""]);
+			}
+		});
+
+		map.on("zoom", function () {
+			if (
+				map.getLayer("pumps-highlight") &&
+				!flying.current &&
+				selectedPumpRef.current
+			) {
+				const newPump = updatePumpPosition(map, selectedPumpRef.current);
+				if (!newPump) {
+					return;
+				}
+				setSelectedPump(newPump);
 			}
 		});
 	}, [map]);

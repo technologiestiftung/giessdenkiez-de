@@ -1,44 +1,30 @@
+import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
-import { create } from "zustand";
+import { Pump, usePumpStore } from "./use-pump-store";
 
-export interface Pump {
-	id: number;
-	status: string;
-	address: string;
-	lastCheck: string;
-	x: number;
-	y: number;
-}
+export function useHoveredPump(map: mapboxgl.Map | undefined) {
+	const [hoveredPump, setHoveredPump] = usePumpStore((store) => [
+		store.hoveredPump,
+		store.setHoveredPump,
+	]);
 
-interface HoveredPumpState {
-	hoveredPump: Pump | undefined;
-	setHoveredPump: (pump: Pump | undefined) => void;
-	mapboxFeatureToPump: (
-		map: mapboxgl.Map,
-		feature: mapboxgl.MapboxGeoJSONFeature,
-	) => Pump | undefined;
-}
+	const hoveredPumpRef = useRef<Pump | undefined>(undefined);
 
-export const useHoveredPump = create<HoveredPumpState>((set) => ({
-	hoveredPump: undefined,
-	setHoveredPump: (pump) => set({ hoveredPump: pump }),
-	mapboxFeatureToPump: (map, feature) => {
-		if (!feature.properties) {
-			return undefined;
+	useEffect(() => {
+		if (!map) {
+			return;
 		}
 
-		//@ts-expect-error no types for geometry.coordinates
-		const pixelCoords = map.project(feature.geometry.coordinates);
-		const xPixel = pixelCoords.x;
-		const yPixel = pixelCoords.y;
+		if (hoveredPumpRef.current) {
+			map.setFilter("pumps-highlight", ["==", "id", ""]);
+		}
 
-		return {
-			id: feature.properties.id as number,
-			status: feature.properties["pump:status"] as string,
-			address: feature.properties["addr:full"] as string,
-			lastCheck: feature.properties["check_date"] as string,
-			x: xPixel, //event.point.x,
-			y: yPixel, //event.point.y,
-		};
-	},
-}));
+		if (hoveredPump) {
+			map.setFilter("pumps-highlight", ["==", "id", hoveredPump.id]);
+		}
+
+		hoveredPumpRef.current = hoveredPump;
+	}, [hoveredPump]);
+
+	return { hoveredPump, setHoveredPump, hoveredPumpRef };
+}
