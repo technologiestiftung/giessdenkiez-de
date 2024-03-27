@@ -2,7 +2,6 @@
 import { create } from "zustand";
 import { Session, User } from "@supabase/supabase-js";
 import { supabaseClient } from "./supabase-client";
-import { useI18nStore } from "../i18n/i18n-store";
 
 interface Credentials {
 	email: string;
