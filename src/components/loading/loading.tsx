@@ -13,13 +13,13 @@ export const Loading: React.FC<LoadingProps> = ({
 }) => {
 	const i18n = useI18nStore().i18n();
 	return (
-		<div className="h-full w-full flex flex-col justify-center bg-gdk-white items-center gap-3">
+		<div className="h-full w-full flex flex-col justify-center bg-gdk-white items-center gap-3 pointer-events-auto">
 			<div className="animate-bounce">
 				<SplashTreeIcon />
 			</div>
 			<p className="w-[245px] text-center	">{loadingText}</p>
 			{isImprintPrivacyVisible && (
-				<div className="flex flex-row gap-3 text-slate-300	">
+				<div className="flex flex-row gap-3 text-slate-300">
 					<a
 						href={i18n.map.attribution.imprint.href}
 						key={i18n.map.attribution.imprint.label}
