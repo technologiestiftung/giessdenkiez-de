@@ -30,7 +30,7 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 			return i18n.treeDetail.isAdopted;
 		}
 		return i18n.treeDetail.adoptIt;
-	}, [isLoading, isAdopted]);
+	}, [isLoading, isAdopted, i18n]);
 
 	return (
 		<div className="shadow-gdk-hard flex flex-col gap-4 rounded-lg bg-slate-100 p-4">
