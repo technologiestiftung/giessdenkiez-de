@@ -1,8 +1,9 @@
 /* eslint-disable max-lines */
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAuthStore } from "../../../auth/auth-store";
 import { useErrorStore } from "../../../error/error-store";
 import { useI18nStore } from "../../../i18n/i18n-store";
+import { supabaseClient } from "../../../auth/supabase-client";
 
 export interface TreeAdoptState {
 	isLoading: boolean;
@@ -19,11 +20,15 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 
 	const access_token = useAuthStore((store) => store).session?.access_token;
 	const user = useAuthStore((store) => store).session?.user;
-	const { refreshAdoptedTreesInfo } = useAuthStore();
+	const { adoptedTrees, refreshAdoptedTreesInfo, session } = useAuthStore();
 
 	const abortController = new AbortController();
 	const [adoptLoading, setAdoptLoading] = useState(false);
-	const [isAdopted, setIsAdopted] = useState(false);
+
+	const isAdopted = useMemo(() => {
+		return adoptedTrees.includes(treeId);
+	}, [adoptedTrees, treeId]);
+
 	const [adoptedByOthers, setAdoptedByOthers] = useState(false);
 
 	const adoptTree = async () => {
@@ -47,9 +52,9 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 				setAdoptLoading(false);
 				return;
 			}
-			setIsAdopted(true);
 			setAdoptLoading(false);
 			refreshAdoptedTreesInfo();
+			isTreeAdoptedByOthers();
 		} catch (error) {
 			handleError(i18n.treeDetail.adoptErrorMessage, error);
 			setAdoptLoading(false);
@@ -77,84 +82,41 @@ export function useAdoptTree(treeId: string): TreeAdoptState {
 				handleError(i18n.treeDetail.adoptErrorMessage);
 				return;
 			}
-			setIsAdopted(false);
 			setAdoptLoading(false);
 			refreshAdoptedTreesInfo();
+			isTreeAdoptedByOthers();
 		} catch (error) {
 			handleError(i18n.treeDetail.adoptErrorMessage, error);
 			setAdoptLoading(false);
 		}
 	};
 
-	useEffect(() => {
-		setIsAdopted(false);
-		setAdoptLoading(false);
+	const isTreeAdoptedByOthers = async () => {
 		setAdoptedByOthers(false);
+		try {
+			const { data, error } = await supabaseClient
+				.from("trees_adopted")
+				.select(`id, uuid, tree_id`)
+				.eq("tree_id", treeId)
+				.neq("uuid", session?.user?.id);
 
-		const isTreeAdoptedByUser = async () => {
-			if (!user?.id) {
+			if (error) {
+				handleError(i18n.treeDetail.adoptErrorMessage, error);
 				return;
 			}
 
-			try {
-				const adoptUrl = `${
-					import.meta.env.VITE_API_ENDPOINT
-				}/get/istreeadopted?uuid=${user?.id}&id=${treeId}`;
-				const res = await fetch(adoptUrl, {
-					method: "GET",
-					headers: {
-						Authorization: `Bearer ${access_token}`,
-						"Content-Type": "application/json",
-					},
-					signal: abortController.signal,
-				});
-				if (!res.ok) {
-					handleError(i18n.treeDetail.adoptErrorMessage);
-					return;
-				}
-				const json = await res.json();
-				setIsAdopted(json.data);
-			} catch (error) {
-				handleError(i18n.treeDetail.adoptErrorMessage, error);
-			}
-		};
+			setAdoptedByOthers((data ?? []).length > 0);
+		} catch (error) {
+			handleError(i18n.treeDetail.adoptErrorMessage, error);
+		}
+	};
 
-		const isTreeAdoptedByOthers = async () => {
-			try {
-				const adoptUrl = `${
-					import.meta.env.VITE_API_ENDPOINT
-				}/get/wateredandadopted`;
-				const res = await fetch(adoptUrl, {
-					method: "GET",
-					headers: {
-						Authorization: `Bearer ${access_token}`,
-						"Content-Type": "application/json",
-					},
-					signal: abortController.signal,
-				});
-				if (!res.ok) {
-					handleError(i18n.treeDetail.adoptErrorMessage);
-					return;
-				}
-				const json = await res.json();
-				const adoptedByOthersList =
-					json.data.filter(
-						(tree: { tree_id: string; adopted: number }) =>
-							tree.tree_id === treeId && tree.adopted > 1,
-					).length > 0;
-				setAdoptedByOthers(adoptedByOthersList);
-			} catch (error) {
-				handleError(i18n.treeDetail.adoptErrorMessage, error);
-			}
-		};
-
+	useEffect(() => {
 		const fetchData = async () => {
-			await isTreeAdoptedByUser();
 			await isTreeAdoptedByOthers();
 		};
-
 		fetchData();
-	}, [treeId]);
+	}, []);
 
 	return {
 		isLoading: adoptLoading,
