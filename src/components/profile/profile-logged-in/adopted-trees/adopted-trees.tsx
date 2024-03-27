@@ -42,14 +42,12 @@ export const AdoptedTrees: React.FC = () => {
 		);
 	}
 
-	const maxTrees = Math.min(adoptedTreesInfo.length, 4);
-
 	return (
 		<AdoptedTreesCard sectionTitle={i18n.navbar.profile.overview.adoptedTrees}>
 			<div className="mt-7 grid grid-cols-2 gap-4 xl:grid-cols-4">
 				{!showAllTrees &&
 					adoptedTreesInfo
-						.slice(0, maxTrees)
+						.slice(0, 4)
 						.map((tree) => (
 							<TreeCard
 								id={tree.id}
