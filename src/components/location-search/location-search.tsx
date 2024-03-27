@@ -38,24 +38,24 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 		useGeocoding(isCurrentSearch);
 	const { isFilterViewVisible, isSomeFilterActive } = useFilterStore();
 
+	const clearSearchAndGeocodingResults = () => {
+		clearSearch();
+		setSelectedGeocodingResult(undefined);
+		clearGeocodingResults();
+	};
+
 	useEffect(() => {
 		if (isFilterViewVisible) {
-			clearSearch();
-			setSelectedGeocodingResult(undefined);
-			clearGeocodingResults();
+			clearSearchAndGeocodingResults();
 		}
 	}, [isFilterViewVisible]);
 
 	map?.on("dragstart", function () {
-		clearSearch();
-		setSelectedGeocodingResult(undefined);
-		clearGeocodingResults();
+		clearSearchAndGeocodingResults();
 	});
 
 	map?.on("click", function () {
-		clearSearch();
-		setSelectedGeocodingResult(undefined);
-		clearGeocodingResults();
+		clearSearchAndGeocodingResults();
 	});
 
 	const onGeocodingResultClick = (geocodingResult: GeocodingResult) => {
@@ -100,9 +100,9 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 	}, [geocodingResults, selectedGeocodingResultIndex]);
 
 	return (
-		<div className="flex flex-row w-full justify-center sm:justify-between pointer-events-auto">
+		<div className="flex flex-row w-full justify-center sm:justify-between pointer-events-auto gap-2 ">
 			<div
-				className={`flex flex-grow max-w-[80%] sm:max-w-[87%] h-fit flex-col px-2 drop-shadow-md sm:px-0`}
+				className={`flex flex-grow max-w-[80%] sm:max-w-[87%] h-fit flex-col pl-2 drop-shadow-md sm:pl-0`}
 			>
 				<form
 					onSubmit={(e) => {
@@ -139,8 +139,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 					<button
 						className={`${isTextInSearchbar ? "opacity-100" : "opacity-0"} px-4 hover:text-gdk-light-gray`}
 						onClick={() => {
-							clearSearch();
-							setSelectedGeocodingResult(undefined);
+							clearSearchAndGeocodingResults();
 						}}
 					>
 						<ClearIcon />
@@ -163,7 +162,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 					</div>
 				)}
 			</div>
-			<div className="min-w-[10%] flex flex-col mr-1 lg:mr-0 px-2 sm:px-0">
+			<div className="min-w-[10%] flex flex-col mr-1 lg:mr-0 sm:px-0">
 				<FilterIcon
 					onToggleShowFilter={onToggleShowFilter}
 					filtersActive={isSomeFilterActive()}
