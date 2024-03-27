@@ -42,6 +42,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 		if (isFilterViewVisible) {
 			clearSearch();
 			setSelectedGeocodingResult(undefined);
+			clearGeocodingResults();
 		}
 	}, [isFilterViewVisible]);
 
