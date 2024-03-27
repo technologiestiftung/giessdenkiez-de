@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useAdoptTree } from "../tree-detail/hooks/use-adopt-tree";
 import {
 	HeartIcon,
 	HeartIconFillState,
 	HeartIconState,
 } from "../icons/heart-icon";
+import { useTreeAdoptStore } from "../tree-detail/hooks/use-adopt-tree";
 
 export interface AdoptButtonProps {
 	treeId: string;
@@ -12,17 +12,18 @@ export interface AdoptButtonProps {
 
 export const AdoptButton: React.FC<AdoptButtonProps> = ({ treeId }) => {
 	const [heartHovered, setHeartHovered] = useState(false);
-	const { adoptTree, unadoptTree, isAdopted } = useAdoptTree(treeId);
+	const { adoptTree, unadoptTree, isAdopted } = useTreeAdoptStore();
+
 	return (
 		<button
 			type="button"
 			onClick={async () => {
-				if (!isAdopted) {
-					await adoptTree();
+				if (!isAdopted(treeId)) {
+					await adoptTree(treeId);
 					return;
 				}
 
-				await unadoptTree();
+				await unadoptTree(treeId);
 			}}
 			onMouseEnter={() => setHeartHovered(true)}
 			onMouseLeave={() => setHeartHovered(false)}
@@ -30,7 +31,9 @@ export const AdoptButton: React.FC<AdoptButtonProps> = ({ treeId }) => {
 			<HeartIcon
 				state={heartHovered ? HeartIconState.Hover : HeartIconState.Default}
 				fillState={
-					isAdopted ? HeartIconFillState.Filled : HeartIconFillState.Empty
+					isAdopted(treeId)
+						? HeartIconFillState.Filled
+						: HeartIconFillState.Empty
 				}
 			/>
 		</button>

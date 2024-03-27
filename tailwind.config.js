@@ -31,6 +31,11 @@ export default {
 				"gdk-soft": "0px 3px 6px 0px rgba(184, 184, 184, 0.10);",
 				"gdk-hard": "0px 3px 6px 0px rgba(105, 105, 105, 0.20);",
 			},
+			keyframes: {
+				shimmer: {
+					"100%": { transform: "translateX(100%)" },
+				},
+			},
 		},
 	},
 	plugins: [],

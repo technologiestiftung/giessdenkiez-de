@@ -44,7 +44,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 		<div
 			className={`
 		absolute top-0 left-0 lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2
-		w-full lg:w-[80%] xl:w-[1028px]
+		w-full lg:w-[80%] xl:w-[1028px] max-h-svh overflow-y-auto
 		bg-white flex flex-col
 		rounded-lg shadow-gdk-hard pointer-events-auto`}
 		>

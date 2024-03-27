@@ -2,7 +2,6 @@
 import { create } from "zustand";
 import { Session, User } from "@supabase/supabase-js";
 import { supabaseClient } from "./supabase-client";
-import { useI18nStore } from "../i18n/i18n-store";
 
 interface Credentials {
 	email: string;
@@ -40,7 +39,7 @@ interface AuthState {
 	updateUsername: (username: string) => Promise<void>;
 	deleteUser: () => Promise<void>;
 	adoptedTrees: Array<string>;
-	adoptedTreesInfo: Array<TreeInfo>;
+	adoptedTreesInfo: Array<TreeInfo> | null;
 	refreshAdoptedTrees: () => Promise<void>;
 	refreshAdoptedTreesInfo: () => Promise<void>;
 }
@@ -63,7 +62,7 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		session: null,
 		username: null,
 		adoptedTrees: [],
-		adoptedTreesInfo: [],
+		adoptedTreesInfo: null,
 
 		isLoggedIn: () => {
 			if (get().session === undefined) {
@@ -261,11 +260,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
-
-			alert(
-				useI18nStore.getState().i18n().navbar.profile.settings
-					.updateEmailEmailSent,
-			);
 		},
 
 		updateUsername: async (username: string) => {

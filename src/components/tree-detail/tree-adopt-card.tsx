@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import { useAdoptTree } from "./hooks/use-adopt-tree";
-import { TreeAgeClassification, TreeData } from "./tree-types";
-import { Tooltip as AdoptTreeTooltip } from "./tooltip";
 import { AdoptButton } from "../buttons/adoptButton";
+import { useTreeAdoptStore } from "./hooks/use-adopt-tree";
+import { Tooltip as AdoptTreeTooltip } from "./tooltip";
+import { TreeAgeClassification, TreeData } from "./tree-types";
 
 interface TreeAdoptCardProps {
 	treeData: TreeData;
@@ -17,20 +17,22 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 	const [showTooltip, setShowTooltip] = useState(false);
 	const i18n = useI18nStore().i18n();
 
-	const { isAdopted, isLoading, adoptedByOthers } = useAdoptTree(treeData.id);
+	const { isAdopted, isLoading, adoptedByOthers } = useTreeAdoptStore();
+
+	const isTreeAdopted = isAdopted(treeData.id);
 
 	const adoptLabel = useMemo(() => {
 		if (isLoading) {
-			if (isAdopted) {
+			if (isTreeAdopted) {
 				return i18n.treeDetail.unadoptLoading;
 			}
 			return i18n.treeDetail.adoptLoading;
 		}
-		if (isAdopted) {
+		if (isTreeAdopted) {
 			return i18n.treeDetail.isAdopted;
 		}
 		return i18n.treeDetail.adoptIt;
-	}, [isLoading, isAdopted]);
+	}, [isLoading, isTreeAdopted, i18n]);
 
 	return (
 		<div className="shadow-gdk-hard flex flex-col gap-4 rounded-lg bg-slate-100 p-4">
@@ -73,7 +75,7 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 							)}
 						</div>
 					</div>
-					{adoptedByOthers && !isAdopted && (
+					{adoptedByOthers && !isTreeAdopted && (
 						<div className="items-left flex flex-row gap-2">
 							<img
 								src="/images/hi-there-icon.svg"
@@ -86,7 +88,7 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 							</div>
 						</div>
 					)}
-					{adoptedByOthers && isAdopted && (
+					{adoptedByOthers && isTreeAdopted && (
 						<div className="items-left flex flex-row gap-2">
 							<img
 								src="/images/hi-there-icon.svg"

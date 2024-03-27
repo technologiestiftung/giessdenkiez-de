@@ -5,6 +5,8 @@ import { TextInput } from "../../input/text-input";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useErrorStore } from "../../../error/error-store";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
+import { AlertDialog } from "../profile-alert/alert-dialog";
+import { MailIcon } from "../../icons/mail-icon";
 
 export const ForgotPassword: React.FC = () => {
 	const { forgotPassword } = useAuthStore();
@@ -16,6 +18,11 @@ export const ForgotPassword: React.FC = () => {
 
 		try {
 			await forgotPassword(e.currentTarget.email.value);
+			(
+				document.getElementById(
+					"edit-passwort-alert-dialog",
+				) as HTMLDialogElement
+			).showModal();
 		} catch (error) {
 			handleError(i18n.common.defaultErrorMessage);
 		}
@@ -45,6 +52,19 @@ export const ForgotPassword: React.FC = () => {
 					/>
 				</div>
 			</form>
+
+			<AlertDialog
+				alertTitleWithIcon={
+					<>
+						{i18n.navbar.profile.settings.resetPasswordEmailSentTitle}
+						<MailIcon />
+					</>
+				}
+				alertMessage={
+					i18n.navbar.profile.settings.resetPasswordEmailSentMessage
+				}
+				id="edit-passwort-alert-dialog"
+			/>
 
 			<p className="pt-6">{i18n.navbar.profile.settings.backToLogin}?</p>
 			<InternalAnchorLink
