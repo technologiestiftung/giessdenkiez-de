@@ -10,9 +10,7 @@ import { AdoptedTreesCard } from "./adoptedTreesCard";
 export const AdoptedTrees: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const [showAllTrees, setshowAllTrees] = useState(false);
-	// const { adoptedTreesInfo } = useAuthStore();
-
-	const adoptedTreesInfo = null;
+	const { adoptedTreesInfo } = useAuthStore();
 
 	if (adoptedTreesInfo === null) {
 		return (
