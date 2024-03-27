@@ -135,7 +135,10 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 					/>
 					<button
 						className={`${isTextInSearchbar ? "opacity-100" : "opacity-0"} px-4 hover:text-gdk-light-gray`}
-						onClick={clearSearch}
+						onClick={() => {
+							clearSearch();
+							setSelectedGeocodingResult(undefined);
+						}}
 					>
 						<ClearIcon />
 					</button>
