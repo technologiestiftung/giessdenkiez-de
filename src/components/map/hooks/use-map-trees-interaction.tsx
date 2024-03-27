@@ -8,6 +8,7 @@ import { useHoveredTree } from "./use-hovered-tree";
 import { useMapConstants } from "./use-map-constants";
 import { useSelectedTree } from "./use-selected-tree";
 import { useTreeCircleStyle } from "./use-tree-circle-style";
+import { useSearchStore } from "../../location-search/search-store";
 
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { MAP_MAX_ZOOM_LEVEL } = useMapConstants();
@@ -23,6 +24,8 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		useFilterStore();
 
 	const { filteredCircleColor } = useTreeCircleStyle();
+
+	const { clearSearch } = useSearchStore();
 
 	useEffect(() => {
 		if (!map) {
@@ -48,6 +51,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	useEffect(() => {
 		if (treeData) {
 			if (map?.loaded()) {
+				clearSearch();
 				setSelectedTreeId(treeData.id);
 				map.setFeatureState(
 					{

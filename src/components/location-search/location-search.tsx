@@ -25,6 +25,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 		setisPickedGeoSearchResult,
 		isTextInSearchbar,
 		setIsTextInSearchbar,
+		clearSearch,
 	} = useSearchStore();
 	const [selectedGeocodingResultIndex, setSelectedGeocodingResultIndex] =
 		useState(0);
@@ -35,28 +36,23 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 	const { MAP_LOCATION_ZOOM_LEVEL } = useMapConstants();
 	const { geocodingResults, clearGeocodingResults, fetchGeocodingResults } =
 		useGeocoding(isCurrentSearch);
-
 	const { isFilterViewVisible, isSomeFilterActive } = useFilterStore();
 
 	useEffect(() => {
 		if (isFilterViewVisible) {
 			clearSearch();
+			setSelectedGeocodingResult(undefined);
 		}
 	}, [isFilterViewVisible]);
 
-	const clearSearch = () => {
-		setIsCurrentSearch("");
-		setisPickedGeoSearchResult("");
-		setIsTextInSearchbar(false);
-		setSelectedGeocodingResult(undefined);
-	};
-
 	map?.on("dragstart", function () {
 		clearSearch();
+		setSelectedGeocodingResult(undefined);
 	});
 
 	map?.on("click", function () {
 		clearSearch();
+		setSelectedGeocodingResult(undefined);
 	});
 
 	const onGeocodingResultClick = (geocodingResult: GeocodingResult) => {

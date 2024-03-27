@@ -7,14 +7,22 @@ type SearchStore = {
 	setisPickedGeoSearchResult: (search: string) => void;
 	isTextInSearchbar: boolean;
 	setIsTextInSearchbar: (isTextInSearchbar: boolean) => void;
+	clearSearch: () => void;
+};
+
+const initialState = {
+	isCurrentSearch: "",
+	isPickedGeoSearchResult: "",
+	isTextInSearchbar: false,
 };
 
 export const useSearchStore = create<SearchStore>()((set) => ({
-	isCurrentSearch: "",
+	...initialState,
 	setIsCurrentSearch: (search) => set({ isCurrentSearch: search }),
-	isPickedGeoSearchResult: "",
 	setisPickedGeoSearchResult: (search) =>
 		set({ isPickedGeoSearchResult: search }),
-	isTextInSearchbar: false,
 	setIsTextInSearchbar: (isTextInSearchbar) => set({ isTextInSearchbar }),
+	clearSearch: () => {
+		set(initialState);
+	},
 }));

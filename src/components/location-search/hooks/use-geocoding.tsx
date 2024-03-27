@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useSearchStore } from "../search-store";
+import { useState } from "react";
 
 export interface GeocodingResult {
 	id: string;
