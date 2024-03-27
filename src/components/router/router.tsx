@@ -11,12 +11,15 @@ import { TreeDetail } from "../tree-detail/tree-detail";
 import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
 import { Splash } from "../splash/splash";
+import { useMapStore } from "../map/map-store";
 
 export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
 	const setPathname = useUrlState((state) => state.setPathname);
 	const treeId = url.searchParams.get("treeId");
 	useLocationEventListener();
+
+	const { isMapLoaded } = useMapStore();
 
 	const [isFilterVisible, setIsFilterVisible] = useFilterStore((store) => [
 		store.isFilterViewVisible,
@@ -48,7 +51,7 @@ export const Router: React.FC = () => {
 						<Navbar />
 					</div>
 
-					{!isSplashScreenVisible && (
+					{!isSplashScreenVisible && isMapLoaded && (
 						<div className="mt-2 flex w-full flex-row justify-center">
 							<div
 								className={`${

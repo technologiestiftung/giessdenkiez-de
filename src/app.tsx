@@ -12,13 +12,14 @@ export const App: React.FC = () => {
 
 	const error = useErrorStore().error;
 	const { isMapLoaded } = useMapStore();
-
 	return (
 		<>
 			<div className="grid grid-cols-1">
 				<div className="col-start-1 row-start-1 h-full w-full">
-					{isMapLoaded ?? <Loading />}
 					<Map />
+				</div>
+				<div className="pointer-events-none z-[1000] col-start-1 row-start-1 h-full w-full">
+					{!isMapLoaded && <Loading />}
 				</div>
 				<div className="pointer-events-none z-[1000] col-start-1 row-start-1 h-full w-full">
 					<Router />
