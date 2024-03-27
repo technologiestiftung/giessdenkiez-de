@@ -33,7 +33,7 @@ test.describe("Register", () => {
 			await page.getByLabel("Passwort").fill(defaultPassword);
 			await page.getByLabel("Passwort").press("Enter");
 
-			await expect(page.locator("#alert-dialog")).toBeVisible();
+			await expect(page.locator("#register-alert-dialog")).toBeVisible();
 			await page.getByRole("button", { name: "OK" }).click();
 			await expect(
 				page.getByRole("heading", { name: "Anmelden" }),

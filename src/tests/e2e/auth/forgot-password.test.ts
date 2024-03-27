@@ -40,7 +40,7 @@ test.describe("Forgot password", () => {
 
 			await page.getByRole("button", { name: "Speichern" }).click();
 
-			await expect(page.locator("#alert-dialog")).toBeVisible();
+			await expect(page.locator("#password-reset-alert-dialog")).toBeVisible();
 			await page.getByRole("button", { name: "OK" }).click();
 
 			await expect(
