@@ -13,6 +13,7 @@ export interface AdoptButtonProps {
 export const AdoptButton: React.FC<AdoptButtonProps> = ({ treeId }) => {
 	const [heartHovered, setHeartHovered] = useState(false);
 	const { adoptTree, unadoptTree, isAdopted } = useAdoptTree(treeId);
+
 	return (
 		<button
 			type="button"

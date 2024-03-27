@@ -1,7 +1,8 @@
 import React from "react";
-import { useI18nStore } from "../../../i18n/i18n-store";
-import { AdoptButton } from "../../buttons/adoptButton";
-import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
+import { useI18nStore } from "../../../../i18n/i18n-store";
+import { InternalAnchorLink } from "../../../anchor-link/internal-anchor-link";
+import { useAdoptTree } from "../../../tree-detail/hooks/use-adopt-tree";
+import { HeartIconProfile } from "../../../icons/heart-icon-profile";
 
 export interface TreeCardProps {
 	id: string;
@@ -18,15 +19,25 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 }) => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
+	const { unadoptTree } = useAdoptTree(id);
 
 	return (
 		<div
 			key={id}
 			className="shadow-gdk-soft flex flex-col gap-3 rounded-2xl border-2 p-4 justify-between"
 		>
-			<InternalAnchorLink href={`/map?treeId=${id}`} label={name} />
+			<InternalAnchorLink href={`/map?treeId=${id}&zoom=20`} label={name} />
 			<div className="-mt-4 self-end">
-				<AdoptButton treeId={id}></AdoptButton>
+				<button
+					type="button"
+					onClick={async () => {
+						await unadoptTree();
+					}}
+				>
+					<div className="text-gdk-purple hover:text-opacity-30">
+						<HeartIconProfile />
+					</div>
+				</button>
 			</div>
 
 			<div>
