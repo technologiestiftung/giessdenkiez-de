@@ -7,23 +7,19 @@ import { Navbar } from "../navbar/navbar";
 import { PageNotFound } from "../page-not-found/page-not-found";
 import { Profile } from "../profile/profile";
 import { PasswordReset } from "../profile/profile-logged-in/password-reset";
+import { Splash } from "../splash/splash";
 import { TreeDetail } from "../tree-detail/tree-detail";
 import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
-import { Splash } from "../splash/splash";
 
 export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
-	const setPathname = useUrlState((state) => state.setPathname);
 	const treeId = url.searchParams.get("treeId");
-	useLocationEventListener();
-
-	const [isFilterVisible, setIsFilterVisible] = useFilterStore((store) => [
-		store.isFilterViewVisible,
-		store.setIsFilterViewVisible,
-	]);
-
+	const setPathname = useUrlState((state) => state.setPathname);
+	const { isFilterViewVisible } = useFilterStore();
 	const [isSplashScreenVisible, setIsSplashScreenVisible] = useState(true);
+
+	useLocationEventListener();
 
 	switch (url.pathname) {
 		case "/":
@@ -37,13 +33,11 @@ export const Router: React.FC = () => {
 						treeId && "bg-white"
 					} lg:bg-transparent`}
 				>
-					<div className={`${isFilterVisible && "bg-white sm:bg-transparent"}`}>
+					<div
+						className={`${isFilterViewVisible && "bg-white sm:bg-transparent"}`}
+					>
 						<div className={`${treeId ? "hidden" : "block sm:hidden"}`}>
-							{isFilterVisible && (
-								<Filter
-									onFilterChange={() => setIsFilterVisible(!isFilterVisible)}
-								/>
-							)}
+							{isFilterViewVisible && <Filter />}
 						</div>
 						<Navbar />
 					</div>
@@ -56,24 +50,13 @@ export const Router: React.FC = () => {
 								} flex flex-col gap-4`}
 							>
 								<div className={`${treeId && "hidden lg:flex"}`}>
-									<LocationSearch
-										onToggleShowFilter={(show) => {
-											const test = show ?? !isFilterVisible;
-											setIsFilterVisible(test);
-										}}
-									/>
+									<LocationSearch />
 								</div>
 
 								<div
 									className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
 								>
-									{isFilterVisible && (
-										<Filter
-											onFilterChange={() =>
-												setIsFilterVisible(!isFilterVisible)
-											}
-										/>
-									)}
+									{isFilterViewVisible && <Filter />}
 								</div>
 							</div>
 						</div>

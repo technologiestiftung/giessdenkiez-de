@@ -10,13 +10,7 @@ import { useFilterStore } from "../filter/filter-store";
 import { FilterIcon } from "../icons/filter-icon";
 import { useSearchStore } from "./search-store";
 
-interface LocationSearchProps {
-	onToggleShowFilter: (showFilter?: boolean) => void;
-}
-
-export const LocationSearch: React.FC<LocationSearchProps> = ({
-	onToggleShowFilter,
-}) => {
+export const LocationSearch: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const {
 		isCurrentSearch,
@@ -27,6 +21,8 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 		setIsTextInSearchbar,
 		clearSearch,
 	} = useSearchStore();
+
+	const { toggleFilterView, hideFilterView } = useFilterStore();
 	const [selectedGeocodingResultIndex, setSelectedGeocodingResultIndex] =
 		useState(0);
 	const [selectedGeocodingResult, setSelectedGeocodingResult] =
@@ -129,7 +125,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 							setIsTextInSearchbar(true);
 						}}
 						onFocus={() => {
-							onToggleShowFilter(false);
+							hideFilterView();
 						}}
 						placeholder={i18n.locationSearch.placeholder}
 					/>
@@ -162,7 +158,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 			</div>
 			<div className="min-w-[10%] flex flex-col mr-1 lg:mr-0">
 				<FilterIcon
-					onToggleShowFilter={onToggleShowFilter}
+					onToggleShowFilter={toggleFilterView}
 					filtersActive={isSomeFilterActive()}
 				/>
 			</div>
