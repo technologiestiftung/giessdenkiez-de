@@ -19,6 +19,9 @@ export function useFetchTreeData(treeId: string | undefined): TreeDataState {
 		const abortController = new AbortController();
 
 		const fetchData = async () => {
+			if (!treeId) {
+				return;
+			}
 			try {
 				const geocodingUrl = `${
 					import.meta.env.VITE_API_ENDPOINT
@@ -37,13 +40,13 @@ export function useFetchTreeData(treeId: string | undefined): TreeDataState {
 				}
 				const json = await res.json();
 				setTreeData(json.data[0]);
+				await isTreeAdoptedByOthers(treeId);
 			} catch (error) {
 				handleError(i18n.common.defaultErrorMessage, error);
 			}
 		};
 
 		fetchData();
-		isTreeAdoptedByOthers(treeId!);
 
 		return () => {
 			abortController.abort();
