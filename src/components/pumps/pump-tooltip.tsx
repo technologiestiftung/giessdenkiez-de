@@ -1,6 +1,6 @@
 import React from "react";
+import { Pump } from "../map/hooks/use-hovered-pump";
 import { useI18nStore } from "../../i18n/i18n-store";
-import { Pump } from "../map/hooks/use-pump-store";
 
 interface PumpTooltipProps {
 	pump: Pump;
@@ -23,9 +23,8 @@ export const PumpTooltip: React.FC<PumpTooltipProps> = ({ pump }) => {
 				left: pump.x,
 				top: pump.y - 5,
 				transform: "translate(-50%, -100%)",
-				zIndex: 500,
 			}}
-			className="p-6 bg-white rounded-lg flex flex-col gap-2 shadow-gdk-hard min-w-[300px]"
+			className="p-6 bg-white rounded-lg flex flex-col gap-2 shadow-gdk-hard"
 		>
 			<div className="border-b-2 pb-2">
 				<div className="font-bold text-lg">{i18n.pumps.title}</div>

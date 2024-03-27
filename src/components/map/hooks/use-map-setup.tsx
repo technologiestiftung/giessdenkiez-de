@@ -8,7 +8,6 @@ import { useMapTreesInteraction } from "./use-map-trees-interaction";
 import { useMapPumpsInteraction } from "./use-map-pumps-interaction";
 import { useFilterStore } from "../../filter/filter-store";
 import { usePumpIconStyle } from "./use-pump-icon-style";
-import { useMapInteraction } from "./use-map-interaction";
 
 export function useMapSetup(
 	mapContainer: React.MutableRefObject<HTMLDivElement | null>,
@@ -28,7 +27,6 @@ export function useMapSetup(
 
 	useMapTreesInteraction(map);
 	useMapPumpsInteraction(map);
-	useMapInteraction(map);
 
 	const {
 		circleRadius,

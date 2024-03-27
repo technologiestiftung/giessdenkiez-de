@@ -5,6 +5,7 @@ import { useFetchTreeData } from "./hooks/use-fetch-tree-data";
 import { TreeAge } from "./tree-age";
 import { TreeAdoptCard } from "./tree-adopt-card";
 import { useTreeStore } from "./tree-store";
+import { useSelectedTree } from "../map/hooks/use-selected-tree";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { TreeWaterNeed } from "./tree-water-needs";
 import { TreeWaterNeedUnknown } from "./tree-water-need-unknown";
@@ -26,9 +27,9 @@ export const TreeDetail: React.FC = () => {
 	if (!treeId) {
 		return null;
 	}
-	const setSelectedTreeId = useTreeStore((store) => store.setSelectedTreeId);
 
 	const { setTreeData } = useTreeStore();
+	const { setSelectedTreeId } = useSelectedTree();
 	const { treeData } = useFetchTreeData(treeId);
 	const { treeWateringData, fetchWateringData } =
 		useFetchTreeWateringData(treeData);
