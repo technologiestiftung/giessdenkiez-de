@@ -75,7 +75,7 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 							)}
 						</div>
 					</div>
-					{adoptedByOthers && !isAdopted && (
+					{adoptedByOthers && !isTreeAdopted && (
 						<div className="items-left flex flex-row gap-2">
 							<img
 								src="/images/hi-there-icon.svg"
