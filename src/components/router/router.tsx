@@ -11,8 +11,11 @@ import { TreeDetail } from "../tree-detail/tree-detail";
 import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
 import { Splash } from "../splash/splash";
+import { useMapStore } from "../map/map-store";
+import { useSelectedPump } from "../map/hooks/use-selected-pump";
 
 export const Router: React.FC = () => {
+	const { map } = useMapStore();
 	const url = useUrlState((state) => state.url);
 	const setPathname = useUrlState((state) => state.setPathname);
 	const treeId = url.searchParams.get("treeId");
@@ -39,11 +42,7 @@ export const Router: React.FC = () => {
 				>
 					<div className={`${isFilterVisible && "bg-white sm:bg-transparent"}`}>
 						<div className={`${treeId ? "hidden" : "block sm:hidden"}`}>
-							{isFilterVisible && (
-								<Filter
-									onFilterChange={() => setIsFilterVisible(!isFilterVisible)}
-								/>
-							)}
+							{isFilterVisible && <Filter />}
 						</div>
 						<Navbar />
 					</div>
@@ -56,24 +55,13 @@ export const Router: React.FC = () => {
 								} flex flex-col gap-4`}
 							>
 								<div className={`${treeId && "hidden lg:flex"}`}>
-									<LocationSearch
-										onToggleShowFilter={(show) => {
-											const test = show ?? !isFilterVisible;
-											setIsFilterVisible(test);
-										}}
-									/>
+									<LocationSearch />
 								</div>
 
 								<div
 									className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
 								>
-									{isFilterVisible && (
-										<Filter
-											onFilterChange={() =>
-												setIsFilterVisible(!isFilterVisible)
-											}
-										/>
-									)}
+									{isFilterVisible && <Filter />}
 								</div>
 							</div>
 						</div>

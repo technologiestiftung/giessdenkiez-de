@@ -12,9 +12,7 @@ import { useHoveredPump } from "./use-hovered-pump";
 export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 	const { MAP_MAX_ZOOM_LEVEL } = useMapConstants();
 
-	const setIsFilterVisible = useFilterStore(
-		(store) => store.setIsFilterViewVisible,
-	);
+	const { hideFilterView } = useFilterStore();
 
 	const { mapboxFeatureToPump, updatePumpPosition } = usePumpStore();
 
@@ -80,11 +78,6 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 			setHoveredPump(undefined);
 		});
 
-		map.on("click", () => {
-			setHoveredPump(undefined);
-			setSelectedPump(undefined);
-		});
-
 		map.on("click", "pumps", (e) => {
 			if (!map) {
 				return;
@@ -97,7 +90,7 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 
 			setSelectedTreeId(undefined);
 			setHoveredTreeId(undefined);
-			setIsFilterVisible(false);
+			hideFilterView();
 
 			const pumpFeature = e.features[0];
 			const pump = mapboxFeatureToPump(map, pumpFeature);
