@@ -23,6 +23,7 @@ export const PumpTooltip: React.FC<PumpTooltipProps> = ({ pump }) => {
 				left: pump.x,
 				top: pump.y - 5,
 				transform: "translate(-50%, -100%)",
+				zIndex: 500,
 			}}
 			className="p-6 bg-white rounded-lg flex flex-col gap-2 shadow-gdk-hard min-w-[300px]"
 		>

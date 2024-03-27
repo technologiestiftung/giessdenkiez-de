@@ -26,6 +26,9 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 	const { setHoveredTreeId } = useHoveredTree(map);
 	const { setSelectedTreeId } = useSelectedTree(map);
 
+	// https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
+	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 	useEffect(() => {
 		if (!map) {
 			return;
@@ -53,30 +56,32 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 			return;
 		}
 
-		map.on("mousemove", "pumps", (e) => {
-			if (!map || !e.features) {
-				return;
-			}
-			if (e.features?.length === 0) {
+		if (!isMobile) {
+			map.on("mousemove", "pumps", (e) => {
+				if (!map || !e.features) {
+					return;
+				}
+				if (e.features?.length === 0) {
+					setHoveredPump(undefined);
+				}
+				if (selectedPumpRef.current) {
+					return;
+				}
+
+				const pumpFeature = e.features[0];
+				const pump = mapboxFeatureToPump(map, pumpFeature);
+				if (!pump) {
+					return;
+				}
+
+				setHoveredPump(pump);
+				setSelectedPump(undefined);
+			});
+
+			map.on("mouseleave", "pumps", () => {
 				setHoveredPump(undefined);
-			}
-			if (selectedPumpRef.current) {
-				return;
-			}
-
-			const pumpFeature = e.features[0];
-			const pump = mapboxFeatureToPump(map, pumpFeature);
-			if (!pump) {
-				return;
-			}
-
-			setHoveredPump(pump);
-			setSelectedPump(undefined);
-		});
-
-		map.on("mouseleave", "pumps", () => {
-			setHoveredPump(undefined);
-		});
+			});
+		}
 
 		map.on("click", "pumps", (e) => {
 			if (!map) {
@@ -93,11 +98,6 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 			hideFilterView();
 
 			const pumpFeature = e.features[0];
-			const pump = mapboxFeatureToPump(map, pumpFeature);
-			if (!pump) {
-				return;
-			}
-
 			setHoveredPump(undefined);
 
 			map.easeTo({
@@ -109,6 +109,7 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 				],
 				zoom: MAP_MAX_ZOOM_LEVEL,
 				essential: true,
+				offset: [0, 70],
 			});
 
 			flying.current = true;
@@ -116,19 +117,13 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 			map.on("move", function () {
 				if (flying.current) {
 					const newPump = mapboxFeatureToPump(map, pumpFeature);
-					if (!newPump) {
-						return;
-					}
-					setSelectedPump(newPump);
+					setHoveredPump(newPump);
 				}
 			});
 
 			map.on("flyend", function () {
 				flying.current = false;
 				const newPump = mapboxFeatureToPump(map, pumpFeature);
-				if (!newPump) {
-					return;
-				}
 				setSelectedPump(newPump);
 			});
 
