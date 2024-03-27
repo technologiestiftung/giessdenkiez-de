@@ -13,7 +13,7 @@ import {
 	registerThenLogoutWithDefaultAccount,
 } from "./utils";
 
-test.describe.skip("Register", () => {
+test.describe("Register", () => {
 	test.describe("Happy Case", () => {
 		test.afterEach(async () => {
 			await deleteDefaultAccount();
