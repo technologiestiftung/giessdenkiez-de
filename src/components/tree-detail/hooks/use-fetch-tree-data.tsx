@@ -36,6 +36,10 @@ export function useFetchTreeData(treeId: string | undefined): TreeDataState {
 				const json = await res.json();
 				setTreeData(json.data[0]);
 			} catch (error) {
+				if (abortController.signal.aborted) {
+					return;
+				}
+
 				handleError(i18n.common.defaultErrorMessage, error);
 			}
 		};
