@@ -39,7 +39,7 @@ export const TreeDetail: React.FC = () => {
 		return i18n.treeDetail.treeTypeInfos.find(
 			(treeType) => treeType.id === treeData?.gattungdeutsch,
 		);
-	}, [treeData]);
+	}, [treeData, i18n]);
 
 	return (
 		<div className="pointer-events-auto h-full bg-white flex w-[100vw] flex-col gap-4 overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">

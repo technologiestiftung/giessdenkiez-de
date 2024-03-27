@@ -3,10 +3,12 @@ import { useTreeStore } from "../tree-store";
 import { TreeDataState } from "../tree-types";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useErrorStore } from "../../../error/error-store";
+import { useTreeAdoptStore } from "./use-adopt-tree";
 
 export function useFetchTreeData(treeId: string | undefined): TreeDataState {
 	const i18n = useI18nStore().i18n();
 	const handleError = useErrorStore().handleError;
+	const { isTreeAdoptedByOthers } = useTreeAdoptStore();
 
 	const [treeData, setTreeData] = useTreeStore((store) => [
 		store.treeData,
@@ -17,6 +19,9 @@ export function useFetchTreeData(treeId: string | undefined): TreeDataState {
 		const abortController = new AbortController();
 
 		const fetchData = async () => {
+			if (!treeId) {
+				return;
+			}
 			try {
 				const geocodingUrl = `${
 					import.meta.env.VITE_API_ENDPOINT
@@ -35,6 +40,7 @@ export function useFetchTreeData(treeId: string | undefined): TreeDataState {
 				}
 				const json = await res.json();
 				setTreeData(json.data[0]);
+				await isTreeAdoptedByOthers(treeId);
 			} catch (error) {
 				handleError(i18n.common.defaultErrorMessage, error);
 			}
