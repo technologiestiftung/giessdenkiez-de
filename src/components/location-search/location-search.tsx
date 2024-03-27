@@ -19,12 +19,13 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 }) => {
 	const i18n = useI18nStore().i18n();
 	const {
-		currentSearch,
-		setCurrentSearch,
-		pickedGeoCodingSearchResults,
-		setPickedGeoCodingSearchResults,
+		isCurrentSearch,
+		setIsCurrentSearch,
+		isPickedGeoSearchResult,
+		setisPickedGeoSearchResult,
+		isTextInSearchbar,
+		setIsTextInSearchbar,
 	} = useSearchStore();
-	const [isTextInSearchbar, setIsTextInSearchbar] = useState(false);
 	const [selectedGeocodingResultIndex, setSelectedGeocodingResultIndex] =
 		useState(0);
 	const [selectedGeocodingResult, setSelectedGeocodingResult] =
@@ -32,8 +33,8 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 
 	const { map } = useMapStore();
 	const { MAP_LOCATION_ZOOM_LEVEL } = useMapConstants();
-	const { geocodingResults, clearGeocodingResults } =
-		useGeocoding(currentSearch);
+	const { geocodingResults, clearGeocodingResults, fetchGeocodingResults } =
+		useGeocoding(isCurrentSearch);
 
 	const { isFilterViewVisible, isSomeFilterActive } = useFilterStore();
 
@@ -44,18 +45,15 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 	}, [isFilterViewVisible]);
 
 	const clearSearch = () => {
-		setCurrentSearch("");
-		setPickedGeoCodingSearchResults("");
+		setIsCurrentSearch("");
+		setisPickedGeoSearchResult("");
 		setIsTextInSearchbar(false);
+		setSelectedGeocodingResult(undefined);
 	};
 
 	map?.on("dragstart", function () {
 		clearSearch();
 	});
-
-	// map?.on("zoomstart", function () {
-	// 	// clearSearch();
-	// });
 
 	map?.on("click", function () {
 		clearSearch();
@@ -72,7 +70,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 				zoom: MAP_LOCATION_ZOOM_LEVEL,
 			});
 		setSelectedGeocodingResult(geocodingResult);
-		setPickedGeoCodingSearchResults(geocodingResult.place_name_de);
+		setisPickedGeoSearchResult(geocodingResult.place_name_de);
 		setSelectedGeocodingResultIndex(0);
 		clearGeocodingResults();
 	};
@@ -120,8 +118,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 						className={`w-full py-4 pl-2 focus:outline-none`}
 						type="text"
 						value={
-							selectedGeocodingResult?.place_name_de ||
-							pickedGeoCodingSearchResults
+							selectedGeocodingResult?.place_name_de || isPickedGeoSearchResult
 						}
 						onKeyDown={(e) => {
 							if (e.key === "ArrowDown" || e.key === "ArrowUp") {
@@ -129,9 +126,10 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 							}
 						}}
 						onChange={(e) => {
-							setCurrentSearch(e.target.value);
-							setPickedGeoCodingSearchResults(e.target.value);
+							setIsCurrentSearch(e.target.value);
+							setisPickedGeoSearchResult(e.target.value);
 							setSelectedGeocodingResult(undefined);
+							fetchGeocodingResults();
 							setIsTextInSearchbar(true);
 						}}
 						onFocus={() => {

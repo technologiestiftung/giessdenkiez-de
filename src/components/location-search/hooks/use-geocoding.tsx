@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchStore } from "../search-store";
 
 export interface GeocodingResult {
 	id: string;
@@ -11,6 +12,7 @@ export interface GeocodingResult {
 export interface GeocodingResultState {
 	geocodingResults: GeocodingResult[];
 	clearGeocodingResults: () => void;
+	fetchGeocodingResults: () => void;
 }
 
 export function useGeocoding(search: string): GeocodingResultState {
@@ -22,8 +24,8 @@ export function useGeocoding(search: string): GeocodingResultState {
 		setGeocodingResults([]);
 	};
 
-	useEffect(() => {
-		if (search.trim().length < 3) {
+	const fetchGeocodingResults = async () => {
+		if (search.trim().length < 2) {
 			setGeocodingResults([]);
 			return () => {};
 		}
@@ -55,7 +57,7 @@ export function useGeocoding(search: string): GeocodingResultState {
 		return () => {
 			abortController.abort();
 		};
-	}, [search]);
+	};
 
-	return { geocodingResults, clearGeocodingResults };
+	return { geocodingResults, clearGeocodingResults, fetchGeocodingResults };
 }

@@ -1,16 +1,20 @@
 import { create } from "zustand";
 
 type SearchStore = {
-	currentSearch: string;
-	pickedGeoCodingSearchResults: string;
-	setCurrentSearch: (search: string) => void;
-	setPickedGeoCodingSearchResults: (search: string) => void;
+	isCurrentSearch: string;
+	setIsCurrentSearch: (search: string) => void;
+	isPickedGeoSearchResult: string;
+	setisPickedGeoSearchResult: (search: string) => void;
+	isTextInSearchbar: boolean;
+	setIsTextInSearchbar: (isTextInSearchbar: boolean) => void;
 };
 
 export const useSearchStore = create<SearchStore>()((set) => ({
-	currentSearch: "",
-	setCurrentSearch: (search) => set({ currentSearch: search }),
-	pickedGeoCodingSearchResults: "",
-	setPickedGeoCodingSearchResults: (search) =>
-		set({ pickedGeoCodingSearchResults: search }),
+	isCurrentSearch: "",
+	setIsCurrentSearch: (search) => set({ isCurrentSearch: search }),
+	isPickedGeoSearchResult: "",
+	setisPickedGeoSearchResult: (search) =>
+		set({ isPickedGeoSearchResult: search }),
+	isTextInSearchbar: false,
+	setIsTextInSearchbar: (isTextInSearchbar) => set({ isTextInSearchbar }),
 }));
