@@ -47,6 +47,15 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 	useEffect(() => {
 		if (treeData) {
+			if (map?.loaded()) {
+				setSelectedTreeId(treeData.id);
+				map.easeTo({
+					center: [parseFloat(treeData.lat), parseFloat(treeData.lng)],
+					zoom: MAP_MAX_ZOOM_LEVEL,
+					essential: true,
+				});
+				return;
+			}
 			map?.on("load", () => {
 				setSelectedTreeId(treeData.id);
 				map.easeTo({
