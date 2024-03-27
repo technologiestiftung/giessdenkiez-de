@@ -178,6 +178,7 @@ interface Problem {
 }
 
 interface LastWaterings {
+	deletedAccount: string;
 	title: string;
 	thisWeek: string;
 	nothingThisWeek: string;
