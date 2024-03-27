@@ -1,10 +1,11 @@
 import mapboxgl from "mapbox-gl";
 import React, { useRef } from "react";
-import { useMapSetup } from "./hooks/use-map-setup";
 import { MapAttribution } from "./map-attribution";
 import { useHoveredPump } from "./hooks/use-hovered-pump";
 import { PumpTooltip } from "../pumps/pump-tooltip";
 import { useSelectedPump } from "./hooks/use-selected-pump";
+import { useMapStore } from "./map-store";
+import { useMapSetup } from "./hooks/use-map-setup";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_API_KEY;
 
@@ -13,8 +14,10 @@ export const Map: React.FC = () => {
 
 	useMapSetup(mapContainer);
 
-	const selectedPump = useSelectedPump().selectedPump;
-	const hoveredPump = useHoveredPump().hoveredPump;
+	const { map } = useMapStore();
+
+	const selectedPump = useSelectedPump(map).selectedPump;
+	const hoveredPump = useHoveredPump(map).hoveredPump;
 	const highlightedPump = selectedPump ?? hoveredPump;
 
 	return (
