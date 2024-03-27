@@ -22,6 +22,7 @@ jobs:
       ESLINT_USE_FLAT_CONFIG: true
       SUPABASE_URL: http://localhost:54321
       VITE_BASE_URL: http://localhost:5173
+      VITE_RECOVERY_AUTH_REDIRECT_URL: http://localhost:5173/profile/reset-password
       VITE_SUPABASE_URL: http://localhost:54321
       TEST_SUPABASE_INBUCKET_URL: http://localhost:54324
       # The values below are taken from the command `supabase start`
