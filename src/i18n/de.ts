@@ -269,6 +269,7 @@ Vernetzen:
 			"Wenn Du regelmäßig den gleichen Baum gießt, kannst Du diesen abonnieren. So findest Du ihn schnell in Deiner Profilübersicht wieder.",
 		adoptErrorMessage:
 			"Fehler beim Adoptieren des Baumes. Bitte versuche es erneut.",
+		adoptLoginFirst: "Logge dich ein um diesen Baum zu adoptieren",
 		ageTitle: "Standalter",
 		age: (age: number) => `${age === 1 ? "Jahr" : "Jahre"}`,
 		ageUnknown: "Unbekannt",

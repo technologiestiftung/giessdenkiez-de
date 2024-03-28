@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { useAuthStore } from "../../auth/auth-store";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { AdoptButton } from "../buttons/adopt-button";
 import { useTreeAdoptStore } from "./hooks/use-adopt-tree";
@@ -21,7 +22,12 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 
 	const isTreeAdopted = isAdopted(treeData.id);
 
+	const isLoggedIn = useAuthStore().isLoggedIn();
+
 	const adoptLabel = useMemo(() => {
+		if (!isLoggedIn) {
+			return i18n.treeDetail.adoptLoginFirst;
+		}
 		if (isLoading) {
 			if (isTreeAdopted) {
 				return i18n.treeDetail.unadoptLoading;
