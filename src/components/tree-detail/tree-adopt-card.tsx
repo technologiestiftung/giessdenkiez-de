@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import { AdoptButton } from "../buttons/adoptButton";
+import { AdoptButton } from "../buttons/adopt-button";
 import { useTreeAdoptStore } from "./hooks/use-adopt-tree";
 import { Tooltip as AdoptTreeTooltip } from "./tooltip";
 import { TreeAgeClassification, TreeData } from "./tree-types";
