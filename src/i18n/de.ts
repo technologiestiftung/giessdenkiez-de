@@ -311,8 +311,13 @@ Vernetzen:
 			lastXDaysYLitersRain: (days: number, liters: string) =>
 				`In den letzten ${days} Tagen sind **${liters} Liter Regen** gefallen.`,
 			iWatered: "Ich habe gegossen",
+			loginToWater: {
+				login: "Logge dich ein",
+				toWater: "um eine Gießung einzutragen",
+			},
 			submitWatering: "Gießung eintragen",
-			wateredHowMuch: "Wie viel?",
+			wateredHowMuch: "Gegossene Liter",
+			wateredHowMuchPlaceholder: "Liter",
 			wateredWhen: "Wann?",
 			waterSave: "Speichern",
 			waterCancel: "Abbrechen",

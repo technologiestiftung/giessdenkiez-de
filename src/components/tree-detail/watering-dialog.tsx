@@ -40,8 +40,25 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 		[i18n],
 	);
 
+	const onDialogClick = useCallback(
+		(event: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
+			const isClickOnBackground =
+				event.target !== document.querySelector("dialog");
+			if (!isClickOnBackground) {
+				return;
+			}
+
+			close();
+		},
+		[],
+	);
+
 	return (
-		<dialog id="water-dialog" className="flex-col rounded-lg p-8">
+		<dialog
+			id="water-dialog"
+			className="flex-col rounded-lg p-8"
+			onClick={onDialogClick}
+		>
 			<form onSubmit={onSubmit}>
 				<div className="flex flex-col gap-6">
 					<div className="text-xl font-bold">
@@ -55,7 +72,8 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 							className="rounded-lg border-2 p-4"
 							type="number"
 							inputMode="numeric"
-							placeholder="Liter"
+							placeholder={i18n.treeDetail.waterNeed.wateredHowMuchPlaceholder}
+							required
 							name="amount"
 							min="1"
 						/>
@@ -68,11 +86,12 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 							className="rounded-lg border-2 p-4"
 							type="date"
 							name="date"
+							required
 							defaultValue={formattedToday}
 							max={formattedToday}
 						/>
 					</div>
-					<div className="flex flex-row flex-wrap justify-between gap-4">
+					<div className="flex flex-row justify-between gap-x-4">
 						<SecondaryButton
 							label={i18n.treeDetail.waterNeed.waterCancel}
 							onClick={close}

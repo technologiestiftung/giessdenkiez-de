@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { useState } from "react";
 import Markdown from "react-markdown";
 import { useI18nStore } from "../../i18n/i18n-store";
@@ -10,6 +11,9 @@ import {
 import { Tooltip } from "./tooltip";
 import { WateringDialog } from "./watering-dialog";
 import { WateringCanIcon } from "../icons/watering-can-icon";
+import { PrimaryButton } from "../buttons/primary";
+import { useAuthStore } from "../../auth/auth-store";
+import { InternalAnchorLink } from "../anchor-link/internal-anchor-link";
 
 interface TreeWaterNeedUnknownProps {
 	treeData: TreeData;
@@ -34,6 +38,9 @@ export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 		treeWateringData,
 		treeAgeClassification,
 	);
+
+	const { isLoggedIn } = useAuthStore();
+
 	return (
 		<div className="flex flex-col gap-4 border-b-2 py-8">
 			<div className="flex flex-row items-center gap-2">
@@ -101,26 +108,36 @@ export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 					</div>
 				</div>
 			</div>
-			<div className="flex flex-row justify-center">
-				<button
-					className={`my-4 flex h-[51px] w-full items-center justify-center rounded-[10px] bg-gdk-blue px-8 font-semibold text-gdk-white hover:bg-gdk-light-blue disabled:bg-gdk-light-gray sm:w-fit`}
-					disabled={false}
+			<div className="flex flex-col items-center">
+				<PrimaryButton
+					data-testid="water-tree-button"
+					label={
+						<div className="flex flex-row items-center gap-2">
+							<img
+								src="images/watering-can-white.svg"
+								alt="Icon Watering Can White"
+							/>
+							<div className="flex flex-row items-center gap-3">
+								{i18n.treeDetail.waterNeed.iWatered}
+							</div>
+						</div>
+					}
 					onClick={() => {
 						(
 							document.getElementById("water-dialog") as HTMLDialogElement
 						).showModal();
 					}}
-				>
-					<div className="flex flex-row items-center gap-2">
-						<img
-							src="images/watering-can-white.svg"
-							alt="Icon Watering Can White"
-						/>
-						<div className="flex flex-row items-center gap-3">
-							{i18n.treeDetail.waterNeed.iWatered}
-						</div>
-					</div>
-				</button>
+					disabled={!isLoggedIn()}
+				/>
+				{!isLoggedIn() && (
+					<p>
+						<InternalAnchorLink
+							href={"/profile"}
+							label={i18n.treeDetail.waterNeed.loginToWater.login}
+						/>{" "}
+						{i18n.treeDetail.waterNeed.loginToWater.toWater}
+					</p>
+				)}
 			</div>
 
 			<WateringDialog

@@ -164,8 +164,13 @@ interface WaterNeed {
 	lastXDaysYLitersWater: (days: number, liters: string) => string;
 	lastXDaysYLitersRain: (days: number, liters: string) => string;
 	iWatered: string;
+	loginToWater: {
+		login: string;
+		toWater: string;
+	};
 	submitWatering: string;
 	wateredHowMuch: string;
+	wateredHowMuchPlaceholder: string;
 	wateredWhen: string;
 	waterSave: string;
 	waterCancel: string;
