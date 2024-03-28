@@ -283,7 +283,7 @@ Vernetzen:
 			waterManaged: "Vom Bezirksamt versorgt",
 			unknownTitle: "Wasserbedarf unbekannt",
 			unknown:
-				"Das Alter, und dementsprechend der Wasserbedarf, sind leider unbekannt. Eventuell hilft Dir die Infobox für eine eigenständige Einschätzung.",
+				"Das Alter dieses Baumes ist unbekannt und daher auch sein Wasserbedarf. Vielleicht helfen dir die weiteren Informationen für eine eigenständige Einschätzung.",
 			seniorTitle: "Braucht nur in trockenen Phasen Wasser",
 			seniorExplanation:
 				"Ältere Bäume können sich in der Regel über das Grundwasser selbst versorgen, aber bei zunehmender Hitze freuen auch sie sich über zusätzliches Wasser.",
@@ -297,6 +297,7 @@ Vernetzen:
 			stillWaterXLiters: (liters: string) => `Noch ${liters} Liter gießen`,
 			shouldBeWatered: "Sollte gegossen werden",
 			sufficientlyWatered: "Momentan ausreichend bewässert",
+			readMore: "Mehr erfahren",
 			ageAndWaterHintTitle: "Wasserbedarf und Standalter",
 			ageAndWaterHint: `
    **Baby (unter 4 Jahren):** Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
@@ -306,6 +307,7 @@ Vernetzen:
    **Erwachsen (15-40 Jahre):** Wir haben ein gewisses Durchhaltevermögen aber brauchen in heißen Phasen auch einen ordentlichen extra Schluck Wasser: bis zu 100l ein Mal in der Woche.
 
    **Alt (über 40 Jahre):** Wir kommen weitestgehend alleine klar, freuen uns in besonders trockenen Phasen aber dennoch über einen extra Schluck.`,
+			close: "Schließen",
 			lastXDaysYLitersWater: (days: number, liters: string) =>
 				`Die letzten ${days} Tage wurden **${liters} Liter gegossen**.`,
 			lastXDaysYLitersRain: (days: number, liters: string) =>
