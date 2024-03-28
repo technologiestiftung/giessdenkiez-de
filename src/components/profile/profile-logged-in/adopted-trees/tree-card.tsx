@@ -1,8 +1,8 @@
 import React from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { InternalAnchorLink } from "../../../anchor-link/internal-anchor-link";
+import { HeartIcon } from "../../../icons/heart-icon";
 import { useTreeAdoptStore } from "../../../tree-detail/hooks/use-adopt-tree";
-import { HeartIconProfile } from "../../../icons/heart-icon-profile";
 
 export interface TreeCardProps {
 	id: string;
@@ -34,9 +34,7 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 						await unadoptTree(id);
 					}}
 				>
-					<div className="text-gdk-purple hover:text-opacity-30">
-						<HeartIconProfile />
-					</div>
+					<HeartIcon isAdopted={true} />
 				</button>
 			</div>
 

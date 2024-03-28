@@ -1,9 +1,5 @@
-import React, { useState } from "react";
-import {
-	HeartIcon,
-	HeartIconFillState,
-	HeartIconState,
-} from "../icons/heart-icon";
+import React from "react";
+import { HeartIcon } from "../icons/heart-icon";
 import { useTreeAdoptStore } from "../tree-detail/hooks/use-adopt-tree";
 
 export interface AdoptButtonProps {
@@ -11,7 +7,6 @@ export interface AdoptButtonProps {
 }
 
 export const AdoptButton: React.FC<AdoptButtonProps> = ({ treeId }) => {
-	const [heartHovered, setHeartHovered] = useState(false);
 	const { adoptTree, unadoptTree, isAdopted } = useTreeAdoptStore();
 
 	return (
@@ -22,20 +17,10 @@ export const AdoptButton: React.FC<AdoptButtonProps> = ({ treeId }) => {
 					await adoptTree(treeId);
 					return;
 				}
-
 				await unadoptTree(treeId);
 			}}
-			onMouseEnter={() => setHeartHovered(true)}
-			onMouseLeave={() => setHeartHovered(false)}
 		>
-			<HeartIcon
-				state={heartHovered ? HeartIconState.Hover : HeartIconState.Default}
-				fillState={
-					isAdopted(treeId)
-						? HeartIconFillState.Filled
-						: HeartIconFillState.Empty
-				}
-			/>
+			<HeartIcon isAdopted={isAdopted(treeId)} />
 		</button>
 	);
 };
