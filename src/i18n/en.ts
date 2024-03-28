@@ -323,6 +323,7 @@ We manage largely on our own and are happy in particularly dry phases but still 
 			waterCancel: "Cancel",
 		},
 		lastWaterings: {
+			deletedAccount: "Deactivated Account",
 			title: "Last waterings",
 			thisWeek: "This week",
 			nothingThisWeek: "No waterings this week",

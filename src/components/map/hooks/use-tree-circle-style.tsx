@@ -73,31 +73,37 @@ export function useTreeCircleStyle() {
 		],
 	] as Expression;
 
-	const filteredCircleColor = (treeAgeIntervals: TreeAgeInterval[]) => {
-		const youngEnabled = treeAgeIntervals.filter(
-			(interval) => interval.identifier === TreeAgeIntervalIdentifier.Young,
-		)[0].enabled;
+	const filteredCircleColor = (
+		isSomeFilterActive: boolean,
+		treeAgeIntervals: TreeAgeInterval[],
+	) => {
+		if (isSomeFilterActive) {
+			const youngEnabled = treeAgeIntervals.filter(
+				(interval) => interval.identifier === TreeAgeIntervalIdentifier.Young,
+			)[0].enabled;
 
-		const mediumEnabled = treeAgeIntervals.filter(
-			(interval) => interval.identifier === TreeAgeIntervalIdentifier.Medium,
-		)[0].enabled;
+			const mediumEnabled = treeAgeIntervals.filter(
+				(interval) => interval.identifier === TreeAgeIntervalIdentifier.Medium,
+			)[0].enabled;
 
-		const oldEnabled = treeAgeIntervals.filter(
-			(interval) => interval.identifier === TreeAgeIntervalIdentifier.Old,
-		)[0].enabled;
+			const oldEnabled = treeAgeIntervals.filter(
+				(interval) => interval.identifier === TreeAgeIntervalIdentifier.Old,
+			)[0].enabled;
 
-		return [
-			"case",
-			["==", ["get", "age"], ""],
-			TREE_GRAY_COLOR, // Color for undefined age
-			[">", ["get", "age"], 40],
-			oldEnabled ? TREE_DEFAULT_COLOR : TREE_GRAY_COLOR, // Color for age > 40
-			[">", ["get", "age"], 3],
-			mediumEnabled ? TREE_DEFAULT_COLOR : TREE_GRAY_COLOR, // Color for age > 3 and <= 40
-			[">", ["get", "age"], 0],
-			youngEnabled ? TREE_DEFAULT_COLOR : TREE_GRAY_COLOR, // Color for age > 0 and <= 3
-			TREE_GRAY_COLOR, // Fallback color
-		];
+			return [
+				"case",
+				["==", ["get", "age"], ""],
+				TREE_GRAY_COLOR, // Color for undefined age
+				[">", ["get", "age"], 40],
+				oldEnabled ? TREE_DEFAULT_COLOR : TREE_GRAY_COLOR, // Color for age > 40
+				[">", ["get", "age"], 3],
+				mediumEnabled ? TREE_DEFAULT_COLOR : TREE_GRAY_COLOR, // Color for age > 3 and <= 40
+				[">", ["get", "age"], 0],
+				youngEnabled ? TREE_DEFAULT_COLOR : TREE_GRAY_COLOR, // Color for age > 0 and <= 3
+				TREE_GRAY_COLOR, // Fallback color
+			];
+		}
+		return TREE_DEFAULT_COLOR;
 	};
 
 	return {

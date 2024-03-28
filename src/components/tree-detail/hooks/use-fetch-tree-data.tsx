@@ -42,6 +42,10 @@ export function useFetchTreeData(treeId: string | undefined): TreeDataState {
 				setTreeData(json.data[0]);
 				await isTreeAdoptedByOthers(treeId);
 			} catch (error) {
+				if (abortController.signal.aborted) {
+					return;
+				}
+
 				handleError(i18n.common.defaultErrorMessage, error);
 			}
 		};

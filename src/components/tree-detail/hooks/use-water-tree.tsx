@@ -23,6 +23,7 @@ export function useWaterTree(treeId: string): WaterTreeState {
 		if (!user?.id) {
 			return;
 		}
+
 		try {
 			setWateringLoading(true);
 			const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/post/water`;
