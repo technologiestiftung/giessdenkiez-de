@@ -40,6 +40,27 @@ export interface FilterState {
 	setZoom: (zoom: number) => void;
 }
 
+const initialTreeAgeIntervals = [
+	{
+		min: 0,
+		max: 3,
+		identifier: TreeAgeIntervalIdentifier.Young,
+		enabled: true,
+	},
+	{
+		min: 4,
+		max: 40,
+		identifier: TreeAgeIntervalIdentifier.Medium,
+		enabled: true,
+	},
+	{
+		min: 41,
+		max: Infinity,
+		identifier: TreeAgeIntervalIdentifier.Old,
+		enabled: true,
+	},
+];
+
 const treeAgeUrlKey = "treeAge";
 const isPumpsVisibleUrlKey = "isPumpsVisible";
 const isTreeWaterNeedVisibleUrlKey = "isTreeWaterNeedVisible";
@@ -143,19 +164,21 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 					};
 				}),
 			});
-
-			const updatedIntervalIdentifiers = get()
-				.treeAgeIntervals.filter((int) => int.enabled)
-				.map((int) => {
-					return int.identifier.toString();
-				});
-			const updatedTreeIntervalSearchParams = replaceUrlSearchParam(
-				new URL(window.location.href),
-				treeAgeUrlKey,
-				updatedIntervalIdentifiers,
-			);
-			useUrlState.getState().setSearchParams(updatedTreeIntervalSearchParams);
+		} else {
+			set({ treeAgeIntervals: initialTreeAgeIntervals });
 		}
+
+		const updatedIntervalIdentifiers = get()
+			.treeAgeIntervals.filter((int) => int.enabled)
+			.map((int) => {
+				return int.identifier.toString();
+			});
+		const updatedTreeIntervalSearchParams = replaceUrlSearchParam(
+			new URL(window.location.href),
+			treeAgeUrlKey,
+			updatedIntervalIdentifiers,
+		);
+		useUrlState.getState().setSearchParams(updatedTreeIntervalSearchParams);
 	},
 
 	toggleTreeAgeInterval: (interval) => {
@@ -218,26 +241,7 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 		useUrlState.getState().removeSearchParam(isPumpsVisibleUrlKey);
 		useUrlState.getState().removeSearchParam(isTreeWaterNeedVisibleUrlKey);
 		set({
-			treeAgeIntervals: [
-				{
-					min: 0,
-					max: 3,
-					identifier: TreeAgeIntervalIdentifier.Young,
-					enabled: true,
-				},
-				{
-					min: 4,
-					max: 40,
-					identifier: TreeAgeIntervalIdentifier.Medium,
-					enabled: true,
-				},
-				{
-					min: 41,
-					max: Infinity,
-					identifier: TreeAgeIntervalIdentifier.Old,
-					enabled: true,
-				},
-			],
+			treeAgeIntervals: initialTreeAgeIntervals,
 			isPumpsVisible: false,
 			isTreeWaterNeedVisible: false,
 		});

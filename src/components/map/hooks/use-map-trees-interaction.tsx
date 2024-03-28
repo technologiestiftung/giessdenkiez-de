@@ -18,8 +18,16 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 	const { treeData } = useTreeStore();
 
-	const { treeAgeIntervals, lat, lng, zoom, setLat, setLng, setZoom } =
-		useFilterStore();
+	const {
+		isSomeFilterActive,
+		treeAgeIntervals,
+		lat,
+		lng,
+		zoom,
+		setLat,
+		setLng,
+		setZoom,
+	} = useFilterStore();
 
 	const { filteredCircleColor } = useTreeCircleStyle();
 
@@ -33,7 +41,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			map.setPaintProperty(
 				"trees",
 				"circle-color",
-				filteredCircleColor(treeAgeIntervals),
+				filteredCircleColor(isSomeFilterActive(), treeAgeIntervals),
 			);
 			return;
 		}
@@ -41,7 +49,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			map.setPaintProperty(
 				"trees",
 				"circle-color",
-				filteredCircleColor(treeAgeIntervals),
+				filteredCircleColor(isSomeFilterActive(), treeAgeIntervals),
 			);
 		});
 	}, [map, treeAgeIntervals]);
