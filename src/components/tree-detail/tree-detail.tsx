@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { CloseIcon } from "../icons/close-icon";
 import { useUrlState } from "../router/store";
 import { useFetchTreeData } from "./hooks/use-fetch-tree-data";
@@ -23,14 +23,21 @@ export const TreeDetail: React.FC = () => {
 		state.url,
 		state.removeSearchParam,
 	]);
+	const { selectedTreeId, setSelectedTreeId } = useTreeStore();
+
 	const treeId = url.searchParams.get("treeId");
 	if (!treeId) {
 		return null;
 	}
-	const setSelectedTreeId = useTreeStore((store) => store.setSelectedTreeId);
+
+	useEffect(() => {
+		if (treeId && treeId !== selectedTreeId) {
+			setSelectedTreeId(treeId);
+		}
+	}, [treeId]);
 
 	const { setTreeData } = useTreeStore();
-	const { treeData } = useFetchTreeData(treeId);
+	const { treeData } = useFetchTreeData(selectedTreeId);
 	const { treeWateringData, fetchWateringData } =
 		useFetchTreeWateringData(treeData);
 
