@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import { useFilterStore } from "../../filter/filter-store";
@@ -7,6 +8,7 @@ import { useMapConstants } from "./use-map-constants";
 import { useSelectedTree } from "./use-selected-tree";
 import { useTreeCircleStyle } from "./use-tree-circle-style";
 import { usePumpStore } from "./use-pump-store";
+import { useSearchStore } from "../../location-search/search-store";
 
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { hideFilterView } = useFilterStore();
@@ -33,6 +35,8 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 	const { setHoveredPump, setSelectedPump } = usePumpStore();
 
+	const { clearSearch } = useSearchStore();
+
 	useEffect(() => {
 		if (!map) {
 			return;
@@ -53,9 +57,11 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			);
 		});
 	}, [map, treeAgeIntervals]);
+
 	useEffect(() => {
 		if (treeData) {
 			if (map?.loaded()) {
+				clearSearch();
 				setSelectedTreeId(treeData.id);
 				map.easeTo({
 					center: [parseFloat(treeData.lat), parseFloat(treeData.lng)],
