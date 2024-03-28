@@ -12,6 +12,7 @@ import {
 } from "./tree-types";
 import { WaterProgressCircle } from "./water-progress-circle";
 import { WateringDialog } from "./watering-dialog";
+import { WateringCanIcon } from "../icons/watering-can-icon";
 
 interface TreeWaterNeedProps {
 	treeData: TreeData;
@@ -49,13 +50,8 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 				className="flex flex-row items-center justify-between  text-xl font-bold"
 				onClick={() => setIsExpanded(!isExpanded)}
 			>
-				<div className="flex flex-row items-center gap-2">
-					<img
-						src="/images/watering-can.svg"
-						alt="Tree Watering Can Icon"
-						width={36}
-						height={36}
-					/>
+				<div className="flex flex-row items-center gap-2 pl-1">
+					<WateringCanIcon />
 					<div className="">{i18n.treeDetail.waterNeed.title}</div>
 				</div>
 				<div className="text-gdk-blue">
@@ -194,10 +190,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 								}}
 							>
 								<div className="flex flex-row items-center gap-2">
-									<img
-										src="images/watering-can-white.svg"
-										alt="Icon Watering Can White"
-									/>
+									<WateringCanIcon />
 									<div className="flex flex-row items-center gap-3">
 										{i18n.treeDetail.waterNeed.iWatered}
 									</div>
