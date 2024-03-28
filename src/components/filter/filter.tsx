@@ -29,11 +29,11 @@ export const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
 			label: i18n.filter.youngTrees,
 		},
 		[TreeAgeIntervalIdentifier.Medium]: {
-			size: "w-8 h-8",
+			size: "w-7.5 h-7.5",
 			label: i18n.filter.mediumTrees,
 		},
 		[TreeAgeIntervalIdentifier.Old]: {
-			size: "w-10 h-10",
+			size: "w-9 h-9",
 			label: i18n.filter.oldTrees,
 		},
 	};

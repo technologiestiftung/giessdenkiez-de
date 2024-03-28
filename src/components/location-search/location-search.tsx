@@ -112,7 +112,7 @@ export const LocationSearch: React.FC<LocationSearchProps> = ({
 					}}
 					className={`z-[2] flex flex-row items-center justify-center rounded-full bg-white`}
 				>
-					<button className="pl-4">
+					<button className="pl-4 hover:text-gdk-light-gray">
 						<SearchIcon />
 					</button>
 					<input
