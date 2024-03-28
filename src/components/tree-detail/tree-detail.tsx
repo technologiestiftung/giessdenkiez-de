@@ -5,7 +5,6 @@ import { useFetchTreeData } from "./hooks/use-fetch-tree-data";
 import { TreeAge } from "./tree-age";
 import { TreeAdoptCard } from "./tree-adopt-card";
 import { useTreeStore } from "./tree-store";
-import { useSelectedTree } from "../map/hooks/use-selected-tree";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { TreeWaterNeed } from "./tree-water-needs";
 import { TreeWaterNeedUnknown } from "./tree-water-need-unknown";
