@@ -6,4 +6,6 @@ test.describe("Edit user", () => {
 	test.describe("Edit E-Mail", () => {});
 
 	test.describe("Edit password", () => {});
+
+	test.describe("Delete account", () => {});
 });

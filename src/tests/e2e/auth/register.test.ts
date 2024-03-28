@@ -1,8 +1,9 @@
 /* eslint-disable max-lines */
-import { Dialog, expect, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import {
 	baseUrl,
 	defaultEmail,
+	defaultInbucketEmailUsername,
 	defaultPassword,
 	defaultUsername,
 	inbucketUrl,
@@ -14,8 +15,8 @@ import {
 
 test.describe("Register", () => {
 	test.describe("Happy Case", () => {
-		test.afterEach(async ({ page }) => {
-			await deleteDefaultAccount(page);
+		test.afterEach(async () => {
+			await deleteDefaultAccount();
 		});
 
 		test("should be able to register then logout", async ({ page }) => {
@@ -30,28 +31,26 @@ test.describe("Register", () => {
 			await page.getByLabel("Benutzername").press("Tab");
 
 			await page.getByLabel("Passwort").fill(defaultPassword);
-
-			function handleEmailSentAlert(dialog: Dialog) {
-				expect(dialog.message()).toBe(
-					`Überprüfe Dein E-Mail Postfach für ${defaultEmail} nach einer E-Mail von "noreply@mail.app.supabase.io" mit einem Link um deinen Account zu bestätigen.`,
-				);
-				dialog.accept().catch(() => {});
-			}
-			page.once("dialog", handleEmailSentAlert);
-
 			await page.getByLabel("Passwort").press("Enter");
 
-			page.removeListener("dialog", handleEmailSentAlert);
+			await expect(page.locator("#register-alert-dialog")).toBeVisible();
+			await page.getByRole("button", { name: "OK" }).click();
+			await expect(
+				page.getByRole("heading", { name: "Anmelden" }),
+			).toBeVisible();
 
 			await page.goto(`${inbucketUrl}/monitor`);
 
 			await page
-				.getByRole("cell", { name: "<admin@email.com>" })
+				.getByRole("cell", { name: defaultInbucketEmailUsername })
 				.first()
 				.click();
 			await page
 				.getByRole("link", { name: "Confirm your email address" })
 				.click();
+
+			// close splash screen
+			await page.getByRole("button", { name: "Los geht's" }).click();
 
 			await page.getByRole("link", { name: "Profil" }).click();
 			await expect(
@@ -193,8 +192,8 @@ test.describe("Register", () => {
 			await registerThenLogoutWithDefaultAccount(page);
 		});
 
-		test.afterEach(async ({ page }) => {
-			await deleteDefaultAccount(page);
+		test.afterEach(async () => {
+			await deleteDefaultAccount();
 		});
 
 		test("should not be able to register with already registered e-mail", async ({

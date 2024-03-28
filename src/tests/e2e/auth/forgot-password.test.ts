@@ -1,4 +1,4 @@
-import { Dialog, expect, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import {
 	deleteDefaultAccount,
 	registerThenLogoutWithDefaultAccount,
@@ -6,6 +6,7 @@ import {
 import {
 	baseUrl,
 	defaultEmail,
+	defaultInbucketEmailUsername,
 	defaultPassword,
 	inbucketUrl,
 } from "./constants";
@@ -15,8 +16,8 @@ test.describe("Forgot password", () => {
 		test.beforeEach(async ({ page }) => {
 			await registerThenLogoutWithDefaultAccount(page);
 		});
-		test.afterEach(async ({ page }) => {
-			await deleteDefaultAccount(page);
+		test.afterEach(async () => {
+			await deleteDefaultAccount();
 		});
 
 		test("should be able to reset password via e-mail", async ({ page }) => {
@@ -24,42 +25,28 @@ test.describe("Forgot password", () => {
 			await page.getByRole("link", { name: "Passwort vergessen?" }).click();
 			await page.getByLabel("E-Mail").click();
 			await page.getByLabel("E-Mail").fill(defaultEmail);
-
-			function handleEmailSentAlert(dialog: Dialog) {
-				expect(dialog.message()).toBe(
-					"E–Mail gesendet! Wir haben Dir eine E–Mail zum Ändern Deines Passworts gesendet. Checke Dein Postfach!",
-				);
-				dialog.dismiss().catch(() => {});
-			}
-			page.once("dialog", handleEmailSentAlert);
 			await page.getByLabel("E-Mail").press("Enter");
-			page.removeListener("dialog", handleEmailSentAlert);
 
-			await page.goto(inbucketUrl);
-			await page.getByPlaceholder("mailbox").click();
-			await page.getByPlaceholder("mailbox").fill(defaultEmail);
-			await page.getByPlaceholder("mailbox").press("Enter");
-			await page.getByText("Reset Your Password").first().click();
+			await page.goto(`${inbucketUrl}/monitor`);
+
+			await page
+				.getByRole("cell", { name: defaultInbucketEmailUsername })
+				.first()
+				.click();
 			await page.getByRole("link", { name: "Reset password" }).click();
 
 			await page.getByLabel("Neues Passwort").click();
 			await page.getByLabel("Neues Passwort").fill(defaultPassword);
 
-			function handlePasswordChangedAlert(dialog: Dialog) {
-				expect(dialog.message()).toBe(
-					'Dein Passwort wurde geändert. Klicke auf "ok" um zu deinem Profil zu kommen.',
-				);
-				dialog.accept().catch(() => {});
-			}
-			page.once("dialog", handlePasswordChangedAlert);
 			await page.getByRole("button", { name: "Speichern" }).click();
-			page.removeListener("dialog", handlePasswordChangedAlert);
 
-			await page.getByRole("link", { name: "Profil" }).click();
+			await expect(page.locator("#password-reset-alert-dialog")).toBeVisible();
+			await page.getByRole("button", { name: "OK" }).click();
 
-			await expect(page.getByText("Dein ProfilDeine Ü")).toBeVisible();
+			await expect(
+				page.getByRole("heading", { name: "Dein Profil" }),
+			).toBeVisible();
 
-			// Logout
 			await page.getByRole("button", { name: "Ausloggen" }).click();
 			await expect(
 				page.getByRole("heading", { name: "Anmelden" }),
