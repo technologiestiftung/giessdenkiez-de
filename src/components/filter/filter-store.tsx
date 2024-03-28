@@ -4,6 +4,7 @@ import { replaceUrlSearchParam } from "../../utils/url-utils";
 import { useUrlState } from "../router/store";
 import { useMapConstants } from "../map/hooks/use-map-constants";
 import { usePumpStore } from "../map/hooks/use-pump-store";
+import { useTreeStore } from "../tree-detail/tree-store";
 
 /* eslint-disable-next-line no-shadow */
 export enum TreeAgeIntervalIdentifier {
@@ -38,6 +39,7 @@ export interface FilterState {
 	setLat: (lat: number) => void;
 	setLng: (lng: number) => void;
 	setZoom: (zoom: number) => void;
+	recoverUrlParams: () => void;
 }
 
 const initialTreeAgeIntervals = [
@@ -260,5 +262,31 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 	setZoom: (zoom) => {
 		useUrlState.getState().addSearchParam("zoom", zoom.toString());
 		set({ zoom });
+	},
+
+	recoverUrlParams: () => {
+		useUrlState.getState().addSearchParam("lat", get().lat.toString());
+		useUrlState.getState().addSearchParam("lng", get().lng.toString());
+		useUrlState.getState().addSearchParam("zoom", get().zoom.toString());
+		useUrlState
+			.getState()
+			.addSearchParam("isPumpsVisible", get().isPumpsVisible.toString());
+		useUrlState
+			.getState()
+			.addSearchParam("isPumpsVisible", get().isPumpsVisible.toString());
+
+		const updatedTreeIntervalSearchParams = replaceUrlSearchParam(
+			new URL(window.location.href),
+			treeAgeUrlKey,
+			get().treeAgeIntervals.map((int) => {
+				return int.identifier.toString();
+			}),
+		);
+		useUrlState.getState().setSearchParams(updatedTreeIntervalSearchParams);
+
+		const treeId = useTreeStore.getState().selectedTreeId;
+		if (treeId) {
+			useUrlState.getState().addSearchParam("treeId", treeId);
+		}
 	},
 }));

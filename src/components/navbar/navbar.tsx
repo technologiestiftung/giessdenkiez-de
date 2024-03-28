@@ -42,7 +42,6 @@ export const Navbar: React.FC = () => {
 						onClick={(e) => {
 							e.preventDefault();
 							setPathname(item.path);
-							setTreeData(undefined);
 						}}
 						className={`
             flex h-14 w-14 flex-col items-center justify-center rounded-xl pt-1 text-sm font-medium
