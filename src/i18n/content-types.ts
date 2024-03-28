@@ -200,6 +200,7 @@ interface TreeDetail {
 	adoptHintTitle: string;
 	adoptHint: string;
 	adoptErrorMessage: string;
+	adoptLoginFirst: string;
 	age: (age: number) => string;
 	ageUnknown: string;
 	waterNeed: WaterNeed;

@@ -1,9 +1,11 @@
 import React, { useMemo, useState } from "react";
+import { useAuthStore } from "../../auth/auth-store";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { AdoptButton } from "../buttons/adopt-button";
 import { useTreeAdoptStore } from "./hooks/use-adopt-tree";
 import { Tooltip as AdoptTreeTooltip } from "./tooltip";
 import { TreeAgeClassification, TreeData } from "./tree-types";
+import { InternalAnchorLink } from "../anchor-link/internal-anchor-link";
 import { InfoIcon } from "../icons/info-icon";
 
 interface TreeAdoptCardProps {
@@ -22,7 +24,12 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 
 	const isTreeAdopted = isAdopted(treeData.id);
 
+	const isLoggedIn = useAuthStore().isLoggedIn();
+
 	const adoptLabel = useMemo(() => {
+		if (!isLoggedIn) {
+			return i18n.treeDetail.adoptLoginFirst;
+		}
 		if (isLoading) {
 			if (isTreeAdopted) {
 				return i18n.treeDetail.unadoptLoading;
@@ -50,7 +57,12 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 			{treeAgeClassification !== TreeAgeClassification.BABY && (
 				<div className="flex flex-col gap-4">
 					<div className="flex flex-row items-center justify-between">
-						<div className="text-slate-500">{adoptLabel}</div>
+						{isLoggedIn ? (
+							<div className="text-slate-500">{adoptLabel}</div>
+						) : (
+							<InternalAnchorLink href={"/profile"} label={adoptLabel} />
+						)}
+
 						<div className="relative">
 							<button
 								onClick={() => {

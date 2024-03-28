@@ -267,6 +267,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 		adoptHint:
 			"If you water this tree on a regular basis, you can adopt it. This way you can find it in your profile.",
 		adoptErrorMessage: "Error adopting the tree. Please try again.",
+		adoptLoginFirst: "Please log in first to adopt this tree",
 		age: (age: number) => `${age === 1 ? "year" : "years"}`,
 		ageUnknown: "Unknown",
 		managedBy:
