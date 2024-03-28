@@ -5,6 +5,7 @@ import { AdoptButton } from "../buttons/adopt-button";
 import { useTreeAdoptStore } from "./hooks/use-adopt-tree";
 import { Tooltip as AdoptTreeTooltip } from "./tooltip";
 import { TreeAgeClassification, TreeData } from "./tree-types";
+import { InternalAnchorLink } from "../anchor-link/internal-anchor-link";
 
 interface TreeAdoptCardProps {
 	treeData: TreeData;
@@ -55,7 +56,12 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 			{treeAgeClassification !== TreeAgeClassification.BABY && (
 				<div className="flex flex-col gap-4">
 					<div className="flex flex-row items-center justify-between">
-						<div className="text-slate-500">{adoptLabel}</div>
+						{isLoggedIn ? (
+							<div className="text-slate-500">{adoptLabel}</div>
+						) : (
+							<InternalAnchorLink href={"/profile"} label={adoptLabel} />
+						)}
+
 						<div className="relative">
 							<button
 								onClick={() => {
