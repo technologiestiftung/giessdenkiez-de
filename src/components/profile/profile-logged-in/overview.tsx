@@ -3,6 +3,7 @@ import { useI18nStore } from "../../../i18n/i18n-store";
 import { useAuthStore } from "../../../auth/auth-store";
 import { AdoptedTreeIcon } from "../../icons/adopted-tree-icon";
 import { Skeleton } from "../../skeleton/skeleton";
+import { WateringCanIcon } from "../../icons/watering-can-icon";
 
 export const Overview: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -49,7 +50,9 @@ export const Overview: React.FC = () => {
 							<div className="shadow-gdk-soft flex w-full flex-col justify-between gap-3 lg:min-w-36 rounded-2xl border-2 p-4 font-semibold">
 								{i18n.navbar.profile.overview.irrigations}
 								<span className="flex items-baseline gap-x-5 text-5xl font-medium">
-									<img src="images/icon-watering-can.svg" alt="" className="" />
+									<div className="text-gdk-dark-green">
+										<WateringCanIcon />
+									</div>
 									{formatNumber(wateringCountTotal ?? 0)}
 								</span>
 							</div>
