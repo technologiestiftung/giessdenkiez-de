@@ -40,7 +40,9 @@ export const Router: React.FC = () => {
 						treeId && "bg-white"
 					} lg:bg-transparent`}
 				>
-					<div className={`${isFilterVisible && "bg-white sm:bg-transparent"}`}>
+					<div
+						className={`${isFilterVisible && "bg-white rounded-t-lg sm:bg-transparent"}`}
+					>
 						<div className={`${treeId ? "hidden" : "block sm:hidden"}`}>
 							{isFilterVisible && (
 								<Filter

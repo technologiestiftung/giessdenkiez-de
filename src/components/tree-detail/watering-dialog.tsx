@@ -23,7 +23,7 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	const [waterDate, setWaterDate] = useState(new Date());
 
 	return (
-		<dialog id="water-dialog" className="shadow-3xl flex-col rounded-lg p-8">
+		<dialog id="water-dialog" className="flex-col rounded-lg p-8">
 			<div className="flex flex-col gap-6">
 				<div className="text-xl font-bold">
 					{i18n.treeDetail.waterNeed.submitWatering}
