@@ -12,6 +12,7 @@ export const AdoptButton: React.FC<AdoptButtonProps> = ({ treeId }) => {
 	return (
 		<button
 			type="button"
+			data-testid="adopt-button"
 			onClick={async () => {
 				if (!isAdopted(treeId)) {
 					await adoptTree(treeId);
