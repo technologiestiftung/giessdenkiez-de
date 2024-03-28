@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { replaceUrlSearchParam } from "../../utils/url-utils";
 import { useUrlState } from "../router/store";
 import { useMapConstants } from "../map/hooks/use-map-constants";
+import { usePumpStore } from "../map/hooks/use-pump-store";
 
 /* eslint-disable-next-line no-shadow */
 export enum TreeAgeIntervalIdentifier {
@@ -30,12 +31,35 @@ export interface FilterState {
 	toggleTreeAgeInterval: (interval: TreeAgeInterval) => void;
 	setShowPumps: (showPumps: boolean) => void;
 	setShowWaterNeedTrees: (showWaterNeedTrees: boolean) => void;
-	setIsFilterViewVisible: (isFilterViewVisible: boolean) => void;
+	showFilterView: () => void;
+	hideFilterView: () => void;
+	toggleFilterView: () => void;
 	resetFilters: () => void;
 	setLat: (lat: number) => void;
 	setLng: (lng: number) => void;
 	setZoom: (zoom: number) => void;
 }
+
+const initialTreeAgeIntervals = [
+	{
+		min: 0,
+		max: 3,
+		identifier: TreeAgeIntervalIdentifier.Young,
+		enabled: true,
+	},
+	{
+		min: 4,
+		max: 40,
+		identifier: TreeAgeIntervalIdentifier.Medium,
+		enabled: true,
+	},
+	{
+		min: 41,
+		max: Infinity,
+		identifier: TreeAgeIntervalIdentifier.Old,
+		enabled: true,
+	},
+];
 
 const treeAgeUrlKey = "treeAge";
 const isPumpsVisibleUrlKey = "isPumpsVisible";
@@ -140,19 +164,21 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 					};
 				}),
 			});
-
-			const updatedIntervalIdentifiers = get()
-				.treeAgeIntervals.filter((int) => int.enabled)
-				.map((int) => {
-					return int.identifier.toString();
-				});
-			const updatedTreeIntervalSearchParams = replaceUrlSearchParam(
-				new URL(window.location.href),
-				treeAgeUrlKey,
-				updatedIntervalIdentifiers,
-			);
-			useUrlState.getState().setSearchParams(updatedTreeIntervalSearchParams);
+		} else {
+			set({ treeAgeIntervals: initialTreeAgeIntervals });
 		}
+
+		const updatedIntervalIdentifiers = get()
+			.treeAgeIntervals.filter((int) => int.enabled)
+			.map((int) => {
+				return int.identifier.toString();
+			});
+		const updatedTreeIntervalSearchParams = replaceUrlSearchParam(
+			new URL(window.location.href),
+			treeAgeUrlKey,
+			updatedIntervalIdentifiers,
+		);
+		useUrlState.getState().setSearchParams(updatedTreeIntervalSearchParams);
 	},
 
 	toggleTreeAgeInterval: (interval) => {
@@ -191,8 +217,23 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 		}
 	},
 
-	setIsFilterViewVisible: (isFilterViewVisible) => {
-		set({ isFilterViewVisible });
+	toggleFilterView: () => {
+		const shouldShow = !get().isFilterViewVisible;
+		set({ isFilterViewVisible: shouldShow });
+		if (shouldShow) {
+			usePumpStore.getState().setHoveredPump(undefined);
+			usePumpStore.getState().setSelectedPump(undefined);
+		}
+	},
+
+	showFilterView: () => {
+		usePumpStore.getState().setHoveredPump(undefined);
+		usePumpStore.getState().setSelectedPump(undefined);
+		set({ isFilterViewVisible: true });
+	},
+
+	hideFilterView: () => {
+		set({ isFilterViewVisible: false });
 	},
 
 	resetFilters: () => {
@@ -200,26 +241,7 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 		useUrlState.getState().removeSearchParam(isPumpsVisibleUrlKey);
 		useUrlState.getState().removeSearchParam(isTreeWaterNeedVisibleUrlKey);
 		set({
-			treeAgeIntervals: [
-				{
-					min: 0,
-					max: 3,
-					identifier: TreeAgeIntervalIdentifier.Young,
-					enabled: true,
-				},
-				{
-					min: 4,
-					max: 40,
-					identifier: TreeAgeIntervalIdentifier.Medium,
-					enabled: true,
-				},
-				{
-					min: 41,
-					max: Infinity,
-					identifier: TreeAgeIntervalIdentifier.Old,
-					enabled: true,
-				},
-			],
+			treeAgeIntervals: initialTreeAgeIntervals,
 			isPumpsVisible: false,
 			isTreeWaterNeedVisible: false,
 		});

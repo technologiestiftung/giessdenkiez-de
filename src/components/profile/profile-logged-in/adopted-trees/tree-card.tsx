@@ -1,8 +1,8 @@
 import React from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { InternalAnchorLink } from "../../../anchor-link/internal-anchor-link";
+import { HeartIcon } from "../../../icons/heart-icon";
 import { useTreeAdoptStore } from "../../../tree-detail/hooks/use-adopt-tree";
-import { HeartIconProfile } from "../../../icons/heart-icon-profile";
 import { WateringCanIcon } from "../../../icons/watering-can-icon";
 import { DropIcon } from "../../../icons/drop-icon";
 
@@ -30,17 +30,14 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 		>
 			<div className="flex justify-between">
 				<InternalAnchorLink href={`/map?treeId=${id}&zoom=20`} label={name} />
-
-				<div className="ml-1">
+				<div className="-mt-1">
 					<button
 						type="button"
 						onClick={async () => {
 							await unadoptTree(id);
 						}}
 					>
-						<div className="text-gdk-purple hover:text-opacity-30">
-							<HeartIconProfile />
-						</div>
+						<HeartIcon isAdopted={true} />
 					</button>
 				</div>
 			</div>

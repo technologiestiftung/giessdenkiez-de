@@ -317,6 +317,7 @@ Vernetzen:
 			waterCancel: "Abbrechen",
 		},
 		lastWaterings: {
+			deletedAccount: "Deaktivierter Account",
 			title: "Letzte Gießungen",
 			thisWeek: "Diese Woche",
 			nothingThisWeek: "Keine Gießungen diese Woche",
