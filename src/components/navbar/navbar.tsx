@@ -4,7 +4,6 @@ import { MapIcon } from "../icons/map-icon";
 import { UserIcon } from "../icons/user-icon";
 import { InfoIcon } from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
-import { useTreeStore } from "../tree-detail/tree-store";
 import { LanguageToggle } from "../router/languageToggle";
 
 export const Navbar: React.FC = () => {
@@ -12,7 +11,6 @@ export const Navbar: React.FC = () => {
 
 	const setPathname = useUrlState((state) => state.setPathname);
 	const url = useUrlState((state) => state.url);
-	const { setTreeData } = useTreeStore();
 
 	const navItems = [
 		{ label: i18n.navbar.map, path: "/map", icon: <MapIcon /> },
