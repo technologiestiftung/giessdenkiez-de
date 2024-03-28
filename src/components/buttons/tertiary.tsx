@@ -15,7 +15,7 @@ export const TertiaryButton: React.FC<TertiaryButtonProps> = ({
 }) => {
 	return (
 		<button
-			className={`hover:text-bg-gdk-light-blue p-y-3.5 flex
+			className={`hover:text-gdk-light-blue p-y-3.5 flex
       h-[51px] w-fit items-center justify-center rounded-[10px] font-semibold text-gdk-blue enabled:hover:text-gdk-light-blue disabled:text-gdk-light-gray`}
 			disabled={disabled}
 			onClick={onClick}
