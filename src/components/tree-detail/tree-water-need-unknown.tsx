@@ -8,12 +8,12 @@ import {
 	TreeData,
 	TreeWateringData,
 } from "./tree-types";
-import { Tooltip } from "./tooltip";
 import { WateringDialog } from "./watering-dialog";
 import { WateringCanIcon } from "../icons/watering-can-icon";
 import { PrimaryButton } from "../buttons/primary";
 import { useAuthStore } from "../../auth/auth-store";
 import { InternalAnchorLink } from "../anchor-link/internal-anchor-link";
+import { TertiaryButton } from "../buttons/tertiary";
 
 interface TreeWaterNeedUnknownProps {
 	treeData: TreeData;
@@ -31,7 +31,7 @@ export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
 
-	const [showInfoBox, setShowInfoBox] = useState(false);
+	const [isInfoboxVisible, setIsInfoboxVisible] = useState(false);
 
 	const { rainSum, wateringSum } = useTreeWaterNeedsData(
 		treeData,
@@ -53,39 +53,37 @@ export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 							? i18n.treeDetail.waterNeed.seniorTitle
 							: i18n.treeDetail.waterNeed.unknownTitle}
 					</div>
-					<div className="relative col-start-1 row-start-1 flex flex-row items-center justify-between">
-						<div className="relative">
-							<button
-								onClick={() => {
-									setShowInfoBox(!showInfoBox);
-								}}
-								onMouseMove={() => setShowInfoBox(true)}
-								onMouseOut={() => setShowInfoBox(false)}
-							>
-								<img
-									src="/images/info-icon.svg"
-									alt="Tree Icon"
-									width={24}
-									height={24}
-								/>
-							</button>
-							{showInfoBox && (
-								<div className="text-default absolute right-0 top-8">
-									<Tooltip
-										title={i18n.treeDetail.waterNeed.ageAndWaterHintTitle}
-										content={i18n.treeDetail.waterNeed.ageAndWaterHint}
-									/>
-								</div>
-							)}
-						</div>
-					</div>
 				</div>
 			</div>
 			<div>
 				{treeAgeClassification === TreeAgeClassification.SENIOR
 					? i18n.treeDetail.waterNeed.seniorExplanation
-					: i18n.treeDetail.waterNeed.unknown}
+					: i18n.treeDetail.waterNeed.unknown}{" "}
+				{!isInfoboxVisible && (
+					<button
+						className="text-gdk-blue hover:text-gdk-light-blue font-semibold"
+						onClick={() => setIsInfoboxVisible(true)}
+					>
+						{i18n.treeDetail.waterNeed.readMore}
+					</button>
+				)}
 			</div>
+
+			{isInfoboxVisible && (
+				<div className={`border rounded-xl p-4 flex flex-col gap-y-3`}>
+					<div className="font-bold text-lg">
+						{i18n.treeDetail.waterNeed.ageAndWaterHintTitle}
+					</div>
+					<Markdown>{i18n.treeDetail.waterNeed.ageAndWaterHint}</Markdown>
+					<div className="flex w-full justify-center">
+						<TertiaryButton
+							onClick={() => setIsInfoboxVisible(false)}
+							label={i18n.treeDetail.waterNeed.close}
+						></TertiaryButton>
+					</div>
+				</div>
+			)}
+
 			<div>
 				<div className="flex flex-col gap-3">
 					<div className="flex flex-row items-center gap-4">

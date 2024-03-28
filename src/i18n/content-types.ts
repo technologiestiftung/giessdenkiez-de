@@ -161,8 +161,10 @@ interface WaterNeed {
 	sufficientlyWatered: string;
 	ageAndWaterHintTitle: string;
 	ageAndWaterHint: string;
+	readMore: string;
 	lastXDaysYLitersWater: (days: number, liters: string) => string;
 	lastXDaysYLitersRain: (days: number, liters: string) => string;
+	close: string;
 	iWatered: string;
 	loginToWater: {
 		login: string;
