@@ -13,9 +13,8 @@ export const useMapStore = create<MapState>()((set) => ({
 	setMap: (map: mapboxgl.Map | undefined) => {
 		set({ map });
 	},
-	isMapLoaded: false, // Rename 'mapLoaded' to 'isMapLoaded'
+	isMapLoaded: false,
 	setIsMapLoaded: (isMapLoaded: boolean) => {
-		// Update setter function name
 		set({ isMapLoaded });
 	},
 }));
