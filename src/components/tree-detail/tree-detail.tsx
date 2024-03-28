@@ -15,6 +15,7 @@ import { ProblemCard } from "./problem-card";
 import { TreeFlier } from "./tree-flier";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 import { Loading } from "../loading/loading";
+import { TreeIcon } from "../icons/tree-icon";
 
 export const TreeDetail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -42,7 +43,7 @@ export const TreeDetail: React.FC = () => {
 	}, [treeData, i18n]);
 
 	return (
-		<div className="pointer-events-auto h-full bg-white flex w-[100vw] flex-col gap-4 overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">
+		<div className="pointer-events-auto h-full bg-white rounded-l shadow-gdk-hard-up flex w-[100vw] flex-col gap-4 overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">
 			<a
 				href="/map"
 				className="flex flex-row justify-end"
@@ -57,12 +58,7 @@ export const TreeDetail: React.FC = () => {
 			</a>
 
 			<div className="flex flex-row items-center gap-2">
-				<img
-					src="/images/tree-icon.svg"
-					alt="Tree Icon"
-					width={36}
-					height={36}
-				/>
+				<TreeIcon />
 				<div className="text-xl font-bold">{i18n.treeDetail.title}</div>
 			</div>
 			{treeData ? (

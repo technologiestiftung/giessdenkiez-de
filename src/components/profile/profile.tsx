@@ -13,7 +13,7 @@ export const Profile: React.FC = () => {
 
 		case false:
 			return (
-				<div className="w-full h-full overflow-y-auto px-5 py-11">
+				<div className="w-full h-full overflow-y-auto px-5 py-5 md:py-11">
 					<div className="flex flex-col items-center justify-center  ">
 						<div
 							className={`

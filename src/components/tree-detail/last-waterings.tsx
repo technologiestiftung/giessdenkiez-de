@@ -5,6 +5,7 @@ import { ChevronDown } from "../icons/chevron-down";
 import { ChevronRight } from "../icons/chevron-right";
 import { TreeWateringData } from "./tree-types";
 import { WateringSection } from "./watering-section";
+import { CalenderIcon } from "../icons/calender-icon";
 
 interface LastWateringsProps {
 	treeWateringData: TreeWateringData[];
@@ -49,12 +50,7 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 				onClick={() => setIsExpanded(!isExpanded)}
 			>
 				<div className="flex flex-row items-center gap-2">
-					<img
-						src="/images/calendar-icon.svg"
-						alt="Calendar Icon"
-						width={30}
-						height={30}
-					/>
+					<CalenderIcon />
 					<div>{i18n.treeDetail.lastWaterings.title}</div>
 				</div>
 				<div className="text-gdk-blue">

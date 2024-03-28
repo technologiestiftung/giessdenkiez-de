@@ -3,8 +3,8 @@ import React from "react";
 export const InfoIcon: React.FC = () => {
 	return (
 		<svg
-			width="26"
-			height="26"
+			width="24"
+			height="24"
 			viewBox="0 0 27 27"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

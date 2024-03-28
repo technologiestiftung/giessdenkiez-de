@@ -20,7 +20,7 @@ export const QaEntry: React.FC<QaEntryProps> = ({
 }) => {
 	const [isExpanded, setIsExpanded] = useState(isInitiallyExpanded);
 	return (
-		<div className={`w-full ${!isLast && "border-b-2"} py-4`}>
+		<div className={`w-full ${!isLast && "border-b-2"} py-6`}>
 			<button
 				className="flex w-full flex-row justify-between gap-2 text-left text-xl"
 				onClick={() => {
