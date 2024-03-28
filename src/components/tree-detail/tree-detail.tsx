@@ -28,9 +28,9 @@ export const TreeDetail: React.FC = () => {
 	if (!treeId) {
 		return null;
 	}
+	const setSelectedTreeId = useTreeStore((store) => store.setSelectedTreeId);
 
 	const { setTreeData } = useTreeStore();
-	const { setSelectedTreeId } = useSelectedTree();
 	const { treeData } = useFetchTreeData(treeId);
 	const { treeWateringData, fetchWateringData } =
 		useFetchTreeWateringData(treeData);
