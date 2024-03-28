@@ -13,11 +13,11 @@ export const Info: React.FC = () => {
 	return (
 		<div className="pointer-events-auto w-full overflow-auto">
 			<div className="flex flex-col items-center justify-center ">
-				<div className="flex w-[100%] flex-col gap-4 px-1 py-8 md:py-20 md:w-[70%] md:px-4 lg:w-[60%] xl:w-[50%] relative">
-					<div className="lg:hidden absolute top-7 md:top-11 right-0 pr-5">
+				<div className="flex w-[100%] flex-col md:gap-4 px-1 py-8 md:py-16 md:w-[70%] md:px-4 lg:w-[60%] xl:w-[50%] relative">
+					<div className="lg:hidden absolute top-6 md:top-14 mt-1 right-0 pr-5">
 						<LanguageToggle />
 					</div>
-					<h1 className="px-4 md:px-0 text-4xl font-semibold">
+					<h1 className="px-4 md:px-0 text-4xl font-semibold pb-2 md:pb-4">
 						{i18n.info.infoTitel}
 					</h1>
 					<div className="flex flex-col rounded-lg px-4 pb-4 md:border-2 md:p-8">
