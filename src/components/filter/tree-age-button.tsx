@@ -1,5 +1,6 @@
 import React from "react";
 import { TreeAgeInterval } from "./filter-store";
+import { TreeIconThinner } from "../icons/tree-icon-thinner";
 
 type TreeAgeButtonProps = {
 	interval: TreeAgeInterval;
@@ -23,8 +24,8 @@ export const TreeAgeButton: React.FC<TreeAgeButtonProps> = ({
 				onChange(interval);
 			}}
 		>
-			<div className=" flex flex-col justify-center items-center">
-				<img src="/images/tree-icon-green.svg" className={size}></img>
+			<div className="flex flex-col justify-center items-center text-gdk-dark-green">
+				<TreeIconThinner className={size} />
 			</div>
 			<div className="text-sm font-semibold overflow-hidden">{name}</div>
 		</div>

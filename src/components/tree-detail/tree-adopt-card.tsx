@@ -6,6 +6,7 @@ import { useTreeAdoptStore } from "./hooks/use-adopt-tree";
 import { Tooltip as AdoptTreeTooltip } from "./tooltip";
 import { TreeAgeClassification, TreeData } from "./tree-types";
 import { InternalAnchorLink } from "../anchor-link/internal-anchor-link";
+import { InfoIcon } from "../icons/info-icon";
 
 interface TreeAdoptCardProps {
 	treeData: TreeData;
@@ -70,12 +71,9 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 								onMouseMove={() => setShowTooltip(true)}
 								onMouseOut={() => setShowTooltip(false)}
 							>
-								<img
-									src="/images/info-icon.svg"
-									alt="Tree Icon"
-									width={24}
-									height={24}
-								/>
+								<div className="text-gdk-blue">
+									<InfoIcon />
+								</div>
 							</button>
 							{showTooltip && (
 								<div className="absolute right-0 top-8">

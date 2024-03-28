@@ -26,11 +26,11 @@ export const Filter: React.FC = () => {
 			label: i18n.filter.youngTrees,
 		},
 		[TreeAgeIntervalIdentifier.Medium]: {
-			size: "w-8 h-8",
+			size: "w-7.5 h-7.5",
 			label: i18n.filter.mediumTrees,
 		},
 		[TreeAgeIntervalIdentifier.Old]: {
-			size: "w-10 h-10",
+			size: "w-9 h-9",
 			label: i18n.filter.oldTrees,
 		},
 	};
@@ -38,7 +38,7 @@ export const Filter: React.FC = () => {
 	return (
 		<div className="flex flex-row w-full justify-center pointer-events-auto">
 			<div
-				className={`flex flex-col lg:drop-shadow-md bg-white rounded-lg px-4 pt-2 pb-0 lg:p-4 lg:p-6 gap-2 lg:gap-6 w-full`}
+				className={`flex flex-col shadow-gdk-hard-up sm:shadow-gdk-hard bg-none sm:bg-white rounded-lg p-4 sm:p-6 gap-4 sm:gap-6 w-full`}
 			>
 				<div className="flex flex-col gap-2">
 					<div className="font-bold text-xl">{i18n.filter.title}</div>

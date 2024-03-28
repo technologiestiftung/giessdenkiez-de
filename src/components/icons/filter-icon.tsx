@@ -16,8 +16,8 @@ export const FilterIcon: React.FC<FilterIconProps> = ({
 			className={`p-3 rounded-full bg-white drop-shadow-md w-[56px] h-[56px] flex items-center justify-center  ${filtersActive ? "hover:text-gdk-light-blue text-gdk-blue" : "hover:text-gdk-light-gray text-gdk-gray"}`}
 		>
 			<svg
-				width="20"
-				height="23"
+				width="19"
+				height="21"
 				viewBox="0 0 20 23"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"

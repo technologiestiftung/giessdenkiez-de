@@ -26,7 +26,7 @@ export const Navbar: React.FC = () => {
 
 	return (
 		<nav
-			className={`shadow-gdk-hard
+			className={`shadow-gdk-hard-up lg:shadow-gdk-hard
       pointer-events-auto flex h-auto w-full justify-center rounded-tl-3xl lg:flex-col rounded-tr-3xl bg-white lg:justify-between pt-0 
       lg:h-full lg:w-auto  lg:rounded-br lg:rounded-tl-none lg:rounded-tr lg:px-2 lg:pt-10`}
 		>

@@ -41,7 +41,7 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	);
 
 	return (
-		<dialog id="water-dialog" className="shadow-3xl flex-col rounded-lg p-8">
+		<dialog id="water-dialog" className="flex-col rounded-lg p-8">
 			<form onSubmit={onSubmit}>
 				<div className="flex flex-col gap-6">
 					<div className="text-xl font-bold">
