@@ -14,6 +14,8 @@ import { WaterProgressCircle } from "./water-progress-circle";
 import { WateringDialog } from "./watering-dialog";
 import { WateringCanIcon } from "../icons/watering-can-icon";
 import { PrimaryButton } from "../buttons/primary";
+import { useAuthStore } from "../../auth/auth-store";
+import { InternalAnchorLink } from "../anchor-link/internal-anchor-link";
 
 interface TreeWaterNeedProps {
 	treeData: TreeData;
@@ -44,6 +46,8 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 		rainColor,
 		wateringColor,
 	} = useTreeWaterNeedsData(treeData, treeWateringData, treeAgeClassification);
+
+	const { isLoggedIn } = useAuthStore();
 
 	return (
 		<div className="flex flex-col gap-4 border-b-2 py-8">
@@ -179,9 +183,10 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 					</div>
 
 					{treeAgeClassification !== TreeAgeClassification.BABY && (
-						<div className="flex flex-row justify-center">
+						<div className="flex flex-col items-center">
 							<PrimaryButton
-								onClick={async () => {
+								data-testid="water-tree-button"
+								onClick={() => {
 									(
 										document.getElementById("water-dialog") as HTMLDialogElement
 									).showModal();
@@ -194,8 +199,18 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 										</div>
 									</div>
 								}
-								disabled={false}
+								disabled={!isLoggedIn()}
 							/>
+
+							{!isLoggedIn() && (
+								<p>
+									<InternalAnchorLink
+										href={"/profile"}
+										label={i18n.treeDetail.waterNeed.loginToWater.login}
+									/>{" "}
+									{i18n.treeDetail.waterNeed.loginToWater.toWater}
+								</p>
+							)}
 						</div>
 					)}
 

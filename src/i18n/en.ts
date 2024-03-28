@@ -317,8 +317,13 @@ We manage largely on our own and are happy in particularly dry phases but still 
 			lastXDaysYLitersRain: (days: number, liters: string) =>
 				`In the last ${days} days, it rained **${liters} liters**.`,
 			iWatered: "I watered",
+			loginToWater: {
+				login: "Log-in",
+				toWater: "to submit a watering",
+			},
 			submitWatering: "Submit watering",
-			wateredHowMuch: "How much?",
+			wateredHowMuch: "Liters",
+			wateredHowMuchPlaceholder: "Liter",
 			wateredWhen: "When?",
 			waterSave: "Save",
 			waterCancel: "Cancel",
