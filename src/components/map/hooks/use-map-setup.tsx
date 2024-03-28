@@ -23,7 +23,7 @@ export function useMapSetup(
 		MAP_LOCATION_ZOOM_LEVEL,
 	} = useMapConstants();
 
-	const { map, setMap } = useMapStore();
+	const { map, setMap, setIsMapLoaded } = useMapStore();
 
 	useMapTreesInteraction(map);
 	useMapPumpsInteraction(map);
@@ -126,6 +126,7 @@ export function useMapSetup(
 					},
 				});
 			});
+			setIsMapLoaded(true);
 		});
 
 		const geoLocateControl = new mapboxgl.GeolocateControl({
