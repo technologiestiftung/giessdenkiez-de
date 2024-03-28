@@ -13,6 +13,7 @@ import {
 import { WaterProgressCircle } from "./water-progress-circle";
 import { WateringDialog } from "./watering-dialog";
 import { WateringCanIcon } from "../icons/watering-can-icon";
+import { PrimaryButton } from "../buttons/primary";
 
 interface TreeWaterNeedProps {
 	treeData: TreeData;
@@ -179,23 +180,22 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 
 					{treeAgeClassification !== TreeAgeClassification.BABY && (
 						<div className="flex flex-row justify-center">
-							<button
-								data-testid="water-tree-button"
-								className={`my-4 flex h-[51px] w-full items-center justify-center rounded-[10px] bg-gdk-blue px-8 font-semibold text-gdk-white hover:bg-gdk-light-blue disabled:bg-gdk-light-gray sm:w-fit`}
-								disabled={false}
+							<PrimaryButton
 								onClick={async () => {
 									(
 										document.getElementById("water-dialog") as HTMLDialogElement
 									).showModal();
 								}}
-							>
-								<div className="flex flex-row items-center gap-2">
-									<WateringCanIcon />
-									<div className="flex flex-row items-center gap-3">
-										{i18n.treeDetail.waterNeed.iWatered}
+								label={
+									<div className="flex flex-row items-center gap-2">
+										<WateringCanIcon />
+										<div className="flex flex-row items-center gap-3">
+											{i18n.treeDetail.waterNeed.iWatered}
+										</div>
 									</div>
-								</div>
-							</button>
+								}
+								disabled={false}
+							/>
 						</div>
 					)}
 
