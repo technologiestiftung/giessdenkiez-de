@@ -2,25 +2,23 @@ import { expect, test } from "@playwright/test";
 import { baseUrl } from "./constants";
 
 test.describe("Tree detail view", () => {
-	test("should show tree info for baby tree", async ({ page }) => {
-		await page.goto(`${baseUrl}/map?treeId=_23002dc7a1`);
+	test("should show tree info for junior tree", async ({ page }) => {
+		await page.goto(`${baseUrl}/map?treeId=_210024d68d`);
 
 		await expect(page.getByText("Bauminformationen")).toBeVisible();
-		await expect(page.getByText("Zier-Feld-Ahorn 'Red Shine'")).toBeVisible();
+		await expect(page.getByText("Herbst-Flammen-Ahorn")).toBeVisible();
 		await expect(
 			page.getByText(
 				"Dieser Baum wird bereits vom Bezirksamt versorgt und muss nicht gegossen werden.",
 			),
 		).toBeVisible();
 
-		// Baby trees should not have an adopt button
-		await expect(
-			page.getByRole("button", { name: "Heart Icon" }),
-		).not.toBeVisible();
-		await expect(page.getByText("Diesen Baum adoptieren")).not.toBeVisible();
+		// Junior trees must have an adopt button
+		await expect(page.getByTestId("adopt-button")).toBeVisible();
+		await expect(page.getByText("Diesen Baum adoptieren")).toBeVisible();
 
-		// Baby trees should not have a water button
-		await expect(page.getByTestId("water-tree-button")).not.toBeVisible();
+		// Junior trees must have a water button
+		await expect(page.getByTestId("water-tree-button")).toBeVisible();
 
 		await page.getByRole("button", { name: "Baumsteckbrief" }).click();
 		await expect(page.getByText("Die Gattung der Ahorne")).toBeVisible();
@@ -33,12 +31,13 @@ test.describe("Tree detail view", () => {
 		expect(calculatedAge).toBe(
 			// At the year of writing this test, the tree was 2 years old.
 			// Every year, the tree gets one year older, as we all do - time is merciless.
-			(2 + new Date().getFullYear() - 2024).toString(),
+			(6 + new Date().getFullYear() - 2024).toString(),
 		);
 
+		// Junior trees are not covered by Bezirksamt
 		await expect(
 			page.getByText("Vom Bezirksamt versorgt", { exact: true }),
-		).toBeVisible();
+		).not.toBeVisible();
 		await expect(page.getByTestId("water-progress-circle")).toBeVisible();
 		await expect(page.getByText("Problem melden")).toBeVisible();
 		const link = page.getByRole("link", {
