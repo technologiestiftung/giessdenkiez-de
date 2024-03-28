@@ -1,7 +1,12 @@
 import { expect, test } from "@playwright/test";
 import { baseUrl } from "./constants";
 
-test.describe.fixme("Tree detail view", () => {
+test.describe("Tree detail view", () => {
+	test.fixme(
+		!!process.env.CI,
+		"This feature needs the API to run in the CI, which currently is not set-up as vercel:dev needs credentials",
+	);
+
 	test("should show tree info for baby tree", async ({ page }) => {
 		await page.goto(`${baseUrl}/map?treeId=_23002dc7a1`);
 
