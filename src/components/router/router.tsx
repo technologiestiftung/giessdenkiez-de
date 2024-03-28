@@ -37,7 +37,7 @@ export const Router: React.FC = () => {
 					} lg:bg-transparent`}
 				>
 					<div
-						className={`${isFilterViewVisible && "bg-white sm:bg-transparent"}`}
+						className={`${isFilterViewVisible && "bg-white rounded-t-lg sm:bg-transparent"}`}
 					>
 						<div className={`${treeId ? "hidden" : "block sm:hidden"}`}>
 							{isFilterViewVisible && <Filter />}

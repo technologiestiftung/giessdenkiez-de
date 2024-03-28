@@ -43,7 +43,9 @@ export const LocationSearch: React.FC = () => {
 
 	useEffect(() => {
 		if (isFilterViewVisible) {
-			clearSearchAndGeocodingResults();
+			clearSearch();
+			clearGeocodingResults();
+			isPickedGeoSearchResult.length > 0 && setIsTextInSearchbar(true);
 		}
 	}, [isFilterViewVisible]);
 
@@ -107,7 +109,7 @@ export const LocationSearch: React.FC = () => {
 					}}
 					className={`z-[2] flex flex-row items-center justify-center rounded-full bg-white`}
 				>
-					<button className="pl-4">
+					<button className="pl-4 hover:text-gdk-light-gray">
 						<SearchIcon />
 					</button>
 					<input
