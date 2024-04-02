@@ -16,33 +16,51 @@ export function useSelectedTree(map: mapboxgl.Map | undefined) {
 
 	const selectedTreeIdRef = useRef<string | undefined>(undefined);
 
+	const setSelectState = (id: string, isSelected: boolean) => {
+		if (!map) {
+			return;
+		}
+
+		if (map.isStyleLoaded()) {
+			map.setFeatureState(
+				{
+					id: id,
+					source: "trees",
+					sourceLayer: "trees",
+				},
+				{ select: isSelected },
+			);
+		} else {
+			map.on("styledata", () => {
+				map.setFeatureState(
+					{
+						id: id,
+						source: "trees",
+						sourceLayer: "trees",
+					},
+					{ select: isSelected },
+				);
+			});
+		}
+
+		if (isSelected) {
+			addSearchParam("treeId", id);
+		} else {
+			removeSearchParam("treeId");
+		}
+	};
+
 	useEffect(() => {
 		if (!map) {
 			return;
 		}
 
 		if (selectedTreeIdRef.current) {
-			map.setFeatureState(
-				{
-					id: selectedTreeIdRef.current,
-					source: "trees",
-					sourceLayer: "trees",
-				},
-				{ select: false },
-			);
-			removeSearchParam("treeId");
+			setSelectState(selectedTreeIdRef.current, false);
 		}
 
 		if (selectedTreeId) {
-			map.setFeatureState(
-				{
-					id: selectedTreeId,
-					source: "trees",
-					sourceLayer: "trees",
-				},
-				{ select: true },
-			);
-			addSearchParam("treeId", selectedTreeId);
+			setSelectState(selectedTreeId, true);
 		}
 
 		selectedTreeIdRef.current = selectedTreeId;
