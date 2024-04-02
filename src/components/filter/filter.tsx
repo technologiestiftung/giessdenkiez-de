@@ -1,7 +1,6 @@
 import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { PrimaryButton } from "../buttons/primary";
-import { SecondaryButton } from "../buttons/secondary";
 import { TreeAgeIntervalIdentifier, useFilterStore } from "./filter-store";
 import { FilterSwitch } from "./filter-switch";
 import { TreeAgeButton } from "./tree-age-button";
@@ -81,7 +80,7 @@ export const Filter: React.FC = () => {
 					</div>
 				</div>
 
-				<div className="flex flex-col flex-col-reverse sm:flex-row justify-between">
+				<div className="flex flex-col-reverse sm:flex-row justify-between">
 					<div className="flex self-center ">
 						<TertiaryButton label={i18n.filter.reset} onClick={resetFilters} />
 					</div>
