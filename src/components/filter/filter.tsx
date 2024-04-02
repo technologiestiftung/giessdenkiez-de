@@ -5,6 +5,7 @@ import { SecondaryButton } from "../buttons/secondary";
 import { TreeAgeIntervalIdentifier, useFilterStore } from "./filter-store";
 import { FilterSwitch } from "./filter-switch";
 import { TreeAgeButton } from "./tree-age-button";
+import { TertiaryButton } from "../buttons/tertiary";
 
 export const Filter: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -38,7 +39,7 @@ export const Filter: React.FC = () => {
 	return (
 		<div className="flex flex-row w-full justify-center pointer-events-auto">
 			<div
-				className={`flex flex-col shadow-gdk-hard-up sm:shadow-gdk-hard bg-none sm:bg-white rounded-lg p-4 sm:p-6 gap-4 sm:gap-6 w-full`}
+				className={`flex flex-col shadow-gdk-hard-up sm:shadow-gdk-hard bg-none sm:bg-white rounded-lg p-4 sm:p-6 gap-6 sm:gap-6 w-full`}
 			>
 				<div className="flex flex-col gap-2">
 					<div className="font-bold text-xl">{i18n.filter.title}</div>
@@ -80,8 +81,10 @@ export const Filter: React.FC = () => {
 					</div>
 				</div>
 
-				<div className="flex flex-row justify-between gap-4">
-					<SecondaryButton label={i18n.filter.reset} onClick={resetFilters} />
+				<div className="flex flex-col sm:flex-row justify-between">
+					<div className="flex self-center">
+						<TertiaryButton label={i18n.filter.reset} onClick={resetFilters} />
+					</div>
 					<PrimaryButton label={i18n.filter.show} onClick={hideFilterView} />
 				</div>
 			</div>
