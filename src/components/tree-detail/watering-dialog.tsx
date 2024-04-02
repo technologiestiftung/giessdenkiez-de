@@ -43,8 +43,11 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	const onDialogClick = useCallback(
 		(event: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
 			const isClickOnBackground =
-				event.target !== document.querySelector("dialog");
-			if (!isClickOnBackground) {
+				event.target !== document.getElementById("water-dialog");
+
+			console.log(event.target);
+			console.log(isClickOnBackground);
+			if (isClickOnBackground) {
 				return;
 			}
 
@@ -56,11 +59,11 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	return (
 		<dialog
 			id="water-dialog"
-			className="flex-col rounded-lg p-8"
+			className="flex-col rounded-lg "
 			onClick={onDialogClick}
 		>
 			<form onSubmit={onSubmit}>
-				<div className="flex flex-col gap-6">
+				<div className="flex flex-col gap-6 p-8">
 					<div className="text-xl font-bold">
 						{i18n.treeDetail.waterNeed.submitWatering}
 					</div>
