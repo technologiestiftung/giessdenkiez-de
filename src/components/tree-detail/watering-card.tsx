@@ -4,6 +4,7 @@ import { useI18nStore } from "../../i18n/i18n-store";
 import { TrashIcon } from "../icons/trash-icon";
 import { PrimaryDestructiveButton } from "../buttons/primary-destructive";
 import { useAuthStore } from "../../auth/auth-store";
+import { useWaterTree } from "./hooks/use-water-tree";
 
 interface WateringCardProps {
 	wateringData: TreeWateringData;
@@ -26,13 +27,15 @@ export const LastWaterings: React.FC<WateringCardProps> = ({
 }) => {
 	const formatDate = useI18nStore().formatDate;
 	const { username } = useAuthStore();
+	const { unwaterTree } = useWaterTree(wateringData.tree_id);
 
 	const [isDeleteVisible, setIsDeleteVisible] = useState(false);
-	const [isWateringByUser, setIsWateringByUser] = useState(
-		wateringData.username === username,
-	);
+	const [isWateringByUser] = useState(wateringData.username === username);
 
-	console.log(wateringData);
+	const onClickDelete = async () => {
+		await unwaterTree(wateringData.id);
+		setIsDeleteVisible(false);
+	};
 
 	return (
 		<div
@@ -70,9 +73,7 @@ export const LastWaterings: React.FC<WateringCardProps> = ({
 					>
 						<PrimaryDestructiveButton
 							label={"Löschen"}
-							onClick={() => {
-								setIsDeleteVisible(false);
-							}}
+							onClick={onClickDelete}
 						></PrimaryDestructiveButton>
 					</div>
 				</div>
