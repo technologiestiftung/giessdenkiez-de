@@ -81,8 +81,8 @@ export const Filter: React.FC = () => {
 					</div>
 				</div>
 
-				<div className="flex flex-col sm:flex-row justify-between">
-					<div className="flex self-center">
+				<div className="flex flex-col flex-col-reverse sm:flex-row justify-between">
+					<div className="flex self-center ">
 						<TertiaryButton label={i18n.filter.reset} onClick={resetFilters} />
 					</div>
 					<PrimaryButton label={i18n.filter.show} onClick={hideFilterView} />
