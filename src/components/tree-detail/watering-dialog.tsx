@@ -92,7 +92,7 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 							max={formattedToday}
 						/>
 					</div>
-					<div className="flex flex-col sm:flex-row justify-between gap-x-4">
+					<div className="flex flex-col-reverse sm:flex-row justify-between gap-x-4">
 						<div className="p-y-3.5 flex self-center">
 							<TertiaryButton
 								label={i18n.treeDetail.waterNeed.waterCancel}
