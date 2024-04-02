@@ -3,6 +3,7 @@ import { TreeWateringData } from "./tree-types";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { TrashIcon } from "../icons/trash-icon";
 import { PrimaryDestructiveButton } from "../buttons/primary-destructive";
+import { useAuthStore } from "../../auth/auth-store";
 
 interface WateringCardProps {
 	wateringData: TreeWateringData;
@@ -24,7 +25,14 @@ export const LastWaterings: React.FC<WateringCardProps> = ({
 	wateringData,
 }) => {
 	const formatDate = useI18nStore().formatDate;
+	const { username } = useAuthStore();
+
 	const [isDeleteVisible, setIsDeleteVisible] = useState(false);
+	const [isWateringByUser, setIsWateringByUser] = useState(
+		wateringData.username === username,
+	);
+
+	console.log(wateringData);
 
 	return (
 		<div
@@ -47,26 +55,28 @@ export const LastWaterings: React.FC<WateringCardProps> = ({
 					</div>
 				</div>
 			</div>
-			<div
-				className={`flex flex-row self-center gap-2 ${isDeleteVisible ? "grow" : ""}`}
-			>
-				<button
-					onClick={() => setIsDeleteVisible(!isDeleteVisible)}
-					className={`self-center  text-gdk-dark-red p-1 rounded-sm ${isDeleteVisible ? "outline outline-2" : ""}`}
-				>
-					<TrashIcon />
-				</button>
+			{isWateringByUser && (
 				<div
-					className={`transition ease-in-out delay-100 ${isDeleteVisible ? "opacity-1" : "opacity-0"}`}
+					className={`flex flex-row self-center gap-2 ${isDeleteVisible ? "grow" : ""}`}
 				>
-					<PrimaryDestructiveButton
-						label={"Löschen"}
-						onClick={() => {
-							console.log("delete");
-						}}
-					></PrimaryDestructiveButton>
+					<button
+						onClick={() => setIsDeleteVisible(!isDeleteVisible)}
+						className={`self-center  text-gdk-dark-red hover:text-gdk-light-red p-1 rounded-sm ${isDeleteVisible ? "outline outline-2" : ""}`}
+					>
+						<TrashIcon />
+					</button>
+					<div
+						className={`transition ease-in-out delay-100 ${isDeleteVisible ? "opacity-1" : "opacity-0"}`}
+					>
+						<PrimaryDestructiveButton
+							label={"Löschen"}
+							onClick={() => {
+								setIsDeleteVisible(false);
+							}}
+						></PrimaryDestructiveButton>
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 };
