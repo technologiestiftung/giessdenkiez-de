@@ -317,7 +317,7 @@ Vernetzen:
 			},
 			submitWatering: "Gießung eintragen",
 			wateredHowMuch: "Gegossene Liter",
-			wateredHowMuchPlaceholder: "Liter",
+			wateredHowMuchPlaceholder: "Menge in L",
 			wateredWhen: "Wann?",
 			waterSave: "Speichern",
 			waterCancel: "Abbrechen",
