@@ -4,7 +4,6 @@ import { useI18nStore } from "../../i18n/i18n-store";
 import { ChevronDown } from "../icons/chevron-down";
 import { ChevronRight } from "../icons/chevron-right";
 import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
-import { Tooltip } from "./tooltip";
 import {
 	TreeAgeClassification,
 	TreeData,
@@ -16,6 +15,8 @@ import { WateringCanIcon } from "../icons/watering-can-icon";
 import { PrimaryButton } from "../buttons/primary";
 import { useAuthStore } from "../../auth/auth-store";
 import { InternalAnchorLink } from "../anchor-link/internal-anchor-link";
+import Markdown from "react-markdown";
+import { TertiaryButton } from "../buttons/tertiary";
 
 interface TreeWaterNeedProps {
 	treeData: TreeData;
@@ -34,7 +35,8 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 	const { formatNumber } = useI18nStore();
 
 	const [isExpanded, setIsExpanded] = useState(true);
-	const [showInfoBox, setShowInfoBox] = useState(false);
+
+	const [isInfoboxVisible, setIsInfoboxVisible] = useState(false);
 
 	const {
 		rainSum,
@@ -71,33 +73,34 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 				<div className="flex flex-col gap-4">
 					<div className="grid grid-cols-1 grid-rows-1">
 						<div className="relative col-start-1 row-start-1 flex flex-row items-center justify-between">
-							<div className="pr-8">{i18n.treeDetail.waterNeed.hint}</div>
-							<div className="relative">
-								<button
-									onClick={() => {
-										setShowInfoBox(!showInfoBox);
-									}}
-									onMouseMove={() => setShowInfoBox(true)}
-									onMouseOut={() => setShowInfoBox(false)}
-								>
-									<img
-										src="/images/info-icon.svg"
-										alt="Tree Icon"
-										width={30}
-										height={30}
-									/>
-								</button>
-								{showInfoBox && (
-									<div className="absolute right-0 top-8">
-										<Tooltip
-											title={i18n.treeDetail.waterNeed.ageAndWaterHintTitle}
-											content={i18n.treeDetail.waterNeed.ageAndWaterHint}
-										/>
-									</div>
+							<div className="pr-8">
+								{i18n.treeDetail.waterNeed.hint}{" "}
+								{!isInfoboxVisible && (
+									<button
+										className="text-gdk-blue hover:text-gdk-light-blue font-semibold"
+										onClick={() => setIsInfoboxVisible(true)}
+									>
+										{i18n.treeDetail.waterNeed.readMore}
+									</button>
 								)}
 							</div>
 						</div>
 					</div>
+
+					{isInfoboxVisible && (
+						<div className={`border rounded-xl p-4 flex flex-col gap-y-3 `}>
+							<div className="font-bold text-lg">
+								{i18n.treeDetail.waterNeed.ageAndWaterHintTitle}
+							</div>
+							<Markdown>{i18n.treeDetail.waterNeed.ageAndWaterHint}</Markdown>
+							<div className="flex w-full justify-center">
+								<TertiaryButton
+									onClick={() => setIsInfoboxVisible(false)}
+									label={i18n.treeDetail.waterNeed.close}
+								></TertiaryButton>
+							</div>
+						</div>
+					)}
 
 					{treeAgeClassification === TreeAgeClassification.BABY && (
 						<div className="text-xl font-bold">
