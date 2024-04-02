@@ -323,7 +323,7 @@ We manage largely on our own and are happy in particularly dry phases but still 
 			},
 			submitWatering: "Submit watering",
 			wateredHowMuch: "Liters",
-			wateredHowMuchPlaceholder: "Liter",
+			wateredHowMuchPlaceholder: "Amount in L",
 			wateredWhen: "When?",
 			waterSave: "Save",
 			waterCancel: "Cancel",
