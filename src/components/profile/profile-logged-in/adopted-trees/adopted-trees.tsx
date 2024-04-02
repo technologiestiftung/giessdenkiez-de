@@ -18,10 +18,10 @@ export const AdoptedTrees: React.FC = () => {
 				sectionTitle={i18n.navbar.profile.overview.adoptedTrees}
 			>
 				<div className="mt-7 grid grid-cols-2 gap-4 xl:grid-cols-4">
-					<Skeleton className="shadow-gdk-soft rounded-2xl border-2 p-4 h-[182px] justify-between" />
-					<Skeleton className="shadow-gdk-soft rounded-2xl border-2 p-4 h-[182px] justify-between" />
-					<Skeleton className="shadow-gdk-soft rounded-2xl border-2 p-4 h-[182px] justify-between" />
-					<Skeleton className="shadow-gdk-soft rounded-2xl border-2 p-4 h-[182px] justify-between" />
+					<Skeleton className="shadow-gdk-soft rounded-2xl border-2 p-4 h-[176px] justify-between" />
+					<Skeleton className="shadow-gdk-soft rounded-2xl border-2 p-4 h-[176px] justify-between" />
+					<Skeleton className="shadow-gdk-soft rounded-2xl border-2 p-4 h-[176px] justify-between" />
+					<Skeleton className="shadow-gdk-soft rounded-2xl border-2 p-4 h-[176px] justify-between" />
 				</div>
 			</AdoptedTreesCard>
 		);

@@ -26,11 +26,11 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 	return (
 		<div
 			key={id}
-			className="shadow-gdk-soft flex flex-col gap-3 rounded-2xl border-2 p-4 justify-between"
+			className="shadow-gdk-soft flex flex-col gap-3 rounded-2xl border-2 py-4 px-3.5 justify-between"
 		>
 			<div className="flex justify-between">
 				<InternalAnchorLink href={`/map?treeId=${id}&zoom=20`} label={name} />
-				<div className="-mt-1">
+				<div className="pl-1">
 					<button
 						type="button"
 						onClick={async () => {
