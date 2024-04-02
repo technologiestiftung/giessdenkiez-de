@@ -2,11 +2,11 @@ import React, { useCallback } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import "../../index.css";
 import { PrimaryButton } from "../buttons/primary";
-import { SecondaryButton } from "../buttons/secondary";
 import { useWaterTree } from "./hooks/use-water-tree";
 import { TreeData } from "./tree-types";
 import { useErrorStore } from "../../error/error-store";
 import { format } from "date-fns";
+import { TertiaryButton } from "../buttons/tertiary";
 interface WateringDialogProps {
 	treeData: TreeData;
 	close: () => void;
@@ -45,8 +45,6 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 			const isClickOnBackground =
 				event.target !== document.getElementById("water-dialog");
 
-			console.log(event.target);
-			console.log(isClickOnBackground);
 			if (isClickOnBackground) {
 				return;
 			}
@@ -59,7 +57,7 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	return (
 		<dialog
 			id="water-dialog"
-			className="flex-col rounded-lg "
+			className="flex-col rounded-lg w-11/12 sm:w-[400px]"
 			onClick={onDialogClick}
 		>
 			<form onSubmit={onSubmit}>
@@ -94,11 +92,13 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 							max={formattedToday}
 						/>
 					</div>
-					<div className="flex flex-row justify-between gap-x-4">
-						<SecondaryButton
-							label={i18n.treeDetail.waterNeed.waterCancel}
-							onClick={close}
-						/>
+					<div className="flex flex-col sm:flex-row justify-between gap-x-4">
+						<div className="p-y-3.5 flex self-center">
+							<TertiaryButton
+								label={i18n.treeDetail.waterNeed.waterCancel}
+								onClick={close}
+							/>
+						</div>
 						<PrimaryButton
 							label={i18n.treeDetail.waterNeed.waterSave}
 							type="submit"
