@@ -337,8 +337,10 @@ We manage largely on our own and are happy in particularly dry phases but still 
 			nothingThisWeek: "No waterings this week",
 			thisMonth: "This month",
 			nothingThisMonth: "No waterings this month",
+			nothingMoreThisMonth: "No further waterings this month",
 			thisYear: "This year",
 			nothingThisYear: "No waterings this year",
+			nothingMoreThisYear: "No further waterings this year",
 		},
 		problem: {
 			title: "Report a problem",

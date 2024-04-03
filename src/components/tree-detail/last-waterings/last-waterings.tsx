@@ -71,12 +71,20 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 					<WateringSection
 						waterings={wateringsThisMonth}
 						title={i18n.treeDetail.lastWaterings.thisMonth}
-						noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisMonth}
+						noWateringsHint={
+							wateringsThisWeek.length > 0
+								? i18n.treeDetail.lastWaterings.nothingMoreThisMonth
+								: i18n.treeDetail.lastWaterings.nothingThisMonth
+						}
 					/>
 					<WateringSection
 						waterings={wateringsThisYear}
 						title={i18n.treeDetail.lastWaterings.thisYear}
-						noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisYear}
+						noWateringsHint={
+							wateringsThisMonth.length > 0
+								? i18n.treeDetail.lastWaterings.nothingMoreThisYear
+								: i18n.treeDetail.lastWaterings.nothingThisYear
+						}
 					/>
 				</div>
 			)}

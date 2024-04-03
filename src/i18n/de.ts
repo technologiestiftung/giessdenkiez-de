@@ -331,8 +331,10 @@ Vernetzen:
 			nothingThisWeek: "Keine Gießungen diese Woche",
 			thisMonth: "Dieser Monat",
 			nothingThisMonth: "Keine Gießungen diesen Monat",
+			nothingMoreThisMonth: "Keine weiteren Gießungen diesen Monat",
 			thisYear: "Dieses Jahr",
 			nothingThisYear: "Keine Gießungen dieses Jahr",
+			nothingMoreThisYear: "Keine weiteren Gießungen dieses Jahr",
 		},
 		problem: {
 			title: "Problem melden",
