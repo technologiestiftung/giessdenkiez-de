@@ -10,7 +10,10 @@ interface TreeAdoptStore {
 	adoptedByOthers: boolean;
 	adoptTree: (treeId: string) => Promise<void>;
 	unadoptTree: (treeId: string) => Promise<void>;
-	isTreeAdoptedByOthers: (treeId: string) => Promise<void>;
+	refreshIsTreeAdoptedByOthers: (
+		treeId: string,
+		abortController: AbortController,
+	) => Promise<void>;
 }
 
 const { refreshAdoptedTreesInfo } = useAuthStore.getState();
@@ -50,7 +53,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			}
 			set({ isLoading: false });
 			await refreshAdoptedTreesInfo();
-			await get().isTreeAdoptedByOthers(treeId);
+			await get().refreshIsTreeAdoptedByOthers(treeId, abortController);
 		} catch (error) {
 			handleError(i18n.treeDetail.adoptErrorMessage, error);
 			set({ isLoading: false });
@@ -83,13 +86,14 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			}
 			set({ isLoading: false });
 			await refreshAdoptedTreesInfo();
-			await get().isTreeAdoptedByOthers(treeId);
+			await get().refreshIsTreeAdoptedByOthers(treeId, abortController);
 		} catch (error) {
 			handleError(i18n.treeDetail.adoptErrorMessage, error);
 			set({ isLoading: false });
 		}
 	},
-	isTreeAdoptedByOthers: async (treeId) => {
+
+	refreshIsTreeAdoptedByOthers: async (treeId, abortController) => {
 		const user = useAuthStore.getState().session?.user;
 		set({ adoptedByOthers: false });
 		try {
@@ -97,16 +101,21 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 				.from("trees_adopted")
 				.select(`id, uuid, tree_id`)
 				.eq("tree_id", treeId)
-				.neq("uuid", user?.id);
+				.neq("uuid", user?.id)
+				.abortSignal(abortController.signal);
 
 			if (error) {
-				handleError(i18n.treeDetail.adoptErrorMessage, error);
-				return;
+				throw error;
 			}
 
 			set({ adoptedByOthers: (data ?? []).length > 0 });
 		} catch (error) {
-			handleError(i18n.treeDetail.adoptErrorMessage, error);
+			if (abortController.signal.aborted) {
+				return;
+			}
+
+			handleError(i18n.common.defaultErrorMessage, error);
+			return;
 		}
 	},
 }));

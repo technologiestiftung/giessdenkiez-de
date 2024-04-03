@@ -4,7 +4,7 @@ import { replaceUrlSearchParam } from "../../utils/url-utils";
 import { useUrlState } from "../router/store";
 import { useMapConstants } from "../map/hooks/use-map-constants";
 import { usePumpStore } from "../map/hooks/use-pump-store";
-import { useTreeStore } from "../tree-detail/tree-store";
+import { useTreeStore } from "../tree-detail/stores/tree-store";
 
 /* eslint-disable-next-line no-shadow */
 export enum TreeAgeIntervalIdentifier {

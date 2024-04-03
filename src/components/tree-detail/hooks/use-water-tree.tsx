@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuthStore } from "../../../auth/auth-store";
 import { useErrorStore } from "../../../error/error-store";
 import { useI18nStore } from "../../../i18n/i18n-store";
+import { useTreeStore } from "../stores/tree-store";
 
 export interface WaterTreeState {
 	isLoading: boolean;
@@ -49,6 +50,9 @@ export function useWaterTree(treeId: string): WaterTreeState {
 			}
 			setWateringLoading(false);
 			await refreshAdoptedTreesInfo();
+			await useTreeStore
+				.getState()
+				.refreshTreeWateringData(treeId, abortController);
 		} catch (error) {
 			handleError(i18n.common.defaultErrorMessage, error);
 			setWateringLoading(false);
@@ -84,6 +88,9 @@ export function useWaterTree(treeId: string): WaterTreeState {
 			}
 			setWateringLoading(false);
 			await refreshAdoptedTreesInfo();
+			await useTreeStore
+				.getState()
+				.refreshTreeWateringData(treeId, abortController);
 		} catch (error) {
 			handleError(i18n.common.defaultErrorMessage, error);
 			setWateringLoading(false);

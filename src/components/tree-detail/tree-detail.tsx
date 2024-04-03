@@ -4,7 +4,7 @@ import { useUrlState } from "../router/store";
 import { useFetchTreeData } from "./hooks/use-fetch-tree-data";
 import { TreeAge } from "./tree-age";
 import { TreeAdoptCard } from "./tree-adopt-card";
-import { useTreeStore } from "./tree-store";
+import { useTreeStore } from "./stores/tree-store";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { TreeWaterNeed } from "./tree-water-needs/tree-water-needs";
 import { TreeWaterNeedUnknown } from "./tree-water-needs/tree-water-need-unknown";
@@ -13,7 +13,6 @@ import { useTreeAgeClassification } from "./hooks/use-tree-age-classification";
 import { LastWaterings } from "./last-waterings/last-waterings";
 import { ProblemCard } from "./problem-card";
 import { TreeFlier } from "./tree-flier";
-import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 import { Loading } from "../loading/loading";
 import { TreeIcon } from "../icons/tree-icon";
 
@@ -37,17 +36,17 @@ export const TreeDetail: React.FC = () => {
 		}
 	}, [treeId]);
 
-	const { setTreeData } = useTreeStore();
-	const { treeData } = useFetchTreeData(selectedTreeId);
-	const { treeWateringData, fetchWateringData } =
-		useFetchTreeWateringData(treeData);
+	const { setTreeCoreData, treeCoreData, treeWateringData } = useTreeStore();
 
-	const { treeAge, treeAgeClassification } = useTreeAgeClassification(treeData);
+	useFetchTreeData(treeId);
+
+	const { treeAge, treeAgeClassification } =
+		useTreeAgeClassification(treeCoreData);
 	const treeTypeInfo = useMemo(() => {
 		return i18n.treeDetail.treeTypeInfos.find(
-			(treeType) => treeType.id === treeData?.gattungdeutsch,
+			(treeType) => treeType.id === treeCoreData?.gattungdeutsch,
 		);
-	}, [treeData, i18n]);
+	}, [treeCoreData, i18n]);
 
 	return (
 		<div className="pointer-events-auto h-full bg-white rounded-l shadow-gdk-hard-up flex w-[100vw] flex-col gap-4 overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">
@@ -57,7 +56,7 @@ export const TreeDetail: React.FC = () => {
 				onClick={(e) => {
 					e.preventDefault();
 					removeSearchParam("treeId");
-					setTreeData(undefined);
+					setTreeCoreData(undefined);
 					setSelectedTreeId(undefined);
 				}}
 			>
@@ -68,10 +67,10 @@ export const TreeDetail: React.FC = () => {
 				<TreeIcon />
 				<div className="text-xl font-bold">{i18n.treeDetail.title}</div>
 			</div>
-			{treeData ? (
+			{treeCoreData ? (
 				<div className="flex flex-col">
 					<TreeAdoptCard
-						treeData={treeData}
+						treeData={treeCoreData}
 						treeAgeClassification={treeAgeClassification}
 					/>
 					{treeTypeInfo && (
@@ -82,28 +81,23 @@ export const TreeDetail: React.FC = () => {
 						treeAgeClassification === TreeAgeClassification.JUNIOR ||
 						treeAgeClassification === TreeAgeClassification.GROWNUP) && (
 						<TreeWaterNeed
-							treeData={treeData}
+							treeData={treeCoreData}
 							treeAgeClassification={treeAgeClassification}
 							treeWateringData={treeWateringData}
-							onTreeWatered={async () => {
-								await fetchWateringData();
-							}}
 						/>
 					)}
 					{(treeAgeClassification === TreeAgeClassification.UNKNOWN ||
 						treeAgeClassification === TreeAgeClassification.SENIOR) && (
 						<TreeWaterNeedUnknown
-							treeData={treeData}
+							treeData={treeCoreData}
 							treeAgeClassification={treeAgeClassification}
 							treeWateringData={treeWateringData}
-							onTreeWatered={async () => {
-								await fetchWateringData();
-							}}
 						/>
 					)}
-					{treeData && treeAgeClassification !== TreeAgeClassification.BABY && (
-						<LastWaterings treeWateringData={treeWateringData} />
-					)}
+					{treeCoreData &&
+						treeAgeClassification !== TreeAgeClassification.BABY && (
+							<LastWaterings treeWateringData={treeWateringData} />
+						)}
 					<ProblemCard />
 				</div>
 			) : (

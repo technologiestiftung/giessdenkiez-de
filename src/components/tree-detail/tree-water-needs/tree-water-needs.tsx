@@ -6,7 +6,7 @@ import { ChevronRight } from "../../icons/chevron-right";
 import { useTreeWaterNeedsData } from "../hooks/use-tree-water-needs-data";
 import {
 	TreeAgeClassification,
-	TreeData,
+	TreeCoreData,
 	TreeWateringData,
 } from "../tree-types";
 import { WaterProgressCircle } from "./water-progress-circle/water-progress-circle";
@@ -19,17 +19,15 @@ import Markdown from "react-markdown";
 import { TertiaryButton } from "../../buttons/tertiary";
 
 interface TreeWaterNeedProps {
-	treeData: TreeData;
+	treeData: TreeCoreData;
 	treeAgeClassification: TreeAgeClassification;
 	treeWateringData: TreeWateringData[];
-	onTreeWatered: () => void;
 }
 
 export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 	treeData,
 	treeAgeClassification,
 	treeWateringData,
-	onTreeWatered,
 }) => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
@@ -220,7 +218,6 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 							(
 								document.getElementById("water-dialog") as HTMLDialogElement
 							).close();
-							onTreeWatered();
 						}}
 					/>
 				</div>

@@ -1,6 +1,6 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect, useRef } from "react";
-import { useTreeStore } from "../../tree-detail/tree-store";
+import { useTreeStore } from "../../tree-detail/stores/tree-store";
 import { useUrlState } from "../../router/store";
 
 export function useSelectedTree(map: mapboxgl.Map | undefined) {

@@ -5,7 +5,7 @@ import { useI18nStore } from "../../../i18n/i18n-store";
 import { useTreeWaterNeedsData } from "../hooks/use-tree-water-needs-data";
 import {
 	TreeAgeClassification,
-	TreeData,
+	TreeCoreData,
 	TreeWateringData,
 } from "./../tree-types";
 import { WateringDialog } from "./watering-dialog";
@@ -16,17 +16,15 @@ import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 import { TertiaryButton } from "../../buttons/tertiary";
 
 interface TreeWaterNeedUnknownProps {
-	treeData: TreeData;
+	treeData: TreeCoreData;
 	treeAgeClassification: TreeAgeClassification;
 	treeWateringData: TreeWateringData[];
-	onTreeWatered: () => void;
 }
 
 export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 	treeData,
 	treeAgeClassification,
 	treeWateringData,
-	onTreeWatered,
 }) => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
@@ -141,7 +139,6 @@ export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 					(
 						document.getElementById("water-dialog") as HTMLDialogElement
 					).close();
-					onTreeWatered();
 				}}
 			/>
 		</div>

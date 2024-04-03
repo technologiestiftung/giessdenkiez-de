@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
-import { useTreeStore } from "../../tree-detail/tree-store";
+import { useTreeStore } from "../../tree-detail/stores/tree-store";
 
 export function useHoveredTree(map: mapboxgl.Map | undefined) {
 	const [hoveredTreeId, setHoveredTreeId] = useTreeStore((store) => [

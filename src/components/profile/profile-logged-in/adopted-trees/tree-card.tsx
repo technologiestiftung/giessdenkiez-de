@@ -2,7 +2,7 @@ import React from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { InternalAnchorLink } from "../../../anchor-link/internal-anchor-link";
 import { HeartIcon } from "../../../icons/heart-icon";
-import { useTreeAdoptStore } from "../../../tree-detail/hooks/use-adopt-tree";
+import { useTreeAdoptStore } from "../../../tree-detail/stores/adopt-tree-store";
 import { WateringCanIcon } from "../../../icons/watering-can-icon";
 import { DropIcon } from "../../../icons/drop-icon";
 

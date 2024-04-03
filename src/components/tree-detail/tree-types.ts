@@ -7,7 +7,7 @@ export enum TreeAgeClassification {
 	UNKNOWN = "UNKNOWN",
 }
 
-export interface TreeData {
+export interface TreeCoreData {
 	artbot: string;
 	artdtsch: string;
 	baumhoehe: string;
@@ -23,10 +23,6 @@ export interface TreeData {
 	radolan_days: number[];
 	radolan_sum: number;
 	standalter: string | null;
-}
-
-export interface TreeDataState {
-	treeData: TreeData | undefined;
 }
 
 export interface TreeWateringData {
