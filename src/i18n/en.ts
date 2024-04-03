@@ -294,7 +294,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			stillWaterXLiters: (liters: string) => `Needs ${liters} liters`,
 			shouldBeWatered: "Should be watered",
 			sufficientlyWatered: "Sufficiently watered at the moment",
-			readMore: "Read more",
+			readMore: "Show more",
 			ageAndWaterHintTitle: "Water requirements and age",
 			ageAndWaterHint: `
 **Baby (under 4 years):**
@@ -313,7 +313,7 @@ We have a certain amount of stamina but we need it in hot phases also a good ext
 
 We manage largely on our own and are happy in particularly dry phases but still about an extra sip.
       `,
-			close: "Close",
+			close: "Show less",
 			lastXDaysYLitersWater: (days: number, liters: string) =>
 				`In the last ${days} days, **${liters} liters** were watered.`,
 			lastXDaysYLitersRain: (days: number, liters: string) =>
