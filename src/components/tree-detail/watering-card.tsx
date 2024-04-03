@@ -22,9 +22,7 @@ function getDisplayedUsername(wateringData: TreeWateringData) {
 	return wateringData.username;
 }
 
-export const LastWaterings: React.FC<WateringCardProps> = ({
-	wateringData,
-}) => {
+export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const formatDate = useI18nStore().formatDate;
 	const { username } = useAuthStore();
 	const { unwaterTree } = useWaterTree(wateringData.tree_id);
