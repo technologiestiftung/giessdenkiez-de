@@ -281,7 +281,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			unknownTitle: "Water needs unknown",
 			unknown:
 				"The age and therefore the water requirement are unfortunately unknown. The info box may help you make your own assessment.",
-			seniorTitle: "Only needs water in dry phases",
+			seniorTitle: "Needs water only during dry periods",
 			seniorExplanation:
 				"Older trees can usually supply themselves with groundwater, but as the heat increases they also appreciate additional water.",
 			liters: "liters",
@@ -290,10 +290,11 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			stillMissing: "still missing",
 			dataOfLastXDays: "* data of last 7 days",
 			manager: "district",
-			alreadyWateredByManager: "Watered by district",
-			stillWaterXLiters: (liters: string) => `${liters} liters to water`,
+			alreadyWateredByManager: "Watered by district authority",
+			stillWaterXLiters: (liters: string) => `Needs ${liters} liters`,
 			shouldBeWatered: "Should be watered",
 			sufficientlyWatered: "Sufficiently watered at the moment",
+			readMore: "Show more",
 			ageAndWaterHintTitle: "Water requirements and age",
 			ageAndWaterHint: `
 **Baby (under 4 years):**
@@ -312,13 +313,19 @@ We have a certain amount of stamina but we need it in hot phases also a good ext
 
 We manage largely on our own and are happy in particularly dry phases but still about an extra sip.
       `,
+			close: "Show less",
 			lastXDaysYLitersWater: (days: number, liters: string) =>
 				`In the last ${days} days, **${liters} liters** were watered.`,
 			lastXDaysYLitersRain: (days: number, liters: string) =>
 				`In the last ${days} days, it rained **${liters} liters**.`,
 			iWatered: "I watered",
+			loginToWater: {
+				login: "Log-in",
+				toWater: "to submit a watering",
+			},
 			submitWatering: "Submit watering",
-			wateredHowMuch: "How much?",
+			wateredHowMuch: "Liters",
+			wateredHowMuchPlaceholder: "Amount in L",
 			wateredWhen: "When?",
 			waterSave: "Save",
 			waterCancel: "Cancel",

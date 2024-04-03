@@ -1,10 +1,12 @@
 import { expect, Page } from "@playwright/test";
 import {
-	baseUrl,
 	defaultEmail,
+	defaultInbucketEmailUsername,
 	defaultPassword,
 	defaultUsername,
 	inbucketUrl,
+	supabaseAnonKey,
+	supabaseApiUrl,
 	supabaseClient,
 } from "./constants";
 
@@ -25,8 +27,14 @@ export async function registerThenLogoutWithDefaultAccount(page: Page) {
 
 	await page.goto(`${inbucketUrl}/monitor`);
 
-	await page.getByRole("cell", { name: "<admin@email.com>" }).first().click();
+	await page
+		.getByRole("cell", { name: defaultInbucketEmailUsername })
+		.first()
+		.click();
 	await page.getByRole("link", { name: "Confirm your email address" }).click();
+
+	// close splash screen
+	await page.getByRole("button", { name: "Los geht's" }).click();
 
 	await page.getByRole("link", { name: "Profil" }).click();
 	await expect(
@@ -37,17 +45,28 @@ export async function registerThenLogoutWithDefaultAccount(page: Page) {
 	await expect(page.getByRole("heading", { name: "Anmelden" })).toBeVisible();
 }
 
-export async function deleteDefaultAccount(page: Page) {
-	await page.goto(`${baseUrl}/map`);
-	await page.getByRole("link", { name: "Profil" }).click();
-	await page.getByLabel("E-Mail").click();
-	await page.getByLabel("E-Mail").fill(defaultEmail);
-	await page.getByLabel("E-Mail").press("Tab");
-	await page.getByLabel("Passwort").fill(defaultPassword);
+export async function deleteDefaultAccount() {
+	const { data, error } = await supabaseClient.auth.signInWithPassword({
+		email: defaultEmail,
+		password: defaultPassword,
+	});
 
-	await page.getByRole("button", { name: "Anmelden" }).click();
-	await page.getByRole("button", { name: "Account löschen" }).click();
-	await page.getByRole("button", { name: "Löschen", exact: true }).click();
+	expect(error).toBeNull();
+	expect(data.session).toBeDefined();
+	expect(data.user).toBeDefined();
 
-	await expect(page.getByRole("heading", { name: "Anmelden" })).toBeVisible();
+	const response = await fetch(`${supabaseApiUrl}/rest/v1/rpc/remove_account`, {
+		method: "POST",
+		headers: {
+			Authorization: `Bearer ${data.session?.access_token}`,
+			"Content-Type": "application/json",
+			apikey: supabaseAnonKey,
+		},
+	});
+
+	if (!response.ok) {
+		console.error(await response.text());
+	}
+
+	expect(response.ok).toBeTruthy();
 }
