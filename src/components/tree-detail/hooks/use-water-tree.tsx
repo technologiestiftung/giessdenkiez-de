@@ -6,7 +6,7 @@ import { useI18nStore } from "../../../i18n/i18n-store";
 export interface WaterTreeState {
 	isLoading: boolean;
 	waterTree: (amount: number, date: Date) => Promise<void>;
-	unwaterTree: (wateringId: number) => Promise<void>;
+	deleteWatering: (wateringId: number) => Promise<void>;
 }
 
 export function useWaterTree(treeId: string): WaterTreeState {
@@ -55,7 +55,7 @@ export function useWaterTree(treeId: string): WaterTreeState {
 		}
 	};
 
-	const unwaterTree = async (wateringId: number) => {
+	const deleteWatering = async (wateringId: number) => {
 		if (!user?.id) {
 			return;
 		}
@@ -93,6 +93,6 @@ export function useWaterTree(treeId: string): WaterTreeState {
 	return {
 		isLoading: wateringLoading,
 		waterTree,
-		unwaterTree,
+		deleteWatering,
 	};
 }
