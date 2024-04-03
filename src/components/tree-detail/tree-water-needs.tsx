@@ -88,11 +88,9 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 					</div>
 
 					{isInfoboxVisible && (
-						<div className={`border rounded-xl p-4 flex flex-col gap-y-3 `}>
-							<div className="font-bold text-lg">
-								{i18n.treeDetail.waterNeed.ageAndWaterHintTitle}
-							</div>
+						<div className={`flex flex-col gap-y-3 pt-2`}>
 							<Markdown>{i18n.treeDetail.waterNeed.ageAndWaterHint}</Markdown>
+							{/* </div> */}
 							<div className="flex w-full justify-center">
 								<TertiaryButton
 									onClick={() => setIsInfoboxVisible(false)}
