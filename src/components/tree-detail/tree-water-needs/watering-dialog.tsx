@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
-import { useI18nStore } from "../../i18n/i18n-store";
-import "../../index.css";
-import { PrimaryButton } from "../buttons/primary";
-import { SecondaryButton } from "../buttons/secondary";
-import { useWaterTree } from "./hooks/use-water-tree";
-import { TreeData } from "./tree-types";
-import { useErrorStore } from "../../error/error-store";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import "../../../index.css";
+import { PrimaryButton } from "../../buttons/primary";
+import { SecondaryButton } from "../../buttons/secondary";
+import { useWaterTree } from "../hooks/use-water-tree";
+import { TreeData } from "../tree-types";
+import { useErrorStore } from "../../../error/error-store";
 import { format } from "date-fns";
 interface WateringDialogProps {
 	treeData: TreeData;
@@ -17,7 +17,7 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	close,
 }) => {
 	const i18n = useI18nStore().i18n();
-	const { waterTree } = useWaterTree(treeData.id);
+	const { waterTree } = useWaterTree(treeData);
 	const { handleError } = useErrorStore();
 
 	const formattedToday = format(new Date(), "yyyy-MM-dd");

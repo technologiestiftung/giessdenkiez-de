@@ -1,19 +1,19 @@
 /* eslint-disable max-lines */
 import React, { useState } from "react";
-import { useI18nStore } from "../../i18n/i18n-store";
-import { ChevronDown } from "../icons/chevron-down";
-import { ChevronRight } from "../icons/chevron-right";
-import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import { ChevronDown } from "../../icons/chevron-down";
+import { ChevronRight } from "../../icons/chevron-right";
+import { useTreeWaterNeedsData } from "../hooks/use-tree-water-needs-data";
 import { Tooltip } from "./tooltip";
 import {
 	TreeAgeClassification,
 	TreeData,
 	TreeWateringData,
-} from "./tree-types";
-import { WaterProgressCircle } from "./water-progress-circle";
+} from "../tree-types";
+import { WaterProgressCircle } from "./water-progress-circle/water-progress-circle";
 import { WateringDialog } from "./watering-dialog";
-import { WateringCanIcon } from "../icons/watering-can-icon";
-import { PrimaryButton } from "../buttons/primary";
+import { WateringCanIcon } from "../../icons/watering-can-icon";
+import { PrimaryButton } from "../../buttons/primary";
 
 interface TreeWaterNeedProps {
 	treeData: TreeData;

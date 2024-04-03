@@ -3,7 +3,7 @@ import { useAuthStore } from "../../auth/auth-store";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { AdoptButton } from "../buttons/adopt-button";
 import { useTreeAdoptStore } from "./hooks/use-adopt-tree";
-import { Tooltip as AdoptTreeTooltip } from "./tooltip";
+import { Tooltip as AdoptTreeTooltip } from "./tree-water-needs/tooltip";
 import { TreeAgeClassification, TreeData } from "./tree-types";
 import { InternalAnchorLink } from "../anchor-link/internal-anchor-link";
 import { InfoIcon } from "../icons/info-icon";

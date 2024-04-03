@@ -1,5 +1,5 @@
 import React from "react";
-import { TreeWateringData } from "./tree-types";
+import { TreeWateringData } from "../tree-types";
 import { WateringCard } from "./watering-card";
 
 interface WateringSectionProps {

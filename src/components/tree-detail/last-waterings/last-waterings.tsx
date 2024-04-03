@@ -1,11 +1,11 @@
 import { isSameMonth, isSameWeek, isSameYear } from "date-fns";
 import React, { useMemo, useState } from "react";
-import { useI18nStore } from "../../i18n/i18n-store";
-import { ChevronDown } from "../icons/chevron-down";
-import { ChevronRight } from "../icons/chevron-right";
-import { TreeWateringData } from "./tree-types";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import { ChevronDown } from "../../icons/chevron-down";
+import { ChevronRight } from "../../icons/chevron-right";
+import { TreeWateringData } from "../tree-types";
 import { WateringSection } from "./watering-section";
-import { CalenderIcon } from "../icons/calender-icon";
+import { CalenderIcon } from "../../icons/calender-icon";
 
 interface LastWateringsProps {
 	treeWateringData: TreeWateringData[];

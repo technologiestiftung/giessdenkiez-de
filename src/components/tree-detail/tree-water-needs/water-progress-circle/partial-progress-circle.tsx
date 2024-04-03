@@ -1,5 +1,5 @@
 import React from "react";
-import { PartialCircleProps } from "./tree-types";
+import { PartialCircleProps } from "../../tree-types";
 
 export const PartialProgressCircle: React.FC<PartialCircleProps> = ({
 	parts,

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { TreeWateringData } from "./tree-types";
-import { useI18nStore } from "../../i18n/i18n-store";
-import { TrashIcon } from "../icons/trash-icon";
-import { PrimaryDestructiveButton } from "../buttons/primary-destructive";
-import { useAuthStore } from "../../auth/auth-store";
-import { useWaterTree } from "./hooks/use-water-tree";
+import { TreeWateringData } from "../tree-types";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import { TrashIcon } from "../../icons/trash-icon";
+import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
+import { useAuthStore } from "../../../auth/auth-store";
+import { useWaterTree } from "../hooks/use-water-tree";
 
 interface WateringCardProps {
 	wateringData: TreeWateringData;

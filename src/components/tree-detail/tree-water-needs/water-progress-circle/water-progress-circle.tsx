@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { TreeAgeClassification, WaterCircleProps } from "./tree-types";
-import { useI18nStore } from "../../i18n/i18n-store";
+import { TreeAgeClassification, WaterCircleProps } from "../../tree-types";
+import { useI18nStore } from "../../../../i18n/i18n-store";
 import { PartialProgressCircle } from "./partial-progress-circle";
 
 export const WaterProgressCircle: React.FC<WaterCircleProps> = ({

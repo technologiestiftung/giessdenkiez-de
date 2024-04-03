@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import Markdown from "react-markdown";
-import { useI18nStore } from "../../i18n/i18n-store";
-import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import { useTreeWaterNeedsData } from "../hooks/use-tree-water-needs-data";
 import {
 	TreeAgeClassification,
 	TreeData,
 	TreeWateringData,
-} from "./tree-types";
+} from "../tree-types";
 import { Tooltip } from "./tooltip";
 import { WateringDialog } from "./watering-dialog";
-import { WateringCanIcon } from "../icons/watering-can-icon";
+import { WateringCanIcon } from "../../icons/watering-can-icon";
 
 interface TreeWaterNeedUnknownProps {
 	treeData: TreeData;
