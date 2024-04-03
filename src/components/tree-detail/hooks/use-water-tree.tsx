@@ -14,7 +14,7 @@ export function useWaterTree(treeId: string): WaterTreeState {
 
 	const access_token = useAuthStore((store) => store).session?.access_token;
 	const user = useAuthStore((store) => store).session?.user;
-	const { refreshAdoptedTreesInfo } = useAuthStore();
+	const { refreshAdoptedTreesInfo, username } = useAuthStore();
 
 	const abortController = new AbortController();
 	const [wateringLoading, setWateringLoading] = useState(false);
@@ -33,7 +33,7 @@ export function useWaterTree(treeId: string): WaterTreeState {
 					amount: amount,
 					tree_id: treeId,
 					uuid: user?.id,
-					username: user?.user_metadata.signup_username,
+					username,
 					timestamp: date.toISOString(),
 				}),
 				headers: {
