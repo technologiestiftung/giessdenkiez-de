@@ -44,7 +44,7 @@ export const AdoptedTrees: React.FC = () => {
 
 	return (
 		<AdoptedTreesCard sectionTitle={i18n.navbar.profile.overview.adoptedTrees}>
-			<div className="mt-7 grid grid-cols-2 gap-4 xl:grid-cols-4">
+			<div className="mt-7 grid grid-cols-2 gap-4 2xl:grid-cols-4">
 				{!areAllTreesVisible &&
 					adoptedTreesInfo
 						.slice(0, 4)
