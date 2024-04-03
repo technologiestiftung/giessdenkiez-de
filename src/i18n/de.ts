@@ -266,7 +266,7 @@ Vernetzen:
 		isAdopted: "Du hast diesen Baum adoptiert",
 		adoptHintTitle: "Baum adoptieren",
 		adoptHint:
-			"Wenn Du regelmäßig den gleichen Baum gießt, kannst Du diesen abonnieren. So findest Du ihn schnell in Deiner Profilübersicht wieder.",
+			"Wenn Du regelmäßig den gleichen Baum gießt, kannst Du diesen adoptieren. So findest Du ihn schnell in Deiner Profilübersicht wieder.",
 		adoptErrorMessage:
 			"Fehler beim Adoptieren des Baumes. Bitte versuche es erneut.",
 		adoptLoginFirst: "Logge dich ein um diesen Baum zu adoptieren",
