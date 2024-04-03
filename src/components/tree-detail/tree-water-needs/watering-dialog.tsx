@@ -17,7 +17,7 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	close,
 }) => {
 	const i18n = useI18nStore().i18n();
-	const { waterTree } = useWaterTree(treeData);
+	const { waterTree } = useWaterTree(treeData.id);
 	const { handleError } = useErrorStore();
 
 	const formattedToday = format(new Date(), "yyyy-MM-dd");
