@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Filter } from "../filter/filter";
 import { useFilterStore } from "../filter/filter-store";
 import { Info } from "../info/info";
@@ -21,8 +21,14 @@ export const Router: React.FC = () => {
 
 	const { isMapLoaded } = useMapStore();
 
-	const { isFilterViewVisible } = useFilterStore();
+	const { isFilterViewVisible, recoverUrlParams } = useFilterStore();
 	const [isSplashScreenVisible, setIsSplashScreenVisible] = useState(true);
+
+	useEffect(() => {
+		if (url.pathname === "/map") {
+			recoverUrlParams();
+		}
+	}, [url.pathname]);
 
 	switch (url.pathname) {
 		case "/":
@@ -37,7 +43,7 @@ export const Router: React.FC = () => {
 					} lg:bg-transparent`}
 				>
 					<div
-						className={`${isFilterViewVisible && "bg-white sm:bg-transparent"}`}
+						className={`${isFilterViewVisible && "bg-white rounded-t-lg sm:bg-transparent"}`}
 					>
 						<div className={`${treeId ? "hidden" : "block sm:hidden"}`}>
 							{isFilterViewVisible && <Filter />}

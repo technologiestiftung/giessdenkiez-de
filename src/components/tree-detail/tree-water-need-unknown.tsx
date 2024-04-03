@@ -9,6 +9,7 @@ import {
 } from "./tree-types";
 import { Tooltip } from "./tooltip";
 import { WateringDialog } from "./watering-dialog";
+import { WateringCanIcon } from "../icons/watering-can-icon";
 
 interface TreeWaterNeedUnknownProps {
 	treeData: TreeData;
@@ -36,12 +37,9 @@ export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 	return (
 		<div className="flex flex-col gap-4 border-b-2 py-8">
 			<div className="flex flex-row items-center gap-2">
-				<img
-					src="/images/watering-can.svg"
-					alt="Tree Watering Can Icon"
-					width={36}
-					height={36}
-				/>
+				<div>
+					<WateringCanIcon />
+				</div>
 				<div className="col-start-1 row-start-1 flex w-full flex-row items-center justify-between ">
 					<div className="pr-8 text-xl font-bold">
 						{treeAgeClassification === TreeAgeClassification.SENIOR

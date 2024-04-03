@@ -4,7 +4,6 @@ import { MapIcon } from "../icons/map-icon";
 import { UserIcon } from "../icons/user-icon";
 import { InfoIcon } from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
-import { useTreeStore } from "../tree-detail/tree-store";
 import { LanguageToggle } from "../router/languageToggle";
 
 export const Navbar: React.FC = () => {
@@ -12,7 +11,6 @@ export const Navbar: React.FC = () => {
 
 	const setPathname = useUrlState((state) => state.setPathname);
 	const url = useUrlState((state) => state.url);
-	const { setTreeData } = useTreeStore();
 
 	const navItems = [
 		{ label: i18n.navbar.map, path: "/map", icon: <MapIcon /> },
@@ -26,7 +24,7 @@ export const Navbar: React.FC = () => {
 
 	return (
 		<nav
-			className={`shadow-gdk-hard
+			className={`shadow-gdk-hard-up lg:shadow-gdk-hard
       pointer-events-auto flex h-auto w-full justify-center rounded-tl-3xl lg:flex-col rounded-tr-3xl bg-white lg:justify-between pt-0 
       lg:h-full lg:w-auto  lg:rounded-br lg:rounded-tl-none lg:rounded-tr lg:px-2 lg:pt-10`}
 		>
@@ -42,7 +40,6 @@ export const Navbar: React.FC = () => {
 						onClick={(e) => {
 							e.preventDefault();
 							setPathname(item.path);
-							setTreeData(undefined);
 						}}
 						className={`
             flex h-14 w-14 flex-col items-center justify-center rounded-xl pt-1 text-sm font-medium

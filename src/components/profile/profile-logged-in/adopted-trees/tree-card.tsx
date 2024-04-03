@@ -1,8 +1,10 @@
 import React from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { InternalAnchorLink } from "../../../anchor-link/internal-anchor-link";
+import { HeartIcon } from "../../../icons/heart-icon";
 import { useTreeAdoptStore } from "../../../tree-detail/hooks/use-adopt-tree";
-import { HeartIconProfile } from "../../../icons/heart-icon-profile";
+import { WateringCanIcon } from "../../../icons/watering-can-icon";
+import { DropIcon } from "../../../icons/drop-icon";
 
 export interface TreeCardProps {
 	id: string;
@@ -26,26 +28,30 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 			key={id}
 			className="shadow-gdk-soft flex flex-col gap-3 rounded-2xl border-2 p-4 justify-between"
 		>
-			<InternalAnchorLink href={`/map?treeId=${id}&zoom=20`} label={name} />
-			<div className="-mt-4 self-end">
-				<button
-					type="button"
-					onClick={async () => {
-						await unadoptTree(id);
-					}}
-				>
-					<div className="text-gdk-purple hover:text-opacity-30">
-						<HeartIconProfile />
-					</div>
-				</button>
+			<div className="flex justify-between">
+				<InternalAnchorLink href={`/map?treeId=${id}&zoom=20`} label={name} />
+				<div className="-mt-1">
+					<button
+						type="button"
+						onClick={async () => {
+							await unadoptTree(id);
+						}}
+					>
+						<HeartIcon isAdopted={true} />
+					</button>
+				</div>
 			</div>
 
 			<div>
 				<hr className="mb-3"></hr>
 				<div className="flex gap-2 font-medium">
 					<div className="flex flex-col gap-3">
-						<img src="images/icon-watering-can.svg" alt="" className="" />
-						<img src="images/icon-drop.svg" alt="" className="ml-1 w-5" />
+						<div className="text-gdk-dark-green">
+							<WateringCanIcon />
+						</div>
+						<div className="text-gdk-dark-blue">
+							<DropIcon />
+						</div>
 					</div>
 
 					<div className="mt-1 flex flex-col gap-3">

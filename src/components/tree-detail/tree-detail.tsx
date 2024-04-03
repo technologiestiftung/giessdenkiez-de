@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { CloseIcon } from "../icons/close-icon";
 import { useUrlState } from "../router/store";
 import { useFetchTreeData } from "./hooks/use-fetch-tree-data";
@@ -15,6 +15,7 @@ import { ProblemCard } from "./problem-card";
 import { TreeFlier } from "./tree-flier";
 import { useFetchTreeWateringData } from "./hooks/use-fetch-tree-watering-data";
 import { Loading } from "../loading/loading";
+import { TreeIcon } from "../icons/tree-icon";
 
 export const TreeDetail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -23,14 +24,21 @@ export const TreeDetail: React.FC = () => {
 		state.url,
 		state.removeSearchParam,
 	]);
+	const { selectedTreeId, setSelectedTreeId } = useTreeStore();
+
 	const treeId = url.searchParams.get("treeId");
 	if (!treeId) {
 		return null;
 	}
-	const setSelectedTreeId = useTreeStore((store) => store.setSelectedTreeId);
+
+	useEffect(() => {
+		if (treeId && treeId !== selectedTreeId) {
+			setSelectedTreeId(treeId);
+		}
+	}, [treeId]);
 
 	const { setTreeData } = useTreeStore();
-	const { treeData } = useFetchTreeData(treeId);
+	const { treeData } = useFetchTreeData(selectedTreeId);
 	const { treeWateringData, fetchWateringData } =
 		useFetchTreeWateringData(treeData);
 
@@ -42,7 +50,7 @@ export const TreeDetail: React.FC = () => {
 	}, [treeData, i18n]);
 
 	return (
-		<div className="pointer-events-auto h-full bg-white flex w-[100vw] flex-col gap-4 overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">
+		<div className="pointer-events-auto h-full bg-white rounded-l shadow-gdk-hard-up flex w-[100vw] flex-col gap-4 overflow-scroll p-4 lg:w-[400px] lg:min-w-[400px]">
 			<a
 				href="/map"
 				className="flex flex-row justify-end"
@@ -57,12 +65,7 @@ export const TreeDetail: React.FC = () => {
 			</a>
 
 			<div className="flex flex-row items-center gap-2">
-				<img
-					src="/images/tree-icon.svg"
-					alt="Tree Icon"
-					width={36}
-					height={36}
-				/>
+				<TreeIcon />
 				<div className="text-xl font-bold">{i18n.treeDetail.title}</div>
 			</div>
 			{treeData ? (
