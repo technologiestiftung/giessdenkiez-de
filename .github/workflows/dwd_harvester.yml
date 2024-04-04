@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Harvester
         # Load the action from our repository.
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.0.0
+        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.2.2
         id: harvester
         with:
           # The hostname of your postgres database
@@ -57,3 +57,4 @@ jobs:
           MAPBOXTOKEN: ${{ secrets.MAPBOXTOKEN }}
           # Your desired tileset name (will be used in the frontend)
           MAPBOXTILESET: ${{ secrets.MAPBOXTILESET }}
+          SKIP_MAPBOX: 'False'
