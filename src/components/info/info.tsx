@@ -64,8 +64,10 @@ export const Info: React.FC = () => {
 								</QaEntry>
 							</React.Fragment>
 						))}
-						<div className={`w-full pt-4 text-xl`}>{i18n.info.faq.title}</div>
-						<div className={`w-full text-gdk-gray`}>
+						<div className={`text-2xl font-semibold w-full pt-6 border-t-2`}>
+							{i18n.info.faq.title}
+						</div>
+						<div className={`w-full mt-4 text-gdk-gray pb-6 border-b-2 pr-6`}>
 							{i18n.info.faq.description}
 						</div>
 						{i18n.info.faq.qa.map((item, idx) => (

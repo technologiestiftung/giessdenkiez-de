@@ -38,7 +38,7 @@ export const QaEntry: React.FC<QaEntryProps> = ({
 			</button>
 			{isExpanded && (
 				<div>
-					<Markdown className="text-gdk-gray mt-4 grid gap-4 [&>p>a]:underline">
+					<Markdown className="text-gdk-gray mt-4 grid gap-4 [&>p>a]:underline pr-6">
 						{answer}
 					</Markdown>
 					{children}
