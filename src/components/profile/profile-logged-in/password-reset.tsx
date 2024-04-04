@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuthStore } from "../../../auth/auth-store";
 import { PasswordInputWithValidation } from "../validation/password-input-with-validation";
 import { PrimaryButton } from "../../buttons/primary";
 import { LanguageToggle } from "../../router/languageToggle";
@@ -7,9 +6,10 @@ import { useI18nStore } from "../../../i18n/i18n-store";
 import { AlertDialog } from "../profile-alert/alert-dialog";
 import { CheckIcon } from "../../icons/check-icon";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
+import { useProfileStore } from "../../../shared-stores/profile-store";
 
 export const PasswordReset: React.FC = () => {
-	const { updatePassword } = useAuthStore();
+	const { updatePassword } = useProfileStore();
 	const i18n = useI18nStore().i18n();
 
 	return (
@@ -25,9 +25,9 @@ export const PasswordReset: React.FC = () => {
 				{i18n.navbar.profile.settings.changePassword}
 			</h1>
 			<form
-				onSubmit={(e) => {
+				onSubmit={async (e) => {
 					e.preventDefault();
-					updatePassword(e.currentTarget.password.value);
+					await updatePassword(e.currentTarget.password.value);
 					(
 						document.getElementById(
 							"password-reset-alert-dialog",

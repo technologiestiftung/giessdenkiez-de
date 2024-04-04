@@ -3,6 +3,7 @@ import { useAuthStore } from "../../../auth/auth-store";
 import { supabaseClient } from "../../../auth/supabase-client";
 import { useErrorStore } from "../../../error/error-store";
 import { useI18nStore } from "../../../i18n/i18n-store";
+import { useProfileStore } from "../../../shared-stores/profile-store";
 
 interface TreeAdoptStore {
 	isLoading: boolean;
@@ -16,14 +17,14 @@ interface TreeAdoptStore {
 	) => Promise<void>;
 }
 
-const { refreshAdoptedTreesInfo } = useAuthStore.getState();
+const { refreshAdoptedTreesInfo } = useProfileStore.getState();
 const { handleError } = useErrorStore.getState();
 const i18n = useI18nStore.getState().i18n();
 
 export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	isLoading: false,
 	isAdopted: (treeId) => {
-		return useAuthStore.getState().adoptedTrees.includes(treeId);
+		return useProfileStore.getState().adoptedTrees.includes(treeId);
 	},
 	adoptedByOthers: false,
 	adoptTree: async (treeId) => {

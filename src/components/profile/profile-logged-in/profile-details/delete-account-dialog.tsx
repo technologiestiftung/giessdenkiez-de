@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
-import { useAuthStore } from "../../../../auth/auth-store";
 import { useErrorStore } from "../../../../error/error-store";
 import { useUrlState } from "../../../router/store";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { SecondaryDestructiveButton } from "../../../buttons/secondary-destructive";
 import { PrimaryButton } from "../../../buttons/primary";
+import { useProfileStore } from "../../../../shared-stores/profile-store";
 
 export const DeleteAccountDialog: React.FC = () => {
 	const i18n = useI18nStore().i18n();
-	const { deleteUser } = useAuthStore();
+	const { deleteUser } = useProfileStore();
 	const { handleError } = useErrorStore();
 	const { setSearchParams } = useUrlState();
 

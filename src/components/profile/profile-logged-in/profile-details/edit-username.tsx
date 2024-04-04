@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { EditIcon } from "../../../icons/edit-icon";
-import { useAuthStore } from "../../../../auth/auth-store";
 import { UsernameInputWithValidation } from "../../validation/username-input-with-validation";
 import { useErrorStore } from "../../../../error/error-store";
 import { TertiaryDestructiveButton } from "../../../buttons/tertiary-destructive";
 import { TertiaryButton } from "../../../buttons/tertiary";
+import { useProfileStore } from "../../../../shared-stores/profile-store";
 
 export const EditUsername: React.FC = () => {
 	const i18n = useI18nStore().i18n();
-	const { updateUsername, username } = useAuthStore();
+	const { updateUsername, username } = useProfileStore();
 	const { handleError } = useErrorStore();
 
 	const [isUsernameInputEnabled, setIsUsernameInputEnabled] = useState(false);
