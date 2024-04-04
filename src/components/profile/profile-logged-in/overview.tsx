@@ -1,25 +1,28 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
-import { useAuthStore } from "../../../auth/auth-store";
 import { AdoptedTreeIcon } from "../../icons/adopted-tree-icon";
 import { Skeleton } from "../../skeleton/skeleton";
 import { WateringCanIcon } from "../../icons/watering-can-icon";
+import { useProfileStore } from "../../../shared-stores/profile-store";
 
 export const Overview: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
 
-	const { adoptedTrees, adoptedTreesInfo } = useAuthStore();
+	const { adoptedTrees, adoptedTreesInfo, userWaterings } = useProfileStore();
 
-	const wateringAmountTotal = adoptedTreesInfo?.reduce(
-		(acc, tree) => acc + tree.reducedWateringAmount,
-		0,
+	const wateringAmountTotal = useMemo(
+		() =>
+			userWaterings?.reduce(
+				(acc, userWatering) => acc + userWatering.amount,
+				0,
+			),
+		[userWaterings],
 	);
 
-	const wateringCountTotal = adoptedTreesInfo?.reduce(
-		(acc, tree) => acc + tree.trees_watered.length,
-		0,
-	);
+	const wateringCountTotal = userWaterings?.length;
+
+	const isLoading = adoptedTreesInfo === null || userWaterings === null;
 
 	return (
 		<div className="md:shadow-gdk-soft mb-3 md:rounded-2xl md:border-2 md:p-7">
@@ -28,7 +31,7 @@ export const Overview: React.FC = () => {
 			</h2>
 
 			<div className="mt-7 flex flex-col gap-3 lg:flex-row lg:justify-start">
-				{adoptedTreesInfo === null ? (
+				{isLoading ? (
 					<>
 						<div className="basis-1/3">
 							<Skeleton className="h-[120px] shadow-gdk-soft rounded-2xl border-2 p-4" />

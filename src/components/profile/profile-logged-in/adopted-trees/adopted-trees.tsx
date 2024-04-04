@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { TertiaryButton } from "../../../buttons/tertiary";
 import { TreeCard } from "./tree-card";
-import { useAuthStore } from "../../../../auth/auth-store";
 import { AdoptedTreeIcon } from "../../../icons/adopted-tree-icon";
 import { Skeleton } from "../../../skeleton/skeleton";
-import { AdoptedTreesCard } from "./adoptedTreesCard";
+import { AdoptedTreesCard } from "./adopted-trees-card";
+import { useProfileStore } from "../../../../shared-stores/profile-store";
 
 export const AdoptedTrees: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const [areAllTreesVisible, setAreAllTreesVisible] = useState(false);
-	const { adoptedTreesInfo } = useAuthStore();
+	const { adoptedTreesInfo } = useProfileStore();
 
 	if (adoptedTreesInfo === null) {
 		return (

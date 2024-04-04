@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { EditIcon } from "../../../icons/edit-icon";
-import { useAuthStore } from "../../../../auth/auth-store";
 import { EmailInputWithValidation } from "../../validation/email-input-with-validation";
 import { getErrorMessage } from "../../validation/validation";
 import { useEmailTakenStore } from "../../validation/email-taken-store";
@@ -10,10 +9,11 @@ import { TertiaryDestructiveButton } from "../../../buttons/tertiary-destructive
 import { TertiaryButton } from "../../../buttons/tertiary";
 import { AlertDialog } from "../../profile-alert/alert-dialog";
 import { MailIcon } from "../../../icons/mail-icon";
+import { useProfileStore } from "../../../../shared-stores/profile-store";
 
 export const EditEmail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
-	const { updateEmail, getUserData } = useAuthStore();
+	const { updateEmail, getUserEmail } = useProfileStore();
 	const { setIsEmailTaken } = useEmailTakenStore();
 	const { handleError } = useErrorStore();
 	const [isEmailInputEnabled, setIsEmailInputEnabled] = useState(false);
@@ -22,7 +22,7 @@ export const EditEmail: React.FC = () => {
 		e.preventDefault();
 		const form = e.currentTarget;
 
-		const isSameEmail = form.email.value === getUserData()?.email;
+		const isSameEmail = form.email.value === getUserEmail();
 
 		if (isSameEmail) {
 			setIsEmailInputEnabled(false);
@@ -63,7 +63,7 @@ export const EditEmail: React.FC = () => {
 					<div className="flex flex-col justify-between gap-x-8 ">
 						<EmailInputWithValidation
 							label={i18n.navbar.profile.settings.editEmail}
-							defaultValue={getUserData()?.email}
+							defaultValue={getUserEmail()}
 						/>
 						<div className="flex flex-row-reverse justify-between">
 							<TertiaryButton
@@ -88,7 +88,7 @@ export const EditEmail: React.FC = () => {
 						{i18n.navbar.profile.settings.yourEmail}
 					</p>
 					<div className="flex flex-row justify-between gap-x-8">
-						<p className="italic">{getUserData()?.email}</p>
+						<p className="italic">{getUserEmail()}</p>
 						<button
 							className="self-end text-gdk-blue enabled:hover:text-gdk-light-blue"
 							onClick={() => setIsEmailInputEnabled(true)}

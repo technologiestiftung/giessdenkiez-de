@@ -72,11 +72,11 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 		set({ treeWateringData });
 	},
 	refreshTreeWateringData: async (treeId, abortController) => {
-		const geocodingUrl = `${
+		const lastWateredUrl = `${
 			import.meta.env.VITE_API_ENDPOINT
 		}/get/lastwatered?id=${treeId}`;
 
-		const res = await fetch(geocodingUrl, {
+		const res = await fetch(lastWateredUrl, {
 			method: "GET",
 			headers: {
 				Authorization: `Bearer ${import.meta.env.VITE_ANON_KEY}`,

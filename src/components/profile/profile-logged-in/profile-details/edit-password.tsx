@@ -5,15 +5,17 @@ import { TertiaryButton } from "../../../buttons/tertiary";
 import { useErrorStore } from "../../../../error/error-store";
 import { AlertDialog } from "../../profile-alert/alert-dialog";
 import { MailIcon } from "../../../icons/mail-icon";
+import { useProfileStore } from "../../../../shared-stores/profile-store";
 
 export const EditPassword: React.FC = () => {
 	const i18n = useI18nStore().i18n();
-	const { forgotPassword, getUserData } = useAuthStore();
+	const { forgotPassword } = useAuthStore();
+	const { getUserEmail } = useProfileStore();
 	const { handleError } = useErrorStore();
 
 	const onClick = useCallback(async () => {
 		try {
-			await forgotPassword(getUserData()?.email ?? "");
+			await forgotPassword(getUserEmail() ?? "");
 			(
 				document.getElementById(
 					"edit-passwort-alert-dialog",
