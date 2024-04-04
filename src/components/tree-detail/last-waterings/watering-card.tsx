@@ -27,11 +27,7 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const { deleteWatering } = useWaterTree(wateringData.tree_id);
 
 	const [isDeleteVisible, setIsDeleteVisible] = useState(false);
-	const [isWateringByUser, setIsWateringByUser] = useState(false);
-
-	useEffect(() => {
-		setIsWateringByUser(wateringData.username === username);
-	}, [wateringData, isDeleteVisible]);
+	const isWateringByUser = wateringData.username === username;
 
 	const onClickDelete = async () => {
 		await deleteWatering(wateringData.id);
