@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TreeWateringData } from "../tree-types";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { TrashIcon } from "../../icons/trash-icon";
@@ -18,7 +18,6 @@ function getDisplayedUsername(wateringData: TreeWateringData) {
 			</span>
 		);
 	}
-
 	return wateringData.username;
 }
 
@@ -28,7 +27,11 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const { deleteWatering } = useWaterTree(wateringData.tree_id);
 
 	const [isDeleteVisible, setIsDeleteVisible] = useState(false);
-	const [isWateringByUser] = useState(wateringData.username === username);
+	const [isWateringByUser, setIsWateringByUser] = useState(false);
+
+	useEffect(() => {
+		setIsWateringByUser(wateringData.username === username);
+	}, [wateringData, isDeleteVisible]);
 
 	const onClickDelete = async () => {
 		await deleteWatering(wateringData.id);
