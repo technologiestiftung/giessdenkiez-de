@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Markdown from "react-markdown";
 import { ChevronDown } from "../icons/chevron-down";
 import { ChevronRight } from "../icons/chevron-right";
+import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 
 interface QaEntryProps {
 	question: string;
@@ -9,6 +10,7 @@ interface QaEntryProps {
 	isLast: boolean;
 	isInitiallyExpanded: boolean;
 	children?: React.ReactNode;
+	isFAQEntry?: boolean;
 }
 
 export const QaEntry: React.FC<QaEntryProps> = ({
@@ -17,6 +19,7 @@ export const QaEntry: React.FC<QaEntryProps> = ({
 	isLast,
 	isInitiallyExpanded,
 	children,
+	isFAQEntry = false,
 }) => {
 	const [isExpanded, setIsExpanded] = useState(isInitiallyExpanded);
 	return (
@@ -27,7 +30,11 @@ export const QaEntry: React.FC<QaEntryProps> = ({
 					setIsExpanded(!isExpanded);
 				}}
 			>
-				<div className="text-2xl font-semibold">{question}</div>
+				<div
+					className={`font-semibold ${isFAQEntry ? "text-xl" : "text-2xl"} `}
+				>
+					{question}
+				</div>
 				<div className="text-gdk-blue">
 					{isExpanded ? (
 						<ChevronDown></ChevronDown>
@@ -38,7 +45,11 @@ export const QaEntry: React.FC<QaEntryProps> = ({
 			</button>
 			{isExpanded && (
 				<div>
-					<Markdown className="text-gdk-gray mt-4 grid gap-4 [&>p>a]:underline">
+					<Markdown
+						// @ts-expect-error typing too complex
+						components={{ a: ExternalAnchorLink }}
+						className="text-gdk-gray mt-4 grid gap-4 pr-6"
+					>
 						{answer}
 					</Markdown>
 					{children}

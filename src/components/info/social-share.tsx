@@ -10,6 +10,7 @@ import {
 } from "react-share";
 import { useI18nStore } from "../../i18n/i18n-store";
 import Markdown from "react-markdown";
+import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 
 export const SocialShare: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -51,7 +52,11 @@ export const SocialShare: React.FC = () => {
 						/>
 					</EmailShareButton>
 				</div>
-				<Markdown className={"[&>p>a]:underline"}>
+
+				<Markdown
+					// @ts-expect-error typing too complex
+					components={{ a: ExternalAnchorLink }}
+				>
 					{i18n.info.share.openSource}
 				</Markdown>
 			</div>

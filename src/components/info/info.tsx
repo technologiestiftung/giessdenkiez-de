@@ -6,6 +6,7 @@ import { PrimaryButton } from "../buttons/primary";
 import { Credits } from "./credits";
 import { LanguageToggle } from "../router/languageToggle";
 import Markdown from "react-markdown";
+import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 
 export const Info: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -40,7 +41,11 @@ export const Info: React.FC = () => {
 										}}
 										disabled={false}
 									/>
-									<Markdown className={"[&>p>a]:underline [&>p]:pt-1 pt-2"}>
+									<Markdown
+										// @ts-expect-error typing too complex
+										components={{ a: ExternalAnchorLink }}
+										className={"[&>p]:pt-1 pt-2"}
+									>
 										{i18n.info.about.head.feedback}
 									</Markdown>
 								</div>
@@ -64,8 +69,10 @@ export const Info: React.FC = () => {
 								</QaEntry>
 							</React.Fragment>
 						))}
-						<div className={`w-full pt-4 text-xl`}>{i18n.info.faq.title}</div>
-						<div className={`w-full text-gdk-gray`}>
+						<div className={`text-2xl font-semibold w-full pt-6 border-t-2`}>
+							{i18n.info.faq.title}
+						</div>
+						<div className={`w-full mt-4 text-gdk-gray pb-6 border-b-2 pr-6`}>
 							{i18n.info.faq.description}
 						</div>
 						{i18n.info.faq.qa.map((item, idx) => (
@@ -75,6 +82,7 @@ export const Info: React.FC = () => {
 									answer={item.answer}
 									isLast={idx === i18n.info.faq.qa.length - 1}
 									isInitiallyExpanded={false}
+									isFAQEntry={true}
 								/>
 							</React.Fragment>
 						))}

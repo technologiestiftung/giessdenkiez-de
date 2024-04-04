@@ -45,7 +45,7 @@ export const PasswordReset: React.FC = () => {
 				<div className="md: flex flex-row items-center justify-between gap-24 pt-11">
 					<InternalAnchorLink
 						href="/profile"
-						label={`< ${i18n.navbar.profile.settings.cancel}`}
+						label={`${i18n.navbar.profile.settings.cancel}`}
 					/>
 
 					<PrimaryButton type="submit" label="Speichern" />
