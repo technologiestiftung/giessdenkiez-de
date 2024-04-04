@@ -43,6 +43,9 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 		});
 	}, [treeWateringData]);
 
+	const hasRecentWateringsThisMonth =
+		wateringsThisWeek.length > 0 || wateringsThisMonth.length > 0;
+
 	return (
 		<div className="flex flex-col gap-4 border-b-2 py-8">
 			<button
@@ -81,7 +84,7 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 						waterings={wateringsThisYear}
 						title={i18n.treeDetail.lastWaterings.thisYear}
 						noWateringsHint={
-							wateringsThisWeek.length || wateringsThisMonth.length > 0
+							hasRecentWateringsThisMonth
 								? i18n.treeDetail.lastWaterings.nothingMoreThisYear
 								: i18n.treeDetail.lastWaterings.nothingThisYear
 						}
