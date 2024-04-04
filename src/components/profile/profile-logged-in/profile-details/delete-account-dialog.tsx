@@ -32,7 +32,7 @@ export const DeleteAccountDialog: React.FC = () => {
 						.deleteAccountConfirm
 				}
 			</p>
-			<div className="flex flex-col sm:flex-row justify-between pt-8">
+			<div className="flex flex-col-reverse sm:flex-row justify-between pt-8">
 				<SecondaryDestructiveButton
 					label={
 						useI18nStore.getState().i18n().navbar.profile.settings.confirmDelete
