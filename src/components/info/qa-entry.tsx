@@ -9,6 +9,7 @@ interface QaEntryProps {
 	isLast: boolean;
 	isInitiallyExpanded: boolean;
 	children?: React.ReactNode;
+	isFAQEntry?: boolean;
 }
 
 export const QaEntry: React.FC<QaEntryProps> = ({
@@ -17,6 +18,7 @@ export const QaEntry: React.FC<QaEntryProps> = ({
 	isLast,
 	isInitiallyExpanded,
 	children,
+	isFAQEntry = false,
 }) => {
 	const [isExpanded, setIsExpanded] = useState(isInitiallyExpanded);
 	return (
@@ -27,7 +29,11 @@ export const QaEntry: React.FC<QaEntryProps> = ({
 					setIsExpanded(!isExpanded);
 				}}
 			>
-				<div className="text-2xl font-semibold">{question}</div>
+				<div
+					className={`font-semibold ${isFAQEntry ? "text-xl" : "text-2xl"} `}
+				>
+					{question}
+				</div>
 				<div className="text-gdk-blue">
 					{isExpanded ? (
 						<ChevronDown></ChevronDown>

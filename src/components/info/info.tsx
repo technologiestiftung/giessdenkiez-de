@@ -77,6 +77,7 @@ export const Info: React.FC = () => {
 									answer={item.answer}
 									isLast={idx === i18n.info.faq.qa.length - 1}
 									isInitiallyExpanded={false}
+									isFAQEntry={true}
 								/>
 							</React.Fragment>
 						))}
