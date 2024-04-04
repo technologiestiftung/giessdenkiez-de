@@ -27,18 +27,20 @@ export const Overview: React.FC = () => {
 				{i18n.navbar.profile.overview.subtitle}
 			</h2>
 
-			<div className="mt-7 flex flex-col gap-3 lg:flex-row justify-start">
+			<div className="mt-7 flex flex-col gap-3 lg:flex-row lg:justify-start">
 				{adoptedTreesInfo === null ? (
 					<>
-						<Skeleton className="h-[120px] lg:h-[144px] shadow-gdk-soft lg:min-w-40 rounded-2xl border-2 p-4" />
-						<div className="flex gap-3">
-							<Skeleton className="h-[120px] lg:h-[144px] shadow-gdk-soft lg:min-w-40 rounded-2xl border-2 p-4" />
-							<Skeleton className="h-[120px] lg:h-[144px] shadow-gdk-soft lg:min-w-40 rounded-2xl border-2 p-4" />
+						<div className="basis-1/3">
+							<Skeleton className="h-[120px] shadow-gdk-soft rounded-2xl border-2 p-4" />
+						</div>
+						<div className="basis-2/3 flex gap-3">
+							<Skeleton className="h-[120px] shadow-gdk-soft rounded-2xl border-2 p-4" />
+							<Skeleton className="h-[120px] shadow-gdk-soft rounded-2xl border-2 p-4" />
 						</div>
 					</>
 				) : (
 					<>
-						<div className="shadow-gdk-soft  flex flex-col justify-between gap-3 lg:min-w-36 rounded-2xl border-2 p-4 font-semibold">
+						<div className="shadow-gdk-soft flex flex-col justify-between gap-3 lg:w-1/3 rounded-2xl border-2 p-4 font-semibold ">
 							{i18n.navbar.profile.overview.liter}
 							<span className="flex items-baseline gap-x-5 text-5xl font-medium">
 								<img src="images/icon-drop.svg" alt="" className="w-5" />
@@ -46,8 +48,8 @@ export const Overview: React.FC = () => {
 							</span>
 						</div>
 
-						<div className="flex gap-3">
-							<div className="shadow-gdk-soft flex w-full flex-col justify-between gap-3 lg:min-w-36 rounded-2xl border-2 p-4 font-semibold">
+						<div className="flex gap-3 lg:w-2/3">
+							<div className="shadow-gdk-soft flex w-full flex-col justify-between lg:w-1/2 gap-3 rounded-2xl border-2 p-4 font-semibold">
 								{i18n.navbar.profile.overview.irrigations}
 								<span className="flex items-baseline gap-x-5 text-5xl font-medium">
 									<div className="text-gdk-dark-green">
@@ -56,7 +58,7 @@ export const Overview: React.FC = () => {
 									{formatNumber(wateringCountTotal ?? 0)}
 								</span>
 							</div>
-							<div className="shadow-gdk-soft flex w-full flex-col justify-between gap-3 lg:min-w-36 rounded-2xl border-2 p-4 font-semibold">
+							<div className="shadow-gdk-soft flex w-full flex-col justify-between lg:w-1/2 gap-3 rounded-2xl border-2 p-4 font-semibold">
 								{i18n.navbar.profile.overview.adoptedTrees}
 								<span className="flex items-baseline gap-x-5 text-5xl font-medium">
 									<div className="text-gdk-purple stroke-none">

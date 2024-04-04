@@ -16,7 +16,7 @@ export const Skeleton: React.FC<
 				before:-translate-x-full
 				before:animate-[shimmer_1.5s_infinite]
 				before:bg-gradient-to-r
-				before:from-transparent before:via-slate-50/40 before:to-transparent" w-full h-full`}
+				before:from-transparent before:via-slate-50/40 before:to-transparent w-full h-full`}
 		>
 			<div className={`bg-slate-200 ${className}`} {...props} />
 		</div>
