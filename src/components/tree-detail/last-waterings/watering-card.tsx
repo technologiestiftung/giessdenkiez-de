@@ -26,17 +26,17 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const { username } = useAuthStore();
 	const { deleteWatering } = useWaterTree(wateringData.tree_id);
 
-	const [isDeleteVisible, setIsDeleteVisible] = useState(false);
+	const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false);
 	const isWateringByUser = wateringData.username === username;
 
 	const onClickDelete = async () => {
 		await deleteWatering(wateringData.id);
-		setIsDeleteVisible(false);
+		setIsConfirmDeleteVisible(false);
 	};
 
 	return (
 		<div
-			className={`flex transition ease-in-out delay-100 flex-row justify-between gap-2 ${isDeleteVisible ? " -translate-x-32 " : ""}`}
+			className={`flex transition ease-in-out delay-100 flex-row justify-between gap-2 ${isConfirmDeleteVisible ? " -translate-x-32 " : ""}`}
 		>
 			<div
 				className={`shadow-gdk-hard flex flex-col gap-2 rounded-lg shrink-0 p-4 w-[90%] `}
@@ -57,16 +57,16 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 			</div>
 			{isWateringByUser && (
 				<div
-					className={`flex flex-row self-center gap-2 ${isDeleteVisible ? "grow" : ""}`}
+					className={`flex flex-row self-center gap-2 ${isConfirmDeleteVisible ? "grow" : ""}`}
 				>
 					<button
-						onClick={() => setIsDeleteVisible(!isDeleteVisible)}
-						className={`self-center  text-gdk-dark-red hover:text-gdk-light-red p-1 rounded-sm ${isDeleteVisible ? "outline outline-2" : ""}`}
+						onClick={() => setIsConfirmDeleteVisible(!isConfirmDeleteVisible)}
+						className={`self-center  text-gdk-dark-red hover:text-gdk-light-red p-1 rounded-sm ${isConfirmDeleteVisible ? "outline outline-2" : ""}`}
 					>
 						<TrashIcon />
 					</button>
 					<div
-						className={`transition ease-in-out delay-100 ${isDeleteVisible ? "opacity-1" : "opacity-0"}`}
+						className={`transition ease-in-out delay-100 ${isConfirmDeleteVisible ? "opacity-1" : "opacity-0"}`}
 					>
 						<PrimaryDestructiveButton
 							label={"Löschen"}

@@ -81,7 +81,7 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 						waterings={wateringsThisYear}
 						title={i18n.treeDetail.lastWaterings.thisYear}
 						noWateringsHint={
-							wateringsThisWeek.length > 0
+							wateringsThisWeek.length || wateringsThisMonth.length > 0
 								? i18n.treeDetail.lastWaterings.nothingMoreThisYear
 								: i18n.treeDetail.lastWaterings.nothingThisYear
 						}
