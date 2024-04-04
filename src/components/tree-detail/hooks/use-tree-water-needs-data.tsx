@@ -1,6 +1,6 @@
 import {
 	TreeAgeClassification,
-	TreeData,
+	TreeCoreData,
 	TreeWateringData,
 	TreeWateringDataState,
 } from "../tree-types.js";
@@ -11,7 +11,7 @@ import tailwindConfig from "../../../../tailwind.config.js";
 const fullConfig = resolveConfig(tailwindConfig);
 
 export function useTreeWaterNeedsData(
-	treeData: TreeData,
+	treeData: TreeCoreData,
 	treeWateringData: TreeWateringData[],
 	treeAgeClassification: TreeAgeClassification,
 ): TreeWateringDataState {

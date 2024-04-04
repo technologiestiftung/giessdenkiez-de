@@ -1,11 +1,11 @@
 import { isSameMonth, isSameWeek, isSameYear } from "date-fns";
 import React, { useMemo, useState } from "react";
-import { useI18nStore } from "../../i18n/i18n-store";
-import { ChevronDown } from "../icons/chevron-down";
-import { ChevronRight } from "../icons/chevron-right";
-import { TreeWateringData } from "./tree-types";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import { ChevronDown } from "../../icons/chevron-down";
+import { ChevronRight } from "../../icons/chevron-right";
+import { TreeWateringData } from "../tree-types";
 import { WateringSection } from "./watering-section";
-import { CalenderIcon } from "../icons/calender-icon";
+import { CalenderIcon } from "../../icons/calender-icon";
 
 interface LastWateringsProps {
 	treeWateringData: TreeWateringData[];
@@ -43,6 +43,9 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 		});
 	}, [treeWateringData]);
 
+	const hasRecentWateringsThisMonth =
+		wateringsThisWeek.length > 0 || wateringsThisMonth.length > 0;
+
 	return (
 		<div className="flex flex-col gap-4 border-b-2 py-8">
 			<button
@@ -71,12 +74,20 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 					<WateringSection
 						waterings={wateringsThisMonth}
 						title={i18n.treeDetail.lastWaterings.thisMonth}
-						noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisMonth}
+						noWateringsHint={
+							wateringsThisWeek.length > 0
+								? i18n.treeDetail.lastWaterings.nothingMoreThisMonth
+								: i18n.treeDetail.lastWaterings.nothingThisMonth
+						}
 					/>
 					<WateringSection
 						waterings={wateringsThisYear}
 						title={i18n.treeDetail.lastWaterings.thisYear}
-						noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisYear}
+						noWateringsHint={
+							hasRecentWateringsThisMonth
+								? i18n.treeDetail.lastWaterings.nothingMoreThisYear
+								: i18n.treeDetail.lastWaterings.nothingThisYear
+						}
 					/>
 				</div>
 			)}

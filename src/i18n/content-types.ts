@@ -191,8 +191,10 @@ interface LastWaterings {
 	nothingThisWeek: string;
 	thisMonth: string;
 	nothingThisMonth: string;
+	nothingMoreThisMonth: string;
 	thisYear: string;
 	nothingThisYear: string;
+	nothingMoreThisYear: string;
 }
 
 interface TreeDetail {

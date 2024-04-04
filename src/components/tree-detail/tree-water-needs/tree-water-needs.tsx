@@ -1,35 +1,33 @@
 /* eslint-disable max-lines */
 import React, { useState } from "react";
-import { useI18nStore } from "../../i18n/i18n-store";
-import { ChevronDown } from "../icons/chevron-down";
-import { ChevronRight } from "../icons/chevron-right";
-import { useTreeWaterNeedsData } from "./hooks/use-tree-water-needs-data";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import { ChevronDown } from "../../icons/chevron-down";
+import { ChevronRight } from "../../icons/chevron-right";
+import { useTreeWaterNeedsData } from "../hooks/use-tree-water-needs-data";
 import {
 	TreeAgeClassification,
-	TreeData,
+	TreeCoreData,
 	TreeWateringData,
-} from "./tree-types";
-import { WaterProgressCircle } from "./water-progress-circle";
+} from "../tree-types";
+import { WaterProgressCircle } from "./water-progress-circle/water-progress-circle";
 import { WateringDialog } from "./watering-dialog";
-import { WateringCanIcon } from "../icons/watering-can-icon";
-import { PrimaryButton } from "../buttons/primary";
-import { useAuthStore } from "../../auth/auth-store";
-import { InternalAnchorLink } from "../anchor-link/internal-anchor-link";
+import { WateringCanIcon } from "../../icons/watering-can-icon";
+import { PrimaryButton } from "../../buttons/primary";
+import { useAuthStore } from "../../../auth/auth-store";
+import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 import Markdown from "react-markdown";
-import { TertiaryButton } from "../buttons/tertiary";
+import { TertiaryButton } from "../../buttons/tertiary";
 
 interface TreeWaterNeedProps {
-	treeData: TreeData;
+	treeData: TreeCoreData;
 	treeAgeClassification: TreeAgeClassification;
 	treeWateringData: TreeWateringData[];
-	onTreeWatered: () => void;
 }
 
 export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 	treeData,
 	treeAgeClassification,
 	treeWateringData,
-	onTreeWatered,
 }) => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
@@ -220,7 +218,6 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 							(
 								document.getElementById("water-dialog") as HTMLDialogElement
 							).close();
-							onTreeWatered();
 						}}
 					/>
 				</div>

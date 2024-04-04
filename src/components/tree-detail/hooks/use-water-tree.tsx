@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useAuthStore } from "../../../auth/auth-store";
 import { useErrorStore } from "../../../error/error-store";
 import { useI18nStore } from "../../../i18n/i18n-store";
+import { useTreeStore } from "../stores/tree-store";
 
 export interface WaterTreeState {
 	isLoading: boolean;
 	waterTree: (amount: number, date: Date) => Promise<void>;
+	deleteWatering: (wateringId: number) => Promise<void>;
 }
 
 export function useWaterTree(treeId: string): WaterTreeState {
@@ -48,6 +50,47 @@ export function useWaterTree(treeId: string): WaterTreeState {
 			}
 			setWateringLoading(false);
 			await refreshAdoptedTreesInfo();
+			await useTreeStore
+				.getState()
+				.refreshTreeWateringData(treeId, abortController);
+		} catch (error) {
+			handleError(i18n.common.defaultErrorMessage, error);
+			setWateringLoading(false);
+		}
+	};
+
+	const deleteWatering = async (wateringId: number) => {
+		if (!user?.id) {
+			return;
+		}
+
+		try {
+			setWateringLoading(true);
+
+			const deleteWateringUrl = `${import.meta.env.VITE_API_ENDPOINT}/delete/unwater`;
+			const res = await fetch(deleteWateringUrl, {
+				method: "DELETE",
+				body: JSON.stringify({
+					tree_id: treeId,
+					watering_id: wateringId,
+					uuid: user?.id,
+				}),
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+					"Content-Type": "application/json",
+				},
+				signal: abortController.signal,
+			});
+			if (!res.ok) {
+				handleError(i18n.common.defaultErrorMessage);
+				setWateringLoading(false);
+				return;
+			}
+			setWateringLoading(false);
+			await refreshAdoptedTreesInfo();
+			await useTreeStore
+				.getState()
+				.refreshTreeWateringData(treeId, abortController);
 		} catch (error) {
 			handleError(i18n.common.defaultErrorMessage, error);
 			setWateringLoading(false);
@@ -57,5 +100,6 @@ export function useWaterTree(treeId: string): WaterTreeState {
 	return {
 		isLoading: wateringLoading,
 		waterTree,
+		deleteWatering,
 	};
 }

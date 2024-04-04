@@ -266,7 +266,7 @@ Vernetzen:
 		isAdopted: "Du hast diesen Baum adoptiert",
 		adoptHintTitle: "Baum adoptieren",
 		adoptHint:
-			"Wenn Du regelmäßig den gleichen Baum gießt, kannst Du diesen abonnieren. So findest Du ihn schnell in Deiner Profilübersicht wieder.",
+			"Wenn Du regelmäßig den gleichen Baum gießt, kannst Du diesen adoptieren. So findest Du ihn schnell in Deiner Profilübersicht wieder.",
 		adoptErrorMessage:
 			"Fehler beim Adoptieren des Baumes. Bitte versuche es erneut.",
 		adoptLoginFirst: "Logge dich ein um diesen Baum zu adoptieren",
@@ -331,8 +331,10 @@ Vernetzen:
 			nothingThisWeek: "Keine Gießungen diese Woche",
 			thisMonth: "Dieser Monat",
 			nothingThisMonth: "Keine Gießungen diesen Monat",
+			nothingMoreThisMonth: "Keine weiteren Gießungen diesen Monat",
 			thisYear: "Dieses Jahr",
 			nothingThisYear: "Keine Gießungen dieses Jahr",
+			nothingMoreThisYear: "Keine weiteren Gießungen dieses Jahr",
 		},
 		problem: {
 			title: "Problem melden",

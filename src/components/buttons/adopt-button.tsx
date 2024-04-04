@@ -1,6 +1,6 @@
 import React from "react";
 import { HeartIcon } from "../icons/heart-icon";
-import { useTreeAdoptStore } from "../tree-detail/hooks/use-adopt-tree";
+import { useTreeAdoptStore } from "../tree-detail/stores/adopt-tree-store";
 
 export interface AdoptButtonProps {
 	treeId: string;

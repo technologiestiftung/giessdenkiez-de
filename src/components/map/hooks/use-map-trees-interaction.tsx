@@ -2,7 +2,7 @@
 import mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import { useFilterStore } from "../../filter/filter-store";
-import { useTreeStore } from "../../tree-detail/tree-store";
+import { useTreeStore } from "../../tree-detail/stores/tree-store";
 import { useHoveredTree } from "./use-hovered-tree";
 import { useMapConstants } from "./use-map-constants";
 import { useSelectedTree } from "./use-selected-tree";
@@ -18,7 +18,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { setHoveredTreeId } = useHoveredTree(map);
 	const { setSelectedTreeId } = useSelectedTree(map);
 
-	const { treeData } = useTreeStore();
+	const { treeCoreData } = useTreeStore();
 
 	const {
 		isSomeFilterActive,
@@ -59,21 +59,21 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	}, [map, treeAgeIntervals]);
 
 	useEffect(() => {
-		if (treeData) {
+		if (treeCoreData) {
 			if (map?.loaded()) {
 				clearSearch();
-				setSelectedTreeId(treeData.id);
+				setSelectedTreeId(treeCoreData.id);
 				map.easeTo({
-					center: [parseFloat(treeData.lat), parseFloat(treeData.lng)],
+					center: [parseFloat(treeCoreData.lat), parseFloat(treeCoreData.lng)],
 					zoom: MAP_MAX_ZOOM_LEVEL,
 					essential: true,
 				});
 				return;
 			}
 			map?.on("load", () => {
-				setSelectedTreeId(treeData.id);
+				setSelectedTreeId(treeCoreData.id);
 				map.easeTo({
-					center: [parseFloat(treeData.lat), parseFloat(treeData.lng)],
+					center: [parseFloat(treeCoreData.lat), parseFloat(treeCoreData.lng)],
 					zoom: MAP_MAX_ZOOM_LEVEL,
 					essential: true,
 				});
@@ -81,7 +81,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			return;
 		}
 		setSelectedTreeId(undefined);
-	}, [treeData, map]);
+	}, [treeCoreData, map]);
 
 	useEffect(() => {
 		if (!map) {

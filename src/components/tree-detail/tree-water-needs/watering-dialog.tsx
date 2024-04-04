@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
-import { useI18nStore } from "../../i18n/i18n-store";
-import { PrimaryButton } from "../buttons/primary";
-import { useWaterTree } from "./hooks/use-water-tree";
-import { TreeData } from "./tree-types";
-import { useErrorStore } from "../../error/error-store";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import { PrimaryButton } from "../../buttons/primary";
+import { useWaterTree } from "./../hooks/use-water-tree";
+import { TreeCoreData } from "./../tree-types";
+import { useErrorStore } from "../../../error/error-store";
 import { format } from "date-fns";
-import { TertiaryButton } from "../buttons/tertiary";
-import { CloseIcon } from "../icons/close-icon";
+import { TertiaryButton } from "../../buttons/tertiary";
+import { CloseIcon } from "../../icons/close-icon";
 interface WateringDialogProps {
-	treeData: TreeData;
+	treeData: TreeCoreData;
 	close: () => void;
 }
 

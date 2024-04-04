@@ -1,11 +1,11 @@
 import {
 	TreeAgeClassification,
 	TreeAgeClassificationState,
-	TreeData,
+	TreeCoreData,
 } from "../tree-types";
 
 export function useTreeAgeClassification(
-	treeData?: TreeData,
+	treeData?: TreeCoreData,
 	referenceDate?: Date,
 ): TreeAgeClassificationState {
 	const BABY_AGE_LIMIT = 3;

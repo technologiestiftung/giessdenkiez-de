@@ -3,7 +3,7 @@ import { useTreeAgeClassification } from "../../components/tree-detail/hooks/use
 import { useTreeWaterNeedsData } from "../../components/tree-detail/hooks/use-tree-water-needs-data";
 import {
 	TreeAgeClassification,
-	TreeData,
+	TreeCoreData,
 	TreeWateringData,
 } from "../../components/tree-detail/tree-types";
 
@@ -39,7 +39,7 @@ test("should calculate correct water needs for junior tree", () => {
 		},
 	];
 
-	const treeData: TreeData = {
+	const treeData: TreeCoreData = {
 		id: "_22002a6665",
 		lat: "13.51075",
 		lng: "52.51674",
