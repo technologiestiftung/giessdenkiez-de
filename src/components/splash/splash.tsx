@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable max-lines */
+import React, { useEffect, useRef } from "react";
 import { PrimaryButton } from "../buttons/primary";
 import { Credits } from "../info/credits";
 import { CloseIcon } from "../icons/close-icon";
@@ -40,12 +41,35 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
 
 export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 	const i18n = useI18nStore().i18n();
+
+	const splashContainer = useRef<HTMLDivElement | null>(null);
+
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickListener);
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickListener);
+		};
+	}, []);
+
+	const handleClickListener = (event: MouseEvent) => {
+		const clickedInside =
+			splashContainer &&
+			splashContainer.current?.contains(event.target as Node);
+
+		if (clickedInside) {
+			return;
+		}
+		onClose();
+	};
+
 	return (
 		<div
+			ref={splashContainer}
 			className={`
 		absolute top-0 left-0 lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2
 		w-full lg:w-[80%] xl:w-[1028px] max-h-svh overflow-y-auto
-		bg-white flex flex-col
+		bg-white flex flex-col 
 		rounded-lg shadow-gdk-hard pointer-events-auto`}
 		>
 			<div className="px-4 lg:px-8 py-4 lg:py-8 flex flex-col">
