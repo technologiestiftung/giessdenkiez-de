@@ -12,6 +12,20 @@ interface QaEntryProps {
 	isFAQEntry?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const addAnchorLinkProperties = (props: any) => {
+	return (
+		<a
+			className="font-semibold text-blue-600 hover:text-gdk-light-blue "
+			href={props.href}
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			{props.children}
+		</a>
+	);
+};
+
 export const QaEntry: React.FC<QaEntryProps> = ({
 	question,
 	answer,
@@ -44,7 +58,10 @@ export const QaEntry: React.FC<QaEntryProps> = ({
 			</button>
 			{isExpanded && (
 				<div>
-					<Markdown className="text-gdk-gray mt-4 grid gap-4 [&>p>a]:underline pr-6">
+					<Markdown
+						components={{ a: addAnchorLinkProperties }}
+						className="text-gdk-gray mt-4 grid gap-4 pr-6"
+					>
 						{answer}
 					</Markdown>
 					{children}
