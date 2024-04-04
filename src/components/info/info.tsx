@@ -6,6 +6,7 @@ import { PrimaryButton } from "../buttons/primary";
 import { Credits } from "./credits";
 import { LanguageToggle } from "../router/languageToggle";
 import Markdown from "react-markdown";
+import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 
 export const Info: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -40,7 +41,11 @@ export const Info: React.FC = () => {
 										}}
 										disabled={false}
 									/>
-									<Markdown className={"[&>p>a]:underline [&>p]:pt-1 pt-2"}>
+									<Markdown
+										// @ts-expect-error typing too complex
+										components={{ a: ExternalAnchorLink }}
+										className={"[&>p]:pt-1 pt-2"}
+									>
 										{i18n.info.about.head.feedback}
 									</Markdown>
 								</div>

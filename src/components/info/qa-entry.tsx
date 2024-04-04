@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Markdown from "react-markdown";
 import { ChevronDown } from "../icons/chevron-down";
 import { ChevronRight } from "../icons/chevron-right";
+import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 
 interface QaEntryProps {
 	question: string;
@@ -11,20 +12,6 @@ interface QaEntryProps {
 	children?: React.ReactNode;
 	isFAQEntry?: boolean;
 }
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const addAnchorLinkProperties = (props: any) => {
-	return (
-		<a
-			className="font-semibold text-blue-600 hover:text-gdk-light-blue "
-			href={props.href}
-			target="_blank"
-			rel="noopener noreferrer"
-		>
-			{props.children}
-		</a>
-	);
-};
 
 export const QaEntry: React.FC<QaEntryProps> = ({
 	question,
@@ -59,7 +46,8 @@ export const QaEntry: React.FC<QaEntryProps> = ({
 			{isExpanded && (
 				<div>
 					<Markdown
-						components={{ a: addAnchorLinkProperties }}
+						// @ts-expect-error typing too complex
+						components={{ a: ExternalAnchorLink }}
 						className="text-gdk-gray mt-4 grid gap-4 pr-6"
 					>
 						{answer}
