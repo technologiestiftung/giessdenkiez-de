@@ -1,0 +1,59 @@
+# the display name
+name: DWD Radolan Harvester
+
+# the triggers for the workflow
+on:
+  # with the workflow_dispatch you can run this manually
+  # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_dispatch
+  workflow_dispatch:
+  # or run it on a schedule
+  # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule
+  # use crontab.guru to get your cron expression right
+  # https://crontab.guru/#30_5_*_*_*
+  schedule:
+    - cron: '30 5 * * *'
+
+# the job to run
+jobs:
+  rain:
+    # The repository environment for our variables and secrets
+    # https://docs.github.com/en/actions/reference/encrypted-secrets
+    # https://docs.github.com/en/actions/reference/environments
+    # https://docs.github.com/en/actions/reference/environment-variables
+    environment: production
+    # The platform we run on
+    runs-on: ubuntu-latest
+    name: Aggregate rain data from DWD radolan
+    # The whole action is one single step
+    steps:
+      - name: Harvester
+        # Load the action from our repository.
+        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.0.0
+        id: harvester
+        with:
+          # The hostname of your postgres database
+          PG_SERVER: ${{ secrets.PG_SERVER }}
+          # The port of the database. Default is 5432
+          PG_PORT: ${{ secrets.PG_PORT }}
+          # The database user
+          PG_USER: ${{ secrets.PG_USER }}
+          # The users password
+          PG_PASS: ${{ secrets.PG_PASS }}
+          # The name of the database
+          PG_DB: ${{ secrets.PG_DB }}
+          # The base URL of Supabase
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          # The Supabase bucket name
+          SUPABASE_BUCKET_NAME: ${{ vars.SUPABASE_DATA_ASSETS_BUCKET }}
+          # The Supabase service role key to access the bucket
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          # If you want some logging output
+          OUTPUT: 'True'
+          # Which log level to use
+          LOGGING: 'INFO'
+          # Your mapbox users name
+          MAPBOXUSERNAME: ${{ secrets.MAPBOXUSERNAME }}
+          # Your mapbox secret token
+          MAPBOXTOKEN: ${{ secrets.MAPBOXTOKEN }}
+          # Your desired tileset name (will be used in the frontend)
+          MAPBOXTILESET: ${{ secrets.MAPBOXTILESET }}
