@@ -3,7 +3,6 @@ import { TreeWateringData } from "../tree-types";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { TrashIcon } from "../../icons/trash-icon";
 import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
-import { useWaterTree } from "../hooks/use-water-tree";
 import { useProfileStore } from "../../../shared-stores/profile-store";
 
 interface WateringCardProps {
@@ -23,14 +22,16 @@ function getDisplayedUsername(wateringData: TreeWateringData) {
 
 export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const formatDate = useI18nStore().formatDate;
-	const { username } = useProfileStore();
-	const { deleteWatering } = useWaterTree(wateringData.tree_id);
+	const { username, deleteWatering } = useProfileStore();
 
 	const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false);
 	const isWateringByUser = wateringData.username === username;
 
 	const onClickDelete = async () => {
-		await deleteWatering(wateringData.id);
+		await deleteWatering({
+			treeId: wateringData.tree_id,
+			wateringId: wateringData.id,
+		});
 		setIsConfirmDeleteVisible(false);
 	};
 

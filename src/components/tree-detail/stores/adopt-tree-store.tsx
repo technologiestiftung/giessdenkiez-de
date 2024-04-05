@@ -16,8 +16,6 @@ interface TreeAdoptStore {
 		abortController: AbortController,
 	) => Promise<void>;
 }
-
-const { refreshAdoptedTreesInfo } = useProfileStore.getState();
 const { handleError } = useErrorStore.getState();
 
 export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
@@ -53,7 +51,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 				return;
 			}
 			set({ isLoading: false });
-			await refreshAdoptedTreesInfo();
+			await useProfileStore.getState().refreshAdoptedTreesInfo();
 			await get().refreshIsTreeAdoptedByOthers(treeId, abortController);
 		} catch (error) {
 			handleError(i18n.treeDetail.adoptErrorMessage, error);
@@ -87,7 +85,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 				return;
 			}
 			set({ isLoading: false });
-			await refreshAdoptedTreesInfo();
+			await useProfileStore.getState().refreshAdoptedTreesInfo();
 			await get().refreshIsTreeAdoptedByOthers(treeId, abortController);
 		} catch (error) {
 			handleError(i18n.treeDetail.adoptErrorMessage, error);

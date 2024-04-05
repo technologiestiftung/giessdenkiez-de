@@ -1,12 +1,13 @@
 import React, { useCallback } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { PrimaryButton } from "../../buttons/primary";
-import { useWaterTree } from "./../hooks/use-water-tree";
 import { TreeCoreData } from "./../tree-types";
 import { useErrorStore } from "../../../error/error-store";
 import { format } from "date-fns";
 import { TertiaryButton } from "../../buttons/tertiary";
 import { CloseIcon } from "../../icons/close-icon";
+import { useProfileStore } from "../../../shared-stores/profile-store";
+
 interface WateringDialogProps {
 	treeData: TreeCoreData;
 	close: () => void;
@@ -17,7 +18,7 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	close,
 }) => {
 	const i18n = useI18nStore().i18n();
-	const { waterTree } = useWaterTree(treeData.id);
+	const { waterTree } = useProfileStore();
 	const { handleError } = useErrorStore();
 
 	const formattedToday = format(new Date(), "yyyy-MM-dd");
@@ -30,7 +31,7 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 			const date = new Date(e.currentTarget.date.value);
 
 			try {
-				await waterTree(amount, date);
+				await waterTree({ treeId: treeData.id, amount, date });
 			} catch (error) {
 				handleError(i18n.common.defaultErrorMessage, error);
 			}

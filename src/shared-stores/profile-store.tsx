@@ -2,6 +2,9 @@
 import { create } from "zustand";
 import { supabaseClient } from "../auth/supabase-client";
 import { useAuthStore } from "../auth/auth-store";
+import { useI18nStore } from "../i18n/i18n-store";
+import { useErrorStore } from "../error/error-store";
+import { useTreeStore } from "../components/tree-detail/stores/tree-store";
 
 interface TreeInfo {
 	id: string;
@@ -40,6 +43,23 @@ interface ProfileStore {
 		totalWateringCount: number;
 	};
 	refreshUserWaterings: () => Promise<void>;
+
+	waterTree: ({
+		treeId,
+		amount,
+		date,
+	}: {
+		treeId: string;
+		amount: number;
+		date: Date;
+	}) => Promise<void>;
+	deleteWatering: ({
+		treeId,
+		wateringId,
+	}: {
+		treeId: string;
+		wateringId: number;
+	}) => Promise<void>;
 
 	updatePassword: (password: string) => Promise<void>;
 	updateEmail: (email: string) => Promise<void>;
@@ -167,6 +187,10 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 		return { totalWateringVolume, totalWateringCount };
 	},
 	refreshUserWaterings: async () => {
+		if (!useAuthStore.getState().isLoggedIn()) {
+			return;
+		}
+
 		const userId = useAuthStore.getState().session?.user.id;
 		const accessToken = useAuthStore.getState().session?.access_token;
 
@@ -196,6 +220,81 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 		 * on the userWaterings.
 		 */
 		await get().refreshAdoptedTreesInfo();
+	},
+
+	waterTree: async ({ treeId, amount, date }) => {
+		const user = useAuthStore.getState().session?.user;
+		const access_token = useAuthStore.getState().session?.access_token;
+		const i18n = useI18nStore.getState().i18n();
+		const { handleError } = useErrorStore.getState();
+		const { username, refreshUserWaterings } = useProfileStore.getState();
+		const { refreshTreeWateringData } = useTreeStore.getState();
+
+		const abortController = new AbortController();
+
+		try {
+			const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/post/water`;
+			const res = await fetch(adoptUrl, {
+				method: "POST",
+				body: JSON.stringify({
+					amount: amount,
+					tree_id: treeId,
+					uuid: user?.id,
+					username,
+					timestamp: date.toISOString(),
+				}),
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+					"Content-Type": "application/json",
+				},
+			});
+
+			if (!res.ok) {
+				handleError(i18n.common.defaultErrorMessage);
+			}
+
+			await refreshUserWaterings();
+			await refreshTreeWateringData(treeId, abortController);
+		} catch (error) {
+			handleError(i18n.common.defaultErrorMessage, error);
+		}
+	},
+	deleteWatering: async ({ treeId, wateringId }) => {
+		const user = useAuthStore.getState().session?.user;
+		const access_token = useAuthStore.getState().session?.access_token;
+		const i18n = useI18nStore.getState().i18n();
+		const { handleError } = useErrorStore.getState();
+		const { refreshUserWaterings } = useProfileStore.getState();
+		const { refreshTreeWateringData } = useTreeStore.getState();
+
+		const abortController = new AbortController();
+
+		try {
+			const deleteWateringUrl = `${import.meta.env.VITE_API_ENDPOINT}/delete/unwater`;
+			const res = await fetch(deleteWateringUrl, {
+				method: "DELETE",
+				body: JSON.stringify({
+					tree_id: treeId,
+					watering_id: wateringId,
+					uuid: user?.id,
+				}),
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+					"Content-Type": "application/json",
+				},
+				signal: abortController.signal,
+			});
+
+			if (!res.ok) {
+				handleError(i18n.common.defaultErrorMessage);
+				return;
+			}
+
+			await refreshUserWaterings();
+			await refreshTreeWateringData(treeId, abortController);
+		} catch (error) {
+			handleError(i18n.common.defaultErrorMessage, error);
+		}
 	},
 
 	updatePassword: async (password: string) => {
