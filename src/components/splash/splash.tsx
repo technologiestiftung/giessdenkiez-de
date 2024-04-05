@@ -45,15 +45,13 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 
 	const onDialogClick = useCallback(
 		(event: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
-			console.log(event.target);
-			const isClickOnBackground =
-				event.target !== document.getElementById("splash-dialog");
-			console.log("isClickOnBackground", isClickOnBackground);
-			if (isClickOnBackground) {
-				return;
+			const isClickOnDialogElement =
+				event.target === document.getElementById("splash-dialog");
+			if (isClickOnDialogElement) {
+				setIsSplashScreenVisible(false);
+				onClose;
 			}
-			setIsSplashScreenVisible(false);
-			onClose();
+			return;
 		},
 		[],
 	);
@@ -63,10 +61,13 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 			id="splash-dialog"
 			onClick={onDialogClick}
 			open={isSplashScreenVisible}
-			className={`backdrop-brightness-90 rounded-lg shadow-gdk-hard top-0 left-0 lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2
-			w-full lg:w-[80%] xl:w-[1028px] max-h-svh overflow-y-auto bg-white pointer-events-auto`}
+			className={`py-10 rounded-lg bg-transparent max-h-svh lg:w-[80%] xl:w-[1028px] 
+			backdrop:backdrop-brightness-90 pointer-events-auto`}
 		>
-			<div className="flex flex-col">
+			<div
+				className="w-full h-full shadow-gdk-hard rounded-lg 
+					overflow-y-auto bg-white"
+			>
 				<div className="px-4 lg:px-8 py-4 lg:py-8 flex flex-col">
 					<button
 						className="flex flex-row justify-end lg:hidden pb-2"
