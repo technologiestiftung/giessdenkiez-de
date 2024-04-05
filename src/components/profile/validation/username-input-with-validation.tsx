@@ -89,6 +89,7 @@ export const UsernameInputWithValidation: React.FC<
 				required
 				defaultValue={defaultValue}
 				onChange={onChange}
+				autoFocus
 			/>
 			{isUsernameTakenWarningVisible && (
 				<Warning label={i18n.navbar.profile.settings.usernameTaken} />

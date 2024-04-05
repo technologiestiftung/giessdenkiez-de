@@ -34,6 +34,7 @@ export const EmailInputWithValidation: React.FC<EmailInputValidationProps> = ({
 				required
 				defaultValue={defaultValue}
 				onChange={(e) => resetErrorMessages(e)}
+				autoFocus
 			/>
 			{isEmailTaken && (
 				<Warning label="Ein Konto mit dieser E-Mail existiert bereits" />

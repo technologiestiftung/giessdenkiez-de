@@ -38,6 +38,9 @@ export const EditUsername: React.FC = () => {
 				<form
 					className="flex flex-col justify-between gap-x-8"
 					onSubmit={onSubmit}
+					onBlur={() => {
+						setIsUsernameInputEnabled(false);
+					}}
 				>
 					<div className="flex flex-col justify-between gap-x-8 ">
 						<UsernameInputWithValidation
