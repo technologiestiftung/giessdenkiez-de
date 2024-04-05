@@ -17,7 +17,8 @@ export function validatePassword(password: string): PasswordErrors {
 
 export function validateUsername(username: string): UsernameErrors {
 	const validLength = username.length > 2 && username.length < 51;
-	const onlyNumberAndLetters = /^[a-zA-Z0-9]*$/.test(username);
+	const onlyNumberAndLetters =
+		/^[a-zA-Z0-9]*$/.test(username) && username.length > 0;
 
 	return {
 		validLength,
