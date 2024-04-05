@@ -42,13 +42,14 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 
 	const onDialogClick = useCallback(
 		(event: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
-			const isClickOnDialogElement =
-				event.target === document.getElementById("water-dialog");
+			const isClickOnBackground =
+				event.target !== document.getElementById("water-dialog");
 
-			if (isClickOnDialogElement) {
-				close();
+			if (isClickOnBackground) {
+				return;
 			}
-			return;
+
+			close();
 		},
 		[],
 	);
