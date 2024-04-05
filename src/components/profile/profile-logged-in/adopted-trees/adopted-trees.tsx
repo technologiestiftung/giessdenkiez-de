@@ -52,8 +52,8 @@ export const AdoptedTrees: React.FC = () => {
 							<TreeCard
 								id={tree.id}
 								name={tree.artdtsch}
-								irrigationAmount={tree.reducedWateringAmount}
-								irrigationTimes={tree.trees_watered.length}
+								totalWateringVolume={tree.totalWateringVolume}
+								totalWateringCount={tree.totalWateringCount}
 								key={tree.id}
 							/>
 						))}
@@ -62,8 +62,8 @@ export const AdoptedTrees: React.FC = () => {
 						<TreeCard
 							id={tree.id}
 							name={tree.artdtsch}
-							irrigationAmount={tree.reducedWateringAmount}
-							irrigationTimes={tree.trees_watered.length}
+							totalWateringVolume={tree.totalWateringVolume}
+							totalWateringCount={tree.totalWateringCount}
 							key={tree.id}
 						/>
 					))}

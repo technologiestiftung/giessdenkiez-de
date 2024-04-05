@@ -9,15 +9,15 @@ import { DropIcon } from "../../../icons/drop-icon";
 export interface TreeCardProps {
 	id: string;
 	name: string;
-	irrigationAmount: number;
-	irrigationTimes: number;
+	totalWateringVolume: number;
+	totalWateringCount: number;
 }
 
 export const TreeCard: React.FC<TreeCardProps> = ({
 	id,
 	name,
-	irrigationAmount,
-	irrigationTimes,
+	totalWateringVolume,
+	totalWateringCount,
 }) => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
@@ -56,11 +56,11 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 
 					<div className="mt-1 flex flex-col gap-3">
 						<span>
-							{formatNumber(irrigationTimes)}{" "}
+							{formatNumber(totalWateringCount)}{" "}
 							{i18n.navbar.profile.adoptedTrees.irrigationTimes}
 						</span>
 						<span>
-							{formatNumber(irrigationAmount)}{" "}
+							{formatNumber(totalWateringVolume)}{" "}
 							{i18n.navbar.profile.adoptedTrees.irrigationAmount}
 						</span>
 					</div>

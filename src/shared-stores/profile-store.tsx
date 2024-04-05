@@ -7,8 +7,8 @@ interface TreeInfo {
 	id: string;
 	artdtsch: string;
 	trees_watered: Array<{ id: string; amount: number }>;
-	reducedWateringAmount: number;
-	wateringCount: number;
+	totalWateringVolume: number;
+	totalWateringCount: number;
 }
 
 interface UserWaterings {
@@ -35,6 +35,10 @@ interface ProfileStore {
 	refreshAdoptedTreesInfo: () => Promise<void>;
 
 	userWaterings: UserWaterings[] | null;
+	getUserWateringsOfTree: (treeId: string) => {
+		totalWateringVolume: number;
+		totalWateringCount: number;
+	};
 	refreshUserWaterings: () => Promise<void>;
 
 	updatePassword: (password: string) => Promise<void>;
@@ -48,7 +52,6 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 		const promises = [
 			get().refreshUsername(),
 			get().refreshAdoptedTrees(),
-			get().refreshAdoptedTreesInfo(),
 			get().refreshUserWaterings(),
 		];
 
@@ -125,27 +128,44 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 			throw new Error("No data received");
 		}
 
-		const reducedWateringAmountperTree = data.map((tree) => {
-			const reducedWateringAmount = tree.trees_watered.reduce(
-				(acc: number, curr: { amount: number }) => acc + Number(curr.amount),
-				0,
-			);
-			const wateringCount = tree.trees_watered.length;
+		const adoptedTreesInfoWithUserWaterings = data.map((tree) => {
+			const { totalWateringVolume, totalWateringCount } =
+				get().getUserWateringsOfTree(tree.id);
+
 			return {
 				id: tree.id,
 				artdtsch: tree.artdtsch,
 				trees_watered: tree.trees_watered,
-				reducedWateringAmount,
-				wateringCount,
+				totalWateringVolume,
+				totalWateringCount,
 			};
 		}, 0);
 
 		set({
-			adoptedTreesInfo: reducedWateringAmountperTree,
+			adoptedTreesInfo: adoptedTreesInfoWithUserWaterings,
 		});
 	},
 
 	userWaterings: null,
+	getUserWateringsOfTree: (treeId: string) => {
+		const userWaterings = get().userWaterings;
+
+		if (!userWaterings) {
+			return { totalWateringVolume: 0, totalWateringCount: 0 };
+		}
+
+		const filteredUserWaterings = userWaterings.filter(
+			(watering) => watering.tree_id === treeId,
+		);
+
+		const totalWateringVolume = filteredUserWaterings.reduce(
+			(acc, curr) => acc + curr.amount,
+			0,
+		);
+		const totalWateringCount = filteredUserWaterings.length;
+
+		return { totalWateringVolume, totalWateringCount };
+	},
 	refreshUserWaterings: async () => {
 		const userId = useAuthStore.getState().session?.user.id;
 		const accessToken = useAuthStore.getState().session?.access_token;
@@ -169,6 +189,13 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 		const wateredByUser = (await response.json()).data;
 
 		set({ userWaterings: wateredByUser });
+
+		/**
+		 * we also need to refresh the adoptedTreeInfo as they base
+		 * the calculated total watering volume and watering count
+		 * on the userWaterings.
+		 */
+		await get().refreshAdoptedTreesInfo();
 	},
 
 	updatePassword: async (password: string) => {
