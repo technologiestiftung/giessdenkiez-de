@@ -43,6 +43,7 @@ export const PumpTooltip: React.FC<PumpTooltipProps> = ({ pump }) => {
 					<div className="">{pump.lastCheck}</div>
 				</div>
 			</div>
+			{/* commented out until OSM link is working again */}
 			{/* <div className="text-sm pt-2 border-t-2 ">
 				<a className="underline" href="">
 					{i18n.pumps.update}
