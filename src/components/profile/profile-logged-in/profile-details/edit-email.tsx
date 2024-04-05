@@ -59,9 +59,6 @@ export const EditEmail: React.FC = () => {
 				<form
 					className="flex flex-col justify-between gap-x-8"
 					onSubmit={onSubmit}
-					onBlur={() => {
-						setIsEmailInputEnabled(false);
-					}}
 				>
 					<div className="flex flex-col justify-between gap-x-8 ">
 						<EmailInputWithValidation
