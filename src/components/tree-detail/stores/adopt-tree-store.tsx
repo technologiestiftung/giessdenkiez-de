@@ -19,7 +19,6 @@ interface TreeAdoptStore {
 
 const { refreshAdoptedTreesInfo } = useProfileStore.getState();
 const { handleError } = useErrorStore.getState();
-const i18n = useI18nStore.getState().i18n();
 
 export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	isLoading: false,
@@ -31,6 +30,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 		const abortController = new AbortController();
 		const access_token = useAuthStore.getState().session?.access_token;
 		const user = useAuthStore.getState().session?.user;
+		const i18n = useI18nStore.getState().i18n();
 
 		if (!user?.id) {
 			return;
@@ -64,6 +64,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 		const abortController = new AbortController();
 		const access_token = useAuthStore.getState().session?.access_token;
 		const user = useAuthStore.getState().session?.user;
+		const i18n = useI18nStore.getState().i18n();
 
 		if (!user?.id) {
 			return;
@@ -114,7 +115,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			if (abortController.signal.aborted) {
 				return;
 			}
-
+			const i18n = useI18nStore.getState().i18n();
 			handleError(i18n.common.defaultErrorMessage, error);
 			return;
 		}
