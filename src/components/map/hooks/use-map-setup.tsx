@@ -58,6 +58,9 @@ export function useMapSetup(
 			pitch: MAP_PITCH_DEGREES,
 		});
 
+		initializedMap.dragRotate.disable();
+		initializedMap.touchZoomRotate.disableRotation();
+
 		initializedMap.on("load", async () => {
 			initializedMap.addSource("trees", {
 				type: "vector",
