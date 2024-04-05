@@ -72,7 +72,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 		bg-white flex flex-col 
 		rounded-lg shadow-gdk-hard pointer-events-auto`}
 		>
-			<div className="px-4 lg:px-8 py-4 lg:py-8 flex flex-col">
+			<div className="px-5 lg:px-8 py-5 lg:py-8 flex flex-col">
 				<button
 					className="flex flex-row justify-end lg:hidden pb-2"
 					onClick={onClose}
