@@ -25,9 +25,9 @@ export const PasswordReset: React.FC = () => {
 				{i18n.navbar.profile.settings.changePassword}
 			</h1>
 			<form
-				onSubmit={async (e) => {
+				onSubmit={(e) => {
 					e.preventDefault();
-					await updatePassword(e.currentTarget.password.value);
+					updatePassword(e.currentTarget.password.value);
 					(
 						document.getElementById(
 							"password-reset-alert-dialog",
