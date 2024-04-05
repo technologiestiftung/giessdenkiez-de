@@ -16,7 +16,6 @@ export const LocationSearch: React.FC = () => {
 	const { toggleFilterView, hideFilterView } = useFilterStore();
 
 	const {
-		isCurrentSearch,
 		setIsCurrentSearch,
 		isPickedGeoSearchResult,
 		setisPickedGeoSearchResult,
@@ -32,7 +31,7 @@ export const LocationSearch: React.FC = () => {
 	const { map } = useMapStore();
 	const { MAP_LOCATION_ZOOM_LEVEL } = useMapConstants();
 	const { geocodingResults, clearGeocodingResults, fetchGeocodingResults } =
-		useGeocoding(isCurrentSearch);
+		useGeocoding();
 	const { isFilterViewVisible, isSomeFilterActive } = useFilterStore();
 
 	const clearSearchAndGeocodingResults = () => {
@@ -127,7 +126,7 @@ export const LocationSearch: React.FC = () => {
 							setIsCurrentSearch(e.target.value);
 							setisPickedGeoSearchResult(e.target.value);
 							setSelectedGeocodingResult(undefined);
-							fetchGeocodingResults();
+							fetchGeocodingResults(e.target.value);
 							setIsTextInSearchbar(true);
 						}}
 						onFocus={() => {

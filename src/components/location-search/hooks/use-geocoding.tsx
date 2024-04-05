@@ -11,10 +11,10 @@ export interface GeocodingResult {
 export interface GeocodingResultState {
 	geocodingResults: GeocodingResult[];
 	clearGeocodingResults: () => void;
-	fetchGeocodingResults: () => void;
+	fetchGeocodingResults: (search: string) => void;
 }
 
-export function useGeocoding(search: string): GeocodingResultState {
+export function useGeocoding(): GeocodingResultState {
 	const [geocodingResults, setGeocodingResults] = useState<GeocodingResult[]>(
 		[],
 	);
@@ -23,13 +23,11 @@ export function useGeocoding(search: string): GeocodingResultState {
 		setGeocodingResults([]);
 	};
 
-	const fetchGeocodingResults = async () => {
+	const fetchGeocodingResults = async (search: string) => {
 		if (search.trim().length < 2) {
 			setGeocodingResults([]);
-			return () => {};
+			return;
 		}
-
-		const abortController = new AbortController();
 
 		const fetchData = async () => {
 			try {
@@ -38,9 +36,7 @@ export function useGeocoding(search: string): GeocodingResultState {
 				}/geocoding/v5/mapbox.places/${search}.json?autocomplete=true&language=de&country=de&bbox=${
 					import.meta.env.VITE_MAP_BOUNDING_BOX
 				}&access_token=${import.meta.env.VITE_MAPBOX_API_KEY}`;
-				const res = await fetch(geocodingUrl, {
-					signal: abortController.signal,
-				});
+				const res = await fetch(geocodingUrl);
 				if (!res.ok) {
 					return;
 				}
@@ -52,10 +48,6 @@ export function useGeocoding(search: string): GeocodingResultState {
 		};
 
 		fetchData().catch(console.error);
-
-		return () => {
-			abortController.abort();
-		};
 	};
 
 	return { geocodingResults, clearGeocodingResults, fetchGeocodingResults };
