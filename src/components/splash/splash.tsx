@@ -72,7 +72,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 		bg-white flex flex-col 
 		rounded-lg shadow-gdk-hard pointer-events-auto`}
 		>
-			<div className="px-4 lg:px-8 py-4 lg:py-8 flex flex-col">
+			<div className="px-5 lg:px-8 py-5 lg:py-8 flex flex-col">
 				<button
 					className="flex flex-row justify-end lg:hidden pb-2"
 					onClick={onClose}
@@ -88,14 +88,16 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 						</div>
 					</div>
 
-					<button
-						className="hidden lg:flex hover:text-gdk-light-gray self-start"
-						onClick={onClose}
-					>
-						<CloseIcon />
-					</button>
-					<div className="flex lg:hidden -translate-y-1">
-						<LanguageToggle />
+					<div>
+						<button
+							className="hidden lg:flex hover:text-gdk-light-gray self-start"
+							onClick={onClose}
+						>
+							<CloseIcon />
+						</button>
+						<div className="flex  -translate-y-1">
+							<LanguageToggle />
+						</div>
 					</div>
 				</div>
 				<div className="flex flex-row w-full justify-between items-top pb-8">
@@ -110,7 +112,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 							<PrimaryButton label={i18n.splash.letsGo} onClick={onClose} />
 						</div>
 					</div>
-					<div className="hidden lg:flex pr-8 max-h-[150px] 2xl:scale-[1.3]">
+					<div className="hidden lg:flex pr-8 max-h-[150px] 2xl:scale-[1.2]">
 						<img src="/images/icon-water-large.svg" alt="" />
 					</div>
 				</div>

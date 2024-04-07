@@ -2,7 +2,7 @@ import { PasswordErrors, UsernameErrors } from "./types";
 import { supabaseClient } from "../../../auth/supabase-client";
 
 export function validatePassword(password: string): PasswordErrors {
-	const validLength = password.length > 8;
+	const validLength = password.length > 7;
 	const upperAndLowerCase = /^(?=.*[a-z])(?=.*[A-Z]).+$/.test(password);
 	const number = /[0-9]/.test(password);
 	const special = /[\^°!"§$%&/()=?´`+*#'\-_.:,;{}|<>@]/.test(password);
@@ -17,7 +17,8 @@ export function validatePassword(password: string): PasswordErrors {
 
 export function validateUsername(username: string): UsernameErrors {
 	const validLength = username.length > 2 && username.length < 51;
-	const onlyNumberAndLetters = /^[a-zA-Z0-9]*$/.test(username);
+	const onlyNumberAndLetters =
+		/^[a-zA-Z0-9]*$/.test(username) && username.length > 0;
 
 	return {
 		validLength,

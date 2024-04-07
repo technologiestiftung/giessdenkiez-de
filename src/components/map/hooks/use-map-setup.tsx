@@ -48,6 +48,8 @@ export function useMapSetup(
 			return;
 		}
 
+		const isMobile = window.innerWidth < 768;
+
 		const initializedMap = new mapboxgl.Map({
 			container: mapContainer.current,
 			style: import.meta.env.VITE_MAPBOX_STYLE_URL,
@@ -55,8 +57,11 @@ export function useMapSetup(
 			zoom: MAP_INITIAL_ZOOM_LEVEL,
 			minZoom: MAP_MIN_ZOOM_LEVEL,
 			maxZoom: MAP_MAX_ZOOM_LEVEL,
-			pitch: MAP_PITCH_DEGREES,
+			pitch: isMobile ? 0 : MAP_PITCH_DEGREES,
 		});
+
+		initializedMap.dragRotate.disable();
+		initializedMap.touchZoomRotate.disableRotation();
 
 		initializedMap.on("load", async () => {
 			initializedMap.addSource("trees", {
