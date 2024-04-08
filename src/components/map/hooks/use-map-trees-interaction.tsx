@@ -70,7 +70,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				});
 				return;
 			}
-			map?.on("load", () => {
+			map?.once("idle", () => {
 				setSelectedTreeId(treeCoreData.id);
 				map.easeTo({
 					center: [parseFloat(treeCoreData.lat), parseFloat(treeCoreData.lng)],
@@ -97,6 +97,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			map.setZoom(zoom);
 		});
 	}, [map, lat, lng, zoom]);
+
 	useEffect(() => {
 		if (!map) {
 			return;
