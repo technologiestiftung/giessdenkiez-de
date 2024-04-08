@@ -33,6 +33,7 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 		if (!map) {
 			return;
 		}
+
 		if (map.isStyleLoaded()) {
 			map.setLayoutProperty(
 				"pumps",
@@ -45,11 +46,26 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 				isPumpsVisible ? "visible" : "none",
 			);
 		}
+
+		map.once("idle", () => {
+			map.setLayoutProperty(
+				"pumps",
+				"visibility",
+				isPumpsVisible ? "visible" : "none",
+			);
+			map.setLayoutProperty(
+				"pumps-highlight",
+				"visibility",
+				isPumpsVisible ? "visible" : "none",
+			);
+		});
+
 		if (!isPumpsVisible) {
 			setHoveredPump(undefined);
 			setSelectedPump(undefined);
 		}
 	}, [map, isPumpsVisible]);
+
 	useEffect(() => {
 		if (!map) {
 			return;
