@@ -66,7 +66,7 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 						<TrashIcon />
 					</button>
 					<div
-						className={`transition ease-in-out delay-100 ${isConfirmDeleteVisible ? "opacity-1" : "opacity-0"}`}
+						className={`transition ease-in-out delay-100 ${isConfirmDeleteVisible ? "flex" : "hidden"}`}
 					>
 						<PrimaryDestructiveButton
 							label={"Löschen"}
