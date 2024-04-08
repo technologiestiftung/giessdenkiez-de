@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import mapboxgl from "mapbox-gl";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFilterStore } from "../../filter/filter-store";
 import { useTreeStore } from "../../tree-detail/stores/tree-store";
 import { useHoveredTree } from "./use-hovered-tree";
@@ -13,7 +13,7 @@ import { useSearchStore } from "../../location-search/search-store";
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { hideFilterView } = useFilterStore();
 
-	const { MAP_MAX_ZOOM_LEVEL } = useMapConstants();
+	const { MAP_MAX_ZOOM_LEVEL, MAP_TREE_ZOOMED_IN_OFFSET } = useMapConstants();
 
 	const { setHoveredTreeId } = useHoveredTree(map);
 	const { setSelectedTreeId } = useSelectedTree(map);
@@ -36,6 +36,9 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { setHoveredPump, setSelectedPump } = usePumpStore();
 
 	const { clearSearch } = useSearchStore();
+
+	const [easeToStartedByUserClick, setEaseToStartedByUserClick] =
+		useState(false);
 
 	useEffect(() => {
 		if (!map) {
@@ -60,27 +63,23 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 	useEffect(() => {
 		if (treeCoreData) {
-			if (map?.loaded()) {
-				clearSearch();
-				setSelectedTreeId(treeCoreData.id);
-				map.easeTo({
-					center: [parseFloat(treeCoreData.lat), parseFloat(treeCoreData.lng)],
-					zoom: MAP_MAX_ZOOM_LEVEL,
-					essential: true,
-				});
+			clearSearch();
+			setSelectedTreeId(treeCoreData.id);
+
+			if (easeToStartedByUserClick) {
 				return;
 			}
+
 			map?.once("idle", () => {
-				setSelectedTreeId(treeCoreData.id);
 				map.easeTo({
 					center: [parseFloat(treeCoreData.lat), parseFloat(treeCoreData.lng)],
 					zoom: MAP_MAX_ZOOM_LEVEL,
 					essential: true,
+					offset: MAP_TREE_ZOOMED_IN_OFFSET,
 				});
 			});
 			return;
 		}
-		setSelectedTreeId(undefined);
 	}, [treeCoreData, map]);
 
 	useEffect(() => {
@@ -136,6 +135,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 			setSelectedTreeId(treeFeature.id as string);
 
+			setEaseToStartedByUserClick(true);
 			map.easeTo({
 				center: [
 					//@ts-expect-error no types for geometry.coordinates
@@ -145,6 +145,10 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				],
 				zoom: MAP_MAX_ZOOM_LEVEL,
 				essential: true,
+				offset: MAP_TREE_ZOOMED_IN_OFFSET,
+			});
+			map.once("moveend", () => {
+				setEaseToStartedByUserClick(false);
 			});
 		});
 

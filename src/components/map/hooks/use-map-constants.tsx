@@ -1,6 +1,7 @@
 import resolveConfig from "tailwindcss/resolveConfig";
 //@ts-expect-error tailwindConfig has no type definition
 import tailwindConfig from "../../../../tailwind.config.js";
+import { PointLike } from "mapbox-gl";
 const fullConfig = resolveConfig(tailwindConfig);
 
 export function useMapConstants() {
@@ -38,6 +39,8 @@ export function useMapConstants() {
 		},
 	];
 
+	const MAP_TREE_ZOOMED_IN_OFFSET = [-150, 0] as PointLike;
+
 	return {
 		MAP_PITCH_DEGREES,
 		MAP_MAX_ZOOM_LEVEL,
@@ -49,5 +52,6 @@ export function useMapConstants() {
 		MAP_CENTER_LAT,
 		MAP_PUMP_IMAGE_ICONS,
 		TREE_GRAY_COLOR,
+		MAP_TREE_ZOOMED_IN_OFFSET,
 	};
 }
