@@ -152,7 +152,7 @@ export function useMapSetup(
 			initializedMap.easeTo({
 				center: [coords.longitude, coords.latitude],
 				zoom: MAP_LOCATION_ZOOM_LEVEL,
-				pitch: MAP_PITCH_DEGREES,
+				pitch: isMobile ? 0 : MAP_PITCH_DEGREES,
 			});
 		});
 		initializedMap.addControl(geoLocateControl, "bottom-left");
