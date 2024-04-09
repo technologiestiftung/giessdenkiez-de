@@ -7,10 +7,37 @@ import { AlertDialog } from "../profile-alert/alert-dialog";
 import { CheckIcon } from "../../icons/check-icon";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 import { useProfileStore } from "../../../shared-stores/profile-store";
+import { useErrorStore } from "../../../error/error-store.tsx";
+import { getErrorMessage } from "../validation/validation.ts";
+
+const showSuccessModal = () => {
+	(
+		document.getElementById("password-reset-alert-dialog") as HTMLDialogElement
+	).showModal();
+};
 
 export const PasswordReset: React.FC = () => {
 	const { updatePassword } = useProfileStore();
 	const i18n = useI18nStore().i18n();
+	const { handleError } = useErrorStore();
+
+	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		try {
+			await updatePassword(e.currentTarget.password.value);
+			showSuccessModal();
+		} catch (error) {
+			if (
+				getErrorMessage(error) ===
+				"New password should be different from the old password."
+			) {
+				showSuccessModal();
+				return;
+			}
+
+			handleError(i18n.common.defaultErrorMessage, error);
+		}
+	};
 
 	return (
 		<div
@@ -24,18 +51,7 @@ export const PasswordReset: React.FC = () => {
 			<h1 className="text-2xl font-semibold">
 				{i18n.navbar.profile.settings.changePassword}
 			</h1>
-			<form
-				onSubmit={(e) => {
-					e.preventDefault();
-					updatePassword(e.currentTarget.password.value);
-					(
-						document.getElementById(
-							"password-reset-alert-dialog",
-						) as HTMLDialogElement
-					).showModal();
-				}}
-				className="flex flex-col"
-			>
+			<form onSubmit={onSubmit} className="flex flex-col">
 				<div className="flex flex-col gap-y-2 pt-6">
 					<PasswordInputWithValidation
 						label={i18n.navbar.profile.settings.newPassword}
