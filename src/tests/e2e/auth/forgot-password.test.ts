@@ -82,7 +82,7 @@ test.describe("Forgot password", () => {
 	});
 
 	test.describe("Error Handling", () => {
-		test("should show error toast when and unexpected error occurs", async ({
+		test("should show error toast when and unexpected error occurs during forgot-password", async ({
 			browser,
 		}) => {
 			const browserContext = await browser.newContext();
@@ -99,6 +99,25 @@ test.describe("Forgot password", () => {
 			await page.getByRole("button", { name: "Passwort zurücksetzen" }).click();
 
 			await expect(page.getByText("Ups, da ist etwas schief")).toBeVisible();
+		});
+
+		test("should show error toast when and unexpected error occurs during reset password", async ({
+			page,
+		}) => {
+			await page.goto("http://localhost:5173/profile/reset-password");
+
+			await page.getByLabel("Neues Passwort").fill('123qwe!"§QWE');
+			await page.getByRole("button", { name: "Speichern" }).click();
+
+			await expect(
+				page
+					.locator("div")
+					.filter({
+						hasText:
+							/^Ups, da ist etwas schief gelaufen\. Bitte versuche es erneut\.$/,
+					})
+					.nth(2),
+			).toBeVisible();
 		});
 	});
 });
