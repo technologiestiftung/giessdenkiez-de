@@ -12,7 +12,7 @@ interface TreeAdoptStore {
 	adoptTree: (treeId: string) => Promise<void>;
 	unadoptTree: (treeId: string) => Promise<void>;
 	refreshIsTreeAdoptedByOthers: (
-		treeId: string,
+		treeId: string | undefined,
 		abortController: AbortController,
 	) => Promise<void>;
 }
@@ -96,6 +96,12 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	},
 
 	refreshIsTreeAdoptedByOthers: async (treeId, abortController) => {
+		set({ adoptedByOthers: false });
+
+		if (!treeId) {
+			return;
+		}
+
 		const user = useAuthStore.getState().session?.user;
 		set({ adoptedByOthers: false });
 		try {
