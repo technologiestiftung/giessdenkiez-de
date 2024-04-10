@@ -41,8 +41,8 @@ export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 
 	return (
 		<div className="flex flex-col gap-4 border-b-2 py-8">
-			<div className="flex flex-row gap-2">
-				<div className="translate-y-1">
+			<div className="flex flex-row gap-1">
+				<div className="translate-y-1.5 gap-2">
 					<WateringCanIcon />
 				</div>
 				<div className="col-start-1 row-start-1 flex w-full flex-row items-center justify-between ">

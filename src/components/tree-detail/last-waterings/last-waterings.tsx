@@ -54,7 +54,7 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 				className="flex flex-row items-center justify-between  text-xl font-bold"
 				onClick={() => setIsLastWateringsExpanded(!isLastWateringsExpanded)}
 			>
-				<div className="flex flex-row items-center gap-2">
+				<div className="flex flex-row items-center gap-1">
 					<CalenderIcon />
 					<div>{i18n.treeDetail.lastWaterings.title}</div>
 				</div>

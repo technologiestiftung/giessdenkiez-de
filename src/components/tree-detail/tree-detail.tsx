@@ -63,7 +63,7 @@ export const TreeDetail: React.FC = () => {
 				<CloseIcon />
 			</a>
 
-			<div className="flex flex-row items-center gap-2">
+			<div className="flex flex-row items-center gap-1">
 				<TreeIcon />
 				<div className="text-xl font-bold">{i18n.treeDetail.title}</div>
 			</div>

@@ -1,11 +1,18 @@
 import React from "react";
 
-export const TreeIcon: React.FC = () => {
+interface TreeSplashIconProps {
+	className?: string;
+}
+
+export const TreeSplashIcon: React.FC<TreeSplashIconProps> = ({
+	className,
+}) => {
 	return (
 		<svg
-			width="34"
+			width="26"
 			height="26"
-			viewBox="0 0 34 26"
+			viewBox="0 0 26 26"
+			className={`${className ?? "h-6 w-6 "}`}
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 		>
