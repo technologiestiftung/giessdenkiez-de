@@ -27,6 +27,8 @@ interface TreeStore {
 
 	hoveredTreeId: string | undefined;
 	setHoveredTreeId: (hoveredTreeId: string | undefined) => void;
+	isLastWateringsExpanded: boolean;
+	setIsLastWateringsExpanded: (isExpanded: boolean) => void;
 }
 export const useTreeStore = create<TreeStore>()((set, get) => ({
 	refreshTreeData: async (treeId, abortController) => {
@@ -101,5 +103,9 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 	hoveredTreeId: undefined,
 	setHoveredTreeId: (hoveredTreeId) => {
 		set({ hoveredTreeId });
+	},
+	isLastWateringsExpanded: false,
+	setIsLastWateringsExpanded: (isLastWateringsExpanded) => {
+		set({ isLastWateringsExpanded });
 	},
 }));

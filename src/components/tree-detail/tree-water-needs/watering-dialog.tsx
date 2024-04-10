@@ -7,6 +7,7 @@ import { useErrorStore } from "../../../error/error-store";
 import { format } from "date-fns";
 import { TertiaryButton } from "../../buttons/tertiary";
 import { CloseIcon } from "../../icons/close-icon";
+import { useTreeStore } from "../stores/tree-store";
 interface WateringDialogProps {
 	treeData: TreeCoreData;
 	close: () => void;
@@ -21,6 +22,7 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	const { handleError } = useErrorStore();
 	const formattedToday = format(new Date(), "yyyy-MM-dd");
 	const [isWateringLoading, setIsWateringLoading] = useState(false);
+	const { setIsLastWateringsExpanded } = useTreeStore();
 
 	const onSubmit = useCallback(
 		async (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,6 +34,7 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 			try {
 				setIsWateringLoading(true);
 				await waterTree(amount, date);
+				setIsLastWateringsExpanded(true);
 				setIsWateringLoading(false);
 			} catch (error) {
 				handleError(i18n.common.defaultErrorMessage, error);
