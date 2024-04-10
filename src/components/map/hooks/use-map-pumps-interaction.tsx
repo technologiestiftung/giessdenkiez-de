@@ -123,6 +123,7 @@ export function useMapPumpsInteraction(map: mapboxgl.Map | undefined) {
 					pumpFeature.geometry.coordinates[1],
 				],
 				zoom: MAP_MAX_ZOOM_LEVEL,
+				duration: 1500,
 				essential: true,
 				offset: [0, 70],
 			});
