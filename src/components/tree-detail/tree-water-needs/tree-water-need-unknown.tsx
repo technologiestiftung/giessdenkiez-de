@@ -133,14 +133,7 @@ export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 				)}
 			</div>
 
-			<WateringDialog
-				treeData={treeData}
-				close={() => {
-					(
-						document.getElementById("water-dialog") as HTMLDialogElement
-					).close();
-				}}
-			/>
+			<WateringDialog />
 		</div>
 	);
 };

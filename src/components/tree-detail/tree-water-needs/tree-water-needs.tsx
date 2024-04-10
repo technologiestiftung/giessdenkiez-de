@@ -212,14 +212,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 						</div>
 					)}
 
-					<WateringDialog
-						treeData={treeData}
-						close={() => {
-							(
-								document.getElementById("water-dialog") as HTMLDialogElement
-							).close();
-						}}
-					/>
+					<WateringDialog />
 				</div>
 			)}
 		</div>

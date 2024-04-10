@@ -11,7 +11,7 @@ export interface WaterTreeState {
 	deleteWatering: (wateringId: number) => Promise<void>;
 }
 
-export function useWaterTree(treeId: string): WaterTreeState {
+export function useWaterTree(): WaterTreeState {
 	const i18n = useI18nStore().i18n();
 	const handleError = useErrorStore().handleError;
 
@@ -25,6 +25,12 @@ export function useWaterTree(treeId: string): WaterTreeState {
 
 	const waterTree = async (amount: number, date: Date) => {
 		if (!user?.id) {
+			return;
+		}
+
+		const treeId = useTreeStore.getState().selectedTreeId;
+
+		if (!treeId) {
 			return;
 		}
 
@@ -61,6 +67,12 @@ export function useWaterTree(treeId: string): WaterTreeState {
 
 	const deleteWatering = async (wateringId: number) => {
 		if (!user?.id) {
+			return;
+		}
+
+		const treeId = useTreeStore.getState().selectedTreeId;
+
+		if (!treeId) {
 			return;
 		}
 
