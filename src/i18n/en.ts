@@ -31,7 +31,7 @@ export const en: Content = {
 		},
 	},
 	locationSearch: {
-		placeholder: "Search for a place",
+		placeholder: "Search for an address",
 	},
 	navbar: {
 		map: "Map",
@@ -75,31 +75,32 @@ export const en: Content = {
 				deleteAccount: "Delete account",
 				confirmDelete: "Delete",
 				cancel: "Cancel",
+				save: "Save",
 				confirm: "OK",
 				approve: "Done",
 				checkInput: "Please check your input",
 				usernameShould: "Your username needs to: ",
-				usernameLength: "be at least 3 characters long",
+				usernameLength: "be at least 3-50 characters long",
 				onlyNumberAndLetters: "and consist only of letters or numbers",
 				usernameTaken: "This username is already taken",
 				backToLogin: "Back to login",
 				register: "Register",
 				confirmEmailTitle: "Confirm account",
 				confirmEmail: (email: string) =>
-					`Check your inbox for "${email}", you should have received a mail from "noreply@mail.app.supabase.io" containing a link to activate your account.`,
+					`Check your inbox for "${email}", you should have received a mail from "no-reply@giessdenkiez.de" containing a link to activate your account.`,
 				existingAccount: "Do you already have an account?",
 				logIn: "Login",
 				passwordShould: "Your password needs to contain:",
 				passwordLength: "at least 8 characters",
 				passwordUpperAndLowerCase: "upper and lower case letters",
 				passwordSpecialChar: "at least one special character",
-				passwordNumber: "one number",
+				passwordNumber: "at least one number",
 				logInShort: "Login",
 				missingAccount: "Don't have an account yet?",
 				registerNow: "Register now",
 				forgotYourPassword: "forget your password?",
 				ohNoforgotYourPassword: "Oh no. Did you",
-				passwordForgotten: "forget your password",
+				passwordForgotten: "Reset your password",
 				resetPasswordEmailSentTitle: "Email sent!",
 				resetPasswordEmailSentMessage:
 					"We sent you an email with a link to reset your password. Check your mailbox!",
@@ -122,9 +123,9 @@ export const en: Content = {
 		about: {
 			head: {
 				question: "About the project",
-				answer: `The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin's ecosystem.
-      
-Would you like to find out more about watering trees, report pumps and exchange ideas with other active users?`,
+				answer: `The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin's ecosystem. Our urban trees are drying out and suffering long-term damage: In recent years, more and more trees had to be felled and their lifespan is decreasing. The public is now regularly called upon for support, but in an so far uncoordinated manner. Through this project we want to change this and enable coordinated citizen participation in the watering of urban green spaces.
+
+Would you like to find out more about watering trees, report pumps or exchange ideas with other active users? Then join our slack chat!`,
 				slackButton: "Go to Slack Community",
 				feedback: `Do you have feedback about Gieß den Kiez?
 				
@@ -152,15 +153,17 @@ Would you like to find out more about watering trees, report pumps and exchange 
 				{
 					question: "About Us",
 					answer: `“Gieß den Kiez” is a project by [CityLAB Berlin](https://www.citylab-berlin.org/).
-The CityLAB is a project by the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery
+					The CityLAB is a public innovation laboratory for the city of the future in the former Berlin-Tempelhof airport. Together with a large network of administration, civil society, science and start-ups, we are working on new ideas to make Berlin even more liveable. The CityLAB is an open place to join in! If you want to know more, take a look at our website or just drop by!
 
-Exchange ideas with our watering community! We like to hear from you in our [Slack chat](https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ).
+The CityLAB is a project of the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery.
+
+Exchange ideas with the active pouring community! We would be happy to hear from you in our dedicated [Slack chat](https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ).
 
 Press inquiries are best addressed  [Anna Hantelmann](mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage) Tel.: +4915118457242`,
 				},
 				{
 					question: "Data sources",
-					answer: `The map shows the majority of Berlin\`s street and plant trees (839,049 as of May 2023).
+					answer: `The map shows the majority of Berlin's street trees (839,049; as of May 2023). It also shows how much precipitation has fallen on each tree in the last 30 days and whether users have watered them. Unfortunately, for various reasons, not all of Berlin's urban trees are listed yet. However, we are working on improving the data situation. The current data sources are the following: 
 
 [Geoportal Berlin / Street trees](https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS)
 
@@ -168,38 +171,39 @@ Press inquiries are best addressed  [Anna Hantelmann](mailto:anna.hantelmann@ts.
 
 [German Weather Service](https://www.dwd.de/)
 
-Pumps off [Open Street Map](https://www.openstreetmap.de)`,
+Pumps from [Open Street Map](https://www.openstreetmap.de)`,
 				},
 			],
 		},
 		faq: {
 			title: "F.A.Q.",
 			description:
-				"Based on the lively exchange between our community on Slack and your feedback via email and telephone, we have created a small FAQ. The most frequently asked questions are answered here.",
+				"Based on the active exchange in our Slack community as well as your feedback via email and telephone, we have created a small FAQ. The most frequently asked questions are answered here.",
 			qa: [
 				{
 					question: "How can I participate?",
-					answer: `Inform: 
+					answer: `Explore:
+
+Curious which tree is in front of your door? Our interactive map visualizes over 800,000 street trees of Berlin. If you want to find out more about a tree, navigate and zoom to the desired location and click on the colored dot. You will now see a lot of information about the selected tree.
+
+Watering and adopting trees:
+
+
+Do you want to get active or are you already actively watering? On Gieß den Kiez, you can enter when and with how much water you watered a tree. Trees can also be adopted. The adopted trees appear in your own user profile and can be found more quickly. This allows other neighbors in the area to see which trees need their attention. To water and adopt trees, first create a profile with a valid email address and then log in.
+
+Connect:
           
-Curious which tree is in front of your door? Our interactive map visualizes over 800,000 street and plant trees in Berlin. If you want to find out more about a tree, navigate and zoom to the desired location and click on the colored dot. You will now see a lot of information about the selected tree in the menu ribbon on the left. 
-          
-Watering and adopting trees: 
-          
-Do you want to get active or are you already actively watering? On Gieß den Kiez, you can enter whether and with how much water you watered a tree. Trees can also be adopted. The adopted trees appear in your own user profile and can be found more quickly. This allows other neighbors in the area to see which trees need their attention. To water and adopt trees, first create a profile with a valid email address and then log in. Now you can document your watering activities accordingly and see whether and how often trees in your neighborhood have already been watered by other users.
-          
-Connect: 
-          
-You can use our public [Slack channel](https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ) to exchange ideas with other foundries and report defective pumps in your neighborhood.`,
+You can use our public [Slack channel](https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ) to exchange ideas with others, report defective pumps in your neighborhood or connect to jointly water your neighborhood.`,
 				},
 				{
 					question: "What can I do if trees are not registered correctly?",
-					answer: `We obtain the tree data set with all attributes such as address, tree species and planting year for each tree from the geoportal of the city of Berlin, the FIS broker. The tree register provided in the geoportal is based on the district-aggregated data from the road and green space authorities. It can therefore happen again and again that data from trees is out of date or that properties differ from current reality. Unfortunately, we cannot make any changes to the tree register ourselves. Any deviations can only be reported directly to the responsible district authority. Once a year, the green space authorities publish an updated tree register, which we link to Gieß den Kiez after publication.`,
+					answer: `We obtain the tree data set with all attributes such as address, tree species and planting year for each tree from the geoportal of the city of Berlin, the FIS broker. The tree register provided in the geoportal is based on the district-aggregated data from the road and green space authorities. It can therefore happen that data from trees is out of date or that properties differ from current reality. Unfortunately, we cannot make any changes to the tree register ourselves. Any deviations can only be reported directly to the responsible district authority. Once a year, the green space authorities publish an updated tree register, which we link to Gieß den Kiez after publication.`,
 				},
 				{
 					question: "Why should I take action and water trees?",
-					answer: `The long periods of drought and heat of the last two years have caused immense damage to Berlin's urban greenery. Between 2018 and 2019 alone, over 7,000 trees had to be felled, not solely due to drought damage. 
-            
-The street and green space authorities are already active, but cannot keep up with the watering during Berlin's hot summers. Since the green space authorities are organized by district, each district works slightly differently, so holistic and needs-based coordination is certainly associated with hurdles. Through the platform, we would also like to give citizens the opportunity to help trees specifically based on their current water supply and to obtain information. The goal is to save as many trees as possible through neighborly involvement.`,
+					answer: `The long periods of drought and heat of the last two years have caused immense damage to Berlin's urban greenery. Between 2018 and 2019 alone, over 7,000 trees had to be felled, not solely due to drought damage.
+
+The street and green space authorities are already active, but cannot keep up with the watering during Berlin's hot summers. Since the green space authorities are organized by district, each district works slightly different, which makes holistic and needs-based coordination difficult. Through the platform, we would like to give citizens the opportunity to help trees specifically based on their current water supply and to obtain further information. The goal is to save as many trees as possible through neighborly involvement.`,
 				},
 				{
 					question: "How do I water correctly?",
@@ -225,11 +229,11 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 				},
 				{
 					question: "What should I do if I watered a tree incorrectly?",
-					answer: `To undo a watering, for example because the neighboring tree was watered instead or on a different day, first click on the tree. Scroll down the tree sidebar to the view of past waterings, click the trash can icon next to the entry you want to delete, and click “Delete” to confirm. Only waterings that you have made yourself can be deleted. After deleting, enter the watering with the correct information (number of liters and time).`,
+					answer: `To remove a watering entry first click on the tree for which you entered the watering. Scroll down the tree sidebar to the section of past waterings, click the trash can icon next to the entry you want to delete, and click “Delete” to confirm. Only waterings that you have made yourself can be deleted. After deleting, enter the watering with the correct information (number of liters and time) via the "I watered" button.`,
 				},
 				{
 					question: "Can the principle be transferred to other cities?",
-					answer: `The “Gieß den Kiez” platform is an open source software project and runs under an MIT license. Accordingly, the idea and also the source code can be used and further developed free of charge for implementation in other cities. If you are interested, please take a look at our [GitHub Repository](https://github.com/technologiestiftung/giessdenkiez-de) or contact us via email.`,
+					answer: `The “Gieß den Kiez” platform is an open source software project and runs under an MIT license. Accordingly, the idea and also the source code can be used and further developed free of charge for implementation in other cities. If you are interested, please take a look at our [GitHub Repository](https://github.com/technologiestiftung/giessdenkiez-de) or contact us via email. We are also happy to support your city with the technical implementation via [DeineStadtgießt](https://deinestadt.giessdenkiez.de/).`,
 				},
 				{
 					question: "I still have a question!",
@@ -437,7 +441,7 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		treeAge: "Tree age",
 		youngTrees: "0 - 3 years",
 		mediumTrees: "4 - 40 years",
-		oldTrees: "+40 years",
+		oldTrees: "40+ years",
 		show: "Show",
 		reset: "Reset",
 	},
