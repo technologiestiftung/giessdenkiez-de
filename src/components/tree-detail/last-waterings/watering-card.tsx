@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TreeWateringData } from "../tree-types";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { TrashIcon } from "../../icons/trash-icon";
-import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
+import { PrimaryDestructiveLoadingButton } from "../../buttons/primary-destructive-loading";
 import { useWaterTree } from "../hooks/use-water-tree";
 import { useProfileStore } from "../../../shared-stores/profile-store";
 
@@ -25,12 +25,15 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const formatDate = useI18nStore().formatDate;
 	const { username } = useProfileStore();
 	const { deleteWatering } = useWaterTree(wateringData.tree_id);
+	const [isDeleteWateringLoading, setIsDeleteWateringLoading] = useState(false);
 
 	const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false);
 	const isWateringByUser = wateringData.username === username;
 
 	const onClickDelete = async () => {
+		setIsDeleteWateringLoading(true);
 		await deleteWatering(wateringData.id);
+		setIsDeleteWateringLoading(false);
 		setIsConfirmDeleteVisible(false);
 	};
 
@@ -68,10 +71,12 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 					<div
 						className={`transition ease-in-out delay-100 ${isConfirmDeleteVisible ? "flex" : "hidden"}`}
 					>
-						<PrimaryDestructiveButton
+						<PrimaryDestructiveLoadingButton
 							label={"Löschen"}
 							onClick={onClickDelete}
-						></PrimaryDestructiveButton>
+							isLoading={isDeleteWateringLoading}
+							disabled={isDeleteWateringLoading}
+						/>
 					</div>
 				</div>
 			)}
