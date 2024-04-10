@@ -1,6 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
-import { PrimaryButton } from "../../buttons/primary";
+import { PrimaryLoadingButton } from "../../buttons/primary-loading";
 import { useWaterTree } from "./../hooks/use-water-tree";
 import { TreeCoreData } from "./../tree-types";
 import { useErrorStore } from "../../../error/error-store";
@@ -19,8 +19,8 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 	const i18n = useI18nStore().i18n();
 	const { waterTree } = useWaterTree(treeData.id);
 	const { handleError } = useErrorStore();
-
 	const formattedToday = format(new Date(), "yyyy-MM-dd");
+	const [isWateringLoading, setIsWateringLoading] = useState(false);
 
 	const onSubmit = useCallback(
 		async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,7 +30,9 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 			const date = new Date(e.currentTarget.date.value);
 
 			try {
+				setIsWateringLoading(true);
 				await waterTree(amount, date);
+				setIsWateringLoading(false);
 			} catch (error) {
 				handleError(i18n.common.defaultErrorMessage, error);
 			}
@@ -105,9 +107,11 @@ export const WateringDialog: React.FC<WateringDialogProps> = ({
 									onClick={close}
 								/>
 							</div>
-							<PrimaryButton
+							<PrimaryLoadingButton
 								label={i18n.treeDetail.waterNeed.waterSave}
+								isLoading={isWateringLoading}
 								type="submit"
+								disabled={isWateringLoading}
 							/>
 						</div>
 					</div>
