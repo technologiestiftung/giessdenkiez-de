@@ -28,6 +28,9 @@ export const EditUsername: React.FC = () => {
 		try {
 			await updateUsername(e.currentTarget.username.value);
 		} catch (error) {
+			form.email.setCustomValidity("Bitte überprüfe Deine Eingabe");
+			form.reportValidity();
+
 			handleError(i18n.common.defaultErrorMessage, error);
 		}
 	};
