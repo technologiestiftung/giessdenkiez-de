@@ -9,10 +9,6 @@ export function useFetchTreeData(treeId: string | undefined) {
 	const { refreshTreeData } = useTreeStore();
 
 	useEffect(() => {
-		if (!treeId) {
-			return () => {};
-		}
-
 		const abortController = new AbortController();
 
 		refreshTreeData(treeId, abortController).catch((error: unknown) => {

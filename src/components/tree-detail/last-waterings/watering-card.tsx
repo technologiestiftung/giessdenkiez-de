@@ -24,7 +24,7 @@ function getDisplayedUsername(wateringData: TreeWateringData) {
 export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const formatDate = useI18nStore().formatDate;
 	const { username } = useProfileStore();
-	const { deleteWatering } = useWaterTree(wateringData.tree_id);
+	const { deleteWatering } = useWaterTree();
 	const [isDeleteWateringLoading, setIsDeleteWateringLoading] = useState(false);
 
 	const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false);

@@ -4,21 +4,21 @@ import { useTreeAdoptStore } from "./adopt-tree-store";
 
 interface TreeStore {
 	refreshTreeData: (
-		treeId: string,
+		treeId: string | undefined,
 		abortController: AbortController,
 	) => Promise<void>;
 
 	treeCoreData: TreeCoreData | undefined;
 	setTreeCoreData: (treeData: TreeCoreData | undefined) => void;
 	refreshTreeCoreData: (
-		treeId: string,
+		treeId: string | undefined,
 		abortController: AbortController,
 	) => Promise<void>;
 
 	treeWateringData: TreeWateringData[];
 	setTreeWateringData: (treeWateringData: TreeWateringData[]) => void;
 	refreshTreeWateringData: (
-		treeId: string,
+		treeId: string | undefined,
 		abortController: AbortController,
 	) => Promise<void>;
 
@@ -48,11 +48,17 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 		set({ treeCoreData });
 	},
 	refreshTreeCoreData: async (treeId, abortController) => {
-		const geocodingUrl = `${
+		get().setTreeCoreData(undefined);
+
+		if (!treeId) {
+			return;
+		}
+
+		const getTreeByIdUrl = `${
 			import.meta.env.VITE_API_ENDPOINT
 		}/get/byid?id=${treeId}`;
 
-		const res = await fetch(geocodingUrl, {
+		const res = await fetch(getTreeByIdUrl, {
 			method: "GET",
 			headers: {
 				Authorization: `Bearer ${import.meta.env.VITE_ANON_KEY}`,
@@ -74,6 +80,12 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 		set({ treeWateringData });
 	},
 	refreshTreeWateringData: async (treeId, abortController) => {
+		get().setTreeWateringData([]);
+
+		if (!treeId) {
+			return;
+		}
+
 		const lastWateredUrl = `${
 			import.meta.env.VITE_API_ENDPOINT
 		}/get/lastwatered?id=${treeId}`;
