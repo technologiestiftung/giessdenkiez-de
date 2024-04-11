@@ -64,6 +64,7 @@ export const LocationSearch: React.FC = () => {
 					geocodingResult.geometry.coordinates[1],
 				],
 				essential: true,
+				duration: 1500,
 				zoom: MAP_LOCATION_ZOOM_LEVEL,
 			});
 		setSelectedGeocodingResult(geocodingResult);

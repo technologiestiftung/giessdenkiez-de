@@ -55,7 +55,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 				className="flex flex-row items-center justify-between  text-xl font-bold"
 				onClick={() => setIsExpanded(!isExpanded)}
 			>
-				<div className="flex flex-row items-center gap-2 pl-1">
+				<div className="flex flex-row items-center gap-1">
 					<WateringCanIcon />
 					<div className="">{i18n.treeDetail.waterNeed.title}</div>
 				</div>

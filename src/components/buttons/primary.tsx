@@ -1,10 +1,12 @@
 import React from "react";
+import { SpinnerIcon } from "../icons/spinner-icon";
 
 export interface PrimaryButtonProps {
 	label: string | React.ReactNode;
 	onClick?: () => void;
 	disabled?: boolean;
 	type?: "button" | "submit";
+	isLoading?: boolean;
 }
 
 export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
@@ -12,6 +14,7 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 	onClick,
 	disabled,
 	type = "button",
+	isLoading = false,
 }) => {
 	return (
 		<button
@@ -22,6 +25,9 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 			onClick={onClick}
 			type={type}
 		>
+			<div className={`-translate-x-3 ${isLoading ? "flex" : "hidden"}`}>
+				<SpinnerIcon />
+			</div>
 			<span className="flex flex-row items-center gap-3">{label}</span>
 		</button>
 	);

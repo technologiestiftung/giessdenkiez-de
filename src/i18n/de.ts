@@ -31,7 +31,7 @@ export const de: Content = {
 		},
 	},
 	locationSearch: {
-		placeholder: "Suche nach einem Ort",
+		placeholder: "Suche nach einer Adresse",
 	},
 	navbar: {
 		map: "Karte",
@@ -51,7 +51,7 @@ export const de: Content = {
 				showAll: "Alle anzeigen",
 				showLess: "Weniger anzeigen",
 				noAdoptedTreesMessage:
-					"Wenn Du einen Baum regelmäßig gießt, kannst Du ihn adoptieren. Deine adoptierten Bäume erscheinen hier in deiner Profilübersicht.",
+					"Wenn Du einen Baum regelmäßig gießt, kannst Du ihn adoptieren. Deine adoptierten Bäume erscheinen hier in Deiner Profilübersicht.",
 			},
 			settings: {
 				subtitle: "Profildetails",
@@ -65,48 +65,49 @@ export const de: Content = {
 				placeholderMail: "xyz@ts.berlin",
 				updateEmailEmailSentTitle: "E-Mail gesendet!",
 				updateEmailEmailSentMessage:
-					"Wir haben an Deine alte und neue E–Mail einen Bestätigungslink zum Ändern Deiner Email gesendet. Checke Deine Postfächer!",
+					"Wir haben an Deine alte und neue E-Mail einen Bestätigungslink zum Ändern Deiner Email gesendet. Checke Deine Postfächer!",
 				password: "Passwort",
 				changePassword: "Passwort ändern",
 				newPassword: "Neues Passwort",
 				passwordChangeConfirmationTitle:
 					"Dein Passwort wurde erfolgreich geändert!",
 				passwordChangeConfirmationMessage:
-					'Klicke auf "OK" um zu deinem Profil zu gelangen.',
+					'Klicke auf "OK" um zu Deinem Profil zu gelangen.',
 				deleteAccount: "Account löschen",
 				confirmDelete: "Löschen",
 				approve: "Fertig",
 				checkInput: "Bitte überprüfe Deine Eingabe",
 				usernameShould: "Dein Benutzername muss: ",
-				usernameLength: "mindestens 3–50 Zeichen lang sein",
+				usernameLength: "mindestens 3-50 Zeichen lang sein",
 				onlyNumberAndLetters: "und nur aus Buchstaben oder Zahlen bestehen",
 				usernameTaken: "Dieser Benutzername ist bereits vergeben",
 				backToLogin: "zurück zum Login",
 				register: "Registrieren",
 				confirmEmailTitle: "Account bestätigen",
 				confirmEmail: (email: string) =>
-					`Überprüfe Dein E-Mail Postfach für ${email} nach einer E-Mail von "noreply@mail.app.supabase.io" mit einem Link um deinen Account zu bestätigen.`,
+					`Überprüfe Dein E-Mail Postfach für ${email} nach einer E-Mail von "no-reply@giessdenkiez.de" mit einem Link um Deinen Account zu bestätigen.`,
 				existingAccount: "Du hast schon einen Account?",
 				logIn: "Melde Dich an",
 				passwordShould: "Dein Passwort muss enthalten:",
 				passwordLength: "mindestens 8 Zeichen",
 				passwordUpperAndLowerCase: "Klein- und Großbuchstaben",
 				passwordSpecialChar: "mindestens ein Sonderzeichen",
-				passwordNumber: "eine Zahl",
+				passwordNumber: "mindestens eine Zahl",
 				logInShort: "Anmelden",
 				missingAccount: "Du hast noch keinen Account?",
 				registerNow: "Registriere Dich",
 				forgotYourPassword: "Passwort vergessen?",
 				ohNoforgotYourPassword: "Oh nein. Du hast Dein",
 				passwordForgotten: "Passwort vergessen",
-				resetPasswordEmailSentTitle: "E–Mail gesendet!",
+				resetPasswordEmailSentTitle: "E-Mail gesendet!",
 				resetPasswordEmailSentMessage:
-					"Wir haben Dir eine E–Mail zum Ändern Deines Passworts gesendet. Checke Dein Postfach!",
+					"Wir haben Dir eine E-Mail zum Ändern Deines Passworts gesendet. Checke Dein Postfach!",
 				clickHere: "Hier klicken",
 				resetPassword: "Passwort zurücksetzen",
 				invalidCredentials: "Falsches Passwort oder E-Mail Adresse",
 				deleteAccountConfirm: "Willst Du Deinen Account wirklich löschen?",
 				cancel: "Abbrechen",
+				save: "Speichern",
 				confirm: "OK",
 			},
 			logOut: "Ausloggen",
@@ -188,11 +189,11 @@ Neugierig, welcher Baum vor Deiner Tür steht? Unsere interaktive Karte visualis
 
 Bäume bewässern und adoptieren:
 
-Du möchtest aktiv werden oder bist bereits aktiv am Gießen? Auf Gieß den Kiez kannst Du eintragen, ob und mit wie viel Wasser Du einen Baum gegossen hast. Bäume können auch adoptiert werden. Die adoptierten Bäume erscheinen im eigenen Nutzerprofil und können schneller wiedergefunden werden. So können andere Nachbarn in der Umgebung sehen, welche Bäume ihre Aufmerksamkeit benötigen. Um Bäume zu bewässern und zu adoptieren, lege dazu zunächst ein Profil mit einer gültigen Email-Adresse an und logge Dich im Anschluss ein. Nun kannst Du deine Gieß-Aktionen entsprechend dokumentieren und sehen, ob und wie oft Bäume in deinem Kiez bereits von anderen Nutzer:innen gegossen wurden.
+Du möchtest aktiv werden oder bist bereits aktiv am Gießen? Auf Gieß den Kiez kannst Du eintragen, ob und mit wie viel Wasser Du einen Baum gegossen hast. Bäume können auch adoptiert werden. Die adoptierten Bäume erscheinen im eigenen Nutzerprofil und können schneller wiedergefunden werden. So können andere Nachbarn in der Umgebung sehen, welche Bäume ihre Aufmerksamkeit benötigen. Um Bäume zu bewässern und zu adoptieren, lege dazu zunächst ein Profil mit einer gültigen Email-Adresse an und logge Dich im Anschluss ein. Nun kannst Du Deine Gieß-Aktionen entsprechend dokumentieren und sehen, ob und wie oft Bäume in Deinem Kiez bereits von anderen Nutzer:innen gegossen wurden.
 
 Vernetzen:
 
-Über unseren öffentlichen [Slack Channel](https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ) kannst Du dich mit anderen Gießer:innen austauschen und defekte Pumpen in deinem Kiez melden.`,
+Über unseren öffentlichen [Slack Channel](https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ) kannst Du Dich mit anderen Gießer:innen austauschen und defekte Pumpen in Deinem Kiez melden.`,
 				},
 				{
 					question:
@@ -202,8 +203,9 @@ Vernetzen:
 				},
 				{
 					question: "Warum sollte ich aktiv werden und Bäume gießen?",
-					answer:
-						"Die langanhaltenden Dürre- und Hitzeperioden der letzten zwei Jahre haben dem Stadtgrün Berlins immens zugesetzt. Wenngleich nicht nur auf Trockenschäden zurückzuführen, mussten allein im Zeitraum zwischen 2018 und 2019 über 7.000 Bäume gefällt werden. Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit dem Gießen während Berliner Hitze-Sommern nicht hinterher. Da die Grünflächenämter bezirklich organisiert sind, arbeitet jeder Bezirk etwas anders, sodass eine ganzheitliche und bedarfsgerechte Koordination durchaus mit Hürden verbunden ist. Durch die Plattform möchten wir auch Bürger:innen die Möglichkeit geben, Bäumen gezielt auf Grundlage ihrer aktuellen Wasserversorgung zu helfen und sich zu informieren. Ziel ist es, möglichst viele Bäume durch nachbarschaftliches Engagement zu retten.",
+					answer: `Die langanhaltenden Dürre- und Hitzeperioden der letzten zwei Jahre haben dem Stadtgrün Berlins immens zugesetzt. Wenngleich nicht nur auf Trockenschäden zurückzuführen, mussten allein im Zeitraum zwischen 2018 und 2019 über 7.000 Bäume gefällt werden.
+
+Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit dem Gießen während Berliner Hitze-Sommern nicht hinterher. Da die Grünflächenämter bezirklich organisiert sind, arbeitet jeder Bezirk etwas anders, sodass eine ganzheitliche und bedarfsgerechte Koordination durchaus mit Hürden verbunden ist. Durch die Plattform möchten wir auch Bürger:innen die Möglichkeit geben, Bäumen gezielt auf Grundlage ihrer aktuellen Wasserversorgung zu helfen und sich zu informieren. Ziel ist es, möglichst viele Bäume durch nachbarschaftliches Engagement zu retten.`,
 				},
 				{
 					question: "Wie gieße ich richtig?",
@@ -224,13 +226,13 @@ Vernetzen:
 				},
 				{
 					question:
-						"Was tun, wenn ich einen Baum fälschlicherweise gegossen habe?",
+						"Was tun, wenn ich fälschlicherweise eine Gießung eingetragen habe?",
 					answer:
 						"Um eine Gießung rückgängig zu machen, weil bspw. stattdessen der Nachbarbaum oder zu einem anderen Tag gegossen wurde, klicke zunächst auf den Baum. Scrolle in der Seitenleiste des Baumes runter bis zur Ansicht der vergangenen Gießungen, klicke auf das Papierkorb-Symbol neben dem Eintrag, den Du löschen möchtest und klicke auf „Löschen”, um zu bestätigen. Es können nur Gießungen gelöscht werden, die Du selbst vorgenommen hast. Trage nach der Löschung die Gießung mit den richtigen Angaben (Anzahl an Litern und Zeitpunkt) ein.",
 				},
 				{
 					question: "Ist das Prinzip auf andere Städte übertragbar?",
-					answer: `Die „Gieß den Kiez” Plattform ist ein Open Source Software Projekt und läuft unter einer MIT Lizenz. Dementsprechend kann die Idee, aber auch der Quellcode für die Umsetzung in anderen Städten kostenlos genutzt und weiterentwickelt werden. Wenn Du Dich dafür interessierst, schau gerne in unserem [Open Source GitHub Repository](https://github.com/technologiestiftung/giessdenkiez-de) vorbei oder kontaktiere uns via Mail.`,
+					answer: `Die „Gieß den Kiez” Plattform ist ein Open Source Software Projekt und läuft unter einer MIT Lizenz. Dementsprechend kann die Idee, aber auch der Quellcode für die Umsetzung in anderen Städten kostenlos genutzt und weiterentwickelt werden. Wenn Du Dich dafür interessierst, schau gerne in unserem [Open Source GitHub Repository](https://github.com/technologiestiftung/giessdenkiez-de) vorbei oder kontaktiere uns via Mail. Wir unterstützen Deine Stadt auch gerne bei der technischen Umsetzung mit [DeineStadtgießt](https://deinestadt.giessdenkiez.de/).`,
 				},
 				{
 					question: "Ich habe immer noch eine Frage!",
@@ -269,7 +271,7 @@ Vernetzen:
 			"Wenn Du regelmäßig den gleichen Baum gießt, kannst Du diesen adoptieren. So findest Du ihn schnell in Deiner Profilübersicht wieder.",
 		adoptErrorMessage:
 			"Fehler beim Adoptieren des Baumes. Bitte versuche es erneut.",
-		adoptLoginFirst: "Logge dich ein um diesen Baum zu adoptieren",
+		adoptLoginFirst: "Logge Dich ein um diesen Baum zu adoptieren",
 		ageTitle: "Standalter",
 		age: (age: number) => `${age === 1 ? "Jahr" : "Jahre"}`,
 		ageUnknown: "Unbekannt",
@@ -283,7 +285,7 @@ Vernetzen:
 			waterManaged: "Vom Bezirksamt versorgt",
 			unknownTitle: "Wasserbedarf unbekannt",
 			unknown:
-				"Das Alter dieses Baumes ist unbekannt und daher auch sein Wasserbedarf. Vielleicht helfen dir die weiteren Informationen für eine eigenständige Einschätzung.",
+				"Das Alter dieses Baumes ist unbekannt und daher auch sein Wasserbedarf. Vielleicht helfen Dir die weiteren Informationen für eine eigenständige Einschätzung.",
 			seniorTitle: "Braucht nur in trockenen Phasen Wasser",
 			seniorExplanation:
 				"Ältere Bäume können sich in der Regel über das Grundwasser selbst versorgen, aber bei zunehmender Hitze freuen auch sie sich über zusätzliches Wasser.",
@@ -314,7 +316,7 @@ Vernetzen:
 				`In den letzten ${days} Tagen sind **${liters} Liter Regen** gefallen.`,
 			iWatered: "Ich habe gegossen",
 			loginToWater: {
-				login: "Logge dich ein",
+				login: "Logge Dich ein",
 				toWater: "um eine Gießung einzutragen",
 			},
 			submitWatering: "Gießung eintragen",
@@ -431,7 +433,7 @@ Vernetzen:
 		treeAge: "Baumalter",
 		youngTrees: "0 - 3 Jahre",
 		mediumTrees: "4 - 40 Jahre",
-		oldTrees: "+40 Jahre",
+		oldTrees: "40+ Jahre",
 		show: "Anzeigen",
 		reset: "Zurücksetzen",
 	},
@@ -462,13 +464,13 @@ Vernetzen:
 			"Schnapp Dir eine Gießkanne und werde Teil der Gieß-Community! Bereits über tausend Aktive haben sich für die Bäume Berlins zusammengeschlossen und tragen ihre Gießungen regelmäßig ein.",
 		adoptTitle: "Adoptieren",
 		adoptContent:
-			"Durch das Adoptieren eines Baumes - oder auch mehrerer - lässt Du deine Nachbarschaft wissen, dass für diese Bäume gesorgt wird. So gelingt ein koordiniertes Engagement.",
+			"Durch das Adoptieren eines Baumes - oder auch mehrerer - lässt Du Deine Nachbarschaft wissen, dass für diese Bäume gesorgt wird. So gelingt ein koordiniertes Engagement.",
 		networkTitle: "Vernetzen",
 		networkContent:
 			"Tritt unserem Slack-Chat bei, um Dich mit der Gieß-Community zu vernetzen, Fragen auszutauschen und die Bewässerung in Deinem Kiez abzustimmen.",
 		questionHeadline: "Gieß den Kiez auch in Deiner Stadt?",
 		questionSubheadline:
-			"Städte wie Leipzig, Magdeburg und Co. haben sich bereits erfolgreich der Gieß–Welle angeschlossen! Ist Deine Stadt die nächste?",
+			"Städte wie Leipzig, Magdeburg und Co. haben sich bereits erfolgreich der Gieß-Welle angeschlossen! Ist Deine Stadt die nächste?",
 		discoverMoreTitle: "Erfahre mehr!",
 		letsGo: "Los geht's",
 	},

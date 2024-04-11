@@ -64,7 +64,10 @@ export const PasswordReset: React.FC = () => {
 						label={`${i18n.navbar.profile.settings.cancel}`}
 					/>
 
-					<PrimaryButton type="submit" label="Speichern" />
+					<PrimaryButton
+						type="submit"
+						label={i18n.navbar.profile.settings.save}
+					/>
 				</div>
 			</form>
 			<AlertDialog

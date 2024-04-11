@@ -25,12 +25,15 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const formatDate = useI18nStore().formatDate;
 	const { username } = useProfileStore();
 	const { deleteWatering } = useWaterTree();
+	const [isDeleteWateringLoading, setIsDeleteWateringLoading] = useState(false);
 
 	const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false);
 	const isWateringByUser = wateringData.username === username;
 
 	const onClickDelete = async () => {
+		setIsDeleteWateringLoading(true);
 		await deleteWatering(wateringData.id);
+		setIsDeleteWateringLoading(false);
 		setIsConfirmDeleteVisible(false);
 	};
 
@@ -71,7 +74,9 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 						<PrimaryDestructiveButton
 							label={"Löschen"}
 							onClick={onClickDelete}
-						></PrimaryDestructiveButton>
+							isLoading={isDeleteWateringLoading}
+							disabled={isDeleteWateringLoading}
+						/>
 					</div>
 				</div>
 			)}

@@ -78,9 +78,9 @@ export const UsernameInputWithValidation: React.FC<
 	);
 
 	return (
-		<div className="flex-auto">
+		<div>
 			<label className="font-semibold" htmlFor="username">
-				{label}
+				<div className="mb-4">{label}</div>
 			</label>
 			<TextInput
 				type="text"

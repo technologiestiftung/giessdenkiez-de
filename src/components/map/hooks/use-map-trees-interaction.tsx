@@ -74,6 +74,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				map.easeTo({
 					center: [parseFloat(treeCoreData.lat), parseFloat(treeCoreData.lng)],
 					zoom: MAP_MAX_ZOOM_LEVEL,
+					duration: 1500,
 					essential: true,
 					offset: MAP_TREE_ZOOMED_IN_OFFSET,
 				});
@@ -145,6 +146,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				],
 				zoom: MAP_MAX_ZOOM_LEVEL,
 				essential: true,
+				duration: 1500,
 				offset: MAP_TREE_ZOOMED_IN_OFFSET,
 			});
 			map.once("moveend", () => {

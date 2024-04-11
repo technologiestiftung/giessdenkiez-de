@@ -6,6 +6,7 @@ import { useErrorStore } from "../../../error/error-store";
 import { format } from "date-fns";
 import { TertiaryButton } from "../../buttons/tertiary";
 import { CloseIcon } from "../../icons/close-icon";
+import { useTreeStore } from "../stores/tree-store";
 
 const closeWateringDialog = () => {
 	(document.getElementById("water-dialog") as HTMLDialogElement).close();
@@ -15,8 +16,12 @@ export const WateringDialog: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { waterTree } = useWaterTree();
 	const { handleError } = useErrorStore();
-
 	const formattedToday = format(new Date(), "yyyy-MM-dd");
+	const {
+		setIsLastWateringsExpanded,
+		setIsWateringLoading,
+		isWateringLoading,
+	} = useTreeStore();
 
 	const onSubmit = useCallback(
 		async (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,11 +31,14 @@ export const WateringDialog: React.FC = () => {
 			const date = new Date(e.currentTarget.date.value);
 
 			try {
+				setIsWateringLoading(true);
 				await waterTree(amount, date);
+				setIsWateringLoading(false);
 			} catch (error) {
 				handleError(i18n.common.defaultErrorMessage, error);
 			}
 
+			setIsLastWateringsExpanded(true);
 			closeWateringDialog();
 		},
 		[i18n],
@@ -103,7 +111,9 @@ export const WateringDialog: React.FC = () => {
 							</div>
 							<PrimaryButton
 								label={i18n.treeDetail.waterNeed.waterSave}
+								isLoading={isWateringLoading}
 								type="submit"
+								disabled={isWateringLoading}
 							/>
 						</div>
 					</div>

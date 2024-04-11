@@ -54,7 +54,7 @@ export const Overview: React.FC = () => {
 						<div className="flex gap-3 lg:w-2/3">
 							<div className="shadow-gdk-soft flex w-full flex-col justify-between lg:w-1/2 gap-3 rounded-2xl border-2 p-4 font-semibold">
 								{i18n.navbar.profile.overview.irrigations}
-								<span className="flex items-baseline gap-x-5 text-5xl font-medium">
+								<span className="flex items-baseline gap-x-3 text-5xl font-medium">
 									<div className="text-gdk-dark-green">
 										<WateringCanIcon />
 									</div>
@@ -63,7 +63,7 @@ export const Overview: React.FC = () => {
 							</div>
 							<div className="shadow-gdk-soft flex w-full flex-col justify-between lg:w-1/2 gap-3 rounded-2xl border-2 p-4 font-semibold">
 								{i18n.navbar.profile.overview.adoptedTrees}
-								<span className="flex items-baseline gap-x-5 text-5xl font-medium">
+								<span className="flex items-baseline gap-x-4 text-5xl font-medium">
 									<div className="text-gdk-purple stroke-none">
 										<AdoptedTreeIcon />
 									</div>
