@@ -111,13 +111,13 @@ test.describe("Register", () => {
 			await page.getByLabel("Benutzername").fill("a"); // too short
 			await expect(page.locator("input#username:invalid")).toBeVisible();
 			await expect(
-				page.getByText("•mindestens 3–50 Zeichen lang"),
+				page.getByText("•mindestens 3-50 Zeichen lang sein"),
 			).toBeVisible();
 
 			await page.getByLabel("Benutzername").fill("a".repeat(51)); // too long
 			await expect(page.locator("input#username:invalid")).toBeVisible();
 			await expect(
-				page.getByText("•mindestens 3–50 Zeichen lang"),
+				page.getByText("•mindestens 3-50 Zeichen lang sein"),
 			).toBeVisible();
 
 			await page.getByLabel("Benutzername").fill("invalid-username"); // no special characters
@@ -129,7 +129,7 @@ test.describe("Register", () => {
 			await page.getByLabel("Benutzername").fill("validUsername01");
 			await expect(page.locator("input#username:invalid")).not.toBeVisible();
 			await expect(
-				page.getByText("✓mindestens 3–50 Zeichen lang"),
+				page.getByText("✓mindestens 3-50 Zeichen lang sein"),
 			).toBeVisible();
 			await expect(
 				page.getByText("✓und nur aus Buchstaben oder"),
@@ -174,7 +174,7 @@ test.describe("Register", () => {
 
 			await page.getByLabel("Passwort").fill("aQQQQQQQ!"); // no number
 			await expect(page.locator("input#password:invalid")).toBeVisible();
-			await expect(page.getByText("•eine Zahl")).toBeVisible();
+			await expect(page.getByText("•mindestens eine Zahl")).toBeVisible();
 
 			await page.getByLabel("Passwort").fill("VALID-password-01");
 			await expect(page.locator("input#password:invalid")).not.toBeVisible();
@@ -183,7 +183,7 @@ test.describe("Register", () => {
 			await expect(
 				page.getByText("✓mindestens ein Sonderzeichen"),
 			).toBeVisible();
-			await expect(page.getByText("✓eine Zahl")).toBeVisible();
+			await expect(page.getByText("✓mindestens eine Zahl")).toBeVisible();
 		});
 	});
 
