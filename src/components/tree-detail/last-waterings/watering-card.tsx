@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TreeWateringData } from "../tree-types";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { TrashIcon } from "../../icons/trash-icon";
-import { PrimaryDestructiveLoadingButton } from "../../buttons/primary-destructive-loading";
+import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
 import { useWaterTree } from "../hooks/use-water-tree";
 import { useProfileStore } from "../../../shared-stores/profile-store";
 
@@ -71,7 +71,7 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 					<div
 						className={`transition ease-in-out delay-100 ${isConfirmDeleteVisible ? "flex" : "hidden"}`}
 					>
-						<PrimaryDestructiveLoadingButton
+						<PrimaryDestructiveButton
 							label={"Löschen"}
 							onClick={onClickDelete}
 							isLoading={isDeleteWateringLoading}

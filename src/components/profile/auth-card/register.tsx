@@ -36,7 +36,7 @@ export const Register: React.FC = () => {
 		} catch (error) {
 			if (getErrorMessage(error) === "User already registered") {
 				setIsEmailTaken(true);
-				form.email.setCustomValidity("Bitte überprüfe Deine Eingabe");
+				form.email.setCustomValidity(i18n.navbar.profile.settings.checkInput);
 				form.reportValidity();
 				return;
 			}

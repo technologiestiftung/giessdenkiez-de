@@ -78,8 +78,8 @@ export const UsernameInputWithValidation: React.FC<
 	);
 
 	return (
-		<div className="">
-			<label className="font-semibold bg-red-200" htmlFor="username">
+		<div>
+			<label className="font-semibold" htmlFor="username">
 				<div className="mb-4">{label}</div>
 			</label>
 			<TextInput

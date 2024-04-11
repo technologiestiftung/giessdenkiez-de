@@ -27,6 +27,8 @@ interface TreeStore {
 
 	hoveredTreeId: string | undefined;
 	setHoveredTreeId: (hoveredTreeId: string | undefined) => void;
+	isWateringLoading: boolean;
+	setIsWateringLoading: (isWateringLoading: boolean) => void;
 	isLastWateringsExpanded: boolean;
 	setIsLastWateringsExpanded: (isExpanded: boolean) => void;
 }
@@ -119,5 +121,9 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 	isLastWateringsExpanded: false,
 	setIsLastWateringsExpanded: (isLastWateringsExpanded) => {
 		set({ isLastWateringsExpanded });
+	},
+	isWateringLoading: false,
+	setIsWateringLoading: (isWateringLoading) => {
+		set({ isWateringLoading });
 	},
 }));

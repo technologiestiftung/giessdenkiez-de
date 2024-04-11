@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
-import { PrimaryLoadingButton } from "../../buttons/primary-loading";
+import { PrimaryButton } from "../../buttons/primary";
 import { useWaterTree } from "./../hooks/use-water-tree";
 import { useErrorStore } from "../../../error/error-store";
 import { format } from "date-fns";
@@ -17,8 +17,11 @@ export const WateringDialog: React.FC = () => {
 	const { waterTree } = useWaterTree();
 	const { handleError } = useErrorStore();
 	const formattedToday = format(new Date(), "yyyy-MM-dd");
-	const [isWateringLoading, setIsWateringLoading] = useState(false);
-	const { setIsLastWateringsExpanded } = useTreeStore();
+	const {
+		setIsLastWateringsExpanded,
+		setIsWateringLoading,
+		isWateringLoading,
+	} = useTreeStore();
 
 	const onSubmit = useCallback(
 		async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,12 +33,12 @@ export const WateringDialog: React.FC = () => {
 			try {
 				setIsWateringLoading(true);
 				await waterTree(amount, date);
-				setIsLastWateringsExpanded(true);
 				setIsWateringLoading(false);
 			} catch (error) {
 				handleError(i18n.common.defaultErrorMessage, error);
 			}
 
+			setIsLastWateringsExpanded(true);
 			closeWateringDialog();
 		},
 		[i18n],
@@ -106,7 +109,7 @@ export const WateringDialog: React.FC = () => {
 									onClick={close}
 								/>
 							</div>
-							<PrimaryLoadingButton
+							<PrimaryButton
 								label={i18n.treeDetail.waterNeed.waterSave}
 								isLoading={isWateringLoading}
 								type="submit"
