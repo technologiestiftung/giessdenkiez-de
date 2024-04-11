@@ -6,6 +6,7 @@ import { useErrorStore } from "../../../error/error-store";
 import { format } from "date-fns";
 import { TertiaryButton } from "../../buttons/tertiary";
 import { CloseIcon } from "../../icons/close-icon";
+import { useTreeStore } from "../stores/tree-store";
 
 const closeWateringDialog = () => {
 	(document.getElementById("water-dialog") as HTMLDialogElement).close();
