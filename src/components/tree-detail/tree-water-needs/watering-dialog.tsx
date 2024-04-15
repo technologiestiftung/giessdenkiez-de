@@ -98,7 +98,7 @@ export const WateringDialog: React.FC = () => {
 							<div className="p-y-3.5 flex self-center">
 								<TertiaryButton
 									label={i18n.treeDetail.waterNeed.waterCancel}
-									onClick={close}
+									onClick={closeWateringDialog}
 								/>
 							</div>
 							<PrimaryButton
@@ -110,7 +110,10 @@ export const WateringDialog: React.FC = () => {
 				</form>
 				<div className="pointer-events-none col-start-1 row-start-1">
 					<div className="flex w-full justify-end">
-						<button className="pointer-events-auto p-2" onClick={close}>
+						<button
+							className="pointer-events-auto p-2"
+							onClick={closeWateringDialog}
+						>
 							<CloseIcon />
 						</button>
 					</div>
