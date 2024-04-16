@@ -4,9 +4,9 @@ permissions:
   packages: write
 on:
   push:
-    branches: [main, staging, feat/ui-rework]
+    branches: [master, staging]
   pull_request:
-    branches: [main, staging, feat/ui-rework]
+    branches: [master, staging]
   workflow_dispatch:
     inputs:
       debug_enabled:
