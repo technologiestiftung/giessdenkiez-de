@@ -2,7 +2,6 @@
 
 This is some documentation that does not fit into the main README.md
 
-
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
 <!-- code_chunk_output -->
@@ -11,7 +10,6 @@ This is some documentation that does not fit into the main README.md
   - [Stats From the DB](#stats-from-the-db)
 
 <!-- /code_chunk_output -->
-
 
 ## Stats From the DB
 

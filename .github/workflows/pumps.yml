@@ -17,7 +17,7 @@ jobs:
         id: pumps
         uses: technologiestiftung/giessdenkiez-de-osm-pumpen-harvester@v1.4.1
         with:
-          outfile-path: 'public/data/pumps.geojson'
+          outfile-path: "public/data/pumps.geojson"
       - name: File output
         run: echo "The file was written to ${{ steps.pumps.outputs.file }}"
       - name: Upload file to supabase
