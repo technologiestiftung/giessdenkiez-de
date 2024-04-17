@@ -60,6 +60,10 @@ interface Navbar {
 			newPassword: string;
 			passwordChangeConfirmationTitle: string;
 			passwordChangeConfirmationMessage: string;
+			passwordChangeWithoutRecoveryLinkTitle: string;
+			passwordChangeWithoutRecoveryLinkMessage: string;
+			passwordChangeWithoutRecoveryLinkLinkLabel: string;
+			pleaseWait: string;
 			deleteAccount: string;
 			confirmDelete: string;
 			cancel: string;

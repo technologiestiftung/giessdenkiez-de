@@ -23,6 +23,7 @@ interface AuthState {
 		password,
 	}: RegistrationCredentials) => Promise<void>;
 	forgotPassword: (email: string) => Promise<void>;
+	isPasswordRecovery: boolean;
 }
 
 export const useAuthStore = create<AuthState>()((set, get) => {
@@ -31,9 +32,14 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 		useProfileStore.getState().refresh();
 	});
 
-	supabaseClient.auth.onAuthStateChange((_event, session) => {
+	supabaseClient.auth.onAuthStateChange((event, session) => {
 		set({ session });
 		useProfileStore.getState().refresh();
+		if (event === "PASSWORD_RECOVERY") {
+			set({ isPasswordRecovery: true });
+			/* reset password recovery mode after 5 minutes */
+			setTimeout(() => set({ isPasswordRecovery: false }), 5 * 60 * 1000);
+		}
 	});
 
 	return {
@@ -95,5 +101,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 				throw error;
 			}
 		},
+		isPasswordRecovery: false,
 	};
 });
