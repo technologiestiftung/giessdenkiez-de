@@ -79,10 +79,10 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 				>
 					<CloseIcon />
 				</button>
-				<div className="flex flex-row w-full justify-between items-center pb-2 mb-4 lg:mb-5">
-					<div className="flex flex-col lg:flex-row justify-between">
+				<div className="flex flex-row w-full justify-between items-center pb-0 lg:pb-2 mb-2 lg:mb-5">
+					<div className="flex flex-col lg:flex-row justify-between w-full">
 						<div className="flex flex-row justify-between">
-							<div className="text-3xl font-bold flex-row flex gap-1 translate-y-3">
+							<div className="text-3xl font-bold flex-row flex gap-1 lg:translate-y-5">
 								<span>Gieß den</span>{" "}
 								<span className="text-gdk-neon-green"> Kiez</span>
 								<div className="-translate-y-3">
@@ -93,7 +93,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 								<LanguageToggle />
 							</div>
 						</div>
-						<div className="w-full sm:w-3/5 lg:w-6/12 flex flex-row justify-end mr-8 mb-4 mt-6 lg:my-0 lg:px-4">
+						<div className="hidden w-full sm:w-3/5 lg:w-7/12 lg:flex flex-row justify-end mr-8 mb-4 mt-6 lg:my-0 lg:px-4">
 							<Credits />
 						</div>
 					</div>
@@ -109,7 +109,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-row w-full justify-between items-top pb-8">
+				<div className="flex flex-col lg:flex-row w-full justify-between items-top pb-8">
 					<div className="flex flex-col gap-2 pr-6 w-full lg:max-w-[70%]">
 						<Markdown className="sm:text-xl xl:text-2xl 2xl:text-3xl font-semibold">
 							{i18n.splash.headline}
@@ -123,6 +123,9 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 					</div>
 					<div className="hidden lg:flex pr-8 max-h-[150px] 2xl:scale-[1.2]">
 						<img src="/images/icon-water-large.svg" alt="" />
+					</div>
+					<div className="lg:hidden w-full sm:w-3/5 lg:w-7/12 flex flex-row justify-end mt-8 pr-1 lg:my-0 lg:px-4">
+						<Credits />
 					</div>
 				</div>
 
@@ -153,7 +156,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 				</div>
 			</div>
 
-			<div className="flex flex-col lg:grid lg:grid-cols-1 lg:grid-rows-1 w-full bg-[#F3FDF9] border-y-2">
+			<div className="flex flex-col lg:grid lg:grid-cols-1 lg:grid-rows-1 w-full bg-[#F3FDF9] border-t-2">
 				<div className="lg:col-start-1 lg:row-start-1 flex flex-row justify-end w-full items-end">
 					<img
 						className="pt-8 w-full lg:w-[60%]"
@@ -161,7 +164,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 						alt=""
 					/>
 				</div>
-				<div className="lg:col-start-1 lg:row-start-1 flex flex-col gap-2 px-8 lg:w-[65%] w-full py-4">
+				<div className="lg:col-start-1 lg:row-start-1 flex flex-col gap-2 px-8 lg:w-[65%] w-full py-4 ">
 					<div className="text-lg font-bold">
 						{i18n.splash.questionHeadline}
 					</div>
