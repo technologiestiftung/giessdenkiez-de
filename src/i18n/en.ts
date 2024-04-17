@@ -123,19 +123,19 @@ export const en: Content = {
 		about: {
 			head: {
 				question: "About the project",
-				answer: `The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin's ecosystem. Our urban trees are drying out and suffering long-term damage: In recent years, more and more trees had to be felled and their lifespan is decreasing. The public is now regularly called upon for support, but in an so far uncoordinated manner. Through this project we want to change this and enable coordinated citizen participation in the watering of urban green spaces.`,
+				answer: `The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin's ecosystem. Our urban trees are drying out and suffering long-term damage: In recent years, more and more trees had to be felled and their lifespan is decreasing. The public is now regularly called upon for support, but in a so far uncoordinated manner. Through this project we want to improve this and enable coordinated citizen participation in the watering of urban green spaces.`,
 
 				aboutUsTitle: "About Us",
-				aboutUsAnswer: `“Gieß den Kiez” is a project by [CityLAB Berlin](https://www.citylab-berlin.org/).
-				The CityLAB is a public innovation laboratory for the city of the future in the former Berlin-Tempelhof airport. Together with a large network of administration, civil society, science and start-ups, we are working on new ideas to make Berlin even more liveable. The CityLAB is an open place to join in! If you want to know more, take a look at our website or just drop by! The CityLAB is a project of the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery.`,
-				press: `Press inquiries are best addressed to [Anna Hantelmann](mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage).`,
+				aboutUsAnswer: `“Gieß den Kiez” is a project of the [CityLAB Berlin](https://www.citylab-berlin.org/).
+				The CityLAB is a public innovation laboratory in the former Berlin-Tempelhof airport. Together with a large network of administration, civil society, science and start-ups, we are working on new ideas to make Berlin even more liveable. The CityLAB is a project of the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery.`,
+				press: `For press inquiries please contact [Anna Hantelmann](mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage).`,
 				communityTitle: "Community",
 				communityAnswer:
-					"Du möchtest Dich über das Gießen von Bäumen informieren, Pumpen melden oder Dich mit anderen aktiven Nutzer:innen austauschen? Dann tritt unserem Slack-Chat bei!",
+					"Would you like to find out more about watering trees, report pumps or exchange ideas with other active users? Then join our Slack chat!",
 				slackButton: "Go to Slack Community",
-				feedback: `Do you have feedback about Gieß den Kiez?
+				feedback: `Do you have feedback on Gieß den Kiez?
 				
-[Please answer a few questions](https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK)`,
+[Feel free to answer a few questions](https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK)`,
 			},
 			qa: [
 				{
