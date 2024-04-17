@@ -48,7 +48,7 @@ export const QaEntry: React.FC<QaEntryProps> = ({
 					<Markdown
 						// @ts-expect-error typing too complex
 						components={{ a: ExternalAnchorLink }}
-						className="text-gdk-gray mt-4 grid gap-4 pr-6"
+						className="text-gdk-gray mt-4 grid gap-4 pr-2 md:pr-6"
 					>
 						{answer}
 					</Markdown>
