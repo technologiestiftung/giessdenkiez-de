@@ -79,23 +79,32 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 				>
 					<CloseIcon />
 				</button>
-				<div className="flex flex-row w-full justify-between items-center mb-4 lg:mb-5">
-					<div className="text-2xl font-bold flex-row flex gap-1">
-						<span>Gieß den</span>{" "}
-						<span className="text-gdk-neon-green"> Kiez</span>
-						<div className="-translate-y-4">
-							<SplashTreeIcon />
+				<div className="flex flex-row w-full justify-between items-center pb-2 mb-4 lg:mb-5">
+					<div className="flex flex-col lg:flex-row justify-between">
+						<div className="flex flex-row justify-between">
+							<div className="text-3xl font-bold flex-row flex gap-1 translate-y-3">
+								<span>Gieß den</span>{" "}
+								<span className="text-gdk-neon-green"> Kiez</span>
+								<div className="-translate-y-3">
+									<SplashTreeIcon />
+								</div>
+							</div>
+							<div className="flex self-end lg:hidden pb-2 -translate-y-2">
+								<LanguageToggle />
+							</div>
+						</div>
+						<div className="w-full sm:w-3/5 lg:w-6/12 flex flex-row justify-end mr-8 mb-4 mt-6 lg:my-0 lg:px-4">
+							<Credits />
 						</div>
 					</div>
-
 					<div>
 						<button
-							className="hidden lg:flex hover:text-gdk-light-gray self-start"
+							className="hidden lg:flex hover:text-gdk-light-gray self-start "
 							onClick={onClose}
 						>
 							<CloseIcon />
 						</button>
-						<div className="flex  -translate-y-1">
+						<div className="hidden lg:flex justify-start -translate-y-1">
 							<LanguageToggle />
 						</div>
 					</div>
@@ -163,12 +172,6 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 							label={i18n.splash.discoverMoreTitle}
 						></ExternalAnchorLink>
 					</div>
-				</div>
-			</div>
-
-			<div className="w-full flex flex-row justify-center">
-				<div className="w-full md:w-[80%] lg:w-[60%] xl:w-[50%]">
-					<Credits />
 				</div>
 			</div>
 		</div>
