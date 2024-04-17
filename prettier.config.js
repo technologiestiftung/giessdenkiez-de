@@ -1,5 +1,5 @@
-module.exports = {
-  singleQuote: true,
-  arrowParens: 'avoid',
-  jsxSingleQuote: true,
+import technologiestiftung from "@technologiestiftung/prettier-config";
+export default {
+	...technologiestiftung,
+	// Add your overrides here
 };
