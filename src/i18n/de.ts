@@ -73,6 +73,12 @@ export const de: Content = {
 					"Dein Passwort wurde erfolgreich geändert!",
 				passwordChangeConfirmationMessage:
 					'Klicke auf "OK" um zu Deinem Profil zu gelangen.',
+				passwordChangeWithoutRecoveryLinkTitle:
+					"Es ist ein Fehler aufgetreten.",
+				passwordChangeWithoutRecoveryLinkMessage:
+					"Hinweis: Diese Seite kann nur aufgerufen werden, wenn zuvor der Passwort-Zurücksetzen Link in der E-Mail angeklickt wurde.",
+				passwordChangeWithoutRecoveryLinkLinkLabel: "Zurück zur Startseite",
+				pleaseWait: "Einen Moment Geduld bitte...",
 				deleteAccount: "Account löschen",
 				confirmDelete: "Löschen",
 				approve: "Fertig",

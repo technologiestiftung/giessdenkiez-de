@@ -62,6 +62,11 @@ export const en: Content = {
 				updateEmailEmailSentTitle: "E-Mail sent!",
 				updateEmailEmailSentMessage:
 					"We sent you an email with a confirmation link to your new email address to confirm the change. Check your mailbox!",
+				passwordChangeWithoutRecoveryLinkTitle: "An error occurred.",
+				passwordChangeWithoutRecoveryLinkMessage:
+					"Note: This page can only be accessed if the password reset link in the email has been clicked previously.",
+				passwordChangeWithoutRecoveryLinkLinkLabel: "Back to home",
+				pleaseWait: "Please wait a moment...",
 				email: "Email",
 				yourEmail: "Your email address",
 				editEmail: "New email address",
