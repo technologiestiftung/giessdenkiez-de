@@ -52,7 +52,7 @@ export const Info: React.FC = () => {
 									>
 										{i18n.info.about.head.press}
 									</Markdown>
-									<div className="w-full pt-4 pb-4">
+									<div className="w-full 2xl:w-[640px] pt-4 pb-4">
 										<Credits />
 									</div>
 									<Markdown
