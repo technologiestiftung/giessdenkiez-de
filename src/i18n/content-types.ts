@@ -114,6 +114,11 @@ interface QuestionAnswer {
 interface QuestionAnswerHead {
 	question: string;
 	answer: string;
+	aboutUsTitle: string;
+	aboutUsAnswer: string;
+	press: string;
+	communityTitle: string;
+	communityAnswer: string;
 	slackButton: string;
 	feedback: string;
 }

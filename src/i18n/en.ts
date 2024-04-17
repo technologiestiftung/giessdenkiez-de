@@ -123,9 +123,15 @@ export const en: Content = {
 		about: {
 			head: {
 				question: "About the project",
-				answer: `The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin's ecosystem. Our urban trees are drying out and suffering long-term damage: In recent years, more and more trees had to be felled and their lifespan is decreasing. The public is now regularly called upon for support, but in an so far uncoordinated manner. Through this project we want to change this and enable coordinated citizen participation in the watering of urban green spaces.
+				answer: `The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin's ecosystem. Our urban trees are drying out and suffering long-term damage: In recent years, more and more trees had to be felled and their lifespan is decreasing. The public is now regularly called upon for support, but in an so far uncoordinated manner. Through this project we want to change this and enable coordinated citizen participation in the watering of urban green spaces.`,
 
-Would you like to find out more about watering trees, report pumps or exchange ideas with other active users? Then join our slack chat!`,
+				aboutUsTitle: "About Us",
+				aboutUsAnswer: `“Gieß den Kiez” is a project by [CityLAB Berlin](https://www.citylab-berlin.org/).
+				The CityLAB is a public innovation laboratory for the city of the future in the former Berlin-Tempelhof airport. Together with a large network of administration, civil society, science and start-ups, we are working on new ideas to make Berlin even more liveable. The CityLAB is an open place to join in! If you want to know more, take a look at our website or just drop by! The CityLAB is a project of the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery.`,
+				press: `Press inquiries are best addressed to [Anna Hantelmann](mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage).`,
+				communityTitle: "Community",
+				communityAnswer:
+					"Du möchtest Dich über das Gießen von Bäumen informieren, Pumpen melden oder Dich mit anderen aktiven Nutzer:innen austauschen? Dann tritt unserem Slack-Chat bei!",
 				slackButton: "Go to Slack Community",
 				feedback: `Do you have feedback about Gieß den Kiez?
 				
@@ -149,17 +155,6 @@ Would you like to find out more about watering trees, report pumps or exchange i
 [City trees - significance and challenges in times of climate change](https://www.hcu-hamburg.de/fileadmin/documents/REAP/files/Bildungsmaterial_Stadtbaeume_im_Klimawandel_2017.pdf)
 
 [BUND - Functions of city trees](https://www.bund-naturschutz.de/natur-und-landschaft/stadt-als-lebensraum/stadtbaeume/funktionen-von-stadtbaeumen.html)`,
-				},
-				{
-					question: "About Us",
-					answer: `“Gieß den Kiez” is a project by [CityLAB Berlin](https://www.citylab-berlin.org/).
-					The CityLAB is a public innovation laboratory for the city of the future in the former Berlin-Tempelhof airport. Together with a large network of administration, civil society, science and start-ups, we are working on new ideas to make Berlin even more liveable. The CityLAB is an open place to join in! If you want to know more, take a look at our website or just drop by!
-
-The CityLAB is a project of the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery.
-
-Exchange ideas with the active pouring community! We would be happy to hear from you in our dedicated [Slack chat](https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ).
-
-Press inquiries are best addressed  [Anna Hantelmann](mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage) Tel.: +4915118457242`,
 				},
 				{
 					question: "Data sources",

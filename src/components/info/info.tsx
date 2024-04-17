@@ -18,9 +18,11 @@ export const Info: React.FC = () => {
 					<div className="lg:hidden absolute top-6 md:top-14 mt-1 right-0 pr-5">
 						<LanguageToggle />
 					</div>
-					<h1 className="px-4 md:px-0 text-4xl font-semibold pb-2 md:pb-4">
-						{i18n.info.infoTitel}
-					</h1>
+					<div className="flex flex-row">
+						<h1 className="px-4 md:px-0 text-4xl font-semibold pb-2 md:pb-4">
+							{i18n.info.infoTitel}
+						</h1>
+					</div>
 					<div className="flex flex-col rounded-lg px-4 pb-4 md:border-2 md:p-8">
 						<div>
 							<QaEntry
@@ -30,7 +32,41 @@ export const Info: React.FC = () => {
 								isLast={false}
 								isInitiallyExpanded={true}
 							>
-								<div className="py-2">
+								<div className="py-2 pr-2 md:pr-6">
+									<Markdown
+										className={"[&>p]:pt-1 pt-4 text-2xl font-semibold"}
+									>
+										{i18n.info.about.head.aboutUsTitle}
+									</Markdown>
+									<Markdown
+										// @ts-expect-error typing too complex
+										components={{ a: ExternalAnchorLink }}
+										className={"[&>p]:pt-1 pt-2 "}
+									>
+										{i18n.info.about.head.aboutUsAnswer}
+									</Markdown>
+									<Markdown
+										// @ts-expect-error typing too complex
+										components={{ a: ExternalAnchorLink }}
+										className={"[&>p]:pt-2 py-2"}
+									>
+										{i18n.info.about.head.press}
+									</Markdown>
+									<div className="w-full pt-4 pb-4">
+										<Credits />
+									</div>
+									<Markdown
+										className={"[&>p]:pt-1 pt-4 text-2xl font-semibold"}
+									>
+										{i18n.info.about.head.communityTitle}
+									</Markdown>
+									<Markdown
+										// @ts-expect-error typing too complex
+										components={{ a: ExternalAnchorLink }}
+										className={"[&>p]:pt-1 pt-2 pb-2"}
+									>
+										{i18n.info.about.head.communityAnswer}
+									</Markdown>
 									<PrimaryButton
 										label={i18n.info.about.head.slackButton}
 										onClick={() => {
@@ -60,13 +96,7 @@ export const Info: React.FC = () => {
 									key={`info-about-item-${idx}`}
 									isLast={idx === i18n.info.about.qa.length - 1}
 									isInitiallyExpanded={false}
-								>
-									{idx === 1 && (
-										<div className="p-4">
-											<Credits />
-										</div>
-									)}
-								</QaEntry>
+								></QaEntry>
 							</React.Fragment>
 						))}
 						<div className={`text-2xl font-semibold w-full pt-6 border-t-2`}>
