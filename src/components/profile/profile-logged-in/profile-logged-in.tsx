@@ -28,7 +28,7 @@ export const ProfileLoggedIn: React.FC = () => {
 					<div className="lg:hidden  absolute top-7 right-0 md:pr-4">
 						<LanguageToggle />
 					</div>
-					<h1 className="text-4xl font-semibold">
+					<h1 className="text-4xl font-semibold pb-4">
 						{i18n.navbar.profile.title}
 					</h1>
 

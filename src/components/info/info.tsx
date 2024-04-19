@@ -23,7 +23,7 @@ export const Info: React.FC = () => {
 							{i18n.info.infoTitel}
 						</h1>
 					</div>
-					<div className="flex flex-col rounded-lg px-4 pb-4 md:border-2 md:p-8">
+					<div className="flex flex-col rounded-2xl px-4 pb-4 md:border-2 md:p-8">
 						<div>
 							<QaEntry
 								key="head-qa"
