@@ -61,7 +61,7 @@ export const en: Content = {
 				placeholderUser: "Your username",
 				updateEmailEmailSentTitle: "E-Mail sent!",
 				updateEmailEmailSentMessage:
-					"We sent you an email with a link to both your old and your new email address to confirm the change. Check your mailbox!",
+					"We sent you an email with a confirmation link to your new email address to confirm the change. Check your mailbox!",
 				email: "Email",
 				yourEmail: "Your email address",
 				editEmail: "New email address",
