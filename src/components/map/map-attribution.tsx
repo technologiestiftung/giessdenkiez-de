@@ -22,7 +22,7 @@ export const MapAttribution: React.FC = () => {
 						key={link.label}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="hover:text-gray-500"
+						className="text-gdk-light-gray hover:text-gdk-gray underline"
 						dangerouslySetInnerHTML={{ __html: link.label }}
 					></a>
 				))
