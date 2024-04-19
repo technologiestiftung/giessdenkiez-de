@@ -14,7 +14,7 @@ export const MapAttribution: React.FC = () => {
 	];
 
 	return (
-		<p className="pointer-events-auto max-w-56 pb-[4.5rem] pr-1 text-end text-xs sm:max-w-80 md:max-w-full lg:pb-1">
+		<p className="pointer-events-auto max-w-56 text-end text-xs sm:max-w-80 md:max-w-full pb-[4.7rem] pr-2 lg:pb-2">
 			{links
 				.map<React.ReactNode>((link) => (
 					<a
@@ -22,7 +22,7 @@ export const MapAttribution: React.FC = () => {
 						key={link.label}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="text-gdk-light-gray hover:text-gdk-gray underline"
+						className=" text-gray-600 hover:text-gdk-light-gray underline"
 						dangerouslySetInnerHTML={{ __html: link.label }}
 					></a>
 				))
