@@ -30,12 +30,14 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 		if (!isLoggedIn) {
 			return i18n.treeDetail.adoptLoginFirst;
 		}
+
 		if (isLoading) {
 			if (isTreeAdopted) {
 				return i18n.treeDetail.unadoptLoading;
 			}
 			return i18n.treeDetail.adoptLoading;
 		}
+
 		if (isTreeAdopted) {
 			return i18n.treeDetail.isAdopted;
 		}
@@ -97,7 +99,7 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 								height={24}
 							/>
 							<div className="italic leading-tight text-slate-500">
-								{i18n.treeDetail.exclusivelyAdoptedBy}
+								{i18n.treeDetail.adoptedByOtherUsers}
 							</div>
 						</div>
 					)}
@@ -110,7 +112,7 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 								height={24}
 							/>
 							<div className="italic leading-tight text-slate-500">
-								{i18n.treeDetail.alsoAdoptedBy}
+								{i18n.treeDetail.alsoAdoptedByOtherUsers}
 							</div>
 						</div>
 					)}

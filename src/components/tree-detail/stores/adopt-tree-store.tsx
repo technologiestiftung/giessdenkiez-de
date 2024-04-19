@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { useAuthStore } from "../../../auth/auth-store";
-import { supabaseClient } from "../../../auth/supabase-client";
 import { useErrorStore } from "../../../error/error-store";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useProfileStore } from "../../../shared-stores/profile-store";
@@ -102,21 +101,29 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			return;
 		}
 
-		const user = useAuthStore.getState().session?.user;
-		set({ adoptedByOthers: false });
 		try {
-			const { data, error } = await supabaseClient
-				.from("trees_adopted")
-				.select(`id, uuid, tree_id`)
-				.eq("tree_id", treeId)
-				.neq("uuid", user?.id)
-				.abortSignal(abortController.signal);
+			const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/wateredandadopted`;
+			const response = await fetch(adoptUrl, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+				signal: abortController.signal,
+			});
 
-			if (error) {
-				throw error;
+			if (!response.ok) {
+				throw new Error(
+					"Failed to fetch data watered and adopted (community data)",
+				);
 			}
 
-			set({ adoptedByOthers: (data ?? []).length > 0 });
+			const json = await response.json();
+
+			const isTreeAdoptedByOthers = json.data.some(
+				({ tree_id, adopted }: { tree_id: string; adopted: number }) =>
+					tree_id === treeId && adopted > 0,
+			);
+
+			set({ adoptedByOthers: isTreeAdoptedByOthers });
 		} catch (error) {
 			if (abortController.signal.aborted) {
 				return;
