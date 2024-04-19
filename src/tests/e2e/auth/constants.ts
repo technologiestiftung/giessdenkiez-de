@@ -10,5 +10,7 @@ export const supabaseClient = createClient(supabaseApiUrl, supabaseAnonKey);
 
 export const defaultEmail = "user@example.com";
 export const defaultInbucketEmailUsername = "user";
+export const changedEmail = "other-user@example.com";
+export const changedInbucketEmailUsername = "other-user";
 export const defaultUsername = "username";
 export const defaultPassword = '123qwe!"§QWE';
