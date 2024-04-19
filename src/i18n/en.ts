@@ -256,8 +256,8 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 	treeDetail: {
 		title: "Tree information",
 		adoptIt: "Adopt this tree",
-		alsoAdoptedBy: "Also adopted by other users",
-		exclusivelyAdoptedBy: "Adopted by other users",
+		alsoAdoptedByOtherUsers: "Also adopted by other users",
+		adoptedByOtherUsers: "Adopted by other users",
 		ageTitle: "Age",
 		adoptLoading: "Tree is being adopted...",
 		unadoptLoading: "Adoption is being canceled...",

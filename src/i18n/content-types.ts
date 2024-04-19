@@ -206,8 +206,8 @@ interface LastWaterings {
 interface TreeDetail {
 	title: string;
 	adoptIt: string;
-	alsoAdoptedBy: string;
-	exclusivelyAdoptedBy: string;
+	alsoAdoptedByOtherUsers: string;
+	adoptedByOtherUsers: string;
 	adoptLoading: string;
 	unadoptLoading: string;
 	isAdopted: string;
