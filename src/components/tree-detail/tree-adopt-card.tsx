@@ -60,7 +60,10 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 						{isLoggedIn ? (
 							<div className="text-slate-500">{adoptLabel}</div>
 						) : (
-							<InternalAnchorLink href={"/profile"} label={adoptLabel} />
+							<InternalAnchorLink
+								href={`/profile?redirectTo=/map?treeId=${treeData.id}&zoom=20`}
+								label={adoptLabel}
+							/>
 						)}
 
 						<div className="relative">

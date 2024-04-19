@@ -6,6 +6,7 @@ import { useI18nStore } from "../../../i18n/i18n-store";
 import { useErrorStore } from "../../../error/error-store";
 import { getErrorMessage } from "../validation/validation.ts";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
+import { useUrlState } from "../../router/store.tsx";
 
 export const Login: React.FC = () => {
 	const { login } = useAuthStore();
@@ -21,6 +22,12 @@ export const Login: React.FC = () => {
 				email: e.currentTarget.email.value,
 				password: e.currentTarget.password.value,
 			});
+
+			const { setPathname, url } = useUrlState.getState();
+			const redirectTo = url.searchParams.get("redirectTo");
+			if (redirectTo !== null) {
+				setPathname(redirectTo);
+			}
 		} catch (error) {
 			if (getErrorMessage(error) === "Invalid login credentials") {
 				handleError(i18n.navbar.profile.settings.invalidCredentials);
