@@ -125,7 +125,7 @@ export const TreeWaterNeedUnknown: React.FC<TreeWaterNeedUnknownProps> = ({
 				{!isLoggedIn() && (
 					<p>
 						<InternalAnchorLink
-							href={"/profile"}
+							href={`/profile?redirectTo=/map?treeId=${treeData.id}&zoom=20`}
 							label={i18n.treeDetail.waterNeed.loginToWater.login}
 						/>{" "}
 						{i18n.treeDetail.waterNeed.loginToWater.toWater}
