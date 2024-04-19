@@ -157,7 +157,10 @@ export function useMapSetup(
 		});
 		initializedMap.addControl(geoLocateControl, "bottom-left");
 		initializedMap.addControl(
-			new mapboxgl.NavigationControl({ showCompass: false, showZoom: true }),
+			new mapboxgl.NavigationControl({
+				showCompass: false,
+				showZoom: !isMobile,
+			}),
 			"bottom-left",
 		);
 
