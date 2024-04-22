@@ -1,4 +1,4 @@
-import { isSameMonth, isSameWeek, isSameYear } from "date-fns";
+import { subDays } from "date-fns";
 import React, { useMemo } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { ChevronDown } from "../../icons/chevron-down";
@@ -16,13 +16,11 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 	treeWateringData,
 }) => {
 	const i18n = useI18nStore().i18n();
-	const now = new Date();
 	const { isLastWateringsExpanded, setIsLastWateringsExpanded } =
 		useTreeStore();
 
 	const wateringsLast30Days = useMemo(() => {
-		const thirtyDaysAgo = new Date();
-		thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+		const thirtyDaysAgo = subDays(new Date(), 30);
 		return treeWateringData
 			.filter((watering) => new Date(watering.timestamp) >= thirtyDaysAgo)
 			.sort(
@@ -31,14 +29,10 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 			);
 	}, [treeWateringData]);
 
-	const wateringsThisYear = useMemo(() => {
-		return treeWateringData.filter((watering) => {
-			return (
-				isSameYear(new Date(watering.timestamp), now) &&
-				!isSameMonth(new Date(watering.timestamp), now) &&
-				!isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 })
-			);
-		});
+	const previousWaterings = useMemo(() => {
+		return treeWateringData.filter(
+			(watering) => !wateringsLast30Days.includes(watering),
+		);
 	}, [treeWateringData]);
 
 	return (
@@ -67,7 +61,7 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 						noWateringsHint={i18n.treeDetail.lastWaterings.nothingLast30Days}
 					/>
 					<WateringSection
-						waterings={wateringsThisYear}
+						waterings={previousWaterings}
 						title={i18n.treeDetail.lastWaterings.before}
 						noWateringsHint={i18n.treeDetail.lastWaterings.nothingBefore}
 					/>
