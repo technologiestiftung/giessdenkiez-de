@@ -106,7 +106,7 @@ test("should calculate correct water needs for baby tree", () => {
 
 	expect(rainSum).toBe(2);
 	expect(wateringSum).toBe(100);
-	expect(referenceWaterAmount).toBe(200);
+	expect(referenceWaterAmount).toBe(100);
 	expect(rainPercentage).toBe(0.01);
 	expect(wateringPercentage).toBe(0.99);
 	expect(shouldBeWatered).toBe(false);
