@@ -256,8 +256,8 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 	treeDetail: {
 		title: "Bauminformationen",
 		adoptIt: "Diesen Baum adoptieren",
-		alsoAdoptedBy: "Auch von anderen User:innen adoptiert",
-		exclusivelyAdoptedBy: "Von anderen User:innen adoptiert",
+		alsoAdoptedByOtherUsers: "Auch von anderen User:innen adoptiert",
+		adoptedByOtherUsers: "Von anderen User:innen adoptiert",
 		adoptLoading: "Baum wird adoptiert...",
 		unadoptLoading: "Adoption wird aufgehoben...",
 		isAdopted: "Du hast diesen Baum adoptiert",
