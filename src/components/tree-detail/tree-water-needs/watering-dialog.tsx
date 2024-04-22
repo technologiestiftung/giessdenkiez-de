@@ -48,12 +48,12 @@ export const WateringDialog: React.FC = () => {
 				setIsWateringLoading(true);
 				await waterTree(amount, date);
 				setIsWateringLoading(false);
+				setIsLastWateringsExpanded(true);
+				showHideWateringSuccessDialog();
 			} catch (error) {
 				handleError(i18n.common.defaultErrorMessage, error);
 			}
-			setIsLastWateringsExpanded(true);
 			closeWateringDialog();
-			showHideWateringSuccessDialog();
 		},
 		[i18n],
 	);
