@@ -8,9 +8,8 @@ export function useTreeAgeClassification(
 	treeData?: TreeCoreData,
 	referenceDate?: Date,
 ): TreeAgeClassificationState {
-	const BABY_AGE_LIMIT = 3;
-	const JUNIOR_TREES_AGE_LIMIT = 14;
-	const SENIOR_TREES_AGE_LIMIT = 40;
+	const BABY_AGE_LIMIT = 4;
+	const JUNIOR_TREES_AGE_LIMIT = 10;
 
 	const treeAgeClassification = () => {
 		if (!treeData || !treeData.pflanzjahr || treeData.pflanzjahr === 0) {
@@ -23,9 +22,6 @@ export function useTreeAgeClassification(
 		}
 		if (age <= JUNIOR_TREES_AGE_LIMIT) {
 			return TreeAgeClassification.JUNIOR;
-		}
-		if (age <= SENIOR_TREES_AGE_LIMIT) {
-			return TreeAgeClassification.GROWNUP;
 		}
 		return TreeAgeClassification.SENIOR;
 	};

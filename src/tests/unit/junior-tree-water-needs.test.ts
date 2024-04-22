@@ -40,17 +40,17 @@ test("should calculate correct water needs for junior tree", () => {
 	];
 
 	const treeData: TreeCoreData = {
-		id: "_22002a6665",
-		lat: "13.51075",
-		lng: "52.51674",
-		artdtsch: "Seiden-Kiefer, Strobe, Weymouths-Kiefer",
-		artbot: "Pinus strobus",
-		gattungdeutsch: "KIEFER",
-		gattung: "PINUS",
-		pflanzjahr: 2010,
-		standalter: "13",
-		baumhoehe: "17",
-		bezirk: "Lichtenberg",
+		id: "_2100284266",
+		lat: "13.57305",
+		lng: "52.44338",
+		artdtsch: "Spitz-Ahorn 'Summershade'",
+		artbot: "Acer platanoides 'Summershade'",
+		gattungdeutsch: "AHORN",
+		gattung: "ACER",
+		pflanzjahr: 2019,
+		standalter: "4",
+		baumhoehe: "7",
+		bezirk: "Treptow-Köpenick",
 		eigentuemer: "Land Berlin",
 		radolan_sum: 191,
 		radolan_days: [
@@ -91,7 +91,7 @@ test("should calculate correct water needs for junior tree", () => {
 		treeData,
 		new Date("2024-01-01T00:00+00:00"),
 	);
-	expect(treeAge).toBe(14);
+	expect(treeAge).toBe(5);
 	expect(treeAgeClassification).toBe(TreeAgeClassification.JUNIOR);
 
 	const {
@@ -105,12 +105,12 @@ test("should calculate correct water needs for junior tree", () => {
 		stillMissingWater,
 	} = useTreeWaterNeedsData(treeData, waterings, treeAgeClassification);
 
-	expect(rainSum).toBe(2);
+	expect(rainSum).toBe(21.1);
 	expect(wateringSum).toBe(100);
 	expect(referenceWaterAmount).toBe(200);
-	expect(rainPercentage).toBe(0.01);
+	expect(rainPercentage).toBe(0.10550000000000001);
 	expect(wateringPercentage).toBe(0.5);
 	expect(shouldBeWatered).toBe(true);
-	expect(stillMissingWater).toBe(98);
-	expect(waterParts.map((p) => p.progress)).toEqual([0.01, 0.5]);
+	expect(stillMissingWater).toBe(79);
+	expect(waterParts.map((p) => p.progress)).toEqual([0.10550000000000001, 0.5]);
 });

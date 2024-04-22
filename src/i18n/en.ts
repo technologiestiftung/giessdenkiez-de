@@ -277,40 +277,39 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			needXLiters: (liters: string) => `Needs ${liters} liters per week`,
 			needsOnlyOnDryDays: "Only needs water on dry days",
 			waterManaged: "Supplied by the district office",
-			unknownTitle: "Water needs unknown",
+			managedByGroundwater: "Groundwater",
+			unknownTitle: "Water needs **unknown**",
 			unknown:
 				"The age and therefore the water requirement are unfortunately unknown. The info box may help you make your own assessment.",
+			unknownShort: "Unknown",
 			seniorTitle: "Needs water only during dry periods",
 			seniorExplanation:
 				"Older trees can usually supply themselves with groundwater, but as the heat increases they also appreciate additional water.",
 			liters: "liters",
 			watered: "watered",
+			covered: "covered",
 			rained: "rain",
 			stillMissing: "still missing",
-			dataOfLastXDays: "* data of last 7 days",
+			dataOfLastXDays: "* data of last 30 days",
 			manager: "district",
-			alreadyWateredByManager: "Watered by district authority",
-			stillWaterXLiters: (liters: string) => `Needs ${liters} liters`,
+			alreadyWateredByManager: "Watered by **district authority**",
+			alreadyWateredByGroundwater: "Covered by **groundwater**",
+			stillWaterXLiters: (liters: string) => `
+Needs
+
+**${liters} liters**`,
 			shouldBeWatered: "Should be watered",
 			sufficientlyWatered: "Sufficiently watered at the moment",
 			readMore: "Show more",
 			ageAndWaterHintTitle: "Water requirements and age",
 			ageAndWaterHint: `
-**Baby (under 4 years):**
+Particularly young trees need water in the first few years. Rather less often, but a lot at once. 
 
-We are fresh young trees and our thirst is satisfied by the district parks department breastfed.
-  
-**Young (4-14 years):**
+**Below 5 years**: We are taken care of by the district green space office.
 
-At that age we will no longer be watered by the administration in all districts and are not yet “self-sufficient”. We are happy about lots of water up to 200l per watering (once a week).
-     
-**Adult (15-40 years):**
+**5-10 years**: At this age, we are no longer watered by the administration in all districts and are not yet "self-sufficient". We are thankful for some extra water, especially in dry times - preferably less often, but a lot at once (approx. 100-200 liters per month). 
 
-We have a certain amount of stamina but we need it in hot phases also a good extra sip of water: up to 100l once a day week.
-  
-**Old (over 40 years old):**
-
-We manage largely on our own and are happy in particularly dry phases but still about an extra sip.
+**Older trees (10+ years)**: We can supply ourselves via the groundwater.
       `,
 			close: "Show less",
 			lastXDaysYLitersWater: (days: number, liters: string) =>

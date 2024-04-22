@@ -48,76 +48,72 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 		<div className="shadow-gdk-hard flex flex-col gap-4 rounded-lg bg-slate-100 p-4">
 			<div className="flex flex-row items-center justify-between text-xl">
 				<div className="font-bold">{treeData.artdtsch}</div>
-
-				{treeAgeClassification !== TreeAgeClassification.BABY && (
-					<AdoptButton treeId={treeData.id}></AdoptButton>
-				)}
+				<AdoptButton treeId={treeData.id}></AdoptButton>
 			</div>
 			{treeAgeClassification === TreeAgeClassification.BABY && (
 				<div>{i18n.treeDetail.managedBy}</div>
 			)}
-			{treeAgeClassification !== TreeAgeClassification.BABY && (
-				<div className="flex flex-col gap-4">
-					<div className="flex flex-row items-center justify-between">
-						{isLoggedIn ? (
-							<div className="text-slate-500">{adoptLabel}</div>
-						) : (
-							<InternalAnchorLink
-								href={`/profile?redirectTo=/map?treeId=${treeData.id}&zoom=20`}
-								label={adoptLabel}
-							/>
-						)}
 
-						<div className="relative">
-							<button
-								onClick={() => {
-									setShowTooltip(!showTooltip);
-								}}
-								onMouseMove={() => setShowTooltip(true)}
-								onMouseOut={() => setShowTooltip(false)}
-							>
-								<div className="text-gdk-blue">
-									<InfoIcon />
-								</div>
-							</button>
-							{showTooltip && (
-								<div className="absolute right-0 top-8">
-									<AdoptTreeTooltip
-										title={i18n.treeDetail.adoptHintTitle}
-										content={i18n.treeDetail.adoptHint}
-									/>
-								</div>
-							)}
+			<div className="flex flex-col gap-4">
+				<div className="flex flex-row items-center justify-between">
+					{isLoggedIn ? (
+						<div className="text-slate-500">{adoptLabel}</div>
+					) : (
+						<InternalAnchorLink
+							href={`/profile?redirectTo=/map?treeId=${treeData.id}&zoom=20`}
+							label={adoptLabel}
+						/>
+					)}
+
+					<div className="relative">
+						<button
+							onClick={() => {
+								setShowTooltip(!showTooltip);
+							}}
+							onMouseMove={() => setShowTooltip(true)}
+							onMouseOut={() => setShowTooltip(false)}
+						>
+							<div className="text-gdk-blue">
+								<InfoIcon />
+							</div>
+						</button>
+						{showTooltip && (
+							<div className="absolute right-0 top-8">
+								<AdoptTreeTooltip
+									title={i18n.treeDetail.adoptHintTitle}
+									content={i18n.treeDetail.adoptHint}
+								/>
+							</div>
+						)}
+					</div>
+				</div>
+				{adoptedByOthers && !isTreeAdopted && (
+					<div className="items-left flex flex-row gap-2">
+						<img
+							src="/images/hi-there-icon.svg"
+							alt="Tree Icon"
+							width={24}
+							height={24}
+						/>
+						<div className="italic leading-tight text-slate-500">
+							{i18n.treeDetail.adoptedByOtherUsers}
 						</div>
 					</div>
-					{adoptedByOthers && !isTreeAdopted && (
-						<div className="items-left flex flex-row gap-2">
-							<img
-								src="/images/hi-there-icon.svg"
-								alt="Tree Icon"
-								width={24}
-								height={24}
-							/>
-							<div className="italic leading-tight text-slate-500">
-								{i18n.treeDetail.adoptedByOtherUsers}
-							</div>
+				)}
+				{adoptedByOthers && isTreeAdopted && (
+					<div className="items-left flex flex-row gap-2">
+						<img
+							src="/images/hi-there-icon.svg"
+							alt="Tree Icon"
+							width={24}
+							height={24}
+						/>
+						<div className="italic leading-tight text-slate-500">
+							{i18n.treeDetail.alsoAdoptedByOtherUsers}
 						</div>
-					)}
-					{adoptedByOthers && isTreeAdopted && (
-						<div className="items-left flex flex-row gap-2">
-							<img
-								src="/images/hi-there-icon.svg"
-								alt="Tree Icon"
-								width={24}
-								height={24}
-							/>
-							<div className="italic leading-tight text-slate-500">
-								{i18n.treeDetail.alsoAdoptedByOtherUsers}
-							</div>
-						</div>
-					)}
-				</div>
-			)}
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };

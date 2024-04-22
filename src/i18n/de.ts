@@ -275,35 +275,45 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 		waterNeed: {
 			title: "Wasserbedarf",
 			hint: "Je nach Baumalter unterscheidet sich der Bedarf an Wasser.",
-			needXLiters: (liters: string) => `Braucht ${liters} Liter pro Woche`,
+			needXLiters: (liters: string) => `Braucht ca. ${liters} Liter pro Monat`,
 			needsOnlyOnDryDays: "Braucht nur an trockenen Tagen Wasser",
-			waterManaged: "Vom Bezirksamt versorgt",
-			unknownTitle: "Wasserbedarf unbekannt",
+			waterManaged: "Versorgt, nur in trockenen Phasen bedürftig",
+			managedByGroundwater: "Grundwasser",
+			unknownTitle: "Wasserbedarf **unbekannt**",
 			unknown:
 				"Das Alter dieses Baumes ist unbekannt und daher auch sein Wasserbedarf. Vielleicht helfen Dir die weiteren Informationen für eine eigenständige Einschätzung.",
+			unknownShort: "Unbekannt",
 			seniorTitle: "Braucht nur in trockenen Phasen Wasser",
 			seniorExplanation:
 				"Ältere Bäume können sich in der Regel über das Grundwasser selbst versorgen, aber bei zunehmender Hitze freuen auch sie sich über zusätzliches Wasser.",
 			liters: "Liter",
 			watered: "gegossen",
+			covered: "versorgt",
 			rained: "Regen",
 			stillMissing: "fehlen noch",
-			dataOfLastXDays: "* Daten der letzen 7 Tage",
+			dataOfLastXDays: "* Daten der letzen 30 Tage",
 			manager: "vom Bezirksamt",
-			alreadyWateredByManager: "Bereits vom Bezirksamt versorgt",
-			stillWaterXLiters: (liters: string) => `Noch ${liters} Liter gießen`,
+			alreadyWateredByManager: "Bereits vom **Bezirksamt versorgt**",
+			alreadyWateredByGroundwater: "Über das **Grundwasser versorgt**",
+			stillWaterXLiters: (liters: string) => `
+Noch
+
+**${liters} Liter**
+
+gießen`,
 			shouldBeWatered: "Sollte gegossen werden",
 			sufficientlyWatered: "Momentan ausreichend bewässert",
 			readMore: "Mehr anzeigen",
 			ageAndWaterHintTitle: "Wasserbedarf und Standalter",
 			ageAndWaterHint: `
-   **Baby (unter 4 Jahren):** Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
+Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener, aber dafür viel.
 
-   **Jung (4-14 Jahre):** In dem Alter werden wir nicht mehr in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Wir freuen uns über viel Wasser von bis zu 200l pro Gießung (ein Mal in der Woche).
+**Unter 5 Jahren**:  Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
 
-   **Erwachsen (15-40 Jahre):** Wir haben ein gewisses Durchhaltevermögen aber brauchen in heißen Phasen auch einen ordentlichen extra Schluck Wasser: bis zu 100l ein Mal in der Woche.
+**5-10 Jahre**: In dem Alter werden wir nicht mehr in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Wir freuen uns gerade in trockenen Zeiten über Wasser - lieber seltener, aber viel auf einmal (ca. 100-200l pro Monat).
 
-   **Alt (über 40 Jahre):** Wir kommen weitestgehend alleine klar, freuen uns in besonders trockenen Phasen aber dennoch über einen extra Schluck.`,
+**Ältere Bäume (10+ Jahre)**: Wir können uns über das Grundwasser selbst versorgen.
+`,
 			close: "Weniger anzeigen",
 			lastXDaysYLitersWater: (days: number, liters: string) =>
 				`Die letzten ${days} Tage wurden **${liters} Liter gegossen**.`,

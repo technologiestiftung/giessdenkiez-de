@@ -2,7 +2,6 @@
 export enum TreeAgeClassification {
 	BABY = "BABY",
 	JUNIOR = "JUNIOR",
-	GROWNUP = "GROWNUP",
 	SENIOR = "SENIOR",
 	UNKNOWN = "UNKNOWN",
 }

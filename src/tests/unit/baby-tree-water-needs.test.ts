@@ -104,11 +104,11 @@ test("should calculate correct water needs for baby tree", () => {
 		waterParts,
 	} = useTreeWaterNeedsData(treeData, waterings, treeAgeClassification);
 
-	expect(rainSum).toBe(2);
+	expect(rainSum).toBe(15.3);
 	expect(wateringSum).toBe(100);
-	expect(referenceWaterAmount).toBe(200);
-	expect(rainPercentage).toBe(0.01);
-	expect(wateringPercentage).toBe(0.99);
+	expect(referenceWaterAmount).toBe(100);
+	expect(rainPercentage).toBe(0.153);
+	expect(wateringPercentage).toBe(0.847);
 	expect(shouldBeWatered).toBe(false);
-	expect(waterParts.map((p) => p.progress)).toEqual([0.01, 0.99]);
+	expect(waterParts.map((p) => p.progress)).toEqual([0.153, 0.847]);
 });

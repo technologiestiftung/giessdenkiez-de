@@ -1,5 +1,6 @@
 import React from "react";
 import { PartialCircleProps } from "../../tree-types";
+import Markdown from "react-markdown";
 
 export const PartialProgressCircle: React.FC<PartialCircleProps> = ({
 	parts,
@@ -55,7 +56,7 @@ export const PartialProgressCircle: React.FC<PartialCircleProps> = ({
 			})}
 			<div className="col-start-1 row-start-1 flex items-center justify-center text-center">
 				<div className="flex flex-col items-center justify-center text-center">
-					<div className="m-12">{title}</div>
+					<Markdown className="m-12">{title}</Markdown>
 				</div>
 			</div>
 		</div>
