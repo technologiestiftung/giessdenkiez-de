@@ -332,14 +332,10 @@ We manage largely on our own and are happy in particularly dry phases but still 
 		lastWaterings: {
 			deletedAccount: "Deactivated Account",
 			title: "Last waterings",
-			thisWeek: "This week",
-			nothingThisWeek: "No waterings this week",
-			thisMonth: "This month",
-			nothingThisMonth: "No waterings this month",
-			nothingMoreThisMonth: "No further waterings this month",
-			thisYear: "This year",
-			nothingThisYear: "No waterings this year",
-			nothingMoreThisYear: "No further waterings this year",
+			last30Days: "Last 30 days",
+			nothingLast30Days: "No waterings in the last 30 days",
+			before: "Previous",
+			nothingBefore: "No previous waterings",
 		},
 		problem: {
 			title: "Report a problem",

@@ -5,6 +5,7 @@ import { TrashIcon } from "../../icons/trash-icon";
 import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
 import { useWaterTree } from "../hooks/use-water-tree";
 import { useProfileStore } from "../../../shared-stores/profile-store";
+import { WateringCanIcon } from "../../icons/watering-can-icon";
 
 interface WateringCardProps {
 	wateringData: TreeWateringData;
@@ -47,13 +48,8 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 				<div className="font-bold">{getDisplayedUsername(wateringData)}</div>
 				<div className="flex flex-row items-center justify-between">
 					<div>{formatDate(new Date(wateringData.timestamp))}</div>
-					<div className="flex flex-row items-center gap-2">
-						<img
-							src="/images/drop-icon.svg"
-							alt="Drop Icon"
-							width={15}
-							height={15}
-						/>
+					<div className="flex flex-row items-center justify-between w-[63px]">
+						<WateringCanIcon className="h-[21px] text-gdk-baby-blue " />
 						<div>{wateringData.amount}l</div>
 					</div>
 				</div>
