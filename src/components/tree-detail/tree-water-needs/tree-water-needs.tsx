@@ -117,7 +117,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 						<div className="flex flex-col gap-3">
 							<div className="flex flex-row items-center gap-4">
 								<div
-									className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-gdk-rain-blue`}
+									className={`h-8 min-h-8 w-5 min-w-5 rounded-full bg-gdk-rain-blue`}
 								/>
 								<div className="flex flex-col">
 									<div className="font-bold">
@@ -130,7 +130,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 							{treeAgeClassification === TreeAgeClassification.BABY && (
 								<div className="flex flex-row items-center gap-4">
 									<div
-										className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-gdk-water-blue`}
+										className={`h-8 min-h-8 w-5 min-w-5 rounded-full bg-gdk-water-blue`}
 									/>
 									<div className="flex flex-col">
 										<div className="font-bold">
@@ -145,7 +145,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 								treeAgeClassification === TreeAgeClassification.JUNIOR) && (
 								<div className="flex flex-row items-center gap-4">
 									<div
-										className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-gdk-water-blue`}
+										className={`h-8 min-h-8 w-5 min-w-5 rounded-full bg-gdk-water-blue`}
 									/>
 									<div className="flex flex-col">
 										<div className="font-bold">
@@ -159,7 +159,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 							{treeAgeClassification === TreeAgeClassification.SENIOR && (
 								<div className="flex flex-row items-center gap-4">
 									<div
-										className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-gdk-water-blue`}
+										className={`h-8 min-h-8 w-5 min-w-5 rounded-full bg-gdk-water-blue`}
 									/>
 									<div className="flex flex-col">
 										<div className="font-bold">
@@ -174,7 +174,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 								treeAgeClassification === TreeAgeClassification.JUNIOR && (
 									<div className="flex flex-row items-center gap-4">
 										<div
-											className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-[#d3d3d3]`}
+											className={`h-8 min-h-8 w-5 min-w-5 rounded-full bg-[#d3d3d3]`}
 										/>
 										<div className="flex flex-col">
 											<div className="font-bold">
@@ -188,7 +188,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 							{treeAgeClassification === TreeAgeClassification.UNKNOWN && (
 								<div className="flex flex-row items-center gap-4">
 									<div
-										className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-[#d3d3d3]`}
+										className={`h-8 min-h-8 w-5 min-w-5 rounded-full bg-[#d3d3d3]`}
 									/>
 									<div className="flex flex-col">
 										<div className="font-bold">
