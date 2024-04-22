@@ -41,7 +41,8 @@ export interface TreeWateringDataState {
 	stillMissingWater: number;
 	waterParts: ProgressPart[];
 	shouldBeWatered: boolean;
-	wateringColor: string;
+	userWateringColor: string;
+	otherWateringColor: string;
 	rainColor: string;
 }
 

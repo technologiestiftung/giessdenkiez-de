@@ -21,7 +21,9 @@ export function useTreeWaterNeedsData(
 	const SENIOR_TREES_WATERING_AMOUNT = 300;
 	const NUMBER_OF_DAYS_TO_LOOK_AT = 30;
 
-	const WATERING_COLOR = fullConfig.theme.colors["gdk-water-blue"];
+	// OTHER_WATERING_COLOR is the color for watering by groundwater and bezirksamt
+	const OTHER_WATERING_COLOR = fullConfig.theme.colors["gdk-light-blue"];
+	const USER_WATERING_COLOR = fullConfig.theme.colors["gdk-watering-blue"];
 	const RAIN_COLOR = fullConfig.theme.colors["gdk-rain-blue"];
 
 	const referenceWaterAmount = () => {
@@ -72,17 +74,22 @@ export function useTreeWaterNeedsData(
 		return ratio;
 	};
 
-	const wateringPercentage = () => {
-		if (
-			treeAgeClassification === TreeAgeClassification.BABY ||
-			treeAgeClassification === TreeAgeClassification.SENIOR
-		) {
-			return 1 - rainPercentage();
-		}
+	const userWateringPercentage = () => {
 		const ratio = wateringSum() / referenceWaterAmount();
 		if (ratio >= 1) {
 			return 1;
 		}
+		return ratio;
+	};
+
+	const otherWateringPercentage = () => {
+		if (
+			treeAgeClassification === TreeAgeClassification.UNKNOWN ||
+			treeAgeClassification === TreeAgeClassification.JUNIOR
+		) {
+			return 0;
+		}
+		const ratio = Math.max(0, 1 - rainPercentage() - userWateringPercentage());
 		return ratio;
 	};
 
@@ -109,8 +116,12 @@ export function useTreeWaterNeedsData(
 				progress: rainPercentage(),
 			},
 			{
-				color: WATERING_COLOR,
-				progress: wateringPercentage(),
+				color: USER_WATERING_COLOR,
+				progress: userWateringPercentage(),
+			},
+			{
+				color: OTHER_WATERING_COLOR,
+				progress: otherWateringPercentage(),
 			},
 		];
 	};
@@ -119,12 +130,13 @@ export function useTreeWaterNeedsData(
 		rainSum: rainSum(),
 		wateringSum: wateringSum(),
 		rainPercentage: rainPercentage(),
-		wateringPercentage: wateringPercentage(),
+		wateringPercentage: userWateringPercentage(),
 		referenceWaterAmount: referenceWaterAmount(),
 		stillMissingWater: stillMissingWater(),
 		waterParts: waterParts(),
 		shouldBeWatered: shouldBeWatered(),
-		wateringColor: WATERING_COLOR,
+		userWateringColor: USER_WATERING_COLOR,
+		otherWateringColor: OTHER_WATERING_COLOR,
 		rainColor: RAIN_COLOR,
 	};
 }
