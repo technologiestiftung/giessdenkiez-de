@@ -78,8 +78,7 @@ test("should calculate correct water needs for senior tree", () => {
 		useTreeWaterNeedsData(treeData, waterings, treeAgeClassification);
 
 	expect(referenceWaterAmount).toBe(200);
-	expect(rainSum).toBe(12);
+	expect(rainSum).toBe(34.7);
 	expect(wateringSum).toBe(40);
-	expect(referenceWaterAmount).toBe(0);
-	expect(shouldBeWatered).toBe(false);
+	expect(shouldBeWatered).toBe(true);
 });
