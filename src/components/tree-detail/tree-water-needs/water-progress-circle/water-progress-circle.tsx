@@ -29,7 +29,7 @@ export const WaterProgressCircle: React.FC<WaterCircleProps> = ({
 			);
 		}
 
-		return i18n.treeDetail.waterNeed.sufficientlyWatered;
+		return i18n.treeDetail.waterNeed.unknownTitle;
 	}, [treeAgeClassification, needsWaterAmount, shouldBeWatered, i18n]);
 
 	return (

@@ -99,11 +99,11 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 					)}
 
 					{treeAgeClassification === TreeAgeClassification.JUNIOR && (
-						<div className="text-xl font-bold">
+						<Markdown className="text-xl font-bold">
 							{i18n.treeDetail.waterNeed.needXLiters(
 								formatNumber(referenceWaterAmount, true),
 							)}
-						</div>
+						</Markdown>
 					)}
 
 					<div className="flex flex-row items-center justify-start gap-4">
@@ -156,6 +156,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 									</div>
 								</div>
 							)}
+
 							{treeAgeClassification === TreeAgeClassification.SENIOR && (
 								<div className="flex flex-row items-center gap-4">
 									<div

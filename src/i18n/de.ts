@@ -279,7 +279,7 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 			needsOnlyOnDryDays: "Braucht nur an trockenen Tagen Wasser",
 			waterManaged: "Versorgt, nur in trockenen Phasen bedürftig",
 			managedByGroundwater: "Grundwasser",
-			unknownTitle: "Wasserbedarf unbekannt",
+			unknownTitle: "Wasserbedarf **unbekannt**",
 			unknown:
 				"Das Alter dieses Baumes ist unbekannt und daher auch sein Wasserbedarf. Vielleicht helfen Dir die weiteren Informationen für eine eigenständige Einschätzung.",
 			unknownShort: "Unbekannt",
@@ -293,9 +293,14 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 			stillMissing: "fehlen noch",
 			dataOfLastXDays: "* Daten der letzen 30 Tage",
 			manager: "vom Bezirksamt",
-			alreadyWateredByManager: "Bereits vom Bezirksamt versorgt",
-			alreadyWateredByGroundwater: "Über das Grundwasser versorgt",
-			stillWaterXLiters: (liters: string) => `Noch ${liters} Liter gießen`,
+			alreadyWateredByManager: "Bereits vom **Bezirksamt versorgt**",
+			alreadyWateredByGroundwater: "Über das **Grundwasser versorgt**",
+			stillWaterXLiters: (liters: string) => `
+Noch
+
+**${liters} Liter**
+
+gießen`,
 			shouldBeWatered: "Sollte gegossen werden",
 			sufficientlyWatered: "Momentan ausreichend bewässert",
 			readMore: "Mehr anzeigen",

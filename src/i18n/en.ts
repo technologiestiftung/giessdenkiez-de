@@ -278,7 +278,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			needsOnlyOnDryDays: "Only needs water on dry days",
 			waterManaged: "Supplied by the district office",
 			managedByGroundwater: "Groundwater",
-			unknownTitle: "Water needs unknown",
+			unknownTitle: "Water needs **unknown**",
 			unknown:
 				"The age and therefore the water requirement are unfortunately unknown. The info box may help you make your own assessment.",
 			unknownShort: "Unknown",
@@ -292,9 +292,12 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			stillMissing: "still missing",
 			dataOfLastXDays: "* data of last 30 days",
 			manager: "district",
-			alreadyWateredByManager: "Watered by district authority",
-			alreadyWateredByGroundwater: "Covered by groundwater",
-			stillWaterXLiters: (liters: string) => `Needs ${liters} liters`,
+			alreadyWateredByManager: "Watered by **district authority**",
+			alreadyWateredByGroundwater: "Covered by **groundwater**",
+			stillWaterXLiters: (liters: string) => `
+Needs
+
+**${liters} liters**`,
 			shouldBeWatered: "Should be watered",
 			sufficientlyWatered: "Sufficiently watered at the moment",
 			readMore: "Show more",
