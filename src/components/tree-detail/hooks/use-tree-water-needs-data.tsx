@@ -15,8 +15,10 @@ export function useTreeWaterNeedsData(
 	treeWateringData: TreeWateringData[],
 	treeAgeClassification: TreeAgeClassification,
 ): TreeWateringDataState {
-	const REFERENCE_TREES_WATERING_AMOUNT = 200;
-	const OLD_TREES_WATERING_AMOUNT = 100;
+	const UNKNOWN_TREES_WATERING_AMOUNT = 200;
+	const BABY_TREES_WATERING_AMOUNT = 100;
+	const JUNIOR_TREES_WATERING_AMOUNT = 200;
+	const SENIOR_TREES_WATERING_AMOUNT = 300;
 	const NUMBER_OF_DAYS_TO_LOOK_AT = 30;
 
 	const WATERING_COLOR = fullConfig.theme.colors["gdk-water-blue"];
@@ -25,13 +27,13 @@ export function useTreeWaterNeedsData(
 	const referenceWaterAmount = () => {
 		switch (treeAgeClassification) {
 			case TreeAgeClassification.BABY:
-				return REFERENCE_TREES_WATERING_AMOUNT;
+				return BABY_TREES_WATERING_AMOUNT;
 			case TreeAgeClassification.JUNIOR:
-				return REFERENCE_TREES_WATERING_AMOUNT;
+				return JUNIOR_TREES_WATERING_AMOUNT;
 			case TreeAgeClassification.SENIOR:
-				return OLD_TREES_WATERING_AMOUNT;
+				return SENIOR_TREES_WATERING_AMOUNT;
 			default:
-				return REFERENCE_TREES_WATERING_AMOUNT;
+				return UNKNOWN_TREES_WATERING_AMOUNT;
 		}
 	};
 

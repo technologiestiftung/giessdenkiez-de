@@ -301,13 +301,14 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 			readMore: "Mehr anzeigen",
 			ageAndWaterHintTitle: "Wasserbedarf und Standalter",
 			ageAndWaterHint: `
-   **Baby (unter 4 Jahren):** Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
+Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener, aber dafür viel.
 
-   **Jung (4-14 Jahre):** In dem Alter werden wir nicht mehr in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Wir freuen uns über viel Wasser von bis zu 200l pro Gießung (ein Mal in der Woche).
+**Unter 5 Jahren**:  Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
 
-   **Erwachsen (15-40 Jahre):** Wir haben ein gewisses Durchhaltevermögen aber brauchen in heißen Phasen auch einen ordentlichen extra Schluck Wasser: bis zu 100l ein Mal in der Woche.
+**5-10 Jahre**: In dem Alter werden wir nicht mehr in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Wir freuen uns gerade in trockenen Zeiten über Wasser - lieber seltener, aber viel auf einmal (ca. 100-200l pro Monat).
 
-   **Alt (über 40 Jahre):** Wir kommen weitestgehend alleine klar, freuen uns in besonders trockenen Phasen aber dennoch über einen extra Schluck.`,
+**Ältere Bäume (10+ Jahre)**: Wir können uns über das Grundwasser selbst versorgen.
+`,
 			close: "Weniger anzeigen",
 			lastXDaysYLitersWater: (days: number, liters: string) =>
 				`Die letzten ${days} Tage wurden **${liters} Liter gegossen**.`,
