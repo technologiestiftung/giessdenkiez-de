@@ -85,7 +85,7 @@
 }
 
 .mapboxgl-ctrl button.mapboxgl-ctrl-geolocate .mapboxgl-ctrl-icon {
-	@apply bg-[url('/images/icon-locate.svg')] hover:bg-[url('/images/icon-locate-hover.svg')] !important;
+	@apply bg-[url('/images/icon-locate.svg')] hover:bg-[url('/images/icon-locate-hover.svg')] active:bg-[url('/images/icon-locate-active.svg')] !important;
 }
 
 /* prettier-ignore */
