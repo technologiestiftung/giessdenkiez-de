@@ -1,11 +1,18 @@
 import React from "react";
 
-export const WateringCanIcon: React.FC = () => {
+interface WateringCanIconProps {
+	className?: string;
+}
+
+export const WateringCanIcon: React.FC<WateringCanIconProps> = ({
+	className,
+}) => {
 	return (
 		<svg
 			width="34"
 			height="26"
 			viewBox="0 0 34 26"
+			className={`${className ?? ""}`}
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 		>
