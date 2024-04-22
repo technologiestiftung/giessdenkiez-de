@@ -328,6 +328,7 @@ We manage largely on our own and are happy in particularly dry phases but still 
 			wateredWhen: "When?",
 			waterSave: "Save",
 			waterCancel: "Cancel",
+			wateringSuccessful: "Your watering entry was successful!",
 		},
 		lastWaterings: {
 			deletedAccount: "Deactivated Account",

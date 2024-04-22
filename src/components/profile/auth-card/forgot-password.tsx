@@ -5,7 +5,7 @@ import { TextInput } from "../../input/text-input";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useErrorStore } from "../../../error/error-store";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
-import { AlertDialog } from "../profile-alert/alert-dialog";
+import { AlertDialog } from "../../alert-dialog/alert-dialog";
 import { MailIcon } from "../../icons/mail-icon";
 
 export const ForgotPassword: React.FC = () => {

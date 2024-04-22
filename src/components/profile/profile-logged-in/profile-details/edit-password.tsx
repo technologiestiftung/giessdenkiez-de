@@ -3,7 +3,7 @@ import { useI18nStore } from "../../../../i18n/i18n-store";
 import { useAuthStore } from "../../../../auth/auth-store";
 import { TertiaryButton } from "../../../buttons/tertiary";
 import { useErrorStore } from "../../../../error/error-store";
-import { AlertDialog } from "../../profile-alert/alert-dialog";
+import { AlertDialog } from "../../../alert-dialog/alert-dialog";
 import { MailIcon } from "../../../icons/mail-icon";
 import { useProfileStore } from "../../../../shared-stores/profile-store";
 

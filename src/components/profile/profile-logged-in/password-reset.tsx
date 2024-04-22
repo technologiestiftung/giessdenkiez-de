@@ -3,7 +3,7 @@ import { PasswordInputWithValidation } from "../validation/password-input-with-v
 import { PrimaryButton } from "../../buttons/primary";
 import { LanguageToggle } from "../../router/languageToggle";
 import { useI18nStore } from "../../../i18n/i18n-store";
-import { AlertDialog } from "../profile-alert/alert-dialog";
+import { AlertDialog } from "../../alert-dialog/alert-dialog.tsx";
 import { CheckIcon } from "../../icons/check-icon";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 import { useProfileStore } from "../../../shared-stores/profile-store";

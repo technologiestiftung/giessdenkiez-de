@@ -320,6 +320,7 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 			wateredWhen: "Wann?",
 			waterSave: "Speichern",
 			waterCancel: "Abbrechen",
+			wateringSuccessful: "Deine Gießung wurde eingetragen!",
 		},
 		lastWaterings: {
 			deletedAccount: "Deaktivierter Account",
