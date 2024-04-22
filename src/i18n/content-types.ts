@@ -154,6 +154,7 @@ interface WaterNeed {
 	managedByGroundwater: string;
 	unknown: string;
 	unknownTitle: string;
+	unknownShort: string;
 	seniorTitle: string;
 	seniorExplanation: string;
 	liters: string;

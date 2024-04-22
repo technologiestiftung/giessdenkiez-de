@@ -58,11 +58,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 					<div className="">{i18n.treeDetail.waterNeed.title}</div>
 				</div>
 				<div className="text-gdk-blue">
-					{isExpanded ? (
-						<ChevronDown></ChevronDown>
-					) : (
-						<ChevronRight></ChevronRight>
-					)}
+					{isExpanded ? <ChevronDown /> : <ChevronRight />}
 				</div>
 			</button>
 			{isExpanded && (
@@ -144,7 +140,9 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 									</div>
 								</div>
 							)}
-							{treeAgeClassification === TreeAgeClassification.JUNIOR && (
+
+							{(treeAgeClassification === TreeAgeClassification.UNKNOWN ||
+								treeAgeClassification === TreeAgeClassification.JUNIOR) && (
 								<div className="flex flex-row items-center gap-4">
 									<div
 										className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-gdk-water-blue`}
@@ -171,6 +169,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 									</div>
 								</div>
 							)}
+
 							{shouldBeWatered &&
 								treeAgeClassification === TreeAgeClassification.JUNIOR && (
 									<div className="flex flex-row items-center gap-4">
@@ -185,6 +184,19 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 										</div>
 									</div>
 								)}
+
+							{treeAgeClassification === TreeAgeClassification.UNKNOWN && (
+								<div className="flex flex-row items-center gap-4">
+									<div
+										className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-[#d3d3d3]`}
+									/>
+									<div className="flex flex-col">
+										<div className="font-bold">
+											{i18n.treeDetail.waterNeed.unknownShort}
+										</div>
+									</div>
+								</div>
+							)}
 						</div>
 					</div>
 

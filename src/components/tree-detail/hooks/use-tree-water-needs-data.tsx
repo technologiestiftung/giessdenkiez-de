@@ -15,7 +15,7 @@ export function useTreeWaterNeedsData(
 	treeWateringData: TreeWateringData[],
 	treeAgeClassification: TreeAgeClassification,
 ): TreeWateringDataState {
-	const YOUNG_TREES_WATERING_AMOUNT = 200;
+	const REFERENCE_TREES_WATERING_AMOUNT = 200;
 	const OLD_TREES_WATERING_AMOUNT = 100;
 	const NUMBER_OF_DAYS_TO_LOOK_AT = 30;
 
@@ -25,13 +25,13 @@ export function useTreeWaterNeedsData(
 	const referenceWaterAmount = () => {
 		switch (treeAgeClassification) {
 			case TreeAgeClassification.BABY:
-				return YOUNG_TREES_WATERING_AMOUNT;
+				return REFERENCE_TREES_WATERING_AMOUNT;
 			case TreeAgeClassification.JUNIOR:
-				return YOUNG_TREES_WATERING_AMOUNT;
+				return REFERENCE_TREES_WATERING_AMOUNT;
 			case TreeAgeClassification.SENIOR:
 				return OLD_TREES_WATERING_AMOUNT;
 			default:
-				return 0;
+				return REFERENCE_TREES_WATERING_AMOUNT;
 		}
 	};
 

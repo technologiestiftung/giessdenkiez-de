@@ -282,6 +282,7 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 			unknownTitle: "Wasserbedarf unbekannt",
 			unknown:
 				"Das Alter dieses Baumes ist unbekannt und daher auch sein Wasserbedarf. Vielleicht helfen Dir die weiteren Informationen für eine eigenständige Einschätzung.",
+			unknownShort: "Unbekannt",
 			seniorTitle: "Braucht nur in trockenen Phasen Wasser",
 			seniorExplanation:
 				"Ältere Bäume können sich in der Regel über das Grundwasser selbst versorgen, aber bei zunehmender Hitze freuen auch sie sich über zusätzliches Wasser.",
