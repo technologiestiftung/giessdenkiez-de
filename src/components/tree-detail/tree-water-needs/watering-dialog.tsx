@@ -51,7 +51,8 @@ export const WateringDialog: React.FC = () => {
 				setIsLastWateringsExpanded(true);
 				showHideWateringSuccessDialog();
 			} catch (error) {
-				handleError(i18n.common.defaultErrorMessage, error);
+				setIsWateringLoading(false);
+				handleError("Failed to water the tree.", error);
 			}
 			closeWateringDialog();
 		},
