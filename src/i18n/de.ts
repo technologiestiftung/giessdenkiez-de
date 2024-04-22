@@ -324,7 +324,7 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 		lastWaterings: {
 			deletedAccount: "Deaktivierter Account",
 			title: "Letzte Gießungen",
-			last30Days: "Letzten 30 Tage",
+			last30Days: "Letzte 30 Tage",
 			nothingLast30Days: "Keine Gießungen in den letzten 30 Tagen",
 			before: "Vorherige",
 			nothingBefore: "Keine vorherigen Gießungen",

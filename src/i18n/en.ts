@@ -334,8 +334,8 @@ We manage largely on our own and are happy in particularly dry phases but still 
 			title: "Last waterings",
 			last30Days: "Last 30 days",
 			nothingLast30Days: "No waterings in the last 30 days",
-			before: "Before",
-			nothingBefore: "No waterings before",
+			before: "Previous",
+			nothingBefore: "No previous waterings",
 		},
 		problem: {
 			title: "Report a problem",
