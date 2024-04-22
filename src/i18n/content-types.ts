@@ -182,6 +182,7 @@ interface WaterNeed {
 	wateredWhen: string;
 	waterSave: string;
 	waterCancel: string;
+	wateringSuccessful: string;
 }
 
 interface Problem {

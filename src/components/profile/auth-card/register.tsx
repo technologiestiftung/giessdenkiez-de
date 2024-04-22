@@ -9,7 +9,7 @@ import { useEmailTakenStore } from "../validation/email-taken-store";
 import { getErrorMessage } from "../validation/validation";
 import { useErrorStore } from "../../../error/error-store";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
-import { AlertDialog } from "../profile-alert/alert-dialog";
+import { AlertDialog } from "../../alert-dialog/alert-dialog";
 import { MailIcon } from "../../icons/mail-icon";
 
 export const Register: React.FC = () => {
