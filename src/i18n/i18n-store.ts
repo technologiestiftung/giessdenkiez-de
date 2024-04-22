@@ -13,7 +13,7 @@ const localizedContent = { de: de, en: en } as LocalizedContent;
 interface I18NState {
 	language: string;
 	setLanguage: (language: string) => void;
-	formatNumber: (number: number) => string;
+	formatNumber: (number: number, round?: boolean) => string;
 	formatDate: (date: Date) => string;
 	i18n: () => Content;
 }
@@ -23,7 +23,10 @@ export const useI18nStore = create<I18NState>()((set, get) => ({
 	setLanguage: (language: string) => {
 		set({ language });
 	},
-	formatNumber: (number: number) => {
+	formatNumber: (number: number, round?: boolean) => {
+		if (round) {
+			return new Intl.NumberFormat(get().language).format(Math.round(number));
+		}
 		return new Intl.NumberFormat(get().language).format(number);
 	},
 	formatDate: (date: Date) => {

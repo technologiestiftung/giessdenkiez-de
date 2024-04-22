@@ -43,8 +43,6 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 		stillMissingWater,
 		waterParts,
 		shouldBeWatered,
-		rainColor,
-		wateringColor,
 	} = useTreeWaterNeedsData(treeData, treeWateringData, treeAgeClassification);
 
 	const { isLoggedIn } = useAuthStore();
@@ -92,22 +90,22 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 								<TertiaryButton
 									onClick={() => setIsInfoboxVisible(false)}
 									label={i18n.treeDetail.waterNeed.close}
-								></TertiaryButton>
+								/>
 							</div>
 						</div>
 					)}
 
-					{treeAgeClassification === TreeAgeClassification.BABY && (
+					{(treeAgeClassification === TreeAgeClassification.BABY ||
+						treeAgeClassification === TreeAgeClassification.SENIOR) && (
 						<div className="text-xl font-bold">
 							{i18n.treeDetail.waterNeed.waterManaged}
 						</div>
 					)}
 
-					{(treeAgeClassification === TreeAgeClassification.JUNIOR ||
-						treeAgeClassification === TreeAgeClassification.GROWNUP) && (
+					{treeAgeClassification === TreeAgeClassification.JUNIOR && (
 						<div className="text-xl font-bold">
 							{i18n.treeDetail.waterNeed.needXLiters(
-								formatNumber(referenceWaterAmount),
+								formatNumber(referenceWaterAmount, true),
 							)}
 						</div>
 					)}
@@ -123,11 +121,12 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 						<div className="flex flex-col gap-3">
 							<div className="flex flex-row items-center gap-4">
 								<div
-									className={`h-5 min-h-5 w-5 min-w-5  rounded-full bg-[${rainColor}]`}
-								></div>
+									className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-gdk-rain-blue`}
+								/>
 								<div className="flex flex-col">
 									<div className="font-bold">
-										{formatNumber(rainSum)} {i18n.treeDetail.waterNeed.liters}*
+										{formatNumber(rainSum, true)}{" "}
+										{i18n.treeDetail.waterNeed.liters}*
 									</div>
 									<div>{i18n.treeDetail.waterNeed.rained}</div>
 								</div>
@@ -135,8 +134,8 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 							{treeAgeClassification === TreeAgeClassification.BABY && (
 								<div className="flex flex-row items-center gap-4">
 									<div
-										className={`h-5 min-h-5 w-5 min-w-5  rounded-full bg-[${wateringColor}]`}
-									></div>
+										className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-gdk-water-blue`}
+									/>
 									<div className="flex flex-col">
 										<div className="font-bold">
 											{i18n.treeDetail.waterNeed.manager}
@@ -145,26 +144,39 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 									</div>
 								</div>
 							)}
-							{treeAgeClassification !== TreeAgeClassification.BABY && (
+							{treeAgeClassification === TreeAgeClassification.JUNIOR && (
 								<div className="flex flex-row items-center gap-4">
 									<div
-										className={`h-5 min-h-5 w-5 min-w-5  rounded-full bg-[${wateringColor}]`}
-									></div>
+										className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-gdk-water-blue`}
+									/>
 									<div className="flex flex-col">
 										<div className="font-bold">
-											{formatNumber(wateringSum)}{" "}
+											{formatNumber(wateringSum, true)}{" "}
 											{i18n.treeDetail.waterNeed.liters}*
 										</div>
 										<div>{i18n.treeDetail.waterNeed.watered}</div>
 									</div>
 								</div>
 							)}
+							{treeAgeClassification === TreeAgeClassification.SENIOR && (
+								<div className="flex flex-row items-center gap-4">
+									<div
+										className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-gdk-water-blue`}
+									/>
+									<div className="flex flex-col">
+										<div className="font-bold">
+											{i18n.treeDetail.waterNeed.managedByGroundwater}
+										</div>
+										<div>{i18n.treeDetail.waterNeed.covered}</div>
+									</div>
+								</div>
+							)}
 							{shouldBeWatered &&
-								treeAgeClassification !== TreeAgeClassification.SENIOR && (
+								treeAgeClassification === TreeAgeClassification.JUNIOR && (
 									<div className="flex flex-row items-center gap-4">
 										<div
 											className={`h-5 min-h-5 w-5 min-w-5 rounded-full bg-[#d3d3d3]`}
-										></div>
+										/>
 										<div className="flex flex-col">
 											<div className="font-bold">
 												{stillMissingWater} {i18n.treeDetail.waterNeed.liters}
@@ -180,37 +192,35 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 						{i18n.treeDetail.waterNeed.dataOfLastXDays}
 					</div>
 
-					{treeAgeClassification !== TreeAgeClassification.BABY && (
-						<div className="flex flex-col items-center">
-							<PrimaryButton
-								data-testid="water-tree-button"
-								onClick={() => {
-									(
-										document.getElementById("water-dialog") as HTMLDialogElement
-									).showModal();
-								}}
-								label={
-									<div className="flex flex-row items-center gap-2">
-										<WateringCanIcon />
-										<div className="flex flex-row items-center gap-3">
-											{i18n.treeDetail.waterNeed.iWatered}
-										</div>
+					<div className="flex flex-col items-center">
+						<PrimaryButton
+							data-testid="water-tree-button"
+							onClick={() => {
+								(
+									document.getElementById("water-dialog") as HTMLDialogElement
+								).showModal();
+							}}
+							label={
+								<div className="flex flex-row items-center gap-2">
+									<WateringCanIcon />
+									<div className="flex flex-row items-center gap-3">
+										{i18n.treeDetail.waterNeed.iWatered}
 									</div>
-								}
-								disabled={!isLoggedIn()}
-							/>
+								</div>
+							}
+							disabled={!isLoggedIn()}
+						/>
 
-							{!isLoggedIn() && (
-								<p>
-									<InternalAnchorLink
-										href={`/profile?redirectTo=/map?treeId=${treeData.id}&zoom=20`}
-										label={i18n.treeDetail.waterNeed.loginToWater.login}
-									/>{" "}
-									{i18n.treeDetail.waterNeed.loginToWater.toWater}
-								</p>
-							)}
-						</div>
-					)}
+						{!isLoggedIn() && (
+							<p>
+								<InternalAnchorLink
+									href={`/profile?redirectTo=/map?treeId=${treeData.id}&zoom=20`}
+									label={i18n.treeDetail.waterNeed.loginToWater.login}
+								/>{" "}
+								{i18n.treeDetail.waterNeed.loginToWater.toWater}
+							</p>
+						)}
+					</div>
 
 					<WateringDialog />
 				</div>
