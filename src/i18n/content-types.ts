@@ -193,14 +193,10 @@ interface Problem {
 interface LastWaterings {
 	deletedAccount: string;
 	title: string;
-	thisWeek: string;
-	nothingThisWeek: string;
-	thisMonth: string;
-	nothingThisMonth: string;
-	nothingMoreThisMonth: string;
-	thisYear: string;
-	nothingThisYear: string;
-	nothingMoreThisYear: string;
+	last30Days: string;
+	nothingLast30Days: string;
+	before: string;
+	nothingBefore: string;
 }
 
 interface TreeDetail {

@@ -20,19 +20,15 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 	const { isLastWateringsExpanded, setIsLastWateringsExpanded } =
 		useTreeStore();
 
-	const wateringsThisWeek = useMemo(() => {
-		return treeWateringData.filter((watering) => {
-			return isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 });
-		});
-	}, [treeWateringData]);
-
-	const wateringsThisMonth = useMemo(() => {
-		return treeWateringData.filter((watering) => {
-			return (
-				isSameMonth(new Date(watering.timestamp), now) &&
-				!isSameWeek(new Date(watering.timestamp), now, { weekStartsOn: 1 })
+	const wateringsLast30Days = useMemo(() => {
+		const thirtyDaysAgo = new Date();
+		thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+		return treeWateringData
+			.filter((watering) => new Date(watering.timestamp) >= thirtyDaysAgo)
+			.sort(
+				(a, b) =>
+					new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
 			);
-		});
 	}, [treeWateringData]);
 
 	const wateringsThisYear = useMemo(() => {
@@ -44,9 +40,6 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 			);
 		});
 	}, [treeWateringData]);
-
-	const hasRecentWateringsThisMonth =
-		wateringsThisWeek.length > 0 || wateringsThisMonth.length > 0;
 
 	return (
 		<div className="flex flex-col gap-4 border-b-2 py-8">
@@ -69,27 +62,14 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 			{isLastWateringsExpanded && (
 				<div className="flex flex-col gap-8">
 					<WateringSection
-						waterings={wateringsThisWeek}
-						title={i18n.treeDetail.lastWaterings.thisWeek}
-						noWateringsHint={i18n.treeDetail.lastWaterings.nothingThisWeek}
-					/>
-					<WateringSection
-						waterings={wateringsThisMonth}
-						title={i18n.treeDetail.lastWaterings.thisMonth}
-						noWateringsHint={
-							wateringsThisWeek.length > 0
-								? i18n.treeDetail.lastWaterings.nothingMoreThisMonth
-								: i18n.treeDetail.lastWaterings.nothingThisMonth
-						}
+						waterings={wateringsLast30Days}
+						title={i18n.treeDetail.lastWaterings.last30Days}
+						noWateringsHint={i18n.treeDetail.lastWaterings.nothingLast30Days}
 					/>
 					<WateringSection
 						waterings={wateringsThisYear}
-						title={i18n.treeDetail.lastWaterings.thisYear}
-						noWateringsHint={
-							hasRecentWateringsThisMonth
-								? i18n.treeDetail.lastWaterings.nothingMoreThisYear
-								: i18n.treeDetail.lastWaterings.nothingThisYear
-						}
+						title={i18n.treeDetail.lastWaterings.before}
+						noWateringsHint={i18n.treeDetail.lastWaterings.nothingBefore}
 					/>
 				</div>
 			)}
