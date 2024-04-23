@@ -7,7 +7,7 @@ import { useProfileStore } from "../../../shared-stores/profile-store";
 interface TreeAdoptStore {
 	isLoading: boolean;
 	isAdopted: (treeId: string) => boolean;
-	adoptedByOthers: boolean;
+	amountOfAdoptions: number;
 	adoptTree: (treeId: string) => Promise<void>;
 	unadoptTree: (treeId: string) => Promise<void>;
 	refreshIsTreeAdoptedByOthers: (
@@ -24,7 +24,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	isAdopted: (treeId) => {
 		return useProfileStore.getState().adoptedTrees.includes(treeId);
 	},
-	adoptedByOthers: false,
+	amountOfAdoptions: 0,
 	adoptTree: async (treeId) => {
 		const abortController = new AbortController();
 		const access_token = useAuthStore.getState().session?.access_token;
@@ -95,7 +95,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	},
 
 	refreshIsTreeAdoptedByOthers: async (treeId, abortController) => {
-		set({ adoptedByOthers: false });
+		set({ amountOfAdoptions: 0 });
 
 		if (!treeId) {
 			return;
@@ -117,13 +117,14 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			}
 
 			const json = await response.json();
+			const data = (Array.isArray(json.data) ? json.data : []) as {
+				tree_id: string;
+				adopted: number;
+			}[];
 
-			const isTreeAdoptedByOthers = json.data.some(
-				({ tree_id, adopted }: { tree_id: string; adopted: number }) =>
-					tree_id === treeId && adopted > 0,
-			);
+			const foundTree = data.find(({ tree_id }) => tree_id === treeId);
 
-			set({ adoptedByOthers: isTreeAdoptedByOthers });
+			set({ amountOfAdoptions: foundTree?.adopted || 0 });
 		} catch (error) {
 			if (abortController.signal.aborted) {
 				return;

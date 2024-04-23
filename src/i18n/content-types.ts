@@ -208,7 +208,7 @@ interface TreeDetail {
 	title: string;
 	adoptIt: string;
 	alsoAdoptedByOtherUsers: string;
-	adoptedByOtherUsers: string;
+	onlyAdoptedByOtherUsers: string;
 	adoptLoading: string;
 	unadoptLoading: string;
 	isAdopted: string;

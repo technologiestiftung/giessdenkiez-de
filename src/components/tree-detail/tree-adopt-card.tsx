@@ -20,9 +20,9 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 	const [showTooltip, setShowTooltip] = useState(false);
 	const i18n = useI18nStore().i18n();
 
-	const { isAdopted, isLoading, adoptedByOthers } = useTreeAdoptStore();
+	const { isAdopted, isLoading, amountOfAdoptions } = useTreeAdoptStore();
 
-	const isTreeAdopted = isAdopted(treeData.id);
+	const isTreeAdoptedByUser = isAdopted(treeData.id);
 
 	const isLoggedIn = useAuthStore().isLoggedIn();
 
@@ -32,17 +32,22 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 		}
 
 		if (isLoading) {
-			if (isTreeAdopted) {
+			if (isTreeAdoptedByUser) {
 				return i18n.treeDetail.unadoptLoading;
 			}
 			return i18n.treeDetail.adoptLoading;
 		}
 
-		if (isTreeAdopted) {
+		if (isTreeAdoptedByUser) {
 			return i18n.treeDetail.isAdopted;
 		}
 		return i18n.treeDetail.adoptIt;
-	}, [isLoading, isTreeAdopted, i18n]);
+	}, [isLoading, isTreeAdoptedByUser, i18n]);
+
+	const isTreeAlsoAdoptedByOthers =
+		amountOfAdoptions > 1 && isTreeAdoptedByUser;
+	const isTreeOnlyAdoptedByOthers =
+		amountOfAdoptions > 0 && !isTreeAdoptedByUser;
 
 	return (
 		<div className="shadow-gdk-hard flex flex-col gap-4 rounded-lg bg-slate-100 p-4">
@@ -83,8 +88,7 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 						)}
 					</div>
 				</div>
-
-				{adoptedByOthers && !isTreeAdopted && (
+				{isTreeOnlyAdoptedByOthers && (
 					<div className="items-left flex flex-row gap-2">
 						<img
 							src="/images/hi-there-icon.svg"
@@ -93,12 +97,11 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 							height={24}
 						/>
 						<div className="italic leading-tight text-slate-500">
-							{i18n.treeDetail.adoptedByOtherUsers}
+							{i18n.treeDetail.onlyAdoptedByOtherUsers}
 						</div>
 					</div>
 				)}
-
-				{adoptedByOthers && isTreeAdopted && (
+				{isTreeAlsoAdoptedByOthers && (
 					<div className="items-left flex flex-row gap-2">
 						<img
 							src="/images/hi-there-icon.svg"

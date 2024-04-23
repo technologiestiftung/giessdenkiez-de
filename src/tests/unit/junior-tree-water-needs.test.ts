@@ -112,5 +112,7 @@ test("should calculate correct water needs for junior tree", () => {
 	expect(wateringPercentage).toBe(0.5);
 	expect(shouldBeWatered).toBe(true);
 	expect(stillMissingWater).toBe(79);
-	expect(waterParts.map((p) => p.progress)).toEqual([0.10550000000000001, 0.5]);
+	expect(waterParts.map((p) => p.progress)).toEqual([
+		0.10550000000000001, 0.5, 0,
+	]);
 });

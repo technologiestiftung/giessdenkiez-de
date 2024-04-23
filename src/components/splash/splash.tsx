@@ -68,8 +68,8 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 			ref={splashContainer}
 			className={`
 		absolute top-0 left-0 lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2
-		w-full lg:w-[80%] xl:w-[1028px] max-h-svh overflow-y-auto
-		bg-white flex flex-col 
+		w-full lg:w-[80%] xl:w-[1028px] xl:h-[716px] 2xl:h-[732px] max-h-svh overflow-y-auto
+		bg-white flex flex-col justify-between 
 		rounded-lg shadow-gdk-hard pointer-events-auto`}
 		>
 			<div className="px-5 lg:px-8 py-5 lg:py-8 flex flex-col">
@@ -165,7 +165,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 					/>
 				</div>
 				<div className="lg:col-start-1 lg:row-start-1 flex flex-col gap-2 px-8 lg:w-[65%] w-full py-4 ">
-					<div className="text-lg font-bold">
+					<div className="text-lg font-bold text-[#37DE8A]">
 						{i18n.splash.questionHeadline}
 					</div>
 					<div className="text-sm">{i18n.splash.questionSubheadline}</div>
