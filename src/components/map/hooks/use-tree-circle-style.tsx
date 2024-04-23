@@ -5,7 +5,7 @@ import resolveConfig from "tailwindcss/resolveConfig";
 
 //@ts-expect-error tailwindConfig has no type definition
 import tailwindConfig from "../../../../tailwind.config.js";
-import { TreeAgeRange } from "../../filter/filter-store.js";
+import { TreeAgeRange } from "../../filter/filter-store";
 const fullConfig = resolveConfig(tailwindConfig);
 
 export function useTreeCircleStyle() {
@@ -76,40 +76,23 @@ export function useTreeCircleStyle() {
 		],
 	] as Expression;
 
-	const filteredCircleColor = (
-		isSomeFilterActive: boolean,
-		treeAgeRange: TreeAgeRange,
-	) => {
-		const treeAgeRangeMax =
-			treeAgeRange.max === 200 ? Infinity : treeAgeRange.max;
-
-		const isTreeAgeInitialState =
-			treeAgeRange.min === 0 && treeAgeRange.max === 200;
-
-		if (isSomeFilterActive) {
-			switch (isTreeAgeInitialState) {
-				case true:
-					return TREE_DEFAULT_COLOR;
-				default:
-					return [
-						"case",
-						["==", ["get", "age"], ""],
-						TREE_GRAY_COLOR, // Color for undefined age
-						[">", ["get", "age"], treeAgeRangeMax],
-						TREE_GRAY_COLOR, // Color for age > treeAgeRange.max
-						["<=", ["get", "age"], treeAgeRange.min],
-						TREE_GRAY_COLOR, // Color for age <= treeAgeRange.min
-						TREE_DEFAULT_COLOR, // Fallback color
-					];
-			}
-		}
-
-		return [
+	const filteredCircleColor = ({
+		isSomeFilterActive,
+		areOnlyMyAdoptedTreesVisible,
+		treeAgeRange,
+		adoptedTrees,
+	}: {
+		isSomeFilterActive: boolean;
+		areOnlyMyAdoptedTreesVisible: boolean;
+		treeAgeRange: TreeAgeRange;
+		adoptedTrees: string[];
+	}): Expression => {
+		const defaultExpression: Expression = [
 			"case",
 			["==", ["get", "age"], ""],
-			TREE_GRAY_COLOR,
+			TREE_GRAY_COLOR, // Color for undefined tree age
 			[">", ["get", "age"], 10],
-			TREE_DEFAULT_COLOR,
+			TREE_DEFAULT_COLOR, // Color for trees older than 10 years
 			[">=", ["get", "age"], 5],
 			[
 				"case",
@@ -137,6 +120,59 @@ export function useTreeCircleStyle() {
 			],
 			[">=", ["get", "age"], 0],
 			TREE_DEFAULT_COLOR,
+			TREE_GRAY_COLOR,
+		];
+
+		if (!isSomeFilterActive) {
+			return defaultExpression;
+		}
+
+		const treeAgeRangeMax =
+			treeAgeRange.max === 200 ? Infinity : treeAgeRange.max;
+
+		const isTreeInAgeRangeExpression: Expression = [
+			"case",
+			["==", ["get", "age"], ""],
+			TREE_GRAY_COLOR, // Color for undefined tree age
+			[">", ["get", "age"], treeAgeRangeMax],
+			TREE_GRAY_COLOR, // Color for tree age > treeAgeRange.max
+			["<", ["get", "age"], treeAgeRange.min],
+			TREE_GRAY_COLOR, // Color for tree age < treeAgeRange.min
+			defaultExpression, // Color for tree age in range
+		];
+
+		if (!areOnlyMyAdoptedTreesVisible) {
+			return isTreeInAgeRangeExpression;
+		}
+
+		const isTreeAdoptedAndInAgeRangeExpression: Expression = [
+			"case",
+			["in", ["get", "id"], ["literal", adoptedTrees]],
+			isTreeInAgeRangeExpression,
+			TREE_GRAY_COLOR,
+		];
+
+		const areOnlyAdoptedTreesVisibleExpression: Expression = [
+			"==",
+			areOnlyMyAdoptedTreesVisible,
+			true,
+		];
+
+		return [
+			"case",
+
+			/**
+			 * if only adopted trees are visible,
+			 * then use the isTreeAdoptedAndInAgeRangeExpression to check
+			 * if the tree is adopted by the user AND in the selected age range
+			 * and return the color
+			 */
+			areOnlyAdoptedTreesVisibleExpression,
+			isTreeAdoptedAndInAgeRangeExpression,
+
+			/**
+			 * default color for trees that don't match the conditions
+			 */
 			TREE_GRAY_COLOR,
 		];
 	};

@@ -5,16 +5,18 @@ import { useFilterStore } from "./filter-store";
 import { FilterSwitch } from "./filter-switch";
 import { TertiaryButton } from "../buttons/tertiary";
 import { AgeRangeSlider } from "./age-range-slider/age-range-slider";
+import { useAuthStore } from "../../auth/auth-store";
 
 export const Filter: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { hideFilterView } = useFilterStore();
+	const { isLoggedIn } = useAuthStore();
 
 	const {
 		isPumpsVisible,
 		setShowPumps,
-		isTreeWaterNeedVisible,
-		setShowWaterNeedTrees,
+		areOnlyMyAdoptedTreesVisible,
+		setAreOnlyMyAdoptedTreesVisible,
 		resetFilters,
 	} = useFilterStore();
 
@@ -26,19 +28,23 @@ export const Filter: React.FC = () => {
 				<div className="flex flex-col gap-2">
 					<div className="font-semibold text-xl">{i18n.filter.title}</div>
 					<div className="flex flex-col gap-2">
+						{isLoggedIn() && (
+							<FilterSwitch
+								name={i18n.filter.myAdoptedTrees}
+								onToggle={() => {
+									setAreOnlyMyAdoptedTreesVisible(
+										!areOnlyMyAdoptedTreesVisible(),
+									);
+								}}
+								isEnabled={areOnlyMyAdoptedTreesVisible()}
+							/>
+						)}
 						<FilterSwitch
 							name={i18n.filter.publicPumps}
 							onToggle={() => {
 								setShowPumps(!isPumpsVisible);
 							}}
 							isEnabled={isPumpsVisible}
-						/>
-						<FilterSwitch
-							name={i18n.filter.waterNeedTrees}
-							onToggle={() => {
-								setShowWaterNeedTrees(!isTreeWaterNeedVisible);
-							}}
-							isEnabled={isTreeWaterNeedVisible}
 						/>
 					</div>
 				</div>
