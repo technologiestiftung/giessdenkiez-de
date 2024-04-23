@@ -55,10 +55,6 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 				<div className="font-bold">{treeData.artdtsch}</div>
 				<AdoptButton treeId={treeData.id}></AdoptButton>
 			</div>
-			{treeAgeClassification === TreeAgeClassification.BABY && (
-				<div>{i18n.treeDetail.managedBy}</div>
-			)}
-
 			<div className="flex flex-col gap-4">
 				<div className="flex flex-row items-center justify-between">
 					{isLoggedIn ? (
@@ -117,6 +113,10 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 							{i18n.treeDetail.alsoAdoptedByOtherUsers}
 						</div>
 					</div>
+				)}
+
+				{treeAgeClassification === TreeAgeClassification.BABY && (
+					<div>{i18n.treeDetail.managedBy}</div>
 				)}
 			</div>
 		</div>
