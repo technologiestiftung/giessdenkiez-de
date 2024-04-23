@@ -7,7 +7,6 @@ import { TreeAdoptCard } from "./tree-adopt-card";
 import { useTreeStore } from "./stores/tree-store";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { TreeWaterNeed } from "./tree-water-needs/tree-water-needs";
-import { TreeAgeClassification } from "./tree-types";
 import { useTreeAgeClassification } from "./hooks/use-tree-age-classification";
 import { LastWaterings } from "./last-waterings/last-waterings";
 import { ProblemCard } from "./problem-card";
@@ -83,10 +82,9 @@ export const TreeDetail: React.FC = () => {
 						treeWateringData={treeWateringData}
 					/>
 
-					{treeCoreData &&
-						treeAgeClassification !== TreeAgeClassification.BABY && (
-							<LastWaterings treeWateringData={treeWateringData} />
-						)}
+					{treeCoreData && (
+						<LastWaterings treeWateringData={treeWateringData} />
+					)}
 					<ProblemCard />
 				</div>
 			) : (
