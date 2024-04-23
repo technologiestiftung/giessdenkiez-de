@@ -13,6 +13,26 @@ export const PartialProgressCircle: React.FC<PartialCircleProps> = ({
 		<div className="grid grid-cols-1 grid-rows-1">
 			<div className="col-start-1 row-start-1 flex items-center justify-center">
 				<svg width={size} height={size}>
+					<filter
+						id="inset-shadow"
+						x="-50%"
+						y="-50%"
+						width="200%"
+						height="200%"
+					>
+						<feComponentTransfer in="SourceAlpha">
+							<feFuncA type="table" tableValues="1 0" />
+						</feComponentTransfer>
+						<feGaussianBlur stdDeviation="3" />
+						<feOffset dx="0" dy="4" result="offsetblur" />
+						<feFlood floodColor="#D1D1D1" result="color" />
+						<feComposite in2="offsetblur" operator="in" />
+						<feComposite in2="SourceAlpha" operator="in" />
+						<feMerge>
+							<feMergeNode in="SourceGraphic" />
+							<feMergeNode />
+						</feMerge>
+					</filter>
 					<circle
 						cx={size / 2}
 						cy={size / 2}
@@ -22,6 +42,7 @@ export const PartialProgressCircle: React.FC<PartialCircleProps> = ({
 						strokeWidth="15"
 						strokeDasharray={dasharray.toString()}
 						transform={`rotate(-90 ${size / 2} ${size / 2})`}
+						filter="url(#inset-shadow)"
 					/>
 				</svg>
 			</div>

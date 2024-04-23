@@ -26,14 +26,14 @@ test("should calculate correct water needs for baby tree", () => {
 		{
 			id: 3,
 			timestamp: new Date().toISOString(),
-			amount: 30,
+			amount: 15,
 			username: "test-user",
 			tree_id: "_22002d8af7",
 		},
 		{
 			id: 4,
 			timestamp: new Date().toISOString(),
-			amount: 40,
+			amount: 5,
 			username: "test-user",
 			tree_id: "_22002d8af7",
 		},
@@ -99,16 +99,18 @@ test("should calculate correct water needs for baby tree", () => {
 		rainPercentage,
 		wateringSum,
 		wateringPercentage,
+		otherWateringPercentage,
 		referenceWaterAmount,
 		shouldBeWatered,
 		waterParts,
 	} = useTreeWaterNeedsData(treeData, waterings, treeAgeClassification);
 
 	expect(rainSum).toBe(15.3);
-	expect(wateringSum).toBe(100);
+	expect(wateringSum).toBe(50);
 	expect(referenceWaterAmount).toBe(100);
 	expect(rainPercentage).toBe(0.153);
-	expect(wateringPercentage).toBe(0.847);
+	expect(wateringPercentage).toBe(0.5);
+	expect(otherWateringPercentage).toBe(0.347);
 	expect(shouldBeWatered).toBe(false);
-	expect(waterParts.map((p) => p.progress)).toEqual([0.153, 0.847]);
+	expect(waterParts.map((p) => p.progress)).toEqual([0.153, 0.5, 0.347]);
 });
