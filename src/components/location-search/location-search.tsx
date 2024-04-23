@@ -7,13 +7,11 @@ import { useMapConstants } from "../map/hooks/use-map-constants";
 import { useMapStore } from "../map/map-store";
 import { GeocodingResult, useGeocoding } from "./hooks/use-geocoding";
 import { useFilterStore } from "../filter/filter-store";
-import { FilterIcon } from "../icons/filter-icon";
 import { useSearchStore } from "./search-store";
+import { FilterButton } from "./filter-button";
 
 export const LocationSearch: React.FC = () => {
 	const i18n = useI18nStore().i18n();
-
-	const { toggleFilterView, hideFilterView } = useFilterStore();
 
 	const {
 		setIsCurrentSearch,
@@ -32,7 +30,7 @@ export const LocationSearch: React.FC = () => {
 	const { MAP_LOCATION_ZOOM_LEVEL } = useMapConstants();
 	const { geocodingResults, clearGeocodingResults, fetchGeocodingResults } =
 		useGeocoding();
-	const { isFilterViewVisible, isSomeFilterActive } = useFilterStore();
+	const { isFilterViewVisible, hideFilterView } = useFilterStore();
 
 	const clearSearchAndGeocodingResults = () => {
 		clearSearch();
@@ -162,10 +160,7 @@ export const LocationSearch: React.FC = () => {
 				)}
 			</div>
 			<div className="min-w-[10%] flex flex-col mr-1 lg:mr-0 sm:px-0">
-				<FilterIcon
-					onToggleShowFilter={toggleFilterView}
-					filtersActive={isSomeFilterActive()}
-				/>
+				<FilterButton />
 			</div>
 		</div>
 	);

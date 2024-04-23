@@ -52,7 +52,7 @@ export const Router: React.FC = () => {
 					</div>
 
 					{!isSplashScreenVisible && isMapLoaded && (
-						<div className="mt-2 flex w-full flex-row justify-center">
+						<div className="mt-3 flex w-full flex-row justify-center">
 							<div
 								className={`${
 									treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
