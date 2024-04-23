@@ -98,7 +98,7 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 						setMaxVal(value);
 						event.target.value = value.toString();
 					}}
-					className={`w-full h-0 absolute border border-gdk-light-gray z-0
+					className={`w-full h-0 absolute border-gdk-light-gray z-0
                      rounded-lg appearance-none pointer-events-none [&::-webkit-slider-thumb]:z-40
                      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:cursor-pointer
                      [&::-webkit-slider-thumb]:pointer-events-auto
