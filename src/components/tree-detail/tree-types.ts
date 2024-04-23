@@ -37,6 +37,7 @@ export interface TreeWateringDataState {
 	wateringSum: number;
 	rainPercentage: number;
 	wateringPercentage: number;
+	otherWateringPercentage: number;
 	referenceWaterAmount: number;
 	stillMissingWater: number;
 	waterParts: ProgressPart[];

@@ -131,6 +131,7 @@ export function useTreeWaterNeedsData(
 		wateringSum: wateringSum(),
 		rainPercentage: rainPercentage(),
 		wateringPercentage: userWateringPercentage(),
+		otherWateringPercentage: otherWateringPercentage(),
 		referenceWaterAmount: referenceWaterAmount(),
 		stillMissingWater: stillMissingWater(),
 		waterParts: waterParts(),
