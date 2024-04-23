@@ -5,6 +5,7 @@ import { TreeAgeIntervalIdentifier, useFilterStore } from "./filter-store";
 import { FilterSwitch } from "./filter-switch";
 import { TreeAgeButton } from "./tree-age-button";
 import { TertiaryButton } from "../buttons/tertiary";
+import { AgeRangeSlider } from "./age-range-slider/age-range-slider";
 
 export const Filter: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -41,7 +42,7 @@ export const Filter: React.FC = () => {
 				className={`flex flex-col shadow-gdk-hard-up sm:shadow-gdk-hard bg-none sm:bg-white rounded-lg p-4 sm:p-6 gap-6 sm:gap-6 w-full`}
 			>
 				<div className="flex flex-col gap-2">
-					<div className="font-bold text-xl">{i18n.filter.title}</div>
+					<div className="font-semibold text-xl">{i18n.filter.title}</div>
 					<div className="flex flex-col gap-2">
 						<FilterSwitch
 							name={i18n.filter.publicPumps}
@@ -60,7 +61,17 @@ export const Filter: React.FC = () => {
 					</div>
 				</div>
 
-				<div className="flex flex-col gap-2 w-full">
+				<div className="flex flex-col w-full gap-y-6">
+					<AgeRangeSlider
+						min={0}
+						max={200}
+						onChange={({ min, max }: { min: number; max: number }) =>
+							console.log(`min = ${min}, max = ${max}`)
+						}
+					/>
+				</div>
+
+				{/* <div className="flex flex-col gap-2 w-full">
 					<div className="font-bold text-xl">{i18n.filter.treeAge}</div>
 					<div className="flex flex-row gap-2">
 						{treeAgeIntervals.map((interval, index) => {
@@ -78,7 +89,7 @@ export const Filter: React.FC = () => {
 							);
 						})}
 					</div>
-				</div>
+				</div> */}
 
 				<div className="flex flex-col-reverse sm:flex-row justify-between">
 					<div className="flex self-center ">
