@@ -52,7 +52,7 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 	// Get min and max values when their state changes
 	useEffect(() => {
 		onChange({ min: minVal, max: maxVal });
-	}, [minVal, maxVal, onChange]);
+	}, [minVal, maxVal]);
 
 	return (
 		<div className="flex flex-col w-full gap-6">

@@ -1,9 +1,8 @@
 import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { PrimaryButton } from "../buttons/primary";
-import { TreeAgeIntervalIdentifier, useFilterStore } from "./filter-store";
+import { useFilterStore } from "./filter-store";
 import { FilterSwitch } from "./filter-switch";
-import { TreeAgeButton } from "./tree-age-button";
 import { TertiaryButton } from "../buttons/tertiary";
 import { AgeRangeSlider } from "./age-range-slider/age-range-slider";
 
@@ -12,29 +11,13 @@ export const Filter: React.FC = () => {
 	const { hideFilterView } = useFilterStore();
 
 	const {
-		treeAgeIntervals,
-		toggleTreeAgeInterval,
+		setTreeAgeRange,
 		isPumpsVisible,
 		setShowPumps,
 		isTreeWaterNeedVisible,
 		setShowWaterNeedTrees,
 		resetFilters,
 	} = useFilterStore();
-
-	const paddingMap = {
-		[TreeAgeIntervalIdentifier.Young]: {
-			size: "w-6 h-6",
-			label: i18n.filter.youngTrees,
-		},
-		[TreeAgeIntervalIdentifier.Medium]: {
-			size: "w-7.5 h-7.5",
-			label: i18n.filter.mediumTrees,
-		},
-		[TreeAgeIntervalIdentifier.Old]: {
-			size: "w-9 h-9",
-			label: i18n.filter.oldTrees,
-		},
-	};
 
 	return (
 		<div className="flex flex-row w-full justify-center pointer-events-auto">
@@ -65,31 +48,11 @@ export const Filter: React.FC = () => {
 					<AgeRangeSlider
 						min={0}
 						max={200}
-						onChange={({ min, max }: { min: number; max: number }) =>
-							console.log(`min = ${min}, max = ${max}`)
-						}
+						onChange={({ min, max }: { min: number; max: number }) => {
+							setTreeAgeRange(min, max);
+						}}
 					/>
 				</div>
-
-				{/* <div className="flex flex-col gap-2 w-full">
-					<div className="font-bold text-xl">{i18n.filter.treeAge}</div>
-					<div className="flex flex-row gap-2">
-						{treeAgeIntervals.map((interval, index) => {
-							return (
-								<div key={`interval-${index}`} className="w-[33%]">
-									<TreeAgeButton
-										onChange={() => {
-											toggleTreeAgeInterval(interval);
-										}}
-										name={paddingMap[interval.identifier].label}
-										size={paddingMap[interval.identifier].size}
-										interval={interval}
-									/>
-								</div>
-							);
-						})}
-					</div>
-				</div> */}
 
 				<div className="flex flex-col-reverse sm:flex-row justify-between">
 					<div className="flex self-center ">
