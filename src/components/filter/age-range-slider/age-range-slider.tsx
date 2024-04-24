@@ -91,8 +91,8 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 						event.target.value = value.toString();
 					}}
 					// slider-thumb styles are defined in index.css since stlyles are too long with thumb declerations
-					className={`w-full h-0 absolute  border border-gdk-light-gray 
-                     rounded-lg appearance-none pointer-events-none slider-thumb
+					className={`w-full h-0 absolute border border-gdk-light-gray 
+                     rounded-lg appearance-none pointer-events-none slider-thumb 
                      ${minVal > max - 10 ? "thumb-50" : "thumb-30"}
                    `}
 				/>
@@ -108,9 +108,8 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 						setMaxVal(value);
 						event.target.value = value.toString();
 					}}
-					className={`w-full h-0 absolute border-gdk-light-gray 
-                     rounded-lg appearance-none pointer-events-none slider-thumb
-					 thumb-40
+					className={`w-full h-0 absolute translate-y-[1px] rounded-lg 
+					appearance-none pointer-events-none slider-thumb thumb-40
                    `}
 				/>
 			</div>

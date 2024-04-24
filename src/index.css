@@ -102,7 +102,7 @@
 }
 
 .slider-thumb::-moz-range-thumb {
-	@apply appearance-none w-[30px] h-[30px] z-30 rounded-full pointer-events-auto cursor-pointer shadow-lg bg-gdk-white outline outline-2 outline-gray-300;
+	@apply appearance-none w-[30px] h-[30px] z-0 rounded-full pointer-events-auto cursor-pointer shadow-lg bg-gdk-white outline outline-2 outline-gray-300;
 }
 
 .slider-thumb::-moz-range-thumb:hover {
