@@ -368,7 +368,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
       map.current.addLayer({
         id: 'trees-7e861h',
         type: 'circle',
-        source: 'trees-7e861h',
+        source: 'trees',
         'source-layer': process.env.NEXT_PUBLIC_MAPBOX_TREES_TILESET_LAYER,
         interactive: true,
         paint: {
