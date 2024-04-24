@@ -1,5 +1,6 @@
 import React from "react";
 import { ChangeEvent, useCallback, useEffect, useState, useRef } from "react";
+import { useFilterStore } from "../filter-store";
 
 interface AgeRangeSliderProps {
 	min: number;
@@ -18,11 +19,24 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 	const maxValRef = useRef<HTMLInputElement>(null);
 	const range = useRef<HTMLDivElement>(null);
 
+	const { treeAgeRange } = useFilterStore();
+
 	// Convert to percentage
 	const getPercent = useCallback(
 		(value: number) => Math.round(((value - min) / (max - min)) * 100),
 		[min, max],
 	);
+
+	const resetAgeSlider = () => {
+		setMinVal(min);
+		setMaxVal(max);
+	};
+
+	useEffect(() => {
+		if (treeAgeRange.min === min && treeAgeRange.max === max) {
+			resetAgeSlider();
+		}
+	}, [treeAgeRange]);
 
 	// Set width of the range to decrease from the left side
 	useEffect(() => {
