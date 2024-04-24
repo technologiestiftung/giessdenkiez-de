@@ -11,13 +11,18 @@ import {
 const fullConfig = resolveConfig(tailwindConfig);
 
 export function useTreeCircleStyle() {
-	const { TREE_DEFAULT_COLOR, TREE_GRAY_COLOR } = useMapConstants();
+	const {
+		TREE_DEFAULT_COLOR,
+		TREE_GRAY_COLOR,
+		TREE_ORANGE_COLOR,
+		TREE_YELLOW_COLOR,
+	} = useMapConstants();
 
 	const circleRadius = {
 		base: 1.75,
 		stops: [
 			[11, 1],
-			[22, 100],
+			[22, 300],
 		],
 	};
 
@@ -103,7 +108,42 @@ export function useTreeCircleStyle() {
 				TREE_GRAY_COLOR, // Fallback color
 			];
 		}
-		return TREE_DEFAULT_COLOR;
+
+		return [
+			"case",
+			["==", ["get", "age"], ""],
+			TREE_GRAY_COLOR,
+			[">", ["get", "age"], 10],
+			TREE_DEFAULT_COLOR,
+			[">=", ["get", "age"], 5],
+			[
+				"case",
+				[
+					">=",
+					[
+						"+",
+						["get", "total_water_sum"],
+						["coalesce", ["feature-state", "water"], 0],
+					],
+					200,
+				],
+				TREE_DEFAULT_COLOR,
+				[
+					">=",
+					[
+						"+",
+						["get", "total_water_sum"],
+						["coalesce", ["feature-state", "water"], 0],
+					],
+					100,
+				],
+				TREE_YELLOW_COLOR,
+				TREE_ORANGE_COLOR,
+			],
+			[">=", ["get", "age"], 0],
+			TREE_DEFAULT_COLOR,
+			TREE_GRAY_COLOR,
+		];
 	};
 
 	return {

@@ -12,6 +12,8 @@ export function useMapConstants() {
 	);
 	const TREE_DEFAULT_COLOR = fullConfig.theme.colors["gdk-neon-green"];
 	const TREE_GRAY_COLOR = fullConfig.theme.colors["gdk-light-gray"];
+	const TREE_YELLOW_COLOR = "#FDE725";
+	const TREE_ORANGE_COLOR = "#FD9531";
 
 	const MAP_MIN_ZOOM_LEVEL = parseInt(import.meta.env.VITE_MAP_MIN_ZOOM_LEVEL);
 	const MAP_INITIAL_ZOOM_LEVEL = parseInt(
@@ -53,5 +55,7 @@ export function useMapConstants() {
 		MAP_PUMP_IMAGE_ICONS,
 		TREE_GRAY_COLOR,
 		MAP_TREE_ZOOMED_IN_OFFSET,
+		TREE_YELLOW_COLOR,
+		TREE_ORANGE_COLOR,
 	};
 }

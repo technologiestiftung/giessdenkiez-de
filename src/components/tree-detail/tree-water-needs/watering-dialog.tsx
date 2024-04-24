@@ -10,6 +10,7 @@ import { CloseIcon } from "../../icons/close-icon";
 import { useTreeStore } from "../stores/tree-store";
 import { AlertDialog } from "../../alert-dialog/alert-dialog";
 import { CheckIcon } from "../../icons/check-icon";
+import { useMapStore } from "../../map/map-store";
 
 const showHideWateringSuccessDialog = () => {
 	(
@@ -27,6 +28,7 @@ const closeWateringDialog = () => {
 };
 
 export const WateringDialog: React.FC = () => {
+	const map = useMapStore().map;
 	const i18n = useI18nStore().i18n();
 	const { waterTree } = useWaterTree();
 	const { handleError } = useErrorStore();
@@ -52,6 +54,15 @@ export const WateringDialog: React.FC = () => {
 				// wait for the dialog to close before expanding the last waterings
 				setTimeout(() => {
 					setIsLastWateringsExpanded(true);
+					const treeId = useTreeStore.getState().selectedTreeId;
+					map?.setFeatureState(
+						{
+							id: treeId,
+							source: "trees",
+							sourceLayer: "trees",
+						},
+						{ water: amount },
+					);
 				}, 2000);
 			} catch (error) {
 				setIsWateringLoading(false);
