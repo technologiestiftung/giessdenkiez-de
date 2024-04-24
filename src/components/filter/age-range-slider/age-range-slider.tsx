@@ -59,7 +59,8 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 			<div className="flex flex-row justify-between font-semibold text-lg">
 				<div>Alterspanne der Bäume</div>
 				<div>
-					{minVal}-{maxVal} Jahre
+					{minVal}-{maxVal}
+					{maxVal === 200 ? "+" : ""} Jahre
 				</div>
 			</div>
 			<div className="relative">

@@ -74,12 +74,15 @@ export function useTreeCircleStyle() {
 		isSomeFilterActive: boolean,
 		treeAgeRange: TreeAgeRange,
 	) => {
+		const treeAgeRangeMax =
+			treeAgeRange.max === 200 ? Infinity : treeAgeRange.max;
+
 		if (isSomeFilterActive) {
 			return [
 				"case",
 				["==", ["get", "age"], ""],
 				TREE_GRAY_COLOR, // Color for undefined age
-				[">", ["get", "age"], treeAgeRange.max],
+				[">", ["get", "age"], treeAgeRangeMax],
 				TREE_GRAY_COLOR, // Color for age > treeAgeRange.max
 				["<=", ["get", "age"], treeAgeRange.min],
 				TREE_GRAY_COLOR, // Color for age <= treeAgeRange.min
