@@ -6,27 +6,12 @@ import { useMapConstants } from "../map/hooks/use-map-constants";
 import { usePumpStore } from "../map/hooks/use-pump-store";
 import { useTreeStore } from "../tree-detail/stores/tree-store";
 
-/* eslint-disable-next-line no-shadow */
-export enum TreeAgeIntervalIdentifier {
-	Young = "young",
-	Medium = "medium",
-	Old = "old",
-}
-
-export interface TreeAgeInterval {
-	min: number;
-	max: number;
-	identifier: TreeAgeIntervalIdentifier;
-	enabled: boolean;
-}
-
 export interface TreeAgeRange {
 	min: number;
 	max: number;
 }
 
 export interface FilterState {
-	treeAgeIntervals: TreeAgeInterval[];
 	isPumpsVisible: boolean;
 	isTreeWaterNeedVisible: boolean;
 	isFilterViewVisible: boolean;
@@ -36,7 +21,6 @@ export interface FilterState {
 	zoom: number;
 	treeAgeRange: TreeAgeRange;
 	setTreeAgeRange: (min: number, max: number) => void;
-	toggleTreeAgeInterval: (interval: TreeAgeInterval) => void;
 	setShowPumps: (showPumps: boolean) => void;
 	setShowWaterNeedTrees: (showWaterNeedTrees: boolean) => void;
 	showFilterView: () => void;
@@ -54,37 +38,12 @@ const initialTreeAgeRange = {
 	max: 200,
 };
 
-const initialTreeAgeIntervals = [
-	{
-		min: 0,
-		max: 3,
-		identifier: TreeAgeIntervalIdentifier.Young,
-		enabled: true,
-	},
-	{
-		min: 4,
-		max: 40,
-		identifier: TreeAgeIntervalIdentifier.Medium,
-		enabled: true,
-	},
-	{
-		min: 41,
-		max: Infinity,
-		identifier: TreeAgeIntervalIdentifier.Old,
-		enabled: true,
-	},
-];
-
 const treeAgeUrlKey = "treeAge";
 const isPumpsVisibleUrlKey = "isPumpsVisible";
 const isTreeWaterNeedVisibleUrlKey = "isTreeWaterNeedVisible";
 const zoomUrlKey = "zoom";
 const latUrlKey = "lat";
 const lngUrlKey = "lng";
-
-const ageIntervalSearch = new URL(window.location.href).searchParams.getAll(
-	treeAgeUrlKey,
-);
 
 const isPumpsVisibleSearch = new URL(window.location.href).searchParams.get(
 	isPumpsVisibleUrlKey,
@@ -100,36 +59,6 @@ const lngSearch = new URL(window.location.href).searchParams.get(lngUrlKey);
 
 export const useFilterStore = create<FilterState>()((set, get) => ({
 	treeAgeRange: initialTreeAgeRange,
-
-	treeAgeIntervals: [
-		{
-			min: 0,
-			max: 3,
-			identifier: TreeAgeIntervalIdentifier.Young,
-			enabled:
-				ageIntervalSearch.includes(TreeAgeIntervalIdentifier.Young) ||
-				ageIntervalSearch.includes("all") ||
-				ageIntervalSearch.length === 0,
-		},
-		{
-			min: 4,
-			max: 40,
-			identifier: TreeAgeIntervalIdentifier.Medium,
-			enabled:
-				ageIntervalSearch.includes(TreeAgeIntervalIdentifier.Medium) ||
-				ageIntervalSearch.includes("all") ||
-				ageIntervalSearch.length === 0,
-		},
-		{
-			min: 41,
-			max: Infinity,
-			identifier: TreeAgeIntervalIdentifier.Old,
-			enabled:
-				ageIntervalSearch.includes(TreeAgeIntervalIdentifier.Old) ||
-				ageIntervalSearch.includes("all") ||
-				ageIntervalSearch.length === 0,
-		},
-	],
 
 	isPumpsVisible: isPumpsVisibleSearch === "true",
 
@@ -147,8 +76,7 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 			get().treeAgeRange.min !== initialTreeAgeRange.min ||
 			get().treeAgeRange.max !== initialTreeAgeRange.max ||
 			get().isPumpsVisible ||
-			get().isTreeWaterNeedVisible ||
-			get().treeAgeIntervals.some((int) => !int.enabled)
+			get().isTreeWaterNeedVisible
 		);
 	},
 	setShowPumps: (showPumps) => {
@@ -172,31 +100,6 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 			[showWaterNeedTrees ? "true" : "false"],
 		);
 		useUrlState.getState().setSearchParams(updatedSearchParams);
-
-		if (showWaterNeedTrees) {
-			set({
-				treeAgeIntervals: get().treeAgeIntervals.map((int) => {
-					return {
-						...int,
-						enabled: int.identifier === TreeAgeIntervalIdentifier.Medium,
-					};
-				}),
-			});
-		} else {
-			set({ treeAgeIntervals: initialTreeAgeIntervals });
-		}
-
-		const updatedIntervalIdentifiers = get()
-			.treeAgeIntervals.filter((int) => int.enabled)
-			.map((int) => {
-				return int.identifier.toString();
-			});
-		const updatedTreeIntervalSearchParams = replaceUrlSearchParam(
-			new URL(window.location.href),
-			treeAgeUrlKey,
-			updatedIntervalIdentifiers,
-		);
-		useUrlState.getState().setSearchParams(updatedTreeIntervalSearchParams);
 	},
 
 	setTreeAgeRange: (min, max) => {
@@ -215,33 +118,6 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 			updatedRangeIdentifiers,
 		);
 		useUrlState.getState().setSearchParams(updatedSearchParams);
-	},
-
-	toggleTreeAgeInterval: (interval) => {
-		const updatedIntervals = get().treeAgeIntervals.map((int) => {
-			if (int.identifier === interval.identifier) {
-				return { ...int, enabled: !int.enabled };
-			}
-
-			return int;
-		});
-
-		set({ treeAgeIntervals: updatedIntervals });
-
-		// // Update interval identifiers
-		// const updatedIntervalIdentifiers = updatedIntervals
-		// 	.filter((int) => int.enabled)
-		// 	.map((int) => {
-		// 		return int.identifier.toString();
-		// 	});
-
-		// // Update search params in URL
-		// const updatedSearchParams = replaceUrlSearchParam(
-		// 	new URL(window.location.href),
-		// 	treeAgeUrlKey,
-		// 	updatedIntervalIdentifiers,
-		// );
-		// useUrlState.getState().setSearchParams(updatedSearchParams);
 	},
 
 	toggleFilterView: () => {
@@ -268,7 +144,6 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 		useUrlState.getState().removeSearchParam(isPumpsVisibleUrlKey);
 		useUrlState.getState().removeSearchParam(isTreeWaterNeedVisibleUrlKey);
 		set({
-			treeAgeIntervals: initialTreeAgeIntervals,
 			treeAgeRange: initialTreeAgeRange,
 			isPumpsVisible: false,
 			isTreeWaterNeedVisible: false,
@@ -307,12 +182,12 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 				get().treeAgeRange.max.toString(),
 		];
 
-		const updatedTreeIntervalSearchParams = replaceUrlSearchParam(
+		const updatedAgeRangeSearchParams = replaceUrlSearchParam(
 			new URL(window.location.href),
 			treeAgeUrlKey,
 			updatedRangeIdentifiers,
 		);
-		useUrlState.getState().setSearchParams(updatedTreeIntervalSearchParams);
+		useUrlState.getState().setSearchParams(updatedAgeRangeSearchParams);
 
 		const treeId = useTreeStore.getState().selectedTreeId;
 		if (treeId) {
