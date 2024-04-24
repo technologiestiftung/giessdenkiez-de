@@ -77,17 +77,25 @@ export function useTreeCircleStyle() {
 		const treeAgeRangeMax =
 			treeAgeRange.max === 200 ? Infinity : treeAgeRange.max;
 
+		const isTreeAgeInitialState =
+			treeAgeRange.min === 0 && treeAgeRange.max === 200;
+
 		if (isSomeFilterActive) {
-			return [
-				"case",
-				["==", ["get", "age"], ""],
-				TREE_GRAY_COLOR, // Color for undefined age
-				[">", ["get", "age"], treeAgeRangeMax],
-				TREE_GRAY_COLOR, // Color for age > treeAgeRange.max
-				["<=", ["get", "age"], treeAgeRange.min],
-				TREE_GRAY_COLOR, // Color for age <= treeAgeRange.min
-				TREE_DEFAULT_COLOR, // Fallback color
-			];
+			switch (isTreeAgeInitialState) {
+				case true:
+					return TREE_DEFAULT_COLOR;
+				default:
+					return [
+						"case",
+						["==", ["get", "age"], ""],
+						TREE_GRAY_COLOR, // Color for undefined age
+						[">", ["get", "age"], treeAgeRangeMax],
+						TREE_GRAY_COLOR, // Color for age > treeAgeRange.max
+						["<=", ["get", "age"], treeAgeRange.min],
+						TREE_GRAY_COLOR, // Color for age <= treeAgeRange.min
+						TREE_DEFAULT_COLOR, // Fallback color
+					];
+			}
 		}
 		return TREE_DEFAULT_COLOR;
 	};
