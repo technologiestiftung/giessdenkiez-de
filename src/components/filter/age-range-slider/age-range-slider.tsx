@@ -54,14 +54,12 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 		onChange({ min: minVal, max: maxVal });
 	}, [minVal, maxVal, onChange]);
 
-	console.log(minVal > max - 100);
-
 	return (
 		<div className="flex flex-col w-full gap-6">
 			<div className="flex flex-row justify-between font-semibold text-lg">
 				<div>Alterspanne der Bäume</div>
 				<div>
-					{minVal}-{maxVal}+ Jahre
+					{minVal}-{maxVal} Jahre
 				</div>
 			</div>
 			<div className="relative">
@@ -71,6 +69,7 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 					max={max}
 					value={minVal}
 					ref={minValRef}
+					step={10}
 					onChange={(event: ChangeEvent<HTMLInputElement>) => {
 						const value = Math.min(+event.target.value, maxVal - 1);
 						setMinVal(value);
@@ -80,7 +79,8 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
                      rounded-lg appearance-none pointer-events-none
                      ${minVal > max - 100 ? "[&::-webkit-slider-thumb]:z-50" : "[&::-webkit-slider-thumb]:z-30"}
                      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:cursor-pointer
-                     [&::-webkit-slider-thumb]:pointer-events-auto
+                     [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:active:scale-110
+					 [&::-webkit-slider-thumb]:transition [&::-webkit-slider-thumb]:ease-in-out [&::-webkit-slider-thumb]:duration-200
                      [&::-webkit-slider-thumb]:h-[30px] [&::-webkit-slider-thumb]:w-[30px] 
                      [&::-webkit-slider-thumb]:rounded-full  [&::-webkit-slider-thumb]:shadow-lg
                      [&::-webkit-slider-thumb]:bg-gdk-white [&::-webkit-slider-thumb]:outline 
@@ -93,6 +93,7 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 					max={max}
 					value={maxVal}
 					ref={maxValRef}
+					step={10}
 					onChange={(event: ChangeEvent<HTMLInputElement>) => {
 						const value = Math.max(+event.target.value, minVal + 1);
 						setMaxVal(value);
@@ -101,7 +102,8 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 					className={`w-full h-0 absolute border-gdk-light-gray z-0
                      rounded-lg appearance-none pointer-events-none [&::-webkit-slider-thumb]:z-40
                      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:cursor-pointer
-                     [&::-webkit-slider-thumb]:pointer-events-auto
+                     [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:active:scale-110
+					 [&::-webkit-slider-thumb]:transition [&::-webkit-slider-thumb]:ease-in-out [&::-webkit-slider-thumb]:duration-200
                      [&::-webkit-slider-thumb]:h-[30px] [&::-webkit-slider-thumb]:w-[30px] 
                      [&::-webkit-slider-thumb]:rounded-full  [&::-webkit-slider-thumb]:shadow-lg
                      [&::-webkit-slider-thumb]:bg-gdk-white [&::-webkit-slider-thumb]:outline 
