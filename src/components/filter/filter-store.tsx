@@ -202,9 +202,19 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 	setTreeAgeRange: (min, max) => {
 		set({ treeAgeRange: { min, max } });
 
-		// Update interval identifiers
+		const updatedRangeIdentifiers = [
+			get().treeAgeRange.min.toString() +
+				"-" +
+				get().treeAgeRange.max.toString(),
+		];
 
 		// Update search params in URL
+		const updatedSearchParams = replaceUrlSearchParam(
+			new URL(window.location.href),
+			treeAgeUrlKey,
+			updatedRangeIdentifiers,
+		);
+		useUrlState.getState().setSearchParams(updatedSearchParams);
 	},
 
 	toggleTreeAgeInterval: (interval) => {
@@ -291,12 +301,16 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 			.getState()
 			.addSearchParam("isPumpsVisible", get().isPumpsVisible.toString());
 
+		const updatedRangeIdentifiers = [
+			get().treeAgeRange.min.toString() +
+				"-" +
+				get().treeAgeRange.max.toString(),
+		];
+
 		const updatedTreeIntervalSearchParams = replaceUrlSearchParam(
 			new URL(window.location.href),
 			treeAgeUrlKey,
-			get().treeAgeIntervals.map((int) => {
-				return int.identifier.toString();
-			}),
+			updatedRangeIdentifiers,
 		);
 		useUrlState.getState().setSearchParams(updatedTreeIntervalSearchParams);
 
