@@ -108,3 +108,15 @@
 .slider-thumb::-moz-range-thumb:hover {
 	@apply transition ease-in-out duration-200 scale-110;
 }
+
+.thumb-30 {
+	@apply z-30;
+}
+
+.thumb-40 {
+	@apply z-40;
+}
+
+.thumb-50 {
+	@apply z-50;
+}
