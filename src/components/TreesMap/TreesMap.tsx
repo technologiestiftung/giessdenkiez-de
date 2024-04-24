@@ -598,7 +598,8 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
         <Map
           reuseMaps
           ref={ref}
-          mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
+          //mapStyle='mapbox://styles/technologiestiftung/ckke3kyr00w5w17mytksdr3ro'
+          mapStyle='mapbox://styles/sgt-dev/clukyic0m01dt01pr9f8h46b4'
           styleDiffing={true}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_API_KEY}
           onLoad={onLoad}
