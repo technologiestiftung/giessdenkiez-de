@@ -48,8 +48,11 @@ export const WateringDialog: React.FC = () => {
 				setIsWateringLoading(true);
 				await waterTree(amount, date);
 				setIsWateringLoading(false);
-				setIsLastWateringsExpanded(true);
 				showHideWateringSuccessDialog();
+				// wait for the dialog to close before expanding the last waterings
+				setTimeout(() => {
+					setIsLastWateringsExpanded(true);
+				}, 2000);
 			} catch (error) {
 				setIsWateringLoading(false);
 				handleError("Failed to water the tree.", error);
