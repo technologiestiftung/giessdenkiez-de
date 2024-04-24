@@ -92,3 +92,19 @@
 .mapboxgl-ctrl button.mapboxgl-ctrl-geolocate.mapboxgl-ctrl-geolocate-waiting .mapboxgl-ctrl-icon {
 	@apply animate-none !important;
 }
+
+.slider-thumb::-webkit-slider-thumb {
+	@apply appearance-none w-[30px] h-[30px] z-30 rounded-full pointer-events-auto cursor-pointer shadow-lg bg-gdk-white outline outline-2 outline-gray-300;
+}
+
+.slider-thumb::-webkit-slider-thumb:hover {
+	@apply transition ease-in-out duration-200 scale-110;
+}
+
+.slider-thumb::-moz-range-thumb {
+	@apply appearance-none w-[30px] h-[30px] z-30 rounded-full pointer-events-auto cursor-pointer shadow-lg bg-gdk-white outline outline-2 outline-gray-300;
+}
+
+.slider-thumb::-moz-range-thumb:hover {
+	@apply transition ease-in-out duration-200 scale-110;
+}

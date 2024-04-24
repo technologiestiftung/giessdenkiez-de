@@ -90,16 +90,10 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 						setMinVal(value);
 						event.target.value = value.toString();
 					}}
-					className={`w-full h-0 absolute  border border-gdk-light-gray z-0
-                     rounded-lg appearance-none pointer-events-none
-                     ${minVal > max - 100 ? "[&::-webkit-slider-thumb]:z-50" : "[&::-webkit-slider-thumb]:z-30"}
-                     [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:cursor-pointer
-                     [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:active:scale-110
-					 [&::-webkit-slider-thumb]:transition [&::-webkit-slider-thumb]:ease-in-out [&::-webkit-slider-thumb]:duration-200
-                     [&::-webkit-slider-thumb]:h-[30px] [&::-webkit-slider-thumb]:w-[30px] 
-                     [&::-webkit-slider-thumb]:rounded-full  [&::-webkit-slider-thumb]:shadow-lg
-                     [&::-webkit-slider-thumb]:bg-gdk-white [&::-webkit-slider-thumb]:outline 
-                     [&::-webkit-slider-thumb]:outline-2 [&::-webkit-slider-thumb]:outline-gray-300
+					// slider-thumb styles are defined in index.css since stlyles are too long with thumb declerations
+					className={`w-full h-0 absolute  border border-gdk-light-gray 
+                     rounded-lg appearance-none pointer-events-none slider-thumb
+                     ${minVal > maxVal - 20 ? "[&::-webkit-slider-thumb]:z-50" : "[&::-webkit-slider-thumb]:z-30"}
                    `}
 				/>
 				<input
@@ -114,15 +108,9 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 						setMaxVal(value);
 						event.target.value = value.toString();
 					}}
-					className={`w-full h-0 absolute border-gdk-light-gray z-0
-                     rounded-lg appearance-none pointer-events-none [&::-webkit-slider-thumb]:z-40
-                     [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:cursor-pointer
-                     [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:active:scale-110
-					 [&::-webkit-slider-thumb]:transition [&::-webkit-slider-thumb]:ease-in-out [&::-webkit-slider-thumb]:duration-200
-                     [&::-webkit-slider-thumb]:h-[30px] [&::-webkit-slider-thumb]:w-[30px] 
-                     [&::-webkit-slider-thumb]:rounded-full  [&::-webkit-slider-thumb]:shadow-lg
-                     [&::-webkit-slider-thumb]:bg-gdk-white [&::-webkit-slider-thumb]:outline 
-                     [&::-webkit-slider-thumb]:outline-2 [&::-webkit-slider-thumb]:outline-gray-300
+					className={`w-full h-0 absolute border-gdk-light-gray 
+                     rounded-lg appearance-none pointer-events-none slider-thumb
+					 [&::-webkit-slider-thumb]:z-40
                    `}
 				/>
 			</div>
