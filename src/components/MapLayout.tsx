@@ -9,13 +9,13 @@ export const MapLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Head>
-        <title>Gieß den Kiez | CityLAB Berlin</title>
+        <title>Gieß den Baum | SmartCity Gütersloh</title>
         <meta
           name='viewport'
           content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
         />
         <link rel='icon' type='image/x-icon' href='/images/favicon.ico' />
-        <meta name='title' content='Gieß den Kiez | CityLAB Berlin' />
+        <meta name='title' content='Gieß den Baum | SmartCity Gütersloh' />
         <meta
           name='description'
           content='Die Berliner Stadtbäume leiden unter Trockenheit und Du kannst ihnen helfen!'
