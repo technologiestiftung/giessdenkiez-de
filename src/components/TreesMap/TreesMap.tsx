@@ -386,7 +386,7 @@ export const TreesMap = forwardRef<MapRef, TreesMapPropsType>(function TreesMap(
           'circle-stroke-color': [
             'case',
             ['boolean', ['feature-state', 'select'], false],
-            'rgba(247, 105, 6, 1)',
+            'rgba(4, 56, 130, 1)',
             getTreeCircleColor(),
           ],
           'circle-color': getTreeCircleColor(),

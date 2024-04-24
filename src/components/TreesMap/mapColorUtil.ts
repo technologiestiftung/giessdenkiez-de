@@ -90,7 +90,7 @@ export const getTreeCircleColor = (): CirclePaint['circle-color'] => {
   return [
     'case',
     ['boolean', ['feature-state', 'hover'], false],
-    'rgba(200,200,200,1)',
+    'rgba(69,161,42,1)',
     [
       'interpolate',
       ['linear'],
