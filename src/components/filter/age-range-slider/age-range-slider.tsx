@@ -3,12 +3,17 @@ import { ChangeEvent } from "react";
 import { useFilterStore } from "../filter-store";
 import { useI18nStore } from "../../../i18n/i18n-store";
 
-export const INITIAL_MIN = 0;
-export const INITIAL_MAX = 200;
-
 export const AgeRangeSlider: React.FC = () => {
-	const { treeAgeRange, setTreeAgeRange } = useFilterStore();
+	const {
+		treeAgeRange,
+		setTreeAgeRange,
+		initialTreeAgeRangeMin,
+		initialTreeAgeRangeMax,
+	} = useFilterStore();
 	const i18n = useI18nStore().i18n();
+
+	const INITIAL_MIN = initialTreeAgeRangeMin;
+	const INITIAL_MAX = initialTreeAgeRangeMax;
 
 	return (
 		<div className="flex flex-col w-full gap-6">
@@ -16,7 +21,7 @@ export const AgeRangeSlider: React.FC = () => {
 				<div>{i18n.filter.treeAgeTitle}</div>
 				<div>
 					{treeAgeRange.min}-{treeAgeRange.max}
-					{treeAgeRange.max === 200 ? "+" : ""} {i18n.filter.years}
+					{treeAgeRange.max === INITIAL_MAX ? "+" : ""} {i18n.filter.years}
 				</div>
 			</div>
 			<div className="relative">
@@ -31,10 +36,9 @@ export const AgeRangeSlider: React.FC = () => {
 						event.target.value = value.toString();
 						setTreeAgeRange(value, treeAgeRange.max);
 					}}
-					// slider-thumb styles are defined in index.css since stlyles are too long with thumb declerations
+					// slider-thumb styles are defined in index.css since styles are too long with thumb declerations
 					className={`w-full h-0 absolute border border-gdk-light-gray 
-                     rounded-lg appearance-none pointer-events-none slider-thumb 
-                     ${treeAgeRange.min > INITIAL_MAX - 10 ? "thumb-50" : "thumb-30"}
+                     rounded-lg appearance-none pointer-events-none slider-thumb thumb-40}
                    `}
 				/>
 				<input
@@ -49,7 +53,7 @@ export const AgeRangeSlider: React.FC = () => {
 						setTreeAgeRange(treeAgeRange.min, value);
 					}}
 					className={`w-full h-0 absolute translate-y-[1px] rounded-lg 
-					appearance-none pointer-events-none slider-thumb thumb-40
+					appearance-none pointer-events-none slider-thumb 
                    `}
 				/>
 			</div>

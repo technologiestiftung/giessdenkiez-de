@@ -19,6 +19,8 @@ export interface FilterState {
 	lat: number;
 	lng: number;
 	zoom: number;
+	initialTreeAgeRangeMin: number;
+	initialTreeAgeRangeMax: number;
 	treeAgeRange: TreeAgeRange;
 	setTreeAgeRange: (min: number, max: number) => void;
 	setShowPumps: (showPumps: boolean) => void;
@@ -66,6 +68,9 @@ const latSearch = new URL(window.location.href).searchParams.get(latUrlKey);
 const lngSearch = new URL(window.location.href).searchParams.get(lngUrlKey);
 
 export const useFilterStore = create<FilterState>()((set, get) => ({
+	initialTreeAgeRangeMin: initialTreeAgeRange.min,
+	initialTreeAgeRangeMax: initialTreeAgeRange.max,
+
 	treeAgeRange: {
 		min: ageRangeMinSearch
 			? parseInt(ageRangeMinSearch)
