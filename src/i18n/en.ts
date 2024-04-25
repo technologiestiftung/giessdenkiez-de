@@ -430,11 +430,10 @@ Particularly young trees need water in the first few years. Rather less often, b
 		publicPumps: "Public pumps",
 		waterNeedTrees: "Trees in need of water",
 		treeAge: "Tree age",
-		youngTrees: "0 - 3 years",
-		mediumTrees: "4 - 40 years",
-		oldTrees: "40+ years",
 		show: "Show",
 		reset: "Reset",
+		treeAgeTitle: "Tree age",
+		years: "years",
 	},
 	common: {
 		defaultErrorMessage: "Something went wrong! Please try again later.",

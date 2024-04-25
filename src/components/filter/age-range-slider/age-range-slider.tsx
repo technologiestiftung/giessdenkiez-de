@@ -1,6 +1,7 @@
 import React from "react";
 import { ChangeEvent, useCallback, useEffect, useState, useRef } from "react";
 import { useFilterStore } from "../filter-store";
+import { useI18nStore } from "../../../i18n/i18n-store";
 
 interface AgeRangeSliderProps {
 	min: number;
@@ -20,6 +21,7 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 	const range = useRef<HTMLDivElement>(null);
 
 	const { treeAgeRange } = useFilterStore();
+	const i18n = useI18nStore().i18n();
 
 	// Convert to percentage
 	const getPercent = useCallback(
@@ -71,10 +73,10 @@ export const AgeRangeSlider: React.FC<AgeRangeSliderProps> = ({
 	return (
 		<div className="flex flex-col w-full gap-6">
 			<div className="flex flex-row justify-between font-semibold text-lg">
-				<div>Alterspanne der Bäume</div>
+				<div>{i18n.filter.treeAgeTitle}</div>
 				<div>
 					{minVal}-{maxVal}
-					{maxVal === 200 ? "+" : ""} Jahre
+					{maxVal === 200 ? "+" : ""} {i18n.filter.years}
 				</div>
 			</div>
 			<div className="relative">

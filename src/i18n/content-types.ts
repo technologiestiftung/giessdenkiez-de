@@ -232,11 +232,10 @@ interface Filter {
 	publicPumps: string;
 	waterNeedTrees: string;
 	treeAge: string;
-	youngTrees: string;
-	mediumTrees: string;
-	oldTrees: string;
 	show: string;
 	reset: string;
+	treeAgeTitle: string;
+	years: string;
 }
 
 interface Common {
