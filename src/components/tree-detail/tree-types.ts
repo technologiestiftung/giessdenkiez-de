@@ -32,6 +32,10 @@ export interface TreeWateringData {
 	username: string;
 }
 
+export interface AccumulatedTreeWateringData {
+	[key: string]: number; // key is the tree id, value is the watering amount
+}
+
 export interface TreeWateringDataState {
 	rainSum: number;
 	wateringSum: number;

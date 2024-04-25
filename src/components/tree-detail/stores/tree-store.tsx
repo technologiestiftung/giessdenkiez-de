@@ -1,6 +1,12 @@
+/* eslint-disable max-lines */
 import { create } from "zustand";
-import { TreeCoreData, TreeWateringData } from "../tree-types";
+import {
+	AccumulatedTreeWateringData,
+	TreeCoreData,
+	TreeWateringData,
+} from "../tree-types";
 import { useTreeAdoptStore } from "./adopt-tree-store";
+import { supabaseClient } from "../../../auth/supabase-client";
 
 interface TreeStore {
 	refreshTreeData: (
@@ -31,6 +37,9 @@ interface TreeStore {
 	setIsWateringLoading: (isWateringLoading: boolean) => void;
 	isLastWateringsExpanded: boolean;
 	setIsLastWateringsExpanded: (isExpanded: boolean) => void;
+
+	todaysWaterings: AccumulatedTreeWateringData;
+	loadTodaysWaterings: () => Promise<void>;
 }
 export const useTreeStore = create<TreeStore>()((set, get) => ({
 	refreshTreeData: async (treeId, abortController) => {
@@ -125,5 +134,27 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 	isWateringLoading: false,
 	setIsWateringLoading: (isWateringLoading) => {
 		set({ isWateringLoading });
+	},
+	todaysWaterings: {},
+	loadTodaysWaterings: async () => {
+		const todayAtMidnight = new Date();
+		todayAtMidnight.setHours(0, 0, 0, 0);
+
+		const { data: waterings, error: wateringsError } = await supabaseClient
+			.from("trees_watered")
+			.select("*")
+			.gt("timestamp", todayAtMidnight.toISOString());
+
+		if (wateringsError) {
+			throw new Error("Failed to fetch today's waterings");
+		}
+
+		const groupedByTreeId = waterings.reduce((acc, watering) => {
+			const { tree_id, amount } = watering;
+			acc[tree_id] = (acc[tree_id] || 0) + amount;
+			return acc;
+		}, {});
+
+		set({ todaysWaterings: groupedByTreeId });
 	},
 }));

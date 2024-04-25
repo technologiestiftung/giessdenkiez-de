@@ -54,14 +54,27 @@ export const WateringDialog: React.FC = () => {
 				// wait for the dialog to close before expanding the last waterings
 				setTimeout(() => {
 					setIsLastWateringsExpanded(true);
+
 					const treeId = useTreeStore.getState().selectedTreeId;
+
+					const featureState = map?.getFeatureState({
+						id: treeId,
+						source: "trees",
+						sourceLayer: "trees",
+					});
+
+					const todaysWateringAmount = featureState
+						? parseInt(featureState.todays_waterings ?? 0)
+						: 0;
+					const todaysWateringSum = todaysWateringAmount + amount;
+
 					map?.setFeatureState(
 						{
 							id: treeId,
 							source: "trees",
 							sourceLayer: "trees",
 						},
-						{ water: amount },
+						{ todays_waterings: todaysWateringSum },
 					);
 				}, 2000);
 			} catch (error) {

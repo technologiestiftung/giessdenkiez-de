@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Expression } from "mapbox-gl";
 import { useMapConstants } from "./use-map-constants.js";
 import resolveConfig from "tailwindcss/resolveConfig";
@@ -122,8 +123,8 @@ export function useTreeCircleStyle() {
 					">=",
 					[
 						"+",
-						["get", "total_water_sum"],
-						["coalesce", ["feature-state", "water"], 0],
+						["get", "total_water_sum_liters"],
+						["coalesce", ["feature-state", "todays_waterings"], 0],
 					],
 					200,
 				],
@@ -132,8 +133,8 @@ export function useTreeCircleStyle() {
 					">=",
 					[
 						"+",
-						["get", "total_water_sum"],
-						["coalesce", ["feature-state", "water"], 0],
+						["get", "total_water_sum_liters"],
+						["coalesce", ["feature-state", "todays_waterings"], 0],
 					],
 					100,
 				],
