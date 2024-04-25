@@ -6,7 +6,6 @@ import {
 	TreeWateringData,
 } from "../tree-types";
 import { useTreeAdoptStore } from "./adopt-tree-store";
-import { supabaseClient } from "../../../auth/supabase-client";
 
 interface TreeStore {
 	refreshTreeData: (
@@ -140,21 +139,15 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 		const todayAtMidnight = new Date();
 		todayAtMidnight.setHours(0, 0, 0, 0);
 
-		const { data: waterings, error: wateringsError } = await supabaseClient
-			.from("trees_watered")
-			.select("*")
-			.gt("timestamp", todayAtMidnight.toISOString());
+		const wateredTodayUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/wateredtoday`;
+		const response = await fetch(wateredTodayUrl, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		const wateringsTodayGroupedByTree = await response.json();
 
-		if (wateringsError) {
-			throw new Error("Failed to fetch today's waterings");
-		}
-
-		const groupedByTreeId = waterings.reduce((acc, watering) => {
-			const { tree_id, amount } = watering;
-			acc[tree_id] = (acc[tree_id] || 0) + amount;
-			return acc;
-		}, {});
-
-		set({ todaysWaterings: groupedByTreeId });
+		set({ todaysWaterings: wateringsTodayGroupedByTree });
 	},
 }));
