@@ -11,7 +11,6 @@ export const Filter: React.FC = () => {
 	const { hideFilterView } = useFilterStore();
 
 	const {
-		setTreeAgeRange,
 		isPumpsVisible,
 		setShowPumps,
 		isTreeWaterNeedVisible,
@@ -45,13 +44,7 @@ export const Filter: React.FC = () => {
 				</div>
 
 				<div className="flex flex-col w-full gap-y-6">
-					<AgeRangeSlider
-						min={0}
-						max={200}
-						onChange={({ min, max }: { min: number; max: number }) => {
-							setTreeAgeRange(min, max);
-						}}
-					/>
+					<AgeRangeSlider />
 				</div>
 
 				<div className="flex flex-col-reverse sm:flex-row justify-between">

@@ -38,7 +38,8 @@ const initialTreeAgeRange = {
 	max: 200,
 };
 
-const treeAgeUrlKey = "treeAge";
+const treeAgeUrlKeyMin = "treeAgeMin";
+const treeAgeUrlKeyMax = "treeAgeMax";
 const isPumpsVisibleUrlKey = "isPumpsVisible";
 const isTreeWaterNeedVisibleUrlKey = "isTreeWaterNeedVisible";
 const zoomUrlKey = "zoom";
@@ -53,12 +54,26 @@ const isTreeWaterNeedVisibleSearch = new URL(
 	window.location.href,
 ).searchParams.get(isTreeWaterNeedVisibleUrlKey);
 
+const ageRangeMinSearch = new URL(window.location.href).searchParams.get(
+	treeAgeUrlKeyMin,
+);
+const ageRangeMaxSearch = new URL(window.location.href).searchParams.get(
+	treeAgeUrlKeyMax,
+);
+
 const zoomSearch = new URL(window.location.href).searchParams.get(zoomUrlKey);
 const latSearch = new URL(window.location.href).searchParams.get(latUrlKey);
 const lngSearch = new URL(window.location.href).searchParams.get(lngUrlKey);
 
 export const useFilterStore = create<FilterState>()((set, get) => ({
-	treeAgeRange: initialTreeAgeRange,
+	treeAgeRange: {
+		min: ageRangeMinSearch
+			? parseInt(ageRangeMinSearch)
+			: initialTreeAgeRange.min,
+		max: ageRangeMaxSearch
+			? parseInt(ageRangeMaxSearch)
+			: initialTreeAgeRange.max,
+	},
 
 	isPumpsVisible: isPumpsVisibleSearch === "true",
 
@@ -105,19 +120,20 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 	setTreeAgeRange: (min, max) => {
 		set({ treeAgeRange: { min, max } });
 
-		const updatedRangeIdentifiers = [
-			get().treeAgeRange.min.toString() +
-				"-" +
-				get().treeAgeRange.max.toString(),
-		];
-
 		// Update search params in URL
-		const updatedSearchParams = replaceUrlSearchParam(
+		const updatedSearchParamsMin = replaceUrlSearchParam(
 			new URL(window.location.href),
-			treeAgeUrlKey,
-			updatedRangeIdentifiers,
+			treeAgeUrlKeyMin,
+			[get().treeAgeRange.min.toString()],
 		);
-		useUrlState.getState().setSearchParams(updatedSearchParams);
+		useUrlState.getState().setSearchParams(updatedSearchParamsMin);
+
+		const updatedSearchParamsMax = replaceUrlSearchParam(
+			new URL(window.location.href),
+			treeAgeUrlKeyMax,
+			[get().treeAgeRange.max.toString()],
+		);
+		useUrlState.getState().setSearchParams(updatedSearchParamsMax);
 	},
 
 	toggleFilterView: () => {
@@ -140,7 +156,7 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 	},
 
 	resetFilters: () => {
-		useUrlState.getState().removeSearchParam(treeAgeUrlKey);
+		useUrlState.getState().removeSearchParam(treeAgeUrlKeyMin);
 		useUrlState.getState().removeSearchParam(isPumpsVisibleUrlKey);
 		useUrlState.getState().removeSearchParam(isTreeWaterNeedVisibleUrlKey);
 		set({
@@ -176,18 +192,19 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 			.getState()
 			.addSearchParam("isPumpsVisible", get().isPumpsVisible.toString());
 
-		const updatedRangeIdentifiers = [
-			get().treeAgeRange.min.toString() +
-				"-" +
-				get().treeAgeRange.max.toString(),
-		];
-
-		const updatedAgeRangeSearchParams = replaceUrlSearchParam(
+		const updatedSearchParamsMin = replaceUrlSearchParam(
 			new URL(window.location.href),
-			treeAgeUrlKey,
-			updatedRangeIdentifiers,
+			treeAgeUrlKeyMin,
+			[get().treeAgeRange.min.toString()],
 		);
-		useUrlState.getState().setSearchParams(updatedAgeRangeSearchParams);
+		useUrlState.getState().setSearchParams(updatedSearchParamsMin);
+
+		const updatedSearchParamsMax = replaceUrlSearchParam(
+			new URL(window.location.href),
+			treeAgeUrlKeyMax,
+			[get().treeAgeRange.max.toString()],
+		);
+		useUrlState.getState().setSearchParams(updatedSearchParamsMax);
 
 		const treeId = useTreeStore.getState().selectedTreeId;
 		if (treeId) {
