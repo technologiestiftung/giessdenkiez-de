@@ -136,9 +136,6 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 	},
 	todaysWaterings: {},
 	loadTodaysWaterings: async () => {
-		const todayAtMidnight = new Date();
-		todayAtMidnight.setHours(0, 0, 0, 0);
-
 		const wateredTodayUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/wateredtoday`;
 		const response = await fetch(wateredTodayUrl, {
 			method: "POST",

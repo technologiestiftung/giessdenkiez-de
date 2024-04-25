@@ -23,7 +23,7 @@ export function useTreeCircleStyle() {
 		base: 1.75,
 		stops: [
 			[11, 1],
-			[22, 300],
+			[22, 100],
 		],
 	};
 
