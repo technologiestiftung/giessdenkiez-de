@@ -22,7 +22,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 	const {
 		isSomeFilterActive,
-		treeAgeIntervals,
+		treeAgeRange,
 		lat,
 		lng,
 		zoom,
@@ -48,18 +48,18 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			map.setPaintProperty(
 				"trees",
 				"circle-color",
-				filteredCircleColor(isSomeFilterActive(), treeAgeIntervals),
+				filteredCircleColor(isSomeFilterActive(), treeAgeRange),
 			);
 			return;
 		}
-		map.on("load", () => {
+		map.once("idle", () => {
 			map.setPaintProperty(
 				"trees",
 				"circle-color",
-				filteredCircleColor(isSomeFilterActive(), treeAgeIntervals),
+				filteredCircleColor(isSomeFilterActive(), treeAgeRange),
 			);
 		});
-	}, [map, treeAgeIntervals]);
+	}, [map, treeAgeRange]);
 
 	useEffect(() => {
 		if (treeCoreData) {
