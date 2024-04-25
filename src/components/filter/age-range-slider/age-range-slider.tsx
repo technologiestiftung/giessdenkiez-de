@@ -29,6 +29,9 @@ export const AgeRangeSlider: React.FC = () => {
 				<div className="w-full justify-center flex self-center items-center">
 					<BarGraph min={treeAgeRange.min} max={treeAgeRange.max} />
 				</div>
+				<div className="w-10/11 justify-center flex self-center items-center">
+					<BarGraph min={treeAgeRange.min} max={treeAgeRange.max} />
+				</div>
 				<input
 					type="range"
 					min={INITIAL_MIN}
