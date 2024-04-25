@@ -52,7 +52,9 @@ export const BarGraph: React.FC<BarGraphProps> = ({ min, max }) => {
 					className="w-full border border-[#DDDDDD] z-0 absolute"
 					style={{ bottom: yAxisLabelHeight }}
 				></div>
-				<p className="text-[#DDDDDD] -translate-y-0.5 font-semibold">100k</p>
+				<span className="text-[#DDDDDD] -translate-y-0.5 font-semibold">
+					100k
+				</span>
 				{barItems.reverse().map((ageGroup, idx) => (
 					<BarItem
 						key={idx}
