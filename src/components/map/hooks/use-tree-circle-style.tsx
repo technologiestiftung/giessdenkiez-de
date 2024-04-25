@@ -123,7 +123,7 @@ export function useTreeCircleStyle() {
 					">=",
 					[
 						"+",
-						["get", "total_water_sum_liters"],
+						["round", ["get", "total_water_sum_liters"]],
 						["coalesce", ["feature-state", "todays_waterings"], 0],
 					],
 					200,
@@ -133,7 +133,7 @@ export function useTreeCircleStyle() {
 					">=",
 					[
 						"+",
-						["get", "total_water_sum_liters"],
+						["round", ["get", "total_water_sum_liters"]],
 						["coalesce", ["feature-state", "todays_waterings"], 0],
 					],
 					100,
