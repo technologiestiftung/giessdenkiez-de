@@ -20,15 +20,14 @@ export const WaterProgressCircle: React.FC<WaterCircleProps> = ({
 		if (treeAgeClassification === TreeAgeClassification.SENIOR) {
 			return i18n.treeDetail.waterNeed.alreadyWateredByGroundwater;
 		}
-		if (
-			shouldBeWatered &&
-			treeAgeClassification === TreeAgeClassification.JUNIOR
-		) {
-			return i18n.treeDetail.waterNeed.stillWaterXLiters(
-				formatNumber(needsWaterAmount),
-			);
+		if (treeAgeClassification === TreeAgeClassification.JUNIOR) {
+			if (shouldBeWatered) {
+				return i18n.treeDetail.waterNeed.stillWaterXLiters(
+					formatNumber(needsWaterAmount),
+				);
+			}
+			return i18n.treeDetail.waterNeed.sufficientlyWatered;
 		}
-
 		return i18n.treeDetail.waterNeed.unknownTitle;
 	}, [treeAgeClassification, needsWaterAmount, shouldBeWatered, i18n]);
 

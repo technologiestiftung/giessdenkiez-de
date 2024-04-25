@@ -75,9 +75,10 @@ export function useTreeWaterNeedsData(
 	};
 
 	const userWateringPercentage = () => {
+		const rainRatio = rainSum() / referenceWaterAmount();
 		const ratio = wateringSum() / referenceWaterAmount();
-		if (ratio >= 1) {
-			return 1;
+		if (ratio >= 1 - rainRatio) {
+			return 1 - rainRatio;
 		}
 		return ratio;
 	};
