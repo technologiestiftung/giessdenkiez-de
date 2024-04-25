@@ -52,7 +52,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			);
 			return;
 		}
-		map.on("load", () => {
+		map.once("idle", () => {
 			map.setPaintProperty(
 				"trees",
 				"circle-color",
