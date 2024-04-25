@@ -21,12 +21,9 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 
 	const wateringsLast30Days = useMemo(() => {
 		const thirtyDaysAgo = subDays(new Date(), 30);
-		return treeWateringData
-			.filter((watering) => new Date(watering.timestamp) >= thirtyDaysAgo)
-			.sort(
-				(a, b) =>
-					new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
-			);
+		return treeWateringData.filter(
+			(watering) => new Date(watering.timestamp) >= thirtyDaysAgo,
+		);
 	}, [treeWateringData]);
 
 	const previousWaterings = useMemo(() => {
