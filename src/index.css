@@ -112,3 +112,11 @@
 .thumb-40 {
 	@apply z-40;
 }
+
+.slider-thumb-left::-webkit-slider-thumb {
+	@apply -translate-x-[12.5px];
+}
+
+.slider-thumb-right::-webkit-slider-thumb {
+	@apply translate-x-[12.5px];
+}

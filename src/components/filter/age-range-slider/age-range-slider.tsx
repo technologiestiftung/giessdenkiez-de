@@ -17,7 +17,7 @@ export const AgeRangeSlider: React.FC = () => {
 	const INITIAL_MAX = initialTreeAgeRangeMax;
 
 	return (
-		<div className="flex flex-col w-full gap-6 pb-8">
+		<div className="flex flex-col w-full gap-6 pb-8 ">
 			<div className="flex flex-row justify-between font-semibold text-lg">
 				<div>{i18n.filter.treeAgeTitle}</div>
 				<div>
@@ -25,7 +25,7 @@ export const AgeRangeSlider: React.FC = () => {
 					{treeAgeRange.max === INITIAL_MAX ? "+" : ""} {i18n.filter.years}
 				</div>
 			</div>
-			<div className="relative">
+			<div className="relative mx-[12.5px]">
 				<div className="w-full justify-center flex self-center items-center">
 					<BarGraph min={treeAgeRange.min} max={treeAgeRange.max} />
 				</div>
@@ -41,7 +41,7 @@ export const AgeRangeSlider: React.FC = () => {
 						setTreeAgeRange(value, treeAgeRange.max);
 					}}
 					// slider-thumb styles are defined in index.css since styles are too long with thumb declerations
-					className={`w-full h-0 absolute border border-gdk-light-gray z-20
+					className={`w-full h-0 absolute border border-gdk-light-gray z-20 slider-thumb-left
                      rounded-lg appearance-none pointer-events-none slider-thumb thumb-40}
                    `}
 				/>
@@ -57,7 +57,7 @@ export const AgeRangeSlider: React.FC = () => {
 						setTreeAgeRange(treeAgeRange.min, value);
 					}}
 					className={`w-full h-0 absolute translate-y-[1px] rounded-lg 
-					appearance-none pointer-events-none slider-thumb z-20
+					appearance-none pointer-events-none slider-thumb z-20 slider-thumb-right
                    `}
 				/>
 			</div>
