@@ -5,10 +5,7 @@ import resolveConfig from "tailwindcss/resolveConfig";
 
 //@ts-expect-error tailwindConfig has no type definition
 import tailwindConfig from "../../../../tailwind.config.js";
-import {
-	TreeAgeInterval,
-	TreeAgeIntervalIdentifier,
-} from "../../filter/filter-store.js";
+import { TreeAgeRange } from "../../filter/filter-store.js";
 const fullConfig = resolveConfig(tailwindConfig);
 
 export function useTreeCircleStyle() {
@@ -81,33 +78,30 @@ export function useTreeCircleStyle() {
 
 	const filteredCircleColor = (
 		isSomeFilterActive: boolean,
-		treeAgeIntervals: TreeAgeInterval[],
+		treeAgeRange: TreeAgeRange,
 	) => {
+		const treeAgeRangeMax =
+			treeAgeRange.max === 200 ? Infinity : treeAgeRange.max;
+
+		const isTreeAgeInitialState =
+			treeAgeRange.min === 0 && treeAgeRange.max === 200;
+
 		if (isSomeFilterActive) {
-			const youngEnabled = treeAgeIntervals.filter(
-				(interval) => interval.identifier === TreeAgeIntervalIdentifier.Young,
-			)[0].enabled;
-
-			const mediumEnabled = treeAgeIntervals.filter(
-				(interval) => interval.identifier === TreeAgeIntervalIdentifier.Medium,
-			)[0].enabled;
-
-			const oldEnabled = treeAgeIntervals.filter(
-				(interval) => interval.identifier === TreeAgeIntervalIdentifier.Old,
-			)[0].enabled;
-
-			return [
-				"case",
-				["==", ["get", "age"], ""],
-				TREE_GRAY_COLOR, // Color for undefined age
-				[">", ["get", "age"], 40],
-				oldEnabled ? TREE_DEFAULT_COLOR : TREE_GRAY_COLOR, // Color for age > 40
-				[">", ["get", "age"], 3],
-				mediumEnabled ? TREE_DEFAULT_COLOR : TREE_GRAY_COLOR, // Color for age > 3 and <= 40
-				[">", ["get", "age"], 0],
-				youngEnabled ? TREE_DEFAULT_COLOR : TREE_GRAY_COLOR, // Color for age > 0 and <= 3
-				TREE_GRAY_COLOR, // Fallback color
-			];
+			switch (isTreeAgeInitialState) {
+				case true:
+					return TREE_DEFAULT_COLOR;
+				default:
+					return [
+						"case",
+						["==", ["get", "age"], ""],
+						TREE_GRAY_COLOR, // Color for undefined age
+						[">", ["get", "age"], treeAgeRangeMax],
+						TREE_GRAY_COLOR, // Color for age > treeAgeRange.max
+						["<=", ["get", "age"], treeAgeRange.min],
+						TREE_GRAY_COLOR, // Color for age <= treeAgeRange.min
+						TREE_DEFAULT_COLOR, // Fallback color
+					];
+			}
 		}
 
 		return [

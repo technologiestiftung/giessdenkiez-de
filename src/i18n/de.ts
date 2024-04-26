@@ -439,11 +439,10 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		publicPumps: "Öffentliche Pumpen",
 		waterNeedTrees: "Gießbedürftige Bäume",
 		treeAge: "Baumalter",
-		youngTrees: "0 - 3 Jahre",
-		mediumTrees: "4 - 40 Jahre",
-		oldTrees: "40+ Jahre",
 		show: "Anzeigen",
 		reset: "Zurücksetzen",
+		treeAgeTitle: "Alterspanne der Bäume",
+		years: "Jahre",
 	},
 	common: {
 		defaultErrorMessage:
