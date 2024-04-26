@@ -21,11 +21,9 @@ export const BarGraph: React.FC<BarGraphProps> = ({ min, max }) => {
 			barPercentage: calculateBarPercentage(ageGroup.count, MAX_COUNT),
 			id: ageGroup.alter,
 		}));
-	}, [TREES_GROUPED_BY_AGE, min, max]);
+	}, [min, max]);
 
-	const yAxisLabelHeight = useMemo(() => {
-		return calculateBarPercentage(100000, MAX_COUNT);
-	}, [TREES_GROUPED_BY_AGE]);
+	const yAxisLabelHeight = calculateBarPercentage(100000, MAX_COUNT);
 
 	return (
 		<div className="w-full h-[90px] relative">
