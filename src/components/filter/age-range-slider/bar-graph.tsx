@@ -46,7 +46,7 @@ export const BarGraph: React.FC<BarGraphProps> = ({ min, max }) => {
 	}, [accumulatedTreeAgeData]);
 
 	return (
-		<div className="w-full h-[100px] relative">
+		<div className="w-full h-[90px] relative">
 			<div className="flex flex-row gap-0.5 w-full h-full">
 				<div
 					className="w-full border border-[#DDDDDD] z-0 absolute"
