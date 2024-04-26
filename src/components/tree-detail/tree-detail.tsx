@@ -42,7 +42,7 @@ export const TreeDetail: React.FC = () => {
 		useTreeAgeClassification(treeCoreData);
 	const treeTypeInfo = useMemo(() => {
 		return i18n.treeDetail.treeTypeInfos.find(
-			(treeType) => treeType.id === treeCoreData?.gattungdeutsch,
+			(treeType) => treeType.id === treeCoreData?.gattung_deutsch,
 		);
 	}, [treeCoreData, i18n]);
 
