@@ -12,6 +12,7 @@ import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
 import { Splash } from "../splash/splash";
 import { useMapStore } from "../map/map-store";
+import { LegendButton } from "../buttons/legend-button";
 
 export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
@@ -49,6 +50,10 @@ export const Router: React.FC = () => {
 							{isFilterViewVisible && <Filter />}
 						</div>
 						<Navbar />
+					</div>
+
+					<div className="flex self-end p-2 pb-60">
+						<LegendButton />
 					</div>
 
 					{!isSplashScreenVisible && isMapLoaded && (
