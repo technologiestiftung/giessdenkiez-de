@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Harvester
         # Load the action from our repository.
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.2.2
+        uses: sgt-jw89/gdb_dwd_harvester@latest
         id: harvester
         with:
           # The hostname of your postgres database
