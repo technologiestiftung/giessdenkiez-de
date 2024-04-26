@@ -1,5 +1,25 @@
 /* eslint-disable max-lines */
-export const treeAgeGrouped = [
+export const getTreesGroupByAge = () => {
+	const treesYoungerThan200 = treesGroupedByAge.filter(
+		(ageGroup) => ageGroup.alter < 200,
+	);
+
+	// trees with 200+ years are grouped together and displayed as one bar
+	const groupedTrees200Plus = treesGroupedByAge
+		.filter((ageGroup) => ageGroup.alter >= 200)
+		.reduce((accumulator, ageGroup) => accumulator + ageGroup.count, 0);
+
+	return [
+		{ pflanzjahr_grouped: 1820, alter: 200, count: groupedTrees200Plus },
+		...treesYoungerThan200,
+	];
+};
+
+export const getMaxCount = () => {
+	return Math.max(...treesGroupedByAge.map((item) => item.count));
+};
+
+export const treesGroupedByAge = [
 	{
 		pflanzjahr_grouped: 1700,
 		alter: 320,

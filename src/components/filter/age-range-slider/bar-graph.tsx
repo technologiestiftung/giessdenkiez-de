@@ -1,12 +1,11 @@
 import React, { useMemo } from "react";
 import { BarItem } from "./bar-item";
-import { treeAgeGrouped } from "./tree-age-grouped";
+import { getMaxCount, getTreesGroupByAge } from "./tree-age-grouped";
 
-export const calculateBarPercentage = (
-	input: number,
-	data: Array<{ count: number }>,
-) => {
-	const maxCount = Math.max(...data.map((item) => item.count));
+const TREES_GROUPED_BY_AGE = getTreesGroupByAge();
+const MAX_COUNT = getMaxCount();
+
+export const calculateBarPercentage = (input: number, maxCount: number) => {
 	return `${Math.round((input / maxCount) * 100)}%`;
 };
 
@@ -16,34 +15,17 @@ export interface BarGraphProps {
 }
 
 export const BarGraph: React.FC<BarGraphProps> = ({ min, max }) => {
-	const treeAgeData = treeAgeGrouped;
-
-	// trees with 200+ years are grouped together and displayed as one bar
-	const accumulatedTreeAgeData = useMemo(() => {
-		const filteredData = treeAgeData.filter((ageGroup) => ageGroup.alter < 200);
-		const accumulatedCount = treeAgeData
-			.filter((ageGroup) => ageGroup.alter >= 200)
-			.reduce((accumulator, ageGroup) => accumulator + ageGroup.count, 0);
-		const newData = [
-			{ pflanzjahr_grouped: 1820, alter: 200, count: accumulatedCount },
-			...filteredData,
-		];
-		return newData;
-	}, [treeAgeData]);
-
 	const barItems = useMemo(() => {
-		return accumulatedTreeAgeData.map((ageGroup) => ({
+		return TREES_GROUPED_BY_AGE.map((ageGroup) => ({
 			isActive: ageGroup.alter >= min && ageGroup.alter <= max,
-			barPercentage: calculateBarPercentage(
-				ageGroup.count,
-				accumulatedTreeAgeData,
-			),
+			barPercentage: calculateBarPercentage(ageGroup.count, MAX_COUNT),
+			id: ageGroup.alter,
 		}));
-	}, [accumulatedTreeAgeData, min, max]);
+	}, [TREES_GROUPED_BY_AGE, min, max]);
 
 	const yAxisLabelHeight = useMemo(() => {
-		return calculateBarPercentage(100000, accumulatedTreeAgeData);
-	}, [accumulatedTreeAgeData]);
+		return calculateBarPercentage(100000, MAX_COUNT);
+	}, [TREES_GROUPED_BY_AGE]);
 
 	return (
 		<div className="w-full h-[90px] relative">
@@ -55,15 +37,15 @@ export const BarGraph: React.FC<BarGraphProps> = ({ min, max }) => {
 				<span className="text-[#DDDDDD] -translate-y-0.5 font-semibold absolute right-0">
 					100k
 				</span>
-				{barItems.reverse().map((ageGroup, idx) => (
+				{barItems.reverse().map((ageGroup) => (
 					<BarItem
-						key={idx}
+						key={ageGroup.id}
 						barPercentage={ageGroup.barPercentage}
 						isActive={ageGroup.isActive}
 					/>
 				))}
 			</div>
-			<div className="flex w-full justify-between pt-6 text-gdk-light-gray font-semibold">
+			<div className="flex w-full justify-between pt-4 text-gdk-light-gray font-semibold">
 				<span className="">0</span>
 				<span>200+</span>
 			</div>
