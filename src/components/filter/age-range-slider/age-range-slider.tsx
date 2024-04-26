@@ -26,7 +26,7 @@ export const AgeRangeSlider: React.FC = () => {
 				</div>
 			</div>
 			<div className="relative">
-				<div className="w-10/11 justify-center flex self-center items-center">
+				<div className="w-full justify-center flex self-center items-center">
 					<BarGraph min={treeAgeRange.min} max={treeAgeRange.max} />
 				</div>
 				<input
@@ -34,7 +34,7 @@ export const AgeRangeSlider: React.FC = () => {
 					min={INITIAL_MIN}
 					max={INITIAL_MAX}
 					value={treeAgeRange.min}
-					step={10}
+					step={1}
 					onChange={(event: ChangeEvent<HTMLInputElement>) => {
 						const value = Math.min(+event.target.value, treeAgeRange.max - 10);
 						event.target.value = value.toString();
@@ -50,7 +50,7 @@ export const AgeRangeSlider: React.FC = () => {
 					min={INITIAL_MIN}
 					max={INITIAL_MAX}
 					value={treeAgeRange.max}
-					step={10}
+					step={1}
 					onChange={(event: ChangeEvent<HTMLInputElement>) => {
 						const value = Math.max(+event.target.value, treeAgeRange.min + 10);
 						event.target.value = value.toString();

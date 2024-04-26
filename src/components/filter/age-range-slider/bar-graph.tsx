@@ -33,7 +33,7 @@ export const BarGraph: React.FC<BarGraphProps> = ({ min, max }) => {
 
 	const barItems = useMemo(() => {
 		return accumulatedTreeAgeData.map((ageGroup) => ({
-			isActive: ageGroup.alter >= min && ageGroup.alter <= max,
+			isActive: ageGroup.alter >= min + 5 && ageGroup.alter <= max - 5,
 			barPercentage: calculateBarPercentage(
 				ageGroup.count,
 				accumulatedTreeAgeData,
@@ -52,7 +52,7 @@ export const BarGraph: React.FC<BarGraphProps> = ({ min, max }) => {
 					className="w-full border border-[#DDDDDD] z-0 absolute"
 					style={{ bottom: yAxisLabelHeight }}
 				></div>
-				<span className="text-[#DDDDDD] -translate-y-0.5 font-semibold">
+				<span className="text-[#DDDDDD] -translate-y-0.5 font-semibold absolute right-0">
 					100k
 				</span>
 				{barItems.reverse().map((ageGroup, idx) => (
