@@ -90,7 +90,7 @@ export function useTreeCircleStyle() {
 		const defaultExpression: Expression = [
 			"case",
 			["==", ["get", "age"], ""],
-			TREE_GRAY_COLOR, // Color for undefined tree age
+			TREE_DEFAULT_COLOR,
 			[">", ["get", "age"], 10],
 			TREE_DEFAULT_COLOR, // Color for trees older than 10 years
 			[">=", ["get", "age"], 5],
