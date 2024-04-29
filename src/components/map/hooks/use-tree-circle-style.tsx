@@ -107,7 +107,7 @@ export function useTreeCircleStyle() {
 		return [
 			"case",
 			["==", ["get", "age"], ""],
-			TREE_GRAY_COLOR,
+			TREE_DEFAULT_COLOR,
 			[">", ["get", "age"], 10],
 			TREE_DEFAULT_COLOR,
 			[">=", ["get", "age"], 5],
