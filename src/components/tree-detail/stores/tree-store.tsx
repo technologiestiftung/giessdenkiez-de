@@ -146,6 +146,11 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 				"Content-Type": "application/json",
 			},
 		});
+
+		if (response.status !== 200) {
+			throw new Error("Failed to fetch today's waterings");
+		}
+
 		const wateringsTodayGroupedByTree = await response.json();
 
 		set({ todaysWaterings: wateringsTodayGroupedByTree });
