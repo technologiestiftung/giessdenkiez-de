@@ -23,7 +23,7 @@ export const Router: React.FC = () => {
 	const { isMapLoaded } = useMapStore();
 
 	const { isFilterViewVisible, recoverUrlParams } = useFilterStore();
-	const { isSplashScreenVisible, hideSplashScreen } = useSplashStore();
+	const { isSplashScreenVisible } = useSplashStore();
 
 	useEffect(() => {
 		if (url.pathname === "/map") {
@@ -41,7 +41,7 @@ export const Router: React.FC = () => {
 				<div
 					className={`flex h-svh w-screen flex-col-reverse justify-between lg:flex-row ${
 						treeId && "bg-white"
-					} lg:bg-transparent ${isSplashScreenVisible && "backdrop-brightness-90"}`}
+					} lg:bg-transparent ${isSplashScreenVisible() && "backdrop-brightness-90"}`}
 				>
 					<div
 						className={`${isFilterViewVisible && "bg-white rounded-t-lg sm:bg-transparent"}`}
@@ -52,7 +52,7 @@ export const Router: React.FC = () => {
 						<Navbar />
 					</div>
 
-					{!isSplashScreenVisible && isMapLoaded && (
+					{!isSplashScreenVisible() && isMapLoaded && (
 						<div className="mt-3 flex w-full flex-row justify-center">
 							<div
 								className={`${
@@ -72,7 +72,7 @@ export const Router: React.FC = () => {
 						</div>
 					)}
 					{treeId && isMapLoaded && <TreeDetail />}
-					{isSplashScreenVisible && <Splash onClose={hideSplashScreen} />}
+					{isSplashScreenVisible() && <Splash />}
 				</div>
 			);
 		case "/profile/reset-password":
