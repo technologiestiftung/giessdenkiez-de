@@ -1,5 +1,10 @@
+/* eslint-disable max-lines */
 import { create } from "zustand";
-import { TreeCoreData, TreeWateringData } from "../tree-types";
+import {
+	AccumulatedTreeWateringData,
+	TreeCoreData,
+	TreeWateringData,
+} from "../tree-types";
 import { useTreeAdoptStore } from "./adopt-tree-store";
 
 interface TreeStore {
@@ -31,6 +36,9 @@ interface TreeStore {
 	setIsWateringLoading: (isWateringLoading: boolean) => void;
 	isLastWateringsExpanded: boolean;
 	setIsLastWateringsExpanded: (isExpanded: boolean) => void;
+
+	todaysWaterings: AccumulatedTreeWateringData;
+	loadTodaysWaterings: () => Promise<void>;
 }
 export const useTreeStore = create<TreeStore>()((set, get) => ({
 	refreshTreeData: async (treeId, abortController) => {
@@ -128,5 +136,23 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 	isWateringLoading: false,
 	setIsWateringLoading: (isWateringLoading) => {
 		set({ isWateringLoading });
+	},
+	todaysWaterings: {},
+	loadTodaysWaterings: async () => {
+		const wateredTodayUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/wateredtoday`;
+		const response = await fetch(wateredTodayUrl, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+
+		if (response.status !== 200) {
+			throw new Error("Failed to fetch today's waterings");
+		}
+
+		const wateringsTodayGroupedByTree = await response.json();
+
+		set({ todaysWaterings: wateringsTodayGroupedByTree });
 	},
 }));

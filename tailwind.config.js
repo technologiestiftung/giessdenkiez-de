@@ -24,7 +24,10 @@ export default {
 				"gdk-orange": "#FF8617",
 				"gdk-watering-blue": "#468AEF",
 				"gdk-rain-blue": "#0B4295",
+				"gdk-tree-orange": "#FD9531",
+				"gdk-tree-yellow": "#FDE725",
 				"gdk-tree-gray": "#9E9FA0",
+
 				"gdk-baby-blue": "#5695F4",
 			},
 			blur: {
