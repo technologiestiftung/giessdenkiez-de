@@ -34,6 +34,7 @@ interface Navbar {
 			irrigations: string;
 			liter: string;
 			adoptedTrees: string;
+			showOnMap: string;
 		};
 		adoptedTrees: {
 			subtitle: string;

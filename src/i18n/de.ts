@@ -43,6 +43,7 @@ export const de: Content = {
 				irrigations: "Gießungen",
 				liter: "Liter",
 				adoptedTrees: "Adoptierte Bäume",
+				showOnMap: "auf Karte anzeigen",
 			},
 			adoptedTrees: {
 				subtitle: "Adoptierte Bäume",
