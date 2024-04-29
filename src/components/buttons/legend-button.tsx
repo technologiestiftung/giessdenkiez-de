@@ -7,61 +7,34 @@ export const LegendButton: React.FC = () => {
 	const [isLegendOpen, setIsLegendOpen] = useState(false);
 
 	return (
-		<div className="flex flex-col relative w-full">
-			{/* {isLegendOpen && (
-				<div className="absolute z-0 bottom-0">
-					<div className="flex flex-row">
-						<div>
-							<ColorLegendExpanded />
-						</div>
-						<div className="flex flex-col justify-between pl-2 pt-3 pb-[65px] font-semibold ">
-							<span>
-								Versorgte Bäume
-								<br />
-							</span>
-							<span>
-								Mäßig versorgte Bäume <br />
-							</span>
-							<span>
-								Gießbedürftige Bäume <br />
-							</span>
-							<span>nicht dem Filter entsprechend</span>
-						</div>
+		<div className="flex flex-col gap-1">
+			{isLegendOpen && (
+				<div className="flex flex-row justify-between items-center gap-3 bg-gdk-white/75 rounded-3xl p-4">
+					<div className="flex flex-col gap-4">
+						<ColorLegendEllipse className="text-gdk-neon-green" />
+						<ColorLegendEllipse className="text-[#FDE725]" />
+						<ColorLegendEllipse className="text-gdk-orange" />
+						<ColorLegendEllipse className="text-gdk-tree-gray" />
+					</div>
+					<div className="flex flex-col gap-2.5 font-semibold">
+						<div>Versorgte Bäume</div>
+						<div>Mäßig versorgte Bäume</div>
+						<div>Gießbedürftige Bäume</div>
+						<div>nicht dem Filter entsprechend</div>
 					</div>
 				</div>
-			)} */}
-
-			<div className="flex flex-col  relative">
-				{isLegendOpen && (
-					<div className="flex flex-row gap-2">
-						<div className="flex flex-col justify-between items-center gap-4 bg-gdk-white w-[56px] py-4 rounded-full">
-							<ColorLegendEllipse className="text-[#63F3AA]" />
-							<ColorLegendEllipse className="text-[#FDE725]" />
-							<ColorLegendEllipse className="text-[#FD9531]" />
-							<ColorLegendEllipse className="text-[#9D9C9C]" />
-						</div>
-						<div className="flex flex-col justify-between items-start gap-2 py-4 font-semibold">
-							<div className="drop-shadow-white shadow-gdk-hard">
-								Versorgte Bäume
-							</div>
-							<div>Mäßig versorgte Bäume</div>
-							<div>Gießbedürftige Bäume</div>
-							<div>nicht dem Filter entsprechend</div>
-						</div>
-					</div>
-				)}
-				<button
-					className={`bg-gdk-white shadow-gdk-hard w-[56px] h-[56px] rounded-full 
+			)}
+			<button
+				className={`bg-gdk-white shadow-gdk-hard w-[56px] h-[56px] rounded-full 
             flex items-center justify-center pointer-events-auto z-10
             text-gdk-gray hover:text-gdk-light-gray`}
-					type="button"
-					onClick={() => {
-						setIsLegendOpen(!isLegendOpen);
-					}}
-				>
-					{!isLegendOpen ? <ColorLegend /> : <ColorLegendClose />}
-				</button>
-			</div>
+				type="button"
+				onClick={() => {
+					setIsLegendOpen(!isLegendOpen);
+				}}
+			>
+				{!isLegendOpen ? <ColorLegend /> : <ColorLegendClose />}
+			</button>
 		</div>
 	);
 };

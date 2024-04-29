@@ -52,7 +52,7 @@ export const Router: React.FC = () => {
 						<Navbar />
 					</div>
 
-					<div className="absolute left-[10px] bottom-[306px] lg:left-20">
+					<div className="absolute left-[10px] bottom-[175px] md:bottom-[306px] lg:bottom-[242px] lg:left-[90px]">
 						<LegendButton />
 					</div>
 
