@@ -76,9 +76,6 @@ test.describe("Edit user", () => {
 				.click();
 			await page.getByRole("link", { name: "Change email address" }).click();
 
-			// close splash screen
-			await page.getByRole("button", { name: "Los geht's" }).click();
-
 			await page.getByRole("link", { name: "Profil" }).click();
 
 			await expect(
