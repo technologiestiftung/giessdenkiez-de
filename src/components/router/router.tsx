@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useEffect } from "react";
 import { Filter } from "../filter/filter";
 import { useFilterStore } from "../filter/filter-store";
@@ -73,7 +74,10 @@ export const Router: React.FC = () => {
 								</div>
 							</div>
 
-							<div className="absolute left-[10px] bottom-[175px] md:bottom-[306px] lg:bottom-[242px] lg:left-[90px]">
+							<div
+								className={`left-[10px] bottom-[175px] absolute
+							md:bottom-[306px] lg:bottom-[242px] lg:left-[90px] ${treeId && "hidden lg:flex"}`}
+							>
 								<LegendButton />
 							</div>
 						</>
