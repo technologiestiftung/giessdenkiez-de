@@ -52,28 +52,30 @@ export const Router: React.FC = () => {
 						<Navbar />
 					</div>
 
-					<div className="absolute left-[10px] bottom-[175px] md:bottom-[306px] lg:bottom-[242px] lg:left-[90px]">
-						<LegendButton />
-					</div>
-
 					{!isSplashScreenVisible && isMapLoaded && (
-						<div className="mt-2 flex w-full flex-row justify-center">
-							<div
-								className={`${
-									treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
-								} flex flex-col gap-4`}
-							>
-								<div className={`${treeId && "hidden lg:flex"}`}>
-									<LocationSearch />
-								</div>
-
+						<>
+							<div className="mt-2 flex w-full flex-row justify-center">
 								<div
-									className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
+									className={`${
+										treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
+									} flex flex-col gap-4`}
 								>
-									{isFilterViewVisible && <Filter />}
+									<div className={`${treeId && "hidden lg:flex"}`}>
+										<LocationSearch />
+									</div>
+
+									<div
+										className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
+									>
+										{isFilterViewVisible && <Filter />}
+									</div>
 								</div>
 							</div>
-						</div>
+
+							<div className="absolute left-[10px] bottom-[175px] md:bottom-[306px] lg:bottom-[242px] lg:left-[90px]">
+								<LegendButton />
+							</div>
+						</>
 					)}
 					{treeId && isMapLoaded && <TreeDetail />}
 					{isSplashScreenVisible && (
