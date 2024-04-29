@@ -33,6 +33,13 @@ export const en: Content = {
 	locationSearch: {
 		placeholder: "Search for an address",
 	},
+	legend: {
+		title: "Legend",
+		greenTrees: "Well-watered trees",
+		yellowTrees: "Moderately watered trees",
+		orangeTrees: "Trees in need of water",
+		grayTrees: "Not matching the filter",
+	},
 	navbar: {
 		map: "Map",
 		profile: {

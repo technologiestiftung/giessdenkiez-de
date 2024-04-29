@@ -24,6 +24,14 @@ interface LocationSearch {
 	placeholder: string;
 }
 
+interface Legend {
+	title: string;
+	greenTrees: string;
+	yellowTrees: string;
+	orangeTrees: string;
+	grayTrees: string;
+}
+
 interface Navbar {
 	map: string;
 	profile: {
@@ -310,6 +318,7 @@ export interface Content {
 		};
 	};
 	locationSearch: LocationSearch;
+	legend: Legend;
 	navbar: Navbar;
 	notFound: NotFound;
 	info: Info;

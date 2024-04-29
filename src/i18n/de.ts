@@ -33,6 +33,13 @@ export const de: Content = {
 	locationSearch: {
 		placeholder: "Suche nach einer Adresse",
 	},
+	legend: {
+		title: "Legende",
+		greenTrees: "Versorgte Bäume",
+		yellowTrees: "Mäßig versorgte Bäume",
+		orangeTrees: "Gießbedürftige Bäume",
+		grayTrees: "nicht dem Filter entsprechend",
+	},
 	navbar: {
 		map: "Karte",
 		profile: {

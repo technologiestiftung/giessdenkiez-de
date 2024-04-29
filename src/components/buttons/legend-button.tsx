@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { ColorLegend } from "../icons/color-legend-icon";
 import { ColorLegendClose } from "../icons/color-legend-close-icon";
 import { ColorLegendEllipse } from "../icons/color-legend-ellipse";
+import { useI18nStore } from "../../i18n/i18n-store";
 
 export const LegendButton: React.FC = () => {
 	const [isLegendOpen, setIsLegendOpen] = useState(false);
+	const i18n = useI18nStore().i18n();
 
 	return (
 		<div className="flex flex-col gap-1">
@@ -17,10 +19,10 @@ export const LegendButton: React.FC = () => {
 						<ColorLegendEllipse className="text-gdk-tree-gray" />
 					</div>
 					<div className="flex flex-col gap-2.5 font-semibold">
-						<div>Versorgte Bäume</div>
-						<div>Mäßig versorgte Bäume</div>
-						<div>Gießbedürftige Bäume</div>
-						<div>nicht dem Filter entsprechend</div>
+						<div>{i18n.legend.greenTrees}</div>
+						<div>{i18n.legend.yellowTrees}</div>
+						<div>{i18n.legend.orangeTrees}</div>
+						<div>{i18n.legend.grayTrees}</div>
 					</div>
 				</div>
 			)}
@@ -32,6 +34,7 @@ export const LegendButton: React.FC = () => {
 				onClick={() => {
 					setIsLegendOpen(!isLegendOpen);
 				}}
+				title={i18n.legend.title}
 			>
 				{!isLegendOpen ? <ColorLegend /> : <ColorLegendClose />}
 			</button>
