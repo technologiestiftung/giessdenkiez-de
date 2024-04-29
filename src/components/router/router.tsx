@@ -52,7 +52,7 @@ export const Router: React.FC = () => {
 						<Navbar />
 					</div>
 
-					<div className="flex self-end p-2 pb-60">
+					<div className="absolute left-[10px] bottom-[306px] lg:left-20">
 						<LegendButton />
 					</div>
 

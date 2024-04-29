@@ -34,6 +34,9 @@ export default {
 				"gdk-hard": "0px 3px 6px 0px rgba(105, 105, 105, 0.10);",
 				"gdk-hard-up": "0px -3px 6px 0px rgba(105, 105, 105, 0.08);",
 			},
+			dropShadow: {
+				white: "0 35px 35px rgba(100, 200, 200, 0.95)",
+			},
 			keyframes: {
 				shimmer: {
 					"100%": { transform: "translateX(100%)" },
