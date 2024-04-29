@@ -12,8 +12,8 @@ export const LegendButton: React.FC = () => {
 				<div className="flex flex-row justify-between items-center gap-3 bg-gdk-white/75 rounded-3xl p-4">
 					<div className="flex flex-col gap-4">
 						<ColorLegendEllipse className="text-gdk-neon-green" />
-						<ColorLegendEllipse className="text-[#FDE725]" />
-						<ColorLegendEllipse className="text-gdk-orange" />
+						<ColorLegendEllipse className="text-gdk-tree-yellow" />
+						<ColorLegendEllipse className="text-gdk-tree-orange" />
 						<ColorLegendEllipse className="text-gdk-tree-gray" />
 					</div>
 					<div className="flex flex-col gap-2.5 font-semibold">
