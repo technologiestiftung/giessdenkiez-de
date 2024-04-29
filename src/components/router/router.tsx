@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Filter } from "../filter/filter";
 import { useFilterStore } from "../filter/filter-store";
 import { Info } from "../info/info";
@@ -12,6 +12,7 @@ import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
 import { Splash } from "../splash/splash";
 import { useMapStore } from "../map/map-store";
+import { useSplashStore } from "../splash/splash-store";
 
 export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
@@ -22,7 +23,7 @@ export const Router: React.FC = () => {
 	const { isMapLoaded } = useMapStore();
 
 	const { isFilterViewVisible, recoverUrlParams } = useFilterStore();
-	const [isSplashScreenVisible, setIsSplashScreenVisible] = useState(true);
+	const { isSplashScreenVisible, hideSplashScreen } = useSplashStore();
 
 	useEffect(() => {
 		if (url.pathname === "/map") {
@@ -71,9 +72,7 @@ export const Router: React.FC = () => {
 						</div>
 					)}
 					{treeId && isMapLoaded && <TreeDetail />}
-					{isSplashScreenVisible && (
-						<Splash onClose={() => setIsSplashScreenVisible(false)} />
-					)}
+					{isSplashScreenVisible && <Splash onClose={hideSplashScreen} />}
 				</div>
 			);
 		case "/profile/reset-password":
