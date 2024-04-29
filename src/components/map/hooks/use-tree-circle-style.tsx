@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Expression } from "mapbox-gl";
 import { useMapConstants } from "./use-map-constants.js";
 import resolveConfig from "tailwindcss/resolveConfig";
@@ -8,7 +9,12 @@ import { TreeAgeRange } from "../../filter/filter-store.js";
 const fullConfig = resolveConfig(tailwindConfig);
 
 export function useTreeCircleStyle() {
-	const { TREE_DEFAULT_COLOR, TREE_GRAY_COLOR } = useMapConstants();
+	const {
+		TREE_DEFAULT_COLOR,
+		TREE_GRAY_COLOR,
+		TREE_ORANGE_COLOR,
+		TREE_YELLOW_COLOR,
+	} = useMapConstants();
 
 	const circleRadius = {
 		base: 1.75,
@@ -97,7 +103,42 @@ export function useTreeCircleStyle() {
 					];
 			}
 		}
-		return TREE_DEFAULT_COLOR;
+
+		return [
+			"case",
+			["==", ["get", "age"], ""],
+			TREE_GRAY_COLOR,
+			[">", ["get", "age"], 10],
+			TREE_DEFAULT_COLOR,
+			[">=", ["get", "age"], 5],
+			[
+				"case",
+				[
+					">=",
+					[
+						"+",
+						["round", ["get", "total_water_sum_liters"]],
+						["coalesce", ["feature-state", "todays_waterings"], 0],
+					],
+					200,
+				],
+				TREE_DEFAULT_COLOR,
+				[
+					">=",
+					[
+						"+",
+						["round", ["get", "total_water_sum_liters"]],
+						["coalesce", ["feature-state", "todays_waterings"], 0],
+					],
+					100,
+				],
+				TREE_YELLOW_COLOR,
+				TREE_ORANGE_COLOR,
+			],
+			[">=", ["get", "age"], 0],
+			TREE_DEFAULT_COLOR,
+			TREE_GRAY_COLOR,
+		];
 	};
 
 	return {

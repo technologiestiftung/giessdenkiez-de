@@ -9,6 +9,8 @@ import { useMapPumpsInteraction } from "./use-map-pumps-interaction";
 import { useFilterStore } from "../../filter/filter-store";
 import { usePumpIconStyle } from "./use-pump-icon-style";
 import { useMapInteraction } from "./use-map-interaction";
+import { useTreeStore } from "../../tree-detail/stores/tree-store";
+import { AccumulatedTreeWateringData } from "../../tree-detail/tree-types";
 
 export function useMapSetup(
 	mapContainer: React.MutableRefObject<HTMLDivElement | null>,
@@ -166,4 +168,39 @@ export function useMapSetup(
 
 		setMap(initializedMap);
 	}, [mapContainer]);
+
+	const { todaysWaterings, loadTodaysWaterings } = useTreeStore();
+
+	useEffect(() => {
+		const loadData = async () => {
+			await loadTodaysWaterings();
+		};
+		loadData();
+	}, []);
+
+	useEffect(() => {
+		const updateFeatureStates = (waterings: AccumulatedTreeWateringData) => {
+			for (const treeId in waterings) {
+				const amount = todaysWaterings[treeId];
+				map?.setFeatureState(
+					{
+						id: treeId,
+						source: "trees",
+						sourceLayer: "trees",
+					},
+					{ todays_waterings: amount },
+				);
+			}
+		};
+
+		if (map && Object.keys(todaysWaterings).length > 0) {
+			if (map.isStyleLoaded()) {
+				updateFeatureStates(todaysWaterings);
+			} else {
+				map.once("idle", () => {
+					updateFeatureStates(todaysWaterings);
+				});
+			}
+		}
+	}, [todaysWaterings, map]);
 }
