@@ -448,6 +448,9 @@ Particularly young trees need water in the first few years. Rather less often, b
 		status: "Status",
 		lastCheck: "Last check",
 		update: "Update status in OpenStreetMap",
+		updateLink: (id: number, lat: number, lng: number) => {
+			return `https://mapcomplete.org/theme.html?z=15.1&lat=${lat}&lon=${lng}&userlayout=https%3A%2F%2Fstudio.mapcomplete.org%2F11881%2Fthemes%2Fberlin_emergency_water_pumps%2Fberlin_emergency_water_pumps.json#node/${id}`;
+		},
 		working: "Working",
 		defect: "Broken",
 		unknown: "Unknown",
