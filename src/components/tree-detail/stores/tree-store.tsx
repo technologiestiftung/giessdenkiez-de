@@ -113,8 +113,11 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 			throw new Error("Failed to fetch tree watering data");
 		}
 
-		const treeWateringData = (await res.json()).data;
-		get().setTreeWateringData(treeWateringData);
+		const treeWateringData: TreeWateringData[] = (await res.json()).data;
+		// Workaround to sort the data by id, because timestamps do not have a time value set
+		// e.g. 2024-04-25 00:00:00+00
+		const sortedTreeWateringData = treeWateringData.sort((a, b) => b.id - a.id);
+		get().setTreeWateringData(sortedTreeWateringData);
 	},
 
 	selectedTreeId: undefined,

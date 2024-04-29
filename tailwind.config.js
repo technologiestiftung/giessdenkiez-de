@@ -28,6 +28,7 @@ export default {
 				"gdk-tree-yellow": "#FDE725",
 				"gdk-tree-gray": "#9E9FA0",
 
+				"gdk-baby-blue": "#5695F4",
 			},
 			blur: {
 				xs: "2px",
