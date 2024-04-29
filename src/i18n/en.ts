@@ -35,10 +35,10 @@ export const en: Content = {
 	},
 	legend: {
 		title: "Legend",
-		greenTrees: "Well-watered trees",
-		yellowTrees: "Moderately watered trees",
-		orangeTrees: "Trees in need of water",
-		grayTrees: "Not matching the filter",
+		greenTrees: "No water requirement",
+		yellowTrees: "Moderate water requirement",
+		orangeTrees: "Critical water requirement",
+		grayTrees: "Not matching the filter settings",
 	},
 	navbar: {
 		map: "Map",
