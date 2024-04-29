@@ -5,7 +5,10 @@ import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
 import { TrashIcon } from "../../icons/trash-icon";
 import { WateringCanIcon } from "../../icons/watering-can-icon";
 import { useMapStore } from "../../map/map-store";
-import { useUpdateTreeWaterings } from "../hooks/use-update-tree-waterings";
+import {
+	removeTodayWatering,
+	useUpdateTreeWaterings,
+} from "../hooks/use-update-tree-waterings";
 import { useWaterTree } from "../hooks/use-water-tree";
 import { TreeWateringData } from "../tree-types";
 
@@ -34,14 +37,13 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const isWateringByUser = wateringData.username === username;
 
 	const map = useMapStore().map;
-	const { removeTodayWatering } = useUpdateTreeWaterings(map);
 
 	const onClickDelete = async () => {
 		setIsDeleteWateringLoading(true);
 		await deleteWatering(wateringData.id);
 
 		// Update the map with the new watering amount
-		removeTodayWatering(wateringData.tree_id, wateringData.amount);
+		removeTodayWatering(map, wateringData.tree_id, wateringData.amount);
 
 		setIsDeleteWateringLoading(false);
 		setIsConfirmDeleteVisible(false);

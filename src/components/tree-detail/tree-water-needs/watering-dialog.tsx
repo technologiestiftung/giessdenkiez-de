@@ -11,7 +11,7 @@ import { useTreeStore } from "../stores/tree-store";
 import { AlertDialog } from "../../alert-dialog/alert-dialog";
 import { CheckIcon } from "../../icons/check-icon";
 import { useMapStore } from "../../map/map-store";
-import { useUpdateTreeWaterings } from "../hooks/use-update-tree-waterings";
+import { addTodayWatering } from "../hooks/use-update-tree-waterings";
 
 const showHideWateringSuccessDialog = () => {
 	(
@@ -40,8 +40,6 @@ export const WateringDialog: React.FC = () => {
 		isWateringLoading,
 	} = useTreeStore();
 
-	const { addTodayWatering } = useUpdateTreeWaterings(map);
-
 	const onSubmit = useCallback(
 		async (e: React.FormEvent<HTMLFormElement>) => {
 			e.preventDefault();
@@ -61,7 +59,7 @@ export const WateringDialog: React.FC = () => {
 					// Update the map with the new watering amount
 					const treeId = useTreeStore.getState().selectedTreeId;
 					if (treeId) {
-						addTodayWatering(treeId, amount);
+						addTodayWatering(map, treeId, amount);
 					}
 				}, 2000);
 			} catch (error) {
