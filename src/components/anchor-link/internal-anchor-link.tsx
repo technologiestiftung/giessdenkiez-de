@@ -10,6 +10,7 @@ interface InternalAnchorLinkProps {
 	 * it is meant to extend it, e.g. also change the state of the application
 	 */
 	onClick?: () => void;
+	className?: string;
 }
 
 export const InternalAnchorLink: React.FC<InternalAnchorLinkProps> = ({
@@ -17,12 +18,13 @@ export const InternalAnchorLink: React.FC<InternalAnchorLinkProps> = ({
 	label,
 	target,
 	onClick,
+	className = "",
 }) => {
 	const { setPathname } = useUrlState();
 
 	return (
 		<a
-			className="font-semibold text-blue-600 hover:text-gdk-light-blue"
+			className={`font-semibold text-blue-600 hover:text-gdk-light-blue ${className}`}
 			href={href}
 			target={target}
 			onClick={(e) => {
