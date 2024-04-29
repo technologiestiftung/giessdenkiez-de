@@ -32,3 +32,5 @@ jobs:
           MAPBOXTILESET: ${{ secrets.MAPBOXTILESET }}
           MAPBOXLAYERNAME: ${{ secrets.MAPBOXLAYERNAME }}
           SKIP_MAPBOX: "False"
+          LIMIT_DAYS: ${{ vars.LIMIT_DAYS }}
+          SURROUNDING_SHAPE_FILE: ${{ vars.SURROUNDING_SHAPE_FILE }}
