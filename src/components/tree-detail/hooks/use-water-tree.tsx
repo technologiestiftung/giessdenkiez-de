@@ -17,7 +17,7 @@ export function useWaterTree(): WaterTreeState {
 
 	const access_token = useAuthStore((store) => store).session?.access_token;
 	const user = useAuthStore((store) => store).session?.user;
-	const { username, refreshUserWaterings } = useProfileStore();
+	const { refreshUserWaterings } = useProfileStore();
 	const { refreshTreeWateringData } = useTreeStore();
 
 	const abortController = new AbortController();
@@ -29,6 +29,7 @@ export function useWaterTree(): WaterTreeState {
 		}
 
 		const treeId = useTreeStore.getState().selectedTreeId;
+		const username = useProfileStore.getState().username;
 
 		if (!treeId) {
 			return;
