@@ -1,39 +1,30 @@
 import { create } from "zustand";
 import { addDays, compareAsc } from "date-fns";
+import { persist } from "zustand/middleware";
 
 interface SplashState {
-	isSplashScreenVisible: boolean;
+	expirationDate: Date;
+	isSplashScreenVisible: () => boolean;
 	hideSplashScreen: () => void;
 }
 
-const hideSplashScreenUntilKey = "hide-splash-screen-until";
+export const useSplashStore = create<SplashState>()(
+	persist(
+		(set, get) => ({
+			expirationDate: new Date(),
 
-export const useSplashStore = create<SplashState>((set) => ({
-	isSplashScreenVisible: hasHideSplashScreenExpired(),
-	hideSplashScreen: () => {
-		set({ isSplashScreenVisible: false });
-		updateExpirationDate();
-	},
-}));
+			isSplashScreenVisible: () => {
+				const date = new Date(get().expirationDate);
+				const today = new Date();
 
-function hasHideSplashScreenExpired() {
-	const expirationDate = localStorage.getItem(hideSplashScreenUntilKey);
+				const hasExpired = compareAsc(today, date) === 1;
+				return hasExpired;
+			},
 
-	updateExpirationDate();
-
-	if (expirationDate === null) {
-		return true;
-	}
-
-	const date = new Date(expirationDate);
-	const today = new Date();
-
-	const hasExpired = compareAsc(today, date) === 1;
-	return hasExpired;
-}
-
-function updateExpirationDate() {
-	const newExpirationDate = addDays(new Date(), 7);
-
-	localStorage.setItem(hideSplashScreenUntilKey, newExpirationDate.toString());
-}
+			hideSplashScreen: () => {
+				set({ expirationDate: addDays(new Date(), 1) });
+			},
+		}),
+		{ name: "splash-store" },
+	),
+);
