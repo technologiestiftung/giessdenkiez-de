@@ -3,11 +3,13 @@ import React from "react";
 type SwitchButtonProps = {
 	isEnabled: boolean;
 	onToggle: () => void;
+	isDisabled?: boolean;
 };
 
 export const SwitchButton: React.FC<SwitchButtonProps> = ({
 	isEnabled,
 	onToggle,
+	isDisabled = false,
 }) => {
 	return (
 		<button
@@ -18,12 +20,13 @@ export const SwitchButton: React.FC<SwitchButtonProps> = ({
 				isEnabled
 					? "border-gdk-blue justify-end"
 					: "border-[#989898] justify-start"
-			}`}
+			} disabled:border-[#BBBDBF] `}
+			disabled={isDisabled}
 		>
 			<div
 				className={`w-5 h-5 rounded-full ${
 					isEnabled ? "bg-gdk-blue" : "bg-[#989898]"
-				} m-1`}
+				} ${isDisabled ? "bg-[#BBBDBF]" : ""} m-1`}
 			></div>
 		</button>
 	);

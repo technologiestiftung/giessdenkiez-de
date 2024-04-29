@@ -28,17 +28,16 @@ export const Filter: React.FC = () => {
 				<div className="flex flex-col gap-2">
 					<div className="font-semibold text-xl">{i18n.filter.title}</div>
 					<div className="flex flex-col gap-2">
-						{isLoggedIn() && (
-							<FilterSwitch
-								name={i18n.filter.myAdoptedTrees}
-								onToggle={() => {
-									setAreOnlyMyAdoptedTreesVisible(
-										!areOnlyMyAdoptedTreesVisible(),
-									);
-								}}
-								isEnabled={areOnlyMyAdoptedTreesVisible()}
-							/>
-						)}
+						<FilterSwitch
+							name={i18n.filter.myAdoptedTrees}
+							onToggle={() => {
+								setAreOnlyMyAdoptedTreesVisible(
+									!areOnlyMyAdoptedTreesVisible(),
+								);
+							}}
+							isEnabled={areOnlyMyAdoptedTreesVisible()}
+							isDisabled={!isLoggedIn()}
+						/>
 						<FilterSwitch
 							name={i18n.filter.publicPumps}
 							onToggle={() => {
