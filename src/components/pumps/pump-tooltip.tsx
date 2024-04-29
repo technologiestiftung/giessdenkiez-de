@@ -1,6 +1,7 @@
 import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { Pump } from "../map/hooks/use-pump-store";
+import { useMapConstants } from "../map/hooks/use-map-constants";
 
 interface PumpTooltipProps {
 	pump: Pump;
@@ -8,6 +9,7 @@ interface PumpTooltipProps {
 
 export const PumpTooltip: React.FC<PumpTooltipProps> = ({ pump }) => {
 	const i18n = useI18nStore().i18n();
+	const { pumpUpdateLink } = useMapConstants();
 
 	// The "status" in the OpenStreetMap property is German, so we need to translate it
 	const statusMap = {
@@ -48,7 +50,7 @@ export const PumpTooltip: React.FC<PumpTooltipProps> = ({ pump }) => {
 					className="underline"
 					target="_blank"
 					rel="noreferrer"
-					href={i18n.pumps.updateLink(pump.id, pump.lat, pump.lng)}
+					href={pumpUpdateLink(pump.id, pump.lat, pump.lng)}
 				>
 					{i18n.pumps.update}
 				</a>

@@ -453,9 +453,6 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		status: "Status",
 		lastCheck: "Letzter Check",
 		update: "Status in OpenStreetMap aktualisieren",
-		updateLink: (id: number, lat: number, lng: number) => {
-			return `https://mapcomplete.org/theme.html?z=15.1&lat=${lat}&lon=${lng}&userlayout=https%3A%2F%2Fstudio.mapcomplete.org%2F11881%2Fthemes%2Fberlin_emergency_water_pumps%2Fberlin_emergency_water_pumps.json#node/${id}`;
-		},
 		working: "Funktionsfähig",
 		defect: "Defekt",
 		unknown: "Unbekannt",

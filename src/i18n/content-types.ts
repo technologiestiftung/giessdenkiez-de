@@ -251,7 +251,6 @@ interface Pumps {
 	status: string;
 	lastCheck: string;
 	update: string;
-	updateLink: (id: number, lat: number, lng: number) => string;
 	working: string;
 	defect: string;
 	unknown: string;
