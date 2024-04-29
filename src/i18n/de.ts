@@ -444,7 +444,7 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 	filter: {
 		title: "Filter",
 		publicPumps: "Öffentliche Pumpen",
-		waterNeedTrees: "Gießbedürftige Bäume",
+		myAdoptedTrees: "Meine adoptierten Bäume",
 		treeAge: "Baumalter",
 		show: "Anzeigen",
 		reset: "Zurücksetzen",

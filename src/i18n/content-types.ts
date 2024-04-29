@@ -242,7 +242,7 @@ interface TreeDetail {
 interface Filter {
 	title: string;
 	publicPumps: string;
-	waterNeedTrees: string;
+	myAdoptedTrees: string;
 	treeAge: string;
 	show: string;
 	reset: string;

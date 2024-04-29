@@ -440,7 +440,7 @@ Particularly young trees need water in the first few years. Rather less often, b
 	filter: {
 		title: "Filter",
 		publicPumps: "Public pumps",
-		waterNeedTrees: "Trees in need of water",
+		myAdoptedTrees: "My adopted trees",
 		treeAge: "Tree age",
 		show: "Show",
 		reset: "Reset",
