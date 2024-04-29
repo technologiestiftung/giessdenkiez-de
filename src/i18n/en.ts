@@ -50,6 +50,7 @@ export const en: Content = {
 				irrigations: "Waterings",
 				liter: "Liters",
 				adoptedTrees: "Adopted trees",
+				showOnMap: "show on map",
 			},
 			adoptedTrees: {
 				subtitle: "Adopted trees",
