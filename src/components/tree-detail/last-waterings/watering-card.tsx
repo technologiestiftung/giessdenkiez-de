@@ -5,10 +5,7 @@ import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
 import { TrashIcon } from "../../icons/trash-icon";
 import { WateringCanIcon } from "../../icons/watering-can-icon";
 import { useMapStore } from "../../map/map-store";
-import {
-	removeTodayWatering,
-	useUpdateTreeWaterings,
-} from "../hooks/use-update-tree-waterings";
+import { removeTodayWatering } from "../hooks/use-update-tree-waterings";
 import { useWaterTree } from "../hooks/use-water-tree";
 import { TreeWateringData } from "../tree-types";
 
