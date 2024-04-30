@@ -76,7 +76,7 @@ export const Router: React.FC = () => {
 
 							<div
 								className={`left-[10px] bottom-[175px] absolute
-							md:bottom-[306px] lg:bottom-[242px] lg:left-[90px] ${treeId && "hidden lg:flex"}`}
+							md:bottom-[306px] lg:bottom-[242px] lg:left-[90px] ${(treeId || isFilterViewVisible) && "hidden lg:visible"}`}
 							>
 								<LegendButton />
 							</div>
