@@ -4,9 +4,9 @@ permissions:
   packages: write
 on:
   push:
-    branches: [master, staging]
+    branches: [master]
   pull_request:
-    branches: [master, staging]
+    branches: [master]
   workflow_dispatch:
     inputs:
       debug_enabled:
@@ -88,10 +88,6 @@ jobs:
           limit-access-to-actor: true
       # please see https://github.com/mxschmitt/action-tmate
       - run: npm ci
-      - name: lint
-        run: npm run lint
-      - name: prettier
-        run: npm run prettier:ci
       - name: Get the source for the api
         id: checkout-api
         uses: actions/checkout@v4
@@ -125,18 +121,3 @@ jobs:
           name: playwright-report
           path: test-results/
           retention-days: 30
-  release:
-    needs: [test]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: ".nvmrc"
-      - run: |
-          npm ci
-          npx semantic-release --ci
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
