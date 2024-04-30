@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useEffect } from "react";
 import { Filter } from "../filter/filter";
 import { useFilterStore } from "../filter/filter-store";
@@ -12,6 +13,7 @@ import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
 import { Splash } from "../splash/splash";
 import { useMapStore } from "../map/map-store";
+import { LegendButton } from "../buttons/legend-button";
 import { useSplashStore } from "../splash/splash-store";
 
 export const Router: React.FC = () => {
@@ -53,23 +55,32 @@ export const Router: React.FC = () => {
 					</div>
 
 					{!isSplashScreenVisible() && isMapLoaded && (
-						<div className="mt-3 flex w-full flex-row justify-center">
-							<div
-								className={`${
-									treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
-								} flex flex-col gap-4`}
-							>
-								<div className={`${treeId && "hidden lg:flex"}`}>
-									<LocationSearch />
-								</div>
-
+						<>
+							<div className="mt-3 flex w-full flex-row justify-center">
 								<div
-									className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
+									className={`${
+										treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
+									} flex flex-col gap-4`}
 								>
-									{isFilterViewVisible && <Filter />}
+									<div className={`${treeId && "hidden lg:flex"}`}>
+										<LocationSearch />
+									</div>
+
+									<div
+										className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
+									>
+										{isFilterViewVisible && <Filter />}
+									</div>
 								</div>
 							</div>
-						</div>
+
+							<div
+								className={`left-[10px] bottom-[175px] absolute
+							md:bottom-[306px] lg:bottom-[242px] lg:left-[90px] ${treeId && "hidden lg:flex"}`}
+							>
+								<LegendButton />
+							</div>
+						</>
 					)}
 					{treeId && isMapLoaded && <TreeDetail />}
 					{isSplashScreenVisible() && <Splash />}
