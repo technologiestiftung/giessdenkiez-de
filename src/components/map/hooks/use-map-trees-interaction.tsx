@@ -10,6 +10,7 @@ import { useTreeCircleStyle } from "./use-tree-circle-style";
 import { usePumpStore } from "./use-pump-store";
 import { useSearchStore } from "../../location-search/search-store";
 import { useProfileStore } from "../../../shared-stores/profile-store.tsx";
+import { fireNowIfReadyOrLater } from "../map-utils.tsx";
 
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { hideFilterView } = useFilterStore();
@@ -82,14 +83,14 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	}, [map, _areOnlyMyAdoptedTreesVisible, treeAgeRange, adoptedTrees]);
 
 	useEffect(() => {
-		if (treeCoreData) {
+		if (treeCoreData && map) {
 			clearSearch();
 
 			if (easeToStartedByUserClick) {
 				return;
 			}
 
-			map?.once("idle", () => {
+			fireNowIfReadyOrLater(map, () => {
 				map.easeTo({
 					center: [parseFloat(treeCoreData.lat), parseFloat(treeCoreData.lng)],
 					zoom: MAP_MAX_ZOOM_LEVEL,
@@ -153,6 +154,9 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			setHoveredPump(undefined);
 			hideFilterView();
 
+			console.log(
+				`set selected tree id to ${treeFeature.id} after click on tree`,
+			);
 			setSelectedTreeId(treeFeature.id as string);
 
 			setEaseToStartedByUserClick(true);
