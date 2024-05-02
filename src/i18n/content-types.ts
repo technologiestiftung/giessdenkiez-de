@@ -24,6 +24,14 @@ interface LocationSearch {
 	placeholder: string;
 }
 
+interface Legend {
+	title: string;
+	greenTrees: string;
+	yellowTrees: string;
+	orangeTrees: string;
+	grayTrees: string;
+}
+
 interface Navbar {
 	map: string;
 	profile: {
@@ -34,6 +42,7 @@ interface Navbar {
 			irrigations: string;
 			liter: string;
 			adoptedTrees: string;
+			showOnMap: string;
 		};
 		adoptedTrees: {
 			subtitle: string;
@@ -60,6 +69,10 @@ interface Navbar {
 			newPassword: string;
 			passwordChangeConfirmationTitle: string;
 			passwordChangeConfirmationMessage: string;
+			passwordChangeWithoutRecoveryLinkTitle: string;
+			passwordChangeWithoutRecoveryLinkMessage: string;
+			passwordChangeWithoutRecoveryLinkLinkLabel: string;
+			pleaseWait: string;
 			deleteAccount: string;
 			confirmDelete: string;
 			cancel: string;
@@ -151,17 +164,21 @@ interface WaterNeed {
 	needXLiters: (liters: string) => string;
 	needsOnlyOnDryDays: string;
 	waterManaged: string;
+	managedByGroundwater: string;
 	unknown: string;
 	unknownTitle: string;
+	unknownShort: string;
 	seniorTitle: string;
 	seniorExplanation: string;
 	liters: string;
 	watered: string;
+	covered: string;
 	rained: string;
 	stillMissing: string;
 	dataOfLastXDays: string;
 	manager: string;
 	alreadyWateredByManager: string;
+	alreadyWateredByGroundwater: string;
 	stillWaterXLiters: (liters: string) => string;
 	shouldBeWatered: string;
 	sufficientlyWatered: string;
@@ -182,6 +199,7 @@ interface WaterNeed {
 	wateredWhen: string;
 	waterSave: string;
 	waterCancel: string;
+	wateringSuccessful: string;
 }
 
 interface Problem {
@@ -193,21 +211,17 @@ interface Problem {
 interface LastWaterings {
 	deletedAccount: string;
 	title: string;
-	thisWeek: string;
-	nothingThisWeek: string;
-	thisMonth: string;
-	nothingThisMonth: string;
-	nothingMoreThisMonth: string;
-	thisYear: string;
-	nothingThisYear: string;
-	nothingMoreThisYear: string;
+	last30Days: string;
+	nothingLast30Days: string;
+	before: string;
+	nothingBefore: string;
 }
 
 interface TreeDetail {
 	title: string;
 	adoptIt: string;
-	alsoAdoptedBy: string;
-	exclusivelyAdoptedBy: string;
+	alsoAdoptedByOtherUsers: string;
+	onlyAdoptedByOtherUsers: string;
 	adoptLoading: string;
 	unadoptLoading: string;
 	isAdopted: string;
@@ -229,13 +243,13 @@ interface TreeDetail {
 interface Filter {
 	title: string;
 	publicPumps: string;
-	waterNeedTrees: string;
+	myAdoptedTrees: string;
 	treeAge: string;
-	youngTrees: string;
-	mediumTrees: string;
-	oldTrees: string;
 	show: string;
 	reset: string;
+	treeAgeTitle: string;
+	years: string;
+	tooltip: string;
 }
 
 interface Common {
@@ -306,6 +320,7 @@ export interface Content {
 		};
 	};
 	locationSearch: LocationSearch;
+	legend: Legend;
 	navbar: Navbar;
 	notFound: NotFound;
 	info: Info;

@@ -7,7 +7,7 @@ import { useEmailTakenStore } from "../../validation/email-taken-store";
 import { useErrorStore } from "../../../../error/error-store";
 import { TertiaryDestructiveButton } from "../../../buttons/tertiary-destructive";
 import { TertiaryButton } from "../../../buttons/tertiary";
-import { AlertDialog } from "../../profile-alert/alert-dialog";
+import { AlertDialog } from "../../../alert-dialog/alert-dialog";
 import { MailIcon } from "../../../icons/mail-icon";
 import { useProfileStore } from "../../../../shared-stores/profile-store";
 

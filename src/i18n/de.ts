@@ -33,6 +33,13 @@ export const de: Content = {
 	locationSearch: {
 		placeholder: "Suche nach einer Adresse",
 	},
+	legend: {
+		title: "Legende",
+		greenTrees: "Versorgte Bäume",
+		yellowTrees: "Mäßig versorgte Bäume",
+		orangeTrees: "Gießbedürftige Bäume",
+		grayTrees: "nicht dem Filter entsprechend",
+	},
 	navbar: {
 		map: "Karte",
 		profile: {
@@ -43,6 +50,7 @@ export const de: Content = {
 				irrigations: "Gießungen",
 				liter: "Liter",
 				adoptedTrees: "Adoptierte Bäume",
+				showOnMap: "auf Karte anzeigen",
 			},
 			adoptedTrees: {
 				subtitle: "Adoptierte Bäume",
@@ -65,7 +73,7 @@ export const de: Content = {
 				placeholderMail: "xyz@ts.berlin",
 				updateEmailEmailSentTitle: "E-Mail gesendet!",
 				updateEmailEmailSentMessage:
-					"Wir haben an Deine alte und neue E-Mail einen Bestätigungslink zum Ändern Deiner Email gesendet. Checke Deine Postfächer!",
+					"Wir haben an Deine neue E–Mail Adresse einen Bestätigungslink zum Ändern Deiner Email gesendet. Checke Dein Postfach!",
 				password: "Passwort",
 				changePassword: "Passwort ändern",
 				newPassword: "Neues Passwort",
@@ -73,6 +81,12 @@ export const de: Content = {
 					"Dein Passwort wurde erfolgreich geändert!",
 				passwordChangeConfirmationMessage:
 					'Klicke auf "OK" um zu Deinem Profil zu gelangen.',
+				passwordChangeWithoutRecoveryLinkTitle:
+					"Es ist ein Fehler aufgetreten.",
+				passwordChangeWithoutRecoveryLinkMessage:
+					"Hinweis: Diese Seite kann nur aufgerufen werden, wenn zuvor der Passwort-Zurücksetzen Link in der E-Mail angeklickt wurde.",
+				passwordChangeWithoutRecoveryLinkLinkLabel: "Zurück zur Startseite",
+				pleaseWait: "Einen Moment Geduld bitte...",
 				deleteAccount: "Account löschen",
 				confirmDelete: "Löschen",
 				approve: "Fertig",
@@ -256,8 +270,8 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 	treeDetail: {
 		title: "Bauminformationen",
 		adoptIt: "Diesen Baum adoptieren",
-		alsoAdoptedBy: "Auch von anderen User:innen adoptiert",
-		exclusivelyAdoptedBy: "Von anderen User:innen adoptiert",
+		alsoAdoptedByOtherUsers: "Auch von anderen User:innen adoptiert",
+		onlyAdoptedByOtherUsers: "Von anderen User:innen adoptiert",
 		adoptLoading: "Baum wird adoptiert...",
 		unadoptLoading: "Adoption wird aufgehoben...",
 		isAdopted: "Du hast diesen Baum adoptiert",
@@ -275,35 +289,45 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 		waterNeed: {
 			title: "Wasserbedarf",
 			hint: "Je nach Baumalter unterscheidet sich der Bedarf an Wasser.",
-			needXLiters: (liters: string) => `Braucht ${liters} Liter pro Woche`,
+			needXLiters: (liters: string) => `Braucht ca. ${liters} Liter pro Monat`,
 			needsOnlyOnDryDays: "Braucht nur an trockenen Tagen Wasser",
-			waterManaged: "Vom Bezirksamt versorgt",
-			unknownTitle: "Wasserbedarf unbekannt",
+			waterManaged: "Versorgt, nur in trockenen Phasen bedürftig",
+			managedByGroundwater: "Grundwasser",
+			unknownTitle: "Wasserbedarf **unbekannt**",
 			unknown:
 				"Das Alter dieses Baumes ist unbekannt und daher auch sein Wasserbedarf. Vielleicht helfen Dir die weiteren Informationen für eine eigenständige Einschätzung.",
+			unknownShort: "Unbekannt",
 			seniorTitle: "Braucht nur in trockenen Phasen Wasser",
 			seniorExplanation:
 				"Ältere Bäume können sich in der Regel über das Grundwasser selbst versorgen, aber bei zunehmender Hitze freuen auch sie sich über zusätzliches Wasser.",
 			liters: "Liter",
 			watered: "gegossen",
+			covered: "versorgt",
 			rained: "Regen",
 			stillMissing: "fehlen noch",
-			dataOfLastXDays: "* Daten der letzen 7 Tage",
+			dataOfLastXDays: "* Daten der letzen 30 Tage",
 			manager: "vom Bezirksamt",
-			alreadyWateredByManager: "Bereits vom Bezirksamt versorgt",
-			stillWaterXLiters: (liters: string) => `Noch ${liters} Liter gießen`,
+			alreadyWateredByManager: "Bereits vom **Bezirksamt versorgt**",
+			alreadyWateredByGroundwater: "Über das **Grundwasser versorgt**",
+			stillWaterXLiters: (liters: string) => `
+Noch
+
+**${liters} Liter**
+
+gießen`,
 			shouldBeWatered: "Sollte gegossen werden",
 			sufficientlyWatered: "Momentan ausreichend bewässert",
 			readMore: "Mehr anzeigen",
 			ageAndWaterHintTitle: "Wasserbedarf und Standalter",
 			ageAndWaterHint: `
-   **Baby (unter 4 Jahren):** Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
+Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener, aber dafür viel.
 
-   **Jung (4-14 Jahre):** In dem Alter werden wir nicht mehr in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Wir freuen uns über viel Wasser von bis zu 200l pro Gießung (ein Mal in der Woche).
+**Unter 5 Jahren**:  Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
 
-   **Erwachsen (15-40 Jahre):** Wir haben ein gewisses Durchhaltevermögen aber brauchen in heißen Phasen auch einen ordentlichen extra Schluck Wasser: bis zu 100l ein Mal in der Woche.
+**5-10 Jahre**: In dem Alter werden wir nicht mehr in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Wir freuen uns gerade in trockenen Zeiten über Wasser - lieber seltener, aber viel auf einmal (ca. 100-200l pro Monat).
 
-   **Alt (über 40 Jahre):** Wir kommen weitestgehend alleine klar, freuen uns in besonders trockenen Phasen aber dennoch über einen extra Schluck.`,
+**Ältere Bäume (10+ Jahre)**: Wir können uns über das Grundwasser selbst versorgen.
+`,
 			close: "Weniger anzeigen",
 			lastXDaysYLitersWater: (days: number, liters: string) =>
 				`Die letzten ${days} Tage wurden **${liters} Liter gegossen**.`,
@@ -320,18 +344,15 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 			wateredWhen: "Wann?",
 			waterSave: "Speichern",
 			waterCancel: "Abbrechen",
+			wateringSuccessful: "Deine Gießung wurde eingetragen!",
 		},
 		lastWaterings: {
 			deletedAccount: "Deaktivierter Account",
 			title: "Letzte Gießungen",
-			thisWeek: "Diese Woche",
-			nothingThisWeek: "Keine Gießungen diese Woche",
-			thisMonth: "Dieser Monat",
-			nothingThisMonth: "Keine Gießungen diesen Monat",
-			nothingMoreThisMonth: "Keine weiteren Gießungen diesen Monat",
-			thisYear: "Dieses Jahr",
-			nothingThisYear: "Keine Gießungen dieses Jahr",
-			nothingMoreThisYear: "Keine weiteren Gießungen dieses Jahr",
+			last30Days: "Letzte 30 Tage",
+			nothingLast30Days: "Keine Gießungen in den letzten 30 Tagen",
+			before: "Vorherige",
+			nothingBefore: "Keine vorherigen Gießungen",
 		},
 		problem: {
 			title: "Problem melden",
@@ -424,13 +445,14 @@ Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit 
 	filter: {
 		title: "Filter",
 		publicPumps: "Öffentliche Pumpen",
-		waterNeedTrees: "Gießbedürftige Bäume",
+		myAdoptedTrees: "Meine adoptierten Bäume",
 		treeAge: "Baumalter",
-		youngTrees: "0 - 3 Jahre",
-		mediumTrees: "4 - 40 Jahre",
-		oldTrees: "40+ Jahre",
 		show: "Anzeigen",
 		reset: "Zurücksetzen",
+		treeAgeTitle: "Alterspanne der Bäume",
+		years: "Jahre",
+		tooltip:
+			"Logge Dich ein, um Dir Deine adoptierten Bäume auf der Karte anzeigen zu lassen.",
 	},
 	common: {
 		defaultErrorMessage:

@@ -1,13 +1,14 @@
 import React from "react";
-import { useI18nStore } from "../../../i18n/i18n-store.ts";
-import { PrimaryButton } from "../../buttons/primary";
-import { useUrlState } from "../../router/store";
+import { useI18nStore } from "../../i18n/i18n-store.ts";
+import { PrimaryButton } from "../buttons/primary.tsx";
+import { useUrlState } from "../router/store.tsx";
 
 export interface AlertDialogProps {
 	alertTitleWithIcon: string | React.ReactNode;
-	alertMessage: string;
+	alertMessage?: string;
 	href?: string;
 	id: string;
+	isButtonDisabled?: boolean;
 }
 
 export const AlertDialog: React.FC<AlertDialogProps> = ({
@@ -15,6 +16,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
 	alertMessage,
 	href,
 	id,
+	isButtonDisabled = true,
 }) => {
 	const { setPathname } = useUrlState();
 
@@ -35,15 +37,16 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
 					{alertTitleWithIcon}
 				</span>
 				<p className="">{alertMessage}</p>
-
-				<div className="self-end my-2 lg:m-0">
-					<PrimaryButton
-						label={
-							useI18nStore.getState().i18n().navbar.profile.settings.confirm
-						}
-						onClick={onClick}
-					/>
-				</div>
+				{isButtonDisabled && (
+					<div className="self-end my-2 lg:m-0">
+						<PrimaryButton
+							label={
+								useI18nStore.getState().i18n().navbar.profile.settings.confirm
+							}
+							onClick={onClick}
+						/>
+					</div>
+				)}
 			</div>
 		</dialog>
 	);

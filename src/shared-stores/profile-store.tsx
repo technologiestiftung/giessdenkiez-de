@@ -5,7 +5,7 @@ import { useAuthStore } from "../auth/auth-store";
 
 interface TreeInfo {
 	id: string;
-	artdtsch: string;
+	art_dtsch: string;
 	trees_watered: Array<{ id: string; amount: number }>;
 	totalWateringVolume: number;
 	totalWateringCount: number;
@@ -51,7 +51,7 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 	refresh: async () => {
 		const promises = [
 			get().refreshUsername(),
-			get().refreshAdoptedTrees(),
+			get().refreshAdoptedTreesInfo(),
 			get().refreshUserWaterings(),
 		];
 
@@ -60,6 +60,12 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 
 	username: null,
 	refreshUsername: async () => {
+		set({ username: null });
+
+		if (!useAuthStore.getState().isLoggedIn()) {
+			return;
+		}
+
 		const { data, error } = await supabaseClient
 			.from("profiles")
 			.select("username")
@@ -85,6 +91,12 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 
 	adoptedTrees: [],
 	refreshAdoptedTrees: async () => {
+		set({ adoptedTrees: [] });
+
+		if (!useAuthStore.getState().isLoggedIn()) {
+			return;
+		}
+
 		const { data, error } = await supabaseClient
 			.from("trees_adopted")
 			.select("tree_id")
@@ -107,14 +119,16 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 
 	adoptedTreesInfo: null,
 	refreshAdoptedTreesInfo: async () => {
+		set({ adoptedTreesInfo: null });
+
 		await get().refreshAdoptedTrees();
 
 		const { data, error } = await supabaseClient
 			.from("trees")
 			.select(
 				`
-					id, 
-					artdtsch, 
+					id,
+					art_dtsch,
 					trees_watered ( id, amount)
 					`,
 			)
@@ -134,7 +148,7 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 
 			return {
 				id: tree.id,
-				artdtsch: tree.artdtsch,
+				art_dtsch: tree.art_dtsch,
 				trees_watered: tree.trees_watered,
 				totalWateringVolume,
 				totalWateringCount,
@@ -167,6 +181,12 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 		return { totalWateringVolume, totalWateringCount };
 	},
 	refreshUserWaterings: async () => {
+		set({ userWaterings: null });
+
+		if (!useAuthStore.getState().isLoggedIn()) {
+			return;
+		}
+
 		const userId = useAuthStore.getState().session?.user.id;
 		const accessToken = useAuthStore.getState().session?.access_token;
 

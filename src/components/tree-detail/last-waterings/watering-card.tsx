@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { TreeWateringData } from "../tree-types";
 import { useI18nStore } from "../../../i18n/i18n-store";
-import { TrashIcon } from "../../icons/trash-icon";
-import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
-import { useWaterTree } from "../hooks/use-water-tree";
 import { useProfileStore } from "../../../shared-stores/profile-store";
+import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
+import { TrashIcon } from "../../icons/trash-icon";
+import { WateringCanIcon } from "../../icons/watering-can-icon";
+import { useMapStore } from "../../map/map-store";
+import { removeTodayWatering } from "../hooks/use-update-tree-waterings";
+import { useWaterTree } from "../hooks/use-water-tree";
+import { TreeWateringData } from "../tree-types";
 
 interface WateringCardProps {
 	wateringData: TreeWateringData;
@@ -30,9 +33,15 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false);
 	const isWateringByUser = wateringData.username === username;
 
+	const map = useMapStore().map;
+
 	const onClickDelete = async () => {
 		setIsDeleteWateringLoading(true);
 		await deleteWatering(wateringData.id);
+
+		// Update the map with the new watering amount
+		removeTodayWatering(map, wateringData.tree_id, wateringData.amount);
+
 		setIsDeleteWateringLoading(false);
 		setIsConfirmDeleteVisible(false);
 	};
@@ -47,13 +56,8 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 				<div className="font-bold">{getDisplayedUsername(wateringData)}</div>
 				<div className="flex flex-row items-center justify-between">
 					<div>{formatDate(new Date(wateringData.timestamp))}</div>
-					<div className="flex flex-row items-center gap-2">
-						<img
-							src="/images/drop-icon.svg"
-							alt="Drop Icon"
-							width={15}
-							height={15}
-						/>
+					<div className="flex flex-row items-center justify-between w-[63px]">
+						<WateringCanIcon className="h-[21px] text-gdk-watering-blue" />
 						<div>{wateringData.amount}l</div>
 					</div>
 				</div>

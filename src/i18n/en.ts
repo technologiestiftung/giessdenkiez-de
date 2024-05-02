@@ -33,6 +33,13 @@ export const en: Content = {
 	locationSearch: {
 		placeholder: "Search for an address",
 	},
+	legend: {
+		title: "Legend",
+		greenTrees: "No water requirement",
+		yellowTrees: "Moderate water requirement",
+		orangeTrees: "Critical water requirement",
+		grayTrees: "Not matching the filter settings",
+	},
 	navbar: {
 		map: "Map",
 		profile: {
@@ -43,6 +50,7 @@ export const en: Content = {
 				irrigations: "Waterings",
 				liter: "Liters",
 				adoptedTrees: "Adopted trees",
+				showOnMap: "show on map",
 			},
 			adoptedTrees: {
 				subtitle: "Adopted trees",
@@ -61,7 +69,12 @@ export const en: Content = {
 				placeholderUser: "Your username",
 				updateEmailEmailSentTitle: "E-Mail sent!",
 				updateEmailEmailSentMessage:
-					"We sent you an email with a link to both your old and your new email address to confirm the change. Check your mailbox!",
+					"We sent you an email with a confirmation link to your new email address to confirm the change. Check your mailbox!",
+				passwordChangeWithoutRecoveryLinkTitle: "An error occurred.",
+				passwordChangeWithoutRecoveryLinkMessage:
+					"Note: This page can only be accessed if the password reset link in the email has been clicked previously.",
+				passwordChangeWithoutRecoveryLinkLinkLabel: "Back to home",
+				pleaseWait: "Please wait a moment...",
 				email: "Email",
 				yourEmail: "Your email address",
 				editEmail: "New email address",
@@ -256,8 +269,8 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 	treeDetail: {
 		title: "Tree information",
 		adoptIt: "Adopt this tree",
-		alsoAdoptedBy: "Also adopted by other users",
-		exclusivelyAdoptedBy: "Adopted by other users",
+		alsoAdoptedByOtherUsers: "Also adopted by other users",
+		onlyAdoptedByOtherUsers: "Adopted by other users",
 		ageTitle: "Age",
 		adoptLoading: "Tree is being adopted...",
 		unadoptLoading: "Adoption is being canceled...",
@@ -277,40 +290,39 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			needXLiters: (liters: string) => `Needs ${liters} liters per week`,
 			needsOnlyOnDryDays: "Only needs water on dry days",
 			waterManaged: "Supplied by the district office",
-			unknownTitle: "Water needs unknown",
+			managedByGroundwater: "Groundwater",
+			unknownTitle: "Water needs **unknown**",
 			unknown:
 				"The age and therefore the water requirement are unfortunately unknown. The info box may help you make your own assessment.",
+			unknownShort: "Unknown",
 			seniorTitle: "Needs water only during dry periods",
 			seniorExplanation:
 				"Older trees can usually supply themselves with groundwater, but as the heat increases they also appreciate additional water.",
 			liters: "liters",
 			watered: "watered",
+			covered: "covered",
 			rained: "rain",
 			stillMissing: "still missing",
-			dataOfLastXDays: "* data of last 7 days",
+			dataOfLastXDays: "* data of last 30 days",
 			manager: "district",
-			alreadyWateredByManager: "Watered by district authority",
-			stillWaterXLiters: (liters: string) => `Needs ${liters} liters`,
+			alreadyWateredByManager: "Watered by **district authority**",
+			alreadyWateredByGroundwater: "Covered by **groundwater**",
+			stillWaterXLiters: (liters: string) => `
+Needs
+
+**${liters} liters**`,
 			shouldBeWatered: "Should be watered",
 			sufficientlyWatered: "Sufficiently watered at the moment",
 			readMore: "Show more",
 			ageAndWaterHintTitle: "Water requirements and age",
 			ageAndWaterHint: `
-**Baby (under 4 years):**
+Particularly young trees need water in the first few years. Rather less often, but a lot at once. 
 
-We are fresh young trees and our thirst is satisfied by the district parks department breastfed.
-  
-**Young (4-14 years):**
+**Below 5 years**: We are taken care of by the district green space office.
 
-At that age we will no longer be watered by the administration in all districts and are not yet “self-sufficient”. We are happy about lots of water up to 200l per watering (once a week).
-     
-**Adult (15-40 years):**
+**5-10 years**: At this age, we are no longer watered by the administration in all districts and are not yet "self-sufficient". We are thankful for some extra water, especially in dry times - preferably less often, but a lot at once (approx. 100-200 liters per month). 
 
-We have a certain amount of stamina but we need it in hot phases also a good extra sip of water: up to 100l once a day week.
-  
-**Old (over 40 years old):**
-
-We manage largely on our own and are happy in particularly dry phases but still about an extra sip.
+**Older trees (10+ years)**: We can supply ourselves via the groundwater.
       `,
 			close: "Show less",
 			lastXDaysYLitersWater: (days: number, liters: string) =>
@@ -328,18 +340,15 @@ We manage largely on our own and are happy in particularly dry phases but still 
 			wateredWhen: "When?",
 			waterSave: "Save",
 			waterCancel: "Cancel",
+			wateringSuccessful: "Your watering entry was successful!",
 		},
 		lastWaterings: {
 			deletedAccount: "Deactivated Account",
 			title: "Last waterings",
-			thisWeek: "This week",
-			nothingThisWeek: "No waterings this week",
-			thisMonth: "This month",
-			nothingThisMonth: "No waterings this month",
-			nothingMoreThisMonth: "No further waterings this month",
-			thisYear: "This year",
-			nothingThisYear: "No waterings this year",
-			nothingMoreThisYear: "No further waterings this year",
+			last30Days: "Last 30 days",
+			nothingLast30Days: "No waterings in the last 30 days",
+			before: "Previous",
+			nothingBefore: "No previous waterings",
 		},
 		problem: {
 			title: "Report a problem",
@@ -432,13 +441,13 @@ We manage largely on our own and are happy in particularly dry phases but still 
 	filter: {
 		title: "Filter",
 		publicPumps: "Public pumps",
-		waterNeedTrees: "Trees in need of water",
+		myAdoptedTrees: "My adopted trees",
 		treeAge: "Tree age",
-		youngTrees: "0 - 3 years",
-		mediumTrees: "4 - 40 years",
-		oldTrees: "40+ years",
 		show: "Show",
 		reset: "Reset",
+		treeAgeTitle: "Tree age",
+		years: "years",
+		tooltip: "Log in to view your adopted trees on the map.",
 	},
 	common: {
 		defaultErrorMessage: "Something went wrong! Please try again later.",

@@ -11,7 +11,10 @@ export function useMapConstants() {
 		import.meta.env.VITE_MAP_LOCATION_ZOOM_LEVEL,
 	);
 	const TREE_DEFAULT_COLOR = fullConfig.theme.colors["gdk-neon-green"];
+
 	const TREE_GRAY_COLOR = fullConfig.theme.colors["gdk-light-gray"];
+	const TREE_YELLOW_COLOR = fullConfig.theme.colors["gdk-tree-yellow"];
+	const TREE_ORANGE_COLOR = fullConfig.theme.colors["gdk-tree-orange"];
 
 	const MAP_MIN_ZOOM_LEVEL = parseInt(import.meta.env.VITE_MAP_MIN_ZOOM_LEVEL);
 	const MAP_INITIAL_ZOOM_LEVEL = parseInt(
@@ -41,6 +44,11 @@ export function useMapConstants() {
 
 	const MAP_TREE_ZOOMED_IN_OFFSET = [-150, 0] as PointLike;
 
+	// The link is stored in source code instead of environment variable, because of the required string interpolation of lat/lng/id which would be too complicated to handle in environment variables
+	const pumpUpdateLink = (id: number, lat: number, lng: number) => {
+		return `https://mapcomplete.org/theme.html?z=15.1&lat=${lat}&lon=${lng}&userlayout=https%3A%2F%2Fstudio.mapcomplete.org%2F11881%2Fthemes%2Fberlin_emergency_water_pumps%2Fberlin_emergency_water_pumps.json#node/${id}`;
+	};
+
 	return {
 		MAP_PITCH_DEGREES,
 		MAP_MAX_ZOOM_LEVEL,
@@ -53,5 +61,8 @@ export function useMapConstants() {
 		MAP_PUMP_IMAGE_ICONS,
 		TREE_GRAY_COLOR,
 		MAP_TREE_ZOOMED_IN_OFFSET,
+		TREE_YELLOW_COLOR,
+		TREE_ORANGE_COLOR,
+		pumpUpdateLink,
 	};
 }

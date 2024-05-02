@@ -22,9 +22,9 @@ test("should calculate correct water needs for senior tree", () => {
 		id: "_21000f16d2",
 		lat: "13.24741",
 		lng: "52.41749",
-		artdtsch: "Pappel",
-		artbot: "Populus spec.",
-		gattungdeutsch: "PAPPEL",
+		art_dtsch: "Pappel",
+		art_bot: "Populus spec.",
+		gattung_deutsch: "PAPPEL",
 		gattung: "POPULUS",
 		pflanzjahr: 0,
 		standalter: "undefined",
@@ -77,8 +77,8 @@ test("should calculate correct water needs for senior tree", () => {
 	const { rainSum, wateringSum, referenceWaterAmount, shouldBeWatered } =
 		useTreeWaterNeedsData(treeData, waterings, treeAgeClassification);
 
-	expect(rainSum).toBe(12);
+	expect(referenceWaterAmount).toBe(200);
+	expect(rainSum).toBe(34.7);
 	expect(wateringSum).toBe(40);
-	expect(referenceWaterAmount).toBe(0);
-	expect(shouldBeWatered).toBe(false);
+	expect(shouldBeWatered).toBe(true);
 });

@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { useAuthStore } from "../../../auth/auth-store";
-import { supabaseClient } from "../../../auth/supabase-client";
 import { useErrorStore } from "../../../error/error-store";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useProfileStore } from "../../../shared-stores/profile-store";
@@ -8,7 +7,7 @@ import { useProfileStore } from "../../../shared-stores/profile-store";
 interface TreeAdoptStore {
 	isLoading: boolean;
 	isAdopted: (treeId: string) => boolean;
-	adoptedByOthers: boolean;
+	amountOfAdoptions: number;
 	adoptTree: (treeId: string) => Promise<void>;
 	unadoptTree: (treeId: string) => Promise<void>;
 	refreshIsTreeAdoptedByOthers: (
@@ -25,7 +24,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	isAdopted: (treeId) => {
 		return useProfileStore.getState().adoptedTrees.includes(treeId);
 	},
-	adoptedByOthers: false,
+	amountOfAdoptions: 0,
 	adoptTree: async (treeId) => {
 		const abortController = new AbortController();
 		const access_token = useAuthStore.getState().session?.access_token;
@@ -96,27 +95,36 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	},
 
 	refreshIsTreeAdoptedByOthers: async (treeId, abortController) => {
-		set({ adoptedByOthers: false });
+		set({ amountOfAdoptions: 0 });
 
 		if (!treeId) {
 			return;
 		}
 
-		const user = useAuthStore.getState().session?.user;
-		set({ adoptedByOthers: false });
 		try {
-			const { data, error } = await supabaseClient
-				.from("trees_adopted")
-				.select(`id, uuid, tree_id`)
-				.eq("tree_id", treeId)
-				.neq("uuid", user?.id)
-				.abortSignal(abortController.signal);
+			const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/wateredandadopted`;
+			const response = await fetch(adoptUrl, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+				signal: abortController.signal,
+			});
 
-			if (error) {
-				throw error;
+			if (!response.ok) {
+				throw new Error(
+					"Failed to fetch data watered and adopted (community data)",
+				);
 			}
 
-			set({ adoptedByOthers: (data ?? []).length > 0 });
+			const json = await response.json();
+			const data = (Array.isArray(json.data) ? json.data : []) as {
+				tree_id: string;
+				adopted: number;
+			}[];
+
+			const foundTree = data.find(({ tree_id }) => tree_id === treeId);
+
+			set({ amountOfAdoptions: foundTree?.adopted || 0 });
 		} catch (error) {
 			if (abortController.signal.aborted) {
 				return;

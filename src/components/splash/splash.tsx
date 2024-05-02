@@ -12,10 +12,7 @@ import { useI18nStore } from "../../i18n/i18n-store";
 import Markdown from "react-markdown";
 import { SplashTreeIcon } from "../icons/splash-tree-icon";
 import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
-
-interface SplashProps {
-	onClose: () => void;
-}
+import { useSplashStore } from "./splash-store";
 
 interface SectionHeadingProps {
 	title: string;
@@ -39,8 +36,9 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
 	);
 };
 
-export const Splash: React.FC<SplashProps> = ({ onClose }) => {
+export const Splash: React.FC = () => {
 	const i18n = useI18nStore().i18n();
+	const { hideSplashScreen } = useSplashStore();
 
 	const splashContainer = useRef<HTMLDivElement | null>(null);
 
@@ -60,7 +58,8 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 		if (clickedInside) {
 			return;
 		}
-		onClose();
+
+		hideSplashScreen();
 	};
 
 	return (
@@ -68,14 +67,14 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 			ref={splashContainer}
 			className={`
 		absolute top-0 left-0 lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2
-		w-full lg:w-[80%] xl:w-[1028px] max-h-svh overflow-y-auto
-		bg-white flex flex-col 
+		w-full lg:w-[80%] xl:w-[1028px] xl:h-[716px] 2xl:h-[732px] max-h-svh overflow-y-auto
+		bg-white flex flex-col justify-between 
 		rounded-lg shadow-gdk-hard pointer-events-auto`}
 		>
 			<div className="px-5 lg:px-8 py-5 lg:py-8 flex flex-col">
 				<button
 					className="flex flex-row justify-end lg:hidden pb-2"
-					onClick={onClose}
+					onClick={hideSplashScreen}
 				>
 					<CloseIcon />
 				</button>
@@ -100,7 +99,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 					<div>
 						<button
 							className="hidden lg:flex hover:text-gdk-light-gray self-start "
-							onClick={onClose}
+							onClick={hideSplashScreen}
 						>
 							<CloseIcon />
 						</button>
@@ -118,7 +117,10 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 							{i18n.splash.subheadline}
 						</div>
 						<div>
-							<PrimaryButton label={i18n.splash.letsGo} onClick={onClose} />
+							<PrimaryButton
+								label={i18n.splash.letsGo}
+								onClick={hideSplashScreen}
+							/>
 						</div>
 					</div>
 					<div className="hidden lg:flex pr-8 max-h-[150px] 2xl:scale-[1.2]">
@@ -165,7 +167,7 @@ export const Splash: React.FC<SplashProps> = ({ onClose }) => {
 					/>
 				</div>
 				<div className="lg:col-start-1 lg:row-start-1 flex flex-col gap-2 px-8 lg:w-[65%] w-full py-4 ">
-					<div className="text-lg font-bold">
+					<div className="text-lg font-bold text-[#37DE8A]">
 						{i18n.splash.questionHeadline}
 					</div>
 					<div className="text-sm">{i18n.splash.questionSubheadline}</div>

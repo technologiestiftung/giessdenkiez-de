@@ -15,25 +15,27 @@ export function useTreeWaterNeedsData(
 	treeWateringData: TreeWateringData[],
 	treeAgeClassification: TreeAgeClassification,
 ): TreeWateringDataState {
-	const YOUNG_TREES_WATERING_AMOUNT = 200;
-	const OLD_TREES_WATERING_AMOUNT = 100;
-	const NUMBER_OF_DAYS_TO_LOOK_AT = 7;
+	const UNKNOWN_TREES_WATERING_AMOUNT = 200;
+	const BABY_TREES_WATERING_AMOUNT = 100;
+	const JUNIOR_TREES_WATERING_AMOUNT = 200;
+	const SENIOR_TREES_WATERING_AMOUNT = 300;
+	const NUMBER_OF_DAYS_TO_LOOK_AT = 30;
 
-	const WATERING_COLOR = fullConfig.theme.colors["gdk-neon-green"];
-	const RAIN_COLOR = fullConfig.theme.colors["gdk-blue"];
+	// OTHER_WATERING_COLOR is the color for watering by groundwater and bezirksamt
+	const OTHER_WATERING_COLOR = fullConfig.theme.colors["gdk-light-blue"];
+	const USER_WATERING_COLOR = fullConfig.theme.colors["gdk-watering-blue"];
+	const RAIN_COLOR = fullConfig.theme.colors["gdk-rain-blue"];
 
 	const referenceWaterAmount = () => {
 		switch (treeAgeClassification) {
 			case TreeAgeClassification.BABY:
-				return YOUNG_TREES_WATERING_AMOUNT;
+				return BABY_TREES_WATERING_AMOUNT;
 			case TreeAgeClassification.JUNIOR:
-				return YOUNG_TREES_WATERING_AMOUNT;
-			case TreeAgeClassification.GROWNUP:
-				return OLD_TREES_WATERING_AMOUNT;
+				return JUNIOR_TREES_WATERING_AMOUNT;
 			case TreeAgeClassification.SENIOR:
-				return OLD_TREES_WATERING_AMOUNT;
+				return SENIOR_TREES_WATERING_AMOUNT;
 			default:
-				return 0;
+				return UNKNOWN_TREES_WATERING_AMOUNT;
 		}
 	};
 
@@ -72,14 +74,23 @@ export function useTreeWaterNeedsData(
 		return ratio;
 	};
 
-	const wateringPercentage = () => {
-		if (treeAgeClassification === TreeAgeClassification.BABY) {
-			return 1 - rainPercentage();
-		}
+	const userWateringPercentage = () => {
+		const rainRatio = rainSum() / referenceWaterAmount();
 		const ratio = wateringSum() / referenceWaterAmount();
-		if (ratio >= 1) {
-			return 1;
+		if (ratio >= 1 - rainRatio) {
+			return 1 - rainRatio;
 		}
+		return ratio;
+	};
+
+	const otherWateringPercentage = () => {
+		if (
+			treeAgeClassification === TreeAgeClassification.UNKNOWN ||
+			treeAgeClassification === TreeAgeClassification.JUNIOR
+		) {
+			return 0;
+		}
+		const ratio = Math.max(0, 1 - rainPercentage() - userWateringPercentage());
 		return ratio;
 	};
 
@@ -90,7 +101,10 @@ export function useTreeWaterNeedsData(
 	};
 
 	const shouldBeWatered = () => {
-		if (treeAgeClassification === TreeAgeClassification.BABY) {
+		if (
+			treeAgeClassification === TreeAgeClassification.BABY ||
+			treeAgeClassification === TreeAgeClassification.SENIOR
+		) {
 			return false;
 		}
 		return wateringSum() + rainSum() < referenceWaterAmount();
@@ -103,8 +117,12 @@ export function useTreeWaterNeedsData(
 				progress: rainPercentage(),
 			},
 			{
-				color: WATERING_COLOR,
-				progress: wateringPercentage(),
+				color: USER_WATERING_COLOR,
+				progress: userWateringPercentage(),
+			},
+			{
+				color: OTHER_WATERING_COLOR,
+				progress: otherWateringPercentage(),
 			},
 		];
 	};
@@ -113,12 +131,14 @@ export function useTreeWaterNeedsData(
 		rainSum: rainSum(),
 		wateringSum: wateringSum(),
 		rainPercentage: rainPercentage(),
-		wateringPercentage: wateringPercentage(),
+		wateringPercentage: userWateringPercentage(),
+		otherWateringPercentage: otherWateringPercentage(),
 		referenceWaterAmount: referenceWaterAmount(),
 		stillMissingWater: stillMissingWater(),
 		waterParts: waterParts(),
 		shouldBeWatered: shouldBeWatered(),
-		wateringColor: WATERING_COLOR,
+		userWateringColor: USER_WATERING_COLOR,
+		otherWateringColor: OTHER_WATERING_COLOR,
 		rainColor: RAIN_COLOR,
 	};
 }

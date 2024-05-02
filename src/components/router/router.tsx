@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable complexity */
+import React, { useEffect } from "react";
 import { Filter } from "../filter/filter";
 import { useFilterStore } from "../filter/filter-store";
 import { Info } from "../info/info";
@@ -12,6 +13,8 @@ import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
 import { Splash } from "../splash/splash";
 import { useMapStore } from "../map/map-store";
+import { useSplashStore } from "../splash/splash-store";
+import { Legend } from "../legend/legend";
 
 export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
@@ -22,7 +25,7 @@ export const Router: React.FC = () => {
 	const { isMapLoaded } = useMapStore();
 
 	const { isFilterViewVisible, recoverUrlParams } = useFilterStore();
-	const [isSplashScreenVisible, setIsSplashScreenVisible] = useState(true);
+	const { isSplashScreenVisible } = useSplashStore();
 
 	useEffect(() => {
 		if (url.pathname === "/map") {
@@ -40,19 +43,21 @@ export const Router: React.FC = () => {
 				<div
 					className={`flex h-svh w-screen flex-col-reverse justify-between lg:flex-row ${
 						treeId && "bg-white"
-					} lg:bg-transparent ${isSplashScreenVisible && "backdrop-brightness-90"}`}
+					} lg:bg-transparent ${isSplashScreenVisible() && "backdrop-brightness-90"}`}
 				>
 					<div
 						className={`${isFilterViewVisible && "bg-white rounded-t-lg sm:bg-transparent"}`}
 					>
-						<div className={`${treeId ? "hidden" : "block sm:hidden"}`}>
+						<div
+							className={`${treeId ? "hidden" : "block sm:hidden max-h-[calc(100svh-150px)] overflow-y-auto"}`}
+						>
 							{isFilterViewVisible && <Filter />}
 						</div>
 						<Navbar />
 					</div>
 
-					{!isSplashScreenVisible && isMapLoaded && (
-						<div className="mt-2 flex w-full flex-row justify-center">
+					{!isSplashScreenVisible() && isMapLoaded && (
+						<div className="mt-3 flex w-full flex-row justify-center">
 							<div
 								className={`${
 									treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
@@ -70,10 +75,9 @@ export const Router: React.FC = () => {
 							</div>
 						</div>
 					)}
+					<Legend />
 					{treeId && isMapLoaded && <TreeDetail />}
-					{isSplashScreenVisible && (
-						<Splash onClose={() => setIsSplashScreenVisible(false)} />
-					)}
+					{isSplashScreenVisible() && <Splash />}
 				</div>
 			);
 		case "/profile/reset-password":

@@ -17,7 +17,7 @@ export function useWaterTree(): WaterTreeState {
 
 	const access_token = useAuthStore((store) => store).session?.access_token;
 	const user = useAuthStore((store) => store).session?.user;
-	const { username, refreshUserWaterings } = useProfileStore();
+	const { refreshUserWaterings } = useProfileStore();
 	const { refreshTreeWateringData } = useTreeStore();
 
 	const abortController = new AbortController();
@@ -29,40 +29,36 @@ export function useWaterTree(): WaterTreeState {
 		}
 
 		const treeId = useTreeStore.getState().selectedTreeId;
+		const username = useProfileStore.getState().username;
 
 		if (!treeId) {
 			return;
 		}
 
-		try {
-			setWateringLoading(true);
-			const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/post/water`;
-			const res = await fetch(adoptUrl, {
-				method: "POST",
-				body: JSON.stringify({
-					amount: amount,
-					tree_id: treeId,
-					uuid: user?.id,
-					username,
-					timestamp: date.toISOString(),
-				}),
-				headers: {
-					Authorization: `Bearer ${access_token}`,
-					"Content-Type": "application/json",
-				},
-				signal: abortController.signal,
-			});
-			if (!res.ok) {
-				handleError(i18n.common.defaultErrorMessage);
-				setWateringLoading(false);
-			}
-			setWateringLoading(false);
-			await refreshUserWaterings();
-			await refreshTreeWateringData(treeId, abortController);
-		} catch (error) {
-			handleError(i18n.common.defaultErrorMessage, error);
+		setWateringLoading(true);
+		const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/post/water`;
+		const res = await fetch(adoptUrl, {
+			method: "POST",
+			body: JSON.stringify({
+				amount: amount,
+				tree_id: treeId,
+				uuid: user?.id,
+				username,
+				timestamp: date.toISOString(),
+			}),
+			headers: {
+				Authorization: `Bearer ${access_token}`,
+				"Content-Type": "application/json",
+			},
+			signal: abortController.signal,
+		});
+		if (!res.ok) {
+			handleError(i18n.common.defaultErrorMessage);
 			setWateringLoading(false);
 		}
+		setWateringLoading(false);
+		await refreshUserWaterings();
+		await refreshTreeWateringData(treeId, abortController);
 	};
 
 	const deleteWatering = async (wateringId: number) => {

@@ -2,20 +2,19 @@
 export enum TreeAgeClassification {
 	BABY = "BABY",
 	JUNIOR = "JUNIOR",
-	GROWNUP = "GROWNUP",
 	SENIOR = "SENIOR",
 	UNKNOWN = "UNKNOWN",
 }
 
 export interface TreeCoreData {
-	artbot: string;
-	artdtsch: string;
+	art_bot: string;
+	art_dtsch: string;
 	baumhoehe: string;
 	bezirk: string;
 	caretaker: string | null;
 	eigentuemer: string | null;
 	gattung: string;
-	gattungdeutsch: string;
+	gattung_deutsch: string;
 	id: string;
 	lat: string;
 	lng: string;
@@ -33,16 +32,22 @@ export interface TreeWateringData {
 	username: string;
 }
 
+export interface AccumulatedTreeWateringData {
+	[key: string]: number; // key is the tree id, value is the watering amount
+}
+
 export interface TreeWateringDataState {
 	rainSum: number;
 	wateringSum: number;
 	rainPercentage: number;
 	wateringPercentage: number;
+	otherWateringPercentage: number;
 	referenceWaterAmount: number;
 	stillMissingWater: number;
 	waterParts: ProgressPart[];
 	shouldBeWatered: boolean;
-	wateringColor: string;
+	userWateringColor: string;
+	otherWateringColor: string;
 	rainColor: string;
 }
 

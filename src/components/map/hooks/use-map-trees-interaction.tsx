@@ -9,6 +9,7 @@ import { useSelectedTree } from "./use-selected-tree";
 import { useTreeCircleStyle } from "./use-tree-circle-style";
 import { usePumpStore } from "./use-pump-store";
 import { useSearchStore } from "../../location-search/search-store";
+import { useProfileStore } from "../../../shared-stores/profile-store.tsx";
 
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { hideFilterView } = useFilterStore();
@@ -22,7 +23,9 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 	const {
 		isSomeFilterActive,
-		treeAgeIntervals,
+		treeAgeRange,
+		_areOnlyMyAdoptedTreesVisible,
+		areOnlyMyAdoptedTreesVisible,
 		lat,
 		lng,
 		zoom,
@@ -30,6 +33,8 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		setLng,
 		setZoom,
 	} = useFilterStore();
+
+	const { adoptedTrees } = useProfileStore();
 
 	const { filteredCircleColor } = useTreeCircleStyle();
 
@@ -48,18 +53,33 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			map.setPaintProperty(
 				"trees",
 				"circle-color",
-				filteredCircleColor(isSomeFilterActive(), treeAgeIntervals),
+				filteredCircleColor({
+					isSomeFilterActive: isSomeFilterActive(),
+					areOnlyMyAdoptedTreesVisible: areOnlyMyAdoptedTreesVisible(),
+					treeAgeRange,
+					adoptedTrees,
+				}),
 			);
 			return;
 		}
-		map.on("load", () => {
+		map.once("idle", () => {
 			map.setPaintProperty(
 				"trees",
 				"circle-color",
-				filteredCircleColor(isSomeFilterActive(), treeAgeIntervals),
+				filteredCircleColor({
+					isSomeFilterActive: isSomeFilterActive(),
+					areOnlyMyAdoptedTreesVisible: areOnlyMyAdoptedTreesVisible(),
+					treeAgeRange,
+					adoptedTrees,
+				}),
 			);
 		});
-	}, [map, treeAgeIntervals]);
+		/**
+		 * it is okay to use _areOnlyMyAdoptedTreesVisible in the dependency array, because:
+		 * 1. we can't use areOnlyMyAdoptedTreesVisible(), (which relies also on the loggedIn state!).
+		 * 2. If the loggedIn state would change, e.g. user logs out, ALL filters are reset.
+		 */
+	}, [map, _areOnlyMyAdoptedTreesVisible, treeAgeRange, adoptedTrees]);
 
 	useEffect(() => {
 		if (treeCoreData) {

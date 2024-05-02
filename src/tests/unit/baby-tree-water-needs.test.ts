@@ -26,14 +26,14 @@ test("should calculate correct water needs for baby tree", () => {
 		{
 			id: 3,
 			timestamp: new Date().toISOString(),
-			amount: 30,
+			amount: 15,
 			username: "test-user",
 			tree_id: "_22002d8af7",
 		},
 		{
 			id: 4,
 			timestamp: new Date().toISOString(),
-			amount: 40,
+			amount: 5,
 			username: "test-user",
 			tree_id: "_22002d8af7",
 		},
@@ -43,9 +43,9 @@ test("should calculate correct water needs for baby tree", () => {
 		id: "_22002d8af7",
 		lat: "13.54072",
 		lng: "52.57403",
-		artdtsch: "Kulturapfel",
-		artbot: "Malus domestica",
-		gattungdeutsch: "APFEL",
+		art_dtsch: "Kulturapfel",
+		art_bot: "Malus domestica",
+		gattung_deutsch: "APFEL",
 		gattung: "MALUS",
 		pflanzjahr: 2021,
 		standalter: "2",
@@ -99,16 +99,18 @@ test("should calculate correct water needs for baby tree", () => {
 		rainPercentage,
 		wateringSum,
 		wateringPercentage,
+		otherWateringPercentage,
 		referenceWaterAmount,
 		shouldBeWatered,
 		waterParts,
 	} = useTreeWaterNeedsData(treeData, waterings, treeAgeClassification);
 
-	expect(rainSum).toBe(2);
-	expect(wateringSum).toBe(100);
-	expect(referenceWaterAmount).toBe(200);
-	expect(rainPercentage).toBe(0.01);
-	expect(wateringPercentage).toBe(0.99);
+	expect(rainSum).toBe(15.3);
+	expect(wateringSum).toBe(50);
+	expect(referenceWaterAmount).toBe(100);
+	expect(rainPercentage).toBe(0.153);
+	expect(wateringPercentage).toBe(0.5);
+	expect(otherWateringPercentage).toBe(0.347);
 	expect(shouldBeWatered).toBe(false);
-	expect(waterParts.map((p) => p.progress)).toEqual([0.01, 0.99]);
+	expect(waterParts.map((p) => p.progress)).toEqual([0.153, 0.5, 0.347]);
 });

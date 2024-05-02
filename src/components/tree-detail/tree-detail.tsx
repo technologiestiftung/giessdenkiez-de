@@ -7,8 +7,6 @@ import { TreeAdoptCard } from "./tree-adopt-card";
 import { useTreeStore } from "./stores/tree-store";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { TreeWaterNeed } from "./tree-water-needs/tree-water-needs";
-import { TreeWaterNeedUnknown } from "./tree-water-needs/tree-water-need-unknown";
-import { TreeAgeClassification } from "./tree-types";
 import { useTreeAgeClassification } from "./hooks/use-tree-age-classification";
 import { LastWaterings } from "./last-waterings/last-waterings";
 import { ProblemCard } from "./problem-card";
@@ -44,7 +42,7 @@ export const TreeDetail: React.FC = () => {
 		useTreeAgeClassification(treeCoreData);
 	const treeTypeInfo = useMemo(() => {
 		return i18n.treeDetail.treeTypeInfos.find(
-			(treeType) => treeType.id === treeCoreData?.gattungdeutsch,
+			(treeType) => treeType.id === treeCoreData?.gattung_deutsch,
 		);
 	}, [treeCoreData, i18n]);
 
@@ -77,27 +75,16 @@ export const TreeDetail: React.FC = () => {
 						<TreeFlier info={treeTypeInfo.description}></TreeFlier>
 					)}
 					<TreeAge treeAge={treeAge} />
-					{(treeAgeClassification === TreeAgeClassification.BABY ||
-						treeAgeClassification === TreeAgeClassification.JUNIOR ||
-						treeAgeClassification === TreeAgeClassification.GROWNUP) && (
-						<TreeWaterNeed
-							treeData={treeCoreData}
-							treeAgeClassification={treeAgeClassification}
-							treeWateringData={treeWateringData}
-						/>
+
+					<TreeWaterNeed
+						treeData={treeCoreData}
+						treeAgeClassification={treeAgeClassification}
+						treeWateringData={treeWateringData}
+					/>
+
+					{treeCoreData && (
+						<LastWaterings treeWateringData={treeWateringData} />
 					)}
-					{(treeAgeClassification === TreeAgeClassification.UNKNOWN ||
-						treeAgeClassification === TreeAgeClassification.SENIOR) && (
-						<TreeWaterNeedUnknown
-							treeData={treeCoreData}
-							treeAgeClassification={treeAgeClassification}
-							treeWateringData={treeWateringData}
-						/>
-					)}
-					{treeCoreData &&
-						treeAgeClassification !== TreeAgeClassification.BABY && (
-							<LastWaterings treeWateringData={treeWateringData} />
-						)}
 					<ProblemCard />
 				</div>
 			) : (
