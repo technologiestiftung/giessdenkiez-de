@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { PrimaryButton } from "../buttons/primary";
 import { useFilterStore } from "./filter-store";
@@ -14,6 +14,18 @@ export const Filter: React.FC = () => {
 	const { isLoggedIn } = useAuthStore();
 	const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
+	useEffect(() => {
+		if (!isTooltipVisible) {
+			return () => {};
+		}
+
+		const timeoutId = setTimeout(() => {
+			setIsTooltipVisible(false);
+		}, 5000);
+
+		return () => clearTimeout(timeoutId);
+	}, [isTooltipVisible]);
+
 	const {
 		isPumpsVisible,
 		setShowPumps,
@@ -25,12 +37,6 @@ export const Filter: React.FC = () => {
 	const onToggleMyAdoptedTrees = () => {
 		if (!isLoggedIn()) {
 			setIsTooltipVisible(!isTooltipVisible);
-
-			if (isTooltipVisible) {
-				setTimeout(() => {
-					setIsTooltipVisible(false);
-				}, 5000);
-			}
 			return;
 		}
 		setAreOnlyMyAdoptedTreesVisible(!areOnlyMyAdoptedTreesVisible());
@@ -51,7 +57,7 @@ export const Filter: React.FC = () => {
 							isDisabled={!isLoggedIn()}
 						/>
 						{isTooltipVisible && (
-							<div className="absolute right-0 top-8 bg-red-100">
+							<div className="absolute right-0 top-8">
 								<Tooltip content={i18n.filter.tooltip} />
 							</div>
 						)}
