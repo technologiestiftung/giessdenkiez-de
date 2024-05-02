@@ -11,9 +11,9 @@ export const Legend: React.FC = () => {
 	const { isFilterViewVisible } = useFilterStore();
 	const { isMapLoaded } = useMapStore();
 
-	const isLegendVisibleDesktop =
-		!isSplashScreenVisible() && !selectedTreeId && isMapLoaded;
-	const isLegendVisibleMobile = isLegendVisibleDesktop && !isFilterViewVisible;
+	const isLegendVisibleDesktop = !isSplashScreenVisible() && isMapLoaded;
+	const isLegendVisibleMobile =
+		isLegendVisibleDesktop && !selectedTreeId && !isFilterViewVisible;
 
 	return (
 		<div
