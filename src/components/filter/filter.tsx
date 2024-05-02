@@ -22,6 +22,20 @@ export const Filter: React.FC = () => {
 		resetFilters,
 	} = useFilterStore();
 
+	const onToggleMyAdoptedTrees = () => {
+		if (!isLoggedIn()) {
+			setIsTooltipVisible(!isTooltipVisible);
+
+			if (isTooltipVisible) {
+				setTimeout(() => {
+					setIsTooltipVisible(false);
+				}, 5000);
+			}
+			return;
+		}
+		setAreOnlyMyAdoptedTreesVisible(!areOnlyMyAdoptedTreesVisible());
+	};
+
 	return (
 		<div className="flex flex-row w-full justify-center pointer-events-auto">
 			<div
@@ -32,21 +46,12 @@ export const Filter: React.FC = () => {
 					<div className="flex flex-col gap-2 relative">
 						<FilterSwitch
 							name={i18n.filter.myAdoptedTrees}
-							onToggle={() => {
-								if (!isLoggedIn()) {
-									setIsTooltipVisible(!isTooltipVisible);
-									console.log("SwitchButton disabled");
-									return;
-								}
-								setAreOnlyMyAdoptedTreesVisible(
-									!areOnlyMyAdoptedTreesVisible(),
-								);
-							}}
+							onToggle={onToggleMyAdoptedTrees}
 							isEnabled={areOnlyMyAdoptedTreesVisible()}
 							isDisabled={!isLoggedIn()}
 						/>
 						{isTooltipVisible && (
-							<div className="absolute right-0 top-8">
+							<div className="absolute right-0 top-8 bg-red-100">
 								<Tooltip content={i18n.filter.tooltip} />
 							</div>
 						)}
