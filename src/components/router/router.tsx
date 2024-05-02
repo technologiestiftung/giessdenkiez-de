@@ -49,7 +49,9 @@ export const Router: React.FC = () => {
 						className={`${isFilterViewVisible && "bg-white rounded-t-lg sm:bg-transparent"}`}
 					>
 						<div
-							className={`${treeId ? "hidden" : "block sm:hidden max-h-[calc(100svh-150px)] overflow-y-auto"}`}
+							className={
+								treeId ? "hidden" : "block sm:hidden max-h-[calc(100svh-150px)]"
+							}
 						>
 							{isFilterViewVisible && <Filter />}
 						</div>

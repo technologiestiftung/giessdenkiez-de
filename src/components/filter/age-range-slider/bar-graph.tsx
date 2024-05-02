@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { BarItem } from "./bar-item";
 import { getMaxCount, getTreesGroupByAge } from "./tree-age-grouped";
+import { useBarGraphHeight } from "./hooks/use-bar-graph-height.tsx";
 
 const TREES_GROUPED_BY_AGE = getTreesGroupByAge();
 const MAX_COUNT = getMaxCount();
@@ -25,14 +26,18 @@ export const BarGraph: React.FC<BarGraphProps> = ({ min, max }) => {
 
 	const yAxisLabelHeight = calculateBarPercentage(100000, MAX_COUNT);
 
+	const { height, translateYAxisIndicator } = useBarGraphHeight();
+
 	return (
-		<div className="w-full h-[90px] relative">
+		<div className="w-full relative" style={{ height: height }}>
 			<div className="flex flex-row gap-0.5 w-full h-full">
 				<div
 					className="w-full border border-[#DDDDDD] z-0 absolute"
 					style={{ bottom: yAxisLabelHeight }}
 				></div>
-				<span className="text-[#DDDDDD] -translate-y-0.5 font-semibold absolute right-0">
+				<span
+					className={`${translateYAxisIndicator} text-[#DDDDDD] font-semibold absolute right-0`}
+				>
 					100k
 				</span>
 				{barItems.map((ageGroup) => (
