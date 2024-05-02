@@ -4,6 +4,7 @@ import { AdoptedTreeIcon } from "../../icons/adopted-tree-icon";
 import { Skeleton } from "../../skeleton/skeleton";
 import { WateringCanIcon } from "../../icons/watering-can-icon";
 import { useProfileStore } from "../../../shared-stores/profile-store";
+import { DropIcon } from "../../icons/drop-icon";
 
 export const Overview: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -46,7 +47,9 @@ export const Overview: React.FC = () => {
 						<div className="shadow-gdk-soft flex flex-col justify-between gap-3 lg:w-1/3 rounded-2xl border-2 p-4 font-semibold ">
 							{i18n.navbar.profile.overview.liter}
 							<span className="flex items-baseline gap-x-5 text-5xl font-medium">
-								<img src="images/icon-drop.svg" alt="" className="w-5" />
+								<div className="text-gdk-watering-blue">
+									<DropIcon />
+								</div>
 								{formatNumber(wateringAmountTotal ?? 0)}
 							</span>
 						</div>

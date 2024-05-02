@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import {
 	TreeAgeClassification,
 	TreeCoreData,
@@ -22,7 +23,14 @@ export function useTreeWaterNeedsData(
 	const NUMBER_OF_DAYS_TO_LOOK_AT = 30;
 
 	// OTHER_WATERING_COLOR is the color for watering by groundwater and bezirksamt
-	const OTHER_WATERING_COLOR = fullConfig.theme.colors["gdk-light-blue"];
+	const GROUNDWATER_WATERING_COLOR =
+		fullConfig.theme.colors["gdk-groundwater-blue"];
+	const DISTRICT_WATERING_COLOR =
+		fullConfig.theme.colors["gdk-distric-watering-green"];
+	const OTHER_WATERING_COLOR =
+		treeAgeClassification === TreeAgeClassification.BABY
+			? DISTRICT_WATERING_COLOR
+			: GROUNDWATER_WATERING_COLOR;
 	const USER_WATERING_COLOR = fullConfig.theme.colors["gdk-watering-blue"];
 	const RAIN_COLOR = fullConfig.theme.colors["gdk-rain-blue"];
 
@@ -138,7 +146,7 @@ export function useTreeWaterNeedsData(
 		waterParts: waterParts(),
 		shouldBeWatered: shouldBeWatered(),
 		userWateringColor: USER_WATERING_COLOR,
-		otherWateringColor: OTHER_WATERING_COLOR,
+		otherWateringColor: GROUNDWATER_WATERING_COLOR,
 		rainColor: RAIN_COLOR,
 	};
 }
