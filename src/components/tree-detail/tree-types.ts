@@ -7,14 +7,14 @@ export enum TreeAgeClassification {
 }
 
 export interface TreeCoreData {
-	artbot: string;
-	artdtsch: string;
+	art_bot: string;
+	art_dtsch: string;
 	baumhoehe: string;
 	bezirk: string;
 	caretaker: string | null;
 	eigentuemer: string | null;
 	gattung: string;
-	gattungdeutsch: string;
+	gattung_deutsch: string;
 	id: string;
 	lat: string;
 	lng: string;

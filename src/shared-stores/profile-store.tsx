@@ -5,7 +5,7 @@ import { useAuthStore } from "../auth/auth-store";
 
 interface TreeInfo {
 	id: string;
-	artdtsch: string;
+	art_dtsch: string;
 	trees_watered: Array<{ id: string; amount: number }>;
 	totalWateringVolume: number;
 	totalWateringCount: number;
@@ -127,8 +127,8 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 			.from("trees")
 			.select(
 				`
-					id, 
-					artdtsch, 
+					id,
+					art_dtsch,
 					trees_watered ( id, amount)
 					`,
 			)
@@ -148,7 +148,7 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 
 			return {
 				id: tree.id,
-				artdtsch: tree.artdtsch,
+				art_dtsch: tree.art_dtsch,
 				trees_watered: tree.trees_watered,
 				totalWateringVolume,
 				totalWateringCount,
