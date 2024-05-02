@@ -17,9 +17,6 @@ test.describe("Login", () => {
 		test("should be able to log-in then log-out", async ({ page }) => {
 			await page.goto(`${baseUrl}/map`);
 
-			// close splash screen
-			await page.getByRole("button", { name: "Los geht's" }).click();
-
 			// Go to profile
 			await page.getByRole("link", { name: "Profil" }).click();
 

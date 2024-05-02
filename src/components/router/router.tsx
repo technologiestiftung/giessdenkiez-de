@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { useEffect } from "react";
 import { Filter } from "../filter/filter";
 import { useFilterStore } from "../filter/filter-store";
@@ -13,6 +14,7 @@ import { useUrlState } from "./store";
 import { Splash } from "../splash/splash";
 import { useMapStore } from "../map/map-store";
 import { useSplashStore } from "../splash/splash-store";
+import { Legend } from "../legend/legend";
 
 export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
@@ -46,7 +48,9 @@ export const Router: React.FC = () => {
 					<div
 						className={`${isFilterViewVisible && "bg-white rounded-t-lg sm:bg-transparent"}`}
 					>
-						<div className={`${treeId ? "hidden" : "block sm:hidden"}`}>
+						<div
+							className={`${treeId ? "hidden" : "block sm:hidden max-h-[calc(100svh-150px)] overflow-y-auto"}`}
+						>
 							{isFilterViewVisible && <Filter />}
 						</div>
 						<Navbar />
@@ -71,6 +75,7 @@ export const Router: React.FC = () => {
 							</div>
 						</div>
 					)}
+					<Legend />
 					{treeId && isMapLoaded && <TreeDetail />}
 					{isSplashScreenVisible() && <Splash />}
 				</div>
