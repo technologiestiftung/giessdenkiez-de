@@ -22,7 +22,7 @@ export function useTreeWaterNeedsData(
 	const NUMBER_OF_DAYS_TO_LOOK_AT = 30;
 
 	// OTHER_WATERING_COLOR is the color for watering by groundwater and bezirksamt
-	const OTHER_WATERING_COLOR = fullConfig.theme.colors["gdk-light-blue"];
+	const OTHER_WATERING_COLOR = fullConfig.theme.colors["gdk-groundwater-blue"];
 	const USER_WATERING_COLOR = fullConfig.theme.colors["gdk-watering-blue"];
 	const RAIN_COLOR = fullConfig.theme.colors["gdk-rain-blue"];
 

@@ -12,7 +12,7 @@ export const BarItem: React.FC<BarItemProps> = ({
 	return (
 		<>
 			<div
-				className={`flex-1 z-10 self-end rounded-t ${isActive ? "bg-gdk-baby-blue" : "bg-gdk-lighter-gray"}`}
+				className={`flex-1 z-10 self-end rounded-t ${isActive ? "bg-gdk-bar-blue" : "bg-gdk-lighter-gray"}`}
 				style={{ height: barPercentage }}
 			></div>
 		</>

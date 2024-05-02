@@ -158,7 +158,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 							{treeAgeClassification === TreeAgeClassification.SENIOR && (
 								<div className="flex flex-row items-center gap-4">
 									<div
-										className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-gdk-light-blue`}
+										className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-gdk-groundwater-blue`}
 									/>
 									<div className="flex flex-col">
 										<div className="font-bold">

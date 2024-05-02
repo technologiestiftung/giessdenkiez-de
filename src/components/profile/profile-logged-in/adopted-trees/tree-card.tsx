@@ -49,7 +49,7 @@ export const TreeCard: React.FC<TreeCardProps> = ({
 						<div className="text-gdk-dark-green">
 							<WateringCanIcon />
 						</div>
-						<div className="text-gdk-dark-blue">
+						<div className="text-gdk-watering-blue">
 							<DropIcon />
 						</div>
 					</div>
