@@ -27,6 +27,7 @@ export default {
 				"gdk-watering-blue": "#468AEF",
 				"gdk-groundwater-blue": "#7AEFF7",
 				"gdk-rain-blue": "#0B4295",
+				"gdk-distric-watering-green": "#4CDA3F",
 
 				"gdk-neon-green": "#3DF99A",
 				"gdk-tree-orange": "#FD9531",
