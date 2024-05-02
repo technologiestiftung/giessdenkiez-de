@@ -13,8 +13,8 @@ import { useLocationEventListener } from "./hooks/use-location-event-listener";
 import { useUrlState } from "./store";
 import { Splash } from "../splash/splash";
 import { useMapStore } from "../map/map-store";
-import { LegendButton } from "../buttons/legend-button";
 import { useSplashStore } from "../splash/splash-store";
+import { Legend } from "../legend/legend";
 
 export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
@@ -48,40 +48,34 @@ export const Router: React.FC = () => {
 					<div
 						className={`${isFilterViewVisible && "bg-white rounded-t-lg sm:bg-transparent"}`}
 					>
-						<div className={`${treeId ? "hidden" : "block sm:hidden"}`}>
+						<div
+							className={`${treeId ? "hidden" : "block sm:hidden max-h-[calc(100svh-150px)] overflow-y-auto"}`}
+						>
 							{isFilterViewVisible && <Filter />}
 						</div>
 						<Navbar />
 					</div>
 
 					{!isSplashScreenVisible() && isMapLoaded && (
-						<>
-							<div className="mt-3 flex w-full flex-row justify-center">
-								<div
-									className={`${
-										treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
-									} flex flex-col gap-4`}
-								>
-									<div className={`${treeId && "hidden lg:flex"}`}>
-										<LocationSearch />
-									</div>
+						<div className="mt-3 flex w-full flex-row justify-center">
+							<div
+								className={`${
+									treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
+								} flex flex-col gap-4`}
+							>
+								<div className={`${treeId && "hidden lg:flex"}`}>
+									<LocationSearch />
+								</div>
 
-									<div
-										className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
-									>
-										{isFilterViewVisible && <Filter />}
-									</div>
+								<div
+									className={`${treeId ? "hidden lg:flex" : "hidden sm:flex"}`}
+								>
+									{isFilterViewVisible && <Filter />}
 								</div>
 							</div>
-
-							<div
-								className={`left-[10px] bottom-[175px] absolute
-							md:bottom-[306px] lg:bottom-[242px] lg:left-[90px] ${(treeId || isFilterViewVisible) && "hidden lg:block"}`}
-							>
-								<LegendButton />
-							</div>
-						</>
+						</div>
 					)}
+					<Legend />
 					{treeId && isMapLoaded && <TreeDetail />}
 					{isSplashScreenVisible() && <Splash />}
 				</div>

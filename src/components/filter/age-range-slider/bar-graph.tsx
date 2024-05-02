@@ -20,7 +20,7 @@ export const BarGraph: React.FC<BarGraphProps> = ({ min, max }) => {
 			isActive: ageGroup.alter >= min && ageGroup.alter <= max,
 			barPercentage: calculateBarPercentage(ageGroup.count, MAX_COUNT),
 			id: ageGroup.alter,
-		}));
+		})).reverse();
 	}, [min, max]);
 
 	const yAxisLabelHeight = calculateBarPercentage(100000, MAX_COUNT);
@@ -35,7 +35,7 @@ export const BarGraph: React.FC<BarGraphProps> = ({ min, max }) => {
 				<span className="text-[#DDDDDD] -translate-y-0.5 font-semibold absolute right-0">
 					100k
 				</span>
-				{barItems.reverse().map((ageGroup) => (
+				{barItems.map((ageGroup) => (
 					<BarItem
 						key={ageGroup.id}
 						barPercentage={ageGroup.barPercentage}
