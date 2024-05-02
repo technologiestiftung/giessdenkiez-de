@@ -12,15 +12,16 @@ export const Legend: React.FC = () => {
 	const { isMapLoaded } = useMapStore();
 
 	const isLegendVisibleDesktop = !isSplashScreenVisible() && isMapLoaded;
-	const isLegendVisibleMobile =
-		isLegendVisibleDesktop && !selectedTreeId && !isFilterViewVisible;
+	const isLegendVisibleSM = isLegendVisibleDesktop && !selectedTreeId;
+	const isLegendVisibleMobile = isLegendVisibleSM && !isFilterViewVisible;
 
 	return (
 		<div
 			className={`
 			absolute left-[10px] bottom-[175px] md:bottom-[306px] lg:bottom-[242px] lg:left-[90px]
 		 	${isLegendVisibleMobile ? "block" : "hidden"}
-		 	${isLegendVisibleDesktop ? "lg:block" : "lg:hidden"}
+			${isLegendVisibleSM ? "sm:block" : "sm:hidden"}
+			${isLegendVisibleDesktop ? "lg:block" : "lg:hidden"}
 			`}
 		>
 			<LegendButton />
