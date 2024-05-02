@@ -84,7 +84,6 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	useEffect(() => {
 		if (treeCoreData) {
 			clearSearch();
-			setSelectedTreeId(treeCoreData.id);
 
 			if (easeToStartedByUserClick) {
 				return;
@@ -101,7 +100,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			});
 			return;
 		}
-	}, [treeCoreData, map]);
+	}, [treeCoreData]);
 
 	useEffect(() => {
 		if (!map) {
