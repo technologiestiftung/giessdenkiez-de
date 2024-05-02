@@ -215,11 +215,11 @@ The street and green space authorities are already active, but cannot keep up wi
 				},
 				{
 					question: "How do I water correctly?",
-					answer: `Depending on their age, location and tree species, trees need different amounts of water. Young trees (0-15 years) need more water than medium-aged trees (15-40 years). Old trees (40 years and older) are usually completely self-sufficient. 
-          
-Since freshly planted trees up to the age of three are usually supplied with water by the district parks authorities, the trees between four and 15 years in particular need our attention and our water.
-          
-Based on the Berlin [Manual Good Care](https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/katalog-good-care/), we recommend you to water rarely, but rather with a larger amount of water. The manual recommends up to 200l per watering for freshly planted trees. In this way, you ensure that the soil moisture is increased even at depth. In the end, even smaller amounts do not hurt, especially in midsummer. It is important to loosen the dried out soil before watering so that the water can penetrate into the soil and does not run off above ground or accumulate incorrectly. So-called watering bags are also recommended, from which the water only emerges very slowly, hardly runs off the surface and therefore continuously seeps into the ground.`,
+					answer: `
+Trees require different amounts of water depending on their age, location and species. Young trees (0-10 years) in particular are dependent on frequent waterings in times of drought, radiation and heat. Young trees between 5 and 10 years in particular need our attention, as freshly planted trees are cared for by the district green space authorities until they are around 4 years old.
+
+Based on the [Berlin manual - Good Care](https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/handbuch-gute-pflege), we recommend watering not too often, but rather with larger amounts of water. The handbook recommends up to 200 liters per watering for freshly planted trees. This ensures that the soil moisture is also increased at depth. It is important to loosen the dried out soil before watering so that the water can penetrate the soil and not run off above ground or accumulate incorrectly. So-called watering bags are also recommended, from which the water only emerges very slowly, hardly runs off the surface and therefore seeps continuously into the soil.
+					`,
 				},
 				{
 					question: "Who can I contact if pumps are broken or damaged?",
