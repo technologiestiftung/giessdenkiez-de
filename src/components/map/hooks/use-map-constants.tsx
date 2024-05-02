@@ -42,9 +42,9 @@ export function useMapConstants() {
 		},
 	];
 
-	// Our main breakpoint is 1024px, on desktop-like screens we want to offset the tree popup to the left
+	// Our main breakpoint is 1024px, on desktop-like screens we want to offset the tree circle to the left
 	// because the tree popup is displayed on the right side of the screen. On mobile-like screens we don't
-	// want to offset the tree popup, because the tree popup is displayed full screen.
+	// want to offset the tree circle, because the tree popup is displayed full screen.
 	const mapTreeZoomedInOffset = (windowWidth: number): PointLike => {
 		return windowWidth >= 1024
 			? ([-150, 0] as PointLike)
