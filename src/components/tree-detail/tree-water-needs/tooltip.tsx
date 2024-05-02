@@ -2,7 +2,7 @@ import React from "react";
 import Markdown from "react-markdown";
 
 interface TooltipProps {
-	title: string;
+	title?: string;
 	content: string;
 }
 export const Tooltip: React.FC<TooltipProps> = ({ title, content }) => {
@@ -12,7 +12,9 @@ export const Tooltip: React.FC<TooltipProps> = ({ title, content }) => {
 			id="adopt-tree-dialog"
 		>
 			<div className="font-bold">{title}</div>
-			<Markdown>{content}</Markdown>
+			<div className="pb-2">
+				<Markdown>{content}</Markdown>
+			</div>
 		</div>
 	);
 };
