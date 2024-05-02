@@ -14,7 +14,7 @@ import { useProfileStore } from "../../../shared-stores/profile-store.tsx";
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { hideFilterView } = useFilterStore();
 
-	const { MAP_MAX_ZOOM_LEVEL, MAP_TREE_ZOOMED_IN_OFFSET } = useMapConstants();
+	const { MAP_MAX_ZOOM_LEVEL, mapTreeZoomedInOffset } = useMapConstants();
 
 	const { setHoveredTreeId } = useHoveredTree(map);
 	const { setSelectedTreeId } = useSelectedTree(map);
@@ -96,7 +96,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 					zoom: MAP_MAX_ZOOM_LEVEL,
 					duration: 1500,
 					essential: true,
-					offset: MAP_TREE_ZOOMED_IN_OFFSET,
+					offset: mapTreeZoomedInOffset(window.innerWidth),
 				});
 			});
 			return;
@@ -167,7 +167,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				zoom: MAP_MAX_ZOOM_LEVEL,
 				essential: true,
 				duration: 1500,
-				offset: MAP_TREE_ZOOMED_IN_OFFSET,
+				offset: mapTreeZoomedInOffset(window.innerWidth),
 			});
 			map.once("moveend", () => {
 				setEaseToStartedByUserClick(false);

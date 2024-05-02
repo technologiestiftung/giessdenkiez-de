@@ -42,7 +42,14 @@ export function useMapConstants() {
 		},
 	];
 
-	const MAP_TREE_ZOOMED_IN_OFFSET = [-150, 0] as PointLike;
+	// Our main breakpoint is 1024px, on desktop-like screens we want to offset the tree popup to the left
+	// because the tree popup is displayed on the right side of the screen. On mobile-like screens we don't
+	// want to offset the tree popup, because the tree popup is displayed full screen.
+	const mapTreeZoomedInOffset = (windowWidth: number): PointLike => {
+		return windowWidth >= 1024
+			? ([-150, 0] as PointLike)
+			: ([0, 0] as PointLike);
+	};
 
 	// The link is stored in source code instead of environment variable, because of the required string interpolation of lat/lng/id which would be too complicated to handle in environment variables
 	const pumpUpdateLink = (id: number, lat: number, lng: number) => {
@@ -60,9 +67,9 @@ export function useMapConstants() {
 		MAP_CENTER_LAT,
 		MAP_PUMP_IMAGE_ICONS,
 		TREE_GRAY_COLOR,
-		MAP_TREE_ZOOMED_IN_OFFSET,
 		TREE_YELLOW_COLOR,
 		TREE_ORANGE_COLOR,
+		mapTreeZoomedInOffset,
 		pumpUpdateLink,
 	};
 }
