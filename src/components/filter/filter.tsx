@@ -15,11 +15,15 @@ export const Filter: React.FC = () => {
 	const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
 	useEffect(() => {
-		if (isTooltipVisible) {
-			setTimeout(() => {
-				setIsTooltipVisible(false);
-			}, 5000);
+		if (!isTooltipVisible) {
+			return () => {};
 		}
+
+		const timeoutId = setTimeout(() => {
+			setIsTooltipVisible(false);
+		}, 5000);
+
+		return () => clearTimeout(timeoutId);
 	}, [isTooltipVisible]);
 
 	const {
