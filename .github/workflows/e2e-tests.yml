@@ -16,6 +16,7 @@ on:
         default: false
 jobs:
   test:
+    if: github.actor != 'renovate[bot]'
     timeout-minutes: 60
     env:
       CI: true
