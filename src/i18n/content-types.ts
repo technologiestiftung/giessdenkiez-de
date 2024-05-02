@@ -249,6 +249,7 @@ interface Filter {
 	reset: string;
 	treeAgeTitle: string;
 	years: string;
+	tooltip: string;
 }
 
 interface Common {

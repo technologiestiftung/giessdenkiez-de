@@ -447,6 +447,7 @@ Particularly young trees need water in the first few years. Rather less often, b
 		reset: "Reset",
 		treeAgeTitle: "Tree age",
 		years: "years",
+		tooltip: "Log in to view your adopted trees on the map.",
 	},
 	common: {
 		defaultErrorMessage: "Something went wrong! Please try again later.",

@@ -451,6 +451,8 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		reset: "Zurücksetzen",
 		treeAgeTitle: "Alterspanne der Bäume",
 		years: "Jahre",
+		tooltip:
+			"Logge Dich ein, um Dir Deine adoptierten Bäume auf der Karte anzeigen zu lassen.",
 	},
 	common: {
 		defaultErrorMessage:

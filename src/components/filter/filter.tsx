@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { PrimaryButton } from "../buttons/primary";
 import { useFilterStore } from "./filter-store";
@@ -6,11 +6,13 @@ import { FilterSwitch } from "./filter-switch";
 import { TertiaryButton } from "../buttons/tertiary";
 import { AgeRangeSlider } from "./age-range-slider/age-range-slider";
 import { useAuthStore } from "../../auth/auth-store";
+import { Tooltip } from "../tree-detail/tree-water-needs/tooltip";
 
 export const Filter: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { hideFilterView } = useFilterStore();
 	const { isLoggedIn } = useAuthStore();
+	const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
 	const {
 		isPumpsVisible,
@@ -20,6 +22,20 @@ export const Filter: React.FC = () => {
 		resetFilters,
 	} = useFilterStore();
 
+	const onToggleMyAdoptedTrees = () => {
+		if (!isLoggedIn()) {
+			setIsTooltipVisible(!isTooltipVisible);
+
+			if (isTooltipVisible) {
+				setTimeout(() => {
+					setIsTooltipVisible(false);
+				}, 5000);
+			}
+			return;
+		}
+		setAreOnlyMyAdoptedTreesVisible(!areOnlyMyAdoptedTreesVisible());
+	};
+
 	return (
 		<div className="flex flex-row w-full justify-center pointer-events-auto">
 			<div
@@ -27,17 +43,17 @@ export const Filter: React.FC = () => {
 			>
 				<div className="flex flex-col gap-2">
 					<div className="font-semibold text-xl">{i18n.filter.title}</div>
-					<div className="flex flex-col gap-2">
-						{isLoggedIn() && (
-							<FilterSwitch
-								name={i18n.filter.myAdoptedTrees}
-								onToggle={() => {
-									setAreOnlyMyAdoptedTreesVisible(
-										!areOnlyMyAdoptedTreesVisible(),
-									);
-								}}
-								isEnabled={areOnlyMyAdoptedTreesVisible()}
-							/>
+					<div className="flex flex-col gap-2 relative">
+						<FilterSwitch
+							name={i18n.filter.myAdoptedTrees}
+							onToggle={onToggleMyAdoptedTrees}
+							isEnabled={areOnlyMyAdoptedTreesVisible()}
+							isDisabled={!isLoggedIn()}
+						/>
+						{isTooltipVisible && (
+							<div className="absolute right-0 top-8 bg-red-100">
+								<Tooltip content={i18n.filter.tooltip} />
+							</div>
 						)}
 						<FilterSwitch
 							name={i18n.filter.publicPumps}
