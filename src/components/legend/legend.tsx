@@ -20,7 +20,7 @@ export const Legend: React.FC = () => {
 			className={`
 			absolute left-[10px] bottom-[175px] md:bottom-[306px] lg:bottom-[242px] lg:left-[90px]
 		 	${isLegendVisibleMobile ? "block" : "hidden"}
-		 	${isLegendVisibleDesktop ? "sm:block" : "sm:hidden"}
+		 	${isLegendVisibleDesktop ? "lg:block" : "lg:hidden"}
 			`}
 		>
 			<LegendButton />
