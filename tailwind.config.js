@@ -32,7 +32,7 @@ export default {
 				"gdk-neon-green": "#3DF99A",
 				"gdk-tree-orange": "#FD9531",
 				"gdk-tree-yellow": "#FDE725",
-				"gdk-tree-gray": "#9E9FA0",
+				"gdk-tree-gray": "#CBCBCB",
 				"gdk-bar-blue": "#5695F4",
 			},
 			blur: {
