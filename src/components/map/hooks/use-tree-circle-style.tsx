@@ -29,9 +29,9 @@ export function useTreeCircleStyle() {
 		["linear"],
 		["zoom"],
 		10,
-		0.5,
-		20,
 		0.7,
+		20,
+		0.5,
 	] as Expression;
 
 	const circleStrokeColor = [

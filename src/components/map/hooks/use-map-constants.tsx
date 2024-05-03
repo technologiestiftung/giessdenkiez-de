@@ -12,7 +12,7 @@ export function useMapConstants() {
 	);
 	const TREE_DEFAULT_COLOR = fullConfig.theme.colors["gdk-neon-green"];
 
-	const TREE_GRAY_COLOR = fullConfig.theme.colors["gdk-light-gray"];
+	const TREE_GRAY_COLOR = fullConfig.theme.colors["gdk-tree-gray"];
 	const TREE_YELLOW_COLOR = fullConfig.theme.colors["gdk-tree-yellow"];
 	const TREE_ORANGE_COLOR = fullConfig.theme.colors["gdk-tree-orange"];
 
