@@ -21,7 +21,8 @@ export const TreeDetail: React.FC = () => {
 		state.url,
 		state.removeSearchParam,
 	]);
-	const { selectedTreeId, setSelectedTreeId } = useTreeStore();
+	const { selectedTreeId, setSelectedTreeId, setHoveredTreeId } =
+		useTreeStore();
 
 	const treeId = url.searchParams.get("treeId");
 	if (!treeId) {
@@ -46,18 +47,21 @@ export const TreeDetail: React.FC = () => {
 		);
 	}, [treeCoreData, i18n]);
 
+	const onClose = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+		e.preventDefault();
+		removeSearchParam("treeId");
+		setTreeCoreData(undefined);
+		setSelectedTreeId(undefined);
+		/**
+		 * We set the hovered tree id so users can see
+		 * which was the tree they just closed
+		 */
+		setHoveredTreeId(treeId);
+	};
+
 	return (
 		<div className="pointer-events-auto h-full bg-white rounded-l shadow-gdk-hard-up flex w-[100vw] flex-col gap-4 overflow-scroll p-5 lg:w-[400px] lg:min-w-[400px]">
-			<a
-				href="/map"
-				className="flex flex-row justify-end"
-				onClick={(e) => {
-					e.preventDefault();
-					removeSearchParam("treeId");
-					setTreeCoreData(undefined);
-					setSelectedTreeId(undefined);
-				}}
-			>
+			<a href="/map" className="flex flex-row justify-end" onClick={onClose}>
 				<CloseIcon />
 			</a>
 
