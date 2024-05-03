@@ -22,6 +22,7 @@ export const TreeDetail: React.FC = () => {
 		state.removeSearchParam,
 	]);
 	const { selectedTreeId, setSelectedTreeId } = useTreeStore();
+	const { setHoveredTreeId } = useTreeStore();
 
 	const treeId = url.searchParams.get("treeId");
 	if (!treeId) {
@@ -56,6 +57,11 @@ export const TreeDetail: React.FC = () => {
 					removeSearchParam("treeId");
 					setTreeCoreData(undefined);
 					setSelectedTreeId(undefined);
+					/**
+					 * We set the hovered tree id so users can see
+					 * which was the tree they just closed
+					 */
+					setHoveredTreeId(treeId);
 				}}
 			>
 				<CloseIcon />
