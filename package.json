@@ -15,11 +15,11 @@
 		"test:e2e": "playwright test"
 	},
 	"dependencies": {
-		"@supabase/supabase-js": "2.39.8",
-		"date-fns": "3.4.0",
-		"mapbox-gl": "3.2.0",
-		"react": "18.2.0",
-		"react-dom": "18.2.0",
+		"@supabase/supabase-js": "2.43.1",
+		"date-fns": "3.6.0",
+		"mapbox-gl": "3.3.0",
+		"react": "18.3.1",
+		"react-dom": "18.3.1",
 		"react-markdown": "9.0.1",
 		"react-share": "5.1.0",
 		"zustand": "4.5.2"
