@@ -124,6 +124,8 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		}
 		map.on("zoomend", () => {
 			setZoom(map.getZoom());
+			setLat(map.getCenter().lat);
+			setLng(map.getCenter().lng);
 		});
 		map.on("moveend", () => {
 			setLat(map.getCenter().lat);
