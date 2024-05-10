@@ -15,6 +15,8 @@ interface URLState {
 	removeSearchParam: (keyToRemove: string) => void;
 }
 
+let debounceTimeoutId: ReturnType<typeof setTimeout>;
+
 export const useUrlState = create<URLState>()((set, get) => ({
 	url: new URL(window.location.href),
 
@@ -44,8 +46,12 @@ export const useUrlState = create<URLState>()((set, get) => ({
 
 		set({ url });
 
-		window.history.pushState({}, "", url);
-		trackPageView();
+		clearTimeout(debounceTimeoutId);
+
+		debounceTimeoutId = setTimeout(() => {
+			window.history.pushState({}, "", url);
+			trackPageView();
+		}, 500);
 	},
 
 	addSearchParam: (key: string, value: string) => {
