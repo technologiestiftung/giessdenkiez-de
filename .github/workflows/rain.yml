@@ -25,7 +25,6 @@ jobs:
         run: |
           echo "ENVIRONMENT=${{ github.event.inputs.environment || github.event.client_payload.environment || 'development' }}" >> $GITHUB_OUTPUT
           echo "DWD_VERSION=${{ github.event.inputs.dwd_harvester_version || github.event.client_payload.dwd_harvester_version || 'latest' }}" >> $GITHUB_OUTPUT
-        id: setup-variables
       - name: Harvester
         # Using the payload of the repository_dispatch webhook or the workflow_dispatch inputs to specify the DWD Harvester version
         uses: technologiestiftung/giessdenkiez-de-dwd-harvester@${{ steps.setup-variables.outputs.DWD_VERSION }}
