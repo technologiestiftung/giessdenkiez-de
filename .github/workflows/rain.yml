@@ -14,7 +14,8 @@ jobs:
     name: Aggregate rain data from DWD radolan
     steps:
       - name: Harvester
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.4.0
+        # Using the payload of the repository_dispatch webhook to specify the DWD Harvester version
+        uses: "technologiestiftung/giessdenkiez-de-dwd-harvester@${{ github.event.client_payload.dwd_version }}"
         id: harvester
         with:
           PG_SERVER: ${{ secrets.PG_SERVER }}
