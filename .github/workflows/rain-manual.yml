@@ -14,7 +14,6 @@ on:
 
 jobs:
   rain:
-    # Using the payload of the repository_dispatch webhook to specify the environment
     environment: "${{ github.event.inputs.environment }}"
     runs-on: ubuntu-latest
     name: Aggregate rain data from DWD radolan
