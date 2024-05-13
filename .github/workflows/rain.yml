@@ -27,11 +27,11 @@ jobs:
         id: setup-variables
       - name: Harvester
         # Using the payload of the repository_dispatch webhook or the workflow_dispatch inputs to specify the DWD Harvester version
-        uses: "technologiestiftung/giessdenkiez-de-dwd-harvester@${{ env.DWD_VERSION }}"
+        uses: "technologiestiftung/giessdenkiez-de-dwd-harvester@$DWD_VERSION"
         id: harvester
         # Using the payload of the repository_dispatch webhook or the workflow_dispatch inputs to specify the environment
         env:
-          environment: ${{ env.ENVIRONMENT }}
+          environment: "$ENVIRONMENT"
         with:
           PG_SERVER: ${{ secrets.PG_SERVER }}
           PG_PORT: ${{ secrets.PG_PORT }}
