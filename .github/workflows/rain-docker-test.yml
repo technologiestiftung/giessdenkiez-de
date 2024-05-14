@@ -1,8 +1,9 @@
 name: DWD Radolan Harvester DOCKER TEST
 
 on:
-  branch:
-    - test/use-docker-image-no-build
+  push:
+    branches:
+      - test/use-docker-image-no-build
 
 jobs:
   rain:
