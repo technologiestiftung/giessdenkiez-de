@@ -288,6 +288,7 @@ Angelehnt an das Berliner [Handbuch Gute Pflege](https://www.berlin.de/sen/uvk/n
 		ageTitle: "Standalter",
 		age: (age: number) => `${age === 1 ? "Jahr" : "Jahre"}`,
 		ageUnknown: "Unbekannt",
+		treeTypeUnknown: "Baumart unbekannt",
 		managedBy:
 			"Dieser Baum wird bereits vom Bezirksamt versorgt und muss nicht gegossen werden.",
 		waterNeed: {

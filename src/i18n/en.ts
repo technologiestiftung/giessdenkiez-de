@@ -282,6 +282,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 		adoptLoginFirst: "Please log in first to adopt this tree",
 		age: (age: number) => `${age === 1 ? "year" : "years"}`,
 		ageUnknown: "Unknown",
+		treeTypeUnknown: "Tree species unknown",
 		managedBy:
 			"This tree is already being taken care of by the Berlin administration and does not need to be watered.",
 		waterNeed: {

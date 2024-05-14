@@ -51,7 +51,7 @@ export const AdoptedTrees: React.FC = () => {
 						.map((tree) => (
 							<TreeCard
 								id={tree.id}
-								name={tree.art_dtsch}
+								name={tree.art_dtsch || i18n.treeDetail.treeTypeUnknown}
 								totalWateringVolume={tree.totalWateringVolume}
 								totalWateringCount={tree.totalWateringCount}
 								key={tree.id}
@@ -61,7 +61,7 @@ export const AdoptedTrees: React.FC = () => {
 					adoptedTreesInfo.map((tree) => (
 						<TreeCard
 							id={tree.id}
-							name={tree.art_dtsch}
+							name={tree.art_dtsch || i18n.treeDetail.treeTypeUnknown}
 							totalWateringVolume={tree.totalWateringVolume}
 							totalWateringCount={tree.totalWateringCount}
 							key={tree.id}
