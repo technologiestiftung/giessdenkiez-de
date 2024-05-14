@@ -92,7 +92,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 			map?.once("idle", () => {
 				map.easeTo({
-					center: [parseFloat(treeCoreData.lat), parseFloat(treeCoreData.lng)],
+					center: treeCoreData.geom.coordinates,
 					zoom: MAP_MAX_ZOOM_LEVEL,
 					duration: 1500,
 					essential: true,

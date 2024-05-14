@@ -30,7 +30,9 @@ export function useTreeAgeClassification(
 		if (!treeData) {
 			return undefined;
 		}
-		return treeData.pflanzjahr === 0
+		return treeData.pflanzjahr === 0 ||
+			treeData.pflanzjahr === null ||
+			treeData.pflanzjahr === undefined
 			? undefined
 			: new Date().getFullYear() - treeData.pflanzjahr;
 	};
