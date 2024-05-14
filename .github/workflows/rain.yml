@@ -2,10 +2,11 @@ name: DWD Radolan Harvester Unified
 
 on:
   workflow_dispatch:
-    environment:
-      description: "Environment (e.g. development or production)"
-      required: true
-      type: string
+    inputs:
+      environment:
+        description: "Environment (e.g. development or production)"
+        required: true
+        type: string
   repository_dispatch:
     # This action can be triggered via Github API webook (see https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch)
     types: [radolan_cron]
