@@ -7,8 +7,11 @@ on:
         description: "Environment (e.g. development or production)"
         required: true
         type: string
+      dwd_harvester_version:
+        description: "Version of the DWD Harvester Docker Image"
+        required: true
+        type: string
   repository_dispatch:
-    # This action can be triggered via Github API webook (see https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch)
     types: [radolan_cron]
 
 jobs:
@@ -16,18 +19,36 @@ jobs:
     runs-on: ubuntu-latest
     name: Aggregate rain data from DWD radolan
     steps:
-      - name: Set Up Variables
-        id: "setup-variables"
-        run: echo "ENVIRONMENT=${{ github.event.inputs.environment || github.event.client_payload.environment || 'development' }}" >> $GITHUB_ENV
-      - name: Harvester
-        # Using the payload of the repository_dispatch webhook or the workflow_dispatch inputs to specify the DWD Harvester version
-        # Note: in "uses" key, no string interpolation with variables is possible
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@2.4.1
-        id: harvester
-        # Using the payload of the repository_dispatch webhook or the workflow_dispatch inputs to specify the environment
-        env:
-          environment: ${{ env.ENVIRONMENT }}
+      - name: Harvester (manual trigger)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        uses: "technologiestiftung/giessdenkiez-de-dwd-harvester@${{ github.event.inputs.dwd_harvester_version }}"
+        id: harvester_manual
         with:
+          environment: ${{ github.event.inputs.environment }}
+          PG_SERVER: ${{ secrets.PG_SERVER }}
+          PG_PORT: ${{ secrets.PG_PORT }}
+          PG_USER: ${{ secrets.PG_USER }}
+          PG_PASS: ${{ secrets.PG_PASS }}
+          PG_DB: ${{ secrets.PG_DB }}
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_BUCKET_NAME: ${{ vars.SUPABASE_DATA_ASSETS_BUCKET }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          OUTPUT: "True"
+          LOGGING: "INFO"
+          MAPBOXUSERNAME: ${{ secrets.MAPBOXUSERNAME }}
+          MAPBOXTOKEN: ${{ secrets.MAPBOXTOKEN }}
+          MAPBOXTILESET: ${{ secrets.MAPBOXTILESET }}
+          MAPBOXLAYERNAME: ${{ secrets.MAPBOXLAYERNAME }}
+          SKIP_MAPBOX: "False"
+          LIMIT_DAYS: ${{ vars.LIMIT_DAYS }}
+          SURROUNDING_SHAPE_FILE: ${{ vars.SURROUNDING_SHAPE_FILE }}
+
+      - name: Harvester (repository trigger)
+        if: ${{ github.event_name == 'repository_dispatch' }}
+        uses: "technologiestiftung/giessdenkiez-de-dwd-harvester@${{ github.event.client_payload.dwd_harvester_version }}"
+        id: harvester_repo
+        with:
+          environment: ${{ github.event.client_payload.environment }}
           PG_SERVER: ${{ secrets.PG_SERVER }}
           PG_PORT: ${{ secrets.PG_PORT }}
           PG_USER: ${{ secrets.PG_USER }}
