@@ -52,7 +52,9 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 	return (
 		<div className="shadow-gdk-hard flex flex-col gap-4 rounded-lg bg-slate-100 p-4">
 			<div className="flex flex-row items-center justify-between text-xl">
-				<div className="font-bold">{treeData.art_dtsch}</div>
+				<div className="font-bold">
+					{treeData.art_dtsch || i18n.treeDetail.treeTypeUnknown}
+				</div>
 				<AdoptButton treeId={treeData.id}></AdoptButton>
 			</div>
 			<div className="flex flex-col gap-4">

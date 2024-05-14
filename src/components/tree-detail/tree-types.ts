@@ -22,6 +22,9 @@ export interface TreeCoreData {
 	radolan_days: number[];
 	radolan_sum: number;
 	standalter: string | null;
+	geom: {
+		coordinates: [number, number];
+	};
 }
 
 export interface TreeWateringData {

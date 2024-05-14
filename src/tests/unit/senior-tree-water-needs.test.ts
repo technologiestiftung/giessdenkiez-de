@@ -39,6 +39,9 @@ test("should calculate correct water needs for senior tree", () => {
 		bezirk: "Treptow-Köpenick",
 		eigentuemer: "Land Berlin",
 		radolan_sum: 214,
+		geom: {
+			coordinates: [13.46627, 52.48992],
+		},
 		radolan_days: [
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 4, 2, 3, 5, 7, 7, 0, 3, 5, 7,
 			3, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

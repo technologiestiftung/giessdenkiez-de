@@ -14,7 +14,7 @@ export const TreeAge: React.FC<TreeAgeProps> = ({ treeAge }) => {
 				<TreeAgeIcon />
 				<div className="">{i18n.treeDetail.ageTitle}</div>
 			</div>
-			{treeAge ? (
+			{treeAge !== undefined && treeAge !== null ? (
 				<div>
 					<span data-testid="age">{treeAge}</span>{" "}
 					{i18n.treeDetail.age(treeAge)}

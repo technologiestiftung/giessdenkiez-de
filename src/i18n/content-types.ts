@@ -232,6 +232,7 @@ interface TreeDetail {
 	adoptLoginFirst: string;
 	age: (age: number) => string;
 	ageUnknown: string;
+	treeTypeUnknown: string;
 	waterNeed: WaterNeed;
 	lastWaterings: LastWaterings;
 	problem: Problem;
