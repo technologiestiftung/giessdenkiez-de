@@ -1,4 +1,4 @@
-name: DWD Radolan Harvester
+name: DWD Radolan Harvester Unified
 
 on:
   workflow_dispatch:
