@@ -19,9 +19,9 @@ jobs:
     name: Aggregate rain data from DWD radolan
     steps:
       - name: Harvester
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.4.1
+        uses: docker://technologiestiftung/giessdenkiez-de-dwd-harvester:v2.4.1
         id: harvester
-        with:
+        env:
           PG_SERVER: ${{ secrets.PG_SERVER }}
           PG_PORT: ${{ secrets.PG_PORT }}
           PG_USER: ${{ secrets.PG_USER }}
