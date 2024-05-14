@@ -1,32 +1,25 @@
-name: DWD Radolan Harvester Unified
+name: DWD Radolan Harvester
 
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: "Environment (e.g. development or production)"
-        required: true
-        type: string
+    environment:
+      description: "Environment (e.g. development or production)"
+      required: true
+      type: string
   repository_dispatch:
     # This action can be triggered via Github API webook (see https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch)
     types: [radolan_cron]
 
 jobs:
   rain:
+    # Using the payload of the repository_dispatch webhook to specify the environment
+    environment: "${{ github.event.inputs.environment || github.event.client_payload.environment }}"
     runs-on: ubuntu-latest
     name: Aggregate rain data from DWD radolan
     steps:
-      - name: Set Up Variables
-        id: "setup-variables"
-        run: echo "ENVIRONMENT=${{ github.event.inputs.environment || github.event.client_payload.environment || 'development' }}" >> $GITHUB_ENV
       - name: Harvester
-        # Using the payload of the repository_dispatch webhook or the workflow_dispatch inputs to specify the DWD Harvester version
-        # Note: in "uses" key, no string interpolation with variables is possible
         uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.4.1
         id: harvester
-        # Using the payload of the repository_dispatch webhook or the workflow_dispatch inputs to specify the environment
-        env:
-          environment: ${{ steps.setup-variables.outputs.ENVIRONMENT }}
         with:
           PG_SERVER: ${{ secrets.PG_SERVER }}
           PG_PORT: ${{ secrets.PG_PORT }}
