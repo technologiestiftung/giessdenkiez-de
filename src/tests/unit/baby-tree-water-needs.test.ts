@@ -53,6 +53,9 @@ test("should calculate correct water needs for baby tree", () => {
 		bezirk: "Lichtenberg",
 		eigentuemer: "Land Berlin",
 		radolan_sum: 153,
+		geom: {
+			coordinates: [13.54072, 52.57403],
+		},
 		radolan_days: [
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 3, 1, 0, 2, 6, 9, 0, 1, 0, 4,
 			4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
