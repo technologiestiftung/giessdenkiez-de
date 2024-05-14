@@ -22,7 +22,7 @@ jobs:
       - name: Harvester
         # Using the payload of the repository_dispatch webhook or the workflow_dispatch inputs to specify the DWD Harvester version
         # Note: in "uses" key, no string interpolation with variables is possible
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@2.4.1
+        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.4.1
         id: harvester
         # Using the payload of the repository_dispatch webhook or the workflow_dispatch inputs to specify the environment
         env:
