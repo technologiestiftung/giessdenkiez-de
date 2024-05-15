@@ -125,20 +125,24 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 	},
 	todaysWaterings: {},
 	loadTodaysWaterings: async () => {
-		const wateredTodayUrl = `${import.meta.env.VITE_API_ENDPOINT}/get/wateredtoday`;
-		const response = await fetch(wateredTodayUrl, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		const todayAtMidnight = new Date();
+		todayAtMidnight.setHours(0, 0, 0, 0);
 
-		if (response.status !== 200) {
+		const { data: waterings, error: wateringsError } = await supabaseClient
+			.from("trees_watered")
+			.select("*")
+			.gte("timestamp", todayAtMidnight.toISOString());
+
+		if (wateringsError) {
 			throw new Error("Failed to fetch today's waterings");
 		}
 
-		const wateringsTodayGroupedByTree = await response.json();
+		const groupedByTreeId = (waterings ?? []).reduce((acc, watering) => {
+			const { tree_id, amount } = watering;
+			acc[tree_id] = (acc[tree_id] || 0) + amount;
+			return acc;
+		}, {});
 
-		set({ todaysWaterings: wateringsTodayGroupedByTree });
+		set({ todaysWaterings: groupedByTreeId });
 	},
 }));
