@@ -28,7 +28,6 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	amountOfAdoptions: 0,
 	adoptTree: async (treeId) => {
 		const abortController = new AbortController();
-		const access_token = useAuthStore.getState().session?.access_token;
 		const user = useAuthStore.getState().session?.user;
 		const i18n = useI18nStore.getState().i18n();
 

@@ -58,7 +58,7 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 	setTreeCoreData: (treeCoreData) => {
 		set({ treeCoreData });
 	},
-	refreshTreeCoreData: async (treeId, abortController) => {
+	refreshTreeCoreData: async (treeId) => {
 		get().setTreeCoreData(undefined);
 
 		if (!treeId) {
@@ -82,7 +82,7 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 	setTreeWateringData: (treeWateringData) => {
 		set({ treeWateringData });
 	},
-	refreshTreeWateringData: async (treeId, abortController) => {
+	refreshTreeWateringData: async (treeId) => {
 		get().setTreeWateringData([]);
 
 		if (!treeId) {
