@@ -58,7 +58,7 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 	setTreeCoreData: (treeCoreData) => {
 		set({ treeCoreData });
 	},
-	refreshTreeCoreData: async (treeId) => {
+	refreshTreeCoreData: async (treeId, abortController) => {
 		get().setTreeCoreData(undefined);
 
 		if (!treeId) {
@@ -68,7 +68,8 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 		const { data, error } = await supabaseClient
 			.from("trees")
 			.select("*")
-			.eq("id", treeId);
+			.eq("id", treeId)
+			.abortSignal(abortController.signal);
 
 		if (error) {
 			throw new Error("Failed to fetch tree core data");
@@ -82,7 +83,7 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 	setTreeWateringData: (treeWateringData) => {
 		set({ treeWateringData });
 	},
-	refreshTreeWateringData: async (treeId) => {
+	refreshTreeWateringData: async (treeId, abortController) => {
 		get().setTreeWateringData([]);
 
 		if (!treeId) {
@@ -93,7 +94,8 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 			.from("trees_watered")
 			.select("*")
 			.eq("tree_id", treeId)
-			.order("id", { ascending: false });
+			.order("id", { ascending: false })
+			.abortSignal(abortController.signal);
 
 		if (error) {
 			throw new Error("Failed to fetch tree watering data");
@@ -129,17 +131,16 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 		todayAtMidnight.setHours(0, 0, 0, 0);
 
 		const { data: waterings, error: wateringsError } = await supabaseClient
-			.from("trees_watered")
-			.select("*")
-			.gte("timestamp", todayAtMidnight.toISOString());
+			.rpc("watered_today")
+			.select("*");
 
 		if (wateringsError) {
 			throw new Error("Failed to fetch today's waterings");
 		}
 
 		const groupedByTreeId = (waterings ?? []).reduce((acc, watering) => {
-			const { tree_id, amount } = watering;
-			acc[tree_id] = (acc[tree_id] || 0) + amount;
+			const { tree_id, total_amount } = watering;
+			acc[tree_id] = total_amount;
 			return acc;
 		}, {});
 
