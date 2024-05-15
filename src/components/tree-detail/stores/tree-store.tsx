@@ -6,6 +6,7 @@ import {
 	TreeWateringData,
 } from "../tree-types";
 import { useTreeAdoptStore } from "./adopt-tree-store";
+import { supabaseClient } from "../../../auth/supabase-client";
 
 interface TreeStore {
 	refreshTreeData: (
@@ -64,24 +65,16 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 			return;
 		}
 
-		const getTreeByIdUrl = `${
-			import.meta.env.VITE_API_ENDPOINT
-		}/get/byid?id=${treeId}`;
+		const { data, error } = await supabaseClient
+			.from("trees")
+			.select("*")
+			.eq("id", treeId);
 
-		const res = await fetch(getTreeByIdUrl, {
-			method: "GET",
-			headers: {
-				Authorization: `Bearer ${import.meta.env.VITE_ANON_KEY}`,
-				"Content-Type": "application/json",
-			},
-			signal: abortController.signal,
-		});
-
-		if (!res.ok) {
+		if (error) {
 			throw new Error("Failed to fetch tree core data");
 		}
 
-		const treeCoreData = (await res.json()).data[0];
+		const treeCoreData = data[0];
 		get().setTreeCoreData(treeCoreData);
 	},
 
@@ -96,24 +89,17 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 			return;
 		}
 
-		const lastWateredUrl = `${
-			import.meta.env.VITE_API_ENDPOINT
-		}/get/lastwatered?id=${treeId}`;
+		const { data, error } = await supabaseClient
+			.from("trees_watered")
+			.select("*")
+			.eq("tree_id", treeId)
+			.order("id", { ascending: false });
 
-		const res = await fetch(lastWateredUrl, {
-			method: "GET",
-			headers: {
-				Authorization: `Bearer ${import.meta.env.VITE_ANON_KEY}`,
-				"Content-Type": "application/json",
-			},
-			signal: abortController.signal,
-		});
-
-		if (!res.ok) {
+		if (error) {
 			throw new Error("Failed to fetch tree watering data");
 		}
 
-		const treeWateringData: TreeWateringData[] = (await res.json()).data;
+		const treeWateringData: TreeWateringData[] = data;
 		// Workaround to sort the data by id, because timestamps do not have a time value set
 		// e.g. 2024-04-25 00:00:00+00
 		const sortedTreeWateringData = treeWateringData.sort((a, b) => b.id - a.id);

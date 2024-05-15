@@ -188,27 +188,17 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 		}
 
 		const userId = useAuthStore.getState().session?.user.id;
-		const accessToken = useAuthStore.getState().session?.access_token;
 
-		const wateredByUserUrl = `${
-			import.meta.env.VITE_API_ENDPOINT
-		}/get/wateredbyuser?uuid=${userId}`;
+		const { data, error } = await supabaseClient
+			.from("trees_watered")
+			.select("*")
+			.eq("uuid", userId);
 
-		const response = await fetch(wateredByUserUrl, {
-			method: "POST",
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-				"Content-Type": "application/json",
-			},
-		});
-
-		if (!response.ok) {
+		if (error) {
 			throw new Error("Failed to fetch wateredbyuser data");
 		}
 
-		const wateredByUser = (await response.json()).data;
-
-		set({ userWaterings: wateredByUser });
+		set({ userWaterings: data });
 
 		/**
 		 * we also need to refresh the adoptedTreeInfo as they base

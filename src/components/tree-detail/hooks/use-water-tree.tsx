@@ -4,6 +4,7 @@ import { useErrorStore } from "../../../error/error-store";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useTreeStore } from "../stores/tree-store";
 import { useProfileStore } from "../../../shared-stores/profile-store";
+import { supabaseClient } from "../../../auth/supabase-client";
 
 export interface WaterTreeState {
 	isLoading: boolean;
@@ -36,23 +37,19 @@ export function useWaterTree(): WaterTreeState {
 		}
 
 		setWateringLoading(true);
-		const adoptUrl = `${import.meta.env.VITE_API_ENDPOINT}/post/water`;
-		const res = await fetch(adoptUrl, {
-			method: "POST",
-			body: JSON.stringify({
+
+		const { error } = await supabaseClient
+			.from("trees_watered")
+			.insert({
 				amount: amount,
 				tree_id: treeId,
 				uuid: user?.id,
 				username,
 				timestamp: date.toISOString(),
-			}),
-			headers: {
-				Authorization: `Bearer ${access_token}`,
-				"Content-Type": "application/json",
-			},
-			signal: abortController.signal,
-		});
-		if (!res.ok) {
+			})
+			.select("*");
+
+		if (error) {
 			handleError(i18n.common.defaultErrorMessage);
 			setWateringLoading(false);
 		}
