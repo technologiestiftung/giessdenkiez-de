@@ -190,9 +190,8 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 		const userId = useAuthStore.getState().session?.user.id;
 
 		const { data, error } = await supabaseClient
-			.from("trees_watered")
-			.select("*")
-			.eq("uuid", userId);
+			.rpc("waterings_for_user", { u_id: userId })
+			.select("*");
 
 		if (error) {
 			throw new Error("Failed to fetch wateredbyuser data");

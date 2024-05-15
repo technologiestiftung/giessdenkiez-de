@@ -89,11 +89,9 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 		if (!treeId) {
 			return;
 		}
-
 		const { data, error } = await supabaseClient
-			.from("trees_watered")
+			.rpc("waterings_for_tree", { t_id: treeId })
 			.select("*")
-			.eq("tree_id", treeId)
 			.order("id", { ascending: false })
 			.abortSignal(abortController.signal);
 
