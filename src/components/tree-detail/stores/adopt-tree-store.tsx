@@ -37,12 +37,10 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 		try {
 			set({ isLoading: true });
 
-			const { data, error } = await supabaseClient
+			const { error } = await supabaseClient
 				.from("trees_adopted")
 				.insert({ uuid: user?.id, tree_id: treeId })
 				.select("*");
-
-			console.log(data, error);
 
 			if (error) {
 				handleError(i18n.treeDetail.adoptErrorMessage);
