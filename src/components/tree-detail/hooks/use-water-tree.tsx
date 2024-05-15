@@ -16,7 +16,6 @@ export function useWaterTree(): WaterTreeState {
 	const i18n = useI18nStore().i18n();
 	const handleError = useErrorStore().handleError;
 
-	const access_token = useAuthStore((store) => store).session?.access_token;
 	const user = useAuthStore((store) => store).session?.user;
 	const { refreshUserWaterings } = useProfileStore();
 	const { refreshTreeWateringData } = useTreeStore();
@@ -72,21 +71,12 @@ export function useWaterTree(): WaterTreeState {
 		try {
 			setWateringLoading(true);
 
-			const deleteWateringUrl = `${import.meta.env.VITE_API_ENDPOINT}/delete/unwater`;
-			const res = await fetch(deleteWateringUrl, {
-				method: "DELETE",
-				body: JSON.stringify({
-					tree_id: treeId,
-					watering_id: wateringId,
-					uuid: user?.id,
-				}),
-				headers: {
-					Authorization: `Bearer ${access_token}`,
-					"Content-Type": "application/json",
-				},
-				signal: abortController.signal,
-			});
-			if (!res.ok) {
+			const { error } = await supabaseClient
+				.from("trees_watered")
+				.delete()
+				.eq("id", wateringId);
+
+			if (error) {
 				handleError(i18n.common.defaultErrorMessage);
 				setWateringLoading(false);
 				return;
