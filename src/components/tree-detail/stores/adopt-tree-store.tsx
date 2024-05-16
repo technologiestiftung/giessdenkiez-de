@@ -39,8 +39,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 
 			const { error } = await supabaseClient
 				.from("trees_adopted")
-				.insert({ uuid: user?.id, tree_id: treeId })
-				.select("*");
+				.insert({ uuid: user?.id, tree_id: treeId });
 
 			if (error) {
 				handleError(i18n.treeDetail.adoptErrorMessage);
@@ -74,8 +73,8 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 				.eq("tree_id", treeId);
 
 			if (error) {
-				set({ isLoading: false });
 				handleError(i18n.treeDetail.adoptErrorMessage);
+				set({ isLoading: false });
 				return;
 			}
 			set({ isLoading: false });
@@ -89,6 +88,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 
 	refreshIsTreeAdoptedByOthers: async (treeId, abortController) => {
 		set({ amountOfAdoptions: 0 });
+		const i18n = useI18nStore.getState().i18n();
 
 		if (!treeId) {
 			return;
@@ -100,24 +100,17 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 				.order("tree_id", { ascending: true });
 
 			if (error) {
-				throw new Error(
-					"Failed to fetch data watered and adopted (community data)",
-				);
+				handleError(i18n.common.defaultErrorMessage, error);
+				return;
 			}
 
-			const dataRes = (data ?? []) as {
-				tree_id: string;
-				adopted: number;
-			}[];
-
-			const foundTree = dataRes.find(({ tree_id }) => tree_id === treeId);
+			const foundTree = data.find(({ tree_id }) => tree_id === treeId);
 
 			set({ amountOfAdoptions: foundTree?.adopted || 0 });
 		} catch (error) {
 			if (abortController.signal.aborted) {
 				return;
 			}
-			const i18n = useI18nStore.getState().i18n();
 			handleError(i18n.common.defaultErrorMessage, error);
 			return;
 		}
