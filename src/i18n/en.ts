@@ -488,7 +488,7 @@ Particularly young trees need water in the first few years. Rather less often, b
 	},
 	loading: {
 		mapLoading:
-			"We are currently loading 839,049 trees from the Berlin tree population.",
+			"We are currently loading 885,825 trees from the Berlin tree population.",
 		treeLoading: "Loading tree information...",
 	},
 };

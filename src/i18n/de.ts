@@ -497,7 +497,7 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		letsGo: "Los geht's",
 	},
 	loading: {
-		mapLoading: "Wir laden gerade 839.049 Bäume aus dem Berliner Baumbestand.",
+		mapLoading: "Wir laden gerade 885.825 Bäume aus dem Berliner Baumbestand.",
 		treeLoading: "Lade Bauminformationen...",
 	},
 };
