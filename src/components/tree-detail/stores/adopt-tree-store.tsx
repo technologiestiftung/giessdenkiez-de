@@ -42,8 +42,8 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 				.insert({ uuid: user?.id, tree_id: treeId });
 
 			if (error) {
-				handleError(i18n.treeDetail.adoptErrorMessage);
 				set({ isLoading: false });
+				handleError(i18n.treeDetail.adoptErrorMessage);
 				return;
 			}
 
@@ -51,8 +51,8 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			await refreshAdoptedTreesInfo();
 			await get().refreshIsTreeAdoptedByOthers(treeId, abortController);
 		} catch (error) {
-			handleError(i18n.treeDetail.adoptErrorMessage, error);
 			set({ isLoading: false });
+			handleError(i18n.treeDetail.adoptErrorMessage, error);
 		}
 	},
 	unadoptTree: async (treeId) => {
@@ -80,8 +80,8 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			await refreshAdoptedTreesInfo();
 			await get().refreshIsTreeAdoptedByOthers(treeId, abortController);
 		} catch (error) {
-			handleError(i18n.treeDetail.adoptErrorMessage, error);
 			set({ isLoading: false });
+			handleError(i18n.treeDetail.adoptErrorMessage, error);
 		}
 	},
 
