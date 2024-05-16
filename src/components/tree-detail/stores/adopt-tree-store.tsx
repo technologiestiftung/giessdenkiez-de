@@ -19,6 +19,7 @@ interface TreeAdoptStore {
 
 const { refreshAdoptedTreesInfo } = useProfileStore.getState();
 const { handleError } = useErrorStore.getState();
+const i18n = useI18nStore.getState().i18n();
 
 export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	isLoading: false,
@@ -29,7 +30,6 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	adoptTree: async (treeId) => {
 		const abortController = new AbortController();
 		const user = useAuthStore.getState().session?.user;
-		const i18n = useI18nStore.getState().i18n();
 
 		if (!user?.id) {
 			return;
@@ -58,7 +58,6 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	unadoptTree: async (treeId) => {
 		const abortController = new AbortController();
 		const user = useAuthStore.getState().session?.user;
-		const i18n = useI18nStore.getState().i18n();
 
 		if (!user?.id) {
 			return;
@@ -99,9 +98,8 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 				.order("tree_id", { ascending: true });
 
 			if (error) {
-				throw new Error(
-					"Failed to fetch data watered and adopted (community data)",
-				);
+				handleError(i18n.common.defaultErrorMessage);
+				return;
 			}
 
 			const dataRes = (data ?? []) as {
@@ -116,7 +114,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			if (abortController.signal.aborted) {
 				return;
 			}
-			const i18n = useI18nStore.getState().i18n();
+
 			handleError(i18n.common.defaultErrorMessage, error);
 			return;
 		}
