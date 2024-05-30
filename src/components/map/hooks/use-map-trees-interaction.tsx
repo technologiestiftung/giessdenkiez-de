@@ -90,15 +90,14 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				return;
 			}
 
-			map?.once("idle", () => {
-				map.easeTo({
-					center: treeCoreData.geom.coordinates,
-					zoom: MAP_MAX_ZOOM_LEVEL,
-					duration: 1500,
-					essential: true,
-					offset: mapTreeZoomedInOffset(window.innerWidth),
-				});
+			map?.easeTo({
+				center: treeCoreData.geom.coordinates,
+				zoom: MAP_MAX_ZOOM_LEVEL,
+				duration: 1500,
+				essential: true,
+				offset: mapTreeZoomedInOffset(window.innerWidth),
 			});
+
 			return;
 		}
 	}, [treeCoreData, map]);
