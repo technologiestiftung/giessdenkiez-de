@@ -39,7 +39,7 @@ export function useWaterTree(): WaterTreeState {
 
 		const { error } = await supabaseClient.from("trees_watered").insert({
 			amount: amount,
-			tree_id: treeId,
+			gml_id: treeId,
 			uuid: user?.id,
 			username,
 			timestamp: date.toISOString(),

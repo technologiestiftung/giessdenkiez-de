@@ -55,7 +55,7 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 				<div className="font-bold">
 					{treeData.art_dtsch || i18n.treeDetail.treeTypeUnknown}
 				</div>
-				<AdoptButton treeId={treeData.id}></AdoptButton>
+				<AdoptButton treeId={treeData.gml_id}></AdoptButton>
 			</div>
 			<div className="flex flex-col gap-4">
 				<div className="flex flex-row items-center justify-between">

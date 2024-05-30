@@ -40,7 +40,7 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 		await deleteWatering(wateringData.id);
 
 		// Update the map with the new watering amount
-		removeTodayWatering(map, wateringData.tree_id, wateringData.amount);
+		removeTodayWatering(map, wateringData.gml_id, wateringData.amount);
 
 		setIsDeleteWateringLoading(false);
 		setIsConfirmDeleteVisible(false);

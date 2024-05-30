@@ -4,7 +4,7 @@ import { supabaseClient } from "../auth/supabase-client";
 import { useAuthStore } from "../auth/auth-store";
 
 interface TreeInfo {
-	id: string;
+	gml_id: string;
 	art_dtsch: string;
 	trees_watered: Array<{ id: string; amount: number }>;
 	totalWateringVolume: number;
@@ -15,7 +15,7 @@ interface UserWaterings {
 	amount: number;
 	id: string;
 	timestamp: string;
-	tree_id: string;
+	gml_id: string;
 	username: string;
 	uuid: string;
 }
@@ -99,7 +99,7 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 
 		const { data, error } = await supabaseClient
 			.from("trees_adopted")
-			.select("tree_id")
+			.select("gml_id")
 			.eq("uuid", useAuthStore.getState().session?.user.id);
 
 		if (error) {
@@ -110,7 +110,7 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 			throw new Error("No data received");
 		}
 
-		const treeIds = data?.flatMap((element) => element.tree_id);
+		const treeIds = data?.flatMap((element) => element.gml_id);
 
 		set({
 			adoptedTrees: treeIds,
@@ -127,12 +127,12 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 			.from("trees")
 			.select(
 				`
-					id,
+					gml_id,
 					art_dtsch,
 					trees_watered ( id, amount)
 					`,
 			)
-			.in("id", get().adoptedTrees ?? []);
+			.in("gml_id", get().adoptedTrees ?? []);
 
 		if (error) {
 			throw error;
@@ -144,10 +144,10 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 
 		const adoptedTreesInfoWithUserWaterings = data.map((tree) => {
 			const { totalWateringVolume, totalWateringCount } =
-				get().getUserWateringsOfTree(tree.id);
+				get().getUserWateringsOfTree(tree.gml_id);
 
 			return {
-				id: tree.id,
+				id: tree.gml_id,
 				art_dtsch: tree.art_dtsch,
 				trees_watered: tree.trees_watered,
 				totalWateringVolume,
@@ -169,7 +169,7 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 		}
 
 		const filteredUserWaterings = userWaterings.filter(
-			(watering) => watering.tree_id === treeId,
+			(watering) => watering.gml === treeId,
 		);
 
 		const totalWateringVolume = filteredUserWaterings.reduce(
