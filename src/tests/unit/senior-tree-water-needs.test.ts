@@ -14,19 +14,19 @@ test("should calculate correct water needs for senior tree", () => {
 			timestamp: new Date().toISOString(),
 			amount: 30,
 			username: "test-user",
-			tree_id: "_22002d8af7",
+			gml_id: "00008100:002d8af7",
 		},
 		{
 			id: 4,
 			timestamp: new Date().toISOString(),
 			amount: 40,
 			username: "test-user",
-			tree_id: "_22002d8af7",
+			gml_id: "00008100:002d8af7",
 		},
 	];
 
 	const treeData: TreeCoreData = {
-		id: "_21001cf940",
+		gml_id: "00008100:002d8af7",
 		lat: "13.46627",
 		lng: "52.48992",
 		art_dtsch: "Winter-Linde",
