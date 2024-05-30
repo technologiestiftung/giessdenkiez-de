@@ -22,7 +22,7 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 
 	const { isAdopted, isLoading, amountOfAdoptions } = useTreeAdoptStore();
 
-	const isTreeAdoptedByUser = isAdopted(treeData.id);
+	const isTreeAdoptedByUser = isAdopted(treeData.gml_id);
 
 	const isLoggedIn = useAuthStore().isLoggedIn();
 
@@ -63,7 +63,7 @@ export const TreeAdoptCard: React.FC<TreeAdoptCardProps> = ({
 						<div className="text-slate-500">{adoptLabel}</div>
 					) : (
 						<InternalAnchorLink
-							href={`/profile?redirectTo=/map?treeId=${treeData.id}&zoom=20`}
+							href={`/profile?redirectTo=/map?treeId=${treeData.gml_id}&zoom=20`}
 							label={adoptLabel}
 						/>
 					)}

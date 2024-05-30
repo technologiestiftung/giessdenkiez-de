@@ -147,7 +147,7 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 				get().getUserWateringsOfTree(tree.gml_id);
 
 			return {
-				id: tree.gml_id,
+				gml_id: tree.gml_id,
 				art_dtsch: tree.art_dtsch,
 				trees_watered: tree.trees_watered,
 				totalWateringVolume,
@@ -169,7 +169,7 @@ export const useProfileStore = create<ProfileStore>()((set, get) => ({
 		}
 
 		const filteredUserWaterings = userWaterings.filter(
-			(watering) => watering.gml === treeId,
+			(watering) => watering.gml_id === treeId,
 		);
 
 		const totalWateringVolume = filteredUserWaterings.reduce(
