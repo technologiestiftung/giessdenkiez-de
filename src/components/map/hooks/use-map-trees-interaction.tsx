@@ -84,7 +84,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	useEffect(() => {
 		if (treeCoreData) {
 			clearSearch();
-			setSelectedTreeId(treeCoreData.gml_id);
+			setSelectedTreeId(treeCoreData.id);
 
 			if (easeToStartedByUserClick) {
 				return;

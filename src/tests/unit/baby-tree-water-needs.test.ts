@@ -14,33 +14,33 @@ test("should calculate correct water needs for baby tree", () => {
 			timestamp: new Date().toISOString(),
 			amount: 10,
 			username: "test-user",
-			gml_id: "00008100:002d8af7",
+			tree_id: "00008100:002d8af7",
 		},
 		{
 			id: 2,
 			timestamp: new Date().toISOString(),
 			amount: 20,
 			username: "test-user",
-			gml_id: "00008100:002d8af7",
+			tree_id: "00008100:002d8af7",
 		},
 		{
 			id: 3,
 			timestamp: new Date().toISOString(),
 			amount: 15,
 			username: "test-user",
-			gml_id: "00008100:002d8af7",
+			tree_id: "00008100:002d8af7",
 		},
 		{
 			id: 4,
 			timestamp: new Date().toISOString(),
 			amount: 5,
 			username: "test-user",
-			gml_id: "00008100:002d8af7",
+			tree_id: "00008100:002d8af7",
 		},
 	];
 
 	const treeData: TreeCoreData = {
-		gml_id: "00008100:002d8af7",
+		id: "00008100:002d8af7",
 		lat: "13.54072",
 		lng: "52.57403",
 		art_dtsch: "Kulturapfel",

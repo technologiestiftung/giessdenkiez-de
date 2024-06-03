@@ -68,7 +68,7 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 		const { data, error } = await supabaseClient
 			.from("trees")
 			.select("*")
-			.eq("gml_id", treeId)
+			.eq("id", treeId)
 			.abortSignal(abortController.signal);
 
 		if (error) {
@@ -90,7 +90,7 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 			return;
 		}
 		const { data, error } = await supabaseClient
-			.rpc("waterings_for_tree", { g_id: treeId })
+			.rpc("waterings_for_tree", { t_id: treeId })
 			.select("*")
 			.order("id", { ascending: false })
 			.abortSignal(abortController.signal);
@@ -137,8 +137,8 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 		}
 
 		const groupedByTreeId = (waterings ?? []).reduce((acc, watering) => {
-			const { gml_id, total_amount } = watering;
-			acc[gml_id] = total_amount;
+			const { tree_id, total_amount } = watering;
+			acc[tree_id] = total_amount;
 			return acc;
 		}, {});
 

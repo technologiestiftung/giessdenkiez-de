@@ -50,21 +50,21 @@ export const AdoptedTrees: React.FC = () => {
 						.slice(0, 4)
 						.map((tree) => (
 							<TreeCard
-								id={tree.gml_id}
+								id={tree.id}
 								name={tree.art_dtsch || i18n.treeDetail.treeTypeUnknown}
 								totalWateringVolume={tree.totalWateringVolume}
 								totalWateringCount={tree.totalWateringCount}
-								key={tree.gml_id}
+								key={tree.id}
 							/>
 						))}
 				{areAllTreesVisible &&
 					adoptedTreesInfo.map((tree) => (
 						<TreeCard
-							id={tree.gml_id}
+							id={tree.id}
 							name={tree.art_dtsch || i18n.treeDetail.treeTypeUnknown}
 							totalWateringVolume={tree.totalWateringVolume}
 							totalWateringCount={tree.totalWateringCount}
-							key={tree.gml_id}
+							key={tree.id}
 						/>
 					))}
 			</div>

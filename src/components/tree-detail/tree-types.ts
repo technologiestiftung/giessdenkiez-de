@@ -15,7 +15,7 @@ export interface TreeCoreData {
 	eigentuemer: string | null;
 	gattung: string;
 	gattung_deutsch: string;
-	gml_id: string;
+	id: string;
 	lat: string;
 	lng: string;
 	pflanzjahr: number;
@@ -31,7 +31,7 @@ export interface TreeWateringData {
 	amount: number;
 	id: number;
 	timestamp: string;
-	gml_id: string;
+	tree_id: string;
 	username: string;
 }
 

@@ -14,33 +14,33 @@ test("should calculate correct water needs for junior tree", () => {
 			timestamp: new Date().toISOString(),
 			amount: 10,
 			username: "test-user",
-			gml_id: "00008100:00284266",
+			tree_id: "00008100:00284266",
 		},
 		{
 			id: 2,
 			timestamp: new Date().toISOString(),
 			amount: 20,
 			username: "test-user",
-			gml_id: "00008100:00284266",
+			tree_id: "00008100:00284266",
 		},
 		{
 			id: 3,
 			timestamp: new Date().toISOString(),
 			amount: 30,
 			username: "test-user",
-			gml_id: "00008100:00284266",
+			tree_id: "00008100:00284266",
 		},
 		{
 			id: 4,
 			timestamp: new Date().toISOString(),
 			amount: 40,
 			username: "test-user",
-			gml_id: "00008100:00284266",
+			tree_id: "00008100:00284266",
 		},
 	];
 
 	const treeData: TreeCoreData = {
-		gml_id: "00008100:00284266",
+		id: "00008100:00284266",
 		lat: "13.57305",
 		lng: "52.44338",
 		art_dtsch: "Spitz-Ahorn 'Summershade'",

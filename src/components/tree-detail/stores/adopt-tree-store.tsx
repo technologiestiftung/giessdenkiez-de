@@ -39,7 +39,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 
 			const { error } = await supabaseClient
 				.from("trees_adopted")
-				.insert({ uuid: user?.id, gml_id: treeId });
+				.insert({ uuid: user?.id, tree_id: treeId });
 
 			if (error) {
 				set({ isLoading: false });
@@ -69,7 +69,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 				.from("trees_adopted")
 				.delete()
 				.eq("uuid", user?.id)
-				.eq("gml_id", treeId);
+				.eq("tree_id", treeId);
 
 			if (error) {
 				set({ isLoading: false });
@@ -95,7 +95,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 		try {
 			const { data, error } = await supabaseClient
 				.rpc("get_watered_and_adopted")
-				.order("gml_id", { ascending: true });
+				.order("tree_id", { ascending: true });
 
 			if (error) {
 				handleError(i18n.common.defaultErrorMessage);
@@ -103,11 +103,11 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			}
 
 			const dataRes = (data ?? []) as {
-				gml_id: string;
+				tree_id: string;
 				adopted: number;
 			}[];
 
-			const foundTree = dataRes.find(({ gml_id }) => gml_id === treeId);
+			const foundTree = dataRes.find(({ tree_id }) => tree_id === treeId);
 
 			set({ amountOfAdoptions: foundTree?.adopted || 0 });
 		} catch (error) {
