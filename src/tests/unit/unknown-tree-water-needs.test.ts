@@ -14,12 +14,12 @@ test("should calculate correct water needs for senior tree", () => {
 			timestamp: new Date().toISOString(),
 			amount: 40,
 			username: "test-user",
-			tree_id: "_22002d8af7",
+			tree_id: "00008100:002d8af7",
 		},
 	];
 
 	const treeData: TreeCoreData = {
-		id: "_21000f16d2",
+		id: "00008100:002d8af7",
 		lat: "13.24741",
 		lng: "52.41749",
 		art_dtsch: "Pappel",
