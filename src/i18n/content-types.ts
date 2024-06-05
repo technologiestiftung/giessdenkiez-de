@@ -290,8 +290,20 @@ interface Loading {
 	treeLoading: string;
 }
 
+interface Contact {
+	dialogTitle: (contactName: string) => string;
+	dialogDetail: (contactName: string) => string;
+	dialogPlaceholder: string;
+	dialogCancel: string;
+	dialogSubmit: string;
+	dialogAlreadyContactedError: (contactName: string) => string;
+	genericError: string;
+	dialogSuccess: (contactName: string) => string;
+}
+
 export interface Content {
 	common: Common;
+	contact: Contact;
 	map: {
 		attribution: {
 			mapbox: {

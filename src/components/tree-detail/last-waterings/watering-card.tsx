@@ -8,6 +8,8 @@ import { useMapStore } from "../../map/map-store";
 import { removeTodayWatering } from "../hooks/use-update-tree-waterings";
 import { useWaterTree } from "../hooks/use-water-tree";
 import { TreeWateringData } from "../tree-types";
+import { supabaseClient } from "../../../auth/supabase-client";
+import { ContactDialog } from "../tree-water-needs/contact-dialog";
 
 interface WateringCardProps {
 	wateringData: TreeWateringData;
@@ -50,10 +52,20 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 		<div
 			className={`flex transition ease-in-out delay-100 flex-row justify-between gap-2 ${isConfirmDeleteVisible ? " -translate-x-32 " : ""}`}
 		>
+			<ContactDialog contactUsername={wateringData.username} />
 			<div
 				className={`shadow-gdk-hard flex flex-col gap-2 rounded-lg shrink-0 p-4 w-[90%] `}
 			>
-				<div className="font-bold">{getDisplayedUsername(wateringData)}</div>
+				<div
+					className={`font-bold ${wateringData.username && "underline cursor-pointer"}`}
+					onClick={() => {
+						(
+							document.getElementById("contact-dialog") as HTMLDialogElement
+						).showModal();
+					}}
+				>
+					{getDisplayedUsername(wateringData)}
+				</div>
 				<div className="flex flex-row items-center justify-between">
 					<div>{formatDate(new Date(wateringData.timestamp))}</div>
 					<div className="flex flex-row items-center justify-between w-[63px]">

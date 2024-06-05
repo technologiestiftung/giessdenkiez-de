@@ -463,6 +463,20 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		defaultErrorMessage:
 			"Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.",
 	},
+	contact: {
+		dialogTitle: (contactName: string) =>
+			`**Sende eine Kontaktanfrage an *${contactName}***`,
+		dialogDetail: (contactName: string) =>
+			`Lass *${contactName}* wissen, dass Du dich mit ihm/ihr vernetzen möchtest. *${contactName}* bekommt daraufhin eine E-Mail mit deiner Nachricht und Deiner hinterlegten E-Mail Adresse und kann sich daraufhin bei Dir melden.`,
+		dialogPlaceholder: "Schreibe hier eine kurze Nachricht...",
+		dialogCancel: "Abbrechen",
+		dialogSubmit: "Kontakt anfragen",
+		dialogAlreadyContactedError: (contactName: string) =>
+			`Du hast bereits eine Kontaktanfrage an *${contactName}* gesendet.`,
+		genericError: `Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.`,
+		dialogSuccess: (contactName: string) =>
+			`Die Kontaktanfrage an *${contactName}* wurde versendet.`,
+	},
 	pumps: {
 		title: "Öffentliche Straßenpumpe",
 		status: "Status",
