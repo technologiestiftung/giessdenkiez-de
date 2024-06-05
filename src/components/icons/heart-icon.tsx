@@ -7,7 +7,11 @@ interface HeartIconProps {
 export const HeartIcon: React.FC<HeartIconProps> = ({ isAdopted }) => {
 	return (
 		<div
-			className={`${isAdopted ? "text-gdk-purple stroke-gdk-purple hover:text-transparent hover:stroke-gdk-light-gray" : "text-transparent stroke-gdk-light-gray hover:stroke-gdk-purple"} hover:pointer-events-auto`}
+			className={`${
+				isAdopted
+					? "text-gdk-purple stroke-gdk-purple hover:text-transparent hover:stroke-gdk-light-gray"
+					: "text-transparent stroke-gdk-light-gray hover:stroke-gdk-purple"
+			} hover:pointer-events-auto`}
 		>
 			<svg
 				width="24"
