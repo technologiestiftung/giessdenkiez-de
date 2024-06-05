@@ -134,7 +134,9 @@ export const LocationSearch: React.FC = () => {
 						placeholder={i18n.locationSearch.placeholder}
 					/>
 					<button
-						className={`${isTextInSearchbar ? "opacity-100" : "opacity-0"} px-4 hover:text-gdk-light-gray`}
+						className={`${
+							isTextInSearchbar ? "opacity-100" : "opacity-0"
+						} px-4 hover:text-gdk-light-gray`}
 						onClick={() => {
 							clearSearchAndGeocodingResults();
 						}}
