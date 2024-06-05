@@ -453,6 +453,20 @@ Particularly young trees need water in the first few years. Rather less often, b
 	common: {
 		defaultErrorMessage: "Something went wrong! Please try again later.",
 	},
+	contact: {
+		dialogTitle: (contactName: string) =>
+			`**Send a contact request to *${contactName}***`,
+		dialogDetail: (contactName: string) =>
+			`Let *${contactName}* know, that you want to connect. *${contactName}* will receive an email with your message and email address. If the user accepts your request, they can send you an email.`,
+		dialogPlaceholder: "Write a short message...",
+		dialogCancel: "Cance",
+		dialogSubmit: "Request contact",
+		dialogAlreadyContactedError: (contactName: string) =>
+			`You already sent a contact request to *${contactName}*.`,
+		genericError: `Oops, something went wrong. Please try again.`,
+		dialogSuccess: (contactName: string) =>
+			`The contact request was sent to *${contactName}*.`,
+	},
 	pumps: {
 		title: "Public pump",
 		status: "Status",
