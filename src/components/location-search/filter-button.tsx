@@ -11,7 +11,11 @@ export const FilterButton: React.FC = () => {
 			onClick={toggleFilterView}
 			className={`
 			p-3 rounded-full bg-white drop-shadow-md w-[56px] h-[56px] flex items-center justify-center 
-			${isSomeFilterActive() ? "hover:text-gdk-light-blue text-gdk-blue" : "hover:text-gdk-light-gray text-gdk-gray"}
+			${
+				isSomeFilterActive()
+					? "hover:text-gdk-light-blue text-gdk-blue"
+					: "hover:text-gdk-light-gray text-gdk-gray"
+			}
 			`}
 		>
 			{isSomeFilterActive() && (

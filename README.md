@@ -8,15 +8,13 @@
 
 # [![Logo of _Gieß den Kiez_](./docs/images/logo.svg)](https://www.giessdenkiez.de)
 
----
-
 ![Screenshot of _Gieß den Kiez_](./docs/images/screenshot.png)
 
 ## About [_Gieß den Kiez_](https://www.giessdenkiez.de)
 
-The consequences of climate change, especially the dry and hot summers, are putting a strain on Berlin's ecosystem. Our urban trees are drying out and suffering long-term damage: In recent years, more and more trees have had to be cut down and their lifespan is declining. In the meantime, the population is regularly called upon to help, but largely uncoordinated. [_Gieß den Kiez_](https://www.giessdenkiez.de) is was made to change that and enable coordinated citizen\* participation in the irrigation of urban trees. This project was made by the [Technologiestiftung Berlin](https://www.technologiestiftung-berlin.de/de/startseite/) and the [CityLAB Berlin](https://www.citylab-berlin.org/).
+The consequences of climate change, especially the dry and hot summers, are putting a strain on city’s green infrastructure. [Gieß den Kiez](https://www.giessdenkiez.de) is an interactive platform which was launched in May 2020 to help Berlin’s urban trees and support the city in watering the trees through the voluntary work of civil society. The map depicts almost all of Berlin’s street and park trees with information such as water requirements, age and species and invites all citizens to participate in the watering of our endangered tree population. Citizens can find out about the water requirements of trees in their neighbourhood, create a profile, adopt trees and mark them as ‘watered’ within the app. And much more.
 
----
+Gieß den Kiez is an open source project by the [Technologiestiftung Berlin](https://www.technologiestiftung-berlin.de/) and the [CityLAB Berlin](https://citylab-berlin.org/de/start/). Multiple other cities have already successfully adapted it. If your city wishes an individual platform as well, our experienced team is happy to support with the technical implementation and the establishment of a watering community. You can find all further information on our additional services at [DeineStadtGießt](https://deinestadt.giessdenkiez.de/).
 
 ## Repositories
 
@@ -26,8 +24,7 @@ This project is composed of multiple repositories:
 - [Database API](https://github.com/technologiestiftung/giessdenkiez-de-postgres-api)
 - [DWD Harvester](https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester)
 - [OSM Harvester](https://github.com/technologiestiftung/giessdenkiez-de-osm-pumpen-harvester)
-
----
+- [Tree Data Import](https://github.com/technologiestiftung/giessdenkiez-de-tree-data)
 
 ## Documentation
 
