@@ -57,17 +57,21 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 				className={`shadow-gdk-hard flex flex-col gap-2 rounded-lg shrink-0 p-4 w-[90%] `}
 			>
 				<div
-					className={`font-bold ${wateringData.username && "cursor-pointer"} flex flex-row items-center gap-2`}
+					className={`font-bold ${wateringData.username && !isWateringByUser && "cursor-pointer"} flex flex-row items-center gap-2`}
 					onClick={() => {
-						(
-							document.getElementById("contact-dialog") as HTMLDialogElement
-						).showModal();
+						if (!isWateringByUser) {
+							(
+								document.getElementById("contact-dialog") as HTMLDialogElement
+							).showModal();
+						}
 					}}
 				>
 					<div>{getDisplayedUsername(wateringData)}</div>
-					<div className="scale-75">
-						<MailIcon></MailIcon>
-					</div>
+					{!isWateringByUser && (
+						<div className="scale-75">
+							<MailIcon></MailIcon>
+						</div>
+					)}
 				</div>
 				<div className="flex flex-row items-center justify-between">
 					<div>{formatDate(new Date(wateringData.timestamp))}</div>

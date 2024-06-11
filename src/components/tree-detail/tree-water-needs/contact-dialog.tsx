@@ -55,7 +55,9 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 			document.getElementById("contact-successful-alert") as HTMLDialogElement
 		).showModal();
 		setTimeout(() => {
-			closeContactDialog();
+			(
+				document.getElementById("contact-successful-alert") as HTMLDialogElement
+			).close();
 		}, 2000);
 	};
 
