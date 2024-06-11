@@ -466,6 +466,8 @@ Particularly young trees need water in the first few years. Rather less often, b
 		genericError: `Oops, something went wrong. Please try again.`,
 		dialogSuccess: (contactName: string) =>
 			`The contact request was sent to *${contactName}*.`,
+		alreadySentMoreThan3RequestsInLast24HoursError:
+			"You already sent more than 3 contact requests in the last 24 hours. Please try again later.",
 	},
 	pumps: {
 		title: "Public pump",

@@ -23,6 +23,10 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 	const [isContactRequestLoading, setIsContactRequestLoading] = useState(false);
 	const [alreadySentContact, setAlreadySentContact] = useState(false);
 	const [error, setError] = useState("");
+	const [
+		alreadySentMoreThan3RequestsInLast24Hours,
+		setAlreadySentMoreThan3RequestsInLast24Hours,
+	] = useState(false);
 
 	const i18n = useI18nStore().i18n();
 
@@ -39,9 +43,12 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 
 	const onSubmit = useCallback(
 		async (e: React.FormEvent<HTMLFormElement>) => {
-			e.preventDefault();
-
+			setError("");
+			setAlreadySentContact(false);
+			setAlreadySentMoreThan3RequestsInLast24Hours(false);
 			setIsContactRequestLoading(true);
+
+			e.preventDefault();
 			const data = await supabaseClient.functions.invoke(
 				"submit_contact_request",
 				{
@@ -56,11 +63,18 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 
 			if (data.data?.code === "already_sent_contact_request") {
 				setAlreadySentContact(true);
+				return;
+			}
+
+			if (data.data?.code === "already_sent_more_than_3_contact_requests") {
+				setAlreadySentMoreThan3RequestsInLast24Hours(true);
+				return;
 			}
 
 			if (data.data?.code === "contact_request_sent") {
 				showContactSuccessDialog();
 				closeContactDialog();
+				return;
 			}
 
 			if (!data.data || data.error) {
@@ -128,6 +142,31 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 												contactUsername,
 											)}
 										</Markdown>
+									</label>
+								</div>
+							)}
+							{alreadySentMoreThan3RequestsInLast24Hours && (
+								<div>
+									<label
+										htmlFor="contact-error"
+										className="text-red-500 font-bold"
+									>
+										<Markdown>
+											{
+												i18n.contact
+													.alreadySentMoreThan3RequestsInLast24HoursError
+											}
+										</Markdown>
+									</label>
+								</div>
+							)}
+							{error && (
+								<div>
+									<label
+										htmlFor="contact-error"
+										className="text-red-500 font-bold"
+									>
+										<Markdown>{i18n.contact.genericError}</Markdown>
 									</label>
 								</div>
 							)}

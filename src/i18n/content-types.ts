@@ -299,6 +299,7 @@ interface Contact {
 	dialogAlreadyContactedError: (contactName: string) => string;
 	genericError: string;
 	dialogSuccess: (contactName: string) => string;
+	alreadySentMoreThan3RequestsInLast24HoursError: string;
 }
 
 export interface Content {

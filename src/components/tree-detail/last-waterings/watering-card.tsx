@@ -8,7 +8,6 @@ import { useMapStore } from "../../map/map-store";
 import { removeTodayWatering } from "../hooks/use-update-tree-waterings";
 import { useWaterTree } from "../hooks/use-water-tree";
 import { TreeWateringData } from "../tree-types";
-import { supabaseClient } from "../../../auth/supabase-client";
 import { ContactDialog } from "../tree-water-needs/contact-dialog";
 
 interface WateringCardProps {

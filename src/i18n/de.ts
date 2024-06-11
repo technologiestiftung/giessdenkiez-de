@@ -476,6 +476,8 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		genericError: `Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.`,
 		dialogSuccess: (contactName: string) =>
 			`Die Kontaktanfrage an *${contactName}* wurde versendet.`,
+		alreadySentMoreThan3RequestsInLast24HoursError:
+			"Du hast bereits 3 Anfragen in den letzten 24 Stunden gesendet. Versuche es zu einem späteren Zeitpunkt noch einmal.",
 	},
 	pumps: {
 		title: "Öffentliche Straßenpumpe",
