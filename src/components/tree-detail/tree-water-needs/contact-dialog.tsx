@@ -15,10 +15,8 @@ import { useTreeStore } from "../stores/tree-store";
 import { useSelectedContactRecipientUsernameStore } from "../../../shared-stores/selected-contact-recipient-store";
 
 export const ContactDialog: React.FC = () => {
-	const {
-		selectedContactRecipientUsername,
-		setSelectedContactRecipientUsername,
-	} = useSelectedContactRecipientUsernameStore();
+	const { selectedContactRecipientUsername } =
+		useSelectedContactRecipientUsernameStore();
 
 	const recipientContactName = selectedContactRecipientUsername ?? "";
 
@@ -35,7 +33,6 @@ export const ContactDialog: React.FC = () => {
 		setMessage("");
 		setIsContactRequestLoading(false);
 		setError("");
-		setSelectedContactRecipientUsername(undefined);
 		(document.getElementById("contact-dialog") as HTMLDialogElement).close();
 	};
 
