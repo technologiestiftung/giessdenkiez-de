@@ -292,7 +292,7 @@ interface Loading {
 
 interface Contact {
 	dialogTitle: (contactName: string) => string;
-	dialogDetail: (contactName: string) => string;
+	dialogDetail: (contactName: string, userMail: string) => string;
 	dialogPlaceholder: string;
 	dialogCancel: string;
 	dialogSubmit: string;
@@ -302,6 +302,8 @@ interface Contact {
 	alreadySentMoreThan3RequestsInLast24HoursError: string;
 	containsUrlError: string;
 	messageTooLongError: string;
+	loginFirst: string;
+	loginFirstReason: string;
 }
 
 export interface Content {

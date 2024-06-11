@@ -465,12 +465,12 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 	},
 	contact: {
 		dialogTitle: (contactName: string) =>
-			`**Sende eine Kontaktanfrage an *${contactName}***`,
-		dialogDetail: (contactName: string) =>
-			`Lass *${contactName}* wissen, dass Du dich mit ihm/ihr vernetzen möchtest. *${contactName}* bekommt daraufhin eine E-Mail mit deiner Nachricht und Deiner hinterlegten E-Mail Adresse und kann sich daraufhin bei Dir melden.`,
-		dialogPlaceholder: "Schreibe hier eine kurze Nachricht...",
+			`**Sende eine E-Mail an *${contactName}***`,
+		dialogDetail: (contactName: string, userMail: string) =>
+			`Hinweis: Die E-Mail an *${contactName}* enthält automatisch Deine E-Mail-Adresse (*${userMail}*) sowie Deine Textnachricht:`,
+		dialogPlaceholder: "Beschreibe kurz, warum Du Dich vernetzen möchtest...",
 		dialogCancel: "Abbrechen",
-		dialogSubmit: "Kontakt anfragen",
+		dialogSubmit: "Senden",
 		dialogAlreadyContactedError: (contactName: string) =>
 			`Du hast bereits eine Kontaktanfrage an *${contactName}* gesendet.`,
 		genericError: `Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.`,
@@ -480,6 +480,8 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 			"Du hast bereits 3 Anfragen in den letzten 24 Stunden gesendet. Versuche es zu einem späteren Zeitpunkt noch einmal.",
 		containsUrlError: "Die Nachricht darf keine Links enthalten.",
 		messageTooLongError: "Die Nachricht darf max. 200 Zeichen lang sein.",
+		loginFirst: "Logge Dich ein",
+		loginFirstReason: "um eine Nachricht zu senden",
 	},
 	pumps: {
 		title: "Öffentliche Straßenpumpe",

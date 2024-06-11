@@ -1,13 +1,16 @@
 /* eslint-disable max-lines */
 import React, { useCallback, useMemo, useState } from "react";
 import Markdown from "react-markdown";
+import { useAuthStore } from "../../../auth/auth-store";
 import { supabaseClient } from "../../../auth/supabase-client";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { AlertDialog } from "../../alert-dialog/alert-dialog";
+import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 import { PrimaryButton } from "../../buttons/primary";
 import { TertiaryButton } from "../../buttons/tertiary";
 import { CheckIcon } from "../../icons/check-icon";
 import { CloseIcon } from "../../icons/close-icon";
+import { useTreeStore } from "../stores/tree-store";
 
 const closeContactDialog = () => {
 	(document.getElementById("contact-dialog") as HTMLDialogElement).close();
@@ -19,6 +22,9 @@ interface ContactDialogProps {
 export const ContactDialog: React.FC<ContactDialogProps> = ({
 	contactUsername,
 }) => {
+	const selectedTreeId = useTreeStore().selectedTreeId;
+	const user = useAuthStore().session?.user;
+
 	const [message, setMessage] = useState("");
 	const [isContactRequestLoading, setIsContactRequestLoading] = useState(false);
 	const [alreadySentContact, setAlreadySentContact] = useState(false);
@@ -126,7 +132,10 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 							<div className="flex flex-col gap-6">
 								<label className="text-lg" htmlFor="amount">
 									<Markdown>
-										{i18n.contact.dialogDetail(contactUsername)}
+										{i18n.contact.dialogDetail(
+											contactUsername,
+											user?.email ?? "",
+										)}
 									</Markdown>
 								</label>
 								<textarea
@@ -207,12 +216,23 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 										onClick={closeContactDialog}
 									/>
 								</div>
-								<PrimaryButton
-									label={i18n.contact.dialogSubmit}
-									isLoading={isContactRequestLoading}
-									type="submit"
-									disabled={containsLinks || messageTooLong}
-								/>
+								<div className="flex flex-col items-start sm:items-end">
+									<PrimaryButton
+										label={i18n.contact.dialogSubmit}
+										isLoading={isContactRequestLoading}
+										type="submit"
+										disabled={containsLinks || messageTooLong || !user}
+									/>
+									{!user && (
+										<div className="flex flex-col gap-1 w-full items-start sm:flex-row sm:items-end sm:w-fit">
+											<InternalAnchorLink
+												href={`/profile?redirectTo=/map?treeId=${selectedTreeId}&zoom=20`}
+												label={i18n.contact.loginFirst}
+											/>
+											<div>{i18n.contact.loginFirstReason}</div>
+										</div>
+									)}
+								</div>
 							</div>
 						</div>
 					</form>

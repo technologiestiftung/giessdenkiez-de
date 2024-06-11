@@ -455,10 +455,10 @@ Particularly young trees need water in the first few years. Rather less often, b
 	},
 	contact: {
 		dialogTitle: (contactName: string) =>
-			`**Send a contact request to *${contactName}***`,
-		dialogDetail: (contactName: string) =>
-			`Let *${contactName}* know, that you want to connect. *${contactName}* will receive an email with your message and email address. If the user accepts your request, they can send you an email.`,
-		dialogPlaceholder: "Write a short message...",
+			`**Send an email to *${contactName}***`,
+		dialogDetail: (contactName: string, userMail: string) =>
+			`Note: The email to *${contactName}* automatically contains your email address (*${userMail}*) and your text message:`,
+		dialogPlaceholder: "Briefly describe why you would like to connect...",
 		dialogCancel: "Cance",
 		dialogSubmit: "Request contact",
 		dialogAlreadyContactedError: (contactName: string) =>
@@ -470,6 +470,8 @@ Particularly young trees need water in the first few years. Rather less often, b
 			"You already sent more than 3 contact requests in the last 24 hours. Please try again later.",
 		containsUrlError: "The message must not contain any links.",
 		messageTooLongError: "The message must be less than 200 characters long.",
+		loginFirst: "Log in",
+		loginFirstReason: "to send a message.",
 	},
 	pumps: {
 		title: "Public pump",
