@@ -4,15 +4,14 @@ import Markdown from "react-markdown";
 import { useAuthStore } from "../../../auth/auth-store";
 import { supabaseClient } from "../../../auth/supabase-client";
 import { useI18nStore } from "../../../i18n/i18n-store";
+import { useSelectedContactRecipientUsernameStore } from "../../../shared-stores/selected-contact-recipient-store";
 import { AlertDialog } from "../../alert-dialog/alert-dialog";
 import { WarningDialog } from "../../alert-dialog/warning-dialog";
-import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 import { PrimaryButton } from "../../buttons/primary";
 import { TertiaryButton } from "../../buttons/tertiary";
 import { CheckIcon } from "../../icons/check-icon";
 import { CloseIcon } from "../../icons/close-icon";
 import { useTreeStore } from "../stores/tree-store";
-import { useSelectedContactRecipientUsernameStore } from "../../../shared-stores/selected-contact-recipient-store";
 
 export const ContactDialog: React.FC = () => {
 	const { selectedContactRecipientUsername } =
@@ -188,15 +187,6 @@ export const ContactDialog: React.FC = () => {
 										type="submit"
 										disabled={containsLinks || messageTooLong || !user}
 									/>
-									{!user && (
-										<div className="flex flex-col gap-1 w-full items-start sm:flex-row sm:items-end sm:w-fit">
-											<InternalAnchorLink
-												href={`/profile?redirectTo=/map?treeId=${selectedTreeId}&zoom=20`}
-												label={i18n.contact.loginFirst}
-											/>
-											<div>{i18n.contact.loginFirstReason}</div>
-										</div>
-									)}
 								</div>
 							</div>
 						</div>
@@ -248,7 +238,7 @@ export const ContactDialog: React.FC = () => {
 				title={i18n.contact.loginFirst}
 				alertMessage={i18n.contact.loginFirstReason}
 				confirmTitle={i18n.contact.loginFirstAction}
-				href="/profile"
+				href={`/profile?redirectTo=/map?treeId=${selectedTreeId}&zoom=20`}
 			/>
 		</>
 	);
