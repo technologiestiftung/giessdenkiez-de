@@ -9,6 +9,7 @@ import { removeTodayWatering } from "../hooks/use-update-tree-waterings";
 import { useWaterTree } from "../hooks/use-water-tree";
 import { TreeWateringData } from "../tree-types";
 import { ContactDialog } from "../tree-water-needs/contact-dialog";
+import { MailIcon } from "../../icons/mail-icon";
 
 interface WateringCardProps {
 	wateringData: TreeWateringData;
@@ -22,7 +23,7 @@ function getDisplayedUsername(wateringData: TreeWateringData) {
 			</span>
 		);
 	}
-	return wateringData.username;
+	return <div>{wateringData.username}</div>;
 }
 
 export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
@@ -51,19 +52,22 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 		<div
 			className={`flex transition ease-in-out delay-100 flex-row justify-between gap-2 ${isConfirmDeleteVisible ? " -translate-x-32 " : ""}`}
 		>
-			<ContactDialog contactUsername={wateringData.username} />
+			<ContactDialog recipientContactName={wateringData.username} />
 			<div
 				className={`shadow-gdk-hard flex flex-col gap-2 rounded-lg shrink-0 p-4 w-[90%] `}
 			>
 				<div
-					className={`font-bold ${wateringData.username && "underline cursor-pointer"}`}
+					className={`font-bold ${wateringData.username && "cursor-pointer"} flex flex-row items-center gap-2`}
 					onClick={() => {
 						(
 							document.getElementById("contact-dialog") as HTMLDialogElement
 						).showModal();
 					}}
 				>
-					{getDisplayedUsername(wateringData)}
+					<div>{getDisplayedUsername(wateringData)}</div>
+					<div className="scale-75">
+						<MailIcon></MailIcon>
+					</div>
 				</div>
 				<div className="flex flex-row items-center justify-between">
 					<div>{formatDate(new Date(wateringData.timestamp))}</div>

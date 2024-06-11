@@ -12,15 +12,11 @@ import { CheckIcon } from "../../icons/check-icon";
 import { CloseIcon } from "../../icons/close-icon";
 import { useTreeStore } from "../stores/tree-store";
 
-const closeContactDialog = () => {
-	(document.getElementById("contact-dialog") as HTMLDialogElement).close();
-};
-
 interface ContactDialogProps {
-	contactUsername: string;
+	recipientContactName: string;
 }
 export const ContactDialog: React.FC<ContactDialogProps> = ({
-	contactUsername,
+	recipientContactName,
 }) => {
 	const selectedTreeId = useTreeStore().selectedTreeId;
 	const user = useAuthStore().session?.user;
@@ -36,6 +32,15 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 
 	const i18n = useI18nStore().i18n();
 
+	const closeContactDialog = () => {
+		setMessage("");
+		setIsContactRequestLoading(false);
+		setAlreadySentContact(false);
+		setAlreadySentMoreThan3RequestsInLast24Hours(false);
+		setError("");
+		(document.getElementById("contact-dialog") as HTMLDialogElement).close();
+	};
+
 	const containsLinks = useMemo(() => {
 		const urlRegex = /(https?:\/\/[^\s]+)/g;
 		return message.match(urlRegex) !== null;
@@ -50,9 +55,7 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 			document.getElementById("contact-successful-alert") as HTMLDialogElement
 		).showModal();
 		setTimeout(() => {
-			(
-				document.getElementById("contact-successful-alert") as HTMLDialogElement
-			).close();
+			closeContactDialog();
 		}, 2000);
 	};
 
@@ -68,7 +71,7 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 				"submit_contact_request",
 				{
 					body: {
-						userContactName: contactUsername,
+						recipientContactName: recipientContactName,
 						message: message,
 					},
 				},
@@ -97,7 +100,7 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 				return;
 			}
 		},
-		[i18n, contactUsername, message, setIsContactRequestLoading],
+		[i18n, recipientContactName, message, setIsContactRequestLoading],
 	);
 
 	const onDialogClick = useCallback(
@@ -127,13 +130,15 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 					>
 						<div className="flex flex-col gap-6 p-8">
 							<div className="text-xl">
-								<Markdown>{i18n.contact.dialogTitle(contactUsername)}</Markdown>
+								<Markdown>
+									{i18n.contact.dialogTitle(recipientContactName)}
+								</Markdown>
 							</div>
 							<div className="flex flex-col gap-6">
 								<label className="text-lg" htmlFor="amount">
 									<Markdown>
 										{i18n.contact.dialogDetail(
-											contactUsername,
+											recipientContactName,
 											user?.email ?? "",
 										)}
 									</Markdown>
@@ -158,7 +163,7 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 									>
 										<Markdown>
 											{i18n.contact.dialogAlreadyContactedError(
-												contactUsername,
+												recipientContactName,
 											)}
 										</Markdown>
 									</label>
@@ -253,7 +258,9 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 				id="contact-successful-alert"
 				alertTitleWithIcon={
 					<>
-						<Markdown>{i18n.contact.dialogSuccess(contactUsername)}</Markdown>
+						<Markdown>
+							{i18n.contact.dialogSuccess(recipientContactName)}
+						</Markdown>
 						<div className="w-1/8 self-center">
 							<CheckIcon />
 						</div>
