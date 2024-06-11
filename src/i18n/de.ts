@@ -478,6 +478,8 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 			`Die Kontaktanfrage an *${contactName}* wurde versendet.`,
 		alreadySentMoreThan3RequestsInLast24HoursError:
 			"Du hast bereits 3 Anfragen in den letzten 24 Stunden gesendet. Versuche es zu einem späteren Zeitpunkt noch einmal.",
+		containsUrlError:
+			"Die Nachricht enthält eine oder mehrere Links. Bitte entferne diese und versuche es erneut.",
 	},
 	pumps: {
 		title: "Öffentliche Straßenpumpe",

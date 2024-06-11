@@ -1,13 +1,13 @@
 /* eslint-disable max-lines */
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
+import Markdown from "react-markdown";
+import { supabaseClient } from "../../../auth/supabase-client";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { AlertDialog } from "../../alert-dialog/alert-dialog";
 import { PrimaryButton } from "../../buttons/primary";
 import { TertiaryButton } from "../../buttons/tertiary";
 import { CheckIcon } from "../../icons/check-icon";
 import { CloseIcon } from "../../icons/close-icon";
-import Markdown from "react-markdown";
-import { supabaseClient } from "../../../auth/supabase-client";
 
 const closeContactDialog = () => {
 	(document.getElementById("contact-dialog") as HTMLDialogElement).close();
@@ -29,6 +29,11 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 	] = useState(false);
 
 	const i18n = useI18nStore().i18n();
+
+	const containsLinks = useMemo(() => {
+		const urlRegex = /(https?:\/\/[^\s]+)/g;
+		return message.match(urlRegex) !== null;
+	}, [message]);
 
 	const showContactSuccessDialog = () => {
 		(
@@ -61,7 +66,7 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 
 			setIsContactRequestLoading(false);
 
-			if (data.data?.code === "already_sent_contact_request") {
+			if (data.data?.code === "already_contacted_the_recipient_before") {
 				setAlreadySentContact(true);
 				return;
 			}
@@ -71,14 +76,15 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 				return;
 			}
 
+			if (!data.data || data.error) {
+				setError(i18n.contact.genericError);
+				return;
+			}
+
 			if (data.data?.code === "contact_request_sent") {
 				showContactSuccessDialog();
 				closeContactDialog();
 				return;
-			}
-
-			if (!data.data || data.error) {
-				setError(i18n.contact.genericError);
 			}
 		},
 		[i18n, contactUsername, message, setIsContactRequestLoading],
@@ -170,6 +176,16 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 									</label>
 								</div>
 							)}
+							{containsLinks && (
+								<div>
+									<label
+										htmlFor="contact-error"
+										className="text-red-500 font-bold"
+									>
+										<Markdown>{i18n.contact.containsUrlError}</Markdown>
+									</label>
+								</div>
+							)}
 							<div className="flex flex-col-reverse sm:flex-row justify-between gap-x-4">
 								<div className="p-y-3.5 flex self-center">
 									<TertiaryButton
@@ -181,7 +197,7 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 									label={i18n.contact.dialogSubmit}
 									isLoading={isContactRequestLoading}
 									type="submit"
-									disabled={false}
+									disabled={containsLinks}
 								/>
 							</div>
 						</div>

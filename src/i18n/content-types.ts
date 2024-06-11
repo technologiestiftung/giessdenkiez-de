@@ -300,6 +300,7 @@ interface Contact {
 	genericError: string;
 	dialogSuccess: (contactName: string) => string;
 	alreadySentMoreThan3RequestsInLast24HoursError: string;
+	containsUrlError: string;
 }
 
 export interface Content {
