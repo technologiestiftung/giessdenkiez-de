@@ -116,6 +116,16 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 		[],
 	);
 
+	const errorLabel = (errorMessage: string) => {
+		return (
+			<div>
+				<label htmlFor="contact-error" className="text-red-500 font-bold">
+					<Markdown>{errorMessage}</Markdown>
+				</label>
+			</div>
+		);
+	};
+
 	return (
 		<>
 			<dialog
@@ -155,65 +165,22 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 									}}
 								/>
 							</div>
-							{alreadySentContact && (
-								<div>
-									<label
-										htmlFor="contact-error"
-										className="text-red-500 font-bold"
-									>
-										<Markdown>
-											{i18n.contact.dialogAlreadyContactedError(
-												recipientContactName,
-											)}
-										</Markdown>
-									</label>
-								</div>
-							)}
-							{alreadySentMoreThan3RequestsInLast24Hours && (
-								<div>
-									<label
-										htmlFor="contact-error"
-										className="text-red-500 font-bold"
-									>
-										<Markdown>
-											{
-												i18n.contact
-													.alreadySentMoreThan3RequestsInLast24HoursError
-											}
-										</Markdown>
-									</label>
-								</div>
-							)}
-							{error && (
-								<div>
-									<label
-										htmlFor="contact-error"
-										className="text-red-500 font-bold"
-									>
-										<Markdown>{i18n.contact.genericError}</Markdown>
-									</label>
-								</div>
-							)}
-							{containsLinks && (
-								<div>
-									<label
-										htmlFor="contact-error"
-										className="text-red-500 font-bold"
-									>
-										<Markdown>{i18n.contact.containsUrlError}</Markdown>
-									</label>
-								</div>
-							)}
-							{messageTooLong && (
-								<div>
-									<label
-										htmlFor="contact-error"
-										className="text-red-500 font-bold"
-									>
-										<Markdown>{i18n.contact.messageTooLongError}</Markdown>
-									</label>
-								</div>
-							)}
+
+							{/* --- Error handling --- */}
+							{alreadySentContact &&
+								errorLabel(
+									i18n.contact.dialogAlreadyContactedError(
+										recipientContactName,
+									),
+								)}
+							{alreadySentMoreThan3RequestsInLast24Hours &&
+								errorLabel(
+									i18n.contact.alreadySentMoreThan3RequestsInLast24HoursError,
+								)}
+							{error && errorLabel(i18n.contact.genericError)}
+							{containsLinks && errorLabel(i18n.contact.containsUrlError)}
+							{messageTooLong && errorLabel(i18n.contact.messageTooLongError)}
+
 							<div className="flex flex-col-reverse sm:flex-row justify-between gap-x-4">
 								<div className="p-y-3.5 flex self-center">
 									<TertiaryButton
