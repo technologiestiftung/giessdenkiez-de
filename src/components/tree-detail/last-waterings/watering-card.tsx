@@ -62,17 +62,25 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 					className={`font-bold ${wateringData.username && !isWateringByUser && "cursor-pointer"} flex flex-row items-center gap-2`}
 					onClick={() => {
 						if (!isWateringByUser) {
-							setSelectedContactRecipientUsername(wateringData.username);
-							(
-								document.getElementById("contact-dialog") as HTMLDialogElement
-							).showModal();
+							if (username) {
+								setSelectedContactRecipientUsername(wateringData.username);
+								(
+									document.getElementById("contact-dialog") as HTMLDialogElement
+								).showModal();
+							} else {
+								(
+									document.getElementById(
+										"login-first-alert",
+									) as HTMLDialogElement
+								).showModal();
+							}
 						}
 					}}
 				>
 					<div>{getDisplayedUsername(wateringData)}</div>
 					{!isWateringByUser && (
-						<div className="scale-75">
-							<MailIcon></MailIcon>
+						<div className={`scale-75`}>
+							<MailIcon color={username ? "#1169EE" : "#2C303B"}></MailIcon>
 						</div>
 					)}
 				</div>

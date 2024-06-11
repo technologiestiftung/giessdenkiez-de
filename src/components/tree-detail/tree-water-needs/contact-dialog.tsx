@@ -242,6 +242,14 @@ export const ContactDialog: React.FC = () => {
 				alertMessage={i18n.contact.dailyLimitExplanation}
 				confirmTitle={i18n.contact.confirm}
 			/>
+
+			<WarningDialog
+				id="login-first-alert"
+				title={i18n.contact.loginFirst}
+				alertMessage={i18n.contact.loginFirstReason}
+				confirmTitle={i18n.contact.loginFirstAction}
+				href="/profile"
+			/>
 		</>
 	);
 };

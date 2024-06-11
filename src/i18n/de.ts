@@ -483,8 +483,10 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 			"Hinweis: Du hast das Tageslimit von 3 Kontaktanfragen erreicht. Bitte versuche es morgen erneut.",
 		containsUrlError: "Die Nachricht darf keine Links enthalten.",
 		messageTooLongError: "Die Nachricht darf max. 200 Zeichen lang sein.",
-		loginFirst: "Logge Dich ein",
-		loginFirstReason: "um eine Nachricht zu senden",
+		loginFirst: "Einloggen für Kontaktanfrage",
+		loginFirstReason:
+			"Hinweis: Du kannst Personen nur eine Kontaktanfrage stellen, wenn Du eingeloggt bist.",
+		loginFirstAction: "Logge Dich ein",
 		confirm: "Alles klar!",
 	},
 	pumps: {

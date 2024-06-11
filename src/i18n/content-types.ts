@@ -306,6 +306,7 @@ interface Contact {
 	messageTooLongError: string;
 	loginFirst: string;
 	loginFirstReason: string;
+	loginFirstAction: string;
 	confirm: string;
 }
 
