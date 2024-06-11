@@ -1,9 +1,8 @@
 import React from "react";
-import { useI18nStore } from "../../i18n/i18n-store.ts";
-import { PrimaryButton } from "../buttons/primary.tsx";
-import { useUrlState } from "../router/store.tsx";
-import { InfoIcon } from "../icons/info-icon.tsx";
 import Markdown from "react-markdown";
+import { PrimaryButton } from "../buttons/primary.tsx";
+import { InfoIcon } from "../icons/info-icon.tsx";
+import { useUrlState } from "../router/store.tsx";
 
 export interface WarningDialogProps {
 	title: string;
