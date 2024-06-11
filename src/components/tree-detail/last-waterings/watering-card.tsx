@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useProfileStore } from "../../../shared-stores/profile-store";
+import { useSelectedContactRecipientUsernameStore } from "../../../shared-stores/selected-contact-recipient-store";
 import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
+import { MailIcon } from "../../icons/mail-icon";
 import { TrashIcon } from "../../icons/trash-icon";
 import { WateringCanIcon } from "../../icons/watering-can-icon";
 import { useMapStore } from "../../map/map-store";
 import { removeTodayWatering } from "../hooks/use-update-tree-waterings";
 import { useWaterTree } from "../hooks/use-water-tree";
 import { TreeWateringData } from "../tree-types";
-import { ContactDialog } from "../tree-water-needs/contact-dialog";
-import { MailIcon } from "../../icons/mail-icon";
 
 interface WateringCardProps {
 	wateringData: TreeWateringData;
@@ -36,6 +36,9 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const isWateringByUser = wateringData.username === username;
 
 	const map = useMapStore().map;
+	const setSelectedContactRecipientUsername =
+		useSelectedContactRecipientUsernameStore()
+			.setSelectedContactRecipientUsername;
 
 	const onClickDelete = async () => {
 		setIsDeleteWateringLoading(true);
@@ -52,7 +55,6 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 		<div
 			className={`flex transition ease-in-out delay-100 flex-row justify-between gap-2 ${isConfirmDeleteVisible ? " -translate-x-32 " : ""}`}
 		>
-			<ContactDialog recipientContactName={wateringData.username} />
 			<div
 				className={`shadow-gdk-hard flex flex-col gap-2 rounded-lg shrink-0 p-4 w-[90%] `}
 			>
@@ -60,6 +62,7 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 					className={`font-bold ${wateringData.username && !isWateringByUser && "cursor-pointer"} flex flex-row items-center gap-2`}
 					onClick={() => {
 						if (!isWateringByUser) {
+							setSelectedContactRecipientUsername(wateringData.username);
 							(
 								document.getElementById("contact-dialog") as HTMLDialogElement
 							).showModal();

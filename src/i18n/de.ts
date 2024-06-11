@@ -472,16 +472,20 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		dialogCancel: "Abbrechen",
 		dialogSubmit: "Senden",
 		dialogAlreadyContactedError: (contactName: string) =>
-			`Du hast bereits eine Kontaktanfrage an *${contactName}* gesendet.`,
+			`Du hast *${contactName}* bereits eine Kontaktanfrage gesendet.`,
+		dialogAlreadyContactedExplanation:
+			"Hinweis: Du hast dieser Person bereits eine Kontaktanfrage gesendet. Eine erneute Anfrage ist nicht möglich.",
 		genericError: `Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.`,
 		dialogSuccess: (contactName: string) =>
 			`Die Kontaktanfrage an *${contactName}* wurde versendet.`,
-		alreadySentMoreThan3RequestsInLast24HoursError:
-			"Du hast bereits 3 Anfragen in den letzten 24 Stunden gesendet. Versuche es zu einem späteren Zeitpunkt noch einmal.",
+		dailyLimitError: "Tageslimit für Kontaktanfragen erreicht.",
+		dailyLimitExplanation:
+			"Hinweis: Du hast das Tageslimit von 3 Kontaktanfragen erreicht. Bitte versuche es morgen erneut.",
 		containsUrlError: "Die Nachricht darf keine Links enthalten.",
 		messageTooLongError: "Die Nachricht darf max. 200 Zeichen lang sein.",
 		loginFirst: "Logge Dich ein",
 		loginFirstReason: "um eine Nachricht zu senden",
+		confirm: "Alles klar!",
 	},
 	pumps: {
 		title: "Öffentliche Straßenpumpe",

@@ -463,15 +463,19 @@ Particularly young trees need water in the first few years. Rather less often, b
 		dialogSubmit: "Request contact",
 		dialogAlreadyContactedError: (contactName: string) =>
 			`You already sent a contact request to *${contactName}*.`,
+		dialogAlreadyContactedExplanation:
+			"Note: You have already sent a contact request to this person. Another request is not possible.",
 		genericError: `Oops, something went wrong. Please try again.`,
 		dialogSuccess: (contactName: string) =>
 			`The contact request was sent to *${contactName}*.`,
-		alreadySentMoreThan3RequestsInLast24HoursError:
-			"You already sent more than 3 contact requests in the last 24 hours. Please try again later.",
+		dailyLimitError: "You have reached the daily limit for contact requests.",
+		dailyLimitExplanation:
+			"Note: You have reached the daily limit of 3 contact requests. Please try again tomorrow.",
 		containsUrlError: "The message must not contain any links.",
 		messageTooLongError: "The message must be less than 200 characters long.",
 		loginFirst: "Log in",
 		loginFirstReason: "to send a message.",
+		confirm: "Okay!",
 	},
 	pumps: {
 		title: "Public pump",

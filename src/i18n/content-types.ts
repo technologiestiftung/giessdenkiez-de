@@ -297,13 +297,16 @@ interface Contact {
 	dialogCancel: string;
 	dialogSubmit: string;
 	dialogAlreadyContactedError: (contactName: string) => string;
+	dialogAlreadyContactedExplanation: string;
 	genericError: string;
 	dialogSuccess: (contactName: string) => string;
-	alreadySentMoreThan3RequestsInLast24HoursError: string;
+	dailyLimitError: string;
+	dailyLimitExplanation: string;
 	containsUrlError: string;
 	messageTooLongError: string;
 	loginFirst: string;
 	loginFirstReason: string;
+	confirm: string;
 }
 
 export interface Content {

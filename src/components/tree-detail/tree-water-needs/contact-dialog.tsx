@@ -5,38 +5,32 @@ import { useAuthStore } from "../../../auth/auth-store";
 import { supabaseClient } from "../../../auth/supabase-client";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { AlertDialog } from "../../alert-dialog/alert-dialog";
+import { WarningDialog } from "../../alert-dialog/warning-dialog";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 import { PrimaryButton } from "../../buttons/primary";
 import { TertiaryButton } from "../../buttons/tertiary";
 import { CheckIcon } from "../../icons/check-icon";
 import { CloseIcon } from "../../icons/close-icon";
 import { useTreeStore } from "../stores/tree-store";
+import { useSelectedContactRecipientUsernameStore } from "../../../shared-stores/selected-contact-recipient-store";
 
-interface ContactDialogProps {
-	recipientContactName: string;
-}
-export const ContactDialog: React.FC<ContactDialogProps> = ({
-	recipientContactName,
-}) => {
+export const ContactDialog: React.FC = () => {
+	const selectedContactRecipientUsername =
+		useSelectedContactRecipientUsernameStore().selectedContactRecipientUsername;
+	const recipientContactName = selectedContactRecipientUsername ?? "";
+
 	const selectedTreeId = useTreeStore().selectedTreeId;
 	const user = useAuthStore().session?.user;
 
 	const [message, setMessage] = useState("");
 	const [isContactRequestLoading, setIsContactRequestLoading] = useState(false);
-	const [alreadySentContact, setAlreadySentContact] = useState(false);
 	const [error, setError] = useState("");
-	const [
-		alreadySentMoreThan3RequestsInLast24Hours,
-		setAlreadySentMoreThan3RequestsInLast24Hours,
-	] = useState(false);
 
 	const i18n = useI18nStore().i18n();
 
 	const closeContactDialog = () => {
 		setMessage("");
 		setIsContactRequestLoading(false);
-		setAlreadySentContact(false);
-		setAlreadySentMoreThan3RequestsInLast24Hours(false);
 		setError("");
 		(document.getElementById("contact-dialog") as HTMLDialogElement).close();
 	};
@@ -64,8 +58,6 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 	const onSubmit = useCallback(
 		async (e: React.FormEvent<HTMLFormElement>) => {
 			setError("");
-			setAlreadySentContact(false);
-			setAlreadySentMoreThan3RequestsInLast24Hours(false);
 			setIsContactRequestLoading(true);
 
 			e.preventDefault();
@@ -82,12 +74,20 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 			setIsContactRequestLoading(false);
 
 			if (data.data?.code === "already_contacted_the_recipient_before") {
-				setAlreadySentContact(true);
+				closeContactDialog();
+				(
+					document.getElementById(
+						"already-contacted-alert",
+					) as HTMLDialogElement
+				).showModal();
 				return;
 			}
 
 			if (data.data?.code === "already_sent_more_than_3_contact_requests") {
-				setAlreadySentMoreThan3RequestsInLast24Hours(true);
+				closeContactDialog();
+				(
+					document.getElementById("daily-limit-alert") as HTMLDialogElement
+				).showModal();
 				return;
 			}
 
@@ -169,16 +169,6 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 							</div>
 
 							{/* --- Error handling --- */}
-							{alreadySentContact &&
-								errorLabel(
-									i18n.contact.dialogAlreadyContactedError(
-										recipientContactName,
-									),
-								)}
-							{alreadySentMoreThan3RequestsInLast24Hours &&
-								errorLabel(
-									i18n.contact.alreadySentMoreThan3RequestsInLast24HoursError,
-								)}
 							{error && errorLabel(i18n.contact.genericError)}
 							{containsLinks && errorLabel(i18n.contact.containsUrlError)}
 							{messageTooLong && errorLabel(i18n.contact.messageTooLongError)}
@@ -236,6 +226,20 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 					</>
 				}
 				isButtonDisabled={false}
+			/>
+
+			<WarningDialog
+				id="already-contacted-alert"
+				title={i18n.contact.dialogAlreadyContactedError(recipientContactName)}
+				alertMessage={i18n.contact.dialogAlreadyContactedExplanation}
+				confirmTitle={i18n.contact.confirm}
+			/>
+
+			<WarningDialog
+				id="daily-limit-alert"
+				title={i18n.contact.dailyLimitError}
+				alertMessage={i18n.contact.dailyLimitExplanation}
+				confirmTitle={i18n.contact.confirm}
 			/>
 		</>
 	);
