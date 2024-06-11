@@ -468,8 +468,8 @@ Particularly young trees need water in the first few years. Rather less often, b
 			`The contact request was sent to *${contactName}*.`,
 		alreadySentMoreThan3RequestsInLast24HoursError:
 			"You already sent more than 3 contact requests in the last 24 hours. Please try again later.",
-		containsUrlError:
-			"The message contains one or many links. Please remove the links from your message and try again.",
+		containsUrlError: "The message must not contain any links.",
+		messageTooLongError: "The message must be less than 200 characters long.",
 	},
 	pumps: {
 		title: "Public pump",

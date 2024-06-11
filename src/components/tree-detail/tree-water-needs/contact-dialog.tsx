@@ -35,6 +35,10 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 		return message.match(urlRegex) !== null;
 	}, [message]);
 
+	const messageTooLong = useMemo(() => {
+		return message.length > 200;
+	}, [message]);
+
 	const showContactSuccessDialog = () => {
 		(
 			document.getElementById("contact-successful-alert") as HTMLDialogElement
@@ -186,6 +190,16 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 									</label>
 								</div>
 							)}
+							{messageTooLong && (
+								<div>
+									<label
+										htmlFor="contact-error"
+										className="text-red-500 font-bold"
+									>
+										<Markdown>{i18n.contact.messageTooLongError}</Markdown>
+									</label>
+								</div>
+							)}
 							<div className="flex flex-col-reverse sm:flex-row justify-between gap-x-4">
 								<div className="p-y-3.5 flex self-center">
 									<TertiaryButton
@@ -197,7 +211,7 @@ export const ContactDialog: React.FC<ContactDialogProps> = ({
 									label={i18n.contact.dialogSubmit}
 									isLoading={isContactRequestLoading}
 									type="submit"
-									disabled={containsLinks}
+									disabled={containsLinks || messageTooLong}
 								/>
 							</div>
 						</div>

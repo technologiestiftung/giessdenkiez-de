@@ -301,6 +301,7 @@ interface Contact {
 	dialogSuccess: (contactName: string) => string;
 	alreadySentMoreThan3RequestsInLast24HoursError: string;
 	containsUrlError: string;
+	messageTooLongError: string;
 }
 
 export interface Content {
