@@ -453,6 +453,32 @@ Particularly young trees need water in the first few years. Rather less often, b
 	common: {
 		defaultErrorMessage: "Something went wrong! Please try again later.",
 	},
+	contact: {
+		dialogTitle: (contactName: string) =>
+			`**Send an email to *${contactName}***`,
+		dialogDetail: (contactName: string, userMail: string) =>
+			`Note: The email to *${contactName}* automatically contains your email address (*${userMail}*) and your text message:`,
+		dialogPlaceholder: "Briefly describe why you would like to connect...",
+		dialogCancel: "Cance",
+		dialogSubmit: "Request contact",
+		dialogAlreadyContactedError: (contactName: string) =>
+			`You already sent a contact request to *${contactName}*.`,
+		dialogAlreadyContactedExplanation:
+			"Note: You have already sent a contact request to this person. Another request is not possible.",
+		genericError: `Oops, something went wrong. Please try again.`,
+		dialogSuccess: (contactName: string) =>
+			`The contact request was sent to *${contactName}*.`,
+		dailyLimitError: "You have reached the daily limit for contact requests.",
+		dailyLimitExplanation:
+			"Note: You have reached the daily limit of 3 contact requests. Please try again tomorrow.",
+		containsUrlError: "The message must not contain any links.",
+		messageTooLongError: "The message must be less than 200 characters long.",
+		loginFirst: "Log in for contact request",
+		loginFirstReason:
+			"Note: You can only send contact requests if you are logged in.",
+		loginFirstAction: "Log in",
+		confirm: "Okay!",
+	},
 	pumps: {
 		title: "Public pump",
 		status: "Status",

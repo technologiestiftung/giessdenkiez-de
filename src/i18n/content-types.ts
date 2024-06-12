@@ -290,8 +290,29 @@ interface Loading {
 	treeLoading: string;
 }
 
+interface Contact {
+	dialogTitle: (contactName: string) => string;
+	dialogDetail: (contactName: string, userMail: string) => string;
+	dialogPlaceholder: string;
+	dialogCancel: string;
+	dialogSubmit: string;
+	dialogAlreadyContactedError: (contactName: string) => string;
+	dialogAlreadyContactedExplanation: string;
+	genericError: string;
+	dialogSuccess: (contactName: string) => string;
+	dailyLimitError: string;
+	dailyLimitExplanation: string;
+	containsUrlError: string;
+	messageTooLongError: string;
+	loginFirst: string;
+	loginFirstReason: string;
+	loginFirstAction: string;
+	confirm: string;
+}
+
 export interface Content {
 	common: Common;
+	contact: Contact;
 	map: {
 		attribution: {
 			mapbox: {

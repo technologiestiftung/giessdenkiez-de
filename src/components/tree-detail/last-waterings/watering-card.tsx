@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useProfileStore } from "../../../shared-stores/profile-store";
+import { useSelectedContactRecipientUsernameStore } from "../../../shared-stores/selected-contact-recipient-store";
 import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
+import { MailIcon } from "../../icons/mail-icon";
 import { TrashIcon } from "../../icons/trash-icon";
 import { WateringCanIcon } from "../../icons/watering-can-icon";
 import { useMapStore } from "../../map/map-store";
@@ -21,7 +23,7 @@ function getDisplayedUsername(wateringData: TreeWateringData) {
 			</span>
 		);
 	}
-	return wateringData.username;
+	return <div>{wateringData.username}</div>;
 }
 
 export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
@@ -34,6 +36,9 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const isWateringByUser = wateringData.username === username;
 
 	const map = useMapStore().map;
+	const setSelectedContactRecipientUsername =
+		useSelectedContactRecipientUsernameStore()
+			.setSelectedContactRecipientUsername;
 
 	const onClickDelete = async () => {
 		setIsDeleteWateringLoading(true);
@@ -55,7 +60,32 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 			<div
 				className={`shadow-gdk-hard flex flex-col gap-2 rounded-lg shrink-0 p-4 w-[90%] `}
 			>
-				<div className="font-bold">{getDisplayedUsername(wateringData)}</div>
+				<div
+					className={`font-bold ${wateringData.username && !isWateringByUser && "cursor-pointer"} flex flex-row items-center gap-2`}
+					onClick={() => {
+						if (!isWateringByUser) {
+							if (username) {
+								setSelectedContactRecipientUsername(wateringData.username);
+								(
+									document.getElementById("contact-dialog") as HTMLDialogElement
+								).showModal();
+							} else {
+								(
+									document.getElementById(
+										"login-first-alert",
+									) as HTMLDialogElement
+								).showModal();
+							}
+						}
+					}}
+				>
+					<div>{getDisplayedUsername(wateringData)}</div>
+					{!isWateringByUser && (
+						<div className={`scale-75`}>
+							<MailIcon color={username ? "#1169EE" : "#2C303B"}></MailIcon>
+						</div>
+					)}
+				</div>
 				<div className="flex flex-row items-center justify-between">
 					<div>{formatDate(new Date(wateringData.timestamp))}</div>
 					<div className="flex flex-row items-center justify-between w-[63px]">

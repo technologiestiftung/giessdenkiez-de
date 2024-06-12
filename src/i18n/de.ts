@@ -463,6 +463,32 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		defaultErrorMessage:
 			"Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.",
 	},
+	contact: {
+		dialogTitle: (contactName: string) =>
+			`**Sende eine E-Mail an *${contactName}***`,
+		dialogDetail: (contactName: string, userMail: string) =>
+			`Hinweis: Die E-Mail an *${contactName}* enthält automatisch Deine E-Mail-Adresse (*${userMail}*) sowie Deine Textnachricht:`,
+		dialogPlaceholder: "Beschreibe kurz, warum Du Dich vernetzen möchtest...",
+		dialogCancel: "Abbrechen",
+		dialogSubmit: "Senden",
+		dialogAlreadyContactedError: (contactName: string) =>
+			`Du hast *${contactName}* bereits eine Kontaktanfrage gesendet.`,
+		dialogAlreadyContactedExplanation:
+			"Hinweis: Du hast dieser Person bereits eine Kontaktanfrage gesendet. Eine erneute Anfrage ist nicht möglich.",
+		genericError: `Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.`,
+		dialogSuccess: (contactName: string) =>
+			`Die Kontaktanfrage an *${contactName}* wurde versendet.`,
+		dailyLimitError: "Tageslimit für Kontaktanfragen erreicht.",
+		dailyLimitExplanation:
+			"Hinweis: Du hast das Tageslimit von 3 Kontaktanfragen erreicht. Bitte versuche es morgen erneut.",
+		containsUrlError: "Die Nachricht darf keine Links enthalten.",
+		messageTooLongError: "Die Nachricht darf max. 200 Zeichen lang sein.",
+		loginFirst: "Einloggen für Kontaktanfrage",
+		loginFirstReason:
+			"Hinweis: Du kannst Personen nur eine Kontaktanfrage stellen, wenn Du eingeloggt bist.",
+		loginFirstAction: "Logge Dich ein",
+		confirm: "Alles klar!",
+	},
 	pumps: {
 		title: "Öffentliche Straßenpumpe",
 		status: "Status",
