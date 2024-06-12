@@ -1,7 +1,12 @@
-name: DWD Radolan Harvester
+name: DWD Radolan Harvester Unified
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment (e.g. development or production)"
+        required: true
+        type: string
   repository_dispatch:
     # This action can be triggered via Github API webook (see https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch)
     types: [radolan_cron]
@@ -9,14 +14,14 @@ on:
 jobs:
   rain:
     # Using the payload of the repository_dispatch webhook to specify the environment
-    environment: "${{ github.event.client_payload.environment }}"
+    environment: "${{ github.event.inputs.environment || github.event.client_payload.environment }}"
     runs-on: ubuntu-latest
     name: Aggregate rain data from DWD radolan
     steps:
       - name: Harvester
-        uses: technologiestiftung/giessdenkiez-de-dwd-harvester@v2.2.2
+        uses: docker://technologiestiftung/giessdenkiez-de-dwd-harvester:v2.5.0
         id: harvester
-        with:
+        env:
           PG_SERVER: ${{ secrets.PG_SERVER }}
           PG_PORT: ${{ secrets.PG_PORT }}
           PG_USER: ${{ secrets.PG_USER }}
@@ -32,3 +37,5 @@ jobs:
           MAPBOXTILESET: ${{ secrets.MAPBOXTILESET }}
           MAPBOXLAYERNAME: ${{ secrets.MAPBOXLAYERNAME }}
           SKIP_MAPBOX: "False"
+          LIMIT_DAYS: ${{ vars.LIMIT_DAYS }}
+          SURROUNDING_SHAPE_FILE: ${{ vars.SURROUNDING_SHAPE_FILE }}

@@ -1,0 +1,40 @@
+name: Linting and Unit Tests
+permissions:
+  contents: write
+  packages: write
+on:
+  push:
+    branches: [master, staging]
+  pull_request:
+    branches: [master, staging]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js from .nvmrc
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - run: npm ci
+      - name: lint
+        run: npm run lint
+      - name: prettier
+        run: npm run prettier:ci
+      - name: unit tests
+        run: npm run test:unit
+  release:
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - run: |
+          npm ci
+          npx semantic-release --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
