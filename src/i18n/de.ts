@@ -14,7 +14,7 @@ export const de: Content = {
 			},
 			improve: {
 				href: "https://www.mapbox.com/map-feedback",
-				label: "<strong>Diese&nbsp;Karte&nbsp;verbessern</strong>",
+				label: "**Diese Karte verbessern**",
 			},
 			feedback: {
 				href: "https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK",
