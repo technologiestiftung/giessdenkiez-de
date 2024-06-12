@@ -4,9 +4,9 @@ permissions:
   packages: write
 on:
   push:
-    branches: [master, staging]
+    branches: [main, staging]
   pull_request:
-    branches: [master, staging]
+    branches: [main, staging]
 jobs:
   test:
     runs-on: ubuntu-latest

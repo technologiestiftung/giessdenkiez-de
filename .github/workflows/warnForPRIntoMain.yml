@@ -1,4 +1,4 @@
-name: "Prevent merge from non-staging to master"
+name: "Prevent merge from non-staging to main"
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -12,4 +12,4 @@ jobs:
         uses: "technologiestiftung/warn-for-main-merge-action@v1.13"
         with:
           stagingName: "staging"
-          mainName: "master"
+          mainName: "main"
