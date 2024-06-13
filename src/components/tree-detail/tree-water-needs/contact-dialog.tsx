@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Markdown from "react-markdown";
 import { useAuthStore } from "../../../auth/auth-store";
 import { supabaseClient } from "../../../auth/supabase-client";
