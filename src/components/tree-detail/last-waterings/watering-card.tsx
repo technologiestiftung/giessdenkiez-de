@@ -3,13 +3,13 @@ import { useI18nStore } from "../../../i18n/i18n-store";
 import { useProfileStore } from "../../../shared-stores/profile-store";
 import { useSelectedContactRecipientUsernameStore } from "../../../shared-stores/selected-contact-recipient-store";
 import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
-import { MailIcon } from "../../icons/mail-icon";
 import { TrashIcon } from "../../icons/trash-icon";
 import { WateringCanIcon } from "../../icons/watering-can-icon";
 import { useMapStore } from "../../map/map-store";
 import { removeTodayWatering } from "../hooks/use-update-tree-waterings";
 import { useWaterTree } from "../hooks/use-water-tree";
 import { TreeWateringData } from "../tree-types";
+import { MailIcon } from "../../icons/mail-icon";
 
 interface WateringCardProps {
 	wateringData: TreeWateringData;
@@ -82,7 +82,10 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 					<div>{getDisplayedUsername(wateringData)}</div>
 					{!isWateringByUser && (
 						<div className={`scale-75`}>
-							<MailIcon color={username ? "#1169EE" : "#2C303B"}></MailIcon>
+							<MailIcon
+								color={username ? "gdk-blue" : "gdk-gray"}
+								hoverColor={username ? "gdk-light-blue" : "gdk-light-gray"}
+							/>
 						</div>
 					)}
 				</div>
