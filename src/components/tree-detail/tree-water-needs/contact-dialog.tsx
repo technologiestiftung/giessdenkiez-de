@@ -35,19 +35,6 @@ export const ContactDialog: React.FC = () => {
 		(document.getElementById("contact-dialog") as HTMLDialogElement).close();
 	};
 
-	// On small screens, scroll to the top of the dialog when it opens
-	useEffect(() => {
-		const textArea = document.getElementById("dialog-textarea");
-		if (textArea) {
-			textArea.blur();
-		}
-		const dialogTitle = document.getElementById("dialog-title");
-		if (dialogTitle) {
-			dialogTitle.scrollIntoView({ behavior: "smooth" });
-			dialogTitle.focus();
-		}
-	}, []);
-
 	const containsLinks = useMemo(() => {
 		const urlRegex = /(https?:\/\/[^\s]+)/g;
 		return message.match(urlRegex) !== null;
@@ -154,7 +141,7 @@ export const ContactDialog: React.FC = () => {
 						className="col-start-1 row-start-1 h-full w-full"
 					>
 						<div className="flex flex-col gap-6 p-8">
-							<div className="text-xl" id="dialog-title">
+							<div className="text-xl">
 								<Markdown>
 									{i18n.contact.dialogTitle(recipientContactName)}
 								</Markdown>
@@ -169,7 +156,6 @@ export const ContactDialog: React.FC = () => {
 									</Markdown>
 								</label>
 								<textarea
-									id="dialog-textarea"
 									autoFocus={false}
 									value={message}
 									className="rounded-lg border-2 p-4"
