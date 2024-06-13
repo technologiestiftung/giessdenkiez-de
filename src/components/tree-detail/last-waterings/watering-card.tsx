@@ -53,7 +53,9 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 
 	return (
 		<div
-			className={`flex transition ease-in-out delay-100 flex-row justify-between gap-2 ${isConfirmDeleteVisible ? " -translate-x-32 " : ""}`}
+			className={`flex transition ease-in-out delay-100 flex-row justify-between gap-2 ${
+				isConfirmDeleteVisible ? " -translate-x-32 " : ""
+			}`}
 		>
 			<div
 				className={`shadow-gdk-hard flex flex-col gap-2 rounded-lg shrink-0 p-4 w-[90%] `}
@@ -94,16 +96,22 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 			</div>
 			{isWateringByUser && (
 				<div
-					className={`flex flex-row self-center gap-2 ${isConfirmDeleteVisible ? "grow" : ""}`}
+					className={`flex flex-row self-center gap-2 ${
+						isConfirmDeleteVisible ? "grow" : ""
+					}`}
 				>
 					<button
 						onClick={() => setIsConfirmDeleteVisible(!isConfirmDeleteVisible)}
-						className={`self-center  text-gdk-dark-red hover:text-gdk-light-red p-1 rounded-sm ${isConfirmDeleteVisible ? "outline outline-2" : ""}`}
+						className={`self-center  text-gdk-dark-red hover:text-gdk-light-red p-1 rounded-sm ${
+							isConfirmDeleteVisible ? "outline outline-2" : ""
+						}`}
 					>
 						<TrashIcon />
 					</button>
 					<div
-						className={`transition ease-in-out delay-100 ${isConfirmDeleteVisible ? "flex" : "hidden"}`}
+						className={`transition ease-in-out delay-100 ${
+							isConfirmDeleteVisible ? "flex" : "hidden"
+						}`}
 					>
 						<PrimaryDestructiveButton
 							label={"Löschen"}
