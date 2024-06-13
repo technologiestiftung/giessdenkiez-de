@@ -459,8 +459,8 @@ Particularly young trees need water in the first few years. Rather less often, b
 		dialogDetail: (contactName: string, userMail: string) =>
 			`Note: The email to *${contactName}* automatically contains your email address (*${userMail}*) and your text message:`,
 		dialogPlaceholder: "Briefly describe why you would like to connect...",
-		dialogCancel: "Cance",
-		dialogSubmit: "Request contact",
+		dialogCancel: "Cancel",
+		dialogSubmit: "Send",
 		dialogAlreadyContactedError: (contactName: string) =>
 			`You already sent a contact request to *${contactName}*.`,
 		dialogAlreadyContactedExplanation:
