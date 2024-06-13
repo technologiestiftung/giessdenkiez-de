@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Markdown from "react-markdown";
 import { useAuthStore } from "../../../auth/auth-store";
 import { supabaseClient } from "../../../auth/supabase-client";
@@ -156,6 +156,7 @@ export const ContactDialog: React.FC = () => {
 									</Markdown>
 								</label>
 								<textarea
+									autoFocus={false}
 									value={message}
 									className="rounded-lg border-2 p-4"
 									placeholder={i18n.contact.dialogPlaceholder}
