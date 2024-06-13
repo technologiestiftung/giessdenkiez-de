@@ -37,6 +37,10 @@ export const ContactDialog: React.FC = () => {
 
 	// On small screens, scroll to the top of the dialog when it opens
 	useEffect(() => {
+		const textArea = document.getElementById("dialog-textarea");
+		if (textArea) {
+			textArea.blur();
+		}
 		const dialogTitle = document.getElementById("dialog-title");
 		if (dialogTitle) {
 			dialogTitle.scrollIntoView({ behavior: "smooth" });
