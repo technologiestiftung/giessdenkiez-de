@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Markdown from "react-markdown";
 import { useAuthStore } from "../../../auth/auth-store";
 import { supabaseClient } from "../../../auth/supabase-client";
@@ -34,6 +34,15 @@ export const ContactDialog: React.FC = () => {
 		setError("");
 		(document.getElementById("contact-dialog") as HTMLDialogElement).close();
 	};
+
+	// On small screens, scroll to the top of the dialog when it opens
+	useEffect(() => {
+		const dialogTitle = document.getElementById("dialog-title");
+		if (dialogTitle) {
+			dialogTitle.scrollIntoView({ behavior: "smooth" });
+			dialogTitle.focus();
+		}
+	}, []);
 
 	const containsLinks = useMemo(() => {
 		const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -141,7 +150,7 @@ export const ContactDialog: React.FC = () => {
 						className="col-start-1 row-start-1 h-full w-full"
 					>
 						<div className="flex flex-col gap-6 p-8">
-							<div className="text-xl">
+							<div className="text-xl" id="dialog-title">
 								<Markdown>
 									{i18n.contact.dialogTitle(recipientContactName)}
 								</Markdown>
@@ -156,6 +165,8 @@ export const ContactDialog: React.FC = () => {
 									</Markdown>
 								</label>
 								<textarea
+									id="dialog-textarea"
+									autoFocus={false}
 									value={message}
 									className="rounded-lg border-2 p-4"
 									placeholder={i18n.contact.dialogPlaceholder}
