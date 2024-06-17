@@ -473,7 +473,7 @@ Particularly young trees need water in the first few years. Rather less often, b
 		dailyLimitExplanation:
 			"Note: You have reached the daily limit of 3 contact requests. Please try again tomorrow.",
 		containsUrlHint:
-			"Please note, that the message must not contain any links.",
+			" Please note, that the message must not contain any links.",
 		messageTooLongError: "The message must be less than 200 characters long.",
 		messageRestrictionsHint: (maxLength: number, message: string) =>
 			`${Math.max(0, maxLength - message.length)} characters left.`,
