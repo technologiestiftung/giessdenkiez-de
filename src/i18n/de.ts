@@ -475,14 +475,18 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 			`Du hast *${contactName}* bereits eine Kontaktanfrage gesendet.`,
 		dialogAlreadyContactedExplanation:
 			"Hinweis: Du hast dieser Person bereits eine Kontaktanfrage gesendet. Eine erneute Anfrage ist nicht möglich.",
+		genericErrorTitle: "Kontaktanfrage nicht möglich",
 		genericError: `Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.`,
 		dialogSuccess: (contactName: string) =>
 			`Die Kontaktanfrage an *${contactName}* wurde versendet.`,
 		dailyLimitError: "Tageslimit für Kontaktanfragen erreicht.",
 		dailyLimitExplanation:
 			"Hinweis: Du hast das Tageslimit von 3 Kontaktanfragen erreicht. Bitte versuche es morgen erneut.",
-		containsUrlError: "Die Nachricht darf keine Links enthalten.",
+		containsUrlHint:
+			" Bitte beachte, dass deine Nachricht keine Links enthalten darf.",
 		messageTooLongError: "Die Nachricht darf max. 200 Zeichen lang sein.",
+		messageRestrictionsHint: (maxLength: number, message: string) =>
+			`Noch ${Math.max(0, maxLength - message.length)} Zeichen übrig.`,
 		loginFirst: "Einloggen für Kontaktanfrage",
 		loginFirstReason:
 			"Hinweis: Du kannst Personen nur eine Kontaktanfrage stellen, wenn Du eingeloggt bist.",

@@ -465,14 +465,18 @@ Particularly young trees need water in the first few years. Rather less often, b
 			`You already sent a contact request to *${contactName}*.`,
 		dialogAlreadyContactedExplanation:
 			"Note: You have already sent a contact request to this person. Another request is not possible.",
+		genericErrorTitle: "Contact request not possible",
 		genericError: `Oops, something went wrong. Please try again.`,
 		dialogSuccess: (contactName: string) =>
 			`The contact request was sent to *${contactName}*.`,
 		dailyLimitError: "You have reached the daily limit for contact requests.",
 		dailyLimitExplanation:
 			"Note: You have reached the daily limit of 3 contact requests. Please try again tomorrow.",
-		containsUrlError: "The message must not contain any links.",
+		containsUrlHint:
+			"Please note, that the message must not contain any links.",
 		messageTooLongError: "The message must be less than 200 characters long.",
+		messageRestrictionsHint: (maxLength: number, message: string) =>
+			`${Math.max(0, maxLength - message.length)} characters left.`,
 		loginFirst: "Log in for contact request",
 		loginFirstReason:
 			"Note: You can only send contact requests if you are logged in.",

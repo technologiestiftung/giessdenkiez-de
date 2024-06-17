@@ -1,15 +1,18 @@
+/* eslint-disable max-lines */
 import React, { useState } from "react";
+import { supabaseClient } from "../../../auth/supabase-client";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useProfileStore } from "../../../shared-stores/profile-store";
 import { useSelectedContactRecipientUsernameStore } from "../../../shared-stores/selected-contact-recipient-store";
 import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
+import { MailIcon } from "../../icons/mail-icon";
+import { SpinnerIcon } from "../../icons/spinner-icon";
 import { TrashIcon } from "../../icons/trash-icon";
 import { WateringCanIcon } from "../../icons/watering-can-icon";
 import { useMapStore } from "../../map/map-store";
 import { removeTodayWatering } from "../hooks/use-update-tree-waterings";
 import { useWaterTree } from "../hooks/use-water-tree";
 import { TreeWateringData } from "../tree-types";
-import { MailIcon } from "../../icons/mail-icon";
 
 interface WateringCardProps {
 	wateringData: TreeWateringData;
@@ -35,6 +38,8 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false);
 	const isWateringByUser = wateringData.username === username;
 
+	const [isContactRequestLoading, setIsContactRequestLoading] = useState(false);
+
 	const map = useMapStore().map;
 	const setSelectedContactRecipientUsername =
 		useSelectedContactRecipientUsernameStore()
@@ -51,6 +56,67 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 		setIsConfirmDeleteVisible(false);
 	};
 
+	const checkForContactRequestAllowed = async () => {
+		if (isWateringByUser) {
+			return;
+		}
+
+		if (!username) {
+			(
+				document.getElementById("login-first-alert") as HTMLDialogElement
+			).showModal();
+			return;
+		}
+
+		setIsContactRequestLoading(true);
+
+		const data = await supabaseClient.functions.invoke(
+			"check_contact_request",
+			{
+				body: {
+					recipientContactName: wateringData.username,
+				},
+			},
+		);
+		setIsContactRequestLoading(false);
+
+		if (!data || data.error) {
+			(
+				document.getElementById(
+					"generic-contact-error-alert",
+				) as HTMLDialogElement
+			).showModal();
+			return;
+		}
+
+		if (data.data) {
+			setSelectedContactRecipientUsername(wateringData.username);
+
+			if (data.data.isContactRequestAllowed) {
+				(
+					document.getElementById("contact-dialog") as HTMLDialogElement
+				).showModal();
+				return;
+			}
+
+			if (data.data.reason === "already_contacted_the_recipient_before") {
+				(
+					document.getElementById(
+						"already-contacted-alert",
+					) as HTMLDialogElement
+				).showModal();
+				return;
+			}
+
+			if (data.data.reason === "already_sent_more_than_3_contact_requests") {
+				(
+					document.getElementById("daily-limit-alert") as HTMLDialogElement
+				).showModal();
+				return;
+			}
+		}
+	};
+
 	return (
 		<div
 			className={`flex transition ease-in-out delay-100 flex-row justify-between gap-2 ${
@@ -63,29 +129,22 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 				<div
 					className={`font-bold ${wateringData.username && !isWateringByUser && "cursor-pointer"} flex flex-row items-center gap-2`}
 					onClick={() => {
-						if (!isWateringByUser) {
-							if (username) {
-								setSelectedContactRecipientUsername(wateringData.username);
-								(
-									document.getElementById("contact-dialog") as HTMLDialogElement
-								).showModal();
-							} else {
-								(
-									document.getElementById(
-										"login-first-alert",
-									) as HTMLDialogElement
-								).showModal();
-							}
-						}
+						checkForContactRequestAllowed();
 					}}
 				>
 					<div>{getDisplayedUsername(wateringData)}</div>
 					{!isWateringByUser && (
-						<div className={`scale-75`}>
-							<MailIcon
-								color={username ? "gdk-blue" : "gdk-gray"}
-								hoverColor={username ? "gdk-light-blue" : "gdk-light-gray"}
-							/>
+						<div>
+							{isContactRequestLoading ? (
+								<SpinnerIcon text="text-gdk-light-blue" fill="fill-gdk-blue" />
+							) : (
+								<div className={`scale-75`}>
+									<MailIcon
+										color={username ? "gdk-blue" : "gdk-gray"}
+										hoverColor={username ? "gdk-light-blue" : "gdk-light-gray"}
+									/>
+								</div>
+							)}
 						</div>
 					)}
 				</div>

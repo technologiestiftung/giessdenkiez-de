@@ -298,12 +298,14 @@ interface Contact {
 	dialogSubmit: string;
 	dialogAlreadyContactedError: (contactName: string) => string;
 	dialogAlreadyContactedExplanation: string;
+	genericErrorTitle: string;
 	genericError: string;
 	dialogSuccess: (contactName: string) => string;
 	dailyLimitError: string;
 	dailyLimitExplanation: string;
-	containsUrlError: string;
+	containsUrlHint: string;
 	messageTooLongError: string;
+	messageRestrictionsHint: (maxLength: number, message: string) => string;
 	loginFirst: string;
 	loginFirstReason: string;
 	loginFirstAction: string;
