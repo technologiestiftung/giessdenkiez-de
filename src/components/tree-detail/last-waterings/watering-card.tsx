@@ -80,7 +80,7 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 		);
 		setIsContactRequestLoading(false);
 
-		if (!data || data.error) {
+		if (!data || data.error || !data.data) {
 			(
 				document.getElementById(
 					"generic-contact-error-alert",
@@ -89,31 +89,27 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 			return;
 		}
 
-		if (data.data) {
-			setSelectedContactRecipientUsername(wateringData.username);
+		setSelectedContactRecipientUsername(wateringData.username);
 
-			if (data.data.isContactRequestAllowed) {
-				(
-					document.getElementById("contact-dialog") as HTMLDialogElement
-				).showModal();
-				return;
-			}
+		if (data.data.isContactRequestAllowed) {
+			(
+				document.getElementById("contact-dialog") as HTMLDialogElement
+			).showModal();
+			return;
+		}
 
-			if (data.data.reason === "already_contacted_the_recipient_before") {
-				(
-					document.getElementById(
-						"already-contacted-alert",
-					) as HTMLDialogElement
-				).showModal();
-				return;
-			}
+		if (data.data.reason === "already_contacted_the_recipient_before") {
+			(
+				document.getElementById("already-contacted-alert") as HTMLDialogElement
+			).showModal();
+			return;
+		}
 
-			if (data.data.reason === "already_sent_more_than_3_contact_requests") {
-				(
-					document.getElementById("daily-limit-alert") as HTMLDialogElement
-				).showModal();
-				return;
-			}
+		if (data.data.reason === "already_sent_more_than_3_contact_requests") {
+			(
+				document.getElementById("daily-limit-alert") as HTMLDialogElement
+			).showModal();
+			return;
 		}
 	};
 
