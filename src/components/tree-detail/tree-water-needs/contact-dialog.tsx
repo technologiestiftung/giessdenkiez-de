@@ -14,6 +14,8 @@ import { CloseIcon } from "../../icons/close-icon";
 import { useTreeStore } from "../stores/tree-store";
 
 export const ContactDialog: React.FC = () => {
+	const MAX_MESSAGE_LENGTH = 200;
+
 	const { selectedContactRecipientUsername } =
 		useSelectedContactRecipientUsernameStore();
 
@@ -41,7 +43,7 @@ export const ContactDialog: React.FC = () => {
 	}, [message]);
 
 	const messageTooLong = useMemo(() => {
-		return message.length > 200;
+		return message.length > MAX_MESSAGE_LENGTH;
 	}, [message]);
 
 	const showContactSuccessDialog = () => {
@@ -164,15 +166,22 @@ export const ContactDialog: React.FC = () => {
 									name="message"
 									rows={4}
 									onChange={(e) => {
-										setMessage(e.target.value);
+										setMessage(e.target.value.slice(0, 200));
 									}}
 								/>
 							</div>
 
-							{/* --- Error handling --- */}
+							<div className="text-sm">
+								{i18n.contact.messageRestrictionsHint(
+									MAX_MESSAGE_LENGTH,
+									message,
+								)}
+								<span className={containsLinks ? "text-red-500" : ""}>
+									{i18n.contact.containsUrlHint}
+								</span>
+							</div>
+
 							{error && errorLabel(i18n.contact.genericError)}
-							{containsLinks && errorLabel(i18n.contact.containsUrlError)}
-							{messageTooLong && errorLabel(i18n.contact.messageTooLongError)}
 
 							<div className="flex flex-col-reverse sm:flex-row justify-between gap-x-4">
 								<div className="p-y-3.5 flex self-center">
@@ -240,6 +249,13 @@ export const ContactDialog: React.FC = () => {
 				alertMessage={i18n.contact.loginFirstReason}
 				confirmTitle={i18n.contact.loginFirstAction}
 				href={`/profile?redirectTo=/map?treeId=${selectedTreeId}&zoom=20`}
+			/>
+
+			<WarningDialog
+				id="generic-contact-error-alert"
+				title={i18n.contact.genericErrorTitle}
+				alertMessage={i18n.contact.genericError}
+				confirmTitle={i18n.contact.confirm}
 			/>
 		</>
 	);
