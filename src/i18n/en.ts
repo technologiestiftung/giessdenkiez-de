@@ -217,8 +217,8 @@ Before watering, you should first look at the tree and consider whether it reall
 					`,
 				},
 				{
-					question: `How do I deal with water scarcity?`, 
-					answer: `In times of drought and water scarcity, it is especially important to use water sparingly. If you want to water your tree, first ask yourself which tree has the greatest need. Water less frequently, but with larger amounts of water. This encourages the tree to develop deeper roots and become more resilient to drought. To get an overview of the current soil moisture in Berlin, it is worth checking the [Irrigation recommendation for urban trees](https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/) of Berlin's Plant Protection Office. Try to use water from public street pumps instead of tap water from your home. In the long term, it is worth collecting rainwater and storing it in rain barrels. Neighborhood initiatives like [Wassertanke](https://wassertanke.org) can help you with such community projects.`
+					question: `How do I deal with water scarcity?`,
+					answer: `In times of drought and water scarcity, it is especially important to use water sparingly. If you want to water your tree, first ask yourself which tree has the greatest need. Water less frequently, but with larger amounts of water. This encourages the tree to develop deeper roots and become more resilient to drought. To get an overview of the current soil moisture in Berlin, it is worth checking the [Irrigation recommendation for urban trees](https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/) of Berlin's Plant Protection Office. Try to use water from public street pumps instead of tap water from your home. In the long term, it is worth collecting rainwater and storing it in rain barrels. Neighborhood initiatives like [Wassertanke](https://wassertanke.org) can help you with such community projects.`,
 				},
 				{
 					question: "Who can I contact if pumps are broken or damaged?",
