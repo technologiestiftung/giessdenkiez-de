@@ -91,7 +91,11 @@ export const Stats: React.FC = () => {
 									icon={<WateringCanIcon></WateringCanIcon>}
 								>
 									<div>
-										<DensityMap width={260} height={200}></DensityMap>
+										<DensityMap
+											width={260}
+											height={200}
+											data={stats.waterings}
+										></DensityMap>
 									</div>
 								</StatsCard>
 								<StatsCard
