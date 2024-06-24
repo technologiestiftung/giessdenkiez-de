@@ -5,6 +5,7 @@ import { UserIcon } from "../icons/user-icon";
 import { InfoIcon } from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { LanguageToggle } from "../router/languageToggle";
+import { BarChartIcon } from "../icons/bar-chart-icon";
 
 export const Navbar: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -20,6 +21,7 @@ export const Navbar: React.FC = () => {
 			icon: <UserIcon />,
 		},
 		{ label: i18n.navbar.info, path: "/about", icon: <InfoIcon /> },
+		{ label: "Stats", path: "/stats", icon: <BarChartIcon /> },
 	];
 
 	return (
