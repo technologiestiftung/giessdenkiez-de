@@ -467,21 +467,21 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		dialogTitle: (contactName: string) =>
 			`**Sende eine E-Mail an *${contactName}***`,
 		dialogDetail: (contactName: string, userMail: string) =>
-			`Hinweis: Die E-Mail an *${contactName}* enthält automatisch Deine E-Mail-Adresse (*${userMail}*) sowie Deine Textnachricht:`,
+			`Die E-Mail an *${contactName}* enthält automatisch Deine E-Mail-Adresse (*${userMail}*) sowie Deine Textnachricht:`,
 		dialogPlaceholder: "Beschreibe kurz, warum Du Dich vernetzen möchtest...",
 		dialogCancel: "Abbrechen",
 		dialogSubmit: "Senden",
 		dialogAlreadyContactedError: (contactName: string) =>
 			`Du hast *${contactName}* bereits eine Kontaktanfrage gesendet.`,
 		dialogAlreadyContactedExplanation:
-			"Hinweis: Du hast dieser Person bereits eine Kontaktanfrage gesendet. Eine erneute Anfrage ist nicht möglich.",
+			"Du hast dieser Person bereits eine Kontaktanfrage gesendet. Eine erneute Anfrage ist nicht möglich.",
 		genericErrorTitle: "Kontaktanfrage nicht möglich",
 		genericError: `Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.`,
 		dialogSuccess: (contactName: string) =>
 			`Die Kontaktanfrage an *${contactName}* wurde versendet.`,
 		dailyLimitError: "Tageslimit für Kontaktanfragen erreicht.",
 		dailyLimitExplanation:
-			"Hinweis: Du hast das Tageslimit von 3 Kontaktanfragen erreicht. Bitte versuche es morgen erneut.",
+			"Du hast das Tageslimit von 3 Kontaktanfragen erreicht. Bitte versuche es morgen erneut.",
 		containsUrlHint:
 			" Bitte beachte, dass Deine Nachricht keine Links enthalten darf.",
 		messageTooLongError: "Die Nachricht darf max. 200 Zeichen lang sein.",
@@ -489,7 +489,7 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 			`Noch ${Math.max(0, maxLength - message.length)} Zeichen übrig.`,
 		loginFirst: "Einloggen für Kontaktanfrage",
 		loginFirstReason:
-			"Hinweis: Du kannst Personen nur eine Kontaktanfrage stellen, wenn Du eingeloggt bist.",
+			"Du kannst Personen nur eine Kontaktanfrage stellen, wenn Du eingeloggt bist.",
 		loginFirstAction: "Logge Dich ein",
 		confirm: "Alles klar!",
 	},

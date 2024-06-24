@@ -38,7 +38,8 @@ export const ContactDialog: React.FC = () => {
 	};
 
 	const containsLinks = useMemo(() => {
-		const urlRegex = /(https?:\/\/[^\s]+)/g;
+		const urlRegex =
+			/(https?:\/\/[^\s]+|www\.[^\s]+|[a-zA-Z0-9-]+\.(com|de|it|net|org|edu|gov|mil|co|uk|us|info|biz|io|ai|ca|fr|es|nl|ru|jp|cn|in))/g;
 		return message.match(urlRegex) !== null;
 	}, [message]);
 
