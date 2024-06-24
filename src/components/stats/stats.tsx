@@ -10,7 +10,8 @@ import { SimpleStatsCard } from "./simple-stats-card";
 import { StatsCard } from "./stats-card";
 import { BarChart } from "./bar-chart";
 import { LineChart } from "./line-chart";
-import { PieChart } from "./pie-chart";
+import { DonutChart } from "./pie-chart";
+import { DensityMap } from "./density-map";
 
 interface TreeSpecies {
 	speciesName?: string;
@@ -89,7 +90,9 @@ export const Stats: React.FC = () => {
 									titleColor="text-gdk-blue"
 									icon={<WateringCanIcon></WateringCanIcon>}
 								>
-									<div>Hallo</div>
+									<div>
+										<DensityMap width={260} height={200}></DensityMap>
+									</div>
 								</StatsCard>
 								<StatsCard
 									title="Gießverhalten"
@@ -150,7 +153,7 @@ export const Stats: React.FC = () => {
 									icon={<TreeIcon></TreeIcon>}
 								>
 									<div>
-										<PieChart
+										<DonutChart
 											data={stats.mostFrequentTreeSpecies
 												.slice(0, 10)
 												.map((t) => {
@@ -161,7 +164,8 @@ export const Stats: React.FC = () => {
 												})}
 											width={260}
 											height={200}
-										></PieChart>
+											innerRadiusRatio={0.65}
+										></DonutChart>
 									</div>
 								</StatsCard>
 							</div>

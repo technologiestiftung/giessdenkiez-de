@@ -1,17 +1,24 @@
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 
-interface PieChartProps {
+interface DonutChartProps {
 	data: { label: string; value: number }[];
 	width: number;
 	height: number;
+	innerRadiusRatio: number; // Ratio of inner radius to the outer radius
 }
 
-export const PieChart: React.FC<PieChartProps> = ({ data, width, height }) => {
+export const DonutChart: React.FC<DonutChartProps> = ({
+	data,
+	width,
+	height,
+	innerRadiusRatio,
+}) => {
 	const svgRef = useRef<SVGSVGElement | null>(null);
 
 	useEffect(() => {
 		const radius = Math.min(width, height) / 2;
+		const innerRadius = radius * innerRadiusRatio;
 		const color = d3.scaleOrdinal(d3.schemeCategory10);
 
 		const pie = d3
@@ -20,7 +27,7 @@ export const PieChart: React.FC<PieChartProps> = ({ data, width, height }) => {
 
 		const arc = d3
 			.arc<d3.PieArcDatum<{ label: string; value: number }>>()
-			.innerRadius(0)
+			.innerRadius(innerRadius)
 			.outerRadius(radius);
 
 		const svg = d3
@@ -39,7 +46,7 @@ export const PieChart: React.FC<PieChartProps> = ({ data, width, height }) => {
 			.attr("fill", (d) => color(d.data.label))
 			.attr("stroke", "white")
 			.attr("stroke-width", 2);
-	}, [data, width, height]);
+	}, [data, width, height, innerRadiusRatio]);
 
 	return <svg ref={svgRef}></svg>;
 };
