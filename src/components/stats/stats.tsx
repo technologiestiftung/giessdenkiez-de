@@ -85,7 +85,7 @@ export const Stats: React.FC = () => {
 								<StatsCard
 									title="Gießungen"
 									hint="wurde im Jahr 2024 gegossen"
-									stat={1290}
+									stat={stats.waterings.length}
 									unit="mal"
 									titleColor="text-gdk-blue"
 									icon={<WateringCanIcon></WateringCanIcon>}

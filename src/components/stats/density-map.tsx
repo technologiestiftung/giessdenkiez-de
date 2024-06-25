@@ -7,15 +7,19 @@ interface DensityMapProps {
 	height: number;
 }
 
+interface DataPoint {
+	lat: number;
+	lng: number;
+	amount: number;
+}
+
 export const DensityMap: React.FC<DensityMapProps> = ({
 	width,
 	height,
 	data,
 }) => {
 	const svgRef = useRef<SVGSVGElement>(null);
-
 	const [berlinDistricsPaths, setBerlinDistricsPaths] = useState();
-	const [densityPaths, setDensityPaths] = useState();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -44,8 +48,6 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 
 	useEffect(() => {
 		if (data && berlinDistricsPaths) {
-			console.log("Render density map");
-
 			const projection = d3
 				.geoMercator()
 				.center([13.4, 52.5])
@@ -58,16 +60,27 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				amount: d.amount,
 			}));
 
-			// Set up the SVG element
 			const svg = d3
 				.select(svgRef.current)
 				.attr("width", width)
 				.attr("height", height);
 
-			svg.selectAll("path").remove();
+			svg.selectAll("path.district").remove();
+			svg.selectAll("path.contours").remove();
+
+			const x = d3.scaleLinear().domain([0, width]).range([0, width]);
+			const y = d3.scaleLinear().domain([0, height]).range([0, height]);
+
+			const densityDataTmp = d3
+				.contourDensity<DataPoint>()
+				.x((d) => x(d.lng))
+				.y((d) => y(d.lat))
+				.size([width, height])
+				.weight(() => 1)
+				.bandwidth(4)
+				.thresholds(30)(parsedData);
 
 			if (berlinDistricsPaths) {
-				// Render Berlin district paths
 				svg
 					.selectAll("path.district")
 					.data(berlinDistricsPaths)
@@ -80,28 +93,13 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 					.attr("stroke-width", 1);
 			}
 
-			// Set up scales
-			const x = d3.scaleLinear().domain([0, width]).range([0, width]);
-
-			const y = d3.scaleLinear().domain([0, height]).range([0, height]);
-
-			// Generate contours
-			const densityDataTmp = d3
-				.contourDensity()
-				.x((d) => x(d.lng))
-				.y((d) => y(d.lat))
-				.size([width, height])
-				.weight((d) => d.amount)(parsedData);
-
-			setDensityPaths(densityDataTmp);
-
 			svg
-				.selectAll("path")
+				.selectAll("path.contours")
 				.data(densityDataTmp)
 				.enter()
 				.append("path")
 				.attr("d", d3.geoPath(d3.geoIdentity().scale(1)))
-				.attr("fill", (d, i) => d3.interpolateViridis(i / 30))
+				.attr("fill", (d, i) => d3.interpolateRgb("#FD9531", "#336CC0")(i / 10))
 				.attr("stroke", "#000")
 				.attr("stroke-width", 0)
 				.attr("opacity", 0.1);
