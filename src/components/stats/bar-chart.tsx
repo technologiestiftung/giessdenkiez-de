@@ -49,7 +49,7 @@ function Bars({ data, height, scaleX, scaleY }: BarsProps) {
 					y={scaleY(value)}
 					width={scaleX.bandwidth()}
 					height={height - scaleY(value)}
-					fill="#1169EE"
+					fill="#0A4295"
 				/>
 			))}
 		</>
@@ -85,7 +85,7 @@ export function BarChart({ data }: BarChartProps) {
 					y={scaleY(average)}
 					width={width}
 					height={1}
-					fill="#1169EE"
+					fill="#0A4295"
 				/>
 			</g>
 		</svg>

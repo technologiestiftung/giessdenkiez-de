@@ -40,7 +40,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 				<span className="text-3xl font-semibold">{unit}</span>
 			</div>
 			<div className={`text-xl font-semibold ${titleColor}`}>{hint}</div>
-			<div className="py-3">{children}</div>
+			<div className="py-3 flex flex-row justify-center">{children}</div>
 		</div>
 	);
 };

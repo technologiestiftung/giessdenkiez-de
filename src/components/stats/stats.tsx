@@ -47,7 +47,6 @@ export const Stats: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		console.log(stats);
 		const orderedMonthly = (stats?.monthlyWaterings ?? [])
 			.sort((a, b) => {
 				return new Date(a.month).getTime() - new Date(b.month).getTime();
@@ -78,100 +77,114 @@ export const Stats: React.FC = () => {
 							Gieß den Kiez in Zahlen
 						</div>
 						{stats && (
-							<div className="grid grid-cols-2 md:grid-cols-2 gap-4">
-								<SimpleStatsCard title="Straßenbäume" stat={stats.numTrees} />
-								<SimpleStatsCard title="Öffentliche Pumpen" stat={2125} />
-								<SimpleStatsCard title="Aktive Gießer:innen" stat={3774} />
-								<StatsCard
-									title="Gießungen"
-									hint="wurde im Jahr 2024 gegossen"
-									stat={stats.waterings.length}
-									unit="mal"
-									titleColor="text-gdk-blue"
-									icon={<WateringCanIcon></WateringCanIcon>}
-								>
-									<div>
+							<div className="flex flex-col gap-4">
+								<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+									<SimpleStatsCard title="Straßenbäume" stat={stats.numTrees} />
+									<SimpleStatsCard title="Öffentliche Pumpen" stat={2125} />
+									<SimpleStatsCard title="Aktive Gießer:innen" stat={3774} />
+								</div>
+								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+									<StatsCard
+										title="Gießungen"
+										hint="wurde im Jahr 2024 gegossen"
+										stat={stats.waterings.length}
+										unit="mal"
+										titleColor="text-gdk-dark-blue"
+										icon={<WateringCanIcon></WateringCanIcon>}
+									>
 										<DensityMap
-											width={260}
+											width={300}
 											height={200}
 											data={stats.waterings}
 										></DensityMap>
-									</div>
-								</StatsCard>
-								<StatsCard
-									title="Gießverhalten"
-									hint="werden durchschnittlich pro Monat gegossen"
-									stat={33899}
-									unit="Liter"
-									titleColor="text-gdk-blue"
-									icon={<DropIcon></DropIcon>}
-								>
-									<div>
-										<BarChart
-											data={monthly.map((m) => {
-												return {
-													label: m.month,
-													value: m.wateringCount,
-												};
-											})}
-										></BarChart>
-									</div>
-								</StatsCard>
-								<StatsCard
-									title="Gießvolumen"
-									hint="werden 2024 durchschnittlich pro Gießung eingetragen"
-									stat={55}
-									unit="Liter"
-									titleColor="text-gdk-blue"
-									icon={<DropIcon></DropIcon>}
-								>
-									<div>
-										<LineChart
-											data={monthly.map((m) => {
-												return {
-													date: new Date(m.month),
-													value: m.wateringCount,
-												};
-											})}
-											width={260}
-											height={200}
-										></LineChart>
-									</div>
-								</StatsCard>
-								<StatsCard
-									title="Baumadoptionen"
-									hint="wurden adoptiert"
-									stat={stats.numTreeAdoptions}
-									unit="Bäume"
-									titleColor="text-gdk-purple"
-									icon={<HeartIcon isAdopted={true}></HeartIcon>}
-								>
-									<div>Hallo</div>
-								</StatsCard>
-								<StatsCard
-									title="Baumarten"
-									hint="stehen in Berlin"
-									stat={97}
-									unit="Baumarten"
-									titleColor="text-gdk-dark-green"
-									icon={<TreeIcon></TreeIcon>}
-								>
-									<div>
-										<DonutChart
-											data={stats.mostFrequentTreeSpecies
-												.slice(0, 10)
-												.map((t) => {
+									</StatsCard>
+									<StatsCard
+										title="Gießverhalten"
+										hint="werden durchschnittlich pro Monat gegossen"
+										stat={33899}
+										unit="Liter"
+										titleColor="text-gdk-dark-blue"
+										icon={<DropIcon></DropIcon>}
+									>
+										<div>
+											<BarChart
+												width={300}
+												height={200}
+												data={monthly.map((m) => {
 													return {
-														label: t.speciesName ?? "",
-														value: t.percentage,
+														label: m.month,
+														value: m.wateringCount,
 													};
 												})}
-											width={260}
-											height={200}
-											innerRadiusRatio={0.65}
-										></DonutChart>
-									</div>
-								</StatsCard>
+											></BarChart>
+										</div>
+									</StatsCard>
+									<StatsCard
+										title="Gießvolumen"
+										hint="werden 2024 durchschnittlich pro Gießung eingetragen"
+										stat={55}
+										unit="Liter"
+										titleColor="text-gdk-dark-blue"
+										icon={<DropIcon></DropIcon>}
+									>
+										<div>
+											<LineChart
+												data={monthly.map((m) => {
+													return {
+														date: new Date(m.month),
+														value: m.wateringCount,
+													};
+												})}
+												width={300}
+												height={200}
+											></LineChart>
+										</div>
+									</StatsCard>
+									<StatsCard
+										title="Baumadoptionen"
+										hint="wurden adoptiert"
+										stat={stats.numTreeAdoptions}
+										unit="Bäume"
+										titleColor="text-gdk-purple"
+										icon={<HeartIcon isAdopted={true}></HeartIcon>}
+									>
+										<div className="w-full">
+											<div className="w-full grid grid-cols-1 grid-rows-">
+												<div className="w-full h-7 bg-[#660A9C] opacity-[30%] rounded-full row-start-1 col-start-1"></div>
+												<div className="w-[30%] h-7 bg-[#660A9C] rounded-full row-start-1 col-start-1"></div>
+												<div className="text-[#660A9C] text-4xl pt-2">↑</div>
+												<div className="text-[#660A9C] text-xl pt-2">
+													<span className="font-bold">12%</span> der adoptierten
+													Bäume sind besonders durstig.
+												</div>
+											</div>
+										</div>
+									</StatsCard>
+									<StatsCard
+										title="Baumarten"
+										hint="stehen in Berlin"
+										stat={97}
+										unit="Baumarten"
+										titleColor="text-gdk-dark-green"
+										icon={<TreeIcon></TreeIcon>}
+									>
+										<div>
+											<DonutChart
+												data={stats.mostFrequentTreeSpecies
+													.slice(0, 10)
+													.map((t) => {
+														return {
+															label: t.speciesName ?? "",
+															value: t.percentage,
+														};
+													})}
+												width={300}
+												height={200}
+												innerRadiusRatio={0.65}
+											></DonutChart>
+										</div>
+									</StatsCard>
+								</div>
 							</div>
 						)}
 					</div>

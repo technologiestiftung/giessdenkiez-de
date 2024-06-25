@@ -14,12 +14,17 @@ interface DataPoint {
 }
 
 export const DensityMap: React.FC<DensityMapProps> = ({
+	data,
 	width,
 	height,
-	data,
 }) => {
 	const svgRef = useRef<SVGSVGElement>(null);
 	const [berlinDistricsPaths, setBerlinDistricsPaths] = useState();
+	const projection = d3
+		.geoMercator()
+		.center([13.4, 52.5])
+		.translate([width / 2, height / 2])
+		.scale(width / 0.015);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -27,12 +32,6 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				"http://localhost:5173/data/berlin_bezirke.geojson",
 			);
 			const berlinBezirke = await berlinBezirkeRaw.json();
-
-			const projection = d3
-				.geoMercator()
-				.center([13.4, 52.5])
-				.translate([width / 2, height / 2])
-				.scale(width / 0.013);
 
 			const geoGenerator = d3.geoPath().projection(projection);
 
@@ -48,12 +47,6 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 
 	useEffect(() => {
 		if (data && berlinDistricsPaths) {
-			const projection = d3
-				.geoMercator()
-				.center([13.4, 52.5])
-				.translate([width / 2, height / 2])
-				.scale(width / 0.013);
-
 			const parsedData = data.map((d) => ({
 				lat: projection([d.lng, d.lat])[1],
 				lng: projection([d.lng, d.lat])[0],
@@ -104,7 +97,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.attr("stroke-width", 0)
 				.attr("opacity", 0.1);
 		}
-	}, [data, berlinDistricsPaths]);
+	}, [height, width, data, berlinDistricsPaths]);
 
-	return <svg width={width} height={height} ref={svgRef}></svg>;
+	return <svg id="density-container" ref={svgRef}></svg>;
 };

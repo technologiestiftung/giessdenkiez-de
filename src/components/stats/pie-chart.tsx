@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 
 interface DonutChartProps {
@@ -15,7 +15,6 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 	innerRadiusRatio,
 }) => {
 	const svgRef = useRef<SVGSVGElement | null>(null);
-
 	useEffect(() => {
 		const radius = Math.min(width, height) / 2;
 		const innerRadius = radius * innerRadiusRatio;
@@ -45,8 +44,17 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			.attr("d", arc)
 			.attr("fill", (d) => color(d.data.label))
 			.attr("stroke", "white")
-			.attr("stroke-width", 2);
+			.attr("stroke-width", 2)
+			.on("click", (d) => console.log(d));
+
+		svg
+			.append("image")
+			.attr("xlink:href", "images/AHORN.png")
+			.attr("x", -80 / 2)
+			.attr("y", -80 / 2)
+			.attr("width", 80)
+			.attr("height", 80);
 	}, [data, width, height, innerRadiusRatio]);
 
-	return <svg ref={svgRef}></svg>;
+	return <svg id="svg-container" ref={svgRef}></svg>;
 };

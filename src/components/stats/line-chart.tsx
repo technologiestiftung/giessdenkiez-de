@@ -49,7 +49,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 		g.append("path")
 			.datum(data)
 			.attr("fill", "none")
-			.attr("stroke", "#1169EE")
+			.attr("stroke", "#0A4295")
 			.attr("stroke-width", 3)
 			.attr("d", line);
 	}, [data, width, height]);
