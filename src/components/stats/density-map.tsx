@@ -46,9 +46,15 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 		if (data && berlinDistricsPaths) {
 			console.log("Render density map");
 
+			const projection = d3
+				.geoMercator()
+				.center([13.4, 52.5])
+				.translate([width / 2, height / 2])
+				.scale(width / 0.013);
+
 			const parsedData = data.map((d) => ({
-				lat: d.lat,
-				lng: d.lng,
+				lat: projection([d.lng, d.lat])[1],
+				lng: projection([d.lng, d.lat])[0],
 				amount: d.amount,
 			}));
 
@@ -75,15 +81,9 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 			}
 
 			// Set up scales
-			const x = d3
-				.scaleLinear()
-				.domain(d3.extent(parsedData, (d) => d.lng) as [number, number])
-				.range([0, width]);
+			const x = d3.scaleLinear().domain([0, width]).range([0, width]);
 
-			const y = d3
-				.scaleLinear()
-				.domain(d3.extent(parsedData, (d) => d.lat) as [number, number])
-				.range([height, 0]);
+			const y = d3.scaleLinear().domain([0, height]).range([0, height]);
 
 			// Generate contours
 			const densityDataTmp = d3

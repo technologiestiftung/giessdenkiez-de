@@ -78,7 +78,7 @@ export const Stats: React.FC = () => {
 							Gieß den Kiez in Zahlen
 						</div>
 						{stats && (
-							<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+							<div className="grid grid-cols-2 md:grid-cols-2 gap-4">
 								<SimpleStatsCard title="Straßenbäume" stat={stats.numTrees} />
 								<SimpleStatsCard title="Öffentliche Pumpen" stat={2125} />
 								<SimpleStatsCard title="Aktive Gießer:innen" stat={3774} />
