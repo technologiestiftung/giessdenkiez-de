@@ -19,7 +19,7 @@ jobs:
     name: Aggregate rain data from DWD radolan
     steps:
       - name: Harvester
-        uses: docker://technologiestiftung/giessdenkiez-de-dwd-harvester:v2.5.0
+        uses: docker://technologiestiftung/giessdenkiez-de-dwd-harvester:v2.5.1
         id: harvester
         env:
           PG_SERVER: ${{ secrets.PG_SERVER }}
@@ -39,3 +39,5 @@ jobs:
           SKIP_MAPBOX: "False"
           LIMIT_DAYS: ${{ vars.LIMIT_DAYS }}
           SURROUNDING_SHAPE_FILE: ${{ vars.SURROUNDING_SHAPE_FILE }}
+          WEATHER_HARVEST_LAT: ${{ vars.WEATHER_HARVEST_LAT }}
+          WEATHER_HARVEST_LNG: ${{ vars.WEATHER_HARVEST_LNG }}
