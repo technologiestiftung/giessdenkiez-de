@@ -86,6 +86,8 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 					.attr("stroke-width", 1);
 			}
 
+			console.log(densityDataTmp);
+
 			svg
 				.selectAll("path.contours")
 				.data(densityDataTmp)

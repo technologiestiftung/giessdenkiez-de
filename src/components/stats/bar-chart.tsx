@@ -1,93 +1,92 @@
+// src/components/BarChart.tsx
 import React, { useEffect, useRef } from "react";
-import {
-	axisBottom,
-	axisLeft,
-	ScaleBand,
-	scaleBand,
-	ScaleLinear,
-	scaleLinear,
-	select,
-} from "d3";
-
-export interface IData {
-	label: string;
-	value: number;
-}
-
-export interface IGroupedData {
-	label: string;
-	values: number[];
-}
+import * as d3 from "d3";
 
 interface BarChartProps {
-	data: IData[];
-}
-
-interface AxisBottomProps {
-	scale: ScaleBand<string>;
-	transform: string;
-}
-
-interface AxisLeftProps {
-	scale: ScaleLinear<number, number, never>;
-}
-
-interface BarsProps {
-	data: BarChartProps["data"];
+	data: { name: string; value: number }[];
+	width: number;
 	height: number;
-	scaleX: AxisBottomProps["scale"];
-	scaleY: AxisLeftProps["scale"];
+	xLabel: string;
+	yLabel: string;
+	xTickFrequency?: number; // Optional prop to specify tick frequency
 }
 
-function Bars({ data, height, scaleX, scaleY }: BarsProps) {
-	return (
-		<>
-			{data.map(({ value, label }) => (
-				<rect
-					key={`bar-${label}`}
-					x={scaleX(label)}
-					y={scaleY(value)}
-					width={scaleX.bandwidth()}
-					height={height - scaleY(value)}
-					fill="#0A4295"
-				/>
-			))}
-		</>
-	);
-}
+export const BarChart: React.FC<BarChartProps> = ({
+	data,
+	width,
+	height,
+	xLabel,
+	yLabel,
+	xTickFrequency,
+}) => {
+	const svgRef = useRef<SVGSVGElement | null>(null);
+	const margin = { top: 20, right: 30, bottom: 50, left: 50 };
 
-export function BarChart({ data }: BarChartProps) {
-	const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-	const width = 260 - margin.left - margin.right;
-	const height = 200 - margin.top - margin.bottom;
+	const last3Years = data.slice(-3 * 12);
 
-	const scaleX = scaleBand()
-		.domain(data.map(({ label }) => label))
-		.range([0, width])
-		.padding(0.5);
+	useEffect(() => {
+		const svg = d3
+			.select(svgRef.current)
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", `translate(${margin.left},${margin.top})`);
 
-	const scaleY = scaleLinear()
-		.domain([0, Math.max(...data.map(({ value }) => value))])
-		.range([height, 0]);
+		// Set up scales
+		const xScale = d3
+			.scaleBand()
+			.domain(last3Years.map((d) => d.name))
+			.range([0, width])
+			.padding(0.1);
 
-	const average = data.reduce((acc, { value }) => acc + value, 0) / data.length;
+		const yScale = d3
+			.scaleLinear()
+			.domain([0, d3.max(last3Years, (d) => d.value) || 0])
+			.nice()
+			.range([height, 0]);
 
-	return (
-		<svg
-			width={width + margin.left + margin.right}
-			height={height + margin.top + margin.bottom}
-		>
-			<g transform={`translate(${margin.left}, ${margin.top})`}>
-				<Bars data={data} height={height} scaleX={scaleX} scaleY={scaleY} />
-				<rect
-					key={`bar-horizontal`}
-					x={0}
-					y={scaleY(average)}
-					width={width}
-					height={1}
-					fill="#0A4295"
-				/>
-			</g>
-		</svg>
-	);
-}
+		// Clear previous content
+		svg.selectAll("*").remove();
+
+		svg
+			.selectAll(".bartwo")
+			.data(last3Years)
+			.enter()
+			.append("rect")
+			.attr("class", "bartwo")
+			.attr("x", (d) => xScale(d.name) || 0)
+			.attr("y", (d) => yScale(d.value))
+			.attr("rx", 3)
+			.attr("ry", 3)
+			.attr("width", xScale.bandwidth())
+			.attr("height", (d) => height - yScale(d.value))
+			.attr("fill", "#336CC0");
+
+		// Add x-axis
+		const xAxis = svg
+			.append("g")
+			.attr("transform", `translate(0, ${height})`)
+			.call(
+				d3.axisBottom(xScale).tickValues(
+					xScale.domain().filter(function (d, i) {
+						return (
+							i === 0 ||
+							i === last3Years.length - 1 ||
+							i === Math.floor(last3Years.length / 2)
+						);
+					}),
+				),
+			);
+
+		// Add x-axis label
+		xAxis
+			.append("text")
+			.attr("x", width / 2)
+			.attr("y", margin.bottom - 10)
+			.attr("fill", "black")
+			.attr("text-anchor", "middle")
+			.text("Monatswerte in Liter");
+	}, [last3Years, height, width, xLabel, yLabel, xTickFrequency]);
+
+	return <svg ref={svgRef}></svg>;
+};

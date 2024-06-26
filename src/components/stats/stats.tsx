@@ -8,10 +8,10 @@ import { WateringCanIcon } from "../icons/watering-can-icon";
 import { LanguageToggle } from "../router/languageToggle";
 import { SimpleStatsCard } from "./simple-stats-card";
 import { StatsCard } from "./stats-card";
-import { BarChart } from "./bar-chart";
 import { LineChart } from "./line-chart";
 import { DonutChart } from "./pie-chart";
 import { DensityMap } from "./density-map";
+import { BarChart } from "./bar-chart";
 
 interface TreeSpecies {
 	speciesName?: string;
@@ -24,6 +24,14 @@ interface Monthly {
 	averageAmountPerWatering: number;
 }
 
+interface Watering {
+	id: string;
+	lat: number;
+	lng: number;
+	amount: number;
+	timestamp: string;
+}
+
 interface GdkStats {
 	numTrees: number;
 	numPumps: number;
@@ -32,6 +40,7 @@ interface GdkStats {
 	monthlyWaterings: Monthly[];
 	numTreeAdoptions: number;
 	mostFrequentTreeSpecies: TreeSpecies[];
+	waterings: Watering[];
 }
 
 export const Stats: React.FC = () => {
@@ -47,17 +56,11 @@ export const Stats: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		const orderedMonthly = (stats?.monthlyWaterings ?? [])
-			.sort((a, b) => {
-				return new Date(a.month).getTime() - new Date(b.month).getTime();
-			})
-			.filter(
-				(s) =>
-					s.month.includes("2024") ||
-					s.month.includes("2023") ||
-					s.month.includes("2022"),
-			);
+		const orderedMonthly = (stats?.monthlyWaterings ?? []).sort((a, b) => {
+			return new Date(a.month).getTime() - new Date(b.month).getTime();
+		});
 		setMonthly(orderedMonthly);
+		console.log(orderedMonthly);
 	}, [stats]);
 
 	return (
@@ -80,8 +83,14 @@ export const Stats: React.FC = () => {
 							<div className="flex flex-col gap-4">
 								<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
 									<SimpleStatsCard title="Straßenbäume" stat={stats.numTrees} />
-									<SimpleStatsCard title="Öffentliche Pumpen" stat={2125} />
-									<SimpleStatsCard title="Aktive Gießer:innen" stat={3774} />
+									<SimpleStatsCard
+										title="Öffentliche Pumpen"
+										stat={stats.numPumps}
+									/>
+									<SimpleStatsCard
+										title="Aktive Gießer:innen"
+										stat={stats.numActiveUsers}
+									/>
 								</div>
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 									<StatsCard
@@ -101,7 +110,10 @@ export const Stats: React.FC = () => {
 									<StatsCard
 										title="Gießverhalten"
 										hint="werden durchschnittlich pro Monat gegossen"
-										stat={33899}
+										stat={Math.round(
+											monthly.reduce((acc, m) => acc + m.totalSum, 0) /
+												monthly.length,
+										)}
 										unit="Liter"
 										titleColor="text-gdk-dark-blue"
 										icon={<DropIcon></DropIcon>}
@@ -112,17 +124,25 @@ export const Stats: React.FC = () => {
 												height={200}
 												data={monthly.map((m) => {
 													return {
-														label: m.month,
+														name: m.month,
 														value: m.wateringCount,
 													};
 												})}
+												xLabel="Monat"
+												yLabel="Anzahl Gießungen"
+												xTickFrequency={10}
 											></BarChart>
 										</div>
 									</StatsCard>
 									<StatsCard
 										title="Gießvolumen"
 										hint="werden 2024 durchschnittlich pro Gießung eingetragen"
-										stat={55}
+										stat={Math.round(
+											monthly.reduce(
+												(acc, m) => acc + m.averageAmountPerWatering,
+												0,
+											) / monthly.length,
+										)}
 										unit="Liter"
 										titleColor="text-gdk-dark-blue"
 										icon={<DropIcon></DropIcon>}
@@ -132,7 +152,7 @@ export const Stats: React.FC = () => {
 												data={monthly.map((m) => {
 													return {
 														date: new Date(m.month),
-														value: m.wateringCount,
+														value: m.averageAmountPerWatering,
 													};
 												})}
 												width={300}

@@ -15,10 +15,6 @@ export const LineChart: React.FC<LineChartProps> = ({
 	const svgRef = useRef<SVGSVGElement | null>(null);
 
 	useEffect(() => {
-		const margin = { top: 20, right: 30, bottom: 30, left: 40 };
-		const innerWidth = width - margin.left - margin.right;
-		const innerHeight = height - margin.top - margin.bottom;
-
 		const svg = d3
 			.select(svgRef.current)
 			.attr("width", width)
@@ -29,29 +25,33 @@ export const LineChart: React.FC<LineChartProps> = ({
 		const x = d3
 			.scaleTime()
 			.domain(d3.extent(data, (d) => d.date) as [Date, Date])
-			.range([0, innerWidth]);
+			.range([0, width]);
 
 		const y = d3
 			.scaleLinear()
 			.domain([0, d3.max(data, (d) => d.value) as number])
 			.nice()
-			.range([innerHeight, 0]);
+			.range([height, 0]);
 
-		const line = d3
-			.line<{ date: Date; value: number }>()
-			.x((d) => x(d.date))
-			.y((d) => y(d.value));
+		const area = d3
+			.area<{ date: Date; value: number }>()
+			.x(function (d) {
+				return x(d.date);
+			})
+			.y0((d) => y(d.value))
+			.y1(function (d) {
+				return y(0);
+			})
+			.curve(d3.curveBasis);
 
-		const g = svg
-			.append("g")
-			.attr("transform", `translate(${margin.left},${margin.top})`);
+		const g = svg.append("g");
 
+		// add the area
 		g.append("path")
 			.datum(data)
-			.attr("fill", "none")
-			.attr("stroke", "#0A4295")
-			.attr("stroke-width", 3)
-			.attr("d", line);
+			.attr("class", "area")
+			.attr("d", area)
+			.attr("fill", "#336CC0");
 	}, [data, width, height]);
 
 	return <svg ref={svgRef}></svg>;
