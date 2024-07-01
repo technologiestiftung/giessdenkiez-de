@@ -109,9 +109,11 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.append("text")
 			.attr("x", width / 2)
 			.attr("y", svgMargin.bottom - 10)
-			.attr("fill", "black")
+			.attr("fill", "#0A4295")
 			.attr("text-anchor", "middle")
 			.text("Monatswerte in Liter");
+
+		svg.selectAll("text").attr("font-family", "IBM").attr("fill", "#0A4295");
 	}, [last3Years, data, width, height]);
 
 	return <svg ref={svgRef}></svg>;

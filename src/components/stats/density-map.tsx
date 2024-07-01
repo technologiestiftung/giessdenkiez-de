@@ -28,7 +28,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 		.geoMercator()
 		.center([13.4, 52.5])
 		.translate([innerWidth / 2, innerHeight / 2])
-		.scale(innerHeight / 0.009);
+		.scale(innerHeight / 0.01);
 
 	useEffect(() => {
 		const fetchData = async () => {

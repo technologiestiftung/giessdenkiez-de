@@ -46,6 +46,8 @@ interface GdkStats {
 export const Stats: React.FC = () => {
 	const [stats, setStats] = useState<GdkStats>();
 	const [monthly, setMonthly] = useState<Monthly[]>([]);
+	const CHART_WIDTH = 300;
+	const CHART_HEIGHT = 300;
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -101,8 +103,8 @@ export const Stats: React.FC = () => {
 										icon={<WateringCanIcon></WateringCanIcon>}
 									>
 										<DensityMap
-											width={300}
-											height={200}
+											width={CHART_WIDTH}
+											height={CHART_HEIGHT}
 											data={stats.waterings}
 										></DensityMap>
 									</StatsCard>
@@ -119,8 +121,8 @@ export const Stats: React.FC = () => {
 									>
 										<div>
 											<BarChart
-												width={300}
-												height={200}
+												width={CHART_WIDTH}
+												height={CHART_HEIGHT}
 												data={monthly.map((m) => {
 													return {
 														month: m.month,
@@ -151,8 +153,8 @@ export const Stats: React.FC = () => {
 														value: m.averageAmountPerWatering,
 													};
 												})}
-												width={300}
-												height={200}
+												width={CHART_WIDTH}
+												height={CHART_HEIGHT}
 											></LineChart>
 										</div>
 									</StatsCard>
@@ -187,15 +189,15 @@ export const Stats: React.FC = () => {
 										<div>
 											<DonutChart
 												data={stats.mostFrequentTreeSpecies
-													.slice(0, 10)
+													.slice(0, 20)
 													.map((t) => {
 														return {
 															label: t.speciesName ?? "",
 															value: t.percentage,
 														};
 													})}
-												width={300}
-												height={200}
+												width={CHART_WIDTH}
+												height={CHART_HEIGHT}
 												innerRadiusRatio={0.65}
 											></DonutChart>
 										</div>

@@ -130,7 +130,7 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 			.append("text")
 			.attr("x", width / 2)
 			.attr("y", svgMargin.bottom - 10)
-			.attr("fill", "black")
+			.attr("fill", "#0A4295")
 			.attr("text-anchor", "middle")
 			.text("Monatswerte in Liter");
 
@@ -140,7 +140,7 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 			.attr("fill", "#0A4295")
 			.attr("font-size", "12px");
 
-		svg.selectAll("text").attr("font-family", "IBM");
+		svg.selectAll("text").attr("font-family", "IBM").attr("fill", "#0A4295");
 	}, [yReferenceLineValue, last3Years, height, width]);
 
 	return <svg ref={svgRef}></svg>;
