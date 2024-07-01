@@ -3,20 +3,22 @@ import * as d3 from "d3";
 import { useI18nStore } from "../../i18n/i18n-store";
 
 interface BarChartProps {
-	data: { name: string; value: number }[];
+	data: { month: string; value: number }[];
 	width: number;
 	height: number;
 }
 
 export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
+	const svgRef = useRef<SVGSVGElement | null>(null);
+	const svgMargin = { top: 0, right: 30, bottom: 50, left: 30 };
+	const [hovered, setHovered] = React.useState<string | null>(null);
+	const last3Years = data.slice(-3 * 12);
+	const yReferenceLineValue = 100000;
 	const { formatNumber } = useI18nStore();
 
-	const svgRef = useRef<SVGSVGElement | null>(null);
-	const margin = { top: 0, right: 30, bottom: 50, left: 30 };
-	const last3Years = data.slice(-3 * 12);
-	const [hovered, setHovered] = React.useState<string | null>(null);
-
-	const yIndicatorLine = 100000;
+	const formatMonth = (date: string) => {
+		return `${date.split("-")[1]}.${date.split("-")[0]}`;
+	};
 
 	useEffect(() => {
 		const svg = d3.select(svgRef.current);
@@ -26,19 +28,46 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 			.attr("width", width)
 			.attr("height", height)
 			.append("g")
-			.attr("transform", `translate(${margin.left},${margin.top})`);
+			.attr("transform", `translate(${svgMargin.left},${svgMargin.top})`);
 
 		const xScale = d3
 			.scaleBand()
-			.domain(last3Years.map((d) => d.name))
-			.range([margin.left, width - margin.right])
+			.domain(last3Years.map((d) => formatMonth(d.month)))
+			.range([svgMargin.left, width - svgMargin.right])
 			.padding(0.2);
 
 		const yScale = d3
 			.scaleLinear()
 			.domain([0, d3.max(last3Years, (d) => d.value) || 0])
 			.nice()
-			.range([height, margin.bottom]);
+			.range([height, svgMargin.bottom]);
+
+		svg
+			.append("line")
+			.attr("x1", svgMargin.left)
+			.attr(
+				"y1",
+				yScale(yReferenceLineValue) + svgMargin.top - svgMargin.bottom,
+			)
+			.attr("x2", width - svgMargin.right)
+			.attr(
+				"y2",
+				yScale(yReferenceLineValue) + svgMargin.top - svgMargin.bottom,
+			)
+			.attr("stroke", "#CECECE")
+			.attr("stroke-width", 1);
+
+		svg
+			.append("text")
+			.attr("x", width - svgMargin.right)
+			.attr(
+				"y",
+				yScale(yReferenceLineValue) + svgMargin.top - 3 - svgMargin.bottom,
+			)
+			.attr("text-anchor", "end")
+			.attr("fill", "#0A4295")
+			.text(`${formatNumber(yReferenceLineValue)} Liter`)
+			.attr("font-size", "12px");
 
 		svg
 			.selectAll(".bar")
@@ -46,36 +75,42 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 			.enter()
 			.append("rect")
 			.attr("class", "bar")
-			.attr("x", (d) => xScale(d.name) || 0)
-			.attr("y", (d) => yScale(d.value) - margin.bottom)
+			.attr("x", (d) => xScale(formatMonth(d.month)) || 0)
+			.attr("y", (d) => yScale(d.value) - svgMargin.bottom)
 			.attr("rx", 3)
 			.attr("ry", 3)
 			.attr("width", xScale.bandwidth())
 			.attr("height", (d) => height - yScale(d.value))
 			.attr("fill", (d) => {
-				if (hovered && hovered === d.name) {
+				if (hovered && hovered === formatMonth(d.month)) {
 					return "#96BCF4";
 				}
 				return "#336CC0";
 			})
 			.on("mouseover", function (e) {
-				setHovered(e.srcElement.__data__.name);
+				const month = formatMonth(e.srcElement.__data__.month);
+				setHovered(month);
 				d3.select(".hover-label")
-					.attr("x", width - margin.right)
+					.attr("x", width - svgMargin.right)
 					.attr("y", 0 + 20)
 					.attr("text-anchor", "end")
-					.text(
-						`${e.srcElement.__data__.name}: ${formatNumber(e.srcElement.__data__.value)} Liter`,
-					);
+					.text(`${month}: ${formatNumber(e.srcElement.__data__.value)} Liter`);
 			})
-			.on("mouseout", function (e) {
+			.on("mouseout", function () {
 				setHovered(null);
 			})
-			.on("click", function (e) {});
+			.on("click", function (e) {
+				const month = formatMonth(e.srcElement.__data__.month);
+				setHovered(month);
+			});
+
+		svg.on("click", function () {
+			setHovered(null);
+		});
 
 		const xAxis = svg
 			.append("g")
-			.attr("transform", `translate(0, ${height - margin.bottom})`)
+			.attr("transform", `translate(0, ${height - svgMargin.bottom})`)
 			.call(
 				d3
 					.axisBottom(xScale)
@@ -94,27 +129,10 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 		xAxis
 			.append("text")
 			.attr("x", width / 2)
-			.attr("y", margin.bottom - 10)
+			.attr("y", svgMargin.bottom - 10)
 			.attr("fill", "black")
 			.attr("text-anchor", "middle")
 			.text("Monatswerte in Liter");
-
-		svg
-			.append("line")
-			.attr("x1", margin.left)
-			.attr("y1", yScale(yIndicatorLine) + margin.top - margin.bottom)
-			.attr("x2", width - margin.right)
-			.attr("y2", yScale(yIndicatorLine) + margin.top - margin.bottom)
-			.attr("stroke", "#CECECE")
-			.attr("stroke-width", 1);
-
-		svg
-			.append("text")
-			.attr("x", width - margin.right)
-			.attr("y", yScale(yIndicatorLine) + margin.top - 6 - margin.bottom)
-			.attr("text-anchor", "end")
-			.attr("fill", "#0A4295")
-			.text(`100.000 Liter`);
 
 		svg
 			.append("text")
@@ -123,7 +141,7 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 			.attr("font-size", "12px");
 
 		svg.selectAll("text").attr("font-family", "IBM");
-	}, [yIndicatorLine, last3Years, height, width]);
+	}, [yReferenceLineValue, last3Years, height, width]);
 
 	return <svg ref={svgRef}></svg>;
 };

@@ -60,7 +60,6 @@ export const Stats: React.FC = () => {
 			return new Date(a.month).getTime() - new Date(b.month).getTime();
 		});
 		setMonthly(orderedMonthly);
-		console.log(orderedMonthly);
 	}, [stats]);
 
 	return (
@@ -124,7 +123,7 @@ export const Stats: React.FC = () => {
 												height={200}
 												data={monthly.map((m) => {
 													return {
-														name: m.month,
+														month: m.month,
 														value: m.totalSum,
 													};
 												})}
