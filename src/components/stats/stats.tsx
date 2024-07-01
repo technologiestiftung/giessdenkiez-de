@@ -127,9 +127,6 @@ export const Stats: React.FC = () => {
 														value: m.totalSum,
 													};
 												})}
-												xLabel="Monat"
-												yLabel="Anzahl Gießungen"
-												xTickFrequency={10}
 											></BarChart>
 										</div>
 									</StatsCard>
@@ -150,7 +147,7 @@ export const Stats: React.FC = () => {
 											<LineChart
 												data={monthly.map((m) => {
 													return {
-														date: new Date(m.month),
+														month: new Date(m.month),
 														value: m.averageAmountPerWatering,
 													};
 												})}

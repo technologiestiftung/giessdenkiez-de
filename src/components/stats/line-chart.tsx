@@ -1,9 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import { formatDate } from "date-fns";
 import * as d3 from "d3";
+import { useI18nStore } from "../../i18n/i18n-store";
 
 interface LineChartProps {
-	data: { date: Date; value: number }[];
+	data: { month: Date; value: number }[];
 	width: number;
 	height: number;
 }
@@ -13,15 +14,18 @@ export const LineChart: React.FC<LineChartProps> = ({
 	width,
 	height,
 }) => {
-	const avg = Math.round(
-		data
-			.filter((d) => d.date.getFullYear() === 2024)
-			.reduce((acc, m) => acc + m.value, 0) / data.length,
-	);
+	const firstYReferenceLineValue = 30;
+	const secondYReferenceLineValue = 50;
 
+	const last3Years = data.slice(-3 * 12);
 	const svgRef = useRef<SVGSVGElement | null>(null);
+	const svgMargin = { top: 0, right: 30, bottom: 50, left: 30 };
+	const { formatNumber } = useI18nStore();
 
 	useEffect(() => {
+		if (!last3Years || last3Years.length === 0) {
+			return;
+		}
 		const svg = d3
 			.select(svgRef.current)
 			.attr("width", width)
@@ -31,59 +35,84 @@ export const LineChart: React.FC<LineChartProps> = ({
 
 		const x = d3
 			.scaleTime()
-			.domain(d3.extent(data, (d) => d.date) as [Date, Date])
-			.range([0, width]);
+			.domain(d3.extent(last3Years, (d) => d.month) as [Date, Date])
+			.range([svgMargin.left, width - svgMargin.right]);
 
 		const y = d3
 			.scaleLinear()
-			.domain([0, d3.max(data, (d) => d.value) as number])
+			.domain([0, d3.max(last3Years, (d) => d.value) as number])
 			.nice()
-			.range([height, 0]);
+			.range([height, svgMargin.bottom]);
+
+		[firstYReferenceLineValue, secondYReferenceLineValue].forEach(
+			(yReferenceLineValue) => {
+				svg
+					.append("line")
+					.attr("x1", svgMargin.left)
+					.attr("y1", y(yReferenceLineValue) + svgMargin.top - svgMargin.bottom)
+					.attr("x2", width - svgMargin.right)
+					.attr("y2", y(yReferenceLineValue) + svgMargin.top - svgMargin.bottom)
+					.attr("stroke", "#CECECE")
+					.attr("stroke-width", 1);
+
+				svg
+					.append("text")
+					.attr("x", svgMargin.left)
+					.attr(
+						"y",
+						y(yReferenceLineValue) + svgMargin.top - 3 - svgMargin.bottom,
+					)
+					.attr("text-anchor", "start")
+					.attr("fill", "#0A4295")
+					.text(`${formatNumber(yReferenceLineValue)} Liter`)
+					.attr("font-size", "12px");
+			},
+		);
 
 		const area = d3
-			.area<{ date: Date; value: number }>()
+			.area<{ month: Date; value: number }>()
 			.x(function (d) {
-				return x(d.date);
+				return x(d.month);
 			})
-			.y0((d) => y(d.value))
+			.y0((d) => y(d.value) - svgMargin.bottom)
 			.y1(function (d) {
-				return y(0);
+				return y(0) - svgMargin.bottom;
 			})
 			.curve(d3.curveBasis);
 
 		const g = svg.append("g");
 
-		// add the area
 		g.append("path")
-			.datum(data)
+			.datum(last3Years)
 			.attr("class", "area")
 			.attr("d", area)
 			.attr("fill", "#336CC0");
-	}, [data, width, height]);
 
-	return (
-		<div className="flex flex-col">
-			<svg ref={svgRef}></svg>
-			{data && data.length > 0 && (
-				<div className="border-t-2 w-full border-[#9D9C9C]">
-					<div className="flex flex-row justify-between text-[#9D9C9C]">
-						<div className="text-sm flex flex-col justify-center">
-							<div className="w-[2px] h-2 bg-[#9D9C9C]"></div>
-							<div>{formatDate(data[0].date, "MM.yy")}</div>
-						</div>
-						<div className="text-sm flex flex-col justify-center items-center">
-							<div className="w-[2px] h-2 bg-[#9D9C9C]"></div>
-							<div>
-								{formatDate(data[Math.floor(data.length / 2)].date, "MM.yy")}
-							</div>
-						</div>
-						<div className="text-sm flex flex-col justify-center items-end">
-							<div className="w-[2px] h-2 bg-[#9D9C9C]"></div>
-							<div>{formatDate(data[data.length - 1].date, "MM.yy")}</div>
-						</div>
-					</div>
-				</div>
-			)}
-		</div>
-	);
+		const tickValues = [
+			last3Years[0].month,
+			last3Years[Math.floor(last3Years.length / 2)].month,
+			last3Years[last3Years.length - 1].month,
+		];
+
+		const xAxis = svg
+			.append("g")
+			.attr("transform", `translate(0, ${height - svgMargin.bottom})`)
+			.call(
+				d3
+					.axisBottom(x)
+					.tickValues(tickValues)
+					.tickSizeOuter(0)
+					.tickFormat((d) => formatDate(d as Date, "MM.yyyy")),
+			);
+
+		xAxis
+			.append("text")
+			.attr("x", width / 2)
+			.attr("y", svgMargin.bottom - 10)
+			.attr("fill", "black")
+			.attr("text-anchor", "middle")
+			.text("Monatswerte in Liter");
+	}, [last3Years, data, width, height]);
+
+	return <svg ref={svgRef}></svg>;
 };
