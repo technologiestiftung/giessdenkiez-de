@@ -1,8 +1,9 @@
+/* eslint-disable max-lines */
 import * as d3 from "d3";
 import React, { useEffect, useRef, useState } from "react";
 
 interface DensityMapProps {
-	data: any;
+	data: { lat: number; lng: number; amount: number }[];
 	width: number;
 	height: number;
 }
@@ -18,13 +19,16 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 	width,
 	height,
 }) => {
+	const svgMargin = { top: 0, right: 0, bottom: 50, left: 0 };
+	const innerWidth = width;
+	const innerHeight = height - svgMargin.top - svgMargin.bottom;
 	const svgRef = useRef<SVGSVGElement>(null);
 	const [berlinDistricsPaths, setBerlinDistricsPaths] = useState();
 	const projection = d3
 		.geoMercator()
 		.center([13.4, 52.5])
-		.translate([width / 2, height / 2])
-		.scale(width / 0.015);
+		.translate([innerWidth / 2, innerHeight / 2])
+		.scale(innerHeight / 0.009);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -58,6 +62,8 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.attr("width", width)
 				.attr("height", height);
 
+			svg.selectAll("*").remove(); // Clear any previous content
+
 			svg.selectAll("path.district").remove();
 			svg.selectAll("path.contours").remove();
 
@@ -86,8 +92,6 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 					.attr("stroke-width", 1);
 			}
 
-			console.log(densityDataTmp);
-
 			svg
 				.selectAll("path.contours")
 				.data(densityDataTmp)
@@ -98,6 +102,49 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.attr("stroke", "#000")
 				.attr("stroke-width", 0)
 				.attr("opacity", 0.1);
+
+			// Number of segments
+			const numSegments = 100;
+
+			// Create a scale to divide the width into segments
+			const interpolateWidth = innerWidth / 1.5;
+			const interpolateScale = d3
+				.scaleLinear()
+				.domain([0, numSegments])
+				.range([0, interpolateWidth]);
+
+			// Define the color interpolator
+			const colorInterpolator = d3.interpolateRgb("#FD9531", "#336CC0");
+
+			// Append the line segments
+			for (let i = 0; i < numSegments; i++) {
+				const xStart = interpolateScale(i);
+				const xEnd = interpolateScale(i + 1);
+				svg
+					.append("line")
+					.attr("x1", xStart)
+					.attr("y1", height - 30)
+					.attr("x2", xEnd)
+					.attr("y2", height - 30)
+					.attr("stroke", colorInterpolator(i / numSegments))
+					.attr("stroke-width", 6)
+					.attr("opacity", 0.5)
+					.attr(
+						"transform",
+						`translate(${(innerWidth - interpolateWidth) / 2}, 0)`,
+					);
+			}
+
+			svg
+				.append("text")
+				.attr("x", innerWidth / 2)
+				.attr("y", height - 10)
+				.attr("fill", "#0A4295")
+				.attr("text-anchor", "middle")
+				.text("Anzahl der Gießungen")
+				.attr("font-size", "12px");
+
+			svg.selectAll("text").attr("font-family", "IBM");
 		}
 	}, [height, width, data, berlinDistricsPaths]);
 

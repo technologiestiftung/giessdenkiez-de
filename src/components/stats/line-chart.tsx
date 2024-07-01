@@ -75,7 +75,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 				return x(d.month);
 			})
 			.y0((d) => y(d.value) - svgMargin.bottom)
-			.y1(function (d) {
+			.y1(function () {
 				return y(0) - svgMargin.bottom;
 			})
 			.curve(d3.curveBasis);
