@@ -125,7 +125,7 @@ export const Stats: React.FC = () => {
 												data={monthly.map((m) => {
 													return {
 														name: m.month,
-														value: m.wateringCount,
+														value: m.totalSum,
 													};
 												})}
 												xLabel="Monat"
