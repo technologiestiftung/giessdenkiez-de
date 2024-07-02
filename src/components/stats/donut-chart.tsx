@@ -5,7 +5,6 @@ interface DonutChartProps {
 	data: { label: string; value: number }[];
 	width: number;
 	height: number;
-	innerRadiusRatio: number; // Ratio of inner radius to the outer radius
 }
 
 interface Leaf {
@@ -17,7 +16,6 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 	data,
 	width,
 	height,
-	innerRadiusRatio,
 }) => {
 	const colors = [
 		"#07964E",
@@ -39,7 +37,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 		d3.select(svgRef.current).selectAll("*").remove();
 
 		const radius = Math.min(width, height) / 2;
-		const innerRadius = radius * innerRadiusRatio;
+		const innerRadius = radius * 0.65;
 
 		const pie = d3
 			.pie<{ label: string; value: number }>()
@@ -112,7 +110,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 				.attr("height", width * imageScale)
 				.attr("class", "leaf-image");
 		}
-	}, [selectedLeaf, data, width, height, innerRadiusRatio]);
+	}, [selectedLeaf, data, width, height]);
 
 	return <svg id="svg-container" ref={svgRef}></svg>;
 };

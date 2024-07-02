@@ -6,13 +6,12 @@ import { HeartIcon } from "../icons/heart-icon";
 import { TreeIcon } from "../icons/tree-icon";
 import { WateringCanIcon } from "../icons/watering-can-icon";
 import { LanguageToggle } from "../router/languageToggle";
+import { BarChart } from "./bar-chart";
+import { DensityMap } from "./density-map";
+import { DonutChart } from "./donut-chart";
+import { LineChart } from "./line-chart";
 import { SimpleStatsCard } from "./simple-stats-card";
 import { StatsCard } from "./stats-card";
-import { LineChart } from "./line-chart";
-import { DonutChart } from "./donut-chart";
-import { DensityMap } from "./density-map";
-import { BarChart } from "./bar-chart";
-import ReactCardFlip from "react-card-flip";
 
 interface TreeSpecies {
 	speciesName?: string;
@@ -61,7 +60,6 @@ export const Stats: React.FC = () => {
 		const fetchData = async () => {
 			const data = await supabaseClient.functions.invoke("gdk_stats");
 			setStats(data.data);
-			console.log(data.data);
 		};
 		fetchData();
 	}, []);
@@ -197,7 +195,6 @@ export const Stats: React.FC = () => {
 													})}
 												width={CHART_WIDTH}
 												height={CHART_HEIGHT}
-												innerRadiusRatio={0.65}
 											/>
 										</div>
 									</StatsCard>
