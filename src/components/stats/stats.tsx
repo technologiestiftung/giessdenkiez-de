@@ -12,6 +12,7 @@ import { LineChart } from "./line-chart";
 import { DonutChart } from "./donut-chart";
 import { DensityMap } from "./density-map";
 import { BarChart } from "./bar-chart";
+import ReactCardFlip from "react-card-flip";
 
 interface TreeSpecies {
 	speciesName?: string;
@@ -110,7 +111,7 @@ export const Stats: React.FC = () => {
 										stat={stats.numActiveUsers}
 									/>
 								</div>
-								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+								<div className="container grid grid-cols-1 md:grid-cols-2 gap-4">
 									<StatsCard
 										title="Gießungen"
 										hint="wurde im Jahr 2024 gegossen"
