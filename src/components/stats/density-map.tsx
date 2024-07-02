@@ -138,11 +138,11 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 			svg
 				.append("text")
 				.attr("x", innerWidth / 2)
-				.attr("y", height - 10)
+				.attr("y", height - 5)
 				.attr("fill", "#0A4295")
 				.attr("text-anchor", "middle")
 				.text("Anzahl der Gießungen")
-				.attr("font-size", "12px");
+				.attr("font-size", "14px");
 
 			svg.selectAll("text").attr("font-family", "IBM");
 		}

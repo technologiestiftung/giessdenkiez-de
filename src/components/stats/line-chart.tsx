@@ -57,14 +57,14 @@ export const LineChart: React.FC<LineChartProps> = ({
 
 				svg
 					.append("text")
-					.attr("x", svgMargin.left)
+					.attr("x", width - svgMargin.right)
 					.attr(
 						"y",
-						y(yReferenceLineValue) + svgMargin.top - 3 - svgMargin.bottom,
+						y(yReferenceLineValue) + svgMargin.top - svgMargin.bottom + 2.5,
 					)
 					.attr("text-anchor", "start")
 					.attr("fill", "#0A4295")
-					.text(`${formatNumber(yReferenceLineValue)} Liter`)
+					.text(`${formatNumber(yReferenceLineValue)} l`)
 					.attr("font-size", "12px");
 			},
 		);
@@ -111,7 +111,8 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.attr("y", svgMargin.bottom - 10)
 			.attr("fill", "#0A4295")
 			.attr("text-anchor", "middle")
-			.text("Monatswerte in Liter");
+			.text("Monatswerte in Liter")
+			.attr("font-size", "14px");
 
 		svg.selectAll("text").attr("font-family", "IBM").attr("fill", "#0A4295");
 	}, [last3Years, data, width, height]);

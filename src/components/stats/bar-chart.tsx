@@ -59,14 +59,14 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 
 		svg
 			.append("text")
-			.attr("x", width - svgMargin.right)
+			.attr("x", width - svgMargin.right + 3)
 			.attr(
 				"y",
-				yScale(yReferenceLineValue) + svgMargin.top - 3 - svgMargin.bottom,
+				yScale(yReferenceLineValue) + svgMargin.top - svgMargin.bottom + 3,
 			)
-			.attr("text-anchor", "end")
+			.attr("text-anchor", "start")
 			.attr("fill", "#0A4295")
-			.text(`${formatNumber(yReferenceLineValue)} Liter`)
+			.text(`${formatNumber(yReferenceLineValue / 1000)}k l`)
 			.attr("font-size", "12px");
 
 		svg
@@ -132,7 +132,8 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 			.attr("y", svgMargin.bottom - 10)
 			.attr("fill", "#0A4295")
 			.attr("text-anchor", "middle")
-			.text("Monatswerte in Liter");
+			.text("Monatswerte in Liter")
+			.attr("font-size", "14px");
 
 		svg
 			.append("text")
