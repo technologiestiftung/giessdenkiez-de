@@ -104,7 +104,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.enter()
 				.append("path")
 				.attr("d", d3.geoPath(d3.geoIdentity().scale(1)))
-				.attr("fill", (d, i) => d3.interpolateRgb("#FD9531", "#336CC0")(i / 10))
+				.attr("fill", (_, i) => d3.interpolateRgb("#FD9531", "#336CC0")(i / 10))
 				.attr("stroke", "#000")
 				.attr("stroke-width", 0)
 				.attr("opacity", 0.1);

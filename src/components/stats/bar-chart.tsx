@@ -121,7 +121,7 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 				d3
 					.axisBottom(xScale)
 					.tickValues(
-						xScale.domain().filter(function (d, i) {
+						xScale.domain().filter(function (_, i) {
 							return (
 								i === 0 ||
 								i === last3Years.length - 1 ||
