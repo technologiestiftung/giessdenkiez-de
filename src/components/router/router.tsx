@@ -15,6 +15,7 @@ import { Splash } from "../splash/splash";
 import { useMapStore } from "../map/map-store";
 import { useSplashStore } from "../splash/splash-store";
 import { Legend } from "../legend/legend";
+import { Stats } from "../stats/stats";
 
 export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
@@ -105,6 +106,13 @@ export const Router: React.FC = () => {
 				<div className="flex h-dvh w-screen flex-col-reverse bg-white lg:flex-row">
 					<Navbar />
 					<Info />
+				</div>
+			);
+		case "/stats":
+			return (
+				<div className="flex h-dvh w-screen flex-col-reverse bg-white lg:flex-row">
+					<Navbar />
+					<Stats />
 				</div>
 			);
 		default:

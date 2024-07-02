@@ -5,6 +5,7 @@ import { UserIcon } from "../icons/user-icon";
 import { InfoIcon } from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { LanguageToggle } from "../router/languageToggle";
+import { BarChartIcon } from "../icons/bar-chart-icon";
 
 export const Navbar: React.FC = () => {
 	const i18n = useI18nStore().i18n();
@@ -20,6 +21,7 @@ export const Navbar: React.FC = () => {
 			icon: <UserIcon />,
 		},
 		{ label: i18n.navbar.info, path: "/about", icon: <InfoIcon /> },
+		{ label: "Stats", path: "/stats", icon: <BarChartIcon /> },
 	];
 
 	return (
@@ -30,7 +32,7 @@ export const Navbar: React.FC = () => {
 		>
 			<div
 				className={`
-        flex flex-row gap-x-16 gap-y-0 pb-2 pt-1 md:gap-x-32
+        flex flex-row gap-x-8 gap-y-0 pb-2 pt-1 md:gap-x-32
         lg:h-auto lg:flex-col lg:gap-x-0 lg:gap-y-8 lg:pt-0`}
 			>
 				{navItems.map((item) => (
