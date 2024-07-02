@@ -64,7 +64,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			.data(pie.padAngle(0.01)(data))
 			.enter()
 			.append("path")
-			.attr("d", arc)
+			.attr("d", arc.cornerRadius(5))
 			.attr("fill", (d, i) => colors[i % colors.length])
 			.attr("stroke", (d) => {
 				if (selectedLeaf && d.data.label === selectedLeaf.label) {
