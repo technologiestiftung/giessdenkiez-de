@@ -23,7 +23,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 	const innerWidth = width;
 	const innerHeight = height - svgMargin.top - svgMargin.bottom;
 	const svgRef = useRef<SVGSVGElement>(null);
-	const [berlinDistricsPaths, setBerlinDistricsPaths] = useState();
+	const [berlinDistricsPaths, setBerlinDistricsPaths] = useState<string[]>();
 	const projection = d3
 		.geoMercator()
 		.center([13.4, 52.5])
@@ -32,16 +32,14 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const berlinBezirkeRaw = await fetch(
-				"http://localhost:5173/data/berlin_bezirke.geojson",
-			);
+			const berlinBezirkeRaw = await fetch(import.meta.env.VITE_BEZIRKE_URL);
 			const berlinBezirke = await berlinBezirkeRaw.json();
-
 			const geoGenerator = d3.geoPath().projection(projection);
-
-			const districtPaths = berlinBezirke.features.map((feature) => {
-				return geoGenerator(feature);
-			});
+			const districtPaths = berlinBezirke.features.map(
+				(feature: d3.GeoPermissibleObjects) => {
+					return geoGenerator(feature);
+				},
+			);
 
 			setBerlinDistricsPaths(districtPaths);
 		};
@@ -51,18 +49,26 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 
 	useEffect(() => {
 		if (data && berlinDistricsPaths) {
-			const parsedData = data.map((d) => ({
-				lat: projection([d.lng, d.lat])[1],
-				lng: projection([d.lng, d.lat])[0],
-				amount: d.amount,
-			}));
+			const parsedData = data
+				.map((d) => {
+					const projected = projection([d.lng, d.lat]);
+					if (!projected) {
+						return null;
+					}
+					return {
+						lat: projected[1],
+						lng: projected[0],
+						amount: d.amount,
+					};
+				})
+				.filter((d) => d !== null) as DataPoint[];
 
 			const svg = d3
 				.select(svgRef.current)
 				.attr("width", width)
 				.attr("height", height);
 
-			svg.selectAll("*").remove(); // Clear any previous content
+			svg.selectAll("*").remove();
 
 			svg.selectAll("path.district").remove();
 			svg.selectAll("path.contours").remove();
@@ -103,20 +109,14 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.attr("stroke-width", 0)
 				.attr("opacity", 0.1);
 
-			// Number of segments
+			// Draw the color interpolated legend
 			const numSegments = 100;
-
-			// Create a scale to divide the width into segments
 			const interpolateWidth = innerWidth / 1.5;
 			const interpolateScale = d3
 				.scaleLinear()
 				.domain([0, numSegments])
 				.range([0, interpolateWidth]);
-
-			// Define the color interpolator
 			const colorInterpolator = d3.interpolateRgb("#FD9531", "#336CC0");
-
-			// Append the line segments
 			for (let i = 0; i < numSegments; i++) {
 				const xStart = interpolateScale(i);
 				const xEnd = interpolateScale(i + 1);

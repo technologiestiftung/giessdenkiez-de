@@ -31,7 +31,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.attr("width", width)
 			.attr("height", height);
 
-		svg.selectAll("*").remove(); // Clear any previous content
+		svg.selectAll("*").remove();
 
 		const x = d3
 			.scaleTime()

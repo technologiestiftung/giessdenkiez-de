@@ -65,7 +65,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			.enter()
 			.append("path")
 			.attr("d", arc.cornerRadius(5))
-			.attr("fill", (d, i) => colors[i % colors.length])
+			.attr("fill", (_, i) => colors[i % colors.length])
 			.attr("stroke", (d) => {
 				if (selectedLeaf && d.data.label === selectedLeaf.label) {
 					return "#1169EE";

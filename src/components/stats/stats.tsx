@@ -124,7 +124,7 @@ export const Stats: React.FC = () => {
 											width={CHART_WIDTH}
 											height={CHART_HEIGHT}
 											data={stats.waterings}
-										></DensityMap>
+										/>
 									</StatsCard>
 									<StatsCard
 										title="Gießverhalten"
@@ -147,7 +147,7 @@ export const Stats: React.FC = () => {
 														value: m.totalSum,
 													};
 												})}
-											></BarChart>
+											/>
 										</div>
 									</StatsCard>
 									<StatsCard
@@ -173,7 +173,7 @@ export const Stats: React.FC = () => {
 												})}
 												width={CHART_WIDTH}
 												height={CHART_HEIGHT}
-											></LineChart>
+											/>
 										</div>
 									</StatsCard>
 
@@ -198,7 +198,7 @@ export const Stats: React.FC = () => {
 												width={CHART_WIDTH}
 												height={CHART_HEIGHT}
 												innerRadiusRatio={0.65}
-											></DonutChart>
+											/>
 										</div>
 									</StatsCard>
 									<StatsCard

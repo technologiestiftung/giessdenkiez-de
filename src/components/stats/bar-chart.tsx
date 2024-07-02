@@ -35,7 +35,7 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 		setHovered(e.target.__data__);
 	};
 
-	const mouseOutHandler = (e: MouseEvent) => {
+	const mouseOutHandler = () => {
 		setHovered(undefined);
 	};
 
