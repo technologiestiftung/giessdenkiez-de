@@ -84,7 +84,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			svg
 				.append("text")
 				.attr("x", 0)
-				.attr("y", 25)
+				.attr("y", 70)
 				.attr("fill", "#07964E")
 				.attr("text-anchor", "middle")
 				.text(selectedLeaf.label || "Unbekannt")
@@ -93,25 +93,23 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			svg
 				.append("text")
 				.attr("x", 0)
-				.attr("y", 39)
+				.attr("y", 58)
 				.attr("fill", "#07964E")
 				.attr("text-anchor", "middle")
 				.attr("font-weight", "bold")
 				.text(Math.round(selectedLeaf.value) + "%")
 				.attr("font-size", "12px");
-		}
 
-		if (selectedLeaf) {
 			const imageName =
 				selectedLeaf.label !== "" ? selectedLeaf.label : "UNBEKANNT";
-			console.log(imageName);
+			const imageScale = 0.4;
 			svg
 				.append("image")
 				.attr("xlink:href", `images/leafs/${imageName}.png`)
-				.attr("x", -60 / 2)
-				.attr("y", -50)
-				.attr("width", 60)
-				.attr("height", 60)
+				.attr("x", -width * (imageScale / 2))
+				.attr("y", -height * (imageScale / 2) - 20)
+				.attr("width", width * imageScale)
+				.attr("height", width * imageScale)
 				.attr("class", "leaf-image");
 		}
 	}, [selectedLeaf, data, width, height, innerRadiusRatio]);

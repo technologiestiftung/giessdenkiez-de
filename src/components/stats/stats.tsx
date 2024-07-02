@@ -9,7 +9,7 @@ import { LanguageToggle } from "../router/languageToggle";
 import { SimpleStatsCard } from "./simple-stats-card";
 import { StatsCard } from "./stats-card";
 import { LineChart } from "./line-chart";
-import { DonutChart } from "./pie-chart";
+import { DonutChart } from "./donut-chart";
 import { DensityMap } from "./density-map";
 import { BarChart } from "./bar-chart";
 
@@ -22,6 +22,7 @@ interface Monthly {
 	month: string;
 	wateringCount: number;
 	averageAmountPerWatering: number;
+	totalSum: number;
 }
 
 interface Watering {
@@ -32,14 +33,20 @@ interface Watering {
 	timestamp: string;
 }
 
+interface TreeAdoptions {
+	count: number;
+	veryThirstyCount: number;
+}
+
 interface GdkStats {
 	numTrees: number;
 	numPumps: number;
 	numActiveUsers: number;
 	numWateringsThisYear: number;
 	monthlyWaterings: Monthly[];
-	numTreeAdoptions: number;
+	treeAdoptions: TreeAdoptions;
 	mostFrequentTreeSpecies: TreeSpecies[];
+	totalTreeSpeciesCount: number;
 	waterings: Watering[];
 }
 
@@ -172,7 +179,7 @@ export const Stats: React.FC = () => {
 									<StatsCard
 										title="Baumarten"
 										hint="stehen in Berlin"
-										stat={97}
+										stat={stats.totalTreeSpeciesCount}
 										unit="Baumarten"
 										titleColor="text-gdk-dark-green"
 										icon={<TreeIcon></TreeIcon>}
