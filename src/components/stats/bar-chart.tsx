@@ -1,9 +1,15 @@
+/* eslint-disable max-lines */
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { useI18nStore } from "../../i18n/i18n-store";
 
+interface DataPoint {
+	month: string;
+	value: number;
+}
+
 interface BarChartProps {
-	data: { month: string; value: number }[];
+	data: DataPoint[];
 	width: number;
 	height: number;
 }
@@ -11,13 +17,30 @@ interface BarChartProps {
 export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 	const svgRef = useRef<SVGSVGElement | null>(null);
 	const svgMargin = { top: 0, right: 30, bottom: 50, left: 30 };
-	const [hovered, setHovered] = React.useState<string | null>(null);
+	const [hovered, setHovered] = React.useState<DataPoint>();
 	const last3Years = data.slice(-3 * 12);
 	const yReferenceLineValue = 100000;
 	const { formatNumber } = useI18nStore();
 
 	const formatMonth = (date: string) => {
 		return `${date.split("-")[1]}.${date.split("-")[0]}`;
+	};
+
+	const mouseMoveHandler = (e: MouseEvent) => {
+		const containerDiv = document.getElementById("bar-container");
+		if (!containerDiv || !e.target) {
+			return;
+		}
+		//@ts-expect-error __data__ is a d3 property
+		setHovered(e.target.__data__);
+	};
+
+	const mouseOutHandler = (e: MouseEvent) => {
+		setHovered(undefined);
+	};
+
+	const mouseClickHandler = (e: MouseEvent) => {
+		mouseMoveHandler(e);
 	};
 
 	useEffect(() => {
@@ -82,31 +105,14 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 			.attr("width", xScale.bandwidth())
 			.attr("height", (d) => height - yScale(d.value))
 			.attr("fill", (d) => {
-				if (hovered && hovered === formatMonth(d.month)) {
+				if (hovered && hovered.month === d.month) {
 					return "#96BCF4";
 				}
 				return "#336CC0";
 			})
-			.on("mouseover", function (e) {
-				const month = formatMonth(e.srcElement.__data__.month);
-				setHovered(month);
-				d3.select(".hover-label")
-					.attr("x", width - svgMargin.right)
-					.attr("y", 0 + 20)
-					.attr("text-anchor", "end")
-					.text(`${month}: ${formatNumber(e.srcElement.__data__.value)} Liter`);
-			})
-			.on("mouseout", function () {
-				setHovered(null);
-			})
-			.on("click", function (e) {
-				const month = formatMonth(e.srcElement.__data__.month);
-				setHovered(month);
-			});
-
-		svg.on("click", function () {
-			setHovered(null);
-		});
+			.on("mouseout", mouseOutHandler)
+			.on("mousemove", mouseMoveHandler)
+			.on("click", mouseClickHandler);
 
 		const xAxis = svg
 			.append("g")
@@ -135,14 +141,20 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 			.text("Monatswerte in Liter")
 			.attr("font-size", "14px");
 
-		svg
-			.append("text")
-			.attr("class", "hover-label")
-			.attr("fill", "#0A4295")
-			.attr("font-size", "12px");
-
 		svg.selectAll("text").attr("font-family", "IBM").attr("fill", "#0A4295");
-	}, [yReferenceLineValue, last3Years, height, width]);
+	}, [hovered]);
 
-	return <svg ref={svgRef}></svg>;
+	return (
+		<div className="relative" id="bar-container">
+			<svg ref={svgRef}></svg>
+			{hovered && (
+				<div className="absolute right-0 top-0 p-2 bg-gdk-lighter-blue shadow-md rounded-md">
+					<div className="flex flex-col text-sm ">
+						<div className="font-bold">{formatMonth(hovered.month)}</div>
+						<div>{formatNumber(hovered.value)} Liter</div>
+					</div>
+				</div>
+			)}
+		</div>
+	);
 };
