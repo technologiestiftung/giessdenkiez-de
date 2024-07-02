@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { supabaseClient } from "../../auth/supabase-client";
 import { DropIcon } from "../icons/drop-icon";
 import { HeartIcon } from "../icons/heart-icon";
@@ -53,6 +53,7 @@ export const Stats: React.FC = () => {
 		const fetchData = async () => {
 			const data = await supabaseClient.functions.invoke("gdk_stats");
 			setStats(data.data);
+			console.log(data.data);
 		};
 		fetchData();
 	}, []);
@@ -62,6 +63,15 @@ export const Stats: React.FC = () => {
 			return new Date(a.month).getTime() - new Date(b.month).getTime();
 		});
 		setMonthly(orderedMonthly);
+	}, [stats]);
+
+	const veryThirstyAdoptionsRate = useMemo(() => {
+		if (!stats) {
+			return 0;
+		}
+		return Math.round(
+			(stats.treeAdoptions.veryThirstyCount / stats.treeAdoptions.count) * 100,
+		);
 	}, [stats]);
 
 	return (
@@ -158,26 +168,7 @@ export const Stats: React.FC = () => {
 											></LineChart>
 										</div>
 									</StatsCard>
-									<StatsCard
-										title="Baumadoptionen"
-										hint="wurden adoptiert"
-										stat={stats.numTreeAdoptions}
-										unit="Bäume"
-										titleColor="text-gdk-purple"
-										icon={<HeartIcon isAdopted={true}></HeartIcon>}
-									>
-										<div className="w-full">
-											<div className="w-full grid grid-cols-1 grid-rows-">
-												<div className="w-full h-7 bg-[#660A9C] opacity-[30%] rounded-full row-start-1 col-start-1"></div>
-												<div className="w-[30%] h-7 bg-[#660A9C] rounded-full row-start-1 col-start-1"></div>
-												<div className="text-[#660A9C] text-4xl pt-2">↑</div>
-												<div className="text-[#660A9C] text-xl pt-2">
-													<span className="font-bold">12%</span> der adoptierten
-													Bäume sind besonders durstig.
-												</div>
-											</div>
-										</div>
-									</StatsCard>
+
 									<StatsCard
 										title="Baumarten"
 										hint="stehen in Berlin"
@@ -200,6 +191,31 @@ export const Stats: React.FC = () => {
 												height={CHART_HEIGHT}
 												innerRadiusRatio={0.65}
 											></DonutChart>
+										</div>
+									</StatsCard>
+									<StatsCard
+										title="Baumadoptionen"
+										hint="wurden adoptiert"
+										stat={stats.treeAdoptions.count}
+										unit="Bäume"
+										titleColor="text-gdk-purple"
+										icon={<HeartIcon isAdopted={true}></HeartIcon>}
+									>
+										<div className="w-full">
+											<div className="w-full grid grid-cols-1 grid-rows-">
+												<div className="w-full h-7 bg-[#660A9C] opacity-[30%] rounded-full row-start-1 col-start-1"></div>
+												<div
+													style={{ width: `${veryThirstyAdoptionsRate}%` }}
+													className={`h-7 bg-[#660A9C] rounded-full row-start-1 col-start-1`}
+												></div>
+												<div className="text-[#660A9C] text-4xl pt-2">↑</div>
+												<div className="text-[#660A9C] text-xl pt-2">
+													<span className="font-bold">
+														{veryThirstyAdoptionsRate}%
+													</span>{" "}
+													der adoptierten Bäume sind besonders durstig.
+												</div>
+											</div>
 										</div>
 									</StatsCard>
 								</div>

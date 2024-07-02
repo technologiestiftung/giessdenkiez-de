@@ -101,10 +101,13 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 				.attr("font-size", "12px");
 		}
 
-		if (selectedLeaf && selectedLeaf.label !== "") {
+		if (selectedLeaf) {
+			const imageName =
+				selectedLeaf.label !== "" ? selectedLeaf.label : "UNBEKANNT";
+			console.log(imageName);
 			svg
 				.append("image")
-				.attr("xlink:href", `images/leafs/${selectedLeaf.label}.png`)
+				.attr("xlink:href", `images/leafs/${imageName}.png`)
 				.attr("x", -60 / 2)
 				.attr("y", -50)
 				.attr("width", 60)
