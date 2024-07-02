@@ -142,7 +142,7 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 			.attr("font-size", "14px");
 
 		svg.selectAll("text").attr("font-family", "IBM").attr("fill", "#0A4295");
-	}, [hovered]);
+	}, [last3Years, hovered]);
 
 	return (
 		<div className="relative" id="bar-container">
