@@ -126,7 +126,7 @@ export const Stats: React.FC = () => {
 						</div>
 						{stats && (
 							<div className="flex flex-col gap-4">
-								<div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+								<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 									<SimpleStatsCard title="Straßenbäume" stat={stats.numTrees} />
 									<SimpleStatsCard
 										title="Öffentliche Pumpen"

@@ -51,7 +51,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 				containerStyle={{ height: "100%" }}
 			>
 				<div
-					className={`flex flex-col rounded-2xl p-2 md:p-4 border md:border-2 w-full text-left gap-1 h-[100%]`}
+					className={`flex flex-col rounded-2xl p-3 md:p-4 border md:border-2 w-full text-left gap-1 h-[100%]`}
 				>
 					<div className={`flex flex-row justify-between items-center`}>
 						<div className="flex flex-row gap-2 text-xl font-semibold">
@@ -64,9 +64,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 							<InfoIcon></InfoIcon>
 						</button>
 					</div>
-					<div
-						className={`flex flex-col md:flex-row gap-2 items-baseline ${titleColor}`}
-					>
+					<div className={`flex flex-row gap-2 items-baseline ${titleColor}`}>
 						{icon}
 						<span className="text-4xl font-bold">{formatNumber(stat)}</span>
 						<span className="text-3xl font-semibold">{unit}</span>
