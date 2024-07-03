@@ -63,7 +63,7 @@ export const Stats: React.FC = () => {
 	const [monthly, setMonthly] = useState<Monthly[]>([]);
 	const [monthlyWeater, setMonthlyWeather] = useState<MonthlyWeather[]>([]);
 
-	const CHART_WIDTH = 300;
+	const [dynamicChartWidth, setDynamicChartWidth] = useState(0);
 	const CHART_HEIGHT = 300;
 
 	useEffect(() => {
@@ -145,9 +145,12 @@ export const Stats: React.FC = () => {
 										unit="mal"
 										titleColor="text-gdk-dark-blue"
 										icon={<WateringCanIcon></WateringCanIcon>}
+										onResize={(width) => {
+											setDynamicChartWidth(width);
+										}}
 									>
 										<DensityMap
-											width={CHART_WIDTH}
+											width={dynamicChartWidth}
 											height={CHART_HEIGHT}
 											data={stats.waterings}
 										/>
@@ -159,16 +162,20 @@ export const Stats: React.FC = () => {
 										unit="Liter"
 										titleColor="text-gdk-dark-blue"
 										icon={<DropIcon></DropIcon>}
+										onResize={(width) => {
+											setDynamicChartWidth(width);
+										}}
 									>
 										<div>
 											<BarChart
-												width={CHART_WIDTH}
+												width={dynamicChartWidth}
 												height={CHART_HEIGHT}
 												monthlyData={monthly}
 												weatherData={monthlyWeater}
 											/>
 										</div>
 									</StatsCard>
+
 									<StatsCard
 										title="Gießvolumen"
 										hint="werden 2024 durchschnittlich pro Gießung eingetragen"
@@ -176,10 +183,13 @@ export const Stats: React.FC = () => {
 										unit="Liter"
 										titleColor="text-gdk-dark-blue"
 										icon={<DropIcon></DropIcon>}
+										onResize={(width) => {
+											setDynamicChartWidth(width);
+										}}
 									>
 										<LineChart
 											monthlyData={monthly}
-											width={CHART_WIDTH}
+											width={dynamicChartWidth}
 											height={CHART_HEIGHT}
 										/>
 									</StatsCard>
@@ -191,10 +201,13 @@ export const Stats: React.FC = () => {
 										unit="Baumarten"
 										titleColor="text-gdk-dark-green"
 										icon={<TreeIcon></TreeIcon>}
+										onResize={(width) => {
+											setDynamicChartWidth(width);
+										}}
 									>
 										<DonutChart
 											treeSpecies={stats.mostFrequentTreeSpecies}
-											width={CHART_WIDTH}
+											width={dynamicChartWidth}
 											height={CHART_HEIGHT}
 										/>
 									</StatsCard>
@@ -205,6 +218,9 @@ export const Stats: React.FC = () => {
 										unit="Bäume"
 										titleColor="text-gdk-purple"
 										icon={<HeartIcon isAdopted={true}></HeartIcon>}
+										onResize={(width) => {
+											setDynamicChartWidth(width);
+										}}
 									>
 										<AdoptionsChart
 											veryThirstyAdoptionsRate={veryThirstyAdoptionsRate}

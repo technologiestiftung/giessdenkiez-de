@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { InfoIcon } from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
 import ReactCardFlip from "react-card-flip";
@@ -10,6 +10,7 @@ interface StatsCardProps {
 	unit: string;
 	titleColor: string;
 	icon: React.ReactNode;
+	onResize: (width: number) => void;
 	children: React.ReactNode;
 }
 
@@ -20,12 +21,30 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 	unit,
 	titleColor,
 	icon,
+	onResize,
 	children,
 }) => {
 	const { formatNumber } = useI18nStore();
 	const [isFlipped, setIsFlipped] = useState(false);
+
+	const onInternalResize = () => {
+		const container = document.getElementById("stats-card-container");
+		if (container) {
+			const width = container.offsetWidth;
+			onResize(width);
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener("resize", onInternalResize);
+		onInternalResize();
+		return () => {
+			window.removeEventListener("resize", onInternalResize);
+		};
+	}, []);
+
 	return (
-		<div className="col-span-1">
+		<div className="col-span-1 min-h-[340px]">
 			<ReactCardFlip
 				isFlipped={isFlipped}
 				flipDirection="horizontal"
@@ -52,8 +71,13 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 						<span className="text-4xl font-bold">{formatNumber(stat)}</span>
 						<span className="text-3xl font-semibold">{unit}</span>
 					</div>
-					<div className={`text-xl font-semibold ${titleColor}`}>{hint}</div>
-					<div className="py-3 flex flex-row justify-center items-center h-fit">
+					<div className={`text-xl font-semibold ${titleColor} min-h-[60px]`}>
+						{hint}
+					</div>
+					<div
+						className="py-3 flex flex-row justify-center items-center h-fit"
+						id="stats-card-container"
+					>
 						{children}
 					</div>
 				</div>

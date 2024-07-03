@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import * as d3 from "d3";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
 	defaultLabelColor,
 	densityHighColor,
@@ -28,27 +28,35 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 	const innerWidth = width;
 	const innerHeight = height - svgMargin.top - svgMargin.bottom;
 	const svgRef = useRef<SVGSVGElement>(null);
-	const [berlinDistricsPaths, setBerlinDistricsPaths] = useState<string[]>();
-	const projection = d3
-		.geoMercator()
-		.center([13.4, 52.5])
-		.translate([innerWidth / 2, innerHeight / 2])
-		.scale(innerHeight / 0.01);
+	const [berlinBezirke, setBerlinBezirke] = useState<string[]>();
+
+	const projection = useMemo(() => {
+		const scale = width < height ? width / 0.012 : height / 0.012;
+		return d3
+			.geoMercator()
+			.center([13.4, 52.5])
+			.translate([innerWidth / 2, innerHeight / 2])
+			.scale(scale);
+	}, [width, height]);
+
+	const berlinDistricsPaths = useMemo(() => {
+		if (!berlinBezirke) {
+			return [];
+		}
+		const geoGenerator = d3.geoPath().projection(projection);
+		// @ts-expect-error features is missing in type definition
+		const paths = berlinBezirke.features.map(
+			(feature: d3.GeoPermissibleObjects) => geoGenerator(feature),
+		);
+		return paths as string[];
+	}, [berlinBezirke, projection]);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			const berlinBezirkeRaw = await fetch(import.meta.env.VITE_BEZIRKE_URL);
-			const berlinBezirke = await berlinBezirkeRaw.json();
-			const geoGenerator = d3.geoPath().projection(projection);
-			const districtPaths = berlinBezirke.features.map(
-				(feature: d3.GeoPermissibleObjects) => {
-					return geoGenerator(feature);
-				},
-			);
-
-			setBerlinDistricsPaths(districtPaths);
+			const berlinBezirkeParsed = await berlinBezirkeRaw.json();
+			setBerlinBezirke(berlinBezirkeParsed);
 		};
-
 		fetchData();
 	}, []);
 

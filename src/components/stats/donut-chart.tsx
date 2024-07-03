@@ -90,14 +90,15 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 
 			const imageName =
 				selectedSpecies.speciesName ?? UNKNOWN_SPECIES_IMAGE_IDENTIFIER;
-			const imageScale = 0.4;
+			const imageSize = radius * 0.8;
 			svg
 				.append("image")
 				.attr("xlink:href", `images/leafs/${imageName}.png`)
-				.attr("x", -width * (imageScale / 2))
-				.attr("y", -height * (imageScale / 2) - 20)
-				.attr("width", width * imageScale)
-				.attr("height", width * imageScale)
+				.attr("x", 0)
+				.attr("y", -radius / 8)
+				.attr("width", imageSize)
+				.attr("height", imageSize)
+				.attr("transform", `translate(${-imageSize / 2}, ${-imageSize / 2})`)
 				.attr("class", "leaf-image");
 		}
 	}, [selectedSpecies, treeSpecies, width, height]);
