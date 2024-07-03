@@ -1,6 +1,11 @@
 /* eslint-disable max-lines */
 import * as d3 from "d3";
 import React, { useEffect, useRef, useState } from "react";
+import {
+	defaultLabelColor,
+	densityHighColor,
+	densityLowColor,
+} from "./chart-colors";
 
 interface DensityMapProps {
 	data: { lat: number; lng: number; amount: number }[];
@@ -76,7 +81,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 			const x = d3.scaleLinear().domain([0, width]).range([0, width]);
 			const y = d3.scaleLinear().domain([0, height]).range([0, height]);
 
-			const densityDataTmp = d3
+			const densityData = d3
 				.contourDensity<DataPoint>()
 				.x((d) => x(d.lng))
 				.y((d) => y(d.lat))
@@ -85,28 +90,26 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.bandwidth(4)
 				.thresholds(30)(parsedData);
 
-			if (berlinDistricsPaths) {
-				svg
-					.selectAll("path.district")
-					.data(berlinDistricsPaths)
-					.enter()
-					.append("path")
-					.attr("class", "district")
-					.attr("d", (d) => d)
-					.attr("fill", "#e2e2e2")
-					.attr("stroke", "#ffffff")
-					.attr("stroke-width", 1);
-			}
+			svg
+				.selectAll("path.district")
+				.data(berlinDistricsPaths)
+				.enter()
+				.append("path")
+				.attr("class", "district")
+				.attr("d", (d) => d)
+				.attr("fill", "#e2e2e2")
+				.attr("stroke", "#ffffff")
+				.attr("stroke-width", 1);
 
 			svg
 				.selectAll("path.contours")
-				.data(densityDataTmp)
+				.data(densityData)
 				.enter()
 				.append("path")
 				.attr("d", d3.geoPath(d3.geoIdentity().scale(1)))
-				.attr("fill", (_, i) => d3.interpolateRgb("#FD9531", "#336CC0")(i / 10))
-				.attr("stroke", "#000")
-				.attr("stroke-width", 0)
+				.attr("fill", (_, i) =>
+					d3.interpolateRgb(densityLowColor, densityHighColor)(i / 10),
+				)
 				.attr("opacity", 0.1);
 
 			// Draw the color interpolated legend
@@ -116,7 +119,10 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.scaleLinear()
 				.domain([0, numSegments])
 				.range([0, interpolateWidth]);
-			const colorInterpolator = d3.interpolateRgb("#FD9531", "#336CC0");
+			const colorInterpolator = d3.interpolateRgb(
+				densityLowColor,
+				densityHighColor,
+			);
 			for (let i = 0; i < numSegments; i++) {
 				const xStart = interpolateScale(i);
 				const xEnd = interpolateScale(i + 1);
@@ -139,7 +145,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.append("text")
 				.attr("x", innerWidth / 2)
 				.attr("y", height - 5)
-				.attr("fill", "#0A4295")
+				.attr("fill", defaultLabelColor)
 				.attr("text-anchor", "middle")
 				.text("Anzahl der Gießungen")
 				.attr("font-size", "14px");

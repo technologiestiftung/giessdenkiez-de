@@ -3,6 +3,11 @@ import { formatDate } from "date-fns";
 import * as d3 from "d3";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { Monthly } from "./stats";
+import {
+	defaultLabelColor,
+	defaultWaterFillColor,
+	indicatorLineColor,
+} from "./chart-colors";
 
 interface LineChartProps {
 	monthlyData: Monthly[];
@@ -56,7 +61,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 					.attr("y1", y(yReferenceLineValue) + svgMargin.top - svgMargin.bottom)
 					.attr("x2", width - svgMargin.right)
 					.attr("y2", y(yReferenceLineValue) + svgMargin.top - svgMargin.bottom)
-					.attr("stroke", "#CECECE")
+					.attr("stroke", indicatorLineColor)
 					.attr("stroke-width", 1);
 
 				svg
@@ -67,7 +72,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 						y(yReferenceLineValue) + svgMargin.top - svgMargin.bottom + 2.5,
 					)
 					.attr("text-anchor", "start")
-					.attr("fill", "#0A4295")
+					.attr("fill", defaultLabelColor)
 					.text(`${formatNumber(yReferenceLineValue)} l`)
 					.attr("font-size", "12px");
 			},
@@ -90,7 +95,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.datum(last3Years)
 			.attr("class", "area")
 			.attr("d", area)
-			.attr("fill", "#336CC0");
+			.attr("fill", defaultWaterFillColor);
 
 		const tickValues = [
 			new Date(last3Years[0].month),
@@ -113,12 +118,15 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.append("text")
 			.attr("x", width / 2)
 			.attr("y", svgMargin.bottom - 10)
-			.attr("fill", "#0A4295")
+			.attr("fill", defaultLabelColor)
 			.attr("text-anchor", "middle")
 			.text("Monatswerte in Liter")
 			.attr("font-size", "14px");
 
-		svg.selectAll("text").attr("font-family", "IBM").attr("fill", "#0A4295");
+		svg
+			.selectAll("text")
+			.attr("font-family", "IBM")
+			.attr("fill", defaultLabelColor);
 	}, [last3Years, monthlyData, width, height]);
 
 	return <svg ref={svgRef}></svg>;

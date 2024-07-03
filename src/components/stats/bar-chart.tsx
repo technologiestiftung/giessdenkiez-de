@@ -3,6 +3,13 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { Monthly, MonthlyWeather } from "./stats";
+import {
+	defaultLabelColor,
+	defaultWaterFillColor,
+	hoverWaterFillColor,
+	indicatorLineColor,
+	temperatureFillColor,
+} from "./chart-colors";
 
 interface BarChartProps {
 	monthlyData: Monthly[];
@@ -79,7 +86,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 				"y2",
 				yScale(yReferenceLineValue) + svgMargin.top - svgMargin.bottom,
 			)
-			.attr("stroke", "#CECECE")
+			.attr("stroke", indicatorLineColor)
 			.attr("stroke-width", 1);
 
 		svg
@@ -90,7 +97,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 				yScale(yReferenceLineValue) + svgMargin.top - svgMargin.bottom + 3,
 			)
 			.attr("text-anchor", "start")
-			.attr("fill", "#0A4295")
+			.attr("fill", defaultLabelColor)
 			.text(`${formatNumber(yReferenceLineValue / 1000)}k l`)
 			.attr("font-size", "12px");
 
@@ -108,9 +115,9 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.attr("height", (d) => height - yScale(d.totalSum))
 			.attr("fill", (d) => {
 				if (hovered && hovered.month === d.month) {
-					return "#96BCF4";
+					return hoverWaterFillColor;
 				}
-				return "#336CC0";
+				return defaultWaterFillColor;
 			})
 			.on("mouseout", mouseOutHandler)
 			.on("mousemove", mouseMoveHandler)
@@ -138,7 +145,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.append("text")
 			.attr("x", width / 2)
 			.attr("y", svgMargin.bottom - 10)
-			.attr("fill", "#0A4295")
+			.attr("fill", defaultLabelColor)
 			.attr("text-anchor", "middle")
 			.text("Monatswerte in Liter")
 			.attr("font-size", "14px");
@@ -160,7 +167,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.append("path")
 			.datum(weatherData)
 			.attr("fill", "none")
-			.attr("stroke", "#ff0000")
+			.attr("stroke", temperatureFillColor)
 			.attr("stroke-width", 1.5)
 			.attr("opacity", 0.3)
 			.attr(
@@ -190,7 +197,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 				"y2",
 				height / 2 - svgMargin.bottom + temperatureYScale(maxTemperature),
 			)
-			.attr("stroke", "#CECECE")
+			.attr("stroke", indicatorLineColor)
 			.attr("stroke-width", 1);
 
 		svg
@@ -204,7 +211,10 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.text(`${formatNumber(Math.round(maxTemperature))}°C`)
 			.attr("font-size", "12px");
 
-		svg.selectAll("text").attr("font-family", "IBM").attr("fill", "#0A4295");
+		svg
+			.selectAll("text")
+			.attr("font-family", "IBM")
+			.attr("fill", defaultLabelColor);
 	}, [last3Years, hovered, weatherData]);
 
 	return (

@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 import { TreeSpecies } from "./stats";
+import { speciesColors, speciesLabelColor } from "./chart-colors";
 
 interface DonutChartProps {
 	treeSpecies: TreeSpecies[];
@@ -13,24 +14,14 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 	width,
 	height,
 }) => {
-	const colors = [
-		"#07964E",
-		"#B6DD83",
-		"#45AC95",
-		"#237B5A",
-		"#DEE25E",
-		"#99B766",
-		"#8E982C",
-		"#7E7B22",
-		"#CFB739",
-		"#B1B89C",
-		"#A3A69C",
-	];
+	const UNKNOWN_SPECIES_IMAGE_IDENTIFIER = "UNBEKANNT";
+
 	const [selectedSpecies, setSelectedSpecies] = useState<TreeSpecies | null>(
 		treeSpecies[0],
 	);
 
 	const svgRef = useRef<SVGSVGElement | null>(null);
+
 	useEffect(() => {
 		d3.select(svgRef.current).selectAll("*").remove();
 
@@ -59,7 +50,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			.enter()
 			.append("path")
 			.attr("d", arc.cornerRadius(5))
-			.attr("fill", (_, i) => colors[i % colors.length])
+			.attr("fill", (_, i) => speciesColors[i % speciesColors.length])
 			.attr("stroke", (d) => {
 				if (
 					selectedSpecies &&
@@ -82,7 +73,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 				.append("text")
 				.attr("x", 0)
 				.attr("y", 70)
-				.attr("fill", "#07964E")
+				.attr("fill", speciesLabelColor)
 				.attr("text-anchor", "middle")
 				.text(selectedSpecies.speciesName || "Unbekannt")
 				.attr("font-size", "12px");
@@ -91,16 +82,14 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 				.append("text")
 				.attr("x", 0)
 				.attr("y", 58)
-				.attr("fill", "#07964E")
+				.attr("fill", speciesLabelColor)
 				.attr("text-anchor", "middle")
 				.attr("font-weight", "bold")
 				.text(Math.round(selectedSpecies.percentage) + "%")
 				.attr("font-size", "12px");
 
 			const imageName =
-				selectedSpecies.speciesName !== null
-					? selectedSpecies.speciesName
-					: "UNBEKANNT";
+				selectedSpecies.speciesName ?? UNKNOWN_SPECIES_IMAGE_IDENTIFIER;
 			const imageScale = 0.4;
 			svg
 				.append("image")
