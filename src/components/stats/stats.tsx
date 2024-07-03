@@ -12,13 +12,14 @@ import { DonutChart } from "./donut-chart";
 import { LineChart } from "./line-chart";
 import { SimpleStatsCard } from "./simple-stats-card";
 import { StatsCard } from "./stats-card";
+import { AdoptionsChart } from "./adoptions-chart";
 
-interface TreeSpecies {
+export interface TreeSpecies {
 	speciesName?: string;
 	percentage: number;
 }
 
-interface Monthly {
+export interface Monthly {
 	month: string;
 	wateringCount: number;
 	averageAmountPerWatering: number;
@@ -38,6 +39,12 @@ interface TreeAdoptions {
 	veryThirstyCount: number;
 }
 
+export interface MonthlyWeather {
+	month: string;
+	averageTemperatureCelsius: number;
+	totalRainfallLiters: number;
+}
+
 interface GdkStats {
 	numTrees: number;
 	numPumps: number;
@@ -48,11 +55,14 @@ interface GdkStats {
 	mostFrequentTreeSpecies: TreeSpecies[];
 	totalTreeSpeciesCount: number;
 	waterings: Watering[];
+	monthlyWeather: MonthlyWeather[];
 }
 
 export const Stats: React.FC = () => {
 	const [stats, setStats] = useState<GdkStats>();
 	const [monthly, setMonthly] = useState<Monthly[]>([]);
+	const [monthlyWeater, setMonthlyWeather] = useState<MonthlyWeather[]>([]);
+
 	const CHART_WIDTH = 300;
 	const CHART_HEIGHT = 300;
 
@@ -69,6 +79,11 @@ export const Stats: React.FC = () => {
 			return new Date(a.month).getTime() - new Date(b.month).getTime();
 		});
 		setMonthly(orderedMonthly);
+
+		const orderedMonthlyWeather = (stats?.monthlyWeather ?? []).sort((a, b) => {
+			return new Date(a.month).getTime() - new Date(b.month).getTime();
+		});
+		setMonthlyWeather(orderedMonthlyWeather);
 	}, [stats]);
 
 	const veryThirstyAdoptionsRate = useMemo(() => {
@@ -79,6 +94,19 @@ export const Stats: React.FC = () => {
 			(stats.treeAdoptions.veryThirstyCount / stats.treeAdoptions.count) * 100,
 		);
 	}, [stats]);
+
+	const averageNumWateringsPerMonth = useMemo(() => {
+		return Math.round(
+			monthly.reduce((acc, m) => acc + m.totalSum, 0) / monthly.length,
+		);
+	}, [monthly]);
+
+	const averageAmountPerWatering = useMemo(() => {
+		return Math.round(
+			monthly.reduce((acc, m) => acc + m.averageAmountPerWatering, 0) /
+				monthly.length,
+		);
+	}, [monthly]);
 
 	return (
 		<div className="pointer-events-auto w-full overflow-auto">
@@ -127,10 +155,7 @@ export const Stats: React.FC = () => {
 									<StatsCard
 										title="Gießverhalten"
 										hint="werden durchschnittlich pro Monat gegossen"
-										stat={Math.round(
-											monthly.reduce((acc, m) => acc + m.totalSum, 0) /
-												monthly.length,
-										)}
+										stat={averageNumWateringsPerMonth}
 										unit="Liter"
 										titleColor="text-gdk-dark-blue"
 										icon={<DropIcon></DropIcon>}
@@ -139,40 +164,24 @@ export const Stats: React.FC = () => {
 											<BarChart
 												width={CHART_WIDTH}
 												height={CHART_HEIGHT}
-												data={monthly.map((m) => {
-													return {
-														month: m.month,
-														value: m.totalSum,
-													};
-												})}
+												monthlyData={monthly}
+												weatherData={monthlyWeater}
 											/>
 										</div>
 									</StatsCard>
 									<StatsCard
 										title="Gießvolumen"
 										hint="werden 2024 durchschnittlich pro Gießung eingetragen"
-										stat={Math.round(
-											monthly.reduce(
-												(acc, m) => acc + m.averageAmountPerWatering,
-												0,
-											) / monthly.length,
-										)}
+										stat={averageAmountPerWatering}
 										unit="Liter"
 										titleColor="text-gdk-dark-blue"
 										icon={<DropIcon></DropIcon>}
 									>
-										<div>
-											<LineChart
-												data={monthly.map((m) => {
-													return {
-														month: new Date(m.month),
-														value: m.averageAmountPerWatering,
-													};
-												})}
-												width={CHART_WIDTH}
-												height={CHART_HEIGHT}
-											/>
-										</div>
+										<LineChart
+											monthlyData={monthly}
+											width={CHART_WIDTH}
+											height={CHART_HEIGHT}
+										/>
 									</StatsCard>
 
 									<StatsCard
@@ -183,20 +192,11 @@ export const Stats: React.FC = () => {
 										titleColor="text-gdk-dark-green"
 										icon={<TreeIcon></TreeIcon>}
 									>
-										<div>
-											<DonutChart
-												data={stats.mostFrequentTreeSpecies
-													.slice(0, 20)
-													.map((t) => {
-														return {
-															label: t.speciesName ?? "",
-															value: t.percentage,
-														};
-													})}
-												width={CHART_WIDTH}
-												height={CHART_HEIGHT}
-											/>
-										</div>
+										<DonutChart
+											treeSpecies={stats.mostFrequentTreeSpecies}
+											width={CHART_WIDTH}
+											height={CHART_HEIGHT}
+										/>
 									</StatsCard>
 									<StatsCard
 										title="Baumadoptionen"
@@ -206,22 +206,9 @@ export const Stats: React.FC = () => {
 										titleColor="text-gdk-purple"
 										icon={<HeartIcon isAdopted={true}></HeartIcon>}
 									>
-										<div className="w-full">
-											<div className="w-full grid grid-cols-1 grid-rows-">
-												<div className="w-full h-7 bg-[#660A9C] opacity-[30%] rounded-full row-start-1 col-start-1"></div>
-												<div
-													style={{ width: `${veryThirstyAdoptionsRate}%` }}
-													className={`h-7 bg-[#660A9C] rounded-full row-start-1 col-start-1`}
-												></div>
-												<div className="text-[#660A9C] text-4xl pt-2">↑</div>
-												<div className="text-[#660A9C] text-xl pt-2">
-													<span className="font-bold">
-														{veryThirstyAdoptionsRate}%
-													</span>{" "}
-													der adoptierten Bäume sind besonders durstig.
-												</div>
-											</div>
-										</div>
+										<AdoptionsChart
+											veryThirstyAdoptionsRate={veryThirstyAdoptionsRate}
+										/>
 									</StatsCard>
 								</div>
 							</div>

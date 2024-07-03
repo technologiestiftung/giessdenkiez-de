@@ -2,23 +2,25 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { useI18nStore } from "../../i18n/i18n-store";
-
-interface DataPoint {
-	month: string;
-	value: number;
-}
+import { Monthly, MonthlyWeather } from "./stats";
 
 interface BarChartProps {
-	data: DataPoint[];
+	monthlyData: Monthly[];
+	weatherData: MonthlyWeather[];
 	width: number;
 	height: number;
 }
 
-export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
+export const BarChart: React.FC<BarChartProps> = ({
+	monthlyData,
+	weatherData,
+	width,
+	height,
+}) => {
 	const svgRef = useRef<SVGSVGElement | null>(null);
 	const svgMargin = { top: 0, right: 30, bottom: 50, left: 30 };
-	const [hovered, setHovered] = React.useState<DataPoint>();
-	const last3Years = data.slice(-3 * 12);
+	const [hovered, setHovered] = React.useState<Monthly>();
+	const last3Years = monthlyData.slice(-3 * 12);
 	const yReferenceLineValue = 100000;
 	const { formatNumber } = useI18nStore();
 
@@ -61,7 +63,7 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 
 		const yScale = d3
 			.scaleLinear()
-			.domain([0, d3.max(last3Years, (d) => d.value) || 0])
+			.domain([0, d3.max(last3Years, (d) => d.totalSum) || 0])
 			.nice()
 			.range([height, svgMargin.bottom]);
 
@@ -99,11 +101,11 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 			.append("rect")
 			.attr("class", "bar")
 			.attr("x", (d) => xScale(formatMonth(d.month)) || 0)
-			.attr("y", (d) => yScale(d.value) - svgMargin.bottom)
+			.attr("y", (d) => yScale(d.totalSum) - svgMargin.bottom)
 			.attr("rx", 3)
 			.attr("ry", 3)
 			.attr("width", xScale.bandwidth())
-			.attr("height", (d) => height - yScale(d.value))
+			.attr("height", (d) => height - yScale(d.totalSum))
 			.attr("fill", (d) => {
 				if (hovered && hovered.month === d.month) {
 					return "#96BCF4";
@@ -141,8 +143,69 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 			.text("Monatswerte in Liter")
 			.attr("font-size", "14px");
 
+		const temperatureXScale = d3
+			.scaleTime()
+			.domain(d3.extent(weatherData, (d) => new Date(d.month)) as [Date, Date])
+			.range([svgMargin.left, width - svgMargin.right]);
+
+		const temperatureYScale = d3
+			.scaleLinear()
+			.domain([0, d3.max(weatherData, (d) => d.averageTemperatureCelsius)] as [
+				number,
+				number,
+			])
+			.range([height / 2, 0]);
+
+		svg
+			.append("path")
+			.datum(weatherData)
+			.attr("fill", "none")
+			.attr("stroke", "#ff0000")
+			.attr("stroke-width", 1.5)
+			.attr("opacity", 0.3)
+			.attr(
+				"d",
+				d3
+					.line<MonthlyWeather>()
+					.x((d) => temperatureXScale(new Date(d.month)))
+					.y(
+						(d) =>
+							height / 2 -
+							svgMargin.bottom +
+							temperatureYScale(d.averageTemperatureCelsius),
+					),
+			);
+
+		const maxTemperature =
+			d3.max(weatherData, (d) => d.averageTemperatureCelsius) || 0;
+		svg
+			.append("line")
+			.attr("x1", svgMargin.left)
+			.attr(
+				"y1",
+				height / 2 - svgMargin.bottom + temperatureYScale(maxTemperature),
+			)
+			.attr("x2", width - svgMargin.right)
+			.attr(
+				"y2",
+				height / 2 - svgMargin.bottom + temperatureYScale(maxTemperature),
+			)
+			.attr("stroke", "#CECECE")
+			.attr("stroke-width", 1);
+
+		svg
+			.append("text")
+			.attr("x", width - svgMargin.right + 3)
+			.attr(
+				"y",
+				height / 2 - svgMargin.bottom + temperatureYScale(maxTemperature) + 3,
+			)
+			.attr("text-anchor", "start")
+			.text(`${formatNumber(Math.round(maxTemperature))}°C`)
+			.attr("font-size", "12px");
+
 		svg.selectAll("text").attr("font-family", "IBM").attr("fill", "#0A4295");
-	}, [last3Years, hovered]);
+	}, [last3Years, hovered, weatherData]);
 
 	return (
 		<div className="relative" id="bar-container">
@@ -151,7 +214,7 @@ export const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 				<div className="absolute right-0 top-0 p-2 bg-gdk-lighter-blue shadow-md rounded-md">
 					<div className="flex flex-col text-sm ">
 						<div className="font-bold">{formatMonth(hovered.month)}</div>
-						<div>{formatNumber(hovered.value)} Liter</div>
+						<div>{formatNumber(hovered.totalSum)} Liter</div>
 					</div>
 				</div>
 			)}

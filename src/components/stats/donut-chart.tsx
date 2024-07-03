@@ -1,19 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
+import { TreeSpecies } from "./stats";
 
 interface DonutChartProps {
-	data: { label: string; value: number }[];
+	treeSpecies: TreeSpecies[];
 	width: number;
 	height: number;
 }
 
-interface Leaf {
-	label: string;
-	value: number;
-}
-
 export const DonutChart: React.FC<DonutChartProps> = ({
-	data,
+	treeSpecies,
 	width,
 	height,
 }) => {
@@ -30,7 +26,9 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 		"#B1B89C",
 		"#A3A69C",
 	];
-	const [selectedLeaf, setSelectedLeaf] = useState<Leaf | null>(data[0]);
+	const [selectedSpecies, setSelectedSpecies] = useState<TreeSpecies | null>(
+		treeSpecies[0],
+	);
 
 	const svgRef = useRef<SVGSVGElement | null>(null);
 	useEffect(() => {
@@ -39,12 +37,10 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 		const radius = Math.min(width, height) / 2;
 		const innerRadius = radius * 0.65;
 
-		const pie = d3
-			.pie<{ label: string; value: number }>()
-			.value((d) => d.value);
+		const pie = d3.pie<TreeSpecies>().value((d) => d.percentage);
 
 		const arc = d3
-			.arc<d3.PieArcDatum<{ label: string; value: number }>>()
+			.arc<d3.PieArcDatum<TreeSpecies>>()
 			.innerRadius(innerRadius)
 			.outerRadius(radius);
 
@@ -59,13 +55,16 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 
 		svg
 			.selectAll("path")
-			.data(pie.padAngle(0.01)(data))
+			.data(pie.padAngle(0.01)(treeSpecies))
 			.enter()
 			.append("path")
 			.attr("d", arc.cornerRadius(5))
 			.attr("fill", (_, i) => colors[i % colors.length])
 			.attr("stroke", (d) => {
-				if (selectedLeaf && d.data.label === selectedLeaf.label) {
+				if (
+					selectedSpecies &&
+					d.data.speciesName === selectedSpecies.speciesName
+				) {
 					return "#1169EE";
 				}
 				return "white";
@@ -73,19 +72,19 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			.attr("stroke-width", 2)
 			.on("click", (d) => {
 				const leaf = d.target.__data__.data;
-				setSelectedLeaf(leaf);
+				setSelectedSpecies(leaf);
 			})
 			.attr("transform", "scale(0.95)")
 			.attr("class", "pie-part");
 
-		if (selectedLeaf) {
+		if (selectedSpecies) {
 			svg
 				.append("text")
 				.attr("x", 0)
 				.attr("y", 70)
 				.attr("fill", "#07964E")
 				.attr("text-anchor", "middle")
-				.text(selectedLeaf.label || "Unbekannt")
+				.text(selectedSpecies.speciesName || "Unbekannt")
 				.attr("font-size", "12px");
 
 			svg
@@ -95,11 +94,13 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 				.attr("fill", "#07964E")
 				.attr("text-anchor", "middle")
 				.attr("font-weight", "bold")
-				.text(Math.round(selectedLeaf.value) + "%")
+				.text(Math.round(selectedSpecies.percentage) + "%")
 				.attr("font-size", "12px");
 
 			const imageName =
-				selectedLeaf.label !== "" ? selectedLeaf.label : "UNBEKANNT";
+				selectedSpecies.speciesName !== null
+					? selectedSpecies.speciesName
+					: "UNBEKANNT";
 			const imageScale = 0.4;
 			svg
 				.append("image")
@@ -110,7 +111,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 				.attr("height", width * imageScale)
 				.attr("class", "leaf-image");
 		}
-	}, [selectedLeaf, data, width, height]);
+	}, [selectedSpecies, treeSpecies, width, height]);
 
 	return <svg id="svg-container" ref={svgRef}></svg>;
 };

@@ -2,22 +2,23 @@ import React, { useRef, useEffect } from "react";
 import { formatDate } from "date-fns";
 import * as d3 from "d3";
 import { useI18nStore } from "../../i18n/i18n-store";
+import { Monthly } from "./stats";
 
 interface LineChartProps {
-	data: { month: Date; value: number }[];
+	monthlyData: Monthly[];
 	width: number;
 	height: number;
 }
 
 export const LineChart: React.FC<LineChartProps> = ({
-	data,
+	monthlyData,
 	width,
 	height,
 }) => {
 	const firstYReferenceLineValue = 30;
 	const secondYReferenceLineValue = 50;
 
-	const last3Years = data.slice(-3 * 12);
+	const last3Years = monthlyData.slice(-3 * 12);
 	const svgRef = useRef<SVGSVGElement | null>(null);
 	const svgMargin = { top: 0, right: 30, bottom: 50, left: 30 };
 	const { formatNumber } = useI18nStore();
@@ -35,12 +36,15 @@ export const LineChart: React.FC<LineChartProps> = ({
 
 		const x = d3
 			.scaleTime()
-			.domain(d3.extent(last3Years, (d) => d.month) as [Date, Date])
+			.domain(d3.extent(last3Years, (d) => new Date(d.month)) as [Date, Date])
 			.range([svgMargin.left, width - svgMargin.right]);
 
 		const y = d3
 			.scaleLinear()
-			.domain([0, d3.max(last3Years, (d) => d.value) as number])
+			.domain([
+				0,
+				d3.max(last3Years, (d) => d.averageAmountPerWatering) as number,
+			])
 			.nice()
 			.range([height, svgMargin.bottom]);
 
@@ -70,11 +74,11 @@ export const LineChart: React.FC<LineChartProps> = ({
 		);
 
 		const area = d3
-			.area<{ month: Date; value: number }>()
+			.area<Monthly>()
 			.x(function (d) {
-				return x(d.month);
+				return x(new Date(d.month));
 			})
-			.y0((d) => y(d.value) - svgMargin.bottom)
+			.y0((d) => y(d.averageAmountPerWatering) - svgMargin.bottom)
 			.y1(function () {
 				return y(0) - svgMargin.bottom;
 			})
@@ -89,9 +93,9 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.attr("fill", "#336CC0");
 
 		const tickValues = [
-			last3Years[0].month,
-			last3Years[Math.floor(last3Years.length / 2)].month,
-			last3Years[last3Years.length - 1].month,
+			new Date(last3Years[0].month),
+			new Date(last3Years[Math.floor(last3Years.length / 2)].month),
+			new Date(last3Years[last3Years.length - 1].month),
 		];
 
 		const xAxis = svg
@@ -115,7 +119,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.attr("font-size", "14px");
 
 		svg.selectAll("text").attr("font-family", "IBM").attr("fill", "#0A4295");
-	}, [last3Years, data, width, height]);
+	}, [last3Years, monthlyData, width, height]);
 
 	return <svg ref={svgRef}></svg>;
 };
