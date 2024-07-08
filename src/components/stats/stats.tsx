@@ -210,6 +210,7 @@ export const Stats: React.FC = () => {
 										width={dynamicChartWidth}
 										height={CHART_HEIGHT}
 										data={stats?.waterings || []}
+										legend={i18n.stats.wateringsStat.legend}
 									/>
 								</StatsCard>
 								<StatsCard
@@ -218,7 +219,7 @@ export const Stats: React.FC = () => {
 										new Date().getFullYear().toString(),
 									)}
 									stat={averageNumWateringsPerMonth}
-									unit={i18n.stats.wateringsStat.unit}
+									unit={i18n.stats.wateringBehaviorStat.unit}
 									titleColor="text-gdk-dark-blue"
 									icon={<DropIcon></DropIcon>}
 									onResize={(width) => {
@@ -233,6 +234,7 @@ export const Stats: React.FC = () => {
 											height={CHART_HEIGHT}
 											monthlyData={monthly}
 											weatherData={monthlyWeater}
+											legend={i18n.stats.wateringBehaviorStat.legend}
 										/>
 									</div>
 								</StatsCard>
@@ -256,6 +258,7 @@ export const Stats: React.FC = () => {
 										yearlyData={yearlyAverageData}
 										width={dynamicChartWidth}
 										height={CHART_HEIGHT}
+										legend={i18n.stats.wateringAmountStat.legend}
 									/>
 								</StatsCard>
 
@@ -278,6 +281,7 @@ export const Stats: React.FC = () => {
 										treeSpecies={orderedTreeSpecies ?? []}
 										width={dynamicChartWidth}
 										height={CHART_HEIGHT}
+										legend={i18n.stats.treeSpeciesStat.legend}
 									/>
 								</StatsCard>
 								<StatsCard

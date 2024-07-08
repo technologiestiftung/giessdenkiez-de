@@ -13,12 +13,14 @@ interface LineChartProps {
 	yearlyData: Yearly[];
 	width: number;
 	height: number;
+	legend: string;
 }
 
 export const LineChart: React.FC<LineChartProps> = ({
 	yearlyData,
 	width,
 	height,
+	legend,
 }) => {
 	const firstYReferenceLineValue = 30;
 	const secondYReferenceLineValue = 50;
@@ -115,7 +117,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.attr("y", svgMargin.bottom - 10)
 			.attr("fill", defaultLabelColor)
 			.attr("text-anchor", "middle")
-			.text("Monatswerte in Liter")
+			.text(`${legend}`)
 			.attr("font-size", "14px");
 
 		svg

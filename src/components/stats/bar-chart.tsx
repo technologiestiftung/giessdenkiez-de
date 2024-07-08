@@ -16,6 +16,7 @@ interface BarChartProps {
 	weatherData: MonthlyWeather[];
 	width: number;
 	height: number;
+	legend: string;
 }
 
 export const BarChart: React.FC<BarChartProps> = ({
@@ -23,6 +24,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 	weatherData,
 	width,
 	height,
+	legend,
 }) => {
 	const svgRef = useRef<SVGSVGElement | null>(null);
 	const svgMargin = { top: 0, right: 30, bottom: 50, left: 30 };
@@ -147,7 +149,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.attr("y", svgMargin.bottom - 10)
 			.attr("fill", defaultLabelColor)
 			.attr("text-anchor", "middle")
-			.text("Monatswerte in Liter")
+			.text(`${legend}`)
 			.attr("font-size", "14px");
 
 		const temperatureXScale = d3

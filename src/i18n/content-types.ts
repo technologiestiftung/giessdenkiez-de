@@ -316,6 +316,7 @@ interface Stat {
 	title: string;
 	unit: string;
 	hint: (currentYear: string) => string;
+	legend?: string;
 	backContent: string;
 	backSourceLink?: string;
 }

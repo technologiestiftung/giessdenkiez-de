@@ -17,12 +17,14 @@ interface DataPoint {
 	lat: number;
 	lng: number;
 	amount: number;
+	legend: string;
 }
 
 export const DensityMap: React.FC<DensityMapProps> = ({
 	data,
 	width,
 	height,
+	legend,
 }) => {
 	const svgMargin = { top: 0, right: 0, bottom: 50, left: 0 };
 	const innerWidth = width;
@@ -142,7 +144,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 					.attr("y2", height - 30)
 					.attr("stroke", colorInterpolator(i / numSegments))
 					.attr("stroke-width", 6)
-					.attr("opacity", 0.5)
+					.attr("opacity", 0.25)
 					.attr(
 						"transform",
 						`translate(${(innerWidth - interpolateWidth) / 2}, 0)`,
@@ -155,7 +157,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.attr("y", height - 5)
 				.attr("fill", defaultLabelColor)
 				.attr("text-anchor", "middle")
-				.text("Anzahl der Gießungen")
+				.text(`${legend}`)
 				.attr("font-size", "14px");
 
 			svg.selectAll("text").attr("font-family", "IBM");

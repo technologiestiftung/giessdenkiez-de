@@ -7,12 +7,14 @@ interface DonutChartProps {
 	treeSpecies: TreeSpecies[];
 	width: number;
 	height: number;
+	legend: string;
 }
 
 export const DonutChart: React.FC<DonutChartProps> = ({
 	treeSpecies,
 	width,
 	height,
+	legend,
 }) => {
 	const UNKNOWN_SPECIES_IMAGE_IDENTIFIER = "UNBEKANNT";
 
@@ -84,18 +86,27 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			.attr("transform", "scale(0.95)")
 			.attr("class", "pie-part");
 
+		svg
+			.append("text")
+			.attr("x", 0)
+			.attr("y", height / 2 + 20)
+			.attr("fill", speciesLabelColor)
+			.attr("text-anchor", "middle")
+			.text(`${legend}`)
+			.attr("font-size", "14px");
+
 		if (selectedSpecies) {
 			svg
 				.append("text")
 				.attr("x", 0)
-				.attr("y", height / 2)
+				.attr("y", height / 2 - 10)
 				.attr("fill", speciesLabelColor)
 				.attr("text-anchor", "middle")
 				.attr("font-weight", "bold")
 				.text(
 					`${formattedSpecies(selectedSpecies.speciesName)} ${Math.round(selectedSpecies.percentage)}%`,
 				)
-				.attr("font-size", "16px");
+				.attr("font-size", "20px");
 
 			const imageName =
 				selectedSpecies.speciesName ?? UNKNOWN_SPECIES_IMAGE_IDENTIFIER;
