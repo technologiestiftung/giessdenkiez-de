@@ -169,7 +169,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.attr("fill", "none")
 			.attr("stroke", temperatureFillColor)
 			.attr("stroke-width", 1.5)
-			.attr("opacity", 0.3)
+			.attr("opacity", 0.5)
 			.attr(
 				"d",
 				d3
@@ -197,7 +197,8 @@ export const BarChart: React.FC<BarChartProps> = ({
 				"y2",
 				height / 2 - svgMargin.bottom + temperatureYScale(maxTemperature),
 			)
-			.attr("stroke", indicatorLineColor)
+			.attr("stroke", temperatureFillColor)
+			.attr("opacity", 0.5)
 			.attr("stroke-width", 1);
 
 		svg
@@ -209,7 +210,8 @@ export const BarChart: React.FC<BarChartProps> = ({
 			)
 			.attr("text-anchor", "start")
 			.text(`${formatNumber(Math.round(maxTemperature))}°C`)
-			.attr("font-size", "12px");
+			.attr("font-size", "12px")
+			.attr("fill", temperatureFillColor);
 
 		svg
 			.selectAll("text")

@@ -65,11 +65,14 @@ export const Stats: React.FC = () => {
 
 	const [dynamicChartWidth, setDynamicChartWidth] = useState(0);
 	const CHART_HEIGHT = 300;
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setLoading(true);
 			const data = await supabaseClient.functions.invoke("gdk_stats");
 			setStats(data.data);
+			setLoading(false);
 		};
 		fetchData();
 	}, []);
@@ -124,111 +127,120 @@ export const Stats: React.FC = () => {
 						<div className="text-2xl font-semibold">
 							Gieß den Kiez in Zahlen
 						</div>
-						{stats && (
-							<div className="flex flex-col gap-4">
-								<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-									<SimpleStatsCard title="Straßenbäume" stat={stats.numTrees} />
-									<SimpleStatsCard
-										title="Öffentliche Pumpen"
-										stat={stats.numPumps}
-									/>
-									<SimpleStatsCard
-										title="Aktive Gießer:innen"
-										stat={stats.numActiveUsers}
-									/>
-								</div>
-								<div className="container grid grid-cols-1 md:grid-cols-2 gap-4">
-									<StatsCard
-										title="Gießungen"
-										hint="wurde im Jahr 2024 gegossen"
-										stat={stats.waterings.length}
-										unit="mal"
-										titleColor="text-gdk-dark-blue"
-										icon={<WateringCanIcon></WateringCanIcon>}
-										onResize={(width) => {
-											setDynamicChartWidth(width);
-										}}
-									>
-										<DensityMap
-											width={dynamicChartWidth}
-											height={CHART_HEIGHT}
-											data={stats.waterings}
-										/>
-									</StatsCard>
-									<StatsCard
-										title="Gießverhalten"
-										hint="werden durchschnittlich pro Monat gegossen"
-										stat={averageNumWateringsPerMonth}
-										unit="Liter"
-										titleColor="text-gdk-dark-blue"
-										icon={<DropIcon></DropIcon>}
-										onResize={(width) => {
-											setDynamicChartWidth(width);
-										}}
-									>
-										<div>
-											<BarChart
-												width={dynamicChartWidth}
-												height={CHART_HEIGHT}
-												monthlyData={monthly}
-												weatherData={monthlyWeater}
-											/>
-										</div>
-									</StatsCard>
-
-									<StatsCard
-										title="Gießvolumen"
-										hint="werden 2024 durchschnittlich pro Gießung eingetragen"
-										stat={averageAmountPerWatering}
-										unit="Liter"
-										titleColor="text-gdk-dark-blue"
-										icon={<DropIcon></DropIcon>}
-										onResize={(width) => {
-											setDynamicChartWidth(width);
-										}}
-									>
-										<LineChart
-											monthlyData={monthly}
-											width={dynamicChartWidth}
-											height={CHART_HEIGHT}
-										/>
-									</StatsCard>
-
-									<StatsCard
-										title="Baumarten"
-										hint="stehen in Berlin"
-										stat={stats.totalTreeSpeciesCount}
-										unit="Baumarten"
-										titleColor="text-gdk-dark-green"
-										icon={<TreeIcon></TreeIcon>}
-										onResize={(width) => {
-											setDynamicChartWidth(width);
-										}}
-									>
-										<DonutChart
-											treeSpecies={stats.mostFrequentTreeSpecies}
-											width={dynamicChartWidth}
-											height={CHART_HEIGHT}
-										/>
-									</StatsCard>
-									<StatsCard
-										title="Baumadoptionen"
-										hint="wurden adoptiert"
-										stat={stats.treeAdoptions.count}
-										unit="Bäume"
-										titleColor="text-gdk-purple"
-										icon={<HeartIcon isAdopted={true}></HeartIcon>}
-										onResize={(width) => {
-											setDynamicChartWidth(width);
-										}}
-									>
-										<AdoptionsChart
-											veryThirstyAdoptionsRate={veryThirstyAdoptionsRate}
-										/>
-									</StatsCard>
-								</div>
+						<div className="flex flex-col gap-4">
+							<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+								<SimpleStatsCard
+									title="Straßenbäume"
+									stat={stats?.numTrees || 0}
+									loading={loading}
+								/>
+								<SimpleStatsCard
+									title="Öffentliche Pumpen"
+									stat={stats?.numPumps || 0}
+									loading={loading}
+								/>
+								<SimpleStatsCard
+									title="Aktive Gießer:innen"
+									stat={stats?.numActiveUsers || 0}
+									loading={loading}
+								/>
 							</div>
-						)}
+							<div className="container grid grid-cols-1 md:grid-cols-2 gap-4">
+								<StatsCard
+									title="Gießungen"
+									hint="wurde im Jahr 2024 gegossen"
+									stat={stats?.waterings.length || 0}
+									unit="mal"
+									titleColor="text-gdk-dark-blue"
+									icon={<WateringCanIcon></WateringCanIcon>}
+									onResize={(width) => {
+										setDynamicChartWidth(width);
+									}}
+									loading={loading}
+								>
+									<DensityMap
+										width={dynamicChartWidth}
+										height={CHART_HEIGHT}
+										data={stats?.waterings || []}
+									/>
+								</StatsCard>
+								<StatsCard
+									title="Gießverhalten"
+									hint="werden durchschnittlich pro Monat gegossen"
+									stat={averageNumWateringsPerMonth}
+									unit="Liter"
+									titleColor="text-gdk-dark-blue"
+									icon={<DropIcon></DropIcon>}
+									onResize={(width) => {
+										setDynamicChartWidth(width);
+									}}
+									loading={loading}
+								>
+									<div>
+										<BarChart
+											width={dynamicChartWidth}
+											height={CHART_HEIGHT}
+											monthlyData={monthly}
+											weatherData={monthlyWeater}
+										/>
+									</div>
+								</StatsCard>
+
+								<StatsCard
+									title="Gießvolumen"
+									hint="werden 2024 durchschnittlich pro Gießung eingetragen"
+									stat={averageAmountPerWatering}
+									unit="Liter"
+									titleColor="text-gdk-dark-blue"
+									icon={<DropIcon></DropIcon>}
+									onResize={(width) => {
+										setDynamicChartWidth(width);
+									}}
+									loading={loading}
+								>
+									<LineChart
+										monthlyData={monthly}
+										width={dynamicChartWidth}
+										height={CHART_HEIGHT}
+									/>
+								</StatsCard>
+
+								<StatsCard
+									title="Baumarten"
+									hint="stehen in Berlin"
+									stat={stats?.totalTreeSpeciesCount ?? 0}
+									unit="Baumarten"
+									titleColor="text-gdk-dark-green"
+									icon={<TreeIcon></TreeIcon>}
+									onResize={(width) => {
+										setDynamicChartWidth(width);
+									}}
+									loading={loading}
+								>
+									<DonutChart
+										treeSpecies={stats?.mostFrequentTreeSpecies ?? []}
+										width={dynamicChartWidth}
+										height={CHART_HEIGHT}
+									/>
+								</StatsCard>
+								<StatsCard
+									title="Baumadoptionen"
+									hint="wurden adoptiert"
+									stat={stats?.treeAdoptions.count ?? 0}
+									unit="Bäume"
+									titleColor="text-gdk-purple"
+									icon={<HeartIcon isAdopted={true}></HeartIcon>}
+									onResize={(width) => {
+										setDynamicChartWidth(width);
+									}}
+									loading={loading}
+								>
+									<AdoptionsChart
+										veryThirstyAdoptionsRate={veryThirstyAdoptionsRate}
+									/>
+								</StatsCard>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

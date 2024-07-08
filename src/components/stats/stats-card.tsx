@@ -11,6 +11,7 @@ interface StatsCardProps {
 	titleColor: string;
 	icon: React.ReactNode;
 	onResize: (width: number) => void;
+	loading: boolean;
 	children: React.ReactNode;
 }
 
@@ -22,6 +23,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 	titleColor,
 	icon,
 	onResize,
+	loading,
 	children,
 }) => {
 	const { formatNumber } = useI18nStore();
@@ -41,17 +43,17 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 		return () => {
 			window.removeEventListener("resize", onInternalResize);
 		};
-	}, []);
+	}, [loading]);
 
 	return (
-		<div className="col-span-1 min-h-[340px]">
+		<div className="col-span-1">
 			<ReactCardFlip
 				isFlipped={isFlipped}
 				flipDirection="horizontal"
 				containerStyle={{ height: "100%" }}
 			>
 				<div
-					className={`flex flex-col rounded-2xl p-3 md:p-4 border md:border-2 w-full text-left gap-1 h-[100%]`}
+					className={`flex flex-col rounded-2xl p-3 md:p-4 border md:border-2 w-full text-left gap-1 h-[100%] min-h-[500px]`}
 				>
 					<div className={`flex flex-row justify-between items-center`}>
 						<div className="flex flex-row gap-2 text-xl font-semibold">
@@ -64,23 +66,36 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 							<InfoIcon></InfoIcon>
 						</button>
 					</div>
-					<div className={`flex flex-row gap-2 items-baseline ${titleColor}`}>
-						{icon}
-						<span className="text-4xl font-bold">{formatNumber(stat)}</span>
-						<span className="text-3xl font-semibold">{unit}</span>
-					</div>
-					<div className={`text-xl font-semibold ${titleColor} min-h-[60px]`}>
-						{hint}
-					</div>
-					<div
-						className="py-3 flex flex-row justify-center items-center h-fit"
-						id="stats-card-container"
-					>
-						{children}
-					</div>
+					{loading && (
+						<div className="w-full h-full flex p-2">
+							<div className="bg-slate-100 w-full h-full rounded-lg animate-pulse"></div>
+						</div>
+					)}
+					{!loading && (
+						<>
+							<div
+								className={`flex flex-row gap-2 items-baseline ${titleColor}`}
+							>
+								{icon}
+								<span className="text-4xl font-bold">{formatNumber(stat)}</span>
+								<span className="text-3xl font-semibold">{unit}</span>
+							</div>
+							<div
+								className={`text-xl font-semibold ${titleColor} min-h-[60px]`}
+							>
+								{hint}
+							</div>
+							<div
+								className="py-3 flex flex-row justify-center items-center h-fit"
+								id="stats-card-container"
+							>
+								{children}
+							</div>
+						</>
+					)}
 				</div>
 				<div
-					className={`flex flex-col rounded-2xl p-2 md:p-4 border md:border-2 w-full text-left gap-1 h-[100%]`}
+					className={`flex flex-col rounded-2xl p-2 md:p-4 border md:border-2 w-full text-left gap-1 h-[100%] min-h-[500px]`}
 				>
 					<div className={`flex flex-row justify-between items-center`}>
 						<div className="flex flex-row gap-2 text-xl font-semibold">
