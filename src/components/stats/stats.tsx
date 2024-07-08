@@ -14,7 +14,6 @@ import { SimpleStatsCard } from "./simple-stats-card";
 import { StatsCard } from "./stats-card";
 import { AdoptionsChart } from "./adoptions-chart";
 import { useI18nStore } from "../../i18n/i18n-store";
-import { i } from "vitest/dist/reporters-yx5ZTtEV.js";
 
 export interface TreeSpecies {
 	speciesName?: string;
