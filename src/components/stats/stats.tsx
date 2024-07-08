@@ -19,6 +19,11 @@ export interface TreeSpecies {
 	percentage: number;
 }
 
+export interface Yearly {
+	year: string;
+	averageAmountPerWatering: number;
+}
+
 export interface Monthly {
 	month: string;
 	wateringCount: number;
@@ -42,6 +47,7 @@ interface TreeAdoptions {
 export interface MonthlyWeather {
 	month: string;
 	averageTemperatureCelsius: number;
+	maximumTemperatureCelsius: number;
 	totalRainfallLiters: number;
 }
 
@@ -109,6 +115,27 @@ export const Stats: React.FC = () => {
 			monthly.reduce((acc, m) => acc + m.averageAmountPerWatering, 0) /
 				monthly.length,
 		);
+	}, [monthly]);
+
+	const yearlyAverageData = useMemo(() => {
+		const years = new Map<string, number[]>();
+		for (const month of monthly) {
+			const year = new Date(month.month).getFullYear().toString();
+			const data = years.get(year) || [];
+			data.push(month.averageAmountPerWatering);
+			years.set(year, data);
+		}
+		const averageOnYears: Yearly[] = Array.from(years.entries()).map(
+			([year, data]) => {
+				return {
+					year,
+					averageAmountPerWatering:
+						data.reduce((acc, v) => acc + v, 0) / data.length,
+				} as Yearly;
+			},
+		);
+		console.log(years, averageOnYears);
+		return averageOnYears;
 	}, [monthly]);
 
 	return (
@@ -199,7 +226,7 @@ export const Stats: React.FC = () => {
 									loading={loading}
 								>
 									<LineChart
-										monthlyData={monthly}
+										yearlyData={yearlyAverageData}
 										width={dynamicChartWidth}
 										height={CHART_HEIGHT}
 									/>

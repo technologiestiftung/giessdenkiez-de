@@ -157,7 +157,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 
 		const temperatureYScale = d3
 			.scaleLinear()
-			.domain([0, d3.max(weatherData, (d) => d.averageTemperatureCelsius)] as [
+			.domain([0, d3.max(weatherData, (d) => d.maximumTemperatureCelsius)] as [
 				number,
 				number,
 			])
@@ -179,12 +179,12 @@ export const BarChart: React.FC<BarChartProps> = ({
 						(d) =>
 							height / 2 -
 							svgMargin.bottom +
-							temperatureYScale(d.averageTemperatureCelsius),
+							temperatureYScale(d.maximumTemperatureCelsius),
 					),
 			);
 
 		const maxTemperature =
-			d3.max(weatherData, (d) => d.averageTemperatureCelsius) || 0;
+			d3.max(weatherData, (d) => d.maximumTemperatureCelsius) || 0;
 		svg
 			.append("line")
 			.attr("x1", svgMargin.left)
@@ -202,6 +202,11 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.attr("stroke-width", 1);
 
 		svg
+			.selectAll("text")
+			.attr("font-family", "IBM")
+			.attr("fill", defaultLabelColor);
+
+		svg
 			.append("text")
 			.attr("x", width - svgMargin.right + 3)
 			.attr(
@@ -212,11 +217,6 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.text(`${formatNumber(Math.round(maxTemperature))}°C`)
 			.attr("font-size", "12px")
 			.attr("fill", temperatureFillColor);
-
-		svg
-			.selectAll("text")
-			.attr("font-family", "IBM")
-			.attr("fill", defaultLabelColor);
 	}, [last3Years, hovered, weatherData]);
 
 	return (
@@ -227,6 +227,13 @@ export const BarChart: React.FC<BarChartProps> = ({
 					<div className="flex flex-col text-sm ">
 						<div className="font-bold">{formatMonth(hovered.month)}</div>
 						<div>{formatNumber(hovered.totalSum)} Liter</div>
+						<div>
+							{Math.round(
+								weatherData.filter((d) => d.month === hovered.month)[0]
+									.maximumTemperatureCelsius,
+							)}
+							{" °C"}
+						</div>
 					</div>
 				</div>
 			)}
