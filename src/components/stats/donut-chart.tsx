@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState, useMemo } from "react";
 import * as d3 from "d3";
-import { TreeSpecies } from "./stats";
+import React, { useEffect, useRef, useState } from "react";
 import { speciesColors, speciesLabelColor } from "./chart-colors";
+import { TreeSpecies } from "./stats";
 
 interface DonutChartProps {
 	treeSpecies: TreeSpecies[];

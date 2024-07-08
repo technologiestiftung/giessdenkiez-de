@@ -1,13 +1,13 @@
-import React, { useRef, useEffect } from "react";
-import { formatDate } from "date-fns";
 import * as d3 from "d3";
+import { formatDate } from "date-fns";
+import React, { useEffect, useRef } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
-import { Monthly, Yearly } from "./stats";
 import {
 	defaultLabelColor,
 	defaultWaterFillColor,
 	indicatorLineColor,
 } from "./chart-colors";
+import { Yearly } from "./stats";
 
 interface LineChartProps {
 	yearlyData: Yearly[];
