@@ -13,6 +13,8 @@ import { LineChart } from "./line-chart";
 import { SimpleStatsCard } from "./simple-stats-card";
 import { StatsCard } from "./stats-card";
 import { AdoptionsChart } from "./adoptions-chart";
+import { useI18nStore } from "../../i18n/i18n-store";
+import { i } from "vitest/dist/reporters-yx5ZTtEV.js";
 
 export interface TreeSpecies {
 	speciesName?: string;
@@ -72,6 +74,8 @@ export const Stats: React.FC = () => {
 	const [dynamicChartWidth, setDynamicChartWidth] = useState(0);
 	const CHART_HEIGHT = 300;
 	const [loading, setLoading] = useState(true);
+
+	const i18n = useI18nStore().i18n();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -158,49 +162,50 @@ export const Stats: React.FC = () => {
 	return (
 		<div className="pointer-events-auto w-full overflow-auto">
 			<div className="flex flex-col items-center justify-center ">
-				<div className="flex w-[100%] flex-col md:gap-4 px-1 py-8 md:py-16 md:w-[70%] md:px-4 lg:w-[60%] xl:w-[50%] relative">
+				<div className="flex w-[100%] flex-col md:gap-4 px-1 py-8 md:py-16 md:w-[90%] md:px-4 lg:w-[900px] xl:w-[900px] 2xl:w-[1000px] relative">
 					<div className="lg:hidden absolute top-6 md:top-14 mt-1 right-0 pr-5">
 						<LanguageToggle />
 					</div>
 					<div className="flex flex-row">
 						<h1 className="px-4 md:px-0 text-4xl font-semibold pb-2 md:pb-4">
-							Statistiken
+							{i18n.stats.title}
 						</h1>
 					</div>
 					<div className="flex flex-col rounded-2xl px-4 pb-4 md:border-2 md:p-8 gap-8">
-						<div className="text-2xl font-semibold">
-							Gieß den Kiez in Zahlen
-						</div>
+						<div className="text-2xl font-semibold">{i18n.stats.subtitle}</div>
 						<div className="flex flex-col gap-4">
 							<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 								<SimpleStatsCard
-									title="Straßenbäume"
+									title={i18n.stats.streetTrees}
 									stat={stats?.numTrees || 0}
 									loading={loading}
 								/>
 								<SimpleStatsCard
-									title="Öffentliche Pumpen"
+									title={i18n.stats.publicPumps}
 									stat={stats?.numPumps || 0}
 									loading={loading}
 								/>
 								<SimpleStatsCard
-									title="Aktive Gießer:innen"
+									title={i18n.stats.activeUsers}
 									stat={stats?.numActiveUsers || 0}
 									loading={loading}
 								/>
 							</div>
-							<div className="container grid grid-cols-1 md:grid-cols-2 gap-4">
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 								<StatsCard
-									title="Gießungen"
-									hint="wurde im Jahr 2024 gegossen"
+									title={i18n.stats.wateringsStat.title}
+									hint={i18n.stats.wateringsStat.hint(
+										new Date().getFullYear().toString(),
+									)}
 									stat={stats?.waterings.length || 0}
-									unit="mal"
+									unit={i18n.stats.wateringsStat.unit}
 									titleColor="text-gdk-dark-blue"
 									icon={<WateringCanIcon></WateringCanIcon>}
 									onResize={(width) => {
 										setDynamicChartWidth(width);
 									}}
 									loading={loading}
+									backContent={i18n.stats.wateringsStat.backContent}
 								>
 									<DensityMap
 										width={dynamicChartWidth}
@@ -209,16 +214,19 @@ export const Stats: React.FC = () => {
 									/>
 								</StatsCard>
 								<StatsCard
-									title="Gießverhalten"
-									hint="werden durchschnittlich pro Monat gegossen"
+									title={i18n.stats.wateringBehaviorStat.title}
+									hint={i18n.stats.wateringBehaviorStat.hint(
+										new Date().getFullYear().toString(),
+									)}
 									stat={averageNumWateringsPerMonth}
-									unit="Liter"
+									unit={i18n.stats.wateringsStat.unit}
 									titleColor="text-gdk-dark-blue"
 									icon={<DropIcon></DropIcon>}
 									onResize={(width) => {
 										setDynamicChartWidth(width);
 									}}
 									loading={loading}
+									backContent={i18n.stats.wateringBehaviorStat.backContent}
 								>
 									<div>
 										<BarChart
@@ -231,16 +239,19 @@ export const Stats: React.FC = () => {
 								</StatsCard>
 
 								<StatsCard
-									title="Gießvolumen"
-									hint="werden 2024 durchschnittlich pro Gießung eingetragen"
+									title={i18n.stats.wateringAmountStat.title}
+									hint={i18n.stats.wateringAmountStat.hint(
+										new Date().getFullYear().toString(),
+									)}
 									stat={averageAmountPerWatering}
-									unit="Liter"
+									unit={i18n.stats.wateringAmountStat.unit}
 									titleColor="text-gdk-dark-blue"
 									icon={<DropIcon></DropIcon>}
 									onResize={(width) => {
 										setDynamicChartWidth(width);
 									}}
 									loading={loading}
+									backContent={i18n.stats.wateringAmountStat.backContent}
 								>
 									<LineChart
 										yearlyData={yearlyAverageData}
@@ -250,16 +261,19 @@ export const Stats: React.FC = () => {
 								</StatsCard>
 
 								<StatsCard
-									title="Baumarten"
-									hint="stehen in Berlin"
+									title={i18n.stats.treeSpeciesStat.title}
+									hint={i18n.stats.treeSpeciesStat.hint(
+										new Date().getFullYear().toString(),
+									)}
 									stat={stats?.totalTreeSpeciesCount ?? 0}
-									unit="Baumarten"
+									unit={i18n.stats.treeSpeciesStat.unit}
 									titleColor="text-gdk-dark-green"
 									icon={<TreeIcon></TreeIcon>}
 									onResize={(width) => {
 										setDynamicChartWidth(width);
 									}}
 									loading={loading}
+									backContent={i18n.stats.wateringsStat.backContent}
 								>
 									<DonutChart
 										treeSpecies={orderedTreeSpecies ?? []}
@@ -268,16 +282,19 @@ export const Stats: React.FC = () => {
 									/>
 								</StatsCard>
 								<StatsCard
-									title="Baumadoptionen"
-									hint="wurden adoptiert"
+									title={i18n.stats.adoptionStat.title}
+									hint={i18n.stats.adoptionStat.hint(
+										new Date().getFullYear().toString(),
+									)}
 									stat={stats?.treeAdoptions.count ?? 0}
-									unit="Bäume"
+									unit={i18n.stats.adoptionStat.unit}
 									titleColor="text-gdk-purple"
 									icon={<HeartIcon isAdopted={true}></HeartIcon>}
 									onResize={(width) => {
 										setDynamicChartWidth(width);
 									}}
 									loading={loading}
+									backContent={i18n.stats.wateringsStat.backContent}
 								>
 									<AdoptionsChart
 										veryThirstyAdoptionsRate={veryThirstyAdoptionsRate}

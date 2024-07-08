@@ -530,4 +530,51 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		mapLoading: "Wir laden gerade 885.825 Bäume aus dem Berliner Baumbestand.",
 		treeLoading: "Lade Bauminformationen...",
 	},
+	stats: {
+		title: "Statistiken",
+		subtitle: "Gieß den Kiez in Zahlen",
+		streetTrees: "Straßenbäume",
+		publicPumps: "Öffentliche Pumpen",
+		activeUsers: "Aktive Gießer:innen",
+		wateringsStat: {
+			title: "Gießungen",
+			unit: "mal",
+			hint: (currentYear) => `wurde im Jahr ${currentYear} gegossen`,
+			backContent:
+				"Die zwölf Berliner Bezirke unterscheiden sich in deren Baumbeständen und Bewässerungsstrategien. Demnach sind manche Straßen- und Grünflächenämter mehr und manche weniger auf ehrenamtliches Engagement angewiesen, je nach Anteil der Jungbäume und verfügbaren Ressourcen.",
+			backSourceLink: undefined,
+		},
+		wateringBehaviorStat: {
+			title: "Gießverhalten",
+			unit: "Liter",
+			hint: () => `werden durchschnittlich pro Monat gegossen`,
+			backContent:
+				"“Je mehr desto besser” gilt nicht immer angesichts immer größerer Wasserknappheit. Das weiß die Berliner Gieß-Community schon längst und ist daher hauptsächlich dann aktiv wenn die Bäume tatsächlich durstig sind: während der  Vegetationsperiode (April-Oktober), insbesondere in heißen trockenen Sommern.",
+			backSourceLink: undefined,
+		},
+		wateringAmountStat: {
+			title: "Gießvolumen",
+			unit: "Liter",
+			hint: (currentYear) =>
+				`werden ${currentYear} durchschnittlich pro Monat gegossen`,
+			backContent:
+				"“Je mehr desto besser” gilt hier hingegen schon: Eine Gießung bei Jungbäumen sollte eher mehr als weniger Liter auf einmal beinhalten (ca. 100-200 Liter), damit sich das Wurzelwerk nach unten ausbildet und nicht an der Oberfläche verweilt. Aber Achtung! Jungbäume können auch überwässert werden und absterben. Daher hier die Bewässerungsempfehlung für Stadtbäume und außerdem das bezirkliche Straßen- und Grünflächenamt konsultieren.",
+			backSourceLink: "",
+		},
+		treeSpeciesStat: {
+			title: "Baumarten",
+			unit: "Baumarten",
+			hint: () => `stehen in Berlin`,
+			backContent:
+				"Die Karte visualisiert mehr als 800.000 Stadtbäume und zeigt Informationen zu Art, Alter und Wasserbedarf an. Nutze die Filter- und Suchfunktionen und erfahre bspw. mehr über die Altersverteilung.",
+			backSourceLink: "",
+		},
+		adoptionStat: {
+			title: "Baumadoptionen",
+			unit: "Bäume",
+			hint: () => `wurden adoptiert`,
+			backContent: "",
+			backSourceLink: "",
+		},
+	},
 };

@@ -12,6 +12,7 @@ interface StatsCardProps {
 	icon: React.ReactNode;
 	onResize: (width: number) => void;
 	loading: boolean;
+	backContent: string;
 	children: React.ReactNode;
 }
 
@@ -24,6 +25,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 	icon,
 	onResize,
 	loading,
+	backContent,
 	children,
 }) => {
 	const { formatNumber } = useI18nStore();
@@ -46,7 +48,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 	}, [loading]);
 
 	return (
-		<div className="col-span-1">
+		<div className="col-span-1 w-full">
 			<ReactCardFlip
 				isFlipped={isFlipped}
 				flipDirection="horizontal"
@@ -111,11 +113,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 					<div
 						className={`py-3 flex flex-row justify-center items-center h-full`}
 					>
-						Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-						nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-						erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-						et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-						Lorem ipsum dolor sit amet.
+						{backContent}
 					</div>
 				</div>
 			</ReactCardFlip>

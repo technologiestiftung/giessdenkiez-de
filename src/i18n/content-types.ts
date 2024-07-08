@@ -312,6 +312,27 @@ interface Contact {
 	confirm: string;
 }
 
+interface Stat {
+	title: string;
+	unit: string;
+	hint: (currentYear: string) => string;
+	backContent: string;
+	backSourceLink?: string;
+}
+
+interface Stats {
+	title: string;
+	subtitle: string;
+	streetTrees: string;
+	publicPumps: string;
+	activeUsers: string;
+	wateringsStat: Stat;
+	wateringBehaviorStat: Stat;
+	wateringAmountStat: Stat;
+	treeSpeciesStat: Stat;
+	adoptionStat: Stat;
+}
+
 export interface Content {
 	common: Common;
 	contact: Contact;
@@ -353,4 +374,5 @@ export interface Content {
 	pumps: Pumps;
 	splash: Splash;
 	loading: Loading;
+	stats: Stats;
 }
