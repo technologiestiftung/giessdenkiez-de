@@ -7,7 +7,7 @@ interface DonutChartProps {
 	treeSpecies: TreeSpecies[];
 	width: number;
 	height: number;
-	legend: string;
+	legend?: string;
 }
 
 export const DonutChart: React.FC<DonutChartProps> = ({

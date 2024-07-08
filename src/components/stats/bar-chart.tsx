@@ -16,7 +16,7 @@ interface BarChartProps {
 	weatherData: MonthlyWeather[];
 	width: number;
 	height: number;
-	legend: string;
+	legend?: string;
 }
 
 export const BarChart: React.FC<BarChartProps> = ({

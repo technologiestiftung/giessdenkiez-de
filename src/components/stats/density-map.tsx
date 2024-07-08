@@ -11,13 +11,13 @@ interface DensityMapProps {
 	data: { lat: number; lng: number; amount: number }[];
 	width: number;
 	height: number;
+	legend?: string;
 }
 
 interface DataPoint {
 	lat: number;
 	lng: number;
 	amount: number;
-	legend: string;
 }
 
 export const DensityMap: React.FC<DensityMapProps> = ({

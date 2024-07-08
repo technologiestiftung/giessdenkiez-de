@@ -13,7 +13,7 @@ interface LineChartProps {
 	yearlyData: Yearly[];
 	width: number;
 	height: number;
-	legend: string;
+	legend?: string;
 }
 
 export const LineChart: React.FC<LineChartProps> = ({
