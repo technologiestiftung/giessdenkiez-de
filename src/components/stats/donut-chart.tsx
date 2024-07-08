@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useMemo } from "react";
 import * as d3 from "d3";
 import { TreeSpecies } from "./stats";
 import { speciesColors, speciesLabelColor } from "./chart-colors";
@@ -22,10 +22,19 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 
 	const svgRef = useRef<SVGSVGElement | null>(null);
 
+	const formattedSpecies = (speciesName?: string) => {
+		if (!speciesName) {
+			return "Andere";
+		}
+		return (
+			speciesName.charAt(0).toUpperCase() + speciesName.slice(1).toLowerCase()
+		);
+	};
+
 	useEffect(() => {
 		d3.select(svgRef.current).selectAll("*").remove();
 
-		const radius = Math.min(width, height) / 2;
+		const radius = Math.min(width, height) / 2.5;
 		const innerRadius = radius * 0.65;
 
 		const pie = d3.pie<TreeSpecies>().value((d) => d.percentage);
@@ -40,17 +49,24 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			.attr("width", width)
 			.attr("height", height)
 			.append("g")
-			.attr("transform", `translate(${width / 2},${height / 2})`);
+			.attr("transform", `translate(${width / 2},${height / 2 - 20})`);
 
 		svg.select("g").selectAll("*").remove();
 
 		svg
 			.selectAll("path")
-			.data(pie.padAngle(0.01)(treeSpecies))
+			.data(
+				pie.padAngle(0.01).sort((l, r) => {
+					if (l.speciesName === undefined) {
+						return Infinity;
+					}
+					return r.percentage - l.percentage;
+				})(treeSpecies),
+			)
 			.enter()
 			.append("path")
 			.attr("d", arc.cornerRadius(5))
-			.attr("fill", (_, i) => speciesColors[i % speciesColors.length])
+			.attr("fill", (_, i) => speciesColors[i])
 			.attr("stroke", (d) => {
 				if (
 					selectedSpecies &&
@@ -72,21 +88,14 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			svg
 				.append("text")
 				.attr("x", 0)
-				.attr("y", 70)
-				.attr("fill", speciesLabelColor)
-				.attr("text-anchor", "middle")
-				.text(selectedSpecies.speciesName || "Unbekannt")
-				.attr("font-size", "12px");
-
-			svg
-				.append("text")
-				.attr("x", 0)
-				.attr("y", 58)
+				.attr("y", height / 2)
 				.attr("fill", speciesLabelColor)
 				.attr("text-anchor", "middle")
 				.attr("font-weight", "bold")
-				.text(Math.round(selectedSpecies.percentage) + "%")
-				.attr("font-size", "12px");
+				.text(
+					`${formattedSpecies(selectedSpecies.speciesName)} ${Math.round(selectedSpecies.percentage)}%`,
+				)
+				.attr("font-size", "16px");
 
 			const imageName =
 				selectedSpecies.speciesName ?? UNKNOWN_SPECIES_IMAGE_IDENTIFIER;
@@ -95,7 +104,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 				.append("image")
 				.attr("xlink:href", `images/leafs/${imageName}.png`)
 				.attr("x", 0)
-				.attr("y", -radius / 8)
+				.attr("y", 0)
 				.attr("width", imageSize)
 				.attr("height", imageSize)
 				.attr("transform", `translate(${-imageSize / 2}, ${-imageSize / 2})`)

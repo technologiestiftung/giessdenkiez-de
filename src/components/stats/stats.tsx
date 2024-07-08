@@ -134,9 +134,26 @@ export const Stats: React.FC = () => {
 				} as Yearly;
 			},
 		);
-		console.log(years, averageOnYears);
 		return averageOnYears;
 	}, [monthly]);
+
+	const orderedTreeSpecies = useMemo(() => {
+		const speciesWithoutUnknown =
+			stats?.mostFrequentTreeSpecies.filter(
+				(s) => s.speciesName !== undefined,
+			) ?? [];
+
+		const totalPercentage = speciesWithoutUnknown.reduce(
+			(acc, s) => acc + s.percentage,
+			0,
+		);
+
+		const cleanSpecies = speciesWithoutUnknown.concat({
+			speciesName: undefined,
+			percentage: 100 - totalPercentage,
+		});
+		return cleanSpecies;
+	}, [stats]);
 
 	return (
 		<div className="pointer-events-auto w-full overflow-auto">
@@ -245,7 +262,7 @@ export const Stats: React.FC = () => {
 									loading={loading}
 								>
 									<DonutChart
-										treeSpecies={stats?.mostFrequentTreeSpecies ?? []}
+										treeSpecies={orderedTreeSpecies ?? []}
 										width={dynamicChartWidth}
 										height={CHART_HEIGHT}
 									/>
