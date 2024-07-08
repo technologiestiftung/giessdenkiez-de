@@ -273,7 +273,7 @@ export const Stats: React.FC = () => {
 										setDynamicChartWidth(width);
 									}}
 									loading={loading}
-									backContent={i18n.stats.wateringsStat.backContent}
+									backContent={i18n.stats.treeSpeciesStat.backContent}
 								>
 									<DonutChart
 										treeSpecies={orderedTreeSpecies ?? []}
@@ -294,7 +294,7 @@ export const Stats: React.FC = () => {
 										setDynamicChartWidth(width);
 									}}
 									loading={loading}
-									backContent={i18n.stats.wateringsStat.backContent}
+									backContent={i18n.stats.adoptionStat.backContent}
 								>
 									<AdoptionsChart
 										veryThirstyAdoptionsRate={veryThirstyAdoptionsRate}

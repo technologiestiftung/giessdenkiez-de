@@ -97,7 +97,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 					)}
 				</div>
 				<div
-					className={`flex flex-col rounded-2xl p-2 md:p-4 border md:border-2 w-full text-left gap-1 h-[100%] min-h-[500px]`}
+					className={`flex flex-col rounded-2xl p-3 md:p-4 border md:border-2 w-full text-left gap-1 h-[100%] min-h-[500px]`}
 				>
 					<div className={`flex flex-row justify-between items-center`}>
 						<div className="flex flex-row gap-2 text-xl font-semibold">
