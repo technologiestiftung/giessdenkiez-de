@@ -3,8 +3,8 @@ import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "../../../tailwind.config.js";
 const fullConfig = resolveConfig(tailwindConfig);
 
-export const densityLowColor = fullConfig.theme.colors["gdk-tree-orange"];
-export const densityHighColor = fullConfig.theme.colors["gdk-blue"];
+export const densityLowColor = fullConfig.theme.colors["gdk-blue"];
+export const densityHighColor = fullConfig.theme.colors["gdk-dark-blue"];
 export const defaultLabelColor = fullConfig.theme.colors["gdk-dark-blue"];
 export const indicatorLineColor = fullConfig.theme.colors["gdk-light-gray"];
 export const defaultWaterFillColor = fullConfig.theme.colors["gdk-dark-blue"];
@@ -22,15 +22,6 @@ export const speciesColors = [
 	"#8E982C",
 	"#7E7B22",
 	"#CFB739",
-	"#B1B89C",
-	"#B1B89C",
-	"#B1B89C",
-	"#B1B89C",
-	"#B1B89C",
-	"#B1B89C",
-	"#B1B89C",
-	"#B1B89C",
-	"#B1B89C",
 	"#B1B89C",
 	"#A3A69C",
 ];

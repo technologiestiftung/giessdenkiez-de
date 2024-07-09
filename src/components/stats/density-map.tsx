@@ -120,7 +120,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.attr("fill", (_, i) =>
 					d3.interpolateRgb(densityLowColor, densityHighColor)(i / 10),
 				)
-				.attr("opacity", 0.1);
+				.attr("opacity", 0.2);
 
 			const linearGradient = svg
 				.append("defs")
@@ -134,23 +134,22 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.append("stop")
 				.attr("offset", "0%")
 				.style("stop-color", densityLowColor)
-				.style("stop-opacity", 0.25);
+				.style("stop-opacity", 0.2);
 			linearGradient
 				.append("stop")
 				.attr("offset", "100%")
 				.style("stop-color", densityHighColor)
-				.style("stop-opacity", 0.8);
+				.style("stop-opacity", 1);
 
 			// add legend to svg with gradient
 			svg
 				.append("rect")
 				.attr("fill", "url(#legendGradient)")
-				.attr("x", innerWidth / 4)
+				.attr("x", innerWidth / 6)
 				.attr("y", height - 40)
-				.attr("width", innerWidth / 2)
+				.attr("width", innerWidth / 1.5)
 				.attr("height", 6)
-				.attr("rx", 3)
-				.attr("ry", 20);
+				.attr("rx", 3);
 
 			svg
 				.append("text")
