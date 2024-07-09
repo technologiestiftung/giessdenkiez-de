@@ -161,7 +161,7 @@ export const Stats: React.FC = () => {
 	return (
 		<div className="pointer-events-auto w-full overflow-auto">
 			<div className="flex flex-col items-center justify-center ">
-				<div className="flex w-[100%] flex-col md:gap-4 px-1 py-8 md:py-16 md:w-[90%] md:px-4 lg:w-[900px] xl:w-[900px] 2xl:w-[1000px] relative">
+				<div className="flex w-[100%] flex-col md:gap-4 px-1 py-8 md:py-16 md:w-[90%] md:px-4 lg:w-[800px] xl:w-[800px] 2xl:w-[1000px] relative">
 					<div className="lg:hidden absolute top-6 md:top-14 mt-1 right-0 pr-5">
 						<LanguageToggle />
 					</div>
@@ -201,9 +201,9 @@ export const Stats: React.FC = () => {
 									titleColor="text-gdk-dark-blue"
 									icon={
 										<div
-											className={`flex h-9 w-9 p-0.5 items-center justify-center bg-gdk-dark-blue bg-opacity-30 rounded-full `}
+											className={`flex h-9 w-9 items-center justify-center bg-gdk-dark-blue bg-opacity-20 rounded-full `}
 										>
-											<WateringCanIcon className="translate-x-1" />
+											<WateringCanIcon className="translate-x-1 p-0.5" />
 										</div>
 									}
 									onResize={(width) => {
@@ -229,9 +229,9 @@ export const Stats: React.FC = () => {
 									titleColor="text-gdk-dark-blue"
 									icon={
 										<div
-											className={`flex h-9 w-9 items-center justify-center bg-gdk-dark-blue bg-opacity-30 rounded-full `}
+											className={`flex h-9 w-9 items-center justify-center bg-gdk-dark-blue bg-opacity-20 rounded-full `}
 										>
-											<DropIcon />
+											<DropIcon className="p-0.5" />
 										</div>
 									}
 									onResize={(width) => {
@@ -261,9 +261,9 @@ export const Stats: React.FC = () => {
 									titleColor="text-gdk-dark-blue"
 									icon={
 										<div
-											className={`flex h-9 w-9 items-center justify-center bg-gdk-dark-blue bg-opacity-30 rounded-full `}
+											className={`flex h-9 w-9 items-center justify-center bg-gdk-dark-blue bg-opacity-20 rounded-full `}
 										>
-											<DropIcon />
+											<DropIcon className="p-0.5" />
 										</div>
 									}
 									onResize={(width) => {
@@ -290,11 +290,9 @@ export const Stats: React.FC = () => {
 									titleColor="text-gdk-dark-green"
 									icon={
 										<div
-											className={`flex h-9 w-9 items-center justify-center bg-gdk-dark-green bg-opacity-30 rounded-full `}
+											className={`flex h-9 w-9 items-center justify-center bg-gdk-dark-green bg-opacity-20 rounded-full `}
 										>
-											<div className="translate-x-1">
-												<TreeIcon />
-											</div>
+											<TreeIcon className="p-0.5 translate-x-[3px]" />
 										</div>
 									}
 									onResize={(width) => {
@@ -318,7 +316,13 @@ export const Stats: React.FC = () => {
 									stat={stats?.treeAdoptions.count ?? 0}
 									unit={i18n.stats.adoptionStat.unit}
 									titleColor="text-gdk-purple"
-									icon={<HeartIcon isAdopted={true}></HeartIcon>}
+									icon={
+										<div
+											className={`flex h-9 w-9 items-center justify-center bg-gdk-purple bg-opacity-20 rounded-full `}
+										>
+											<HeartIcon className="p-0.5" isAdopted={true}></HeartIcon>
+										</div>
+									}
 									onResize={(width) => {
 										setDynamicChartWidth(width);
 									}}
