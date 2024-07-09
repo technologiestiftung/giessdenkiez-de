@@ -16,7 +16,7 @@ interface BarChartProps {
 	weatherData: MonthlyWeather[];
 	width: number;
 	height: number;
-	legend?: string;
+	legend: string;
 }
 
 export const BarChart: React.FC<BarChartProps> = ({
@@ -27,7 +27,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 	legend,
 }) => {
 	const svgRef = useRef<SVGSVGElement | null>(null);
-	const svgMargin = { top: 0, right: 30, bottom: 50, left: 30 };
+	const svgMargin = { top: 0, right: 30, bottom: 50, left: 20 };
 	const [hovered, setHovered] = React.useState<Monthly>();
 	const last3Years = monthlyData.slice(-3 * 12);
 	const yReferenceLineValue = 100000;
@@ -96,11 +96,22 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.attr("x", width - svgMargin.right + 3)
 			.attr(
 				"y",
-				yScale(yReferenceLineValue) + svgMargin.top - svgMargin.bottom + 3,
+				yScale(yReferenceLineValue) + svgMargin.top - svgMargin.bottom - 2,
 			)
 			.attr("text-anchor", "start")
 			.attr("fill", defaultLabelColor)
 			.text(`${formatNumber(yReferenceLineValue / 1000)}k l`)
+			.attr("font-size", "12px");
+		svg
+			.append("text")
+			.attr("x", width - svgMargin.right + 3)
+			.attr(
+				"y",
+				yScale(yReferenceLineValue) + svgMargin.top - svgMargin.bottom + 11,
+			)
+			.attr("text-anchor", "start")
+			.attr("fill", defaultLabelColor)
+			.text(`Liter`)
 			.attr("font-size", "12px");
 
 		svg

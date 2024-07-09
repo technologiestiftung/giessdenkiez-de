@@ -526,6 +526,7 @@ Particularly young trees need water in the first few years. Rather less often, b
 		streetTrees: "Street Trees",
 		publicPumps: "Public Pumps",
 		activeUsers: "Active Waterers",
+		backToFront: "zurück",
 		wateringsStat: {
 			title: "Waterings",
 			unit: "times",
@@ -567,6 +568,7 @@ Particularly young trees need water in the first few years. Rather less often, b
 			title: "Tree Adoptions",
 			unit: "trees",
 			hint: () => `were adopted`,
+			legend: "out of the adopted trees are especially thirsty.",
 			backContent: "",
 			backSourceLink: "",
 		},

@@ -3,10 +3,12 @@ import { adoptionsFillColor } from "./chart-colors";
 
 interface AdoptionsChartProps {
 	veryThirstyAdoptionsRate: number;
+	legend?: string;
 }
 
 export const AdoptionsChart: React.FC<AdoptionsChartProps> = ({
 	veryThirstyAdoptionsRate,
+	legend,
 }) => {
 	return (
 		<div className="w-full">
@@ -29,8 +31,8 @@ export const AdoptionsChart: React.FC<AdoptionsChartProps> = ({
 					style={{ color: adoptionsFillColor }}
 					className={`text-[${adoptionsFillColor}] text-xl pt-2`}
 				>
-					<span className="font-bold">{veryThirstyAdoptionsRate}%</span> der
-					adoptierten Bäume sind besonders durstig.
+					<span className="font-bold">{veryThirstyAdoptionsRate}% </span>
+					{legend}
 				</div>
 			</div>
 		</div>

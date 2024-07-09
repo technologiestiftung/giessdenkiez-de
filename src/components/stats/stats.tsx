@@ -199,7 +199,13 @@ export const Stats: React.FC = () => {
 									stat={stats?.waterings.length || 0}
 									unit={i18n.stats.wateringsStat.unit}
 									titleColor="text-gdk-dark-blue"
-									icon={<WateringCanIcon></WateringCanIcon>}
+									icon={
+										<div
+											className={`flex h-9 w-9 p-0.5 items-center justify-center bg-gdk-dark-blue bg-opacity-30 rounded-full `}
+										>
+											<WateringCanIcon className="translate-x-1" />
+										</div>
+									}
 									onResize={(width) => {
 										setDynamicChartWidth(width);
 									}}
@@ -221,7 +227,13 @@ export const Stats: React.FC = () => {
 									stat={averageNumWateringsPerMonth}
 									unit={i18n.stats.wateringBehaviorStat.unit}
 									titleColor="text-gdk-dark-blue"
-									icon={<DropIcon></DropIcon>}
+									icon={
+										<div
+											className={`flex h-9 w-9 items-center justify-center bg-gdk-dark-blue bg-opacity-30 rounded-full `}
+										>
+											<DropIcon />
+										</div>
+									}
 									onResize={(width) => {
 										setDynamicChartWidth(width);
 									}}
@@ -247,7 +259,13 @@ export const Stats: React.FC = () => {
 									stat={averageAmountPerWatering}
 									unit={i18n.stats.wateringAmountStat.unit}
 									titleColor="text-gdk-dark-blue"
-									icon={<DropIcon></DropIcon>}
+									icon={
+										<div
+											className={`flex h-9 w-9 items-center justify-center bg-gdk-dark-blue bg-opacity-30 rounded-full `}
+										>
+											<DropIcon />
+										</div>
+									}
 									onResize={(width) => {
 										setDynamicChartWidth(width);
 									}}
@@ -270,7 +288,15 @@ export const Stats: React.FC = () => {
 									stat={stats?.totalTreeSpeciesCount ?? 0}
 									unit={i18n.stats.treeSpeciesStat.unit}
 									titleColor="text-gdk-dark-green"
-									icon={<TreeIcon></TreeIcon>}
+									icon={
+										<div
+											className={`flex h-9 w-9 items-center justify-center bg-gdk-dark-green bg-opacity-30 rounded-full `}
+										>
+											<div className="translate-x-1">
+												<TreeIcon />
+											</div>
+										</div>
+									}
 									onResize={(width) => {
 										setDynamicChartWidth(width);
 									}}
@@ -301,6 +327,7 @@ export const Stats: React.FC = () => {
 								>
 									<AdoptionsChart
 										veryThirstyAdoptionsRate={veryThirstyAdoptionsRate}
+										legend={i18n.stats.adoptionStat.legend}
 									/>
 								</StatsCard>
 							</div>

@@ -13,7 +13,7 @@ interface LineChartProps {
 	yearlyData: Yearly[];
 	width: number;
 	height: number;
-	legend?: string;
+	legend: string;
 }
 
 export const LineChart: React.FC<LineChartProps> = ({
@@ -26,7 +26,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 	const secondYReferenceLineValue = 50;
 
 	const svgRef = useRef<SVGSVGElement | null>(null);
-	const svgMargin = { top: 0, right: 30, bottom: 50, left: 30 };
+	const svgMargin = { top: 0, right: 25, bottom: 50, left: 20 };
 	const { formatNumber } = useI18nStore();
 
 	useEffect(() => {
@@ -67,7 +67,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 
 				svg
 					.append("text")
-					.attr("x", width - svgMargin.right)
+					.attr("x", width - svgMargin.right + 5)
 					.attr(
 						"y",
 						y(yReferenceLineValue) + svgMargin.top - svgMargin.bottom + 2.5,

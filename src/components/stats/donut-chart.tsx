@@ -7,7 +7,7 @@ interface DonutChartProps {
 	treeSpecies: TreeSpecies[];
 	width: number;
 	height: number;
-	legend?: string;
+	legend: string;
 }
 
 export const DonutChart: React.FC<DonutChartProps> = ({
@@ -51,7 +51,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			.attr("width", width)
 			.attr("height", height)
 			.append("g")
-			.attr("transform", `translate(${width / 2},${height / 2 - 20})`);
+			.attr("transform", `translate(${width / 2},${height / 2 - 30})`);
 
 		svg.select("g").selectAll("*").remove();
 
@@ -89,7 +89,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 		svg
 			.append("text")
 			.attr("x", 0)
-			.attr("y", height / 2 + 20)
+			.attr("y", height / 2 + 12)
 			.attr("fill", speciesLabelColor)
 			.attr("text-anchor", "middle")
 			.text(`${legend}`)

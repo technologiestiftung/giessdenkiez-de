@@ -11,7 +11,7 @@ interface DensityMapProps {
 	data: { lat: number; lng: number; amount: number }[];
 	width: number;
 	height: number;
-	legend?: string;
+	legend: string;
 }
 
 interface DataPoint {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { InfoIcon } from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
 import ReactCardFlip from "react-card-flip";
+import { Skeleton } from "../skeleton/skeleton";
 
 interface StatsCardProps {
 	title: string;
@@ -29,6 +30,8 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 	children,
 }) => {
 	const { formatNumber } = useI18nStore();
+	const i18n = useI18nStore().i18n();
+
 	const [isFlipped, setIsFlipped] = useState(false);
 
 	const onInternalResize = () => {
@@ -55,24 +58,20 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 				containerStyle={{ height: "100%" }}
 			>
 				<div
-					className={`flex flex-col rounded-2xl p-3 md:p-4 border md:border-2 w-full text-left gap-1 h-[100%] min-h-[500px]`}
+					className={`flex flex-col rounded-2xl p-4 border md:border-2 w-full text-left gap-1 h-[100%] min-h-[500px]`}
 				>
 					<div className={`flex flex-row justify-between items-center`}>
 						<div className="flex flex-row gap-2 text-xl font-semibold">
 							{title}
 						</div>
 						<button
-							className={` ${titleColor}`}
+							className={`text-gdk-blue`}
 							onClick={() => setIsFlipped(!isFlipped)}
 						>
 							<InfoIcon></InfoIcon>
 						</button>
 					</div>
-					{loading && (
-						<div className="w-full h-full flex p-2">
-							<div className="bg-slate-100 w-full h-full rounded-lg animate-pulse"></div>
-						</div>
-					)}
+					{loading && <Skeleton className="h-full my-2 rounded-lg" />}
 					{!loading && (
 						<>
 							<div
@@ -82,9 +81,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 								<span className="text-4xl font-bold">{formatNumber(stat)}</span>
 								<span className="text-3xl font-semibold">{unit}</span>
 							</div>
-							<div
-								className={`text-xl font-semibold ${titleColor} min-h-[60px]`}
-							>
+							<div className={`text-xl  ${titleColor} min-h-[60px]`}>
 								{hint}
 							</div>
 							<div
@@ -97,22 +94,20 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 					)}
 				</div>
 				<div
-					className={`flex flex-col rounded-2xl p-3 md:p-4 border md:border-2 w-full text-left gap-1 h-[100%] min-h-[500px]`}
+					className={`flex flex-col rounded-2xl p-4 border md:border-2 w-full text-left gap-1 h-[100%] min-h-[500px]`}
 				>
 					<div className={`flex flex-row justify-between items-center`}>
 						<div className="flex flex-row gap-2 text-xl font-semibold">
 							{title}
 						</div>
 						<button
-							className={` ${titleColor}`}
+							className={`text-gdk-blue font-semibold`}
 							onClick={() => setIsFlipped(!isFlipped)}
 						>
-							zurück
+							{i18n.stats.backToFront}
 						</button>
 					</div>
-					<div
-						className={`py-3 flex flex-row justify-center items-center h-full`}
-					>
+					<div className={`py-3 flex flex-row items-start h-full`}>
 						{backContent}
 					</div>
 				</div>

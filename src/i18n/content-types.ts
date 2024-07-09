@@ -316,7 +316,7 @@ interface Stat {
 	title: string;
 	unit: string;
 	hint: (currentYear: string) => string;
-	legend?: string;
+	legend: string;
 	backContent: string;
 	backSourceLink?: string;
 }
@@ -327,6 +327,7 @@ interface Stats {
 	streetTrees: string;
 	publicPumps: string;
 	activeUsers: string;
+	backToFront: string;
 	wateringsStat: Stat;
 	wateringBehaviorStat: Stat;
 	wateringAmountStat: Stat;

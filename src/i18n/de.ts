@@ -536,11 +536,12 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		streetTrees: "Stadtbäume",
 		publicPumps: "Öffentliche Pumpen",
 		activeUsers: "Aktive Gießer:innen",
+		backToFront: "zurück",
 		wateringsStat: {
 			title: "Gießungen",
 			unit: "mal",
 			legend: "Anzahl der Gießungen",
-			hint: (currentYear) => `wurde im Jahr ${currentYear} gegossen`,
+			hint: (currentYear) => `wurde im Jahr ${currentYear} gegossen.`,
 			backContent:
 				"Die zwölf Berliner Bezirke unterscheiden sich in deren Baumbeständen und Bewässerungsstrategien. Demnach sind manche Straßen- und Grünflächenämter mehr und manche weniger auf ehrenamtliches Engagement angewiesen, je nach Anteil der Jungbäume und verfügbaren Ressourcen.",
 			backSourceLink: undefined,
@@ -548,8 +549,8 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		wateringBehaviorStat: {
 			title: "Gießverhalten",
 			unit: "Liter",
-			legend: "Monatswerte in Liter",
-			hint: () => `werden durchschnittlich pro Monat gegossen`,
+			legend: "Liter pro Monat",
+			hint: () => `wurden insgesamt schon gegossen.`,
 			backContent:
 				"“Je mehr desto besser” gilt nicht immer angesichts immer größerer Wasserknappheit. Das weiß die Berliner Gieß-Community schon längst und ist daher hauptsächlich dann aktiv wenn die Bäume tatsächlich durstig sind: während der  Vegetationsperiode (April-Oktober), insbesondere in heißen trockenen Sommern.",
 			backSourceLink: undefined,
@@ -557,9 +558,9 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		wateringAmountStat: {
 			title: "Gießvolumen",
 			unit: "Liter",
-			legend: "Monatswerte in Liter",
+			legend: "Ø Liter pro Jahr",
 			hint: (currentYear) =>
-				`werden ${currentYear} durchschnittlich pro Monat gegossen`,
+				`werden ${currentYear} durchschnittlich pro Gießung eingetragen.`,
 			backContent:
 				"“Je mehr desto besser” gilt hier hingegen schon: Eine Gießung bei Jungbäumen sollte eher mehr als weniger Liter auf einmal beinhalten (ca. 100-200 Liter), damit sich das Wurzelwerk nach unten ausbildet und nicht an der Oberfläche verweilt. Aber Achtung! Jungbäume können auch überwässert werden und absterben. Daher hier die Bewässerungsempfehlung für Stadtbäume und außerdem das bezirkliche Straßen- und Grünflächenamt konsultieren.",
 			backSourceLink: "",
@@ -567,7 +568,7 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		treeSpeciesStat: {
 			title: "Baumarten",
 			unit: "Baumarten",
-			hint: () => `stehen in Berlin`,
+			hint: () => `stehen in Berlin.`,
 			legend: "Anteile Berliner Baumbestand",
 			backContent:
 				"Die Karte visualisiert mehr als 800.000 Stadtbäume und zeigt Informationen zu Art, Alter und Wasserbedarf an. Nutze die Filter- und Suchfunktionen und erfahre bspw. mehr über die Altersverteilung.",
@@ -576,7 +577,8 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		adoptionStat: {
 			title: "Baumadoptionen",
 			unit: "Bäume",
-			hint: () => `sind adoptiert`,
+			hint: () => `sind adoptiert.`,
+			legend: "der adoptierten Bäume sind besonders durstig.",
 			backContent:
 				"Baumadoptionen dienen der übergreifenden Koordination: mein Nachbar sieht ich gieße den Baum. “Besonders durstig” sind Jungbäume, welche nicht von den Bezirken gegossen werden. Aufgrund von fehlender öffentlicher Daten kann das nicht eins zu seins abgebildet werden und wird pauschal auf 5-10 Jahre geschätzt.",
 			backSourceLink: "",
