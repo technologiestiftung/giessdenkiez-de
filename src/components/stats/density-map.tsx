@@ -122,34 +122,35 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				)
 				.attr("opacity", 0.1);
 
-			// Draw the color interpolated legend
-			const numSegments = 100;
-			const interpolateWidth = innerWidth / 1.5;
-			const interpolateScale = d3
-				.scaleLinear()
-				.domain([0, numSegments])
-				.range([0, interpolateWidth]);
-			const colorInterpolator = d3.interpolateRgb(
-				densityLowColor,
-				densityHighColor,
-			);
-			for (let i = 0; i < numSegments; i++) {
-				const xStart = interpolateScale(i);
-				const xEnd = interpolateScale(i + 1);
-				svg
-					.append("line")
-					.attr("x1", xStart)
-					.attr("y1", height - 30)
-					.attr("x2", xEnd)
-					.attr("y2", height - 30)
-					.attr("stroke", colorInterpolator(i / numSegments))
-					.attr("stroke-width", 6)
-					.attr("opacity", 0.25)
-					.attr(
-						"transform",
-						`translate(${(innerWidth - interpolateWidth) / 2}, 0)`,
-					);
-			}
+			const linearGradient = svg
+				.append("defs")
+				.append("linearGradient")
+				.attr("id", "legendGradient")
+				.attr("x1", "0%")
+				.attr("x2", "100%")
+				.attr("y1", "0%")
+				.attr("y2", "0%");
+			linearGradient
+				.append("stop")
+				.attr("offset", "0%")
+				.style("stop-color", densityLowColor)
+				.style("stop-opacity", 0.25);
+			linearGradient
+				.append("stop")
+				.attr("offset", "100%")
+				.style("stop-color", densityHighColor)
+				.style("stop-opacity", 0.8);
+
+			// add legend to svg with gradient
+			svg
+				.append("rect")
+				.attr("fill", "url(#legendGradient)")
+				.attr("x", innerWidth / 4)
+				.attr("y", height - 40)
+				.attr("width", innerWidth / 2)
+				.attr("height", 6)
+				.attr("rx", 3)
+				.attr("ry", 20);
 
 			svg
 				.append("text")
