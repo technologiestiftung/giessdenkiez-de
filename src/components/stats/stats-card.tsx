@@ -58,10 +58,10 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 				containerStyle={{ height: "100%" }}
 			>
 				<div
-					className={`flex flex-col rounded-2xl p-4 border md:border-2 w-full text-left gap-1 h-[100%] min-h-[500px]`}
+					className={`flex flex-col rounded-2xl p-4 border md:border-2 w-full text-left h-[100%] min-h-[480px]`}
 				>
 					<div className={`flex flex-row justify-between items-center`}>
-						<div className="flex flex-row gap-2 text-xl font-semibold">
+						<div className="flex flex-row gap-2 text-xl font-semibold pb-2">
 							{title}
 						</div>
 						<button
@@ -85,7 +85,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 								{hint}
 							</div>
 							<div
-								className="py-3 flex flex-row justify-center items-center h-fit"
+								className="flex flex-row justify-center items-center h-fit"
 								id="stats-card-container"
 							>
 								{children}

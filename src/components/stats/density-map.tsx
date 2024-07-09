@@ -120,7 +120,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.attr("fill", (_, i) =>
 					d3.interpolateRgb(densityLowColor, densityHighColor)(i / 10),
 				)
-				.attr("opacity", 0.2);
+				.attr("opacity", 0.15);
 
 			const linearGradient = svg
 				.append("defs")
