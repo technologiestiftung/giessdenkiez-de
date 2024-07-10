@@ -147,7 +147,7 @@ export const de: Content = {
 				communityAnswer:
 					"Du möchtest Dich über das Gießen von Bäumen informieren, Pumpen melden oder Dich mit anderen aktiven Nutzer:innen austauschen? Dann tritt unserem Slack-Chat bei!",
 				slackButton: "Zur Slack Community",
-				feedback: `Du hast Feedback zu Gieß den Kiez?
+				feedback: `Du hast **Feedback** zu Gieß den Kiez?
 
 [Beantworte uns gerne ein paar Fragen](https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK)`,
 			},
@@ -583,5 +583,8 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 				"Baumadoptionen dienen der übergreifenden Koordination: mein Nachbar sieht ich gieße den Baum. “Besonders durstig” sind Jungbäume, welche nicht von den Bezirken gegossen werden. Aufgrund von fehlender öffentlicher Daten kann das nicht eins zu seins abgebildet werden und wird pauschal auf 5-10 Jahre geschätzt.",
 			backSourceLink: "",
 		},
+		gdKSalesPitch: `Gieß den Kiez für **Deine Stadt**?
+
+[Erfahre mehr!](https://deinestadt.giessdenkiez.de/)`,
 	},
 };

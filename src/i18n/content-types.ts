@@ -333,6 +333,7 @@ interface Stats {
 	wateringAmountStat: Stat;
 	treeSpeciesStat: Stat;
 	adoptionStat: Stat;
+	gdKSalesPitch: string;
 }
 
 export interface Content {

@@ -572,5 +572,8 @@ Particularly young trees need water in the first few years. Rather less often, b
 			backContent: "",
 			backSourceLink: "",
 		},
+		gdKSalesPitch: `Gieß den Kiez also in your city?
+
+[Erfahre mehr!](https://deinestadt.giessdenkiez.de/)`,
 	},
 };
