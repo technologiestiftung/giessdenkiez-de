@@ -3,6 +3,8 @@ import { InfoIcon } from "../icons/info-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
 import ReactCardFlip from "react-card-flip";
 import { Skeleton } from "../skeleton/skeleton";
+import Markdown from "react-markdown";
+import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 
 interface StatsCardProps {
 	title: string;
@@ -94,7 +96,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 					)}
 				</div>
 				<div
-					className={`flex flex-col rounded-2xl p-4 border md:border-2 w-full text-left gap-1 h-[100%] min-h-[500px]`}
+					className={`flex flex-col rounded-2xl p-4 border md:border-2 w-full text-left gap-1 h-[100%] min-h-[480px]`}
 				>
 					<div className={`flex flex-row justify-between items-center`}>
 						<div className="flex flex-row gap-2 text-xl font-semibold">
@@ -107,8 +109,14 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 							{i18n.stats.backToFront}
 						</button>
 					</div>
-					<div className={`py-3 flex flex-row items-start h-full`}>
-						{backContent}
+					<div className={`py-1 flex flex-row items-start h-full`}>
+						<Markdown
+							// @ts-expect-error typing too complex
+							components={{ a: ExternalAnchorLink }}
+							className={"[&>p]:pt-2"}
+						>
+							{backContent}
+						</Markdown>
 					</div>
 				</div>
 			</ReactCardFlip>
