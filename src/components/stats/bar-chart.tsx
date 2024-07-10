@@ -115,6 +115,27 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.attr("font-size", "12px");
 
 		svg
+			.selectAll(".barHover")
+			.data(last3Years)
+			.enter()
+			.append("rect")
+			.attr("class", "barHover")
+			.attr("x", (d) => xScale(formatMonth(d.month)) || 0)
+			.attr("y", -svgMargin.bottom)
+			.attr("width", xScale.bandwidth())
+			.attr("height", height)
+			.attr("fill", (d) => {
+				if (hovered && hovered.month === d.month) {
+					return hoverWaterFillColor;
+				}
+				return "transparent";
+			})
+			.attr("opacity", 0.05)
+			.on("mouseout", mouseOutHandler)
+			.on("mousemove", mouseMoveHandler)
+			.on("click", mouseClickHandler);
+
+		svg
 			.selectAll(".bar")
 			.data(last3Years)
 			.enter()
@@ -182,12 +203,12 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.attr("fill", "none")
 			.attr("stroke", temperatureFillColor)
 			.attr("stroke-width", 1.5)
-			.attr("opacity", 0.5)
+			.attr("opacity", 1)
 			.attr(
 				"d",
 				d3
 					.line<MonthlyWeather>()
-					.x((d) => temperatureXScale(new Date(d.month)))
+					.x((d) => temperatureXScale(new Date(d.month)) + 3)
 					.y(
 						(d) =>
 							height / 2 -
@@ -196,40 +217,65 @@ export const BarChart: React.FC<BarChartProps> = ({
 					),
 			);
 
-		const maxTemperature =
-			d3.max(weatherData, (d) => d.maximumTemperatureCelsius) || 0;
-		svg
-			.append("line")
-			.attr("x1", svgMargin.left)
-			.attr(
-				"y1",
-				height / 2 - svgMargin.bottom + temperatureYScale(maxTemperature),
-			)
-			.attr("x2", width - svgMargin.right)
-			.attr(
-				"y2",
-				height / 2 - svgMargin.bottom + temperatureYScale(maxTemperature),
-			)
-			.attr("stroke", temperatureFillColor)
-			.attr("opacity", 0.5)
-			.attr("stroke-width", 1);
-
 		svg
 			.selectAll("text")
 			.attr("font-family", "IBM")
 			.attr("fill", defaultLabelColor);
 
+		const highestValLast12Months = weatherData
+			.slice(-6)
+			.reduce(
+				(acc, curr) =>
+					curr.maximumTemperatureCelsius > acc.value
+						? { month: curr.month, value: curr.maximumTemperatureCelsius }
+						: acc,
+				{ month: "", value: 0 },
+			);
+
 		svg
 			.append("text")
-			.attr("x", width - svgMargin.right + 3)
+			.attr("x", temperatureXScale(new Date(highestValLast12Months.month)) + 3)
 			.attr(
 				"y",
-				height / 2 - svgMargin.bottom + temperatureYScale(maxTemperature) + 3,
+				height / 2 -
+					svgMargin.bottom +
+					temperatureYScale(highestValLast12Months.value) -
+					35,
 			)
-			.attr("text-anchor", "start")
-			.text(`${formatNumber(Math.round(maxTemperature))}°C`)
+			.attr("text-anchor", "middle")
+			.text(`Monatsmax.`)
+			.attr("fill", temperatureFillColor)
+			.attr("font-size", "12px");
+
+		svg
+			.append("text")
+			.attr("x", temperatureXScale(new Date(highestValLast12Months.month)) + 3)
+			.attr(
+				"y",
+				height / 2 -
+					svgMargin.bottom +
+					temperatureYScale(highestValLast12Months.value) -
+					20,
+			)
+			.attr("text-anchor", "middle")
+			.text(`${formatNumber(Math.round(highestValLast12Months.value))}°C`)
 			.attr("font-size", "12px")
 			.attr("fill", temperatureFillColor);
+
+		svg
+			.append("text")
+			.attr("x", temperatureXScale(new Date(highestValLast12Months.month)) + 3)
+			.attr(
+				"y",
+				height / 2 -
+					svgMargin.bottom +
+					temperatureYScale(highestValLast12Months.value) -
+					5,
+			)
+			.attr("text-anchor", "middle")
+			.text(`↓`)
+			.attr("fill", temperatureFillColor)
+			.attr("font-size", "16px");
 	}, [last3Years, hovered, weatherData]);
 
 	return (
@@ -240,7 +286,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 					<div className="flex flex-col text-sm ">
 						<div className="font-bold">{formatMonth(hovered.month)}</div>
 						<div>{formatNumber(hovered.totalSum)} Liter</div>
-						<div>
+						<div className="text-gdk-orange">
 							{Math.round(
 								weatherData.filter((d) => d.month === hovered.month)[0]
 									.maximumTemperatureCelsius,
