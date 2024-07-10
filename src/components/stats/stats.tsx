@@ -14,7 +14,8 @@ import { SimpleStatsCard } from "./simple-stats-card";
 import { StatsCard } from "./stats-card";
 import { AdoptionsChart } from "./adoptions-chart";
 import { useI18nStore } from "../../i18n/i18n-store";
-
+import Markdown from "react-markdown";
+import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 export interface TreeSpecies {
 	speciesName?: string;
 	percentage: number;
@@ -107,10 +108,8 @@ export const Stats: React.FC = () => {
 		);
 	}, [stats]);
 
-	const averageNumWateringsPerMonth = useMemo(() => {
-		return Math.round(
-			monthly.reduce((acc, m) => acc + m.totalSum, 0) / monthly.length,
-		);
+	const totalWateringAmountAllMonths = useMemo(() => {
+		return monthly.reduce((acc, curr) => acc + curr.totalSum, 0);
 	}, [monthly]);
 
 	const averageAmountPerWatering = useMemo(() => {
@@ -224,7 +223,7 @@ export const Stats: React.FC = () => {
 									hint={i18n.stats.wateringBehaviorStat.hint(
 										new Date().getFullYear().toString(),
 									)}
-									stat={averageNumWateringsPerMonth}
+									stat={totalWateringAmountAllMonths}
 									unit={i18n.stats.wateringBehaviorStat.unit}
 									titleColor="text-gdk-dark-blue"
 									icon={
@@ -240,15 +239,13 @@ export const Stats: React.FC = () => {
 									loading={loading}
 									backContent={i18n.stats.wateringBehaviorStat.backContent}
 								>
-									<div>
-										<BarChart
-											width={dynamicChartWidth}
-											height={CHART_HEIGHT}
-											monthlyData={monthly}
-											weatherData={monthlyWeater}
-											legend={i18n.stats.wateringBehaviorStat.legend}
-										/>
-									</div>
+									<BarChart
+										width={dynamicChartWidth}
+										height={CHART_HEIGHT}
+										monthlyData={monthly}
+										weatherData={monthlyWeater}
+										legend={i18n.stats.wateringBehaviorStat.legend}
+									/>
 								</StatsCard>
 
 								<StatsCard
@@ -337,6 +334,20 @@ export const Stats: React.FC = () => {
 							</div>
 						</div>
 					</div>
+					<Markdown
+						// @ts-expect-error typing too complex
+						components={{ a: ExternalAnchorLink }}
+						className={"[&>p]:pt-1 pt-6"}
+					>
+						{i18n.info.about.head.feedback}
+					</Markdown>
+					<Markdown
+						// @ts-expect-error typing too complex
+						components={{ a: ExternalAnchorLink }}
+						className={"[&>p]:pt-1 pt-2"}
+					>
+						{i18n.stats.gdKSalesPitch}
+					</Markdown>
 				</div>
 			</div>
 		</div>
