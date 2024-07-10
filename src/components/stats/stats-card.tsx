@@ -67,7 +67,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 							{title}
 						</div>
 						<button
-							className={`text-gdk-blue`}
+							className={`text-gdk-blue hover:text-gdk-light-blue`}
 							onClick={() => setIsFlipped(!isFlipped)}
 						>
 							<InfoIcon></InfoIcon>
@@ -103,7 +103,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 							{title}
 						</div>
 						<button
-							className={`text-gdk-blue font-semibold`}
+							className={`text-gdk-blue hover:text-gdk-light-blue font-semibold`}
 							onClick={() => setIsFlipped(!isFlipped)}
 						>
 							{i18n.stats.backToFront}

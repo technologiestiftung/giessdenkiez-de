@@ -58,7 +58,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 		svg
 			.selectAll("path")
 			.data(
-				pie.padAngle(0.01).sort((l, r) => {
+				pie.padAngle(0.015).sort((l, r) => {
 					if (l.speciesName === undefined) {
 						return Infinity;
 					}
@@ -78,7 +78,11 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 				}
 				return "white";
 			})
-			.attr("stroke-width", 2)
+			.attr("stroke-width", 2.25)
+			.on("mousemove", (d) => {
+				const leaf = d.target.__data__.data;
+				setSelectedSpecies(leaf);
+			})
 			.on("click", (d) => {
 				const leaf = d.target.__data__.data;
 				setSelectedSpecies(leaf);
