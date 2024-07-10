@@ -135,6 +135,39 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.on("mousemove", mouseMoveHandler)
 			.on("click", mouseClickHandler);
 
+		const temperatureXScale = d3
+			.scaleTime()
+			.domain(d3.extent(weatherData, (d) => new Date(d.month)) as [Date, Date])
+			.range([svgMargin.left, width - svgMargin.right]);
+
+		const temperatureYScale = d3
+			.scaleLinear()
+			.domain([0, d3.max(weatherData, (d) => d.maximumTemperatureCelsius)] as [
+				number,
+				number,
+			])
+			.range([height / 2, 0]);
+
+		svg
+			.append("path")
+			.datum(weatherData)
+			.attr("fill", "none")
+			.attr("stroke", temperatureFillColor)
+			.attr("stroke-width", 1.5)
+			.attr("opacity", 0.75)
+			.attr(
+				"d",
+				d3
+					.line<MonthlyWeather>()
+					.x((d) => temperatureXScale(new Date(d.month)) + 3)
+					.y(
+						(d) =>
+							height / 2 -
+							svgMargin.bottom +
+							temperatureYScale(d.maximumTemperatureCelsius),
+					),
+			);
+
 		svg
 			.selectAll(".bar")
 			.data(last3Years)
@@ -183,39 +216,6 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.attr("text-anchor", "middle")
 			.text(`${legend}`)
 			.attr("font-size", "14px");
-
-		const temperatureXScale = d3
-			.scaleTime()
-			.domain(d3.extent(weatherData, (d) => new Date(d.month)) as [Date, Date])
-			.range([svgMargin.left, width - svgMargin.right]);
-
-		const temperatureYScale = d3
-			.scaleLinear()
-			.domain([0, d3.max(weatherData, (d) => d.maximumTemperatureCelsius)] as [
-				number,
-				number,
-			])
-			.range([height / 2, 0]);
-
-		svg
-			.append("path")
-			.datum(weatherData)
-			.attr("fill", "none")
-			.attr("stroke", temperatureFillColor)
-			.attr("stroke-width", 1.5)
-			.attr("opacity", 1)
-			.attr(
-				"d",
-				d3
-					.line<MonthlyWeather>()
-					.x((d) => temperatureXScale(new Date(d.month)) + 3)
-					.y(
-						(d) =>
-							height / 2 -
-							svgMargin.bottom +
-							temperatureYScale(d.maximumTemperatureCelsius),
-					),
-			);
 
 		svg
 			.selectAll("text")
