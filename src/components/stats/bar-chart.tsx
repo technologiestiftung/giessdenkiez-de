@@ -30,7 +30,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 	const svgMargin = { top: 0, right: 30, bottom: 50, left: 20 };
 	const [hovered, setHovered] = React.useState<Monthly>();
 	const last3Years = monthlyData.slice(-3 * 12);
-	const yReferenceLineValue = 100000;
+	const yReferenceLineValue = 150000;
 	const { formatNumber } = useI18nStore();
 
 	const formatMonth = (date: string) => {
@@ -142,7 +142,15 @@ export const BarChart: React.FC<BarChartProps> = ({
 
 		const temperatureYScale = d3
 			.scaleLinear()
-			.domain([0, d3.max(weatherData, (d) => d.maximumTemperatureCelsius)] as [
+			.domain([0, d3.max(weatherData, (d) => d.averageTemperatureCelsius)] as [
+				number,
+				number,
+			])
+			.range([height / 2, 0]);
+
+		const rainYScale = d3
+			.scaleLinear()
+			.domain([0, d3.max(weatherData, (d) => d.totalRainfallLiters)] as [
 				number,
 				number,
 			])
@@ -152,9 +160,28 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.append("path")
 			.datum(weatherData)
 			.attr("fill", "none")
+			.attr("stroke", defaultWaterFillColor)
+			.attr("stroke-width", 1.5)
+			.attr("stroke-dasharray", "2")
+			.attr("opacity", 0.3)
+			.attr(
+				"d",
+				d3
+					.line<MonthlyWeather>()
+					.x((d) => temperatureXScale(new Date(d.month)) + 3)
+					.y(
+						(d) =>
+							height / 3 - svgMargin.bottom + rainYScale(d.totalRainfallLiters),
+					),
+			);
+
+		svg
+			.append("path")
+			.datum(weatherData)
+			.attr("fill", "none")
 			.attr("stroke", temperatureFillColor)
 			.attr("stroke-width", 1.5)
-			.attr("opacity", 0.75)
+			.attr("opacity", 0.3)
 			.attr(
 				"d",
 				d3
@@ -164,7 +191,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 						(d) =>
 							height / 2 -
 							svgMargin.bottom +
-							temperatureYScale(d.maximumTemperatureCelsius),
+							temperatureYScale(d.averageTemperatureCelsius),
 					),
 			);
 
@@ -221,75 +248,30 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.selectAll("text")
 			.attr("font-family", "IBM")
 			.attr("fill", defaultLabelColor);
-
-		const highestValLast12Months = weatherData
-			.slice(-6)
-			.reduce(
-				(acc, curr) =>
-					curr.maximumTemperatureCelsius > acc.value
-						? { month: curr.month, value: curr.maximumTemperatureCelsius }
-						: acc,
-				{ month: "", value: 0 },
-			);
-
-		svg
-			.append("text")
-			.attr("x", temperatureXScale(new Date(highestValLast12Months.month)) + 3)
-			.attr(
-				"y",
-				height / 2 -
-					svgMargin.bottom +
-					temperatureYScale(highestValLast12Months.value) -
-					35,
-			)
-			.attr("text-anchor", "middle")
-			.text(`Monatsmax.`)
-			.attr("fill", temperatureFillColor)
-			.attr("font-size", "12px");
-
-		svg
-			.append("text")
-			.attr("x", temperatureXScale(new Date(highestValLast12Months.month)) + 3)
-			.attr(
-				"y",
-				height / 2 -
-					svgMargin.bottom +
-					temperatureYScale(highestValLast12Months.value) -
-					20,
-			)
-			.attr("text-anchor", "middle")
-			.text(`${formatNumber(Math.round(highestValLast12Months.value))}°C`)
-			.attr("font-size", "12px")
-			.attr("fill", temperatureFillColor);
-
-		svg
-			.append("text")
-			.attr("x", temperatureXScale(new Date(highestValLast12Months.month)) + 3)
-			.attr(
-				"y",
-				height / 2 -
-					svgMargin.bottom +
-					temperatureYScale(highestValLast12Months.value) -
-					5,
-			)
-			.attr("text-anchor", "middle")
-			.text(`↓`)
-			.attr("fill", temperatureFillColor)
-			.attr("font-size", "16px");
 	}, [last3Years, hovered, weatherData]);
 
 	return (
 		<div className="relative" id="bar-container">
 			<svg ref={svgRef}></svg>
 			{hovered && (
-				<div className="absolute right-0 top-0 p-2 bg-gdk-lighter-blue shadow-md rounded-md">
+				<div className="absolute left-0 top-0 p-1.5 bg-gdk-lighter-gray shadow-md rounded-md">
 					<div className="flex flex-col text-sm ">
 						<div className="font-bold">{formatMonth(hovered.month)}</div>
-						<div>{formatNumber(hovered.totalSum)} Liter</div>
-						<div className="text-gdk-orange">
+						<div className="text-gdk-dark-blue">
+							{formatNumber(hovered.totalSum)} l Gießungen
+						</div>
+						<div className="text-gdk-dark-blue opacity-40">
 							{Math.round(
 								weatherData.filter((d) => d.month === hovered.month)[0]
-									.maximumTemperatureCelsius,
+									.totalRainfallLiters,
+							)}
+							{" mm Regen"}
+						</div>
+						<div className="text-gdk-orange opacity-80">
+							Ø{" "}
+							{Math.round(
+								weatherData.filter((d) => d.month === hovered.month)[0]
+									.averageTemperatureCelsius,
 							)}
 							{" °C"}
 						</div>

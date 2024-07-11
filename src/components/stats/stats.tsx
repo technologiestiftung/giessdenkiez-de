@@ -331,18 +331,18 @@ export const Stats: React.FC = () => {
 										legend={i18n.stats.adoptionStat.legend}
 									/>
 								</StatsCard>
-								<div className="px-4">
+								<div className="px-4 flex flex-col md:self-end md:text-end">
 									<Markdown
 										// @ts-expect-error typing too complex
 										components={{ a: ExternalAnchorLink }}
-										className={"[&>p]:pt-1 pt-6"}
+										className={"[&>p]:pt-1 pt-2 md:pt-4"}
 									>
 										{i18n.info.about.head.feedback}
 									</Markdown>
 									<Markdown
 										// @ts-expect-error typing too complex
 										components={{ a: ExternalAnchorLink }}
-										className={"[&>p]:pt-1 pt-4"}
+										className={"[&>p]:pt-1 py-4"}
 									>
 										{i18n.stats.gdKSalesPitch}
 									</Markdown>

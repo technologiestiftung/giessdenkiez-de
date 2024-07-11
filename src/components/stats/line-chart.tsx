@@ -183,7 +183,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 			})
 			.attr("opacity", 0.5)
 			.attr("stroke", "transparent")
-			.attr("stroke-width", 30)
+			.attr("stroke-width", 70)
 			.on("mouseout", mouseOutHandler)
 			.on("mousemove", mouseMoveHandler)
 			.on("click", mouseClickHandler);
@@ -198,7 +198,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.attr("x", (d) => xScale(new Date(d.year)))
 			.attr(
 				"y",
-				(d) => yScale(d.averageAmountPerWatering) - svgMargin.bottom + 15,
+				(d) => yScale(d.averageAmountPerWatering) - svgMargin.bottom + 13,
 			)
 			.text((d) => `${Math.round(d.averageAmountPerWatering)}l`)
 			.attr("fill", (d) => {
