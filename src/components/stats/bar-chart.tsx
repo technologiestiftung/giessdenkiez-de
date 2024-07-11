@@ -130,7 +130,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 				}
 				return "transparent";
 			})
-			.attr("opacity", 0.05)
+			.attr("opacity", 0.1)
 			.on("mouseout", mouseOutHandler)
 			.on("mousemove", mouseMoveHandler)
 			.on("click", mouseClickHandler);

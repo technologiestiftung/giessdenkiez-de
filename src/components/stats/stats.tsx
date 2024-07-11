@@ -112,14 +112,7 @@ export const Stats: React.FC = () => {
 		return monthly.reduce((acc, curr) => acc + curr.totalSum, 0);
 	}, [monthly]);
 
-	const averageAmountPerWatering = useMemo(() => {
-		return Math.round(
-			monthly.reduce((acc, m) => acc + m.averageAmountPerWatering, 0) /
-				monthly.length,
-		);
-	}, [monthly]);
-
-	const yearlyAverageData = useMemo(() => {
+	const yearlyAverageAmountPerWatering = useMemo(() => {
 		const years = new Map<string, number[]>();
 		for (const month of monthly) {
 			const year = new Date(month.month).getFullYear().toString();
@@ -138,6 +131,13 @@ export const Stats: React.FC = () => {
 		);
 		return averageOnYears;
 	}, [monthly]);
+
+	const averageAmountPerWateringThisYear =
+		yearlyAverageAmountPerWatering.length > 0
+			? Math.round(
+					yearlyAverageAmountPerWatering.slice(-1)[0].averageAmountPerWatering,
+				)
+			: 0;
 
 	const orderedTreeSpecies = useMemo(() => {
 		const speciesWithoutUnknown =
@@ -253,7 +253,7 @@ export const Stats: React.FC = () => {
 									hint={i18n.stats.wateringAmountStat.hint(
 										new Date().getFullYear().toString(),
 									)}
-									stat={averageAmountPerWatering}
+									stat={averageAmountPerWateringThisYear}
 									unit={i18n.stats.wateringAmountStat.unit}
 									titleColor="text-gdk-dark-blue"
 									icon={
@@ -270,7 +270,7 @@ export const Stats: React.FC = () => {
 									backContent={i18n.stats.wateringAmountStat.backContent}
 								>
 									<LineChart
-										yearlyData={yearlyAverageData}
+										yearlyData={yearlyAverageAmountPerWatering}
 										width={dynamicChartWidth}
 										height={CHART_HEIGHT}
 										legend={i18n.stats.wateringAmountStat.legend}
@@ -331,23 +331,25 @@ export const Stats: React.FC = () => {
 										legend={i18n.stats.adoptionStat.legend}
 									/>
 								</StatsCard>
+								<div className="px-4">
+									<Markdown
+										// @ts-expect-error typing too complex
+										components={{ a: ExternalAnchorLink }}
+										className={"[&>p]:pt-1 pt-6"}
+									>
+										{i18n.info.about.head.feedback}
+									</Markdown>
+									<Markdown
+										// @ts-expect-error typing too complex
+										components={{ a: ExternalAnchorLink }}
+										className={"[&>p]:pt-1 pt-4"}
+									>
+										{i18n.stats.gdKSalesPitch}
+									</Markdown>
+								</div>
 							</div>
 						</div>
 					</div>
-					<Markdown
-						// @ts-expect-error typing too complex
-						components={{ a: ExternalAnchorLink }}
-						className={"[&>p]:pt-1 pt-6"}
-					>
-						{i18n.info.about.head.feedback}
-					</Markdown>
-					<Markdown
-						// @ts-expect-error typing too complex
-						components={{ a: ExternalAnchorLink }}
-						className={"[&>p]:pt-1 pt-2"}
-					>
-						{i18n.stats.gdKSalesPitch}
-					</Markdown>
 				</div>
 			</div>
 		</div>
