@@ -40,10 +40,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 		}
 
 		//@ts-expect-error __data__ is a d3 property
-		if (e.target.__data__ !== hovered) {
-			//@ts-expect-error __data__ is a d3 property
-			setHovered(e.target.__data__);
-		}
+		setHovered(e.target.__data__);
 	};
 
 	const mouseOutHandler = () => {
