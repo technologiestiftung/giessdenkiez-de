@@ -540,7 +540,7 @@ Particularly young trees need water in the first few years. Rather less often, b
 			title: "Watering Behavior",
 			unit: "liters",
 			hint: () => `are watered on average per month`,
-			legend: "Monatswerte in Liter",
+			legend: "monthly data in liter",
 			backContent:
 				"“The more the better” is not always true in the face of increasing water scarcity. The Berlin watering community has long been aware of this and is therefore mainly active when the trees are actually thirsty: during the growing season (April-October), especially in hot dry summers.",
 			backSourceLink: undefined,
