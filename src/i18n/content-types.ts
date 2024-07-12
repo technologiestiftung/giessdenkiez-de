@@ -318,7 +318,8 @@ interface Stat {
 	hint: (currentYear: string) => string;
 	legend: string;
 	backContent: string;
-	backSourceLink?: string;
+	watered?: string;
+	rain?: string;
 }
 
 interface Stats {

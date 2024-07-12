@@ -7,15 +7,17 @@ interface DonutChartProps {
 	treeSpecies: TreeSpecies[];
 	width: number;
 	height: number;
-	legend: string;
 }
 
 export const DonutChart: React.FC<DonutChartProps> = ({
 	treeSpecies,
 	width,
 	height,
-	legend,
 }) => {
+	const svgMargin = { top: 0, right: 0, bottom: 30, left: 0 };
+	const innerWidth = width;
+	const innerHeight = height - svgMargin.top - svgMargin.bottom;
+
 	const UNKNOWN_SPECIES_IMAGE_IDENTIFIER = "UNBEKANNT";
 
 	const [selectedSpecies, setSelectedSpecies] = useState<TreeSpecies | null>(
@@ -48,8 +50,8 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 
 		const svg = d3
 			.select(svgRef.current)
-			.attr("width", width)
-			.attr("height", height)
+			.attr("width", innerWidth)
+			.attr("height", innerHeight)
 			.append("g")
 			.attr("transform", `translate(${width / 2},${height / 2 - 30})`);
 
@@ -89,15 +91,6 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			})
 			.attr("transform", "scale(0.95)")
 			.attr("class", "pie-part");
-
-		svg
-			.append("text")
-			.attr("x", 0)
-			.attr("y", height / 2 + 12)
-			.attr("fill", speciesLabelColor)
-			.attr("text-anchor", "middle")
-			.text(`${legend}`)
-			.attr("font-size", "14px");
 
 		if (selectedSpecies) {
 			svg

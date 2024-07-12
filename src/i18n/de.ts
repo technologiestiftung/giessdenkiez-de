@@ -536,6 +536,7 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		streetTrees: "Stadtbäume",
 		publicPumps: "Öffentliche Pumpen",
 		activeUsers: "Aktive Gießer:innen",
+
 		backToFront: "zurück",
 		wateringsStat: {
 			title: "Gießungen",
@@ -545,19 +546,20 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 			backContent: `Die Gießaktivität variiert nach Bezirk, da die zwölf Berliner Bezirke sich in ihrem ehrenamtlichen Bedarf unterscheiden: je nach der Anzahl der durstigen Jungbäume und der Verfügbarkeit personeller Ressourcen des Straßen- und Grünflächenamtes. 
 
 Vor der ersten Gießung also am besten einmal mit dem zuständigen [Straßen- und Grünflächenamt](https://www.berlin.de/ba-friedrichshain-kreuzberg/politik-und-verwaltung/aemter/strassen-und-gruenflaechenamt/) in Verbindung setzen - und schon kann’s losgehen!`,
-			backSourceLink: undefined,
 		},
 		wateringBehaviorStat: {
 			title: "Gießverhalten",
 			unit: "Liter",
-			legend: "Liter pro Monat",
+			legend: `Gegossene Liter pro Monat
+`,
+			watered: "gegossen",
+			rain: "Regen",
 			hint: () => `wurden insgesamt schon gegossen.`,
 			backContent: `“Je mehr desto besser” gilt nicht immer angesichts immer größerer Wasserknappheit.
 
 Das weiß die Berliner Gieß-Community natürlich und ist daher hauptsächlich dann aktiv wenn die Bäume tatsächlich durstig sind: während der  Vegetationsperiode (April-Oktober) in besonders heißen trockenen Jahren.
 
 Datenquelle: [Temperatur (DWD)](https://opendata.dwd.de/)`,
-			backSourceLink: undefined,
 		},
 		wateringAmountStat: {
 			title: "Gießvolumen",
@@ -570,7 +572,6 @@ Datenquelle: [Temperatur (DWD)](https://opendata.dwd.de/)`,
 Eine Gießung sollte eher mehr als weniger Liter auf einmal beinhalten (ca. 100-200 Liter), damit sich das Wurzelwerk der Jungbäume nach unten ausbildet und nicht an der Oberfläche verweilt. 
 
 Aber Achtung! Jungbäume können auch überwässert werden. Mehr Informationen zur [Bewässerungsempfehlung für Stadtbäume](https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/).`,
-			backSourceLink: "",
 		},
 		treeSpeciesStat: {
 			title: "Baumarten",
@@ -584,7 +585,6 @@ Die interaktive Karte visualisiert fast 900.000 Stadtbäume und zeigt Informatio
 Nutze die Filter- und Suchfunktionen und erfahre mehr über die Bäume in Deiner Nachbarschaft.
 
 Datenquelle: [Berliner Baumkataster (Geoportal Berlin)](https://daten.berlin.de/datensaetze/baumbestand-berlin-wms )`,
-			backSourceLink: "",
 		},
 		adoptionStat: {
 			title: "Baumadoptionen",
@@ -594,7 +594,6 @@ Datenquelle: [Berliner Baumkataster (Geoportal Berlin)](https://daten.berlin.de/
 			backContent: `Einen Baum auf Gieß den Kiez zu adoptieren zeigt, dass sich regelmäßig um diesen gesorgt wird und erleichtert somit die nachbarschaftliche Koordination.
 
 Durstig sind vor allem Jungbäume (unter 10 Jahren). Diese werden in der Regel mind. bis zum fünften Jahr vom Grünflächenamt gegossen. “Besonders durstig” sind somit die **5 - 10 Jahre** alten Bäume. (Pauschale Schätzung, da die Bedürftigkeit bislang nicht Bezirks-spezifisch abgebildet werden kann.)`,
-			backSourceLink: "",
 		},
 		gdKSalesPitch: `Gieß den Kiez für **Deine Stadt**?
 

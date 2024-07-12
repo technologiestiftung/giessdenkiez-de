@@ -15,20 +15,18 @@ interface LineChartProps {
 	yearlyData: Yearly[];
 	width: number;
 	height: number;
-	legend: string;
 }
 
 export const LineChart: React.FC<LineChartProps> = ({
 	yearlyData,
 	width,
 	height,
-	legend,
 }) => {
 	const firstYReferenceLineValue = 30;
 	const secondYReferenceLineValue = 50;
 
 	const svgRef = useRef<SVGSVGElement | null>(null);
-	const svgMargin = { top: 25, right: 25, bottom: 50, left: 20 };
+	const svgMargin = { top: 25, right: 25, bottom: 30, left: 20 };
 	const { formatNumber } = useI18nStore();
 
 	const [hovered, setHovered] = React.useState<Yearly>();
@@ -133,7 +131,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 
 		const tickValues = yearlyData.map((d) => new Date(d.year));
 
-		const xAxis = svg
+		svg
 			.append("g")
 			.attr("transform", `translate(0, ${height - svgMargin.bottom})`)
 			.call(
@@ -143,15 +141,6 @@ export const LineChart: React.FC<LineChartProps> = ({
 					.tickSizeOuter(0)
 					.tickFormat((d) => formatDate(d as Date, "yyyy")),
 			);
-
-		xAxis
-			.append("text")
-			.attr("x", width / 2)
-			.attr("y", svgMargin.bottom - 10)
-			.attr("fill", defaultLabelColor)
-			.attr("text-anchor", "middle")
-			.text(`${legend}`)
-			.attr("font-size", "14px");
 
 		svg
 			.selectAll("text")

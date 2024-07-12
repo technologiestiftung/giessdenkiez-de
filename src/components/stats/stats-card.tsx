@@ -17,6 +17,7 @@ interface StatsCardProps {
 	loading: boolean;
 	backContent: string;
 	children: React.ReactNode;
+	legend?: string;
 }
 
 export const StatsCard: React.FC<StatsCardProps> = ({
@@ -30,6 +31,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 	loading,
 	backContent,
 	children,
+	legend,
 }) => {
 	const { formatNumber } = useI18nStore();
 	const i18n = useI18nStore().i18n();
@@ -91,6 +93,9 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 								id="stats-card-container"
 							>
 								{children}
+							</div>
+							<div className={`flex justify-center text-sm ${titleColor}`}>
+								{legend}
 							</div>
 						</>
 					)}

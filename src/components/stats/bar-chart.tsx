@@ -16,7 +16,6 @@ interface BarChartProps {
 	weatherData: MonthlyWeather[];
 	width: number;
 	height: number;
-	legend: string;
 }
 
 export const BarChart: React.FC<BarChartProps> = ({
@@ -24,14 +23,14 @@ export const BarChart: React.FC<BarChartProps> = ({
 	weatherData,
 	width,
 	height,
-	legend,
 }) => {
 	const svgRef = useRef<SVGSVGElement | null>(null);
-	const svgMargin = { top: 0, right: 30, bottom: 50, left: 20 };
+	const svgMargin = { top: 0, right: 30, bottom: 30, left: 20 };
 	const [hovered, setHovered] = React.useState<Monthly>();
 	const last3Years = monthlyData.slice(-3 * 12);
-	const yReferenceLineValue = 150000;
+	const yReferenceLineValue = 100000;
 	const { formatNumber } = useI18nStore();
+	const i18n = useI18nStore().i18n();
 
 	const formatMonth = (date: string) => {
 		return `${date.split("-")[1]}.${date.split("-")[0]}`;
@@ -122,7 +121,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.attr("class", "barHover")
 			.attr("x", (d) => xScale(formatMonth(d.month)) || 0)
 			.attr("y", -svgMargin.bottom)
-			.attr("width", xScale.bandwidth())
+			.attr("width", xScale.bandwidth() + 1.5)
 			.attr("height", height)
 			.attr("fill", (d) => {
 				if (hovered && hovered.month === d.month) {
@@ -171,7 +170,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 					.x((d) => temperatureXScale(new Date(d.month)) + 3)
 					.y(
 						(d) =>
-							height / 3 - svgMargin.bottom + rainYScale(d.totalRainfallLiters),
+							height / 2 + rainYScale(d.totalRainfallLiters) - svgMargin.bottom,
 					),
 			);
 
@@ -189,9 +188,9 @@ export const BarChart: React.FC<BarChartProps> = ({
 					.x((d) => temperatureXScale(new Date(d.month)) + 3)
 					.y(
 						(d) =>
-							height / 2 -
-							svgMargin.bottom +
-							temperatureYScale(d.averageTemperatureCelsius),
+							height / 2 +
+							temperatureYScale(d.averageTemperatureCelsius) -
+							svgMargin.bottom,
 					),
 			);
 
@@ -217,7 +216,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.on("mousemove", mouseMoveHandler)
 			.on("click", mouseClickHandler);
 
-		const xAxis = svg
+		svg
 			.append("g")
 			.attr("transform", `translate(0, ${height - svgMargin.bottom})`)
 			.call(
@@ -235,15 +234,6 @@ export const BarChart: React.FC<BarChartProps> = ({
 					.tickSizeOuter(0),
 			);
 
-		xAxis
-			.append("text")
-			.attr("x", width / 2)
-			.attr("y", svgMargin.bottom - 10)
-			.attr("fill", defaultLabelColor)
-			.attr("text-anchor", "middle")
-			.text(`${legend}`)
-			.attr("font-size", "14px");
-
 		svg
 			.selectAll("text")
 			.attr("font-family", "IBM")
@@ -254,18 +244,20 @@ export const BarChart: React.FC<BarChartProps> = ({
 		<div className="relative" id="bar-container">
 			<svg ref={svgRef}></svg>
 			{hovered && (
-				<div className="absolute left-0 top-0 p-1.5 bg-gdk-lighter-gray shadow-md rounded-md">
+				<div className="absolute left-0 top-1.5 p-1.5 bg-white/75 border shadow-sm rounded-md">
 					<div className="flex flex-col text-sm ">
 						<div className="font-bold">{formatMonth(hovered.month)}</div>
 						<div className="text-gdk-dark-blue">
-							{formatNumber(hovered.totalSum)} l Gießungen
+							{formatNumber(hovered.totalSum)} l{" "}
+							{i18n.stats.wateringBehaviorStat.watered}
 						</div>
 						<div className="text-gdk-dark-blue opacity-40">
 							{Math.round(
 								weatherData.filter((d) => d.month === hovered.month)[0]
 									.totalRainfallLiters,
 							)}
-							{" mm Regen"}
+							{" mm "}
+							{i18n.stats.wateringBehaviorStat.rain}
 						</div>
 						<div className="text-gdk-orange opacity-80">
 							Ø{" "}

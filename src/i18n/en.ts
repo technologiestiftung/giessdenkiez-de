@@ -526,43 +526,41 @@ Particularly young trees need water in the first few years. Rather less often, b
 		streetTrees: "Street Trees",
 		publicPumps: "Public Pumps",
 		activeUsers: "Active Waterers",
-		backToFront: "zurück",
+		backToFront: "back",
 		wateringsStat: {
 			title: "Waterings",
 			unit: "times",
 			hint: (currentYear) => `was watered in the year ${currentYear}`,
-			legend: "Anzahl der Gießungen",
+			legend: "number of waterings",
 			backContent:
 				"The twelve Berlin districts differ in their tree populations and watering strategies. Therefore, some street and green space offices rely more and some less on volunteer engagement, depending on the proportion of young trees and available resources.",
-			backSourceLink: undefined,
 		},
 		wateringBehaviorStat: {
 			title: "Watering Behavior",
 			unit: "liters",
+			watered: "watered",
+			rain: "rain",
 			hint: () => `are watered on average per month`,
-			legend: "monthly data in liter",
+			legend: "monthly data in liters",
 			backContent:
 				"“The more the better” is not always true in the face of increasing water scarcity. The Berlin watering community has long been aware of this and is therefore mainly active when the trees are actually thirsty: during the growing season (April-October), especially in hot dry summers.",
-			backSourceLink: undefined,
 		},
 		wateringAmountStat: {
 			title: "Watering Volume",
 			unit: "liters",
 			hint: (currentYear) =>
 				`are watered on average per month in ${currentYear}`,
-			legend: "Monatswerte in Liter",
+			legend: "Ø liters per year",
 			backContent:
 				"“The more the better” is true here: A watering for young trees should contain more rather than less liters at once (about 100-200 liters) so that the root system develops downwards and does not remain on the surface. But beware! Young trees can also be overwatered and die. Therefore, here is the watering recommendation for city trees and also consult the district street and green space office.",
-			backSourceLink: "",
 		},
 		treeSpeciesStat: {
 			title: "Tree Species",
 			unit: "tree species",
 			hint: () => `are in Berlin`,
-			legend: "Anteile Berliner Baumbestand",
+			legend: "Percentage of Berlin tree population",
 			backContent:
 				"The map visualizes more than 800,000 city trees and shows information about species, age, and water requirements. Use the filter and search functions to learn more about the age distribution, for example.",
-			backSourceLink: "",
 		},
 		adoptionStat: {
 			title: "Tree Adoptions",
@@ -570,10 +568,9 @@ Particularly young trees need water in the first few years. Rather less often, b
 			hint: () => `were adopted`,
 			legend: "out of the adopted trees are especially thirsty.",
 			backContent: "",
-			backSourceLink: "",
 		},
 		gdKSalesPitch: `Gieß den Kiez also in your city?
 
-[Erfahre mehr!](https://deinestadt.giessdenkiez.de/)`,
+[Learn more!](https://deinestadt.giessdenkiez.de/)`,
 	},
 };

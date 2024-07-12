@@ -210,12 +210,12 @@ export const Stats: React.FC = () => {
 									}}
 									loading={loading}
 									backContent={i18n.stats.wateringsStat.backContent}
+									legend={i18n.stats.wateringsStat.legend}
 								>
 									<DensityMap
 										width={dynamicChartWidth}
 										height={CHART_HEIGHT}
 										data={stats?.waterings || []}
-										legend={i18n.stats.wateringsStat.legend}
 									/>
 								</StatsCard>
 								<StatsCard
@@ -238,13 +238,13 @@ export const Stats: React.FC = () => {
 									}}
 									loading={loading}
 									backContent={i18n.stats.wateringBehaviorStat.backContent}
+									legend={i18n.stats.wateringBehaviorStat.legend}
 								>
 									<BarChart
 										width={dynamicChartWidth}
 										height={CHART_HEIGHT}
 										monthlyData={monthly}
 										weatherData={monthlyWeater}
-										legend={i18n.stats.wateringBehaviorStat.legend}
 									/>
 								</StatsCard>
 
@@ -268,12 +268,12 @@ export const Stats: React.FC = () => {
 									}}
 									loading={loading}
 									backContent={i18n.stats.wateringAmountStat.backContent}
+									legend={i18n.stats.wateringAmountStat.legend}
 								>
 									<LineChart
 										yearlyData={yearlyAverageAmountPerWatering}
 										width={dynamicChartWidth}
 										height={CHART_HEIGHT}
-										legend={i18n.stats.wateringAmountStat.legend}
 									/>
 								</StatsCard>
 
@@ -297,12 +297,12 @@ export const Stats: React.FC = () => {
 									}}
 									loading={loading}
 									backContent={i18n.stats.treeSpeciesStat.backContent}
+									legend={i18n.stats.treeSpeciesStat.legend}
 								>
 									<DonutChart
 										treeSpecies={orderedTreeSpecies ?? []}
 										width={dynamicChartWidth}
 										height={CHART_HEIGHT}
-										legend={i18n.stats.treeSpeciesStat.legend}
 									/>
 								</StatsCard>
 								<StatsCard

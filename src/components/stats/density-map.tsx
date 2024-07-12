@@ -1,17 +1,12 @@
 /* eslint-disable max-lines */
 import * as d3 from "d3";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import {
-	defaultLabelColor,
-	densityHighColor,
-	densityLowColor,
-} from "./chart-colors";
+import { densityHighColor, densityLowColor } from "./chart-colors";
 
 interface DensityMapProps {
 	data: { lat: number; lng: number; amount: number }[];
 	width: number;
 	height: number;
-	legend: string;
 }
 
 interface DataPoint {
@@ -24,9 +19,8 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 	data,
 	width,
 	height,
-	legend,
 }) => {
-	const svgMargin = { top: 0, right: 0, bottom: 50, left: 0 };
+	const svgMargin = { top: 0, right: 0, bottom: 5, left: 0 };
 	const innerWidth = width;
 	const innerHeight = height - svgMargin.top - svgMargin.bottom;
 	const svgRef = useRef<SVGSVGElement>(null);
@@ -146,19 +140,10 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.append("rect")
 				.attr("fill", "url(#legendGradient)")
 				.attr("x", innerWidth / 6)
-				.attr("y", height - 40)
+				.attr("y", height - 10)
 				.attr("width", innerWidth / 1.5)
 				.attr("height", 6)
 				.attr("rx", 3);
-
-			svg
-				.append("text")
-				.attr("x", innerWidth / 2)
-				.attr("y", height - 5)
-				.attr("fill", defaultLabelColor)
-				.attr("text-anchor", "middle")
-				.text(`${legend}`)
-				.attr("font-size", "14px");
 
 			svg.selectAll("text").attr("font-family", "IBM");
 		}
