@@ -53,6 +53,8 @@ export const LineChart: React.FC<LineChartProps> = ({
 		if (!yearlyData || yearlyData.length === 0) {
 			return;
 		}
+
+		// SVG size setup
 		const svg = d3
 			.select(svgRef.current)
 			.attr("width", width)
@@ -60,11 +62,11 @@ export const LineChart: React.FC<LineChartProps> = ({
 
 		svg.selectAll("*").remove();
 
+		// Scaling functions for average watering amount data
 		const xScale = d3
 			.scaleTime()
 			.domain(d3.extent(yearlyData, (d) => new Date(d.year)) as [Date, Date])
 			.range([svgMargin.left, width - svgMargin.right]);
-
 		const yScale = d3
 			.scaleLinear()
 			.domain([
@@ -74,6 +76,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.nice()
 			.range([height, svgMargin.bottom]);
 
+		// Reference line for average watered amount
 		[firstYReferenceLineValue, secondYReferenceLineValue].forEach(
 			(yReferenceLineValue) => {
 				svg
@@ -108,6 +111,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 			},
 		);
 
+		// Area chart setup
 		const area = d3
 			.area<Yearly>()
 			.x(function (d) {
@@ -122,6 +126,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 			})
 			.curve(d3.curveBumpX);
 
+		// Add area chart to svg
 		svg
 			.append("path")
 			.datum(yearlyData)
@@ -129,8 +134,8 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.attr("d", area)
 			.attr("fill", defaultWaterFillColor);
 
+		// Add x-axis labels and ticks to svg
 		const tickValues = yearlyData.map((d) => new Date(d.year));
-
 		svg
 			.append("g")
 			.attr("transform", `translate(0, ${height - svgMargin.bottom})`)
@@ -147,6 +152,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.attr("font-family", "IBM")
 			.attr("fill", defaultLabelColor);
 
+		// add bar for hover effect to svg
 		svg
 			.selectAll(".barHover")
 			.data(yearlyData)
@@ -177,6 +183,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 			.on("mousemove", mouseMoveHandler)
 			.on("click", mouseClickHandler);
 
+		// add value over bar for hover effect to svg
 		svg
 			.selectAll(".bar-title")
 			.data(yearlyData)

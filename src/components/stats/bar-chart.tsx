@@ -54,15 +54,16 @@ export const BarChart: React.FC<BarChartProps> = ({
 	};
 
 	useEffect(() => {
+		// SVG size setup
 		const svg = d3.select(svgRef.current);
 		svg.selectAll("*").remove();
-
 		svg
 			.attr("width", width)
 			.attr("height", height)
 			.append("g")
 			.attr("transform", `translate(${svgMargin.left},${svgMargin.top})`);
 
+		// Scaling functions for watered data
 		const xScale = d3
 			.scaleBand()
 			.domain(last3Years.map((d) => formatMonth(d.month)))
@@ -75,6 +76,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.nice()
 			.range([height, svgMargin.bottom]);
 
+		// Reference line for watered amount
 		svg
 			.append("line")
 			.attr("x1", svgMargin.left)
@@ -113,6 +115,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.text(`Liter`)
 			.attr("font-size", "12px");
 
+		// Full height bar for hover effect
 		svg
 			.selectAll(".barHover")
 			.data(last3Years)
@@ -134,18 +137,11 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.on("mousemove", mouseMoveHandler)
 			.on("click", mouseClickHandler);
 
-		const temperatureXScale = d3
+		// Scaling functions for weather data
+		const weatherXScale = d3
 			.scaleTime()
 			.domain(d3.extent(weatherData, (d) => new Date(d.month)) as [Date, Date])
 			.range([svgMargin.left, width - svgMargin.right]);
-
-		const temperatureYScale = d3
-			.scaleLinear()
-			.domain([0, d3.max(weatherData, (d) => d.averageTemperatureCelsius)] as [
-				number,
-				number,
-			])
-			.range([height / 2, 0]);
 
 		const rainYScale = d3
 			.scaleLinear()
@@ -155,6 +151,15 @@ export const BarChart: React.FC<BarChartProps> = ({
 			])
 			.range([height / 2, 0]);
 
+		const temperatureYScale = d3
+			.scaleLinear()
+			.domain([0, d3.max(weatherData, (d) => d.averageTemperatureCelsius)] as [
+				number,
+				number,
+			])
+			.range([height / 2, 0]);
+
+		// line graph for rain
 		svg
 			.append("path")
 			.datum(weatherData)
@@ -167,13 +172,14 @@ export const BarChart: React.FC<BarChartProps> = ({
 				"d",
 				d3
 					.line<MonthlyWeather>()
-					.x((d) => temperatureXScale(new Date(d.month)) + 3)
+					.x((d) => weatherXScale(new Date(d.month)) + 3)
 					.y(
 						(d) =>
 							height / 2 + rainYScale(d.totalRainfallLiters) - svgMargin.bottom,
 					),
 			);
 
+		// line graph for temperature
 		svg
 			.append("path")
 			.datum(weatherData)
@@ -185,7 +191,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 				"d",
 				d3
 					.line<MonthlyWeather>()
-					.x((d) => temperatureXScale(new Date(d.month)) + 3)
+					.x((d) => weatherXScale(new Date(d.month)) + 3)
 					.y(
 						(d) =>
 							height / 2 +
@@ -194,6 +200,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 					),
 			);
 
+		// bars for watered data
 		svg
 			.selectAll(".bar")
 			.data(last3Years)
@@ -216,6 +223,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 			.on("mousemove", mouseMoveHandler)
 			.on("click", mouseClickHandler);
 
+		// x-axis labels and ticks
 		svg
 			.append("g")
 			.attr("transform", `translate(0, ${height - svgMargin.bottom})`)
@@ -234,6 +242,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 					.tickSizeOuter(0),
 			);
 
+		// styling for x-axis labels
 		svg
 			.selectAll("text")
 			.attr("font-family", "IBM")

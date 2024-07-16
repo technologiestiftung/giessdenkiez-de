@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { densityHighColor, densityLowColor } from "./chart-colors";
 
 interface DensityMapProps {
-	data: { lat: number; lng: number; amount: number }[];
+	wateringData: { lat: number; lng: number; amount: number }[];
 	width: number;
 	height: number;
 }
@@ -16,7 +16,7 @@ interface DataPoint {
 }
 
 export const DensityMap: React.FC<DensityMapProps> = ({
-	data,
+	wateringData,
 	width,
 	height,
 }) => {
@@ -57,8 +57,8 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 	}, []);
 
 	useEffect(() => {
-		if (data && berlinDistricsPaths) {
-			const parsedData = data
+		if (wateringData && berlinDistricsPaths) {
+			const parsedData = wateringData
 				.map((d) => {
 					const projected = projection([d.lng, d.lat]);
 					if (!projected) {
@@ -72,19 +72,21 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				})
 				.filter((d) => d !== null) as DataPoint[];
 
+			// SVG size setup
 			const svg = d3
 				.select(svgRef.current)
 				.attr("width", width)
 				.attr("height", height);
 
 			svg.selectAll("*").remove();
-
 			svg.selectAll("path.district").remove();
 			svg.selectAll("path.contours").remove();
 
+			// Scaling functions for watering amount data
 			const x = d3.scaleLinear().domain([0, width]).range([0, width]);
 			const y = d3.scaleLinear().domain([0, height]).range([0, height]);
 
+			// generate density contour with watering data
 			const densityData = d3
 				.contourDensity<DataPoint>()
 				.x((d) => x(d.lng))
@@ -94,6 +96,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.bandwidth(4)
 				.thresholds(30)(parsedData);
 
+			// Add Berlin districts to svg
 			svg
 				.selectAll("path.district")
 				.data(berlinDistricsPaths)
@@ -105,6 +108,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				.attr("stroke", "#ffffff")
 				.attr("stroke-width", 1);
 
+			// Add density map to svg
 			svg
 				.selectAll("path.contours")
 				.data(densityData)
@@ -116,6 +120,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 				)
 				.attr("opacity", 0.15);
 
+			// linear gradient for legend
 			const linearGradient = svg
 				.append("defs")
 				.append("linearGradient")
@@ -147,7 +152,7 @@ export const DensityMap: React.FC<DensityMapProps> = ({
 
 			svg.selectAll("text").attr("font-family", "IBM");
 		}
-	}, [height, width, data, berlinDistricsPaths]);
+	}, [height, width, wateringData, berlinDistricsPaths]);
 
 	return <svg id="density-container" ref={svgRef}></svg>;
 };

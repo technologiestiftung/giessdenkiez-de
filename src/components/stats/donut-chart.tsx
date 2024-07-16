@@ -36,18 +36,8 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 	};
 
 	useEffect(() => {
+		// SVG size setup
 		d3.select(svgRef.current).selectAll("*").remove();
-
-		const radius = Math.min(width, height) / 2.5;
-		const innerRadius = radius * 0.65;
-
-		const pie = d3.pie<TreeSpecies>().value((d) => d.percentage);
-
-		const arc = d3
-			.arc<d3.PieArcDatum<TreeSpecies>>()
-			.innerRadius(innerRadius)
-			.outerRadius(radius);
-
 		const svg = d3
 			.select(svgRef.current)
 			.attr("width", innerWidth)
@@ -55,8 +45,18 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			.append("g")
 			.attr("transform", `translate(${width / 2},${height / 2 - 30})`);
 
+		// Pie chart setup
+		const radius = Math.min(width, height) / 2.5;
+		const innerRadius = radius * 0.65;
+		const pie = d3.pie<TreeSpecies>().value((d) => d.percentage);
+		const arc = d3
+			.arc<d3.PieArcDatum<TreeSpecies>>()
+			.innerRadius(innerRadius)
+			.outerRadius(radius);
+
 		svg.select("g").selectAll("*").remove();
 
+		// add pie chart to svg
 		svg
 			.selectAll("path")
 			.data(
@@ -92,6 +92,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 			.attr("transform", "scale(0.95)")
 			.attr("class", "pie-part");
 
+		// add species label and image to svg
 		if (selectedSpecies) {
 			svg
 				.append("text")

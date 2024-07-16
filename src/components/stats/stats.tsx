@@ -215,7 +215,7 @@ export const Stats: React.FC = () => {
 									<DensityMap
 										width={dynamicChartWidth}
 										height={CHART_HEIGHT}
-										data={stats?.waterings || []}
+										wateringData={stats?.waterings || []}
 									/>
 								</StatsCard>
 								<StatsCard
