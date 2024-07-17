@@ -2,14 +2,14 @@
 export default {
 	extends: "@technologiestiftung/semantic-release-config",
 	branches: [
-		{ name: "master" },
+		{ name: "main" },
 		{ name: "staging", channel: "pre/rc", prerelease: "rc" },
 	],
 	plugins: [
 		[
 			"@saithodev/semantic-release-backmerge",
 			{
-				backmergeBranches: [{ from: "master", to: "staging" }],
+				backmergeBranches: [{ from: "main", to: "staging" }],
 				backmergeStrategy: "merge",
 			},
 		],
