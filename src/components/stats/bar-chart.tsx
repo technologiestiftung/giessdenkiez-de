@@ -112,7 +112,7 @@ export const BarChart: React.FC<BarChartProps> = ({
 			)
 			.attr("text-anchor", "start")
 			.attr("fill", defaultLabelColor)
-			.text(`Liter`)
+			.text(`${i18n.stats.wateringBehaviorStat.unit}`)
 			.attr("font-size", "12px");
 
 		// Full height bar for hover effect

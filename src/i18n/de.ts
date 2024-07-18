@@ -147,7 +147,7 @@ export const de: Content = {
 				communityAnswer:
 					"Du möchtest Dich über das Gießen von Bäumen informieren, Pumpen melden oder Dich mit anderen aktiven Nutzer:innen austauschen? Dann tritt unserem Slack-Chat bei!",
 				slackButton: "Zur Slack Community",
-				feedback: `Du hast **Feedback** zu Gieß den Kiez?
+				feedback: `Du hast **Feedback** zu *Gieß den Kiez*?
 
 [Beantworte uns gerne ein paar Fragen](https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK)`,
 			},
@@ -543,9 +543,9 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 			unit: "mal",
 			legend: "Anzahl der Gießungen",
 			hint: (currentYear) => `wurde im Jahr ${currentYear} gegossen.`,
-			backContent: `Die Gießaktivität variiert nach Bezirk, da die zwölf Berliner Bezirke sich in ihrem ehrenamtlichen Bedarf unterscheiden: je nach der Anzahl der durstigen Jungbäume und der Verfügbarkeit personeller Ressourcen des Straßen- und Grünflächenamtes. 
+			backContent: `Die Gießaktivität variiert in den zwölf Berliner Bezirken je nach ehrenamtlichem Engagement. In einigen Bezirken haben sich engagierte Anwohner:innen bereits zu Gießgruppen organisiert ([Slack Community](https://giessdenkiez.slack.com/ssb/redirect)).
 
-Vor der ersten Gießung also am besten einmal mit dem zuständigen [Straßen- und Grünflächenamt](https://www.berlin.de/ba-friedrichshain-kreuzberg/politik-und-verwaltung/aemter/strassen-und-gruenflaechenamt/) in Verbindung setzen - und schon kann’s losgehen!`,
+Zudem ist der Bedarf der bezirklichen [Straßen- und Grünflächenamt (SGA)](https://www.berlin.de/ba-friedrichshain-kreuzberg/politik-und-verwaltung/aemter/strassen-und-gruenflaechenamt/) unterschiedlich. Um bestmöglich zu helfen, sollte man das zuständige SGA zuvor kontaktieren - und schon kann es losgehen.`,
 		},
 		wateringBehaviorStat: {
 			title: "Gießverhalten",
@@ -555,11 +555,12 @@ Vor der ersten Gießung also am besten einmal mit dem zuständigen [Straßen- un
 			watered: "gegossen",
 			rain: "Regen",
 			hint: () => `wurden insgesamt schon gegossen.`,
-			backContent: `“Je mehr desto besser” gilt nicht immer angesichts immer größerer Wasserknappheit.
+			backContent: `Über stolze 2 Millionen Liter wurden bereits ehrenamtlich gegossen! 
 
-Das weiß die Berliner Gieß-Community natürlich und ist daher hauptsächlich dann aktiv wenn die Bäume tatsächlich durstig sind: während der  Vegetationsperiode (April-Oktober) in besonders heißen trockenen Jahren.
+		
+“Je mehr desto besser” gilt jedoch nicht immer angesichts immer größerer Wasserknappheit. Und das weiß die Berliner Gieß-Community natürlich, und ist daher hauptsächlich dann aktiv wenn die Bäume tatsächlich durstig sind: während der  Vegetationsperiode (April-Oktober) in besonders heißen trockenen Jahren. 
 
-Datenquelle: [Temperatur (DWD)](https://opendata.dwd.de/)`,
+Datenquelle: [Wetterdaten (DWD)](https://opendata.dwd.de/)`,
 		},
 		wateringAmountStat: {
 			title: "Gießvolumen",
@@ -567,9 +568,9 @@ Datenquelle: [Temperatur (DWD)](https://opendata.dwd.de/)`,
 			legend: "Ø Liter pro Jahr",
 			hint: (currentYear) =>
 				`werden ${currentYear} durchschnittlich pro Gießung eingetragen.`,
-			backContent: `“Je mehr desto besser” gilt hier eingeschränkt: viel auf einmal, aber nicht zu oft. 
+			backContent: `“Je mehr desto besser” gilt hier eingeschränkt: viel auf einmal, aber nicht zu oft. Und auch das weiß die aktive Community bereits.
 
-Eine Gießung sollte eher mehr als weniger Liter auf einmal beinhalten (ca. 100-200 Liter), damit sich das Wurzelwerk der Jungbäume nach unten ausbildet und nicht an der Oberfläche verweilt. 
+Eine Gießung sollte eher mehr als weniger Liter auf einmal beinhalten, damit sich das Wurzelwerk der durstigen Jungbäume nach unten ausbilden kann. 
 
 Aber Achtung! Jungbäume können auch überwässert werden. Mehr Informationen zur [Bewässerungsempfehlung für Stadtbäume](https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/).`,
 		},
@@ -580,9 +581,9 @@ Aber Achtung! Jungbäume können auch überwässert werden. Mehr Informationen z
 			legend: "Anteile Berliner Baumbestand",
 			backContent: `Berlin ist vielfältig - inklusive der Bäume!
 
-Die interaktive Karte visualisiert fast 900.000 Stadtbäume und zeigt Informationen wie Art, Alter und Wasserbedarf an. 
+Diese Übersicht zeigt die zwanzig häufigsten Arten, jeweils zusammengefasst nach der übergreifenden Gattung.
 
-Nutze die Filter- und Suchfunktionen und erfahre mehr über die Bäume in Deiner Nachbarschaft.
+Die interaktive [Karte](https://www.giessdenkiez.de/map) zeigt die volle Pracht, und somit über 900.000 Stadtbäume, mit Infos zu Art, Alter und Wasserbedarf. Nutze die Filter und Suche, um mehr über die Bäume in Deiner Nachbarschaft zu erfahren.
 
 Datenquelle: [Berliner Baumkataster (Geoportal Berlin)](https://daten.berlin.de/datensaetze/baumbestand-berlin-wms )`,
 		},
@@ -591,11 +592,11 @@ Datenquelle: [Berliner Baumkataster (Geoportal Berlin)](https://daten.berlin.de/
 			unit: "Bäume",
 			hint: () => `sind adoptiert.`,
 			legend: "der adoptierten Bäume sind besonders durstig.",
-			backContent: `Einen Baum auf Gieß den Kiez zu adoptieren zeigt, dass sich regelmäßig um diesen gesorgt wird und erleichtert somit die nachbarschaftliche Koordination.
+			backContent: `Einen Baum auf Gieß den Kiez zu adoptieren zeigt, dass sich regelmäßig um diesen gesorgt wird und erleichtert somit die nachbarschaftliche Koordination. Über tausende Bäume können sich also bereits glücklich schätzen.
 
-Durstig sind vor allem Jungbäume (unter 10 Jahren). Diese werden in der Regel mind. bis zum fünften Jahr vom Grünflächenamt gegossen. “Besonders durstig” sind somit die **5 - 10 Jahre** alten Bäume. (Pauschale Schätzung, da die Bedürftigkeit bislang nicht Bezirks-spezifisch abgebildet werden kann.)`,
+Durstig sind vor allem Jungbäume (unter 10 Jahren). Diese werden in der Regel mind. bis zum fünften Jahr vom Grünflächenamt gegossen. “Besonders durstig” sind somit die **5 - 10 Jahre** alten Bäume.`,
 		},
-		gdKSalesPitch: `Gieß den Kiez für **Deine Stadt**?
+		gdKSalesPitch: `*Gieß den Kiez* für **Deine Stadt**?
 
 [Erfahre mehr!](https://deinestadt.giessdenkiez.de/)`,
 	},

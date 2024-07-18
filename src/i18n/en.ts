@@ -146,7 +146,7 @@ export const en: Content = {
 				communityAnswer:
 					"Would you like to find out more about watering trees, report pumps or exchange ideas with other active users? Then join our Slack chat!",
 				slackButton: "Go to Slack Community",
-				feedback: `Do you have feedback on Gieß den Kiez?
+				feedback: `Do you have **feedback** on *Gieß den Kiez*?
 				
 [Feel free to answer a few questions](https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK)`,
 			},
@@ -521,56 +521,70 @@ Particularly young trees need water in the first few years. Rather less often, b
 		treeLoading: "Loading tree information...",
 	},
 	stats: {
-		title: "Statistics Berlin",
-		subtitle: "Water the Kiez in Numbers",
-		streetTrees: "Street Trees",
-		publicPumps: "Public Pumps",
-		activeUsers: "Active Waterers",
+		title: "Berlin Statistics",
+		subtitle: "Gieß den Kiez in numbers",
+		streetTrees: "City trees",
+		publicPumps: "Public pumps",
+		activeUsers: "Active casters",
 		backToFront: "back",
 		wateringsStat: {
 			title: "Waterings",
 			unit: "times",
-			hint: (currentYear) => `was watered in the year ${currentYear}`,
-			legend: "number of waterings",
-			backContent:
-				"The twelve Berlin districts differ in their tree populations and watering strategies. Therefore, some street and green space offices rely more and some less on volunteer engagement, depending on the proportion of young trees and available resources.",
+			hint: (currentYear) => `were poured in ${currentYear}.`,
+			legend: "Number of waterings",
+			backContent: `The watering activity varies in the twelve Berlin districts depending on the level of volunteer involvement. In some districts, engaged residents have already organized themselves into watering groups ([Join the community](https://giessdenkiez.slack.com/ssb/redirect)).
+
+In addition, the needs of the [district’s street and green space offices (SGA)](https://www.berlin.de/ba-friedrichshain-kreuzberg/politik-und-verwaltung/aemter/strassen-und-gruenflaechenamt/) vary. In order to provide the best possible help, you should contact the responsible SGA before the first watering - now you’re ready to join the big community!`,
 		},
 		wateringBehaviorStat: {
-			title: "Watering Behavior",
+			title: "Pouring behaviour",
 			unit: "liters",
-			watered: "watered",
+			watered: "poured",
 			rain: "rain",
-			hint: () => `are watered on average per month`,
-			legend: "monthly data in liters",
-			backContent:
-				"“The more the better” is not always true in the face of increasing water scarcity. The Berlin watering community has long been aware of this and is therefore mainly active when the trees are actually thirsty: during the growing season (April-October), especially in hot dry summers.",
+			hint: () => `have already been poured.`,
+			legend: "Monthly data in liters",
+			backContent: `Over impressive 2 million liters have already been poured by volunteers!
+
+“The more the better” does not always apply in the face of increasing water shortages though. And the Berlin watering community knows this, of course, and is therefore mainly active when the trees are actually thirsty: during the vegetative period (April-October) in particularly hot, dry years.
+
+Data source: [Weather data (DWD)](https://opendata.dwd.de/)`,
 		},
 		wateringAmountStat: {
-			title: "Watering Volume",
+			title: "Pouring volume",
 			unit: "liters",
 			hint: (currentYear) =>
-				`are watered on average per month in ${currentYear}`,
-			legend: "Ø liters per year",
-			backContent:
-				"“The more the better” is true here: A watering for young trees should contain more rather than less liters at once (about 100-200 liters) so that the root system develops downwards and does not remain on the surface. But beware! Young trees can also be overwatered and die. Therefore, here is the watering recommendation for city trees and also consult the district street and green space office.",
+				`are entered on average per watering in ${currentYear}.`,
+			legend: "Ø Liters per year",
+			backContent: `“The more the better” applies here to a limited extent: a lot at once, but not too often. And the active community already knows this too, of course.
+
+A watering should involve more rather than fewer liters at a time so that the root system of the thirsty young trees can develop downwards.
+
+But be careful! Young trees can also be overwatered. More information on [watering recommendations for urban trees](https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/).`,
 		},
 		treeSpeciesStat: {
-			title: "Tree Species",
+			title: "Tree species",
 			unit: "tree species",
-			hint: () => `are in Berlin`,
-			legend: "Percentage of Berlin tree population",
-			backContent:
-				"The map visualizes more than 800,000 city trees and shows information about species, age, and water requirements. Use the filter and search functions to learn more about the age distribution, for example.",
+			hint: () => `exist in Berlin.`,
+			legend: "Share of Berlin’s tree population",
+			backContent: `Berlin is diverse - including the trees!
+
+This overview shows the twenty most common species, each summarized according to the overarching tree genus.
+
+The interactive [map](https://www.giessdenkiez.de/map) shows the full splendor, and thus over 900,000 city trees, with information on species, age and water requirements. Use the filters and search to find out more about the trees in your neighborhood.
+
+Data source: [Berlin tree cadastre (Geoportal Berlin)](https://daten.berlin.de/datensaetze/baumbestand-berlin-wms )`,
 		},
 		adoptionStat: {
-			title: "Tree Adoptions",
+			title: "Tree adoptions",
 			unit: "trees",
-			hint: () => `were adopted`,
-			legend: "out of the adopted trees are especially thirsty.",
-			backContent: "",
-		},
-		gdKSalesPitch: `Gieß den Kiez also in your city?
+			hint: () => `are adopted.`,
+			legend: "of the adopted trees are particularly thirsty.",
+			backContent: `Adopting a tree on Gieß den Kiez shows that it is regularly cared for and thus facilitates neighborly coordination. Thousands of trees can already count themselves lucky.
 
-[Learn more!](https://deinestadt.giessdenkiez.de/)`,
+Young trees (under 10 years old) are particularly thirsty. These are usually watered by the Parks Department until at least their fifth year. The **5 - 10 years** old trees are therefore “particularly thirsty”.`,
+		},
+		gdKSalesPitch: `*Gieß den Kiez* also in **your city**?
+
+[Find out more!](https://deinestadt.giessdenkiez.de/)`,
 	},
 };

@@ -196,7 +196,7 @@ export const LineChart: React.FC<LineChartProps> = ({
 				"y",
 				(d) => yScale(d.averageAmountPerWatering) - svgMargin.bottom + 13,
 			)
-			.text((d) => `${Math.round(d.averageAmountPerWatering)}l`)
+			.text((d) => `${Math.round(d.averageAmountPerWatering)} l`)
 			.attr("fill", (d) => {
 				if (hovered && hovered.year === d.year) {
 					return defaultLabelColor;
