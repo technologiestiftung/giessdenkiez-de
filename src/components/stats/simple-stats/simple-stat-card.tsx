@@ -1,6 +1,6 @@
 import React from "react";
-import { useI18nStore } from "../../i18n/i18n-store";
-import { Skeleton } from "../skeleton/skeleton";
+import { useI18nStore } from "../../../i18n/i18n-store";
+import { Skeleton } from "../../skeleton/skeleton";
 
 interface SimpleStatsCardProps {
 	title: string;
@@ -8,7 +8,7 @@ interface SimpleStatsCardProps {
 	loading: boolean;
 }
 
-export const SimpleStatsCard: React.FC<SimpleStatsCardProps> = ({
+export const SimpleStatCard: React.FC<SimpleStatsCardProps> = ({
 	title,
 	stat,
 	loading,

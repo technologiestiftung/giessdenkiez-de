@@ -1,6 +1,6 @@
 import resolveConfig from "tailwindcss/resolveConfig";
 //@ts-expect-error tailwindConfig has no type definition
-import tailwindConfig from "../../../tailwind.config.js";
+import tailwindConfig from "../../../../../tailwind.config.js";
 const fullConfig = resolveConfig(tailwindConfig);
 
 export const densityLowColor = fullConfig.theme.colors["gdk-blue"];

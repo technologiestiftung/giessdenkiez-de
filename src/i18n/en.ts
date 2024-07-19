@@ -565,6 +565,7 @@ But be careful! Young trees can also be overwatered. More information on [wateri
 			title: "Tree species",
 			unit: "tree species",
 			hint: () => `exist in Berlin.`,
+			other: "Other",
 			legend: "Share of Berlin’s tree population",
 			backContent: `Berlin is diverse - including the trees!
 

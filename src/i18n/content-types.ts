@@ -332,7 +332,7 @@ interface Stats {
 	wateringsStat: Stat;
 	wateringBehaviorStat: Stat;
 	wateringAmountStat: Stat;
-	treeSpeciesStat: Stat;
+	treeSpeciesStat: Stat & { other: string };
 	adoptionStat: Stat;
 	gdKSalesPitch: string;
 }

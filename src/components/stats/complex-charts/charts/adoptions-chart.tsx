@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { adoptionsFillColor } from "./chart-colors";
+import { useI18nStore } from "../../../../i18n/i18n-store";
+import { useStatsStore } from "../../store/stats-store";
 
-interface AdoptionsChartProps {
-	veryThirstyAdoptionsRate: number;
-	legend?: string;
-}
+/**
+ * This chart shows the number of adopted trees and,
+ * among them, the percentage that are very thirsty
+ */
+export const AdoptionsChart: React.FC = () => {
+	const i18n = useI18nStore().i18n();
+	const { gdkStats } = useStatsStore();
 
-export const AdoptionsChart: React.FC<AdoptionsChartProps> = ({
-	veryThirstyAdoptionsRate,
-	legend,
-}) => {
+	const veryThirstyAdoptionsRate = useMemo(() => {
+		if (!gdkStats) {
+			return 0;
+		}
+
+		return Math.round(
+			(gdkStats.treeAdoptions.veryThirstyCount / gdkStats.treeAdoptions.count) *
+				100,
+		);
+	}, [gdkStats]);
+
 	return (
 		<div className="w-full">
 			<div className="w-full grid grid-cols-1 grid-rows-">
@@ -32,7 +44,7 @@ export const AdoptionsChart: React.FC<AdoptionsChartProps> = ({
 					className={`text-[${adoptionsFillColor}] text-xl pt-2`}
 				>
 					<span className="font-bold">{veryThirstyAdoptionsRate}% </span>
-					{legend}
+					{i18n.stats.adoptionStat.legend}
 				</div>
 			</div>
 		</div>
