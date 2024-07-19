@@ -1,58 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { InfoIcon } from "../icons/info-icon";
-import { useI18nStore } from "../../i18n/i18n-store";
+import React, { useState } from "react";
+import { InfoIcon } from "../../icons/info-icon";
+import { useI18nStore } from "../../../i18n/i18n-store";
 import ReactCardFlip from "react-card-flip";
-import { Skeleton } from "../skeleton/skeleton";
+import { Skeleton } from "../../skeleton/skeleton";
 import Markdown from "react-markdown";
-import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
+import { ExternalAnchorLink } from "../../anchor-link/external-anchor-link";
+import { useStatsStore } from "../store/stats-store";
 
-interface StatsCardProps {
+interface ComplexChartCardProps {
 	title: string;
 	hint: string;
 	stat: number;
 	unit: string;
 	titleColor: string;
 	icon: React.ReactNode;
-	onResize: (width: number) => void;
-	loading: boolean;
 	backContent: string;
 	children: React.ReactNode;
 	legend?: string;
 }
 
-export const StatsCard: React.FC<StatsCardProps> = ({
+export const ComplexChartCard: React.FC<ComplexChartCardProps> = ({
 	title,
 	hint,
 	stat,
 	unit,
 	titleColor,
 	icon,
-	onResize,
-	loading,
 	backContent,
 	children,
 	legend,
 }) => {
 	const { formatNumber } = useI18nStore();
 	const i18n = useI18nStore().i18n();
+	const { loading } = useStatsStore();
 
 	const [isFlipped, setIsFlipped] = useState(false);
-
-	const onInternalResize = () => {
-		const container = document.getElementById("stats-card-container");
-		if (container) {
-			const width = container.offsetWidth;
-			onResize(width);
-		}
-	};
-
-	useEffect(() => {
-		window.addEventListener("resize", onInternalResize);
-		onInternalResize();
-		return () => {
-			window.removeEventListener("resize", onInternalResize);
-		};
-	}, [loading]);
 
 	return (
 		<div className="col-span-1 w-full">

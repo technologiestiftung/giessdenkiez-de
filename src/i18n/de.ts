@@ -578,6 +578,7 @@ Aber Achtung! Jungbäume können auch überwässert werden. Mehr Informationen z
 			title: "Baumarten",
 			unit: "Baumarten",
 			hint: () => `stehen in Berlin.`,
+			other: "Andere",
 			legend: "Anteile Berliner Baumbestand",
 			backContent: `Berlin ist vielfältig - inklusive der Bäume!
 
