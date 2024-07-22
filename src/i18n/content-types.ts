@@ -312,6 +312,31 @@ interface Contact {
 	confirm: string;
 }
 
+interface Stat {
+	title: string;
+	unit: string;
+	hint: (currentYear: string) => string;
+	legend: string;
+	backContent: string;
+	watered?: string;
+	rain?: string;
+}
+
+interface Stats {
+	title: string;
+	subtitle: string;
+	streetTrees: string;
+	publicPumps: string;
+	activeUsers: string;
+	backToFront: string;
+	wateringsStat: Stat;
+	wateringBehaviorStat: Stat;
+	wateringAmountStat: Stat;
+	treeSpeciesStat: Stat & { other: string };
+	adoptionStat: Stat;
+	gdKSalesPitch: string;
+}
+
 export interface Content {
 	common: Common;
 	contact: Contact;
@@ -353,4 +378,5 @@ export interface Content {
 	pumps: Pumps;
 	splash: Splash;
 	loading: Loading;
+	stats: Stats;
 }

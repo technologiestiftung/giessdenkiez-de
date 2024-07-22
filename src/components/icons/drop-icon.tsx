@@ -1,6 +1,6 @@
 import React from "react";
 
-export const DropIcon: React.FC = () => {
+export const DropIcon: React.FC<{ className?: string }> = ({ className }) => {
 	return (
 		<svg
 			width="23"
@@ -8,6 +8,7 @@ export const DropIcon: React.FC = () => {
 			viewBox="0 0 23 32"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			className={className}
 		>
 			<g id="Group 406">
 				<g id="Group">
