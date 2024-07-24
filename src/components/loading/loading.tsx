@@ -1,6 +1,7 @@
 import React from "react";
 import { SplashTreeIcon } from "../icons/splash-tree-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
+import Markdown from "react-markdown";
 
 export interface LoadingProps {
 	loadingText: string;
@@ -26,10 +27,9 @@ export const Loading: React.FC<LoadingProps> = ({
 						target="_blank"
 						className="underline hover:text-gdk-lighter-gray"
 						rel="noopener noreferrer"
-						dangerouslySetInnerHTML={{
-							__html: i18n.map.attribution.imprint.label,
-						}}
-					></a>
+					>
+						<Markdown>{i18n.map.attribution.imprint.label}</Markdown>
+					</a>
 					—
 					<a
 						href={i18n.map.attribution.privacy.href}
@@ -37,10 +37,9 @@ export const Loading: React.FC<LoadingProps> = ({
 						target="_blank"
 						className="underline hover:text-gdk-lighter-gray"
 						rel="noopener noreferrer"
-						dangerouslySetInnerHTML={{
-							__html: i18n.map.attribution.privacy.label,
-						}}
-					></a>
+					>
+						<Markdown>{i18n.map.attribution.privacy.label}</Markdown>
+					</a>
 				</div>
 			)}
 		</div>

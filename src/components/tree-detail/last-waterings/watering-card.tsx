@@ -1,7 +1,12 @@
+/* eslint-disable max-lines */
 import React, { useState } from "react";
+import { supabaseClient } from "../../../auth/supabase-client";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { useProfileStore } from "../../../shared-stores/profile-store";
+import { useSelectedContactRecipientUsernameStore } from "../../../shared-stores/selected-contact-recipient-store";
 import { PrimaryDestructiveButton } from "../../buttons/primary-destructive";
+import { MailIcon } from "../../icons/mail-icon";
+import { SpinnerIcon } from "../../icons/spinner-icon";
 import { TrashIcon } from "../../icons/trash-icon";
 import { WateringCanIcon } from "../../icons/watering-can-icon";
 import { useMapStore } from "../../map/map-store";
@@ -21,7 +26,7 @@ function getDisplayedUsername(wateringData: TreeWateringData) {
 			</span>
 		);
 	}
-	return wateringData.username;
+	return <div>{wateringData.username}</div>;
 }
 
 export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
@@ -33,7 +38,12 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 	const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false);
 	const isWateringByUser = wateringData.username === username;
 
+	const [isContactRequestLoading, setIsContactRequestLoading] = useState(false);
+
 	const map = useMapStore().map;
+	const setSelectedContactRecipientUsername =
+		useSelectedContactRecipientUsernameStore()
+			.setSelectedContactRecipientUsername;
 
 	const onClickDelete = async () => {
 		setIsDeleteWateringLoading(true);
@@ -46,6 +56,63 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 		setIsConfirmDeleteVisible(false);
 	};
 
+	const checkForContactRequestAllowed = async () => {
+		if (isWateringByUser) {
+			return;
+		}
+
+		if (!username) {
+			(
+				document.getElementById("login-first-alert") as HTMLDialogElement
+			).showModal();
+			return;
+		}
+
+		setIsContactRequestLoading(true);
+
+		const data = await supabaseClient.functions.invoke(
+			"check_contact_request",
+			{
+				body: {
+					recipientContactName: wateringData.username,
+				},
+			},
+		);
+		setIsContactRequestLoading(false);
+
+		if (!data || data.error || !data.data) {
+			(
+				document.getElementById(
+					"generic-contact-error-alert",
+				) as HTMLDialogElement
+			).showModal();
+			return;
+		}
+
+		setSelectedContactRecipientUsername(wateringData.username);
+
+		if (data.data.isContactRequestAllowed) {
+			(
+				document.getElementById("contact-dialog") as HTMLDialogElement
+			).showModal();
+			return;
+		}
+
+		if (data.data.reason === "already_contacted_the_recipient_before") {
+			(
+				document.getElementById("already-contacted-alert") as HTMLDialogElement
+			).showModal();
+			return;
+		}
+
+		if (data.data.reason === "already_sent_more_than_3_contact_requests") {
+			(
+				document.getElementById("daily-limit-alert") as HTMLDialogElement
+			).showModal();
+			return;
+		}
+	};
+
 	return (
 		<div
 			className={`flex transition ease-in-out delay-100 flex-row justify-between gap-2 ${
@@ -55,11 +122,32 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 			<div
 				className={`shadow-gdk-hard flex flex-col gap-2 rounded-lg shrink-0 p-4 w-[90%] `}
 			>
-				<div className="font-bold">{getDisplayedUsername(wateringData)}</div>
+				<div
+					className={`font-bold ${wateringData.username && !isWateringByUser && "cursor-pointer"} flex flex-row items-center gap-2`}
+					onClick={() => {
+						checkForContactRequestAllowed();
+					}}
+				>
+					<div>{getDisplayedUsername(wateringData)}</div>
+					{!isWateringByUser && (
+						<div>
+							{isContactRequestLoading ? (
+								<SpinnerIcon text="text-gdk-light-blue" fill="fill-gdk-blue" />
+							) : (
+								<div className={`scale-75`}>
+									<MailIcon
+										color={username ? "gdk-blue" : "gdk-gray"}
+										hoverColor={username ? "gdk-light-blue" : "gdk-light-gray"}
+									/>
+								</div>
+							)}
+						</div>
+					)}
+				</div>
 				<div className="flex flex-row items-center justify-between">
 					<div>{formatDate(new Date(wateringData.timestamp))}</div>
 					<div className="flex flex-row items-center justify-between w-[63px]">
-						<WateringCanIcon className="h-[21px] text-gdk-watering-blue" />
+						<WateringCanIcon className="h-[21px]" />
 						<div>{wateringData.amount}l</div>
 					</div>
 				</div>

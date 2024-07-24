@@ -14,7 +14,7 @@ export const de: Content = {
 			},
 			improve: {
 				href: "https://www.mapbox.com/map-feedback",
-				label: "<strong>Diese&nbsp;Karte&nbsp;verbessern</strong>",
+				label: "**Diese Karte verbessern**",
 			},
 			feedback: {
 				href: "https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK",
@@ -147,39 +147,35 @@ export const de: Content = {
 				communityAnswer:
 					"Du möchtest Dich über das Gießen von Bäumen informieren, Pumpen melden oder Dich mit anderen aktiven Nutzer:innen austauschen? Dann tritt unserem Slack-Chat bei!",
 				slackButton: "Zur Slack Community",
-				feedback: `Du hast Feedback zu Gieß den Kiez?
+				feedback: `Du hast **Feedback** zu *Gieß den Kiez*?
 
 [Beantworte uns gerne ein paar Fragen](https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK)`,
 			},
 			qa: [
 				{
 					question: "Nützliche Links",
-					answer: `[Initiative Lieblingsbaum](https://www.lieblingsbaum-initiative.de/)
+					answer: `[Lieblingsbauminiative (Berlin)](https://www.lieblingsbaum-initiative.de/)
 
-[BUND - Aktion Bäume gießen](https://www.bund-berlin.de/mitmachen/aktion-baeume-giessen/)
+[Stadtbaumkampagne (SenMVKU Berlin)](https://www.berlin.de/senuvk/umwelt/stadtgruen/stadtbaeume/kampagne/start.shtml)
 
-[Baumpflegeportal - Gießen bei Trockenheit](https://www.baumpflegeportal.de/baumpflege/trockenheit-duerre-wann-baeume-giessen/)
+[Bewässerungsempfehlung für Stadtbäume (Pflanzenschutzamt Berlin)](https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/)
 
-[Stadtbaumkampagne Berlin](https://www.berlin.de/senuvk/umwelt/stadtgruen/stadtbaeume/kampagne/start.shtml)
+[Gießen bei Trockenheit (Baumpflegeportal)](https://www.baumpflegeportal.de/baumpflege/trockenheit-duerre-wann-baeume-giessen/)
 
-[Projekt Bodenfeuchte Berlin](https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/)
+[Stadtbäume - Bedeutung und Herausforderungen in Zeiten des Klimawandels (HCU Hamburg)](https://www.hcu-hamburg.de/fileadmin/documents/REAP/files/Bildungsmaterial_Stadtbaeume_im_Klimawandel_2017.pdf)
 
-[Grünbuch Stadtgrün](https://www.bmi.bund.de/SharedDocs/downloads/DE/publikationen/themen/bauen/wohnen/weissbuch-stadtgruen.html)
-
-[Stadtbäume - Bedeutung und Herausforderungen in Zeiten des Klimawandels](https://www.hcu-hamburg.de/fileadmin/documents/REAP/files/Bildungsmaterial_Stadtbaeume_im_Klimawandel_2017.pdf)
-
-[BUND - Funktionen von Stadtbäumen](https://www.bund-naturschutz.de/natur-und-landschaft/stadt-als-lebensraum/stadtbaeume/funktionen-von-stadtbaeumen.html)`,
+[Funktionen von Stadtbäumen (Bund Naturschutz e.V.)](https://www.bund-naturschutz.de/natur-und-landschaft/stadt-als-lebensraum/stadtbaeume/funktionen-von-stadtbaeumen.html)`,
 				},
 				{
 					question: "Datenquellen",
 					answer: `Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (885.825; Stand: Mai 2024). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind:
 
 [Geoportal Berlin / Straßenbäume](https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS)
-            
+
 [Geoportal Berlin / Anlagenbäume](https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand_an@senstadt&type=WFS)
-            
-[Deutscher Wetterdienst](https://www.dwd.de/)
-            
+
+Regendaten von [Deutscher Wetterdienst](https://www.dwd.de/)
+
 Pumpen aus [Open Street Map](https://www.openstreetmap.de)`,
 				},
 			],
@@ -213,16 +209,20 @@ Vernetzen:
 				{
 					question: "Warum sollte ich aktiv werden und Bäume gießen?",
 					answer: `Die langanhaltenden Dürre- und Hitzeperioden der letzten zwei Jahre haben dem Stadtgrün Berlins immens zugesetzt. Wenngleich nicht nur auf Trockenschäden zurückzuführen, mussten allein im Zeitraum zwischen 2018 und 2019 über 7.000 Bäume gefällt werden.
-
-Die Straßen- und Grünflächenämter sind bereits aktiv, kommen allerdings mit dem Gießen während Berliner Hitze-Sommern nicht hinterher. Da die Grünflächenämter bezirklich organisiert sind, arbeitet jeder Bezirk etwas anders, sodass eine ganzheitliche und bedarfsgerechte Koordination durchaus mit Hürden verbunden ist. Durch die Plattform möchten wir auch Bürger:innen die Möglichkeit geben, Bäumen gezielt auf Grundlage ihrer aktuellen Wasserversorgung zu helfen und sich zu informieren. Ziel ist es, möglichst viele Bäume durch nachbarschaftliches Engagement zu retten.`,
+Die Straßen- und Grünflächenämter gießen regelmäßig mehrere tausend Bäume, kommen allerdings mit dem Gießen während Berliner Hitze-Sommern nicht hinterher. Da die Grünflächenämter bezirklich organisiert sind, arbeitet jeder Bezirk etwas anders, sodass eine ganzheitliche und bedarfsgerechte Koordination durchaus mit Hürden verbunden ist. Durch die Plattform möchten wir auch Bürger:innen die Möglichkeit geben, Bäumen gezielt auf Grundlage ihrer aktuellen Wasserversorgung zu helfen und sich zu informieren. Ziel ist es, möglichst viele Bäume durch nachbarschaftliches Engagement zu retten.`,
 				},
 				{
 					question: "Wie gieße ich richtig?",
 					answer: `
-Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Insbesondere Jungbäume (0-10 Jahre) sind in Zeiten von Trockenheit, Strahlung und Hitze auf eine regelmäßige Wässerung angewiesen. Besonders die Jungbäume zwischen 5 und 10 Jahren benötigen unsere Aufmerksamkeit, da frisch gepflanzte Bäume bis zum Alter von ca. 4 Jahre von den bezirklichen Grünflächenämtern versorgt werden.
+Je nach Alter, Standort und Baumart benötigen Bäume unterschiedlich viel Wasser. Insbesondere Jungbäume (0-10 Jahre) sind in Zeiten von Trockenheit, Strahlung und Hitze auf eine regelmäßige Wässerung angewiesen. Die bezirklichen Grünflächenämter in Berlin versorgen Jungbäume in der Regel bis zu einem Alter von 5 Jahren, wodurch besondern Junbäume im Alter zwischen 5 und 10 Jahren unsere Aufmerksamkeit benötigen.
 
-Angelehnt an das Berliner [Handbuch Gute Pflege](https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/handbuch-gute-pflege) empfehlen wir euch, lieber selten, dafür mit größeren Menge an Wasser zu gießen. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. Wichtig ist es, den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht oberirdisch abläuft oder sich falsch anstaut. Auch zu empfehlen sind sogenannte Gießsäcke aus denen das Wasser nur sehr langsam austritt, kaum oberflächlich abläuft und somit kontinuierlich in den Boden sickert.
+Vor jeder Gießung solltet ihr euch den Baum zunächst anschauen und überlegen ob der Baum wirklich Wasser benötigt. Wichtige Indikatoren für bedarfsgerechtes gießen sind bspw. das Alter (jung/alt), der Stammunfang (dünn/dick), der Standort (sonnig/schattig) oder die Beschaffenheit frischer Triebe (kahl/grün) eines Baumes. Bevor ihr mit dem gießen loslegt, empfehlen wir den ausgetrockneten Boden vor dem Gießen aufzulockern, sodass das Wasser in den Boden eindringen kann und nicht oberirdisch abläuft oder sich falsch anstaut. Angelehnt an das Berliner [Handbuch Gute Pflege](https://www.berlin.de/sen/uvk/natur-und-gruen/stadtgruen/pflegen-und-unterhalten/handbuch-gute-pflege), solltet ihr lieber selten, dafür mit größeren Menge an Wasser zu gießen. Das Handbuch empfiehlt für frisch gepflanzte Bäume bis zu 200l pro Gießung. So sorgt ihr dafür, dass die Bodenfeuchte auch in der Tiefe erhöht wird. 
+Auch zu empfehlen sind sogenannte Gießsäcke aus denen das Wasser nur sehr langsam austritt, kaum oberflächlich abläuft und somit kontinuierlich in den Boden sickert.
 					`,
+				},
+				{
+					question: "Wie gehe ich mit der Wasserknappheit um?",
+					answer: `In Zeiten von Trockenheit und Wasserknappheit ist es besonders wichtig, sparsam mit Wasser umzugehen. Wenn Du Deinen Baum gießen möchtest, dann frage dich zunächst immer, welcher Baum den größten Bedarf hat. Gieße lieber seltener, dafür aber mit größeren Mengen Wasser. So wird der Baum dazu angeregt, tiefere Wurzeln zu bilden und ist besser gegen Trockenheit gewappnet. Um eine Übersicht über aktuelle Bodenfeuchte in Berlin zu bekommen, lohnt sich ein Blick in die [Bewässerungsempfehlung für Stadtbäume](https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/) des Pflanzenschutzamt Berlins. Versuche das Wasser der öffentlichen Straßenpumpen, statt Trinkwasser aus der Hausleitung zu nutzen. Langfristig lohnt es sich, Regenwasser aufzufangen und in Regentonnen zu speichern. Nachbarschatsinitiativen wie [Wassertanke](https://wassertanke.org/) helfen Euch bei deratigen Nachbarschaftsprojekten.`,
 				},
 				{
 					question:
@@ -235,7 +235,7 @@ Angelehnt an das Berliner [Handbuch Gute Pflege](https://www.berlin.de/sen/uvk/n
 				},
 				{
 					question: "Warum lädt die Website nicht oder nur sehr langsam?",
-					answer: `Wenn die Seite zum ersten Mal geöffnet wird, lädt der Browser über 800.000 Datenpunkte – das kann eine Weile dauern! Unabhängig davon, kann es zu leicht unterschiedlichen  Darstellungen bei der Verwendung unterschiedlicher Browser kommen. Für die beste „Experience” empfehlen wir die Nutzung von Chrome oder Firefox Desktop. Die häufigsten Probleme lassen sich erfahrungsgemäß beseitigen, wenn der Browser nicht veraltet, respektive die neueste Version installiert ist und eine stabile Internetverbindung (LAN oder WLAN) besteht. Die Nutzung über das Smartphone (Mobilfunknetz) kann zu Performance-Problemen (Seite lädt langsam) führen. Sollten wiederholt Probleme auftreten, könnt ihr diese in unserem [Slack Channel](https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ), per Mail oder via GitHub Issue unter Angabe des benutzten Geräts, des Betriebssystems, des Browsers und Version des Browsers melden.`,
+					answer: `Wenn die Seite zum ersten Mal geöffnet wird, lädt der Browser über 800.000 Datenpunkte – das kann eine Weile dauern! Unabhängig davon, kann es zu leicht unterschiedlichen Darstellungen bei der Verwendung unterschiedlicher Browser kommen. Für die beste „Experience” empfehlen wir die Nutzung von Chrome oder Firefox Desktop. Die häufigsten Probleme lassen sich erfahrungsgemäß beseitigen, wenn der Browser nicht veraltet, respektive die neueste Version installiert ist und eine stabile Internetverbindung (LAN oder WLAN) besteht. Die Nutzung über das Smartphone (Mobilfunknetz) kann zu Performance-Problemen (Seite lädt langsam) führen. Sollten wiederholt Probleme auftreten, könnt ihr diese in unserem [Slack Channel](https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ), per Mail oder via GitHub Issue unter Angabe des benutzten Geräts, des Betriebssystems, des Browsers und Version des Browsers melden.`,
 				},
 				{
 					question:
@@ -327,7 +327,7 @@ gießen`,
 			ageAndWaterHint: `
 Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener, aber dafür viel.
 
-**Unter 5 Jahren**:  Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
+**Unter 5 Jahren**: Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
 
 **5-10 Jahre**: In dem Alter werden wir nicht mehr in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Wir freuen uns gerade in trockenen Zeiten über Wasser - lieber seltener, aber viel auf einmal (ca. 100-200l pro Monat).
 
@@ -463,6 +463,36 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		defaultErrorMessage:
 			"Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.",
 	},
+	contact: {
+		dialogTitle: (contactName: string) =>
+			`**Sende eine E-Mail an *${contactName}***`,
+		dialogDetail: (contactName: string, userMail: string) =>
+			`Die E-Mail an *${contactName}* enthält automatisch Deine E-Mail-Adresse (*${userMail}*) sowie Deine Textnachricht:`,
+		dialogPlaceholder: "Beschreibe kurz, warum Du Dich vernetzen möchtest...",
+		dialogCancel: "Abbrechen",
+		dialogSubmit: "Senden",
+		dialogAlreadyContactedError: (contactName: string) =>
+			`Du hast *${contactName}* bereits eine Kontaktanfrage gesendet.`,
+		dialogAlreadyContactedExplanation:
+			"Du hast dieser Person bereits eine Kontaktanfrage gesendet. Eine erneute Anfrage ist nicht möglich.",
+		genericErrorTitle: "Kontaktanfrage nicht möglich",
+		genericError: `Ups, da ist etwas schief gelaufen. Bitte versuche es erneut.`,
+		dialogSuccess: (contactName: string) =>
+			`Die Kontaktanfrage an *${contactName}* wurde versendet.`,
+		dailyLimitError: "Tageslimit für Kontaktanfragen erreicht.",
+		dailyLimitExplanation:
+			"Du hast das Tageslimit von 3 Kontaktanfragen erreicht. Bitte versuche es morgen erneut.",
+		containsUrlHint:
+			" Bitte beachte, dass Deine Nachricht keine Links enthalten darf.",
+		messageTooLongError: "Die Nachricht darf max. 200 Zeichen lang sein.",
+		messageRestrictionsHint: (maxLength: number, message: string) =>
+			`Noch ${Math.max(0, maxLength - message.length)} Zeichen übrig.`,
+		loginFirst: "Einloggen für Kontaktanfrage",
+		loginFirstReason:
+			"Du kannst Personen nur eine Kontaktanfrage stellen, wenn Du eingeloggt bist.",
+		loginFirstAction: "Logge Dich ein",
+		confirm: "Alles klar!",
+	},
 	pumps: {
 		title: "Öffentliche Straßenpumpe",
 		status: "Status",
@@ -499,5 +529,76 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 	loading: {
 		mapLoading: "Wir laden gerade 885.825 Bäume aus dem Berliner Baumbestand.",
 		treeLoading: "Lade Bauminformationen...",
+	},
+	stats: {
+		title: "Statistiken Berlin",
+		subtitle: "Gieß den Kiez in Zahlen",
+		streetTrees: "Stadtbäume",
+		publicPumps: "Öffentliche Pumpen",
+		activeUsers: "Aktive Gießer:innen",
+
+		backToFront: "zurück",
+		wateringsStat: {
+			title: "Gießungen",
+			unit: "mal",
+			legend: "Anzahl der Gießungen",
+			hint: (currentYear) => `wurde im Jahr ${currentYear} gegossen.`,
+			backContent: `Die Gießaktivität variiert in den zwölf Berliner Bezirken je nach ehrenamtlichem Engagement. In einigen Bezirken haben sich engagierte Anwohner:innen bereits zu Gießgruppen organisiert ([Slack Community](https://giessdenkiez.slack.com/ssb/redirect)).
+
+Zudem ist der Bedarf der bezirklichen [Straßen- und Grünflächenamt (SGA)](https://www.berlin.de/ba-friedrichshain-kreuzberg/politik-und-verwaltung/aemter/strassen-und-gruenflaechenamt/) unterschiedlich. Um bestmöglich zu helfen, sollte man das zuständige SGA zuvor kontaktieren - und schon kann es losgehen.`,
+		},
+		wateringBehaviorStat: {
+			title: "Gießverhalten",
+			unit: "Liter",
+			legend: `∑ Gegossene Liter pro Monat
+`,
+			watered: "gegossen",
+			rain: "Regen",
+			hint: () => `wurden insgesamt schon seit 2020 gegossen.`,
+			backContent: `Über stolze 2 Millionen Liter wurden bereits ehrenamtlich gegossen! 
+
+		
+“Je mehr desto besser” gilt jedoch nicht immer angesichts immer größerer Wasserknappheit. Und das weiß die Berliner Gieß-Community natürlich, und ist daher hauptsächlich dann aktiv wenn die Bäume tatsächlich durstig sind: während der  Vegetationsperiode (April-Oktober) in besonders heißen trockenen Jahren. 
+
+Datenquelle: [Wetterdaten (DWD)](https://opendata.dwd.de/)`,
+		},
+		wateringAmountStat: {
+			title: "Gießvolumen",
+			unit: "Liter",
+			legend: "Ø Liter pro Jahr",
+			hint: (currentYear) =>
+				`werden ${currentYear} durchschnittlich pro Gießung eingetragen.`,
+			backContent: `“Je mehr desto besser” gilt hier eingeschränkt: viel auf einmal, aber nicht zu oft. Und auch das weiß die aktive Community bereits.
+
+Eine Gießung sollte eher mehr als weniger Liter auf einmal beinhalten, damit sich das Wurzelwerk der durstigen Jungbäume nach unten ausbilden kann. 
+
+Aber Achtung! Jungbäume können auch überwässert werden. Mehr Informationen zur [Bewässerungsempfehlung für Stadtbäume](https://www.berlin.de/pflanzenschutzamt/stadtgruen/beratung/bewaesserungsempfehlung-fuer-stadtbaeume/).`,
+		},
+		treeSpeciesStat: {
+			title: "Baumarten",
+			unit: "Baumarten",
+			hint: () => `stehen in Berlin.`,
+			other: "Andere",
+			legend: "Anteile Berliner Baumbestand",
+			backContent: `Berlin ist vielfältig - inklusive der Bäume!
+
+Diese Übersicht zeigt die zwanzig häufigsten Arten, jeweils zusammengefasst nach der übergreifenden Gattung.
+
+Die [Gieß den Kiez Karte](https://www.giessdenkiez.de/map) zeigt die volle Pracht, und somit fast 900.000 Stadtbäume, mit Infos zu Art, Alter und Wasserbedarf. Nutze die Filter und Suche, um mehr über die Bäume in Deiner Nachbarschaft zu erfahren.
+
+Datenquelle: [Berliner Baumkataster (Geoportal Berlin)](https://daten.berlin.de/datensaetze/baumbestand-berlin-wms )`,
+		},
+		adoptionStat: {
+			title: "Baumadoptionen",
+			unit: "Bäume",
+			hint: () => `sind adoptiert.`,
+			legend: "der adoptierten Bäume sind besonders durstig.",
+			backContent: `Einen Baum auf Gieß den Kiez zu adoptieren zeigt, dass sich regelmäßig um diesen gesorgt wird und erleichtert somit die nachbarschaftliche Koordination. Über tausende Bäume können sich also bereits glücklich schätzen.
+
+Durstig sind vor allem Jungbäume (unter 10 Jahren). Diese werden in der Regel mind. bis zum fünften Jahr vom Grünflächenamt gegossen. “Besonders durstig” sind somit die **5 - 10 Jahre** alten Bäume.`,
+		},
+		gdKSalesPitch: `*Gieß den Kiez* für **Deine Stadt**?
+
+[Erfahre mehr!](https://deinestadt.giessdenkiez.de/)`,
 	},
 };

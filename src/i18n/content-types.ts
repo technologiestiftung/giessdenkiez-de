@@ -290,8 +290,56 @@ interface Loading {
 	treeLoading: string;
 }
 
+interface Contact {
+	dialogTitle: (contactName: string) => string;
+	dialogDetail: (contactName: string, userMail: string) => string;
+	dialogPlaceholder: string;
+	dialogCancel: string;
+	dialogSubmit: string;
+	dialogAlreadyContactedError: (contactName: string) => string;
+	dialogAlreadyContactedExplanation: string;
+	genericErrorTitle: string;
+	genericError: string;
+	dialogSuccess: (contactName: string) => string;
+	dailyLimitError: string;
+	dailyLimitExplanation: string;
+	containsUrlHint: string;
+	messageTooLongError: string;
+	messageRestrictionsHint: (maxLength: number, message: string) => string;
+	loginFirst: string;
+	loginFirstReason: string;
+	loginFirstAction: string;
+	confirm: string;
+}
+
+interface Stat {
+	title: string;
+	unit: string;
+	hint: (currentYear: string) => string;
+	legend: string;
+	backContent: string;
+	watered?: string;
+	rain?: string;
+}
+
+interface Stats {
+	title: string;
+	subtitle: string;
+	streetTrees: string;
+	publicPumps: string;
+	activeUsers: string;
+	backToFront: string;
+	wateringsStat: Stat;
+	wateringBehaviorStat: Stat;
+	wateringAmountStat: Stat;
+	treeSpeciesStat: Stat & { other: string };
+	adoptionStat: Stat;
+	gdKSalesPitch: string;
+}
+
 export interface Content {
 	common: Common;
+	contact: Contact;
 	map: {
 		attribution: {
 			mapbox: {
@@ -330,4 +378,5 @@ export interface Content {
 	pumps: Pumps;
 	splash: Splash;
 	loading: Loading;
+	stats: Stats;
 }
