@@ -541,8 +541,8 @@ In addition, the needs of the [district’s street and green space offices (SGA)
 			unit: "liters",
 			watered: "poured",
 			rain: "rain",
-			hint: () => `have already been poured.`,
-			legend: "Monthly data in liters",
+			hint: () => `have already been poured since 2020.`,
+			legend: "∑ Liters poured per month",
 			backContent: `Over impressive 2 million liters have already been poured by volunteers!
 
 “The more the better” does not always apply in the face of increasing water shortages though. And the Berlin watering community knows this, of course, and is therefore mainly active when the trees are actually thirsty: during the vegetative period (April-October) in particularly hot, dry years.
@@ -571,7 +571,7 @@ But be careful! Young trees can also be overwatered. More information on [wateri
 
 This overview shows the twenty most common species, each summarized according to the overarching tree genus.
 
-The interactive [map](https://www.giessdenkiez.de/map) shows the full splendor, and thus over 900,000 city trees, with information on species, age and water requirements. Use the filters and search to find out more about the trees in your neighborhood.
+The [Gieß den Kiez map](https://www.giessdenkiez.de/map) shows the full splendor, and thus nearly 900,000 city trees, with information on species, age and water requirements. Use the filters and search to find out more about the trees in your neighborhood.
 
 Data source: [Berlin tree cadastre (Geoportal Berlin)](https://daten.berlin.de/datensaetze/baumbestand-berlin-wms )`,
 		},

@@ -550,11 +550,11 @@ Zudem ist der Bedarf der bezirklichen [Straßen- und Grünflächenamt (SGA)](htt
 		wateringBehaviorStat: {
 			title: "Gießverhalten",
 			unit: "Liter",
-			legend: `Gegossene Liter pro Monat
+			legend: `∑ Gegossene Liter pro Monat
 `,
 			watered: "gegossen",
 			rain: "Regen",
-			hint: () => `wurden insgesamt schon gegossen.`,
+			hint: () => `wurden insgesamt schon seit 2020 gegossen.`,
 			backContent: `Über stolze 2 Millionen Liter wurden bereits ehrenamtlich gegossen! 
 
 		
@@ -584,7 +584,7 @@ Aber Achtung! Jungbäume können auch überwässert werden. Mehr Informationen z
 
 Diese Übersicht zeigt die zwanzig häufigsten Arten, jeweils zusammengefasst nach der übergreifenden Gattung.
 
-Die interaktive [Karte](https://www.giessdenkiez.de/map) zeigt die volle Pracht, und somit über 900.000 Stadtbäume, mit Infos zu Art, Alter und Wasserbedarf. Nutze die Filter und Suche, um mehr über die Bäume in Deiner Nachbarschaft zu erfahren.
+Die [Gieß den Kiez Karte](https://www.giessdenkiez.de/map) zeigt die volle Pracht, und somit fast 900.000 Stadtbäume, mit Infos zu Art, Alter und Wasserbedarf. Nutze die Filter und Suche, um mehr über die Bäume in Deiner Nachbarschaft zu erfahren.
 
 Datenquelle: [Berliner Baumkataster (Geoportal Berlin)](https://daten.berlin.de/datensaetze/baumbestand-berlin-wms )`,
 		},
