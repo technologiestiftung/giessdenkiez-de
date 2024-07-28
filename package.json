@@ -29,7 +29,7 @@
 		"zustand": "4.5.2"
 	},
 	"devDependencies": {
-		"@playwright/test": "1.45.1",
+		"@playwright/test": "1.45.3",
 		"@saithodev/semantic-release-backmerge": "4.0.1",
 		"@technologiestiftung/eslint-config": "0.2.0",
 		"@technologiestiftung/eslint-plugin": "0.1.1",
@@ -38,21 +38,21 @@
 		"@types/mapbox-gl": "3.1.0",
 		"@types/react": "18.3.3",
 		"@types/react-dom": "18.3.0",
-		"@typescript-eslint/eslint-plugin": "7.16.0",
-		"@typescript-eslint/parser": "7.16.0",
+		"@typescript-eslint/eslint-plugin": "7.17.0",
+		"@typescript-eslint/parser": "7.17.0",
 		"@vitejs/plugin-react": "4.3.1",
 		"autoprefixer": "10.4.19",
 		"dotenv": "16.4.5",
 		"eslint": "8.57.0",
-		"eslint-plugin-react": "7.34.4",
+		"eslint-plugin-react": "7.35.0",
 		"globals": "14.0.0",
-		"postcss": "8.4.39",
+		"postcss": "8.4.40",
 		"prettier": "3.3.3",
 		"prettier-plugin-tailwindcss": "0.6.5",
 		"semantic-release": "23.1.1",
-		"tailwindcss": "3.4.4",
-		"typescript": "5.5.3",
-		"vite": "5.3.3",
+		"tailwindcss": "3.4.7",
+		"typescript": "5.5.4",
+		"vite": "5.3.5",
 		"vitest": "1.6.0"
 	}
 }
