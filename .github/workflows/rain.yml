@@ -39,3 +39,5 @@ jobs:
           SKIP_MAPBOX: "False"
           LIMIT_DAYS: ${{ vars.LIMIT_DAYS }}
           SURROUNDING_SHAPE_FILE: ${{ vars.SURROUNDING_SHAPE_FILE }}
+          WEATHER_HARVEST_LAT: ${{ vars.WEATHER_HARVEST_LAT }}
+          WEATHER_HARVEST_LNG: ${{ vars.WEATHER_HARVEST_LNG }}
