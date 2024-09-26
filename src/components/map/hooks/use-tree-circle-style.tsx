@@ -91,9 +91,32 @@ export function useTreeCircleStyle() {
 			"case",
 			["==", ["get", "age"], ""],
 			TREE_DEFAULT_COLOR,
-			[">", ["get", "age"], 10],
+			[
+				">",
+				["get", "age"],
+				// TODO: by district here
+				[
+					"case",
+					["==", ["get", "district"], "Neukölln"],
+					10,
+					["==", ["get", "district"], "Pankow"],
+					12,
+					5,
+				],
+			],
 			TREE_DEFAULT_COLOR, // Color for trees older than 10 years
-			[">=", ["get", "age"], 5],
+			[
+				">=",
+				["get", "age"],
+				[
+					"case",
+					["==", ["get", "district"], "Neukölln"],
+					10,
+					["==", ["get", "district"], "Pankow"],
+					12,
+					5,
+				],
+			],
 			[
 				"case",
 				[

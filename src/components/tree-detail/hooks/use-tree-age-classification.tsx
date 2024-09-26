@@ -8,6 +8,8 @@ export function useTreeAgeClassification(
 	treeData?: TreeCoreData,
 	referenceDate?: Date,
 ): TreeAgeClassificationState {
+	console.log(treeData);
+
 	const BABY_AGE_LIMIT = 4;
 	const JUNIOR_TREES_AGE_LIMIT = 10;
 
