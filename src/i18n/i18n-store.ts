@@ -1,8 +1,9 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { Content } from "./content-types";
 import { de } from "./de";
 import { en } from "./en";
-import { persist } from "zustand/middleware";
+import { useUrlState } from "../components/router/store";
 
 interface LocalizedContent {
 	en: Content;
@@ -22,8 +23,9 @@ interface I18NState {
 export const useI18nStore = create<I18NState>()(
 	persist(
 		(set, get) => ({
-			language: "de",
+			language: new URL(window.location.href).searchParams.get("lang") ?? "de",
 			setLanguage: (language: string) => {
+				useUrlState.getState().addSearchParam("lang", language);
 				set({ language });
 			},
 			formatNumber: (number: number, round?: boolean) => {
@@ -49,8 +51,3 @@ export const useI18nStore = create<I18NState>()(
 		{ name: "i18n-store" },
 	),
 );
-
-const languageFilter = new URL(window.location.href).searchParams.get("lang");
-if (languageFilter) {
-	useI18nStore.getState().setLanguage(languageFilter);
-}

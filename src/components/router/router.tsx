@@ -25,13 +25,15 @@ export const Router: React.FC = () => {
 
 	const { isMapLoaded } = useMapStore();
 
-	const { isFilterViewVisible, recoverUrlParams } = useFilterStore();
+	const { isFilterViewVisible, recoverUrlParams, recoverLanguageParams } =
+		useFilterStore();
 	const { isSplashScreenVisible } = useSplashStore();
 
 	useEffect(() => {
 		if (url.pathname === "/map") {
 			recoverUrlParams();
 		}
+		recoverLanguageParams();
 	}, [url.pathname]);
 
 	switch (url.pathname) {

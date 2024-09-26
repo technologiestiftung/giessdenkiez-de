@@ -6,6 +6,7 @@ import { useMapConstants } from "../map/hooks/use-map-constants";
 import { usePumpStore } from "../map/hooks/use-pump-store";
 import { useTreeStore } from "../tree-detail/stores/tree-store";
 import { useAuthStore } from "../../auth/auth-store.tsx";
+import { useI18nStore } from "../../i18n/i18n-store.ts";
 
 export interface TreeAgeRange {
 	min: number;
@@ -38,6 +39,7 @@ export interface FilterState {
 	setLng: (lng: number) => void;
 	setZoom: (zoom: number) => void;
 	recoverUrlParams: () => void;
+	recoverLanguageParams: () => void;
 }
 
 const initialTreeAgeRange = {
@@ -249,5 +251,10 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 		if (treeId) {
 			useUrlState.getState().addSearchParam("treeId", treeId);
 		}
+	},
+	recoverLanguageParams: () => {
+		useUrlState
+			.getState()
+			.addSearchParam("lang", useI18nStore.getState().language);
 	},
 }));
