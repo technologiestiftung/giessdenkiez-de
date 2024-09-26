@@ -70,15 +70,24 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 
 		setIsContactRequestLoading(true);
 
-		const data = await supabaseClient.functions.invoke(
-			"check_contact_request",
-			{
+		let data;
+		try {
+			data = await supabaseClient.functions.invoke("check_contact_request", {
 				body: {
 					recipientContactName: wateringData.username,
 				},
-			},
-		);
-		setIsContactRequestLoading(false);
+			});
+		} catch (e) {
+			console.error(e);
+			(
+				document.getElementById(
+					"generic-contact-error-alert",
+				) as HTMLDialogElement
+			).showModal();
+			return;
+		} finally {
+			setIsContactRequestLoading(false);
+		}
 
 		if (!data || data.error || !data.data) {
 			(
