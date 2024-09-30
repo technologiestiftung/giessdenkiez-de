@@ -89,45 +89,14 @@ export function useTreeCircleStyle() {
 	}): Expression => {
 		const defaultExpression: Expression = [
 			"case",
-			["in", ["get", "district"], "Mitte", "Pankow", "Neukölln", "Lichtenberg"],
 
-			// Define logic for "special" districts
+			// Define logic for "special" districts, those are always rendered in default color
 			[
-				"case",
-
-				// Fall back to default color for trees with undefined age
-				["==", ["get", "age"], ""],
-				TREE_DEFAULT_COLOR,
-
-				// Senior trees
-				[
-					">=",
-					["get", "age"],
-					[
-						"case",
-						["==", ["get", "district"], "Mitte"],
-						13,
-						["==", ["get", "district"], "Pankow"],
-						12,
-						["==", ["get", "district"], "Neukölln"],
-						10,
-						["==", ["get", "district"], "Lichtenberg"],
-						13,
-						5,
-					],
-				],
-				TREE_DEFAULT_COLOR,
-
-				// Junior trees - skipped, not applicable for "special" districts
-				//...
-
-				// Baby trees
-				[">=", ["get", "age"], 0],
-				TREE_DEFAULT_COLOR,
-
-				// Fallback
-				TREE_GRAY_COLOR,
+				"in",
+				["get", "district"],
+				["literal", ["Mitte", "Pankow", "Neukölln", "Lichtenberg"]],
 			],
+			TREE_DEFAULT_COLOR,
 
 			// Define logic for "normal" districts
 			[
