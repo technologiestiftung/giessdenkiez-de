@@ -89,61 +89,92 @@ export function useTreeCircleStyle() {
 	}): Expression => {
 		const defaultExpression: Expression = [
 			"case",
-			["==", ["get", "age"], ""],
-			TREE_DEFAULT_COLOR,
-			[
-				">",
-				["get", "age"],
-				// TODO: by district here
-				[
-					"case",
-					["==", ["get", "district"], "Neukölln"],
-					10,
-					["==", ["get", "district"], "Pankow"],
-					12,
-					5,
-				],
-			],
-			TREE_DEFAULT_COLOR, // Color for trees older than 10 years
-			[
-				">=",
-				["get", "age"],
-				[
-					"case",
-					["==", ["get", "district"], "Neukölln"],
-					10,
-					["==", ["get", "district"], "Pankow"],
-					12,
-					5,
-				],
-			],
+			["in", ["get", "district"], "Mitte", "Pankow", "Neukölln", "Lichtenberg"],
+
+			// Define logic for "special" districts
 			[
 				"case",
+
+				// Fall back to default color for trees with undefined age
+				["==", ["get", "age"], ""],
+				TREE_DEFAULT_COLOR,
+
+				// Senior trees
 				[
 					">=",
+					["get", "age"],
 					[
-						"+",
-						["round", ["get", "total_water_sum_liters"]],
-						["coalesce", ["feature-state", "todays_waterings"], 0],
+						"case",
+						["==", ["get", "district"], "Mitte"],
+						13,
+						["==", ["get", "district"], "Pankow"],
+						12,
+						["==", ["get", "district"], "Neukölln"],
+						10,
+						["==", ["get", "district"], "Lichtenberg"],
+						13,
+						5,
 					],
-					200,
 				],
 				TREE_DEFAULT_COLOR,
-				[
-					">=",
-					[
-						"+",
-						["round", ["get", "total_water_sum_liters"]],
-						["coalesce", ["feature-state", "todays_waterings"], 0],
-					],
-					100,
-				],
-				TREE_YELLOW_COLOR,
-				TREE_ORANGE_COLOR,
+
+				// Junior trees - skipped, not applicable for "special" districts
+				//...
+
+				// Baby trees
+				[">=", ["get", "age"], 0],
+				TREE_DEFAULT_COLOR,
+
+				// Fallback
+				TREE_GRAY_COLOR,
 			],
-			[">=", ["get", "age"], 0],
-			TREE_DEFAULT_COLOR,
-			TREE_GRAY_COLOR,
+
+			// Define logic for "normal" districts
+			[
+				"case",
+
+				// Fall back to default color for trees with undefined age
+				["==", ["get", "age"], ""],
+				TREE_DEFAULT_COLOR,
+
+				// Senior trees
+				[">", ["get", "age"], 10],
+				TREE_DEFAULT_COLOR,
+
+				// Junior trees
+				[">=", ["get", "age"], 5],
+				[
+					"case",
+					[
+						">=",
+						[
+							"+",
+							["round", ["get", "total_water_sum_liters"]],
+							["coalesce", ["feature-state", "todays_waterings"], 0],
+						],
+						200,
+					],
+					TREE_DEFAULT_COLOR,
+					[
+						">=",
+						[
+							"+",
+							["round", ["get", "total_water_sum_liters"]],
+							["coalesce", ["feature-state", "todays_waterings"], 0],
+						],
+						100,
+					],
+					TREE_YELLOW_COLOR,
+					TREE_ORANGE_COLOR,
+				],
+
+				// Baby trees
+				[">=", ["get", "age"], 0],
+				TREE_DEFAULT_COLOR,
+
+				// Fallback
+				TREE_GRAY_COLOR,
+			],
 		];
 
 		if (!isSomeFilterActive) {
