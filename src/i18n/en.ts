@@ -289,7 +289,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			hint: "Depending on the age of the tree, the need for water varies.",
 			needXLiters: (liters: string) => `Needs ${liters} liters per week`,
 			needsOnlyOnDryDays: "Only needs water on dry days",
-			waterManaged: "Supplied by the district office",
+			waterManaged: "Supplied, only in need during dry periods",
 			managedByGroundwater: "Groundwater",
 			unknownTitle: "Water needs **unknown**",
 			unknown:
