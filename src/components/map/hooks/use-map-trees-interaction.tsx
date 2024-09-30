@@ -1,17 +1,20 @@
 /* eslint-disable max-lines */
 import mapboxgl from "mapbox-gl";
 import { useEffect, useState } from "react";
+import { useProfileStore } from "../../../shared-stores/profile-store.tsx";
 import { useFilterStore } from "../../filter/filter-store";
+import { useSearchStore } from "../../location-search/search-store";
+import { useUrlState } from "../../router/store.tsx";
 import { useTreeStore } from "../../tree-detail/stores/tree-store";
 import { useHoveredTree } from "./use-hovered-tree";
 import { useMapConstants } from "./use-map-constants";
+import { usePumpStore } from "./use-pump-store";
 import { useSelectedTree } from "./use-selected-tree";
 import { useTreeCircleStyle } from "./use-tree-circle-style";
-import { usePumpStore } from "./use-pump-store";
-import { useSearchStore } from "../../location-search/search-store";
-import { useProfileStore } from "../../../shared-stores/profile-store.tsx";
 
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
+	const url = useUrlState.getState().url;
+
 	const { hideFilterView } = useFilterStore();
 
 	const { MAP_MAX_ZOOM_LEVEL, mapTreeZoomedInOffset } = useMapConstants();
@@ -121,6 +124,9 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		if (!map) {
 			return;
 		}
+		if (url.pathname !== "/map") {
+			return;
+		}
 		map.on("zoomend", () => {
 			setZoom(map.getZoom());
 			setLat(map.getCenter().lat);
@@ -179,5 +185,5 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 			map.getCanvas().style.cursor = "";
 			setHoveredTreeId(undefined);
 		});
-	}, [map]);
+	}, [map, url.pathname]);
 }

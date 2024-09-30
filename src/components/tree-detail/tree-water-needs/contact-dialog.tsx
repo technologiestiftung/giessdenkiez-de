@@ -67,17 +67,21 @@ export const ContactDialog: React.FC = () => {
 			setIsContactRequestLoading(true);
 
 			e.preventDefault();
-			const data = await supabaseClient.functions.invoke(
-				"submit_contact_request",
-				{
+			let data;
+			try {
+				data = await supabaseClient.functions.invoke("submit_contact_request", {
 					body: {
 						recipientContactName: recipientContactName,
 						message: message,
 					},
-				},
-			);
-
-			setIsContactRequestLoading(false);
+				});
+			} catch (err) {
+				console.error(err);
+				setError(i18n.contact.genericError);
+				return;
+			} finally {
+				setIsContactRequestLoading(false);
+			}
 
 			if (data.data?.code === "already_contacted_the_recipient_before") {
 				closeContactDialog();
