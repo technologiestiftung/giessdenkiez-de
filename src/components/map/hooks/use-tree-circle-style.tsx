@@ -89,38 +89,61 @@ export function useTreeCircleStyle() {
 	}): Expression => {
 		const defaultExpression: Expression = [
 			"case",
-			["==", ["get", "age"], ""],
+
+			// Define logic for "special" districts, those are always rendered in default color
+			[
+				"in",
+				["get", "district"],
+				["literal", ["Mitte", "Pankow", "Neukölln", "Lichtenberg"]],
+			],
 			TREE_DEFAULT_COLOR,
-			[">", ["get", "age"], 10],
-			TREE_DEFAULT_COLOR, // Color for trees older than 10 years
-			[">=", ["get", "age"], 5],
+
+			// Define logic for "normal" districts
 			[
 				"case",
-				[
-					">=",
-					[
-						"+",
-						["round", ["get", "total_water_sum_liters"]],
-						["coalesce", ["feature-state", "todays_waterings"], 0],
-					],
-					200,
-				],
+
+				// Fall back to default color for trees with undefined age
+				["==", ["get", "age"], ""],
 				TREE_DEFAULT_COLOR,
+
+				// Senior trees
+				[">", ["get", "age"], 10],
+				TREE_DEFAULT_COLOR,
+
+				// Junior trees
+				[">=", ["get", "age"], 5],
 				[
-					">=",
+					"case",
 					[
-						"+",
-						["round", ["get", "total_water_sum_liters"]],
-						["coalesce", ["feature-state", "todays_waterings"], 0],
+						">=",
+						[
+							"+",
+							["round", ["get", "total_water_sum_liters"]],
+							["coalesce", ["feature-state", "todays_waterings"], 0],
+						],
+						200,
 					],
-					100,
+					TREE_DEFAULT_COLOR,
+					[
+						">=",
+						[
+							"+",
+							["round", ["get", "total_water_sum_liters"]],
+							["coalesce", ["feature-state", "todays_waterings"], 0],
+						],
+						100,
+					],
+					TREE_YELLOW_COLOR,
+					TREE_ORANGE_COLOR,
 				],
-				TREE_YELLOW_COLOR,
-				TREE_ORANGE_COLOR,
+
+				// Baby trees
+				[">=", ["get", "age"], 0],
+				TREE_DEFAULT_COLOR,
+
+				// Fallback
+				TREE_GRAY_COLOR,
 			],
-			[">=", ["get", "age"], 0],
-			TREE_DEFAULT_COLOR,
-			TREE_GRAY_COLOR,
 		];
 
 		if (!isSomeFilterActive) {
