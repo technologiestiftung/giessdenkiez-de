@@ -286,10 +286,13 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			"This tree is already being taken care of by the Berlin administration and does not need to be watered.",
 		waterNeed: {
 			title: "Water requirements",
+			hintWinter:
+				"Outside of the vegetation period (March-October), the trees do not require any water as they are practically in hibernation.",
 			hint: "Depending on the age of the tree, the need for water varies.",
 			needXLiters: (liters: string) => `Needs ${liters} liters per week`,
 			needsOnlyOnDryDays: "Only needs water on dry days",
 			waterManaged: "Supplied, only in need during dry periods",
+			winterSleep: "The trees are currently in hibernation",
 			managedByGroundwater: "Groundwater",
 			unknownTitle: "Water needs **unknown**",
 			unknown:
@@ -307,6 +310,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			manager: "district",
 			alreadyWateredByManager: "Watered by **district authority**",
 			alreadyWateredByGroundwater: "Covered by **groundwater**",
+			winterNeedsNoWater: "No water needed in winter",
 			stillWaterXLiters: (liters: string) => `
 Needs
 
@@ -316,6 +320,19 @@ Needs
 			readMore: "Show more",
 			ageAndWaterHintTitle: "Water requirements and age",
 			ageAndWaterHint: `
+Particularly young trees need water in the first few years. Rather less often, but a lot at once. 
+
+**Below 5 years**: We are taken care of by the district green space office.
+
+**5-10 years**: At this age, we are no longer watered by the administration in all districts and are not yet "self-sufficient". We are thankful for some extra water, especially in dry times - preferably less often, but a lot at once (approx. 100-200 liters per month). 
+
+**Older trees (10+ years)**: We can supply ourselves via the groundwater.`,
+			ageAndWaterHintWinter: `
+When the trees lose more of their leaves in autumn, their photosynthetic processes also decrease, and they need less energy—and therefore less water. 
+With the official end of the vegetation period, the watering season also comes to an end for this year. Starting in March, it will pick up again! We Can!
+
+**Water needs during the vegetation period (March-October)**:
+
 Particularly young trees need water in the first few years. Rather less often, but a lot at once. 
 
 **Below 5 years**: We are taken care of by the district green space office.
@@ -494,10 +511,10 @@ Particularly young trees need water in the first few years. Rather less often, b
 	splash: {
 		headline:
 			"Berlin's city trees are suffering from drought and you can help them!",
-		subheadline: `Outside of the vegetation period (March-October), the trees do not require any water as they are practically in hibernation.
+		subheadlineWinter: `Outside of the vegetation period (March-October), the trees do not require any water as they are practically in hibernation.
 **Starting in March, it will pick up again! We Can!**`,
-		// subheadline:
-		// 	"Find out about the water needs of the trees in your neighborhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!",
+		subheadline:
+			"Find out about the water needs of the trees in your neighborhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!",
 		actionTitle: "Let's go",
 		discoverTitle: "Discover",
 		discoverContent:

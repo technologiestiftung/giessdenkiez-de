@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /* eslint-disable max-lines */
 import React, { useState } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
@@ -17,6 +18,15 @@ import { useAuthStore } from "../../../auth/auth-store";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 import Markdown from "react-markdown";
 import { TertiaryButton } from "../../buttons/tertiary";
+import { isWithinInterval } from "date-fns";
+
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+
+const isInVegetationPeriod = isWithinInterval(currentDate, {
+	start: new Date(currentYear, 2, 1), // Beginning of March
+	end: new Date(currentYear, 8, 31), // End of October
+});
 
 interface TreeWaterNeedProps {
 	treeData: TreeCoreData;
@@ -66,7 +76,10 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 					<div className="grid grid-cols-1 grid-rows-1">
 						<div className="relative col-start-1 row-start-1 flex flex-row items-center justify-between">
 							<div className="pr-8">
-								{i18n.treeDetail.waterNeed.hint}{" "}
+								{isInVegetationPeriod
+									? i18n.treeDetail.waterNeed.hint
+									: i18n.treeDetail.waterNeed.hintWinter}
+
 								{!isInfoboxVisible && (
 									<button
 										className="text-gdk-blue hover:text-gdk-light-blue font-semibold"
@@ -81,7 +94,11 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 
 					{isInfoboxVisible && (
 						<div className={`flex flex-col gap-y-3 pt-2`}>
-							<Markdown>{i18n.treeDetail.waterNeed.ageAndWaterHint}</Markdown>
+							<Markdown>
+								{isInVegetationPeriod
+									? i18n.treeDetail.waterNeed.ageAndWaterHint
+									: i18n.treeDetail.waterNeed.ageAndWaterHintWinter}
+							</Markdown>
 							<div className="flex w-full justify-center">
 								<TertiaryButton
 									onClick={() => setIsInfoboxVisible(false)}
@@ -91,117 +108,150 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 						</div>
 					)}
 
-					{(treeAgeClassification === TreeAgeClassification.BABY ||
-						treeAgeClassification === TreeAgeClassification.SENIOR) && (
-						<div className="text-xl font-bold">
-							{i18n.treeDetail.waterNeed.waterManaged}
+					{!isInVegetationPeriod && (
+						<div className="text-xl font-bold ">
+							{i18n.treeDetail.waterNeed.winterSleep}
 						</div>
 					)}
 
-					{treeAgeClassification === TreeAgeClassification.JUNIOR && (
-						<Markdown className="text-xl font-bold">
-							{i18n.treeDetail.waterNeed.needXLiters(
-								formatNumber(referenceWaterAmount, true),
-							)}
-						</Markdown>
-					)}
-
-					<div className="flex flex-row items-center justify-start gap-4">
-						<WaterProgressCircle
-							parts={waterParts}
-							needsWaterAmount={stillMissingWater}
-							shouldBeWatered={shouldBeWatered}
-							treeAgeClassification={treeAgeClassification}
-							size={200}
-						/>
-						<div className="flex flex-col gap-3">
-							<div className="flex flex-row items-center gap-4">
-								<div
-									className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-gdk-rain-blue`}
-								/>
-								<div className="flex flex-col">
-									<div className="font-bold">
-										{formatNumber(rainSum, true)}{" "}
-										{i18n.treeDetail.waterNeed.liters}*
-									</div>
-									<div>{i18n.treeDetail.waterNeed.rained}</div>
-								</div>
+					{isInVegetationPeriod &&
+						(treeAgeClassification === TreeAgeClassification.BABY ||
+							treeAgeClassification === TreeAgeClassification.SENIOR) && (
+							<div className="text-xl font-bold">
+								{i18n.treeDetail.waterNeed.waterManaged}
 							</div>
+						)}
 
-							<div className="flex flex-row items-center gap-4">
-								<div
-									className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-gdk-watering-blue`}
-								/>
-								<div className="flex flex-col">
-									<div className="font-bold">
-										{formatNumber(wateringSum, true)}{" "}
-										{i18n.treeDetail.waterNeed.liters}*
-									</div>
-									<div>{i18n.treeDetail.waterNeed.watered}</div>
-								</div>
-							</div>
+					{isInVegetationPeriod &&
+						treeAgeClassification === TreeAgeClassification.JUNIOR && (
+							<Markdown className="text-xl font-bold ">
+								{i18n.treeDetail.waterNeed.needXLiters(
+									formatNumber(referenceWaterAmount, true),
+								)}
+							</Markdown>
+						)}
 
-							{treeAgeClassification === TreeAgeClassification.BABY && (
+					{isInVegetationPeriod && (
+						<div className="flex flex-row items-center justify-start gap-4">
+							<WaterProgressCircle
+								parts={waterParts}
+								needsWaterAmount={stillMissingWater}
+								shouldBeWatered={shouldBeWatered}
+								treeAgeClassification={treeAgeClassification}
+								size={200}
+							/>
+
+							<div className="flex flex-col gap-3">
 								<div className="flex flex-row items-center gap-4">
 									<div
-										className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-gdk-distric-watering-green self-start translate-y-3`}
+										className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-gdk-rain-blue`}
 									/>
 									<div className="flex flex-col">
 										<div className="font-bold">
-											{i18n.treeDetail.waterNeed.manager}
+											{formatNumber(rainSum, true)}{" "}
+											{i18n.treeDetail.waterNeed.liters}*
+										</div>
+										<div>{i18n.treeDetail.waterNeed.rained}</div>
+									</div>
+								</div>
+
+								<div className="flex flex-row items-center gap-4">
+									<div
+										className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-gdk-watering-blue`}
+									/>
+									<div className="flex flex-col">
+										<div className="font-bold">
+											{formatNumber(wateringSum, true)}{" "}
+											{i18n.treeDetail.waterNeed.liters}*
 										</div>
 										<div>{i18n.treeDetail.waterNeed.watered}</div>
 									</div>
 								</div>
-							)}
 
-							{treeAgeClassification === TreeAgeClassification.SENIOR && (
-								<div className="flex flex-row items-center gap-4">
-									<div
-										className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-gdk-groundwater-blue`}
-									/>
-									<div className="flex flex-col">
-										<div className="font-bold">
-											{i18n.treeDetail.waterNeed.managedByGroundwater}
+								{treeAgeClassification === TreeAgeClassification.BABY && (
+									<div className="flex flex-row items-center gap-4">
+										<div
+											className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-gdk-distric-watering-green self-start translate-y-3`}
+										/>
+										<div className="flex flex-col">
+											<div className="font-bold">
+												{i18n.treeDetail.waterNeed.manager}
+											</div>
+											<div>{i18n.treeDetail.waterNeed.watered}</div>
 										</div>
-										<div>{i18n.treeDetail.waterNeed.covered}</div>
 									</div>
-								</div>
-							)}
+								)}
 
-							{shouldBeWatered &&
-								treeAgeClassification === TreeAgeClassification.JUNIOR && (
+								{treeAgeClassification === TreeAgeClassification.SENIOR && (
+									<div className="flex flex-row items-center gap-4">
+										<div
+											className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-gdk-groundwater-blue`}
+										/>
+										<div className="flex flex-col">
+											<div className="font-bold">
+												{i18n.treeDetail.waterNeed.managedByGroundwater}
+											</div>
+											<div>{i18n.treeDetail.waterNeed.covered}</div>
+										</div>
+									</div>
+								)}
+
+								{shouldBeWatered &&
+									treeAgeClassification === TreeAgeClassification.JUNIOR && (
+										<div className="flex flex-row items-center gap-4">
+											<div
+												className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-[#d3d3d3]`}
+											/>
+											<div className="flex flex-col">
+												<div className="font-bold">
+													{stillMissingWater} {i18n.treeDetail.waterNeed.liters}
+												</div>
+												<div>{i18n.treeDetail.waterNeed.stillMissing}</div>
+											</div>
+										</div>
+									)}
+
+								{treeAgeClassification === TreeAgeClassification.UNKNOWN && (
 									<div className="flex flex-row items-center gap-4">
 										<div
 											className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-[#d3d3d3]`}
 										/>
 										<div className="flex flex-col">
 											<div className="font-bold">
-												{stillMissingWater} {i18n.treeDetail.waterNeed.liters}
+												{i18n.treeDetail.waterNeed.unknownShort}
 											</div>
-											<div>{i18n.treeDetail.waterNeed.stillMissing}</div>
 										</div>
 									</div>
 								)}
-
-							{treeAgeClassification === TreeAgeClassification.UNKNOWN && (
-								<div className="flex flex-row items-center gap-4">
-									<div
-										className={`h-8 min-h-8 w-3 min-w-3 rounded-full bg-[#d3d3d3]`}
-									/>
-									<div className="flex flex-col">
-										<div className="font-bold">
-											{i18n.treeDetail.waterNeed.unknownShort}
-										</div>
-									</div>
-								</div>
-							)}
+							</div>
 						</div>
-					</div>
+					)}
 
-					<div className="font-bold">
-						{i18n.treeDetail.waterNeed.dataOfLastXDays}
-					</div>
+					{!isInVegetationPeriod && (
+						<div className="flex flex-row items-center justify-center gap-4 stroke-gdk-groundwater-blue relative">
+							<svg width={180} height={180}>
+								<circle
+									cx={90}
+									cy={90}
+									r={81}
+									fill="none"
+									stroke="currentStroke"
+									strokeWidth="15"
+								></circle>
+							</svg>
+							<div className="absolute text-xl text-center w-52">
+								<Markdown className="m-12">
+									{i18n.treeDetail.waterNeed.winterNeedsNoWater}
+								</Markdown>
+							</div>
+						</div>
+					)}
+
+					{isInVegetationPeriod && (
+						<div className="font-bold">
+							{i18n.treeDetail.waterNeed.dataOfLastXDays}
+						</div>
+					)}
 
 					<div className="flex flex-col items-center">
 						<PrimaryButton
@@ -232,7 +282,6 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 							</p>
 						)}
 					</div>
-
 					<WateringDialog />
 				</div>
 			)}

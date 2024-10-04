@@ -2,11 +2,20 @@
 import { Expression } from "mapbox-gl";
 import { useMapConstants } from "./use-map-constants.js";
 import resolveConfig from "tailwindcss/resolveConfig";
+import { isWithinInterval } from "date-fns";
 
 //@ts-expect-error tailwindConfig has no type definition
 import tailwindConfig from "../../../../tailwind.config.js";
 import { TreeAgeRange } from "../../filter/filter-store";
 const fullConfig = resolveConfig(tailwindConfig);
+
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+
+const isInVegetationPeriod = isWithinInterval(currentDate, {
+	start: new Date(currentYear, 2, 1), // Beginning of March
+	end: new Date(currentYear, 8, 31), // End of October
+});
 
 export function useTreeCircleStyle() {
 	const {
@@ -89,6 +98,10 @@ export function useTreeCircleStyle() {
 	}): Expression => {
 		const defaultExpression: Expression = [
 			"case",
+
+			// Define logic for winter period, trees are always rendered in default color
+			!isInVegetationPeriod,
+			TREE_DEFAULT_COLOR,
 
 			// Define logic for "special" districts, those are always rendered in default color
 			[
