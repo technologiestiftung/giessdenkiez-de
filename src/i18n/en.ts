@@ -442,6 +442,7 @@ Particularly young trees need water in the first few years. Rather less often, b
 		title: "Filter",
 		publicPumps: "Public pumps",
 		myAdoptedTrees: "My adopted trees",
+		lastWateredTrees: "Last trees watered",
 		treeAge: "Tree age",
 		show: "Show",
 		reset: "Reset",
