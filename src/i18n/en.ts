@@ -494,8 +494,10 @@ Particularly young trees need water in the first few years. Rather less often, b
 	splash: {
 		headline:
 			"Berlin's city trees are suffering from drought and you can help them!",
-		subheadline:
-			"Find out about the water needs of the trees in your neighborhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!",
+		subheadline: `Outside of the vegetation period (March-October), the trees do not require any water as they are practically in hibernation.
+**Starting in March, it will pick up again! We Can!**`,
+		// subheadline:
+		// 	"Find out about the water needs of the trees in your neighborhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!",
 		actionTitle: "Let's go",
 		discoverTitle: "Discover",
 		discoverContent:

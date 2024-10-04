@@ -113,9 +113,9 @@ export const Splash: React.FC = () => {
 						<Markdown className="sm:text-xl xl:text-2xl 2xl:text-3xl font-semibold">
 							{i18n.splash.headline}
 						</Markdown>
-						<div className="text-sm xl:text-base">
+						<Markdown className="text-sm xl:text-base">
 							{i18n.splash.subheadline}
-						</div>
+						</Markdown>
 						<div>
 							<PrimaryButton
 								label={i18n.splash.letsGo}

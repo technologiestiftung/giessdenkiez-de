@@ -505,8 +505,10 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 	splash: {
 		headline:
 			"Die Berliner Stadtbäume leiden unter Trockenheit und Du kannst ihnen helfen!",
-		subheadline:
-			"Erkundige Dich über den Wasserbedarf der Bäume in Deiner Nachbarschaft, adoptiere den Baum vor Deiner Haustür und werde Teil der aktiven Gieß-Community in Berlin!",
+		subheadline: `Außerhalb der Vegetationszeit sind die Bäume quasi im Winterschlaf und benötigen kein Wasser.
+**Ab März geht es dann wieder los, und zwar volle Kanne!**`,
+		// subheadline:
+		// 	"Erkundige Dich über den Wasserbedarf der Bäume in Deiner Nachbarschaft, adoptiere den Baum vor Deiner Haustür und werde Teil der aktiven Gieß-Community in Berlin!",
 		actionTitle: "Los geht's",
 		discoverTitle: "Entdecken",
 		discoverContent:
