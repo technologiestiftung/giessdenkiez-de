@@ -115,7 +115,7 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 	setHoveredTreeId: (hoveredTreeId) => {
 		set({ hoveredTreeId });
 	},
-	isLastWateringsExpanded: false,
+	isLastWateringsExpanded: true,
 	setIsLastWateringsExpanded: (isLastWateringsExpanded) => {
 		set({ isLastWateringsExpanded });
 	},
