@@ -19,10 +19,6 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 	const { isLastWateringsExpanded, setIsLastWateringsExpanded } =
 		useTreeStore();
 
-	// if (treeWateringData.length > 0) {
-	// 	setIsLastWateringsExpanded(true);
-	// }
-
 	useEffect(() => {
 		treeWateringData.length > 0
 			? setIsLastWateringsExpanded(true)
