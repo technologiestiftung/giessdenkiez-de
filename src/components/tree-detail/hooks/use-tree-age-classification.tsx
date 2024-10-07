@@ -3,17 +3,14 @@ import {
 	TreeAgeClassificationState,
 	TreeCoreData,
 } from "../tree-types";
+import { useSpecialDistricts } from "./use-special-districts";
 
 export function useTreeAgeClassification(
 	treeData?: TreeCoreData,
 	referenceDate?: Date,
 ): TreeAgeClassificationState {
-	const specialDistrictsBabyAgeLimit = {
-		Mitte: 12,
-		Pankow: 11,
-		Neukölln: 9,
-		Lichtenberg: 12,
-	};
+	const specialDistrictsBabyAgeLimit =
+		useSpecialDistricts().specialDistrictsBabyAgeLimit;
 
 	const isSpecialDistrict = (district: string) => {
 		return Object.keys(specialDistrictsBabyAgeLimit).includes(district);

@@ -184,6 +184,7 @@ interface WaterNeed {
 	sufficientlyWatered: string;
 	ageAndWaterHintTitle: string;
 	ageAndWaterHint: string;
+	ageAndWaterHintSpecialDistrict: (babyAgeLimit: number) => string;
 	readMore: string;
 	lastXDaysYLitersWater: (days: number, liters: string) => string;
 	lastXDaysYLitersRain: (days: number, liters: string) => string;

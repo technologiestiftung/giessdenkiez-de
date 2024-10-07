@@ -43,6 +43,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 		stillMissingWater,
 		waterParts,
 		shouldBeWatered,
+		ageAndWaterHint,
 	} = useTreeWaterNeedsData(treeData, treeWateringData, treeAgeClassification);
 
 	const { isLoggedIn } = useAuthStore();
@@ -81,7 +82,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 
 					{isInfoboxVisible && (
 						<div className={`flex flex-col gap-y-3 pt-2`}>
-							<Markdown>{i18n.treeDetail.waterNeed.ageAndWaterHint}</Markdown>
+							<Markdown>{ageAndWaterHint()}</Markdown>
 							<div className="flex w-full justify-center">
 								<TertiaryButton
 									onClick={() => setIsInfoboxVisible(false)}
