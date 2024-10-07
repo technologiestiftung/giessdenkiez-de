@@ -117,7 +117,8 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 			get().treeAgeRange.min !== initialTreeAgeRange.min ||
 			get().treeAgeRange.max !== initialTreeAgeRange.max ||
 			get().isPumpsVisible ||
-			get().areOnlyMyAdoptedTreesVisible()
+			get().areOnlyMyAdoptedTreesVisible() ||
+			get().areLastWateredTreesVisible
 		);
 	},
 	getAmountOfActiveFilters: () => {
@@ -135,6 +136,10 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 			get().treeAgeRange.min !== initialTreeAgeRange.min ||
 			get().treeAgeRange.max !== initialTreeAgeRange.max
 		) {
+			amount = amount + 1;
+		}
+
+		if (get().areLastWateredTreesVisible) {
 			amount = amount + 1;
 		}
 

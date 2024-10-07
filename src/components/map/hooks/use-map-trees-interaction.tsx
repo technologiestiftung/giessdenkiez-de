@@ -22,13 +22,15 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { setHoveredTreeId } = useHoveredTree(map);
 	const { setSelectedTreeId } = useSelectedTree(map);
 
-	const { treeCoreData } = useTreeStore();
+	const { treeCoreData, wateredTreesLast30days, loadWateredTreesLast30days } =
+		useTreeStore();
 
 	const {
 		isSomeFilterActive,
 		treeAgeRange,
 		_areOnlyMyAdoptedTreesVisible,
 		areOnlyMyAdoptedTreesVisible,
+		areLastWateredTreesVisible,
 		lat,
 		lng,
 		zoom,
@@ -45,6 +47,13 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 	const { clearSearch } = useSearchStore();
 
+	useEffect(() => {
+		const loadData = async () => {
+			await loadWateredTreesLast30days();
+		};
+		loadData();
+	}, []);
+
 	const [easeToStartedByUserClick, setEaseToStartedByUserClick] =
 		useState(false);
 
@@ -59,12 +68,15 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				filteredCircleColor({
 					isSomeFilterActive: isSomeFilterActive(),
 					areOnlyMyAdoptedTreesVisible: areOnlyMyAdoptedTreesVisible(),
+					areLastWateredTreesVisible,
 					treeAgeRange,
 					adoptedTrees,
+					wateredTreesLast30days,
 				}),
 			);
 			return;
 		}
+
 		map.once("idle", () => {
 			map.setPaintProperty(
 				"trees",
@@ -72,8 +84,10 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				filteredCircleColor({
 					isSomeFilterActive: isSomeFilterActive(),
 					areOnlyMyAdoptedTreesVisible: areOnlyMyAdoptedTreesVisible(),
+					areLastWateredTreesVisible,
 					treeAgeRange,
 					adoptedTrees,
+					wateredTreesLast30days,
 				}),
 			);
 		});
@@ -82,7 +96,13 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		 * 1. we can't use areOnlyMyAdoptedTreesVisible(), (which relies also on the loggedIn state!).
 		 * 2. If the loggedIn state would change, e.g. user logs out, ALL filters are reset.
 		 */
-	}, [map, _areOnlyMyAdoptedTreesVisible, treeAgeRange, adoptedTrees]);
+	}, [
+		map,
+		_areOnlyMyAdoptedTreesVisible,
+		areLastWateredTreesVisible,
+		treeAgeRange,
+		adoptedTrees,
+	]);
 
 	useEffect(() => {
 		if (treeCoreData) {
