@@ -128,10 +128,10 @@ export function useTreeCircleStyle() {
 
 					// if the tree has been watered at least once in the last 30 days, color it yellow
 					[
-						">=",
+						">",
 						[
 							"+",
-							["round", ["get", "total_water_sum_liters"]],
+							["round", ["get", "watering_sum"]],
 							["coalesce", ["feature-state", "todays_waterings"], 0],
 						],
 						0,
