@@ -82,14 +82,12 @@ export function useTreeCircleStyle() {
 		areLastWateredTreesVisible,
 		treeAgeRange,
 		adoptedTrees,
-		todaysWaterings,
 	}: {
 		isSomeFilterActive: boolean;
 		areOnlyMyAdoptedTreesVisible: boolean;
 		areLastWateredTreesVisible: boolean;
 		treeAgeRange: TreeAgeRange;
 		adoptedTrees: string[];
-		todaysWaterings: { [key: string]: number };
 	}): Expression => {
 		const defaultExpression: Expression = [
 			"case",
@@ -128,14 +126,15 @@ export function useTreeCircleStyle() {
 						200,
 					],
 					TREE_DEFAULT_COLOR,
+					// if the tree has been watered at least once in the last 30 days, color it yellow
 					[
-						">=",
+						">",
 						[
 							"+",
-							["round", ["get", "total_water_sum_liters"]],
+							["round", ["get", "watering_sum"]],
 							["coalesce", ["feature-state", "todays_waterings"], 0],
 						],
-						100,
+						0,
 					],
 					TREE_YELLOW_COLOR,
 					TREE_ORANGE_COLOR,
@@ -186,12 +185,16 @@ export function useTreeCircleStyle() {
 		];
 
 		/**
-		 * water_sum contains the sum of all waterings in the last 30 days of a tree excluding the current day
+		 * water_sum contains the sum of all waterings in the last 30 days of a tree including the current day
 		 * if the sum is greater than 0, the tree was watered
 		 */
 		const isTreeWateredInLast30DaysExpression: Expression = [
 			">",
-			["round", ["get", "water_sum"]],
+			[
+				"+",
+				["round", ["get", "watering_sum"]],
+				["coalesce", ["feature-state", "todays_waterings"], 0],
+			],
 			0,
 		];
 
@@ -200,11 +203,7 @@ export function useTreeCircleStyle() {
 		 */
 		const isLastWateredAndInAgeRangeExpression: Expression = [
 			"case",
-			[
-				"any",
-				["in", ["get", "id"], ["literal", Object.keys(todaysWaterings)]],
-				isTreeWateredInLast30DaysExpression,
-			],
+			isTreeWateredInLast30DaysExpression,
 			isTreeInAgeRangeExpression,
 			TREE_GRAY_COLOR,
 		];
