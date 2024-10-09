@@ -200,8 +200,11 @@ export function useTreeCircleStyle() {
 		 */
 		const isLastWateredAndInAgeRangeExpression: Expression = [
 			"case",
-			["in", ["get", "id"], ["literal", Object.keys(todaysWaterings)]] ||
+			[
+				"any",
+				["in", ["get", "id"], ["literal", Object.keys(todaysWaterings)]],
 				isTreeWateredInLast30DaysExpression,
+			],
 			isTreeInAgeRangeExpression,
 			TREE_GRAY_COLOR,
 		];
