@@ -1,5 +1,14 @@
 import { expect, test } from "@playwright/test";
 import { baseUrl } from "./constants";
+import { isWithinInterval } from "date-fns";
+
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+
+const isInVegetationPeriod = isWithinInterval(currentDate, {
+	start: new Date(currentYear, 2, 1), // Beginning of March
+	end: new Date(currentYear, 10, 1), // End of October
+});
 
 test.describe("Tree detail view", () => {
 	test.fixme(
@@ -11,7 +20,7 @@ test.describe("Tree detail view", () => {
 		await page.goto(`${baseUrl}/map?treeId=_23002dc7a1`);
 
 		// close splash screen
-		await page.getByRole("button", { name: "Los geht's" }).click();
+		await page.locator("#splash-action-button").click();
 
 		await expect(page.getByText("Bauminformationen")).toBeVisible();
 		await expect(page.getByText("Zier-Feld-Ahorn 'Red Shine'")).toBeVisible();
@@ -44,10 +53,13 @@ test.describe("Tree detail view", () => {
 			(2 + new Date().getFullYear() - 2024).toString(),
 		);
 
-		await expect(
-			page.getByText("Vom Bezirksamt versorgt", { exact: true }),
-		).toBeVisible();
-		await expect(page.getByTestId("water-progress-circle")).toBeVisible();
+		if (isInVegetationPeriod) {
+			await expect(
+				page.getByText("Vom Bezirksamt versorgt", { exact: true }),
+			).toBeVisible();
+			await expect(page.getByTestId("water-progress-circle")).toBeVisible();
+		}
+
 		await expect(page.getByText("Problem melden")).toBeVisible();
 		const link = page.getByRole("link", {
 			name: "Zum offiziellen Formular",

@@ -42,7 +42,7 @@ export async function registerThenLoginWithDefaultAccount(page: Page) {
 	await page.getByRole("link", { name: "Confirm your email address" }).click();
 
 	// close splash screen
-	await page.getByRole("button", { name: "Los geht's" }).click();
+	await page.locator("#splash-action-button").click();
 
 	await page.getByRole("link", { name: "Profil" }).click();
 	await expect(

@@ -7,6 +7,7 @@ export interface PrimaryButtonProps {
 	disabled?: boolean;
 	type?: "button" | "submit";
 	isLoading?: boolean;
+	id?: string;
 }
 
 export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
@@ -15,6 +16,7 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 	disabled,
 	type = "button",
 	isLoading = false,
+	id,
 }) => {
 	return (
 		<button
@@ -24,6 +26,7 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 			disabled={disabled}
 			onClick={onClick}
 			type={type}
+			id={id}
 		>
 			<div className={`-translate-x-3 ${isLoading ? "flex" : "hidden"}`}>
 				<SpinnerIcon />
