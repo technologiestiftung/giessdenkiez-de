@@ -323,6 +323,17 @@ Particularly young trees need water in the first few years. Rather less often, b
 **5-10 years**: At this age, we are no longer watered by the administration in all districts and are not yet "self-sufficient". We are thankful for some extra water, especially in dry times - preferably less often, but a lot at once (approx. 100-200 liters per month). 
 
 **Older trees (10+ years)**: We can supply ourselves via the groundwater.`,
+			ageAndWaterHintSpecialDistrict: (
+				babyAgeLimit: number,
+				district: string,
+			) => `
+Particularly young trees need water in the first few years. Rather less often, but a lot at once. 
+
+The district ${district} has provided us with additional information on the individual pouring strategy.
+
+**Below ${babyAgeLimit} years**: We are taken care of by the district green space office.
+
+**Older trees (${babyAgeLimit}+ years)**: We can supply ourselves via the groundwater.`,
 
 			close: "Show less",
 			lastXDaysYLitersWater: (days: number, liters: string) =>

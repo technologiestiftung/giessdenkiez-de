@@ -115,6 +115,7 @@ export function useTreeCircleStyle() {
 				// Junior trees
 				[">=", ["get", "age"], 5],
 				[
+					// if total waterings exceed 200 liters, color the tree green
 					"case",
 					[
 						">=",

@@ -17,6 +17,7 @@ import { useAuthStore } from "../../../auth/auth-store";
 import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 import Markdown from "react-markdown";
 import { TertiaryButton } from "../../buttons/tertiary";
+import { specialDistrictsBabyAgeLimit } from "../hooks/use-special-districts";
 
 interface TreeWaterNeedProps {
 	treeData: TreeCoreData;
@@ -46,6 +47,20 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 	} = useTreeWaterNeedsData(treeData, treeWateringData, treeAgeClassification);
 
 	const { isLoggedIn } = useAuthStore();
+
+	const ageAndWaterHint = () => {
+		const isSpecialDistrict: { [key: string]: number } =
+			specialDistrictsBabyAgeLimit;
+
+		if (isSpecialDistrict[treeData.bezirk] === undefined) {
+			return i18n.treeDetail.waterNeed.ageAndWaterHint;
+		}
+
+		return i18n.treeDetail.waterNeed.ageAndWaterHintSpecialDistrict(
+			isSpecialDistrict[treeData.bezirk],
+			treeData.bezirk,
+		);
+	};
 
 	return (
 		<div className="flex flex-col gap-4 border-b-2 py-8">
@@ -81,7 +96,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 
 					{isInfoboxVisible && (
 						<div className={`flex flex-col gap-y-3 pt-2`}>
-							<Markdown>{i18n.treeDetail.waterNeed.ageAndWaterHint}</Markdown>
+							<Markdown>{ageAndWaterHint()}</Markdown>
 							<div className="flex w-full justify-center">
 								<TertiaryButton
 									onClick={() => setIsInfoboxVisible(false)}
