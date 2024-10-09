@@ -29,6 +29,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		treeAgeRange,
 		_areOnlyMyAdoptedTreesVisible,
 		areOnlyMyAdoptedTreesVisible,
+		areLastWateredTreesVisible,
 		lat,
 		lng,
 		zoom,
@@ -59,12 +60,14 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				filteredCircleColor({
 					isSomeFilterActive: isSomeFilterActive(),
 					areOnlyMyAdoptedTreesVisible: areOnlyMyAdoptedTreesVisible(),
+					areLastWateredTreesVisible,
 					treeAgeRange,
 					adoptedTrees,
 				}),
 			);
 			return;
 		}
+
 		map.once("idle", () => {
 			map.setPaintProperty(
 				"trees",
@@ -72,6 +75,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				filteredCircleColor({
 					isSomeFilterActive: isSomeFilterActive(),
 					areOnlyMyAdoptedTreesVisible: areOnlyMyAdoptedTreesVisible(),
+					areLastWateredTreesVisible,
 					treeAgeRange,
 					adoptedTrees,
 				}),
@@ -82,7 +86,13 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		 * 1. we can't use areOnlyMyAdoptedTreesVisible(), (which relies also on the loggedIn state!).
 		 * 2. If the loggedIn state would change, e.g. user logs out, ALL filters are reset.
 		 */
-	}, [map, _areOnlyMyAdoptedTreesVisible, treeAgeRange, adoptedTrees]);
+	}, [
+		map,
+		_areOnlyMyAdoptedTreesVisible,
+		areLastWateredTreesVisible,
+		treeAgeRange,
+		adoptedTrees,
+	]);
 
 	useEffect(() => {
 		if (treeCoreData) {

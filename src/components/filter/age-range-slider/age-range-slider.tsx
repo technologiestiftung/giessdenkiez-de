@@ -16,6 +16,8 @@ export const AgeRangeSlider: React.FC = () => {
 	const INITIAL_MIN = initialTreeAgeRangeMin;
 	const INITIAL_MAX = initialTreeAgeRangeMax;
 
+	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 	return (
 		<div className="flex flex-col w-full gap-6 pb-8 ">
 			<div className="flex flex-row justify-between font-semibold text-lg">
@@ -26,9 +28,12 @@ export const AgeRangeSlider: React.FC = () => {
 				</div>
 			</div>
 			<div className="relative mx-[12.5px]">
-				<div className="w-full justify-center flex self-center items-center">
-					<BarGraph min={treeAgeRange.min} max={treeAgeRange.max} />
-				</div>
+				{!isMobile && (
+					<div className="w-full justify-center flex self-center items-center">
+						<BarGraph min={treeAgeRange.min} max={treeAgeRange.max} />
+					</div>
+				)}
+
 				<input
 					type="range"
 					min={INITIAL_MIN}
