@@ -58,6 +58,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 
 		return i18n.treeDetail.waterNeed.ageAndWaterHintSpecialDistrict(
 			isSpecialDistrict[treeData.bezirk],
+			treeData.bezirk,
 		);
 	};
 

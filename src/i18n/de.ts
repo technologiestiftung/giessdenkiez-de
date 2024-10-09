@@ -333,10 +333,13 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 
 **Ältere Bäume (10+ Jahre)**: Wir können uns über das Grundwasser selbst versorgen.
 `,
-			ageAndWaterHintSpecialDistrict: (babyAgeLimit: number) => `
+			ageAndWaterHintSpecialDistrict: (
+				babyAgeLimit: number,
+				district: string,
+			) => `
 Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener, aber dafür viel.
 
-Dieser Bezirk hat uns zusätzliche Informationen zur individuellen Gießstrategie zur Verfügung gestellt.
+Der Bezirk ${district} hat uns zusätzliche Informationen zur individuellen Gießstrategie zur Verfügung gestellt.
 
 **Unter ${babyAgeLimit} Jahren**: Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
 
