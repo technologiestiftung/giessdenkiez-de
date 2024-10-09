@@ -22,8 +22,12 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const { setHoveredTreeId } = useHoveredTree(map);
 	const { setSelectedTreeId } = useSelectedTree(map);
 
-	const { treeCoreData, wateredTreesLast30days, loadWateredTreesLast30days } =
-		useTreeStore();
+	const {
+		treeCoreData,
+		loadTodaysWaterings,
+		todaysWaterings,
+		treeWateringData,
+	} = useTreeStore();
 
 	const {
 		isSomeFilterActive,
@@ -49,10 +53,10 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 	useEffect(() => {
 		const loadData = async () => {
-			await loadWateredTreesLast30days();
+			await loadTodaysWaterings();
 		};
 		loadData();
-	}, []);
+	}, [treeWateringData]);
 
 	const [easeToStartedByUserClick, setEaseToStartedByUserClick] =
 		useState(false);
@@ -71,7 +75,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 					areLastWateredTreesVisible,
 					treeAgeRange,
 					adoptedTrees,
-					wateredTreesLast30days,
+					todaysWaterings,
 				}),
 			);
 			return;
@@ -87,7 +91,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 					areLastWateredTreesVisible,
 					treeAgeRange,
 					adoptedTrees,
-					wateredTreesLast30days,
+					todaysWaterings,
 				}),
 			);
 		});

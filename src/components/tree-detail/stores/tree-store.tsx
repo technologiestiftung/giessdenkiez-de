@@ -40,9 +40,6 @@ interface TreeStore {
 
 	todaysWaterings: AccumulatedTreeWateringData;
 	loadTodaysWaterings: () => Promise<void>;
-
-	wateredTreesLast30days: string[];
-	loadWateredTreesLast30days: () => Promise<void>;
 }
 export const useTreeStore = create<TreeStore>()((set, get) => ({
 	refreshTreeData: async (treeId, abortController) => {
@@ -146,28 +143,5 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 		}, {});
 
 		set({ todaysWaterings: groupedByTreeId });
-	},
-
-	wateredTreesLast30days: [],
-
-	// timestamp format: 2021-04-25 15:08:30.653125+00
-
-	loadWateredTreesLast30days: async () => {
-		const { data, error } = await supabaseClient
-			.from("trees_watered")
-			.select("tree_id")
-			.gte(
-				"timestamp",
-				new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-			);
-
-		if (error || !data) {
-			console.error("Error fetching watered trees of last 30 days:", error);
-			return;
-		}
-
-		const wateredTrees = data.map((watering) => watering.tree_id);
-
-		set({ wateredTreesLast30days: wateredTrees });
 	},
 }));
