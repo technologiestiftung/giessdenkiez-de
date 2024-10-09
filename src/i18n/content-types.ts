@@ -276,6 +276,7 @@ interface Splash {
 	subheadline: string;
 	subheadlineWinter: string;
 	actionTitle: string;
+	actionTitleWinter: string;
 	discoverTitle: string;
 	discoverContent: string;
 	waterTitle: string;

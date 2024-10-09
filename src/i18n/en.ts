@@ -515,7 +515,8 @@ Particularly young trees need water in the first few years. Rather less often, b
 **Starting in March, it will pick up again! We Can!**`,
 		subheadline:
 			"Find out about the water needs of the trees in your neighborhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!",
-		actionTitle: "Explore!",
+		actionTitle: "Let's go",
+		actionTitleWinter: "Explore!",
 		discoverTitle: "Discover",
 		discoverContent:
 			"The map visualizes over 800,000 urban trees and displays information on species, age and water requirements. Use the filter and search functions to quickly get an overview.",

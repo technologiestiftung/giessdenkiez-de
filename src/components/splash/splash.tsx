@@ -129,7 +129,11 @@ export const Splash: React.FC = () => {
 						</Markdown>
 						<div>
 							<PrimaryButton
-								label={i18n.splash.actionTitle}
+								label={
+									isInVegetationPeriod
+										? i18n.splash.actionTitle
+										: i18n.splash.actionTitleWinter
+								}
 								onClick={hideSplashScreen}
 							/>
 						</div>

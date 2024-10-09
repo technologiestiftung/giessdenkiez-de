@@ -527,7 +527,8 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 **Ab März startet die Gießsaison dann wieder, und zwar volle Kanne!**`,
 		subheadline:
 			"Erkundige Dich über den Wasserbedarf der Bäume in Deiner Nachbarschaft, adoptiere den Baum vor Deiner Haustür und werde Teil der aktiven Gieß-Community in Berlin!",
-		actionTitle: "Erkunden!",
+		actionTitle: "Los geht's",
+		actionTitleWinter: "Erkunden!",
 		discoverTitle: "Entdecken",
 		discoverContent:
 			"Die Karte visualisiert über 800.000 Stadtbäume und zeigt Informationen zu Art, Alter und Wasserbedarf an. Nutze die Filter- und Suchfunktionen, um schnell einen Überblick zu erhalten.",
