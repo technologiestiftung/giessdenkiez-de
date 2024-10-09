@@ -113,6 +113,7 @@ export function useTreeCircleStyle() {
 				// Junior trees
 				[">=", ["get", "age"], 5],
 				[
+					// if total waterings exceed 200 liters, color the tree green
 					"case",
 					[
 						">=",
@@ -124,6 +125,8 @@ export function useTreeCircleStyle() {
 						200,
 					],
 					TREE_DEFAULT_COLOR,
+
+					// if the tree has been watered at least once in the last 30 days, color it yellow
 					[
 						">=",
 						[
@@ -131,7 +134,7 @@ export function useTreeCircleStyle() {
 							["round", ["get", "total_water_sum_liters"]],
 							["coalesce", ["feature-state", "todays_waterings"], 0],
 						],
-						100,
+						0,
 					],
 					TREE_YELLOW_COLOR,
 					TREE_ORANGE_COLOR,
