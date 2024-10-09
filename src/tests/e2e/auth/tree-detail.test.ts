@@ -1,14 +1,8 @@
 import { expect, test } from "@playwright/test";
 import { baseUrl } from "./constants";
-import { isWithinInterval } from "date-fns";
+import { useIsInVegetationPeriod } from "../../../utils/use-is-in-vegetation-period";
 
-const currentDate = new Date();
-const currentYear = currentDate.getFullYear();
-
-const isInVegetationPeriod = isWithinInterval(currentDate, {
-	start: new Date(currentYear, 2, 1), // Beginning of March
-	end: new Date(currentYear, 10, 1), // End of October
-});
+const isInVegetationPeriod = useIsInVegetationPeriod;
 
 test.describe("Tree detail view", () => {
 	test.fixme(
