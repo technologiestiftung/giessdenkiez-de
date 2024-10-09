@@ -3,15 +3,12 @@ import {
 	TreeAgeClassificationState,
 	TreeCoreData,
 } from "../tree-types";
-import { useSpecialDistricts } from "./use-special-districts";
+import { specialDistrictsBabyAgeLimit } from "./use-special-districts";
 
 export function useTreeAgeClassification(
 	treeData?: TreeCoreData,
 	referenceDate?: Date,
 ): TreeAgeClassificationState {
-	const specialDistrictsBabyAgeLimit =
-		useSpecialDistricts().specialDistrictsBabyAgeLimit;
-
 	const isSpecialDistrict = (district: string) => {
 		return Object.keys(specialDistrictsBabyAgeLimit).includes(district);
 	};

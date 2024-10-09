@@ -10,7 +10,7 @@ import resolveConfig from "tailwindcss/resolveConfig";
 //@ts-expect-error tailwindConfig has no type definition
 import tailwindConfig from "../../../../tailwind.config.js";
 import { useI18nStore } from "../../../i18n/i18n-store.js";
-import { useSpecialDistricts } from "./use-special-districts.js";
+import { specialDistrictsBabyAgeLimit } from "./use-special-districts.js";
 const fullConfig = resolveConfig(tailwindConfig);
 
 export function useTreeWaterNeedsData(
@@ -138,10 +138,10 @@ export function useTreeWaterNeedsData(
 	};
 
 	const ageAndWaterHint = () => {
-		const specialDistrictsBabyAgeLimit: { [key: string]: number } =
-			useSpecialDistricts().specialDistrictsBabyAgeLimit;
+		const specialDistricts: { [key: string]: number } =
+			specialDistrictsBabyAgeLimit;
 
-		if (specialDistrictsBabyAgeLimit[treeData.bezirk] === undefined) {
+		if (specialDistricts[treeData.bezirk] === undefined) {
 			useI18nStore.getState().i18n().treeDetail.waterNeed.ageAndWaterHint;
 		}
 
@@ -149,7 +149,7 @@ export function useTreeWaterNeedsData(
 			.getState()
 			.i18n()
 			.treeDetail.waterNeed.ageAndWaterHintSpecialDistrict(
-				specialDistrictsBabyAgeLimit[treeData.bezirk],
+				specialDistricts[treeData.bezirk],
 			);
 	};
 
