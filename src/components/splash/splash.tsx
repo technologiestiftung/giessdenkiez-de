@@ -129,7 +129,7 @@ export const Splash: React.FC = () => {
 						</Markdown>
 						<div>
 							<PrimaryButton
-								label={i18n.splash.letsGo}
+								label={i18n.splash.actionTitle}
 								onClick={hideSplashScreen}
 							/>
 						</div>
