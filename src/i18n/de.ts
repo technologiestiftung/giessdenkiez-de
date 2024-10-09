@@ -343,13 +343,6 @@ Mit dem offiziellen Ende der Vegetationsperiode neigt sich deshalb auch die Gie�
 
 **Wasserbedarf während der Vegetationsperiode (März-Oktober)**:
 
-Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener, aber dafür viel.
-
-**Unter 5 Jahren**: Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
-
-**5-10 Jahre**: In dem Alter werden wir nicht mehr in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Wir freuen uns gerade in trockenen Zeiten über Wasser - lieber seltener, aber viel auf einmal (ca. 100-200l pro Monat).
-
-**Ältere Bäume (10+ Jahre)**: Wir können uns über das Grundwasser selbst versorgen.
 `,
 			ageAndWaterHintSpecialDistrict: (
 				babyAgeLimit: number,

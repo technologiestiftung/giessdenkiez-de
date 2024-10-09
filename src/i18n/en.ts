@@ -333,13 +333,7 @@ With the official end of the vegetation period, the watering season also comes t
 
 **Water needs during the vegetation period (March-October)**:
 
-Particularly young trees need water in the first few years. Rather less often, but a lot at once. 
-
-**Below 5 years**: We are taken care of by the district green space office.
-
-**5-10 years**: At this age, we are no longer watered by the administration in all districts and are not yet "self-sufficient". We are thankful for some extra water, especially in dry times - preferably less often, but a lot at once (approx. 100-200 liters per month). 
-
-**Older trees (10+ years)**: We can supply ourselves via the groundwater.`,
+`,
 			ageAndWaterHintSpecialDistrict: (
 				babyAgeLimit: number,
 				district: string,

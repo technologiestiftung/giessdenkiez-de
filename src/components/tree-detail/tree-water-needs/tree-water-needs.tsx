@@ -63,9 +63,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 			specialDistrictsBabyAgeLimit;
 
 		if (isSpecialDistrict[treeData.bezirk] === undefined) {
-			return isInVegetationPeriod
-				? i18n.treeDetail.waterNeed.ageAndWaterHint
-				: i18n.treeDetail.waterNeed.ageAndWaterHintWinter;
+			return i18n.treeDetail.waterNeed.ageAndWaterHint;
 		}
 
 		// to do: check for vegetation period
@@ -112,6 +110,11 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 
 					{isInfoboxVisible && (
 						<div className={`flex flex-col gap-y-3 pt-2`}>
+							<Markdown>
+								{isInVegetationPeriod
+									? ""
+									: i18n.treeDetail.waterNeed.ageAndWaterHintWinter}
+							</Markdown>
 							<Markdown>{ageAndWaterHint()}</Markdown>
 							<div className="flex w-full justify-center">
 								<TertiaryButton
