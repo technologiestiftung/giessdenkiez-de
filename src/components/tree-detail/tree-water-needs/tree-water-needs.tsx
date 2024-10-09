@@ -53,7 +53,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 			specialDistrictsBabyAgeLimit;
 
 		if (isSpecialDistrict[treeData.bezirk] === undefined) {
-			i18n.treeDetail.waterNeed.ageAndWaterHint;
+			return i18n.treeDetail.waterNeed.ageAndWaterHint;
 		}
 
 		return i18n.treeDetail.waterNeed.ageAndWaterHintSpecialDistrict(
