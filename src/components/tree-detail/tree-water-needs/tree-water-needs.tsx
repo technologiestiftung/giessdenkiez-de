@@ -94,8 +94,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 							<div className="pr-8">
 								{isInVegetationPeriod
 									? i18n.treeDetail.waterNeed.hint
-									: i18n.treeDetail.waterNeed.hintWinter}
-
+									: i18n.treeDetail.waterNeed.hintWinter}{" "}
 								{!isInfoboxVisible && (
 									<button
 										className="text-gdk-blue hover:text-gdk-light-blue font-semibold"
