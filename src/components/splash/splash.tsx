@@ -13,15 +13,9 @@ import Markdown from "react-markdown";
 import { SplashTreeIcon } from "../icons/splash-tree-icon";
 import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 import { useSplashStore } from "./splash-store";
-import { isWithinInterval } from "date-fns";
+import { useIsInVegetationPeriod } from "../../utils/use-is-in-vegetation-period";
 
-const currentDate = new Date();
-const currentYear = currentDate.getFullYear();
-
-const isInVegetationPeriod = isWithinInterval(currentDate, {
-	start: new Date(currentYear, 2, 1), // Beginning of March
-	end: new Date(currentYear, 8, 31), // End of October
-});
+const isInVegetationPeriod = useIsInVegetationPeriod;
 
 interface SectionHeadingProps {
 	title: string;

@@ -71,6 +71,8 @@ export interface WaterCircleProps {
 	shouldBeWatered: boolean;
 	treeAgeClassification: TreeAgeClassification;
 	size: number;
+	rainSum: number;
+	wateringSum: number;
 }
 
 export interface TreeAgeClassificationState {

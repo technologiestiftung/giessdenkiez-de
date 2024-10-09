@@ -1,17 +1,17 @@
 /* eslint-disable max-lines */
 import React, { useCallback } from "react";
-import { useI18nStore } from "../../../i18n/i18n-store";
-import { PrimaryButton } from "../../buttons/primary";
-import { useWaterTree } from "./../hooks/use-water-tree";
-import { useErrorStore } from "../../../error/error-store";
+import { useI18nStore } from "../../../../i18n/i18n-store";
+import { PrimaryButton } from "../../../buttons/primary";
+import { useWaterTree } from "../../hooks/use-water-tree";
+import { useErrorStore } from "../../../../error/error-store";
 import { format } from "date-fns";
-import { TertiaryButton } from "../../buttons/tertiary";
-import { CloseIcon } from "../../icons/close-icon";
-import { useTreeStore } from "../stores/tree-store";
-import { AlertDialog } from "../../alert-dialog/alert-dialog";
-import { CheckIcon } from "../../icons/check-icon";
-import { useMapStore } from "../../map/map-store";
-import { addTodayWatering } from "../hooks/use-update-tree-waterings";
+import { TertiaryButton } from "../../../buttons/tertiary";
+import { CloseIcon } from "../../../icons/close-icon";
+import { useTreeStore } from "../../stores/tree-store";
+import { AlertDialog } from "../../../alert-dialog/alert-dialog";
+import { CheckIcon } from "../../../icons/check-icon";
+import { useMapStore } from "../../../map/map-store";
+import { addTodayWatering } from "../../hooks/use-update-tree-waterings";
 
 const showHideWateringSuccessDialog = () => {
 	(
