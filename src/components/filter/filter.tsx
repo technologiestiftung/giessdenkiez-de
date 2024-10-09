@@ -32,6 +32,8 @@ export const Filter: React.FC = () => {
 		areOnlyMyAdoptedTreesVisible,
 		setAreOnlyMyAdoptedTreesVisible,
 		resetFilters,
+		areLastWateredTreesVisible,
+		setAreLastWateredTreesVisible,
 	} = useFilterStore();
 
 	const onToggleMyAdoptedTrees = () => {
@@ -51,6 +53,21 @@ export const Filter: React.FC = () => {
 					<div className="font-semibold text-xl">{i18n.filter.title}</div>
 					<div className="flex flex-col gap-2 relative">
 						<FilterSwitch
+							name={i18n.filter.publicPumps}
+							onToggle={() => {
+								setShowPumps(!isPumpsVisible);
+							}}
+							isEnabled={isPumpsVisible}
+						/>
+						<FilterSwitch
+							name={i18n.filter.lastWateredTrees}
+							onToggle={() => {
+								setAreLastWateredTreesVisible(!areLastWateredTreesVisible);
+							}}
+							isEnabled={areLastWateredTreesVisible}
+						/>
+
+						<FilterSwitch
 							name={i18n.filter.myAdoptedTrees}
 							onToggle={onToggleMyAdoptedTrees}
 							isEnabled={areOnlyMyAdoptedTreesVisible()}
@@ -61,13 +78,6 @@ export const Filter: React.FC = () => {
 								<Tooltip content={i18n.filter.tooltip} />
 							</div>
 						)}
-						<FilterSwitch
-							name={i18n.filter.publicPumps}
-							onToggle={() => {
-								setShowPumps(!isPumpsVisible);
-							}}
-							isEnabled={isPumpsVisible}
-						/>
 					</div>
 				</div>
 

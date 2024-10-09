@@ -88,11 +88,13 @@ export function useTreeCircleStyle() {
 	const filteredCircleColor = ({
 		isSomeFilterActive,
 		areOnlyMyAdoptedTreesVisible,
+		areLastWateredTreesVisible,
 		treeAgeRange,
 		adoptedTrees,
 	}: {
 		isSomeFilterActive: boolean;
 		areOnlyMyAdoptedTreesVisible: boolean;
+		areLastWateredTreesVisible: boolean;
 		treeAgeRange: TreeAgeRange;
 		adoptedTrees: string[];
 	}): Expression => {
@@ -126,6 +128,7 @@ export function useTreeCircleStyle() {
 				// Junior trees
 				[">=", ["get", "age"], 5],
 				[
+					// if total waterings exceed 200 liters, color the tree green
 					"case",
 					[
 						">=",
@@ -137,14 +140,15 @@ export function useTreeCircleStyle() {
 						200,
 					],
 					TREE_DEFAULT_COLOR,
+					// if the tree has been watered at least once in the last 30 days, color it yellow
 					[
-						">=",
+						">",
 						[
 							"+",
-							["round", ["get", "total_water_sum_liters"]],
+							["round", ["get", "watering_sum"]],
 							["coalesce", ["feature-state", "todays_waterings"], 0],
 						],
-						100,
+						0,
 					],
 					TREE_YELLOW_COLOR,
 					TREE_ORANGE_COLOR,
@@ -177,7 +181,7 @@ export function useTreeCircleStyle() {
 			defaultExpression, // Color for tree age in range
 		];
 
-		if (!areOnlyMyAdoptedTreesVisible) {
+		if (!areOnlyMyAdoptedTreesVisible && !areLastWateredTreesVisible) {
 			return isTreeInAgeRangeExpression;
 		}
 
@@ -193,6 +197,34 @@ export function useTreeCircleStyle() {
 			areOnlyMyAdoptedTreesVisible,
 			true,
 		];
+
+		/**
+		 * water_sum contains the sum of all waterings in the last 30 days of a tree including the current day
+		 * if the sum is greater than 0, the tree was watered
+		 */
+		const isTreeWateredInLast30DaysExpression: Expression = [
+			">",
+			[
+				"+",
+				["round", ["get", "watering_sum"]],
+				["coalesce", ["feature-state", "todays_waterings"], 0],
+			],
+			0,
+		];
+
+		/**
+		 * if the tree was watered in the last 30 days, today or is in the age range, return the color
+		 */
+		const isLastWateredAndInAgeRangeExpression: Expression = [
+			"case",
+			isTreeWateredInLast30DaysExpression,
+			isTreeInAgeRangeExpression,
+			TREE_GRAY_COLOR,
+		];
+
+		if (areLastWateredTreesVisible) {
+			return isLastWateredAndInAgeRangeExpression;
+		}
 
 		return [
 			"case",

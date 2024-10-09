@@ -19,6 +19,7 @@ import { InternalAnchorLink } from "../../anchor-link/internal-anchor-link";
 import Markdown from "react-markdown";
 import { TertiaryButton } from "../../buttons/tertiary";
 import { isWithinInterval } from "date-fns";
+import { specialDistrictsBabyAgeLimit } from "../hooks/use-special-districts";
 
 const currentDate = new Date();
 const currentYear = currentDate.getFullYear();
@@ -57,6 +58,23 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 
 	const { isLoggedIn } = useAuthStore();
 
+	const ageAndWaterHint = () => {
+		const isSpecialDistrict: { [key: string]: number } =
+			specialDistrictsBabyAgeLimit;
+
+		if (isSpecialDistrict[treeData.bezirk] === undefined) {
+			return isInVegetationPeriod
+				? i18n.treeDetail.waterNeed.ageAndWaterHint
+				: i18n.treeDetail.waterNeed.ageAndWaterHintWinter;
+		}
+
+		// to do: check for vegetation period
+		return i18n.treeDetail.waterNeed.ageAndWaterHintSpecialDistrict(
+			isSpecialDistrict[treeData.bezirk],
+			treeData.bezirk,
+		);
+	};
+
 	return (
 		<div className="flex flex-col gap-4 border-b-2 py-8">
 			<button
@@ -94,11 +112,7 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 
 					{isInfoboxVisible && (
 						<div className={`flex flex-col gap-y-3 pt-2`}>
-							<Markdown>
-								{isInVegetationPeriod
-									? i18n.treeDetail.waterNeed.ageAndWaterHint
-									: i18n.treeDetail.waterNeed.ageAndWaterHintWinter}
-							</Markdown>
+							<Markdown>{ageAndWaterHint()}</Markdown>
 							<div className="flex w-full justify-center">
 								<TertiaryButton
 									onClick={() => setIsInfoboxVisible(false)}

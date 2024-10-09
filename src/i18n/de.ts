@@ -351,6 +351,18 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 
 **Ältere Bäume (10+ Jahre)**: Wir können uns über das Grundwasser selbst versorgen.
 `,
+			ageAndWaterHintSpecialDistrict: (
+				babyAgeLimit: number,
+				district: string,
+			) => `
+Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener, aber dafür viel.
+
+Der Bezirk ${district} hat uns zusätzliche Informationen zur individuellen Gießstrategie zur Verfügung gestellt.
+
+**Unter ${babyAgeLimit} Jahren**: Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
+
+**Ältere Bäume (${babyAgeLimit}+ Jahre)**: Wir können uns über das Grundwasser selbst versorgen.
+`,
 			close: "Weniger anzeigen",
 			lastXDaysYLitersWater: (days: number, liters: string) =>
 				`Die letzten ${days} Tage wurden **${liters} Liter gegossen**.`,
@@ -469,6 +481,7 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		title: "Filter",
 		publicPumps: "Öffentliche Pumpen",
 		myAdoptedTrees: "Meine adoptierten Bäume",
+		lastWateredTrees: "Zuletzt gegossene Bäume",
 		treeAge: "Baumalter",
 		show: "Anzeigen",
 		reset: "Zurücksetzen",

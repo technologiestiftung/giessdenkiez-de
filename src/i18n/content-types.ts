@@ -188,6 +188,10 @@ interface WaterNeed {
 	ageAndWaterHintTitle: string;
 	ageAndWaterHint: string;
 	ageAndWaterHintWinter: string;
+	ageAndWaterHintSpecialDistrict: (
+		babyAgeLimit: number,
+		district: string,
+	) => string;
 	readMore: string;
 	lastXDaysYLitersWater: (days: number, liters: string) => string;
 	lastXDaysYLitersRain: (days: number, liters: string) => string;
@@ -249,6 +253,7 @@ interface Filter {
 	title: string;
 	publicPumps: string;
 	myAdoptedTrees: string;
+	lastWateredTrees: string;
 	treeAge: string;
 	show: string;
 	reset: string;
