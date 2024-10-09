@@ -52,7 +52,6 @@ export interface TreeWateringDataState {
 	userWateringColor: string;
 	otherWateringColor: string;
 	rainColor: string;
-	ageAndWaterHint: () => string;
 }
 
 export interface ProgressPart {
