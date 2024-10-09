@@ -249,6 +249,7 @@ interface Filter {
 	title: string;
 	publicPumps: string;
 	myAdoptedTrees: string;
+	lastWateredTrees: string;
 	treeAge: string;
 	show: string;
 	reset: string;

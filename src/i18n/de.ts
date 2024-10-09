@@ -463,6 +463,7 @@ Der Bezirk ${district} hat uns zusätzliche Informationen zur individuellen Gie�
 		title: "Filter",
 		publicPumps: "Öffentliche Pumpen",
 		myAdoptedTrees: "Meine adoptierten Bäume",
+		lastWateredTrees: "Zuletzt gegossene Bäume",
 		treeAge: "Baumalter",
 		show: "Anzeigen",
 		reset: "Zurücksetzen",
