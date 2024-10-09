@@ -23,7 +23,9 @@ interface I18NState {
 export const useI18nStore = create<I18NState>()(
 	persist(
 		(set, get) => ({
-			language: new URL(window.location.href).searchParams.get("lang") ?? "de",
+			language: window
+				? (new URL(window.location.href).searchParams.get("lang") ?? "de")
+				: "de",
 			setLanguage: (language: string) => {
 				useUrlState.getState().addSearchParam("lang", language);
 				set({ language });
