@@ -1,13 +1,12 @@
 /* eslint-disable max-lines */
 import { expect, test } from "@playwright/test";
 import {
-	baseUrl,
 	defaultEmail,
 	defaultInbucketEmailUsername,
 	defaultPassword,
 	defaultUsername,
 	inbucketUrl,
-} from "./constants";
+} from "../constants";
 import {
 	deleteDefaultAccount,
 	registerThenLogoutWithDefaultAccount,
@@ -19,8 +18,11 @@ test.describe("Register", () => {
 			await deleteDefaultAccount();
 		});
 
-		test("should be able to register then logout", async ({ page }) => {
-			await page.goto(`${baseUrl}/profile`);
+		test("should be able to register then logout", async ({
+			page,
+			isMobile,
+		}) => {
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Registriere Dich" }).click();
 
 			await page.getByLabel("E-Mail").click();
@@ -50,7 +52,13 @@ test.describe("Register", () => {
 				.click();
 
 			// close splash screen
-			await page.locator("#splash-action-button").click();
+			if (isMobile) {
+				await page.getByTestId("splash-close-button").nth(0).click();
+			}
+
+			if (!isMobile) {
+				await page.getByTestId("splash-close-button").nth(1).click();
+			}
 
 			await page.getByRole("link", { name: "Profil" }).click();
 			await expect(
@@ -68,7 +76,7 @@ test.describe("Register", () => {
 		test("should not be able to register with empty e-mail", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Registriere Dich" }).click();
 
 			await page.getByLabel("E-Mail").click();
@@ -82,7 +90,7 @@ test.describe("Register", () => {
 		test("should not be able to register with invalid e-mail format", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Registriere Dich" }).click();
 
 			await page.getByLabel("E-Mail").click();
@@ -93,7 +101,7 @@ test.describe("Register", () => {
 		test("should not be able to register with empty username", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Registriere Dich" }).click();
 
 			await page.getByLabel("Benutzername").fill(" ");
@@ -105,7 +113,7 @@ test.describe("Register", () => {
 		test("should not be able to register with invalid username format", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Registriere Dich" }).click();
 
 			await page.getByLabel("Benutzername").fill("a"); // too short
@@ -139,7 +147,7 @@ test.describe("Register", () => {
 		test("should not be able to register with empty password", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Registriere Dich" }).click();
 
 			await page.getByLabel("Passwort").fill(" ");
@@ -151,7 +159,7 @@ test.describe("Register", () => {
 		test("should not be able to register with invalid password format", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Registriere Dich" }).click();
 
 			await page.getByLabel("Passwort").fill("a1Q!"); // too short
@@ -188,8 +196,8 @@ test.describe("Register", () => {
 	});
 
 	test.describe("Server-Side Validation", () => {
-		test.beforeEach(async ({ page }) => {
-			await registerThenLogoutWithDefaultAccount(page);
+		test.beforeEach(async ({ page, isMobile }) => {
+			await registerThenLogoutWithDefaultAccount({ page, isMobile });
 		});
 
 		test.afterEach(async () => {
@@ -199,7 +207,7 @@ test.describe("Register", () => {
 		test("should not be able to register with already registered e-mail", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Registriere Dich" }).click();
 
 			await page.getByLabel("E-Mail").click();
@@ -216,7 +224,7 @@ test.describe("Register", () => {
 		test("should not be able to register with already registered username", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Registriere Dich" }).click();
 
 			await page.getByLabel("E-Mail").click();
@@ -239,7 +247,7 @@ test.describe("Register", () => {
 			const browserContext = await browser.newContext();
 			const page = await browserContext.newPage();
 
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Registriere Dich" }).click();
 
 			await page.getByLabel("E-Mail").click();

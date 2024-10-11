@@ -5,24 +5,23 @@ import {
 	registerThenLogoutWithDefaultAccount,
 } from "./utils";
 import {
-	baseUrl,
 	defaultEmail,
 	defaultInbucketEmailUsername,
 	defaultPassword,
 	inbucketUrl,
-} from "./constants";
+} from "../constants";
 
 test.describe("Forgot password", () => {
 	test.describe("Happy Case", () => {
-		test.beforeEach(async ({ page }) => {
-			await registerThenLogoutWithDefaultAccount(page);
+		test.beforeEach(async ({ page, isMobile }) => {
+			await registerThenLogoutWithDefaultAccount({ page, isMobile });
 		});
 		test.afterEach(async () => {
 			await deleteDefaultAccount();
 		});
 
 		test("should be able to reset password via e-mail", async ({ page }) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Passwort vergessen?" }).click();
 			await page.getByLabel("E-Mail").click();
 			await page.getByLabel("E-Mail").fill(defaultEmail);
@@ -59,7 +58,7 @@ test.describe("Forgot password", () => {
 		test("should not be able to reset password with empty email", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Passwort vergessen?" }).click();
 
 			await page.getByLabel("E-Mail").click();
@@ -72,7 +71,7 @@ test.describe("Forgot password", () => {
 		test("should not be able to reset password with invalid email format", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 			await page.getByRole("link", { name: "Passwort vergessen?" }).click();
 
 			await page.getByLabel("E-Mail").click();
@@ -84,9 +83,8 @@ test.describe("Forgot password", () => {
 		test('should not be able to reset password by going on "profile/reset-password" directly', async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile/reset-password`);
+			await page.goto(`/profile/reset-password`);
 
-			await page.goto("http://localhost:5173/profile/reset-password");
 			await expect(
 				page.getByText("Einen Moment Geduld bitte..."),
 			).toBeVisible();
@@ -100,7 +98,7 @@ test.describe("Forgot password", () => {
 				page.getByText("Hinweis: Diese Seite kann nur"),
 			).toBeVisible();
 			await page.getByRole("button", { name: "Zurück zur Startseite" }).click();
-			await expect(page).toHaveURL(new RegExp(`${baseUrl}/map.*`));
+			await expect(page).toHaveURL(new RegExp(`/map.*`));
 		});
 	});
 
@@ -112,7 +110,7 @@ test.describe("Forgot password", () => {
 				const browserContext = await browser.newContext();
 				const page = await browserContext.newPage();
 
-				await page.goto(`${baseUrl}/profile`);
+				await page.goto(`/profile`);
 				await page.getByRole("link", { name: "Passwort vergessen?" }).click();
 
 				await page.getByLabel("E-Mail").click();
@@ -129,8 +127,8 @@ test.describe("Forgot password", () => {
 		});
 
 		test.describe("Reset password page", () => {
-			test.beforeEach(async ({ page }) => {
-				await registerThenLogoutWithDefaultAccount(page);
+			test.beforeEach(async ({ page, isMobile }) => {
+				await registerThenLogoutWithDefaultAccount({ page, isMobile });
 			});
 			test.afterEach(async () => {
 				await deleteDefaultAccount();
@@ -142,7 +140,7 @@ test.describe("Forgot password", () => {
 				const browserContext = await browser.newContext();
 				const page = await browserContext.newPage();
 
-				await page.goto(`${baseUrl}/profile`);
+				await page.goto(`/profile`);
 				await page.getByRole("link", { name: "Passwort vergessen?" }).click();
 				await page.getByLabel("E-Mail").click();
 				await page.getByLabel("E-Mail").fill(defaultEmail);

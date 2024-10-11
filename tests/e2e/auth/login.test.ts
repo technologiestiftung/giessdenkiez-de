@@ -3,19 +3,19 @@ import {
 	deleteDefaultAccount,
 	registerThenLogoutWithDefaultAccount,
 } from "./utils";
-import { baseUrl, defaultEmail, defaultPassword } from "./constants";
+import { defaultEmail, defaultPassword } from "../constants";
 
 test.describe("Login", () => {
 	test.describe("Happy Case", () => {
-		test.beforeEach(async ({ page }) => {
-			await registerThenLogoutWithDefaultAccount(page);
+		test.beforeEach(async ({ page, isMobile }) => {
+			await registerThenLogoutWithDefaultAccount({ page, isMobile });
 		});
 		test.afterEach(async () => {
 			await deleteDefaultAccount();
 		});
 
 		test("should be able to log-in then log-out", async ({ page }) => {
-			await page.goto(`${baseUrl}/map`);
+			await page.goto(`/map`);
 
 			// Go to profile
 			await page.getByRole("link", { name: "Profil" }).click();
@@ -39,7 +39,7 @@ test.describe("Login", () => {
 
 	test.describe("Client-Side Validation", () => {
 		test("should not be able to log-in with empty email", async ({ page }) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 
 			await page.getByLabel("E-Mail").click();
 			await page.getByLabel("E-Mail").fill(" ");
@@ -54,7 +54,7 @@ test.describe("Login", () => {
 		test("should not be able to log-in with invalid email format", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 
 			await page.getByLabel("E-Mail").click();
 			await page.getByLabel("E-Mail").fill("invalid-email");
@@ -68,7 +68,7 @@ test.describe("Login", () => {
 		test("should not be able to log-in with empty password", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 
 			await page.getByLabel("E-Mail").click();
 			await page.getByLabel("E-Mail").fill("invalid-email");
@@ -85,7 +85,7 @@ test.describe("Login", () => {
 		test("should not be able to log-in with wrong email/password credentials", async ({
 			page,
 		}) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 
 			await page.getByLabel("E-Mail").click();
 			await page.getByLabel("E-Mail").fill("email-with-no-account@example.com");
@@ -108,7 +108,7 @@ test.describe("Login", () => {
 			const browserContext = await browser.newContext();
 			const page = await browserContext.newPage();
 
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 
 			await page.getByLabel("E-Mail").click();
 			await page.getByLabel("E-Mail").fill(defaultEmail);

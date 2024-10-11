@@ -1,11 +1,11 @@
 import { expect, test } from "vitest";
-import { useTreeAgeClassification } from "../../components/tree-detail/hooks/use-tree-age-classification";
-import { useTreeWaterNeedsData } from "../../components/tree-detail/hooks/use-tree-water-needs-data";
+import { useTreeAgeClassification } from "../../src/components/tree-detail/hooks/use-tree-age-classification";
+import { useTreeWaterNeedsData } from "../../src/components/tree-detail/hooks/use-tree-water-needs-data";
 import {
 	TreeAgeClassification,
 	TreeCoreData,
 	TreeWateringData,
-} from "../../components/tree-detail/tree-types";
+} from "../../src/components/tree-detail/tree-types";
 
 test("should calculate correct water needs for senior tree", () => {
 	const waterings: TreeWateringData[] = [

@@ -1,23 +1,25 @@
 import { expect, test } from "@playwright/test";
-import { baseUrl } from "./constants";
-import { useIsInVegetationPeriod } from "../../../utils/use-is-in-vegetation-period";
+import { useIsInVegetationPeriod } from "../../../src/utils/use-is-in-vegetation-period";
 
 const isInVegetationPeriod = useIsInVegetationPeriod();
 
 test.describe("Tree detail view", () => {
-	test.fixme(
-		!!process.env.CI,
-		"This feature needs the API to run in the CI, which currently is not set-up as vercel:dev needs credentials",
-	);
-
-	test("should show tree info for baby tree", async ({ page }) => {
-		await page.goto(`${baseUrl}/map?treeId=_23002dc7a1`);
+	test("should show tree info for baby tree", async ({ page, isMobile }) => {
+		await page.goto(`/map?&treeId=00008100:002faeaf`);
 
 		// close splash screen
-		await page.locator("#splash-action-button").click();
+		if (isMobile) {
+			await page.getByTestId("splash-close-button").nth(0).click();
+		}
 
-		await expect(page.getByText("Bauminformationen")).toBeVisible();
-		await expect(page.getByText("Zier-Feld-Ahorn 'Red Shine'")).toBeVisible();
+		if (!isMobile) {
+			await page.getByTestId("splash-close-button").nth(1).click();
+		}
+
+		await expect(
+			page.getByText("Bauminformationen", { exact: true }),
+		).toBeVisible();
+		await expect(page.getByText("Resista Ulme 'Rebona'")).toBeVisible();
 		await expect(
 			page.getByText(
 				"Dieser Baum wird bereits vom Bezirksamt versorgt und muss nicht gegossen werden.",
@@ -34,22 +36,24 @@ test.describe("Tree detail view", () => {
 		await expect(page.getByTestId("water-tree-button")).not.toBeVisible();
 
 		await page.getByRole("button", { name: "Baumsteckbrief" }).click();
-		await expect(page.getByText("Die Gattung der Ahorne")).toBeVisible();
+		await expect(page.getByText("Der Anteil der Ulmen (Ulmus)")).toBeVisible();
 		await page.getByRole("button", { name: "Baumsteckbrief" }).click();
-		await expect(page.getByText("Die Gattung der Ahorne")).not.toBeVisible();
+		await expect(
+			page.getByText("Der Anteil der Ulmen (Ulmus)"),
+		).not.toBeVisible();
 
 		// Check for exact age
 		await expect(page.getByText("Standalter")).toBeVisible();
 		const calculatedAge = await page.getByTestId("age").textContent();
 		expect(calculatedAge).toBe(
-			// At the year of writing this test, the tree was 2 years old.
+			// At the year of writing this test, the tree was 1 year old.
 			// Every year, the tree gets one year older, as we all do - time is merciless.
-			(2 + new Date().getFullYear() - 2024).toString(),
+			(1 + new Date().getFullYear() - 2024).toString(),
 		);
 
 		if (isInVegetationPeriod) {
 			await expect(
-				page.getByText("Vom Bezirksamt versorgt", { exact: true }),
+				page.getByText("Bereits vom Bezirksamt versorgt", { exact: true }),
 			).toBeVisible();
 			await expect(page.getByTestId("water-progress-circle")).toBeVisible();
 		}
