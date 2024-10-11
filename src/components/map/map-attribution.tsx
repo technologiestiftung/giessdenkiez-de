@@ -15,7 +15,7 @@ export const MapAttribution: React.FC = () => {
 	];
 
 	return (
-		<p className="pointer-events-auto max-w-56 text-end text-xs sm:max-w-80 md:max-w-full pb-[4.7rem] pr-2 lg:pb-2 flex flex-row flex-wrap justify-end gap-x-[3px]">
+		<div className="pointer-events-auto max-w-56 text-end text-xs sm:max-w-80 md:max-w-full pb-[4.7rem] pr-2 lg:pb-2 flex flex-row flex-wrap justify-end gap-x-[3px]">
 			{links
 				.map<React.ReactNode>((link) => (
 					<a
@@ -29,6 +29,6 @@ export const MapAttribution: React.FC = () => {
 					</a>
 				))
 				.reduce((prev, curr) => [prev, " - ", curr])}
-		</p>
+		</div>
 	);
 };
