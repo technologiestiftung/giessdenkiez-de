@@ -1,14 +1,10 @@
-name: Linting and Unit Tests
-permissions:
-  contents: write
-  packages: write
+name: Release
+
 on:
-  push:
-    branches: [main, staging]
-  pull_request:
-    branches: [main, staging]
+  workflow_dispatch: # This allows the workflow to be triggered manually
+
 jobs:
-  test:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code ⬇️
@@ -34,14 +30,7 @@ jobs:
         if: steps.cache-npm-deps.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Check Build 🏗️
-        run: npm run build
-
-      - name: Check Prettier 🧹
-        run: npm run prettier:ci
-
-      - name: Check Lint 🔎
-        run: npm run lint
-
-      - name: Run Unit Tests 🧪
-        run: npm run test:unit
+      - name: Create a release 🚢
+        run: npx semantic-release --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
