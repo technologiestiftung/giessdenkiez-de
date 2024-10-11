@@ -9,16 +9,28 @@ import {
 	supabaseAnonKey,
 	supabaseApiUrl,
 	supabaseClient,
-} from "./constants";
+} from "../constants";
 
-export async function registerThenLogoutWithDefaultAccount(page: Page) {
-	await registerThenLoginWithDefaultAccount(page);
+export async function registerThenLogoutWithDefaultAccount({
+	page,
+	isMobile,
+}: {
+	page: Page;
+	isMobile: boolean;
+}) {
+	await registerThenLoginWithDefaultAccount({ page, isMobile });
 
 	await page.getByRole("button", { name: "Ausloggen" }).click();
 	await expect(page.getByRole("heading", { name: "Anmelden" })).toBeVisible();
 }
 
-export async function registerThenLoginWithDefaultAccount(page: Page) {
+export async function registerThenLoginWithDefaultAccount({
+	page,
+	isMobile,
+}: {
+	page: Page;
+	isMobile: boolean;
+}) {
 	const { error } = await supabaseClient.auth.signUp({
 		email: defaultEmail,
 		password: defaultPassword,
@@ -42,7 +54,13 @@ export async function registerThenLoginWithDefaultAccount(page: Page) {
 	await page.getByRole("link", { name: "Confirm your email address" }).click();
 
 	// close splash screen
-	await page.locator("#splash-action-button").click();
+	if (isMobile) {
+		await page.getByTestId("splash-close-button").nth(0).click();
+	}
+
+	if (!isMobile) {
+		await page.getByTestId("splash-close-button").nth(1).click();
+	}
 
 	await page.getByRole("link", { name: "Profil" }).click();
 	await expect(

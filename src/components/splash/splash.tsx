@@ -78,6 +78,7 @@ export const Splash: React.FC = () => {
 				<button
 					className="flex flex-row justify-end lg:hidden pb-2"
 					onClick={hideSplashScreen}
+					data-testid="splash-close-button"
 				>
 					<CloseIcon />
 				</button>
@@ -103,6 +104,7 @@ export const Splash: React.FC = () => {
 						<button
 							className="hidden lg:flex hover:text-gdk-light-gray self-start "
 							onClick={hideSplashScreen}
+							data-testid="splash-close-button"
 						>
 							<CloseIcon />
 						</button>
