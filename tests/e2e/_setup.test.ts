@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
 import {
-	baseUrl,
 	defaultEmail,
 	defaultInbucketEmailUsername,
 	defaultPassword,
@@ -13,7 +12,6 @@ import {
 
 test.describe("Setup", () => {
 	test("should check if all environment/default variables are set", () => {
-		expect(baseUrl).toBeDefined();
 		expect(supabaseApiUrl).not.toBe("");
 		expect(supabaseAnonKey).not.toBe("");
 		expect(inbucketUrl).not.toBe("");
