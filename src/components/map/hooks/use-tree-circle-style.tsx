@@ -2,6 +2,7 @@
 import { Expression } from "mapbox-gl";
 import { useMapConstants } from "./use-map-constants.js";
 import resolveConfig from "tailwindcss/resolveConfig";
+import { useIsInVegetationPeriod } from "../../../utils/use-is-in-vegetation-period.js";
 
 //@ts-expect-error tailwindConfig has no type definition
 import tailwindConfig from "../../../../tailwind.config.js";
@@ -76,6 +77,8 @@ export function useTreeCircleStyle() {
 		],
 	] as Expression;
 
+	const isInVegetationPeriod = useIsInVegetationPeriod();
+
 	const filteredCircleColor = ({
 		isSomeFilterActive,
 		areOnlyMyAdoptedTreesVisible,
@@ -91,6 +94,10 @@ export function useTreeCircleStyle() {
 	}): Expression => {
 		const defaultExpression: Expression = [
 			"case",
+
+			// Define logic for winter period, trees are always rendered in default color
+			!isInVegetationPeriod,
+			TREE_DEFAULT_COLOR,
 
 			// Define logic for "special" districts, those are always rendered in default color
 			[
