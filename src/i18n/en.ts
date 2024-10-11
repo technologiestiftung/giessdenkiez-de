@@ -464,7 +464,7 @@ The district ${district} has provided us with additional information on the indi
 		title: "Filter",
 		publicPumps: "Public pumps",
 		myAdoptedTrees: "My adopted trees",
-		lastWateredTrees: "Last trees watered",
+		lastWateredTrees: "Previously watered trees",
 		treeAge: "Tree age",
 		show: "Show",
 		reset: "Reset",
