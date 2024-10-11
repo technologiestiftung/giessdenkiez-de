@@ -1,25 +1,39 @@
 import { expect, test } from "vitest";
-import { useTreeAgeClassification } from "../../components/tree-detail/hooks/use-tree-age-classification";
-import { useTreeWaterNeedsData } from "../../components/tree-detail/hooks/use-tree-water-needs-data";
+import { useTreeAgeClassification } from "../../src/components/tree-detail/hooks/use-tree-age-classification";
+import { useTreeWaterNeedsData } from "../../src/components/tree-detail/hooks/use-tree-water-needs-data";
 import {
 	TreeAgeClassification,
 	TreeCoreData,
 	TreeWateringData,
-} from "../../components/tree-detail/tree-types";
+} from "../../src/components/tree-detail/tree-types";
 
-test("should calculate correct water needs for senior tree", () => {
+test("should calculate correct water needs for baby tree", () => {
 	const waterings: TreeWateringData[] = [
+		{
+			id: 1,
+			timestamp: new Date().toISOString(),
+			amount: 10,
+			username: "test-user",
+			tree_id: "00008100:002d8af7",
+		},
+		{
+			id: 2,
+			timestamp: new Date().toISOString(),
+			amount: 20,
+			username: "test-user",
+			tree_id: "00008100:002d8af7",
+		},
 		{
 			id: 3,
 			timestamp: new Date().toISOString(),
-			amount: 30,
+			amount: 15,
 			username: "test-user",
 			tree_id: "00008100:002d8af7",
 		},
 		{
 			id: 4,
 			timestamp: new Date().toISOString(),
-			amount: 40,
+			amount: 5,
 			username: "test-user",
 			tree_id: "00008100:002d8af7",
 		},
@@ -27,36 +41,34 @@ test("should calculate correct water needs for senior tree", () => {
 
 	const treeData: TreeCoreData = {
 		id: "00008100:002d8af7",
-		lat: "13.46627",
-		lng: "52.48992",
-		art_dtsch: "Winter-Linde",
-		art_bot: "Tilia cordata",
-		gattung_deutsch: "LINDE",
-		gattung: "TILIA",
-		pflanzjahr: 1852,
-		standalter: "171",
-		baumhoehe: "22",
-		bezirk: "Treptow-Köpenick",
+		lat: "13.54072",
+		lng: "52.57403",
+		art_dtsch: "Kulturapfel",
+		art_bot: "Malus domestica",
+		gattung_deutsch: "APFEL",
+		gattung: "MALUS",
+		pflanzjahr: 2021,
+		standalter: "2",
+		baumhoehe: "3",
+		bezirk: "Lichtenberg",
 		eigentuemer: "Land Berlin",
-		radolan_sum: 214,
+		radolan_sum: 153,
 		geom: {
-			coordinates: [13.46627, 52.48992],
+			coordinates: [13.54072, 52.57403],
 		},
 		radolan_days: [
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 4, 2, 3, 5, 7, 7, 0, 3, 5, 7,
-			3, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 3, 1, 0, 2, 6, 9, 0, 1, 0, 4,
+			4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 5, 1, 5, 0, 0, 0, 0, 0, 1, 0, 0, 5, 9, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 5, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 17, 4, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 12, 2, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 0, 1, 0, 0, 4, 6, 4,
-			13, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 9, 2, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			5, 6, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 14, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 2, 1, 0, 0, 5, 2, 5,
+			8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 2, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3, 7,
+			7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -71,7 +83,9 @@ test("should calculate correct water needs for senior tree", () => {
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 20, 1, 4, 5, 10,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 5, 10,
 		],
 		caretaker: null,
 	};
@@ -80,8 +94,8 @@ test("should calculate correct water needs for senior tree", () => {
 		treeData,
 		new Date("2024-01-01T00:00+00:00"),
 	);
-	expect(treeAge).toBe(172);
-	expect(treeAgeClassification).toBe(TreeAgeClassification.SENIOR);
+	expect(treeAge).toBe(3);
+	expect(treeAgeClassification).toBe(TreeAgeClassification.BABY);
 
 	const {
 		rainSum,
@@ -92,18 +106,14 @@ test("should calculate correct water needs for senior tree", () => {
 		referenceWaterAmount,
 		shouldBeWatered,
 		waterParts,
-		stillMissingWater,
 	} = useTreeWaterNeedsData(treeData, waterings, treeAgeClassification);
 
-	expect(rainSum).toBe(33.4);
-	expect(wateringSum).toBe(70);
-	expect(referenceWaterAmount).toBe(300);
-	expect(rainPercentage).toBe(0.11133333333333333);
-	expect(wateringPercentage).toBe(0.23333333333333334);
-	expect(otherWateringPercentage).toBe(0.6553333333333333);
+	expect(rainSum).toBe(15.3);
+	expect(wateringSum).toBe(50);
+	expect(referenceWaterAmount).toBe(100);
+	expect(rainPercentage).toBe(0.153);
+	expect(wateringPercentage).toBe(0.5);
+	expect(otherWateringPercentage).toBe(0.347);
 	expect(shouldBeWatered).toBe(false);
-	expect(stillMissingWater).toBe(197);
-	expect(waterParts.map((p) => p.progress)).toEqual([
-		0.11133333333333333, 0.23333333333333334, 0.6553333333333333,
-	]);
+	expect(waterParts.map((p) => p.progress)).toEqual([0.153, 0.5, 0.347]);
 });

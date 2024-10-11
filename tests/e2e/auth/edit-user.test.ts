@@ -5,7 +5,6 @@ import {
 	registerThenLoginWithDefaultAccount,
 } from "./utils.ts";
 import {
-	baseUrl,
 	changedEmail,
 	changedInbucketEmailUsername,
 	defaultEmail,
@@ -14,12 +13,12 @@ import {
 	defaultUsername,
 	inbucketUrl,
 	supabaseClient,
-} from "./constants.ts";
+} from "../constants.ts";
 
 test.describe("Edit user", () => {
 	test.describe("Edit Username", () => {
-		test.beforeEach(async ({ page }) => {
-			await registerThenLoginWithDefaultAccount(page);
+		test.beforeEach(async ({ page, isMobile }) => {
+			await registerThenLoginWithDefaultAccount({ page, isMobile });
 		});
 
 		test.afterEach(async () => {
@@ -27,7 +26,7 @@ test.describe("Edit user", () => {
 		});
 
 		test("should be able to edit username", async ({ page }) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 
 			await page
 				.locator("div")
@@ -47,8 +46,8 @@ test.describe("Edit user", () => {
 	});
 
 	test.describe("Edit Email", () => {
-		test.beforeEach(async ({ page }) => {
-			await registerThenLoginWithDefaultAccount(page);
+		test.beforeEach(async ({ page, isMobile }) => {
+			await registerThenLoginWithDefaultAccount({ page, isMobile });
 		});
 
 		test.afterEach(async () => {
@@ -56,7 +55,7 @@ test.describe("Edit user", () => {
 		});
 
 		test("should be able to edit e-mail", async ({ page }) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 
 			await page
 				.locator("div")
@@ -87,8 +86,8 @@ test.describe("Edit user", () => {
 	});
 
 	test.describe("Edit password", () => {
-		test.beforeEach(async ({ page }) => {
-			await registerThenLoginWithDefaultAccount(page);
+		test.beforeEach(async ({ page, isMobile }) => {
+			await registerThenLoginWithDefaultAccount({ page, isMobile });
 		});
 
 		test.afterEach(async () => {
@@ -96,7 +95,7 @@ test.describe("Edit user", () => {
 		});
 
 		test("should be able to edit password", async ({ page }) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 
 			await page.getByRole("button", { name: "Passwort ändern" }).click();
 			await page.getByRole("button", { name: "OK" }).click();
@@ -114,12 +113,12 @@ test.describe("Edit user", () => {
 	});
 
 	test.describe("Delete account", () => {
-		test.beforeEach(async ({ page }) => {
-			await registerThenLoginWithDefaultAccount(page);
+		test.beforeEach(async ({ page, isMobile }) => {
+			await registerThenLoginWithDefaultAccount({ page, isMobile });
 		});
 
 		test("should be able to delete account", async ({ page }) => {
-			await page.goto(`${baseUrl}/profile`);
+			await page.goto(`/profile`);
 
 			await page.getByRole("button", { name: "Account löschen" }).click();
 			await page.getByRole("button", { name: "Löschen", exact: true }).click();

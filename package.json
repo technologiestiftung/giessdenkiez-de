@@ -11,8 +11,8 @@
 		"prettier:ci": "prettier --check .",
 		"preview": "vite preview",
 		"test": "npm run test:unit && npm run test:e2e",
-		"test:unit": "vitest run",
-		"test:e2e": "playwright test"
+		"test:unit": "vitest run --config ./tests/unit/vitest.config.ts",
+		"test:e2e": "playwright test --config=tests/e2e/playwright.config.ts"
 	},
 	"dependencies": {
 		"@supabase/supabase-js": "2.43.1",
