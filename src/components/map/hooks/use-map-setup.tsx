@@ -52,6 +52,8 @@ export function useMapSetup(
 
 		const isMobile = window.innerWidth < 768;
 
+		const testMode = import.meta.env.VITE_PW_TEST === "true";
+
 		const initializedMap = new mapboxgl.Map({
 			container: mapContainer.current,
 			style: import.meta.env.VITE_MAPBOX_STYLE_URL,
@@ -60,6 +62,7 @@ export function useMapSetup(
 			minZoom: MAP_MIN_ZOOM_LEVEL,
 			maxZoom: MAP_MAX_ZOOM_LEVEL,
 			pitch: isMobile ? 0 : MAP_PITCH_DEGREES,
+			testMode,
 		});
 
 		initializedMap.dragRotate.disable();
