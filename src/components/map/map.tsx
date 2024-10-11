@@ -7,7 +7,10 @@ import { PumpTooltip } from "../pumps/pump-tooltip";
 import { useSelectedPump } from "./hooks/use-selected-pump";
 import { useMapStore } from "./map-store";
 
-mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_API_KEY;
+mapboxgl.accessToken =
+	import.meta.env.VITE_PW_TEST === "true"
+		? import.meta.env.VITE_MAPBOX_API_KEY
+		: "";
 
 export const Map: React.FC = () => {
 	const mapContainer = useRef<HTMLDivElement | null>(null);
