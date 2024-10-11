@@ -15,8 +15,6 @@ import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 import { useSplashStore } from "./splash-store";
 import { useIsInVegetationPeriod } from "../../utils/use-is-in-vegetation-period";
 
-const isInVegetationPeriod = useIsInVegetationPeriod;
-
 interface SectionHeadingProps {
 	title: string;
 	content: string;
@@ -42,6 +40,8 @@ const SectionHeading: React.FC<SectionHeadingProps> = ({
 export const Splash: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { hideSplashScreen } = useSplashStore();
+
+	const isInVegetationPeriod = useIsInVegetationPeriod();
 
 	const splashContainer = useRef<HTMLDivElement | null>(null);
 

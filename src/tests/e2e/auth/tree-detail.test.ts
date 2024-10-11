@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import { baseUrl } from "./constants";
 import { useIsInVegetationPeriod } from "../../../utils/use-is-in-vegetation-period";
 
-const isInVegetationPeriod = useIsInVegetationPeriod;
+const isInVegetationPeriod = useIsInVegetationPeriod();
 
 test.describe("Tree detail view", () => {
 	test.fixme(

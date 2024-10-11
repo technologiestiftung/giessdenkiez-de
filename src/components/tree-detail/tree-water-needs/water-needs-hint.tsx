@@ -6,14 +6,14 @@ import { useI18nStore } from "../../../i18n/i18n-store";
 import { TreeCoreData } from "../tree-types";
 import { useIsInVegetationPeriod } from "../../../utils/use-is-in-vegetation-period";
 
-const isInVegetationPeriod = useIsInVegetationPeriod;
-
 interface WaterNeedsHintProps {
 	treeData: TreeCoreData;
 }
 
 export const WaterNeedsHint: React.FC<WaterNeedsHintProps> = ({ treeData }) => {
 	const i18n = useI18nStore().i18n();
+
+	const isInVegetationPeriod = useIsInVegetationPeriod();
 
 	const [isInfoboxVisible, setIsInfoboxVisible] = useState(false);
 

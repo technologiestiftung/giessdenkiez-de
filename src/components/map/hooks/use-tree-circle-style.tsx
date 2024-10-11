@@ -9,8 +9,6 @@ import tailwindConfig from "../../../../tailwind.config.js";
 import { TreeAgeRange } from "../../filter/filter-store";
 const fullConfig = resolveConfig(tailwindConfig);
 
-const isInVegetationPeriod = useIsInVegetationPeriod;
-
 export function useTreeCircleStyle() {
 	const {
 		TREE_DEFAULT_COLOR,
@@ -78,6 +76,8 @@ export function useTreeCircleStyle() {
 			0,
 		],
 	] as Expression;
+
+	const isInVegetationPeriod = useIsInVegetationPeriod();
 
 	const filteredCircleColor = ({
 		isSomeFilterActive,

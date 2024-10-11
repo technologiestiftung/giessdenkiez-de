@@ -4,8 +4,6 @@ import Markdown from "react-markdown";
 import { TreeAgeClassification } from "../tree-types";
 import { useIsInVegetationPeriod } from "../../../utils/use-is-in-vegetation-period";
 
-const isInVegetationPeriod = useIsInVegetationPeriod;
-
 interface WaterNeedsTitleProps {
 	treeAgeClassification: TreeAgeClassification;
 	referenceWaterAmount: number;
@@ -17,6 +15,8 @@ export const WaterNeedsTitle: React.FC<WaterNeedsTitleProps> = ({
 }) => {
 	const i18n = useI18nStore().i18n();
 	const { formatNumber } = useI18nStore();
+
+	const isInVegetationPeriod = useIsInVegetationPeriod();
 
 	return (
 		<div>

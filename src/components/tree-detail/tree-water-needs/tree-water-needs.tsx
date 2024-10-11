@@ -17,8 +17,6 @@ import { WaterTree } from "./water-tree/water-tree";
 import { WaterProgressCircleWinter } from "./water-progress-circle/water-progress-circle-winter";
 import { useIsInVegetationPeriod } from "../../../utils/use-is-in-vegetation-period";
 
-const isInVegetationPeriod = useIsInVegetationPeriod;
-
 interface TreeWaterNeedProps {
 	treeData: TreeCoreData;
 	treeAgeClassification: TreeAgeClassification;
@@ -31,6 +29,8 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 	treeWateringData,
 }) => {
 	const i18n = useI18nStore().i18n();
+
+	const isInVegetationPeriod = useIsInVegetationPeriod();
 
 	const [isExpanded, setIsExpanded] = useState(true);
 
