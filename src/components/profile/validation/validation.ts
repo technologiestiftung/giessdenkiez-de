@@ -1,5 +1,6 @@
 import { PasswordErrors, UsernameErrors } from "./types";
 import { supabaseClient } from "../../../auth/supabase-client";
+import { PostgrestSingleResponse } from "@supabase/supabase-js";
 
 export function validatePassword(password: string): PasswordErrors {
 	const validLength = password.length > 7;
@@ -36,26 +37,19 @@ export async function checkIfUsernameIsTaken(
 	promise = new Promise((resolve, reject) => {
 		timeout = setTimeout(() => {
 			supabaseClient
-				.from("profiles")
-				.select("username")
-				.eq("username", username)
-				.then(({ data, error }) => {
+				.rpc("is_username_taken", { given_username: username })
+				.then(({ data, error }: PostgrestSingleResponse<boolean>) => {
 					if (error) {
 						reject(error.message);
 						return;
 					}
 
-					if (!data) {
+					if (data === null || data === undefined) {
 						reject("could not check username");
 						return;
 					}
 
-					if (data.length > 0) {
-						resolve(true);
-						return;
-					}
-
-					resolve(false);
+					resolve(data);
 				});
 		}, 500);
 	});
