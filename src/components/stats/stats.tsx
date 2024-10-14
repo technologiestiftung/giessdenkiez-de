@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, { useEffect } from "react";
 import { LanguageToggle } from "../router/languageToggle";
 import { useI18nStore } from "../../i18n/i18n-store";

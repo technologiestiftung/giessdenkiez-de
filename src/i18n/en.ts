@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { Content } from "./content-types";
 
 export const en: Content = {

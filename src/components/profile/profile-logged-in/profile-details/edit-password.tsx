@@ -22,7 +22,7 @@ export const EditPassword: React.FC = () => {
 				) as HTMLDialogElement
 			).showModal();
 		} catch (error) {
-			handleError(i18n.common.defaultErrorMessage);
+			handleError(i18n.common.defaultErrorMessage, error);
 		}
 	}, []);
 

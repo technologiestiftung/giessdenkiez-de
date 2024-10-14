@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 export const getTreesGroupByAge = () => {
 	const treesYoungerThan200 = treesGroupedByAge.filter(
 		(ageGroup) => ageGroup.alter < 200,

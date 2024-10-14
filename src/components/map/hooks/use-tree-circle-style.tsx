@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { Expression } from "mapbox-gl";
 import { useMapConstants } from "./use-map-constants.js";
 import resolveConfig from "tailwindcss/resolveConfig";

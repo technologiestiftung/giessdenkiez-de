@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, { useState } from "react";
 import { supabaseClient } from "../../../auth/supabase-client";
 import { useI18nStore } from "../../../i18n/i18n-store";

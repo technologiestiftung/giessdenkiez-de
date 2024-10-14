@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, { useState } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { ChevronDown } from "../../icons/chevron-down";

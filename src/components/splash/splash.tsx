@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, { useEffect, useRef } from "react";
 import { PrimaryButton } from "../buttons/primary";
 import { Credits } from "../info/credits";
