@@ -286,10 +286,13 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			"This tree is already being taken care of by the Berlin administration and does not need to be watered.",
 		waterNeed: {
 			title: "Water requirements",
+			hintWinter:
+				"Outside of the vegetation period (March-October), the trees do not require any water as they are practically in hibernation.",
 			hint: "Depending on the age of the tree, the need for water varies.",
 			needXLiters: (liters: string) => `Needs ${liters} liters per week`,
 			needsOnlyOnDryDays: "Only needs water on dry days",
-			waterManaged: "Supplied by the district office",
+			waterManaged: "Supplied, only in need during dry periods",
+			winterSleep: "The trees are currently in hibernation",
 			managedByGroundwater: "Groundwater",
 			unknownTitle: "Water needs **unknown**",
 			unknown:
@@ -307,6 +310,7 @@ Use via smartphone (mobile network) can lead to performance problems (page loads
 			manager: "district",
 			alreadyWateredByManager: "Watered by **district authority**",
 			alreadyWateredByGroundwater: "Covered by **groundwater**",
+			winterNeedsNoWater: "No water needed in winter",
 			stillWaterXLiters: (liters: string) => `
 Needs
 
@@ -323,6 +327,24 @@ Particularly young trees need water in the first few years. Rather less often, b
 **5-10 years**: At this age, we are no longer watered by the administration in all districts and are not yet "self-sufficient". We are thankful for some extra water, especially in dry times - preferably less often, but a lot at once (approx. 100-200 liters per month). 
 
 **Older trees (10+ years)**: We can supply ourselves via the groundwater.`,
+			ageAndWaterHintWinter: `
+When the trees lose more of their leaves in autumn, their photosynthetic processes also decrease, and they need less energy—and therefore less water. 
+With the official end of the vegetation period, the watering season also comes to an end for this year. Starting in March, it will pick up again! We Can!
+
+**Water needs during the vegetation period (March-October)**:
+
+`,
+			ageAndWaterHintSpecialDistrict: (
+				babyAgeLimit: number,
+				district: string,
+			) => `
+Particularly young trees need water in the first few years. Rather less often, but a lot at once. 
+
+The district ${district} has provided us with additional information on the individual pouring strategy.
+
+**Below ${babyAgeLimit} years**: We are taken care of by the district green space office.
+
+**Older trees (${babyAgeLimit}+ years)**: We can supply ourselves via the groundwater.`,
 
 			close: "Show less",
 			lastXDaysYLitersWater: (days: number, liters: string) =>
@@ -442,6 +464,7 @@ Particularly young trees need water in the first few years. Rather less often, b
 		title: "Filter",
 		publicPumps: "Public pumps",
 		myAdoptedTrees: "My adopted trees",
+		lastWateredTrees: "Previously watered trees",
 		treeAge: "Tree age",
 		show: "Show",
 		reset: "Reset",
@@ -494,9 +517,12 @@ Particularly young trees need water in the first few years. Rather less often, b
 	splash: {
 		headline:
 			"Berlin's city trees are suffering from drought and you can help them!",
+		subheadlineWinter: `Currently the trees are practically in hibernation and don’t need any additional water.
+**Starting in March, it will pick up again! We Can!**`,
 		subheadline:
 			"Find out about the water needs of the trees in your neighborhood, adopt the tree on your doorstep and become part of the active watering community in Berlin!",
 		actionTitle: "Let's go",
+		actionTitleWinter: "Explore!",
 		discoverTitle: "Discover",
 		discoverContent:
 			"The map visualizes over 800,000 urban trees and displays information on species, age and water requirements. Use the filter and search functions to quickly get an overview.",

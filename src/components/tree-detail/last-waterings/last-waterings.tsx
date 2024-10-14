@@ -1,5 +1,5 @@
 import { subDays } from "date-fns";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { ChevronDown } from "../../icons/chevron-down";
 import { ChevronRight } from "../../icons/chevron-right";
@@ -18,6 +18,12 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 	const i18n = useI18nStore().i18n();
 	const { isLastWateringsExpanded, setIsLastWateringsExpanded } =
 		useTreeStore();
+
+	useEffect(() => {
+		treeWateringData.length > 0
+			? setIsLastWateringsExpanded(true)
+			: setIsLastWateringsExpanded(false);
+	}, [treeWateringData]);
 
 	const wateringsLast30Days = useMemo(() => {
 		const thirtyDaysAgo = subDays(new Date(), 30);

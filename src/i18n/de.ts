@@ -293,10 +293,13 @@ Auch zu empfehlen sind sogenannte Gießsäcke aus denen das Wasser nur sehr lang
 			"Dieser Baum wird bereits vom Bezirksamt versorgt und muss nicht gegossen werden.",
 		waterNeed: {
 			title: "Wasserbedarf",
+			hintWinter:
+				"Außerhalb der Vegetationszeit (März-Oktober) benötigen die Bäume kein Wasser, sie sind quasi im Winterschlaf.",
 			hint: "Je nach Baumalter unterscheidet sich der Bedarf an Wasser.",
 			needXLiters: (liters: string) => `Braucht ca. ${liters} Liter pro Monat`,
 			needsOnlyOnDryDays: "Braucht nur an trockenen Tagen Wasser",
 			waterManaged: "Versorgt, nur in trockenen Phasen bedürftig",
+			winterSleep: "Die Bäume sind derzeit im Winterschlaf",
 			managedByGroundwater: "Grundwasser",
 			unknownTitle: "Wasserbedarf **unbekannt**",
 			unknown:
@@ -314,6 +317,7 @@ Auch zu empfehlen sind sogenannte Gießsäcke aus denen das Wasser nur sehr lang
 			manager: "vom Bezirksamt",
 			alreadyWateredByManager: "Bereits vom **Bezirksamt versorgt**",
 			alreadyWateredByGroundwater: "Über das **Grundwasser versorgt**",
+			winterNeedsNoWater: "Benötigt aktuell kein Wasser",
 			stillWaterXLiters: (liters: string) => `
 Noch
 
@@ -332,6 +336,25 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 **5-10 Jahre**: In dem Alter werden wir nicht mehr in allen Bezirken von der Verwaltung bewässert und sind noch keine „Selbstversorger“. Wir freuen uns gerade in trockenen Zeiten über Wasser - lieber seltener, aber viel auf einmal (ca. 100-200l pro Monat).
 
 **Ältere Bäume (10+ Jahre)**: Wir können uns über das Grundwasser selbst versorgen.
+`,
+			ageAndWaterHintWinter: `
+Wenn die Bäume im Herbst zunehmend ihre Blätter verlieren, reduzieren sich auch ihre photosynthetische Prozesse und sie benötigen weniger Energie – und deswegen auch weniger Wasser.
+Mit dem offiziellen Ende der Vegetationsperiode neigt sich deshalb auch die Gießsaison dem diesjährigen Ende zu. Ab März geht es dann wieder los, und zwar volle Kanne!
+
+**Wasserbedarf während der Vegetationsperiode (März-Oktober)**:
+
+`,
+			ageAndWaterHintSpecialDistrict: (
+				babyAgeLimit: number,
+				district: string,
+			) => `
+Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener, aber dafür viel.
+
+Der Bezirk ${district} hat uns zusätzliche Informationen zur individuellen Gießstrategie zur Verfügung gestellt.
+
+**Unter ${babyAgeLimit} Jahren**: Wir sind frische Jungbäume und unser Durst wird vom bezirklichen Grünflächenamt gestillt.
+
+**Ältere Bäume (${babyAgeLimit}+ Jahre)**: Wir können uns über das Grundwasser selbst versorgen.
 `,
 			close: "Weniger anzeigen",
 			lastXDaysYLitersWater: (days: number, liters: string) =>
@@ -451,6 +474,7 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 		title: "Filter",
 		publicPumps: "Öffentliche Pumpen",
 		myAdoptedTrees: "Meine adoptierten Bäume",
+		lastWateredTrees: "Zuletzt gegossene Bäume",
 		treeAge: "Baumalter",
 		show: "Anzeigen",
 		reset: "Zurücksetzen",
@@ -505,9 +529,12 @@ Insbesondere junge Bäume brauchen in den ersten Jahren Wasser. Lieber seltener,
 	splash: {
 		headline:
 			"Die Berliner Stadtbäume leiden unter Trockenheit und Du kannst ihnen helfen!",
+		subheadlineWinter: `Derzeit sind die Bäume quasi im Winterschlaf und benötigen kein zusätzliches Wasser.
+**Ab März startet die Gießsaison dann wieder, und zwar volle Kanne!**`,
 		subheadline:
 			"Erkundige Dich über den Wasserbedarf der Bäume in Deiner Nachbarschaft, adoptiere den Baum vor Deiner Haustür und werde Teil der aktiven Gieß-Community in Berlin!",
 		actionTitle: "Los geht's",
+		actionTitleWinter: "Erkunden!",
 		discoverTitle: "Entdecken",
 		discoverContent:
 			"Die Karte visualisiert über 800.000 Stadtbäume und zeigt Informationen zu Art, Alter und Wasserbedarf an. Nutze die Filter- und Suchfunktionen, um schnell einen Überblick zu erhalten.",

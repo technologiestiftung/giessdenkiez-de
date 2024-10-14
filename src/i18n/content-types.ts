@@ -160,10 +160,12 @@ interface Info {
 
 interface WaterNeed {
 	title: string;
+	hintWinter: string;
 	hint: string;
 	needXLiters: (liters: string) => string;
 	needsOnlyOnDryDays: string;
 	waterManaged: string;
+	winterSleep: string;
 	managedByGroundwater: string;
 	unknown: string;
 	unknownTitle: string;
@@ -179,11 +181,17 @@ interface WaterNeed {
 	manager: string;
 	alreadyWateredByManager: string;
 	alreadyWateredByGroundwater: string;
+	winterNeedsNoWater: string;
 	stillWaterXLiters: (liters: string) => string;
 	shouldBeWatered: string;
 	sufficientlyWatered: string;
 	ageAndWaterHintTitle: string;
 	ageAndWaterHint: string;
+	ageAndWaterHintWinter: string;
+	ageAndWaterHintSpecialDistrict: (
+		babyAgeLimit: number,
+		district: string,
+	) => string;
 	readMore: string;
 	lastXDaysYLitersWater: (days: number, liters: string) => string;
 	lastXDaysYLitersRain: (days: number, liters: string) => string;
@@ -245,6 +253,7 @@ interface Filter {
 	title: string;
 	publicPumps: string;
 	myAdoptedTrees: string;
+	lastWateredTrees: string;
 	treeAge: string;
 	show: string;
 	reset: string;
@@ -270,7 +279,9 @@ interface Pumps {
 interface Splash {
 	headline: string;
 	subheadline: string;
+	subheadlineWinter: string;
 	actionTitle: string;
+	actionTitleWinter: string;
 	discoverTitle: string;
 	discoverContent: string;
 	waterTitle: string;
