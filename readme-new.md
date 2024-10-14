@@ -103,7 +103,8 @@
 - In the `giessdenkiez-de-postgres-api` directory, do the following:
     - Connect to your local Gieß den Kiez database and delete all rows in all tables in the `public` scheme
         - either manually
-        - or by removing the `seed.sql` file in the `giessdenkiez-de-postgres-api/supabase` directory and restarting Supabase via `npx supabase stop` and `npx supabase start` and `npx supabase db reset`)
+        - or by removing the `seed.sql` file in the `giessdenkiez-de-postgres-api/supabase` directory and restarting Supabase via `npx supabase stop` and `npx supabase start` and `npx supabase db reset`
+        - Add a row with `collection_date` set to todays date in table `radolan_harvester` (all other columns NULL).
     - ⚠️ **Obtain a dataset of trees for your own city.** ⚠️ 
         - Import it into the `trees` table of the database.
         - Make sure to follow the schema of the `trees` table, you need the following columns: `id, lat, lng, art_dtsch, gattung_deutsch, pflanzjahr, bezirk, geom`. All other columns are either ignored or populated automatically by some upcoming steps.
@@ -119,3 +120,9 @@
         - `MAPBOXLAYERNAME=your_city_layer` change value to a choice that fits your city, e.g. `your_city_layer`
         - `SURROUNDING_SHAPE_FILE=your_city_shapefile.shp` change value to the path of your citys shapefile
     - Reload the `.env` file: `direnv allow`
+    - In `giessdenkiez-de-dwd-harvester/harvester` directory, run: `python src/run_harvester.py`
+- Back in the `giessdenkiez-de` directory, do the following:
+    - Change value of `VITE_MAPBOX_TREES_TILESET_URL` to point to the new created Mapbox layer containing the trees of your city
+    - Reload `.env` file: `direnv allow`
+    - Restart App: `npm run dev`
+    - Visit `http://localhost:5173` in the browser, you should see a map with the trees of your city
