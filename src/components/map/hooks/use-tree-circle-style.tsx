@@ -17,7 +17,10 @@ export function useTreeCircleStyle() {
 		TREE_YELLOW_COLOR,
 	} = useMapConstants();
 
-	const circleRadius = {
+	const circleRadius: {
+		base: number;
+		stops: [[number, number], [number, number]];
+	} = {
 		base: 1.75,
 		stops: [
 			[11, 1],
