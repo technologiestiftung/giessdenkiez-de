@@ -1,4 +1,12 @@
 import { defineConfig, devices } from "@playwright/test";
+import { loadEnv } from "vite";
+
+/**
+ * in the CI pipeline, the env variables are provided by the CI, not the .env file
+ */
+if (!process.env.CI) {
+	process.env = { ...process.env, ...loadEnv("", process.cwd()) };
+}
 
 const port = process.env.VITE_PORT ? parseInt(process.env.VITE_PORT) : 5173;
 
