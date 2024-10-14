@@ -35,7 +35,6 @@
 		"@technologiestiftung/eslint-plugin": "0.1.1",
 		"@technologiestiftung/prettier-config": "1.0.0",
 		"@technologiestiftung/semantic-release-config": "1.2.4",
-		"@types/mapbox-gl": "3.4.0",
 		"@types/react": "18.3.11",
 		"@types/react-dom": "18.3.0",
 		"@typescript-eslint/eslint-plugin": "7.18.0",

@@ -1,9 +1,32 @@
-import mapboxgl from "mapbox-gl";
+import * as mapboxgl from "mapbox-gl";
 
 /* eslint-disable-next-line no-shadow */
 enum UpdateAction {
 	ADD = "ADD",
 	REMOVE = "REMOVE",
+}
+
+function getTodaysWaterings(
+	featureState: { [p: string]: unknown } | null | undefined,
+) {
+	if (!featureState || !featureState.todays_waterings) {
+		return 0;
+	}
+
+	if (typeof featureState.todays_waterings === "string") {
+		return parseInt(featureState.todays_waterings);
+	}
+
+	if (typeof featureState.todays_waterings === "number") {
+		return featureState.todays_waterings;
+	}
+
+	console.error(
+		"could not parse featureState.todays_watering:",
+		featureState.todays_waterings,
+	);
+
+	return 0;
 }
 
 /* eslint-disable-next-line max-params */
@@ -19,9 +42,7 @@ function updateTreeWaterings(
 		sourceLayer: "trees",
 	});
 
-	const todaysWateringAmount = featureState
-		? parseInt(featureState.todays_waterings ?? 0)
-		: 0;
+	const todaysWateringAmount = getTodaysWaterings(featureState);
 
 	const todaysWateringSum =
 		updateAction === UpdateAction.ADD
