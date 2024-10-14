@@ -126,3 +126,6 @@
     - Reload `.env` file: `direnv allow`
     - Restart App: `npm run dev`
     - Visit `http://localhost:5173` in the browser, you should see a map with the trees of your city
+
+## Step 3: Deploy and automate
+### After executing the following steps, you will have a working version of Gieß den Kiez (for your own city) deployed and automated.
