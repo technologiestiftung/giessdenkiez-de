@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, { useEffect, useState } from "react";
 import { PasswordInputWithValidation } from "../validation/password-input-with-validation";
 import { PrimaryButton } from "../../buttons/primary";

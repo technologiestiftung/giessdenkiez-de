@@ -1,6 +1,5 @@
 import * as mapboxgl from "mapbox-gl";
 
-/* eslint-disable-next-line no-shadow */
 enum UpdateAction {
 	ADD = "ADD",
 	REMOVE = "REMOVE",

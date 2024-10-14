@@ -20,9 +20,9 @@ export const LastWaterings: React.FC<LastWateringsProps> = ({
 		useTreeStore();
 
 	useEffect(() => {
-		treeWateringData.length > 0
-			? setIsLastWateringsExpanded(true)
-			: setIsLastWateringsExpanded(false);
+		const hasTreeWateringData = treeWateringData.length > 0;
+
+		setIsLastWateringsExpanded(hasTreeWateringData);
 	}, [treeWateringData]);
 
 	const wateringsLast30Days = useMemo(() => {

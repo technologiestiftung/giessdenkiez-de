@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import * as mapboxgl from "mapbox-gl";
 import React, { useEffect } from "react";
 import { useMapStore } from "../map-store";

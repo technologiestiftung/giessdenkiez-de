@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { create } from "zustand";
 import { supabaseClient } from "../auth/supabase-client";
 import { useAuthStore } from "../auth/auth-store";

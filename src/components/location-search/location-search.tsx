@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, { useEffect, useState } from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { ClearIcon } from "../icons/clear-icon";
@@ -39,11 +38,18 @@ export const LocationSearch: React.FC = () => {
 	};
 
 	useEffect(() => {
-		if (isFilterViewVisible) {
-			clearSearch();
-			clearGeocodingResults();
-			isPickedGeoSearchResult.length > 0 && setIsTextInSearchbar(true);
+		if (!isFilterViewVisible) {
+			return;
 		}
+
+		clearSearch();
+		clearGeocodingResults();
+
+		if (isPickedGeoSearchResult.length === 0) {
+			return;
+		}
+
+		setIsTextInSearchbar(true);
 	}, [isFilterViewVisible]);
 
 	map?.on("dragstart", function () {
@@ -55,16 +61,15 @@ export const LocationSearch: React.FC = () => {
 	});
 
 	const onGeocodingResultClick = (geocodingResult: GeocodingResult) => {
-		map &&
-			map.easeTo({
-				center: [
-					geocodingResult.geometry.coordinates[0],
-					geocodingResult.geometry.coordinates[1],
-				],
-				essential: true,
-				duration: 1500,
-				zoom: MAP_LOCATION_ZOOM_LEVEL,
-			});
+		map?.easeTo({
+			center: [
+				geocodingResult.geometry.coordinates[0],
+				geocodingResult.geometry.coordinates[1],
+			],
+			essential: true,
+			duration: 1500,
+			zoom: MAP_LOCATION_ZOOM_LEVEL,
+		});
 		setSelectedGeocodingResult(geocodingResult);
 		setisPickedGeoSearchResult(geocodingResult.place_name_de);
 		setSelectedGeocodingResultIndex(0);

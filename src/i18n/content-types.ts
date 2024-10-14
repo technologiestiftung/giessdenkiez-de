@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 type TreeTypeId =
 	| "LINDE"
 	| "AHORN"

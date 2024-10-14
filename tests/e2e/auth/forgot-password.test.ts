@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { expect, test } from "@playwright/test";
 import {
 	deleteDefaultAccount,

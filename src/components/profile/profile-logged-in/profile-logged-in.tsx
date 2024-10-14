@@ -17,7 +17,7 @@ export const ProfileLoggedIn: React.FC = () => {
 		try {
 			await logout();
 		} catch (error) {
-			handleError(i18n.common.defaultErrorMessage);
+			handleError(i18n.common.defaultErrorMessage, error);
 		}
 	}, []);
 
