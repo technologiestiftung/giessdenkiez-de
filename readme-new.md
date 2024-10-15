@@ -25,68 +25,68 @@
     - DWD Harvester: `git clone git@github.com:technologiestiftung/giessdenkiez-de-dwd-harvester.git`
     - Pumpen Harvester: `git clone git@github.com:technologiestiftung/giessdenkiez-de-osm-pumpen-harvester.git`
     - Tree Data Importer: `git clone git@github.com:technologiestiftung/giessdenkiez-de-tree-data.git`
-- Prepare database and API:
-    - In order to see trees on the map, you need a dataset with information about every single tree.
-    - To store the tree data, you need to setup the database:
-    - `cd giessdenkiez-de-postgres-api`
+- Prepare database and API ([Supabase](https://supabase.com/) setup):
+    - Change directory to `giessdenkiez-de-postgres-api` repository
     - `npm ci` 
     - `cp .env.example .env`
     - In `.env`, set `ACCESS_CONTROL_ALLOW_ORIGIN=*`
-    - `npx supabase start`
-    - Now the database is running locally in a Docker container.
-    - To see all credentials / tokens, use `npx supabase status`
-- Prepare the Mapbox layer including rain and weather data:
+    - `npx supabase start` which will start a local [Supabase](https://supabase.com/) instance
+    - Now the Postgres database (and all other Supabase services) are running locally in Docker containers
+    - To see all local Supabase credentials and tokens, use `npx supabase status`
+- Generate the Mapbox tileset including rain data:
     - Create a Mapbox account (https://www.mapbox.com/)
-    - Create a Mapbox token (https://account.mapbox.com/)
+    - Create a Mapbox access token (https://account.mapbox.com/)
     - Have your Mapbox account name ready
-    - `cd giessdenkiez-de-dwd-harvester/harvester`
+    - Change directory to `giessdenkiez-de-dwd-harvester` repository
     - `cp sample.env .env`
     - Populate the `.env` file:
-        - Change `MAPBOXTOKEN` value to your own Mapbox token
-        - Change `SURROUNDING_SHAPE_FILE` value to `./assets/berlin.shp`
+        - Change `MAPBOXTOKEN` value to the previously created Mapbox access token
         - Change `SUPABASE_SERVICE_ROLE` value to your local Supabase service role key
         - Load the `.env` file: `direnv allow`
     - Create a Python virtual environment:
         - `python3 -m venv venv`
         - `source venv/bin/activate`
     - Install Python dependencies:
-        - `pip install -r requirements.txt`
-        - This step is prone to errors depending on your system, try installing the dependencies manually and refer to the the readme: https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester
-    - Run the Rain (DWD) Harvester:
+        - `pip install -r requirements-mac.txt`
+        - Install `GDAL` dependency manually on your system, refer to the README at https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester
+        - ⚠️ This step can be prone to errors, depending on your system. For troubleshooting help, refer to the README at https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester ⚠️
+    - Run preparation steps:
         - `cd giessdenkiez-de-dwd-harvester/harvester/prepare`
         - `SHAPE_RESTORE_SHX=YES python create-buffer.py`
         - `python create-grid.py`
-        - `cd giessdenkiez-de-dwd-harvester/harvester/prepare`
-        - `python src/run_harvester.py` This may take ~ 30 minutes or more!
+    - Run the actual script (harvests DWD rain data for last 30 days, generates Mapbox tileset):
+        - `cd giessdenkiez-de-dwd-harvester/harvester/`
+        - `python src/run_harvester.py` **This may take ~30 minutes or more!**
         - Go to https://studio.mapbox.com/tilesets and verify that the tileset is present
-    - Run the historical weather harvester:
-        - `python src/run_daily_weather.py` This may take several minutes!
-- Prepare the water pumps file:
-    - `cd giessdenkiez-de-osm-pumpen-harvester`
+- Run the script for harvesting historical weather data via [BrightSky API](https://brightsky.dev/docs/#/):
+    - `python src/run_daily_weather.py` **This may take several minutes!**
+    - Verify that the `daily_weather_data` table in your database is populated
+- Create the water pumps GeoJson file:
+    - Change directory to `giessdenkiez-de-osm-pumpen-harvester` repository
     - `python3 -m venv venv`
     - `source venv/bin/activate`
     - Install Python dependencies:
         - `pip install -r requirements.txt`
         - This step is prone to errors depending on your system, try installing the dependencies manually and refer to the the readme: https://github.com/technologiestiftung/giessdenkiez-de-osm-pumpen-harvester
-    - `python harvester/main.py pumps.geojson ` generates a `pumps.geojson` file
+    - Run `python harvester/main.py pumps.geojson` to generate a `pumps.geojson` file
     - Upload this file manually to the Supabase bucket (http://localhost:54323/project/default/storage/buckets/data_assets)
-    - Copy the URL of the uploaded file
+    - Copy the Supabase URL of the uploaded file
 - Download the Geojson file for Berlin districts:
     - Go to https://daten.odis-berlin.de/de/dataset/bezirksgrenzen/ and download the GeoJSON manually
     - Upload the file to your Supabase instance at http://localhost:54323/project/default/storage/buckets/data_assets
     - Copy the URL of the uploaded file
 - Setup the Frontend:
-    - `cd giessdenkiez-de`
+    - Change directory to `giessdenkiez-de` repository
     - `npm ci`
     - `npm run dev`
     - `cp .env.sample .env`
     - `npm run start`
     - Open `http://localhost:5173/` in the browser, you will see an eternal loading screen indicating that trees are loading. In the browser console, you will see many errors. **This is expected**, continue with the next setup steps.
     - Prepare the correct values in the `.env` file:
-        - `VITE_MAPBOX_API_KEY=<your-mapbox-api-key>` set to your Mapbox API key
-        - `VITE_MAPBOX_TREES_TILESET_URL=<your-trees-tileset-url>` set to the tileset URL, e.g. `VITE_MAPBOX_TREES_TILESET_URL=mapbox://<account_name>.<tileset_id>` use your Mapbox account name and tileset ID.
+        - `VITE_MAPBOX_API_KEY=<your-mapbox-api-key>` set to your Mapbox access token
+        - `VITE_MAPBOX_TREES_TILESET_URL=<your-trees-tileset-url>` set to the Mapbox tileset URL, e.g. `VITE_MAPBOX_TREES_TILESET_URL=mapbox://<account_name>.<tileset_id>` use your Mapbox account name and tileset ID.
         - `VITE_MAP_PUMPS_SOURCE_URL=<your-pumps-source-url>` the URL to your `pumps.geojson` file, as previously uploaded
-        - `VITE_BEZIRKE_URL=<your_bezirke_geojson_url>`
+        - `VITE_BEZIRKE_URL=<your_bezirke_geojson_url>` set to the URL of the previously generated and uploaded GeoJson file of the districts
     - `direnv allow` to reload the environment
     - `npm run dev` to reload the App
     - Open `http://localhost:5173/map?treeId=00008100%3A001f2573` in the browser.
