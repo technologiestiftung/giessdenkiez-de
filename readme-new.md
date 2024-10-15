@@ -93,13 +93,6 @@
 
 ## Step 2: Adapt to your city
 ### After executing the following steps, you will have a working version of Gieß den Kiez (for your own city) running locally.
-- In the `giessdenkiez-de` directory, do the following:
-    - Change values in the `.env`:
-        - `VITE_MAP_CENTER_LNG=13.388836926491992` change the value to the longitude of the center of your city
-        - `VITE_MAP_CENTER_LAT=52.494590307846366` change the value to the latitude of the center of your city
-        - `VITE_MAP_BOUNDING_BOX=13.0824446341071,52.3281202651866,13.7682544186827,52.681600197973` change the value to the top left and bottom right corner coordinates of your city
-    - Reload the `.env` file: `direnv allow`
-    - Restart the App: `npm run dev`
 - In the `giessdenkiez-de-postgres-api` directory, do the following:
     - Connect to your local Gieß den Kiez database and delete all rows in all tables in the `public` scheme
         - either manually
@@ -113,18 +106,29 @@
 - In the `giessdenkiez-de-dwd-harvester` directory, do the following:
     - Obtain a [Shapefile](https://desktop.arcgis.com/en/arcmap/latest/manage-data/shapefiles/what-is-a-shapefile.htm) of your city which outlines the geographical city borders. One source for obtaining the shapefile could be the [Geofabrik Portal](https://www.geofabrik.de/de/data/shapefiles.html). The Shapefile `your_city.shp` comes with a project file `your_project.proj`. Save both files in the `giessdenkiez-de-dwd-harvester/harvester/assets` directory.
     - Attention: Code changes needed! In the file `giessdenkiez-de-dwd-harvester/harvester/prepare/create-buffer.py` file, change line 5 to fit the Shapefile of your city: `berlin = geopandas.read_file("../assets/your_city.shp")`.
-    - Run `SHAPE_RESTORE_SHX=YES python create-buffer.py` to re-generate the Shapefile buffers.
-    - Run `python create-grid.py` to re-populate the `radolan_geometry` table in the database.
-    - Edit the `.env` file:
-        - `MAPBOXTILESET=your_city_tileset` change value to a choice that fits your city, e.g. `your_city_tileset`
-        - `MAPBOXLAYERNAME=your_city_layer` change value to a choice that fits your city, e.g. `your_city_layer`
-        - `SURROUNDING_SHAPE_FILE=your_city_shapefile.shp` change value to the path of your citys shapefile
-    - Reload the `.env` file: `direnv allow`
-    - In `giessdenkiez-de-dwd-harvester/harvester` directory, run: `python src/run_harvester.py`
+    - Change directory to `giessdenkiez-de-dwd-harvester/harvester/prepare`
+        - Run `SHAPE_RESTORE_SHX=YES python create-buffer.py` to re-generate the Shapefile buffers.
+        - Run `python create-grid.py` to re-populate the `radolan_geometry` table in the database.
+    - Change directory to `giessdenkiez-de-dwd-harvester/harvester`
+        - Edit the `.env` file:
+            - `MAPBOXTILESET=your_city_tileset` change value to a choice that fits your city, e.g. `your_city_tileset`
+            - `MAPBOXLAYERNAME=your_city_layer` change value to a choice that fits your city, e.g. `your_city_layer`
+            - `SURROUNDING_SHAPE_FILE=./assets/your_city_shapefile.shp` change value to the path of your citys shapefile
+            - `WEATHER_HARVEST_LAT=52.520008` change value to the latitude of your city center
+            - `WEATHER_HARVEST_LNG=13.404954` change value to the longitude of your city center
+        - Reload the `.env` file: `direnv allow`
+        - Run `python src/run_harvester.py` **This may take ~30 minutes or more!**
+        - Go to https://studio.mapbox.com/tilesets and verify that the new Mapbox tileset is present
+        - Run `python src/run_daily_weather.py` **This may take several minutes!**
+        - Verify that the `hourly_weather_data` table is populated
 - Back in the `giessdenkiez-de` directory, do the following:
-    - Change value of `VITE_MAPBOX_TREES_TILESET_URL` to point to the new created Mapbox layer containing the trees of your city
-    - Reload `.env` file: `direnv allow`
-    - Restart App: `npm run dev`
+    - Change values in the `.env`:
+        - `VITE_MAP_CENTER_LNG=13.388836926491992` change the value to the longitude of the center of your city
+        - `VITE_MAP_CENTER_LAT=52.494590307846366` change the value to the latitude of the center of your city
+        - `VITE_MAP_BOUNDING_BOX=13.0824446341071,52.3281202651866,13.7682544186827,52.681600197973` change the value to the top left and bottom right corner coordinates of your city
+        - `VITE_MAPBOX_TREES_TILESET_URL` change value to point to the newly created Mapbox layer containing the trees of your city
+    - Reload the `.env` file: `direnv allow`
+    - Restart the App: `npm run dev`
     - Visit `http://localhost:5173` in the browser, you should see a map with the trees of your city
 
 ## Step 3: Deploy and automate
