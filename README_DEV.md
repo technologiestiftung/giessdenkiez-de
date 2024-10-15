@@ -7,11 +7,11 @@
 - macOS Ventura (Version 13.5.1)
 - Apple MacBook M2
 - Required software installed:
-  - Docker (https://docs.docker.com/desktop/install/mac-install/)
+  - Docker v27.0.3 (https://docs.docker.com/desktop/install/mac-install/)
+  - direnv v2.32.3 (https://direnv.net/docs/installation.html)
+  - Python v3.12.4 (https://docs.python-guide.org/starting/install3/osx/) with `pip 24.0`
   - Node / npm (https://nodejs.org/en/download/package-manager)
-  - direnv (https://direnv.net/docs/installation.html)
-  - Python 3.12.4 (https://docs.python-guide.org/starting/install3/osx/) with `pip 24.0`
-  - Node Version Manager (https://formulae.brew.sh/formula/nvm)
+  - Node Version Manager v0.39.3 (https://formulae.brew.sh/formula/nvm)
   - Software of your choice for accessing Postgres database
 
 ## Step 1: Setup with demo trees in Berlin
@@ -75,7 +75,7 @@
   - Upload this file manually to the Supabase bucket (http://localhost:54323/project/default/storage/buckets/data_assets)
   - Copy the Supabase URL of the uploaded file for later use as `VITE_MAP_PUMPS_SOURCE_URL` variable
 - Download the Geojson file for Berlin districts:
-  - Go to https://daten.odis-berlin.de/de/dataset/bezirksgrenzen/ and download the GeoJSON manually
+  - Go to https://github.com/funkeinteraktiv/Berlin-Geodaten/blob/master/berlin_bezirke.geojson and download the GeoJSON manually
   - Upload the file to your Supabase instance at http://localhost:54323/project/default/storage/buckets/data_assets
   - Copy the URL of the uploaded file for later use as `VITE_BEZIRKE_URL` variable
 - Change directory to `giessdenkiez-de-postgres-api/supabase` to start the Supabase Edge functions
@@ -84,19 +84,20 @@
   - Run `supabase functions serve --env-file supabase/.env` in `giessdenkiez-de-postgres-api` directory
 - Setup the Frontend:
   - Change directory to `giessdenkiez-de` repository
+  - `nvm install && nvm use`
   - `npm ci`
-  - `npm run dev`
   - `cp .env.sample .env`
-  - `npm run start`
+  - `direnv allow`
+  - `npm run dev`
   - Open `http://localhost:5173/` in the browser, you will see an eternal loading screen indicating that trees are loading. In the browser console, you will see many errors. **This is expected**, continue with the next setup steps.
   - Prepare the correct values in the `.env` file:
-    - `VITE_MAPBOX_API_KEY=<your-mapbox-api-key>` set to your Mapbox access token
+    - `VITE_MAPBOX_API_KEY=<your-mapbox-api-key>` set to your Mapbox Frontend access token
     - `VITE_MAPBOX_TREES_TILESET_URL=<your-trees-tileset-url>` set to the Mapbox tileset URL, e.g. `VITE_MAPBOX_TREES_TILESET_URL=mapbox://<account_name>.<tileset_id>` use your Mapbox account name and tileset ID.
     - `VITE_MAP_PUMPS_SOURCE_URL=<your-pumps-source-url>` the URL to your `pumps.geojson` file, as previously uploaded
     - `VITE_BEZIRKE_URL=<your_bezirke_geojson_url>` set to the URL of the previously generated and uploaded GeoJson file of the districts
   - `direnv allow` to reload the environment
   - `npm run dev` to reload the App
-  - Open `http://localhost:5173/map?treeId=00008100%3A001f2573` in the browser.
+  - Open `http://localhost:5173/map?treeId=00008100%3A001f2573` in the browser, you should see a map zoomed to a specific tree. 🎉
 
 ## Step 2: Adapt to your city
 
