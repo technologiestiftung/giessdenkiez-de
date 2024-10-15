@@ -2,8 +2,6 @@
 
 **Attention: Setting up Gieß den Kiez requires software development expertise.** We offer various level of help in setting up the project, for more information visit: https://deinestadt.giessdenkiez.de/
 
-⚠️ **For sucessfully setting up Gieß den Kiez for your city, you need a dataset of the trees which should be shown on the map.** ⚠️ 
-
 ### The following setup was tested on this environment:
 - macOS Ventura (Version 13.5.1)
 - Apple MacBook M2
@@ -24,7 +22,6 @@
     - Backend / Database: `git clone git@github.com:technologiestiftung/giessdenkiez-de-postgres-api.git`
     - DWD Harvester: `git clone git@github.com:technologiestiftung/giessdenkiez-de-dwd-harvester.git`
     - Pumpen Harvester: `git clone git@github.com:technologiestiftung/giessdenkiez-de-osm-pumpen-harvester.git`
-    - Tree Data Importer: `git clone git@github.com:technologiestiftung/giessdenkiez-de-tree-data.git`
 - Prepare database and API ([Supabase](https://supabase.com/) setup):
     - Change directory to `giessdenkiez-de-postgres-api` repository
     - `npm ci` 
@@ -49,7 +46,7 @@
     - Install Python dependencies:
         - `pip install -r requirements-mac.txt`
         - Install `GDAL` dependency manually on your system, refer to the README at https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester
-        - ⚠️ This step can be prone to errors, depending on your system. For troubleshooting help, refer to the README at https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester ⚠️
+        - 🚨 Attention: This step can be prone to errors, depending on your system. For troubleshooting help, refer to the README at https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester
     - Run preparation steps:
         - `cd giessdenkiez-de-dwd-harvester/harvester/prepare`
         - `SHAPE_RESTORE_SHX=YES python create-buffer.py`
@@ -66,15 +63,23 @@
     - `python3 -m venv venv`
     - `source venv/bin/activate`
     - Install Python dependencies:
-        - `pip install -r requirements.txt`
-        - This step is prone to errors depending on your system, try installing the dependencies manually and refer to the the readme: https://github.com/technologiestiftung/giessdenkiez-de-osm-pumpen-harvester
+        - `pip install -r requirements-mac.txt`
+        - 🚨 Attention: This step can be prone to errors, depending on your system. For troubleshooting help, refer to the README at: https://github.com/technologiestiftung/giessdenkiez-de-osm-pumpen-harvester
     - Run `python harvester/main.py pumps.geojson` to generate a `pumps.geojson` file
     - Upload this file manually to the Supabase bucket (http://localhost:54323/project/default/storage/buckets/data_assets)
     - Copy the Supabase URL of the uploaded file
 - Download the Geojson file for Berlin districts:
     - Go to https://daten.odis-berlin.de/de/dataset/bezirksgrenzen/ and download the GeoJSON manually
     - Upload the file to your Supabase instance at http://localhost:54323/project/default/storage/buckets/data_assets
-    - Copy the URL of the uploaded file
+    - Copy the URL of the uploaded file for later use as `VITE_BEZIRKE_URL` variable
+- Change directory to `giessdenkiez-de-postgres-api/supabase` to start the Supabase Edge functions
+    - `cp .env.sample .env` and change the variables:
+        - `ALLOWED_ORIGIN=http://localhost:5173`
+        - `PUMPS_URL=<url_to_your_pumps_file>`
+        - `SMTP_HOST=postgres`
+        - `SMTP_USER=postgres`
+        - `SMTP_PASSWORD=postgres`
+    - Run `supabase functions serve --env-file supabase/.env` in `giessdenkiez-de-postgres-api` directory
 - Setup the Frontend:
     - Change directory to `giessdenkiez-de` repository
     - `npm ci`
@@ -98,14 +103,15 @@
         - either manually
         - or by removing the `seed.sql` file in the `giessdenkiez-de-postgres-api/supabase` directory and restarting Supabase via `npx supabase stop` and `npx supabase start` and `npx supabase db reset`
         - Add a row with `collection_date` set to todays date in table `radolan_harvester` (all other columns NULL).
-    - ⚠️ **Obtain a dataset of trees for your own city.** ⚠️ 
-        - Import it into the `trees` table of the database.
+    - 🚨 **Attention, important manual step:** Obtain a dataset of trees for your own city. 
+        - Manually it into the `trees` table of the database.
         - Make sure to follow the schema of the `trees` table, you need the following columns: `id, lat, lng, art_dtsch, gattung_deutsch, pflanzjahr, bezirk, geom`. All other columns are either ignored or populated automatically by some upcoming steps.
         - The `geom` column must be in the format: `SRID=4326;POINT(13.44828414775829 52.44315190724164)`
         - Only proceed after verifying that you have succesfully imported all trees into the database table.
 - In the `giessdenkiez-de-dwd-harvester` directory, do the following:
-    - Obtain a [Shapefile](https://desktop.arcgis.com/en/arcmap/latest/manage-data/shapefiles/what-is-a-shapefile.htm) of your city which outlines the geographical city borders. One source for obtaining the shapefile could be the [Geofabrik Portal](https://www.geofabrik.de/de/data/shapefiles.html). The Shapefile `your_city.shp` comes with a project file `your_project.proj`. Save both files in the `giessdenkiez-de-dwd-harvester/harvester/assets` directory.
-    - Attention: Code changes needed! In the file `giessdenkiez-de-dwd-harvester/harvester/prepare/create-buffer.py` file, change line 5 to fit the Shapefile of your city: `berlin = geopandas.read_file("../assets/your_city.shp")`.
+    - 🚨 **Attention, important manual step:** Obtain a [Shapefile](https://desktop.arcgis.com/en/arcmap/latest/manage-data/shapefiles/what-is-a-shapefile.htm) of your city which outlines the geographical city borders.
+    - One source for obtaining the shapefile could be the [Geofabrik Portal](https://www.geofabrik.de/de/data/shapefiles.html). The Shapefile `your_city.shp` comes with a project file `your_project.proj`. Save both files in the `giessdenkiez-de-dwd-harvester/harvester/assets` directory.
+    - 🚨 **Attention, important manual step:** In the file `giessdenkiez-de-dwd-harvester/harvester/prepare/create-buffer.py` file, change line 5 to fit the Shapefile of your city: `berlin = geopandas.read_file("../assets/your_city.shp")`.
     - Change directory to `giessdenkiez-de-dwd-harvester/harvester/prepare`
         - Run `SHAPE_RESTORE_SHX=YES python create-buffer.py` to re-generate the Shapefile buffers.
         - Run `python create-grid.py` to re-populate the `radolan_geometry` table in the database.
@@ -129,7 +135,23 @@
         - `VITE_MAPBOX_TREES_TILESET_URL` change value to point to the newly created Mapbox layer containing the trees of your city
     - Reload the `.env` file: `direnv allow`
     - Restart the App: `npm run dev`
-    - Visit `http://localhost:5173` in the browser, you should see a map with the trees of your city
+    - Visit `http://localhost:5173` in the browser, you should see a map with the trees of your city. 🎉
 
 ## Step 3: Deploy and automate
 ### After executing the following steps, you will have a working version of Gieß den Kiez (for your own city) deployed and automated.
+- Create accounts for the following services:
+    - Mapbox https://www.mapbox.com/ for providing the Map
+    - Supabase https://supabase.com/ for hosting Database + API
+    - Vercel https://vercel.com/ for hosting the Frontend
+    - Pipedream https://pipedream.com/ for regularly scheduling Github actions
+- Fork the repositories into your organization:
+    - Frontend: `technologiestiftung/giessdenkiez-de.git`
+    - Backend / Database: `technologiestiftung/giessdenkiez-de-postgres-api.git`
+    - DWD Harvester: `technologiestiftung/giessdenkiez-de-dwd-harvester.git`
+    - Pumpen Harvester: `technologiestiftung/giessdenkiez-de-osm-pumpen-harvester.git`
+- Create a Supabase account at https://supabase.com/ and create a new project
+    - Change directory to `giessdenkiez-de-postgres-api` repository locally
+    - Run `npx supabase link` and follow the command line prompts to link the local Supabase setup to your remote Supabase project
+    - Run `npx supabase db push` to push all database migrations to the remote Supabase project
+    - Manually insert the dataset of trees in your city to the remote database table `trees`.
+- Create a Vercel account at https://vercel.com/ for hosting the Frontend
