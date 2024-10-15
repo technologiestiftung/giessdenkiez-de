@@ -74,11 +74,7 @@
     - Copy the URL of the uploaded file for later use as `VITE_BEZIRKE_URL` variable
 - Change directory to `giessdenkiez-de-postgres-api/supabase` to start the Supabase Edge functions
     - `cp .env.sample .env` and change the variables:
-        - `ALLOWED_ORIGIN=http://localhost:5173`
-        - `PUMPS_URL=<url_to_your_pumps_file>`
-        - `SMTP_HOST=postgres`
-        - `SMTP_USER=postgres`
-        - `SMTP_PASSWORD=postgres`
+        - `PUMPS_URL=<url_to_your_pumps_file>` set value to the URL of your pumps file
     - Run `supabase functions serve --env-file supabase/.env` in `giessdenkiez-de-postgres-api` directory
 - Setup the Frontend:
     - Change directory to `giessdenkiez-de` repository
@@ -108,6 +104,8 @@
         - Make sure to follow the schema of the `trees` table, you need the following columns: `id, lat, lng, art_dtsch, gattung_deutsch, pflanzjahr, bezirk, geom`. All other columns are either ignored or populated automatically by some upcoming steps.
         - The `geom` column must be in the format: `SRID=4326;POINT(13.44828414775829 52.44315190724164)`
         - Only proceed after verifying that you have succesfully imported all trees into the database table.
+    - 🚨 **Attention, important manual step:** 
+        - In `giessdenkiez-de-postgres-api/supabase/functions/gdk_stats/index.ts`, change the hardcoded values `MOST_FREQUENT_TREE_SPECIES` and `TREE_COUNT` to fit your city trees.
 - In the `giessdenkiez-de-dwd-harvester` directory, do the following:
     - 🚨 **Attention, important manual step:** Obtain a [Shapefile](https://desktop.arcgis.com/en/arcmap/latest/manage-data/shapefiles/what-is-a-shapefile.htm) of your city which outlines the geographical city borders.
     - One source for obtaining the shapefile could be the [Geofabrik Portal](https://www.geofabrik.de/de/data/shapefiles.html). The Shapefile `your_city.shp` comes with a project file `your_project.proj`. Save both files in the `giessdenkiez-de-dwd-harvester/harvester/assets` directory.
@@ -139,6 +137,7 @@
 
 ## Step 3: Deploy and automate
 ### After executing the following steps, you will have a working version of Gieß den Kiez (for your own city) deployed and automated.
+### Disclaimer: This is the stack we are using for production. You are free to choose the technology by yourself.
 - Create accounts for the following services:
     - Mapbox https://www.mapbox.com/ for providing the Map
     - Supabase https://supabase.com/ for hosting Database + API
@@ -149,9 +148,95 @@
     - Backend / Database: `technologiestiftung/giessdenkiez-de-postgres-api.git`
     - DWD Harvester: `technologiestiftung/giessdenkiez-de-dwd-harvester.git`
     - Pumpen Harvester: `technologiestiftung/giessdenkiez-de-osm-pumpen-harvester.git`
-- Create a Supabase account at https://supabase.com/ and create a new project
-    - Change directory to `giessdenkiez-de-postgres-api` repository locally
-    - Run `npx supabase link` and follow the command line prompts to link the local Supabase setup to your remote Supabase project
-    - Run `npx supabase db push` to push all database migrations to the remote Supabase project
-    - Manually insert the dataset of trees in your city to the remote database table `trees`.
-- Create a Vercel account at https://vercel.com/ for hosting the Frontend
+- Deploy Database / API:
+    - Create a Supabase account at https://supabase.com/ and create a new project. Save project ID and database password for later use.
+    - In **your own forked** `giessdenkiez-de-postgres-api` repository, go to Settings -> Environments and create an environment, e.g. "production"
+    - Set environment secrets:
+        - `DB_PASSWORD` set value to the database password which you entered when creating the Supabase project
+        - `PROJECT_ID` set value to the project ID of your newly created Supabase project
+        - `SUPABASE_ACCESS_TOKEN` Your personal Supabase access token
+    - Make use of [Github Actions](https://docs.github.com/en/actions) to deploy the Supabase configuration to production:
+        - refer to the Github Actions template in `giessdenkiez-de-postgres-api/.github/workflows/deploy-to-supabase-production.yml`
+        - adapt this Github Action to your needs and run it, on each run it will deploy the Supabase migrations and functions to your Supabase production instance
+- Deploy Mapbox Tileset:
+    - Create a Mapbox account at https://www.mapbox.com/ which hosts your tilesets (if not done already)
+    - In **your own forked** `giessdenkiez-de` repository, go to Settings -> Environments and crate an environment, e.g. "production"
+    - Set environment variables accordingly
+        - `PG_SERVER=...`
+        - `PG_PORT=...`
+        - `PG_USER=...`
+        - `PG_PASS=...`
+        - `PG_DB=...`
+        - `SUPABASE_URL=...`
+        - `SUPABASE_BUCKET_NAME=...`
+        - `SUPABASE_SERVICE_ROLE_KEY=...`
+        - `OUTPUT=...`
+        - `LOGGING=...`
+        - `MAPBOXUSERNAME=...`
+        - `MAPBOXTOKEN=...`
+        - `MAPBOXTILESET=...`
+        - `MAPBOXLAYERNAME=...`
+        - `SKIP_MAPBOX=...`
+        - `LIMIT_DAYS=...`
+        - `SURROUNDING_SHAPE_FILE=...`
+        - `WEATHER_HARVEST_LAT=...`
+        - `WEATHER_HARVEST_LNG=...`
+    - make use of [Github Actions](https://docs.github.com/en/actions) to run the Github Actions of the `giessdenkiez-de-dwd-harvester`
+        - refer to the Github Actions template in `giessdenkiez-de/.github/workflows/rain.yml`
+        - make sure to setup all environment variables correctly
+        - adapt this Github Action to your needs and run it, on each run it will generate the Mapbox tileset and popuplate the `daily_weather_data` table in the database
+- Upload the Pumps file:
+    - make use of [Github Actions](https://docs.github.com/en/actions) to run the Github Actions of the `giessdenkiez-de-pumpen-harvester`
+    - make sure to setup the environment variables:
+        - `SUPABASE_URL=...`
+        - `SUPABASE_DATA_ASSETS_BUCKET=...`
+        - `SUPABASE_SERVICE_ROLE_KEY=...`
+    - refer to the Github Actions template in `giessdenkiez-de/.github/workflows/pumps.yml`
+    - make sure to setup all environment variables correctly
+    - adapt this Github Action to your needs and run it, on each run it will generate and upload the pumps file to your Supabase
+- Upload the districts Geojson:
+    - This step is not yet automated. Follow instructions in Step 1 and Step 2 to download the districts geojson and upload it to your Supabase instance.
+- Deploy the Frontend:
+    - Create a Vercel account at https://vercel.com/ for hosting the Frontend
+    - Connect to **your own forked** `giessdenkiez-de` repository
+    - Use `Vite` as framework preset
+    - Set all environment variables:
+        - `VITE_BEZIRKE_URL`
+        - `VITE_MAPBOX_TREES_TILESET_URL`
+        - `VITE_BASE_URL`
+        - `VITE_RECOVERY_AUTH_REDIRECT_URL`
+        - `VITE_MAPBOX_API_ENDPOINT`
+        - `VITE_MATOMO_SITE_ID`
+        - `VITE_MATOMO_URL`
+        - `VITE_MAPBOX_TREES_TILESET_LAYER`
+        - `VITE_MAPBOX_STYLE_URL`
+        - `VITE_MAPBOX_API_KEY`
+        - `VITE_MAP_PUMPS_SOURCE_URL`
+        - `VITE_SUPABASE_ANON_KEY`
+        - `VITE_SUPABASE_URL`
+        - `VITE_MAP_LOCATION_ZOOM_LEVEL`
+        - `VITE_MAP_CENTER_LNG`
+        - `VITE_MAP_CENTER_LAT`
+        - `VITE_MAP_PITCH_DEGREES`
+        - `VITE_MAP_MAX_ZOOM_LEVEL`
+        - `VITE_MAP_MIN_ZOOM_LEVEL`
+        - `VITE_MAP_INITIAL_ZOOM_LEVEL`
+        - `VITE_API_ENDPOINT`
+    - Follow the Vercel instructions to deploy the Frontend
+- Schedule CRON jobs to regularly update the Mapbox Tileset and Pumps
+    - Create a Pipedream account at https://pipedream.com/ 
+    - Schedule a CRON job (workflow) that regularly (every day at 01:00 AM) invokes the Github actions:
+        - `giessdenkiez-de/.github/workflows/pumps.yml` and
+        - `giessdenkiez-de/.github/workflows/rain.yml`
+    - This ensures that:
+        - the rain and watering data inside the Mapbox tileset is always up-to-date and
+        - the pumps file is up to date
+
+## Step 4: Regular maintenance
+- In regular intervals, check if the districts GeoJson file of your city needs an update (this is handled manually)
+- Monitor the Github Actions, especially the ones that are triggered daily by Pipedream workflows (pumps.yml and rain.yml)
+    - make sure they are working as expected
+    - in case of failures, the rain and watering data of the trees in the Mapbox layer might not be in sync with the database
+- Whenever trees change in your city, make sure to manually update the `trees` table in the database
+    - In case of changes, also update the hardcoded values `MOST_FREQUENT_TREE_SPECIES` and `TREE_COUNT` in `giessdenkiez-de-postgres-api/supabase/functions/gdk_stats/index.ts` to fit your new tree situation
+- Sync your fork with our upstream repositories if you want to follow our latest development updates
