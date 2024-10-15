@@ -10,7 +10,8 @@
   - Docker (https://docs.docker.com/desktop/install/mac-install/)
   - Node / npm (https://nodejs.org/en/download/package-manager)
   - direnv (https://direnv.net/docs/installation.html)
-  - Python 3 (https://docs.python-guide.org/starting/install3/osx/)
+  - Python 3.12.4 (https://docs.python-guide.org/starting/install3/osx/) with `pip 24.0`
+  - Node Version Manager (https://formulae.brew.sh/formula/nvm)
   - Software of your choice for accessing Postgres database
 
 ## Step 1: Setup with demo trees in Berlin
@@ -25,28 +26,30 @@
   - DWD Harvester: `git clone git@github.com:technologiestiftung/giessdenkiez-de-dwd-harvester.git`
   - Pumpen Harvester: `git clone git@github.com:technologiestiftung/giessdenkiez-de-osm-pumpen-harvester.git`
 - Prepare database and API ([Supabase](https://supabase.com/) setup):
-  - Change directory to `giessdenkiez-de-postgres-api` repository
+  - Change directory to `giessdenkiez-de-postgres-api` repository, make sure you have checked out the `master` branch
+  - `nvm install && nvm use`
   - `npm ci`
-  - `cp .env.example .env`
-  - In `.env`, set `ACCESS_CONTROL_ALLOW_ORIGIN=*`
+  - `cp .env.sample .env`
+  - Load the `.env` file: `direnv allow`
   - `npx supabase start` which will start a local [Supabase](https://supabase.com/) instance
   - Now the Postgres database (and all other Supabase services) are running locally in Docker containers
   - To see all local Supabase credentials and tokens, use `npx supabase status`
 - Generate the Mapbox tileset including rain data:
   - Create a Mapbox account (https://www.mapbox.com/)
-  - Create a Mapbox access token (https://account.mapbox.com/)
-  - Add `http://localhost:5173` to the list of allowed domains for your access token at https://account.mapbox.com/access-token
-  - Have your Mapbox account name ready
-  - Change directory to `giessdenkiez-de-dwd-harvester` repository
+  - Create a Mapbox access token (https://account.mapbox.com/) for the backend with permissions to create, upload and modify tilesets (refer to https://docs.mapbox.com/accounts/guides/tokens/)
+  - Create a Mapbox access token (https://account.mapbox.com/) for the frontend (refer to https://docs.mapbox.com/accounts/guides/tokens/), add `http://localhost:5173` to the list of allowed domains for this Frontend access token at
+  - Remember your Mapbox account name for later use
+  - Change directory to `giessdenkiez-de-dwd-harvester/harvester`
   - `cp sample.env .env`
-  - Populate the `.env` file:
-    - Change `MAPBOXTOKEN` value to the previously created Mapbox access token
+  - Adapt the `.env` file:
+    - Change `MAPBOXUSERNAME` value to your Mapbox account (= user) name
+    - Change `MAPBOXTOKEN` value to the previously created Mapbox access token for the backend (with tileset permissions)
     - Change `SUPABASE_SERVICE_ROLE` value to your local Supabase service role key
     - Load the `.env` file: `direnv allow`
   - Create a Python virtual environment:
     - `python3 -m venv venv`
     - `source venv/bin/activate`
-  - Install Python dependencies:
+  - Install Python dependencies inside the activated virtual environment:
     - `pip install -r requirements-mac.txt`
     - Install `GDAL` dependency manually on your system, refer to the README at https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester
     - 🚨 Attention: This step can be prone to errors, depending on your system. For troubleshooting help, refer to the README at https://github.com/technologiestiftung/giessdenkiez-de-dwd-harvester
@@ -57,7 +60,7 @@
   - Run the actual script (harvests DWD rain data for last 30 days, generates Mapbox tileset):
     - `cd giessdenkiez-de-dwd-harvester/harvester/`
     - `python src/run_harvester.py` **This may take ~30 minutes or more!**
-    - Go to https://studio.mapbox.com/tilesets and verify that the tileset is present
+    - Go to https://studio.mapbox.com/tilesets and verify that the tileset with name `<your_mapbox_layer_name>` is present
 - Run the script for harvesting historical weather data via [BrightSky API](https://brightsky.dev/docs/#/):
   - `python src/run_daily_weather.py` **This may take several minutes!**
   - Verify that the `daily_weather_data` table in your database is populated
@@ -70,7 +73,7 @@
     - 🚨 Attention: This step can be prone to errors, depending on your system. For troubleshooting help, refer to the README at: https://github.com/technologiestiftung/giessdenkiez-de-osm-pumpen-harvester
   - Run `python harvester/main.py pumps.geojson` to generate a `pumps.geojson` file
   - Upload this file manually to the Supabase bucket (http://localhost:54323/project/default/storage/buckets/data_assets)
-  - Copy the Supabase URL of the uploaded file
+  - Copy the Supabase URL of the uploaded file for later use as `VITE_MAP_PUMPS_SOURCE_URL` variable
 - Download the Geojson file for Berlin districts:
   - Go to https://daten.odis-berlin.de/de/dataset/bezirksgrenzen/ and download the GeoJSON manually
   - Upload the file to your Supabase instance at http://localhost:54323/project/default/storage/buckets/data_assets
