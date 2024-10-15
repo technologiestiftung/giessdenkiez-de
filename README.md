@@ -26,9 +26,9 @@ This project is composed of multiple repositories:
 - [OSM Harvester](https://github.com/technologiestiftung/giessdenkiez-de-osm-pumpen-harvester)
 - [Tree Data Import](https://github.com/technologiestiftung/giessdenkiez-de-tree-data)
 
-## Documentation
+## Setup Gieß den Kiez
 
-You can find the projects documentation in this repos [wiki](https://github.com/technologiestiftung/giessdenkiez-de/wiki).
+Follow the development setup guide at [README_DEV.md)](./README_DEV.md).
 
 ## Contributors ✨
 
