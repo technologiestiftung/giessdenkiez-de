@@ -35,7 +35,7 @@
 - Generate the Mapbox tileset including rain data:
   - Create a Mapbox account (https://www.mapbox.com/)
   - Create a Mapbox access token (https://account.mapbox.com/)
-  - Add `http://localhost:5173` to the list of allowed domains for your access token at https://account.mapbox.com/access-token 
+  - Add `http://localhost:5173` to the list of allowed domains for your access token at https://account.mapbox.com/access-token
   - Have your Mapbox account name ready
   - Change directory to `giessdenkiez-de-dwd-harvester` repository
   - `cp sample.env .env`
@@ -231,7 +231,7 @@
     - `VITE_MAP_INITIAL_ZOOM_LEVEL`
     - `VITE_API_ENDPOINT`
   - Follow the Vercel instructions to deploy the Frontend
-  - Add the Vercel domain or your custom domain to the list of allowed domains for your Mapbox access token at https://account.mapbox.com/access-token 
+  - Add the Vercel domain or your custom domain to the list of allowed domains for your Mapbox access token at https://account.mapbox.com/access-token
 - Schedule CRON jobs to regularly update the Mapbox Tileset and Pumps
   - Create a Pipedream account at https://pipedream.com/
   - Schedule a CRON job (workflow) that regularly (every day at 01:00 AM) invokes the Github actions:
