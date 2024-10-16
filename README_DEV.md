@@ -106,10 +106,10 @@
 - In the `giessdenkiez-de-postgres-api` directory, do the following:
   - Connect to your local Gieß den Kiez database and delete all rows in all tables in the `public` scheme
     - either manually
-    - or by removing the `seed.sql` file in the `giessdenkiez-de-postgres-api/supabase` directory and restarting Supabase via `npx supabase stop` and `npx supabase start` and `npx supabase db reset`
+    - or by removing the `seed.sql` file in the `giessdenkiez-de-postgres-api/supabase` directory and restarting Supabase via `npx supabase stop --no-backup` and `npx supabase start` and `npx supabase db reset`
     - Add a row with `collection_date` set to todays date in table `radolan_harvester` (all other columns NULL).
   - 🚨 **Attention, important manual step:** Obtain a dataset of trees for your own city.
-    - Manually it into the `trees` table of the database.
+    - Manually insert it into the `trees` table of the database.
     - Make sure to follow the schema of the `trees` table, you need the following columns: `id, lat, lng, art_dtsch, gattung_deutsch, pflanzjahr, bezirk, geom`. All other columns are either ignored or populated automatically by some upcoming steps.
     - The `geom` column must be in the format: `SRID=4326;POINT(13.44828414775829 52.44315190724164)`
     - Only proceed after verifying that you have succesfully imported all trees into the database table.
