@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import mapboxgl from "mapbox-gl";
+import * as mapboxgl from "mapbox-gl";
 import { useEffect, useRef } from "react";
 import { useFilterStore } from "../../filter/filter-store";
 import { useSelectedPump } from "./use-selected-pump";

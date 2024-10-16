@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { create } from "zustand";
 import {
 	AccumulatedTreeWateringData,

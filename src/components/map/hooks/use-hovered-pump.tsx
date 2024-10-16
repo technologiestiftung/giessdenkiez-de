@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import mapboxgl from "mapbox-gl";
+import * as mapboxgl from "mapbox-gl";
 import { Pump, usePumpStore } from "./use-pump-store";
 
 export function useHoveredPump(map: mapboxgl.Map | undefined) {

@@ -1,9 +1,7 @@
 ![Node.js CI](https://github.com/technologiestiftung/giessdenkiez-de/workflows/Node.js%20CI/badge.svg?branch=master) ![love badge](https://img.shields.io/badge/Built%20with-%E2%99%A5-red) ![citylab badge](https://img.shields.io/badge/@-CityLAB%20Berlin-blue)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # [![Logo of _Gieß den Kiez_](./docs/images/logo.svg)](https://www.giessdenkiez.de)
@@ -28,7 +26,9 @@ This project is composed of multiple repositories:
 
 ## Documentation
 
-You can find the projects documentation in this repos [wiki](https://github.com/technologiestiftung/giessdenkiez-de/wiki).
+To setup Gieß den Kiez locally or in production, follow the development setup guide at [README_DEV.md)](./README_DEV.md).
+
+You can find a higher level project documentation in this repos [wiki](https://github.com/technologiestiftung/giessdenkiez-de/wiki).
 
 ## Contributors ✨
 
@@ -56,6 +56,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Lisa-Stubert"><img src="https://avatars.githubusercontent.com/u/61182572?v=4?s=100" width="100px;" alt="Lisa-Stubert"/><br /><sub><b>Lisa-Stubert</b></sub></a><br /><a href="https://github.com/technologiestiftung/giessdenkiez-de/commits?author=Lisa-Stubert" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/donni106"><img src="https://avatars.githubusercontent.com/u/1942953?v=4?s=100" width="100px;" alt="Daniel"/><br /><sub><b>Daniel</b></sub></a><br /><a href="https://github.com/technologiestiftung/giessdenkiez-de/commits?author=donni106" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/maximilianpalm"><img src="https://avatars.githubusercontent.com/u/11571655?v=4?s=100" width="100px;" alt="Max"/><br /><sub><b>Max</b></sub></a><br /><a href="https://github.com/technologiestiftung/giessdenkiez-de/commits?author=maximilianpalm" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://annaeschenbacher.com"><img src="https://avatars.githubusercontent.com/u/56318362?v=4?s=100" width="100px;" alt="aeschi"/><br /><sub><b>aeschi</b></sub></a><br /><a href="https://github.com/technologiestiftung/giessdenkiez-de/commits?author=aeschi" title="Code">💻</a> <a href="#design-aeschi" title="Design">🎨</a></td>
     </tr>
   </tbody>
 </table>

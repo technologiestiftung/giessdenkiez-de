@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import mapboxgl from "mapbox-gl";
+import * as mapboxgl from "mapbox-gl";
 import { useEffect, useState } from "react";
 import { useProfileStore } from "../../../shared-stores/profile-store.tsx";
 import { useFilterStore } from "../../filter/filter-store";

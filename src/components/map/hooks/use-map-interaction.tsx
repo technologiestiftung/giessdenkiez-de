@@ -1,4 +1,4 @@
-import mapboxgl from "mapbox-gl";
+import * as mapboxgl from "mapbox-gl";
 import { useEffect } from "react";
 import { useFilterStore } from "../../filter/filter-store";
 import { useHoveredPump } from "./use-hovered-pump";

@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import mapboxgl from "mapbox-gl";
+import * as mapboxgl from "mapbox-gl";
 import React, { useEffect } from "react";
 import { useMapStore } from "../map-store";
 import { useTreeCircleStyle } from "./use-tree-circle-style";
@@ -80,7 +79,6 @@ export function useMapSetup(
 				type: "circle",
 				source: "trees",
 				"source-layer": import.meta.env.VITE_MAPBOX_TREES_TILESET_LAYER,
-				interactive: true,
 				paint: {
 					"circle-pitch-alignment": "map",
 					"circle-radius": circleRadius,
