@@ -8,7 +8,11 @@ interface MailIconProps {
 export const MailIcon: React.FC<MailIconProps> = ({ color, hoverColor }) => {
 	return (
 		<div
-			className={`${color && hoverColor ? `text-${color} hover:text-${hoverColor}` : `text-gdk-blue hover:text-gdk-light-blue`}`}
+			className={`${
+				color && hoverColor
+					? `text-${color} hover:text-${hoverColor}`
+					: `text-gdk-blue hover:text-gdk-light-blue`
+			}`}
 		>
 			<svg
 				width="30"

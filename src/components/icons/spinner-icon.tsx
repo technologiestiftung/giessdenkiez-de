@@ -8,7 +8,9 @@ export const SpinnerIcon: React.FC<SpinnerIconProps> = ({ text, fill }) => {
 	return (
 		<svg
 			aria-hidden="true"
-			className={`w-5 h-5 ${text ?? "text-slate-200/25"} animate-spin dark:text-gray-600 ${fill ?? "fill-gdk-white"}`}
+			className={`w-5 h-5 ${
+				text ?? "text-slate-200/25"
+			} animate-spin dark:text-gray-600 ${fill ?? "fill-gdk-white"}`}
 			viewBox="0 0 100 101"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

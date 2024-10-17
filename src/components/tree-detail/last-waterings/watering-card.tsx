@@ -131,7 +131,9 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 				className={`shadow-gdk-hard flex flex-col gap-2 rounded-lg shrink-0 p-4 w-[90%] `}
 			>
 				<div
-					className={`font-bold ${wateringData.username && !isWateringByUser && "cursor-pointer"} flex flex-row items-center gap-2`}
+					className={`font-bold ${
+						wateringData.username && !isWateringByUser && "cursor-pointer"
+					} flex flex-row items-center gap-2`}
 					onClick={() => {
 						checkForContactRequestAllowed();
 					}}

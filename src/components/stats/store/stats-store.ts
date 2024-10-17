@@ -119,7 +119,7 @@ export const useStatsStore = create<StatsStore>()((set, get) => {
 					? Math.round(
 							get().yearlyAverageAmountPerWatering.slice(-1)[0]
 								.averageAmountPerWatering,
-						)
+					  )
 					: 0;
 			set({ averageAmountPerWateringThisYear: average });
 		},

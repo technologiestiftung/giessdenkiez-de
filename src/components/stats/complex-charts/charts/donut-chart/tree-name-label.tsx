@@ -24,7 +24,10 @@ export const TreeNameLabel: React.FC<TreeNameLabelProps> = ({
 				textAnchor="middle"
 				fontWeight="bold"
 				fontSize="20px"
-			>{`${getFormattedSpeciesName(selectedSpecies.speciesName, i18n)} ${Math.round(selectedSpecies.percentage)}%`}</text>
+			>{`${getFormattedSpeciesName(
+				selectedSpecies.speciesName,
+				i18n,
+			)} ${Math.round(selectedSpecies.percentage)}%`}</text>
 		</>
 	);
 };
