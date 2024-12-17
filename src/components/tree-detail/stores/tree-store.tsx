@@ -40,6 +40,7 @@ interface TreeStore {
 	todaysWaterings: AccumulatedTreeWateringData;
 	loadTodaysWaterings: () => Promise<void>;
 }
+
 export const useTreeStore = create<TreeStore>()((set, get) => ({
 	refreshTreeData: async (treeId, abortController) => {
 		const promises = [
@@ -48,6 +49,7 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 			useTreeAdoptStore
 				.getState()
 				.refreshIsTreeAdoptedByOthers(treeId, abortController),
+			useTreeAdoptStore.getState().getAllAdoptedTrees(),
 		];
 
 		await Promise.all(promises);
