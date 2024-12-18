@@ -36,7 +36,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		setZoom,
 	} = useFilterStore();
 
-	const { allAdoptedTrees } = useTreeAdoptStore();
+	const { allAdoptedTrees, getAllAdoptedTrees } = useTreeAdoptStore();
 
 	const { filteredCircleColor } = useTreeCircleStyle();
 
@@ -46,6 +46,10 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 	const [easeToStartedByUserClick, setEaseToStartedByUserClick] =
 		useState(false);
+
+	useEffect(() => {
+		getAllAdoptedTrees();
+	}, []);
 
 	useEffect(() => {
 		if (!map) {

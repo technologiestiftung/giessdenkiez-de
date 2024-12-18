@@ -128,9 +128,8 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 	allAdoptedTrees: [],
 	getAllAdoptedTrees: async () => {
 		set({ allAdoptedTrees: [] });
-		const { data, error } = await supabaseClient
-			.from("trees_adopted")
-			.select("tree_id");
+
+		const { data, error } = await supabaseClient.rpc("get_watered_and_adopted");
 
 		if (error) {
 			throw error;
@@ -140,7 +139,9 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			throw new Error("No data received");
 		}
 
-		const treeIds = data?.flatMap((element) => element.tree_id);
+		const treeIds = data?.map(
+			(element: { tree_id: string }) => element.tree_id,
+		);
 
 		set({
 			allAdoptedTrees: treeIds,

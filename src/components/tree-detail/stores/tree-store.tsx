@@ -49,7 +49,6 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 			useTreeAdoptStore
 				.getState()
 				.refreshIsTreeAdoptedByOthers(treeId, abortController),
-			useTreeAdoptStore.getState().getAllAdoptedTrees(),
 		];
 
 		await Promise.all(promises);
