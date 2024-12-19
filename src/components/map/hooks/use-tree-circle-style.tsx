@@ -83,16 +83,16 @@ export function useTreeCircleStyle() {
 
 	const filteredCircleColor = ({
 		isSomeFilterActive,
-		areOnlyMyAdoptedTreesVisible,
+		areOnlyAllAdoptedTreesVisible,
 		areLastWateredTreesVisible,
 		treeAgeRange,
-		adoptedTrees,
+		allAdoptedTrees,
 	}: {
 		isSomeFilterActive: boolean;
-		areOnlyMyAdoptedTreesVisible: boolean;
+		areOnlyAllAdoptedTreesVisible: boolean;
 		areLastWateredTreesVisible: boolean;
 		treeAgeRange: TreeAgeRange;
-		adoptedTrees: string[];
+		allAdoptedTrees: string[];
 	}): Expression => {
 		const defaultExpression: Expression = [
 			"case",
@@ -177,20 +177,20 @@ export function useTreeCircleStyle() {
 			defaultExpression, // Color for tree age in range
 		];
 
-		if (!areOnlyMyAdoptedTreesVisible && !areLastWateredTreesVisible) {
+		if (!areOnlyAllAdoptedTreesVisible && !areLastWateredTreesVisible) {
 			return isTreeInAgeRangeExpression;
 		}
 
 		const isTreeAdoptedAndInAgeRangeExpression: Expression = [
 			"case",
-			["in", ["get", "id"], ["literal", adoptedTrees]],
+			["in", ["get", "id"], ["literal", allAdoptedTrees]],
 			isTreeInAgeRangeExpression,
 			TREE_GRAY_COLOR,
 		];
 
-		const areOnlyAdoptedTreesVisibleExpression: Expression = [
+		const areOnlyAllAdoptedTreesVisibleExpression: Expression = [
 			"==",
-			areOnlyMyAdoptedTreesVisible,
+			areOnlyAllAdoptedTreesVisible,
 			true,
 		];
 
@@ -231,7 +231,7 @@ export function useTreeCircleStyle() {
 			 * if the tree is adopted by the user AND in the selected age range
 			 * and return the color
 			 */
-			areOnlyAdoptedTreesVisibleExpression,
+			areOnlyAllAdoptedTreesVisibleExpression,
 			isTreeAdoptedAndInAgeRangeExpression,
 
 			/**

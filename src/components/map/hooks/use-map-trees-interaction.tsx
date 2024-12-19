@@ -1,6 +1,5 @@
 import * as mapboxgl from "mapbox-gl";
 import { useEffect, useState } from "react";
-import { useProfileStore } from "../../../shared-stores/profile-store.tsx";
 import { useFilterStore } from "../../filter/filter-store";
 import { useSearchStore } from "../../location-search/search-store";
 import { useUrlState } from "../../router/store.tsx";
@@ -10,6 +9,7 @@ import { useMapConstants } from "./use-map-constants";
 import { usePumpStore } from "./use-pump-store";
 import { useSelectedTree } from "./use-selected-tree";
 import { useTreeCircleStyle } from "./use-tree-circle-style";
+import { useTreeAdoptStore } from "../../tree-detail/stores/adopt-tree-store.tsx";
 
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const url = useUrlState.getState().url;
@@ -26,8 +26,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const {
 		isSomeFilterActive,
 		treeAgeRange,
-		_areOnlyMyAdoptedTreesVisible,
-		areOnlyMyAdoptedTreesVisible,
+		areOnlyAllAdoptedTreesVisible,
 		areLastWateredTreesVisible,
 		lat,
 		lng,
@@ -37,7 +36,7 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		setZoom,
 	} = useFilterStore();
 
-	const { adoptedTrees } = useProfileStore();
+	const { allAdoptedTrees, getAllAdoptedTrees } = useTreeAdoptStore();
 
 	const { filteredCircleColor } = useTreeCircleStyle();
 
@@ -49,6 +48,10 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		useState(false);
 
 	useEffect(() => {
+		getAllAdoptedTrees();
+	}, []);
+
+	useEffect(() => {
 		if (!map) {
 			return;
 		}
@@ -58,10 +61,10 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				"circle-color",
 				filteredCircleColor({
 					isSomeFilterActive: isSomeFilterActive(),
-					areOnlyMyAdoptedTreesVisible: areOnlyMyAdoptedTreesVisible(),
+					areOnlyAllAdoptedTreesVisible,
 					areLastWateredTreesVisible,
 					treeAgeRange,
-					adoptedTrees,
+					allAdoptedTrees,
 				}),
 			);
 			return;
@@ -73,24 +76,19 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 				"circle-color",
 				filteredCircleColor({
 					isSomeFilterActive: isSomeFilterActive(),
-					areOnlyMyAdoptedTreesVisible: areOnlyMyAdoptedTreesVisible(),
+					areOnlyAllAdoptedTreesVisible,
 					areLastWateredTreesVisible,
 					treeAgeRange,
-					adoptedTrees,
+					allAdoptedTrees,
 				}),
 			);
 		});
-		/**
-		 * it is okay to use _areOnlyMyAdoptedTreesVisible in the dependency array, because:
-		 * 1. we can't use areOnlyMyAdoptedTreesVisible(), (which relies also on the loggedIn state!).
-		 * 2. If the loggedIn state would change, e.g. user logs out, ALL filters are reset.
-		 */
 	}, [
 		map,
-		_areOnlyMyAdoptedTreesVisible,
+		areOnlyAllAdoptedTreesVisible,
 		areLastWateredTreesVisible,
 		treeAgeRange,
-		adoptedTrees,
+		allAdoptedTrees,
 	]);
 
 	useEffect(() => {

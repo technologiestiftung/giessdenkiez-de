@@ -41,7 +41,6 @@ interface Navbar {
 			irrigations: string;
 			liter: string;
 			adoptedTrees: string;
-			showOnMap: string;
 		};
 		adoptedTrees: {
 			subtitle: string;
@@ -252,13 +251,13 @@ interface Filter {
 	title: string;
 	publicPumps: string;
 	myAdoptedTrees: string;
+	allAdoptedTrees: string;
 	lastWateredTrees: string;
 	treeAge: string;
 	show: string;
 	reset: string;
 	treeAgeTitle: string;
 	years: string;
-	tooltip: string;
 }
 
 interface Common {

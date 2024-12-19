@@ -4,7 +4,6 @@ import { useUrlState } from "../router/store";
 import { useMapConstants } from "../map/hooks/use-map-constants";
 import { usePumpStore } from "../map/hooks/use-pump-store";
 import { useTreeStore } from "../tree-detail/stores/tree-store";
-import { useAuthStore } from "../../auth/auth-store.tsx";
 import { useI18nStore } from "../../i18n/i18n-store.ts";
 export interface TreeAgeRange {
 	min: number;
@@ -13,8 +12,7 @@ export interface TreeAgeRange {
 
 export interface FilterState {
 	isPumpsVisible: boolean;
-	_areOnlyMyAdoptedTreesVisible: boolean;
-	areOnlyMyAdoptedTreesVisible: () => boolean;
+	areOnlyAllAdoptedTreesVisible: boolean;
 	areLastWateredTreesVisible: boolean;
 	isFilterViewVisible: boolean;
 	isSomeFilterActive: () => boolean;
@@ -27,9 +25,7 @@ export interface FilterState {
 	treeAgeRange: TreeAgeRange;
 	setTreeAgeRange: (min: number, max: number) => void;
 	setShowPumps: (showPumps: boolean) => void;
-	setAreOnlyMyAdoptedTreesVisible: (
-		areOnlyMyAdoptedTreesVisible: boolean,
-	) => void;
+	setAreOnlyAllAdoptedTreesVisible: (showOnlyAllAdoptedTrees: boolean) => void;
 	setAreLastWateredTreesVisible: (showLastWateredTrees: boolean) => void;
 	showFilterView: () => void;
 	hideFilterView: () => void;
@@ -50,7 +46,7 @@ const initialTreeAgeRange = {
 const treeAgeUrlKeyMin = "treeAgeMin";
 const treeAgeUrlKeyMax = "treeAgeMax";
 const isPumpsVisibleUrlKey = "isPumpsVisible";
-const areOnlyMyAdoptedTreesVisibleKey = "areOnlyMyAdoptedTreesVisible";
+const areOnlyAllAdoptedTreesVisibleKey = "areOnlyAllAdoptedTreesVisible";
 const areLastWateredTreesVisibleKey = "isLastWateredTreesVisible";
 const zoomUrlKey = "zoom";
 const latUrlKey = "lat";
@@ -60,9 +56,9 @@ const isPumpsVisibleSearch = new URL(window.location.href).searchParams.get(
 	isPumpsVisibleUrlKey,
 );
 
-const areOnlyMyAdoptedTreesVisibleSearch = new URL(
+const areOnlyAllAdoptedTreesVisibleSearch = new URL(
 	window.location.href,
-).searchParams.get(areOnlyMyAdoptedTreesVisibleKey);
+).searchParams.get(areOnlyAllAdoptedTreesVisibleKey);
 
 const areLastWateredTreesVisibleSearch = new URL(
 	window.location.href,
@@ -94,13 +90,7 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 
 	isPumpsVisible: isPumpsVisibleSearch === "true",
 
-	_areOnlyMyAdoptedTreesVisible: areOnlyMyAdoptedTreesVisibleSearch === "true",
-
-	areOnlyMyAdoptedTreesVisible: () => {
-		return useAuthStore.getState().isLoggedIn()
-			? get()._areOnlyMyAdoptedTreesVisible
-			: false;
-	},
+	areOnlyAllAdoptedTreesVisible: areOnlyAllAdoptedTreesVisibleSearch === "true",
 
 	areLastWateredTreesVisible: areLastWateredTreesVisibleSearch === "true",
 
@@ -116,8 +106,8 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 			get().treeAgeRange.min !== initialTreeAgeRange.min ||
 			get().treeAgeRange.max !== initialTreeAgeRange.max ||
 			get().isPumpsVisible ||
-			get().areOnlyMyAdoptedTreesVisible() ||
-			get().areLastWateredTreesVisible
+			get().areLastWateredTreesVisible ||
+			get().areOnlyAllAdoptedTreesVisible
 		);
 	},
 	getAmountOfActiveFilters: () => {
@@ -127,7 +117,7 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 			amount = amount + 1;
 		}
 
-		if (get().areOnlyMyAdoptedTreesVisible()) {
+		if (get().areOnlyAllAdoptedTreesVisible) {
 			amount = amount + 1;
 		}
 
@@ -155,22 +145,21 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 		useUrlState.getState().setSearchParams(updatedSearchParams);
 	},
 
-	setAreOnlyMyAdoptedTreesVisible: (areOnlyMyAdoptedTreesVisible) => {
-		set({ _areOnlyMyAdoptedTreesVisible: areOnlyMyAdoptedTreesVisible });
-		set({ areLastWateredTreesVisible: false });
+	setAreOnlyAllAdoptedTreesVisible: (showOnlyAllAdoptedTrees) => {
+		set({ areOnlyAllAdoptedTreesVisible: showOnlyAllAdoptedTrees });
 
 		const url = new URL(window.location.href);
 		const updatedSearchParams = replaceUrlSearchParam(
 			url,
-			areOnlyMyAdoptedTreesVisibleKey,
-			[areOnlyMyAdoptedTreesVisible ? "true" : "false"],
+			areOnlyAllAdoptedTreesVisibleKey,
+			[showOnlyAllAdoptedTrees ? "true" : "false"],
 		);
 		useUrlState.getState().setSearchParams(updatedSearchParams);
 	},
 
 	setAreLastWateredTreesVisible: (showLastWateredTrees) => {
 		set({ areLastWateredTreesVisible: showLastWateredTrees });
-		set({ _areOnlyMyAdoptedTreesVisible: false });
+		set({ areOnlyAllAdoptedTreesVisible: false });
 
 		const url = new URL(window.location.href);
 		const updatedSearchParams = replaceUrlSearchParam(
@@ -222,12 +211,12 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 	resetFilters: () => {
 		useUrlState.getState().removeSearchParam(treeAgeUrlKeyMin);
 		useUrlState.getState().removeSearchParam(isPumpsVisibleUrlKey);
-		useUrlState.getState().removeSearchParam(areOnlyMyAdoptedTreesVisibleKey);
+		useUrlState.getState().removeSearchParam(areOnlyAllAdoptedTreesVisibleKey);
 		useUrlState.getState().removeSearchParam(areLastWateredTreesVisibleKey);
 		set({
 			treeAgeRange: initialTreeAgeRange,
 			isPumpsVisible: false,
-			_areOnlyMyAdoptedTreesVisible: false,
+			areOnlyAllAdoptedTreesVisible: false,
 			areLastWateredTreesVisible: false,
 		});
 	},
@@ -257,8 +246,8 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 		useUrlState
 			.getState()
 			.addSearchParam(
-				"areOnlyMyAdoptedTreesVisible",
-				get().areOnlyMyAdoptedTreesVisible().toString(),
+				"areOnlyAllAdoptedTreesVisible",
+				get().areOnlyAllAdoptedTreesVisible.toString(),
 			);
 
 		const updatedSearchParamsMin = replaceUrlSearchParam(

@@ -15,6 +15,9 @@ interface TreeAdoptStore {
 		treeId: string | undefined,
 		abortController: AbortController,
 	) => Promise<void>;
+
+	allAdoptedTrees: Array<string>;
+	getAllAdoptedTrees: () => Promise<void>;
 }
 
 const { refreshAdoptedTreesInfo } = useProfileStore.getState();
@@ -50,6 +53,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			set({ isLoading: false });
 			await refreshAdoptedTreesInfo();
 			await get().refreshIsTreeAdoptedByOthers(treeId, abortController);
+			await get().getAllAdoptedTrees();
 		} catch (error) {
 			set({ isLoading: false });
 			handleError(i18n.treeDetail.adoptErrorMessage, error);
@@ -78,6 +82,7 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			}
 			set({ isLoading: false });
 			await refreshAdoptedTreesInfo();
+			await get().getAllAdoptedTrees();
 			await get().refreshIsTreeAdoptedByOthers(treeId, abortController);
 		} catch (error) {
 			set({ isLoading: false });
@@ -118,5 +123,28 @@ export const useTreeAdoptStore = create<TreeAdoptStore>()((set, get) => ({
 			handleError(i18n.common.defaultErrorMessage, error);
 			return;
 		}
+	},
+
+	allAdoptedTrees: [],
+	getAllAdoptedTrees: async () => {
+		set({ allAdoptedTrees: [] });
+
+		const { data, error } = await supabaseClient.rpc("get_watered_and_adopted");
+
+		if (error) {
+			throw error;
+		}
+
+		if (data === null) {
+			throw new Error("No data received");
+		}
+
+		const treeIds = data?.map(
+			(element: { tree_id: string }) => element.tree_id,
+		);
+
+		set({
+			allAdoptedTrees: treeIds,
+		});
 	},
 }));

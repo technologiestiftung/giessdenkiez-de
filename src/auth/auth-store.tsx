@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { Session } from "@supabase/supabase-js";
 import { supabaseClient } from "./supabase-client";
 import { useProfileStore } from "../shared-stores/profile-store";
-import { useFilterStore } from "../components/filter/filter-store.tsx";
 
 interface Credentials {
 	email: string;
@@ -73,14 +72,6 @@ export const useAuthStore = create<AuthState>()((set, get) => {
 			if (error) {
 				throw error;
 			}
-
-			/**
-			 * we need to make sure filters are reset when logging out
-			 * otherwise the areOnlyMyAdoptedTreesVisible filter might
-			 * still be active and as its filter switch is hidden
-			 * to logged-out users, there won't be any possibility to reset it
-			 */
-			useFilterStore.getState().resetFilters();
 
 			set({ session: null });
 		},

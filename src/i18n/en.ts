@@ -49,7 +49,6 @@ export const en: Content = {
 				irrigations: "Waterings",
 				liter: "Liters",
 				adoptedTrees: "Adopted trees",
-				showOnMap: "show on map",
 			},
 			adoptedTrees: {
 				subtitle: "Adopted trees",
@@ -463,13 +462,13 @@ The district ${district} has provided us with additional information on the indi
 		title: "Filter",
 		publicPumps: "Public pumps",
 		myAdoptedTrees: "My adopted trees",
+		allAdoptedTrees: "Adopted trees",
 		lastWateredTrees: "Previously watered trees",
 		treeAge: "Tree age",
 		show: "Show",
 		reset: "Reset",
 		treeAgeTitle: "Tree age",
 		years: "years",
-		tooltip: "Log in to view your adopted trees on the map.",
 	},
 	common: {
 		defaultErrorMessage: "Something went wrong! Please try again later.",
