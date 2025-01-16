@@ -9,7 +9,6 @@ import { useMapConstants } from "./use-map-constants";
 import { usePumpStore } from "./use-pump-store";
 import { useSelectedTree } from "./use-selected-tree";
 import { useTreeCircleStyle } from "./use-tree-circle-style";
-import { useTreeAdoptStore } from "../../tree-detail/stores/adopt-tree-store.tsx";
 
 export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 	const url = useUrlState.getState().url;
@@ -36,8 +35,6 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		setZoom,
 	} = useFilterStore();
 
-	const { allAdoptedTrees, getAllAdoptedTrees } = useTreeAdoptStore();
-
 	const { filteredCircleColor } = useTreeCircleStyle();
 
 	const { setHoveredPump, setSelectedPump } = usePumpStore();
@@ -46,10 +43,6 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 
 	const [easeToStartedByUserClick, setEaseToStartedByUserClick] =
 		useState(false);
-
-	useEffect(() => {
-		getAllAdoptedTrees();
-	}, []);
 
 	useEffect(() => {
 		if (!map) {
@@ -64,7 +57,6 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 					areOnlyAllAdoptedTreesVisible,
 					areLastWateredTreesVisible,
 					treeAgeRange,
-					allAdoptedTrees,
 				}),
 			);
 			return;
@@ -79,7 +71,6 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 					areOnlyAllAdoptedTreesVisible,
 					areLastWateredTreesVisible,
 					treeAgeRange,
-					allAdoptedTrees,
 				}),
 			);
 		});
@@ -88,7 +79,6 @@ export function useMapTreesInteraction(map: mapboxgl.Map | undefined) {
 		areOnlyAllAdoptedTreesVisible,
 		areLastWateredTreesVisible,
 		treeAgeRange,
-		allAdoptedTrees,
 	]);
 
 	useEffect(() => {
