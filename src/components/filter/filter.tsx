@@ -1,47 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store";
 import { PrimaryButton } from "../buttons/primary";
 import { useFilterStore } from "./filter-store";
 import { FilterSwitch } from "./filter-switch";
 import { TertiaryButton } from "../buttons/tertiary";
 import { AgeRangeSlider } from "./age-range-slider/age-range-slider";
-import { useAuthStore } from "../../auth/auth-store";
-import { Tooltip } from "../tree-detail/tree-water-needs/tooltip";
 
 export const Filter: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	const { hideFilterView } = useFilterStore();
-	const { isLoggedIn } = useAuthStore();
-	const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-
-	useEffect(() => {
-		if (!isTooltipVisible) {
-			return () => {};
-		}
-
-		const timeoutId = setTimeout(() => {
-			setIsTooltipVisible(false);
-		}, 5000);
-
-		return () => clearTimeout(timeoutId);
-	}, [isTooltipVisible]);
 
 	const {
 		isPumpsVisible,
 		setShowPumps,
-		areOnlyMyAdoptedTreesVisible,
-		setAreOnlyMyAdoptedTreesVisible,
+		areOnlyAllAdoptedTreesVisible,
+		setAreOnlyAllAdoptedTreesVisible,
 		resetFilters,
 		areLastWateredTreesVisible,
 		setAreLastWateredTreesVisible,
 	} = useFilterStore();
 
-	const onToggleMyAdoptedTrees = () => {
-		if (!isLoggedIn()) {
-			setIsTooltipVisible(!isTooltipVisible);
-			return;
-		}
-		setAreOnlyMyAdoptedTreesVisible(!areOnlyMyAdoptedTreesVisible());
+	const onToggleAllAdoptedTrees = () => {
+		setAreOnlyAllAdoptedTreesVisible(!areOnlyAllAdoptedTreesVisible);
 	};
 
 	return (
@@ -68,16 +48,10 @@ export const Filter: React.FC = () => {
 						/>
 
 						<FilterSwitch
-							name={i18n.filter.myAdoptedTrees}
-							onToggle={onToggleMyAdoptedTrees}
-							isEnabled={areOnlyMyAdoptedTreesVisible()}
-							isDisabled={!isLoggedIn()}
+							name={i18n.filter.allAdoptedTrees}
+							onToggle={onToggleAllAdoptedTrees}
+							isEnabled={areOnlyAllAdoptedTreesVisible}
 						/>
-						{isTooltipVisible && (
-							<div className="absolute right-0 top-8">
-								<Tooltip content={i18n.filter.tooltip} />
-							</div>
-						)}
 					</div>
 				</div>
 

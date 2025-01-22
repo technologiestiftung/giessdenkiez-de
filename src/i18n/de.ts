@@ -49,7 +49,6 @@ export const de: Content = {
 				irrigations: "Gießungen",
 				liter: "Liter",
 				adoptedTrees: "Adoptierte Bäume",
-				showOnMap: "auf Karte anzeigen",
 			},
 			adoptedTrees: {
 				subtitle: "Adoptierte Bäume",
@@ -473,14 +472,13 @@ Der Bezirk ${district} hat uns zusätzliche Informationen zur individuellen Gie�
 		title: "Filter",
 		publicPumps: "Öffentliche Pumpen",
 		myAdoptedTrees: "Meine adoptierten Bäume",
+		allAdoptedTrees: "Adoptierte Bäume",
 		lastWateredTrees: "Zuletzt gegossene Bäume",
 		treeAge: "Baumalter",
 		show: "Anzeigen",
 		reset: "Zurücksetzen",
 		treeAgeTitle: "Alterspanne der Bäume",
 		years: "Jahre",
-		tooltip:
-			"Logge Dich ein, um Dir Deine adoptierten Bäume auf der Karte anzeigen zu lassen.",
 	},
 	common: {
 		defaultErrorMessage:
