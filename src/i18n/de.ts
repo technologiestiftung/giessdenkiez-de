@@ -166,7 +166,7 @@ export const de: Content = {
 				},
 				{
 					question: "Datenquellen",
-					answer: `Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (885.825; Stand: Mai 2024). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind:
+					answer: `Die Karte zeigt einen Großteil der Berliner Straßen- und Anlagenbäume (9673.655; Stand: März 2025). Zusätzlich wird abgebildet, wie viel Niederschlag in den letzten 30 Tagen bei jedem Baum gefallen ist und ob diese in der Zeit bereits gegossen wurden. Aus verschiedenen Gründen sind leider noch nicht alle Berliner Stadtbäume aufgeführt. Wir arbeiten aber daran, die Datenlage zu verbessern und eine möglichst vollständige Darstellung des Berliner Baumbestandes zu erreichen. Die aktuellen Datenquellen sind:
 
 [Geoportal Berlin / Straßenbäume](https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS)
 
@@ -551,7 +551,7 @@ Der Bezirk ${district} hat uns zusätzliche Informationen zur individuellen Gie�
 		letsGo: "Los geht's",
 	},
 	loading: {
-		mapLoading: "Wir laden gerade 885.825 Bäume aus dem Berliner Baumbestand.",
+		mapLoading: "Wir laden gerade 967.365 Bäume aus dem Berliner Baumbestand.",
 		treeLoading: "Lade Bauminformationen...",
 	},
 	stats: {
