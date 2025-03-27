@@ -165,7 +165,7 @@ export const en: Content = {
 				},
 				{
 					question: "Data sources",
-					answer: `The map shows the majority of Berlin's street trees (885,825; as of May 2024). It also shows how much precipitation has fallen on each tree in the last 30 days and whether users have watered them. Unfortunately, for various reasons, not all of Berlin's urban trees are listed yet. However, we are working on improving the data situation. The current data sources are the following: 
+					answer: `The map shows the majority of Berlin's street trees (967,365; as of March 2025). It also shows how much precipitation has fallen on each tree in the last 30 days and whether users have watered them. Unfortunately, for various reasons, not all of Berlin's urban trees are listed yet. However, we are working on improving the data situation. The current data sources are the following:
 
 [Geoportal Berlin / Street trees](https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS)
 
@@ -541,7 +541,7 @@ The district ${district} has provided us with additional information on the indi
 	},
 	loading: {
 		mapLoading:
-			"We are currently loading 885,825 trees from the Berlin tree population.",
+			"We are currently loading 967,365 trees from the Berlin tree population.",
 		treeLoading: "Loading tree information...",
 	},
 	stats: {
