@@ -534,7 +534,7 @@ Der Bezirk ${district} hat uns zusätzliche Informationen zur individuellen Gie�
 		actionTitleWinter: "Erkunden!",
 		discoverTitle: "Entdecken",
 		discoverContent:
-			"Die Karte visualisiert über 800.000 Stadtbäume und zeigt Informationen zu Art, Alter und Wasserbedarf an. Nutze die Filter- und Suchfunktionen, um schnell einen Überblick zu erhalten.",
+			"Die Karte visualisiert über 900.000 Stadtbäume (Stand 2025) und zeigt Informationen zu Art, Alter und Wasserbedarf an. Nutze die Filter- und Suchfunktionen, um schnell einen Überblick zu erhalten.",
 		waterTitle: "Gießen",
 		waterContent:
 			"Schnapp Dir eine Gießkanne und werde Teil der Gieß-Community! Bereits über tausend Aktive haben sich für die Bäume Berlins zusammengeschlossen und tragen ihre Gießungen regelmäßig ein.",

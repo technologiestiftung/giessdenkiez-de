@@ -523,7 +523,7 @@ The district ${district} has provided us with additional information on the indi
 		actionTitleWinter: "Explore!",
 		discoverTitle: "Discover",
 		discoverContent:
-			"The map visualizes over 800,000 urban trees and displays information on species, age and water requirements. Use the filter and search functions to quickly get an overview.",
+			"The map visualizes over 900,000 (as of 2025) urban trees and displays information on species, age and water requirements. Use the filter and search functions to quickly get an overview.",
 		waterTitle: "Water",
 		waterContent:
 			"Grab a watering can and become part of the watering community! Over a thousand active people have already joined forces for Berlin's trees and are regularly submitting their waterings.",
