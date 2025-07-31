@@ -11,7 +11,7 @@ import tailwindConfig from "../../../../tailwind.config.js";
 const fullConfig = resolveConfig(tailwindConfig);
 
 export function useTreeWaterNeedsData(
-	treeData: TreeCoreData,
+	_treeData: TreeCoreData,
 	treeWateringData: TreeWateringData[],
 	treeAgeClassification: TreeAgeClassification,
 ): TreeWateringDataState {
@@ -46,15 +46,21 @@ export function useTreeWaterNeedsData(
 		}
 	};
 
-	const rainSum = () => {
-		if (treeData && treeData.radolan_days) {
-			const rains = [...treeData.radolan_days];
-			rains.reverse();
-			const lastXDays = rains.slice(0, NUMBER_OF_DAYS_TO_LOOK_AT * 24);
-			const sum = lastXDays.reduce((l: number, r: number) => l + r, 0) / 10;
-			return sum;
-		}
-		return 0;
+	// const rainSum = () => {
+	// 	if (treeData && treeData.radolan_days) {
+	// 		const rains = [...treeData.radolan_days];
+	// 		rains.reverse();
+	// 		const lastXDays = rains.slice(0, NUMBER_OF_DAYS_TO_LOOK_AT * 24);
+	// 		const sum = lastXDays.reduce((l: number, r: number) => l + r, 0) / 10;
+	// 		return sum;
+	// 	}
+	// 	return 0;
+	// };
+
+	const plantAvailableWater = () => {
+		const usableFieldCapacity = 108.84; // fix value
+		const availableFieldCapacity = 0.409; // already in percentage, on 31.07.2025
+		return availableFieldCapacity * usableFieldCapacity;
 	};
 
 	const wateringSum = () => {
@@ -72,17 +78,26 @@ export function useTreeWaterNeedsData(
 		return 0;
 	};
 
-	const rainPercentage = () => {
+	const plantAvailableWaterPercentage = () => {
 		const wateringRatio = wateringSum() / referenceWaterAmount();
-		const ratio = rainSum() / referenceWaterAmount();
+		const ratio = plantAvailableWater() / referenceWaterAmount();
 		if (ratio >= 1) {
 			return 1 - wateringRatio;
 		}
 		return ratio;
 	};
 
+	// const rainPercentage = () => {
+	// 	const wateringRatio = wateringSum() / referenceWaterAmount();
+	// 	const ratio = rainSum() / referenceWaterAmount();
+	// 	if (ratio >= 1) {
+	// 		return 1 - wateringRatio;
+	// 	}
+	// 	return ratio;
+	// };
+
 	const userWateringPercentage = () => {
-		const rainRatio = rainSum() / referenceWaterAmount();
+		const rainRatio = plantAvailableWater() / referenceWaterAmount();
 		const ratio = wateringSum() / referenceWaterAmount();
 		if (ratio >= 1 - rainRatio) {
 			return 1 - rainRatio;
@@ -97,13 +112,19 @@ export function useTreeWaterNeedsData(
 		) {
 			return 0;
 		}
-		const ratio = Math.max(0, 1 - rainPercentage() - userWateringPercentage());
+		const ratio = Math.max(
+			0,
+			1 - plantAvailableWaterPercentage() - userWateringPercentage(),
+		);
 		return ratio;
 	};
 
 	const stillMissingWater = () => {
 		return Math.round(
-			Math.max(0, referenceWaterAmount() - rainSum() - wateringSum()),
+			Math.max(
+				0,
+				referenceWaterAmount() - plantAvailableWater() - wateringSum(),
+			),
 		);
 	};
 
@@ -114,14 +135,14 @@ export function useTreeWaterNeedsData(
 		) {
 			return false;
 		}
-		return wateringSum() + rainSum() < referenceWaterAmount();
+		return wateringSum() + plantAvailableWater() < referenceWaterAmount();
 	};
 
 	const waterParts = () => {
 		return [
 			{
 				color: RAIN_COLOR,
-				progress: rainPercentage(),
+				progress: plantAvailableWaterPercentage(),
 			},
 			{
 				color: USER_WATERING_COLOR,
@@ -135,9 +156,9 @@ export function useTreeWaterNeedsData(
 	};
 
 	return {
-		rainSum: rainSum(),
+		rainSum: plantAvailableWater(),
 		wateringSum: wateringSum(),
-		rainPercentage: rainPercentage(),
+		rainPercentage: plantAvailableWaterPercentage(),
 		wateringPercentage: userWateringPercentage(),
 		otherWateringPercentage: otherWateringPercentage(),
 		referenceWaterAmount: referenceWaterAmount(),

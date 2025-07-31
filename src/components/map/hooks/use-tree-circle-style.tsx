@@ -8,6 +8,16 @@ import tailwindConfig from "../../../../tailwind.config.js";
 import { TreeAgeRange } from "../../filter/filter-store";
 const fullConfig = resolveConfig(tailwindConfig);
 
+const usableFieldCapacity = 108.84; // fix value
+const availableFieldCapacity = 0.409; // already in percentage, on 31.07.2025
+
+// PAW (mm) = (%nFK / 100) × nFK (mm)
+const plantAvailableWater = availableFieldCapacity * usableFieldCapacity;
+
+const greenLimit = 200; // in liters
+const yellowLimit = 100;
+// const orangeLimit = 0;
+
 export function useTreeCircleStyle() {
 	const {
 		TREE_DEFAULT_COLOR,
@@ -116,7 +126,7 @@ export function useTreeCircleStyle() {
 				TREE_DEFAULT_COLOR,
 
 				// Senior trees
-				[">", ["get", "age"], 10],
+				[">", ["get", "age"], 15],
 				TREE_DEFAULT_COLOR,
 
 				// Junior trees
@@ -128,10 +138,11 @@ export function useTreeCircleStyle() {
 						">=",
 						[
 							"+",
-							["round", ["get", "total_water_sum_liters"]],
+							// ["round", ["get", "total_water_sum_liters"]],
 							["coalesce", ["feature-state", "todays_waterings"], 0],
+							plantAvailableWater,
 						],
-						200,
+						greenLimit,
 					],
 					TREE_DEFAULT_COLOR,
 					// if the tree has been watered at least once in the last 30 days, color it yellow
@@ -139,10 +150,11 @@ export function useTreeCircleStyle() {
 						">",
 						[
 							"+",
-							["round", ["get", "watering_sum"]],
+							// ["round", ["get", "watering_sum"]],
 							["coalesce", ["feature-state", "todays_waterings"], 0],
+							plantAvailableWater,
 						],
-						0,
+						yellowLimit,
 					],
 					TREE_YELLOW_COLOR,
 					TREE_ORANGE_COLOR,
