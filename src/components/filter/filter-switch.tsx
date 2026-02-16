@@ -25,6 +25,7 @@ export const FilterSwitch: React.FC<FilterSwitchProps> = ({
 					isEnabled={isEnabled}
 					isDisabled={isDisabled}
 					testId={testId}
+					ariaLabel={name}
 				/>
 			</div>
 		</div>
