@@ -41,6 +41,7 @@ export const de: Content = {
 	},
 	navbar: {
 		map: "Karte",
+		stats: "Statistiken",
 		profile: {
 			sidebarLabel: "Profil",
 			title: "Dein Profil",
@@ -379,6 +380,7 @@ Der Bezirk ${district} hat uns zusätzliche Informationen zur individuellen Gie�
 			nothingLast30Days: "Keine Gießungen in den letzten 30 Tagen",
 			before: "Vorherige",
 			nothingBefore: "Keine vorherigen Gießungen",
+			delete: "Löschen",
 		},
 		problem: {
 			title: "Problem melden",
@@ -553,6 +555,7 @@ Der Bezirk ${district} hat uns zusätzliche Informationen zur individuellen Gie�
 	loading: {
 		mapLoading: "Wir laden gerade 967.365 Bäume aus dem Berliner Baumbestand.",
 		treeLoading: "Lade Bauminformationen...",
+		profileLoading: "Laden...",
 	},
 	stats: {
 		title: "Statistiken Berlin",
