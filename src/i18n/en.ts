@@ -145,7 +145,7 @@ export const en: Content = {
 					"Would you like to find out more about watering trees, report pumps or exchange ideas with other active users? Then join our Slack chat!",
 				slackButton: "Go to Slack Community",
 				feedback: `Do you have **feedback** on *Gieß den Kiez*?
-				
+
 [Feel free to answer a few questions](https://citylabberlin.typeform.com/to/kCdnCgvC#product_id=GdK)`,
 			},
 			qa: [
@@ -165,7 +165,7 @@ export const en: Content = {
 				},
 				{
 					question: "Data sources",
-					answer: `The map shows the majority of Berlin's street trees (967,365; as of March 2025). It also shows how much precipitation has fallen on each tree in the last 30 days and whether users have watered them. Unfortunately, for various reasons, not all of Berlin's urban trees are listed yet. However, we are working on improving the data situation. The current data sources are the following:
+					answer: `The map shows the majority of Berlin's street trees (962,545; as of Mai 2026). It also shows how much precipitation has fallen on each tree in the last 30 days and whether users have watered them. Unfortunately, for various reasons, not all of Berlin's urban trees are listed yet. However, we are working on improving the data situation. The current data sources are the following:
 
 [Geoportal Berlin / Street trees](https://fbinter.stadt-berlin.de/fb/berlin/service_intern.jsp?id=s_wfs_baumbestand@senstadt&type=WFS)
 
@@ -186,7 +186,7 @@ Pumps from [Open Street Map](https://www.openstreetmap.de)`,
 					question: "How can I participate?",
 					answer: `Explore:
 
-Curious which tree is in front of your door? Our interactive map visualizes over 800,000 street trees of Berlin. If you want to find out more about a tree, navigate and zoom to the desired location and click on the colored dot. You will now see a lot of information about the selected tree.
+Curious which tree is in front of your door? Our interactive map visualizes over 900,000 street trees of Berlin. If you want to find out more about a tree, navigate and zoom to the desired location and click on the colored dot. You will now see a lot of information about the selected tree.
 
 Watering and adopting trees:
 
@@ -228,7 +228,7 @@ Before watering, you should first look at the tree and consider whether it reall
 				},
 				{
 					question: "Why is the website not loading or loading very slowly?",
-					answer: `When the page is first opened, the browser loads over 800,000 data points - this can take a while! Regardless, there may be slightly different displays when using different browsers. For the best experience, we recommend using Chrome or Firefox Desktop. Experience has shown that the most common problems can be solved if the browser is not outdated or the latest version is installed and there is a stable internet connection (LAN or WLAN). 
+					answer: `When the page is first opened, the browser loads over 900,000 data points - this can take a while! Regardless, there may be slightly different displays when using different browsers. For the best experience, we recommend using Chrome or Firefox Desktop. Experience has shown that the most common problems can be solved if the browser is not outdated or the latest version is installed and there is a stable internet connection (LAN or WLAN).
 
 Use via smartphone (mobile network) can lead to performance problems (page loads slowly). If problems occur repeatedly, you can report them in our [Slack Channel](https://join.slack.com/t/giessdenkiez/shared_invite/zt-e3et281u-xON4UmBZpKavzDRkw5HmCQ), Report by email or via GitHub Issue, stating the device used, the operating system, the browser and the browser version.`,
 				},
@@ -318,15 +318,15 @@ Needs
 			readMore: "Show more",
 			ageAndWaterHintTitle: "Water requirements and age",
 			ageAndWaterHint: `
-Particularly young trees need water in the first few years. Rather less often, but a lot at once. 
+Particularly young trees need water in the first few years. Rather less often, but a lot at once.
 
 **Below 5 years**: We are taken care of by the district green space office.
 
-**5-10 years**: At this age, we are no longer watered by the administration in all districts and are not yet "self-sufficient". We are thankful for some extra water, especially in dry times - preferably less often, but a lot at once (approx. 100-200 liters per month). 
+**5-10 years**: At this age, we are no longer watered by the administration in all districts and are not yet "self-sufficient". We are thankful for some extra water, especially in dry times - preferably less often, but a lot at once (approx. 100-200 liters per month).
 
 **Older trees (10+ years)**: We can supply ourselves via the groundwater.`,
 			ageAndWaterHintWinter: `
-When the trees lose more of their leaves in autumn, their photosynthetic processes also decrease, and they need less energy—and therefore less water. 
+When the trees lose more of their leaves in autumn, their photosynthetic processes also decrease, and they need less energy—and therefore less water.
 With the official end of the vegetation period, the watering season also comes to an end for this year. Starting in March, it will pick up again! We Can!
 
 **Water needs during the vegetation period (March-October)**:
@@ -336,7 +336,7 @@ With the official end of the vegetation period, the watering season also comes t
 				babyAgeLimit: number,
 				district: string,
 			) => `
-Particularly young trees need water in the first few years. Rather less often, but a lot at once. 
+Particularly young trees need water in the first few years. Rather less often, but a lot at once.
 
 The district ${district} has provided us with additional information on the individual pouring strategy.
 
