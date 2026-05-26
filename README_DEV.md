@@ -256,5 +256,3 @@
 - Sync your fork with our upstream repositories if you want to follow our latest development updates
 
 ## Troubleshooting
-
-<!-- bump 2026-05-08 deploy for @ff6347 beep boop -->
