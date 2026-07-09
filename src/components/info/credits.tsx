@@ -10,7 +10,7 @@ export const Credits: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 	return (
 		<div className="w-full flex flex-row gap-4 md:gap-10 text-xs">
-			<div className="w-[28%] flex flex-col gap-4 justify-center">
+			<div className="w-[22%] flex flex-col gap-4 justify-end">
 				<div className="w-full"></div>
 				<a
 					target="_blank"
@@ -20,7 +20,7 @@ export const Credits: React.FC = () => {
 					<img src={logoCitylab} alt="Logo Citylab" />
 				</a>
 			</div>
-			<div className="w-[26%] flex flex-col gap-4">
+			<div className="w-[28%] flex flex-col gap-4">
 				<div>{i18n.info.credits.projectBy}</div>
 				<div>
 					<a
@@ -36,7 +36,7 @@ export const Credits: React.FC = () => {
 					</a>
 				</div>
 			</div>
-			<div className="w-[46%] flex flex-col gap-4">
+			<div className="w-[50%] flex flex-col gap-4">
 				<div>{i18n.info.credits.fundedBy}</div>
 				<a
 					target="_blank"
