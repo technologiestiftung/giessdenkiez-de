@@ -139,7 +139,7 @@ export const en: Content = {
 				aboutUsTitle: "About Us",
 				aboutUsAnswer: `“Gieß den Kiez” is a project of the [CityLAB Berlin](https://www.citylab-berlin.org/).
 				The CityLAB is a public innovation laboratory in the former Berlin-Tempelhof airport. Together with a large network of administration, civil society, science and start-ups, we are working on new ideas to make Berlin even more liveable. The CityLAB is a project of the Technologiestiftung Berlin and is funded by the Berlin Senate Chancellery.`,
-				press: `For press inquiries please contact [Anna Hantelmann](mailto:anna.hantelmann@ts.berlin?subject=giessdenkiez.de%20Presseanfrage).`,
+				press: `For press inquiries please contact [Pia Gralki](mailto:pia.gralki@ts.berlin?subject=giessdenkiez.de%20Presseanfrage).`,
 				communityTitle: "Community",
 				communityAnswer:
 					"Would you like to find out more about watering trees, report pumps or exchange ideas with other active users? Then join our Slack chat!",
