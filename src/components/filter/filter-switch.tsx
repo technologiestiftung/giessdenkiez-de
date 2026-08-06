@@ -22,6 +22,7 @@ export const FilterSwitch: React.FC<FilterSwitchProps> = ({
 					onToggle={onToggle}
 					isEnabled={isEnabled}
 					isDisabled={isDisabled}
+					ariaLabel={name}
 				/>
 			</div>
 		</div>
