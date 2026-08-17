@@ -346,7 +346,19 @@ interface Stats {
 	gdKSalesPitch: string;
 }
 
+interface BannerLink {
+	label: string;
+	href: string;
+}
+
+interface Banner {
+	textBefore: string;
+	programLink: BannerLink;
+	textAfter: string;
+}
+
 export interface Content {
+	banner: Banner;
 	common: Common;
 	contact: Contact;
 	map: {
