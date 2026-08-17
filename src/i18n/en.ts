@@ -6,7 +6,7 @@ export const en: Content = {
 			"Want to meet other community members? Then come to the community meetup on Aug 25 in Berlin Friedrichshain-Kreuzberg from 5 to 7 pm. Find out more about the programme  ",
 		programLink: {
 			label: "here",
-			href: "https://citylab-berlin.org/veranstaltungen/giess-den-kiez-community-event/",
+			href: "https://citylab-berlin.org/en/events/giess-den-kiez-community-event/",
 		},
 		textAfter: ".",
 	},
