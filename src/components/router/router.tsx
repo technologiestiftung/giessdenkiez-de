@@ -70,7 +70,7 @@ export const Router: React.FC = () => {
 
 					{!isSplashScreenVisible() && isMapLoaded && (
 						<div
-							className={`flex w-full flex-row justify-center ${isBannerVisible ? "mt-12" : "mt-3"}`}
+							className={`flex w-full flex-row justify-center ${isBannerVisible ? "mt-28 sm:mt-20 xl:mt-12" : "mt-3"}`}
 						>
 							<div
 								className={`${

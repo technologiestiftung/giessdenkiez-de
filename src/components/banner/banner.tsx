@@ -5,7 +5,7 @@ export const Banner: React.FC = () => {
 	const banner = useI18nStore().i18n().banner;
 
 	return (
-		<div className="pointer-events-auto flex w-full justify-center bg-blue-600 px-4 py-2 text-center text-sm text-white shadow-gdk-hard">
+		<div className="pointer-events-auto flex w-full justify-center bg-blue-600 lg:pl-24 pl-4 pr-4 py-2 text-center text-sm text-white shadow-gdk-hard">
 			<p>
 				{banner.textBefore}
 				<a
