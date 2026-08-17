@@ -7,6 +7,10 @@ import { ErrorToast } from "./error/error-toast";
 import { Loading } from "./components/loading/loading";
 import { useMapStore } from "./components/map/map-store";
 import { useI18nStore } from "./i18n/i18n-store";
+import { Banner } from "./components/banner/banner";
+
+const isBannerVisible =
+	import.meta.env.VITE_IS_TEMPORARY_BANNER_VISIBLE === "true";
 
 export const App: React.FC = () => {
 	useAuthStore();
@@ -17,6 +21,7 @@ export const App: React.FC = () => {
 		<>
 			<div className="grid grid-cols-1">
 				<div className="col-start-1 row-start-1 h-full w-full">
+					{isBannerVisible && <Banner />}
 					<Map />
 				</div>
 				<div className="pointer-events-none z-[1000] col-start-1 row-start-1 h-full w-full">

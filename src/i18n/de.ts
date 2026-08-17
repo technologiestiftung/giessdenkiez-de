@@ -1,6 +1,15 @@
 import { Content } from "./content-types";
 
 export const de: Content = {
+	banner: {
+		textBefore:
+			"Lust, andere Gießende kennenzulernen? Dann komm zum Community Treffen am 25.08. in Berlin Friedrichshain-Kreuzberg von 17 bis 19 Uhr. Mehr zum Programm erfährst Du ",
+		programLink: {
+			label: "hier",
+			href: "https://citylab-berlin.org/veranstaltungen/giess-den-kiez-community-event/",
+		},
+		textAfter: ".",
+	},
 	map: {
 		attribution: {
 			mapbox: {

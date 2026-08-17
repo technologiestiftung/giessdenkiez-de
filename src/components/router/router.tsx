@@ -17,6 +17,9 @@ import { useSplashStore } from "../splash/splash-store";
 import { Legend } from "../legend/legend";
 import { Stats } from "../stats/stats";
 
+const isBannerVisible =
+	import.meta.env.VITE_IS_TEMPORARY_BANNER_VISIBLE === "true";
+
 export const Router: React.FC = () => {
 	const url = useUrlState((state) => state.url);
 	const setPathname = useUrlState((state) => state.setPathname);
@@ -66,7 +69,9 @@ export const Router: React.FC = () => {
 					</div>
 
 					{!isSplashScreenVisible() && isMapLoaded && (
-						<div className="mt-3 flex w-full flex-row justify-center">
+						<div
+							className={`flex w-full flex-row justify-center ${isBannerVisible ? "mt-12" : "mt-3"}`}
+						>
 							<div
 								className={`${
 									treeId ? "w-[100%] sm:w-[400px]" : "w-[100%] sm:w-[500px]"
