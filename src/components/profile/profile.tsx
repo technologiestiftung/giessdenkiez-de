@@ -1,15 +1,17 @@
 import React from "react";
 import { useAuthStore } from "../../auth/auth-store";
+import { useI18nStore } from "../../i18n/i18n-store";
 import { AuthCard } from "./auth-card/auth-card";
 import { ProfileLoggedIn } from "./profile-logged-in/profile-logged-in";
 import { LanguageToggle } from "../router/languageToggle";
 
 export const Profile: React.FC = () => {
 	const { isLoggedIn } = useAuthStore();
+	const i18n = useI18nStore().i18n();
 
 	switch (isLoggedIn()) {
 		case undefined:
-			return <div className="mx-auto my-auto">Loading...</div>;
+			return <div className="mx-auto my-auto">{i18n.loading.profileLoading}</div>;
 
 		case false:
 			return (
