@@ -13,21 +13,25 @@ const port = process.env.VITE_PORT ? parseInt(process.env.VITE_PORT) : 5173;
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-// eslint-disable-next-line @technologiestiftung/no-default-export
 export default defineConfig({
 	testDir: "./",
-	/* Run tests in files in parallel */
+	/* Verifies the environment and refuses non-local Supabase targets. */
+	globalSetup: "./global-setup.ts",
+	/**
+	 * Every test provisions its own account and data through the fixtures, and
+	 * reads only its own mail, so there is no shared state to serialize on.
+	 */
 	fullyParallel: true,
 	/* Fail the build on CI if you accidentally left test.only in the source code. */
 	forbidOnly: !!process.env.CI,
-	/* Retry on CI only */
-	retries: 1,
-	/* Opt out of parallel tests on CI. */
-	workers: 1,
+	/* No retries */
+	retries: 0,
+	/* Local uses Playwright's default (CPU-based). */
+	workers: process.env.CI ? 2 : undefined,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
 	reporter: [
 		["list"],
-		["html", { open: "never", outputFolder: "./test-results" }],
+		["html", { open: process.env.CI ? "never" : "on-failure" }],
 	],
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
@@ -35,9 +39,11 @@ export default defineConfig({
 		baseURL: process.env.VITE_BASE_URL,
 
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-		trace: "on-first-retry",
+		trace: "retain-on-failure",
 	},
-	timeout: 30000,
+	/* CI runners are slower and run the Supabase stack alongside the browsers. */
+	timeout: process.env.CI ? 60_000 : 30_000,
+	expect: { timeout: process.env.CI ? 10_000 : 5_000 },
 
 	/* Configure projects for major browsers */
 	projects: [

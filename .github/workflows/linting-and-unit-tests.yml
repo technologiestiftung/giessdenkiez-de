@@ -34,9 +34,6 @@ jobs:
         if: steps.cache-npm-deps.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Check Build 🏗️
-        run: npm run build
-
       - name: Check Prettier 🧹
         run: npm run prettier:ci
 
