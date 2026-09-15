@@ -2,17 +2,16 @@ import * as mapboxgl from "mapbox-gl";
 import { useEffect, useRef } from "react";
 import { useTreeStore } from "../../tree-detail/stores/tree-store";
 import { useUrlState } from "../../router/store";
+import { useShallow } from "zustand/react/shallow";
 
 export function useSelectedTree(map: mapboxgl.Map | undefined) {
-	const [addSearchParam, removeSearchParam] = useUrlState((state) => [
-		state.addSearchParam,
-		state.removeSearchParam,
-	]);
+	const [addSearchParam, removeSearchParam] = useUrlState(
+		useShallow((state) => [state.addSearchParam, state.removeSearchParam]),
+	);
 
-	const [selectedTreeId, setSelectedTreeId] = useTreeStore((store) => [
-		store.selectedTreeId,
-		store.setSelectedTreeId,
-	]);
+	const [selectedTreeId, setSelectedTreeId] = useTreeStore(
+		useShallow((store) => [store.selectedTreeId, store.setSelectedTreeId]),
+	);
 
 	const selectedTreeIdRef = useRef<string | undefined>(undefined);
 
