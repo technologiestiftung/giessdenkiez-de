@@ -6,6 +6,7 @@ type FilterSwitchProps = {
 	isEnabled: boolean;
 	onToggle: () => void;
 	isDisabled?: boolean;
+	testId?: string;
 };
 
 export const FilterSwitch: React.FC<FilterSwitchProps> = ({
@@ -13,6 +14,7 @@ export const FilterSwitch: React.FC<FilterSwitchProps> = ({
 	onToggle,
 	isEnabled,
 	isDisabled = false,
+	testId,
 }) => {
 	return (
 		<div className="w-full flex flex-row items-center justify-between py-2 px-4 lg:p-4 border-2 rounded-lg bg-[#FAFAFA] border-[#DDDDDD]">
@@ -22,6 +24,7 @@ export const FilterSwitch: React.FC<FilterSwitchProps> = ({
 					onToggle={onToggle}
 					isEnabled={isEnabled}
 					isDisabled={isDisabled}
+					testId={testId}
 				/>
 			</div>
 		</div>

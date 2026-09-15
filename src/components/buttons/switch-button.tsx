@@ -4,15 +4,18 @@ type SwitchButtonProps = {
 	isEnabled: boolean;
 	onToggle: () => void;
 	isDisabled?: boolean;
+	testId?: string;
 };
 
 export const SwitchButton: React.FC<SwitchButtonProps> = ({
 	isEnabled,
 	onToggle,
 	isDisabled = false,
+	testId,
 }) => {
 	return (
 		<button
+			data-testid={testId}
 			onClick={() => {
 				onToggle();
 			}}
