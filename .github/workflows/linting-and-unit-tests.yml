@@ -22,7 +22,7 @@ jobs:
 
       - name: Cache npm dependencies 💾
         id: cache-npm-deps
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             **/node_modules
