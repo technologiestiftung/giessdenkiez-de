@@ -27,6 +27,16 @@ export const DensityMap: React.FC = () => {
 		[width, height, scale],
 	);
 
+	/**
+	 * `chartWidth` starts at 0 and is only set once `onResize` finds the chart
+	 * container, which does not exist while the stats are still loading. Drawing
+	 * in that frame collapses every coordinate onto the projection's translate
+	 * and can emit paths with NaN, which Chromium reports as an invalid `d`.
+	 */
+	if (!width) {
+		return <svg width={width} height={height} />;
+	}
+
 	return (
 		<svg width={width} height={height}>
 			<BerlinDistrictPaths
