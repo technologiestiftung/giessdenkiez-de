@@ -28,4 +28,25 @@ testWithoutSplashScreen.describe("Stats page", () => {
 			expect(await page.locator("svg").count()).toBeGreaterThan(3);
 		},
 	);
+
+	testWithoutSplashScreen(
+		"should flip a chart card to its explanation and back",
+		async ({ page }) => {
+			await stubGdkStats(page);
+			await stubBerlinDistricts(page);
+
+			await page.goto("/stats");
+
+			// Both faces stay in the DOM, so the flip shows up in which one is
+			// taken out of the flow rather than in text visibility.
+			const back = page.getByTestId("card-flip-back").first();
+			await expect(back).toHaveCSS("position", "absolute");
+
+			await page.getByTestId("chart-card-info-button").first().click();
+			await expect(back).toHaveCSS("position", "relative");
+
+			await page.getByTestId("chart-card-back-button").first().click();
+			await expect(back).toHaveCSS("position", "absolute");
+		},
+	);
 });
