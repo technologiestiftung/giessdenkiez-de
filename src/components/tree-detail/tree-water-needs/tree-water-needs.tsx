@@ -85,7 +85,10 @@ export const TreeWaterNeed: React.FC<TreeWaterNeedProps> = ({
 						</div>
 					)}
 
-					<WaterTree treeData={treeData} />
+					<WaterTree
+						treeData={treeData}
+						treeAgeClassification={treeAgeClassification}
+					/>
 				</div>
 			)}
 		</div>

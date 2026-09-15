@@ -168,6 +168,7 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 				>
 					<button
 						onClick={() => setIsConfirmDeleteVisible(!isConfirmDeleteVisible)}
+						data-testid="delete-watering-button"
 						className={`self-center  text-gdk-dark-red hover:text-gdk-light-red p-1 rounded-sm ${
 							isConfirmDeleteVisible ? "outline outline-2" : ""
 						}`}
