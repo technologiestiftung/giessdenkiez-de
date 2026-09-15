@@ -75,6 +75,14 @@ const zoomSearch = new URL(window.location.href).searchParams.get(zoomUrlKey);
 const latSearch = new URL(window.location.href).searchParams.get(latUrlKey);
 const lngSearch = new URL(window.location.href).searchParams.get(lngUrlKey);
 
+/**
+ * The URL kept in `useUrlState` is updated synchronously, while
+ * `window.location` only catches up once the debounced `pushState` fires.
+ * Basing a param update on the browser URL therefore silently drops every
+ * change made in the last few hundred milliseconds.
+ */
+const currentUrl = () => new URL(useUrlState.getState().url);
+
 export const useFilterStore = create<FilterState>()((set, get) => ({
 	initialTreeAgeRangeMin: initialTreeAgeRange.min,
 	initialTreeAgeRangeMax: initialTreeAgeRange.max,
@@ -136,9 +144,8 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 	},
 	setShowPumps: (showPumps) => {
 		set({ isPumpsVisible: showPumps });
-		const url = new URL(window.location.href);
 		const updatedSearchParams = replaceUrlSearchParam(
-			url,
+			currentUrl(),
 			isPumpsVisibleUrlKey,
 			[showPumps ? "true" : "false"],
 		);
@@ -148,9 +155,8 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 	setAreOnlyAllAdoptedTreesVisible: (showOnlyAllAdoptedTrees) => {
 		set({ areOnlyAllAdoptedTreesVisible: showOnlyAllAdoptedTrees });
 
-		const url = new URL(window.location.href);
 		const updatedSearchParams = replaceUrlSearchParam(
-			url,
+			currentUrl(),
 			areOnlyAllAdoptedTreesVisibleKey,
 			[showOnlyAllAdoptedTrees ? "true" : "false"],
 		);
@@ -158,16 +164,24 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 	},
 
 	setAreLastWateredTreesVisible: (showLastWateredTrees) => {
+		// The two filters are mutually exclusive, so switching this one on turns
+		// the adopted-trees filter off - in the URL as well as in the store.
 		set({ areLastWateredTreesVisible: showLastWateredTrees });
 		set({ areOnlyAllAdoptedTreesVisible: false });
 
-		const url = new URL(window.location.href);
 		const updatedSearchParams = replaceUrlSearchParam(
-			url,
+			currentUrl(),
 			areLastWateredTreesVisibleKey,
 			[showLastWateredTrees ? "true" : "false"],
 		);
 		useUrlState.getState().setSearchParams(updatedSearchParams);
+
+		const withoutAdoptedTrees = replaceUrlSearchParam(
+			currentUrl(),
+			areOnlyAllAdoptedTreesVisibleKey,
+			["false"],
+		);
+		useUrlState.getState().setSearchParams(withoutAdoptedTrees);
 	},
 
 	setTreeAgeRange: (min, max) => {
@@ -175,14 +189,14 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 
 		// Update search params in URL
 		const updatedSearchParamsMin = replaceUrlSearchParam(
-			new URL(window.location.href),
+			currentUrl(),
 			treeAgeUrlKeyMin,
 			[get().treeAgeRange.min.toString()],
 		);
 		useUrlState.getState().setSearchParams(updatedSearchParamsMin);
 
 		const updatedSearchParamsMax = replaceUrlSearchParam(
-			new URL(window.location.href),
+			currentUrl(),
 			treeAgeUrlKeyMax,
 			[get().treeAgeRange.max.toString()],
 		);
@@ -210,6 +224,7 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 
 	resetFilters: () => {
 		useUrlState.getState().removeSearchParam(treeAgeUrlKeyMin);
+		useUrlState.getState().removeSearchParam(treeAgeUrlKeyMax);
 		useUrlState.getState().removeSearchParam(isPumpsVisibleUrlKey);
 		useUrlState.getState().removeSearchParam(areOnlyAllAdoptedTreesVisibleKey);
 		useUrlState.getState().removeSearchParam(areLastWateredTreesVisibleKey);
@@ -251,14 +266,14 @@ export const useFilterStore = create<FilterState>()((set, get) => ({
 			);
 
 		const updatedSearchParamsMin = replaceUrlSearchParam(
-			new URL(window.location.href),
+			currentUrl(),
 			treeAgeUrlKeyMin,
 			[get().treeAgeRange.min.toString()],
 		);
 		useUrlState.getState().setSearchParams(updatedSearchParamsMin);
 
 		const updatedSearchParamsMax = replaceUrlSearchParam(
-			new URL(window.location.href),
+			currentUrl(),
 			treeAgeUrlKeyMax,
 			[get().treeAgeRange.max.toString()],
 		);
