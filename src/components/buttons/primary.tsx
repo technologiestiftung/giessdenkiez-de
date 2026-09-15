@@ -8,6 +8,7 @@ export interface PrimaryButtonProps {
 	type?: "button" | "submit";
 	isLoading?: boolean;
 	id?: string;
+	testId?: string;
 }
 
 export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
@@ -17,6 +18,7 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 	type = "button",
 	isLoading = false,
 	id,
+	testId,
 }) => {
 	return (
 		<button
@@ -27,6 +29,7 @@ export const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 			onClick={onClick}
 			type={type}
 			id={id}
+			data-testid={testId}
 		>
 			<div className={`-translate-x-3 ${isLoading ? "flex" : "hidden"}`}>
 				<SpinnerIcon />

@@ -31,8 +31,9 @@ testWithoutSplashScreen.describe("Tree detail view", () => {
 			).not.toBeVisible();
 			await expect(page.getByText("Diesen Baum adoptieren")).not.toBeVisible();
 
-			// Baby trees should not have a water button
-			await expect(page.getByTestId("water-tree-button")).not.toBeVisible();
+			// Baby trees are watered by the district: the button is shown, but
+			// cannot be used (it is disabled for logged-out visitors anyway).
+			await expect(page.getByTestId("water-tree-button")).toBeDisabled();
 
 			await page.getByRole("button", { name: "Baumsteckbrief" }).click();
 			await expect(
