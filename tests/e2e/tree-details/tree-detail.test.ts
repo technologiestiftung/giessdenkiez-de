@@ -5,9 +5,9 @@ import { testWithoutSplashScreen } from "../fixtures/test-without-splash-screen"
 
 const isInVegetationPeriod = useIsInVegetationPeriod();
 
-// The tree detail panel only renders once the map has loaded, so this is one of
-// the few tests that needs Mapbox.
-testWithoutSplashScreen.use({ isMapBlocked: false });
+// The tree detail panel only renders once the map has loaded; the stubbed style
+// gets it there without talking to Mapbox.
+testWithoutSplashScreen.use({ mapMode: "stubbed" });
 
 testWithoutSplashScreen.describe("Tree detail view", () => {
 	testWithoutSplashScreen(
@@ -31,8 +31,9 @@ testWithoutSplashScreen.describe("Tree detail view", () => {
 			).not.toBeVisible();
 			await expect(page.getByText("Diesen Baum adoptieren")).not.toBeVisible();
 
-			// Baby trees should not have a water button
-			await expect(page.getByTestId("water-tree-button")).not.toBeVisible();
+			// Baby trees are watered by the district: the button is shown, but
+			// cannot be used (it is disabled for logged-out visitors anyway).
+			await expect(page.getByTestId("water-tree-button")).toBeDisabled();
 
 			await page.getByRole("button", { name: "Baumsteckbrief" }).click();
 			await expect(
