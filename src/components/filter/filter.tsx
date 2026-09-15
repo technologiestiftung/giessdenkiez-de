@@ -25,7 +25,10 @@ export const Filter: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-row w-full justify-center pointer-events-auto">
+		<div
+			data-testid="filter-panel"
+			className="flex flex-row w-full justify-center pointer-events-auto"
+		>
 			<div
 				className={`flex flex-col shadow-gdk-hard-up sm:shadow-gdk-hard bg-none sm:bg-white rounded-lg p-4 sm:p-6 gap-6 sm:gap-6 w-full`}
 			>
@@ -33,6 +36,7 @@ export const Filter: React.FC = () => {
 					<div className="font-semibold text-xl">{i18n.filter.title}</div>
 					<div className="flex flex-col gap-2 relative">
 						<FilterSwitch
+							testId="filter-switch-pumps"
 							name={i18n.filter.publicPumps}
 							onToggle={() => {
 								setShowPumps(!isPumpsVisible);
@@ -40,6 +44,7 @@ export const Filter: React.FC = () => {
 							isEnabled={isPumpsVisible}
 						/>
 						<FilterSwitch
+							testId="filter-switch-last-watered"
 							name={i18n.filter.lastWateredTrees}
 							onToggle={() => {
 								setAreLastWateredTreesVisible(!areLastWateredTreesVisible);
@@ -48,6 +53,7 @@ export const Filter: React.FC = () => {
 						/>
 
 						<FilterSwitch
+							testId="filter-switch-adopted"
 							name={i18n.filter.allAdoptedTrees}
 							onToggle={onToggleAllAdoptedTrees}
 							isEnabled={areOnlyAllAdoptedTreesVisible}
