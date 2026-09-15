@@ -13,14 +13,14 @@ import { ProblemCard } from "./problem-card";
 import { TreeFlier } from "./tree-flier";
 import { Loading } from "../loading/loading";
 import { TreeIcon } from "../icons/tree-icon";
+import { useShallow } from "zustand/react/shallow";
 
 export const TreeDetail: React.FC = () => {
 	const i18n = useI18nStore().i18n();
 
-	const [url, removeSearchParam] = useUrlState((state) => [
-		state.url,
-		state.removeSearchParam,
-	]);
+	const [url, removeSearchParam] = useUrlState(
+		useShallow((state) => [state.url, state.removeSearchParam]),
+	);
 	const { selectedTreeId, setSelectedTreeId, setHoveredTreeId } =
 		useTreeStore();
 
