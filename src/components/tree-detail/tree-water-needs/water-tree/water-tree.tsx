@@ -5,21 +5,31 @@ import { useAuthStore } from "../../../../auth/auth-store";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 import { InternalAnchorLink } from "../../../anchor-link/internal-anchor-link";
 import { WateringDialog } from "./watering-dialog";
-import { TreeCoreData } from "../../tree-types";
+import { TreeAgeClassification, TreeCoreData } from "../../tree-types";
 
 interface WaterTreeProps {
 	treeData: TreeCoreData;
+	treeAgeClassification: TreeAgeClassification;
 }
 
-export const WaterTree: React.FC<WaterTreeProps> = ({ treeData }) => {
+export const WaterTree: React.FC<WaterTreeProps> = ({
+	treeData,
+	treeAgeClassification,
+}) => {
 	const i18n = useI18nStore().i18n();
 	const { isLoggedIn } = useAuthStore();
+
+	/**
+	 * Baby trees are watered by the district (see the hint above the button), so
+	 * the button is shown but cannot be used.
+	 */
+	const isBabyTree = treeAgeClassification === TreeAgeClassification.BABY;
 
 	return (
 		<div>
 			<div className="flex flex-col items-center">
 				<PrimaryButton
-					data-testid="water-tree-button"
+					testId="water-tree-button"
 					onClick={() => {
 						(
 							document.getElementById("water-dialog") as HTMLDialogElement
@@ -33,7 +43,7 @@ export const WaterTree: React.FC<WaterTreeProps> = ({ treeData }) => {
 							</div>
 						</div>
 					}
-					disabled={!isLoggedIn()}
+					disabled={!isLoggedIn() || isBabyTree}
 				/>
 
 				{!isLoggedIn() && (
