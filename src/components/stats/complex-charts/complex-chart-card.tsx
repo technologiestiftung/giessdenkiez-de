@@ -3,7 +3,7 @@ import { InfoIcon } from "../../icons/info-icon";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { CardFlip } from "../../card-flip/card-flip";
 import { Skeleton } from "../../skeleton/skeleton";
-import Markdown from "react-markdown";
+import { Markdown } from "../../markdown/markdown";
 import { ExternalAnchorLink } from "../../anchor-link/external-anchor-link";
 import { useStatsStore } from "../store/stats-store";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { SplashTreeIcon } from "../icons/splash-tree-icon";
 import { useI18nStore } from "../../i18n/i18n-store";
-import Markdown from "react-markdown";
+import { Markdown } from "../markdown/markdown";
 
 export interface LoadingProps {
 	loadingText: string;

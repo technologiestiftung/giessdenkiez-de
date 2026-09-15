@@ -5,7 +5,7 @@ import { SocialShare } from "./social-share";
 import { PrimaryButton } from "../buttons/primary";
 import { Credits } from "./credits";
 import { LanguageToggle } from "../router/languageToggle";
-import Markdown from "react-markdown";
+import { Markdown } from "../markdown/markdown";
 import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 
 export const Info: React.FC = () => {

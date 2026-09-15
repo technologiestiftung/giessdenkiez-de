@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { specialDistrictsBabyAgeLimit } from "../hooks/use-special-districts";
 import { TertiaryButton } from "../../buttons/tertiary";
-import Markdown from "react-markdown";
+import { Markdown } from "../../markdown/markdown";
 import { useI18nStore } from "../../../i18n/i18n-store";
 import { TreeCoreData } from "../tree-types";
 import { useIsInVegetationPeriod } from "../../../utils/use-is-in-vegetation-period";

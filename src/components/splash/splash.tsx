@@ -8,7 +8,7 @@ import { TreeSplashIcon } from "../icons/tree-splash-icon";
 import { HiThereIcon } from "../icons/hi-there-icon";
 import { LanguageToggle } from "../router/languageToggle";
 import { useI18nStore } from "../../i18n/i18n-store";
-import Markdown from "react-markdown";
+import { Markdown } from "../markdown/markdown";
 import { SplashTreeIcon } from "../icons/splash-tree-icon";
 import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 import { useSplashStore } from "./splash-store";
