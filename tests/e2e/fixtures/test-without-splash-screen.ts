@@ -1,17 +1,15 @@
 import { test as baseTest } from "@playwright/test";
 import { splashStoreKey } from "../constants";
+import { applyMapMode, MapMode } from "../map";
+import { watchForPageErrors } from "../page-errors";
 
 type SplashScreenFixtures = {
 	/**
-	 * Whether to block Mapbox and the pumps GeoJSON. The map is mounted on every
-	 * route (see `src/app.tsx`), so tests that never look at it still pay for
-	 * style, tile and WebGL work. Opt back in with
-	 * `testWithoutSplashScreen.use({ isMapBlocked: false })`.
+	 * How much of Mapbox this test needs - see `applyMapMode`. Override with
+	 * `testWithoutSplashScreen.use({ mapMode: "stubbed" })`.
 	 */
-	isMapBlocked: boolean;
+	mapMode: MapMode;
 };
-
-const pumpsSourceUrl = process.env.VITE_MAP_PUMPS_SOURCE_URL;
 
 /**
  * Base test for everything that is not about the splash screen or the map.
@@ -22,9 +20,9 @@ const pumpsSourceUrl = process.env.VITE_MAP_PUMPS_SOURCE_URL;
  * to branch on mobile vs. desktop to do so.
  */
 export const testWithoutSplashScreen = baseTest.extend<SplashScreenFixtures>({
-	isMapBlocked: [true, { option: true }],
+	mapMode: ["blocked", { option: true }],
 
-	page: async ({ page, isMapBlocked }, use) => {
+	page: async ({ page, mapMode }, use) => {
 		await page.addInitScript(
 			({ storageKey, expirationDate }) => {
 				window.localStorage.setItem(
@@ -40,17 +38,11 @@ export const testWithoutSplashScreen = baseTest.extend<SplashScreenFixtures>({
 			},
 		);
 
-		if (isMapBlocked) {
-			// The app keeps rendering: everything outside the map (navbar, profile,
-			// auth forms) does not wait for `isMapLoaded`.
-			await page.route(
-				(url) =>
-					url.hostname.endsWith("mapbox.com") ||
-					(pumpsSourceUrl !== undefined && url.href.startsWith(pumpsSourceUrl)),
-				(route) => route.abort(),
-			);
-		}
+		await applyMapMode(page, mapMode);
+		const assertNoPageErrors = watchForPageErrors(page);
 
 		await use(page);
+
+		await assertNoPageErrors();
 	},
 });
