@@ -6,7 +6,7 @@ interface TreeLeafImageProps {
 	radius: number;
 }
 
-const UNKNOWN_SPECIES_IMAGE_IDENTIFIER = "UNBEKANNT";
+const UNKNOWN_SPECIES_IMAGE_IDENTIFIER = "unbekannt";
 
 export const TreeLeafImage: React.FC<TreeLeafImageProps> = ({
 	selectedSpecies,
@@ -16,9 +16,9 @@ export const TreeLeafImage: React.FC<TreeLeafImageProps> = ({
 		<>
 			<image
 				className={"leaf-image"}
-				xlinkHref={`images/leafs/${
+				xlinkHref={`images/leafs/${(
 					selectedSpecies.speciesName ?? UNKNOWN_SPECIES_IMAGE_IDENTIFIER
-				}.png`}
+				).toLowerCase()}.png`}
 				x={0}
 				y={0}
 				width={radius * 0.8}

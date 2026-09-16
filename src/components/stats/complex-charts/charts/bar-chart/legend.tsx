@@ -15,6 +15,15 @@ export const Legend: React.FC<LegendProps> = ({
 	const { formatNumber } = useI18nStore();
 	const i18n = useI18nStore().i18n();
 
+	/**
+	 * Waterings and weather are two independent queries, so a month can have
+	 * waterings without any weather data - hovering it must not take the page
+	 * down with it.
+	 */
+	const weatherOfHoveredMonth = weatherData.find(
+		(weather) => weather.month === hoveredMonth?.month,
+	);
+
 	return (
 		<>
 			{hoveredMonth && (
@@ -25,22 +34,20 @@ export const Legend: React.FC<LegendProps> = ({
 							{formatNumber(hoveredMonth.totalSum)} l{" "}
 							{i18n.stats.wateringBehaviorStat.watered}
 						</div>
-						<div className="text-gdk-dark-blue opacity-40">
-							{Math.round(
-								weatherData.filter((d) => d.month === hoveredMonth.month)[0]
-									.totalRainfallLiters,
-							)}
-							{" mm "}
-							{i18n.stats.wateringBehaviorStat.rain}
-						</div>
-						<div className="text-gdk-orange opacity-80">
-							Ø{" "}
-							{Math.round(
-								weatherData.filter((d) => d.month === hoveredMonth.month)[0]
-									.averageTemperatureCelsius,
-							)}
-							{" °C"}
-						</div>
+						{weatherOfHoveredMonth && (
+							<>
+								<div className="text-gdk-dark-blue opacity-40">
+									{Math.round(weatherOfHoveredMonth.totalRainfallLiters)}
+									{" mm "}
+									{i18n.stats.wateringBehaviorStat.rain}
+								</div>
+								<div className="text-gdk-orange opacity-80">
+									Ø{" "}
+									{Math.round(weatherOfHoveredMonth.averageTemperatureCelsius)}
+									{" °C"}
+								</div>
+							</>
+						)}
 					</div>
 				</div>
 			)}
