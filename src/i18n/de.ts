@@ -50,7 +50,7 @@ export const de: Content = {
 	},
 	navbar: {
 		map: "Karte",
-		stats: "Statistiken",
+		stats: "Stats",
 		profile: {
 			sidebarLabel: "Profil",
 			title: "Dein Profil",
