@@ -11,7 +11,9 @@ export const Profile: React.FC = () => {
 
 	switch (isLoggedIn()) {
 		case undefined:
-			return <div className="mx-auto my-auto">{i18n.loading.profileLoading}</div>;
+			return (
+				<div className="mx-auto my-auto">{i18n.loading.profileLoading}</div>
+			);
 
 		case false:
 			return (
