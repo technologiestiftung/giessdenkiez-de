@@ -1,9 +1,7 @@
 ![Node.js CI](https://github.com/technologiestiftung/giessdenkiez-de/workflows/Node.js%20CI/badge.svg?branch=master) ![love badge](https://img.shields.io/badge/Built%20with-%E2%99%A5-red) ![citylab badge](https://img.shields.io/badge/@-CityLAB%20Berlin-blue)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # [![Logo of _Gieß den Kiez_](./docs/images/logo.svg)](https://www.giessdenkiez.de)
@@ -61,6 +59,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="http://annaeschenbacher.com"><img src="https://avatars.githubusercontent.com/u/56318362?v=4?s=100" width="100px;" alt="aeschi"/><br /><sub><b>aeschi</b></sub></a><br /><a href="https://github.com/technologiestiftung/giessdenkiez-de/commits?author=aeschi" title="Code">💻</a> <a href="#design-aeschi" title="Design">🎨</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.davidpinheiro.dev"><img src="https://avatars.githubusercontent.com/u/58233818?v=4?s=100" width="100px;" alt="David Pinheiro"/><br /><sub><b>David Pinheiro</b></sub></a><br /><a href="https://github.com/technologiestiftung/giessdenkiez-de/commits?author=Mozzzaic" title="Code">💻</a> <a href="#a11y-Mozzzaic" title="Accessibility">️️️️♿️</a></td>
     </tr>
   </tbody>
 </table>
