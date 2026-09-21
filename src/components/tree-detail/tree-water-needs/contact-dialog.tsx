@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
-import Markdown from "react-markdown";
+import { Markdown } from "../../markdown/markdown";
 import { useAuthStore } from "../../../auth/auth-store";
 import { supabaseClient } from "../../../auth/supabase-client";
 import { useI18nStore } from "../../../i18n/i18n-store";

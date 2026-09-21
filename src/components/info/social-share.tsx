@@ -9,7 +9,7 @@ import {
 	EmailShareButton,
 } from "react-share";
 import { useI18nStore } from "../../i18n/i18n-store";
-import Markdown from "react-markdown";
+import { Markdown } from "../markdown/markdown";
 import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";
 
 export const SocialShare: React.FC = () => {

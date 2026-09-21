@@ -1,6 +1,6 @@
 import React from "react";
 import { useI18nStore } from "../../i18n/i18n-store.ts";
-import Markdown from "react-markdown";
+import { Markdown } from "../markdown/markdown";
 
 export const MapAttribution: React.FC = () => {
 	const i18n = useI18nStore().i18n();

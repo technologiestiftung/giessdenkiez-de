@@ -29,6 +29,7 @@ function getDisplayedUsername(wateringData: TreeWateringData) {
 }
 
 export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
+	const i18n = useI18nStore().i18n();
 	const formatDate = useI18nStore().formatDate;
 	const { username } = useProfileStore();
 	const { deleteWatering } = useWaterTree();
@@ -168,6 +169,7 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 				>
 					<button
 						onClick={() => setIsConfirmDeleteVisible(!isConfirmDeleteVisible)}
+						data-testid="delete-watering-button"
 						className={`self-center  text-gdk-dark-red hover:text-gdk-light-red p-1 rounded-sm ${
 							isConfirmDeleteVisible ? "outline outline-2" : ""
 						}`}
@@ -180,7 +182,7 @@ export const WateringCard: React.FC<WateringCardProps> = ({ wateringData }) => {
 						}`}
 					>
 						<PrimaryDestructiveButton
-							label={"Löschen"}
+							label={i18n.treeDetail.lastWaterings.delete}
 							onClick={onClickDelete}
 							isLoading={isDeleteWateringLoading}
 							disabled={isDeleteWateringLoading}

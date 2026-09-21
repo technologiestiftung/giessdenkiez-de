@@ -4,9 +4,9 @@ permissions:
   packages: write
 on:
   push:
-    branches: [main]
+    branches: [main, staging]
   pull_request:
-    branches: [main]
+    branches: [main, staging]
   workflow_dispatch:
     inputs:
       debug_enabled:
@@ -14,10 +14,33 @@ on:
         description: "Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)"
         required: false
         default: false
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   e2e-tests:
     if: github.actor != 'renovate[bot]'
-    timeout-minutes: 60
+    timeout-minutes: 15
+    # One job per browser: the four projects used to run one after the other in
+    # a single job. fail-fast is off so one broken browser doesn't hide the rest.
+    # `engine` is the browser binary to install, `slug` names the artifact
+    # (artifact names must not contain spaces).
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - browser: chromium
+            engine: chromium
+            slug: chromium
+          - browser: webkit
+            engine: webkit
+            slug: webkit
+          - browser: Mobile Chrome
+            engine: chromium
+            slug: mobile-chrome
+          - browser: Mobile Safari
+            engine: webkit
+            slug: mobile-safari
     env:
       CI: true
       ESLINT_USE_FLAT_CONFIG: true
@@ -31,7 +54,7 @@ jobs:
       # WARNING: Don't use production URLs or tokens here
       SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
       VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
-      SUPABASE_SERVICE_ROLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU
+      TEST_SUPABASE_SERVICE_ROLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU
       VITE_MATOMO_SITE_ID: ""
       VITE_MATOMO_URL: ""
       VITE_MAP_BOUNDING_BOX: "13.0824446341071,52.3281202651866,13.7682544186827,52.681600197973"
@@ -48,6 +71,7 @@ jobs:
       VITE_MAPBOX_TREES_TILESET_URL: ${{ secrets.VITE_MAPBOX_TREES_TILESET_URL }}
       VITE_MAPBOX_TREES_TILESET_LAYER: ${{ secrets.VITE_MAPBOX_TREES_TILESET_LAYER }}
       VITE_MAP_PUMPS_SOURCE_URL: ${{ secrets.VITE_MAP_PUMPS_SOURCE_URL }}
+      VITE_BEZIRKE_URL: ${{ secrets.VITE_BEZIRKE_URL }}
       VITE_PW_TEST: "true"
 
       SUPABASE_MAX_ROWS: 10000
@@ -57,16 +81,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code ⬇️
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, pinned to commit sha to avoid sha-hulud like attacks
 
       - name: Setup Node.js using .nvmrc ⚙️
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0, pinned to commit sha to avoid sha-hulud like attacks
         with:
           node-version-file: ".nvmrc"
           cache: npm
 
       - name: Setup tmate session so you can ssh into the workflow machine ⚙️
-        uses: mxschmitt/action-tmate@v3
+        uses: mxschmitt/action-tmate@35b54afac29c97fb54faba5b513f8fbd1882f113
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
         with:
           limit-access-to-actor: true
@@ -74,7 +98,7 @@ jobs:
 
       - name: Cache npm dependencies 💾
         id: cache-npm-deps
-        uses: actions/cache@v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0, pinned to commit sha to avoid sha-hulud like attacks
         with:
           path: |
             **/node_modules
@@ -91,40 +115,109 @@ jobs:
 
       - name: Get the source for the api ⬇️
         id: checkout-api
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, pinned to commit sha to avoid sha-hulud like attacks
         with:
           repository: technologiestiftung/giessdenkiez-de-postgres-api
           ref: "staging"
           path: api
 
       - name: Install Supabase CLI ⚙️
-        uses: supabase/setup-cli@v1
+        uses: supabase/setup-cli@46f7f98c7f948ad727d22c1e67fab04c223a0520 # v3.0.0, pinned to commit sha to avoid sha-hulud like attacks
         with:
-          version: 1.178.2
+          version: 2.110.0
 
       - name: Start supabase ⚡️
+        shell: bash
+        working-directory: api
         run: |
-          cd api
           npm ci
-          supabase start
+          # Run supabase start in the background with nohup so it survives the
+          # GitHub Actions step closing its stdout/stderr. Redirect output to a log
+          # file so we can inspect it if the wait action times out.
+          nohup supabase start --exclude studio,realtime,imgproxy,edge-runtime,supavisor,postgres-meta,storage,logflare,vector > /tmp/supabase-start.log 2>&1 &
+          echo $! > /tmp/supabase-start.pid
 
-      - name: Install Playwright Browsers 🧭
-        run: npx playwright install --with-deps
+          # Fail fast if the process died immediately (e.g. config error). If it is already
+          # gone we cannot tell success from failure by existence alone, so reap it with `wait`
+          # to read the real exit status: a clean exit just means the stack was already up.
+          sleep 2
+          SUPABASE_PID="$(cat /tmp/supabase-start.pid)"
+          if ! kill -0 "$SUPABASE_PID" 2>/dev/null; then
+            if wait "$SUPABASE_PID"; then
+              echo "supabase start already finished successfully:"
+              cat /tmp/supabase-start.log
+            else
+              echo "supabase start exited immediately with status $?:"
+              cat /tmp/supabase-start.log
+              exit 1
+            fi
+          fi
+
+      - name: Install Playwright Browser 🧭
+        run: npx playwright install --with-deps ${{ matrix.engine }}
+
+      - name: Wait for Supabase to be ready ⏳
+        shell: bash
+        run: |
+          timeout=600
+          deadline=$((SECONDS + timeout))
+
+          # Sometimes the postgrest api and postgres are up, but individual postgrest endpoints are not ready yet.
+          # Therefore we check that a real table (e.g. `profiles`) is queryable, not just the
+          # PostgREST root/OpenAPI endpoint — the root answers even when table privileges are missing,
+          # which lets a broken stack look healthy here and only fail several steps later.
+
+
+          until \
+          HTTP_STATUS=$(curl -s --connect-timeout 5 --max-time 10 -o /tmp/supabase-health.body -w "%{http_code}" \
+          -H "apikey: $SUPABASE_ANON_KEY" http://localhost:54321/rest/v1/profiles) && \
+          [ "$HTTP_STATUS" = "200" ] && \
+          pg_isready -U postgres -h localhost -p 54322 >/tmp/pg_isready.out 2>&1; do
+          if [ "$SECONDS" -ge "$deadline" ]; then
+           echo "Timed out waiting for Supabase after ${SECONDS}s (limit ${timeout}s)"
+           echo "=== PostgREST health check (http://localhost:54321/rest/v1/profiles) ==="
+           echo "HTTP status: ${HTTP_STATUS:-<failed>}"
+           if [ -f /tmp/supabase-health.body ]; then
+             echo "Response body (first 500 chars):"
+             head -c 500 /tmp/supabase-health.body || true
+             echo
+           fi
+           echo "=== PostgreSQL readiness (pg_isready -U postgres -h localhost -p 54322) ==="
+           cat /tmp/pg_isready.out 2>/dev/null || echo "pg_isready output unavailable"
+           if command -v docker >/dev/null 2>&1; then
+             echo "=== Docker status (running) ==="
+             docker ps
+             echo "=== Docker status (all) ==="
+             docker ps -a
+           fi
+           if [ -f /tmp/supabase-start.log ]; then
+             echo "=== Supabase start log ==="
+             cat /tmp/supabase-start.log
+             echo "=== End Supabase start log ==="
+           fi
+           exit 1
+          fi
+          echo "Waiting for Supabase to be ready... (${SECONDS}s/${timeout}s, POSTGREST status: ${HTTP_STATUS:-<failed>})"
+          sleep 1
+          done
+          echo "Supabase is ready!"
 
       - name: Run E2E test 🎭
-        run: npm run test:e2e
+        run: npm run test:e2e -- --project="${{ matrix.browser }}"
 
       - name: Upload E2E test results ⬆️
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1, pinned to commit sha to avoid sha-hulud like attacks
         if: ${{ failure() && !cancelled() }}
         with:
-          name: playwright-e2e-test-results
-          path: tests/e2e/test-results
+          name: playwright-e2e-test-results-${{ matrix.slug }}
+          path: test-results
           retention-days: 30
 
+      # Only on a manual debug run: with the browser matrix this would otherwise
+      # hold four jobs open for 15 minutes each on every failure.
       - name: Start Tmate session 🔌
-        if: ${{ failure() && !cancelled() }}
-        uses: mxschmitt/action-tmate@v3
+        if: ${{ failure() && !cancelled() && github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+        uses: mxschmitt/action-tmate@35b54afac29c97fb54faba5b513f8fbd1882f113 # v3.24, pinned to commit sha to avoid sha-hulud like attacks
         timeout-minutes: 15
         with:
           limit-access-to-actor: true

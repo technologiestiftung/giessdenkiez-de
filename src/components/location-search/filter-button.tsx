@@ -8,6 +8,7 @@ export const FilterButton: React.FC = () => {
 
 	return (
 		<button
+			data-testid="filter-button"
 			onClick={toggleFilterView}
 			className={`
 			p-3 rounded-full bg-white drop-shadow-md w-[56px] h-[56px] flex items-center justify-center 

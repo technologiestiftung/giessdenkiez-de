@@ -1,5 +1,5 @@
 import React from "react";
-import Markdown from "react-markdown";
+import { Markdown } from "../../../markdown/markdown";
 import { useI18nStore } from "../../../../i18n/i18n-store";
 
 export const WaterProgressCircleWinter: React.FC = () => {

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { InfoIcon } from "../../icons/info-icon";
 import { useI18nStore } from "../../../i18n/i18n-store";
-import ReactCardFlip from "react-card-flip";
+import { CardFlip } from "../../card-flip/card-flip";
 import { Skeleton } from "../../skeleton/skeleton";
-import Markdown from "react-markdown";
+import { Markdown } from "../../markdown/markdown";
 import { ExternalAnchorLink } from "../../anchor-link/external-anchor-link";
 import { useStatsStore } from "../store/stats-store";
 
@@ -38,11 +38,7 @@ export const ComplexChartCard: React.FC<ComplexChartCardProps> = ({
 
 	return (
 		<div className="col-span-1 w-full">
-			<ReactCardFlip
-				isFlipped={isFlipped}
-				flipDirection="horizontal"
-				containerStyle={{ height: "100%" }}
-			>
+			<CardFlip isFlipped={isFlipped}>
 				<div
 					className={`flex flex-col rounded-2xl p-4 border md:border-2 w-full text-left h-[100%] min-h-[480px]`}
 				>
@@ -51,6 +47,7 @@ export const ComplexChartCard: React.FC<ComplexChartCardProps> = ({
 							{title}
 						</div>
 						<button
+							data-testid="chart-card-info-button"
 							className={`text-gdk-blue hover:text-gdk-light-blue pb-2`}
 							onClick={() => setIsFlipped(!isFlipped)}
 						>
@@ -90,6 +87,7 @@ export const ComplexChartCard: React.FC<ComplexChartCardProps> = ({
 							{title}
 						</div>
 						<button
+							data-testid="chart-card-back-button"
 							className={`text-gdk-blue hover:text-gdk-light-blue font-semibold`}
 							onClick={() => setIsFlipped(!isFlipped)}
 						>
@@ -106,7 +104,7 @@ export const ComplexChartCard: React.FC<ComplexChartCardProps> = ({
 						</Markdown>
 					</div>
 				</div>
-			</ReactCardFlip>
+			</CardFlip>
 		</div>
 	);
 };

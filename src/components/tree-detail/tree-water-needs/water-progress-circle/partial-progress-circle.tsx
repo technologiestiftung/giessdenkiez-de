@@ -1,6 +1,6 @@
 import React from "react";
 import { PartialCircleProps } from "../../tree-types";
-import Markdown from "react-markdown";
+import { Markdown } from "../../../markdown/markdown";
 
 export const PartialProgressCircle: React.FC<PartialCircleProps> = ({
 	parts,

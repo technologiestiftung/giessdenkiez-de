@@ -136,11 +136,17 @@ export const useTreeStore = create<TreeStore>()((set, get) => ({
 			throw new Error("Failed to fetch today's waterings");
 		}
 
-		const groupedByTreeId = (waterings ?? []).reduce((acc, watering) => {
-			const { tree_id, total_amount } = watering;
-			acc[tree_id] = total_amount;
-			return acc;
-		}, {});
+		const groupedByTreeId = (waterings ?? []).reduce(
+			(
+				acc: AccumulatedTreeWateringData,
+				watering: { tree_id: string; total_amount: number },
+			) => {
+				const { tree_id, total_amount } = watering;
+				acc[tree_id] = total_amount;
+				return acc;
+			},
+			{},
+		);
 
 		set({ todaysWaterings: groupedByTreeId });
 	},

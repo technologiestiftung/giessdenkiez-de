@@ -50,6 +50,7 @@ export const en: Content = {
 	},
 	navbar: {
 		map: "Map",
+		stats: "Stats",
 		profile: {
 			sidebarLabel: "Profile",
 			title: "Your profile",
@@ -378,6 +379,7 @@ The district ${district} has provided us with additional information on the indi
 			nothingLast30Days: "No waterings in the last 30 days",
 			before: "Previous",
 			nothingBefore: "No previous waterings",
+			delete: "Delete",
 		},
 		problem: {
 			title: "Report a problem",
@@ -552,6 +554,7 @@ The district ${district} has provided us with additional information on the indi
 		mapLoading:
 			"We are currently loading 967,365 trees from the Berlin tree population.",
 		treeLoading: "Loading tree information...",
+		profileLoading: "Loading...",
 	},
 	stats: {
 		title: "Berlin Statistics",

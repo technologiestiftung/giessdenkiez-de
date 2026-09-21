@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Markdown from "react-markdown";
+import { Markdown } from "../markdown/markdown";
 import { ChevronDown } from "../icons/chevron-down";
 import { ChevronRight } from "../icons/chevron-right";
 import { ExternalAnchorLink } from "../anchor-link/external-anchor-link";

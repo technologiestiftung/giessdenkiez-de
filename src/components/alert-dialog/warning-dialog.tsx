@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import Markdown from "react-markdown";
+import { Markdown } from "../markdown/markdown";
 import { PrimaryButton } from "../buttons/primary.tsx";
 import { InfoIcon } from "../icons/info-icon.tsx";
 import { useUrlState } from "../router/store.tsx";

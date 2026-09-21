@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 import * as mapboxgl from "mapbox-gl";
 import { useTreeStore } from "../../tree-detail/stores/tree-store";
+import { useShallow } from "zustand/react/shallow";
 
 export function useHoveredTree(map: mapboxgl.Map | undefined) {
-	const [hoveredTreeId, setHoveredTreeId] = useTreeStore((store) => [
-		store.hoveredTreeId,
-		store.setHoveredTreeId,
-	]);
+	const [hoveredTreeId, setHoveredTreeId] = useTreeStore(
+		useShallow((store) => [store.hoveredTreeId, store.setHoveredTreeId]),
+	);
 
 	const hoveredTreeIdRef = useRef<string | undefined>(undefined);
 	useEffect(() => {

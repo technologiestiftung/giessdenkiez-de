@@ -33,6 +33,7 @@ interface Legend {
 
 interface Navbar {
 	map: string;
+	stats: string;
 	profile: {
 		sidebarLabel: string;
 		title: string;
@@ -221,6 +222,7 @@ interface LastWaterings {
 	nothingLast30Days: string;
 	before: string;
 	nothingBefore: string;
+	delete: string;
 }
 
 interface TreeDetail {
@@ -297,6 +299,7 @@ interface Splash {
 interface Loading {
 	mapLoading: string;
 	treeLoading: string;
+	profileLoading: string;
 }
 
 interface Contact {

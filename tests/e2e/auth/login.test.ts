@@ -1,30 +1,21 @@
-import { expect, test } from "@playwright/test";
-import {
-	deleteDefaultAccount,
-	registerThenLogoutWithDefaultAccount,
-} from "./utils";
-import { defaultEmail, defaultPassword } from "../constants";
+import { expect } from "@playwright/test";
+import { testWithoutSplashScreen } from "../fixtures/test-without-splash-screen";
+import { testWithRegisteredUser } from "../fixtures/test-with-registered-user";
 
-test.describe("Login", () => {
-	test.describe("Happy Case", () => {
-		test.beforeEach(async ({ page, isMobile }) => {
-			await registerThenLogoutWithDefaultAccount({ page, isMobile });
-		});
-		test.afterEach(async () => {
-			await deleteDefaultAccount();
-		});
-
-		test("should be able to log-in then log-out", async ({ page }) => {
+testWithRegisteredUser.describe("Login - Happy Case", () => {
+	testWithRegisteredUser(
+		"should be able to log-in then log-out",
+		async ({ page, account }) => {
 			await page.goto(`/map`);
 
 			// Go to profile
 			await page.getByRole("link", { name: "Profil" }).click();
 
-			// Login with new account
+			// Login with the account created by the fixture
 			await page.getByLabel("E-Mail").click();
-			await page.getByLabel("E-Mail").fill(defaultEmail);
+			await page.getByLabel("E-Mail").fill(account.email);
 			await page.getByLabel("E-Mail").press("Tab");
-			await page.getByLabel("Passwort").fill(defaultPassword);
+			await page.getByLabel("Passwort").fill(account.password);
 			await page.getByLabel("Passwort").press("Enter");
 
 			await expect(page.getByText("Dein ProfilDeine Ü")).toBeVisible();
@@ -34,11 +25,14 @@ test.describe("Login", () => {
 			await expect(
 				page.getByRole("heading", { name: "Anmelden" }),
 			).toBeVisible();
-		});
-	});
+		},
+	);
+});
 
-	test.describe("Client-Side Validation", () => {
-		test("should not be able to log-in with empty email", async ({ page }) => {
+testWithoutSplashScreen.describe("Login - Client-Side Validation", () => {
+	testWithoutSplashScreen(
+		"should not be able to log-in with empty email",
+		async ({ page }) => {
 			await page.goto(`/profile`);
 
 			await page.getByLabel("E-Mail").click();
@@ -49,11 +43,12 @@ test.describe("Login", () => {
 			await page.getByLabel("Passwort").press("Enter");
 
 			await expect(page.locator("input#email:invalid")).toBeVisible();
-		});
+		},
+	);
 
-		test("should not be able to log-in with invalid email format", async ({
-			page,
-		}) => {
+	testWithoutSplashScreen(
+		"should not be able to log-in with invalid email format",
+		async ({ page }) => {
 			await page.goto(`/profile`);
 
 			await page.getByLabel("E-Mail").click();
@@ -63,11 +58,12 @@ test.describe("Login", () => {
 			await page.getByLabel("Passwort").press("Enter");
 
 			await expect(page.locator("input#email:invalid")).toBeVisible();
-		});
+		},
+	);
 
-		test("should not be able to log-in with empty password", async ({
-			page,
-		}) => {
+	testWithoutSplashScreen(
+		"should not be able to log-in with empty password",
+		async ({ page }) => {
 			await page.goto(`/profile`);
 
 			await page.getByLabel("E-Mail").click();
@@ -78,13 +74,14 @@ test.describe("Login", () => {
 			await page.getByLabel("Passwort").press("Enter");
 
 			await expect(page.locator("input#password:invalid")).toBeVisible();
-		});
-	});
+		},
+	);
+});
 
-	test.describe("Server-Side Validation", () => {
-		test("should not be able to log-in with wrong email/password credentials", async ({
-			page,
-		}) => {
+testWithoutSplashScreen.describe("Login - Server-Side Validation", () => {
+	testWithoutSplashScreen(
+		"should not be able to log-in with wrong email/password credentials",
+		async ({ page }) => {
 			await page.goto(`/profile`);
 
 			await page.getByLabel("E-Mail").click();
@@ -98,28 +95,26 @@ test.describe("Login", () => {
 					.filter({ hasText: /^Falsches Passwort oder E-Mail Adresse$/ })
 					.nth(2),
 			).toBeVisible();
-		});
-	});
+		},
+	);
+});
 
-	test.describe("Error Handling", () => {
-		test("should show error toast when and unexpected error occurs", async ({
-			browser,
-		}) => {
-			const browserContext = await browser.newContext();
-			const page = await browserContext.newPage();
-
+testWithRegisteredUser.describe("Login - Error Handling", () => {
+	testWithRegisteredUser(
+		"should show error toast when and unexpected error occurs",
+		async ({ page, account }) => {
 			await page.goto(`/profile`);
 
 			await page.getByLabel("E-Mail").click();
-			await page.getByLabel("E-Mail").fill(defaultEmail);
+			await page.getByLabel("E-Mail").fill(account.email);
 			await page.getByLabel("E-Mail").press("Tab");
-			await page.getByLabel("Passwort").fill(defaultPassword);
+			await page.getByLabel("Passwort").fill(account.password);
 
-			await browserContext.setOffline(true);
+			await page.context().setOffline(true);
 
 			await page.getByRole("button", { name: "Anmelden" }).click();
 
 			await expect(page.getByText("Ups, da ist etwas schief")).toBeVisible();
-		});
-	});
+		},
+	);
 });
