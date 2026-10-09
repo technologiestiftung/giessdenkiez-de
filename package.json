@@ -15,11 +15,11 @@
 		"test:e2e": "playwright test --config=tests/e2e/playwright.config.ts"
 	},
 	"dependencies": {
-		"@supabase/supabase-js": "2.116.0",
+		"@supabase/supabase-js": "2.117.2",
 		"d3": "7.9.0",
 		"d3-contour": "4.0.2",
 		"date-fns": "4.4.0",
-		"mapbox-gl": "3.30.0",
+		"mapbox-gl": "3.31.0",
 		"react": "19.3.0",
 		"react-dom": "19.3.0",
 		"react-markdown": "10.1.0",
