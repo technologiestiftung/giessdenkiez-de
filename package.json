@@ -52,6 +52,6 @@
 		"vitest": "5.0.1"
 	},
 	"overrides": {
-		"typescript-eslint": "8.70.0"
+		"typescript-eslint": "8.71.2"
 	}
 }
