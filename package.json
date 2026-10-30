@@ -27,7 +27,7 @@
 		"zustand": "5.0.15"
 	},
 	"devDependencies": {
-		"@playwright/test": "1.63.0",
+		"@playwright/test": "1.64.1",
 		"@saithodev/semantic-release-backmerge": "4.0.1",
 		"@technologiestiftung/eslint-config": "0.4.1",
 		"@technologiestiftung/prettier-config": "1.0.0",
@@ -35,21 +35,21 @@
 		"@types/d3": "7.4.3",
 		"@types/react": "19.3.0",
 		"@types/react-dom": "19.3.0",
-		"@typescript-eslint/eslint-plugin": "8.70.0",
-		"@typescript-eslint/parser": "8.70.0",
-		"@vitejs/plugin-react": "6.1.1",
+		"@typescript-eslint/eslint-plugin": "8.71.2",
+		"@typescript-eslint/parser": "8.71.2",
+		"@vitejs/plugin-react": "6.1.2",
 		"autoprefixer": "10.6.1",
 		"dotenv": "17.4.2",
-		"eslint": "10.10.0",
-		"globals": "17.12.0",
-		"postcss": "8.5.28",
-		"prettier": "3.9.6",
+		"eslint": "10.13.0",
+		"globals": "17.13.0",
+		"postcss": "8.5.30",
+		"prettier": "3.9.10",
 		"prettier-plugin-tailwindcss": "0.8.1",
 		"semantic-release": "25.0.9",
 		"tailwindcss": "3.4.19",
 		"typescript": "6.0.3",
-		"vite": "8.3.0",
-		"vitest": "5.0.1"
+		"vite": "8.3.4",
+		"vitest": "5.0.5"
 	},
 	"overrides": {
 		"typescript-eslint": "8.70.0"
